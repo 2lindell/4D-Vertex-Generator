@@ -6,6 +6,14 @@ import numpy as np
 
 from .symmetry import SymmetryAction
 
+ZERO_THRESHOLD = 1e-10
+
+
+def _clean_near_zero(v: np.ndarray) -> np.ndarray:
+    cleaned = np.asarray(v, dtype=float).copy()
+    cleaned[np.abs(cleaned) < ZERO_THRESHOLD] = 0.0
+    return cleaned
+
 
 def _key(v: np.ndarray, tol: float) -> tuple[int, int, int, int]:
     if tol <= 0:
@@ -26,7 +34,7 @@ def generate_vertices_from_seed(
     Repeatedly applies all generators to newly discovered points until closure
     (within tolerance-quantized keys) is reached.
     """
-    s = np.asarray(seed, dtype=float)
+    s = _clean_near_zero(seed)
     if s.shape != (4,):
         raise ValueError(f"Expected seed shape (4,), got {s.shape}")
 
@@ -36,6 +44,7 @@ def generate_vertices_from_seed(
     while q:
         cur = q.popleft()
         for img in action.apply(cur):
+            img = _clean_near_zero(img)
             k = _key(img, tol)
             if k in discovered:
                 continue

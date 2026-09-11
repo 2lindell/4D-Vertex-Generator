@@ -7,26 +7,223 @@ import streamlit as st
 
 from four_d_vertex_generator.generation import generate_vertices_from_seed
 from four_d_vertex_generator.isogonal import compute_orbits
-from four_d_vertex_generator.library import available_symmetries, named_symmetry
+from four_d_vertex_generator.library import (
+    dodecaswirl_significant_seeds,
+    fundamental_chamber_roots,
+    named_symmetry,
+)
 from four_d_vertex_generator.off import to_4off
 
 st.set_page_config(page_title="4D Vertex Generator", layout="wide")
 st.title("4D Vertex Generator")
-st.caption("Choose a symmetry, enter a seed point, generate all vertices in its orbit, and export 4OFF.")
+st.caption(
+    "Choose a symmetry, enter a seed point, generate all vertices in its orbit, and export 4OFF."
+)
 
-with st.sidebar:
-    st.header("Parameters")
-    symmetry_name = st.selectbox("Symmetry", options=available_symmetries(), index=2)
-    seed_text = st.text_input("Seed (x,y,z,w)", value="1,0,0,0")
-    tol = st.number_input("Tolerance", min_value=1e-12, max_value=1e-2, value=1e-8, format="%.1e")
-    max_vertices = st.number_input(
-        "Max vertices",
-        min_value=1,
-        max_value=500000,
-        value=20000,
-        step=1000,
+st.header("Parameters")
+group_options = {
+    "elementary": (
+        "Elementary coordinate groups",
+        (
+            ("identity", "Identity C1"),
+            ("coordinate_permutations", "Coordinate permutations S4"),
+            ("cyclic_coordinate_rotations", "Cyclic rotations C4"),
+            ("dihedral_coordinate_symmetries", "Dihedral symmetries D4"),
+            ("global_inversion", "Central inversion Ci"),
+            ("decafold_dodecaswirlchoric", "Decafold dodecaswirlchoric +/-[I x C5]"),
+        ),
+    ),
+    "a4": (
+        "Pentachoric (A4, [3,3,3])",
+        (
+            ("a4", "Basic [3,3,3]"),
+            ("a4+", "Chiral [3,3,3]+"),
+            ("a4_extended", "Extended [[3,3,3]]"),
+            ("a4_chiral_extended", "Chiral extended [[3,3,3]]+"),
+            ("a4_extended_chiral", "Extended chiral [[3,3,3]+]"),
+            ("a4_basic", "Basic alias [3,3,3]"),
+            ("a4_chiral", "Chiral alias [3,3,3]+"),
+        ),
+    ),
+    "b4": (
+        "Hexadecachoric (B4, [4,3,3])",
+        (
+            ("hyperoctahedral", "Basic [4,3,3]"),
+            ("b4+", "Chiral [4,3,3]+"),
+            ("b4_ionic", "Ionic diminished [4,(3,3)+]"),
+            ("b4_half", "Half [1+,4,3,3]"),
+            ("b4_half_chiral", "Chiral half [1+,4,(3,3)+]"),
+            ("b4_prismatic_octahedral", "Prismatic octahedral [4,3,2]"),
+            ("b4_prismatic_octahedral_chiral", "Chiral prismatic octahedral [4,3,2]+"),
+            ("b4_prismatic_tetrahedral", "Prismatic tetrahedral [3,3,2]"),
+            ("b4_prismatic_tetrahedral_chiral", "Chiral prismatic tetrahedral [3,3,2]+"),
+            ("b4", "Basic alias B4"),
+            ("b4_basic", "Basic alias [4,3,3]"),
+            ("b4_chiral", "Chiral alias [4,3,3]+"),
+            ("b4_extended", "Full reflection [4,3,3] (same group)"),
+            ("b4_chiral_extended", "Chiral [4,3,3]+ (same group)"),
+        ),
+    ),
+    "d4": (
+        "Demitesseractic (D4, [3,3,1,1])",
+        (
+            ("d4", "Basic [3,3,1,1]"),
+            ("d4+", "Chiral [3,3,1,1]+"),
+            ("d4_extended", "Extended [3,4,3]"),
+            ("d4_basic", "Basic alias [3,3,1,1]"),
+            ("d4_chiral", "Chiral alias [3,3,1,1]+"),
+            ("d4_extended_chiral", "Extended chiral [3,4,3]+"),
+        ),
+    ),
+    "f4": (
+        "Icositetrachoric (F4, [3,4,3])",
+        (
+            ("f4", "Basic [3,4,3]"),
+            ("f4+", "Chiral [3,4,3]+"),
+            ("f4_extended", "Extended [[3,4,3]]"),
+            ("f4_chiral_extended", "Chiral extended [[3,4,3]]+"),
+            ("f4_double_diminished", "Double diminished [3+,4,3+]"),
+            ("f4_extended_double_diminished", "Extended double diminished [[3+,4,3+]]"),
+            ("f4_basic", "Basic alias [3,4,3]"),
+            ("f4_chiral", "Chiral alias [3,4,3]+"),
+        ),
+    ),
+    "h4": (
+        "Hexacosichoric (H4, [5,3,3])",
+        (
+            ("h4", "Basic [5,3,3]"),
+            ("h4+", "Chiral [5,3,3]+"),
+            ("h4_prismatic", "Prismatic [5,3,2]"),
+            ("h4_prismatic_chiral", "Chiral prismatic [5,3,2]+"),
+            ("h4_ionic", "Ionic diminished [(5,3)+,2]"),
+            ("h4_half", "Half [5,3,1]"),
+            ("h4_half_chiral", "Chiral half [5,3,1]+"),
+            ("h4_basic", "Basic alias [5,3,3]"),
+            ("h4_chiral", "Chiral alias [5,3,3]+"),
+        ),
+    ),
+    "duoprism": ("Duoprismatic ([p,2,q])", ()),
+}
+group_keys = tuple(group_options)
+group_key = st.selectbox(
+    "Main symmetry group",
+    options=group_keys,
+    format_func=lambda key: group_options[key][0],
+    index=1,
+)
+
+if group_key == "duoprism":
+    duoprism_order = st.selectbox(
+        "Duoprism order",
+        options=[(p, q) for p in range(3, 7) for q in range(p, 7)],
+        format_func=lambda order: f"{order[0]}-{order[1]} duoprism",
     )
-    do_generate = st.button("Generate Vertices", type="primary")
+    p, q = duoprism_order
+    subgroup_choices = [
+        (f"duoprism_{p}_{q}", f"Basic [${p},2,{q}$]"),
+        (f"duoprism_{p}_{q}_chiral", f"Chiral [${p},2,{q}$]+"),
+    ]
+    if p == q:
+        subgroup_choices.extend(
+            (
+                (f"duoprism_{p}_{q}_extended", f"Extended [[{p},2,{q}]]"),
+                (f"duoprism_{p}_{q}_chiral_extended", f"Chiral extended [[{p},2,{q}]]+"),
+            )
+        )
+else:
+    subgroup_choices = list(group_options[group_key][1])
+
+symmetry_name = st.radio(
+    "Subgroup",
+    options=[choice[0] for choice in subgroup_choices],
+    format_func=dict(subgroup_choices).__getitem__,
+    horizontal=True,
+)
+
+snap_to_significant = st.checkbox("Snap sliders to significant points", value=True)
+
+chamber_name = "hyperoctahedral" if group_key == "b4" else group_key
+if group_key == "duoprism":
+    chamber_name = f"duoprism_{p}_{q}"
+chamber_roots = fundamental_chamber_roots(chamber_name)
+if chamber_roots is not None:
+    st.subheader("Fundamental chamber")
+    st.caption(
+        "Choose nonnegative simple-root coordinates inside the spherical tetrahedral chamber."
+    )
+    coordinate_columns = st.columns(4)
+    chamber_coordinates = np.array(
+        [
+            coordinate_columns[index].slider(
+                f"Root {index + 1}",
+                min_value=0.0,
+                max_value=1.0,
+                value=0.5,
+                step=0.05 if snap_to_significant else 0.01,
+            )
+            for index in range(4)
+        ]
+    )
+    chamber_sum = float(chamber_coordinates.sum())
+    if chamber_sum == 0.0:
+        st.error("Choose at least one positive chamber coordinate.")
+        seed = None
+    else:
+        seed = np.linalg.solve(chamber_roots, chamber_coordinates)
+        seed /= np.linalg.norm(seed)
+        normalized_coordinates = chamber_coordinates / chamber_sum
+        chamber_points = np.array([[170, 25], [35, 155], [305, 155], [170, 105]])
+        point = normalized_coordinates @ chamber_points
+        lines = " ".join(
+            f"<line x1='{chamber_points[index, 0]}' y1='{chamber_points[index, 1]}' "
+            f"x2='{chamber_points[other, 0]}' y2='{chamber_points[other, 1]}' />"
+            for index in range(4)
+            for other in range(index + 1, 4)
+        )
+        st.markdown(
+            f"""
+            <svg width="340" height="185" viewBox="0 0 340 185" role="img"
+                 aria-label="Projection of the fundamental spherical tetrahedral chamber">
+              <g stroke="#7c8798" stroke-width="1.5" fill="none">{lines}</g>
+              <g fill="#7c8798" font-size="12" text-anchor="middle">
+                <text x="170" y="15">alpha1</text>
+                <text x="35" y="175">alpha2</text>
+                <text x="305" y="175">alpha3</text>
+                <text x="170" y="125">alpha4</text>
+              </g>
+              <circle cx="{point[0]:.1f}" cy="{point[1]:.1f}" r="7" fill="#e4572e" />
+            </svg>
+            """,
+            unsafe_allow_html=True,
+        )
+else:
+    default_seed = "1,0,0,0"
+    seed_text = st.text_input("Seed (x,y,z,w)", value=default_seed)
+
+if symmetry_name == "decafold_dodecaswirlchoric":
+    significant_seeds = dodecaswirl_significant_seeds()
+    selected_seed = st.selectbox(
+        "Significant dodecaswirl seed",
+        options=("Manual seed", *significant_seeds),
+        help=(
+            "This order-1200 group has no 120-point orbit; the smallest verified "
+            "strata are 240 and 600."
+        ),
+    )
+    if selected_seed != "Manual seed":
+        seed_text = ",".join(
+            f"{coordinate:.15g}" for coordinate in significant_seeds[selected_seed]
+        )
+        st.info(f"Seed: ({seed_text})")
+tol = st.number_input("Tolerance", min_value=1e-12, max_value=1e-2, value=1e-8, format="%.1e")
+max_vertices = st.number_input(
+    "Max vertices",
+    min_value=1,
+    max_value=500000,
+    value=20000,
+    step=1000,
+)
+do_generate = st.button("Generate Vertices", type="primary")
 
 
 def _parse_seed(text: str) -> np.ndarray:
@@ -38,7 +235,10 @@ def _parse_seed(text: str) -> np.ndarray:
 
 if do_generate:
     try:
-        seed = _parse_seed(seed_text)
+        if chamber_roots is None:
+            seed = _parse_seed(seed_text)
+        if seed is None:
+            st.stop()
         action = named_symmetry(symmetry_name)
         vertices = generate_vertices_from_seed(
             seed,
@@ -54,18 +254,18 @@ if do_generate:
         c1.metric("Vertices", int(len(vertices)))
         c2.metric("Isogonal groups (orbits)", int(partition.num_orbits))
 
-        st.subheader("Vertices (JSON preview)")
-        st.code(json.dumps(vertices.tolist()[:200], indent=2), language="json")
-        if len(vertices) > 200:
-            st.info("Preview truncated to first 200 vertices.")
-
         off_text = to_4off(vertices)
         st.download_button(
             "Download 4OFF",
             data=off_text,
-            file_name=f"{symmetry_name}_vertices.4off",
+            file_name=f"{symmetry_name}_vertices_{len(vertices)}.off",
             mime="text/plain",
         )
+
+        st.subheader("Vertices (JSON preview)")
+        st.code(json.dumps(vertices.tolist()[:200], indent=2), language="json")
+        if len(vertices) > 200:
+            st.info("Preview truncated to first 200 vertices.")
 
     except Exception as exc:  # noqa: BLE001
         st.error(str(exc))

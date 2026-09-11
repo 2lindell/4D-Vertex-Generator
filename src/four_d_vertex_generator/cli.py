@@ -37,7 +37,7 @@ def main() -> None:
         required=True,
         help='Seed vertex as "x,y,z,w" (example: "1,0,0,0")',
     )
-    parser.add_argument("--out-off", type=Path, required=True, help="Output .off/.4off path")
+    parser.add_argument("--out-off", type=Path, required=True, help="Output .off path")
     parser.add_argument("--tol", type=float, default=1e-8, help="Quantization tolerance")
     parser.add_argument("--max-vertices", type=int, default=20000, help="Safety cap")
     args = parser.parse_args()
@@ -54,14 +54,17 @@ def main() -> None:
 
     partition = compute_orbits(vertices, action, tol=args.tol)
 
-    args.out_off.parent.mkdir(parents=True, exist_ok=True)
-    args.out_off.write_text(to_4off(vertices))
+    output_path = args.out_off.with_name(
+        f"{args.out_off.stem}_{len(vertices)}{args.out_off.suffix or '.off'}"
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(to_4off(vertices))
 
     print(f"symmetry={args.symmetry}")
     print(f"seed={seed.tolist()}")
     print(f"num_vertices={len(vertices)}")
     print(f"num_orbits={partition.num_orbits}")
-    print(f"wrote_off={args.out_off}")
+    print(f"wrote_off={output_path}")
 
 
 if __name__ == "__main__":

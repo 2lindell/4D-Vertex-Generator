@@ -1,6 +1,15 @@
 from __future__ import annotations
 
+from decimal import Decimal
+
 import numpy as np
+
+
+def _format_number(value: float) -> str:
+    text = format(float(value), ".17g")
+    if "e" in text.lower():
+        text = format(Decimal(text), "f")
+    return text
 
 
 def to_4off(vertices: np.ndarray) -> str:
@@ -18,5 +27,5 @@ def to_4off(vertices: np.ndarray) -> str:
 
     lines = ["4OFF", f"{len(verts)} 0 0"]
     for v in verts:
-        lines.append(f"{v[0]:.12g} {v[1]:.12g} {v[2]:.12g} {v[3]:.12g}")
+        lines.append(" ".join(_format_number(value) for value in v))
     return "\n".join(lines) + "\n"
