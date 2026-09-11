@@ -1,50 +1,67 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 
 import numpy as np
 
+from .generation import generate_vertices_from_seed
 from .isogonal import compute_orbits
-from .symmetry import SymmetryAction
+from .library import available_symmetries, named_symmetry
+from .off import to_4off
 
 
-def _load_vertices(path: Path) -> np.ndarray:
-    data = json.loads(path.read_text())
-    verts = np.asarray(data, dtype=float)
-    if verts.ndim != 2 or verts.shape[1] != 4:
-        raise ValueError("Vertex JSON must be an array of shape (n,4)")
-    return verts
-
-
-def _load_generators(path: Path) -> SymmetryAction:
-    data = json.loads(path.read_text())
-    return SymmetryAction.from_iterable(data)
+def _parse_seed(seed_text: str) -> np.ndarray:
+    parts = [p.strip() for p in seed_text.split(",")]
+    if len(parts) != 4:
+        raise ValueError("Seed must have exactly 4 comma-separated values, e.g. 1,0,0,0")
+    vals = [float(x) for x in parts]
+    return np.asarray(vals, dtype=float)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="4d-vertex-generator",
-        description="Enumerate isogonal groups of 4D vertices under symmetry actions",
+        description="Generate 4D vertices from symmetry + seed, group isogonally, and export 4OFF",
     )
-    parser.add_argument("--vertices", type=Path, required=True, help="Path to vertices JSON (n x 4)")
     parser.add_argument(
-        "--generators",
-        type=Path,
+        "--symmetry",
+        type=str,
         required=True,
-        help="Path to generator matrices JSON (k x 4 x 4)",
+        choices=available_symmetries(),
+        help="Built-in symmetry family",
     )
+    parser.add_argument(
+        "--seed",
+        type=str,
+        required=True,
+        help='Seed vertex as "x,y,z,w" (example: "1,0,0,0")',
+    )
+    parser.add_argument("--out-off", type=Path, required=True, help="Output .off/.4off path")
     parser.add_argument("--tol", type=float, default=1e-8, help="Quantization tolerance")
+    parser.add_argument("--max-vertices", type=int, default=20000, help="Safety cap")
     args = parser.parse_args()
 
-    vertices = _load_vertices(args.vertices)
-    action = _load_generators(args.generators)
+    seed = _parse_seed(args.seed)
+    action = named_symmetry(args.symmetry)
+
+    vertices = generate_vertices_from_seed(
+        seed,
+        action,
+        tol=args.tol,
+        max_vertices=args.max_vertices,
+    )
+
     partition = compute_orbits(vertices, action, tol=args.tol)
 
+    args.out_off.parent.mkdir(parents=True, exist_ok=True)
+    args.out_off.write_text(to_4off(vertices))
+
+    print(f"symmetry={args.symmetry}")
+    print(f"seed={seed.tolist()}")
     print(f"num_vertices={len(vertices)}")
     print(f"num_orbits={partition.num_orbits}")
-    print("orbit_ids=" + json.dumps(partition.orbit_ids))
+    print(f"wrote_off={args.out_off}")
 
 
 if __name__ == "__main__":

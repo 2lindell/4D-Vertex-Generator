@@ -1,53 +1,74 @@
 # 4D Vertex Generator
 
-Program to enumerate **isogonal groups of vertices** for a given 4D symmetry.
+Program to enumerate **isogonal groups of vertices** for a given 4D symmetry and export them to a 4D OFF-style file.
 
-## Goals
+## Features
 
-- Represent 4D symmetry actions (initially as linear transforms).
-- Apply symmetry actions to a seed vertex set.
-- Partition vertices into **isogonal groups** (equivalence classes under the symmetry action, i.e. orbits).
-- Provide a CLI for loading input data and printing/storing orbit partitions.
+- Represent 4D symmetry actions with generator matrices.
+- Generate full vertex sets from a **seed point** by repeated symmetry action.
+- Partition vertices into **isogonal groups** (orbits).
+- Export vertices to **4OFF** (`.off`/`.4off`) format.
+- Run from CLI or from a local UI (Streamlit).
 
-## Mathematical framing
-
-Given:
-
-- A finite set of vertices \(V \subset \mathbb{R}^4\)
-- A symmetry group \(G\) acting on vertices (via matrices or permutations)
-
-Two vertices \(v_i, v_j \in V\) are in the same isogonal group iff:
-
-\[
-\exists g \in G : g(v_i) = v_j
-\]
-
-The isogonal groups are therefore the **orbits** of the group action of \(G\) on \(V\).
-
-## Quick start
+## Install
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -e .[dev]
+pip install -e .
 ```
 
-Run the CLI:
+## Run the UI
 
 ```bash
-4d-vertex-generator --help
+streamlit run app.py
 ```
 
-Run tests:
+Then open the local URL shown in terminal (typically `http://localhost:8501`).
+
+In the UI:
+1. Choose a symmetry from the dropdown
+2. Enter seed point `(x, y, z, w)`
+3. Click **Generate Vertices**
+4. Download the generated `.4off` file
+
+## CLI usage
 
 ```bash
-pytest
+4d-vertex-generator \
+  --symmetry hyperoctahedral \
+  --seed "1,0,0,0" \
+  --out-off out/vertices.4off
 ```
 
-## Roadmap
+Optional:
 
-1. Accept symmetry as explicit 4x4 matrices (JSON).
-2. Implement robust orbit detection with tolerance handling.
-3. Add canonicalization to stabilize floating-point comparisons.
-4. Support Coxeter/Wythoff-style inputs for common 4D uniform polytopes.
-5. Export orbit partitions and statistics.
+- `--tol 1e-8` quantization tolerance
+- `--max-vertices 20000` safety cap for generation
+
+## 4OFF notes
+
+This project writes a 4D OFF-style file with:
+
+- Header: `4OFF`
+- Counts line: `<num_vertices> 0 0`
+- Vertex lines: `x y z w`
+
+(No edges/faces are emitted yet.)
+
+## Built-in symmetries
+
+- `identity`
+- `coordinate_permutations`
+- `hyperoctahedral` (signed permutations via swap + sign flips)
+
+## Mathematical framing
+
+Given symmetry group \(G\) acting on \(\mathbb{R}^4\), and a seed vertex \(v\),
+we generate its orbit:
+
+\[
+\mathcal{O}(v) = \{ g(v) : g \in G \}
+\]
+
+Each orbit corresponds to one isogonal group.
