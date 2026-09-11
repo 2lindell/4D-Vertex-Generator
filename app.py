@@ -8,9 +8,7 @@ import streamlit as st
 from four_d_vertex_generator.generation import generate_vertices_from_seed
 from four_d_vertex_generator.isogonal import compute_orbits
 from four_d_vertex_generator.library import (
-    dodecaswirl_cross_ring_directions,
     dodecaswirl_cross_ring_seed,
-    dodecaswirl_main_ring_direction,
     dodecaswirl_significant_seeds,
     dodecaswirl_special_phases,
     fundamental_chamber_roots,
@@ -205,8 +203,6 @@ else:
     seed_text = st.text_input("Seed (x,y,z,w)", value=default_seed)
 
 special_phase: float | str = "Use slider"
-swirl_seed: np.ndarray | None = None
-swirl_motion_active = False
 if symmetry_name == "decafold_dodecaswirlchoric":
     significant_seeds = dodecaswirl_significant_seeds()
     selected_seed = st.selectbox(
@@ -244,52 +240,6 @@ if symmetry_name == "decafold_dodecaswirlchoric":
     if not isinstance(special_phase, str):
         ring_phase = special_phase
         st.info(f"Exact phase selected: {ring_phase:.12f} degrees")
-        cross_ring_a, cross_ring_b = dodecaswirl_cross_ring_directions(ring_phase)
-        main_ring_direction = dodecaswirl_main_ring_direction(ring_phase)
-        st.subheader("Move away from the 120-point")
-        st.caption(
-            "The first two controls follow the two most similarly directed adjacent "
-            "cross-rings. The third moves forward along the main ring."
-        )
-        motion_columns = st.columns(3)
-        cross_ring_a_amount = motion_columns[0].slider(
-            "Adjacent cross-ring A",
-            min_value=-0.5,
-            max_value=0.5,
-            value=0.0,
-            step=0.05 if snap_to_significant else 0.01,
-            format="%.2f rad",
-        )
-        cross_ring_b_amount = motion_columns[1].slider(
-            "Adjacent cross-ring B",
-            min_value=-0.5,
-            max_value=0.5,
-            value=0.0,
-            step=0.05 if snap_to_significant else 0.01,
-            format="%.2f rad",
-        )
-        main_ring_amount = motion_columns[2].slider(
-            "Main ring toward next 120-point",
-            min_value=0.0,
-            max_value=0.5,
-            value=0.0,
-            step=0.05 if snap_to_significant else 0.01,
-            format="%.2f rad",
-        )
-        motion = (
-            cross_ring_a_amount * cross_ring_a
-            + cross_ring_b_amount * cross_ring_b
-            + main_ring_amount * main_ring_direction
-        )
-        motion_size = float(np.linalg.norm(motion))
-        if motion_size == 0.0:
-            swirl_seed = dodecaswirl_cross_ring_seed(ring_phase)
-        else:
-            swirl_seed = (
-                np.cos(motion_size) * dodecaswirl_cross_ring_seed(ring_phase)
-                + np.sin(motion_size) * motion / motion_size
-            )
-            swirl_motion_active = True
 tol = st.number_input("Tolerance", min_value=1e-12, max_value=1e-2, value=1e-8, format="%.1e")
 max_vertices = st.number_input(
     "Max vertices",
@@ -311,17 +261,13 @@ def _parse_seed(text: str) -> np.ndarray:
 if do_generate:
     try:
         if symmetry_name == "decafold_dodecaswirlchoric":
-            seed = swirl_seed if swirl_seed is not None else dodecaswirl_cross_ring_seed(ring_phase)
+            seed = dodecaswirl_cross_ring_seed(ring_phase)
         elif chamber_roots is None:
             seed = _parse_seed(seed_text)
         if seed is None:
             st.stop()
         action = named_symmetry(symmetry_name)
-        orbit_tol = (
-            max(float(tol), 1e-7)
-            if not isinstance(special_phase, str) and not swirl_motion_active
-            else float(tol)
-        )
+        orbit_tol = max(float(tol), 1e-7) if not isinstance(special_phase, str) else float(tol)
         vertices = generate_vertices_from_seed(
             seed,
             action,
