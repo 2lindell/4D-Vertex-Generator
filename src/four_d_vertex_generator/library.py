@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from functools import lru_cache
+
 import numpy as np
 
 from .symmetry import SymmetryAction
@@ -26,13 +28,11 @@ def _quaternion_right_matrix(quaternion: tuple[float, float, float, float]) -> n
 
 
 def _dodecaswirlchoric_generators() -> list[np.ndarray]:
-    golden_ratio = (1.0 + np.sqrt(5.0)) / 2.0
-    inverse_golden_ratio = 1.0 / golden_ratio
     binary_icosahedral = (
-        (golden_ratio / 2.0, 0.5, inverse_golden_ratio / 2.0, 0.0),
-        (golden_ratio / 2.0, -0.5, inverse_golden_ratio / 2.0, 0.0),
+        (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
+        (0.809016994374947, -0.309016994374947, 0.0, -0.5),
     )
-    angle = 2.0 * np.pi / 20.0
+    angle = 2.0 * np.pi / 5.0
     right_fivefold = (np.cos(angle), np.sin(angle), 0.0, 0.0)
     return [
         _quaternion_left_matrix(quaternion)
@@ -50,10 +50,97 @@ def dodecaswirl_significant_seeds() -> dict[str, np.ndarray]:
         [np.sqrt((1.0 + dot_with_x) / 2.0), 0.0, 0.0,
          axis[1] / np.sqrt(2.0 * (1.0 + dot_with_x))]
     )
+    pov_cross_ring = np.array(
+        [
+            np.cos(np.deg2rad(10.452578724)) * np.cos(np.deg2rad(81.3)),
+            0.0,
+            np.sin(np.deg2rad(10.452578724)) * np.sin(np.deg2rad(81.3)),
+            0.0,
+        ]
+    )
+    pov_cross_ring /= np.linalg.norm(pov_cross_ring)
     return {
-        "Cross-ring seed (600 vertices)": np.array([1.0, 0.0, 0.0, 0.0]),
-        "Icosahedral vertex-ring seed (240 vertices)": vertex_seed,
+        "POV cross-ring base point (600-point active orbit)": pov_cross_ring,
+        "Icosahedral vertex-ring seed (120 vertices)": vertex_seed,
     }
+
+
+def dodecaswirl_cross_ring_seed(phase_degrees: float) -> np.ndarray:
+    """Return the normalized seed from POV-Ray's crossringswirldoic formula."""
+    lll = np.deg2rad(10.452578724)
+    phase = np.deg2rad(phase_degrees)
+    seed = np.array(
+        [np.cos(lll) * np.cos(phase), 0.0, np.sin(lll) * np.sin(phase), 0.0]
+    )
+    return seed / np.linalg.norm(seed)
+
+
+def dodecaswirl_special_phases() -> tuple[float, ...]:
+    """Return the eight phases where five orbit points coincide."""
+    base_phases = (
+        71.691152560216,
+        84.127433222595,
+        95.872566777405,
+        108.308847439784,
+    )
+    return base_phases + tuple(phase + 180.0 for phase in base_phases)
+
+
+@lru_cache(maxsize=1)
+def _dodecaswirl_group_elements() -> tuple[np.ndarray, ...]:
+    action = SymmetryAction.from_iterable(_dodecaswirlchoric_generators())
+    identity = np.eye(4)
+    elements = {tuple(np.round(identity, 10).ravel()): identity}
+    pending = [identity]
+    while pending:
+        current = pending.pop()
+        for generator in action.generators:
+            transformed = generator @ current
+            key = tuple(np.round(transformed, 10).ravel())
+            if key not in elements:
+                elements[key] = transformed
+                pending.append(transformed)
+    return tuple(elements.values())
+
+
+def _dodecaswirl_ring_tangent(phase_degrees: float) -> np.ndarray:
+    delta = 1e-5
+    tangent = (
+        dodecaswirl_cross_ring_seed(phase_degrees + delta)
+        - dodecaswirl_cross_ring_seed(phase_degrees - delta)
+    ) / (2.0 * delta)
+    return tangent / np.linalg.norm(tangent)
+
+
+def dodecaswirl_cross_ring_directions(
+    phase_degrees: float,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return the two best-aligned cross-ring tangents at a 120-point phase."""
+    seed = dodecaswirl_cross_ring_seed(phase_degrees)
+    tangent = _dodecaswirl_ring_tangent(phase_degrees)
+    stabilizers = [
+        element
+        for element in _dodecaswirl_group_elements()
+        if np.allclose(element @ seed, seed, atol=1e-7)
+        and not np.allclose(element, np.eye(4), atol=1e-7)
+    ]
+    directions = [element @ tangent for element in stabilizers]
+    if len(directions) < 2:
+        raise ValueError("Expected at least two adjacent cross-ring directions")
+    first_index, second_index = max(
+        (
+            (left, right)
+            for left in range(len(directions))
+            for right in range(left)
+        ),
+        key=lambda pair: float(np.dot(directions[pair[0]], directions[pair[1]])),
+    )
+    return directions[first_index], directions[second_index]
+
+
+def dodecaswirl_main_ring_direction(phase_degrees: float) -> np.ndarray:
+    """Return the forward tangent of the main cross-ring at a given phase."""
+    return _dodecaswirl_ring_tangent(phase_degrees)
 
 
 def _swap(i: int, j: int) -> np.ndarray:

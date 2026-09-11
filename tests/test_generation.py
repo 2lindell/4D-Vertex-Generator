@@ -3,7 +3,9 @@ import numpy as np
 from four_d_vertex_generator.generation import generate_vertices_from_seed
 from four_d_vertex_generator.library import (
     available_symmetries,
+    dodecaswirl_cross_ring_seed,
     dodecaswirl_significant_seeds,
+    dodecaswirl_special_phases,
     fundamental_chamber_roots,
     named_symmetry,
 )
@@ -69,7 +71,7 @@ def test_chiral_coxeter_symmetries_are_orientation_preserving() -> None:
         assert all(np.linalg.det(generator) > 0 for generator in action.generators)
 
 
-def test_decafold_dodecaswirlchoric_has_order_1200() -> None:
+def test_decafold_dodecaswirlchoric_has_order_600() -> None:
     name = "decafold_dodecaswirlchoric"
     action = named_symmetry(name)
     assert name in available_symmetries()
@@ -86,19 +88,44 @@ def test_decafold_dodecaswirlchoric_has_order_1200() -> None:
                 seen.add(key)
                 pending.append(transformed)
 
-    assert len(seen) == 1200
+    assert len(seen) == 600
 
 
 def test_dodecaswirl_significant_seeds_have_verified_orbit_sizes() -> None:
     action = named_symmetry("decafold_dodecaswirlchoric")
     expected_sizes = {
-        "Cross-ring seed (600 vertices)": 600,
-        "Icosahedral vertex-ring seed (240 vertices)": 240,
+        "POV cross-ring base point (600-point active orbit)": 600,
+        "Icosahedral vertex-ring seed (120 vertices)": 120,
     }
     for label, seed in dodecaswirl_significant_seeds().items():
         assert np.isclose(np.linalg.norm(seed), 1.0)
         vertices = generate_vertices_from_seed(seed, action)
         assert len(vertices) == expected_sizes[label]
+
+
+def test_dodecaswirl_cross_ring_formula_closes_and_has_600_point_orbits() -> None:
+    zero_phase = dodecaswirl_cross_ring_seed(0.0)
+    full_phase = dodecaswirl_cross_ring_seed(360.0)
+
+    assert np.allclose(zero_phase, full_phase)
+    assert np.isclose(np.linalg.norm(zero_phase), 1.0)
+    assert len(generate_vertices_from_seed(
+        zero_phase, named_symmetry("decafold_dodecaswirlchoric")
+    )) == 600
+    reference_seed = dodecaswirl_cross_ring_seed(81.3)
+    assert np.allclose(
+        reference_seed,
+        [0.638423692624049, 0.0, 0.769685123083637, 0.0],
+        atol=1e-12,
+    )
+
+
+def test_dodecaswirl_special_phases_have_120_point_orbits() -> None:
+    action = named_symmetry("decafold_dodecaswirlchoric")
+    assert len(dodecaswirl_special_phases()) == 8
+    for phase in dodecaswirl_special_phases():
+        seed = dodecaswirl_cross_ring_seed(phase)
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-7)) == 120
 
 
 def test_hyperoctahedral_chiral_symmetry_uses_b4_name() -> None:
