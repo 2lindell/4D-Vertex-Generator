@@ -1,12 +1,12 @@
 import numpy as np
 
-from four_d_vertex_generator.generation import generate_vertices_from_seed
+from four_d_vertex_generator.generation import generate_vertices_from_seed, group_order
+from four_d_vertex_generator.isogonal import compute_orbits, matches_symmetry
 from four_d_vertex_generator.library import (
     available_symmetries,
-    dodecaswirl_cross_ring_seed,
-    dodecaswirl_significant_seeds,
-    dodecaswirl_special_phases,
     fundamental_chamber_roots,
+    h4_swirlprism_anchor_seed,
+    h4_swirlprism_predefined_seed,
     named_symmetry,
 )
 from four_d_vertex_generator.off import to_4off
@@ -26,14 +26,14 @@ def test_4off_header() -> None:
     txt = to_4off(verts)
     lines = txt.strip().splitlines()
     assert lines[0] == "4OFF"
-    assert lines[1] == "2 0 0"
+    assert lines[1] == "2 0 0 0"
 
 
 def test_4off_uses_precision_without_exponent_notation() -> None:
     verts = np.array([[1.2345678901234567, 1e-8, 1e20, -1.2e-7]])
     lines = to_4off(verts).strip().splitlines()
 
-    assert lines[1] == "1 0 0"
+    assert lines[1] == "1 0 0 0"
     assert "e" not in lines[2].lower()
     assert lines[2].split() == [
         "1.2345678901234567",
@@ -71,61 +71,75 @@ def test_chiral_coxeter_symmetries_are_orientation_preserving() -> None:
         assert all(np.linalg.det(generator) > 0 for generator in action.generators)
 
 
-def test_decafold_dodecaswirlchoric_has_order_600() -> None:
-    name = "decafold_dodecaswirlchoric"
-    action = named_symmetry(name)
-    assert name in available_symmetries()
-    assert all(np.linalg.det(generator) > 0 for generator in action.generators)
-
-    seen = {tuple(np.eye(4).round(8).ravel())}
-    pending = [np.eye(4)]
-    while pending:
-        current = pending.pop()
-        for generator in action.generators:
-            transformed = generator @ current
-            key = tuple(transformed.round(8).ravel())
-            if key not in seen:
-                seen.add(key)
-                pending.append(transformed)
-
-    assert len(seen) == 600
+def test_h4_swirlprism_anchor_seed_aligns_with_600_cell_vertex() -> None:
+    anchor = h4_swirlprism_anchor_seed()
+    assert np.isclose(np.linalg.norm(anchor), 1.0)
+    six_hundred_cell = generate_vertices_from_seed(anchor, named_symmetry("h4_icosian"))
+    assert len(six_hundred_cell) == 120
 
 
-def test_dodecaswirl_significant_seeds_have_verified_orbit_sizes() -> None:
-    action = named_symmetry("decafold_dodecaswirlchoric")
-    expected_sizes = {
-        "POV cross-ring base point (600-point active orbit)": 600,
-        "Icosahedral vertex-ring seed (120 vertices)": 120,
-    }
-    for label, seed in dodecaswirl_significant_seeds().items():
-        assert np.isclose(np.linalg.norm(seed), 1.0)
-        vertices = generate_vertices_from_seed(seed, action)
-        assert len(vertices) == expected_sizes[label]
+def test_h4_swirlprism_predefined_seed_starts_at_anchor() -> None:
+    seed = h4_swirlprism_predefined_seed(0.0, 0.0, 0.0)
+    assert np.allclose(seed, h4_swirlprism_anchor_seed())
+    assert len(generate_vertices_from_seed(seed, named_symmetry("h4_swirlprism+"), tol=1e-6)) == 120
 
 
-def test_dodecaswirl_cross_ring_formula_closes_and_has_600_point_orbits() -> None:
-    zero_phase = dodecaswirl_cross_ring_seed(0.0)
-    full_phase = dodecaswirl_cross_ring_seed(360.0)
+def test_h4_swirlprism_cross_ring_sliders_split_the_anchor_orbit() -> None:
+    action = named_symmetry("h4_swirlprism+")
+    for values in ((30.0, 0.0, 0.0), (0.0, 30.0, 0.0), (30.0, 30.0, 0.0)):
+        seed = h4_swirlprism_predefined_seed(*values)
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 600
 
-    assert np.allclose(zero_phase, full_phase)
-    assert np.isclose(np.linalg.norm(zero_phase), 1.0)
-    assert len(generate_vertices_from_seed(
-        zero_phase, named_symmetry("decafold_dodecaswirlchoric")
-    )) == 600
-    reference_seed = dodecaswirl_cross_ring_seed(81.3)
-    assert np.allclose(
-        reference_seed,
-        [0.638423692624049, 0.0, 0.769685123083637, 0.0],
-        atol=1e-12,
+
+def test_h4_swirlprism_main_ring_slider_does_not_split_the_anchor_orbit() -> None:
+    seed = h4_swirlprism_predefined_seed(0.0, 0.0, 30.0)
+    assert len(generate_vertices_from_seed(seed, named_symmetry("h4_swirlprism+"), tol=1e-6)) == 120
+
+
+def test_h4_pentagonal_swirl_is_a_genuine_h4_subgroup() -> None:
+    # h4_pentagonal_swirl/_ring are verified subgroups of H4: they must
+    # actually preserve a genuine 600-cell vertex set.
+    assert group_order(named_symmetry("h4_pentagonal_swirl")) == 50
+    assert group_order(named_symmetry("h4_pentagonal_swirl_ring")) == 10
+
+    six_hundred_cell = generate_vertices_from_seed(
+        np.array([1.0, 0.0, 0.0, 0.0]), named_symmetry("h4_icosian"), max_vertices=20000
     )
+    assert len(six_hundred_cell) == 120
+
+    for name in ("h4_pentagonal_swirl", "h4_pentagonal_swirl_ring"):
+        action = named_symmetry(name)
+        assert matches_symmetry(six_hundred_cell, action, tol=1e-6)
+
+    # The ring subgroup partitions the 600-cell into exactly the 12 rings of
+    # 10 vertices described by the classic pentagonal-swirl decomposition.
+    ring_partition = compute_orbits(
+        six_hundred_cell, named_symmetry("h4_pentagonal_swirl_ring"), tol=1e-6
+    )
+    assert ring_partition.num_orbits == 12
+    counts: dict[int, int] = {}
+    for orbit_id in ring_partition.orbit_ids:
+        counts[orbit_id] = counts.get(orbit_id, 0) + 1
+    assert set(counts.values()) == {10}
 
 
-def test_dodecaswirl_special_phases_have_120_point_orbits() -> None:
-    action = named_symmetry("decafold_dodecaswirlchoric")
-    assert len(dodecaswirl_special_phases()) == 8
-    for phase in dodecaswirl_special_phases():
-        seed = dodecaswirl_cross_ring_seed(phase)
-        assert len(generate_vertices_from_seed(seed, action, tol=1e-7)) == 120
+def test_h4_swirlprism_has_order_1200_and_is_vertex_transitive_on_600_cell() -> None:
+    # This is the real "small swirlprism" [5,3:5] symmetry: h4_swirlprism/+
+    # are verified subgroups of H4 that share all of the 600-cell's vertices
+    # as a single orbit.
+    assert group_order(named_symmetry("h4_swirlprism+")) == 600
+    assert group_order(named_symmetry("h4_swirlprism")) == 1200
+
+    six_hundred_cell = generate_vertices_from_seed(
+        np.array([1.0, 0.0, 0.0, 0.0]), named_symmetry("h4_icosian"), max_vertices=20000
+    )
+    assert len(six_hundred_cell) == 120
+
+    for name in ("h4_swirlprism+", "h4_swirlprism"):
+        action = named_symmetry(name)
+        assert matches_symmetry(six_hundred_cell, action, tol=1e-6)
+        partition = compute_orbits(six_hundred_cell, action, tol=1e-6)
+        assert partition.num_orbits == 1
 
 
 def test_hyperoctahedral_chiral_symmetry_uses_b4_name() -> None:

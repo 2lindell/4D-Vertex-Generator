@@ -5,16 +5,20 @@ import json
 import numpy as np
 import streamlit as st
 
-from four_d_vertex_generator.generation import generate_vertices_from_seed
-from four_d_vertex_generator.isogonal import compute_orbits
+from four_d_vertex_generator.generation import generate_vertices_from_seed, group_order
+from four_d_vertex_generator.isogonal import (
+    combined_matching_action,
+    compute_orbits,
+    detect_symmetries,
+    split_by_orbits,
+)
 from four_d_vertex_generator.library import (
-    dodecaswirl_cross_ring_seed,
-    dodecaswirl_significant_seeds,
-    dodecaswirl_special_phases,
+    available_symmetries,
     fundamental_chamber_roots,
+    h4_swirlprism_predefined_seed,
     named_symmetry,
 )
-from four_d_vertex_generator.off import to_4off
+from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
 
 st.set_page_config(page_title="4D Vertex Generator", layout="wide")
 st.title("4D Vertex Generator")
@@ -32,7 +36,6 @@ group_options = {
             ("cyclic_coordinate_rotations", "Cyclic rotations C4"),
             ("dihedral_coordinate_symmetries", "Dihedral symmetries D4"),
             ("global_inversion", "Central inversion Ci"),
-            ("decafold_dodecaswirlchoric", "Decafold dodecaswirlchoric +/-[I x C5]"),
         ),
     ),
     "a4": (
@@ -59,8 +62,8 @@ group_options = {
             ("b4_prismatic_octahedral_chiral", "Chiral prismatic octahedral [4,3,2]+"),
             ("b4_prismatic_tetrahedral", "Prismatic tetrahedral [3,3,2]"),
             ("b4_prismatic_tetrahedral_chiral", "Chiral prismatic tetrahedral [3,3,2]+"),
-            ("b4", "Basic alias B4"),
-            ("b4_basic", "Basic alias [4,3,3]"),
+            ("b4", "Basic [4,3,3] (Coxeter basis)"),
+            ("b4_basic", "Basic alias [4,3,3] (Coxeter basis)"),
             ("b4_chiral", "Chiral alias [4,3,3]+"),
             ("b4_extended", "Full reflection [4,3,3] (same group)"),
             ("b4_chiral_extended", "Chiral [4,3,3]+ (same group)"),
@@ -95,6 +98,12 @@ group_options = {
         (
             ("h4", "Basic [5,3,3]"),
             ("h4+", "Chiral [5,3,3]+"),
+            ("h4_icosian", "Basic [5,3,3] (icosian/600-cell basis)"),
+            ("h4_icosian+", "Chiral [5,3,3]+ (icosian/600-cell basis)"),
+            ("h4_pentagonal_swirl", "Pentagonal swirl Z10xZ10 (icosian basis)"),
+            ("h4_pentagonal_swirl_ring", "Pentagonal swirl ring Z10 (12 rings of 10)"),
+            ("h4_swirlprism", "Small swirlprism [5,3:5] (order 1200)"),
+            ("h4_swirlprism+", "Chiral small swirlprism [5,3:5]+ (order 600)"),
             ("h4_prismatic", "Prismatic [5,3,2]"),
             ("h4_prismatic_chiral", "Chiral prismatic [5,3,2]+"),
             ("h4_ionic", "Ionic diminished [(5,3)+,2]"),
@@ -186,12 +195,6 @@ if chamber_roots is not None:
             f"""
             <svg width="340" height="185" viewBox="0 0 340 185" role="img"
                  aria-label="Projection of the fundamental spherical tetrahedral chamber">
-              <g stroke="#7c8798" stroke-width="1.5" fill="none">{lines}</g>
-              <g fill="#7c8798" font-size="12" text-anchor="middle">
-                <text x="170" y="15">alpha1</text>
-                <text x="35" y="175">alpha2</text>
-                <text x="305" y="175">alpha3</text>
-                <text x="170" y="125">alpha4</text>
               </g>
               <circle cx="{point[0]:.1f}" cy="{point[1]:.1f}" r="7" fill="#e4572e" />
             </svg>
@@ -202,44 +205,39 @@ else:
     default_seed = "1,0,0,0"
     seed_text = st.text_input("Seed (x,y,z,w)", value=default_seed)
 
-special_phase: float | str = "Use slider"
-if symmetry_name == "decafold_dodecaswirlchoric":
-    significant_seeds = dodecaswirl_significant_seeds()
-    selected_seed = st.selectbox(
-        "Significant dodecaswirl seed",
-        options=("Manual seed", *significant_seeds),
+use_predefined_swirl_sliders = False
+swirl_slider_values = (0.0, 0.0, 0.0)
+if symmetry_name in ("h4_swirlprism", "h4_swirlprism+"):
+    use_predefined_swirl_sliders = st.checkbox(
+        "Use predefined ring sliders",
         help=(
-            "The active POV-compatible group has order 600, with verified "
-            "120-point vertex-ring and 600-point cross-ring strata."
+            "Starts at a verified 120-point seed aligned with a 600-cell vertex. "
+            "The first two sliders follow adjacent cross rings; the third follows "
+            "the perpendicular main ring."
         ),
     )
-    if selected_seed != "Manual seed":
-        seed_text = ",".join(
-            f"{coordinate:.15g}" for coordinate in significant_seeds[selected_seed]
+    if use_predefined_swirl_sliders:
+        slider_step = 1.0 if snap_to_significant else 0.1
+        slider_columns = st.columns(3)
+        swirl_slider_values = tuple(
+            column.slider(
+                label,
+                min_value=-180.0,
+                max_value=180.0,
+                value=0.0,
+                step=slider_step,
+                help=help_text,
+            )
+            for column, label, help_text in zip(
+                slider_columns,
+                ("Cross ring 1", "Cross ring 2", "Main ring"),
+                (
+                    "Move around the first cross ring.",
+                    "Move around the second cross ring.",
+                    "Move around the perpendicular main ring.",
+                ),
+            )
         )
-        st.info(f"Seed: ({seed_text})")
-    ring_phase = st.slider(
-        "Cross-ring phase",
-        min_value=0.0,
-        max_value=360.0,
-        value=0.0,
-        step=1.0 if snap_to_significant else 0.1,
-        help=(
-            "Uses the POV-Ray crossringswirldoic formula; 360 degrees returns "
-            "to the starting seed."
-        ),
-    )
-    special_phase = st.selectbox(
-        "Exact 120-point phase (optional)",
-        options=("Use slider", *dodecaswirl_special_phases()),
-        format_func=lambda phase: (
-            phase if isinstance(phase, str) else f"{phase:.9f} degrees"
-        ),
-        help="These phases make five nearby points exactly coincide.",
-    )
-    if not isinstance(special_phase, str):
-        ring_phase = special_phase
-        st.info(f"Exact phase selected: {ring_phase:.12f} degrees")
 tol = st.number_input("Tolerance", min_value=1e-12, max_value=1e-2, value=1e-8, format="%.1e")
 max_vertices = st.number_input(
     "Max vertices",
@@ -248,6 +246,7 @@ max_vertices = st.number_input(
     value=20000,
     step=1000,
 )
+compute_hull_option = st.checkbox("Compute 4D convex hull (include faces and cells)", value=True)
 do_generate = st.button("Generate Vertices", type="primary")
 
 
@@ -258,31 +257,82 @@ def _parse_seed(text: str) -> np.ndarray:
     return np.asarray([float(p) for p in parts], dtype=float)
 
 
+@st.cache_data(show_spinner=False)
+def _cached_generate_and_orbits(
+    seed_list: tuple[float, float, float, float],
+    symmetry_name: str,
+    orbit_tol: float,
+    max_verts: int,
+):
+    seed_arr = np.array(seed_list, dtype=float)
+    action = named_symmetry(symmetry_name)
+    verts = generate_vertices_from_seed(
+        seed_arr,
+        action,
+        tol=orbit_tol,
+        max_vertices=max_verts,
+    )
+    part = compute_orbits(verts, action, tol=orbit_tol)
+    return verts, part
+
+
+@st.cache_data(show_spinner=False)
+def _cached_convex_hull(verts: np.ndarray):
+    return compute_convex_hull(verts)
+
+
 if do_generate:
     try:
-        if symmetry_name == "decafold_dodecaswirlchoric":
-            seed = dodecaswirl_cross_ring_seed(ring_phase)
+        if symmetry_name in ("h4_swirlprism", "h4_swirlprism+"):
+            if use_predefined_swirl_sliders:
+                seed = h4_swirlprism_predefined_seed(*swirl_slider_values)
+            else:
+                seed = _parse_seed(seed_text)
         elif chamber_roots is None:
             seed = _parse_seed(seed_text)
         if seed is None:
             st.stop()
-        action = named_symmetry(symmetry_name)
-        orbit_tol = max(float(tol), 1e-7) if not isinstance(special_phase, str) else float(tol)
-        vertices = generate_vertices_from_seed(
-            seed,
-            action,
-            tol=orbit_tol,
-            max_vertices=int(max_vertices),
+
+        orbit_tol = (
+            max(float(tol), 1e-6)
+            if symmetry_name in ("h4_swirlprism", "h4_swirlprism+")
+            and use_predefined_swirl_sliders
+            else float(tol)
         )
-        partition = compute_orbits(vertices, action, tol=orbit_tol)
+
+        with st.spinner("Generating vertices..."):
+            seed_tuple = tuple(float(x) for x in seed)
+            vertices, partition = _cached_generate_and_orbits(
+                seed_tuple,
+                symmetry_name,
+                orbit_tol,
+                int(max_vertices),
+            )
 
         st.success("Generation complete")
 
-        c1, c2 = st.columns(2)
-        c1.metric("Vertices", int(len(vertices)))
-        c2.metric("Isogonal groups (orbits)", int(partition.num_orbits))
+        if compute_hull_option:
+            try:
+                with st.spinner("Computing 4D convex hull..."):
+                    faces, cells = _cached_convex_hull(vertices)
+                off_text = to_4off(vertices, faces=faces, cells=cells)
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("Vertices", int(len(vertices)))
+                c2.metric("Isogonal groups (orbits)", int(partition.num_orbits))
+                c3.metric("Faces", int(len(faces)))
+                c4.metric("Cells", int(len(cells)))
+            except Exception as hull_exc:  # noqa: BLE001
+                st.warning(f"Could not compute convex hull: {hull_exc}")
+                off_text = to_4off(vertices)
+                c1, c2 = st.columns(2)
+                c1.metric("Vertices", int(len(vertices)))
+                c2.metric("Isogonal groups (orbits)", int(partition.num_orbits))
+        else:
+            off_text = to_4off(vertices)
+            c1, c2 = st.columns(2)
+            c1.metric("Vertices", int(len(vertices)))
+            c2.metric("Isogonal groups (orbits)", int(partition.num_orbits))
 
-        off_text = to_4off(vertices)
         st.download_button(
             "Download 4OFF",
             data=off_text,
@@ -294,6 +344,126 @@ if do_generate:
         st.code(json.dumps(vertices.tolist()[:200], indent=2), language="json")
         if len(vertices) > 200:
             st.info("Preview truncated to first 200 vertices.")
+
+    except Exception as exc:  # noqa: BLE001
+        st.error(str(exc))
+
+
+st.divider()
+st.header("Analyze an uploaded 4D OFF file")
+st.caption(
+    "Upload a 4OFF file to detect its symmetry, and optionally split its vertices "
+    "into isogonal groups under a subsymmetry of your choice."
+)
+
+uploaded_off_file = st.file_uploader("4D OFF file", type=["off", "4off", "txt"])
+analyze_tol = st.number_input(
+    "Symmetry tolerance",
+    min_value=1e-12,
+    max_value=1e-2,
+    value=1e-6,
+    format="%.1e",
+    key="analyze_tol",
+)
+
+
+@st.cache_data(show_spinner=False)
+def _cached_detect_symmetries(vertex_list: tuple[tuple[float, ...], ...], detect_tol: float):
+    verts = np.array(vertex_list, dtype=float)
+    return detect_symmetries(verts, tol=detect_tol)
+
+
+if uploaded_off_file is not None:
+    try:
+        uploaded_vertices = parse_4off(uploaded_off_file.getvalue().decode("utf-8"))
+        st.success(f"Parsed {len(uploaded_vertices)} vertices.")
+
+        with st.spinner("Detecting symmetry..."):
+            vertex_tuple = tuple(tuple(float(x) for x in v) for v in uploaded_vertices)
+            detected_symmetries = _cached_detect_symmetries(vertex_tuple, float(analyze_tol))
+
+        if detected_symmetries:
+            # detect_symmetries is sorted by descending group order, so index 0
+            # is the highest symmetry (fewest/largest orbits when splitting).
+            st.write(f"Detected symmetries ({len(detected_symmetries)}), highest first:")
+            summary = [
+                f"{name} (order {group_order(named_symmetry(name)) or '?'})"
+                for name in detected_symmetries
+            ]
+            st.code("\n".join(summary))
+            highest_symmetry = detected_symmetries[0]
+            st.info(f"Highest detected symmetry: **{highest_symmetry}**")
+        else:
+            st.warning("No built-in symmetry matched this vertex set at this tolerance.")
+            highest_symmetry = None
+
+        split_options = ["(none)", "auto (combine all matches)", *available_symmetries()]
+        default_index = split_options.index(highest_symmetry) if highest_symmetry else 0
+        split_symmetry_name = st.selectbox(
+            "Split into isogonal groups under subsymmetry",
+            options=split_options,
+            index=default_index,
+            help=(
+                "Defaults to the highest detected symmetry. Use 'auto (combine "
+                "all matches)' with an optional family filter below to combine "
+                "every matching symmetry into the largest possible group -- "
+                "combining several matching symmetries still preserves the "
+                "vertex set, so this guarantees the fewest/largest orbits."
+            ),
+        )
+        family_filter = ""
+        if split_symmetry_name == "auto (combine all matches)":
+            family_filter = st.text_input(
+                "Restrict combination to symmetry names containing (optional)",
+                value="",
+                help="e.g. 'swirlprism' to find the largest matching swirl subgroup.",
+            )
+
+        if split_symmetry_name != "(none)" and st.button("Split vertices"):
+            if split_symmetry_name == "auto (combine all matches)":
+                candidates = (
+                    [name for name in available_symmetries() if family_filter in name]
+                    if family_filter
+                    else None
+                )
+                matched = detect_symmetries(uploaded_vertices, tol=float(analyze_tol), candidates=candidates)
+                if not matched:
+                    st.error("No detected symmetry matches that family filter.")
+                    st.stop()
+                split_action = combined_matching_action(
+                    uploaded_vertices, tol=float(analyze_tol), candidates=candidates
+                )
+                split_symmetry_name = "auto_" + (family_filter or "all")
+                st.caption(f"Combined matching symmetries: {', '.join(matched)}")
+            else:
+                if split_symmetry_name not in detected_symmetries:
+                    st.warning(
+                        f"'{split_symmetry_name}' does not exactly match this vertex set at "
+                        "this tolerance -- the split may be more fragmented than mathematically "
+                        "possible. Consider 'auto (combine all matches)' instead."
+                    )
+                split_action = named_symmetry(split_symmetry_name)
+            split_partition = compute_orbits(uploaded_vertices, split_action, tol=float(analyze_tol))
+
+            if split_partition.num_orbits == 1:
+                st.info(
+                    f"These vertices are already isogonal under '{split_symmetry_name}' "
+                    "(a single orbit)."
+                )
+            else:
+                orbit_groups = split_by_orbits(uploaded_vertices, split_partition)
+                st.success(
+                    f"Split into {split_partition.num_orbits} isogonal groups "
+                    f"under '{split_symmetry_name}'."
+                )
+                for orbit_index, orbit_vertices in enumerate(orbit_groups):
+                    st.download_button(
+                        f"Download orbit {orbit_index} ({len(orbit_vertices)} vertices)",
+                        data=to_4off(orbit_vertices),
+                        file_name=f"{split_symmetry_name}_orbit{orbit_index}_{len(orbit_vertices)}.off",
+                        mime="text/plain",
+                        key=f"orbit_download_{orbit_index}",
+                    )
 
     except Exception as exc:  # noqa: BLE001
         st.error(str(exc))

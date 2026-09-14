@@ -16,7 +16,7 @@ symmetry action can then partition the generated vertices into isogonal orbits.
 - Exports coordinates in a simple 4D OFF-style format.
 - Provides both a command-line interface and an interactive Streamlit UI.
 - Includes Coxeter, chiral, diminished, prismatic, duoprismatic, and
-  dodecaswirlchoric symmetry families.
+  icosian/swirlprism symmetry families.
 
 ## Quick start
 
@@ -52,8 +52,17 @@ streamlit run app.py
 The UI lets you choose a symmetry family and subgroup, set a seed or
 fundamental-chamber coordinates, generate the orbit, inspect a JSON preview,
 and download the result. For duoprisms, select `p` and `q` from the supported
-range. For dodecaswirlchoric symmetry, the UI also provides significant seeds,
-cross-ring phase control, and the eight exact 120-point phases.
+range. For the `h4_swirlprism`/`h4_swirlprism+` symmetry, enter an open
+four-coordinate seed or enable the predefined ring sliders. The three sliders
+start at a verified 120-point seed aligned with a 600-cell vertex and move
+along two cross rings and the perpendicular main ring.
+
+The UI also lets you upload an existing 4D OFF file. It reports which
+built-in symmetries the uploaded vertices are invariant under, and lets you
+pick a subsymmetry to split the vertices into isogonal groups. If the
+vertices are already a single orbit under that subsymmetry, it reports that
+directly instead of splitting; otherwise it offers one downloadable `.off`
+file per isogonal group.
 
 ## Command-line options
 
@@ -62,10 +71,35 @@ cross-ring phase control, and the eight exact 120-point phases.
 | `--symmetry NAME` | Yes | A name returned by `available_symmetries()`. |
 | `--seed x,y,z,w` | Yes | Four comma-separated coordinates. |
 | `--out-off PATH` | Yes | Requested output path; the vertex count is added to its filename. |
+| `--hull` | No | Compute 4D convex hull to include faces and cells in output 4OFF. |
 | `--tol FLOAT` | No | Coordinate quantization tolerance; default `1e-8`. |
 | `--max-vertices INT` | No | Generation safety cap; default `20000`. |
 
 Use `--help` to see the argument parser's built-in help.
+
+## Analyzing an existing 4D OFF file
+
+The `4d-off-symmetry` command detects which built-in symmetries a 4D OFF
+file's vertices are invariant under, and can split those vertices into
+isogonal groups under a chosen subsymmetry:
+
+```bash
+4d-off-symmetry --in-off out/vertices_8.off
+```
+
+Add `--symmetry NAME --out-dir DIR` to split the vertices into isogonal
+groups under that subsymmetry, writing one `.off` file per orbit into `DIR`.
+If the vertices are already a single orbit under that subsymmetry, the
+command reports so instead of writing any files.
+
+| Option | Required | Description |
+| --- | --- | --- |
+| `--in-off PATH` | Yes | Input `.off` file to analyze. |
+| `--symmetry NAME` | No | Subsymmetry to split vertices into isogonal orbits under. |
+| `--out-dir PATH` | With `--symmetry` | Directory to write one split `.off` file per orbit. |
+| `--tol FLOAT` | No | Symmetry-matching / orbit tolerance; default `1e-6`. |
+
+
 
 ## Built-in symmetry families
 
@@ -82,8 +116,11 @@ The main families are:
 - **Duoprisms:** `duoprism_p_q` and `duoprism_p_q+` for every
   `3 <= p <= q <= 6`. Equal-factor duoprisms also have factor-swap
   extensions.
-- **Dodecaswirlchoric:** `decafold_dodecaswirlchoric`, an active POV-Ray
-  `+/-[I x C5]` convention with a group order of 600.
+- **Dodecaswirlchoric:** `h4_swirlprism`, the verified small-swirlprism
+  `[5,3:5]` subgroup of H4 with group order 1200 (icosian/600-cell basis).
+  Its `+` variant is the chiral subgroup with order 600. `h4_pentagonal_swirl`
+  (order 50) and `h4_pentagonal_swirl_ring` (order 10) are related pentagonal
+  swirl subgroups; the latter splits the 600-cell into its 12 rings of 10.
 
 The built-in aliases are intentionally retained where several Coxeter names
 describe the same matrix subgroup. They make the mathematical families easier
@@ -105,6 +142,7 @@ The core operations are importable without using the CLI:
 import numpy as np
 
 from four_d_vertex_generator import (
+    compute_convex_hull,
     compute_orbits,
     generate_vertices_from_seed,
     to_4off,
@@ -112,13 +150,17 @@ from four_d_vertex_generator import (
 from four_d_vertex_generator.library import named_symmetry
 
 action = named_symmetry("hyperoctahedral")
-seed = np.array([1.0, 0.0, 0.0, 0.0])
+seed = np.array([1.0, 1.0, 1.0, 1.0])
 
 vertices = generate_vertices_from_seed(seed, action)
 partition = compute_orbits(vertices, action)
 
-print(len(vertices), partition.num_orbits)
-text = to_4off(vertices)
+# Calculate 4D convex hull faces and cells
+faces, cells = compute_convex_hull(vertices)
+
+print(len(vertices), len(faces), len(cells))
+text = to_4off(vertices, faces=faces, cells=cells)
+# Or compute hull automatically: text = to_4off(vertices, compute_hull=True)
 ```
 
 `generate_vertices_from_seed` performs a breadth-first closure over the action's
@@ -127,18 +169,25 @@ the `max_vertices` cap is exceeded.
 
 ## 4OFF output
 
-The exporter writes the following deliberately small format:
+The exporter formats 4D polyhedra according to standard `4OFF` / Geomview nOFF conventions:
 
 ```text
 4OFF
-<number of vertices> 0 0
+<num_vertices> <num_faces> 0 <num_cells>
 x y z w
+...
+<nv> v0 v1 ...
+...
+<nf> f0 f1 ...
 ...
 ```
 
-Only vertices are emitted. Edges and faces are currently represented by zero
-counts and are not generated. Numeric output is written with high precision
-without exponent notation, which keeps the files friendly to simple parsers.
+- **Header count line:** `<num_vertices> <num_faces> <num_edges> <num_cells>` where `<num_edges>` is `0` after faces and before cells (edges are omitted in standard 4OFF face/cell representations).
+- **Vertices:** $N_V$ lines of four coordinates $x, y, z, w$.
+- **Faces:** $N_F$ lines defining 2D polygonal faces. Each face starts with the number of vertices $N_v$ followed by the 0-based vertex indices ordered cyclically around the polygon.
+- **Cells:** $N_C$ lines defining 3D polyhedral cells. Each cell starts with the number of faces $N_f$ followed by the 0-based face indices from the faces list.
+
+If faces and cells are omitted, `to_4off` emits zero counts (`<num_vertices> 0 0 0`). When `compute_hull=True` or `compute_convex_hull` is called, the 4D convex hull is computed and the full mesh is exported. Numeric output is written with high precision without exponent notation.
 
 ## Mathematical model
 

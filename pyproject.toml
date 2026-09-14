@@ -26,6 +26,7 @@ dev = [
 
 [project.scripts]
 4d-vertex-generator = "four_d_vertex_generator.cli:main"
+4d-off-symmetry = "four_d_vertex_generator.cli:analyze_main"
 
 [tool.pytest.ini_options]
 addopts = "-q"

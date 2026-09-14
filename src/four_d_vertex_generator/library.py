@@ -4,6 +4,7 @@ from functools import lru_cache
 
 import numpy as np
 
+from .generation import _finite_group_elements
 from .symmetry import SymmetryAction
 
 
@@ -27,120 +28,171 @@ def _quaternion_right_matrix(quaternion: tuple[float, float, float, float]) -> n
     )
 
 
-def _dodecaswirlchoric_generators() -> list[np.ndarray]:
+def _h4_icosian_chiral_generators() -> list[np.ndarray]:
+    """Rotation subgroup (order 7200) of H4 on standard 600-cell icosian coordinates."""
     binary_icosahedral = (
         (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
         (0.809016994374947, -0.309016994374947, 0.0, -0.5),
     )
-    angle = 2.0 * np.pi / 5.0
-    right_fivefold = (np.cos(angle), np.sin(angle), 0.0, 0.0)
+    return [_quaternion_left_matrix(q) for q in binary_icosahedral] + [
+        _quaternion_right_matrix(q) for q in binary_icosahedral
+    ]
+
+
+def _h4_icosian_generators() -> list[np.ndarray]:
+    """Full H4 (order 14400) on standard 600-cell icosian coordinates.
+
+    This is a different basis/embedding than "h4" (built from Coxeter simple
+    roots), so a vertex set using the classic (0,+-1,+-phi,+-1/phi)-style
+    600-cell coordinates matches this candidate rather than "h4" directly.
+    """
+    return _h4_icosian_chiral_generators() + [np.diag([1.0, -1.0, -1.0, -1.0])]
+
+
+# A genuine order-10 element of the binary icosahedral group 2I (a 5-fold
+# icosahedral rotation lifted to its double cover, so its quaternion order is
+# 10 rather than 5). Verified by BFS closure: 2I has exactly 24 such elements.
+_ICOSIAN_ORDER_TEN = (0.809016994374947, -0.309016994374947, 0.0, -0.5)
+
+
+def _pentagonal_swirl_generators() -> list[np.ndarray]:
+    """Z10 x Z10 pentagonal swirl subgroup of H4 (icosian basis, order 50).
+
+    Independent left/right multiplication by an order-10 element of 2I. This
+    is a genuine subgroup of h4/h4_icosian. Splitting a 600-cell-derived
+    vertex set by this action traces its pentagonal swirl rings.
+    """
     return [
-        _quaternion_left_matrix(quaternion)
-        for quaternion in binary_icosahedral
-    ] + [_quaternion_right_matrix(right_fivefold)]
+        _quaternion_left_matrix(_ICOSIAN_ORDER_TEN),
+        _quaternion_right_matrix(_ICOSIAN_ORDER_TEN),
+    ]
 
 
-def dodecaswirl_significant_seeds() -> dict[str, np.ndarray]:
-    """Return representative unit seeds for the main dodecaswirl orbit strata."""
-    golden_ratio = (1.0 + np.sqrt(5.0)) / 2.0
-    axis = np.array([-golden_ratio / np.sqrt(golden_ratio**2 + 1.0),
-                     -1.0 / np.sqrt(golden_ratio**2 + 1.0), 0.0])
-    dot_with_x = axis[0]
-    vertex_seed = np.array(
-        [np.sqrt((1.0 + dot_with_x) / 2.0), 0.0, 0.0,
-         axis[1] / np.sqrt(2.0 * (1.0 + dot_with_x))]
+def _pentagonal_swirl_ring_generators() -> list[np.ndarray]:
+    """Single Z10 (order 10) one-sided icosian multiplication.
+
+    This is the subgroup whose orbits are exactly the 12 rings of 10 vertices
+    that partition the classic 600-cell (right-coset decomposition of 2I by
+    a Z10 subgroup).
+    """
+    return [_quaternion_right_matrix(_ICOSIAN_ORDER_TEN)]
+
+
+def _h4_swirlprism_chiral_generators() -> list[np.ndarray]:
+    """Order-600 chiral "small swirlprism" subgroup of H4 (icosian basis).
+
+    Left multiplication by the full 2I (icosahedral rotation double cover)
+    combined with right multiplication by a single genuine 2I order-10
+    element. Vertex-transitive on the classic 600-cell -- i.e. it genuinely
+    shares the 600-cell's vertices, matching the "small swirlprism" [5,3:5]
+    construction.
+    """
+    binary_icosahedral = (
+        (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
+        (0.809016994374947, -0.309016994374947, 0.0, -0.5),
     )
-    pov_cross_ring = np.array(
-        [
-            np.cos(np.deg2rad(10.452578724)) * np.cos(np.deg2rad(81.3)),
-            0.0,
-            np.sin(np.deg2rad(10.452578724)) * np.sin(np.deg2rad(81.3)),
-            0.0,
-        ]
-    )
-    pov_cross_ring /= np.linalg.norm(pov_cross_ring)
-    return {
-        "POV cross-ring base point (600-point active orbit)": pov_cross_ring,
-        "Icosahedral vertex-ring seed (120 vertices)": vertex_seed,
-    }
+    return [_quaternion_left_matrix(q) for q in binary_icosahedral] + [
+        _quaternion_right_matrix(_ICOSIAN_ORDER_TEN)
+    ]
 
 
-def dodecaswirl_cross_ring_seed(phase_degrees: float) -> np.ndarray:
-    """Return the normalized seed from POV-Ray's crossringswirldoic formula."""
-    lll = np.deg2rad(10.452578724)
-    phase = np.deg2rad(phase_degrees)
-    seed = np.array(
-        [np.cos(lll) * np.cos(phase), 0.0, np.sin(lll) * np.sin(phase), 0.0]
-    )
-    return seed / np.linalg.norm(seed)
+def _h4_swirlprism_generators() -> list[np.ndarray]:
+    """Full order-1200 "small swirlprism" subgroup of H4 (icosian basis)."""
+    return _h4_swirlprism_chiral_generators() + [
+        _quaternion_right_matrix((0.0, 0.0, 1.0, 0.0))
+    ]
 
 
-def dodecaswirl_special_phases() -> tuple[float, ...]:
-    """Return the eight phases where five orbit points coincide."""
-    base_phases = (
-        71.691152560216,
-        84.127433222595,
-        95.872566777405,
-        108.308847439784,
-    )
-    return base_phases + tuple(phase + 180.0 for phase in base_phases)
+def h4_swirlprism_anchor_seed() -> np.ndarray:
+    """Return a verified seed that aligns exactly with a classic 600-cell vertex.
+
+    This seed generates all 120 vertices of the 600-cell under h4_icosian,
+    and is the anchor point used by `h4_swirlprism_predefined_seed` to
+    explore the small swirlprism's main-ring/cross-ring structure.
+    """
+    return np.array([1.0, 0.0, 0.0, 0.0])
 
 
 @lru_cache(maxsize=1)
-def _dodecaswirl_group_elements() -> tuple[np.ndarray, ...]:
-    action = SymmetryAction.from_iterable(_dodecaswirlchoric_generators())
-    identity = np.eye(4)
-    elements = {tuple(np.round(identity, 10).ravel()): identity}
-    pending = [identity]
-    while pending:
-        current = pending.pop()
-        for generator in action.generators:
-            transformed = generator @ current
-            key = tuple(np.round(transformed, 10).ravel())
-            if key not in elements:
-                elements[key] = transformed
-                pending.append(transformed)
-    return tuple(elements.values())
+def _h4_swirlprism_ring_basis() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Return (cross_ring_one, cross_ring_two, main_ring) at the anchor seed.
 
+    Derived from the eigenstructure of a non-trivial stabilizer of the anchor
+    seed under h4_swirlprism+ (a verified order-5 rotation fixing the seed):
+    its real fixed axis (orthogonal to the seed) is the main ring direction,
+    and its complex-eigenvalue rotating plane gives the two cross-ring
+    directions -- together with the seed, an orthonormal basis of R^4.
+    """
+    seed = h4_swirlprism_anchor_seed()
+    action = SymmetryAction.from_iterable(_h4_swirlprism_chiral_generators())
+    generator_data = tuple(generator.tobytes() for generator in action.generators)
+    elements = _finite_group_elements(generator_data, 5000)
+    if elements is None:
+        raise RuntimeError("h4_swirlprism+ closure did not converge")
 
-def _dodecaswirl_ring_tangent(phase_degrees: float) -> np.ndarray:
-    delta = 1e-5
-    tangent = (
-        dodecaswirl_cross_ring_seed(phase_degrees + delta)
-        - dodecaswirl_cross_ring_seed(phase_degrees - delta)
-    ) / (2.0 * delta)
-    return tangent / np.linalg.norm(tangent)
-
-
-def dodecaswirl_cross_ring_directions(
-    phase_degrees: float,
-) -> tuple[np.ndarray, np.ndarray]:
-    """Return the two best-aligned cross-ring tangents at a 120-point phase."""
-    seed = dodecaswirl_cross_ring_seed(phase_degrees)
-    tangent = _dodecaswirl_ring_tangent(phase_degrees)
-    stabilizers = [
+    stabilizer = next(
         element
-        for element in _dodecaswirl_group_elements()
-        if np.allclose(element @ seed, seed, atol=1e-7)
-        and not np.allclose(element, np.eye(4), atol=1e-7)
-    ]
-    directions = [element @ tangent for element in stabilizers]
-    if len(directions) < 2:
-        raise ValueError("Expected at least two adjacent cross-ring directions")
-    first_index, second_index = max(
-        (
-            (left, right)
-            for left in range(len(directions))
-            for right in range(left)
-        ),
-        key=lambda pair: float(np.dot(directions[pair[0]], directions[pair[1]])),
+        for element in elements
+        if np.allclose(element @ seed, seed, atol=1e-6)
+        and not np.allclose(element, np.eye(4), atol=1e-6)
     )
-    return directions[first_index], directions[second_index]
+    eigvals, eigvecs = np.linalg.eig(stabilizer)
+
+    main_ring: np.ndarray | None = None
+    cross_vec: np.ndarray | None = None
+    for eigval, eigvec in zip(eigvals, eigvecs.T):
+        if abs(eigval.imag) < 1e-6 and abs(eigval.real - 1.0) < 1e-6:
+            candidate = np.real(eigvec)
+            candidate = candidate - np.dot(candidate, seed) * seed
+            if np.linalg.norm(candidate) > 1e-6:
+                main_ring = candidate / np.linalg.norm(candidate)
+        elif eigval.imag > 1e-6:
+            cross_vec = eigvec
+    if main_ring is None or cross_vec is None:
+        raise RuntimeError("Could not find pentagonal-swirl ring basis at anchor seed")
+
+    cross_one = np.real(cross_vec)
+    cross_one = cross_one - np.dot(cross_one, seed) * seed - np.dot(cross_one, main_ring) * main_ring
+    cross_one = cross_one / np.linalg.norm(cross_one)
+
+    cross_two = np.imag(cross_vec)
+    cross_two = (
+        cross_two
+        - np.dot(cross_two, seed) * seed
+        - np.dot(cross_two, main_ring) * main_ring
+        - np.dot(cross_two, cross_one) * cross_one
+    )
+    cross_two = cross_two / np.linalg.norm(cross_two)
+
+    return cross_one, cross_two, main_ring
 
 
-def dodecaswirl_main_ring_direction(phase_degrees: float) -> np.ndarray:
-    """Return the forward tangent of the main cross-ring at a given phase."""
-    return _dodecaswirl_ring_tangent(phase_degrees)
+def h4_swirlprism_predefined_seed(
+    cross_ring_one_degrees: float,
+    cross_ring_two_degrees: float,
+    main_ring_degrees: float,
+) -> np.ndarray:
+    """Move the verified 120-point anchor seed around its cross rings and main ring."""
+    anchor = h4_swirlprism_anchor_seed()
+    cross_ring_one, cross_ring_two, main_ring = _h4_swirlprism_ring_basis()
+    seed = anchor.copy()
+
+    for angle_degrees, direction in (
+        (cross_ring_one_degrees, cross_ring_one),
+        (cross_ring_two_degrees, cross_ring_two),
+        (main_ring_degrees, main_ring),
+    ):
+        angle = np.deg2rad(angle_degrees)
+        cosine, sine = np.cos(angle), np.sin(angle)
+        seed_component = float(np.dot(seed, anchor))
+        direction_component = float(np.dot(seed, direction))
+        seed = (
+            seed
+            + (cosine - 1.0) * (seed_component * anchor + direction_component * direction)
+            + sine * (seed_component * direction - direction_component * anchor)
+        )
+
+    return seed / np.linalg.norm(seed)
 
 
 def _swap(i: int, j: int) -> np.ndarray:
@@ -286,8 +338,7 @@ def named_symmetry(name: str) -> SymmetryAction:
         "a4_extended": "a4_extended",
         "a4_chiral_extended": "a4_chiral_extended",
         "a4_extended_chiral": "a4_extended_chiral",
-        "b4": "hyperoctahedral",
-        "b4_basic": "hyperoctahedral",
+        "b4_basic": "b4",
         "b4_chiral": "b4+",
         "b4_extended": "hyperoctahedral",
         "b4_chiral_extended": "b4+",
@@ -318,8 +369,6 @@ def named_symmetry(name: str) -> SymmetryAction:
     elif name == "global_inversion":
         # Central inversion maps every coordinate to its negative.
         gens = [_identity(), -_identity()]
-    elif name == "decafold_dodecaswirlchoric":
-        gens = _dodecaswirlchoric_generators()
     elif name == "a4_extended":
         gens = _with_inversion(_coxeter_reflections(((0, 1, 3), (1, 2, 3), (2, 3, 3))))
     elif name == "a4_chiral_extended":
@@ -392,12 +441,28 @@ def named_symmetry(name: str) -> SymmetryAction:
             gens.append(_duoprism_factor_swap())
     elif name == "a4":
         gens = _coxeter_reflections(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
+    elif name == "b4":
+        # Full [4,3,3] reflection group in the same Coxeter root basis as b4+,
+        # so full B4 symmetry can be detected regardless of coordinate embedding.
+        gens = _coxeter_reflections(((0, 1, 3), (1, 2, 3), (2, 3, 4)))
     elif name == "d4":
         gens = _coxeter_reflections(((0, 1, 3), (1, 2, 3), (1, 3, 3)))
     elif name == "f4":
         gens = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
     elif name == "h4":
         gens = _coxeter_reflections(((0, 1, 5), (1, 2, 3), (2, 3, 3)))
+    elif name == "h4_icosian":
+        gens = _h4_icosian_generators()
+    elif name == "h4_icosian+":
+        gens = _h4_icosian_chiral_generators()
+    elif name == "h4_pentagonal_swirl":
+        gens = _pentagonal_swirl_generators()
+    elif name == "h4_pentagonal_swirl_ring":
+        gens = _pentagonal_swirl_ring_generators()
+    elif name == "h4_swirlprism":
+        gens = _h4_swirlprism_generators()
+    elif name == "h4_swirlprism+":
+        gens = _h4_swirlprism_chiral_generators()
     elif name == "a4+":
         gens = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
     elif name == "b4+":
@@ -424,7 +489,6 @@ def available_symmetries() -> list[str]:
         "cyclic_coordinate_rotations",
         "dihedral_coordinate_symmetries",
         "global_inversion",
-        "decafold_dodecaswirlchoric",
         "a4",
         "hyperoctahedral",
         "d4",
@@ -435,7 +499,11 @@ def available_symmetries() -> list[str]:
         "d4+",
         "f4+",
         "h4+",
-        "a4_basic",
+        "h4_icosian",
+        "h4_icosian+",        "h4_pentagonal_swirl",
+        "h4_pentagonal_swirl_ring",
+        "h4_swirlprism",
+        "h4_swirlprism+",        "a4_basic",
         "a4_chiral",
         "a4_extended",
         "a4_chiral_extended",
