@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import difflib
 from pathlib import Path
 
 import numpy as np
@@ -8,15 +9,34 @@ import numpy as np
 from .generation import generate_vertices_from_seed, group_order
 from .isogonal import combined_matching_action, compute_orbits, detect_symmetries, split_by_orbits
 from .library import available_symmetries, named_symmetry
-from .off import parse_4off, to_4off
+from .off import compute_convex_hull, parse_4off, to_4off
 
 
-def _parse_seed(seed_text: str) -> np.ndarray:
-    parts = [p.strip() for p in seed_text.split(",")]
+def parse_seed(seed_text: str) -> np.ndarray:
+    """Parse "x,y,z,w" into a 4-vector, raising ValueError with a readable message."""
+    parts = [p.strip() for p in seed_text.replace(";", ",").split(",")]
     if len(parts) != 4:
-        raise ValueError("Seed must have exactly 4 comma-separated values, e.g. 1,0,0,0")
-    vals = [float(x) for x in parts]
-    return np.asarray(vals, dtype=float)
+        raise ValueError(
+            f"Seed must have exactly 4 comma-separated values (e.g. 1,0,0,0), got {len(parts)}"
+        )
+    try:
+        return np.asarray([float(x) for x in parts], dtype=float)
+    except ValueError as err:
+        raise ValueError(f"Seed values must be numbers, got '{seed_text}'") from err
+
+
+def _check_symmetry_name(parser: argparse.ArgumentParser, name: str) -> None:
+    if name in available_symmetries():
+        return
+    close = difflib.get_close_matches(name, available_symmetries(), n=3)
+    hint = f" Did you mean: {', '.join(close)}?" if close else ""
+    parser.error(f"unknown symmetry '{name}'.{hint} Use --list-symmetries to see all names.")
+
+
+def _print_symmetries() -> None:
+    for name in available_symmetries(include_aliases=False):
+        order = group_order(named_symmetry(name))
+        print(f"{name}\t(order {order if order is not None else '?'})")
 
 
 def main() -> None:
@@ -26,18 +46,23 @@ def main() -> None:
     )
     parser.add_argument(
         "--symmetry",
-        type=str,
-        required=True,
-        choices=available_symmetries(),
-        help="Built-in symmetry family",
+        metavar="NAME",
+        help="Built-in symmetry name (see --list-symmetries)",
     )
     parser.add_argument(
         "--seed",
-        type=str,
-        required=True,
         help='Seed vertex as "x,y,z,w" (example: "1,0,0,0")',
     )
-    parser.add_argument("--out-off", type=Path, required=True, help="Output .off path")
+    parser.add_argument(
+        "--out-off",
+        type=Path,
+        help="Output .off path; the vertex count is appended to the file name",
+    )
+    parser.add_argument(
+        "--list-symmetries",
+        action="store_true",
+        help="List the built-in symmetry names with their group orders and exit",
+    )
     parser.add_argument("--tol", type=float, default=1e-8, help="Quantization tolerance")
     parser.add_argument("--max-vertices", type=int, default=20000, help="Safety cap")
     parser.add_argument(
@@ -47,29 +72,61 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    seed = _parse_seed(args.seed)
-    action = named_symmetry(args.symmetry)
+    if args.list_symmetries:
+        _print_symmetries()
+        return
 
-    vertices = generate_vertices_from_seed(
-        seed,
-        action,
-        tol=args.tol,
-        max_vertices=args.max_vertices,
-    )
+    missing = [
+        flag
+        for flag, value in (
+            ("--symmetry", args.symmetry),
+            ("--seed", args.seed),
+            ("--out-off", args.out_off),
+        )
+        if value is None
+    ]
+    if missing:
+        parser.error(f"the following arguments are required: {', '.join(missing)}")
+    _check_symmetry_name(parser, args.symmetry)
+    try:
+        seed = parse_seed(args.seed)
+    except ValueError as err:
+        parser.error(str(err))
+
+    action = named_symmetry(args.symmetry)
+    try:
+        vertices = generate_vertices_from_seed(
+            seed,
+            action,
+            tol=args.tol,
+            max_vertices=args.max_vertices,
+        )
+    except (ValueError, RuntimeError) as err:
+        raise SystemExit(f"error: {err}") from err
 
     partition = compute_orbits(vertices, action, tol=args.tol)
+
+    faces: list[list[int]] | None = None
+    cells: list[list[int]] | None = None
+    if args.hull:
+        try:
+            faces, cells = compute_convex_hull(vertices)
+        except ValueError as err:
+            raise SystemExit(f"error: could not compute convex hull: {err}") from err
 
     output_path = args.out_off.with_name(
         f"{args.out_off.stem}_{len(vertices)}{args.out_off.suffix or '.off'}"
     )
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    off_text = to_4off(vertices, compute_hull=args.hull)
-    output_path.write_text(off_text)
+    output_path.write_text(to_4off(vertices, faces=faces, cells=cells))
 
     print(f"symmetry={args.symmetry}")
     print(f"seed={seed.tolist()}")
     print(f"num_vertices={len(vertices)}")
     print(f"num_orbits={partition.num_orbits}")
+    if faces is not None and cells is not None:
+        print(f"num_faces={len(faces)}")
+        print(f"num_cells={len(cells)}")
     print(f"wrote_off={output_path}")
 
 
@@ -104,14 +161,26 @@ def analyze_main() -> None:
     )
     args = parser.parse_args()
 
-    vertices = parse_4off(args.in_off.read_text())
+    if args.symmetry is not None and not (
+        args.symmetry == "auto" or args.symmetry.startswith("auto:")
+    ):
+        _check_symmetry_name(parser, args.symmetry)
+
+    try:
+        vertices = parse_4off(args.in_off.read_text())
+    except OSError as err:
+        parser.error(f"cannot read {args.in_off}: {err.strerror}")
+    except ValueError as err:
+        raise SystemExit(f"error: {args.in_off} is not a valid 4D OFF file: {err}") from err
     print(f"num_vertices={len(vertices)}")
 
     # detect_symmetries sorts by descending group order, so the first entry
     # is the highest symmetry the vertex set actually satisfies.
     detected = detect_symmetries(vertices, tol=args.tol)
     if detected:
-        summary = ", ".join(f"{name}({group_order(named_symmetry(name)) or '?'})" for name in detected)
+        summary = ", ".join(
+            f"{name}({group_order(named_symmetry(name)) or '?'})" for name in detected
+        )
         print(f"detected_symmetries={summary}")
         print(f"highest_symmetry={detected[0]}")
     else:
@@ -133,8 +202,6 @@ def analyze_main() -> None:
         symmetry_name = f"auto_{family}" if family else "auto"
         print(f"auto_symmetry_combines={', '.join(matched)}")
     else:
-        if args.symmetry not in available_symmetries():
-            raise SystemExit(f"Unknown symmetry '{args.symmetry}'")
         if args.symmetry not in detected:
             print(
                 f"warning: '{args.symmetry}' does not exactly match this vertex set "
@@ -157,7 +224,8 @@ def analyze_main() -> None:
     groups = split_by_orbits(vertices, partition)
     args.out_dir.mkdir(parents=True, exist_ok=True)
     for index, group in enumerate(groups):
-        out_path = args.out_dir / f"{args.in_off.stem}_{symmetry_name}_orbit{index}_{len(group)}.off"
+        file_name = f"{args.in_off.stem}_{symmetry_name}_orbit{index}_{len(group)}.off"
+        out_path = args.out_dir / file_name
         out_path.write_text(to_4off(group))
         print(f"wrote_off={out_path}")
 

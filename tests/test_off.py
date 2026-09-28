@@ -5,7 +5,7 @@ import pytest
 
 from four_d_vertex_generator.generation import generate_vertices_from_seed
 from four_d_vertex_generator.library import named_symmetry
-from four_d_vertex_generator.off import compute_convex_hull, to_4off
+from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
 
 
 def test_compute_convex_hull_tesseract() -> None:
@@ -104,7 +104,9 @@ def test_compute_convex_hull_degenerate_vertices_raises_value_error() -> None:
 
 
 def test_to_4off_with_explicit_faces_and_cells() -> None:
-    verts = np.array([[0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], dtype=float)
+    verts = np.array(
+        [[0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], dtype=float
+    )
     faces = [[0, 1, 2], [0, 1, 3]]
     cells = [[0, 1]]
 
@@ -139,6 +141,7 @@ def test_to_4off_with_compute_hull() -> None:
 
 def test_compute_convex_hull_swirlprism_every_face_in_two_cells() -> None:
     from collections import defaultdict
+
     from four_d_vertex_generator.library import h4_swirlprism_anchor_seed
 
     action = named_symmetry("h4_swirlprism+")
@@ -156,3 +159,14 @@ def test_compute_convex_hull_swirlprism_every_face_in_two_cells() -> None:
     assert len(face_counts) == len(faces)
     assert set(face_counts.values()) == {2}
 
+
+
+def test_parse_4off_round_trips_and_ignores_comments() -> None:
+    verts = np.array([[1.0, 0.0, 0.0, 0.0], [0.0, -0.5, 0.25, 1.0]])
+    text = "# a comment\n" + to_4off(verts).replace("4OFF", "4OFF  # header comment")
+    assert np.allclose(parse_4off(text), verts)
+
+
+def test_parse_4off_reports_missing_counts_line() -> None:
+    with pytest.raises(ValueError, match="Missing vertex/face/cell counts line"):
+        parse_4off("4OFF\n")

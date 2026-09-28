@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Iterable
 
 import numpy as np
 
@@ -20,7 +20,7 @@ class SymmetryAction:
     generators: tuple[ArrayLike, ...]
 
     @staticmethod
-    def from_iterable(mats: Iterable[ArrayLike]) -> "SymmetryAction":
+    def from_iterable(mats: Iterable[ArrayLike]) -> SymmetryAction:
         normalized: list[ArrayLike] = []
         for m in mats:
             a = np.asarray(m, dtype=float)

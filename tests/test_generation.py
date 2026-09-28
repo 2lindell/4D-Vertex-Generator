@@ -1,8 +1,14 @@
 import numpy as np
+import pytest
 
-from four_d_vertex_generator.generation import generate_vertices_from_seed, group_order
-from four_d_vertex_generator.isogonal import compute_orbits, matches_symmetry
+from four_d_vertex_generator.generation import (
+    generate_vertices_from_seed,
+    group_order,
+    is_subgroup,
+)
+from four_d_vertex_generator.isogonal import compute_orbits, detect_symmetries, matches_symmetry
 from four_d_vertex_generator.library import (
+    SYMMETRY_ALIASES,
     available_symmetries,
     fundamental_chamber_roots,
     h4_swirlprism_anchor_seed,
@@ -10,6 +16,7 @@ from four_d_vertex_generator.library import (
     named_symmetry,
 )
 from four_d_vertex_generator.off import to_4off
+from four_d_vertex_generator.symmetry import SymmetryAction
 
 
 def test_hyperoctahedral_seed_axis_generates_8_vertices() -> None:
@@ -226,3 +233,90 @@ def test_generated_coordinates_below_ten_digits_are_zeroed() -> None:
     vertices = generate_vertices_from_seed(seed, action)
 
     assert vertices.tolist() == [[0.0, -1.0e-10, 1.0e-9, 1.0]]
+
+
+def _chamber_seed(name: str, weights: list[float]) -> np.ndarray:
+    return np.linalg.solve(fundamental_chamber_roots(name), np.array(weights, dtype=float))
+
+
+CHAMBER_NAMES = [
+    "a4",
+    "b4",
+    "hyperoctahedral",
+    "d4",
+    "f4",
+    "h4",
+    "b4_prismatic_octahedral",
+    "b4_prismatic_tetrahedral",
+    "h4_prismatic",
+    *(f"duoprism_{p}_{q}" for p in range(3, 7) for q in range(p, 7)),
+]
+
+
+@pytest.mark.parametrize("name", CHAMBER_NAMES)
+def test_chamber_roots_are_mirrors_of_their_own_group(name: str) -> None:
+    roots = fundamental_chamber_roots(name)
+    reflections = SymmetryAction.from_iterable(
+        np.eye(4) - 2.0 * np.outer(root, root) / (root @ root) for root in roots
+    )
+    action = named_symmetry(name)
+    assert is_subgroup(reflections, action)
+    assert is_subgroup(action, reflections)
+
+
+@pytest.mark.parametrize(
+    ("name", "weights", "expected"),
+    [
+        ("hyperoctahedral", [1, 0, 0, 0], 8),  # 16-cell
+        ("hyperoctahedral", [0, 0, 0, 1], 16),  # tesseract
+        ("h4", [0, 0, 0, 1], 120),  # 600-cell
+        ("h4", [1, 0, 0, 0], 600),  # 120-cell
+        ("duoprism_3_3", [0, 1, 0, 1], 9),
+        ("duoprism_3_5", [0, 1, 0, 1], 15),
+        ("duoprism_5_5", [0, 1, 0, 1], 25),
+    ],
+)
+def test_chamber_corners_give_regular_vertex_counts(
+    name: str, weights: list[float], expected: int
+) -> None:
+    vertices = generate_vertices_from_seed(_chamber_seed(name, weights), named_symmetry(name))
+    assert len(vertices) == expected
+
+
+def test_is_subgroup_distinguishes_coordinate_bases() -> None:
+    assert is_subgroup(named_symmetry("b4_ionic"), named_symmetry("hyperoctahedral"))
+    assert is_subgroup(named_symmetry("b4+"), named_symmetry("b4"))
+    # Same abstract group, different coordinate embeddings.
+    assert not is_subgroup(named_symmetry("hyperoctahedral"), named_symmetry("b4"))
+    assert not is_subgroup(named_symmetry("h4_icosian"), named_symmetry("h4"))
+
+
+def test_aliases_resolve_to_the_same_group() -> None:
+    for alias, target in SYMMETRY_ALIASES.items():
+        assert group_order(named_symmetry(alias)) == group_order(named_symmetry(target))
+    assert "a4_basic" not in available_symmetries(include_aliases=False)
+    assert "duoprism_3_3_chiral" not in available_symmetries(include_aliases=False)
+    assert "a4_basic" in available_symmetries()
+
+
+def test_h4_ionic_is_not_the_chiral_prismatic_group() -> None:
+    ionic = named_symmetry("h4_ionic")
+    assert group_order(ionic) == 120
+    assert any(np.linalg.det(g) < 0 for g in ionic.generators)
+    assert is_subgroup(ionic, named_symmetry("h4_prismatic"))
+    assert not is_subgroup(ionic, named_symmetry("h4_prismatic_chiral"))
+
+
+def test_detect_symmetries_skips_aliases_by_default() -> None:
+    tesseract = generate_vertices_from_seed(
+        np.array([1.0, 1.0, 1.0, 1.0]), named_symmetry("hyperoctahedral")
+    )
+    detected = detect_symmetries(tesseract)
+    assert detected[0] == "hyperoctahedral"
+    assert not any(name in SYMMETRY_ALIASES for name in detected)
+
+
+def test_generated_coordinates_have_no_floating_point_dust() -> None:
+    vertices = generate_vertices_from_seed(np.array([1.0, 0.0, 0.0, 0.0]), named_symmetry("f4"))
+    nonzero = np.abs(vertices[vertices != 0.0])
+    assert nonzero.min() > 1e-10

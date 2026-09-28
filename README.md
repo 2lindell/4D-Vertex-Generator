@@ -49,33 +49,44 @@ Start the local Streamlit application from the repository root:
 streamlit run app.py
 ```
 
-The UI lets you choose a symmetry family and subgroup, set a seed or
-fundamental-chamber coordinates, generate the orbit, inspect a JSON preview,
-and download the result. For duoprisms, select `p` and `q` from the supported
-range. For the `h4_swirlprism`/`h4_swirlprism+` symmetry, enter an open
-four-coordinate seed or enable the predefined ring sliders. The three sliders
-start at a verified 120-point seed aligned with a 600-cell vertex and move
-along two cross rings and the perpendicular main ring.
+The **Generate** tab lets you pick a symmetry family and subgroup (its group
+order is shown), place a seed point, generate the orbit, and download it as
+4OFF. The result stays on screen until you generate again, so downloading does
+not clear it. There are up to three ways to place the seed:
 
-The UI also lets you upload an existing 4D OFF file. It reports which
-built-in symmetries the uploaded vertices are invariant under, and lets you
-pick a subsymmetry to split the vertices into isogonal groups. If the
-vertices are already a single orbit under that subsymmetry, it reports that
-directly instead of splitting; otherwise it offers one downloadable `.off`
-file per isogonal group.
+- **Fundamental chamber** (Coxeter and duoprism families): four sliders give
+  the seed's distance from each mirror, i.e. each node of the Coxeter diagram.
+  A node at `0` puts the seed on that mirror; a single nonzero node gives a
+  regular polytope vertex (for example B4 node 1 → 16-cell, node 4 →
+  tesseract). This picker only appears when the chosen subgroup acts in the
+  same coordinate basis as the family's reflection group.
+- **Ring sliders** (`h4_swirlprism`/`h4_swirlprism+` only): start at a
+  verified 120-point seed aligned with a 600-cell vertex and move along two
+  cross rings and the perpendicular main ring.
+- **Coordinates**: type any four comma-separated numbers.
+
+Tolerance, the vertex cap, and slider step size are under **Advanced settings**.
+
+The **Analyze a 4OFF file** tab takes an uploaded 4D OFF file, reports which
+built-in symmetries its vertices are invariant under (highest order first),
+and splits the vertices into isogonal groups under a chosen subsymmetry. If
+the vertices are already a single orbit it says so; otherwise every orbit can
+be downloaded at once as a `.zip` or individually.
 
 ## Command-line options
 
 | Option | Required | Description |
 | --- | --- | --- |
-| `--symmetry NAME` | Yes | A name returned by `available_symmetries()`. |
+| `--symmetry NAME` | Yes | A built-in symmetry name; misspellings get a suggestion. |
 | `--seed x,y,z,w` | Yes | Four comma-separated coordinates. |
 | `--out-off PATH` | Yes | Requested output path; the vertex count is added to its filename. |
 | `--hull` | No | Compute 4D convex hull to include faces and cells in output 4OFF. |
 | `--tol FLOAT` | No | Coordinate quantization tolerance; default `1e-8`. |
 | `--max-vertices INT` | No | Generation safety cap; default `20000`. |
+| `--list-symmetries` | No | Print every symmetry name with its group order and exit. |
 
-Use `--help` to see the argument parser's built-in help.
+Use `--help` to see the argument parser's built-in help. With `--hull`, the
+face and cell counts are printed as well.
 
 ## Analyzing an existing 4D OFF file
 
@@ -122,9 +133,13 @@ The main families are:
   (order 50) and `h4_pentagonal_swirl_ring` (order 10) are related pentagonal
   swirl subgroups; the latter splits the 600-cell into its 12 rings of 10.
 
-The built-in aliases are intentionally retained where several Coxeter names
-describe the same matrix subgroup. They make the mathematical families easier
-to navigate without changing the generated action.
+Some names are aliases for the same group (for example `a4_basic` → `a4`,
+`h4_half` → `h4_prismatic`). They are listed in `SYMMETRY_ALIASES`, still
+accepted everywhere a name is taken, and hidden from the UI pickers,
+`--list-symmetries`, and symmetry detection so the same group is not reported
+twice. Note that `b4` and `hyperoctahedral` are the same abstract group in
+different coordinate bases (Coxeter roots vs. signed permutations), as are `h4`
+and `h4_icosian`.
 
 ### Fundamental chambers
 

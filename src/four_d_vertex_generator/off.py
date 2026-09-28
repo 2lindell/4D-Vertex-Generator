@@ -126,7 +126,8 @@ def parse_4off(text: str) -> np.ndarray:
     Only vertex coordinates are extracted; face and cell lines, if present,
     are skipped using the counts on the header's counts line.
     """
-    lines = [line.strip() for line in text.splitlines() if line.strip() and not line.startswith("#")]
+    lines = [line.split("#", 1)[0].strip() for line in text.splitlines()]
+    lines = [line for line in lines if line]
     if not lines:
         raise ValueError("Empty OFF content")
 
@@ -134,10 +135,12 @@ def parse_4off(text: str) -> np.ndarray:
     if not header.upper().endswith("OFF"):
         raise ValueError(f"Unrecognized OFF header: '{header}'")
 
-    counts_tokens = lines[1].split()
-    if not counts_tokens:
+    if len(lines) < 2:
         raise ValueError("Missing vertex/face/cell counts line")
-    num_vertices = int(counts_tokens[0])
+    try:
+        num_vertices = int(lines[1].split()[0])
+    except ValueError as err:
+        raise ValueError(f"Invalid counts line: '{lines[1]}'") from err
 
     vertex_lines = lines[2 : 2 + num_vertices]
     if len(vertex_lines) != num_vertices:
@@ -164,7 +167,7 @@ def to_4off(
 
     Format:
       4OFF
-      <num_vertices> <num_faces> <num_cells>
+      <num_vertices> <num_faces> 0 <num_cells>
       x y z w
       ...
       <nv> v0 v1 ...
