@@ -107,8 +107,34 @@ Further checks (`symcheck.py`, `offsets.py`, `axes.py`, `cross_lines.py`):
   bi-hecatonicosadiminished truncated hexacosichoron type (the uniform
   truncation at 32.83% is one point on it).
 - The truncated 120-cell's 2400 vertices split into two non-congruent
-  1200-vertex halves (120+600+600 cells and 120+120 cells); one should be the
-  swirlprismatodiminished truncated hecatonicosachoron.
-- T1 and T2 are not found yet. The classifier fails ("hull not symmetric") at
-  exact junction points where several boundaries meet, so those need exact
-  positions and a symmetry-aware facet merge.
+  1200-vertex halves: the swirlprismatodiminished truncated
+  hecatonicosachoron (120+120 cells) and a half with 120+600+600 cells that
+  is not in the wiki list.
+
+## Uniform H4 polytopes broken into this symmetry (`uniform.py`)
+
+Splitting each of the 15 uniform H4 polytopes' vertex sets into
+h4_swirlprism orbits reproduces every wiki entry:
+
+| Uniform polytope | Orbits (vertices) |
+| --- | --- |
+| 600-cell | 600-cell (120) |
+| 120-cell | 120-cell (600) |
+| rectified 600-cell | swirlprismatodiminished rectified hexacosichoron (600), second 600-cell (120) |
+| rectified 120-cell | bigyroprismatic transitional didecafold icosidodecaswirlchoron (600), partially-rectified small swirlprism (600) |
+| truncated 600-cell | bi-hecatonicosadiminished truncated hexacosichoron (1200), main-ring point (240) |
+| truncated 120-cell | swirlprismatodiminished truncated hecatonicosachoron (1200), unlisted half (1200) |
+| runcinated 120-cell | W1, one unlisted |
+| cantellated 120-cell | T2, one unlisted, two cross-ring 600s |
+| bitruncated 120-cell | T1, T2, two cross-ring 600s |
+| cantellated 600-cell | W4, W1, two cross-ring 600s |
+| runcitruncated 120-cell | W1 ×2, W5, W2 ×2, U3 |
+| runcitruncated 600-cell | W1 ×2, W4, W3, W2 ×2 |
+| cantitruncated 120-cell | T2 ×2, U4, U18, two unlisted |
+| cantitruncated 600-cell | W4 ×2, W3, U1, U6, one unlisted |
+| omnitruncated 120-cell | W1, W2 ×3, W3 ×2, W5, U1 ×2, U22, two unlisted |
+
+So the wiki's list is (mostly) the pieces of uniform polytopes, though
+several such pieces, and most generic volume types, are not listed. T2
+occurs at several distinct seed positions, so it is a line or surface
+rather than a single point.

@@ -46,8 +46,10 @@ POINT_TYPES = {
     "icosafold": ("600", "Subsymmetrical icosafold icosidodecaswirlchoron"),
     "bigyro": ("600", "Bigyroprismatic transitional didecafold icosidodecaswirlchoron"),
     "btt600": ("1200", "Bi-hecatonicosadiminished truncated hexacosichoron (uniform truncation point on a 600-cell edge)"),
-    "sdt120a": ("1200", "Truncated-120-cell half with 120+600+600 cells (one of these two is the swirlprismatodiminished truncated hecatonicosachoron)"),
-    "sdt120b": ("1200", "Truncated-120-cell half with 120+120 cells (the other half)"),
+    "sdt120a": ("1200", "Other half of the truncated 120-cell, 120+600+600 cells (not in the wiki list)"),
+    "sdt120b": ("1200", "Swirlprismatodiminished truncated hecatonicosachoron (120+120 cells)"),
+    "T1": ("1200", "Transitional polychoron with 120+120+600+600 cells (piece of the bitruncated 120-cell)"),
+    "T2": ("1200", "Transitional polychoron with 120+120+600+600+1200 cells (pieces of the cantellated, bitruncated and cantitruncated 120-cells)"),
 }
 
 
@@ -91,7 +93,11 @@ def mirror_outlines(edges: list) -> list[list[list[float]]]:
 
 def named_points() -> list[dict]:
     import os
-    return json.load(open("named_points.json")) if os.path.exists("named_points.json") else []
+    pts = []
+    for path in ("named_points.json", "uniform_points.json"):
+        if os.path.exists(path):
+            pts += [{"id": p["id"], "q": p["q"]} for p in json.load(open(path))]
+    return pts
 
 
 def example_seed(qs: list[list[float]]) -> str:

@@ -188,7 +188,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           const pts = D.points.filter((p) => p.id === k);
           out.push({ type: "scatter3d", mode: "markers", name: `Point: ${D.pointTypes[k].name} (${D.pointTypes[k].vertices})`, legendgroup: k,
             x: pts.map((p) => p.q[0]), y: pts.map((p) => p.q[1]), z: pts.map((p) => p.q[2]), customdata: pts.map((p) => p.seed),
-            marker: { size: 7, color: css(SLOTS[(i + 2) % 8]), symbol: ["diamond", "square", "circle", "diamond-open", "square-open", "circle-open", "cross", "x", "diamond"][i % 9], line: { color: ink, width: 1.5 } },
+            marker: { size: 7, color: css(SLOTS[(i + 2) % 8]), symbol: ["diamond", "square", "circle", "diamond-open", "square-open", "circle-open", "cross", "x", "diamond", "square", "circle"][i % 11], line: { color: ink, width: 1.5 } },
             hovertemplate: `<b>${D.pointTypes[k].name}</b><br>seed %{customdata}<extra></extra>`, visible: state.only && state.only !== k ? "legendonly" : true });
         });
       }
@@ -231,9 +231,9 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     pointKeys.forEach((k, i) => {
       rows.push(`<tr class="clickable" data-k="${k}"><td><span class="sw" style="background:${css(SLOTS[(i + 2) % 8])};border-radius:50%"></span><b>${k}</b></td><td class="num">${D.pointTypes[k].vertices}</td><td>${D.pointTypes[k].name}</td><td class="counts">single points</td><td class="num">point</td></tr>`);
     });
-    const missing = ["W1", "W2", "W3", "W4", "W5", "T1", "T2"].filter((k) => !D.types[k]);
+    const missing = ["W1", "W2", "W3", "W4", "W5", "T1", "T2"].filter((k) => !D.types[k] && !pointKeys.includes(k));
     document.getElementById("key").innerHTML = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts</th><th class="num">Where found</th></tr></thead><tbody>${rows.join("")}</tbody>`
-      + (missing.length ? `<tfoot><tr><td colspan="5" class="lede">Wiki 1200-vertex entries not found by sampling yet: ${missing.join(", ")}, plus the two named ones (bi-hecatonicosadiminished truncated hexacosichoron, swirlprismatodiminished truncated hecatonicosachoron).</td></tr></tfoot>` : "");
+      + (missing.length ? `<tfoot><tr><td colspan="5" class="lede">Wiki 1200-vertex entries not found by sampling yet: ${missing.join(", ")}, .</td></tr></tfoot>` : "");
     document.querySelectorAll("tr.clickable").forEach((tr) => tr.addEventListener("click", () => {
       state.only = state.only === tr.dataset.k ? null : tr.dataset.k;
       document.querySelectorAll("tr.clickable").forEach((r) => r.classList.toggle("active", r.dataset.k === state.only));
