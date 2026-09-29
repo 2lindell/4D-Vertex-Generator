@@ -156,3 +156,30 @@ rather than a single point.
 - The curve through the bitruncated 120-cell point bends and runs to the
   region boundary; the tracer may have switched branches at a junction, so
   treat that path with caution.
+
+## Half-cell atlas with golden-field seeds
+
+`cellframe.py`, `uniform_in_cell.py`, `golden_survey.py`, `references.py`,
+`cell_atlas.py`, `cell_atlas_template.html`.
+
+- h4_swirlprism is transitive on the 600 tetrahedral cells of the 600-cell,
+  and each cell's stabilizer is a single half-turn swapping V1<->V2 and
+  V3<->V4. So half a cell (barycentric weights beta >= 0 with beta1 >= beta2,
+  bounded by the H4 mirror beta1 = beta2) is an exact fundamental domain.
+- In barycentric coordinates the cell's H4 mirrors are the planes
+  beta_i = beta_j, and every uniform H4 polytope's seed has golden-integer
+  weights, all from {0, 1, 2, 3, 1+phi, 1+2phi, 1+3phi}
+  (`uniform_in_cell.json`).
+- `golden_survey.py 2 2` classifies every seed whose weights are a + b*phi
+  with 0 <= a, b <= 2 (2796 points, plus the uniform seeds): 69 types, no
+  classification failures, and every wiki entry is found (W1–W5, T1, T2, the
+  named 1200-vertex shapes, the 600- and 240-vertex ring shapes and the
+  120-cell/600-cell). The atlas key lists all 69 with example seeds.
+
+Rebuild with:
+
+```bash
+python golden_survey.py 2 2 golden_22.json
+python references.py
+python cell_atlas.py golden_22.json cell_atlas.html
+```
