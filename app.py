@@ -5,6 +5,7 @@ import zipfile
 
 import numpy as np
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 from four_d_vertex_generator.cli import parse_seed
@@ -24,6 +25,13 @@ from four_d_vertex_generator.library import (
     fundamental_chamber_roots,
     h4_swirlprism_predefined_seed,
     named_symmetry,
+)
+from four_d_vertex_generator.local_view import (
+    LocalView,
+    edge_length_classes,
+    hull_edges,
+    local_view,
+    nearest_neighbour_edges,
 )
 from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
 
@@ -236,6 +244,150 @@ def _orbits_zip(groups: list[np.ndarray], stem: str) -> bytes:
         for index, group in enumerate(groups):
             archive.writestr(f"{stem}_orbit{index}_{len(group)}.off", to_4off(group))
     return buffer.getvalue()
+
+
+# Categorical slots 1-4 of the reference data-viz palette, one per distinct
+# edge length. A uniform polytope has at most four (one per ringed node).
+EDGE_COLORS = ("#2a78d6", "#eb6834", "#1baf7a", "#eda100")
+FIGURE_COLOR = "#8a8984"
+CENTER_COLOR = "#52514e"
+MAX_EDGE_CLASSES = len(EDGE_COLORS)
+
+
+@st.cache_data(show_spinner=False)
+def _cached_nearest_edges(vertices: np.ndarray) -> set[tuple[int, int]]:
+    return nearest_neighbour_edges(vertices)
+
+
+def _local_view_figure(
+    view: LocalView,
+    vertices: np.ndarray,
+    same_orbit: np.ndarray | None = None,
+) -> go.Figure:
+    """Plot the centre vertex, its edges and (optionally) its vertex figure."""
+    fig = go.Figure()
+    classes = edge_length_classes(view.edge_lengths)
+    n_classes = int(classes.max()) + 1 if len(classes) else 0
+    # Beyond four lengths the colours would stop being distinguishable, so
+    # the extra lengths share the last colour and are told apart on hover.
+    classes = np.minimum(classes, MAX_EDGE_CLASSES - 1)
+
+    if view.figure_edges:
+        xs: list[float | None] = []
+        ys: list[float | None] = []
+        zs: list[float | None] = []
+        for i, j in view.figure_edges:
+            a, b = view.positions[i], view.positions[j]
+            xs += [a[0], b[0], None]
+            ys += [a[1], b[1], None]
+            zs += [a[2], b[2], None]
+        fig.add_trace(
+            go.Scatter3d(
+                x=xs, y=ys, z=zs, mode="lines", name="Vertex figure",
+                line={"color": FIGURE_COLOR, "width": 2, "dash": "dash"},
+                hoverinfo="skip",
+            )
+        )
+
+    for cls in range(min(n_classes, MAX_EDGE_CLASSES)):
+        members = np.flatnonzero(classes == cls)
+        lengths = view.edge_lengths[members]
+        xs, ys, zs = [], [], []
+        for p in view.positions[members]:
+            xs += [0.0, p[0], None]
+            ys += [0.0, p[1], None]
+            zs += [0.0, p[2], None]
+        name = (
+            f"Edge length {lengths[0]:.4g}"
+            if np.allclose(lengths, lengths[0])
+            else f"Edge lengths {lengths.min():.4g}–{lengths.max():.4g}"
+        )
+        color = EDGE_COLORS[cls]
+        fig.add_trace(
+            go.Scatter3d(
+                x=xs, y=ys, z=zs, mode="lines", name=name, legendgroup=name,
+                line={"color": color, "width": 5}, hoverinfo="skip",
+            )
+        )
+        hover = [
+            f"vertex {n}<br>{_format_vector(vertices[n])}<br>edge length {length:.6g}"
+            + ("" if same_orbit is None else
+               f"<br>{'same orbit' if same_orbit[n] else 'different orbit'}")
+            for n, length in zip(view.neighbours[members], lengths)
+        ]
+        symbols = (
+            "circle"
+            if same_orbit is None
+            else ["circle" if same_orbit[n] else "diamond" for n in view.neighbours[members]]
+        )
+        fig.add_trace(
+            go.Scatter3d(
+                x=view.positions[members, 0],
+                y=view.positions[members, 1],
+                z=view.positions[members, 2],
+                mode="markers", name=name, legendgroup=name, showlegend=False,
+                marker={"size": 6, "color": color, "symbol": symbols,
+                        "line": {"color": "#fcfcfb", "width": 2}},
+                hovertext=hover, hoverinfo="text",
+            )
+        )
+
+    fig.add_trace(
+        go.Scatter3d(
+            x=[0.0], y=[0.0], z=[0.0], mode="markers", name=f"Vertex {view.center}",
+            marker={"size": 9, "color": CENTER_COLOR, "line": {"color": "#fcfcfb", "width": 2}},
+            hovertext=[f"vertex {view.center}<br>{_format_vector(vertices[view.center])}"],
+            hoverinfo="text",
+        )
+    )
+    hidden_axis = {
+        "visible": False, "showbackground": False, "showgrid": False, "zeroline": False,
+    }
+    fig.update_layout(
+        height=480,
+        margin={"l": 0, "r": 0, "t": 10, "b": 0},
+        scene={"xaxis": hidden_axis, "yaxis": hidden_axis, "zaxis": hidden_axis,
+               "aspectmode": "data"},
+        legend={"orientation": "h", "yanchor": "bottom", "y": 1.0, "x": 0.0},
+    )
+    return fig
+
+
+def render_local_view(
+    vertices: np.ndarray,
+    center: int,
+    faces: list[list[int]] | None,
+    same_orbit: np.ndarray | None = None,
+) -> None:
+    """Show the 3D neighbourhood of one vertex, projected into its tangent space."""
+    if faces is not None:
+        edges = hull_edges(faces)
+    else:
+        edges = _cached_nearest_edges(vertices)
+        st.caption(
+            "No convex hull, so edges are guessed as the shortest vertex-to-vertex "
+            "distance. Longer edges of non-regular shapes will be missing."
+        )
+    try:
+        view = local_view(vertices, center, edges, faces)
+    except ValueError as err:
+        st.warning(f"Cannot draw the local view: {err}")
+        return
+    if len(view.neighbours) == 0:
+        st.info(f"Vertex {center} has no edges.")
+        return
+
+    st.plotly_chart(_local_view_figure(view, vertices, same_orbit), theme="streamlit")
+    n_classes = len(set(edge_length_classes(view.edge_lengths).tolist()))
+    summary = f"{len(view.neighbours)} edges meet at vertex {center}"
+    if n_classes > 1:
+        summary += f", with {n_classes} different lengths"
+    if view.figure_edges:
+        summary += "; the dashed outline is the vertex figure"
+    st.caption(
+        summary + ". Drag to rotate. The view looks along the vertex's radius, so every "
+        "line is an edge direction as seen from the centre of the polytope."
+    )
 
 
 def render_generate_tab() -> None:
@@ -460,7 +612,43 @@ def render_generate_tab() -> None:
         mime="text/plain",
         type="primary",
     )
-    st.dataframe(_vertices_frame(vertices), height=280, width="stretch")
+    st.subheader("Around one vertex")
+    st.caption(
+        "Every vertex is equivalent under the symmetry, so one vertex's neighbourhood "
+        "shows what the whole shape looks like locally."
+    )
+    render_local_view(vertices, 0, result["faces"])
+
+    with st.expander("All vertex coordinates"):
+        st.dataframe(_vertices_frame(vertices), height=280, width="stretch")
+
+
+def _render_split_local_view(vertices: np.ndarray, orbit_ids: list[int]) -> None:
+    st.subheader("Around one vertex")
+    num_orbits = max(orbit_ids) + 1
+    orbit = 0
+    if num_orbits > 1:
+        sizes = np.bincount(orbit_ids)
+        orbit = st.selectbox(
+            "Orbit",
+            options=range(num_orbits),
+            format_func=lambda o: f"Orbit {o} ({sizes[o]} vertices)",
+            help="Vertices in the same orbit look identical locally, so one "
+            "representative per orbit is shown.",
+        )
+    if not st.toggle("Show local vertex view", help="Computes the convex hull of the file."):
+        return
+    ids = np.asarray(orbit_ids)
+    center = int(np.flatnonzero(ids == orbit)[0])
+    try:
+        with st.spinner("Computing 4D convex hull..."):
+            faces, _ = _cached_convex_hull(vertices)
+    except ValueError as err:
+        st.caption(f"Convex hull unavailable ({err}).")
+        faces = None
+    render_local_view(vertices, center, faces, same_orbit=ids == orbit if num_orbits > 1 else None)
+    if num_orbits > 1:
+        st.caption("Circles are neighbours in the same orbit; diamonds are in other orbits.")
 
 
 def render_analyze_tab() -> None:
@@ -570,6 +758,7 @@ def render_analyze_tab() -> None:
     partition = split["partition"]
     if partition.num_orbits == 1:
         st.info(f"These vertices are already isogonal under `{split['label']}` (one orbit).")
+        _render_split_local_view(vertices, partition.orbit_ids)
         return
 
     groups = split["groups"]
@@ -597,6 +786,7 @@ def render_analyze_tab() -> None:
                 mime="text/plain",
                 key=f"orbit_download_{index}",
             )
+    _render_split_local_view(vertices, partition.orbit_ids)
 
 
 generate_tab, analyze_tab = st.tabs(["Generate", "Analyze a 4OFF file"])

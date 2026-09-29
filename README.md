@@ -67,11 +67,20 @@ not clear it. There are up to three ways to place the seed:
 
 Tolerance, the vertex cap, and slider step size are under **Advanced settings**.
 
+Below each result, **Around one vertex** shows a rotatable 3D view of a single
+vertex's neighbourhood instead of the whole 4D shape. The vertex's edges are
+projected into its tangent space (the 3D hyperplane perpendicular to its
+radius), so each line is an edge direction; lines are coloured by edge length,
+and a dashed outline shows the vertex figure when the convex hull is available.
+Without the hull, edges are taken to be the shortest vertex-to-vertex distances.
+
 The **Analyze a 4OFF file** tab takes an uploaded 4D OFF file, reports which
 built-in symmetries its vertices are invariant under (highest order first),
 and splits the vertices into isogonal groups under a chosen subsymmetry. If
 the vertices are already a single orbit it says so; otherwise every orbit can
-be downloaded at once as a `.zip` or individually.
+be downloaded at once as a `.zip` or individually. The same local vertex view
+is available for one representative vertex per orbit, with neighbours in the
+same orbit drawn as circles and neighbours in other orbits as diamonds.
 
 ## Command-line options
 
