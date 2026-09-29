@@ -67,7 +67,10 @@ not clear it. There are up to three ways to place the seed:
   18°. The cross rings are the five great circles held fixed by the
   half-turns at the vertex: they are perpendicular to the main ring, 36° apart
   around it, and adjacent ones run in opposite directions. Every point on a
-  cross ring gives 600 vertices, returning to 120 every 90°.
+  cross ring gives 600 vertices, except 120 at every 90° (the original
+  600-cell) and at arctan φ ≈ 58.28° past each of those on cross ring 1
+  (31.72° on cross ring 2), where the ring meets a vertex of the second
+  600-cell.
 - **Coordinates**: type any four comma-separated numbers.
 
 Tolerance, the vertex cap, and slider step size are under **Advanced settings**.

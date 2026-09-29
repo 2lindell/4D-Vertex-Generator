@@ -115,6 +115,16 @@ def test_every_point_on_a_cross_ring_gives_600_vertices_under_full_swirlprism(
         assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 120
 
 
+def test_cross_rings_meet_the_second_600_cell_at_arctan_phi() -> None:
+    action = named_symmetry("h4_swirlprism")
+    offset = float(np.degrees(np.arctan((1 + 5**0.5) / 2)))  # 58.2825...
+    for k in range(4):
+        ring_one = h4_swirlprism_predefined_seed(offset + 90 * k, 0.0, 0.0)
+        ring_two = h4_swirlprism_predefined_seed(0.0, 90 - offset + 90 * k, 0.0)
+        assert len(generate_vertices_from_seed(ring_one, action, tol=1e-6)) == 120
+        assert len(generate_vertices_from_seed(ring_two, action, tol=1e-6)) == 120
+
+
 def test_main_ring_gives_240_vertices_except_at_its_20_special_points() -> None:
     action = named_symmetry("h4_swirlprism")
     for angle in range(0, 360, 6):

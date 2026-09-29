@@ -515,8 +515,9 @@ def render_generate_tab() -> None:
                 "Starts at a 600-cell vertex (120 points). Cross rings 1 and 2 are adjacent "
                 "cross rings, 36° apart around the main ring and running in opposite "
                 "directions; under the full swirlprism every point on them gives 600 "
-                "vertices, back to 120 every 90°. The main ring gives 240, back to a "
-                "600-cell every 18°."
+                "vertices, except 120 at every 90° and at a second 600-cell's vertices "
+                "(58.28° past each on cross ring 1, 31.72° on cross ring 2). The main ring "
+                "gives 240, back to a 600-cell every 18°."
             )
             columns = st.columns(3)
             angles = [
