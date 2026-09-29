@@ -200,3 +200,29 @@ python cell_atlas.py golden_22.json cell_atlas.html
   mirror). The atlas outlines each patch as the convex hull of its samples.
 - W1 and W4 are mirror/face surface types too (W1: 244 of 291 samples on
   beta1 = beta2; W4: 108 each on beta1 = 0 and beta2 = 0).
+
+### Labels (cell atlas v3, `cell_atlas2.py`)
+
+Shapes are numbered in the wiki list's own order:
+
+| ID | Shape |
+| --- | --- |
+| N1, N2 | Hexacosichoron (600-cell), Hecatonicosachoron (120-cell) |
+| N3 | Icosafold icosaswirlchoron (240) |
+| N4, N5 | Subsymmetrical icosafold icosidodecaswirlchoron, pentagonal-gyroprismatic triacosihexecontachoron |
+| W1–W3 | the unnamed 600-vertex entries, in wiki order |
+| N6–N8 | bigyroprismatic transitional…, partially-rectified small swirlprism, swirlprismatodiminished rectified hexacosichoron |
+| W4–W8 | the unnamed 1200-vertex entries (previously W1–W5) |
+| N9, N10 | bi-hecatonicosadiminished truncated hexacosichoron, swirlprismatodiminished truncated hecatonicosachoron |
+| T1, T2 | the transitional entries |
+| X1… | not in the wiki list, by vertex count, then number of cell classes, then total cells |
+
+Unlisted types are now told apart by edge valences as well as class counts
+(18 of 67 count classes split this way), giving 71 X types. Uniform seeds are
+labelled by the isogonal they produce; the uniform polytope is named only for
+X pieces. Marker shape encodes the vertex count and colour is unique within
+each vertex count; unlisted shapes are grey.
+
+```bash
+python cell_atlas2.py golden_22.json cell_atlas.html
+```

@@ -1,0 +1,243 @@
+<title>Swirlprism Cell Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: plot with its controls first, then the key grouped in the wiki's order, then notes. */
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4; --faint: #aab1bc; --x: #9aa1ab;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+  --mirror: #4a3aa7;
+  --font-text: "Spline Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --mirror: #9085e9; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --mirror: #9085e9; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 22px; }
+h1 { font-size: 1.75rem; line-height: 1.2; margin: 0; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-size: 1.05rem; margin: 0; font-weight: 600; }
+h3 { font-size: 0.8rem; margin: 0; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+p { margin: 0; max-width: 72ch; }
+.lede { color: var(--muted); }
+.eyebrow { font-family: var(--font-data); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--font-data); font-size: 0.78rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); font-variant-numeric: tabular-nums; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; font-size: 0.9rem; }
+.controls label { display: flex; gap: 8px; align-items: center; color: var(--muted); }
+select { font: inherit; font-size: 0.88rem; color: var(--ink); background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 5px 10px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+#plot { width: 100%; height: min(74vh, 700px); min-height: 380px; }
+#hoverbox { font-family: var(--font-data); font-size: 0.84rem; color: var(--muted); min-height: 2.6em; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { text-align: left; padding: 7px 10px 7px 0; border-top: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.03em; }
+tr.group td { border-top: none; padding-top: 18px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); }
+td.id { white-space: nowrap; font-weight: 600; }
+td.counts { font-family: var(--font-data); font-size: 0.76rem; color: var(--muted); word-break: break-word; min-width: 15rem; }
+td.where { color: var(--muted); font-size: 0.82rem; }
+tr.row { cursor: pointer; }
+tr.row:hover td { background: var(--bg); }
+tr.row.active td { background: var(--bg); box-shadow: inset 0 1px 0 var(--ink); }
+.sw { display: inline-block; width: 11px; height: 11px; vertical-align: -1px; margin-right: 9px; }
+.notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+@media (max-width: 780px) { .notes { grid-template-columns: minmax(0, 1fr); } }
+ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+code { font-family: var(--font-data); font-size: 0.86em; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:6px">
+    <span class="eyebrow">h4_swirlprism · H3●I2(10) · order 1200</span>
+    <h1>Swirlprism cell atlas</h1>
+    <p class="lede">One tetrahedral cell of the 600-cell, split by the horizontal H4 mirror β₃ = β₄. The upper half holds exactly one copy of every seed. Points are seeds with golden-integer barycentric weights and every uniform H4 seed; each is coloured by the isogonal polychoron it produces. Shapes in the wiki's list are numbered in the wiki's own order.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section class="panel">
+    <div class="controls">
+      <label for="quarter">Show
+        <select id="quarter"><option value="all">the whole upper half</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option></select>
+      </label>
+      <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
+      <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
+      <label><input id="showRings" type="checkbox" checked> rings</label>
+      <label><input id="showT" type="checkbox" checked> transitional T1/T2</label>
+      <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
+    </div>
+    <div id="plot" role="img" aria-label="3D atlas of the isogonal polychora produced by seeds in one half of a 600-cell tetrahedron"></div>
+    <p id="hoverbox">Hover a point for its shape, golden weights and seed. Click a row in the key to show only that shape; click it again to show everything.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Key</h2>
+    <p class="lede">Counts are symmetry classes of cells, faces and edges, written the way the wiki writes them. The example seed can be pasted into the generator's Coordinates mode.</p>
+    <div class="tablewrap"><table id="key"></table></div>
+  </section>
+
+  <section class="notes">
+    <div class="panel">
+      <h2>How to read the atlas</h2>
+      <ul>
+        <li>The tetrahedron is one 600-cell cell in gnomonic projection, so great circles are straight lines and mirrors are planes. The main ring runs up the vertical edge V₃V₄; the floor is the splitting mirror β₃ = β₄.</li>
+        <li>The half-turn that fixes the cell swaps V₁↔V₂ and V₃↔V₄, so the lower half repeats the upper half exactly. The upper half cannot be halved again: the vertical mirror β₁ = β₂ does not preserve the symmetry, and the two quarters it separates hold different shapes.</li>
+        <li><b>N</b> shapes are the wiki's named entries, <b>W</b> its unnamed "Polychoron with …" entries and <b>T</b> its transitional entries, each numbered in the wiki's order. <b>X</b> shapes are not in the wiki list, numbered by vertex count and then by how many classes of cells they have.</li>
+        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
+        <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
+        <li>Rings take the colour of the shape each stretch produces. T1 (thin lines) lies where a cell face meets a mirror; T2 (thin outlines, faint fill) is flat patches in mirrors and faces, outlined as the convex hull of its samples.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Renumbering</h2>
+      <ul id="renumber"></ul>
+      <p class="lede">T1 and T2 keep their numbers. N4, the subsymmetrical icosafold icosidodecaswirlchoron, sits at exact points that are not golden, so it is placed from the cross-ring analysis rather than sampled.</p>
+    </div>
+  </section>
+</div>
+
+<script id="atlas-data" type="application/json">__DATA__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.2/plotly.min.js"></script>
+<script>
+(function boot() {
+  if (!window.Plotly) {
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js";
+    s.onload = start; s.onerror = () => { document.getElementById("plot").textContent = "The 3D plot library could not be loaded."; };
+    document.head.appendChild(s);
+  } else start();
+
+  function start() {
+    const D = JSON.parse(document.getElementById("atlas-data").textContent);
+    const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
+    const color = (t) => css(t.color);
+    const state = { only: null };
+    const el = (id) => document.getElementById(id);
+
+    const found = D.types.filter((t) => t.listed && (t.samples || t.where)).length;
+    el("stats").innerHTML = [`${D.totalSamples} golden samples`, `${found} of ${D.types.filter((t) => t.listed).length} wiki shapes found`,
+      `${D.types.filter((t) => !t.listed).length} unlisted shapes`].map((x) => `<span class="chip">${x}</span>`).join("");
+    el("renumber").innerHTML = Object.entries(D.oldIds).map(([a, b]) => `<li>Old ${a} is now <b>${b}</b></li>`).join("")
+      + `<li>The three unnamed 600-vertex wiki entries are now <b>W1–W3</b>; named entries are <b>N1–N10</b>.</li>`;
+
+    function visibleFor(id) { return !state.only || state.only === id; }
+
+    function traces() {
+      const out = [], ink = css("--ink"), faint = css("--faint");
+      const quarter = el("quarter").value;
+      const inQ = (q) => quarter === "all" || (quarter === "front" ? q[1] >= -1e-9 : q[1] <= 1e-9);
+      const lines = (segs, name, line, extra = {}) => {
+        const x = [], y = [], z = [];
+        for (const s of segs) { for (const q of s) { x.push(q[0]); y.push(q[1]); z.push(q[2]); } x.push(null); y.push(null); z.push(null); }
+        return { type: "scatter3d", mode: "lines", x, y, z, name, line, hoverinfo: "name", ...extra };
+      };
+      out.push(lines(D.edges, "Cell (upper half)", { color: faint, width: 2 }, { hoverinfo: "skip" }));
+      out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
+        color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "name" });
+      if (el("showMirrors").checked) {
+        for (const m of D.mirrors) {
+          const n = m.length;
+          out.push({ type: "mesh3d", x: m.map((p) => p[0]), y: m.map((p) => p[1]), z: m.map((p) => p[2]),
+            i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
+            color: css("--mirror"), opacity: 0.05, hoverinfo: "skip" });
+        }
+      }
+      if (el("showRings").checked) {
+        const groups = {};
+        for (const r of [...D.rings, ...D.main]) (groups[r.id] ||= []).push(r.pts.filter(inQ).length > 1 ? r.pts : []);
+        for (const [id, segs] of Object.entries(groups)) {
+          const t = byId[id];
+          if (!visibleFor(id)) continue;
+          out.push(lines(segs, `${id} · ${t.name} (${id === "N3" ? "main ring" : "cross ring"})`, { color: color(t), width: id === "N3" ? 7 : 5 }));
+        }
+      }
+      if (el("showT").checked) {
+        if (visibleFor("T1")) out.push(lines(D.tlines.map((L) => L.pts), "T1 · transitional line", { color: color(byId.T1), width: 2.5 }));
+        if (visibleFor("T2")) for (const p of D.tpatches) {
+          const n = p.pts.length - 1, pts = p.pts.slice(0, n);
+          out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
+            i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
+            color: color(byId.T2), opacity: 0.1, name: `T2 patch on ${p.plane} (${p.samples} samples)`, hoverinfo: "name" });
+          out.push(lines([p.pts], `T2 patch on ${p.plane}`, { color: color(byId.T2), width: 2 }));
+        }
+      }
+      for (const t of D.types) {
+        if (!visibleFor(t.id)) continue;
+        if (t.listed && !el("showListed").checked) continue;
+        if (!t.listed && !el("showX").checked && state.only !== t.id) continue;
+        const pts = (D.samples[t.id] || []).filter(inQ);
+        if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} · ${t.name}`,
+          x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${p[3]}`),
+          marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: t.listed ? 0.9 : 0.55 },
+          hovertemplate: "%{customdata}<extra></extra>" });
+        const big = [...D.uniform, ...D.special].filter((u) => u.id === t.id && inQ(u.q));
+        if (big.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (uniform or exact point)`,
+          x: big.map((u) => u.q[0]), y: big.map((u) => u.q[1]), z: big.map((u) => u.q[2]), customdata: big.map((u) => u.hover),
+          marker: { size: 8, color: color(t), symbol: t.symbol, line: { color: ink, width: 2 } }, hovertemplate: "%{customdata}<extra></extra>" });
+      }
+      return out;
+    }
+
+    function layout() {
+      const hidden = { visible: false, showbackground: false };
+      return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
+        margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: "keep",
+        scene: { aspectmode: "manual", aspectratio: { x: 0.5 / 0.7, y: 1, z: 0.36 / 0.7 },
+          xaxis: { ...hidden, range: [-0.25, 0.25] }, yaxis: { ...hidden, range: [-0.35, 0.35] }, zaxis: { ...hidden, range: [-0.01, 0.35] },
+          camera: { eye: { x: 1.15, y: -0.95, z: 0.55 }, up: { x: 0, y: 0, z: 1 } } } };
+    }
+
+    const plot = el("plot");
+    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true });
+    render();
+    const show = (ev) => { const p = ev.points[0]; if (p && p.customdata) el("hoverbox").innerHTML = p.customdata; };
+    plot.on("plotly_hover", show); plot.on("plotly_click", show);
+
+    // key, grouped as in the wiki's list, then the unlisted shapes
+    function swatch(t) {
+      const c = color(t);
+      const shape = { circle: "border-radius:50%", diamond: "transform:rotate(45deg) scale(0.85)", square: "" }[t.symbol];
+      return `<span class="sw" style="background:${c};${shape}"></span>`;
+    }
+    const groups = [
+      ["In the wiki list · 120 and 600 vertices", (t) => t.listed && ["N1", "N2"].includes(t.id)],
+      ["In the wiki list · 240 vertices", (t) => t.id === "N3"],
+      ["In the wiki list · 600 vertices", (t) => t.listed && ["N4", "N5", "W1", "W2", "W3", "N6", "N7", "N8"].includes(t.id)],
+      ["In the wiki list · 1200 vertices", (t) => t.listed && ["W4", "W5", "W6", "W7", "W8", "N9", "N10", "T1", "T2"].includes(t.id)],
+      ["Not in the wiki list", (t) => !t.listed],
+    ];
+    let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th class="num">Samples</th></tr></thead><tbody>`;
+    for (const [title, test] of groups) {
+      html += `<tr class="group"><td colspan="6"><h3>${title}</h3></td></tr>`;
+      for (const t of D.types.filter(test)) {
+        const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink)">${t.example}</span>` : "";
+        html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
+          + `<td class="counts">${counts}</td><td class="where">${t.where || (t.samples ? "golden samples" : "not found yet")}</td><td class="num">${t.samples || ""}</td></tr>`;
+      }
+    }
+    el("key").innerHTML = html + "</tbody>";
+    document.querySelectorAll("tr.row").forEach((tr) => tr.addEventListener("click", () => {
+      state.only = state.only === tr.dataset.id ? null : tr.dataset.id;
+      document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", r.dataset.id === state.only));
+      render();
+    }));
+    ["quarter", "showListed", "showX", "showRings", "showT", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+    new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+})();
+</script>
