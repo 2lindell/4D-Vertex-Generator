@@ -64,14 +64,14 @@ code { font-family: var(--font-data); font-size: 0.86em; }
   <header style="display:grid;gap:6px">
     <span class="eyebrow">h4_swirlprism · H3●I2(10) · order 1200</span>
     <h1>Swirlprism cell atlas</h1>
-    <p class="lede">One tetrahedral cell of the 600-cell, split by the horizontal H4 mirror β₃ = β₄. The upper half holds exactly one copy of every seed. Points are seeds with golden-integer barycentric weights and every uniform H4 seed; each is coloured by the isogonal polychoron it produces. Shapes in the wiki's list are numbered in the wiki's own order.</p>
+    <p class="lede">One tetrahedral cell of the 600-cell, split by the horizontal H4 mirror β₃ = β₄ (the shaded plane on top). The half below it holds exactly one copy of every seed. Points are seeds with golden-integer barycentric weights and every uniform H4 seed; each is coloured by the isogonal polychoron it produces. Shapes in the wiki's list are numbered in the wiki's own order.</p>
     <div class="stats" id="stats"></div>
   </header>
 
   <section class="panel">
     <div class="controls">
       <label for="quarter">Show
-        <select id="quarter"><option value="all">the whole upper half</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option></select>
+        <select id="quarter"><option value="all">the whole half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option></select>
       </label>
       <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
       <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
@@ -93,9 +93,9 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     <div class="panel">
       <h2>How to read the atlas</h2>
       <ul>
-        <li>The tetrahedron is one 600-cell cell in gnomonic projection, so great circles are straight lines and mirrors are planes. The main ring runs up the vertical edge V₃V₄; the floor is the splitting mirror β₃ = β₄.</li>
-        <li>The half-turn that fixes the cell swaps V₁↔V₂ and V₃↔V₄, so the lower half repeats the upper half exactly. The upper half cannot be halved again: the vertical mirror β₁ = β₂ does not preserve the symmetry, and the two quarters it separates hold different shapes.</li>
-        <li><b>N</b> shapes are the wiki's named entries, <b>W</b> its unnamed "Polychoron with …" entries and <b>T</b> its transitional entries, each numbered in the wiki's order. <b>X</b> shapes are not in the wiki list, numbered by vertex count and then by how many classes of cells they have.</li>
+        <li>The tetrahedron is one 600-cell cell in gnomonic projection, so great circles are straight lines and mirrors are planes. The main ring runs along the vertical edge V₃V₄; the shaded top is the splitting mirror β₃ = β₄. The picture is drawn upside down so that plane is on top.</li>
+        <li>The half-turn that fixes the cell swaps V₁↔V₂ and V₃↔V₄, so the other half repeats this one exactly. This half cannot be halved again: the vertical mirror β₁ = β₂ does not preserve the symmetry, and the two quarters it separates hold different shapes.</li>
+        <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200), numbered by how many classes of cells they have.</li>
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
         <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
         <li>Rings take the colour of the shape each stretch produces. T1 (thin lines) lies where a cell face meets a mirror; T2 (thin outlines, faint fill) is flat patches in mirrors and faces, outlined as the convex hull of its samples.</li>
@@ -104,7 +104,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     <div class="panel">
       <h2>Renumbering</h2>
       <ul id="renumber"></ul>
-      <p class="lede">T1 and T2 keep their numbers. N4, the subsymmetrical icosafold icosidodecaswirlchoron, sits at exact points that are not golden, so it is placed from the cross-ring analysis rather than sampled.</p>
+      <p class="lede">T1 and T2 keep their numbers. C2, the subsymmetrical icosafold icosidodecaswirlchoron, sits at exact points that are not golden, so it is placed from the cross-ring analysis rather than sampled.</p>
     </div>
   </section>
 </div>
@@ -131,8 +131,9 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     const found = D.types.filter((t) => t.listed && (t.samples || t.where)).length;
     el("stats").innerHTML = [`${D.totalSamples} golden samples`, `${found} of ${D.types.filter((t) => t.listed).length} wiki shapes found`,
       `${D.types.filter((t) => !t.listed).length} unlisted shapes`].map((x) => `<span class="chip">${x}</span>`).join("");
-    el("renumber").innerHTML = Object.entries(D.oldIds).map(([a, b]) => `<li>Old ${a} is now <b>${b}</b></li>`).join("")
-      + `<li>The three unnamed 600-vertex wiki entries are now <b>W1–W3</b>; named entries are <b>N1–N10</b>.</li>`;
+    el("renumber").innerHTML = `<li>${Object.entries(D.oldIds).map(([a, b]) => `${a} → <b>${b}</b>`).join(", ")}</li>`
+      + `<li>From the first atlases: ${Object.entries(D.firstIds).map(([a, b]) => `${a} → <b>${b}</b>`).join(", ")}</li>`
+      + `<li>Unlisted shapes: X (1200 vertices) and Y (600 vertices), each numbered from 1.</li>`;
 
     function visibleFor(id) { return !state.only || state.only === id; }
 
@@ -162,7 +163,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         for (const [id, segs] of Object.entries(groups)) {
           const t = byId[id];
           if (!visibleFor(id)) continue;
-          out.push(lines(segs, `${id} · ${t.name} (${id === "N3" ? "main ring" : "cross ring"})`, { color: color(t), width: id === "N3" ? 7 : 5 }));
+          out.push(lines(segs, `${id} · ${t.name} (${id === "B1" ? "main ring" : "cross ring"})`, { color: color(t), width: id === "B1" ? 7 : 5 }));
         }
       }
       if (el("showT").checked) {
@@ -197,8 +198,8 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
         margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: "keep",
         scene: { aspectmode: "manual", aspectratio: { x: 0.5 / 0.7, y: 1, z: 0.36 / 0.7 },
-          xaxis: { ...hidden, range: [-0.25, 0.25] }, yaxis: { ...hidden, range: [-0.35, 0.35] }, zaxis: { ...hidden, range: [-0.01, 0.35] },
-          camera: { eye: { x: 1.15, y: -0.95, z: 0.55 }, up: { x: 0, y: 0, z: 1 } } } };
+          xaxis: { ...hidden, range: [-0.25, 0.25] }, yaxis: { ...hidden, range: [-0.35, 0.35] }, zaxis: { ...hidden, range: [-0.35, 0.01] },
+          camera: { eye: { x: 1.2, y: -1.0, z: 0.12 }, center: { x: 0, y: 0, z: -0.05 }, up: { x: 0, y: 0, z: 1 } } } };
     }
 
     const plot = el("plot");
@@ -214,14 +215,20 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       return `<span class="sw" style="background:${c};${shape}"></span>`;
     }
     const groups = [
-      ["In the wiki list · 120 and 600 vertices", (t) => t.listed && ["N1", "N2"].includes(t.id)],
-      ["In the wiki list · 240 vertices", (t) => t.id === "N3"],
-      ["In the wiki list · 600 vertices", (t) => t.listed && ["N4", "N5", "W1", "W2", "W3", "N6", "N7", "N8"].includes(t.id)],
-      ["In the wiki list · 1200 vertices", (t) => t.listed && ["W4", "W5", "W6", "W7", "W8", "N9", "N10", "T1", "T2"].includes(t.id)],
-      ["Not in the wiki list", (t) => !t.listed],
+      ["A · 120 vertices, named", (t) => t.id.startsWith("A")],
+      ["B · 240 vertices, named", (t) => t.id.startsWith("B")],
+      ["C · 600 vertices, named", (t) => t.id.startsWith("C")],
+      ["D · 600 vertices, unnamed", (t) => t.id.startsWith("D")],
+      ["E · 1200 vertices, named", (t) => t.id.startsWith("E")],
+      ["F · 1200 vertices, unnamed", (t) => t.id.startsWith("F")],
+      ["T · 1200 vertices, transitional", (t) => t.id.startsWith("T")],
+      ["Y · 600 vertices, not in the wiki list", (t) => t.id.startsWith("Y")],
+      ["X · 1200 vertices, not in the wiki list", (t) => t.id.startsWith("X")],
+      ["Z · other vertex counts, not in the wiki list", (t) => t.id.startsWith("Z")],
     ];
     let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th class="num">Samples</th></tr></thead><tbody>`;
     for (const [title, test] of groups) {
+      if (!D.types.some(test)) continue;
       html += `<tr class="group"><td colspan="6"><h3>${title}</h3></td></tr>`;
       for (const t of D.types.filter(test)) {
         const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink)">${t.example}</span>` : "";

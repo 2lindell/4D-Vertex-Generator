@@ -31,28 +31,32 @@ from four_d_vertex_generator.library import named_symmetry
 #   ("counts", counts key)           - class counts of a named 1200-vertex entry
 #   ("special", None)                - only at exact non-golden points (placed separately)
 CANON = [
-    ("N1", "Hexacosichoron (600-cell)", ("ref", "Hexacosichoron (600-cell)")),
-    ("N2", "Hecatonicosachoron (120-cell)", ("ref", "Hecatonicosachoron (120-cell)")),
-    ("N3", "Icosafold icosaswirlchoron", ("ref", "Icosafold icosaswirlchoron (main ring, 240)")),
-    ("N4", "Subsymmetrical icosafold icosidodecaswirlchoron", ("special", None)),
-    ("N5", "Pentagonal-gyroprismatic triacosihexecontachoron", ("ref", "Cross ring: Pentagonal-gyroprismatic triacosihexecontachoron")),
-    ("W1", "Polychoron with 120+120+1200 cells (600+1200 4-valent edges)", ("ref", "Cross ring: 120+120+1200 cells (600+1200 4-valent edges)")),
-    ("W2", "Polychoron with 120+600+600+600+1200 cells (600 3-valent edges)", ("ref", "Cross ring: 120+600+600+600+1200 cells (600 3-valent edges)")),
-    ("W3", "Polychoron with 120+600+600+600+1200 cells (1200 3-valent edges)", ("ref", "Cross ring: 120+600+600+600+1200 cells (1200 3-valent edges)")),
-    ("N6", "Bigyroprismatic transitional didecafold icosidodecaswirlchoron", ("ref", "Bigyroprismatic transitional didecafold icosidodecaswirlchoron")),
-    ("N7", "Partially-rectified small swirlprism", ("ref", "Partially-rectified small swirlprism")),
-    ("N8", "Swirlprismatodiminished rectified hexacosichoron", ("ref", "Swirlprismatodiminished rectified hexacosichoron")),
-    ("W4", "Polychoron with 120+120+600+600+600+600+1200 cells", ("wiki", "W1")),
-    ("W5", "Polychoron with 120+120+240+600+600+1200+1200 cells", ("wiki", "W2")),
-    ("W6", "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+1200×9 faces)", ("wiki", "W3")),
-    ("W7", "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200×9 faces)", ("wiki", "W4")),
-    ("W8", "Polychoron with 120+120+600+600+600+600+1200+1200+1200 cells", ("wiki", "W5")),
-    ("N9", "Bi-hecatonicosadiminished truncated hexacosichoron", ("counts", "120+120+600|240+600+600+600+1200|600+600+600+600+1200")),
-    ("N10", "Swirlprismatodiminished truncated hecatonicosachoron", ("counts", "120+120|240+600+600|600+600+1200")),
+    ("A1", "Hexacosichoron (600-cell)", ("ref", "Hexacosichoron (600-cell)")),
+    ("C1", "Hecatonicosachoron (120-cell)", ("ref", "Hecatonicosachoron (120-cell)")),
+    ("B1", "Icosafold icosaswirlchoron", ("ref", "Icosafold icosaswirlchoron (main ring, 240)")),
+    ("C2", "Subsymmetrical icosafold icosidodecaswirlchoron", ("special", None)),
+    ("C3", "Pentagonal-gyroprismatic triacosihexecontachoron", ("ref", "Cross ring: Pentagonal-gyroprismatic triacosihexecontachoron")),
+    ("D1", "Polychoron with 120+120+1200 cells (600+1200 4-valent edges)", ("ref", "Cross ring: 120+120+1200 cells (600+1200 4-valent edges)")),
+    ("D2", "Polychoron with 120+600+600+600+1200 cells (600 3-valent edges)", ("ref", "Cross ring: 120+600+600+600+1200 cells (600 3-valent edges)")),
+    ("D3", "Polychoron with 120+600+600+600+1200 cells (1200 3-valent edges)", ("ref", "Cross ring: 120+600+600+600+1200 cells (1200 3-valent edges)")),
+    ("C4", "Bigyroprismatic transitional didecafold icosidodecaswirlchoron", ("ref", "Bigyroprismatic transitional didecafold icosidodecaswirlchoron")),
+    ("C5", "Partially-rectified small swirlprism", ("ref", "Partially-rectified small swirlprism")),
+    ("C6", "Swirlprismatodiminished rectified hexacosichoron", ("ref", "Swirlprismatodiminished rectified hexacosichoron")),
+    ("F1", "Polychoron with 120+120+600+600+600+600+1200 cells", ("wiki", "W1")),
+    ("F2", "Polychoron with 120+120+240+600+600+1200+1200 cells", ("wiki", "W2")),
+    ("F3", "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+1200×9 faces)", ("wiki", "W3")),
+    ("F4", "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200×9 faces)", ("wiki", "W4")),
+    ("F5", "Polychoron with 120+120+600+600+600+600+1200+1200+1200 cells", ("wiki", "W5")),
+    ("E1", "Bi-hecatonicosadiminished truncated hexacosichoron", ("counts", "120+120+600|240+600+600+600+1200|600+600+600+600+1200")),
+    ("E2", "Swirlprismatodiminished truncated hecatonicosachoron", ("counts", "120+120|240+600+600|600+600+1200")),
     ("T1", "Transitional polychoron with 120+120+600+600 cells", ("wiki", "T1")),
     ("T2", "Transitional polychoron with 120+120+600+600+1200 cells", ("wiki", "T2")),
 ]
-OLD_WIKI_IDS = {"W1": "W4", "W2": "W5", "W3": "W6", "W4": "W7", "W5": "W8"}   # previous W numbering
+OLD_WIKI_IDS = {  # previous labels -> current labels
+    "N1": "A1", "N2": "C1", "N3": "B1", "N4": "C2", "N5": "C3", "N6": "C4", "N7": "C5", "N8": "C6", "N9": "E1", "N10": "E2",
+    "W1": "D1", "W2": "D2", "W3": "D3", "W4": "F1", "W5": "F2", "W6": "F3", "W7": "F4", "W8": "F5",
+}
+FIRST_WIKI_IDS = {"W1": "F1", "W2": "F2", "W3": "F3", "W4": "F4", "W5": "F5"}   # the labels used before that
 X_DESCRIPTIONS = {  # unlisted types with a known meaning
     "Cross ring: antiprisms split 120+120 (not in the wiki list)":
         "Cross-ring range around the icosafold point (antiprisms split 120+120)",
@@ -70,14 +74,30 @@ RING_RANGE_TO_REF = {
 # Marker shape encodes the vertex count; colour is unique within each vertex group, so shapes that
 # share a region never share a style. Ring types (N3, N5, W1-W3) also all differ from each other.
 STYLE = {
-    "N1": ("--ink", "square"), "N3": ("--s1", "square"),
-    "N2": ("--s7", "diamond"), "N4": ("--s2", "diamond"), "N5": ("--s3", "diamond"), "W1": ("--s4", "diamond"),
-    "W2": ("--s5", "diamond"), "W3": ("--s6", "diamond"), "N6": ("--s1", "diamond"), "N7": ("--s8", "diamond"),
-    "N8": ("--ink", "diamond"),
-    "W4": ("--s1", "circle"), "W5": ("--s2", "circle"), "W6": ("--s3", "circle"), "W7": ("--s4", "circle"),
-    "W8": ("--s5", "circle"), "N9": ("--s6", "circle"), "N10": ("--s7", "circle"), "T2": ("--s8", "circle"),
+    "A1": ("--ink", "square"), "B1": ("--s1", "square"),
+    "C1": ("--s7", "diamond"), "C2": ("--s2", "diamond"), "C3": ("--s3", "diamond"), "D1": ("--s4", "diamond"),
+    "D2": ("--s5", "diamond"), "D3": ("--s6", "diamond"), "C4": ("--s1", "diamond"), "C5": ("--s8", "diamond"),
+    "C6": ("--ink", "diamond"),
+    "F1": ("--s1", "circle"), "F2": ("--s2", "circle"), "F3": ("--s3", "circle"), "F4": ("--s4", "circle"),
+    "F5": ("--s5", "circle"), "E1": ("--s6", "circle"), "E2": ("--s7", "circle"), "T2": ("--s8", "circle"),
     "T1": ("--ink", "circle"),
 }
+
+
+def flip_vertical(data):
+    """Turn the picture upside down (z -> -z) so the splitting mirror is on top."""
+    def f(q):
+        return [q[0], q[1], -q[2]] + list(q[3:])
+    data["samples"] = {k: [f(p) for p in v] for k, v in data["samples"].items()}
+    for key in ("uniform", "special"):
+        for u in data[key]:
+            u["q"] = f(u["q"])
+    for key in ("rings", "main", "tlines", "tpatches"):
+        for r in data[key]:
+            r["pts"] = [f(p) for p in r["pts"]]
+    data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
+    data["split"] = [f(p) for p in data["split"]]
+    data["edges"] = [[f(p) for p in e] for e in data["edges"]]
 
 
 def main(samples_path, out_path):
@@ -126,7 +146,12 @@ def main(samples_path, out_path):
         s = xkeys[k]
         cells = [int(c) for c in counts_key(s["sig"]).split("|")[0].split("+")]
         return (int(s["sig"].split(":")[0]), len(cells), sum(cells), counts_key(s["sig"]))
-    xid = {k: f"X{i + 1}" for i, k in enumerate(sorted(xkeys, key=xsort))}
+    # unlisted: Y for 600 vertices, X for 1200 (and Z for any other count), each numbered from 1
+    xid, counters = {}, {}
+    for k in sorted(xkeys, key=xsort):
+        letter = {600: "Y", 1200: "X"}.get(int(xkeys[k]["sig"].split(":")[0]), "Z")
+        counters[letter] = counters.get(letter, 0) + 1
+        xid[k] = f"{letter}{counters[letter]}"
     for s in samples:
         if s["id"] is None and s["xkey"] in xid:
             s["id"] = xid[s["xkey"]]
@@ -199,10 +224,10 @@ def main(samples_path, out_path):
                 b = to_upper(b / b.sum())
                 q = np.round(xyz(b), 6).tolist()
                 if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
-                    special.append({"id": "N4", "q": q, "hover": f"{label('N4')}<br>exact point (cross ring at {t_deg:.4f}°)<br>seed "
+                    special.append({"id": "C2", "q": q, "hover": f"{label('C2')}<br>exact point (cross ring at {t_deg:.4f}°)<br>seed "
                                     + ",".join(f"{c:.7f}" for c in x)})
-    tmap["N4"]["where"] = f"{len(special)} exact points (not a golden point)"
-    tmap["N4"]["vertices"] = "600"
+    tmap["C2"]["where"] = f"{len(special)} exact points (not a golden point)"
+    tmap["C2"]["vertices"] = "600"
 
     # rings, coloured by the shape each range produces
     sys.path.insert(0, ".")
@@ -226,10 +251,10 @@ def main(samples_path, out_path):
         if run is not None:
             rings.append(run)
     rings = [{"id": r["id"], "pts": pts} for r in rings if len(r["pts"]) >= 2 for pts in _split_upper(r["pts"])]
-    main_ring = [{"id": "N3", "pts": pts} for F in fixed_circles(5)
+    main_ring = [{"id": "B1", "pts": pts} for F in fixed_circles(5)
                  for pts in _split_upper([np.round(xyz(b), 6).tolist() for _, b in clip_circle(F)])]
     for r in rings + main_ring:
-        tmap[r["id"]].setdefault("where", "cross ring" if r["id"] != "N3" else "main ring")
+        tmap[r["id"]].setdefault("where", "cross ring" if r["id"] != "B1" else "main ring")
 
     # transitional layer: T1 lines, T2 patches in mirrors and faces
     tlines = [L for L in load_tlines() if L["id"] == "T1"]
@@ -281,7 +306,8 @@ def main(samples_path, out_path):
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "tlines": tlines, "tpatches": tpatches,
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
-            "oldIds": OLD_WIKI_IDS}
+            "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
+    flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
     open(out_path, "w").write(template.replace("__DATA__", json.dumps(data, separators=(",", ":"))))
     listed = [t for t in types if t["listed"]]
