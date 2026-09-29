@@ -3,6 +3,8 @@ import numpy as np
 
 PHI = (1 + 5 ** 0.5) / 2
 T = np.load("cell_vertices.npy")          # rows: the cell's 4 vertices V1..V4 (half-turn swaps 1<->2, 3<->4)
+_EXACT = np.array([0.0, 0.5, PHI / 2, 1 / (2 * PHI), 1.0])
+T = np.sign(T) * _EXACT[np.abs(np.abs(T)[..., None] - _EXACT).argmin(-1)]   # snap stored float residue to exact golden values
 TINV = np.linalg.inv(T.T)
 def seed_from_beta(beta):
     p = np.asarray(beta, float) @ T; return p / np.linalg.norm(p)

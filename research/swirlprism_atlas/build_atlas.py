@@ -57,7 +57,7 @@ def seed_text(q: list[float]) -> str:
     x, y, z = q
     p = np.array([1.0, 0.850651 * y - 0.525731 * z, x, -0.525731 * y - 0.850651 * z])
     p /= np.linalg.norm(p)
-    return ",".join(f"{c:.7f}" for c in p)
+    return ",".join(f"{c:.17g}" for c in p)
 
 
 def mirror_outlines(edges: list) -> list[list[list[float]]]:

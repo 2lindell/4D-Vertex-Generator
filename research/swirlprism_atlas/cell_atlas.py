@@ -65,8 +65,17 @@ def counts_key(sig):
     return None if p is None else "|".join("+".join(map(str, x)) for x in p[1:])
 
 
+def fmt17(c):
+    """17 significant digits (round-trips a double); snaps float residue to 0."""
+    c = float(c)
+    if abs(c) < 1e-13:
+        return "0"
+    s = f"{c:.17g}"
+    return f"{c:.20f}".rstrip("0") if "e" in s else s
+
+
 def seed_text(beta):
-    return ",".join(f"{c:.7f}" for c in seed_from_beta(beta))
+    return ", ".join(fmt17(c) for c in seed_from_beta(beta))
 
 
 def _split_upper(pts):

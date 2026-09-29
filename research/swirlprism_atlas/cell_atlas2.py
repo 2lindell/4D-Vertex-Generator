@@ -15,6 +15,7 @@ from cell_atlas import (
     clip_upper,
     counts_key,
     fixed_circles,
+    fmt17,
     load_tlines,
     seed_text,
     to_upper,
@@ -225,7 +226,7 @@ def main(samples_path, out_path):
                 q = np.round(xyz(b), 6).tolist()
                 if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
                     special.append({"id": "C2", "q": q, "hover": f"{label('C2')}<br>exact point (cross ring at {t_deg:.4f}°)<br>seed "
-                                    + ",".join(f"{c:.7f}" for c in x)})
+                                    + ", ".join(fmt17(c) for c in x)})
     tmap["C2"]["where"] = f"{len(special)} exact points (not a golden point)"
     tmap["C2"]["vertices"] = "600"
 

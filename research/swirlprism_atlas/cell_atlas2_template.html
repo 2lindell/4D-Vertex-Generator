@@ -231,7 +231,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       if (!D.types.some(test)) continue;
       html += `<tr class="group"><td colspan="6"><h3>${title}</h3></td></tr>`;
       for (const t of D.types.filter(test)) {
-        const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink)">${t.example}</span>` : "";
+        const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink);overflow-wrap:anywhere">${t.example}</span>` : "";
         html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
           + `<td class="counts">${counts}</td><td class="where">${t.where || (t.samples ? "golden samples" : "not found yet")}</td><td class="num">${t.samples || ""}</td></tr>`;
       }
