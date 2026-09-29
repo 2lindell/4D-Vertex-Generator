@@ -88,3 +88,27 @@ types, 5 of which match wiki entries:
 
 The largest volume region (U1) is not in the wiki list. The atlas key has the
 full, current list with an example seed for each type.
+
+Further checks (`symcheck.py`, `offsets.py`, `axes.py`, `cross_lines.py`):
+
+- Every sampled 1200-vertex type has symmetry exactly order 1200 (no
+  reflections, no extra rotations), and each is stable under 100x stricter
+  and 10x looser facet-merge tolerances, so the unlisted types are genuinely
+  distinct polytopes.
+- The planes holding W1, W4 and W5 (azimuth 0° and 36°, through the main
+  ring and a half-turn axis) are not H4 mirrors; the 5 vertical H4 mirrors
+  sit halfway between them (18°, 54°, ...). 15 H4 mirrors cross the region,
+  all through the centre.
+- W1, W5 and most other plane-only types are boundary surfaces: moving 0.0005
+  off the plane gives a different volume type on each side (W1 separates W3
+  and U1).
+- Along the mirror-intersection lines through the centre: W1 and W4 each fill
+  whole lines, and the 600-cell edge direction is entirely the
+  bi-hecatonicosadiminished truncated hexacosichoron type (the uniform
+  truncation at 32.83% is one point on it).
+- The truncated 120-cell's 2400 vertices split into two non-congruent
+  1200-vertex halves (120+600+600 cells and 120+120 cells); one should be the
+  swirlprismatodiminished truncated hecatonicosachoron.
+- T1 and T2 are not found yet. The classifier fails ("hull not symmetric") at
+  exact junction points where several boundaries meet, so those need exact
+  positions and a symmetry-aware facet merge.
