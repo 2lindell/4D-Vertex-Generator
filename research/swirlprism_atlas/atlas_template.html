@@ -1,0 +1,242 @@
+<title>Swirlprism Seed Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a working atlas. Plot first with its controls, then the key as a table, then notes. */
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4; --faint: #aab1bc;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+  --font-text: "Spline Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 22px; }
+h1 { font-size: 1.75rem; line-height: 1.2; margin: 0; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-size: 1.05rem; margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 72ch; }
+.lede { color: var(--muted); }
+.eyebrow { font-family: var(--font-data); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--font-data); font-size: 0.78rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); font-variant-numeric: tabular-nums; }
+.controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; font-size: 0.9rem; }
+.controls label { display: flex; gap: 8px; align-items: center; color: var(--muted); }
+input[type=range] { width: 180px; accent-color: var(--s1); }
+select, button { font: inherit; font-size: 0.88rem; color: var(--ink); background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 5px 10px; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+#plot { width: 100%; height: min(72vh, 680px); min-height: 380px; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { text-align: left; padding: 7px 10px 7px 0; border-top: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.03em; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); }
+td.counts { font-family: var(--font-data); font-size: 0.78rem; color: var(--muted); word-break: break-word; min-width: 16rem; }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 8px; }
+.tag { font-size: 0.72rem; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.tag.new { border-color: var(--s2); color: var(--s2); }
+tr.clickable { cursor: pointer; }
+tr.clickable:hover td { background: var(--bg); }
+tr.active td { background: var(--bg); box-shadow: inset 0 1px 0 var(--ink); }
+.notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+@media (max-width: 780px) { .notes { grid-template-columns: minmax(0, 1fr); } }
+ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+code { font-family: var(--font-data); font-size: 0.86em; }
+#seedbox { font-family: var(--font-data); font-size: 0.85rem; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:6px">
+    <span class="eyebrow">h4_swirlprism · H3●I2(10) · order 1200</span>
+    <h1>Swirlprism seed atlas</h1>
+    <p class="lede">Every seed point for this symmetry is equivalent to one inside this dodecahedron: the points closer to the starting 600-cell vertex than to any other. Lines are the cross rings (600 vertices) and the main ring (240), marked points are the named special shapes, and the clouds are the 1200-vertex shapes found by sampling the space in between.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section class="panel">
+    <div class="controls">
+      <label for="slab">Slice through the main ring
+        <select id="slabAxis"><option value="none">show everything</option><option value="z">horizontal slice (z)</option><option value="x">vertical slice (x)</option></select>
+      </label>
+      <label for="slab">position <input id="slab" type="range" min="-0.42" max="0.42" step="0.01" value="0"> <span id="slabVal" class="chip">0.00</span></label>
+      <label><input id="showVolume" type="checkbox" checked> 1200-vertex clouds</label>
+      <label><input id="showRings" type="checkbox" checked> rings and points</label>
+    </div>
+    <div id="plot" role="img" aria-label="3D atlas of seed types inside the dodecahedron"></div>
+    <p class="lede" id="seedbox">Hover or tap a point to see its seed. Click a row in the key below to show only that shape; click it again to show everything.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Key</h2>
+    <p class="lede">Click a row to show only that shape in the plot. Counts are symmetry classes, written the way the wiki writes them.</p>
+    <div class="tablewrap"><table id="key"></table></div>
+  </section>
+
+  <section class="notes">
+    <div class="panel">
+      <h2>How to read the atlas</h2>
+      <ul>
+        <li>The view is a gnomonic projection centred on the starting vertex: great circles are straight lines, so every cross ring and main ring is a straight segment.</li>
+        <li>The vertical axis through the centre is the main ring. The five horizontal lines through the centre are the cross rings; the other lines are cross rings through other 600-cell vertices, passing through this region.</li>
+        <li>The 20 corners of the dodecahedron are 120-cell vertices. The centres of the top and bottom faces are vertices of the second 600-cell.</li>
+        <li>Only one tenth of the dodecahedron was sampled. The other nine tenths are copies under the symmetries that fix the starting vertex.</li>
+        <li>Grey points are samples right on a boundary between two shapes, where the hull is degenerate.</li>
+        <li>Types marked <i>surface only</i> occur only on one of the special planes through the centre (the vertical planes through the main ring and a cross ring, and the horizontal cross-ring plane). They separate two volume types.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Using a point in the generator</h2>
+      <ul>
+        <li>Hover a point and copy its seed into the app's <b>Coordinates</b> seed mode with the small swirlprism subgroup selected.</li>
+        <li>A plot position (x, y, z) is the seed <code>1, 0.850651·y − 0.525731·z, x, −0.525731·y − 0.850651·z</code>, normalised.</li>
+        <li>Sampling spacing is 0.02 in plot units (about 1.1° near the centre), so thin regions and single points can be missed. Named shapes that occur at single points are placed from the exact ring analysis, not from sampling.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script id="atlas-data" type="application/json">__DATA__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.2/plotly.min.js"></script>
+<script>
+(function boot() {
+  if (!window.Plotly) {
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js";
+    s.onload = start; s.onerror = () => { document.getElementById("plot").textContent = "The 3D plot library could not be loaded."; };
+    document.head.appendChild(s);
+  } else start();
+
+  function start() {
+    const D = JSON.parse(document.getElementById("atlas-data").textContent);
+    const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const SLOTS = ["--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--s7", "--s8"];
+    const SYMBOLS = ["circle", "diamond", "square", "cross"];
+    const PLANES = { az0: "main ring + cross ring 1 plane", az36: "main ring + 36° plane", z0: "cross-ring plane" };
+    const volKeys = Object.keys(D.types).sort((a, b) => D.types[b].samples - D.types[a].samples);
+    const ringKeys = Object.keys(D.ringTypes);
+    const pointKeys = Object.keys(D.pointTypes);
+    const state = { only: null };
+
+    document.getElementById("stats").innerHTML = [
+      `${D.totalSamples} samples`, `${volKeys.length} 1200-vertex types`,
+      `${volKeys.filter((k) => D.types[k].listed).length} match the wiki list`,
+      `${D.boundarySamples} on boundaries`,
+    ].map((t) => `<span class="chip">${t}</span>`).join("");
+
+    function volStyle(i) { return { color: css(SLOTS[i % 8]), symbol: SYMBOLS[Math.floor(i / 8) % 4] }; }
+
+    function traces() {
+      const out = [];
+      const ink = css("--ink"), faint = css("--faint"), panel = css("--panel");
+      const axis = document.getElementById("slabAxis").value;
+      const pos = Number(document.getElementById("slab").value);
+      const keep = (q) => axis === "none" || Math.abs(q[axis === "z" ? 2 : 0] - pos) <= 0.011;
+      // dodecahedron outline
+      const ex = [], ey = [], ez = [];
+      for (const [a, b] of D.cellEdges) { ex.push(a[0], b[0], null); ey.push(a[1], b[1], null); ez.push(a[2], b[2], null); }
+      out.push({ type: "scatter3d", mode: "lines", x: ex, y: ey, z: ez, name: "Dodecahedron (region boundary)", line: { color: faint, width: 2 }, hoverinfo: "skip" });
+      const showVol = document.getElementById("showVolume").checked;
+      const showRings = document.getElementById("showRings").checked;
+      if (showVol) {
+        volKeys.forEach((k, i) => {
+          const pts = (D.volume[k] || []).filter(keep); const st = volStyle(i);
+          out.push({ type: "scatter3d", mode: "markers", name: `${k}: ${D.types[k].name}`, legendgroup: k,
+            x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => p[3]),
+            marker: { size: axis === "none" ? 2.2 : 4, color: st.color, symbol: st.symbol, opacity: axis === "none" ? (state.only ? 0.9 : 0.4) : 0.9 },
+            hovertemplate: `<b>${k}</b> · 1200 vertices<br>(%{x:.3f}, %{y:.3f}, %{z:.3f})<br>seed %{customdata}<extra></extra>`,
+            visible: state.only && state.only !== k ? "legendonly" : true });
+        });
+        const b = (D.volume.boundary || []).filter(keep);
+        if (b.length) out.push({ type: "scatter3d", mode: "markers", name: "Boundary samples", x: b.map((p) => p[0]), y: b.map((p) => p[1]), z: b.map((p) => p[2]), customdata: b.map((p) => p[3]),
+          marker: { size: 2.4, color: faint }, hovertemplate: "boundary sample<br>seed %{customdata}<extra></extra>", visible: state.only ? "legendonly" : true });
+      }
+      if (showRings) {
+        // main ring through the centre
+        const mx = [], my = [], mz = [];
+        for (const seg of D.main) { for (const q of seg) { mx.push(q[0]); my.push(q[1]); mz.push(q[2]); } mx.push(null); my.push(null); mz.push(null); }
+        out.push({ type: "scatter3d", mode: "lines", x: mx, y: my, z: mz, name: "Main ring: Icosafold icosaswirlchoron (240)", line: { color: ink, width: 6 }, hoverinfo: "name",
+          visible: state.only && state.only !== "main" ? "legendonly" : true });
+        ringKeys.forEach((k, i) => {
+          const xs = [], ys = [], zs = [];
+          for (const r of D.rings.filter((r) => r.id === k)) { for (const q of r.pts) { xs.push(q[0]); ys.push(q[1]); zs.push(q[2]); } xs.push(null); ys.push(null); zs.push(null); }
+          out.push({ type: "scatter3d", mode: "lines", x: xs, y: ys, z: zs, name: `Cross ring: ${D.ringTypes[k].name} (600)`, legendgroup: k,
+            line: { color: css(SLOTS[i % 8]), width: 7 }, hoverinfo: "name", visible: state.only && state.only !== k ? "legendonly" : true });
+        });
+        pointKeys.forEach((k, i) => {
+          const pts = D.points.filter((p) => p.id === k);
+          out.push({ type: "scatter3d", mode: "markers", name: `Point: ${D.pointTypes[k].name} (${D.pointTypes[k].vertices})`, legendgroup: k,
+            x: pts.map((p) => p.q[0]), y: pts.map((p) => p.q[1]), z: pts.map((p) => p.q[2]), customdata: pts.map((p) => p.seed),
+            marker: { size: 7, color: css(SLOTS[(i + 2) % 8]), symbol: ["diamond", "square", "circle", "diamond-open", "square-open", "circle-open"][i % 6], line: { color: ink, width: 1.5 } },
+            hovertemplate: `<b>${D.pointTypes[k].name}</b><br>seed %{customdata}<extra></extra>`, visible: state.only && state.only !== k ? "legendonly" : true });
+        });
+      }
+      return out;
+    }
+
+    function layout() {
+      const ink = css("--ink"), muted = css("--muted"), rule = css("--rule");
+      const ax = (t) => ({ title: { text: t, font: { color: muted, size: 11 } }, color: muted, gridcolor: rule, zerolinecolor: rule, showbackground: false, range: [-0.43, 0.43] });
+      return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: ink, size: 12 },
+        margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false,
+        scene: { aspectmode: "cube", xaxis: ax("x · cross ring 1"), yaxis: ax("y"), zaxis: ax("z · main ring"),
+          camera: { eye: { x: 1.35, y: 1.35, z: 0.9 } } },
+        uirevision: "keep" };
+    }
+
+    const plot = document.getElementById("plot");
+    function render() { Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }); }
+    render();
+    plot.on("plotly_hover", (ev) => { const p = ev.points[0]; if (p && p.customdata) document.getElementById("seedbox").textContent = `Seed for Coordinates mode: ${p.customdata}`; });
+    plot.on("plotly_click", (ev) => { const p = ev.points[0]; if (p && p.customdata) document.getElementById("seedbox").textContent = `Seed for Coordinates mode: ${p.customdata}`; });
+
+    // key table
+    const rows = [];
+    function swatch(color, symbol) {
+      const shape = { circle: "border-radius:50%", square: "", diamond: "transform:rotate(45deg) scale(0.8)", cross: "" }[symbol];
+      if (symbol === "cross") return `<span class="sw" style="background:none;color:${color};font-weight:700;text-align:center;line-height:12px">+</span>`;
+      return `<span class="sw" style="background:${color};${shape}"></span>`;
+    }
+    volKeys.forEach((k, i) => {
+      const t = D.types[k];
+      rows.push(`<tr class="clickable" data-k="${k}"><td>${swatch(css(SLOTS[i % 8]), SYMBOLS[Math.floor(i / 8) % 4])}<b>${k}</b></td><td class="num">1200</td>
+        <td>${t.name} ${t.listed ? '<span class="tag">in wiki list</span>' : '<span class="tag new">not in list</span>'}</td>
+        <td class="counts">cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink)">example seed ${t.example}</span></td><td class="num">${t.volumeSamples ? `${t.volumeSamples} in volume` : `<span class="tag">surface only</span>`}${t.planes.length ? `<br>${t.samples - t.volumeSamples} on ${t.planes.map((x) => PLANES[x]).join(", ")}` : ""}</td></tr>`);
+    });
+    rows.push(`<tr class="clickable" data-k="main"><td><span class="sw" style="background:${css("--ink")}"></span><b>main</b></td><td class="num">240</td><td>Icosafold icosaswirlchoron <span class="tag">in wiki list</span></td><td class="counts">any main-ring point off the 20 special points</td><td class="num">line</td></tr>`);
+    ringKeys.forEach((k, i) => {
+      rows.push(`<tr class="clickable" data-k="${k}"><td><span class="sw" style="background:${css(SLOTS[i % 8])}"></span><b>${k}</b></td><td class="num">600</td><td>${D.ringTypes[k].name}</td><td class="counts">cross-ring range</td><td class="num">line</td></tr>`);
+    });
+    pointKeys.forEach((k, i) => {
+      rows.push(`<tr class="clickable" data-k="${k}"><td><span class="sw" style="background:${css(SLOTS[(i + 2) % 8])};border-radius:50%"></span><b>${k}</b></td><td class="num">${D.pointTypes[k].vertices}</td><td>${D.pointTypes[k].name}</td><td class="counts">single points</td><td class="num">point</td></tr>`);
+    });
+    const missing = ["W1", "W2", "W3", "W4", "W5", "T1", "T2"].filter((k) => !D.types[k]);
+    document.getElementById("key").innerHTML = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts</th><th class="num">Where found</th></tr></thead><tbody>${rows.join("")}</tbody>`
+      + (missing.length ? `<tfoot><tr><td colspan="5" class="lede">Wiki 1200-vertex entries not found by sampling yet: ${missing.join(", ")}, plus the two named ones (bi-hecatonicosadiminished truncated hexacosichoron, swirlprismatodiminished truncated hecatonicosachoron).</td></tr></tfoot>` : "");
+    document.querySelectorAll("tr.clickable").forEach((tr) => tr.addEventListener("click", () => {
+      state.only = state.only === tr.dataset.k ? null : tr.dataset.k;
+      document.querySelectorAll("tr.clickable").forEach((r) => r.classList.toggle("active", r.dataset.k === state.only));
+      render();
+    }));
+
+    ["slabAxis", "slab", "showVolume", "showRings"].forEach((id) => document.getElementById(id).addEventListener("input", () => {
+      document.getElementById("slabVal").textContent = Number(document.getElementById("slab").value).toFixed(2); render();
+    }));
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+    new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+})();
+</script>
