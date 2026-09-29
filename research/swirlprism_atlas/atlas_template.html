@@ -75,6 +75,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       <label for="slab">position <input id="slab" type="range" min="-0.42" max="0.42" step="0.01" value="0"> <span id="slabVal" class="chip">0.00</span></label>
       <label><input id="showVolume" type="checkbox" checked> 1200-vertex clouds</label>
       <label><input id="showRings" type="checkbox" checked> rings and points</label>
+      <label><input id="showMirrors" type="checkbox"> H4 mirrors</label>
     </div>
     <div id="plot" role="img" aria-label="3D atlas of seed types inside the dodecahedron"></div>
     <p class="lede" id="seedbox">Hover or tap a point to see its seed. Click a row in the key below to show only that shape; click it again to show everything.</p>
@@ -95,6 +96,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li>The 20 corners of the dodecahedron are 120-cell vertices. The centres of the top and bottom faces are vertices of the second 600-cell.</li>
         <li>Only one tenth of the dodecahedron was sampled. The other nine tenths are copies under the symmetries that fix the starting vertex.</li>
         <li>Grey points are samples right on a boundary between two shapes, where the hull is degenerate.</li>
+        <li>Dashed outlines (toggle <b>H4 mirrors</b>) are the 15 mirrors of full H4 that cross the region. All pass through the centre: 5 vertical ones containing the main ring, halfway between the cross rings, and 10 tilted ones.</li>
         <li>Types marked <i>surface only</i> occur only on one of the special planes through the centre (the vertical planes through the main ring and a cross ring, and the horizontal cross-ring plane). They separate two volume types.</li>
       </ul>
     </div>
@@ -125,7 +127,8 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const SLOTS = ["--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--s7", "--s8"];
     const SYMBOLS = ["circle", "diamond", "square", "cross"];
-    const PLANES = { az0: "main ring + cross ring 1 plane", az36: "main ring + 36° plane", z0: "cross-ring plane" };
+    const PLANES = { az0: "main ring + cross ring 1 plane", az36: "main ring + 36° plane", z0: "cross-ring plane",
+      mirror_vertical: "vertical H4 mirror", mirror_tilt_a: "tilted H4 mirror (class a)", mirror_tilt_b: "tilted H4 mirror (class b)" };
     const volKeys = Object.keys(D.types).sort((a, b) => D.types[b].samples - D.types[a].samples);
     const ringKeys = Object.keys(D.ringTypes);
     const pointKeys = Object.keys(D.pointTypes);
@@ -151,13 +154,18 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       out.push({ type: "scatter3d", mode: "lines", x: ex, y: ey, z: ez, name: "Dodecahedron (region boundary)", line: { color: faint, width: 2 }, hoverinfo: "skip" });
       const showVol = document.getElementById("showVolume").checked;
       const showRings = document.getElementById("showRings").checked;
+      if (document.getElementById("showMirrors").checked) {
+        const mx = [], my = [], mz = [];
+        for (const poly of D.mirrors || []) { for (const q of poly) { mx.push(q[0]); my.push(q[1]); mz.push(q[2]); } mx.push(null); my.push(null); mz.push(null); }
+        out.push({ type: "scatter3d", mode: "lines", x: mx, y: my, z: mz, name: "H4 mirrors", line: { color: css("--muted"), width: 2, dash: "dash" }, hoverinfo: "name" });
+      }
       if (showVol) {
         volKeys.forEach((k, i) => {
           const pts = (D.volume[k] || []).filter(keep); const st = volStyle(i);
           out.push({ type: "scatter3d", mode: "markers", name: `${k}: ${D.types[k].name}`, legendgroup: k,
             x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => p[3]),
             marker: { size: axis === "none" ? 2.2 : 4, color: st.color, symbol: st.symbol, opacity: axis === "none" ? (state.only ? 0.9 : 0.4) : 0.9 },
-            hovertemplate: `<b>${k}</b> · 1200 vertices<br>(%{x:.3f}, %{y:.3f}, %{z:.3f})<br>seed %{customdata}<extra></extra>`,
+            hovertemplate: `<b>${k}</b> · ${D.types[k].vertices} vertices<br>(%{x:.3f}, %{y:.3f}, %{z:.3f})<br>seed %{customdata}<extra></extra>`,
             visible: state.only && state.only !== k ? "legendonly" : true });
         });
         const b = (D.volume.boundary || []).filter(keep);
@@ -180,7 +188,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           const pts = D.points.filter((p) => p.id === k);
           out.push({ type: "scatter3d", mode: "markers", name: `Point: ${D.pointTypes[k].name} (${D.pointTypes[k].vertices})`, legendgroup: k,
             x: pts.map((p) => p.q[0]), y: pts.map((p) => p.q[1]), z: pts.map((p) => p.q[2]), customdata: pts.map((p) => p.seed),
-            marker: { size: 7, color: css(SLOTS[(i + 2) % 8]), symbol: ["diamond", "square", "circle", "diamond-open", "square-open", "circle-open"][i % 6], line: { color: ink, width: 1.5 } },
+            marker: { size: 7, color: css(SLOTS[(i + 2) % 8]), symbol: ["diamond", "square", "circle", "diamond-open", "square-open", "circle-open", "cross", "x", "diamond"][i % 9], line: { color: ink, width: 1.5 } },
             hovertemplate: `<b>${D.pointTypes[k].name}</b><br>seed %{customdata}<extra></extra>`, visible: state.only && state.only !== k ? "legendonly" : true });
         });
       }
@@ -212,7 +220,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     }
     volKeys.forEach((k, i) => {
       const t = D.types[k];
-      rows.push(`<tr class="clickable" data-k="${k}"><td>${swatch(css(SLOTS[i % 8]), SYMBOLS[Math.floor(i / 8) % 4])}<b>${k}</b></td><td class="num">1200</td>
+      rows.push(`<tr class="clickable" data-k="${k}"><td>${swatch(css(SLOTS[i % 8]), SYMBOLS[Math.floor(i / 8) % 4])}<b>${k}</b></td><td class="num">${t.vertices}</td>
         <td>${t.name} ${t.listed ? '<span class="tag">in wiki list</span>' : '<span class="tag new">not in list</span>'}</td>
         <td class="counts">cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink)">example seed ${t.example}</span></td><td class="num">${t.volumeSamples ? `${t.volumeSamples} in volume` : `<span class="tag">surface only</span>`}${t.planes.length ? `<br>${t.samples - t.volumeSamples} on ${t.planes.map((x) => PLANES[x]).join(", ")}` : ""}</td></tr>`);
     });
@@ -232,7 +240,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       render();
     }));
 
-    ["slabAxis", "slab", "showVolume", "showRings"].forEach((id) => document.getElementById(id).addEventListener("input", () => {
+    ["slabAxis", "slab", "showVolume", "showRings", "showMirrors"].forEach((id) => document.getElementById(id).addEventListener("input", () => {
       document.getElementById("slabVal").textContent = Number(document.getElementById("slab").value).toFixed(2); render();
     }));
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);

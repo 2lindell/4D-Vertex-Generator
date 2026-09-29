@@ -45,6 +45,9 @@ POINT_TYPES = {
     "psdr": ("600", "Swirlprismatodiminished rectified hexacosichoron"),
     "icosafold": ("600", "Subsymmetrical icosafold icosidodecaswirlchoron"),
     "bigyro": ("600", "Bigyroprismatic transitional didecafold icosidodecaswirlchoron"),
+    "btt600": ("1200", "Bi-hecatonicosadiminished truncated hexacosichoron (uniform truncation point on a 600-cell edge)"),
+    "sdt120a": ("1200", "Truncated-120-cell half with 120+600+600 cells (one of these two is the swirlprismatodiminished truncated hecatonicosachoron)"),
+    "sdt120b": ("1200", "Truncated-120-cell half with 120+120 cells (the other half)"),
 }
 
 
@@ -55,6 +58,42 @@ def seed_text(q: list[float]) -> str:
     return ",".join(f"{c:.7f}" for c in p)
 
 
+def mirror_outlines(edges: list) -> list[list[list[float]]]:
+    """Each H4 mirror crossing the cell, cut to the dodecahedron, as a closed polygon."""
+    import os
+    if not os.path.exists("mirrors.json"):
+        return []
+    out = []
+    for m in json.load(open("mirrors.json")):
+        n, c = np.array(m["n"]), m["c"]
+        pts = []
+        for a, b in edges:
+            a, b = np.array(a), np.array(b)
+            da, db = n @ a - c, n @ b - c
+            if da * db < 0:
+                pts.append(a + (b - a) * (da / (da - db)))
+            elif abs(da) < 1e-9:
+                pts.append(a)
+        uniq = []
+        for p in pts:
+            if not any(np.allclose(p, q, atol=1e-7) for q in uniq):
+                uniq.append(p)
+        if len(uniq) < 3:
+            continue
+        centre = np.mean(uniq, axis=0)
+        u = uniq[0] - centre
+        u /= np.linalg.norm(u)
+        v = np.cross(n, u)
+        uniq.sort(key=lambda p: np.arctan2((p - centre) @ v, (p - centre) @ u))
+        out.append([[round(float(c), 6) for c in p] for p in uniq + [uniq[0]]])
+    return out
+
+
+def named_points() -> list[dict]:
+    import os
+    return json.load(open("named_points.json")) if os.path.exists("named_points.json") else []
+
+
 def example_seed(qs: list[list[float]]) -> str:
     """Seed of the sample nearest the middle of a type's samples."""
     pts = np.array(qs)
@@ -62,9 +101,9 @@ def example_seed(qs: list[list[float]]) -> str:
     return seed_text(list(pts[int(np.argmin(np.linalg.norm(pts - centre, axis=1)))]))
 
 
-def main(survey_path: str, out_path: str, planes_path: str | None = None) -> None:
+def main(survey_path: str, out_path: str, *extra_paths: str) -> None:
     survey = json.load(open(survey_path))
-    planes = json.load(open(planes_path)) if planes_path else []
+    planes = [r for path in extra_paths for r in json.load(open(path))]
     for r in planes:
         r["plane"] = r.get("plane", "plane")
     survey = survey + planes
@@ -127,9 +166,10 @@ def main(survey_path: str, out_path: str, planes_path: str | None = None) -> Non
         "rings": rings,
         "ringTypes": {k: {"vertices": v[0], "name": v[1]} for k, v in RING_TYPES.items()},
         "main": lines["main"],
-        "points": [{**p, "seed": seed_text(p["q"])} for p in lines["points"]],
+        "points": [{**p, "seed": seed_text(p["q"])} for p in lines["points"] + named_points()],
         "pointTypes": {k: {"vertices": v[0], "name": v[1]} for k, v in POINT_TYPES.items()},
         "cellEdges": cell_edges(),
+        "mirrors": mirror_outlines(cell_edges()),
         "boundarySamples": sum(1 for s in sig_of if s.startswith("ERR")),
         "totalSamples": len(survey),
     }
@@ -144,4 +184,4 @@ def main(survey_path: str, out_path: str, planes_path: str | None = None) -> Non
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
+    main(sys.argv[1], sys.argv[2], *sys.argv[3:])
