@@ -63,7 +63,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
   <header style="display:grid;gap:6px">
     <span class="eyebrow">h4_swirlprism · H3●I2(10) · order 1200</span>
     <h1>Swirlprism cell atlas</h1>
-    <p class="lede">The symmetry moves every 600-cell tetrahedron onto every other, and each one is fixed only by a half-turn, so half of one tetrahedron is exactly one copy of every seed. This view shows one cell as a regular tetrahedron. The front half (β₁ ≥ β₂) is the fundamental domain; points are seeds whose barycentric weights are golden integers a + bφ, including every uniform H4 polytope's seed.</p>
+    <p class="lede">The symmetry moves every 600-cell tetrahedron onto every other, and each one is fixed only by a half-turn, so half of one tetrahedron is exactly one copy of every seed. This view shows one cell as a regular tetrahedron. The main ring runs vertically along the edge V₃V₄, and the H4 mirror β₃ = β₄ (the horizontal plane) splits the cell into two halves swapped by the half-turn. The upper half is the fundamental domain; points are seeds whose barycentric weights are golden integers a + bφ, including every uniform H4 polytope's seed.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -73,7 +73,11 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <select id="slabAxis"><option value="none">show everything</option><option value="z">horizontal slice (z)</option><option value="x">vertical slice (x)</option></select>
       </label>
       <label for="slab">position <input id="slab" type="range" min="-0.42" max="0.42" step="0.01" value="0"> <span id="slabVal" class="chip">0.00</span></label>
+      <label for="quarter">Show
+        <select id="quarter"><option value="all">the whole upper half</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option></select>
+      </label>
       <label><input id="showVolume" type="checkbox" checked> golden samples</label>
+      <label><input id="showTlines" type="checkbox" checked> transitional T1/T2</label>
       <label><input id="showRings" type="checkbox" checked> rings and points</label>
       <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
     </div>
@@ -93,8 +97,10 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       <ul>
         <li>The tetrahedron is one cell of the 600-cell in gnomonic projection, so great circles are straight lines and H4 mirrors are planes. Its corners are 600-cell vertices; the centre is a 120-cell vertex.</li>
         <li>A point's barycentric weights β = (β₁, β₂, β₃, β₄) give the seed β₁V₁ + β₂V₂ + β₃V₃ + β₄V₄, normalised, where V₁…V₄ are the cell's corners.</li>
-        <li>The cell's half-turn swaps V₁↔V₂ and V₃↔V₄ (a rotation about the horizontal axis through two edge midpoints). The plane β₁ = β₂ splits the cell into two equivalent halves; seeds in the back half repeat seeds in the front half.</li>
-        <li>Dashed triangles are the cell's 6 H4 mirrors (βᵢ = βⱼ). Together with the cell's faces they cut it into the 24 H4 chambers, so every uniform polytope's seed lies at a chamber corner or on a chamber edge or face.</li>
+        <li>The cell's half-turn swaps V₁↔V₂ and V₃↔V₄ (a rotation about the horizontal axis through the midpoints of V₁V₂ and V₃V₄). The horizontal mirror β₃ = β₄ splits the cell into two halves it swaps, so only the upper half is shown: seeds in the lower half repeat it exactly.</li>
+        <li>The upper half cannot be cut down further. The vertical mirror β₁ = β₂ does not preserve the swirlprism symmetry, and the two quarters it separates have different shapes (only 27 of 64 types always mirror to the same partner). Use <b>Show</b> to look at one quarter at a time.</li>
+        <li>The transitional shapes are drawn lighter than the rings. T1 (thin pink lines) lies on lines where a cell face meets a mirror: straight runs of golden T1 samples, kept only where the golden midpoints between them are T1 too. T2 (thin red outlines, faint fill) is mostly flat patches inside H4 mirrors and cell faces; each outline is the convex hull of the T2 samples in that plane, so it can overstate a patch that is not convex. The few T2 samples off every mirror are shown as points.</li>
+        <li>Translucent planes are the cell's other H4 mirrors (βᵢ = βⱼ), clipped to the upper half. Together with the cell's faces they cut it into the 24 H4 chambers, so every uniform polytope's seed lies at a chamber corner or on a chamber edge or face.</li>
         <li>Coloured lines are the cross rings (600 vertices) and main rings (240) that pass through the cell.</li>
         <li>Uniform points (large markers) are labelled with the uniform polytope and, on hover, with the shape their piece gives under this symmetry.</li>
       </ul>
@@ -145,7 +151,9 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       const ink = css("--ink"), faint = css("--faint"), panel = css("--panel");
       const axis = document.getElementById("slabAxis").value;
       const pos = Number(document.getElementById("slab").value);
-      const keep = (q) => axis === "none" || Math.abs(q[axis === "z" ? 2 : 0] - pos) <= 0.011;
+      const quarter = document.getElementById("quarter").value;
+      const inQuarter = (q) => quarter === "all" || (quarter === "front" ? q[1] >= -1e-9 : q[1] <= 1e-9);
+      const keep = (q) => inQuarter(q) && (axis === "none" || Math.abs(q[axis === "z" ? 2 : 0] - pos) <= 0.011);
       // cell outline and the half-cell split
       const ex = [], ey = [], ez = [];
       for (const [a, b] of D.cellEdges) { ex.push(a[0], b[0], null); ey.push(a[1], b[1], null); ez.push(a[2], b[2], null); }
@@ -155,7 +163,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       if (D.split) {
         const t = D.split;
         out.push({ type: "mesh3d", x: t.map((p) => p[0]), y: t.map((p) => p[1]), z: t.map((p) => p[2]), i: [0], j: [1], k: [2],
-          color: css("--ink"), opacity: 0.13, name: "Half-cell split (β₁ = β₂)", hoverinfo: "name", showscale: false });
+          color: css("--ink"), opacity: 0.13, name: "Half-cell split (β₃ = β₄)", hoverinfo: "name", showscale: false });
       }
       if (document.getElementById("showMirrors").checked) {
         for (const tri of D.mirrors || []) {
@@ -179,6 +187,22 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         if (b.length) out.push({ type: "scatter3d", mode: "markers", name: "Boundary samples", x: b.map((p) => p[0]), y: b.map((p) => p[1]), z: b.map((p) => p[2]), customdata: b.map((p) => p[3]),
           marker: { size: 2.4, color: faint }, hovertemplate: "boundary sample<br>seed %{customdata}<extra></extra>", visible: state.only ? "legendonly" : true });
       }
+      if (document.getElementById("showTlines").checked) {
+        for (const pt of D.tpatches || []) {
+          const n = pt.pts.length - 1;
+          out.push({ type: "mesh3d", x: pt.pts.slice(0, n).map((p) => p[0]), y: pt.pts.slice(0, n).map((p) => p[1]), z: pt.pts.slice(0, n).map((p) => p[2]),
+            i: Array.from({ length: n - 2 }, () => 0), j: Array.from({ length: n - 2 }, (_, k) => k + 1), k: Array.from({ length: n - 2 }, (_, k) => k + 2),
+            color: css("--s8"), opacity: 0.12, name: `T2 on ${pt.plane} (${pt.samples} samples)`, hoverinfo: "name", showscale: false });
+          out.push({ type: "scatter3d", mode: "lines", x: pt.pts.map((p) => p[0]), y: pt.pts.map((p) => p[1]), z: pt.pts.map((p) => p[2]),
+            name: `T2 on ${pt.plane}`, line: { color: css("--s8"), width: 2 }, hoverinfo: "name" });
+        }
+        for (const [t, slot] of [["T1", "--s5"]]) {
+          const tx = [], ty = [], tz = [];
+          for (const L of (D.tlines || []).filter((L) => L.id === t)) { for (const q of L.pts) { tx.push(q[0]); ty.push(q[1]); tz.push(q[2]); } tx.push(null); ty.push(null); tz.push(null); }
+          if (tx.length) out.push({ type: "scatter3d", mode: "lines", x: tx, y: ty, z: tz, name: `${t} transitional line`,
+            line: { color: css(slot), width: 2.5 }, opacity: 0.9, hoverinfo: "name" });
+        }
+      }
       if (showRings) {
         // main ring through the centre
         const mx = [], my = [], mz = [];
@@ -199,7 +223,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
             line: { color: css(SLOTS[(i2 + 2) % 8]), width: 5 }, hoverinfo: "name", visible: state.only && state.only !== "T2" ? "legendonly" : true });
         }
         pointKeys.forEach((k, i) => {
-          const pts = D.points.filter((p) => p.id === k);
+          const pts = D.points.filter((p) => p.id === k && inQuarter(p.q));
           out.push({ type: "scatter3d", mode: "markers", name: `Point: ${D.pointTypes[k].name} (${D.pointTypes[k].vertices})`, legendgroup: k,
             x: pts.map((p) => p.q[0]), y: pts.map((p) => p.q[1]), z: pts.map((p) => p.q[2]), customdata: pts.map((p) => p.seed),
             marker: { size: 7, color: css(SLOTS[(i + 2) % 8]), symbol: ["diamond", "square", "circle", "diamond-open", "square-open", "circle-open", "cross", "x", "diamond", "square", "circle"][i % 11], line: { color: ink, width: 1.5 } },
@@ -214,8 +238,8 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       const ax = (t) => ({ title: { text: t, font: { color: muted, size: 11 } }, color: muted, gridcolor: rule, zerolinecolor: rule, showbackground: false, range: [-0.43, 0.43] });
       return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: ink, size: 12 },
         margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false,
-        scene: { aspectmode: "cube", xaxis: { ...ax(""), visible: false }, yaxis: { ...ax(""), visible: false }, zaxis: { ...ax(""), visible: false },
-          camera: { eye: { x: 1.05, y: -1.75, z: 0.55 } } },
+        scene: { aspectmode: "manual", aspectratio: { x: 0.5 / 0.7, y: 1, z: 0.36 / 0.7 }, xaxis: { ...ax(""), visible: false, range: [-0.25, 0.25] }, yaxis: { ...ax(""), visible: false, range: [-0.35, 0.35] }, zaxis: { ...ax(""), visible: false, range: [-0.01, 0.35] },
+          camera: { eye: { x: 1.15, y: -0.95, z: 0.55 }, up: { x: 0, y: 0, z: 1 } } },
         uirevision: "keep" };
     }
 
@@ -254,7 +278,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       render();
     }));
 
-    ["slabAxis", "slab", "showVolume", "showRings", "showMirrors"].forEach((id) => document.getElementById(id).addEventListener("input", () => {
+    ["slabAxis", "slab", "showVolume", "showRings", "showMirrors", "quarter", "showTlines"].forEach((id) => document.getElementById(id).addEventListener("input", () => {
       document.getElementById("slabVal").textContent = Number(document.getElementById("slab").value).toFixed(2); render();
     }));
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);

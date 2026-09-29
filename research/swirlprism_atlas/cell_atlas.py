@@ -12,8 +12,31 @@ from cellframe import TINV, golden_form, seed_from_beta
 from four_d_vertex_generator.generation import group_elements
 from four_d_vertex_generator.library import named_symmetry
 
-# display: the cell as a regular tetrahedron; the half-turn (1<->2, 3<->4) is the rotation about x
-P = 0.36 * np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]], float)
+# display: the cell as a regular tetrahedron with the main-ring edge V3V4 vertical (x = -D) and the
+# opposite edge V1V2 horizontal along y (x = +D). The half-turn (1<->2, 3<->4) is the rotation about
+# x, and the splitting mirror beta3 = beta4 is the horizontal plane z = 0.
+_s = 0.34
+_d = _s / np.sqrt(2)
+P = np.array([[_d, _s, 0.0], [_d, -_s, 0.0], [-_d, 0.0, _s], [-_d, 0.0, -_s]])
+
+
+def to_upper(beta):
+    """Move a seed into the displayed half-cell (beta3 >= beta4) with the exact half-turn."""
+    b = np.asarray(beta, float)
+    return b[[1, 0, 3, 2]] if b[2] < b[3] - 1e-12 else b
+
+
+def clip_upper(poly):
+    """Clip a convex polygon (list of 3D points) to z >= 0."""
+    out = []
+    for i in range(len(poly)):
+        a, b = np.array(poly[i]), np.array(poly[(i + 1) % len(poly)])
+        if a[2] >= -1e-12:
+            out.append(a)
+        if (a[2] >= -1e-12) != (b[2] >= -1e-12):
+            t = a[2] / (a[2] - b[2])
+            out.append(a + t * (b - a))
+    return [np.round(x, 6).tolist() for x in out]
 FULL = named_symmetry("h4_swirlprism")
 ELEMENTS = group_elements(FULL)
 
@@ -46,6 +69,54 @@ def seed_text(beta):
     return ",".join(f"{c:.7f}" for c in seed_from_beta(beta))
 
 
+def _split_upper(pts):
+    """Break a polyline into the pieces with z >= 0."""
+    runs, cur = [], []
+    for p in pts:
+        if p[2] >= -1e-9:
+            cur.append(p)
+        else:
+            if len(cur) >= 2:
+                runs.append(cur)
+            cur = []
+    if len(cur) >= 2:
+        runs.append(cur)
+    return runs
+
+
+def transitional_patches(samples, name_of, ids, t="T2"):
+    """Outline of the transitional samples lying in each mirror or cell face (convex hull within the plane)."""
+    import itertools
+
+    from scipy.spatial import ConvexHull
+    B = [np.array(s["beta"]) / sum(s["beta"]) for s in samples if ids[name_of(s["sig"])[0]] == t]
+    planes = [(f"β{i + 1} = β{j + 1}", lambda b, i=i, j=j: abs(b[i] - b[j]) < 1e-9) for i, j in itertools.combinations(range(4), 2)]
+    planes += [(f"β{i + 1} = 0", lambda b, i=i: b[i] < 1e-9) for i in range(4)]
+    out = []
+    for label, on in planes:
+        X = np.array([xyz(b) for b in B if on(b)])
+        if len(X) < 3:
+            continue
+        c = X.mean(0)
+        _, sv, vt = np.linalg.svd(X - c)
+        if sv[1] < 1e-9:
+            continue
+        uv = (X - c) @ vt[:2].T
+        hull = ConvexHull(uv)
+        poly = [np.round(X[k], 6).tolist() for k in hull.vertices]
+        out.append({"id": t, "plane": label, "samples": int(len(X)), "pts": poly + [poly[0]]})
+    print("transitional patches:", [(p["plane"], p["samples"]) for p in out], flush=True)
+    return out
+
+
+def load_tlines(path="tlines.json"):
+    """Verified transitional segments from tlines.py, in display coordinates."""
+    import os
+    if not os.path.exists(path):
+        return []
+    return [{"id": L["id"], "pts": [np.round(xyz(to_upper(b)), 6).tolist() for b in L["beta"]]} for L in json.load(open(path))]
+
+
 def fixed_circles(order):
     planes = []
     for e in ELEMENTS:
@@ -75,6 +146,8 @@ def clip_circle(F, samples=4000):
 def main(samples_path, out_path):
     refs = json.load(open("references.json"))
     samples = json.load(open(samples_path))
+    for smp in samples:
+        smp["beta"] = to_upper(smp["beta"]).tolist()
     uniform = json.load(open("uniform_in_cell.json"))
     old = {}
     html = open("atlas.html").read()
@@ -144,8 +217,14 @@ def main(samples_path, out_path):
     # uniform points: label with the uniform polytope and the type of that piece
     by_beta = {tuple(np.round(s["beta"], 9)): s for s in samples}
     points, point_types = [], {}
+    seen_u = []
     for u in uniform:
-        s = by_beta.get(tuple(np.round(np.array(u["beta"]) / sum(u["beta"]), 9)))
+        u = {**u, "beta": to_upper(u["beta"]).tolist()}
+        key = tuple(np.round(np.array(u["beta"]) / sum(u["beta"]), 9))
+        if key in seen_u:
+            continue
+        seen_u.append(key)
+        s = by_beta.get(key)
         tname = ids[name_of(s["sig"])[0]] if s else "?"
         pid = u["uniform"]
         point_types[pid] = {"vertices": "", "name": f"Uniform {u['uniform']} ({u['rings']})"}
@@ -171,18 +250,33 @@ def main(samples_path, out_path):
         if run is not None:
             rings.append(run)
     rings = [r for r in rings if len(r["pts"]) >= 2]
+    rings = [{"id": r["id"], "pts": pts} for r in rings for pts in _split_upper(r["pts"])]
     main_segs = [[np.round(xyz(b), 6).tolist() for _, b in clip_circle(F)] for F in fixed_circles(5)]
-    main_segs = [s for s in main_segs if len(s) > 1]
+    main_segs = [p for s in main_segs if len(s) > 1 for p in _split_upper(s)]
 
-    edges = [[P[i].tolist(), P[j].tolist()] for i in range(4) for j in range(i + 1, 4)]
-    mid12 = ((P[0] + P[1]) / 2).tolist()
-    half_split = [[P[2].tolist(), P[3].tolist()], [P[2].tolist(), mid12], [P[3].tolist(), mid12]]
+    edges = []
+    for i in range(4):
+        for j in range(i + 1, 4):
+            a, c = P[i], P[j]
+            if a[2] < -1e-12 and c[2] < -1e-12:
+                continue
+            if a[2] < -1e-12 or c[2] < -1e-12:                      # keep the part with z >= 0
+                lo, hi = (a, c) if a[2] < c[2] else (c, a)
+                a, c = lo + (hi - lo) * (-lo[2] / (hi[2] - lo[2])), hi
+            edges.append([np.round(a, 6).tolist(), np.round(c, 6).tolist()])
+    mid34 = ((P[2] + P[3]) / 2).tolist()
+    split = [P[0].tolist(), P[1].tolist(), mid34]              # the mirror beta3 = beta4, i.e. z = 0
+    half_split = [[P[0].tolist(), P[1].tolist()], [P[0].tolist(), mid34], [P[1].tolist(), mid34]]
     mirrors = []
     for i in range(4):
         for j in range(i + 1, 4):
+            if {i, j} == {2, 3}:
+                continue                                          # that one is the split itself
             k, m = [x for x in range(4) if x not in (i, j)]
             mid = ((P[i] + P[j]) / 2).tolist()
-            mirrors.append([P[k].tolist(), P[m].tolist(), mid, P[k].tolist()])
+            poly = clip_upper([P[k].tolist(), P[m].tolist(), mid])
+            if len(poly) >= 3:
+                mirrors.append(poly + [poly[0]])
 
     ring_types = {
         "r600e": "Cross ring: 120+600+600+600+1200 cells (1200 3-valent edges)",
@@ -196,7 +290,7 @@ def main(samples_path, out_path):
         "types": out_types, "volume": volume, "rings": rings, "main": main_segs,
         "ringTypes": {k: {"vertices": "600", "name": v} for k, v in ring_types.items()},
         "points": points, "pointTypes": point_types, "mirrors": mirrors, "curves": [],
-        "cellEdges": edges + half_split, "split": [P[2].tolist(), P[3].tolist(), mid12], "boundarySamples": len(members.get("boundary", [])),
+        "cellEdges": edges + half_split, "split": split, "tlines": [L for L in load_tlines() if L["id"] == "T1"], "tpatches": transitional_patches(samples, name_of, ids), "boundarySamples": len(members.get("boundary", [])),
         "totalSamples": len(samples),
     }
     template = open("cell_atlas_template.html").read()

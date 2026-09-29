@@ -183,3 +183,20 @@ python golden_survey.py 2 2 golden_22.json
 python references.py
 python cell_atlas.py golden_22.json cell_atlas.html
 ```
+
+### Display and findings (cell atlas v2)
+
+- The displayed half is now split by the horizontal mirror beta3 = beta4
+  (the perpendicular bisector of the main-ring edge V3V4, which runs
+  vertically). Samples from the other half are moved in by the half-turn.
+- The half-cell cannot be reduced to a quarter: the mirror beta1 = beta2 does
+  not preserve h4_swirlprism, 1616 of 2544 mirrored golden pairs change type,
+  only 27 of 64 types always mirror to the same partner, and each quarter has
+  types the other lacks (27 and 18). The atlas has a quarter selector.
+- T1 lies on lines where a cell face meets a mirror (all 32 samples); `tlines.py`
+  finds them as collinear golden runs verified at golden midpoints.
+- T2 is mostly flat patches inside H4 mirrors and cell faces (96 samples on
+  beta1 = beta3, 48 on beta4 = 0, 36 on beta1 = beta2, ...; 13 off every
+  mirror). The atlas outlines each patch as the convex hull of its samples.
+- W1 and W4 are mirror/face surface types too (W1: 244 of 291 samples on
+  beta1 = beta2; W4: 108 each on beta1 = 0 and beta2 = 0).
