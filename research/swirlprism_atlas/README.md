@@ -210,17 +210,28 @@ numbers follow the wiki list's order within each letter.
 | --- | --- | --- | --- |
 | A | 120 | named | A1 hexacosichoron (600-cell) |
 | B | 240 | named | B1 icosafold icosaswirlchoron |
-| C | 600 | named | C1 hecatonicosachoron (120-cell), C2 icosafold icosidodecaswirlchoron, C3 pentagonal-gyroprismatic triacosihexecontachoron, C4 bigyroprismatic transitional didecafold icosidodecaswirlchoron, C5 partially-rectified small swirlprism, C6 swirlprismatodiminished rectified hexacosichoron |
+| C | 600 | named | C1 hecatonicosachoron (120-cell), C2a/C2b subsymmetrical icosafold icosidodecaswirlchoron (see below), C3 pentagonal-gyroprismatic triacosihexecontachoron, C4 bigyroprismatic transitional didecafold icosidodecaswirlchoron, C5 partially-rectified small swirlprism, C6 swirlprismatodiminished rectified hexacosichoron |
 | D | 600 | unnamed | D1–D3 |
 | E | 1200 | named | E1 bi-hecatonicosadiminished truncated hexacosichoron, E2 swirlprismatodiminished truncated hecatonicosachoron |
 | F | 1200 | unnamed | F1–F5 (the first atlases' W1–W5) |
 | T | 1200 | transitional | T1, T2 |
-| Y | 600 | not in the wiki list | Y1… |
+| Y | 600 | not in the wiki list | none left (the old Y1/Y2 are C2a/C2b) |
 | X | 1200 | not in the wiki list | X1… (by number of cell classes, then total cells) |
+
+C2 is split into its two cross-ring ranges, told apart by their class counts:
+C2a is the range around the icosafold point at ½·arctan φ ≈ 29.14°
+(cells 120+120+1200, faces 240+600+600+1200+1200), and C2b is the range around
+45° + ½·arctan φ ≈ 74.14° (cells 240+600+600, faces 120+120+1200+1200+1200).
+The exact icosafold points are not golden; they are drawn as ✕ markers in the
+colour of their range and have the same counts as it.
+
+The splitting mirror β3 = β4 is folded onto itself by the cell's half-turn
+(β1 <-> β2). Seeds on it are stored once, and the atlas also draws each one's
+half-turn copy, so both mirror edges from V1 and V2 show their uniform points.
 
 Unlisted types are told apart by edge valences as well as class counts.
 Uniform seeds are labelled by the isogonal they produce; the uniform polytope
-is named only for X/Y pieces. Marker shape encodes the vertex count, colour is
+is named only for X pieces. Marker shape encodes the vertex count, colour is
 unique within each vertex count, unlisted shapes are grey. The picture is
 drawn upside down (z -> -z) so the splitting mirror is on top.
 

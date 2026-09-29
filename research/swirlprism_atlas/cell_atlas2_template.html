@@ -6,7 +6,7 @@
 /* Layout: plot with its controls first, then the key grouped in the wiki's order, then notes. */
 :root {
   --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4; --faint: #aab1bc; --x: #9aa1ab;
-  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948; --s9: #0f93b0;
   --mirror: #4a3aa7;
   --font-text: "Spline Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-data: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -14,13 +14,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e;
-    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2;
     --mirror: #9085e9; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e;
-  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2;
   --mirror: #9085e9; color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -48,6 +48,7 @@ th { font-weight: 600; color: var(--muted); font-size: 0.78rem; letter-spacing: 
 tr.group td { border-top: none; padding-top: 18px; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); }
 td.id { white-space: nowrap; font-weight: 600; }
+td.counts .exact { margin-top: 0.4rem; } td.counts .xmark { font-weight: 700; }
 td.counts { font-family: var(--font-data); font-size: 0.76rem; color: var(--muted); word-break: break-word; min-width: 15rem; }
 td.where { color: var(--muted); font-size: 0.82rem; }
 tr.row { cursor: pointer; }
@@ -64,7 +65,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
   <header style="display:grid;gap:6px">
     <span class="eyebrow">h4_swirlprism · H3●I2(10) · order 1200</span>
     <h1>Swirlprism cell atlas</h1>
-    <p class="lede">One tetrahedral cell of the 600-cell, split by the horizontal H4 mirror β₃ = β₄ (the shaded plane on top). The half below it holds exactly one copy of every seed. Points are seeds with golden-integer barycentric weights and every uniform H4 seed; each is coloured by the isogonal polychoron it produces. Shapes in the wiki's list are numbered in the wiki's own order.</p>
+    <p class="lede">One tetrahedral cell of the 600-cell, split by the horizontal H4 mirror β₃ = β₄ (the shaded plane on top). The half below it holds one copy of every seed; seeds in the splitting mirror are also drawn at their half-turn copy there. Points are seeds with golden-integer barycentric weights and every uniform H4 seed; each is coloured by the isogonal polychoron it produces. Shapes in the wiki's list are numbered in the wiki's own order.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -98,6 +99,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200), numbered by how many classes of cells they have.</li>
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
         <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
+        <li>✕ marks the exact icosafold points of C2a and C2b, drawn in the colour of the cross-ring range around them. They are not golden points.</li>
         <li>Rings take the colour of the shape each stretch produces. T1 (thin lines) lies where a cell face meets a mirror; T2 (thin outlines, faint fill) is flat patches in mirrors and faces, outlined as the convex hull of its samples.</li>
       </ul>
     </div>
@@ -185,8 +187,12 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${p[3]}`),
           marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: t.listed ? 0.9 : 0.55 },
           hovertemplate: "%{customdata}<extra></extra>" });
-        const big = [...D.uniform, ...D.special].filter((u) => u.id === t.id && inQ(u.q));
-        if (big.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (uniform or exact point)`,
+        const exact = D.special.filter((u) => u.id === t.id && inQ(u.q));
+        if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact icosafold point)`,
+          x: exact.map((u) => u.q[0]), y: exact.map((u) => u.q[1]), z: exact.map((u) => u.q[2]), customdata: exact.map((u) => u.hover),
+          marker: { size: 9, color: color(t), symbol: "cross", line: { color: color(t), width: 3 } }, hovertemplate: "%{customdata}<extra></extra>" });
+        const big = D.uniform.filter((u) => u.id === t.id && inQ(u.q));
+        if (big.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (uniform seed)`,
           x: big.map((u) => u.q[0]), y: big.map((u) => u.q[1]), z: big.map((u) => u.q[2]), customdata: big.map((u) => u.hover),
           marker: { size: 8, color: color(t), symbol: t.symbol, line: { color: ink, width: 2 } }, hovertemplate: "%{customdata}<extra></extra>" });
       }
@@ -231,7 +237,8 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       if (!D.types.some(test)) continue;
       html += `<tr class="group"><td colspan="6"><h3>${title}</h3></td></tr>`;
       for (const t of D.types.filter(test)) {
-        const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink);overflow-wrap:anywhere">${t.example}</span>` : "";
+        let counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br><span style="color:var(--ink);overflow-wrap:anywhere">${t.example}</span>` : "";
+        if (t.exact) counts += `<div class="exact"><span class="xmark" style="color:${color(t)}">✕</span> exact point at ${t.exact.angle}°: cells ${t.exact.cells}<br>faces ${t.exact.faces}<br>edges ${t.exact.edges}</div>`;
         html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
           + `<td class="counts">${counts}</td><td class="where">${t.where || (t.samples ? "golden samples" : "not found yet")}</td><td class="num">${t.samples || ""}</td></tr>`;
       }

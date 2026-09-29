@@ -1,4 +1,4 @@
-"""Half-cell atlas with wiki-ordered labels: N (named), W (unnamed), T (transitional), X (not listed)."""
+"""Half-cell atlas with wiki-ordered labels: one letter per vertex count and named/unnamed (see README)."""
 from __future__ import annotations
 
 import itertools
@@ -22,6 +22,7 @@ from cell_atlas import (
     xyz,
 )
 from cellframe import TINV, snap_golden
+from classify import classify, signature
 
 from four_d_vertex_generator.generation import group_elements
 from four_d_vertex_generator.library import named_symmetry
@@ -30,12 +31,14 @@ from four_d_vertex_generator.library import named_symmetry
 #   ("ref", name in references.json) - exact signature including edge valences
 #   ("wiki", key in catalog.py)      - class counts of an unnamed wiki entry
 #   ("counts", counts key)           - class counts of a named 1200-vertex entry
-#   ("special", None)                - only at exact non-golden points (placed separately)
+# C2 is the cross-ring range around each icosafold point (two ranges, told apart by their counts);
+# the exact icosafold points themselves are not golden and are placed separately.
 CANON = [
     ("A1", "Hexacosichoron (600-cell)", ("ref", "Hexacosichoron (600-cell)")),
     ("C1", "Hecatonicosachoron (120-cell)", ("ref", "Hecatonicosachoron (120-cell)")),
     ("B1", "Icosafold icosaswirlchoron", ("ref", "Icosafold icosaswirlchoron (main ring, 240)")),
-    ("C2", "Subsymmetrical icosafold icosidodecaswirlchoron", ("special", None)),
+    ("C2a", "Subsymmetrical icosafold icosidodecaswirlchoron", ("ref", "Cross ring: antiprisms split 120+120 (not in the wiki list)")),
+    ("C2b", "Subsymmetrical icosafold icosidodecaswirlchoron", ("ref", "Cross ring: tetrahedra split 600+600 (not in the wiki list)")),
     ("C3", "Pentagonal-gyroprismatic triacosihexecontachoron", ("ref", "Cross ring: Pentagonal-gyroprismatic triacosihexecontachoron")),
     ("D1", "Polychoron with 120+120+1200 cells (600+1200 4-valent edges)", ("ref", "Cross ring: 120+120+1200 cells (600+1200 4-valent edges)")),
     ("D2", "Polychoron with 120+600+600+600+1200 cells (600 3-valent edges)", ("ref", "Cross ring: 120+600+600+600+1200 cells (600 3-valent edges)")),
@@ -54,7 +57,7 @@ CANON = [
     ("T2", "Transitional polychoron with 120+120+600+600+1200 cells", ("wiki", "T2")),
 ]
 OLD_WIKI_IDS = {  # previous labels -> current labels
-    "N1": "A1", "N2": "C1", "N3": "B1", "N4": "C2", "N5": "C3", "N6": "C4", "N7": "C5", "N8": "C6", "N9": "E1", "N10": "E2",
+    "N1": "A1", "N2": "C1", "N3": "B1", "N4": "C2a/C2b", "Y1": "C2a", "Y2": "C2b", "N5": "C3", "N6": "C4", "N7": "C5", "N8": "C6", "N9": "E1", "N10": "E2",
     "W1": "D1", "W2": "D2", "W3": "D3", "W4": "F1", "W5": "F2", "W6": "F3", "W7": "F4", "W8": "F5",
 }
 FIRST_WIKI_IDS = {"W1": "F1", "W2": "F2", "W3": "F3", "W4": "F4", "W5": "F5"}   # the labels used before that
@@ -76,13 +79,22 @@ RING_RANGE_TO_REF = {
 # share a region never share a style. Ring types (N3, N5, W1-W3) also all differ from each other.
 STYLE = {
     "A1": ("--ink", "square"), "B1": ("--s1", "square"),
-    "C1": ("--s7", "diamond"), "C2": ("--s2", "diamond"), "C3": ("--s3", "diamond"), "D1": ("--s4", "diamond"),
+    "C1": ("--s7", "diamond"), "C2a": ("--s2", "diamond"), "C2b": ("--s9", "diamond"), "C3": ("--s3", "diamond"), "D1": ("--s4", "diamond"),
     "D2": ("--s5", "diamond"), "D3": ("--s6", "diamond"), "C4": ("--s1", "diamond"), "C5": ("--s8", "diamond"),
     "C6": ("--ink", "diamond"),
     "F1": ("--s1", "circle"), "F2": ("--s2", "circle"), "F3": ("--s3", "circle"), "F4": ("--s4", "circle"),
     "F5": ("--s5", "circle"), "E1": ("--s6", "circle"), "E2": ("--s7", "circle"), "T2": ("--s8", "circle"),
     "T1": ("--ink", "circle"),
 }
+
+
+def fold_copies(beta):
+    """The splitting mirror beta3 = beta4 is folded onto itself by the cell's half-turn (beta1 <-> beta2):
+    a seed stored on it with beta1 != beta2 has an equivalent copy there that should also be drawn."""
+    b = np.asarray(beta, float)
+    if abs(b[2] - b[3]) < 1e-9 * b.sum() and abs(b[0] - b[1]) > 1e-9 * b.sum():
+        return [b[[1, 0, 2, 3]]]
+    return []
 
 
 def flip_vertical(data):
@@ -137,6 +149,11 @@ def main(samples_path, out_path):
             continue
         seen.add(key)
         uniform.append({"name": u["uniform"], "beta": b.tolist(), "sample": by_beta.get(key)})
+        for c in fold_copies(b):                                # its half-turn copy in the splitting mirror
+            ck = tuple(np.round(c / c.sum(), 9))
+            if ck not in seen:
+                seen.add(ck)
+                uniform.append({"name": u["uniform"], "beta": c.tolist(), "sample": by_beta.get(key)})
 
     # unlisted types: X-numbered by vertex count, then number of cell classes, then total cells
     xkeys = {}
@@ -194,8 +211,11 @@ def main(samples_path, out_path):
                       "example": f"{seed_text(s['beta'])}  β ∝ {beta_text(s['beta'])}", "counts": True})
         if key in uniform_keys:
             continue                                            # drawn once, as a uniform marker
-        samples_out.setdefault(s["id"], []).append(
-            [*np.round(xyz(s["beta"]), 6).tolist(), f"β ∝ {beta_text(s['beta'])}<br>seed {seed_text(s['beta'])}"])
+        for b in [np.array(s["beta"]), *fold_copies(s["beta"])]:
+            if tuple(np.round(b / b.sum(), 9)) in uniform_keys:
+                continue
+            samples_out.setdefault(s["id"], []).append(
+                [*np.round(xyz(b), 6).tolist(), f"β ∝ {beta_text(b)}<br>seed {seed_text(b)}"])
 
     def label(tid):
         t = tmap[tid]
@@ -211,24 +231,28 @@ def main(samples_path, out_path):
         uniform_out.append({"id": tid, "q": np.round(xyz(u["beta"]), 6).tolist(),
                             "hover": f"{text}<br>uniform seed, β ∝ {beta_text(u['beta'])}<br>seed {seed_text(u['beta'])}"})
 
-    # N4: exact icosafold points (not golden), from the cross-ring analysis, placed in the displayed half
+    # C2: exact icosafold points (not golden), from the cross-ring analysis, placed in the displayed half
     phi = (1 + 5 ** 0.5) / 2
     half = float(np.degrees(np.arctan(phi))) / 2
     from survey import C1, A
     E = np.stack(group_elements(named_symmetry("h4_swirlprism")))
     special = []
-    for t_deg in (half, 45 + half):
+    for tid, t_deg in (("C2a", half), ("C2b", 45 + half)):
         p = np.cos(np.radians(t_deg)) * A + np.sin(np.radians(t_deg)) * C1
+        c, fc, e = counts_key(signature(classify(p))).split("|")
+        tmap[tid]["exact"] = {"angle": round(t_deg, 4), "cells": c, "faces": fc, "edges": e}
         for x in E @ p:
             b = TINV @ x
             if np.all(b >= -1e-12) and b.sum() > 0:
                 b = to_upper(b / b.sum())
                 q = np.round(xyz(b), 6).tolist()
                 if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
-                    special.append({"id": "C2", "q": q, "hover": f"{label('C2')}<br>exact point (cross ring at {t_deg:.4f}°)<br>seed "
+                    special.append({"id": tid, "q": q, "hover": f"{tid} · exact icosafold point (cross ring at {t_deg:.4f}°)<br>"
+                                    f"cells {c}<br>faces {fc}<br>edges {e}<br>seed "
                                     + ", ".join(fmt17(c) for c in x)})
-    tmap["C2"]["where"] = f"{len(special)} exact points (not a golden point)"
-    tmap["C2"]["vertices"] = "600"
+    for tid in ("C2a", "C2b"):
+        n = sum(1 for s in special if s["id"] == tid)
+        tmap[tid]["where"] = f"cross ring; {n} exact icosafold point{'s' if n > 1 else ''} (✕)"
 
     # rings, coloured by the shape each range produces
     sys.path.insert(0, ".")
