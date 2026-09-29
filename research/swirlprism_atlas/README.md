@@ -138,3 +138,21 @@ So the wiki's list is (mostly) the pieces of uniform polytopes, though
 several such pieces, and most generic volume types, are not listed. T2
 occurs at several distinct seed positions, so it is a line or surface
 rather than a single point.
+
+## Tracing T2 (`t2probe.py`, `t2surface.py`, `t2trace.py`, `t2extend.py`)
+
+- Every T2 point from the uniform polytopes sits on a boundary surface
+  between two volume types (W1|W2, W2|W3, …). Within that surface T2 is a
+  curve: probing a circle of directions in the surface finds T2 in two
+  opposite directions only.
+- At every T2 point the curve's direction lies in an H4 mirror plane (to
+  0.1–0.2°), so each T2 curve is where an H4 mirror cuts a boundary surface.
+- Tracing inside those mirror planes connects the uniform points into a
+  network: the cantitruncated-120-cell T2 curves reach the cantellated and
+  bitruncated ones.
+- The curves through the cantellated and cantitruncated 120-cell points are
+  exact straight lines in the gnomonic view (great-circle arcs). Both end
+  where they meet a new type with 120+120+240+600 cells.
+- The curve through the bitruncated 120-cell point bends and runs to the
+  region boundary; the tracer may have switched branches at a junction, so
+  treat that path with caution.
