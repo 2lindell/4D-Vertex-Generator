@@ -61,8 +61,13 @@ not clear it. There are up to three ways to place the seed:
   tesseract). This picker only appears when the chosen subgroup acts in the
   same coordinate basis as the family's reflection group.
 - **Ring sliders** (`h4_swirlprism`/`h4_swirlprism+` only): start at a
-  verified 120-point seed aligned with a 600-cell vertex and move along two
-  cross rings and the perpendicular main ring.
+  600-cell vertex and move along two adjacent cross rings and the main ring.
+  The main ring is the pentagonal-swirl ring through the vertex; under
+  `h4_swirlprism` its points give 240 vertices, returning to a 600-cell every
+  18°. The cross rings are the five great circles held fixed by the
+  half-turns at the vertex: they are perpendicular to the main ring, 36° apart
+  around it, and adjacent ones run in opposite directions. Every point on a
+  cross ring gives 600 vertices, returning to 120 every 90°.
 - **Coordinates**: type any four comma-separated numbers.
 
 Tolerance, the vertex cap, and slider step size are under **Advanced settings**.

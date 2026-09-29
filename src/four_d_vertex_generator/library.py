@@ -115,57 +115,55 @@ def h4_swirlprism_anchor_seed() -> np.ndarray:
 
 @lru_cache(maxsize=1)
 def _h4_swirlprism_ring_basis() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Return (cross_ring_one, cross_ring_two, main_ring) at the anchor seed.
+    """Return (cross_ring_one, cross_ring_two, main_ring) directions at the anchor seed.
 
-    Derived from the eigenstructure of a non-trivial stabilizer of the anchor
-    seed under h4_swirlprism+ (a verified order-5 rotation fixing the seed):
-    its real fixed axis (orthogonal to the seed) is the main ring direction,
-    and its complex-eigenvalue rotating plane gives the two cross-ring
-    directions -- together with the seed, an orthonormal basis of R^4.
+    The main ring is the pentagonal-swirl ring through the anchor (its Z10
+    Hopf fibre), so points on it have the order-5 stabilizer and give 240
+    vertices under h4_swirlprism, returning to a 600-cell every 18 degrees.
+
+    The cross rings are the great circles fixed pointwise by the five
+    half-turns in the anchor's stabilizer. They lie perpendicular to the main
+    ring, 36 degrees apart around it, so every point on them has a stabilizer
+    of order 2 and gives 600 vertices under h4_swirlprism. The two returned
+    are adjacent, ordered so that (anchor, main_ring, cross_ring_one,
+    cross_ring_two) is positively oriented; with that orientation, moving
+    forward on one is the symmetry image of moving backward on the other.
     """
     seed = h4_swirlprism_anchor_seed()
-    action = SymmetryAction.from_iterable(_h4_swirlprism_chiral_generators())
-    generator_data = tuple(generator.tobytes() for generator in action.generators)
+    fibre_step = _quaternion_right_matrix(_ICOSIAN_ORDER_TEN) @ seed
+    main_ring = fibre_step - np.dot(fibre_step, seed) * seed
+    main_ring /= np.linalg.norm(main_ring)
+
+    generator_data = tuple(g.tobytes() for g in _h4_swirlprism_generators())
     elements = _finite_group_elements(generator_data, 5000)
     if elements is None:
-        raise RuntimeError("h4_swirlprism+ closure did not converge")
+        raise RuntimeError("h4_swirlprism closure did not converge")
 
-    stabilizer = next(
-        element
-        for element in elements
-        if np.allclose(element @ seed, seed, atol=1e-6)
-        and not np.allclose(element, np.eye(4), atol=1e-6)
+    axes: list[np.ndarray] = []
+    for element in elements:
+        if (
+            np.allclose(element @ seed, seed, atol=1e-8)
+            and not np.allclose(element, np.eye(4), atol=1e-8)
+            and np.allclose(element @ element, np.eye(4), atol=1e-8)
+        ):
+            eigvals, eigvecs = np.linalg.eigh((element + element.T) / 2.0)
+            fixed = eigvecs[:, np.isclose(eigvals, 1.0)].T
+            fixed = fixed - np.outer(fixed @ seed, seed)
+            axis = fixed[np.argmax(np.linalg.norm(fixed, axis=1))]
+            axes.append(axis / np.linalg.norm(axis))
+    if len(axes) != 5:
+        raise RuntimeError(f"Expected 5 half-turn cross rings at the anchor, found {len(axes)}")
+
+    cross_one = max(axes, key=lambda axis: abs(axis[2]))
+    cross_one = cross_one * np.sign(cross_one[2])
+    cos_step = np.cos(np.deg2rad(36.0))
+    cross_two = next(
+        sign * axis
+        for axis in axes
+        for sign in (1.0, -1.0)
+        if np.isclose(np.dot(cross_one, sign * axis), cos_step)
+        and np.linalg.det(np.array([seed, main_ring, cross_one, sign * axis])) > 0
     )
-    eigvals, eigvecs = np.linalg.eig(stabilizer)
-
-    main_ring: np.ndarray | None = None
-    cross_vec: np.ndarray | None = None
-    for eigval, eigvec in zip(eigvals, eigvecs.T):
-        if abs(eigval.imag) < 1e-6 and abs(eigval.real - 1.0) < 1e-6:
-            candidate = np.real(eigvec)
-            candidate = candidate - np.dot(candidate, seed) * seed
-            if np.linalg.norm(candidate) > 1e-6:
-                main_ring = candidate / np.linalg.norm(candidate)
-        elif eigval.imag > 1e-6:
-            cross_vec = eigvec
-    if main_ring is None or cross_vec is None:
-        raise RuntimeError("Could not find pentagonal-swirl ring basis at anchor seed")
-
-    cross_one = np.real(cross_vec)
-    cross_one = (
-        cross_one - np.dot(cross_one, seed) * seed - np.dot(cross_one, main_ring) * main_ring
-    )
-    cross_one = cross_one / np.linalg.norm(cross_one)
-
-    cross_two = np.imag(cross_vec)
-    cross_two = (
-        cross_two
-        - np.dot(cross_two, seed) * seed
-        - np.dot(cross_two, main_ring) * main_ring
-        - np.dot(cross_two, cross_one) * cross_one
-    )
-    cross_two = cross_two / np.linalg.norm(cross_two)
-
     return cross_one, cross_two, main_ring
 
 
@@ -174,7 +172,11 @@ def h4_swirlprism_predefined_seed(
     cross_ring_two_degrees: float,
     main_ring_degrees: float,
 ) -> np.ndarray:
-    """Move the verified 120-point anchor seed around its cross rings and main ring."""
+    """Move the verified 120-point anchor seed along its cross rings and main ring.
+
+    Each angle rotates the seed within the plane of the anchor and one ring
+    direction, applied in the order cross ring 1, cross ring 2, main ring.
+    """
     anchor = h4_swirlprism_anchor_seed()
     cross_ring_one, cross_ring_two, main_ring = _h4_swirlprism_ring_basis()
     seed = anchor.copy()
@@ -194,7 +196,10 @@ def h4_swirlprism_predefined_seed(
             + sine * (seed_component * direction - direction_component * anchor)
         )
 
-    return seed / np.linalg.norm(seed)
+    seed = seed / np.linalg.norm(seed)
+    # Rotations by multiples of 90 degrees leave ~1e-16 floating-point residue.
+    seed[np.abs(seed) < 1e-12] = 0.0
+    return seed
 
 
 def _swap(i: int, j: int) -> np.ndarray:

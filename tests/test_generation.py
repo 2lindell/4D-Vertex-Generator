@@ -98,9 +98,65 @@ def test_h4_swirlprism_cross_ring_sliders_split_the_anchor_orbit() -> None:
         assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 600
 
 
-def test_h4_swirlprism_main_ring_slider_does_not_split_the_anchor_orbit() -> None:
-    seed = h4_swirlprism_predefined_seed(0.0, 0.0, 30.0)
-    assert len(generate_vertices_from_seed(seed, named_symmetry("h4_swirlprism+"), tol=1e-6)) == 120
+@pytest.mark.parametrize("slider", [0, 1])
+def test_every_point_on_a_cross_ring_gives_600_vertices_under_full_swirlprism(
+    slider: int,
+) -> None:
+    action = named_symmetry("h4_swirlprism")
+    for angle in range(5, 360, 10):
+        values = [0.0, 0.0, 0.0]
+        values[slider] = float(angle)
+        seed = h4_swirlprism_predefined_seed(*values)
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 600, angle
+    for angle in (90.0, 180.0, 270.0):
+        values = [0.0, 0.0, 0.0]
+        values[slider] = angle
+        seed = h4_swirlprism_predefined_seed(*values)
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 120
+
+
+def test_main_ring_gives_240_vertices_except_at_its_20_special_points() -> None:
+    action = named_symmetry("h4_swirlprism")
+    for angle in range(0, 360, 6):
+        seed = h4_swirlprism_predefined_seed(0.0, 0.0, float(angle))
+        expected = 120 if angle % 18 == 0 else 240
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == expected, angle
+
+
+def test_cross_rings_are_adjacent_and_perpendicular_to_the_main_ring() -> None:
+    from four_d_vertex_generator.library import _h4_swirlprism_ring_basis
+
+    cross_one, cross_two, main_ring = _h4_swirlprism_ring_basis()
+    anchor = h4_swirlprism_anchor_seed()
+    for direction in (cross_one, cross_two, main_ring):
+        assert np.isclose(np.linalg.norm(direction), 1.0)
+        assert np.isclose(direction @ anchor, 0.0)
+    assert np.isclose(cross_one @ main_ring, 0.0)
+    assert np.isclose(cross_two @ main_ring, 0.0)
+    assert np.isclose(cross_one @ cross_two, np.cos(np.deg2rad(36.0)))
+
+
+def test_adjacent_cross_rings_run_in_opposite_directions() -> None:
+    # Moving forward on cross ring 2 is a symmetry image of moving backward
+    # on cross ring 1 (never of moving forward), for a point-fixing symmetry.
+    from four_d_vertex_generator.generation import group_elements
+
+    anchor = h4_swirlprism_anchor_seed()
+    stabilizer = [
+        e
+        for e in group_elements(named_symmetry("h4_swirlprism"))
+        if np.allclose(e @ anchor, anchor, atol=1e-8)
+    ]
+    for angle in (10.0, 25.0):
+        forward_two = h4_swirlprism_predefined_seed(0.0, angle, 0.0)
+        forward_one = h4_swirlprism_predefined_seed(angle, 0.0, 0.0)
+        backward_one = h4_swirlprism_predefined_seed(-angle, 0.0, 0.0)
+        assert any(np.allclose(e @ backward_one, forward_two, atol=1e-7) for e in stabilizer)
+        assert not any(np.allclose(e @ forward_one, forward_two, atol=1e-7) for e in stabilizer)
+
+
+def test_ring_slider_seed_has_no_floating_point_residue() -> None:
+    assert h4_swirlprism_predefined_seed(180.0, 0.0, 0.0).tolist() == [-1.0, 0.0, 0.0, 0.0]
 
 
 def test_h4_pentagonal_swirl_is_a_genuine_h4_subgroup() -> None:

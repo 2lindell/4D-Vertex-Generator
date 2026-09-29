@@ -512,9 +512,11 @@ def render_generate_tab() -> None:
                 st.markdown(_chamber_svg(weights / weights.sum()), unsafe_allow_html=True)
         elif seed_mode == SEED_MODE_RINGS:
             st.caption(
-                "Starts at a verified 120-point seed aligned with a 600-cell vertex. The first "
-                "two sliders follow adjacent cross rings; the third follows the perpendicular "
-                "main ring."
+                "Starts at a 600-cell vertex (120 points). Cross rings 1 and 2 are adjacent "
+                "cross rings, 36° apart around the main ring and running in opposite "
+                "directions; under the full swirlprism every point on them gives 600 "
+                "vertices, back to 120 every 90°. The main ring gives 240, back to a "
+                "600-cell every 18°."
             )
             columns = st.columns(3)
             angles = [
