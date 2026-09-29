@@ -21,7 +21,7 @@ from cell_atlas import (
     to_upper,
     xyz,
 )
-from cellframe import TINV
+from cellframe import TINV, snap_golden
 
 from four_d_vertex_generator.generation import group_elements
 from four_d_vertex_generator.library import named_symmetry
@@ -131,7 +131,7 @@ def main(samples_path, out_path):
     by_beta = {tuple(np.round(np.array(s["beta"]) / sum(s["beta"]), 9)): s for s in samples}
     uniform, seen = [], set()
     for u in json.load(open("uniform_in_cell.json")):
-        b = to_upper(u["beta"])
+        b = to_upper(snap_golden(u["beta"]))
         key = tuple(np.round(b / b.sum(), 9))
         if key in seen:
             continue

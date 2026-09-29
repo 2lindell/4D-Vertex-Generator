@@ -12,6 +12,15 @@ def beta_from_seed(p):
     b = TINV @ p; return b / b.sum()
 def in_half(beta, eps=1e-9):
     b = np.asarray(beta); return bool(np.all(b >= -eps) and b[0] >= b[1] - eps)
+def snap_golden(beta, maxc=12):
+    """Rescale beta so its smallest positive weight is 1 and snap each weight to an exact a + b*phi."""
+    b = np.asarray(beta, float); b = b / b[b > 1e-9].min()
+    out = []
+    for x in b:
+        cands = [(abs(round(x - k * PHI) + k * PHI - x), round(x - k * PHI) + k * PHI) for k in range(-maxc, maxc + 1)]
+        err, v = min(cands)
+        out.append(v if err < 1e-9 else x)
+    return np.array(out)
 def golden_form(x, maxc=6):
     """Express x as (a + b*phi)/c with small integers, if possible."""
     best = None
