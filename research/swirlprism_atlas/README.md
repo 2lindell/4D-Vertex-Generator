@@ -75,5 +75,16 @@ appears twice.
 The main ring gives the icosafold icosaswirlchoron (240 vertices) everywhere
 except at its 20 special points (600-cells, every 18°).
 
-Between the rings, sampling finds many more 1200-vertex types than the wiki
-lists; the atlas key has the full, current list.
+Between the rings (0.02-spacing volume grid plus 0.012-spacing grids on the
+special planes through the centre), sampling finds 33 distinct 1200-vertex
+types, 5 of which match wiki entries:
+
+- W2 and W3 fill volume regions.
+- W1 occurs only on the plane through the main ring and cross ring 1
+  (azimuth 0°), separating the volume types U1 and W3.
+- W4 and W5 occur (almost) only on the plane through the main ring at
+  azimuth 36°.
+- Not yet found: T1, T2 and the two named 1200-vertex shapes.
+
+The largest volume region (U1) is not in the wiki list. The atlas key has the
+full, current list with an example seed for each type.
