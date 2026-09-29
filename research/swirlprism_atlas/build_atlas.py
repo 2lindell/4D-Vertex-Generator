@@ -91,6 +91,26 @@ def mirror_outlines(edges: list) -> list[list[list[float]]]:
     return out
 
 
+def traced_curves(maps: list[np.ndarray]) -> list[dict]:
+    """Traced transitional curves (t2trace.json), copied by the anchor's symmetries."""
+    import os
+    if not os.path.exists("t2trace.json"):
+        return []
+    out, seen = [], []
+    for tr in json.load(open("t2trace.json")):
+        path = np.array(tr["path"])
+        if len(path) < 2:
+            continue
+        for m in maps:
+            img = path @ m.T
+            key = np.round(img[len(img) // 2], 4)
+            if any(np.allclose(key, k) for k in seen):
+                continue
+            seen.append(key)
+            out.append({"id": "T2", "pts": np.round(img, 6).tolist()})
+    return out
+
+
 def named_points() -> list[dict]:
     import os
     pts = []
@@ -174,6 +194,7 @@ def main(survey_path: str, out_path: str, *extra_paths: str) -> None:
         "main": lines["main"],
         "points": [{**p, "seed": seed_text(p["q"])} for p in lines["points"] + named_points()],
         "pointTypes": {k: {"vertices": v[0], "name": v[1]} for k, v in POINT_TYPES.items()},
+        "curves": traced_curves(maps),
         "cellEdges": cell_edges(),
         "mirrors": mirror_outlines(cell_edges()),
         "boundarySamples": sum(1 for s in sig_of if s.startswith("ERR")),
