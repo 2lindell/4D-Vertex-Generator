@@ -311,6 +311,12 @@ def main(samples_path, out_path):
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
     # T2: exact patches in the mirrors (t2exact.py) and their copies under the extra half-turn
     import t2exact
+    for name, (plane, desc) in t2exact.CURVE_DESCRIPTIONS.items():
+        curve = t2exact.CURVES[name]()
+        for is_copy, pts in [(False, curve)] + [(True, c) for c in t2exact.curve_copies(curve)]:
+            where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
+            segments.append({"id": "T2", "copy": is_copy, "pts": [np.round(xyz(p), 6).tolist() for p in pts],
+                             "hover": f"T2 · exact curve {name} ({where})<br>{desc}"})
     tpatches = []
     for name, (plane, bounds) in t2exact.DESCRIPTIONS.items():
         polys = [(False, t2exact.PATCHES[name]())] + [(True, poly) for poly in t2exact.copies(name)]
@@ -351,6 +357,8 @@ def main(samples_path, out_path):
     SEGMENT_WHERE = {
         "T1": "the whole edge-to-mirror line from spidrox (C6) to C4, and its dashed copy",
         "E2": "the line from the face centre (C5) to the cell centre (C1), and its dashed copy; nowhere else",
+        "T2": "three exact patches in the mirrors (A: β1 = β3, B: β2 = β3, C: β1 = β2), each with a spidrox corner, "
+              "and a conic curve D in β2 = β3; dashed copies of each",
     }
     for t in types:
         if t["id"] in SEGMENT_WHERE:

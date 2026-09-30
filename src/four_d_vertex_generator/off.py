@@ -21,14 +21,17 @@ def compute_convex_hull(
 ) -> tuple[list[list[int]], list[list[int]]]:
     """Compute the 4D convex hull of a set of 4D vertices.
 
-    Qhull only supplies candidate supporting hyperplanes; everything else is
-    decided from the vertices themselves, with one scale-aware tolerance:
+    Built on Qhull's triangulated hull and its simplex adjacency, with one
+    scale-aware tolerance:
 
-    - a cell is the set of vertices lying on a supporting hyperplane (within
-      ``tol`` times the polytope's radius), so coplanar simplices merge by
-      construction and nearly parallel neighbouring cells stay separate;
-    - a face is the intersection of two cells when that intersection is a
-      polygon (affine rank 2), ordered by angle around its centre.
+    - a cell is a connected group of neighbouring simplices whose hyperplanes
+      agree within ``tol`` (relative to the polytope's radius); its vertices
+      are those simplices' vertices, so a vertex merely close to a cell's
+      hyperplane is never pulled into it, and nearly parallel neighbouring
+      cells stay separate;
+    - two cells share a face when Qhull's triangulation has neighbouring
+      simplices in both; the face is their common vertices, ordered by angle
+      around its centre (no width threshold, so sliver faces are kept).
 
     The result is checked (every face polygon on exactly two cells, every
     cell a closed polyhedron, Euler characteristic 0) and a ValueError is
@@ -58,57 +61,94 @@ def compute_convex_hull(
 
     centre = verts.mean(axis=0)
     radius = float(np.max(np.linalg.norm(verts - centre, axis=1)))
-    eps = tol * max(radius, 1e-300)
 
-    # Cells: vertex sets of the supporting hyperplanes. A simplex whose vertices already lie
-    # together in a known cell belongs to it (four affinely independent points fix a hyperplane).
-    cells_v: list[frozenset[int]] = []
-    cells_of_vertex: dict[int, set[int]] = defaultdict(set)
-    for simplex, eq in zip(hull.simplices, hull.equations):
-        common = set.intersection(*(cells_of_vertex[int(v)] for v in simplex))
-        if common:
-            continue
-        normal, offset = eq[:4], eq[4]
-        scale = float(np.linalg.norm(normal))
-        if scale == 0:
-            continue
-        dist = (verts @ normal + offset) / scale
-        if dist.max() > eps:
-            raise ValueError(
-                "Convex hull is inconsistent at this tolerance (a vertex lies outside a cell)."
-            )
-        on = frozenset(int(i) for i in np.flatnonzero(np.abs(dist) <= eps))
-        if len(on) < 4:
-            continue
-        index = len(cells_v)
-        cells_v.append(on)
-        for v in on:
-            cells_of_vertex[v].add(index)
+    # Cells: connected groups of neighbouring Qhull simplices lying in one hyperplane. Membership
+    # comes from the simplices themselves, never from a distance test against every vertex, so a
+    # vertex that is merely very close to a cell's hyperplane (as near-duplicate vertices of nearly
+    # degenerate seeds are) is not pulled into it.
+    eqs = hull.equations
+    norms = np.linalg.norm(eqs[:, :4], axis=1)
+    if np.any(norms == 0):
+        raise ValueError("Convex hull is inconsistent (a degenerate facet has no normal).")
+    eqs = eqs / norms[:, None]
+    n_simplices = len(eqs)
+    parent = list(range(n_simplices))
 
-    # Faces: pairs of cells whose shared vertices span a polygon.
+    def find(x: int) -> int:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    for s_idx, neighbours in enumerate(hull.neighbors):
+        for n_idx in neighbours:
+            n_idx = int(n_idx)
+            if n_idx > s_idx and np.abs(eqs[s_idx] - eqs[n_idx]).max() <= tol * max(1.0, radius):
+                a, b = find(s_idx), find(n_idx)
+                if a != b:
+                    parent[max(a, b)] = min(a, b)
+
+    # A flat sliver simplex (Qhull's triangulation of a nearly degenerate facet) can carry an
+    # inaccurate hyperplane and so fail the test above. A real cell never has all its vertices in
+    # another cell, so fold any group whose vertices all lie in a neighbouring group into it.
+    def group_vertices() -> dict[int, set[int]]:
+        groups: dict[int, set[int]] = defaultdict(set)
+        for s_idx, simplex in enumerate(hull.simplices):
+            groups[find(s_idx)].update(int(v) for v in simplex)
+        return groups
+
+    changed = True
+    while changed:
+        changed = False
+        groups = group_vertices()
+        for s_idx, neighbours in enumerate(hull.neighbors):
+            a = find(s_idx)
+            for n_idx in neighbours:
+                b = find(int(n_idx))
+                if a != b and (groups[a] <= groups[b] or groups[b] <= groups[a]):
+                    small, big = (a, b) if len(groups[a]) <= len(groups[b]) else (b, a)
+                    parent[small] = big
+                    groups[big] |= groups.pop(small)
+                    a = find(s_idx)
+                    changed = True
+
+    root_to_cell: dict[int, int] = {}
+    simplex_cell = np.array(
+        [root_to_cell.setdefault(find(i), len(root_to_cell)) for i in range(n_simplices)]
+    )
+    cell_sets: list[set[int]] = [set() for _ in root_to_cell]
+    for s_idx, simplex in enumerate(hull.simplices):
+        cell_sets[simplex_cell[s_idx]].update(int(v) for v in simplex)
+    cells_v = [frozenset(c) for c in cell_sets]
+
+    # Faces: two cells share a face exactly when Qhull's triangulation has neighbouring simplices
+    # in both (they meet across a triangle of that face). This needs no width threshold, so
+    # sliver faces of nearly degenerate seeds are kept.
+    pairs: set[tuple[int, int]] = set()
+    for s_idx, neighbours in enumerate(hull.neighbors):
+        a = int(simplex_cell[s_idx])
+        for n_idx in neighbours:
+            b = int(simplex_cell[n_idx])
+            if a != b:
+                pairs.add((min(a, b), max(a, b)))
+
     faces_list: list[list[int]] = []
     cell_faces: list[list[int]] = [[] for _ in cells_v]
-    for a, cell in enumerate(cells_v):
-        shared_count: dict[int, int] = defaultdict(int)
-        for v in cell:
-            for b in cells_of_vertex[v]:
-                if b > a:
-                    shared_count[b] += 1
-        for b, count in sorted(shared_count.items()):
-            if count < 3:
-                continue
-            shared = sorted(cell & cells_v[b])
-            pts = verts[shared]
-            mid = pts.mean(axis=0)
-            _, sv, vh = np.linalg.svd(pts - mid)
-            if int(np.sum(sv > eps)) != 2:
-                continue  # the cells meet in an edge or a vertex, not a face
-            planar = (pts - mid) @ vh[:2].T
-            order = np.argsort(np.arctan2(planar[:, 1], planar[:, 0]))
-            face_idx = len(faces_list)
-            faces_list.append([shared[int(i)] for i in order])
-            cell_faces[a].append(face_idx)
-            cell_faces[b].append(face_idx)
+    for a, b in sorted(pairs):
+        shared = sorted(cells_v[a] & cells_v[b])
+        if len(shared) < 3:
+            raise ValueError(
+                "Convex hull is inconsistent at this tolerance (a face has fewer than 3 vertices)."
+            )
+        pts = verts[shared]
+        mid = pts.mean(axis=0)
+        _, _, vh = np.linalg.svd(pts - mid)
+        planar = (pts - mid) @ vh[:2].T
+        order = np.argsort(np.arctan2(planar[:, 1], planar[:, 0]))
+        face_idx = len(faces_list)
+        faces_list.append([shared[int(i)] for i in order])
+        cell_faces[a].append(face_idx)
+        cell_faces[b].append(face_idx)
 
     _check_hull(faces_list, cell_faces)
     return faces_list, cell_faces

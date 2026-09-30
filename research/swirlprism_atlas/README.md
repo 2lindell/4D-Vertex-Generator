@@ -256,8 +256,22 @@ and lines, so every region has a flat copy; the copies are drawn dashed.
   the cell centre (1, 1, 1, 1) (C1); past the cell centre it becomes F1. Its
   copy runs from (2+φ, 2+φ, 1, 1) (C5) to (1+φ, 1, 1, 0) (C1). All 33 golden
   E2 samples lie on one of the two.
-- Most off-mirror T2 samples are copies of the T2 patch in the mirror
-  β1 = β3.
+- **T2** (`planemap.py` maps every shape in a mirror, `conicfit.py` fits the
+  boundaries exactly, `t2exact.py` builds the regions) is three flat patches,
+  each with a spidrox corner, plus one curve, and their copies under Q:
+  - A, in β1 = β3: corners spidrox (1,0,1,0), C4 (1,0,1,1), cell centre C1,
+    face centre C5; sides the T1 line, the conic
+    β1² + φ²β2² − β1β2 − β1β4 − φβ2β4 = 0 (against X17), the E2 line (F2 on
+    the far side) and the face β4 = 0.
+  - B, in β2 = β3: triangle spidrox (0,1,1,0), C4 (0,1,1,1), (1, φ², φ², 0);
+    sides the T1 line, the line φ²β1 = β2 − β4 (against X21/X20) and the C2a
+    cross ring in the face β4 = 0.
+  - C, in β1 = β2: triangle spidrox (1,1,0,0), C5 (1,1,1,0), (2+φ, 2+φ, 1, 1)
+    (the C5 end of the E2 copy); sides the face β4 = 0, the line
+    β1 = β3 + φ²β4 (against X3) and the cross ring β3 = β4 (D1).
+  - D, in β2 = β3: the conic φβ1² − β1β2 − β1β4/φ + β2² − β4² = 0 from C4
+    (0,1,1,1) to C1, a T2 curve between X21 and X27.
+  All 157 golden T2 samples lie in these or their copies.
 
 The hull and orbit code were rebuilt to be tolerance-robust (see
 `src/four_d_vertex_generator/off.py` and `generation.py`); re-running the
