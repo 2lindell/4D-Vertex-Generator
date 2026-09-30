@@ -1,7 +1,6 @@
 """Half-cell atlas with wiki-ordered labels: one letter per vertex count and named/unnamed (see README)."""
 from __future__ import annotations
 
-import itertools
 import json
 import sys
 
@@ -310,22 +309,16 @@ def main(samples_path, out_path):
         segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
+    # T2: exact patches in the mirrors (t2exact.py) and their copies under the extra half-turn
+    import t2exact
     tpatches = []
-    B2 = [np.array(s["beta"]) / sum(s["beta"]) for s in samples if s["id"] == "T2"]
-    planes = [(f"β{i + 1} = β{j + 1}", lambda b, i=i, j=j: abs(b[i] - b[j]) < 1e-9) for i, j in itertools.combinations(range(4), 2)]
-    planes += [(f"β{i + 1} = 0", lambda b, i=i: b[i] < 1e-9) for i in range(4)]
-    from scipy.spatial import ConvexHull
-    for lab, on in planes:
-        X = np.array([xyz(b) for b in B2 if on(b)])
-        if len(X) < 3:
-            continue
-        c = X.mean(0)
-        _, sv, vt = np.linalg.svd(X - c)
-        if sv[1] < 1e-9:
-            continue
-        hull = ConvexHull((X - c) @ vt[:2].T)
-        poly = [np.round(X[k], 6).tolist() for k in hull.vertices]
-        tpatches.append({"plane": lab, "samples": int(len(X)), "pts": poly + [poly[0]]})
+    for name, (plane, bounds) in t2exact.DESCRIPTIONS.items():
+        polys = [(False, t2exact.PATCHES[name]())] + [(True, poly) for poly in t2exact.copies(name)]
+        for is_copy, poly in polys:
+            pts = [np.round(xyz(p), 6).tolist() for p in poly]
+            where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
+            tpatches.append({"plane": where, "copy": is_copy, "pts": pts + [pts[0]],
+                             "hover": f"T2 · exact region {name} ({where})<br>{bounds}"})
 
     # geometry
     edges = []

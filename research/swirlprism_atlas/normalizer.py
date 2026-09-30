@@ -80,3 +80,44 @@ def qcopies(beta, tol: float = 1e-10) -> list[np.ndarray]:
             if not any(np.allclose(b, o, atol=1e-9) for o in out):
                 out.append(b)
     return out
+
+
+def _clip(poly: np.ndarray, normal: np.ndarray) -> np.ndarray:
+    """Sutherland-Hodgman clip of a polygon (rows = points) to the half-space normal . p >= 0."""
+    out = []
+    n = len(poly)
+    for i in range(n):
+        p, q = poly[i], poly[(i + 1) % n]
+        dp, dq = normal @ p, normal @ q
+        if dp >= 0:
+            out.append(p)
+        if (dp >= 0) != (dq >= 0):
+            out.append(p + (q - p) * (dp / (dp - dq)))
+    return np.array(out) if out else np.zeros((0, len(normal)))
+
+
+def displayed_pieces(poly_x: np.ndarray, elements) -> list[np.ndarray]:
+    """Pieces of the images g . poly (4D points spanning a flat patch) that fall in the displayed half-cell,
+    as normalised barycentric polygons (the half beta3 < beta4 is folded back with the cell's half-turn)."""
+    from cellframe import TINV
+    pieces: list[np.ndarray] = []
+    for g in elements:
+        B = (TINV @ (g @ poly_x.T)).T
+        B = _clip(B, np.ones(4))                        # the image cone, not its antipode
+        for k in range(4):
+            if len(B) < 3:
+                break
+            B = _clip(B, np.eye(4)[k])
+        if len(B) < 3:
+            continue
+        for side in (np.array([0, 0, 1.0, -1]), np.array([0, 0, -1.0, 1])):
+            P = _clip(B, side)
+            if len(P) < 3:
+                continue
+            P = P / P.sum(axis=1, keepdims=True)
+            if side[2] < 0:
+                P = P[:, [1, 0, 3, 2]]
+            area = 0.5 * np.linalg.norm(sum(np.cross((P[i] - P[0])[:3], (P[i + 1] - P[0])[:3]) for i in range(1, len(P) - 1)))
+            if area > 1e-9 and not any(len(o) == len(P) and np.allclose(np.sort(o, axis=0), np.sort(P, axis=0), atol=1e-9) for o in pieces):
+                pieces.append(P)
+    return pieces

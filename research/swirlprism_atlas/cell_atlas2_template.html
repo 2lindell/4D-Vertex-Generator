@@ -100,7 +100,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
         <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
         <li>✕ marks the exact icosafold points of C2a and C2b, drawn in the colour of the cross-ring range around them. They are not golden points.</li>
-        <li>Rings take the colour of the shape each stretch produces. Solid lines are exactly traced segments (T1, E2), drawn end to end; dashed lines are their copies under the extra half-turn that maps the group to itself but is not in H4, so they give the same polytope elsewhere in the cell; T2 (thin outlines, faint fill) is flat patches in mirrors and faces, outlined as the convex hull of its samples.</li>
+        <li>Rings take the colour of the shape each stretch produces. Solid lines are exactly traced segments (T1, E2), drawn end to end; dashed lines are their copies under the extra half-turn that maps the group to itself but is not in H4, so they give the same polytope elsewhere in the cell; T2 (outlined, faint fill) is the exact regions traced in the mirrors, with dashed copies.</li>
       </ul>
     </div>
     <div class="panel">
@@ -170,11 +170,14 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       }
       if (el("showT").checked) {
         if (visibleFor("T2")) for (const p of D.tpatches) {
+          // fan from the centroid: the patches are star-shaped about it but not all convex
           const n = p.pts.length - 1, pts = p.pts.slice(0, n);
-          out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
-            i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
-            color: color(byId.T2), opacity: 0.1, name: `T2 patch on ${p.plane} (${p.samples} samples)`, hoverinfo: "name" });
-          out.push(lines([p.pts], `T2 patch on ${p.plane}`, { color: color(byId.T2), width: 2 }));
+          const c = [0, 1, 2].map((a) => pts.reduce((s, q) => s + q[a], 0) / n);
+          const all = [...pts, c];
+          out.push({ type: "mesh3d", x: all.map((q) => q[0]), y: all.map((q) => q[1]), z: all.map((q) => q[2]),
+            i: Array(n).fill(n), j: [...Array(n).keys()], k: [...Array(n).keys()].map((k) => (k + 1) % n),
+            color: color(byId.T2), opacity: p.copy ? 0.1 : 0.16, name: p.hover, hovertemplate: p.hover + "<extra></extra>" });
+          out.push(lines([p.pts], p.hover, { color: color(byId.T2), width: 2, dash: p.copy ? "dash" : "solid" }));
         }
       }
       for (const t of D.types) {
