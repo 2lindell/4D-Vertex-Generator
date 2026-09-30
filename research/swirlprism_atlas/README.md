@@ -238,3 +238,27 @@ drawn upside down (z -> -z) so the splitting mirror is on top.
 ```bash
 python cell_atlas2.py golden_22.json cell_atlas.html
 ```
+
+### Exact segments and the extra half-turn (`probe.py`, `normalizer.py`)
+
+`probe.py` labels any seed the way the atlas does. `normalizer.py` finds a
+half-turn Q that is not in H4 but maps the swirlprism group onto itself, so it
+turns every polytope into a congruent one somewhere else in the cell
+(`qcopies(beta)` gives where). Q maps planes and lines of the cell to planes
+and lines, so every region has a flat copy; the copies are drawn dashed.
+
+- **T1** is the whole line β ∝ (1, 0, 1, u), 0 < u < 1, where the face β2 = 0
+  meets the mirror β1 = β3: from spidrox (C6, u = 0) to C4 (u = 1). Its copy
+  runs from (1, 1+φ, 1+φ, 0) (C6) to (0, 2+φ, 1, 1) (C4). The line
+  (0, 1, 1, u) is the same line seen on the glued face β1 = 0. It used to stop
+  short of spidrox because the hull dropped faces thinner than a fixed 1e-4.
+- **E2** is exactly the open segment from the face centre (1, 1, 1, 0) (C5) to
+  the cell centre (1, 1, 1, 1) (C1); past the cell centre it becomes F1. Its
+  copy runs from (2+φ, 2+φ, 1, 1) (C5) to (1+φ, 1, 1, 0) (C1). All 33 golden
+  E2 samples lie on one of the two.
+- Most off-mirror T2 samples are copies of the T2 patch in the mirror
+  β1 = β3.
+
+The hull and orbit code were rebuilt to be tolerance-robust (see
+`src/four_d_vertex_generator/off.py` and `generation.py`); re-running the
+golden survey with it gives identical signatures for all 2796 samples.

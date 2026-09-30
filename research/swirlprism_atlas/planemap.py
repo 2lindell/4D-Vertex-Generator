@@ -46,8 +46,14 @@ def _bisect(args):
 def main(name, corners, n, out):
     corners = np.array([c / c.sum() for c in corners])
     idx, pts = grid(corners, n)
-    with Pool(4) as pool:
-        res = pool.map(_one, [p.tolist() for p in pts], chunksize=4)
+    import os
+    cache = out + ".grid.json"                       # grid labels, so a restart skips the slow first pass
+    with Pool(3) as pool:
+        if os.path.exists(cache):
+            res = [tuple(r) for r in json.load(open(cache))]
+        else:
+            res = pool.map(_one, [p.tolist() for p in pts], chunksize=4)
+            json.dump(res, open(cache, "w"))
         labels = [r[0] for r in res]
         where = {ij: m for m, ij in enumerate(idx)}
         edges = []

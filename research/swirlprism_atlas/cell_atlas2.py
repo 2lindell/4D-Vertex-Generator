@@ -355,6 +355,13 @@ def main(samples_path, out_path):
         t.setdefault("samples", 0)
         if t["id"] in ("T1", "T2"):
             t["where"] = "golden samples; " + ("lines where a face meets a mirror" if t["id"] == "T1" else "patches in mirrors and faces")
+    SEGMENT_WHERE = {
+        "T1": "the whole edge-to-mirror line from spidrox (C6) to C4, and its dashed copy",
+        "E2": "the line from the face centre (C5) to the cell centre (C1), and its dashed copy; nowhere else",
+    }
+    for t in types:
+        if t["id"] in SEGMENT_WHERE:
+            t["where"] = SEGMENT_WHERE[t["id"]]
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches,
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
