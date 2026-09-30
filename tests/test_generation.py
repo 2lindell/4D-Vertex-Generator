@@ -386,3 +386,20 @@ def test_generated_coordinates_have_no_floating_point_dust() -> None:
     vertices = generate_vertices_from_seed(np.array([1.0, 0.0, 0.0, 0.0]), named_symmetry("f4"))
     nonzero = np.abs(vertices[vertices != 0.0])
     assert nonzero.min() > 1e-10
+
+
+def test_dedupe_merges_copies_that_straddle_a_rounding_boundary() -> None:
+    from four_d_vertex_generator.generation import _dedupe
+
+    tol = 1e-8
+    a = np.array([0.5 * tol - 1e-17, 0.0, 0.0, 0.0])
+    b = np.array([0.5 * tol + 1e-17, 0.0, 0.0, 0.0])  # rounds to a different grid cell than a
+    assert len(_dedupe(np.vstack([a, b, [1.0, 0, 0, 0]]), tol)) == 2
+
+
+@pytest.mark.parametrize("tol", [1e-6, 1e-8, 1e-10, 1e-12, 1e-13])
+def test_orbit_size_does_not_depend_on_tolerance(tol: float) -> None:
+    # A 600-vertex swirlprism seed that grid rounding used to split into 629 points at tol 1e-12.
+    seed = np.array([-0.58259112426549198, 0.0, -0.61237243569579458, 0.53440395014171649])
+    verts = generate_vertices_from_seed(seed, named_symmetry("h4_swirlprism"), tol=tol)
+    assert len(verts) == 600

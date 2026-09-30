@@ -25,6 +25,28 @@ def _key(v: np.ndarray, tol: float) -> tuple[int, int, int, int]:
     return int(q[0]), int(q[1]), int(q[2]), int(q[3])
 
 
+def _dedupe(points: np.ndarray, tol: float) -> np.ndarray:
+    """Indices of one representative per cluster of points closer than ``tol`` (first one kept).
+
+    Clustering by distance never splits a point from its own float-noise copy, which
+    rounding to a grid does whenever the two copies straddle a rounding boundary.
+    """
+    pts = np.asarray(points, dtype=float).reshape(len(points), -1)
+    parent = np.arange(len(pts))
+
+    def find(i: int) -> int:
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    for i, j in cKDTree(pts).query_pairs(r=tol, output_type="ndarray"):
+        a, b = find(int(i)), find(int(j))
+        if a != b:
+            parent[max(a, b)] = min(a, b)
+    return np.array(sorted({find(i) for i in range(len(pts))}), dtype=int)
+
+
 @lru_cache(maxsize=64)
 def _finite_group_elements(
     generator_data: tuple[bytes, ...],
@@ -51,7 +73,10 @@ def _finite_group_elements(
             if len(elements) > max_elements:
                 return None
 
-    return tuple(elements.values())
+    # The rounded keys above only prune the search; two float copies of one element can still
+    # land on opposite sides of a rounding boundary, so merge those by distance at the end.
+    found = np.stack(list(elements.values()))
+    return tuple(found[i] for i in _dedupe(found, 1e-6))
 
 
 def group_order(action: SymmetryAction, max_elements: int = 100_000) -> int | None:
@@ -101,8 +126,9 @@ def generate_vertices_from_seed(
 ) -> np.ndarray:
     """Generate the orbit of a seed point under generator closure via BFS.
 
-    Repeatedly applies all generators to newly discovered points until closure
-    (within tolerance-quantized keys) is reached.
+    For a finite group the orbit is every group element applied to the seed;
+    otherwise generators are applied breadth-first until closure. Points closer
+    than ``tol`` (scaled by the seed's length when it exceeds 1) are one vertex.
     """
     s = _clean_near_zero(seed)
     if s.shape != (4,):
@@ -112,8 +138,7 @@ def generate_vertices_from_seed(
     if elements is not None:
         images = np.stack(elements) @ s
         images[np.abs(images) < ZERO_THRESHOLD] = 0.0
-        discovered = {_key(image, tol): image for image in images}
-        return np.vstack(list(discovered.values()))
+        return images[_dedupe(images, tol * max(1.0, float(np.linalg.norm(s))))]
 
     discovered: dict[tuple[int, int, int, int], np.ndarray] = {_key(s, tol): s}
     q: deque[np.ndarray] = deque([s])
@@ -134,4 +159,4 @@ def generate_vertices_from_seed(
                 )
 
     verts = np.vstack(list(discovered.values()))
-    return verts
+    return verts[_dedupe(verts, tol * max(1.0, float(np.linalg.norm(s))))]

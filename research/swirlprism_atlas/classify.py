@@ -47,8 +47,10 @@ def _class_sizes(items: list[frozenset], perms: list[np.ndarray]) -> list[int]:
     return sorted(sizes.values())
 
 
-def classify(seed: np.ndarray, hull_tol: float = 1e-5) -> dict:
-    vertices = generate_vertices_from_seed(seed, ACTION, tol=1e-6)
+def classify(seed: np.ndarray, hull_tol: float = 1e-9) -> dict:
+    # hull_tol is relative to the polytope's radius (see compute_convex_hull); vertices closer
+    # than 1e-9 are one vertex, far above the ~1e-13 error of the group elements
+    vertices = generate_vertices_from_seed(seed, ACTION, tol=1e-9)
     faces, cells = compute_convex_hull(vertices, tol=hull_tol)
     edges = hull_edges(faces)
     perms = _perms(vertices)
