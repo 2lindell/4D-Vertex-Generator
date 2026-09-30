@@ -16,7 +16,6 @@ from cell_atlas import (
     counts_key,
     fixed_circles,
     fmt17,
-    load_tlines,
     seed_text,
     to_upper,
     xyz,
@@ -88,6 +87,18 @@ STYLE = {
 }
 
 
+_F = (1 + 5 ** 0.5) / 2
+# Exactly traced segments (barycentric end points). "copy" marks the image under the half-turn Q outside H4
+# that normalizes the group (normalizer.py): same polytope, a different place in the cell.
+EXACT_SEGMENTS = [
+    {"id": "T1", "a": [1, 0, 1, 0], "b": [1, 0, 1, 1], "ends": ("C6", "C4"), "copy": False},
+    {"id": "T1", "a": [0, 1, 1, 0], "b": [0, 1, 1, 1], "ends": ("C6", "C4"), "copy": False},
+    {"id": "T1", "a": [1, 1 + _F, 1 + _F, 0], "b": [0, 2 + _F, 1, 1], "ends": ("C6", "C4"), "copy": True},
+    {"id": "E2", "a": [1, 1, 1, 0], "b": [1, 1, 1, 1], "ends": ("C5", "C1"), "copy": False},
+    {"id": "E2", "a": [2 + _F, 2 + _F, 1, 1], "b": [1 + _F, 1, 1, 0], "ends": ("C5", "C1"), "copy": True},
+]
+
+
 def fold_copies(beta):
     """The splitting mirror beta3 = beta4 is folded onto itself by the cell's half-turn (beta1 <-> beta2):
     a seed stored on it with beta1 != beta2 has an equivalent copy there that should also be drawn."""
@@ -105,7 +116,7 @@ def flip_vertical(data):
     for key in ("uniform", "special"):
         for u in data[key]:
             u["q"] = f(u["q"])
-    for key in ("rings", "main", "tlines", "tpatches"):
+    for key in ("rings", "main", "segments", "tpatches"):
         for r in data[key]:
             r["pts"] = [f(p) for p in r["pts"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
@@ -113,31 +124,39 @@ def flip_vertical(data):
     data["edges"] = [[f(p) for p in e] for e in data["edges"]]
 
 
-def main(samples_path, out_path):
+def load_refs():
+    """Reference signatures, and the reverse map name -> signature."""
     refs = json.load(open("references.json"))          # signature (with valences) -> reference name
     ref_by_name = {v: k for k, v in refs.items()}
     # the icosafold midpoint shares its signature with the range around it; that signature is a range type
     ref_by_name["Cross ring: antiprisms split 120+120 (not in the wiki list)"] = next(
         k for k, v in refs.items() if v.startswith("Cross ring: antiprisms split"))
+    return refs, ref_by_name
 
-    def identify(sig):
-        """Return (canonical id or None, x-key, reference name or None)."""
-        if sig.startswith("ERR"):
-            return None, "ERR", None
-        ref = refs.get(sig)
-        for cid, _, (kind, arg) in CANON:
-            if kind == "ref" and ref == arg:
-                return cid, None, ref
-            if kind == "wiki" and match(sig) == arg:
-                return cid, None, ref
-            if kind == "counts" and counts_key(sig) == arg:
-                return cid, None, ref
-        return None, (sig if ref else counts_key(sig) + "|" + sig.split(" | val")[-1]), ref
+
+def identify(sig, refs=None):
+    """Return (canonical id or None, x-key, reference name or None)."""
+    refs = refs if refs is not None else load_refs()[0]
+    if sig.startswith("ERR"):
+        return None, "ERR", None
+    ref = refs.get(sig)
+    for cid, _, (kind, arg) in CANON:
+        if kind == "ref" and ref == arg:
+            return cid, None, ref
+        if kind == "wiki" and match(sig) == arg:
+            return cid, None, ref
+        if kind == "counts" and counts_key(sig) == arg:
+            return cid, None, ref
+    return None, (sig if ref else counts_key(sig) + "|" + sig.split(" | val")[-1]), ref
+
+
+def main(samples_path, out_path):
+    refs, ref_by_name = load_refs()
 
     samples = json.load(open(samples_path))
     for s in samples:
         s["beta"] = to_upper(s["beta"]).tolist()
-        s["id"], s["xkey"], s["ref"] = identify(s["sig"])
+        s["id"], s["xkey"], s["ref"] = identify(s["sig"], refs)
 
     # uniform seeds (moved into the displayed half, de-duplicated)
     by_beta = {tuple(np.round(np.array(s["beta"]) / sum(s["beta"]), 9)): s for s in samples}
@@ -173,6 +192,7 @@ def main(samples_path, out_path):
     for s in samples:
         if s["id"] is None and s["xkey"] in xid:
             s["id"] = xid[s["xkey"]]
+    json.dump(xid, open("atlas_xids.json", "w"), indent=0)    # x-key -> X/Y id, for probe.py
 
     # uniform pieces of each type (used for naming X types found at uniform seeds)
     pieces = {}
@@ -260,7 +280,7 @@ def main(samples_path, out_path):
     ref_to_id = {}
     for rid, refname in RING_RANGE_TO_REF.items():
         sig = ref_by_name[refname]
-        ref_to_id[rid] = identify(sig)[0] or xid.get(sig) or xid.get(identify(sig)[1])
+        ref_to_id[rid] = identify(sig, refs)[0] or xid.get(sig) or xid.get(identify(sig, refs)[1])
     rings = []
     for F in fixed_circles(2):
         run = None
@@ -282,7 +302,14 @@ def main(samples_path, out_path):
         tmap[r["id"]].setdefault("where", "cross ring" if r["id"] != "B1" else "main ring")
 
     # transitional layer: T1 lines, T2 patches in mirrors and faces
-    tlines = [L for L in load_tlines() if L["id"] == "T1"]
+    segments = []
+    for seg in EXACT_SEGMENTS:
+        a, b = np.array(seg["a"], float), np.array(seg["b"], float)
+        a, b = a / a.sum(), b / b.sum()
+        kind = "copy under the extra half-turn" if seg["copy"] else "traced"
+        segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
+                         "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
+                                  f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
     tpatches = []
     B2 = [np.array(s["beta"]) / sum(s["beta"]) for s in samples if s["id"] == "T2"]
     planes = [(f"β{i + 1} = β{j + 1}", lambda b, i=i, j=j: abs(b[i] - b[j]) < 1e-9) for i, j in itertools.combinations(range(4), 2)]
@@ -329,7 +356,7 @@ def main(samples_path, out_path):
         if t["id"] in ("T1", "T2"):
             t["where"] = "golden samples; " + ("lines where a face meets a mirror" if t["id"] == "T1" else "patches in mirrors and faces")
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
-            "rings": rings, "main": main_ring, "tlines": tlines, "tpatches": tpatches,
+            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches,
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
     flip_vertical(data)

@@ -99,7 +99,9 @@ def compute_convex_hull(
             center = pts.mean(axis=0)
             q = pts - center
             _, s, vh = np.linalg.svd(q)
-            rank = int(np.sum(s > 1e-4))
+            # collinear shared vertices leave only float noise in the second singular value;
+            # a fixed larger cutoff would drop genuinely thin faces near degenerate seeds
+            rank = int(np.sum(s > 1e-9 * max(1.0, float(s[0]))))
             if rank < 2:
                 # Shared vertices are collinear or degenerate; not a 2D face
                 continue

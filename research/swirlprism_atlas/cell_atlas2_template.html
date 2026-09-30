@@ -100,7 +100,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
         <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
         <li>✕ marks the exact icosafold points of C2a and C2b, drawn in the colour of the cross-ring range around them. They are not golden points.</li>
-        <li>Rings take the colour of the shape each stretch produces. T1 (thin lines) lies where a cell face meets a mirror; T2 (thin outlines, faint fill) is flat patches in mirrors and faces, outlined as the convex hull of its samples.</li>
+        <li>Rings take the colour of the shape each stretch produces. Solid lines are exactly traced segments (T1, E2), drawn end to end; dashed lines are their copies under the extra half-turn that maps the group to itself but is not in H4, so they give the same polytope elsewhere in the cell; T2 (thin outlines, faint fill) is flat patches in mirrors and faces, outlined as the convex hull of its samples.</li>
       </ul>
     </div>
     <div class="panel">
@@ -169,7 +169,6 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         }
       }
       if (el("showT").checked) {
-        if (visibleFor("T1")) out.push(lines(D.tlines.map((L) => L.pts), "T1 · transitional line", { color: color(byId.T1), width: 2.5 }));
         if (visibleFor("T2")) for (const p of D.tpatches) {
           const n = p.pts.length - 1, pts = p.pts.slice(0, n);
           out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
@@ -187,6 +186,11 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${p[3]}`),
           marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: t.listed ? 0.9 : 0.55 },
           hovertemplate: "%{customdata}<extra></extra>" });
+        for (const seg of D.segments.filter((g) => g.id === t.id)) {
+          const trace = lines([seg.pts], seg.hover, { color: color(t), width: seg.copy ? 3.5 : 4.5, dash: seg.copy ? "dash" : "solid" });
+          trace.hovertemplate = seg.hover + "<extra></extra>";
+          out.push(trace);
+        }
         const exact = D.special.filter((u) => u.id === t.id && inQ(u.q));
         if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact icosafold point)`,
           x: exact.map((u) => u.q[0]), y: exact.map((u) => u.q[1]), z: exact.map((u) => u.q[2]), customdata: exact.map((u) => u.hover),
