@@ -42,6 +42,22 @@ select { font: inherit; font-size: 0.88rem; color: var(--ink); background: var(-
 #plot { width: 100%; height: min(74vh, 700px); min-height: 380px; }
 #hoverbox { font-family: var(--font-data); font-size: 0.84rem; color: var(--muted); min-height: 2.6em; }
 .tablewrap { overflow-x: auto; }
+.explore { display: grid; gap: 22px; min-width: 0; }
+/* wide screens: the model stays in view while the key scrolls in its own box beside it */
+@media (min-width: 1270px) {
+  .wrap { max-width: 1680px; }
+  .explore { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: start; }
+  .explore #key td:nth-child(3) { max-width: 13rem; overflow-wrap: anywhere; }
+  .explore #key td.counts { min-width: 11rem; }
+  .explore #key td.where { max-width: 10rem; }
+  .explore #key th, .explore #key td { padding-right: 8px; }
+  .explore > .viewer { position: sticky; top: 12px; height: calc(100vh - 24px); display: flex; flex-direction: column; }
+  .explore #plot { flex: 1 1 auto; height: auto; min-height: 280px; }
+  .explore .tablewrap { max-height: calc(100vh - 200px); min-height: 300px; overflow: auto; overscroll-behavior: contain;
+    border-top: 1px solid var(--rule); }
+  .explore .tablewrap thead th { position: sticky; top: 0; z-index: 1; background: var(--panel); border-top: none;
+    box-shadow: inset 0 -1px 0 var(--rule); }
+}
 table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
 th, td { text-align: left; padding: 7px 10px 7px 0; border-top: 1px solid var(--rule); vertical-align: top; }
 th { font-weight: 600; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.03em; }
@@ -78,7 +94,8 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     <div class="stats" id="stats"></div>
   </header>
 
-  <section class="panel">
+  <div class="explore">
+  <section class="panel viewer">
     <div class="controls">
       <label for="quarter">Show
         <select id="quarter"><option value="all">the whole half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option></select>
@@ -99,6 +116,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     <p class="lede">Counts are symmetry classes of cells, faces and edges, written the way the wiki writes them. The example seed can be pasted into the generator's Coordinates mode.</p>
     <div class="tablewrap"><table id="key"></table></div>
   </section>
+  </div>
 
   <section class="notes">
     <div class="panel">
