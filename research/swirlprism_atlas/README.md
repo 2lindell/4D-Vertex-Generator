@@ -290,6 +290,18 @@ F3 points on the face β4 = 0, (0.3291, 0.4597, 0.2113, 0) and
 (0.3291, 0.2113, 0.4597, 0), and a B1 point on the main ring (V3–V4 edge),
 (0, 0, 0.7437, 0.2563).
 
+**A fundamental domain of the 2400-element group** (`dirichlet.py`). The
+group has no mirrors, so no mirror walls cut out a domain; the natural choice is
+a Dirichlet domain: the points closer to a centre p than to any of its 2399
+images. About the half-cell's centroid (β ∝ (2, 2, 3, 1)) it has 13 corners and
+10 faces and a quarter of the 600-cell's cell volume, and it pokes slightly out
+of the cell. Four faces each fold onto themselves across a light purple axis
+(the axis is a diagonal of the face), two fold across cross-ring axes (half-turns
+of G), and four are glued in two pairs (one pair by G, one by the coset). The
+swirlprism group's own Dirichlet domain from the same centre has 15 corners and
+11 faces. Other centres give other valid shapes. The atlas shows it under
+"2400 fundamental domain".
+
 The hull and orbit code were rebuilt to be tolerance-robust (see
 `src/four_d_vertex_generator/off.py` and `generation.py`); re-running the
 golden survey with it gives identical signatures for all 2796 samples.

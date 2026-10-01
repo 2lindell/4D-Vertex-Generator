@@ -120,6 +120,9 @@ def flip_vertical(data):
             r["pts"] = [f(p) for p in r["pts"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
     data["split"] = [f(p) for p in data["split"]]
+    for face in data["fdomain"]:
+        face["pts"] = [f(p) for p in face["pts"]]
+        face["axis"] = [f(p) for p in face["axis"]]
     data["edges"] = [[f(p) for p in e] for e in data["edges"]]
 
 
@@ -334,6 +337,21 @@ def main(samples_path, out_path):
         segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
+    # a fundamental domain of the 2400-element group: the Dirichlet domain about the half-cell's centroid
+    from dirichlet import dirichlet, display_faces
+    from normalizer import extended_group
+    group_n = extended_group()
+    domain = dirichlet(seed_from_beta(np.array([2, 2, 3, 1.0])), group_n)
+    glue = {"q-axis": "folded onto itself across a light purple axis (a half-turn of the extra coset)",
+            "ring-axis": "folded onto itself across a cross-ring axis (a half-turn of the swirlprism group)"}
+    fdomain = []
+    for face in display_faces(domain, group_n, len(group_n) // 2):
+        how = glue.get(face["kind"], "glued to the other face of the same colour by "
+                       + ("an element of the extra coset" if face["coset"] else "a rotation of the swirlprism group"))
+        fdomain.append({"kind": face["kind"], "pts": [np.round(xyz(b), 6).tolist() for b in face["corners"]],
+                        "axis": [np.round(xyz(b), 6).tolist() for b in face["axis"]],
+                        "hover": f"Fundamental domain of the 2400-element group<br>{len(face['corners'])}-sided face, {how}"})
+
     # axes of the extra half-turns: the coset G.Q of the full 2400-element group (normalizer.py)
     from normalizer import coset_axes
     qaxes = []
@@ -402,7 +420,7 @@ def main(samples_path, out_path):
             t["where"] = (t.get("where") or ("golden samples" if t.get("samples") else "")) + \
                 "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
-            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes,
+            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "fdomain": fdomain,
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
     flip_vertical(data)
