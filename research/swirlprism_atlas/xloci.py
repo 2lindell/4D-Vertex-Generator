@@ -65,5 +65,76 @@ def step1():
         print(f"{tid:5s} kept {r['kept']:2d}/{r['of']}  neighbours {r['neighbours'][:6]}")
 
 
+PHI = (1 + 5 ** 0.5) / 2
+_A, _B = np.meshgrid(np.arange(-3, 4), np.arange(-3, 4))
+GOLDEN = np.unique(np.round((_A + _B * PHI).ravel(), 12))     # a + b*phi, |a|, |b| <= 3
+
+
+def golden_planes(b, tol=1e-10):
+    """Planes n.beta = 0 with every n_i of the form a + b*phi (|a|, |b| <= 3) passing through b."""
+    i4 = int(np.argmax(b))                    # solve for the largest weight's coefficient
+    rest = [i for i in range(4) if i != i4]
+    grid = np.stack(np.meshgrid(GOLDEN, GOLDEN, GOLDEN, indexing="ij"), -1).reshape(-1, 3)
+    n4 = -(grid @ b[rest]) / b[i4]
+    near = np.abs(GOLDEN[np.searchsorted(GOLDEN, n4).clip(1, len(GOLDEN) - 1) - 1] - n4)
+    near = np.minimum(near, np.abs(GOLDEN[np.searchsorted(GOLDEN, n4).clip(0, len(GOLDEN) - 1)] - n4))
+    found = {}
+    for g, v in zip(grid[near < tol], n4[near < tol]):
+        n = np.zeros(4); n[rest] = g; n[i4] = v
+        if not n.any():
+            continue
+        n /= n[np.flatnonzero(np.abs(n) > 1e-9)[0]]
+        key = tuple(np.round(n, 9))
+        found[key] = n
+    # simplest first: fewest non-zero entries, then smallest entries
+    return sorted(found.values(), key=lambda n: ((np.abs(n) > 1e-9).sum(), np.abs(n).sum()))
+
+
+def in_plane_dirs(normals, k):
+    """k unit directions keeping beta's sum and n.beta fixed for every n in normals."""
+    rng = np.random.default_rng(1)
+    A = np.vstack([np.ones(4), *normals])
+    basis = np.linalg.svd(A)[2][len(A):]       # null space
+    d = rng.standard_normal((k, len(basis))) @ basis
+    return d / np.linalg.norm(d, axis=1, keepdims=True)
+
+
+def _test(job):
+    tid, b, normals = job
+    D = in_plane_dirs(normals, 4)
+    got = [_one(b + s * EPS * d)[0] for d in D for s in (1, -1)]
+    return sum(g == tid for g in got)
+
+
+def step2():
+    """For each type that does not fill a region, find the simplest golden plane (or pair of planes) on which
+    in-plane nudges keep the type."""
+    r1 = json.load(open("xloci_step1.json"))
+    low = {t: np.array(r["beta"]) for t, r in r1.items() if r["kept"] < r["of"]}
+    out = {}
+    with Pool(4) as pool:
+        for tid, b in sorted(low.items()):
+            planes = golden_planes(b)[:24]
+            kept = pool.map(_test, [(tid, b, [n]) for n in planes])
+            walls = [n for n, k in zip(planes, kept) if k == 8]
+            res = {"beta": b.tolist(), "step1_kept": r1[tid]["kept"], "planes_tried": len(planes)}
+            if walls:
+                res["kind"] = "wall"
+                res["normal"] = walls[0].tolist()
+            else:
+                pairs = [(i, j) for i in range(len(planes)) for j in range(i + 1, len(planes))
+                         if np.linalg.matrix_rank(np.vstack([np.ones(4), planes[i], planes[j]]), 1e-8) == 3][:40]
+                kept = pool.map(_test, [(tid, b, [planes[i], planes[j]]) for i, j in pairs])
+                lines = [(planes[i], planes[j]) for (i, j), k in zip(pairs, kept) if k == 8]
+                if lines:
+                    res["kind"] = "line"
+                    res["normals"] = [n.tolist() for n in lines[0]]
+                else:
+                    res["kind"] = "point or curved"
+            out[tid] = res
+            print(tid, res["kind"], np.round(res.get("normal", res.get("normals", [])), 4).tolist(), flush=True)
+    json.dump(out, open("xloci_step2.json", "w"), indent=1)
+
+
 if __name__ == "__main__":
-    {"step1": step1}[sys.argv[1]]()
+    {"step1": step1, "step2": step2}[sys.argv[1]]()
