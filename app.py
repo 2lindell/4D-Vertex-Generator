@@ -700,18 +700,24 @@ def render_analyze_tab() -> None:
                 width="stretch",
             )
     else:
-        st.warning("No built-in symmetry matched this vertex set at this tolerance.")
+        st.warning(
+            "No built-in symmetry matched this vertex set at this tolerance, so there is "
+            "nothing to split under. Try a larger tolerance under Advanced settings."
+        )
+        return
 
+    # only the symmetries that map this vertex set onto itself are offered
     auto = "auto (combine all matches)"
-    split_options = [auto, *available_symmetries(include_aliases=False)]
+    split_options = [auto, *detected]
     split_name = st.selectbox(
         "Split into isogonal groups under",
         options=split_options,
-        index=split_options.index(detected[0]) if detected else 0,
+        index=1,
         format_func=lambda name: name if name == auto else _describe(name),
         help=(
-            "Defaults to the highest detected symmetry. 'auto' combines every matching "
-            "symmetry into one larger group, which gives the fewest, largest orbits."
+            "Only symmetries detected for this file are listed, highest first; the highest is "
+            "the default. 'auto' combines every matching symmetry into one larger group, "
+            "which gives the fewest, largest orbits."
         ),
     )
     family_filter = ""
@@ -720,11 +726,6 @@ def render_analyze_tab() -> None:
             "Only combine symmetries whose name contains (optional)",
             help="e.g. 'swirlprism' to find the largest matching swirl subgroup.",
         ).strip()
-    elif split_name not in detected:
-        st.warning(
-            f"`{split_name}` does not map this vertex set onto itself at this tolerance, "
-            "so the split may be more fragmented than necessary."
-        )
 
     if st.button("Split vertices", type="primary"):
         if split_name == auto:
