@@ -6,7 +6,7 @@
 /* Layout: plot with its controls first, then the key grouped in the wiki's order, then notes. */
 :root {
   --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4; --faint: #aab1bc; --x: #9aa1ab;
-  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948; --s9: #0f93b0;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948; --s9: #0f93b0; --qaxis: #a68ae6;
   --mirror: #4a3aa7;
   --font-text: "Spline Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-data: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -14,13 +14,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e;
-    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2; --qaxis: #c3aef7;
     --mirror: #9085e9; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e;
-  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2; --qaxis: #c3aef7;
   --mirror: #9085e9; color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -77,6 +77,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
       <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
       <label><input id="showRings" type="checkbox" checked> rings</label>
+      <label><input id="showAxes" type="checkbox" checked> 2400-symmetry axes</label>
       <label><input id="showT" type="checkbox" checked> transitional T1/T2</label>
       <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
     </div>
@@ -99,6 +100,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200), numbered by how many classes of cells they have.</li>
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
         <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
+        <li>Light purple lines are the axes of the extra half-turns. The swirlprism group (1200 rotations) and the extra half-turn Q together make a group of 2400 rotations; it has no mirrors, so it adds no planes, only these four axis segments. A seed on an axis is its own copy, and its polytope has 2400 symmetries; the exact icosafold points (✕) lie on them. Every other point has exactly one congruent copy elsewhere in the half-cell.</li>
         <li>✕ marks the exact icosafold points of C2a and C2b, drawn in the colour of the cross-ring range around them. They are not golden points.</li>
         <li>Rings take the colour of the shape each stretch produces. Solid lines are exactly traced segments (T1, E2), drawn end to end; dashed lines are their copies under the extra half-turn that maps the group to itself but is not in H4, so they give the same polytope elsewhere in the cell; T2 (outlined, faint fill) is the exact regions traced in the mirrors, with dashed copies.</li>
       </ul>
@@ -167,6 +169,12 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           if (!visibleFor(id)) continue;
           out.push(lines(segs, `${id} · ${t.name} (${id === "B1" ? "main ring" : "cross ring"})`, { color: color(t), width: id === "B1" ? 7 : 5 }));
         }
+      }
+      if (el("showAxes").checked) for (const ax of D.qaxes) {
+        const trace = lines([ax.pts], ax.hover, { color: css("--qaxis"), width: 6 });
+        trace.hovertemplate = ax.hover + "<extra></extra>";
+        trace.opacity = 0.9;
+        out.push(trace);
       }
       if (el("showT").checked) {
         if (visibleFor("T2")) for (const p of D.tpatches) {
@@ -256,7 +264,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", r.dataset.id === state.only));
       render();
     }));
-    ["quarter", "showListed", "showX", "showRings", "showT", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
+    ["quarter", "showListed", "showX", "showRings", "showAxes", "showT", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   }

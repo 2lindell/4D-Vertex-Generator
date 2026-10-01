@@ -115,7 +115,7 @@ def flip_vertical(data):
     for key in ("uniform", "special"):
         for u in data[key]:
             u["q"] = f(u["q"])
-    for key in ("rings", "main", "segments", "tpatches"):
+    for key in ("rings", "main", "segments", "tpatches", "qaxes"):
         for r in data[key]:
             r["pts"] = [f(p) for p in r["pts"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
@@ -309,6 +309,15 @@ def main(samples_path, out_path):
         segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
+    # axes of the extra half-turns: the coset G.Q of the full 2400-element group (normalizer.py)
+    from normalizer import coset_axes
+    qaxes = []
+    for a, b in coset_axes():
+        pts = [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)]
+        qaxes.append({"pts": pts, "hover": "Axis of an extra half-turn (2400-element group)<br>seeds on it are their own "
+                      f"copy; their polytopes have 2400 symmetries<br>from β = {np.round(a, 5).tolist()}"
+                      f"<br>to β = {np.round(b, 5).tolist()}"})
+
     # T2: exact patches in the mirrors (t2exact.py) and their copies under the extra half-turn
     import t2exact
     for name, (plane, desc) in t2exact.CURVE_DESCRIPTIONS.items():
@@ -364,7 +373,7 @@ def main(samples_path, out_path):
         if t["id"] in SEGMENT_WHERE:
             t["where"] = SEGMENT_WHERE[t["id"]]
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
-            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches,
+            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes,
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
     flip_vertical(data)
