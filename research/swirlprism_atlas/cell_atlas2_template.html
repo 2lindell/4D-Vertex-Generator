@@ -174,8 +174,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         const groups = {};
         for (const r of [...D.rings, ...D.main]) (groups[r.id] ||= []).push(r.pts.filter(inQ).length > 1 ? r.pts : []);
         for (const [id, segs] of Object.entries(groups)) {
-          const t = byId[id];
-          if (!visibleFor(id)) continue;
+          const t = byId[id];            // rings stay while the checkbox is on, whatever row is selected
           out.push(lines(segs, `${id} · ${t.name} (${id === "B1" ? "main ring" : "cross ring"})`, { color: color(t), width: id === "B1" ? 7 : 5 }));
         }
       }
