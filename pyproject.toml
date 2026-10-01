@@ -12,13 +12,15 @@ authors = [{ name = "2lindell" }]
 license = { text = "MIT" }
 dependencies = [
   "numpy>=1.26",
-  "plotly>=5.20",
   "scipy>=1.11",
-  "sympy>=1.12",
-  "streamlit>=1.36",
 ]
 
 [project.optional-dependencies]
+# the Streamlit web app (app.py); the library and the CLI need only numpy and scipy
+app = [
+  "plotly>=5.20",
+  "streamlit>=1.36",
+]
 dev = [
   "pytest>=8.0",
   "ruff>=0.5",

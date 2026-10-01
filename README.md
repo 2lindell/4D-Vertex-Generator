@@ -25,8 +25,12 @@ The project requires Python 3.10 or newer.
 ```bash
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
-python -m pip install -e .
+python -m pip install -e '.[app]'
 ```
+
+The `app` extra installs the web app's dependencies (Streamlit and Plotly).
+The library and the command-line tools need only numpy and scipy, so
+`python -m pip install -e .` is enough if you only use those.
 
 Generate the signed-permutation orbit of the seed $(1, 0, 0, 0)$:
 
@@ -43,11 +47,16 @@ the example therefore writes `out/vertices_8.off`.
 
 ## Interactive UI
 
-Start the local Streamlit application from the repository root:
+Start the local Streamlit application from the repository root (it needs the
+`app` extra from the quick start):
 
 ```bash
 streamlit run app.py
 ```
+
+It serves on `localhost:8502`, so only this machine can open it; GitHub
+Codespaces and VS Code forward that port automatically. To share it on your
+network on purpose, add `--server.address 0.0.0.0`.
 
 The **Generate** tab lets you pick a symmetry family and subgroup (its group
 order is shown), place a seed point, generate the orbit, and download it as
@@ -240,7 +249,7 @@ coordinates are treated as equal.
 Install the development dependencies and run the test suite with:
 
 ```bash
-python -m pip install -e '.[dev]'
+python -m pip install -e '.[app,dev]'
 pytest
 ruff check .
 ```
