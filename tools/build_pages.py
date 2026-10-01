@@ -1,10 +1,13 @@
 """Build a static copy of the Streamlit app for GitHub Pages.
 
-    python tools/build_pages.py [output_dir]      # default: _site
+    python tools/build_pages.py [output_dir]      # default: docs
 
 The app runs entirely in the visitor's browser with stlite (Streamlit on Pyodide, Python compiled to
 WebAssembly), so the page needs no server and stays available. The output is index.html plus app.py
 and the four_d_vertex_generator package, which index.html mounts into the in-browser file system.
+
+GitHub Pages serves the committed docs/ folder ("Deploy from a branch", folder /docs). Rebuild and
+commit docs/ after changing the app; tests/test_pages.py fails while docs/ is out of date.
 """
 from __future__ import annotations
 
@@ -85,6 +88,6 @@ def build(out: Path) -> list[str]:
 
 
 if __name__ == "__main__":
-    target = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "_site"
+    target = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "docs"
     mounted = build(target)
     print(f"wrote {target} ({len(mounted)} files mounted: {', '.join(mounted)})")

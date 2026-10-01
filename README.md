@@ -27,9 +27,10 @@ compiled to WebAssembly). The first visit downloads about 30 MB, which the
 browser then caches. Large symmetry groups compute more slowly there than in a
 local install.
 
-The site is rebuilt and published by `.github/workflows/pages.yml` on every
-push to `main`, after the tests pass. To build it locally, run
-`python tools/build_pages.py` (it writes `_site/`).
+GitHub Pages serves the committed `docs/` folder (Settings → Pages → Deploy
+from a branch, folder `/docs`). After changing the app or the package, run
+`python tools/build_pages.py` and commit `docs/`; `tests/test_pages.py` fails
+while `docs/` is out of date.
 
 ## Quick start
 
