@@ -227,7 +227,8 @@ def main(samples_path, out_path):
         if "counts" not in t:
             c, f, e = counts_key(s["sig"]).split("|")
             t.update({"vertices": s["sig"].split(":")[0], "cells": c, "faces": f, "edges": e,
-                      "example": f"{seed_text(s['beta'])}  β ∝ {beta_text(s['beta'])}", "counts": True})
+                      "example": f"{seed_text(s['beta'])}  β ∝ {beta_text(s['beta'])}",
+                      "seed": seed_text(s["beta"]), "betatext": beta_text(s["beta"]), "counts": True})
         if key in uniform_keys:
             continue                                            # drawn once, as a uniform marker
         for b in [np.array(s["beta"]), *fold_copies(s["beta"])]:
