@@ -99,41 +99,41 @@ def in_plane_dirs(normals, k):
     return d / np.linalg.norm(d, axis=1, keepdims=True)
 
 
-def _test(job):
-    tid, b, normals = job
-    D = in_plane_dirs(normals, 4)
-    got = [_one(b + s * EPS * d)[0] for d in D for s in (1, -1)]
-    return sum(g == tid for g in got)
+def _keeps(tid, b, normals, k=4):
+    """Do k in-plane nudges (both ways) all keep the type? Stops at the first one that does not."""
+    for d in in_plane_dirs(normals, k):
+        for s in (1, -1):
+            if _one(b + s * EPS * d)[0] != tid:
+                return False
+    return True
+
+
+def _locate(job):
+    tid, b = job
+    planes = golden_planes(b)[:30]
+    res = {"beta": b.tolist()}
+    for n in planes:
+        if _keeps(tid, b, [n]):
+            return tid, {**res, "kind": "wall", "normals": [n.tolist()]}
+    for i in range(len(planes)):
+        for j in range(i + 1, len(planes)):
+            pair = [planes[i], planes[j]]
+            if np.linalg.matrix_rank(np.vstack([np.ones(4), *pair]), 1e-8) == 3 and _keeps(tid, b, pair):
+                return tid, {**res, "kind": "line", "normals": [n.tolist() for n in pair]}
+    return tid, {**res, "kind": "point or curved"}
 
 
 def step2():
-    """For each type that does not fill a region, find the simplest golden plane (or pair of planes) on which
-    in-plane nudges keep the type."""
+    """For each type that does not fill a region, find the simplest golden plane (or pair of planes) along
+    which nudges keep the type: a wall or a line. Types left over are points or lie on curved loci."""
     r1 = json.load(open("xloci_step1.json"))
-    low = {t: np.array(r["beta"]) for t, r in r1.items() if r["kept"] < r["of"]}
+    jobs = [(t, np.array(r["beta"])) for t, r in sorted(r1.items()) if r["kept"] < r["of"]]
     out = {}
     with Pool(4) as pool:
-        for tid, b in sorted(low.items()):
-            planes = golden_planes(b)[:24]
-            kept = pool.map(_test, [(tid, b, [n]) for n in planes])
-            walls = [n for n, k in zip(planes, kept) if k == 8]
-            res = {"beta": b.tolist(), "step1_kept": r1[tid]["kept"], "planes_tried": len(planes)}
-            if walls:
-                res["kind"] = "wall"
-                res["normal"] = walls[0].tolist()
-            else:
-                pairs = [(i, j) for i in range(len(planes)) for j in range(i + 1, len(planes))
-                         if np.linalg.matrix_rank(np.vstack([np.ones(4), planes[i], planes[j]]), 1e-8) == 3][:40]
-                kept = pool.map(_test, [(tid, b, [planes[i], planes[j]]) for i, j in pairs])
-                lines = [(planes[i], planes[j]) for (i, j), k in zip(pairs, kept) if k == 8]
-                if lines:
-                    res["kind"] = "line"
-                    res["normals"] = [n.tolist() for n in lines[0]]
-                else:
-                    res["kind"] = "point or curved"
+        for tid, res in pool.imap_unordered(_locate, jobs):
             out[tid] = res
-            print(tid, res["kind"], np.round(res.get("normal", res.get("normals", [])), 4).tolist(), flush=True)
-    json.dump(out, open("xloci_step2.json", "w"), indent=1)
+            print(tid, res["kind"], np.round(res.get("normals", []), 4).tolist(), flush=True)
+    json.dump(dict(sorted(out.items())), open("xloci_step2.json", "w"), indent=1)
 
 
 if __name__ == "__main__":
