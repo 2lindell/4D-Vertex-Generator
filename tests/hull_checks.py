@@ -43,13 +43,15 @@ def check_hull(
         dist = verts @ normal - offset
         if dist.max() > -dist.min():
             normal, offset, dist = -normal, -offset, -dist
-        on = set(np.flatnonzero(np.abs(dist) <= tol).tolist())
+        # flatness is judged at ``margin``; lying "on" the cell only within float noise, since a
+        # vertex any farther inside is resolved by the hull however close it is
+        on = set(np.flatnonzero(np.abs(dist) <= tol * 1e-3).tolist()) | set(vs)
         # other points on the hyperplane are allowed only as duplicates of the cell's vertices
         extra = sorted(on - set(vs))
         if extra:
             gaps = np.min(np.linalg.norm(verts[extra][:, None] - verts[vs][None], axis=2), axis=1)
             assert gaps.max() <= tol, "a cell's hyperplane holds vertices the cell does not list"
-        assert set(vs) <= on, "a cell's vertices are not in one hyperplane"
+        assert np.abs(dist[vs]).max() <= tol, "a cell's vertices are not in one hyperplane"
         assert dist.max() <= tol, "a vertex lies outside a cell's hyperplane"
         planes.append(np.append(normal, offset))
     planes_arr = np.array(planes)

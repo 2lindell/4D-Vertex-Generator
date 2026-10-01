@@ -230,6 +230,15 @@ x y z w
 
 If faces and cells are omitted, `to_4off` emits zero counts (`<num_vertices> 0 0 0`). When `compute_hull=True` or `compute_convex_hull` is called, the 4D convex hull is computed and the full mesh is exported. Numeric output is written with high precision without exponent notation.
 
+`compute_convex_hull` checks its own result before returning it: every cell
+is flat with no vertex outside it, every face is a convex polygon shared by
+exactly two cells, every cell is a closed polyhedron and the Euler
+characteristic is 0. Points that coincide (closer than the generator's `tol`)
+are merged into their mean. If an input is too close to degenerate to resolve,
+for example a seed within about 1e-6 of a mirror or vertices jittered at the
+hull's tolerance (1e-9 of the polytope's radius), it raises `ValueError`
+instead of returning a subtly wrong hull.
+
 ## Mathematical model
 
 For a symmetry group $G$ acting on $\mathbb{R}^4$ and a seed point $v$, the
@@ -253,5 +262,11 @@ python -m pip install -e '.[app,dev]'
 pytest
 ruff check .
 ```
+
+`python tools/hull_audit.py` (add `--quick` for a shorter run) stress-tests the
+convex hull on random seeds for every symmetry, seeds approaching a mirror,
+duplicated vertices and jittered vertices, and checks every result
+independently (`tests/hull_checks.py`). Each case is reported as ok, refused
+or WRONG; a WRONG result is a bug.
 
 The repository is released under the MIT License.
