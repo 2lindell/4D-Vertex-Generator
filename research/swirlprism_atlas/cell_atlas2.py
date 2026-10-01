@@ -120,6 +120,7 @@ def flip_vertical(data):
             r["pts"] = [f(p) for p in r["pts"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
     data["split"] = [f(p) for p in data["split"]]
+    data["fcentre"] = f(data["fcentre"])
     for face in data["fdomain"]:
         face["pts"] = [f(p) for p in face["pts"]]
         face["axis"] = [f(p) for p in face["axis"]]
@@ -337,11 +338,14 @@ def main(samples_path, out_path):
         segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
-    # a fundamental domain of the 2400-element group: the Dirichlet domain about the half-cell's centroid
+    # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
+    # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
+    # holds every light purple axis on its surface (domain_search.py); (2, 2, 2, 1) is its midpoint.
     from dirichlet import dirichlet, display_faces
     from normalizer import extended_group
     group_n = extended_group()
-    domain = dirichlet(seed_from_beta(np.array([2, 2, 3, 1.0])), group_n)
+    centre_beta = np.array([2, 2, 2, 1.0])
+    domain = dirichlet(seed_from_beta(centre_beta), group_n)
     glue = {"q-axis": "folded onto itself across a light purple axis (a half-turn of the extra coset)",
             "ring-axis": "folded onto itself across a cross-ring axis (a half-turn of the swirlprism group)"}
     fdomain = []
@@ -421,6 +425,7 @@ def main(samples_path, out_path):
                 "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "fdomain": fdomain,
+            "fcentre": np.round(xyz(centre_beta / centre_beta.sum()), 6).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
     flip_vertical(data)

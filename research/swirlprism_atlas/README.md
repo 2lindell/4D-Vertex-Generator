@@ -290,17 +290,19 @@ F3 points on the face β4 = 0, (0.3291, 0.4597, 0.2113, 0) and
 (0.3291, 0.2113, 0.4597, 0), and a B1 point on the main ring (V3–V4 edge),
 (0, 0, 0.7437, 0.2563).
 
-**A fundamental domain of the 2400-element group** (`dirichlet.py`). The
-group has no mirrors, so no mirror walls cut out a domain; the natural choice is
-a Dirichlet domain: the points closer to a centre p than to any of its 2399
-images. About the half-cell's centroid (β ∝ (2, 2, 3, 1)) it has 13 corners and
-10 faces and a quarter of the 600-cell's cell volume, and it pokes slightly out
-of the cell. Four faces each fold onto themselves across a light purple axis
-(the axis is a diagonal of the face), two fold across cross-ring axes (half-turns
-of G), and four are glued in two pairs (one pair by G, one by the coset). The
-swirlprism group's own Dirichlet domain from the same centre has 15 corners and
-11 faces. Other centres give other valid shapes. The atlas shows it under
-"2400 fundamental domain".
+**A fundamental domain of the 2400-element group** (`dirichlet.py`,
+`domain_search.py`). The group has no mirrors, so no mirror walls cut out a
+domain; the natural choice is a Dirichlet domain: the points closer to a centre
+p than to any of its 2399 images. Centres on the E2 line (β1 = β2 = β3, from the
+face centre to the cell centre) are the only ones whose domain stays inside the
+half-cell and holds every light purple axis on its surface; a step of 1e-4 off
+the line breaks both. The atlas uses β ∝ (2, 2, 2, 1). The domain has 13
+corners and 10 faces and half the half-cell's volume. Four faces lie on the
+half-cell's walls: β1 = 0 and β2 = 0 (glued to each other) and the fold and
+β4 = 0 (each folded across a cross ring). The other six cut the half-cell in
+two: four fold across the light purple axes and two are glued to each other by
+the coset G·Q. All six points where the axes meet the half-cell's boundary are
+corners. The cut moves as the centre moves along the line; the walls do not.
 
 The hull and orbit code were rebuilt to be tolerance-robust (see
 `src/four_d_vertex_generator/off.py` and `generation.py`); re-running the
