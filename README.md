@@ -18,6 +18,19 @@ symmetry action can then partition the generated vertices into isogonal orbits.
 - Includes Coxeter, chiral, diminished, prismatic, duoprismatic, and
   icosian/swirlprism symmetry families.
 
+## Use it online
+
+The web app also runs entirely in your browser at
+**https://2lindell.github.io/4D-Vertex-Generator/**, with nothing to install. It
+uses [stlite](https://github.com/whitphx/stlite) (Streamlit on Pyodide, Python
+compiled to WebAssembly). The first visit downloads about 30 MB, which the
+browser then caches. Large symmetry groups compute more slowly there than in a
+local install.
+
+The site is rebuilt and published by `.github/workflows/pages.yml` on every
+push to `main`, after the tests pass. To build it locally, run
+`python tools/build_pages.py` (it writes `_site/`).
+
 ## Quick start
 
 The project requires Python 3.10 or newer.
