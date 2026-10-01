@@ -88,10 +88,11 @@ if __name__ == "__main__":
     xids = json.load(open("atlas_xids.json"))
     samples = json.load(open("golden_22.json"))
     per_type = defaultdict(list)
+    limit = int(sys.argv[1] if len(sys.argv) > 1 else 3)   # 0 = every sample
     for s in samples:
         cid, xkey, _ = identify(s["sig"], refs)
         tid = cid or xids.get(xkey)
-        if tid and len(per_type[tid]) < int(sys.argv[1] if len(sys.argv) > 1 else 3):
+        if tid and (limit == 0 or len(per_type[tid]) < limit):
             if not any(np.allclose(s["beta"], b, atol=1e-12) for b in per_type[tid]):
                 per_type[tid].append(s["beta"])
     jobs = [(t, b) for t, bs in per_type.items() for b in bs]
@@ -100,7 +101,7 @@ if __name__ == "__main__":
     out = defaultdict(list)
     for tid, beta, fp in res:
         out[tid].append({"beta": beta, **fp})
-    json.dump(out, open("fingerprints.json", "w"), indent=0)
+    json.dump(out, open(sys.argv[2] if len(sys.argv) > 2 else "fingerprints.json", "w"), indent=0)
     print(len(jobs), "polytopes fingerprinted")
 
 
