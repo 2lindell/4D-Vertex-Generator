@@ -25,12 +25,8 @@ def _key(v: np.ndarray, tol: float) -> tuple[int, int, int, int]:
     return int(q[0]), int(q[1]), int(q[2]), int(q[3])
 
 
-def _dedupe(points: np.ndarray, tol: float) -> np.ndarray:
-    """Indices of one representative per cluster of points closer than ``tol`` (first one kept).
-
-    Clustering by distance never splits a point from its own float-noise copy, which
-    rounding to a grid does whenever the two copies straddle a rounding boundary.
-    """
+def _cluster_roots(points: np.ndarray, tol: float) -> np.ndarray:
+    """For each point, the first index of its cluster (points chained closer than tol)."""
     pts = np.asarray(points, dtype=float).reshape(len(points), -1)
     parent = np.arange(len(pts))
 
@@ -44,7 +40,34 @@ def _dedupe(points: np.ndarray, tol: float) -> np.ndarray:
         a, b = find(int(i)), find(int(j))
         if a != b:
             parent[max(a, b)] = min(a, b)
-    return np.array(sorted({find(i) for i in range(len(pts))}), dtype=int)
+    return np.array([find(i) for i in range(len(pts))], dtype=int)
+
+
+def _dedupe(points: np.ndarray, tol: float) -> np.ndarray:
+    """Indices of one representative per cluster of points closer than ``tol`` (first one kept).
+
+    Clustering by distance never splits a point from its own float-noise copy, which
+    rounding to a grid does whenever the two copies straddle a rounding boundary.
+    """
+    return np.unique(_cluster_roots(points, tol))
+
+
+def _merge(points: np.ndarray, tol: float) -> np.ndarray:
+    """One point per cluster of points closer than ``tol``: the cluster's mean, in first-seen order.
+
+    The mean (rather than an arbitrary member) keeps a symmetric set symmetric when a seed is so
+    close to a mirror that pairs of orbit points merge.
+    """
+    pts = np.asarray(points, dtype=float)
+    roots = _cluster_roots(pts, tol)
+    order = np.unique(roots)
+    index = {int(r): k for k, r in enumerate(order)}
+    sums = np.zeros((len(order), pts.shape[1]))
+    counts = np.zeros(len(order))
+    for p, r in zip(pts, roots):
+        sums[index[int(r)]] += p
+        counts[index[int(r)]] += 1
+    return sums / counts[:, None]
 
 
 @lru_cache(maxsize=64)
@@ -138,7 +161,7 @@ def generate_vertices_from_seed(
     if elements is not None:
         images = np.stack(elements) @ s
         images[np.abs(images) < ZERO_THRESHOLD] = 0.0
-        return images[_dedupe(images, tol * max(1.0, float(np.linalg.norm(s))))]
+        return _merge(images, tol * max(1.0, float(np.linalg.norm(s))))
 
     discovered: dict[tuple[int, int, int, int], np.ndarray] = {_key(s, tol): s}
     q: deque[np.ndarray] = deque([s])
@@ -159,4 +182,4 @@ def generate_vertices_from_seed(
                 )
 
     verts = np.vstack(list(discovered.values()))
-    return verts[_dedupe(verts, tol * max(1.0, float(np.linalg.norm(s))))]
+    return _merge(verts, tol * max(1.0, float(np.linalg.norm(s))))

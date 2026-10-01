@@ -62,31 +62,43 @@ def compute_convex_hull(
     centre = verts.mean(axis=0)
     radius = float(np.max(np.linalg.norm(verts - centre, axis=1)))
 
-    # Cells: connected groups of neighbouring Qhull simplices lying in one hyperplane. Membership
-    # comes from the simplices themselves, never from a distance test against every vertex, so a
-    # vertex that is merely very close to a cell's hyperplane (as near-duplicate vertices of nearly
-    # degenerate seeds are) is not pulled into it.
+    # Cells: groups of neighbouring Qhull simplices lying in one hyperplane. A group grows from one
+    # simplex and admits a neighbour only if it matches that founding simplex's hyperplane, so small
+    # differences cannot add up along a chain. Membership comes from the simplices themselves, never
+    # from a distance test against every vertex, so a vertex that is merely very close to a cell's
+    # hyperplane (as near-duplicate vertices of nearly degenerate seeds are) is not pulled into it.
     eqs = hull.equations
     norms = np.linalg.norm(eqs[:, :4], axis=1)
     if np.any(norms == 0):
         raise ValueError("Convex hull is inconsistent (a degenerate facet has no normal).")
     eqs = eqs / norms[:, None]
     n_simplices = len(eqs)
-    parent = list(range(n_simplices))
+    eps = tol * max(radius, 1e-300)
+
+    def same_plane(i: int, j: int) -> bool:
+        return bool(
+            np.abs(eqs[i, :4] - eqs[j, :4]).max() <= tol and abs(eqs[i, 4] - eqs[j, 4]) <= eps
+        )
+
+    parent = [-1] * n_simplices
+    for start in range(n_simplices):
+        if parent[start] != -1:
+            continue
+        parent[start] = start
+        queue = [start]
+        while queue:
+            current = queue.pop()
+            for n_idx in hull.neighbors[current]:
+                n_idx = int(n_idx)
+                if parent[n_idx] == -1 and same_plane(start, n_idx):
+                    parent[n_idx] = start
+                    queue.append(n_idx)
 
     def find(x: int) -> int:
         while parent[x] != x:
             parent[x] = parent[parent[x]]
             x = parent[x]
         return x
-
-    for s_idx, neighbours in enumerate(hull.neighbors):
-        for n_idx in neighbours:
-            n_idx = int(n_idx)
-            if n_idx > s_idx and np.abs(eqs[s_idx] - eqs[n_idx]).max() <= tol * max(1.0, radius):
-                a, b = find(s_idx), find(n_idx)
-                if a != b:
-                    parent[max(a, b)] = min(a, b)
 
     # A flat sliver simplex (Qhull's triangulation of a nearly degenerate facet) can carry an
     # inaccurate hyperplane and so fail the test above. A real cell never has all its vertices in
@@ -120,6 +132,7 @@ def compute_convex_hull(
     for s_idx, simplex in enumerate(hull.simplices):
         cell_sets[simplex_cell[s_idx]].update(int(v) for v in simplex)
     cells_v = [frozenset(c) for c in cell_sets]
+    _check_cells(verts, cells_v, eps)
 
     # Faces: two cells share a face exactly when Qhull's triangulation has neighbouring simplices
     # in both (they meet across a triangle of that face). This needs no width threshold, so
@@ -152,6 +165,37 @@ def compute_convex_hull(
 
     _check_hull(faces_list, cell_faces)
     return faces_list, cell_faces
+
+
+def _check_cells(verts: np.ndarray, cells_v: list[frozenset[int]], eps: float) -> None:
+    """Raise ValueError unless every cell is flat and supports the hull unambiguously.
+
+    Each cell's vertices must lie within ``eps`` of their best-fit hyperplane and no vertex may lie
+    outside it. Any other vertex within float noise of the hyperplane (``eps * 1e-3``) must
+    coincide with one of the cell's own vertices (a duplicate point): Qhull resolves vertices
+    that are farther in, however thin the polytope. Otherwise the input is too close to
+    degenerate to resolve, and refusing is better than returning a hull that is subtly wrong.
+    """
+    bad = "Convex hull is ambiguous at this tolerance"
+    for cell in cells_v:
+        members = np.fromiter(cell, dtype=int)
+        pts = verts[members]
+        mid = pts.mean(axis=0)
+        _, sv, vt = np.linalg.svd(pts - mid)
+        normal = vt[3]
+        dist = (verts - mid) @ normal
+        if dist[members].max() > eps or dist[members].min() < -eps:
+            raise ValueError(f"{bad} (a cell is not flat).")
+        if dist.max() > eps and dist.min() < -eps:
+            raise ValueError(f"{bad} (vertices lie on both sides of a cell).")
+        if dist.max() > eps:
+            dist = -dist
+        near = np.flatnonzero(dist >= -eps * 1e-3)
+        others = np.setdiff1d(near, members)
+        if len(others):
+            gaps = np.min(np.linalg.norm(verts[others][:, None] - pts[None], axis=2), axis=1)
+            if gaps.max() > eps:
+                raise ValueError(f"{bad} (a vertex lies on a cell it is not part of).")
 
 
 def _check_hull(faces: list[list[int]], cells: list[list[int]]) -> None:
