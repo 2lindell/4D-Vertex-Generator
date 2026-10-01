@@ -11,6 +11,7 @@ commit docs/ after changing the app; tests/test_pages.py fails while docs/ is ou
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import sys
@@ -53,12 +54,15 @@ PAGE = """<!doctype html>
   </div>
   <script type="module">
     import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@__VERSION__/build/stlite.js";
+    // each file's address carries a hash of its contents, so a redeploy is never hidden by a cache
     const files = __FILES__;
     mount(
       {
         entrypoint: "app.py",
         requirements: __REQUIREMENTS__,
-        files: Object.fromEntries(files.map((path) => [path, { url: "./" + path }])),
+        files: Object.fromEntries(
+          files.map(([path, hash]) => [path, { url: `./${path}?v=${hash}` }]),
+        ),
       },
       document.getElementById("root"),
     );
@@ -80,9 +84,10 @@ def build(out: Path) -> list[str]:
         (out / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, out / rel)
         files.append(rel)
+    hashed = [[rel, hashlib.sha256((out / rel).read_bytes()).hexdigest()[:12]] for rel in files]
     page = (
         PAGE.replace("__VERSION__", STLITE_VERSION)
-        .replace("__FILES__", json.dumps(files))
+        .replace("__FILES__", json.dumps(hashed))
         .replace("__REQUIREMENTS__", json.dumps(REQUIREMENTS))
     )
     (out / "index.html").write_text(page)
