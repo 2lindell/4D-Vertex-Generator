@@ -101,7 +101,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
         <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
         <li>Light purple lines are the axes of the extra half-turns. The swirlprism group (1200 rotations) and the extra half-turn Q together make a group of 2400 rotations; it has no mirrors, so it adds no planes, only these four axis segments. A seed on an axis is its own copy, and its polytope has 2400 symmetries; the exact icosafold points (✕) lie on them. Every other point has exactly one congruent copy elsewhere in the half-cell.</li>
-        <li>✕ marks the exact icosafold points of C2a and C2b, drawn in the colour of the cross-ring range around them. They are not golden points.</li>
+        <li>✕ marks exact special points that are not golden points, in the colour of the shape they produce: the icosafold points of C2a and C2b, and the six points where the light purple axes meet the domain boundary (the C2a and C2b icosafold points again, two F3 points on the face β₄ = 0, and a B1 point on the main ring).</li>
         <li>Rings take the colour of the shape each stretch produces. Solid lines are exactly traced segments (T1, E2), drawn end to end; dashed lines are their copies under the extra half-turn that maps the group to itself but is not in H4, so they give the same polytope elsewhere in the cell; T2 (outlined, faint fill) is the exact regions traced in the mirrors, with dashed copies.</li>
       </ul>
     </div>
@@ -203,7 +203,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           out.push(trace);
         }
         const exact = D.special.filter((u) => u.id === t.id && inQ(u.q));
-        if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact icosafold point)`,
+        if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact point)`,
           x: exact.map((u) => u.q[0]), y: exact.map((u) => u.q[1]), z: exact.map((u) => u.q[2]), customdata: exact.map((u) => u.hover),
           marker: { size: 9, color: color(t), symbol: "cross", line: { color: color(t), width: 3 } }, hovertemplate: "%{customdata}<extra></extra>" });
         const big = D.uniform.filter((u) => u.id === t.id && inQ(u.q));

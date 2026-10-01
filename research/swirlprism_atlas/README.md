@@ -283,6 +283,12 @@ after the fold (`coset_axes()`, drawn in light purple). Seeds on them give
 polytopes with 2400 symmetries; the exact icosafold points (C2a, C2b) lie on
 them. Because the group has no mirrors, no plane separates the two copies: Q
 acts like a 180° turn about these axes.
+The axes meet the domain boundary in six points, all marked ✕ in the colour of
+their shape: the C2a icosafold point (face β4 = 0, mirror β2 = β3), the C2b
+icosafold point (on the fold, seen on both glued faces β1 = 0 and β2 = 0), two
+F3 points on the face β4 = 0, (0.3291, 0.4597, 0.2113, 0) and
+(0.3291, 0.2113, 0.4597, 0), and a B1 point on the main ring (V3–V4 edge),
+(0, 0, 0.7437, 0.2563).
 
 The hull and orbit code were rebuilt to be tolerance-robust (see
 `src/four_d_vertex_generator/off.py` and `generation.py`); re-running the

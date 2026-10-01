@@ -19,7 +19,7 @@ from cell_atlas import (
     to_upper,
     xyz,
 )
-from cellframe import TINV, snap_golden
+from cellframe import TINV, seed_from_beta, snap_golden
 from classify import classify, signature
 
 from four_d_vertex_generator.generation import group_elements
@@ -273,6 +273,30 @@ def main(samples_path, out_path):
         n = sum(1 for s in special if s["id"] == tid)
         tmap[tid]["where"] = f"cross ring; {n} exact icosafold point{'s' if n > 1 else ''} (✕)"
 
+    # where the axes of the extra half-turns meet the domain boundary: also ✕, in their shape's colour
+    from normalizer import coset_axes
+    from probe import _one
+    axis_ends = []
+    for a_end, b_end in coset_axes():
+        for p in (a_end, b_end):
+            if not any(np.allclose(p, o, atol=1e-9) for o in axis_ends):
+                axis_ends.append(p)
+    for p in axis_ends:
+        q = np.round(xyz(p), 6).tolist()
+        tid = _one(p)[0]
+        note = "end of a 2400-symmetry axis on the domain boundary"
+        known = [o for o in special if np.allclose(o["q"], q, atol=1e-6)]
+        if known:
+            for o in known:
+                o["hover"] += f"<br>also the {note}"
+            continue
+        if tid not in tmap:
+            continue
+        x = seed_from_beta(p)
+        special.append({"id": tid, "q": q, "hover": f"{label(tid)}<br>exact point: {note}<br>"
+                        f"β = {np.round(p, 6).tolist()}<br>seed " + ", ".join(fmt17(c) for c in x)})
+        tmap[tid]["axis_note"] = True
+
     # rings, coloured by the shape each range produces
     sys.path.insert(0, ".")
     from lines import range_id, ring_parameter
@@ -372,6 +396,10 @@ def main(samples_path, out_path):
     for t in types:
         if t["id"] in SEGMENT_WHERE:
             t["where"] = SEGMENT_WHERE[t["id"]]
+    for t in types:
+        if t.pop("axis_note", None):
+            t["where"] = (t.get("where") or ("golden samples" if t.get("samples") else "")) + \
+                "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes,
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
