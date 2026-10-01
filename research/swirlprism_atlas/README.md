@@ -290,6 +290,23 @@ F3 points on the face β4 = 0, (0.3291, 0.4597, 0.2113, 0) and
 (0.3291, 0.2113, 0.4597, 0), and a B1 point on the main ring (V3–V4 edge),
 (0, 0, 0.7437, 0.2563).
 
+**Higher symmetry lines (ghost girdles)** (`supergroups.py`). G is
+(left 2I) × (right 2D10); every larger group of rotations containing it is
+G_k = (left 2I) × (right 2D_{10k}) or the rotations of H4. Only two kinds of
+lines give G-orbits extra symmetry:
+- the half-turn axes of G_2 (2400 elements, the light purple axes): 180
+  circles on the 3-sphere, in two families of 150 and 30; the 30 are Bowers'
+  "30 ghost girdles with skew 20-gonal symmetry". In the half-cell three
+  purple segments are from the 150-family and one (β2 = β3 cross ring to
+  C2b) from the 30.
+- the order-3 axes of G_3 (3600 elements): 20 circles, Bowers' "20 ghost
+  girdles with 30/3-gyrogonic symmetry". One crosses the half-cell, from
+  (1.3383, 1, 1, 0) on the C2a cross ring to (2.3383, 2.3383, 1, 1) on the
+  fold's cross ring (light green); every seed on it gives X12 with 3600
+  symmetries.
+G_4, G_5, G_6 and the rotations of H4 add no further lines (only points).
+A girdle is not a type of its own: it runs through ordinary regions.
+
 **A fundamental domain of the 2400-element group** (`dirichlet.py`,
 `domain_search.py`). The group has no mirrors, so no mirror walls cut out a
 domain; the natural choice is a Dirichlet domain: the points closer to a centre

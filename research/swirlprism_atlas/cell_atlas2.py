@@ -358,11 +358,22 @@ def main(samples_path, out_path):
 
     # axes of the extra half-turns: the coset G.Q of the full 2400-element group (normalizer.py)
     from normalizer import coset_axes
+    from supergroups import girdle_families, girdle_segments
+    family = girdle_families()
     qaxes = []
     for a, b in coset_axes():
         pts = [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)]
-        qaxes.append({"pts": pts, "hover": "Axis of an extra half-turn (2400-element group)<br>seeds on it are their own "
+        fam = family(a, b)
+        bowers = " (Bowers' 30 ghost girdles with skew 20-gonal symmetry)" if fam == 30 else ""
+        qaxes.append({"pts": pts, "order": 2, "hover": "Axis of an extra half-turn (2400-element group)<br>"
+                      f"one of {fam} such circles{bowers}<br>seeds on it are their own "
                       f"copy; their polytopes have 2400 symmetries<br>from β = {np.round(a, 5).tolist()}"
+                      f"<br>to β = {np.round(b, 5).tolist()}"})
+    for a, b in girdle_segments():
+        pts = [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)]
+        qaxes.append({"pts": pts, "order": 3, "hover": "Axis of an order-3 rotation of the 3600-element group<br>"
+                      "one of Bowers' 20 ghost girdles with 30/3-gyrogonic symmetry<br>seeds on it give "
+                      f"1200-vertex polytopes (X12) with 3600 symmetries<br>from β = {np.round(a, 5).tolist()}"
                       f"<br>to β = {np.round(b, 5).tolist()}"})
 
     # T2: exact patches in the mirrors (t2exact.py) and their copies under the extra half-turn
