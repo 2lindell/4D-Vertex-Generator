@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import zipfile
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -35,7 +36,12 @@ from four_d_vertex_generator.local_view import (
 )
 from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
 
-st.set_page_config(page_title="4D Vertex Generator", layout="wide")
+_ICON = Path(__file__).with_name("assets") / "favicon.svg"  # a tetrahedron, for the browser tab
+st.set_page_config(
+    page_title="4D Vertex Generator",
+    page_icon=str(_ICON) if _ICON.exists() else None,
+    layout="wide",
+)
 st.title("4D Vertex Generator")
 st.caption(
     "Choose a symmetry, place a seed point, generate every vertex in its orbit, "

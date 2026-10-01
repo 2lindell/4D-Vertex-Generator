@@ -27,6 +27,7 @@ PAGE = """<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>4D Vertex Generator</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta name="description"
         content="Generate 4D symmetry orbits and export them as 4OFF, in the browser.">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@__VERSION__/build/stlite.css">
@@ -76,8 +77,10 @@ def build(out: Path) -> list[str]:
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
-    files = ["app.py"]
+    files = ["app.py", "assets/favicon.svg"]  # the icon is mounted too: app.py's page_icon reads it
     shutil.copy2(ROOT / "app.py", out / "app.py")
+    (out / "assets").mkdir()
+    shutil.copy2(ROOT / "assets" / "favicon.svg", out / "assets" / "favicon.svg")
     package = ROOT / "src" / "four_d_vertex_generator"
     for source in sorted(package.glob("*.py")):
         rel = f"four_d_vertex_generator/{source.name}"
