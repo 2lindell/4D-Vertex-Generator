@@ -93,6 +93,26 @@ def _order(P, n):
     return P[np.argsort(ang)]
 
 
+def dodecahedron(c_beta):
+    """The whole region of a corner on the 3-sphere (its Dirichlet domain, a regular dodecahedron), as 12 pentagons
+    in barycentric coordinates (normalised; they reach outside the cell)."""
+    from cellframe import TINV
+    from dirichlet import dirichlet
+    D = dirichlet(seed_from_beta(c_beta), G)
+    B = np.array([TINV @ x for x in D["corners"]])
+    B = B / B.sum(axis=1, keepdims=True)
+    faces = []
+    for f in D["faces"]:
+        if sorted(f["corners"]) not in [sorted(g) for g in faces]:
+            faces.append(f["corners"])
+    out = []
+    for idx in faces:
+        P = B[idx]
+        n = np.linalg.svd(P)[2][-1]                      # the face's plane through the origin in beta space
+        out.append(_order(P, n).tolist())
+    return {"corners": B.tolist(), "faces": out}
+
+
 def main():
     from probe import _one
     out = {}
@@ -122,6 +142,7 @@ def main():
             print("    ", f["equation"])
         if rec.get("outside_planes"):
             print("   bounding the region only outside the displayed half:", rec["outside_planes"])
+    out["M34"]["dodecahedron"] = dodecahedron(np.array(CORNERS["M34"], float) / 2)
     json.dump(out, open("corner_cells.json", "w"), indent=1)
 
 
