@@ -633,9 +633,12 @@ def main(samples_path, out_path):
             "fcentre": np.round(xyz(centre_beta / centre_beta.sum()), 6).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
+    from dodeca_view import view as dodeca_view
+    dodeca = dodeca_view(data)                     # the same geometry seen from the M34 dodecahedron
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
-    open(out_path, "w").write(template.replace("__DATA__", json.dumps(data, separators=(",", ":"))))
+    open(out_path, "w").write(template.replace("__DATA__", json.dumps(data, separators=(",", ":")))
+                              .replace("__DODECA__", json.dumps(dodeca, separators=(",", ":"))))
     listed = [t for t in types if t["listed"]]
     print(f"{len(samples)} samples; {len(listed)} wiki shapes ({sum(1 for t in listed if t['samples'] or t.get('where'))} found), "
           f"{len(types) - len(listed)} unlisted")

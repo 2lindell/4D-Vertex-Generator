@@ -99,7 +99,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
   <section class="panel viewer">
     <div class="controls">
       <label for="quarter">Show
-        <select id="quarter"><option value="all">the whole half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option></select>
+        <select id="quarter"><option value="all">the whole half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option><option value="dodeca">the M34 dodecahedron</option></select>
       </label>
       <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
       <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
@@ -126,6 +126,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       <h2>How to read the atlas</h2>
       <ul>
         <li>The tetrahedron is one 600-cell cell in gnomonic projection, so great circles are straight lines and mirrors are planes. The main ring runs along the vertical edge V₃V₄; the shaded top is the splitting mirror β₃ = β₄. The picture is drawn upside down so that plane is on top.</li>
+        <li>"Show: the M34 dodecahedron" redraws everything from the dodecahedron around M34 = β (0, 0, 1, 1), a vertex of a 600-cell: the points of the 3-sphere nearer to it than to the rest of its 120-point orbit (a cell of the dual 120-cell). The ten elements of the group that fix M34 turn the dodecahedron onto itself, so every seed, line and patch appears ten times, arranged about the vertical 5-fold axis; pieces are clipped to the twelve faces. It is the gnomonic chart at M34, so great circles stay straight.</li>
         <li>The half-turn that fixes the cell swaps V₁↔V₂ and V₃↔V₄, so the other half repeats this one exactly. This half cannot be halved again: the vertical mirror β₁ = β₂ does not preserve the symmetry, and the two quarters it separates hold different shapes.</li>
         <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200), numbered by how many classes of cells they have.</li>
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
@@ -149,6 +150,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
 </div>
 
 <script id="atlas-data" type="application/json">__DATA__</script>
+<script id="atlas-dodeca" type="application/json">__DODECA__</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.2/plotly.min.js"></script>
 <script>
 (function boot() {
@@ -160,7 +162,10 @@ code { font-family: var(--font-data); font-size: 0.86em; }
   } else start();
 
   function start() {
-    const D = JSON.parse(document.getElementById("atlas-data").textContent);
+    const DC = JSON.parse(document.getElementById("atlas-data").textContent);
+    // the same geometry mapped into the dodecahedron around M34 (dodeca_view.py); types and labels are shared
+    const DD = { ...DC, ...JSON.parse(document.getElementById("atlas-dodeca").textContent) };
+    let D = DC;
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
     const color = (t) => css(t.color);
@@ -179,15 +184,22 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     function traces() {
       const out = [], ink = css("--ink"), faint = css("--faint");
       const quarter = el("quarter").value;
-      const inQ = (q) => quarter === "all" || (quarter === "front" ? q[1] >= -1e-9 : q[1] <= 1e-9);
+      D = quarter === "dodeca" ? DD : DC;
+      const inQ = (q) => (quarter !== "front" && quarter !== "back") || (quarter === "front" ? q[1] >= -1e-9 : q[1] <= 1e-9);
       const lines = (segs, name, line, extra = {}) => {
         const x = [], y = [], z = [];
         for (const s of segs) { for (const q of s) { x.push(q[0]); y.push(q[1]); z.push(q[2]); } x.push(null); y.push(null); z.push(null); }
         return { type: "scatter3d", mode: "lines", x, y, z, name, line, hoverinfo: "name", ...extra };
       };
-      out.push(lines(D.edges, "Cell (upper half)", { color: faint, width: 2 }, { hoverinfo: "skip" }));
-      out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
+      out.push(lines(D.edges, quarter === "dodeca" ? "The dodecahedron around M34" : "Cell (upper half)", { color: faint, width: 2 }, { hoverinfo: "skip" }));
+      if (D.split.length) out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
         color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "name" });
+      for (const f of D.dodecaFaces || []) {
+        const n = f.length;
+        out.push({ type: "mesh3d", x: f.map((p) => p[0]), y: f.map((p) => p[1]), z: f.map((p) => p[2]),
+          i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
+          color: ink, opacity: 0.04, hoverinfo: "skip" });
+      }
       if (el("showMirrors").checked) {
         for (const m of D.mirrors) {
           const n = m.length;
@@ -260,7 +272,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         if (!t.listed && !el("showX").checked && state.only !== t.id) continue;
         const pts = (D.samples[t.id] || []).filter(inQ);
         if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} · ${t.name}`,
-          x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${p[3]}`),
+          x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${typeof p[3] === "number" ? DC.samples[t.id][p[3]][3] : p[3]}`),
           marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: t.listed ? 0.9 : 0.55 },
           hovertemplate: "%{customdata}<extra></extra>" });
         for (const seg of D.segments.filter((g) => g.id === t.id)) {
@@ -282,6 +294,13 @@ code { font-family: var(--font-data); font-size: 0.86em; }
 
     function layout() {
       const hidden = { visible: false, showbackground: false };
+      if (el("quarter").value === "dodeca") {
+        const r = 0.45;
+        return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
+          margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: "dodeca",
+          scene: { aspectmode: "cube", xaxis: { ...hidden, range: [-r, r] }, yaxis: { ...hidden, range: [-r, r] }, zaxis: { ...hidden, range: [-r, r] },
+            camera: { eye: { x: 1.4, y: -1.1, z: 0.6 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } } } };
+      }
       return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
         margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: "keep",
         scene: { aspectmode: "manual", aspectratio: { x: 0.5 / 0.7, y: 1, z: 0.36 / 0.7 },
