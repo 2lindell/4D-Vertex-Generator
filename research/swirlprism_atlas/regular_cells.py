@@ -231,7 +231,98 @@ def prism_curves(n=12):
     print(len(segs), "segments,", len(crossing), "crossings; largest full defect on them", worst)
 
 
+def antiprism_residuals(v, faces, cells):
+    """For each pentagonal antiprism: (centre, r1, r2, full defect), r1 and r2 the two kinds of side edge over
+    the pentagon edge, minus 1. The kinds are told apart by their turn as seen from outside the cell, so the
+    labels are the same for every antiprism and every seed."""
+    out = []
+    for c in cells:
+        if kind_of(c, faces) != "antiprism":
+            continue
+        cv = sorted({x for f in c for x in faces[f]})
+        centre = v[cv].mean(axis=0)
+        frame = np.linalg.svd(v[cv] - centre)[2][:3]           # the cell's own 3-space
+        local = {x: (v[x] - centre) @ frame.T for x in cv}
+        pents = [faces[f] for f in c if len(faces[f]) == 5]
+        base_len = np.mean([np.linalg.norm(v[a] - v[b]) for f in pents for a, b in zip(f, f[1:] + f[:1])])
+        tris = [faces[f] for f in c if len(faces[f]) == 3]
+        kinds = {1: [], -1: []}
+        for top in pents:
+            n = np.mean([local[x] for x in top], axis=0)        # outward, from the cell centre
+            ring = list(top)
+            a0, a1 = local[ring[0]], local[ring[1]]
+            if np.cross(a0, a1) @ n < 0:                         # counter-clockwise seen from outside
+                ring = ring[::-1]
+            for k in range(5):
+                a, b = ring[k], ring[(k + 1) % 5]
+                apex = next(t for t in tris if a in t and b in t)
+                w = next(x for x in apex if x not in (a, b))
+                kinds[1].append(np.linalg.norm(v[a] - v[w]))
+                kinds[-1].append(np.linalg.norm(v[b] - v[w]))
+        out.append((centre, np.mean(kinds[1]) / base_len - 1, np.mean(kinds[-1]) / base_len - 1,
+                    float(np.abs(defect(v, c, faces)).max())))
+    return out
+
+
+def _plane_basis():
+    return np.linalg.svd(np.ones((1, 4)))[2][1:]                # three directions keeping sum(beta)
+
+
+def _anti_track(beta, ref):
+    b = np.abs(np.asarray(beta, float))
+    v, faces, cells = hull(b / b.sum())
+    res = antiprism_residuals(v, faces, cells)
+    if not res:
+        return None
+    best = max(res, key=lambda r: r[0] @ ref / np.linalg.norm(r[0]))
+    return np.array([best[1], best[2]]), best[3], best[0] / np.linalg.norm(best[0])
+
+
+def _anti_solve(b0):
+    """Gauss-Newton for r1 = r2 = 0, following the antiprism nearest the start's most regular one."""
+    from scipy.optimize import least_squares
+    v, faces, cells = hull(b0)
+    res = antiprism_residuals(v, faces, cells)
+    c0 = min(res, key=lambda r: r[1] ** 2 + r[2] ** 2)
+    ref = c0[0] / np.linalg.norm(c0[0])
+    B = _plane_basis()
+
+    def fun(x):
+        try:
+            t = _anti_track(b0 + x @ B, ref)
+        except Exception:
+            return np.array([10.0, 10.0])
+        return np.array([10.0, 10.0]) if t is None else t[0]
+    try:
+        r = least_squares(fun, np.zeros(3), diff_step=1e-7, xtol=1e-15, ftol=1e-15, gtol=1e-15, max_nfev=80)
+    except Exception as exc:
+        return b0.tolist(), None, repr(exc)
+    b = np.abs(b0 + r.x @ B)
+    b = b / b.sum()
+    t = _anti_track(b, ref)
+    return b0.tolist(), b.tolist(), None if t is None else (float(np.abs(t[0]).max()), t[1])
+
+
+def antiprism_find(count=48):
+    """Solve from golden samples spread over the cell (only those whose antiprisms are already close)."""
+    from multiprocessing import Pool
+    S = json.load(open("golden_22.json"))
+    rng = np.random.default_rng(2)
+    B = [np.array(s["beta"], float) / sum(s["beta"]) for s in S]
+    B = [b for b in B if b.min() > 0.02]                        # inside, away from faces
+    starts = [B[i] for i in rng.choice(len(B), min(count, len(B)), replace=False)]
+    out = []
+    with Pool(4) as pool:
+        for r in pool.imap_unordered(_anti_solve, starts):
+            out.append(r)
+            print(np.round(r[0], 4).tolist(), "->", r[1] and np.round(r[1], 8).tolist(), r[2], flush=True)
+    json.dump(out, open("regular_antiprism_minima.json", "w"))
+
+
 def main():
+    if sys.argv[1] == "antiprism_find":
+        antiprism_find()
+        return
     if sys.argv[1] == "prism_curves":
         prism_curves()
         return
