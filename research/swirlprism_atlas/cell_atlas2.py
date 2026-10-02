@@ -37,7 +37,7 @@ CANON = [
     ("B1", "Icosafold icosaswirlchoron", ("ref", "Icosafold icosaswirlchoron (main ring, 240)")),
     ("C2a", "Subsymmetrical icosafold icosidodecaswirlchoron", ("ref", "Cross ring: antiprisms split 120+120 (not in the wiki list)")),
     ("C2b", "Subsymmetrical icosafold icosidodecaswirlchoron", ("ref", "Cross ring: tetrahedra split 600+600 (not in the wiki list)")),
-    ("C3", "Pentagonal-gyroprismatic triacosihexecontachoron", ("ref", "Cross ring: Pentagonal-gyroprismatic triacosihexecontachoron")),
+    ("C3", "Subsymmetrical pentagonal-gyroprismatic triacosihexecontachoron", ("ref", "Cross ring: Pentagonal-gyroprismatic triacosihexecontachoron")),
     ("D1", "Polychoron with 120+120+1200 cells (600+1200 4-valent edges)", ("ref", "Cross ring: 120+120+1200 cells (600+1200 4-valent edges)")),
     ("D2", "Polychoron with 120+600+600+600+1200 cells (600 3-valent edges)", ("ref", "Cross ring: 120+600+600+600+1200 cells (600 3-valent edges)")),
     ("D3", "Polychoron with 120+600+600+600+1200 cells (1200 3-valent edges)", ("ref", "Cross ring: 120+600+600+600+1200 cells (1200 3-valent edges)")),
@@ -277,6 +277,27 @@ def main(samples_path, out_path):
     for tid in ("C2a", "C2b"):
         n = sum(1 for s in special if s["id"] == tid)
         tmap[tid]["where"] = f"cross ring; {n} exact icosafold point{'s' if n > 1 else ''} (✕)"
+
+    # C3: the ends of the order-3 girdle lie on the C3 cross-ring ranges; there the 600-vertex polytope
+    # has 3600 symmetries - the pentagonal-gyroprismatic triacosihexecontachoron itself
+    from supergroups import girdle_segments
+    for end in (p for seg in girdle_segments() for p in seg):
+        x0 = seed_from_beta(end)
+        c, fc, e = counts_key(signature(classify(x0))).split("|")
+        for x in E @ x0:
+            b = TINV @ x
+            if np.all(b >= -1e-12) and b.sum() > 0:
+                b = to_upper(b / b.sum())
+                q = np.round(xyz(b), 6).tolist()
+                if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
+                    special.append({"id": "C3", "q": q, "hover": "C3 · Pentagonal-gyroprismatic triacosihexecontachoron<br>"
+                                    "exact point with 3600 symmetries: end of an order-3 ghost girdle on the cross ring<br>"
+                                    f"cells {c}<br>faces {fc}<br>edges {e}<br>β = {beta_text(b)}<br>seed "
+                                    + ", ".join(fmt17(v) for v in x)})
+    n3 = sum(1 for o in special if o["id"] == "C3")
+    tmap["C3"]["where"] = f"cross ring; {n3} exact points with 3600 symmetries (✕)"
+    tmap["C3"]["exact"] = {"label": "the full pentagonal-gyroprismatic triacosihexecontachoron, 3600 symmetries",
+                           "cells": c, "faces": fc, "edges": e}
 
     # where the axes of the extra half-turns meet the domain boundary: also ✕, in their shape's colour
     from normalizer import coset_axes

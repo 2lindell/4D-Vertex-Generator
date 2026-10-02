@@ -48,7 +48,7 @@ with the seed `(cos t, 0, sin t, 0)`:
 | 0° | 0 | Hexacosichoron (600-cell) |
 | 0°–13.28° | | Polychoron with 120+600+600+600+1200 cells (1200 3-valent edges) |
 | 13.28° | φ⁻³ | Hecatonicosachoron (120-cell) |
-| 13.28°–20.91° | | Pentagonal-gyroprismatic triacosihexecontachoron |
+| 13.28°–20.91° | | Subsymmetrical pentagonal-gyroprismatic triacosihexecontachoron (3600 symmetries where the order-3 girdle ends) |
 | 20.91° | φ⁻² | Partially-rectified small swirlprism |
 | 20.91°–26.57° | | Polychoron with 120+120+1200 cells (600+1200 4-valent edges) |
 | 26.57° | ½ | Swirlprismatodiminished rectified hexacosichoron |
@@ -57,7 +57,7 @@ with the seed `(cos t, 0, sin t, 0)`:
 | 31.72° | φ⁻¹ | Swirlprismatodiminished rectified hexacosichoron |
 | 31.72°–37.38° | | Polychoron with 120+120+1200 cells (600+1200 4-valent edges) |
 | 37.38° | 2φ⁻² | Partially-rectified small swirlprism |
-| 37.38°–45° | | Pentagonal-gyroprismatic triacosihexecontachoron |
+| 37.38°–45° | | Subsymmetrical pentagonal-gyroprismatic triacosihexecontachoron (3600 symmetries where the order-3 girdle ends) |
 | 45° | 1 | Hecatonicosachoron (120-cell) |
 | 45°–58.28° | | Polychoron with 120+600+600+600+1200 cells (1200 3-valent edges) |
 | 58.28° | φ | Hexacosichoron (the second 600-cell) |
@@ -210,7 +210,7 @@ numbers follow the wiki list's order within each letter.
 | --- | --- | --- | --- |
 | A | 120 | named | A1 hexacosichoron (600-cell) |
 | B | 240 | named | B1 icosafold icosaswirlchoron |
-| C | 600 | named | C1 hecatonicosachoron (120-cell), C2a/C2b subsymmetrical icosafold icosidodecaswirlchoron (see below), C3 pentagonal-gyroprismatic triacosihexecontachoron, C4 bigyroprismatic transitional didecafold icosidodecaswirlchoron, C5 partially-rectified small swirlprism, C6 swirlprismatodiminished rectified hexacosichoron |
+| C | 600 | named | C1 hecatonicosachoron (120-cell), C2a/C2b subsymmetrical icosafold icosidodecaswirlchoron (see below), C3 subsymmetrical pentagonal-gyroprismatic triacosihexecontachoron (the range; the shape itself, with 3600 symmetries, is at the two ends of the order-3 ghost girdle, β ∝ (1.338261, 1, 1, 0) and (2.338261, 2.338261, 1, 1), marked ✕), C4 bigyroprismatic transitional didecafold icosidodecaswirlchoron, C5 partially-rectified small swirlprism, C6 swirlprismatodiminished rectified hexacosichoron |
 | D | 600 | unnamed | D1–D3 |
 | E | 1200 | named | E1 bi-hecatonicosadiminished truncated hexacosichoron, E2 swirlprismatodiminished truncated hecatonicosachoron |
 | F | 1200 | unnamed | F1–F5 (the first atlases' W1–W5) |
