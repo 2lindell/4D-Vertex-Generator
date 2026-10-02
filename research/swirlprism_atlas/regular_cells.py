@@ -403,7 +403,60 @@ def antiprism_trace():
                       np.round(o["path"][-1], 4).tolist(), sorted(set(o["labels"])), flush=True)
 
 
+def _is_regular(b, tol=1e-8):
+    try:
+        v, faces, cells = hull(b)
+    except Exception:
+        return False
+    return any(max(abs(r[1]), abs(r[2])) < tol for r in antiprism_residuals(v, faces, cells))
+
+
+def antiprism_segments():
+    """Straight pieces the tracer cannot follow (the two conditions are tangent there, so the Jacobian has
+    rank 1): solutions that line up are joined, and each line is bisected to where the regular antiprism ends.
+    Appended to regular_antiprism_curves.json."""
+    from probe import _one
+    sols = [np.array(r[1]) for r in json.load(open("regular_antiprism_minima.json"))
+            if r[1] and isinstance(r[2], list) and r[2][0] < 1e-8]
+    curves = json.load(open("regular_antiprism_curves.json"))
+    curves = [c for c in curves if not c.get("straight")]
+    used = set()
+    for i, p in enumerate(sols):
+        for j in range(i + 1, len(sols)):
+            q = sols[j]
+            if i in used or j in used or not 1e-4 < np.linalg.norm(q - p) < 0.05:
+                continue
+            d = (q - p) / np.linalg.norm(q - p)
+            mid = (p + q) / 2
+            if not _is_regular(mid):          # not a straight piece
+                continue
+            line = [k for k, s in enumerate(sols) if np.linalg.norm((s - p) - ((s - p) @ d) * d) < 1e-7]
+            used.update(line)
+            ends = []
+            for sign in (1, -1):
+                lo, hi = 0.0, 0.3            # lo regular, hi not (or outside the cell)
+                while _is_regular(p + sign * hi * d) and (p + sign * hi * d).min() >= 0:
+                    hi *= 2
+                for _ in range(40):
+                    m = (lo + hi) / 2
+                    x = p + sign * m * d
+                    if x.min() >= 0 and _is_regular(x):
+                        lo = m
+                    else:
+                        hi = m
+                ends.append(p + sign * lo * d)
+            a, b = ends[1], ends[0]
+            path = [a + (b - a) * k / 16 for k in range(17)]
+            curves.append({"path": [x.tolist() for x in path], "labels": [_one(x)[0] for x in path], "straight": True})
+            print("straight piece", np.round(a, 6).tolist(), "->", np.round(b, 6).tolist(), sorted(set(curves[-1]["labels"])),
+                  f"through {len(line)} solutions", flush=True)
+    json.dump(curves, open("regular_antiprism_curves.json", "w"))
+
+
 def main():
+    if sys.argv[1] == "antiprism_segments":
+        antiprism_segments()
+        return
     if sys.argv[1] == "antiprism_trace":
         antiprism_trace()
         return

@@ -421,12 +421,12 @@ def main(samples_path, out_path):
         for b in betas:
             for c in qcopies(b):
                 q = xyz(c)
-                near = [p for p in pieces if np.linalg.norm(np.array(p[-1]) - q) < 0.05]
+                near = [p for p in pieces if np.linalg.norm(np.array(p[-1]) - q) < 0.02]
                 if near:
                     near[0].append(q.tolist())
                 else:
                     pieces.append([q.tolist()])
-        return [p for p in pieces if len(p) > 2]
+        return [p[::4] + ([p[-1]] if (len(p) - 1) % 4 else []) for p in pieces if len(p) > 8]
 
     for tid, a, b, where in prism_lines:
         a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
@@ -434,21 +434,40 @@ def main(samples_path, out_path):
         hover = (f"Regular pentagonal prisms ({tid}), {where}<br>from {_one(a)[0]} at β ∝ {beta_text(a)}"
                  f"<br>to {_one(b)[0]} at β ∝ {beta_text(b)}")
         regular.append({"kind": "prism", "copy": False, "pts": [np.round(xyz(p), 6).tolist() for p in path], "hover": hover})
-        for piece in chains(path[1:-1]):
+        for piece in chains([a + (b - a) * k / 160 for k in range(1, 160)]):
             if any(r["copy"] and np.allclose(sorted([r["pts"][0], r["pts"][-1]]), sorted([piece[0], piece[-1]]), atol=1e-3)
                    for r in regular):
                 continue                     # the copies of the two face lines coincide
             regular.append({"kind": "prism", "copy": True, "pts": np.round(piece, 6).tolist(),
                             "hover": hover + "<br>(copy under the extra half-turn)"})
+    # regular antiprisms: three exact lines, and a short straight piece inside X32 that is not golden
+    f2 = _F * _F
+    anti_lines = [
+        ([0, 0, 1, 1], [f2, 1, f2, 0], "β1 = φ²·β2, β3 = β1 + β4"),
+        ([0, 0, 1, 1], [1, f2, f2, 0], "β2 = φ²·β1, β3 = β2 + β4"),
+        ([1, 0, 0, 0], [2 * f2, 2 * f2, 1, 2 * f2], "β2 = β4, β3 = β4/(2φ²)"),
+    ]
     import os
     if os.path.exists("regular_antiprism_curves.json"):
         for cur in json.load(open("regular_antiprism_curves.json")):
-            path = [to_upper(np.array(p)) for p in cur["path"]]
-            if len(path) < 3:
+            if cur.get("straight") and set(cur["labels"]) <= {"X32", "ERR"}:
+                anti_lines.append((cur["path"][0], cur["path"][-1], "inside X32, from the fold β3 = β4 to the edge of X32 (not a golden line)"))
+    for a, b, where in anti_lines:
+        a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
+        path = [a + (b - a) * k / 32 for k in range(33)]
+        shapes = []
+        for p in path[1:-1:3]:
+            lab = _one(p)[0]
+            if lab in tmap and lab not in shapes:
+                shapes.append(lab)
+        hover = (f"Regular pentagonal antiprisms, {where}<br>shapes along it: {', '.join(shapes)}"
+                 f"<br>from β ∝ {beta_text(a)}<br>to β ∝ {beta_text(b)}")
+        regular.append({"kind": "antiprism", "copy": False, "pts": [np.round(xyz(p), 6).tolist() for p in path], "hover": hover})
+        for piece in chains([a + (b - a) * k / 160 for k in range(1, 160)]):
+            if any(np.allclose(sorted([r["pts"][0], r["pts"][-1]]), sorted([piece[0], piece[-1]]), atol=1e-3) for r in regular):
                 continue
-            labs = sorted(set(cur["labels"]))
-            regular.append({"kind": "antiprism", "copy": False, "pts": [np.round(xyz(p), 6).tolist() for p in path],
-                            "hover": "Regular pentagonal antiprisms (traced)<br>shapes along it: " + ", ".join(labs)})
+            regular.append({"kind": "antiprism", "copy": True, "pts": np.round(piece, 6).tolist(),
+                            "hover": hover + "<br>(copy under the extra half-turn)"})
 
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
