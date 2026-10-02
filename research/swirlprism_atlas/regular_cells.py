@@ -133,7 +133,108 @@ def find(kind, types):
     json.dump(out, open(f"regular_{kind}_minima.json", "w"))
 
 
+def prism_residual(beta):
+    """(side edge / pentagon edge - 1, full defect) for the pentagonal prisms at beta; None without prisms.
+
+    Each prism class gives one value; they are returned sorted."""
+    try:
+        v, faces, cells = hull(beta)
+    except Exception:
+        return None
+    vals = {}
+    for c in cells:
+        if kind_of(c, faces) != "prism":
+            continue
+        pent = [faces[f] for f in c if len(faces[f]) == 5]
+        base = {tuple(sorted(e)) for f in pent for e in zip(f, f[1:] + f[:1])}
+        edges = {tuple(sorted(e)) for f in c for e in zip(faces[f], faces[f][1:] + faces[f][:1])}
+        side = edges - base
+        lb = np.mean([np.linalg.norm(v[a] - v[b]) for a, b in base])
+        ls = np.mean([np.linalg.norm(v[a] - v[b]) for a, b in side])
+        r = ls / lb - 1
+        vals.setdefault(round(r, 7), (r, float(np.abs(defect(v, c, faces)).max())))
+    return sorted(vals.values()) or None
+
+
+PRISM_PLANES = {   # the walls and faces that carry pentagonal prisms (golden samples), and their half-turn images
+    "b2=0": [0, 1, 0, 0], "b1=0": [1, 0, 0, 0], "b1=b2": [1, -1, 0, 0],
+    "b1=phi2*b2": [1, -(1 + 5 ** 0.5) / 2 - 1, 0, 0], "b2=phi2*b1": [-(1 + 5 ** 0.5) / 2 - 1, 1, 0, 0],
+}
+
+
+def _res(b):
+    return prism_residual(b)
+
+
+def _bis_prism(job, steps=40):
+    a, b, ia, ib = job              # which prism class (by index) changes sign between a and b
+    ra = prism_residual(a)[ia][0]
+    for _ in range(steps):
+        m = (a + b) / 2
+        rm = prism_residual(m)
+        if not rm:
+            return None
+        r = min(rm, key=lambda x: abs(x[0] - ra))[0] if len(rm) > 1 else rm[0][0]
+        if np.sign(r) == np.sign(ra):
+            a, ra = m, r
+        else:
+            b = m
+    rm = prism_residual((a + b) / 2)
+    return ((a + b) / 2).tolist(), rm
+
+
+def prism_curves(n=12):
+    """Marching triangles on each prism-carrying plane for side/base = 1, kept in the displayed half."""
+    from multiprocessing import Pool
+
+    from xloci import _order, _section
+    jobs, tri = [], []
+    for name, nrm in PRISM_PLANES.items():
+        nrm = np.array(nrm, float)
+        poly = _order(_section([nrm]), nrm)
+        c = np.mean(poly, axis=0)
+        for k in range(len(poly)):
+            a, b = poly[k], poly[(k + 1) % len(poly)]
+            idx = {}
+            for i in range(n + 1):
+                for j in range(n + 1 - i):
+                    idx[(i, j)] = len(jobs)
+                    jobs.append((i * a + j * b + (n - i - j) * c) / n)
+            for i in range(n):
+                for j in range(n - i):
+                    tri.append((name, idx[(i, j)], idx[(i + 1, j)], idx[(i, j + 1)]))
+                    if i + j + 2 <= n:
+                        tri.append((name, idx[(i + 1, j)], idx[(i + 1, j + 1)], idx[(i, j + 1)]))
+    print(len(jobs), "grid points", flush=True)
+    with Pool(4) as pool:
+        res = pool.map(_res, jobs, chunksize=8)
+        edges = {}
+        for name, *vs in tri:
+            for u, w in ((vs[0], vs[1]), (vs[1], vs[2]), (vs[2], vs[0])):
+                ru, rw = res[u], res[w]
+                if ru and rw and len(ru) == len(rw):
+                    for k in range(len(ru)):
+                        if np.sign(ru[k][0]) != np.sign(rw[k][0]):
+                            edges.setdefault((min(u, w), max(u, w), k), (name, jobs[u], jobs[w], k))
+        keys = list(edges)
+        hits = pool.map(_bis_prism, [(edges[e][1], edges[e][2], e[2], e[2]) for e in keys])
+    crossing = {e: h for e, h in zip(keys, hits) if h}
+    segs = []
+    for name, *vs in tri:
+        pts = [crossing[(min(u, w), max(u, w), k)][0] for u, w in ((vs[0], vs[1]), (vs[1], vs[2]), (vs[2], vs[0]))
+               for k in range(3) if (min(u, w), max(u, w), k) in crossing]
+        if len(pts) == 2:
+            segs.append({"plane": name, "pts": pts})
+    out = {"segments": segs, "points": [{"beta": h[0], "res": h[1]} for h in crossing.values()]}
+    json.dump(out, open("regular_prism_curves.json", "w"))
+    worst = max((r[1] for h in crossing.values() for r in (h[1] or [])), default=None)
+    print(len(segs), "segments,", len(crossing), "crossings; largest full defect on them", worst)
+
+
 def main():
+    if sys.argv[1] == "prism_curves":
+        prism_curves()
+        return
     if sys.argv[1] == "find":
         find(sys.argv[2], sys.argv[3].split(","))
         return
