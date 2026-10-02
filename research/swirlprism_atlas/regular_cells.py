@@ -328,27 +328,26 @@ def _anti_ref(b):
     return c0[0] / np.linalg.norm(c0[0])
 
 
-def _trace_one(job, h=0.025, max_steps=80):
-    """Follow the curve r1 = r2 = 0 from a solution, one way (sign), by predictor-corrector steps."""
+def _trace_one(job, h0=0.02, max_steps=120, h_min=2e-4):
+    """Follow the curve r1 = r2 = 0 from a solution, one way (sign). Predictor: the tangent from the Jacobian
+    for the first step, then the secant through the last two points (robust where the two conditions are
+    tangent, as on the X32 segment); corrector: least squares across the curve; the step halves when a
+    correction fails and the trace stops below h_min (the regular antiprism has gone or the cell's edge)."""
+    from probe import _one
     from scipy.optimize import least_squares
     b, sign = job
     b = np.asarray(b, float)
     ref = _anti_ref(b)
     B = _plane_basis()
-    path, prev_t = [b.tolist()], None
-    from probe import _one
-    labels = [_one(b)[0]]
-    for _ in range(max_steps):
-        r0 = _anti_track(b, ref)[0]
-        J = np.column_stack([(_anti_track(b + 1e-7 * B[k], ref)[0] - r0) / 1e-7 for k in range(3)])
-        t = np.linalg.svd(J)[2][-1] @ B                       # tangent, in beta space
-        t /= np.linalg.norm(t)
-        if prev_t is None:
-            t *= sign
-        elif t @ prev_t < 0:
-            t = -t
-        pred = b + h * t
-        N = np.linalg.svd(np.vstack([np.ones(4), t]))[2][2:]  # correct across the curve only
+    r0 = _anti_track(b, ref)[0]
+    J = np.column_stack([(_anti_track(b + 1e-6 * B[k], ref)[0] - r0) / 1e-6 for k in range(3)])
+    t0 = np.linalg.svd(J)[2][-1] @ B
+    t0 = sign * t0 / np.linalg.norm(t0)
+    path, labels, h = [b], [_one(b)[0]], h0
+    while len(path) < max_steps and h >= h_min:
+        t = t0 if len(path) == 1 else (path[-1] - path[-2]) / np.linalg.norm(path[-1] - path[-2])
+        pred = path[-1] + h * t
+        N = np.linalg.svd(np.vstack([np.ones(4), t]))[2][2:]
 
         def fun(x, pred=pred, N=N):
             try:
@@ -358,17 +357,18 @@ def _trace_one(job, h=0.025, max_steps=80):
             return np.array([10.0, 10.0]) if tr is None else tr[0]
         try:
             r = least_squares(fun, np.zeros(2), diff_step=1e-7, xtol=1e-15, ftol=1e-15, gtol=1e-15, max_nfev=40)
+            nb = pred + r.x @ N
+            ok = nb.min() >= -1e-12 and np.abs(r.fun).max() < 1e-8 and np.linalg.norm(r.x) < 0.5 * h
         except Exception:
-            break
-        nb = pred + r.x @ N
-        if nb.min() < -1e-12 or np.abs(r.fun).max() > 1e-8:
-            break
-        tr = _anti_track(nb, ref)
-        ref = tr[2]
-        prev_t, b = t, nb
-        path.append(b.tolist())
-        labels.append(_one(b)[0])
-    return {"path": path, "labels": labels}
+            ok = False
+        if not ok:
+            h /= 2
+            continue
+        ref = _anti_track(nb, ref)[2]
+        path.append(nb)
+        labels.append(_one(nb)[0])
+        h = min(1.5 * h, h0)
+    return {"path": [p.tolist() for p in path], "labels": labels}
 
 
 def antiprism_trace():
