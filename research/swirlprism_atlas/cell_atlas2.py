@@ -115,7 +115,7 @@ def flip_vertical(data):
     for key in ("uniform", "special"):
         for u in data[key]:
             u["q"] = f(u["q"])
-    for key in ("rings", "main", "segments", "tpatches", "qaxes"):
+    for key in ("rings", "main", "segments", "tpatches", "qaxes", "regular"):
         for r in data[key]:
             r["pts"] = [f(p) for p in r["pts"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
@@ -359,6 +359,51 @@ def main(samples_path, out_path):
         segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
+    # regular cells: pentagonal prisms (exact lines, regular_cells.py) and antiprisms (traced curves)
+    from normalizer import qcopies
+    regular = []
+    ip = 1 / _F
+    prism_lines = [
+        ("F4", [0, 0, 1, 1], [1, 0, 1, 0], "on the face β2 = 0, β3 = β1 + β4"),
+        ("F4", [0, 0, 1, 1], [0, 1, 1, 0], "on the face β1 = 0, β3 = β2 + β4"),
+        ("F1", [0, 0, 1, 1], [ip, ip, 1, 0], "in the mirror β1 = β2, β1 = β2 = (β3 − β4)/φ"),
+    ]
+
+    def chains(betas):
+        """Split the Q-images of a sampled path into continuous pieces (one per copy)."""
+        pieces = []
+        for b in betas:
+            for c in qcopies(b):
+                q = xyz(c)
+                near = [p for p in pieces if np.linalg.norm(np.array(p[-1]) - q) < 0.05]
+                if near:
+                    near[0].append(q.tolist())
+                else:
+                    pieces.append([q.tolist()])
+        return [p for p in pieces if len(p) > 2]
+
+    for tid, a, b, where in prism_lines:
+        a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
+        path = [a + (b - a) * k / 32 for k in range(33)]
+        hover = (f"Regular pentagonal prisms ({tid}), {where}<br>from {_one(a)[0]} at β ∝ {beta_text(a)}"
+                 f"<br>to {_one(b)[0]} at β ∝ {beta_text(b)}")
+        regular.append({"kind": "prism", "copy": False, "pts": [np.round(xyz(p), 6).tolist() for p in path], "hover": hover})
+        for piece in chains(path[1:-1]):
+            if any(r["copy"] and np.allclose(sorted([r["pts"][0], r["pts"][-1]]), sorted([piece[0], piece[-1]]), atol=1e-3)
+                   for r in regular):
+                continue                     # the copies of the two face lines coincide
+            regular.append({"kind": "prism", "copy": True, "pts": np.round(piece, 6).tolist(),
+                            "hover": hover + "<br>(copy under the extra half-turn)"})
+    import os
+    if os.path.exists("regular_antiprism_curves.json"):
+        for cur in json.load(open("regular_antiprism_curves.json")):
+            path = [to_upper(np.array(p)) for p in cur["path"]]
+            if len(path) < 3:
+                continue
+            labs = sorted(set(cur["labels"]))
+            regular.append({"kind": "antiprism", "copy": False, "pts": [np.round(xyz(p), 6).tolist() for p in path],
+                            "hover": "Regular pentagonal antiprisms (traced)<br>shapes along it: " + ", ".join(labs)})
+
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
     # holds every light purple axis on its surface (domain_search.py); (2, 2, 2, 1) is its midpoint.
@@ -456,7 +501,7 @@ def main(samples_path, out_path):
             t["where"] = (t.get("where") or ("golden samples" if t.get("samples") else "")) + \
                 "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
-            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "fdomain": fdomain,
+            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "fdomain": fdomain,
             "fcentre": np.round(xyz(centre_beta / centre_beta.sum()), 6).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}

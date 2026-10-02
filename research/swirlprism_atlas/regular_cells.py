@@ -283,6 +283,8 @@ def _anti_solve(b0):
     from scipy.optimize import least_squares
     v, faces, cells = hull(b0)
     res = antiprism_residuals(v, faces, cells)
+    if not res:
+        return b0.tolist(), None, "no antiprisms"
     c0 = min(res, key=lambda r: r[1] ** 2 + r[2] ** 2)
     ref = c0[0] / np.linalg.norm(c0[0])
     B = _plane_basis()
@@ -316,7 +318,7 @@ def antiprism_find(count=48):
         for r in pool.imap_unordered(_anti_solve, starts):
             out.append(r)
             print(np.round(r[0], 4).tolist(), "->", r[1] and np.round(r[1], 8).tolist(), r[2], flush=True)
-    json.dump(out, open("regular_antiprism_minima.json", "w"))
+            json.dump(out, open("regular_antiprism_minima.json", "w"))
 
 
 def _anti_ref(b):
@@ -372,7 +374,8 @@ def _trace_one(job, h=0.02, max_steps=150):
 def antiprism_trace():
     """Trace the regular-antiprism curves from the distinct solutions found by antiprism_find."""
     from multiprocessing import Pool
-    sols = [np.array(r[1]) for r in json.load(open("regular_antiprism_minima.json")) if r[1] and r[2] and r[2][0] < 1e-9]
+    sols = [np.array(r[1]) for r in json.load(open("regular_antiprism_minima.json"))
+            if r[1] and isinstance(r[2], list) and r[2][0] < 1e-8]
     seeds = []
     for s in sols:
         if not any(np.linalg.norm(s - q) < 1e-6 for q in seeds):
