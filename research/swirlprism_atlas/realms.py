@@ -234,8 +234,113 @@ def walls(eps=0.06):
         print(len(w["points"]), w["between"], "on", w["on"][:28], "degree", w["degree"])
 
 
+def _ring_seed(t):
+    from survey import C1, A
+    r = np.radians(t)
+    return np.cos(r) * A + np.sin(r) * C1
+
+
+def _ring_cells(t):
+    """Distinct vertices of the 600-vertex orbit at angle t (as indices into G, the same for every t on the
+    ring since the stabilising half-turn is fixed) and the cells of its hull."""
+    x = _ring_seed(t)
+    V = G @ x
+    keep, seen = [], np.empty((0, 4))
+    for k, v in enumerate(V):
+        if not len(seen) or np.linalg.norm(seen - v, axis=1).min() > 1e-6:
+            seen = np.vstack([seen, v])
+            keep.append(k)
+    keep = np.array(keep)
+    faces, cells = compute_convex_hull(V[keep], tol=1e-9)
+    return keep, [np.array(sorted({keep[x] for f in c for x in faces[f]})) for c in cells]
+
+
+def _ring_margin(t, cells, keep):
+    v = G @ _ring_seed(t)
+    best = np.inf
+    for cell in cells:
+        n, o = plane(v, cell)
+        d = o - v[keep] @ n
+        d[np.isin(keep, cell)] = np.inf
+        best = min(best, d.min())
+    return best
+
+
+def _ring_job(t0):
+    """From the angle t0, follow the realm both ways along the ring to where it ends (bisection to 1e-12 deg)."""
+    keep, cells = _ring_cells(t0)
+    reps = _classes_ring(t0, cells, keep)
+    ends = []
+    for sign in (1, -1):
+        lo, hi = 0.0, None
+        step = 0.05
+        while hi is None and step < 50:
+            if _ring_margin(t0 + sign * step, reps, keep) < -1e-13:
+                hi = step
+            else:
+                lo, step = step, step * 1.5
+        if hi is None:
+            ends.append(None)
+            continue
+        for _ in range(60):
+            m = (lo + hi) / 2
+            if _ring_margin(t0 + sign * m, reps, keep) < -1e-13:
+                hi = m
+            else:
+                lo = m
+        ends.append((t0 + sign * (lo + hi) / 2) % 90.0)
+    return t0, ends
+
+
+def _classes_ring(t, cells, keep):
+    v = G @ _ring_seed(t)
+    reps, keys = [], set()
+    for cell in cells:
+        n, o = plane(v, cell)
+        d = o - v[keep] @ n
+        d[np.isin(keep, cell)] = np.inf
+        key = (len(cell), tuple(np.round(np.sort(d)[:6], 8)))
+        if key not in keys:
+            keys.add(key)
+            reps.append(cell)
+    return reps
+
+
+def ring_walls(n=90):
+    """Wall points on cross ring 1 (angles mod 90): where the 600-vertex hull's combinatorics changes."""
+    from classify import classify, signature
+    from lines import POINTS
+    from probe import label_of_sig
+    ts = [(k + 0.37) * 90.0 / n for k in range(n)]           # offset so no sample sits on a special angle
+    with Pool(4) as pool:
+        res = pool.map(_ring_job, ts)
+    walls = []
+    for _, ends in res:
+        for e in ends:
+            if e is not None and not any(abs(e - w) < 1e-7 or abs(abs(e - w) - 90) < 1e-7 for w in walls):
+                walls.append(e)
+    walls.sort()
+    out = []
+    for w in walls:
+        def lab(t):
+            try:
+                return label_of_sig(signature(classify(_ring_seed(t))) + " | val " + ",".join(
+                    f"{k}:{v}" for k, v in classify(_ring_seed(t))["valence"].items()))
+            except Exception as exc:
+                return "ERR " + repr(exc)[:40]
+        name = next((nm for a, nm in POINTS if abs(a - w) < 1e-6), None)
+        rec = {"angle": w, "known": name, "on": lab(w), "below": lab(w - 1e-4), "above": lab(w + 1e-4)}
+        out.append(rec)
+        print(f"{w:12.8f}  {('= ' + name) if name else 'NEW':14s} below {rec['below'][:6]:6s} on {rec['on'][:8]:8s} above {rec['above'][:6]}", flush=True)
+    missing = [(a, nm) for a, nm in POINTS if not any(abs(a - r["angle"]) < 1e-6 for r in out)]
+    print("special angles of the old sweep not found as walls:", missing)
+    json.dump(out, open("ring_walls.json", "w"), indent=1)
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "points":
         points(int(sys.argv[2]) if len(sys.argv) > 2 else None)
     if sys.argv[1] == "walls":
         walls()
+    if sys.argv[1] == "ring_walls":
+        ring_walls()

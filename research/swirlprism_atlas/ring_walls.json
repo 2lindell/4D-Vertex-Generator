@@ -1,0 +1,72 @@
+[
+ {
+  "angle": 13.282525588541406,
+  "known": "p120cell",
+  "on": "C1",
+  "below": "D3",
+  "above": "C3"
+ },
+ {
+  "angle": 20.905157447894602,
+  "known": "prss",
+  "on": "C5",
+  "below": "C3",
+  "above": "D1"
+ },
+ {
+  "angle": 26.56505117708955,
+  "known": "psdr",
+  "on": "C6",
+  "below": "D1",
+  "above": "C2a"
+ },
+ {
+  "angle": 31.717474411472047,
+  "known": "psdr",
+  "on": "C6",
+  "below": "C2a",
+  "above": "D1"
+ },
+ {
+  "angle": 37.37736814065077,
+  "known": "prss",
+  "on": "C5",
+  "below": "D1",
+  "above": "C3"
+ },
+ {
+  "angle": 45.00000000000507,
+  "known": "p120cell",
+  "on": "C1",
+  "below": "C3",
+  "above": "D3"
+ },
+ {
+  "angle": 58.28252558854699,
+  "known": "p600",
+  "on": "A1",
+  "below": "D3",
+  "above": "D2"
+ },
+ {
+  "angle": 69.09484255211271,
+  "known": "bigyro",
+  "on": "C4",
+  "below": "D2",
+  "above": "C2b"
+ },
+ {
+  "angle": 79.1876830364337,
+  "known": "bigyro",
+  "on": "C4",
+  "below": "C2b",
+  "above": "D2"
+ },
+ {
+  "angle": 89.99999999999194,
+  "known": null,
+  "on": "A1",
+  "below": "D2",
+  "above": "D3"
+ }
+]
