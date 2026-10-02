@@ -328,7 +328,7 @@ def _anti_ref(b):
     return c0[0] / np.linalg.norm(c0[0])
 
 
-def _trace_one(job, h=0.02, max_steps=150):
+def _trace_one(job, h=0.025, max_steps=80):
     """Follow the curve r1 = r2 = 0 from a solution, one way (sign), by predictor-corrector steps."""
     from scipy.optimize import least_squares
     b, sign = job
@@ -372,8 +372,11 @@ def _trace_one(job, h=0.02, max_steps=150):
 
 
 def antiprism_trace():
-    """Trace the regular-antiprism curves from the distinct solutions found by antiprism_find."""
+    """Trace the regular-antiprism curves: two solutions at a time (both ways), skipping solutions that an
+    earlier trace already passed; results are saved after every batch."""
     from multiprocessing import Pool
+
+    from cell_atlas import to_upper
     sols = [np.array(r[1]) for r in json.load(open("regular_antiprism_minima.json"))
             if r[1] and isinstance(r[2], list) and r[2][0] < 1e-8]
     seeds = []
@@ -381,12 +384,23 @@ def antiprism_trace():
         if not any(np.linalg.norm(s - q) < 1e-6 for q in seeds):
             seeds.append(s)
     print(len(seeds), "distinct solutions", flush=True)
+    out, done = [], []
+
+    def covered(s):
+        u = to_upper(s)
+        return any(np.linalg.norm(u - to_upper(np.array(p))) < 0.03 for o in out for p in o["path"])
     with Pool(4) as pool:
-        out = pool.map(_trace_one, [(s.tolist(), sg) for s in seeds for sg in (1, -1)])
-    json.dump(out, open("regular_antiprism_curves.json", "w"))
-    for o in out:
-        print(len(o["path"]), "steps", np.round(o["path"][0], 4).tolist(), "->", np.round(o["path"][-1], 4).tolist(),
-              sorted(set(o["labels"])))
+        while True:
+            todo = [s for s in seeds if not covered(s) and not any(s is d for d in done)][:2]
+            if not todo:
+                break
+            done += todo
+            res = pool.map(_trace_one, [(s.tolist(), sg) for s in todo for sg in (1, -1)])
+            out += res
+            json.dump(out, open("regular_antiprism_curves.json", "w"))
+            for o in res:
+                print(len(o["path"]), "steps", np.round(o["path"][0], 4).tolist(), "->",
+                      np.round(o["path"][-1], 4).tolist(), sorted(set(o["labels"])), flush=True)
 
 
 def main():
