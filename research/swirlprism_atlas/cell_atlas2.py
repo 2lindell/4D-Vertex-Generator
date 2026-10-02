@@ -19,7 +19,7 @@ from cell_atlas import (
     to_upper,
     xyz,
 )
-from cellframe import TINV, seed_from_beta, snap_golden
+from cellframe import TINV, golden_form, seed_from_beta, snap_golden
 from classify import classify, signature
 
 from four_d_vertex_generator.generation import group_elements
@@ -322,6 +322,52 @@ def main(samples_path, out_path):
         special.append({"id": tid, "q": q, "hover": f"{label(tid)}<br>exact point: {note}<br>"
                         f"β = {np.round(p, 6).tolist()}<br>seed " + ", ".join(fmt17(c) for c in x)})
         tmap[tid]["axis_note"] = True
+
+    # the point where the order-3 girdle crosses a 2400 axis: 7200 symmetries (girdle_meets_axis.py)
+    from normalizer import coset_axes as _axes
+    ga, gb = girdle_segments()[0]
+    for c_end, d_end in _axes():
+        M = np.column_stack([gb - ga, -(d_end - c_end)])
+        st = np.linalg.lstsq(M, c_end - ga, rcond=None)[0]
+        p = ga + st[0] * (gb - ga)
+        if np.linalg.norm(p - (c_end + st[1] * (d_end - c_end))) < 1e-9 and -1e-9 <= st[0] <= 1 + 1e-9:
+            p = p / p.sum()
+            x = seed_from_beta(p)
+            tid = _one(p)[0]
+            c, fc, e = counts_key(signature(classify(x))).split("|")
+            special.append({"id": tid, "q": np.round(xyz(p), 6).tolist(),
+                            "hover": f"{label(tid)}<br>exact point with 7200 symmetries: the green order-3 girdle meets a purple "
+                                     f"2400 axis<br>cells {c}<br>faces {fc}<br>edges {e}<br>β ∝ {beta_text(p)}<br>seed "
+                                     + ", ".join(fmt17(v) for v in x)})
+            tmap[tid]["where"] = (tmap[tid].get("where") or "golden samples") + "; ✕ 7200-symmetry point"
+
+    # where each type lives (xloci.py): a region, a wall, a line, or a point / curve
+    import os
+
+    def _c(v):
+        t = golden_form(v).replace("(1)/", "1/")
+        return f"({t})" if any(ch in t[1:] for ch in "+-") and not t.startswith("(") else t
+
+    def _eq(n):
+        n = np.asarray(n, float)
+        n = n / n[np.flatnonzero(np.abs(n) > 1e-9)[0]]
+        pos = " + ".join(("" if abs(v - 1) < 1e-9 else _c(v) + "·") + f"β{i + 1}" for i, v in enumerate(n) if v > 1e-9)
+        neg = " + ".join(("" if abs(v + 1) < 1e-9 else _c(-v) + "·") + f"β{i + 1}" for i, v in enumerate(n) if v < -1e-9)
+        return f"{pos} = {neg or 0}"
+    if os.path.exists("xloci_step1.json") and os.path.exists("xloci_step2.json"):
+        r1, r2 = json.load(open("xloci_step1.json")), json.load(open("xloci_step2.json"))
+        for tid, r in r1.items():
+            if tid not in tmap:
+                continue
+            if r["kept"] == r["of"]:
+                locus = "fills a region"
+            elif tid in r2 and r2[tid]["kind"] in ("wall", "line"):
+                locus = f"{r2[tid]['kind']}: " + ", ".join(_eq(n) for n in r2[tid]["normals"])
+            else:
+                locus = "a point or a curve (not in a golden plane)"
+            tmap[tid]["locus"] = locus
+            if r["kept"] < r["of"] and tid.startswith("X"):
+                tmap[tid]["transitional"] = True
 
     # rings, coloured by the shape each range produces
     sys.path.insert(0, ".")
