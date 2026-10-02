@@ -120,6 +120,8 @@ def flip_vertical(data):
             r["pts"] = [f(p) for p in r["pts"]]
     for w in data["xwalls"]:
         w["tris"] = [[f(p) for p in tri] for tri in w["tris"]]
+    for w in data["cornerFaces"]:
+        w["pts"] = [f(p) for p in w["pts"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
     data["split"] = [f(p) for p in data["split"]]
     data["fcentre"] = f(data["fcentre"])
@@ -532,6 +534,18 @@ def main(samples_path, out_path):
             for tid, tl in tris.items():
                 xwalls.append({"id": tid, "tris": tl, "hover": f"{label(tid)}<br>patch in the wall {eq}"})
 
+    # corner cells (corner_cells.py): where the seed stops lying on the cell at each corner of the domain
+    corner_faces = []
+    if os.path.exists("corner_cells.json"):
+        for k, (name, rec) in enumerate(json.load(open("corner_cells.json")).items()):
+            cb = np.array(rec["corner"])
+            for f in rec["faces"]:
+                poly = [np.round(xyz(np.array(p)), 6).tolist() for p in f["polygon"]]
+                corner_faces.append({"corner": k, "pts": poly,
+                                     "hover": f"The seed leaves the cell at corner {name} (β ∝ {beta_text(cb)}) across {f['equation']}"
+                                              "<br>that cell is the 10-vertex cell around the 600-cell vertex at the corner "
+                                              "(a pentagonal antiprism or prism); on this side the seed is one of its vertices"})
+
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
     # holds every light purple axis on its surface (domain_search.py); (2, 2, 2, 1) is its midpoint.
@@ -629,7 +643,7 @@ def main(samples_path, out_path):
             t["where"] = (t.get("where") or ("golden samples" if t.get("samples") else "")) + \
                 "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
-            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
+            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "cornerFaces": corner_faces, "fdomain": fdomain,
             "fcentre": np.round(xyz(centre_beta / centre_beta.sum()), 6).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
