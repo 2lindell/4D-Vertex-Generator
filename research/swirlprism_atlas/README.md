@@ -324,3 +324,32 @@ corners. The cut moves as the centre moves along the line; the walls do not.
 The hull and orbit code were rebuilt to be tolerance-robust (see
 `src/four_d_vertex_generator/off.py` and `generation.py`); re-running the
 golden survey with it gives identical signatures for all 2796 samples.
+
+### Where each shape lives, and the transitional X types (`xloci.py`)
+
+Step 1 nudges each type's deepest golden sample by 1e-5 in 32 directions: F2, F3 and 27 X types (X12, X16,
+X30, X32, X36, X37, X43, X45, X46, X49, X50, X54–X69) keep their shape every time and fill regions; every
+other type is transitional. Step 2 finds the simplest golden plane (or pair of planes) along which nudges keep
+the type:
+
+| locus | types |
+|---|---|
+| wall β1 = β2 | F1, X3 |
+| wall β1 = φ²β2 | F4, F5, X31, X44 |
+| wall β1 = β3 | T2, X17 |
+| wall β3 = β4 (the fold) | X11, X19, X26 |
+| wall β1 = β4 | X20, X21, X27 |
+| lines | X2, X6, X8, X9, X10, X13, X14, X23, X33, X34, X42, X47 (and the ring and line types) |
+| points or curves | X1, X4, X5, X7, X15, X18, X22, X24, X25, X28, X29, X35, X38–X41, X48, X51–X53 (and the uniform points) |
+
+Steps 3 and 4 map each wall on a grid and bisect each line, for the drawing (`xloci_walls.json`,
+`xloci_lines.json`).
+
+### Regular pentagonal prisms and antiprisms (`regular_cells.py`)
+
+Prism cells only exist on the faces β2 = 0 and β1 = 0 and the mirror β1 = β2; the regular ones lie on the
+lines β3 = β1 + β4 and β3 = β2 + β4 (F4, 600-cell corner to spidrox) and β1 = β2 = (β3 − β4)/φ (F1).
+Regular antiprisms lie on β1 = φ²β2, β3 = β1 + β4 (F1) and β2 = φ²β1, β3 = β2 + β4 (E1), both from the
+600-cell corner to the face β4 = 0, on β2 = β4, β3 = β4/(2φ²) (F3, F2, F1, from (1, 0, 0, 0) to the E2 line),
+and on a short non-golden piece inside X32 from (2φ², 1, φ², φ²) on the fold. The E1 line's copies under the
+extra half-turn are edges of the cell.

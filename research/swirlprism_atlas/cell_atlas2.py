@@ -499,6 +499,13 @@ def main(samples_path, out_path):
                                        "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>from β ∝ {beta_text(lo)}"
                                                 f"<br>to β ∝ {beta_text(hi)}"})
                     k += 1
+    drawn = {x["id"] for x in xlines}
+    for tid, r in (r2.items() if os.path.exists("xloci_step2.json") else []):
+        if r["kind"] == "line" and tid.startswith("X") and tid not in drawn and tid in tmap:
+            b = to_upper(np.array(r["beta"]))       # too short for the line grid: mark the point it was found at
+            special.append({"id": tid, "q": np.round(xyz(b), 6).tolist(),
+                            "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>a short piece of this line, at β ∝ "
+                                     f"{beta_text(b)} (too short to map along the line)"})
     if os.path.exists("xloci_walls.json"):
         from collections import Counter
         for w in json.load(open("xloci_walls.json")).values():
