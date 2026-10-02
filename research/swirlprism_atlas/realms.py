@@ -178,6 +178,64 @@ def points(max_samples=None):
         print(f"{a:5s} | on {o:5s} | beyond {c:5s} : {n}")
 
 
+def _components(B, eps):
+    """Connected pieces: points closer than eps are joined."""
+    from scipy.sparse.csgraph import connected_components
+    from scipy.spatial import cKDTree
+    pairs = cKDTree(B).query_pairs(eps, output_type="ndarray")
+    import scipy.sparse as sp
+    A = sp.coo_matrix((np.ones(len(pairs)), (pairs[:, 0], pairs[:, 1])), shape=(len(B), len(B)))
+    return connected_components(A, directed=False)[1]
+
+
+def _monomials(B, deg):
+    from itertools import combinations_with_replacement
+    return np.stack([np.prod(B[:, list(c)], axis=1) for c in combinations_with_replacement(range(4), deg)], axis=1)
+
+
+def fit_surface(B):
+    """Lowest degree homogeneous surface through the points (beta normalised): (degree, coefficients, residual)."""
+    B = B / B.sum(axis=1, keepdims=True)
+    for deg in (1, 2, 3, 4):
+        M = _monomials(B, deg)
+        if len(B) < M.shape[1] + 3:
+            return None
+        _, s, vt = np.linalg.svd(M, full_matrices=False)
+        if s[-1] / s[0] < 1e-9:
+            return deg, vt[-1], float(s[-1] / s[0])
+    return None
+
+
+def walls(eps=0.06):
+    """Group the wall points by (the two shapes, the shape on the wall), split each group into connected pieces,
+    and fit each piece with the lowest-degree surface through it."""
+    from collections import defaultdict
+    P = json.load(open("realm_points.json"))
+    groups = defaultdict(list)
+    short = lambda t: t if not t.startswith("new:") else "new:" + t[4:].split(" | val")[0]
+    for r in P:
+        if r["beyond"] == "outside":
+            continue
+        key = (tuple(sorted([short(r["inside"]), short(r["beyond"])])), short(r["on"]))
+        groups[key].append(r["wall"])
+    out = []
+    for (pair, on), pts in sorted(groups.items(), key=lambda kv: -len(kv[1])):
+        B = np.array(pts)
+        lab = _components(B, eps)
+        for c in np.unique(lab):
+            Q = B[lab == c]
+            f = fit_surface(Q) if len(Q) >= 6 else None
+            out.append({"between": list(pair), "on": on, "points": Q.tolist(),
+                        "degree": f and f[0], "coef": f and f[1].tolist(), "residual": f and f[2]})
+    json.dump(out, open("realm_walls.json", "w"))
+    from collections import Counter
+    print(len(out), "pieces;", Counter(w["degree"] for w in out if len(w["points"]) >= 6))
+    for w in out[:60]:
+        print(len(w["points"]), w["between"], "on", w["on"][:28], "degree", w["degree"])
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "points":
         points(int(sys.argv[2]) if len(sys.argv) > 2 else None)
+    if sys.argv[1] == "walls":
+        walls()

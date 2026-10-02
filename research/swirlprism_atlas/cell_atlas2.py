@@ -120,6 +120,8 @@ def flip_vertical(data):
             r["pts"] = [f(p) for p in r["pts"]]
     for w in data["xwalls"]:
         w["tris"] = [[f(p) for p in tri] for tri in w["tris"]]
+    for w in data["realmWalls"]:
+        w["pts"] = [f(p) for p in w["pts"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
     data["split"] = [f(p) for p in data["split"]]
     data["fcentre"] = f(data["fcentre"])
@@ -532,6 +534,33 @@ def main(samples_path, out_path):
             for tid, tl in tris.items():
                 xwalls.append({"id": tid, "tris": tl, "hover": f"{label(tid)}<br>patch in the wall {eq}"})
 
+    # realm walls (realms.py): where the hull's combinatorics changes, coloured by the shape on the wall
+    realm_walls = []
+    if os.path.exists("realm_walls.json"):
+        from scipy.spatial import Delaunay, cKDTree
+        degree_name = {1: "a plane", 2: "a quadric", 3: "a cubic", 4: "a quartic", None: "not fitted"}
+        for w in json.load(open("realm_walls.json")):
+            B = np.array([to_upper(np.array(p)) for p in w["points"]])
+            if len(B) < 6:
+                continue
+            Q = np.array([xyz(b) for b in B])
+            c = Q.mean(axis=0)
+            uv = (Q - c) @ np.linalg.svd(Q - c)[2][:2].T
+            try:
+                tri = Delaunay(uv).simplices
+            except Exception:
+                continue
+            spacing = np.median(cKDTree(Q).query(Q, k=2)[0][:, 1])
+            keep = [t for t in tri if max(np.linalg.norm(Q[t[i]] - Q[t[(i + 1) % 3]]) for i in range(3)) < 3 * spacing]
+            if not keep:
+                continue
+            on = w["on"]
+            name = (label(on) if on in tmap else ("a shape not yet in the atlas: " + on[4:] if on.startswith("new:") else on))
+            between = " and ".join(label(t) if t in tmap else t for t in w["between"])
+            realm_walls.append({"id": on if on in tmap else None, "pts": np.round(Q, 6).tolist(), "tris": [list(map(int, t)) for t in keep],
+                                "hover": f"Realm wall between {between}<br>on the wall: {name}<br>"
+                                         f"{degree_name.get(w['degree'], '')} ({len(B)} exact points)"})
+
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
     # holds every light purple axis on its surface (domain_search.py); (2, 2, 2, 1) is its midpoint.
@@ -629,7 +658,7 @@ def main(samples_path, out_path):
             t["where"] = (t.get("where") or ("golden samples" if t.get("samples") else "")) + \
                 "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
-            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
+            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "realmWalls": realm_walls, "fdomain": fdomain,
             "fcentre": np.round(xyz(centre_beta / centre_beta.sum()), 6).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
