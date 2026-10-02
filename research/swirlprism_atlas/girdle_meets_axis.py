@@ -1,8 +1,17 @@
 """Where the order-3 ghost girdle (green) crosses a 2400-symmetry axis (purple): the seed there has 7200
 symmetries. Prints the crossing of every girdle/axis pair and writes examples/X12_girdle_meets_axis_swirlprism_1200.off."""
+
 import numpy as np
+from cellframe import seed_from_beta
+from classify import classify, signature
 from normalizer import coset_axes
-from supergroups import girdle_families, girdle_segments
+from probe import _one
+from scipy.spatial import cKDTree
+from supergroups import girdle_families, girdle_segments, supergroup
+
+from four_d_vertex_generator.generation import generate_vertices_from_seed
+from four_d_vertex_generator.library import named_symmetry
+from four_d_vertex_generator.off import compute_convex_hull, to_4off
 
 fam=girdle_families()
 G=girdle_segments()
@@ -14,15 +23,7 @@ for a,b in G:
         p=a+s*(b-a); q=c+t*(d-c); gap=np.linalg.norm(p-q)
         print(f"s={s:.6f} t={t:.6f} gap={gap:.2e} fam={fam(c,d)}", np.round(p/p[p>1e-9].min(),9))
 
-from cellframe import seed_from_beta
-from classify import classify, signature
-from probe import _one
-from scipy.spatial import cKDTree
-from supergroups import supergroup
 
-from four_d_vertex_generator.generation import generate_vertices_from_seed
-from four_d_vertex_generator.library import named_symmetry
-from four_d_vertex_generator.off import compute_convex_hull, to_4off
 
 a,b=G[0]; c,d=coset_axes()[0]
 M=np.column_stack([b-a,-(d-c)]); s,t=np.linalg.lstsq(M,c-a,rcond=None)[0]
