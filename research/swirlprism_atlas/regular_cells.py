@@ -319,7 +319,77 @@ def antiprism_find(count=48):
     json.dump(out, open("regular_antiprism_minima.json", "w"))
 
 
+def _anti_ref(b):
+    v, faces, cells = hull(b)
+    res = antiprism_residuals(v, faces, cells)
+    c0 = min(res, key=lambda r: r[1] ** 2 + r[2] ** 2)
+    return c0[0] / np.linalg.norm(c0[0])
+
+
+def _trace_one(job, h=0.02, max_steps=150):
+    """Follow the curve r1 = r2 = 0 from a solution, one way (sign), by predictor-corrector steps."""
+    from scipy.optimize import least_squares
+    b, sign = job
+    b = np.asarray(b, float)
+    ref = _anti_ref(b)
+    B = _plane_basis()
+    path, prev_t = [b.tolist()], None
+    from probe import _one
+    labels = [_one(b)[0]]
+    for _ in range(max_steps):
+        r0 = _anti_track(b, ref)[0]
+        J = np.column_stack([(_anti_track(b + 1e-7 * B[k], ref)[0] - r0) / 1e-7 for k in range(3)])
+        t = np.linalg.svd(J)[2][-1] @ B                       # tangent, in beta space
+        t /= np.linalg.norm(t)
+        if prev_t is None:
+            t *= sign
+        elif t @ prev_t < 0:
+            t = -t
+        pred = b + h * t
+        N = np.linalg.svd(np.vstack([np.ones(4), t]))[2][2:]  # correct across the curve only
+
+        def fun(x, pred=pred, N=N):
+            try:
+                tr = _anti_track(pred + x @ N, ref)
+            except Exception:
+                return np.array([10.0, 10.0])
+            return np.array([10.0, 10.0]) if tr is None else tr[0]
+        try:
+            r = least_squares(fun, np.zeros(2), diff_step=1e-7, xtol=1e-15, ftol=1e-15, gtol=1e-15, max_nfev=40)
+        except Exception:
+            break
+        nb = pred + r.x @ N
+        if nb.min() < -1e-12 or np.abs(r.fun).max() > 1e-8:
+            break
+        tr = _anti_track(nb, ref)
+        ref = tr[2]
+        prev_t, b = t, nb
+        path.append(b.tolist())
+        labels.append(_one(b)[0])
+    return {"path": path, "labels": labels}
+
+
+def antiprism_trace():
+    """Trace the regular-antiprism curves from the distinct solutions found by antiprism_find."""
+    from multiprocessing import Pool
+    sols = [np.array(r[1]) for r in json.load(open("regular_antiprism_minima.json")) if r[1] and r[2] and r[2][0] < 1e-9]
+    seeds = []
+    for s in sols:
+        if not any(np.linalg.norm(s - q) < 1e-6 for q in seeds):
+            seeds.append(s)
+    print(len(seeds), "distinct solutions", flush=True)
+    with Pool(4) as pool:
+        out = pool.map(_trace_one, [(s.tolist(), sg) for s in seeds for sg in (1, -1)])
+    json.dump(out, open("regular_antiprism_curves.json", "w"))
+    for o in out:
+        print(len(o["path"]), "steps", np.round(o["path"][0], 4).tolist(), "->", np.round(o["path"][-1], 4).tolist(),
+              sorted(set(o["labels"])))
+
+
 def main():
+    if sys.argv[1] == "antiprism_trace":
+        antiprism_trace()
+        return
     if sys.argv[1] == "antiprism_find":
         antiprism_find()
         return
