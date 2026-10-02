@@ -447,16 +447,23 @@ def main(samples_path, out_path):
     anti_lines = [
         ([0, 0, 1, 1], [f2, 1, f2, 0], "β1 = φ²·β2, β3 = β1 + β4"),
         ([0, 0, 1, 1], [1, f2, f2, 0], "β2 = φ²·β1, β3 = β2 + β4"),
-        ([1, 0, 0, 0], [2 * f2, 2 * f2, 1, 2 * f2], "β2 = β4, β3 = β4/(2φ²)"),
+        ([1, 0, 0, 0], [2 * f2, 2 * f2, 1, 2 * f2], "β1 = β3, β4 = β3/(2φ²) (folded into the displayed half; unfolded it is β2 = β4, β3 = β4/(2φ²))"),
     ]
+    # inside X32: from the X19 point (2φ², 1, φ², φ²) on the fold to its image under the extra half-turn,
+    # (3+2φ, 1, 2+φ, 1+φ), which is X19 too; the half-turn reverses the piece, whose midpoint is on a purple axis
     import os
-    if os.path.exists("regular_antiprism_curves.json"):
-        for cur in json.load(open("regular_antiprism_curves.json")):
-            if cur.get("straight") and set(cur["labels"]) <= {"X32", "ERR"}:
-                anti_lines.append((cur["path"][0], cur["path"][-1], "inside X32, from the fold β3 = β4 to the edge of X32 (not a golden line)"))
+    x32_end = np.array([2 * f2, 1, f2, f2]) / (2 * f2 + 1 + 2 * f2)
+    anti_lines.append((x32_end, qcopies(x32_end)[0],
+                       "inside X32, from an X19 point on the fold to its copy under the extra half-turn (which reverses "
+                       "the piece; its midpoint is on a purple axis); at both ends these antiprisms merge with other cells"))
     for a, b, where in anti_lines:
         a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
+        # the β2 = β4 line has β3 < β4: fold it into the displayed half like every other seed
         path = [a + (b - a) * k / 32 for k in range(33)]
+        mid = path[16]
+        if mid[2] < mid[3] - 1e-12:          # fold the whole line, ends included, so it stays one line
+            path = [p[[1, 0, 3, 2]] for p in path]
+        a, b = path[0], path[-1]
         shapes = []
         for p in path[1:-1:3]:
             lab = _one(p)[0]
@@ -469,7 +476,8 @@ def main(samples_path, out_path):
             if any(np.allclose(sorted([r["pts"][0], r["pts"][-1]]), sorted([piece[0], piece[-1]]), atol=1e-3) for r in regular):
                 continue
             regular.append({"kind": "antiprism", "copy": True, "pts": np.round(piece, 6).tolist(),
-                            "hover": hover + "<br>(copy under the extra half-turn)"})
+                            "hover": hover + "<br>(copy under the extra half-turn; where a copy crosses the fold "
+                                             "β3 = β4 it carries on from the folded point, so it can show as two pieces)"})
 
     # transitional X types (xloci.py steps 3 and 4): their line segments and the patches they cover on walls
     xlines, xwalls = [], []

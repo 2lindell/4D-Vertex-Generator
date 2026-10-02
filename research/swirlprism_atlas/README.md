@@ -350,6 +350,8 @@ Steps 3 and 4 map each wall on a grid and bisect each line, for the drawing (`xl
 Prism cells only exist on the faces β2 = 0 and β1 = 0 and the mirror β1 = β2; the regular ones lie on the
 lines β3 = β1 + β4 and β3 = β2 + β4 (F4, 600-cell corner to spidrox) and β1 = β2 = (β3 − β4)/φ (F1).
 Regular antiprisms lie on β1 = φ²β2, β3 = β1 + β4 (F1) and β2 = φ²β1, β3 = β2 + β4 (E1), both from the
-600-cell corner to the face β4 = 0, on β2 = β4, β3 = β4/(2φ²) (F3, F2, F1, from (1, 0, 0, 0) to the E2 line),
-and on a short non-golden piece inside X32 from (2φ², 1, φ², φ²) on the fold. The E1 line's copies under the
+600-cell corner to the face β4 = 0, on β1 = β3, β4 = β3/(2φ²) (F3, F2, F1, from (1, 0, 0, 0) to the E2 line at (2φ², 2φ², 2φ², 1); found as
+β2 = β4, β3 = β4/(2φ²) in the other half and folded), and on a short piece inside X32 from the X19 point
+(2φ², 1, φ², φ²) on the fold to its image (3+2φ, 1, 2+φ, 1+φ) under the extra half-turn, which reverses the
+piece (its midpoint is on a purple axis); at both ends those antiprisms merge with other cells. The E1 line's copies under the
 extra half-turn are edges of the cell.
