@@ -136,5 +136,124 @@ def step2():
     json.dump(dict(sorted(out.items())), open("xloci_step2.json", "w"), indent=1)
 
 
+SWAP = [1, 0, 3, 2]      # the exact half-turn that folds the cell onto the displayed half (beta3 >= beta4)
+
+
+def _canon(n):
+    n = np.asarray(n, float)
+    n = n / n[np.flatnonzero(np.abs(n) > 1e-9)[0]]
+    return n
+
+
+def _section(normals):
+    """Corners of {beta >= 0, sum = 1, n.beta = 0 for n in normals}: a polygon (one normal) or a segment (two)."""
+    from itertools import combinations
+    A = np.vstack([np.ones(4), *normals])
+    need = 4 - len(A)                                  # how many beta_i must be 0 at a corner
+    pts = []
+    for zeros in combinations(range(4), need):
+        M = np.vstack([A, np.eye(4)[list(zeros)]])
+        if abs(np.linalg.det(M)) < 1e-12:
+            continue
+        b = np.linalg.solve(M, np.r_[1.0, np.zeros(len(M) - 1)])
+        if b.min() > -1e-12 and not any(np.allclose(b, q, atol=1e-10) for q in pts):
+            pts.append(np.clip(b, 0, None))
+    return pts
+
+
+def _order(pts, normal):
+    c = np.mean(pts, axis=0)
+    basis = np.linalg.svd(np.vstack([np.ones(4), normal]))[2][2:]
+    ang = [np.arctan2(*((p - c) @ basis.T)[::-1]) for p in pts]
+    return [pts[k] for k in np.argsort(ang)]
+
+
+def step3(n=28):
+    """Label a triangular grid on each wall (and on its image under the half-turn), keeping the displayed half."""
+    r2 = json.load(open("xloci_step2.json"))
+    walls = {}
+    for t, r in r2.items():
+        if r["kind"] == "wall":
+            for nrm in (_canon(r["normals"][0]), _canon(np.asarray(r["normals"][0])[SWAP])):
+                walls.setdefault(tuple(np.round(nrm, 9)), nrm)
+    jobs, meta = [], []
+    for key, nrm in walls.items():
+        poly = _order(_section([nrm]), nrm)
+        c = np.mean(poly, axis=0)
+        for k in range(len(poly)):                        # fan of triangles from the centre
+            a, b = poly[k], poly[(k + 1) % len(poly)]
+            for i in range(n + 1):
+                for j in range(n + 1 - i):
+                    p = (i * a + j * b + (n - i - j) * c) / n
+                    meta.append((key, k, i, j))
+                    jobs.append(p)
+    print(len(walls), "walls,", len(jobs), "grid points", flush=True)
+    with Pool(4) as pool:
+        labels = pool.map(_label, jobs, chunksize=8)
+    out = {}
+    for (key, k, i, j), p, lab in zip(meta, jobs, labels):
+        w = out.setdefault(str(list(key)), {"normal": list(key), "n": n, "points": []})
+        w["points"].append({"fan": k, "ij": [i, j], "beta": p.tolist(), "label": lab})
+    json.dump(out, open("xloci_walls.json", "w"))
+
+
+def step4(m=48, steps=30):
+    """Each line type's segments: sample the line's chord through the cell, then bisect the ends of each run."""
+    r2 = json.load(open("xloci_step2.json"))
+    lines = {}
+    for t, r in r2.items():
+        if r["kind"] == "line":
+            for ns in ([_canon(x) for x in r["normals"]], [_canon(np.asarray(x)[SWAP]) for x in r["normals"]]):
+                ends = _section(ns)
+                if len(ends) == 2:
+                    lines.setdefault(t, []).append(ends)
+    jobs, meta = [], []
+    for t, chords in lines.items():
+        for c, (a, b) in enumerate(chords):
+            for k in range(m + 1):
+                meta.append((t, c, k))
+                jobs.append(a + (b - a) * k / m)
+    with Pool(4) as pool:
+        labels = pool.map(_label, jobs, chunksize=8)
+        found = {}
+        for (t, c, k), lab in zip(meta, labels):
+            found.setdefault((t, c), []).append(lab)
+        bis = []
+        for (t, c), labs in found.items():
+            a, b = lines[t][c]
+            for k in range(m + 1):
+                if labs[k] != t:
+                    continue
+                if k > 0 and labs[k - 1] != t:
+                    bis.append((t, c, k, -1, a + (b - a) * (k - 1) / m, a + (b - a) * k / m))
+                if k < m and labs[k + 1] != t:
+                    bis.append((t, c, k, 1, a + (b - a) * k / m, a + (b - a) * (k + 1) / m))
+        refined = pool.map(_bisect_end, [(t, lo, hi) for t, _, _, _, lo, hi in bis])
+    out = {}
+    for (t, c, k, side, _, _), p in zip(bis, refined):
+        out.setdefault(t, {}).setdefault(str(c), {"chord": [x.tolist() for x in lines[t][c]], "ends": []})
+        out[t][str(c)]["ends"].append({"k": k, "side": side, "beta": p})
+    for (t, c), labs in found.items():
+        out.setdefault(t, {}).setdefault(str(c), {"chord": [x.tolist() for x in lines[t][c]], "ends": []})
+        out[t][str(c)]["labels"] = labs
+        runs = [k for k, x in enumerate(labs) if x == t]
+        print(t, c, "samples on the type:", runs[:3], "...", runs[-3:] if runs else "", flush=True)
+    json.dump(out, open("xloci_lines.json", "w"), indent=1)
+
+
+def _bisect_end(job, steps=30):
+    """Bisect between a point of type t (one end) and a point of another type; return the last t point."""
+    t, p, q = job
+    lt = _label(p) == t
+    good, bad = (p, q) if lt else (q, p)
+    for _ in range(steps):
+        mid = (good + bad) / 2
+        if _label(mid) == t:
+            good = mid
+        else:
+            bad = mid
+    return good.tolist()
+
+
 if __name__ == "__main__":
-    {"step1": step1, "step2": step2}[sys.argv[1]]()
+    {"step1": step1, "step2": step2, "step3": step3, "step4": step4}[sys.argv[1]]()

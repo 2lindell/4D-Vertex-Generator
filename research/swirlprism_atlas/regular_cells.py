@@ -64,6 +64,75 @@ def cell_defects(beta):
     return best
 
 
+def tracked_defect(beta, kind, ref):
+    """Defect of the cell of this kind whose centre points closest to the direction ref."""
+    b = np.abs(np.asarray(beta, float))
+    v, faces, cells = hull(b / b.sum())
+    best, d = -2.0, None
+    for c in cells:
+        if kind_of(c, faces) != kind:
+            continue
+        centre = v[sorted({x for f in c for x in faces[f]})].mean(axis=0)
+        cos = centre @ ref / np.linalg.norm(centre)
+        if cos > best:
+            best, d = cos, defect(v, c, faces)
+    return d
+
+
+def _solve(job):
+    """Gauss-Newton from b0, following the one cell nearest the start's most regular cell."""
+    from scipy.optimize import least_squares
+    kind, b0 = job
+    v, faces, cells = hull(b0)
+    cand = [c for c in cells if kind_of(c, faces) == kind]
+    c0 = min(cand, key=lambda c: np.linalg.norm(defect(v, c, faces)))
+    ref = v[sorted({x for f in c0 for x in faces[f]})].mean(axis=0)
+    ref /= np.linalg.norm(ref)
+    n = len(tracked_defect(b0, kind, ref))
+
+    def fun(x):
+        try:
+            d = tracked_defect(x, kind, ref)
+        except Exception:
+            return np.full(n + 1, 10.0)
+        if d is None or len(d) != n:
+            return np.full(n + 1, 10.0)
+        return np.append(d, np.abs(x).sum() - 1)      # fix the scale
+    try:
+        r = least_squares(fun, b0, x_scale=0.1, diff_step=1e-6, xtol=1e-14, ftol=1e-14, max_nfev=120)
+    except Exception as exc:
+        return kind, b0.tolist(), None, repr(exc)
+    b = np.abs(r.x) / np.abs(r.x).sum()
+    return kind, b0.tolist(), b.tolist(), float(np.abs(r.fun[:-1]).max())
+
+
+def find(kind, types):
+    """Solve for a regular cell from the deepest golden sample of each given type (plus two random ones)."""
+    from multiprocessing import Pool
+
+    from cell_atlas2 import identify, load_refs
+    refs = load_refs()[0]
+    xids = json.load(open("atlas_xids.json"))
+    by_type = {}
+    for s in json.load(open("golden_22.json")):
+        cid, xkey, _ = identify(s["sig"], refs)
+        t = cid or xids.get(xkey)
+        if t in types:
+            b = np.array(s["beta"], float)
+            by_type.setdefault(t, []).append(b / b.sum())
+    rng = np.random.default_rng(0)
+    starts = []
+    for t, bs in sorted(by_type.items()):
+        picks = [max(bs, key=lambda x: x.min())] + [bs[i] for i in rng.choice(len(bs), min(2, len(bs)), replace=False)]
+        starts += [(kind, b) for b in picks]
+    out = []
+    with Pool(4) as pool:
+        for r in pool.imap_unordered(_solve, starts):
+            out.append(r)
+            print(np.round(r[1], 4).tolist(), "->", r[2] and np.round(r[2], 8).tolist(), r[3], flush=True)
+    json.dump(out, open(f"regular_{kind}_minima.json", "w"))
+
+
 def main():
     if sys.argv[1] == "find":
         find(sys.argv[2], sys.argv[3].split(","))
@@ -83,47 +152,6 @@ def main():
             r = cell_defects(b / b.sum())
             if r:
                 print(tid, {k: (n, round(m, 4)) for k, (n, m, _) in r.items()}, flush=True)
-
-
-def score(beta, kind):
-    """Smallest max |defect| over the cells of this kind (inf when there are none)."""
-    b = np.abs(np.asarray(beta, float))
-    try:
-        v, faces, cells = hull(b / b.sum())
-    except Exception:
-        return np.inf
-    ds = [np.linalg.norm(defect(v, c, faces)) for c in cells if kind_of(c, faces) == kind]
-    return min(ds) if ds else np.inf
-
-
-def _minimise(job):
-    from scipy.optimize import minimize
-    kind, b0 = job
-    r = minimize(score, b0, args=(kind,), method="Nelder-Mead",
-                 options={"xatol": 1e-10, "fatol": 1e-12, "maxfev": 600})
-    b = np.abs(r.x) / np.abs(r.x).sum()
-    return kind, b0.tolist(), b.tolist(), float(r.fun)
-
-
-def find(kind, types):
-    """Minimise the defect from every golden sample of the given types."""
-    from multiprocessing import Pool
-
-    from cell_atlas2 import identify, load_refs
-    refs = load_refs()[0]
-    xids = json.load(open("atlas_xids.json"))
-    starts = []
-    for s in json.load(open("golden_22.json")):
-        cid, xkey, _ = identify(s["sig"], refs)
-        if (cid or xids.get(xkey)) in types:
-            b = np.array(s["beta"], float)
-            starts.append((kind, b / b.sum()))
-    rng = np.random.default_rng(0)
-    if len(starts) > 60:
-        starts = [starts[i] for i in rng.choice(len(starts), 60, replace=False)]
-    with Pool(4) as pool:
-        out = [r for r in pool.imap_unordered(_minimise, starts) if print(np.round(r[2], 6), f"{r[3]:.2e}", flush=True) or True]
-    json.dump(out, open(f"regular_{kind}_minima.json", "w"))
 
 
 if __name__ == "__main__":
