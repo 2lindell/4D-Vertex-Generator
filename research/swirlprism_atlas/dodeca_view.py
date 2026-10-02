@@ -256,3 +256,50 @@ def view(data):
     out["split"] = []
     out["dodecaFaces"] = faces
     return out
+
+
+def clip_images(X, H, elements=E, hemi=None):
+    """Pieces (in seed space) of every image g.arc, g in elements, inside the cone {x: x . h >= 0 for h in H}.
+
+    X samples the arc (rows, consecutive points joined by straight chords, which are the arc's pieces of great
+    circles in any gnomonic chart); hemi, if given, is a direction every kept point must face (x . hemi > 0)."""
+    H = np.asarray(H, float)
+    Y = np.einsum("gij,nj->gni", elements, np.asarray(X, float))      # (g, n, 4)
+    f = Y @ H.T                                                         # (g, n, k)
+    ok = ~np.any(np.all(f < -1e-12, axis=1), axis=1)
+    if hemi is not None:
+        ok &= np.all(Y @ hemi > 0, axis=1)
+    pieces = []
+    for g in np.flatnonzero(ok):
+        cur = []
+        for a, b in zip(Y[g, :-1], Y[g, 1:]):
+            t0, t1 = 0.0, 1.0
+            for h in H:
+                fa, fd = a @ h, (b - a) @ h
+                if abs(fd) < 1e-15:
+                    if fa < -1e-12:
+                        t0, t1 = 1.0, 0.0
+                    continue
+                t = -fa / fd
+                if fd > 0:
+                    t0 = max(t0, t)
+                else:
+                    t1 = min(t1, t)
+            if t0 > t1 - 1e-12:
+                if len(cur) > 1:
+                    pieces.append(cur)
+                cur = []
+                continue
+            p, q = a + t0 * (b - a), a + t1 * (b - a)
+            if cur and np.linalg.norm(cur[-1] / np.linalg.norm(cur[-1]) - p / np.linalg.norm(p)) < 1e-9:
+                cur.append(q)
+            else:
+                if len(cur) > 1:
+                    pieces.append(cur)
+                cur = [p, q]
+            if t1 < 1 - 1e-12:
+                pieces.append(cur)
+                cur = []
+        if len(cur) > 1:
+            pieces.append(cur)
+    return [np.array(pc) for pc in pieces]

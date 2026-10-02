@@ -454,6 +454,9 @@ def antiprism_segments():
 
 
 def main():
+    if sys.argv[1] == "extend_lines":
+        extend_lines()
+        return
     if sys.argv[1] == "antiprism_segments":
         antiprism_segments()
         return
@@ -484,6 +487,61 @@ def main():
             r = cell_defects(b / b.sum())
             if r:
                 print(tid, {k: (n, round(m, 4)) for k, (n, m, _) in r.items()}, flush=True)
+
+
+def _regular_at(job):
+    kind, b = job
+    b = np.asarray(b, float)
+    if b.sum() <= 0:
+        return False
+    if kind == "prism":
+        r = prism_residual(b / b.sum())
+        return bool(r) and min(abs(x[0]) for x in r) < 1e-8
+    return _is_regular(b / b.sum())
+
+
+def extend_lines():
+    """Extend each regular-cell line along its great circle (beta may go negative: the seed is then in a
+    neighbouring cell) as far as its cells stay regular; ends bisected to 1e-12. Writes regular_lines.json."""
+    from multiprocessing import Pool
+    F = (1 + 5 ** 0.5) / 2
+    f2 = F * F
+    a32 = np.array([2 * f2, 1, f2, f2])
+    lines = [
+        ("prism", [0, 0, 1, 1], [1, 0, 1, 0]),
+        ("prism", [0, 0, 1, 1], [1 / F, 1 / F, 1, 0]),
+        ("antiprism", [0, 0, 1, 1], [f2, 1, f2, 0]),
+        ("antiprism", [0, 0, 1, 1], [1, f2, f2, 0]),
+        ("antiprism", [1, 0, 0, 0], [2 * f2, 2 * f2, 1, 2 * f2]),
+        ("antiprism", list(a32 / a32.sum()), [3 + 2 * F, 1, 2 + F, 1 + F]),
+    ]
+    out = []
+    with Pool(4) as pool:
+        for kind, a, b in lines:
+            a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
+            ends = []
+            for sign, start in ((-1, 0.0), (1, 1.0)):
+                ts = [start + sign * 0.02 * k for k in range(1, 151)]
+                ok = pool.map(_regular_at, [(kind, a + t * (b - a)) for t in ts])
+                good = start
+                for t, o in zip(ts, ok):
+                    if not o:
+                        break
+                    good = t
+                bad = good + sign * 0.02
+                for _ in range(40):
+                    m = (good + bad) / 2
+                    if _regular_at((kind, a + m * (b - a))):
+                        good = m
+                    else:
+                        bad = m
+                ends.append(good)
+            pa, pb = a + ends[0] * (b - a), a + ends[1] * (b - a)
+            out.append({"kind": kind, "a": pa.tolist(), "b": pb.tolist(), "t": ends,
+                        "through": [a.tolist(), b.tolist()]})
+            print(kind, f"t from {ends[0]:+.6f} to {ends[1]:+.6f}", np.round(pa / np.abs(pa).max(), 5).tolist(), "->",
+                  np.round(pb / np.abs(pb).max(), 5).tolist(), flush=True)
+    json.dump(out, open("regular_lines.json", "w"), indent=1)
 
 
 if __name__ == "__main__":

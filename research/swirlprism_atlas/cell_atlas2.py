@@ -407,77 +407,100 @@ def main(samples_path, out_path):
         segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
-    # regular cells: pentagonal prisms (exact lines, regular_cells.py) and antiprisms (traced curves)
-    from normalizer import qcopies
+    # regular cells: pentagonal prisms and antiprisms (exact lines, regular_cells.py)
     regular = []
-    ip = 1 / _F
-    prism_lines = [
-        ("F4", [0, 0, 1, 1], [1, 0, 1, 0], "on the face β2 = 0, β3 = β1 + β4"),
-        ("F4", [0, 0, 1, 1], [0, 1, 1, 0], "on the face β1 = 0, β3 = β2 + β4"),
-        ("F1", [0, 0, 1, 1], [ip, ip, 1, 0], "in the mirror β1 = β2, β1 = β2 = (β3 − β4)/φ"),
-    ]
 
-    def chains(betas):
-        """Split the Q-images of a sampled path into continuous pieces (one per copy)."""
-        pieces = []
-        for b in betas:
-            for c in qcopies(b):
-                q = xyz(c)
-                near = [p for p in pieces if np.linalg.norm(np.array(p[-1]) - q) < 0.02]
-                if near:
-                    near[0].append(q.tolist())
-                else:
-                    pieces.append([q.tolist()])
-        return [p[::4] + ([p[-1]] if (len(p) - 1) % 4 else []) for p in pieces if len(p) > 8]
+    # Each line is a great-circle arc. Its pieces in the half-cell are the images g.arc (g in the group) clipped to
+    # the half-cell, which is a fundamental domain, so lines that cross the fold come out whole and folded; the
+    # dashed copies are the images g.Q.arc of the extra half-turn Q, clipped the same way. A copy piece lying on
+    # an original line is that same line, so it is not drawn again.
+    from dodeca_view import clip_images
+    from normalizer import halfturn
+    Qm = halfturn()
+    H_cell = [TINV[i] for i in range(4)] + [TINV[2] - TINV[3]]       # beta_i >= 0 and beta3 >= beta4
+    hemi = TINV.sum(axis=0)                                        # sum(beta) > 0
 
-    for tid, a, b, where in prism_lines:
-        a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
-        path = [a + (b - a) * k / 32 for k in range(33)]
-        hover = (f"Regular pentagonal prisms ({tid}), {where}<br>from {_one(a)[0]} at β ∝ {beta_text(a)}"
-                 f"<br>to {_one(b)[0]} at β ∝ {beta_text(b)}")
-        regular.append({"kind": "prism", "copy": False, "pts": [np.round(xyz(p), 6).tolist() for p in path], "hover": hover})
-        for piece in chains([a + (b - a) * k / 160 for k in range(1, 160)]):
-            if any(r["copy"] and np.allclose(sorted([r["pts"][0], r["pts"][-1]]), sorted([piece[0], piece[-1]]), atol=1e-3)
-                   for r in regular):
-                continue                     # the copies of the two face lines coincide
-            regular.append({"kind": "prism", "copy": True, "pts": np.round(piece, 6).tolist(),
-                            "hover": hover + "<br>(copy under the extra half-turn)"})
-    # regular antiprisms: three exact lines, and a short straight piece inside X32 that is not golden
-    f2 = _F * _F
-    anti_lines = [
-        ([0, 0, 1, 1], [f2, 1, f2, 0], "β1 = φ²·β2, β3 = β1 + β4"),
-        ([0, 0, 1, 1], [1, f2, f2, 0], "β2 = φ²·β1, β3 = β2 + β4"),
-        ([1, 0, 0, 0], [2 * f2, 2 * f2, 1, 2 * f2], "β1 = β3, β4 = β3/(2φ²) (folded into the displayed half; unfolded it is β2 = β4, β3 = β4/(2φ²))"),
-    ]
-    # inside X32: from the X19 point (2φ², 1, φ², φ²) on the fold to its image under the extra half-turn,
-    # (3+2φ, 1, 2+φ, 1+φ), which is X19 too; the half-turn reverses the piece, whose midpoint is on a purple axis
+    def arc(a, b, n=96):
+        X = np.array([seed_from_beta(a + (b - a) * k / n) for k in range(n + 1)])
+        return X
+
+    def to_cell(piece):
+        out = []
+        for x in piece:
+            bb = TINV @ x
+            out.append(np.round(xyz(bb / bb.sum()), 6).tolist())
+        return out
+
+    def on_lines(pts, lines_xyz, tol=1e-6):
+        """Does every point of a piece lie on one of the given polylines?"""
+        for p in pts[1:-1] or pts:
+            p = np.array(p)
+            ok = False
+            for L in lines_xyz:
+                L = np.array(L)
+                for u, v in zip(L[:-1], L[1:]):
+                    d = v - u
+                    t = np.clip((p - u) @ d / max(d @ d, 1e-30), 0, 1)
+                    if np.linalg.norm(u + t * d - p) < tol:
+                        ok = True
+                        break
+                if ok:
+                    break
+            if not ok:
+                return False
+        return True
+
+    def length(pts):
+        return float(np.linalg.norm(np.diff(np.array(pts), axis=0), axis=1).sum())
+
+    def same(p, q):
+        return len(p) == len(q) and (np.allclose(p, q, atol=1e-5) or np.allclose(p, q[::-1], atol=1e-5))
+
+    def add_family(kind, specs):
+        originals = []
+        for a, b, hover in specs:
+            for pc in clip_images(arc(a, b), H_cell, hemi=hemi):
+                pts = to_cell(pc)
+                if length(pts) < 1e-5 or on_lines(pts, originals, tol=1e-5):
+                    continue                          # a corner, or the same line reached by another element
+                originals.append(pts)
+                regular.append({"kind": kind, "copy": False, "pts": pts, "hover": hover})
+        copies = []
+        for a, b, hover in specs:
+            for pc in clip_images(arc(a, b) @ Qm.T, H_cell, hemi=hemi):
+                pts = to_cell(pc)
+                if length(pts) < 1e-5 or on_lines(pts, originals, tol=1e-5) or on_lines(pts, copies, tol=1e-5):
+                    continue                          # on an original line: it is that line, not a separate copy
+                copies.append(pts)
+                regular.append({"kind": kind, "copy": True, "pts": pts, "hover": hover + "<br>(copy under the extra half-turn)"})
+
+    # the lines, extended along their great circles as far as the cells stay regular (regular_cells.py extend_lines)
     import os
-    x32_end = np.array([2 * f2, 1, f2, f2]) / (2 * f2 + 1 + 2 * f2)
-    anti_lines.append((x32_end, qcopies(x32_end)[0],
-                       "inside X32, from an X19 point on the fold to its copy under the extra half-turn (which reverses "
-                       "the piece; its midpoint is on a purple axis); at both ends these antiprisms merge with other cells"))
-    for a, b, where in anti_lines:
-        a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
-        # the β2 = β4 line has β3 < β4: fold it into the displayed half like every other seed
-        path = [a + (b - a) * k / 32 for k in range(33)]
-        mid = path[16]
-        if mid[2] < mid[3] - 1e-12:          # fold the whole line, ends included, so it stays one line
-            path = [p[[1, 0, 3, 2]] for p in path]
-        a, b = path[0], path[-1]
+    ext = json.load(open("regular_lines.json")) if os.path.exists("regular_lines.json") else []
+    descriptions = [
+        "Regular pentagonal prisms (F4), on the faces β2 = 0 (β3 = β1 + β4) and β1 = 0 (β3 = β2 + β4)",
+        "Regular pentagonal prisms (F1), in the mirror β1 = β2, β1 = β2 = (β3 − β4)/φ",
+        "Regular pentagonal antiprisms, β1 = φ²·β2, β3 = β1 + β4",
+        "Regular pentagonal antiprisms, β2 = φ²·β1, β3 = β2 + β4",
+        "Regular pentagonal antiprisms, β2 = β4, β3 = β4/(2φ²) (drawn folded into this half)",
+        "Regular pentagonal antiprisms, inside X32, from an X19 point on the fold to its copy under the extra half-turn "
+        "(which reverses the piece; its midpoint is on a purple axis); at both ends these antiprisms merge with other cells",
+    ]
+    fams = {"prism": [], "antiprism": []}
+    for line, text in zip(ext, descriptions):
+        a, b = np.array(line["a"]), np.array(line["b"])
         shapes = []
-        for p in path[1:-1:3]:
-            lab = _one(p)[0]
-            if lab in tmap and lab not in shapes:
-                shapes.append(lab)
-        hover = (f"Regular pentagonal antiprisms, {where}<br>shapes along it: {', '.join(shapes)}"
-                 f"<br>from β ∝ {beta_text(a)}<br>to β ∝ {beta_text(b)}")
-        regular.append({"kind": "antiprism", "copy": False, "pts": [np.round(xyz(p), 6).tolist() for p in path], "hover": hover})
-        for piece in chains([a + (b - a) * k / 160 for k in range(1, 160)]):
-            if any(np.allclose(sorted([r["pts"][0], r["pts"][-1]]), sorted([piece[0], piece[-1]]), atol=1e-3) for r in regular):
-                continue
-            regular.append({"kind": "antiprism", "copy": True, "pts": np.round(piece, 6).tolist(),
-                            "hover": hover + "<br>(copy under the extra half-turn; where a copy crosses the fold "
-                                             "β3 = β4 it carries on from the folded point, so it can show as two pieces)"})
+        for k in range(1, 40, 3):
+            p = a + (b - a) * k / 40
+            for c in clip_images(seed_from_beta(p)[None], H_cell, hemi=hemi):
+                lab = _one(TINV @ c[0] / (TINV @ c[0]).sum())[0]
+                if lab in tmap and lab not in shapes:
+                    shapes.append(lab)
+        fams[line["kind"]].append((a, b, f"{text}<br>shapes along it: {', '.join(shapes)}<br>the whole line runs from β ∝ "
+                                         f"{beta_text(np.abs(a))}{' (outside the cell)' if a.min() < -1e-9 else ''} to β ∝ "
+                                         f"{beta_text(np.abs(b))}{' (outside the cell)' if b.min() < -1e-9 else ''}"))
+    add_family("prism", fams["prism"])
+    add_family("antiprism", fams["antiprism"])
 
     # transitional X types (xloci.py steps 3 and 4): their line segments and the patches they cover on walls
     xlines, xwalls = [], []
