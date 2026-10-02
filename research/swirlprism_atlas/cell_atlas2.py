@@ -418,11 +418,16 @@ def main(samples_path, out_path):
     from normalizer import halfturn
     Qm = halfturn()
     H_cell = [TINV[i] for i in range(4)] + [TINV[2] - TINV[3]]       # beta_i >= 0 and beta3 >= beta4
-    hemi = TINV.sum(axis=0)                                        # sum(beta) > 0
 
-    def arc(a, b, n=96):
-        X = np.array([seed_from_beta(a + (b - a) * k / n) for k in range(n + 1)])
-        return X
+    def arc(a, b, n=96, whole=False):
+        if whole:                                    # the cells stay regular all the way round the great circle
+            u = seed_from_beta(a)
+            v = seed_from_beta(b)
+            v = v - (v @ u) * u
+            v /= np.linalg.norm(v)
+            th = np.linspace(0, 2 * np.pi, 8 * n + 1)
+            return np.outer(np.cos(th), u) + np.outer(np.sin(th), v)
+        return np.array([seed_from_beta(a + (b - a) * k / n) for k in range(n + 1)])
 
     def to_cell(piece):
         out = []
@@ -456,49 +461,47 @@ def main(samples_path, out_path):
     def same(p, q):
         return len(p) == len(q) and (np.allclose(p, q, atol=1e-5) or np.allclose(p, q[::-1], atol=1e-5))
 
+    def piece_hover(kind, pc, copy):
+        """What lies along one piece: its shapes and its ends (beta, in this cell)."""
+        B = [TINV @ x / (TINV @ x).sum() for x in pc]
+        shapes = []
+        for t in (0.1, 0.3, 0.5, 0.7, 0.9):
+            k = t * (len(B) - 1)
+            i = int(k)
+            p = B[i] + (k - i) * (B[min(i + 1, len(B) - 1)] - B[i])
+            lab = _one(p)[0]
+            if lab in tmap and lab not in shapes:
+                shapes.append(lab)
+        name = "prisms" if kind == "prism" else "antiprisms"
+        return (f"Regular pentagonal {name}{' (copy under the extra half-turn)' if copy else ''}<br>shapes along this piece: "
+                f"{', '.join(label(t) for t in shapes)}<br>from β ∝ {beta_text(np.clip(B[0], 0, None))}"
+                f"<br>to β ∝ {beta_text(np.clip(B[-1], 0, None))}")
+
     def add_family(kind, specs):
         originals = []
-        for a, b, hover in specs:
-            for pc in clip_images(arc(a, b), H_cell, hemi=hemi):
+        for a, b, whole in specs:
+            for pc in clip_images(arc(a, b, whole=whole), H_cell):
                 pts = to_cell(pc)
                 if length(pts) < 1e-5 or on_lines(pts, originals, tol=1e-5):
                     continue                          # a corner, or the same line reached by another element
                 originals.append(pts)
-                regular.append({"kind": kind, "copy": False, "pts": pts, "hover": hover})
+                regular.append({"kind": kind, "copy": False, "pts": pts, "hover": piece_hover(kind, pc, False)})
         copies = []
-        for a, b, hover in specs:
-            for pc in clip_images(arc(a, b) @ Qm.T, H_cell, hemi=hemi):
+        for a, b, whole in specs:
+            for pc in clip_images(arc(a, b, whole=whole) @ Qm.T, H_cell):
                 pts = to_cell(pc)
                 if length(pts) < 1e-5 or on_lines(pts, originals, tol=1e-5) or on_lines(pts, copies, tol=1e-5):
                     continue                          # on an original line: it is that line, not a separate copy
                 copies.append(pts)
-                regular.append({"kind": kind, "copy": True, "pts": pts, "hover": hover + "<br>(copy under the extra half-turn)"})
+                regular.append({"kind": kind, "copy": True, "pts": pts, "hover": piece_hover(kind, pc, True)})
 
     # the lines, extended along their great circles as far as the cells stay regular (regular_cells.py extend_lines)
     import os
     ext = json.load(open("regular_lines.json")) if os.path.exists("regular_lines.json") else []
-    descriptions = [
-        "Regular pentagonal prisms (F4), on the faces β2 = 0 (β3 = β1 + β4) and β1 = 0 (β3 = β2 + β4)",
-        "Regular pentagonal prisms (F1), in the mirror β1 = β2, β1 = β2 = (β3 − β4)/φ",
-        "Regular pentagonal antiprisms, β1 = φ²·β2, β3 = β1 + β4",
-        "Regular pentagonal antiprisms, β2 = φ²·β1, β3 = β2 + β4",
-        "Regular pentagonal antiprisms, β2 = β4, β3 = β4/(2φ²) (drawn folded into this half)",
-        "Regular pentagonal antiprisms, inside X32, from an X19 point on the fold to its copy under the extra half-turn "
-        "(which reverses the piece; its midpoint is on a purple axis); at both ends these antiprisms merge with other cells",
-    ]
     fams = {"prism": [], "antiprism": []}
-    for line, text in zip(ext, descriptions):
-        a, b = np.array(line["a"]), np.array(line["b"])
-        shapes = []
-        for k in range(1, 40, 3):
-            p = a + (b - a) * k / 40
-            for c in clip_images(seed_from_beta(p)[None], H_cell, hemi=hemi):
-                lab = _one(TINV @ c[0] / (TINV @ c[0]).sum())[0]
-                if lab in tmap and lab not in shapes:
-                    shapes.append(lab)
-        fams[line["kind"]].append((a, b, f"{text}<br>shapes along it: {', '.join(shapes)}<br>the whole line runs from β ∝ "
-                                         f"{beta_text(np.abs(a))}{' (outside the cell)' if a.min() < -1e-9 else ''} to β ∝ "
-                                         f"{beta_text(np.abs(b))}{' (outside the cell)' if b.min() < -1e-9 else ''}"))
+    for line in ext:
+        whole = max(abs(t) for t in line["t"]) >= 2.99      # the extension ran to its limit: the whole circle
+        fams[line["kind"]].append((np.array(line["a"]), np.array(line["b"]), whole))
     add_family("prism", fams["prism"])
     add_family("antiprism", fams["antiprism"])
 
