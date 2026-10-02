@@ -168,7 +168,7 @@ def _order(pts, normal):
     return [pts[k] for k in np.argsort(ang)]
 
 
-def step3(n=28):
+def step3(n=16):
     """Label a triangular grid on each wall (and on its image under the half-turn), keeping the displayed half."""
     r2 = json.load(open("xloci_step2.json"))
     walls = {}
@@ -185,6 +185,8 @@ def step3(n=28):
             for i in range(n + 1):
                 for j in range(n + 1 - i):
                     p = (i * a + j * b + (n - i - j) * c) / n
+                    if p[2] < p[3] - 1e-12:           # only the displayed half (beta3 >= beta4)
+                        continue
                     meta.append((key, k, i, j))
                     jobs.append(p)
     print(len(walls), "walls,", len(jobs), "grid points", flush=True)

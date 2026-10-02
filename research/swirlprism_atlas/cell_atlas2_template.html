@@ -107,7 +107,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
       <label><input id="showAxes" type="checkbox" checked> extra-symmetry axes</label>
       <label><input id="showRegular" type="checkbox"> regular prism / antiprism cells</label>
       <label><input id="showDomain" type="checkbox"> 2400 fundamental domain</label>
-      <label><input id="showT" type="checkbox" checked> transitional T1/T2</label>
+      <label><input id="showT" type="checkbox" checked> transitional (T1, T2 and X walls / lines)</label>
       <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
     </div>
     <div id="plot" role="img" aria-label="3D atlas of the isogonal polychora produced by seeds in one half of a 600-cell tetrahedron"></div>
@@ -134,6 +134,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li>Light purple lines are the axes of the extra half-turns. Three come from a family of 150 such circles; the one from the β₂ = β₃ cross ring to C2b is one of Bowers' 30 ghost girdles with skew 20-gonal symmetry. The swirlprism group (1200 rotations) and the extra half-turn Q together make a group of 2400 rotations; it has no mirrors, so it adds no planes, only these four axis segments. A seed on an axis is its own copy, and its polytope has 2400 symmetries; the exact icosafold points (✕) lie on them. Every other point has exactly one congruent copy elsewhere in the half-cell.</li>
         <li>"2400 fundamental domain" shows one fundamental domain of the 2400-element group: the points closer to a centre on the E2 line, β ∝ (2, 2, 2, 1) (black dot), than to any of its 2399 images (a Dirichlet domain). Centres on the E2 line are the only ones whose domain stays inside the half-cell and holds every light purple axis on its surface. It has 13 corners and 10 faces and half the half-cell's volume. Four faces lie on the half-cell's own walls: the amber pair on β₁ = 0 and β₂ = 0 (glued to each other, as the half-cell's faces are) and two slate faces, on the fold and on β₄ = 0, each folding across a cross ring. The other six cut the half-cell in two: four light purple faces, each folding onto itself across a light purple axis, and a teal pair glued to each other by the extra half-turn's coset.</li>
         <li>With "regular prism / antiprism cells" on: pink lines are where the pentagonal prisms are regular (square sides). Prisms only exist on the faces β₂ = 0 and β₁ = 0 and the mirror β₁ = β₂; there the regular ones lie on straight lines from the 600-cell corner: β₃ = β₁ + β₄ and β₃ = β₂ + β₄ (F4, ending at spidrox) and β₁ = β₂ = (β₃ − β₄)/φ (F1). Brown lines are where the pentagonal antiprisms are regular; they are straight too: β₁ = φ²β₂, β₃ = β₁ + β₄ (F1) and β₂ = φ²β₁, β₃ = β₂ + β₄ (E1), both from the 600-cell corner to the face β₄ = 0; β₂ = β₄, β₃ = β₄/(2φ²) from the corner (1, 0, 0, 0) to the E2 line (F3, F2, F1); and a short piece inside X32. Dashed: copies under the extra half-turn.</li>
+        <li>With "transitional" on, the X shapes that only live on a wall are drawn as faint patches of that wall (from a grid in each wall, so the edges are approximate) and those that live on a line as solid segments, in their own colours; clicking a row shows just that shape.</li>
         <li>The grey line under "Where" says where a shape lives, from small nudges of its deepest sample: "fills a region", or the wall (plane) or line it lies on, or "a point or a curve" when no simple golden plane holds it. X shapes that only live on a wall, line or point are listed separately as transitional, grouped by where they lie. A shape can also appear on another wall or face (F4 also lies on the face β₂ = 0).</li>
         <li>✕ marks exact special points that are not golden points, in the colour of the shape they produce: the icosafold points of C2a and C2b, the points of C3 with 3600 symmetries (where the green order-3 girdle ends on the cross rings; C3 is named after the shape at these points and the rest of its range is subsymmetrical, like C2), and the six points where the light purple axes meet the domain boundary (the C2a and C2b icosafold points again, two F3 points on the face β₄ = 0, and a B1 point on the main ring).</li>
         <li>Rings take the colour of the shape each stretch produces. Solid lines are exactly traced segments (T1, E2), drawn end to end; dashed lines are their copies under the extra half-turn that maps the group to itself but is not in H4, so they give the same polytope elsewhere in the cell; T2 (outlined, faint fill) is the exact regions traced in the mirrors, with dashed copies.</li>
@@ -229,6 +230,19 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           marker: { size: 6, color: ink, symbol: "circle" } });
       }
       if (el("showT").checked) {
+        for (const w of D.xwalls || []) {
+          if (!visibleFor(w.id)) continue;
+          const P = w.tris.flat().filter(() => true);
+          out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
+            i: w.tris.map((_, k) => 3 * k), j: w.tris.map((_, k) => 3 * k + 1), k: w.tris.map((_, k) => 3 * k + 2),
+            color: color(byId[w.id]), opacity: 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
+        }
+        for (const s of D.xlines || []) {
+          if (!visibleFor(s.id)) continue;
+          const trace = lines([s.pts], s.hover, { color: color(byId[s.id]), width: 5 });
+          trace.hovertemplate = s.hover + "<extra></extra>";
+          out.push(trace);
+        }
         if (visibleFor("T2")) for (const p of D.tpatches) {
           // fan from the centroid: the patches are star-shaped about it but not all convex
           const n = p.pts.length - 1, pts = p.pts.slice(0, n);

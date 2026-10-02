@@ -115,9 +115,11 @@ def flip_vertical(data):
     for key in ("uniform", "special"):
         for u in data[key]:
             u["q"] = f(u["q"])
-    for key in ("rings", "main", "segments", "tpatches", "qaxes", "regular"):
+    for key in ("rings", "main", "segments", "tpatches", "qaxes", "regular", "xlines"):
         for r in data[key]:
             r["pts"] = [f(p) for p in r["pts"]]
+    for w in data["xwalls"]:
+        w["tris"] = [[f(p) for p in tri] for tri in w["tris"]]
     data["mirrors"] = [[f(p) for p in m] for m in data["mirrors"]]
     data["split"] = [f(p) for p in data["split"]]
     data["fcentre"] = f(data["fcentre"])
@@ -469,6 +471,52 @@ def main(samples_path, out_path):
             regular.append({"kind": "antiprism", "copy": True, "pts": np.round(piece, 6).tolist(),
                             "hover": hover + "<br>(copy under the extra half-turn)"})
 
+    # transitional X types (xloci.py steps 3 and 4): their line segments and the patches they cover on walls
+    xlines, xwalls = [], []
+    wall_types = {t for t, r in (r2.items() if os.path.exists("xloci_step2.json") else []) if r["kind"] == "wall"}
+    if os.path.exists("xloci_lines.json"):
+        for tid, chords in json.load(open("xloci_lines.json")).items():
+            if tid not in tmap or not tid.startswith("X"):
+                continue
+            for ch in chords.values():
+                labs = ch.get("labels", [])
+                a, b = (np.array(x) for x in ch["chord"])
+                m = len(labs) - 1
+                ends = {(e["k"], e["side"]): np.array(e["beta"]) for e in ch["ends"]}
+                k = 0
+                while k <= m:
+                    if labs[k] != tid:
+                        k += 1
+                        continue
+                    k0 = k
+                    while k + 1 <= m and labs[k + 1] == tid:
+                        k += 1
+                    lo = ends.get((k0, -1), a + (b - a) * k0 / m)
+                    hi = ends.get((k, 1), a + (b - a) * k / m)
+                    if np.linalg.norm(hi - lo) > 1e-6:
+                        pts = [to_upper(lo + (hi - lo) * j / 8) for j in range(9)]
+                        xlines.append({"id": tid, "pts": [np.round(xyz(p), 6).tolist() for p in pts],
+                                       "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>from β ∝ {beta_text(lo)}"
+                                                f"<br>to β ∝ {beta_text(hi)}"})
+                    k += 1
+    if os.path.exists("xloci_walls.json"):
+        from collections import Counter
+        for w in json.load(open("xloci_walls.json")).values():
+            grid = {(p["fan"], *p["ij"]): p for p in w["points"]}
+            n = w["n"]
+            tris = {}
+            for (f, i, j), p in grid.items():
+                for corner in (((f, i, j), (f, i + 1, j), (f, i, j + 1)), ((f, i + 1, j), (f, i + 1, j + 1), (f, i, j + 1))):
+                    if not all(c in grid for c in corner) or corner[1][1] + corner[1][2] > n:
+                        continue
+                    labs = Counter(grid[c]["label"] for c in corner).most_common(1)[0]
+                    tid = labs[0]
+                    if labs[1] >= 2 and tid in tmap and tid in wall_types and tid != "T2":
+                        tris.setdefault(tid, []).append([np.round(xyz(grid[c]["beta"]), 6).tolist() for c in corner])
+            eq = _eq(w["normal"])
+            for tid, tl in tris.items():
+                xwalls.append({"id": tid, "tris": tl, "hover": f"{label(tid)}<br>patch in the wall {eq}"})
+
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
     # holds every light purple axis on its surface (domain_search.py); (2, 2, 2, 1) is its midpoint.
@@ -566,7 +614,7 @@ def main(samples_path, out_path):
             t["where"] = (t.get("where") or ("golden samples" if t.get("samples") else "")) + \
                 "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
-            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "fdomain": fdomain,
+            "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": np.round(xyz(centre_beta / centre_beta.sum()), 6).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
