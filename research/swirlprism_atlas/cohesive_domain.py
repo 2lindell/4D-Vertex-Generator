@@ -226,6 +226,70 @@ def link(pts, procs=4, batch=400, log=print):
     return inside, quot, cross, ident, lab
 
 
+def link_fast(pts, procs=4, batch=200, tries=8, log=print):
+    """Faster linking. Links between close neighbours inside the half-cell (no farther apart than 1.5 times the
+    local seed spacing, with the midpoint nearest a seed of the same region) are taken without classifying. Only
+    links that would join separate pieces are checked by classifying points along them, nearest first, at most
+    `tries` per piece and stage."""
+    from multiprocessing import Pool
+    cands, ident, lab = candidates(pts)
+    N = len(pts)
+    X = np.array([seed(b) for b, _ in pts])
+    Q = chart(bary(X))
+    kd = cKDTree(Q)
+    nn = kd.query(Q, k=2)[0][:, 1]
+    inside, quot = UF(N), UF(N)
+    rest = []
+    for c in cands:
+        d, a, b, h, qa, qb = c
+        if h == ident and d <= 1.5 * max(nn[a], nn[b]):
+            _, m = kd.query((qa + qb) / 2)
+            if lab[m] == lab[a]:
+                inside.union(a, b)
+                continue
+        rest.append(c)
+    log(f"{N} seeds; unchecked short links leave {len({inside.find(k) for k in range(N)})} pieces")
+    cross = []
+    with Pool(procs) as pool:
+        for stage in ("inside", "across"):
+            uf = inside if stage == "inside" else quot
+            if stage == "across":
+                for a in range(N):
+                    quot.union(a, inside.find(a))
+            todo = [c for c in rest if (c[3] == ident) == (stage == "inside")]
+            used = {}
+            while True:
+                pick, seen = [], set()
+                for c in todo:
+                    ra, rb = uf.find(c[1]), uf.find(c[2])
+                    if ra == rb or used.get(ra, 0) >= tries or used.get(rb, 0) >= tries:
+                        continue
+                    key = frozenset((ra, rb))
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    pick.append(c)
+                    if len(pick) >= batch:
+                        break
+                if not pick:
+                    break
+                ok = pool.map(_check, [(_probe_points(c[4], c[5]), lab[c[1]]) for c in pick], chunksize=2)
+                for c, good in zip(pick, ok):
+                    ra, rb = uf.find(c[1]), uf.find(c[2])
+                    used[ra] = used.get(ra, 0) + 1
+                    used[rb] = used.get(rb, 0) + 1
+                    if good and ra != rb:
+                        uf.union(c[1], c[2])
+                        used[uf.find(c[1])] = 0
+                        if stage == "across":
+                            cross.append(c)
+                done = {id(c) for c in pick}
+                todo = [t for t in todo if id(t) not in done]
+                log(f"{stage}: checked {len(pick)}, {sum(ok)} good, "
+                    f"{len({uf.find(k) for k in range(N)})} pieces or orbits left")
+    return inside, quot, cross, ident, lab
+
+
 def report(pts, inside, quot, lab):
     by = {}
     for k in range(len(pts)):
@@ -297,7 +361,7 @@ def build_view(pts, place, members, lab):
 
 def main():
     pts, _ = samples()
-    inside, quot, cross, ident, lab = link(pts)
+    inside, quot, cross, ident, lab = link_fast(pts)
     rep = report(pts, inside, quot, lab)
     place, members = placements(pts, inside, cross, ident, lab)
     view = build_view(pts, place, members, lab)
