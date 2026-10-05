@@ -3,8 +3,9 @@
 That dodecahedron's faces are H4 mirrors, and the mirrors through V1 cut it into 120 chambers: each joins V1 to
 one face centre, one edge midpoint and one vertex of the dodecahedron (its barycentric subdivision). The ten
 elements of the swirlprism group fixing V1 move these chambers freely, in 12 orbits of 10, so one chamber from
-each orbit is a fundamental domain (14400 / 1200 = 12 chambers). As for the other domains, the choice is the
-connected set with the most chamber edges on significant rings (cross rings, the main ring, the purple 2400 axes
+each orbit is a fundamental domain (14400 / 1200 = 12 chambers). The choice is one convex solid (the union of its
+chambers equals their convex hull; ties broken by the most faces shared between chambers) and then, as for the
+other domains, the one with the most chamber edges on significant rings (cross rings, the main ring, the purple 2400 axes
 and the green order-3 girdle), found exactly: an edge is on one when a group element fixes both its ends. Call with the dodecahedron module centred on V1 (dodeca_view.use_centre).
 """
 from __future__ import annotations
@@ -105,11 +106,20 @@ def choose(view_data, beam=300):
             owner.setdefault(t, []).append(k)
     nbrs = [set(j for t in ts for j in owner[t] if j != k) for k, ts in enumerate(tri)]
 
+    vol = [abs(np.linalg.det(c[1:] - c[0])) / 6 for c in ch]
+
+    def convex(sel):
+        """Is the union of the chambers a convex polytope? (its hull has no more volume than they do)"""
+        from scipy.spatial import ConvexHull
+        pts = np.array([p for k in sel for p in ch[k]])
+        return ConvexHull(pts).volume <= sum(vol[k] for k in sel) * (1 + 1e-6)
+
     def score(sel):
+        """Cohesion first (faces shared between chambers), then chamber edges on significant rings."""
         es = {e for k in sel for e in edge_keys[k]}
         faces = [t for k in sel for t in tri[k]]
         inner = sum(1 for t in set(faces) if faces.count(t) == 2)
-        return (sum(1 for e in es if ring_edge[e]), inner)          # rings first, then compactness
+        return (inner, sum(1 for e in es if ring_edge[e]))
 
     states = [frozenset([k]) for k in range(len(ch)) if orb[k] == 0]
     for _ in range(n - 1):
@@ -121,8 +131,13 @@ def choose(view_data, beam=300):
                     s2 = sel | {k}
                     nxt.setdefault(s2, score(s2))
         states = [s for s, _ in sorted(nxt.items(), key=lambda kv: kv[1], reverse=True)[:beam]]
-    best = max(states, key=score)
-    rings_on, _ = score(best)
+    # the final choice: convex if any candidate is, then the most ring edges, then the most shared faces
+    choose.candidates = [(bool(convex(s)), *score(s)) for s in states]
+    # among convex candidates every one is a single solid piece, so the ring rule decides
+    best = max(states, key=lambda s: (convex(s), score(s)[1], score(s)[0]))
+    inner, rings_on = score(best)
+    choose.report = {"convex": bool(convex(best)), "sharedFaces": inner, "edgesOnRings": rings_on,
+                     "convexCandidates": sum(1 for s in states if convex(s)), "candidates": len(states)}
     return [ch[k] for k in sorted(best)], rings_on, ring_edge, edge_keys
 
 
@@ -242,5 +257,5 @@ def view(vd):
     out["split"] = []
     allp = np.array([p for c in sel for p in c])
     out["bounds"] = [allp.min(axis=0).tolist(), allp.max(axis=0).tolist()]
-    out["chamberInfo"] = {"chambers": 12, "edgesOnRings": rings_on}
+    out["chamberInfo"] = {"chambers": 12, **choose.report}
     return out
