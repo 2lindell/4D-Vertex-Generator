@@ -20,6 +20,11 @@ _d = _s / np.sqrt(2)
 P = np.array([[_d, _s, 0.0], [_d, -_s, 0.0], [-_d, 0.0, _s], [-_d, 0.0, -_s]])
 
 
+def _exact(a):
+    """Coordinates are kept at full precision between views; the page rounds them once when it is written."""
+    return np.asarray(a, float)
+
+
 def to_upper(beta):
     """Move a seed into the displayed half-cell (beta3 >= beta4) with the exact half-turn."""
     b = np.asarray(beta, float)
@@ -36,7 +41,7 @@ def clip_upper(poly):
         if (a[2] >= -1e-12) != (b[2] >= -1e-12):
             t = a[2] / (a[2] - b[2])
             out.append(a + t * (b - a))
-    return [np.round(x, 6).tolist() for x in out]
+    return [_exact(x).tolist() for x in out]
 FULL = named_symmetry("h4_swirlprism")
 ELEMENTS = group_elements(FULL)
 
@@ -112,7 +117,7 @@ def transitional_patches(samples, name_of, ids, t="T2"):
             continue
         uv = (X - c) @ vt[:2].T
         hull = ConvexHull(uv)
-        poly = [np.round(X[k], 6).tolist() for k in hull.vertices]
+        poly = [_exact(X[k]).tolist() for k in hull.vertices]
         out.append({"id": t, "plane": label, "samples": int(len(X)), "pts": poly + [poly[0]]})
     print("transitional patches:", [(p["plane"], p["samples"]) for p in out], flush=True)
     return out
@@ -123,7 +128,7 @@ def load_tlines(path="tlines.json"):
     import os
     if not os.path.exists(path):
         return []
-    return [{"id": L["id"], "pts": [np.round(xyz(to_upper(b)), 6).tolist() for b in L["beta"]]} for L in json.load(open(path))]
+    return [{"id": L["id"], "pts": [_exact(xyz(to_upper(b))).tolist() for b in L["beta"]]} for L in json.load(open(path))]
 
 
 def fixed_circles(order):
@@ -221,7 +226,7 @@ def main(samples_path, out_path):
         ex = min(mem, key=lambda s: sum(sum(g) for g in s["golden"]) if s.get("golden") else 99)
         out_types[ids[k]] = {**t, "samples": len(mem), "volumeSamples": len(mem), "planes": [],
                              "example": seed_text(ex["beta"]) + "  β ∝ " + beta_text(ex["beta"])}
-        volume[ids[k]] = [[*np.round(xyz(s["beta"]), 6).tolist(), f"{seed_text(s['beta'])}  β ∝ {beta_text(s['beta'])}"] for s in mem]
+        volume[ids[k]] = [[*_exact(xyz(s["beta"])).tolist(), f"{seed_text(s['beta'])}  β ∝ {beta_text(s['beta'])}"] for s in mem]
 
     # uniform points: label with the uniform polytope and the type of that piece
     by_beta = {tuple(np.round(s["beta"], 9)): s for s in samples}
@@ -237,7 +242,7 @@ def main(samples_path, out_path):
         tname = ids[name_of(s["sig"])[0]] if s else "?"
         pid = u["uniform"]
         point_types[pid] = {"vertices": "", "name": f"Uniform {u['uniform']} ({u['rings']})"}
-        points.append({"id": pid, "q": np.round(xyz(u["beta"]), 6).tolist(),
+        points.append({"id": pid, "q": _exact(xyz(u["beta"])).tolist(),
                        "seed": f"{seed_text(u['beta'])}  β ∝ {beta_text(u['beta'])}  → {tname}: {out_types.get(tname, {}).get('name', '?')}"})
 
     # rings through the cell
@@ -249,7 +254,7 @@ def main(samples_path, out_path):
         run = None
         for p, b in pts:
             rid = range_id(ring_parameter(p))
-            x = np.round(xyz(b), 6).tolist()
+            x = _exact(xyz(b)).tolist()
             if run is None or run["id"] != rid:
                 if run is not None:
                     run["pts"].append(x)  # join runs so the ring is drawn continuously
@@ -260,7 +265,7 @@ def main(samples_path, out_path):
             rings.append(run)
     rings = [r for r in rings if len(r["pts"]) >= 2]
     rings = [{"id": r["id"], "pts": pts} for r in rings for pts in _split_upper(r["pts"])]
-    main_segs = [[np.round(xyz(b), 6).tolist() for _, b in clip_circle(F)] for F in fixed_circles(5)]
+    main_segs = [[_exact(xyz(b)).tolist() for _, b in clip_circle(F)] for F in fixed_circles(5)]
     main_segs = [p for s in main_segs if len(s) > 1 for p in _split_upper(s)]
 
     edges = []
@@ -272,7 +277,7 @@ def main(samples_path, out_path):
             if a[2] < -1e-12 or c[2] < -1e-12:                      # keep the part with z >= 0
                 lo, hi = (a, c) if a[2] < c[2] else (c, a)
                 a, c = lo + (hi - lo) * (-lo[2] / (hi[2] - lo[2])), hi
-            edges.append([np.round(a, 6).tolist(), np.round(c, 6).tolist()])
+            edges.append([_exact(a).tolist(), _exact(c).tolist()])
     mid34 = ((P[2] + P[3]) / 2).tolist()
     split = [P[0].tolist(), P[1].tolist(), mid34]              # the mirror beta3 = beta4, i.e. z = 0
     half_split = [[P[0].tolist(), P[1].tolist()], [P[0].tolist(), mid34], [P[1].tolist(), mid34]]

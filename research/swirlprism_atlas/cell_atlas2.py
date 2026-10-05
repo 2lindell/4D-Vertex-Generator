@@ -93,6 +93,26 @@ CURVED_WALLS = {
     "X33": "a curved wall (a quartic surface) between X50 and X57; it contains the line the nudge test found",
 }
 
+def _rounded(o, n):
+    """Round every float in a nested structure (done once, when the page is written)."""
+    if isinstance(o, float):
+        return round(o, n)
+    if isinstance(o, (list, tuple)):
+        return [_rounded(v, n) for v in o]
+    if isinstance(o, dict):
+        return {k: _rounded(v, n) for k, v in o.items()}
+    if isinstance(o, np.generic):
+        return _rounded(o.item(), n)
+    if isinstance(o, np.ndarray):
+        return _rounded(o.tolist(), n)
+    return o
+
+
+def _exact(a):
+    """Coordinates are kept at full precision between views; the page rounds them once when it is written."""
+    return np.asarray(a, float)
+
+
 _F = (1 + 5 ** 0.5) / 2
 # Exactly traced segments (barycentric end points). "copy" marks the image under the half-turn Q outside H4
 # that normalizes the group (normalizer.py): same polytope, a different place in the cell.
@@ -259,7 +279,7 @@ def main(samples_path, out_path):
             if tuple(np.round(b / b.sum(), 9)) in uniform_keys:
                 continue
             samples_out.setdefault(s["id"], []).append(
-                [*np.round(xyz(b), 6).tolist(), f"β ∝ {beta_text(b)}<br>seed {seed_text(b)}"])
+                [*_exact(xyz(b)).tolist(), f"β ∝ {beta_text(b)}<br>seed {seed_text(b)}"])
 
     def label(tid):
         t = tmap[tid]
@@ -272,7 +292,7 @@ def main(samples_path, out_path):
         tid = u["sample"]["id"]
         # confirmed isogonals are labelled by the shape alone; the uniform name only for general-space pieces
         text = label(tid) if tmap[tid]["listed"] else f"{tid} · piece of the {u['name']}"
-        uniform_out.append({"id": tid, "q": np.round(xyz(u["beta"]), 6).tolist(),
+        uniform_out.append({"id": tid, "q": _exact(xyz(u["beta"])).tolist(),
                             "hover": f"{text}<br>uniform seed, β ∝ {beta_text(u['beta'])}<br>seed {seed_text(u['beta'])}"})
 
     # C2: exact icosafold points (not golden), from the cross-ring analysis, placed in the displayed half
@@ -289,7 +309,7 @@ def main(samples_path, out_path):
             b = TINV @ x
             if np.all(b >= -1e-12) and b.sum() > 0:
                 b = to_upper(b / b.sum())
-                q = np.round(xyz(b), 6).tolist()
+                q = _exact(xyz(b)).tolist()
                 if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
                     special.append({"id": tid, "q": q, "hover": f"{tid} · exact icosafold point (cross ring at {t_deg:.4f}°)<br>"
                                     f"cells {c}<br>faces {fc}<br>edges {e}<br>seed "
@@ -308,7 +328,7 @@ def main(samples_path, out_path):
             b = TINV @ x
             if np.all(b >= -1e-12) and b.sum() > 0:
                 b = to_upper(b / b.sum())
-                q = np.round(xyz(b), 6).tolist()
+                q = _exact(xyz(b)).tolist()
                 if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
                     special.append({"id": "C3", "q": q, "hover": "C3 · Pentagonal-gyroprismatic triacosihexecontachoron<br>"
                                     "exact point with 3600 symmetries: end of an order-3 ghost girdle on the cross ring<br>"
@@ -328,7 +348,7 @@ def main(samples_path, out_path):
             if not any(np.allclose(p, o, atol=1e-9) for o in axis_ends):
                 axis_ends.append(p)
     for p in axis_ends:
-        q = np.round(xyz(p), 6).tolist()
+        q = _exact(xyz(p)).tolist()
         tid = _one(p)[0]
         note = "end of a 2400-symmetry axis on the domain boundary"
         known = [o for o in special if np.allclose(o["q"], q, atol=1e-6)]
@@ -355,7 +375,7 @@ def main(samples_path, out_path):
             x = seed_from_beta(p)
             tid = _one(p)[0]
             c, fc, e = counts_key(signature(classify(x))).split("|")
-            special.append({"id": tid, "q": np.round(xyz(p), 6).tolist(),
+            special.append({"id": tid, "q": _exact(xyz(p)).tolist(),
                             "hover": f"{label(tid)}<br>exact point with 7200 symmetries: the green order-3 girdle meets a purple "
                                      f"2400 axis<br>cells {c}<br>faces {fc}<br>edges {e}<br>β ∝ {beta_text(p)}<br>seed "
                                      + ", ".join(fmt17(v) for v in x)})
@@ -371,7 +391,7 @@ def main(samples_path, out_path):
             if tid not in tmap:
                 continue
             p = np.array(c["beta"])
-            q = np.round(xyz(p / p.sum()), 6).tolist()
+            q = _exact(xyz(p / p.sum())).tolist()
             if any(np.allclose(q, o["q"], atol=1e-6) for o in special):
                 continue
             x = seed_from_beta(p)
@@ -431,7 +451,7 @@ def main(samples_path, out_path):
         run = None
         for p, b in clip_circle(F):
             tid = ref_to_id[range_id(ring_parameter(p))]
-            x = np.round(xyz(b), 6).tolist()
+            x = _exact(xyz(b)).tolist()
             if run is None or run["id"] != tid:
                 if run is not None:
                     run["pts"].append(x)
@@ -442,7 +462,7 @@ def main(samples_path, out_path):
             rings.append(run)
     rings = [{"id": r["id"], "pts": pts} for r in rings if len(r["pts"]) >= 2 for pts in _split_upper(r["pts"])]
     main_ring = [{"id": "B1", "pts": pts} for F in fixed_circles(5)
-                 for pts in _split_upper([np.round(xyz(b), 6).tolist() for _, b in clip_circle(F)])]
+                 for pts in _split_upper([_exact(xyz(b)).tolist() for _, b in clip_circle(F)])]
     for r in rings + main_ring:
         tmap[r["id"]].setdefault("where", "cross ring" if r["id"] != "B1" else "main ring")
 
@@ -452,7 +472,7 @@ def main(samples_path, out_path):
         a, b = np.array(seg["a"], float), np.array(seg["b"], float)
         a, b = a / a.sum(), b / b.sum()
         kind = "copy under the extra half-turn" if seg["copy"] else "traced"
-        segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)],
+        segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [_exact(xyz(a + (b - a) * k / 8)).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
     # regular cells: pentagonal prisms and antiprisms (exact lines, regular_cells.py)
@@ -481,7 +501,7 @@ def main(samples_path, out_path):
         out = []
         for x in piece:
             bb = TINV @ x
-            out.append(np.round(xyz(bb / bb.sum()), 6).tolist())
+            out.append(_exact(xyz(bb / bb.sum())).tolist())
         return out
 
     def on_lines(pts, lines_xyz, tol=1e-6):
@@ -577,7 +597,7 @@ def main(samples_path, out_path):
                     hi = ends.get((k, 1), a + (b - a) * k / m)
                     if np.linalg.norm(hi - lo) > 1e-6:
                         pts = [to_upper(lo + (hi - lo) * j / 8) for j in range(9)]
-                        xlines.append({"id": tid, "pts": [np.round(xyz(p), 6).tolist() for p in pts],
+                        xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts],
                                        "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>from β ∝ {beta_text(lo)}"
                                                 f"<br>to β ∝ {beta_text(hi)}"})
                     k += 1
@@ -596,7 +616,7 @@ def main(samples_path, out_path):
                     labs = Counter(grid[c]["label"] for c in corner).most_common(1)[0]
                     tid = labs[0]
                     if labs[1] >= 2 and tid in tmap and tid in wall_types and tid != "T2":
-                        tris.setdefault(tid, []).append([np.round(xyz(grid[c]["beta"]), 6).tolist() for c in corner])
+                        tris.setdefault(tid, []).append([_exact(xyz(grid[c]["beta"])).tolist() for c in corner])
             eq = _eq(w["normal"])
             for tid, tl in tris.items():
                 xwalls.append({"id": tid, "tris": tl, "hover": f"{label(tid)}<br>patch in the wall {eq}"})
@@ -615,8 +635,8 @@ def main(samples_path, out_path):
     for face in display_faces(domain, group_n, len(group_n) // 2):
         how = glue.get(face["kind"], "glued to the other face of the same colour by "
                        + ("an element of the extra coset" if face["coset"] else "a rotation of the swirlprism group"))
-        fdomain.append({"kind": face["kind"], "pts": [np.round(xyz(b), 6).tolist() for b in face["corners"]],
-                        "axis": [np.round(xyz(b), 6).tolist() for b in face["axis"]],
+        fdomain.append({"kind": face["kind"], "pts": [_exact(xyz(b)).tolist() for b in face["corners"]],
+                        "axis": [_exact(xyz(b)).tolist() for b in face["axis"]],
                         "hover": f"Fundamental domain of the 2400-element group<br>{len(face['corners'])}-sided face, {how}"})
 
     # axes of the extra half-turns: the coset G.Q of the full 2400-element group (normalizer.py)
@@ -625,7 +645,7 @@ def main(samples_path, out_path):
     family = girdle_families()
     qaxes = []
     for a, b in coset_axes():
-        pts = [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)]
+        pts = [_exact(xyz(a + (b - a) * k / 8)).tolist() for k in range(9)]
         fam = family(a, b)
         bowers = " (Bowers' 30 ghost girdles with skew 20-gonal symmetry)" if fam == 30 else ""
         qaxes.append({"pts": pts, "order": 2, "hover": "Axis of an extra half-turn (2400-element group)<br>"
@@ -633,7 +653,7 @@ def main(samples_path, out_path):
                       f"copy; their polytopes have 2400 symmetries<br>from β = {np.round(a, 5).tolist()}"
                       f"<br>to β = {np.round(b, 5).tolist()}"})
     for a, b in girdle_segments():
-        pts = [np.round(xyz(a + (b - a) * k / 8), 6).tolist() for k in range(9)]
+        pts = [_exact(xyz(a + (b - a) * k / 8)).tolist() for k in range(9)]
         qaxes.append({"pts": pts, "order": 3, "hover": "Axis of an order-3 rotation of the 3600-element group<br>"
                       "one of Bowers' 20 ghost girdles with 30/3-gyrogonic symmetry<br>seeds on it give "
                       f"1200-vertex polytopes (X12) with 3600 symmetries<br>from β = {np.round(a, 5).tolist()}"
@@ -645,13 +665,13 @@ def main(samples_path, out_path):
         curve = t2exact.CURVES[name]()
         for is_copy, pts in [(False, curve)] + [(True, c) for c in t2exact.curve_copies(curve)]:
             where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
-            segments.append({"id": "T2", "copy": is_copy, "pts": [np.round(xyz(p), 6).tolist() for p in pts],
+            segments.append({"id": "T2", "copy": is_copy, "pts": [_exact(xyz(p)).tolist() for p in pts],
                              "hover": f"T2 · exact curve {name} ({where})<br>{desc}"})
     tpatches = []
     for name, (plane, bounds) in t2exact.DESCRIPTIONS.items():
         polys = [(False, t2exact.PATCHES[name]())] + [(True, poly) for poly in t2exact.copies(name)]
         for is_copy, poly in polys:
-            pts = [np.round(xyz(p), 6).tolist() for p in poly]
+            pts = [_exact(xyz(p)).tolist() for p in poly]
             where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
             tpatches.append({"plane": where, "copy": is_copy, "pts": pts + [pts[0]],
                              "hover": f"T2 · exact region {name} ({where})<br>{bounds}"})
@@ -666,7 +686,7 @@ def main(samples_path, out_path):
             if a[2] < -1e-12 or c[2] < -1e-12:
                 lo, hi = (a, c) if a[2] < c[2] else (c, a)
                 a, c = lo + (hi - lo) * (-lo[2] / (hi[2] - lo[2])), hi
-            edges.append([np.round(a, 6).tolist(), np.round(c, 6).tolist()])
+            edges.append([_exact(a).tolist(), _exact(c).tolist()])
     mid34 = ((P[2] + P[3]) / 2).tolist()
     split = [P[0].tolist(), P[1].tolist(), mid34]
     mirrors = []
@@ -713,7 +733,7 @@ def main(samples_path, out_path):
                 "; ✕ where a 2400-symmetry axis meets the boundary"
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
-            "fcentre": np.round(xyz(centre_beta / centre_beta.sum()), 6).tolist(),
+            "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
             "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
     from dodeca_view import piece_view
@@ -728,11 +748,13 @@ def main(samples_path, out_path):
     dv.use_centre((0, 0, 1, 1))
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
-    open(out_path, "w").write(template.replace("__TYPE_CSS__", type_css).replace("__DATA__", json.dumps(data, separators=(",", ":")))
-                              .replace("__DODECA__", json.dumps(dodeca, separators=(",", ":")))
-                              .replace("__PIECE__", json.dumps(piece, separators=(",", ":")))
-                              .replace("__V1__", json.dumps(v1, separators=(",", ":")))
-                              .replace("__CHAMBERS__", json.dumps(chambers, separators=(",", ":"))))
+    def dump(o, n):                                # the only rounding: every view was computed at full precision
+        return json.dumps(_rounded(o, n), separators=(",", ":"))
+    open(out_path, "w").write(template.replace("__TYPE_CSS__", type_css).replace("__DATA__", dump(data, 6))
+                              .replace("__DODECA__", dump(dodeca, 5))
+                              .replace("__PIECE__", dump(piece, 5))
+                              .replace("__V1__", dump(v1, 5))
+                              .replace("__CHAMBERS__", dump(chambers, 5)))
     listed = [t for t in types if t["listed"]]
     print(f"{len(samples)} samples; {len(listed)} wiki shapes ({sum(1 for t in listed if t['samples'] or t.get('where'))} found), "
           f"{len(types) - len(listed)} unlisted")

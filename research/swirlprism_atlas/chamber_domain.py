@@ -16,6 +16,11 @@ import dodeca_view as V
 import numpy as np
 
 
+def _exact(a):
+    """Coordinates are kept at full precision between views; the page rounds them once when it is written."""
+    return np.asarray(a, float)
+
+
 def chambers():
     """The 120 chambers (4 chart points each) and their faces."""
     edges, faces = V.dodecahedron_edges()
@@ -77,7 +82,7 @@ def _seed_of(u):
     return x / np.linalg.norm(x)
 
 
-def _on_ring(a, b, segs=None, tol=1e-5):        # chart points carry ~1e-6 rounding
+def _on_ring(a, b, segs=None, tol=1e-8):
     """Does the chamber edge a-b (chart points) lie on a significant ring? Exactly when some element of the
     fixers fixes both ends (then it fixes the whole great circle through them)."""
     F = _fixers()
@@ -162,7 +167,7 @@ def _clip_line(pts, H):
     for a, b in zip(P[:-1], P[1:]):
         t0, t1, d = 0.0, 1.0, b - a
         for n, k in H:
-            fa, fd = n @ a + k, n @ d
+            fa, fd = n @ a + k + V.ROUNDED_TOL, n @ d                 # lines lying in a chamber face stay whole
             if abs(fd) < 1e-15:
                 if fa < -1e-9:
                     t0, t1 = 1.0, 0.0
@@ -189,7 +194,7 @@ def _clip_line(pts, H):
             cur = []
     if len(cur) > 1:
         pieces.append(cur)
-    return [[np.round(x, 4).tolist() for x in pc] for pc in pieces]
+    return [[_exact(x).tolist() for x in pc] for pc in pieces]
 
 
 def _clip_poly(pts, H):
@@ -198,7 +203,7 @@ def _clip_poly(pts, H):
         new = []
         for i in range(len(poly)):
             a, b = poly[i], poly[(i + 1) % len(poly)]
-            fa, fb = n @ a + k, n @ b + k
+            fa, fb = n @ a + k + V.ROUNDED_TOL, n @ b + k + V.ROUNDED_TOL
             if fa >= -1e-12:
                 new.append(a)
             if (fa >= -1e-12) != (fb >= -1e-12):
@@ -206,7 +211,7 @@ def _clip_poly(pts, H):
         poly = new
         if len(poly) < 3:
             return None
-    return [np.round(x, 4).tolist() for x in poly]
+    return [_exact(x).tolist() for x in poly]
 
 
 def view(vd):
@@ -214,7 +219,7 @@ def view(vd):
     sel, rings_on, ring_edge, _ = choose(vd)
     Hs = [_halfspaces(c) for c in sel]
 
-    def inside(u, tol=2e-4):
+    def inside(u, tol=1e-9):
         u = np.asarray(u, float)[:3]
         return any(all(n @ u + k >= -tol for n, k in H) for H in Hs)
     out = {}
@@ -249,7 +254,7 @@ def view(vd):
     for c in sel:
         for t in combinations(range(4), 3):
             if counts[frozenset(_key(c[i]) for i in t)] == 1:
-                faces.append([np.round(c[i], 4).tolist() for i in t])
+                faces.append([_exact(c[i]).tolist() for i in t])
         for i, j in combinations(range(4), 2):
             edges.add(tuple(sorted((_key(c[i]), _key(c[j])))))
     out["edges"] = [[list(a), list(b)] for a, b in edges]

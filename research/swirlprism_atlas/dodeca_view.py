@@ -22,6 +22,11 @@ E = np.stack(group_elements(named_symmetry("h4_swirlprism")))
 _A = np.vstack([P.T, np.ones(4)])                    # cell chart: q = (beta / sum) @ P
 
 
+def _exact(a):
+    """Coordinates are kept at full precision between views; the page rounds them once when it is written."""
+    return np.asarray(a, float)
+
+
 def _seed(q):
     """Seed direction (unit 4-vector) of a point given in the cell chart (it may lie outside the cell)."""
     b = np.linalg.solve(_A, np.append(np.asarray(q[:3], float), 1.0))
@@ -105,15 +110,18 @@ def points(Q):
         for u in U:
             if not any(np.linalg.norm(u - w) < 1e-7 for w in keep):
                 keep.append(u)
-        out.append([np.round(u, 4).tolist() for u in keep])
+        out.append([_exact(u).tolist() for u in keep])
     return out
+
+
+CLIP_TOL = 1e-9         # a floating-point epsilon: lines lying in a face are not chopped by round-off
 
 
 def _clip_segment(a, b):
     t0, t1 = 0.0, 1.0
     d = b - a
     for h, k in zip(_HA, _HB):
-        fa, fd = h @ a + k, h @ d
+        fa, fd = h @ a + k + CLIP_TOL, h @ d
         if abs(fd) < 1e-15:
             if fa < 0:
                 return None
@@ -157,7 +165,7 @@ def polylines(lines):
                     cur = []
             if len(cur) > 1:
                 pieces.append(cur)
-        out.append([[np.round(u, 4).tolist() for u in pc] for pc in pieces if len(pc) > 1])
+        out.append([[_exact(u).tolist() for u in pc] for pc in pieces if len(pc) > 1])
     return out
 
 
@@ -189,7 +197,7 @@ def polygons(polys):
         for U in _survivors(pts):
             pc = _clip_polygon(U)
             if pc is not None:
-                got.append([np.round(u, 4).tolist() for u in pc])
+                got.append([_exact(u).tolist() for u in pc])
         out.append(got)
     return out
 
@@ -209,7 +217,7 @@ def dodecahedron_edges():
     edges = []
     for i, j in combinations(range(len(V)), 2):
         if sum(1 for s in on if i in s and j in s) >= 2:
-            edges.append([np.round(V[i], 6).tolist(), np.round(V[j], 6).tolist()])
+            edges.append([_exact(V[i]).tolist(), _exact(V[j]).tolist()])
     faces = []
     for s in on:
         idx = sorted(s)
@@ -219,7 +227,7 @@ def dodecahedron_edges():
         e1 = (P3[0] - c) / np.linalg.norm(P3[0] - c)
         e2 = np.cross(n / np.linalg.norm(n), e1)
         ang = np.arctan2((P3 - c) @ e2, (P3 - c) @ e1)
-        faces.append([np.round(V[idx[k]], 6).tolist() for k in np.argsort(ang)])
+        faces.append([_exact(V[idx[k]]).tolist() for k in np.argsort(ang)])
     return edges, faces
 
 
@@ -339,8 +347,11 @@ def _wedge():
 WEDGE, WEDGE_ANGLES = _wedge()
 
 
-def _in_wedge(u, tol=2e-4):           # coordinates are rounded to 4 decimals
+def _in_wedge(u, tol=1e-9):
     return bool(np.all(WEDGE @ np.asarray(u, float)[:3] >= -tol))
+
+
+ROUNDED_TOL = 1e-9      # a floating-point epsilon: the views are passed on at full precision
 
 
 def _clip_line(pts):
@@ -349,7 +360,7 @@ def _clip_line(pts):
     for a, b in zip(P[:-1], P[1:]):
         t0, t1, d = 0.0, 1.0, b - a
         for h in WEDGE:
-            fa, fd = h @ a, h @ d
+            fa, fd = h @ a + ROUNDED_TOL, h @ d
             if abs(fd) < 1e-15:
                 if fa < -1e-9:
                     t0, t1 = 1.0, 0.0
@@ -376,7 +387,7 @@ def _clip_line(pts):
             cur = []
     if len(cur) > 1:
         pieces.append(cur)
-    return [[np.round(x, 4).tolist() for x in pc] for pc in pieces]
+    return [[_exact(x).tolist() for x in pc] for pc in pieces]
 
 
 def _clip_poly(pts):
@@ -385,7 +396,7 @@ def _clip_poly(pts):
         new = []
         for i in range(len(poly)):
             a, b = poly[i], poly[(i + 1) % len(poly)]
-            fa, fb = h @ a, h @ b
+            fa, fb = h @ a + ROUNDED_TOL, h @ b + ROUNDED_TOL
             if fa >= -1e-12:
                 new.append(a)
             if (fa >= -1e-12) != (fb >= -1e-12):
@@ -393,7 +404,7 @@ def _clip_poly(pts):
         poly = new
         if len(poly) < 3:
             return None
-    return [np.round(x, 4).tolist() for x in poly]
+    return [_exact(x).tolist() for x in poly]
 
 
 def piece_view(dd):
@@ -440,10 +451,10 @@ def piece_view(dd):
         e1 = (P3[0] - c) / np.linalg.norm(P3[0] - c)
         e2 = np.cross(n, e1)
         order = [idx[k] for k in np.argsort(np.arctan2((P3 - c) @ e2, (P3 - c) @ e1))]
-        face_polys.append([np.round(V[k], 4).tolist() for k in order])
+        face_polys.append([_exact(V[k]).tolist() for k in order])
         for i in range(len(order)):
             edges.add(tuple(sorted((order[i], order[(i + 1) % len(order)]))))
-    out["edges"] = [[np.round(V[i], 4).tolist(), np.round(V[j], 4).tolist()] for i, j in edges]
+    out["edges"] = [[_exact(V[i]).tolist(), _exact(V[j]).tolist()] for i, j in edges]
     out["dodecaFaces"] = face_polys
     out["split"] = []
     lo, hi = V.min(axis=0), V.max(axis=0)
