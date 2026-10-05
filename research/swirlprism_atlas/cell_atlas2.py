@@ -677,32 +677,14 @@ def main(samples_path, out_path):
                       f"1200-vertex polytopes (X12) with 3600 symmetries<br>from β = {np.round(a, 5).tolist()}"
                       f"<br>to β = {np.round(b, 5).tolist()}"})
 
-    # the cell's 3-fold axis beta2 = beta3 = beta4 (V1 to the opposite face centre), where three H4 mirrors meet:
-    # seeds on it have a 6-element point stabiliser, so their polytopes have 7200 symmetries (14400 at the cell
-    # centre). Its images under the group are solid, its copies under the extra half-turn dashed.
-    axis3 = arc(np.array([1.0, 0, 0, 0]), np.array([0.0, 1, 1, 1]), whole=True)
-    c3_orig = []                                         # every piece drawn so far
-    for copy, X in ((False, axis3), (True, axis3 @ Qm.T)):
-        for pc in clip_images(X, H_cell):
-            pts = to_cell(pc)
-            if length(pts) < 1e-5 or on_lines(pts, c3_orig, tol=1e-5):
-                continue                                  # a corner, or a piece already drawn
-            c3_orig.append(pts)
-            B = [TINV @ x / (TINV @ x).sum() for x in pc]
-            qaxes.append({"pts": pts, "order": "cell3", "copy": copy,
-                          "hover": "3-fold axis of the 600-cell's cell (β₂ = β₃ = β₄ and its images)"
-                          f"{' — copy under the extra half-turn' if copy else ''}<br>three H4 mirrors meet here: seeds on it "
-                          "give polytopes with 7200 symmetries (3600 rotations), 14400 at the cell centre"
-                          f"<br>from β ∝ {beta_text(np.clip(B[0], 0, None))}<br>to β ∝ {beta_text(np.clip(B[-1], 0, None))}"})
-
-    # the untwisted regular-decagon points (decagon_twist.py): where the decagon lines cross the 3-fold axis
+    # the untwisted regular-decagon points (decagon_twist.py)
     phi2 = ((1 + 5 ** 0.5) / 2) ** 2
     for p, copy in ((np.array([phi2, 1, 1, 1]), False), (np.array([phi2, 1, 2, 1]), True)):
         x = seed_from_beta(p)
         special.append({"id": "X6", "q": _exact(xyz(p / p.sum())).tolist(), "decagon": True,
                         "hover": "Untwisted regular decagons: each decagon's cell is a pentagonal cupola whose pentagon lines up "
-                                 "with the decagon (decagon_twist.py)<br>the decagon line crosses the cell's 3-fold axis here; "
-                                 f"7200 symmetries{' (copy under the extra half-turn)' if copy else ''}<br>β ∝ {beta_text(p)}"
+                                 "with the decagon (decagon_twist.py); a geometric coincidence, not extra symmetry: "
+                                 f"the polytope keeps its 1200 symmetries{' (copy under the extra half-turn)' if copy else ''}<br>β ∝ {beta_text(p)}"
                                  "<br>seed " + ", ".join(fmt17(v) for v in x)})
 
     # T2: exact patches in the mirrors (t2exact.py) and their copies under the extra half-turn
