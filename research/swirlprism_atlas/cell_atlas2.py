@@ -746,6 +746,9 @@ def main(samples_path, out_path):
     v1 = dodeca_view(data)
     chambers = chamber_domain.view(v1)             # one domain of 12 whole H4 chambers inside it
     dv.use_centre((0, 0, 1, 1))
+    for view in (dodeca, piece, v1, chambers):
+        dv.tidy_lines(view)
+        dv.split_edges_on_rings(view)
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision

@@ -205,6 +205,8 @@ __TYPE_CSS__
       const frameName = { dodeca: "The dodecahedron around M34", piece: "One domain: a tenth of the M34 dodecahedron",
         v1: "The dodecahedron around V1", chambers: "One domain: 12 whole H4 chambers" }[quarter] || "Cell (upper half)";
       out.push(lines(D.edges, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
+      // frame edges lying along a ring are left out while the rings are drawn, so the two lines don't fight for depth
+      if (D.edgesOnRing && !el("showRings").checked) out.push(lines(D.edgesOnRing, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
       if (D.split.length) out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
         color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "name" });
       for (const f of D.dodecaFaces || []) {

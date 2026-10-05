@@ -11,6 +11,8 @@ turned so the axis of M34's 5-fold rotation is vertical.
 """
 from __future__ import annotations
 
+import json
+
 import numpy as np
 from cell_atlas import P
 from cellframe import T
@@ -460,3 +462,62 @@ def piece_view(dd):
     lo, hi = V.min(axis=0), V.max(axis=0)
     out["bounds"] = [lo.tolist(), hi.tolist()]
     return out
+
+
+def tidy_lines(view, keys=("rings", "main", "segments", "qaxes", "regular", "xlines")):
+    """Great circles are straight in the chart, so each traced polyline is exactly a straight run: keep only its
+    corners (points where the direction really turns), drop pieces of zero length, and drop pieces repeated by
+    neighbouring clip cells. Hundreds of tiny collinear steps, drawn several times over, make WebGL render the
+    line as a streaky dash pattern."""
+    for k in keys:
+        if k not in view:
+            continue
+        out, seen = [], set()
+        for r in view[k]:
+            P = [np.asarray(p, float) for p in r["pts"]]
+            Q = [P[0]]
+            for i in range(1, len(P) - 1):
+                a, b, c = Q[-1], P[i], P[i + 1]
+                d = c - a
+                L = np.linalg.norm(d)
+                if L > 1e-12 and np.linalg.norm((b - a) - ((b - a) @ d) / L ** 2 * d) < 1e-12 and 0 <= (b - a) @ d <= L ** 2:
+                    continue
+                Q.append(b)
+            if len(P) > 1:
+                Q.append(P[-1])
+            Q = [q for i, q in enumerate(Q) if i == 0 or np.linalg.norm(q - Q[i - 1]) > 1e-12]
+            if len(Q) < 2:
+                continue
+            key = (json.dumps({a: v for a, v in r.items() if a != "pts"}, sort_keys=True, default=str),
+                   tuple(np.round(np.concatenate(Q), 9)))
+            rkey = (key[0], tuple(np.round(np.concatenate(Q[::-1]), 9)))
+            if key in seen or rkey in seen:
+                continue
+            seen.add(key)
+            out.append({**r, "pts": [q.tolist() for q in Q]})
+        view[k] = out
+    return view
+
+
+def split_edges_on_rings(view, keys=("rings", "main")):
+    """Move the frame edges that lie along a drawn ring into view["edgesOnRing"]: drawn together they fight for
+    depth and the ring looks broken, so the page skips them while rings are shown."""
+    segs = [(np.asarray(a, float), np.asarray(b, float)) for k in keys for r in view[k]
+            for a, b in zip(r["pts"][:-1], r["pts"][1:])]
+
+    def on_ring(p, q):
+        for u, v in segs:
+            d = v - u
+            L = np.linalg.norm(d)
+            if L < 1e-12:
+                continue
+            d = d / L
+            if all(np.linalg.norm((x - u) - ((x - u) @ d) * d) < 1e-7 for x in (p, q, (p + q) / 2)):
+                return True
+        return False
+    keep, ring = [], []
+    for e in view["edges"]:
+        p, q = np.asarray(e[0], float), np.asarray(e[1], float)
+        (ring if on_ring(p, q) else keep).append(e)
+    view["edges"], view["edgesOnRing"] = keep, ring
+    return view

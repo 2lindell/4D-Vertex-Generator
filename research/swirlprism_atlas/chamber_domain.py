@@ -250,14 +250,14 @@ def view(vd):
     # the domain's own outline: the chamber faces on its boundary, and all chamber edges (faint)
     tris = [frozenset(_key(c[i]) for i in t) for c in sel for t in combinations(range(4), 3)]
     counts = {t: tris.count(t) for t in set(tris)}
-    faces, edges = [], set()
+    faces, edges = [], {}
     for c in sel:
         for t in combinations(range(4), 3):
             if counts[frozenset(_key(c[i]) for i in t)] == 1:
                 faces.append([_exact(c[i]).tolist() for i in t])
-        for i, j in combinations(range(4), 2):
-            edges.add(tuple(sorted((_key(c[i]), _key(c[j])))))
-    out["edges"] = [[list(a), list(b)] for a, b in edges]
+        for i, j in combinations(range(4), 2):                       # keyed by rounded ends, kept exact
+            edges.setdefault(frozenset((_key(c[i]), _key(c[j]))), [_exact(c[i]).tolist(), _exact(c[j]).tolist()])
+    out["edges"] = list(edges.values())
     out["dodecaFaces"] = faces
     out["split"] = []
     allp = np.array([p for c in sel for p in c])
