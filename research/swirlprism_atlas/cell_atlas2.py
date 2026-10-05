@@ -636,6 +636,15 @@ def main(samples_path, out_path):
             if len(poly) >= 3:
                 mirrors.append(poly)
 
+    # the lettered classes' colours follow location (place_colors.py): regions lightest, walls darker, lines and
+    # points darkest, in the hue family of the coloured region beside them; X classes keep their shared colour
+    from place_colors import assign as place_assign
+    from place_colors import css as place_css
+    place = place_assign([t["id"] for t in types if t["listed"]])
+    for t in types:
+        if t["id"] in place:
+            t["color"] = f"--ty-{t['id']}"
+    type_css = place_css(place)
     for t in types:
         t.pop("counts", None)
         t.setdefault("samples", 0)
@@ -665,7 +674,7 @@ def main(samples_path, out_path):
     piece = piece_view(dodeca)                     # and cut down to one domain, a tenth of it
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
-    open(out_path, "w").write(template.replace("__DATA__", json.dumps(data, separators=(",", ":")))
+    open(out_path, "w").write(template.replace("__TYPE_CSS__", type_css).replace("__DATA__", json.dumps(data, separators=(",", ":")))
                               .replace("__DODECA__", json.dumps(dodeca, separators=(",", ":")))
                               .replace("__PIECE__", json.dumps(piece, separators=(",", ":"))))
     listed = [t for t in types if t["listed"]]
