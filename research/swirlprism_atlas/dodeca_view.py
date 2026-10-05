@@ -1,4 +1,5 @@
-"""The atlas seen from the dodecahedron around M34 instead of the half-cell.
+"""The atlas seen from a dodecahedron around a 600-cell vertex (M34 by default; use_centre switches) instead of
+the half-cell.
 
 M34 = beta (0, 0, 1, 1) is a vertex of a 600-cell (its orbit under the swirlprism group has 120 points). The points
 of the 3-sphere nearer to M34 than to the rest of that orbit form a regular dodecahedron (a cell of the dual
@@ -28,8 +29,8 @@ def _seed(q):
     return x / np.linalg.norm(x)
 
 
-def _frame():
-    c = np.array([0, 0, 1, 1.0]) @ T
+def _frame(centre=(0, 0, 1, 1.0)):
+    c = np.array(centre, float) @ T
     c /= np.linalg.norm(c)
     orbit = np.unique(np.round(E @ c, 9), axis=0)
     near = orbit[np.argsort(-(orbit @ c))[1:13]]     # its 12 neighbours: one dodecahedron face each
@@ -53,6 +54,14 @@ def _frame():
 C, B, D = _frame()
 _HA = (B @ D.T).T                                    # in chart coordinates u: X ~ c + B^T u, so a_k . u + b_k >= 0
 _HB = D @ C
+
+
+def use_centre(centre):
+    """Re-centre the dodecahedron (and its chart) on another vertex, given in barycentric coordinates."""
+    global C, B, D, _HA, _HB
+    C, B, D = _frame(centre)
+    _HA = (B @ D.T).T
+    _HB = D @ C
 
 
 def _chart(X):

@@ -695,11 +695,19 @@ def main(samples_path, out_path):
     from dodeca_view import view as dodeca_view
     dodeca = dodeca_view(data)                     # the same geometry seen from the M34 dodecahedron
     piece = piece_view(dodeca)                     # and cut down to one domain, a tenth of it
+    import chamber_domain
+    import dodeca_view as dv
+    dv.use_centre((1, 0, 0, 0))                    # the dodecahedron around the 600-cell vertex V1
+    v1 = dodeca_view(data)
+    chambers = chamber_domain.view(v1)             # one domain of 12 whole H4 chambers inside it
+    dv.use_centre((0, 0, 1, 1))
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
     open(out_path, "w").write(template.replace("__TYPE_CSS__", type_css).replace("__DATA__", json.dumps(data, separators=(",", ":")))
                               .replace("__DODECA__", json.dumps(dodeca, separators=(",", ":")))
-                              .replace("__PIECE__", json.dumps(piece, separators=(",", ":"))))
+                              .replace("__PIECE__", json.dumps(piece, separators=(",", ":")))
+                              .replace("__V1__", json.dumps(v1, separators=(",", ":")))
+                              .replace("__CHAMBERS__", json.dumps(chambers, separators=(",", ":"))))
     listed = [t for t in types if t["listed"]]
     print(f"{len(samples)} samples; {len(listed)} wiki shapes ({sum(1 for t in listed if t['samples'] or t.get('where'))} found), "
           f"{len(types) - len(listed)} unlisted")
