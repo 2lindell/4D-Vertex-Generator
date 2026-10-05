@@ -303,3 +303,140 @@ def clip_images(X, H, elements=E, hemi=None):
         if len(cur) > 1:
             pieces.append(cur)
     return [np.array(pc) for pc in pieces]
+
+
+# ---- one domain: a tenth of the dodecahedron -------------------------------------------------------------
+# The ten elements fixing M34 act on the chart as the dihedral group D5: the vertical axis (the main ring) is
+# 5-fold, and five horizontal half-turn axes are cross rings. A tenth is the upper half (z >= 0) cut to the
+# 72-degree wedge between two half-turn axes, so its edges at M34 lie on the main ring and on two cross rings.
+
+def _wedge():
+    S = [g for g in E if np.allclose(g @ C, C, atol=1e-9)]
+    axes = []
+    for g in S:
+        R = B @ g @ B.T
+        if np.isclose(np.trace(R), -1, atol=1e-8):                     # a half-turn
+            w, v = np.linalg.eig(R)
+            a = np.real(v[:, np.argmin(np.abs(w - 1))])
+            axes.append(np.arctan2(a[1], a[0]) % np.pi)
+    axes = sorted(axes)
+    t0 = axes[0]
+    t1 = t0 + 2 * np.pi / 5
+    n0 = np.array([-np.sin(t0), np.cos(t0), 0.0])                     # inward normals of the two vertical planes
+    n1 = np.array([np.sin(t1), -np.cos(t1), 0.0])
+    return np.array([[0, 0, 1.0], n0, n1]), (t0, t1)
+
+
+WEDGE, WEDGE_ANGLES = _wedge()
+
+
+def _in_wedge(u, tol=2e-4):           # coordinates are rounded to 4 decimals
+    return bool(np.all(WEDGE @ np.asarray(u, float)[:3] >= -tol))
+
+
+def _clip_line(pts):
+    pieces, cur = [], []
+    P = [np.asarray(p, float)[:3] for p in pts]
+    for a, b in zip(P[:-1], P[1:]):
+        t0, t1, d = 0.0, 1.0, b - a
+        for h in WEDGE:
+            fa, fd = h @ a, h @ d
+            if abs(fd) < 1e-15:
+                if fa < -1e-9:
+                    t0, t1 = 1.0, 0.0
+                continue
+            t = -fa / fd
+            if fd > 0:
+                t0 = max(t0, t)
+            else:
+                t1 = min(t1, t)
+        if t0 > t1 - 1e-12:
+            if len(cur) > 1:
+                pieces.append(cur)
+            cur = []
+            continue
+        p, q = a + t0 * d, a + t1 * d
+        if cur and np.linalg.norm(np.array(cur[-1]) - p) < 1e-9:
+            cur.append(q.tolist())
+        else:
+            if len(cur) > 1:
+                pieces.append(cur)
+            cur = [p.tolist(), q.tolist()]
+        if t1 < 1 - 1e-12:
+            pieces.append(cur)
+            cur = []
+    if len(cur) > 1:
+        pieces.append(cur)
+    return [[np.round(x, 4).tolist() for x in pc] for pc in pieces]
+
+
+def _clip_poly(pts):
+    poly = [np.asarray(p, float)[:3] for p in pts]
+    for h in WEDGE:
+        new = []
+        for i in range(len(poly)):
+            a, b = poly[i], poly[(i + 1) % len(poly)]
+            fa, fb = h @ a, h @ b
+            if fa >= -1e-12:
+                new.append(a)
+            if (fa >= -1e-12) != (fb >= -1e-12):
+                new.append(a + (fa / (fa - fb)) * (b - a))
+        poly = new
+        if len(poly) < 3:
+            return None
+    return [np.round(x, 4).tolist() for x in poly]
+
+
+def piece_view(dd):
+    """The dodecahedron view cut down to one domain (a tenth)."""
+    out = {}
+    out["samples"] = {k: [p for p in v if _in_wedge(p)] for k, v in dd["samples"].items()}
+    for key in ("uniform", "special"):
+        out[key] = [u for u in dd[key] if _in_wedge(u["q"])]
+    for key in ("rings", "main", "segments", "qaxes", "regular", "xlines"):
+        out[key] = [{**r, "pts": pc} for r in dd[key] for pc in _clip_line(r["pts"])]
+    out["tpatches"] = []
+    for r in dd["tpatches"]:
+        pc = _clip_poly(r["pts"][:-1])
+        if pc:
+            out["tpatches"].append({**r, "pts": pc + [pc[0]]})
+    out["xwalls"] = []
+    for w in dd["xwalls"]:
+        tris = []
+        for t in w["tris"]:
+            pc = _clip_poly(t)
+            if pc:
+                tris += [[pc[0], pc[i], pc[i + 1]] for i in range(1, len(pc) - 1)]
+        if tris:
+            out["xwalls"].append({**w, "tris": tris})
+    out["mirrors"] = [pc for pc in (_clip_poly(m) for m in dd["mirrors"]) if pc]
+    out["fdomain"] = [{**f, "pts": pc} for f in dd["fdomain"] for pc in [_clip_poly(f["pts"])] if pc]
+    out["fcentre"] = dd["fcentre"]
+    # the piece itself: the dodecahedron's faces cut by the wedge, and the wedge's own three faces
+    from scipy.spatial import ConvexHull, HalfspaceIntersection
+    H = np.vstack([np.hstack([-_HA, -_HB[:, None]]), np.hstack([-WEDGE, np.zeros((3, 1))])])
+    inner = np.array([np.cos(np.mean(WEDGE_ANGLES)), np.sin(np.mean(WEDGE_ANGLES)), 1.0]) * 0.05
+    V = HalfspaceIntersection(H, inner).intersections
+    hull = ConvexHull(V)
+    edges, faces = set(), {}
+    for simplex, eq in zip(hull.simplices, hull.equations):
+        key = tuple(np.round(eq, 6))
+        faces.setdefault(key, set()).update(simplex.tolist())
+    face_polys = []
+    for key, idx in faces.items():
+        idx = sorted(idx)
+        P3 = V[idx]
+        c = P3.mean(axis=0)
+        n = np.array(key[:3])
+        e1 = (P3[0] - c) / np.linalg.norm(P3[0] - c)
+        e2 = np.cross(n, e1)
+        order = [idx[k] for k in np.argsort(np.arctan2((P3 - c) @ e2, (P3 - c) @ e1))]
+        face_polys.append([np.round(V[k], 4).tolist() for k in order])
+        for i in range(len(order)):
+            edges.add(tuple(sorted((order[i], order[(i + 1) % len(order)]))))
+    out["edges"] = [[np.round(V[i], 4).tolist(), np.round(V[j], 4).tolist()] for i, j in edges]
+    out["dodecaFaces"] = face_polys
+    out["split"] = []
+    lo, hi = V.min(axis=0), V.max(axis=0)
+    out["bounds"] = [lo.tolist(), hi.tolist()]
+    return out
