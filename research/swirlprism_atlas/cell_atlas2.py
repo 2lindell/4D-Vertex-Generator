@@ -354,6 +354,25 @@ def main(samples_path, out_path):
                                      + ", ".join(fmt17(v) for v in x)})
             tmap[tid]["where"] = (tmap[tid].get("where") or "golden samples") + "; ✕ 7200-symmetry point"
 
+    # where an extra-symmetry axis passes through a transitional class (axis_crossings.py): ✕ in its colour
+    if os.path.exists("axis_crossings.json"):
+        for c in json.load(open("axis_crossings.json")):
+            if not c.get("interior"):
+                continue
+            cid, xkey, _ = identify(c["sig"], refs)
+            tid = cid or xid.get(xkey)
+            if tid not in tmap:
+                continue
+            p = np.array(c["beta"])
+            q = np.round(xyz(p / p.sum()), 6).tolist()
+            if any(np.allclose(q, o["q"], atol=1e-6) for o in special):
+                continue
+            x = seed_from_beta(p)
+            special.append({"id": tid, "q": q, "hover": f"{label(tid)}<br>exact point where the {c['axis']} crosses it, between "
+                                                        f"{c['below']} and {c['above']}; 2400 symmetries<br>β ∝ {beta_text(p)}"
+                                                        "<br>seed " + ", ".join(fmt17(v) for v in x)})
+            tmap[tid]["where"] = (tmap[tid].get("where") or "golden samples") + "; ✕ where a purple axis crosses it"
+
     # where each type lives (xloci.py): a region, a wall, a line, or a point / curve
     import os
 
@@ -386,6 +405,7 @@ def main(samples_path, out_path):
                 tid = xid.get(identify(e["sig"], refs)[1])
                 if tid in tmap and tid not in r1:
                     tmap[tid]["locus"] = ("fills a region (found by the denser random search)" if e["kind"] == "region"
+                                          else e["kind"] if "axis" in e["kind"]
                                           else f"{e['kind']} (found by the denser random search)")
                     if e["kind"] != "region":
                         tmap[tid]["transitional"] = True

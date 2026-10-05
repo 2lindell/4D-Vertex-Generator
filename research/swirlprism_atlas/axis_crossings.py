@@ -32,6 +32,37 @@ def _bisect(job, steps=50):
     return p.tolist(), _one(p)[0], _one(a + lo * (b - a))[0], _one(a + hi * (b - a))[0]
 
 
+def _label_at(p, tol=1e-8):
+    """The class exactly on a crossing: the bisected point is within ~1e-15 of the wall, so the hull is built
+    with a merge tolerance of 1e-8 (the default 1e-9 refuses such nearly degenerate hulls)."""
+    from cellframe import seed_from_beta
+    from classify import classify, signature
+    from probe import label_of_sig
+    try:
+        info = classify(seed_from_beta(np.asarray(p, float)), hull_tol=tol)
+    except Exception:
+        return "ERR"
+    return label_of_sig(signature(info) + " | val " + ",".join(f"{k}:{v}" for k, v in info["valence"].items()))
+
+
+def relabel():
+    """Classify the crossings found by main() properly, and the shapes a short step either side along the axis."""
+    data = json.load(open("axis_crossings.json"))
+    segs = {f"purple axis ({girdle_families()(a, b)}-family)": [] for a, b in coset_axes()}
+    for c in data:
+        p = np.array(c["beta"])
+        axes = [(a, b) for a, b in coset_axes()] + [(a, b) for a, b in girdle_segments()]
+        a, b = min(axes, key=lambda ab: np.linalg.norm(np.cross(np.r_[ab[1] - ab[0]][:3], (p - ab[0])[:3])))
+        d = (b - a) / np.linalg.norm(b - a)
+        c["on"] = _label_at(p)
+        c["below"] = _one(p - 1e-5 * d)[0] if (p - 1e-5 * d).min() >= 0 else "outside"
+        c["above"] = _one(p + 1e-5 * d)[0] if (p + 1e-5 * d).min() >= 0 else "outside"
+        flag = "TRANSITIONAL" if c["on"] not in (c["below"], c["above"]) else ""
+        print(f"{c['axis']:32s} {c['below']:7s} | {c['on']:8s} | {c['above']:7s} at β {np.round(p, 6).tolist()} {flag}")
+    del segs
+    json.dump(data, open("axis_crossings.json", "w"), indent=1)
+
+
 def main():
     fam = girdle_families()
     segs = [(f"purple axis ({fam(a, b)}-family)", a, b) for a, b in coset_axes()]
@@ -58,4 +89,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    relabel() if sys.argv[1:] == ["relabel"] else main()

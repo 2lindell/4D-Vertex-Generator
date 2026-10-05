@@ -362,3 +362,10 @@ The golden grid misses small regions near the corners. 2400 random seeds (800 ev
 toward its faces and edges, 800 clustered at its corners) found 8 more regions, each kept under 16 nudges:
 X70–X77 (`extra_samples.json`, one sample each). Every one of the earlier 29 regions was hit again; 97% of the
 seeds fell in known regions. X numbers are frozen in `atlas_xids_frozen.json`, so new shapes take the next numbers.
+
+### Where the extra-symmetry axes cross transitional classes (`axis_crossings.py`)
+
+Walking the purple 2400 axes and the green girdle and bisecting every change of shape finds three interior
+crossings, all on the 150-family purple axis through the middle of the cell: X1 (between F3 and X12), X7 (between
+X12 and X30) and a new class X78 (between X30 and X32), each with 2400 symmetries and marked ✕ in its colour. The
+crossing points are classified with a hull merge tolerance of 1e-8, since they lie within ~1e-15 of the walls.
