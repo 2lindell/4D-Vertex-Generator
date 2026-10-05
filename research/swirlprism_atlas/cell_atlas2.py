@@ -652,9 +652,13 @@ def main(samples_path, out_path):
     from place_colors import assign as place_assign
     from place_colors import css as place_css
     place = place_assign([t["id"] for t in types if t["listed"]])
+    # transitional X classes: the X grey, a step darker on a wall, darker on a line, darkest at a point
+    x_kind = {tid: r["kind"] for tid, r in r2.items()} if os.path.exists("xloci_step2.json") else {}
     for t in types:
         if t["id"] in place:
             t["color"] = f"--ty-{t['id']}"
+        elif t.get("transitional"):
+            t["color"] = {"wall": "--xw", "line": "--xl"}.get(x_kind.get(t["id"]), "--xp")
     type_css = place_css(place)
     for t in types:
         t.pop("counts", None)
