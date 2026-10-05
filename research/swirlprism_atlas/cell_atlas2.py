@@ -568,9 +568,24 @@ def main(samples_path, out_path):
     import os
     ext = json.load(open("regular_lines.json")) if os.path.exists("regular_lines.json") else []
     fams = {"prism": [], "antiprism": []}
+    def circle(a, b):
+        u = seed_from_beta(a)
+        v = seed_from_beta(b)
+        v = v - (v @ u) * u
+        v /= np.linalg.norm(v)
+        return np.outer(u, u) + np.outer(v, v)
+    kept = []
     for line in ext:
         whole = max(abs(t) for t in line["t"]) >= 2.99      # the extension ran to its limit: the whole circle
-        fams[line["kind"]].append((np.array(line["a"]), np.array(line["b"]), whole))
+        a, b = np.array(line["a"]), np.array(line["b"])
+        plane = circle(a, b)
+        # a traced line that is the half-turn copy of one already kept is drawn as that line's dashed copy
+        same = [Pk for k, Pk in kept if k == line["kind"]]
+        if (not any(np.allclose(g @ Pk @ g.T, plane, atol=1e-7) for Pk in same for g in E)
+                and any(np.allclose(g @ Qm @ Pk @ Qm.T @ g.T, plane, atol=1e-7) for Pk in same for g in E)):
+            continue
+        kept.append((line["kind"], plane))
+        fams[line["kind"]].append((a, b, whole))
     add_family("prism", fams["prism"])
     add_family("antiprism", fams["antiprism"])
 
