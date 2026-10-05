@@ -574,6 +574,21 @@ def main(samples_path, out_path):
     add_family("prism", fams["prism"])
     add_family("antiprism", fams["antiprism"])
 
+    # regular decagon faces (decagons.py): two regular pentagons merged into one plane, turned 36 degrees apart
+    if os.path.exists("regular_decagons.json"):
+        for st in json.load(open("regular_decagons.json")):
+            pc = np.array(st["seeds"])
+            B = [TINV @ x / (TINV @ x).sum() for x in pc]
+            shapes = []
+            for t in (0.1, 0.3, 0.5, 0.7, 0.9):
+                lab = _one(B[int(t * (len(B) - 1))])[0]
+                if lab in tmap and lab not in shapes:
+                    shapes.append(lab)
+            hover = (f"Regular decagon faces (two regular pentagons merged in one plane)<br>shapes along this piece: "
+                     f"{', '.join(label(t) for t in shapes)}<br>from β ∝ {beta_text(np.clip(B[0], 0, None))}"
+                     f"<br>to β ∝ {beta_text(np.clip(B[-1], 0, None))}")
+            regular.append({"kind": "decagon", "copy": False, "pts": to_cell(pc), "hover": hover})
+
     # transitional X types (xloci.py steps 3 and 4): their line segments and the patches they cover on walls
     xlines, xwalls = [], []
     wall_types = {t for t, r in (r2.items() if os.path.exists("xloci_step2.json") else []) if r["kind"] == "wall"}
