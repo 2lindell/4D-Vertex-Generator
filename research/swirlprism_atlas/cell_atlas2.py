@@ -584,10 +584,12 @@ def main(samples_path, out_path):
                 lab = _one(B[int(t * (len(B) - 1))])[0]
                 if lab in tmap and lab not in shapes:
                     shapes.append(lab)
-            hover = (f"Regular decagon faces (two regular pentagons merged in one plane)<br>shapes along this piece: "
+            copy = bool(st.get("copy"))
+            hover = (f"Regular decagon faces (two regular pentagons merged in one plane)"
+                     f"{' (copy under the extra half-turn)' if copy else ''}<br>shapes along this piece: "
                      f"{', '.join(label(t) for t in shapes)}<br>from β ∝ {beta_text(np.clip(B[0], 0, None))}"
                      f"<br>to β ∝ {beta_text(np.clip(B[-1], 0, None))}")
-            regular.append({"kind": "decagon", "copy": False, "pts": to_cell(pc), "hover": hover})
+            regular.append({"kind": "decagon", "copy": copy, "pts": to_cell(pc), "hover": hover})
 
     # transitional X types (xloci.py steps 3 and 4): their line segments and the patches they cover on walls
     xlines, xwalls = [], []

@@ -156,14 +156,54 @@ def trace(pieces, samples=17, steps=30, procs=4):
     return out
 
 
+def tidy(lines):
+    """Drop stretches lying on another one (a piece split where the clipping met a corner), and mark copies:
+    the extra half-turn Q (not in the group) swaps decagon lines in pairs, so as for the prism lines, the
+    stretch through M34 = beta (0, 0, 1, 1) is drawn solid and its Q-images dashed."""
+    from cell_atlas import to_upper
+    from normalizer import halfturn
+    Q = halfturn()
+    B = [np.array([_beta(np.array(x)) for x in s["seeds"]]) for s in lines]
+
+    def dist(b, Bj):
+        return min(np.linalg.norm(a + np.clip((b - a) @ (c - a) / ((c - a) @ (c - a)), 0, 1) * (c - a) - b)
+                   for a, c in zip(Bj[:-1], Bj[1:]))
+    keep = [i for i in range(len(lines))
+            if not any(j != i and len(B[j]) and all(dist(b, B[j]) < 1e-7 for b in B[i])
+                       and not (j > i and all(dist(b, B[i]) < 1e-7 for b in B[j])) for j in range(len(lines)))]
+    lines = [lines[i] for i in keep]
+    B = [B[i] for i in keep]
+
+    def reps(x):
+        out = []
+        for g in E:
+            b = TINV @ (g @ x)
+            if b.sum() > 0 and (b / b.sum()).min() >= -1e-9:
+                out.append(to_upper(np.clip(b / b.sum(), 0, None)))
+        return out
+    m34 = np.array([0, 0, 0.5, 0.5])
+    main = {i for i, Bi in enumerate(B) if min(np.linalg.norm(Bi[0] - m34), np.linalg.norm(Bi[-1] - m34)) < 1e-6}
+    for i, s in enumerate(lines):
+        mid = np.array(s["seeds"][len(s["seeds"]) // 2])
+        targets = {j for r in reps(Q @ mid) for j, Bj in enumerate(B) if dist(r, Bj) < 1e-7}
+        s["copy"] = i not in main and bool(targets & main)
+    return lines
+
+
 if __name__ == "__main__":
     import sys
+    if sys.argv[1:] == ["tidy"]:
+        lines = tidy(json.load(open("regular_decagons.json")))
+        json.dump(lines, open("regular_decagons.json", "w"), indent=1)
+        for s in lines:
+            print(np.round(s["a"], 4).tolist(), "->", np.round(s["b"], 4).tolist(), "copy" if s["copy"] else "main")
+        sys.exit()
     fives = simple_fives()
     print(len(fives), "simple rotations of order 5")
     cs = circles()
     print(len(cs), "(R, k) pairs with a circle of solutions")
     pcs = pieces_in_half(cs)
     print(len(pcs), "pieces in the half-cell", flush=True)
-    lines = trace(pcs)
+    lines = tidy(trace(pcs))
     json.dump(lines, open("regular_decagons.json", "w"), indent=1)
     print(len(lines), "stretches with regular decagon faces")
