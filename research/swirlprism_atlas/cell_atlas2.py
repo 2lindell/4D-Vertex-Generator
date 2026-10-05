@@ -86,6 +86,13 @@ STYLE = {
 }
 
 
+# Transitional classes the line test placed on a golden line that only lies inside their wall: they live on curved
+# walls (found exactly by Newton steps on the vertex-to-cell-hyperplane distance from the golden samples).
+CURVED_WALLS = {
+    "X10": "a curved wall (a quadric surface) with F2 on both sides; it contains the line the nudge test found",
+    "X33": "a curved wall (a quartic surface) between X50 and X57; it contains the line the nudge test found",
+}
+
 _F = (1 + 5 ** 0.5) / 2
 # Exactly traced segments (barycentric end points). "copy" marks the image under the half-turn Q outside H4
 # that normalizes the group (normalizer.py): same polytope, a different place in the cell.
@@ -395,6 +402,8 @@ def main(samples_path, out_path):
                 locus = "fills a region"
             elif tid in r2 and r2[tid]["kind"] in ("wall", "line"):
                 locus = f"{r2[tid]['kind']}: " + ", ".join(_eq(n) for n in r2[tid]["normals"])
+                if tid in CURVED_WALLS:
+                    locus = CURVED_WALLS[tid]
             else:
                 locus = "a point or a curve (not in a golden plane)"
             tmap[tid]["locus"] = locus
@@ -572,13 +581,8 @@ def main(samples_path, out_path):
                                        "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>from β ∝ {beta_text(lo)}"
                                                 f"<br>to β ∝ {beta_text(hi)}"})
                     k += 1
-    drawn = {x["id"] for x in xlines}
-    for tid, r in (r2.items() if os.path.exists("xloci_step2.json") else []):
-        if r["kind"] == "line" and tid.startswith("X") and tid not in drawn and tid in tmap:
-            b = to_upper(np.array(r["beta"]))       # too short for the line grid: mark the point it was found at
-            special.append({"id": tid, "q": np.round(xyz(b), 6).tolist(),
-                            "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>a short piece of this line, at β ∝ "
-                                     f"{beta_text(b)} (too short to map along the line)"})
+    # X10 and X33 passed the in-line nudge test only because a golden line lies in their walls; they live on curved
+    # walls (CURVED_WALLS), so no line segment is drawn and no point is marked for them
     if os.path.exists("xloci_walls.json"):
         from collections import Counter
         for w in json.load(open("xloci_walls.json")).values():
@@ -686,7 +690,8 @@ def main(samples_path, out_path):
         if t["id"] in place:
             t["color"] = f"--ty-{t['id']}"
         elif t.get("transitional"):
-            t["color"] = {"wall": "--xw", "line": "--xl"}.get(x_kind.get(t["id"]), "--xp")
+            kind = "wall" if t["id"] in CURVED_WALLS else x_kind.get(t["id"])
+            t["color"] = {"wall": "--xw", "line": "--xl"}.get(kind, "--xp")
     type_css = place_css(place)
     for t in types:
         t.pop("counts", None)
