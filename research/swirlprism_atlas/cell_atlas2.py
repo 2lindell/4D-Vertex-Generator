@@ -159,6 +159,9 @@ def main(samples_path, out_path):
     refs, ref_by_name = load_refs()
 
     samples = json.load(open(samples_path))
+    import os
+    if os.path.exists("extra_samples.json"):        # shapes found by the denser random search (dense_search.py)
+        samples += [{"beta": e["beta"], "golden": False, "sig": e["sig"]} for e in json.load(open("extra_samples.json"))]
     for s in samples:
         s["beta"] = to_upper(s["beta"]).tolist()
         s["id"], s["xkey"], s["ref"] = identify(s["sig"], refs)
@@ -188,9 +191,17 @@ def main(samples_path, out_path):
         s = xkeys[k]
         cells = [int(c) for c in counts_key(s["sig"]).split("|")[0].split("+")]
         return (int(s["sig"].split(":")[0]), len(cells), sum(cells), counts_key(s["sig"]))
-    # unlisted: Y for 600 vertices, X for 1200 (and Z for any other count), each numbered from 1
+    # unlisted: Y for 600 vertices, X for 1200 (and Z for any other count), each numbered from 1. The numbers in
+    # atlas_xids_frozen.json are kept; shapes found later take the next free numbers, so no label ever moves.
+    frozen = json.load(open("atlas_xids_frozen.json")) if os.path.exists("atlas_xids_frozen.json") else {}
     xid, counters = {}, {}
+    for k, v in frozen.items():
+        if k in xkeys:
+            xid[k] = v
+        counters[v[0]] = max(counters.get(v[0], 0), int(v[1:]))
     for k in sorted(xkeys, key=xsort):
+        if k in xid:
+            continue
         letter = {600: "Y", 1200: "X"}.get(int(xkeys[k]["sig"].split(":")[0]), "Z")
         counters[letter] = counters.get(letter, 0) + 1
         xid[k] = f"{letter}{counters[letter]}"
@@ -208,7 +219,7 @@ def main(samples_path, out_path):
     types = []
     for i, (cid, name, _) in enumerate(CANON):
         types.append({"id": cid, "name": name, "listed": True, "color": STYLE[cid][0], "symbol": STYLE[cid][1]})
-    for k in sorted(xkeys, key=xsort):
+    for k in sorted(xkeys, key=lambda k: (xid[k][0], int(xid[k][1:]))):
         s = xkeys[k]
         ref = s["ref"]
         if ref in X_DESCRIPTIONS:
