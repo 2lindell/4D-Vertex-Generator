@@ -749,6 +749,7 @@ def main(samples_path, out_path):
     for view in (dodeca, piece, v1, chambers):
         dv.tidy_lines(view)
         dv.split_edges_on_rings(view)
+    dv.split_edges_on_rings(data)                  # the cell view keeps its points (front/back filter them)
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision

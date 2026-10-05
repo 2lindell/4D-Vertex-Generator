@@ -6,6 +6,10 @@ coloured region it borders (F2 or F3, from the nudges in xloci_step1.json); clas
 the two, and those touching only X regions form a family of their own. Within a family the hues are spread so
 every class keeps a distinct colour. In dark mode the lightness order is reversed (deep areas, bright lines) so
 lines stay visible on the dark background. The unlisted X classes keep their shared colour.
+
+The rings (main ring and cross rings) are drawn together as lines, so they are the exception to the narrow hue
+families: their hues are spaced evenly round the circle (seven rings, about 51 degrees apart), with the offset
+and order chosen to keep each as close as possible to its family's hue.
 """
 from __future__ import annotations
 
@@ -15,6 +19,7 @@ import numpy as np
 
 FAMILY = {"F2": (40, 36), "F3": (165, 34), "both": (100, 14), "other": (275, 50)}   # centre hue, half-width
 LIGHT = {3: (0.80, 0.11), 2: (0.64, 0.13), 1: (0.52, 0.14), 0: (0.40, 0.12)}       # dimension: (L, C)
+RINGS = ("B1", "C2a", "C2b", "C3", "D1", "D2", "D3")
 DARK = {3: (0.46, 0.09), 2: (0.62, 0.12), 1: (0.74, 0.13), 0: (0.84, 0.10)}
 
 
@@ -70,9 +75,34 @@ def assign(class_ids):
             h = centre + (half * (2 * k / (n - 1) - 1) if n > 1 else 0)
             d = info[t][1]
             out[t] = (_oklch_to_hex(*LIGHT[d], h), _oklch_to_hex(*DARK[d], h), fam, d)
+    _spread_rings(out, info)
     hexes = [c[0] for c in out.values()]
     assert len(set(hexes)) == len(hexes), "two classes share a colour"
     return out
+
+
+def _hue_gap(a, b):
+    return abs((a - b + 180) % 360 - 180)
+
+
+def _spread_rings(out, info):
+    """Evenly spaced hues for the rings, matched to their families' hues with the least total shift."""
+    from itertools import permutations
+    rings = [t for t in RINGS if t in out]
+    if len(rings) < 2:
+        return
+    want = [FAMILY[info[t][0]][0] for t in rings]
+    step = 360 / len(rings)
+    best = None
+    for off in range(0, int(step)):
+        hues = [off + k * step for k in range(len(rings))]
+        for perm in permutations(range(len(rings))):
+            cost = sum(_hue_gap(hues[p], w) ** 2 for p, w in zip(perm, want))
+            if best is None or cost < best[0]:
+                best = (cost, [hues[p] for p in perm])
+    for t, h in zip(rings, best[1]):
+        d = info[t][1]
+        out[t] = (_oklch_to_hex(*LIGHT[d], h), _oklch_to_hex(*DARK[d], h), out[t][2], d)
 
 
 def css(colors):
