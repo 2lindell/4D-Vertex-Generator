@@ -371,5 +371,51 @@ def main():
         print(t, r)
 
 
+def alpha_shell(P, alpha):
+    """Boundary of the alpha shape of points P (3D): the Delaunay tetrahedra whose circumsphere is smaller than
+    alpha, and the triangles that only one of them has. Returns a mesh {x, y, z, i, j, k}."""
+    from collections import Counter
+    P = np.asarray(P, float)
+    if len(P) < 5:
+        return None
+    tri = Delaunay(P)
+    S = tri.simplices
+    A = P[S]
+    M = A[:, 1:] - A[:, :1]
+    rhs = 0.5 * (M * M).sum(axis=2)
+    ok = np.abs(np.linalg.det(M)) > 1e-18
+    ctr = np.zeros((len(S), 3))
+    ctr[ok] = np.linalg.solve(M[ok], rhs[ok][..., None])[..., 0]
+    R = np.where(ok, np.linalg.norm(ctr, axis=1), np.inf)
+    faces = Counter()
+    for t in S[R < alpha]:
+        for f in ((0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)):
+            faces[tuple(sorted(t[list(f)]))] += 1
+    tris = [f for f, c in faces.items() if c == 1]
+    if not tris:
+        return None
+    used = sorted({v for f in tris for v in f})
+    at = {v: n for n, v in enumerate(used)}
+    Q = P[used]
+    return {"x": Q[:, 0].tolist(), "y": Q[:, 1].tolist(), "z": Q[:, 2].tolist(),
+            "i": [at[f[0]] for f in tris], "j": [at[f[1]] for f in tris], "k": [at[f[2]] for f in tris]}
+
+
+def add_shells(path="cohesive_view.json", alpha=0.03, region_alpha=0.04):
+    """The outline of the whole domain, and of each region, as alpha shapes of the moved seeds."""
+    view = json.load(open(path))
+    allp = [p[:3] for s in view["samples"].values() for p in s]
+    view["shell"] = alpha_shell(allp, alpha)
+    view["regionShells"] = {t: m for t, pts in view["samples"].items()
+                            for m in [alpha_shell([p[:3] for p in pts], region_alpha)] if m}
+    json.dump(view, open(path, "w"))
+    print("domain shell:", len(view["shell"]["i"]), "triangles;", len(view["regionShells"]), "region shells")
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    if sys.argv[1:] == ["shells"]:
+        add_shells()
+    else:
+        main()
+        add_shells()
