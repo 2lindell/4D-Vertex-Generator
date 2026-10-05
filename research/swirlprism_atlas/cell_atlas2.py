@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 
 import numpy as np
@@ -750,6 +751,8 @@ def main(samples_path, out_path):
         dv.tidy_lines(view)
         dv.split_edges_on_rings(view)
     dv.split_edges_on_rings(data)                  # the cell view keeps its points (front/back filter them)
+    # one domain in which every region is a single piece (cohesive_domain.py writes it; slow, so run separately)
+    cohesive = json.load(open("cohesive_view.json")) if os.path.exists("cohesive_view.json") else {"samples": {}, "bounds": [[-1, -1, -1], [1, 1, 1]]}
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision
@@ -758,7 +761,8 @@ def main(samples_path, out_path):
                               .replace("__DODECA__", dump(dodeca, 5))
                               .replace("__PIECE__", dump(piece, 5))
                               .replace("__V1__", dump(v1, 5))
-                              .replace("__CHAMBERS__", dump(chambers, 5)))
+                              .replace("__CHAMBERS__", dump(chambers, 5))
+                              .replace("__COHESIVE__", dump(cohesive, 5)))
     listed = [t for t in types if t["listed"]]
     print(f"{len(samples)} samples; {len(listed)} wiki shapes ({sum(1 for t in listed if t['samples'] or t.get('where'))} found), "
           f"{len(types) - len(listed)} unlisted")

@@ -102,7 +102,7 @@ __TYPE_CSS__
   <section class="panel viewer">
     <div class="controls">
       <label for="quarter">Show
-        <select id="quarter"><option value="all">the whole half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option><option value="dodeca">the M34 dodecahedron</option><option value="piece">one domain: a tenth of the M34 dodecahedron</option><option value="v1">the V1 dodecahedron</option><option value="chambers">one domain: 12 whole H4 chambers in the V1 dodecahedron</option></select>
+        <select id="quarter"><option value="all">the whole half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option><option value="dodeca">the M34 dodecahedron</option><option value="piece">one domain: a tenth of the M34 dodecahedron</option><option value="v1">the V1 dodecahedron</option><option value="chambers">one domain: 12 whole H4 chambers in the V1 dodecahedron</option><option value="cohesive">one domain: every region in one piece</option></select>
       </label>
       <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
       <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
@@ -159,6 +159,7 @@ __TYPE_CSS__
 <script id="atlas-piece" type="application/json">__PIECE__</script>
 <script id="atlas-v1" type="application/json">__V1__</script>
 <script id="atlas-chambers" type="application/json">__CHAMBERS__</script>
+<script id="atlas-cohesive" type="application/json">__COHESIVE__</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.2/plotly.min.js"></script>
 <script>
 (function boot() {
@@ -176,6 +177,7 @@ __TYPE_CSS__
     const DP = { ...DC, ...JSON.parse(document.getElementById("atlas-piece").textContent) };
     const DV = { ...DC, ...JSON.parse(document.getElementById("atlas-v1").textContent) };
     const DH = { ...DC, ...JSON.parse(document.getElementById("atlas-chambers").textContent) };
+    const DQ = { ...DC, ...JSON.parse(document.getElementById("atlas-cohesive").textContent) };
     let D = DC;
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
@@ -195,7 +197,7 @@ __TYPE_CSS__
     function traces() {
       const out = [], ink = css("--ink"), faint = css("--faint");
       const quarter = el("quarter").value;
-      D = { dodeca: DD, piece: DP, v1: DV, chambers: DH }[quarter] || DC;
+      D = { dodeca: DD, piece: DP, v1: DV, chambers: DH, cohesive: DQ }[quarter] || DC;
       const inQ = (q) => (quarter !== "front" && quarter !== "back") || (quarter === "front" ? q[1] >= -1e-9 : q[1] <= 1e-9);
       const lines = (segs, name, line, extra = {}) => {
         const x = [], y = [], z = [];
@@ -203,7 +205,7 @@ __TYPE_CSS__
         return { type: "scatter3d", mode: "lines", x, y, z, name, line, hoverinfo: "name", ...extra };
       };
       const frameName = { dodeca: "The dodecahedron around M34", piece: "One domain: a tenth of the M34 dodecahedron",
-        v1: "The dodecahedron around V1", chambers: "One domain: 12 whole H4 chambers" }[quarter] || "Cell (upper half)";
+        v1: "The dodecahedron around V1", chambers: "One domain: 12 whole H4 chambers", cohesive: "One domain: every region in one piece" }[quarter] || "Cell (upper half)";
       out.push(lines(D.edges, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
       // frame edges lying along a ring are left out while the rings are drawn, so the two lines don't fight for depth
       if (D.edgesOnRing && !el("showRings").checked) out.push(lines(D.edgesOnRing, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
@@ -312,8 +314,8 @@ __TYPE_CSS__
     const cam = (dflt) => cameras[el("quarter").value] || dflt;
     function layout() {
       const hidden = { visible: false, showbackground: false };
-      if (el("quarter").value === "piece" || el("quarter").value === "chambers") {
-        const [lo, hi] = (el("quarter").value === "piece" ? DP : DH).bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
+      if (["piece", "chambers", "cohesive"].includes(el("quarter").value)) {
+        const [lo, hi] = { piece: DP, chambers: DH, cohesive: DQ }[el("quarter").value].bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
         return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
           margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value,
           scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
