@@ -355,3 +355,10 @@ Regular antiprisms lie on β1 = φ²β2, β3 = β1 + β4 (F1) and β2 = φ²β1,
 (2φ², 1, φ², φ²) on the fold to its image (3+2φ, 1, 2+φ, 1+φ) under the extra half-turn, which reverses the
 piece (its midpoint is on a purple axis); at both ends those antiprisms merge with other cells. The E1 line's copies under the
 extra half-turn are edges of the cell.
+
+### More regions (`dense_search.py`)
+
+The golden grid misses small regions near the corners. 2400 random seeds (800 even in the half-cell, 800 biased
+toward its faces and edges, 800 clustered at its corners) found 8 more regions, each kept under 16 nudges:
+X70–X77 (`extra_samples.json`, one sample each). Every one of the earlier 29 regions was hit again; 97% of the
+seeds fell in known regions. X numbers are frozen in `atlas_xids_frozen.json`, so new shapes take the next numbers.

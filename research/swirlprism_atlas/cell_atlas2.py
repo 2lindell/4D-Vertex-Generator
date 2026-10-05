@@ -381,6 +381,14 @@ def main(samples_path, out_path):
             tmap[tid]["locus"] = locus
             if r["kept"] < r["of"] and tid.startswith("X"):
                 tmap[tid]["transitional"] = True
+        if os.path.exists("extra_samples.json"):     # regions found by the denser random search
+            for e in json.load(open("extra_samples.json")):
+                tid = xid.get(identify(e["sig"], refs)[1])
+                if tid in tmap and tid not in r1:
+                    tmap[tid]["locus"] = ("fills a region (found by the denser random search)" if e["kind"] == "region"
+                                          else f"{e['kind']} (found by the denser random search)")
+                    if e["kind"] != "region":
+                        tmap[tid]["transitional"] = True
 
     # rings, coloured by the shape each range produces
     sys.path.insert(0, ".")
