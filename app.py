@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+import streamlit.components.v1 as components
 
 from four_d_vertex_generator.cli import parse_seed
 from four_d_vertex_generator.generation import (
@@ -383,7 +384,13 @@ def render_local_view(
         st.info(f"Vertex {center} has no edges.")
         return
 
-    st.plotly_chart(_local_view_figure(view, vertices, same_orbit), theme="streamlit")
+    # the mouse wheel scrolls the page, not the plot: otherwise the page stops scrolling under
+    # the pointer and the figure zooms away (zoom with the toolbar or a pinch instead)
+    st.plotly_chart(
+        _local_view_figure(view, vertices, same_orbit),
+        theme="streamlit",
+        config={"scrollZoom": False},
+    )
     n_classes = len(set(edge_length_classes(view.edge_lengths).tolist()))
     summary = f"{len(view.neighbours)} edges meet at vertex {center}"
     if n_classes > 1:
@@ -391,8 +398,8 @@ def render_local_view(
     if view.figure_edges:
         summary += "; the dashed outline is the vertex figure"
     st.caption(
-        summary + ". Drag to rotate. The view looks along the vertex's radius, so every "
-        "line is an edge direction as seen from the centre of the polytope."
+        summary + ". Drag to rotate; zoom with the toolbar. The view looks along the vertex's "
+        "radius, so every line is an edge direction as seen from the centre of the polytope."
     )
 
 
@@ -799,8 +806,36 @@ def render_analyze_tab() -> None:
     _render_split_local_view(vertices, partition.orbit_ids)
 
 
+# Plotly's 3D plots swallow every mouse-wheel event (even with scrollZoom off), so the page
+# stops scrolling whenever the pointer is over one. This hands those events back to the page:
+# a capture listener on the app's window stops them before they reach the plot's canvas.
+WHEEL_TO_PAGE = """
+<script>
+try {
+  const host = window.parent;
+  if (!host.__wheelToPage) {
+    host.__wheelToPage = true;
+    host.addEventListener("wheel", (event) => {
+      const target = event.target;
+      if (target instanceof host.Element && target.closest(".js-plotly-plot .gl-container")) {
+        event.stopPropagation();
+      }
+    }, { capture: true });
+  }
+} catch (err) {
+  // a host page that keeps this frame out leaves the plots as they were
+}
+</script>
+"""
+
+
+def let_wheel_scroll_page() -> None:
+    components.html(WHEEL_TO_PAGE, height=0)
+
+
 generate_tab, analyze_tab = st.tabs(["Generate", "Analyze a 4OFF file"])
 with generate_tab:
     render_generate_tab()
 with analyze_tab:
     render_analyze_tab()
+let_wheel_scroll_page()
