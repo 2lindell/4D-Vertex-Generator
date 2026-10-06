@@ -844,12 +844,14 @@ def render_domain_tab() -> None:
         "domain: hover a point for its shape and seed, and paste the seed into Generate's "
         "Coordinates mode."
     )
+    # the page grows its frame to its own height (it reaches the frame from the same origin),
+    # so the app's scroll bar is the only one
     if sys.platform == "emscripten":
         # in the browser build (GitHub Pages) the page is served next to the app
         st.markdown("[Open it in its own tab](symmetry_domain.html)")
-        components.iframe("symmetry_domain.html", height=1100, scrolling=True)
+        components.iframe("symmetry_domain.html", height=1100)
     elif DOMAIN_PAGE.exists():
-        components.html(DOMAIN_PAGE.read_text(encoding="utf-8"), height=1100, scrolling=True)
+        components.html(DOMAIN_PAGE.read_text(encoding="utf-8"), height=1100)
     else:
         st.info(
             "The page is not in this copy of the app; it is published at "

@@ -40,6 +40,10 @@ p { margin: 0; max-width: 72ch; }
 select { font: inherit; font-size: 0.88rem; color: var(--ink); background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 5px 10px; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 #plot { width: 100%; height: min(74vh, 700px); min-height: 380px; }
+/* inside the web app's tab the frame grows to the page, so nothing may depend on the window height */
+html.embedded #plot { height: 640px; }
+html.embedded .explore > .viewer { position: static; height: auto; }
+html.embedded .explore .tablewrap { max-height: 760px; }
 #hoverbox { font-family: var(--font-data); font-size: 0.84rem; color: var(--muted); min-height: 2.6em; }
 .tablewrap { overflow-x: auto; }
 .explore { display: grid; gap: 22px; min-width: 0; }
@@ -458,5 +462,25 @@ __TYPE_CSS__
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   }
+})();
+// When shown inside the web app's tab, grow the frame to the whole page so only the app scrolls
+// (frameElement is only reachable from a same-origin parent; elsewhere this does nothing).
+(() => {
+  let frame = null;
+  try { frame = window.frameElement; } catch (e) { return; }
+  if (!frame) return;
+  document.documentElement.classList.add("embedded");
+  document.documentElement.style.overflowY = "hidden";
+  // the wheel scrolls the app, not the plot (zoom with the plot's toolbar): stop it before the plot's canvas
+  window.addEventListener("wheel", (event) => {
+    if (event.target instanceof Element && event.target.closest(".js-plotly-plot .gl-container")) event.stopPropagation();
+  }, { capture: true });
+  const fit = () => {
+    const h = Math.ceil(document.documentElement.scrollHeight);
+    if (Math.abs(frame.offsetHeight - h) > 1) { frame.style.height = h + "px"; frame.setAttribute("height", h); }
+  };
+  new ResizeObserver(fit).observe(document.body);
+  window.addEventListener("load", fit);
+  fit();
 })();
 </script>
