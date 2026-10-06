@@ -1,4 +1,4 @@
-<title>Swirlprism Cell Atlas</title>
+<title>H3●I2(10) Symmetry Domain</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
@@ -92,9 +92,9 @@ __TYPE_CSS__
 
 <div class="wrap">
   <header style="display:grid;gap:6px">
-    <span class="eyebrow">h4_swirlprism · H3●I2(10) · order 1200</span>
-    <h1>Swirlprism cell atlas</h1>
-    <p class="lede">One tetrahedral cell of the 600-cell, split by the horizontal H4 mirror β₃ = β₄ (the shaded plane on top). The half below it holds one copy of every seed; seeds in the splitting mirror are also drawn at their half-turn copy there. Points are seeds with golden-integer barycentric weights and every uniform H4 seed; each is coloured by the isogonal polychoron it produces. Shapes in the wiki's list are numbered in the wiki's own order.</p>
+    <span class="eyebrow">h4_swirlprism · H3●I2(10) · 1200 rotations</span>
+    <h1>H3●I2(10) Symmetry Domain</h1>
+    <p class="lede">A map of every isogonal polychoron the H3●I2(10) swirlprism group produces from a single seed. Each point of one fundamental domain, half of a 600-cell's tetrahedral cell, is a seed; it is coloured by the polychoron its 1200 images make. Regions, walls, lines and points of the domain are labelled with the wiki's names where they exist, and the views below show the same map from several fundamental domains.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -102,7 +102,7 @@ __TYPE_CSS__
   <section class="panel viewer">
     <div class="controls">
       <label for="quarter">Show
-        <select id="quarter"><option value="all">the whole half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option><option value="dodeca">the M34 dodecahedron</option><option value="piece">one domain: a tenth of the M34 dodecahedron</option><option value="v1">the V1 dodecahedron</option><option value="chambers">one domain: 12 whole H4 chambers in the V1 dodecahedron</option><option value="cohesive">one domain: every region in one piece</option></select>
+        <select id="quarter"><option value="all">the half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option><option value="dodeca">the M34 dodecahedron</option><option value="piece">one domain: a tenth of the M34 dodecahedron</option><option value="v1">the V1 dodecahedron</option><option value="chambers">one domain: 12 whole H4 chambers in the V1 dodecahedron</option><option value="cohesive">one domain: every region in one piece</option></select>
       </label>
       <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
       <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
@@ -114,7 +114,7 @@ __TYPE_CSS__
       <label><input id="showT" type="checkbox" checked> transitional (T1, T2 and X walls / lines)</label>
       <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
     </div>
-    <div id="plot" role="img" aria-label="3D atlas of the isogonal polychora produced by seeds in one half of a 600-cell tetrahedron"></div>
+    <div id="plot" role="img" aria-label="3D map of the isogonal polychora produced by seeds in a fundamental domain of the H3●I2(10) group"></div>
     <p id="hoverbox">Hover a point for its shape, golden weights and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape; click it again to show everything.</p>
   </section>
 
@@ -127,32 +127,51 @@ __TYPE_CSS__
 
   <section class="notes">
     <div class="panel">
-      <h2>How to read the atlas</h2>
+      <h2>The domain</h2>
       <ul>
-        <li>The tetrahedron is one 600-cell cell in gnomonic projection, so great circles are straight lines and mirrors are planes. The main ring runs along the vertical edge V₃V₄; the shaded top is the splitting mirror β₃ = β₄. The picture is drawn upside down so that plane is on top.</li>
-        <li>"Show: the M34 dodecahedron" redraws everything from the dodecahedron around M34 = β (0, 0, 1, 1), a vertex of a 600-cell: the points of the 3-sphere nearer to it than to the rest of its 120-point orbit (a cell of the dual 120-cell). The ten elements of the group that fix M34 turn the dodecahedron onto itself, so every seed, line and patch appears ten times, arranged about the vertical 5-fold axis; pieces are clipped to the twelve faces. It is the gnomonic chart at M34, so great circles stay straight.</li>
-        <li>"Show: one domain" keeps a single tenth of the M34 dodecahedron, a fundamental domain of the group, so every seed appears once. The ten elements fixing M34 act on the dodecahedron as the dihedral group D5: the vertical axis, along the main ring, is 5-fold, and five horizontal half-turn axes run along cross rings. The tenth chosen is the upper half cut to the 72° wedge between two of those half-turn axes, so its three edges at M34 lie on the main ring and on two cross rings (a third cross ring crosses its floor).</li>
-        <li>"Show: the V1 dodecahedron" is the same picture around the 600-cell vertex V1 = β (1, 0, 0, 0). Its twelve faces are H4 mirrors (the M34 dodecahedron's are not), and the 15 mirrors through V1 cut it into 120 whole chambers. "Show: 12 whole H4 chambers" is a fundamental domain made of them: the ten elements fixing V1 move the chambers in 12 orbits of 10, and the domain takes one chamber from each, chosen to be a single convex solid (14 faces shared between its chambers) and then, as for the other domains, with the most chamber edges on cross rings, the main ring, the purple axes and the green girdle (8). The choice is unique up to the ten rotations fixing V1. The chamber edges are drawn faintly; the faces shown are the domain's outer boundary.</li>
-        <li>"Show: every region in one piece" is a fundamental domain built so each region (3-dimensional class) is as few pieces as possible: every piece of a region in the half-cell is moved by a group element until it meets the region's other pieces across the half-cell's faces (the moved pieces still make a fundamental domain). Contacts come from 7800 classified seeds, shown here as dots; a contact between pieces counts only if points along it classify as the region. 11 regions come out as one piece: F2, F3, X12, X16, X30, X32, X37, X58, X61, X68, X71. The other 26 stay in 2 to 4 pieces: for each, the nearest contacts between its pieces (up to 8 per piece) all cross another class, so they look separated by walls or other regions in every copy, which no fundamental domain could join. With sparse samples (the small X regions) or contacts beyond the 8 nearest, a few of these may yet join (cohesive_domain.py). The grey surface is the domain's outline, wrapped around its seeds (an alpha shape, so it is approximate, not traced exactly); click a region's row to see that region's own outline.</li>
-        <li>The half-turn that fixes the cell swaps V₁↔V₂ and V₃↔V₄, so the other half repeats this one exactly. This half cannot be halved again: the vertical mirror β₁ = β₂ does not preserve the symmetry, and the two quarters it separates hold different shapes.</li>
-        <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200), numbered by how many classes of cells they have.</li>
-        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Within each vertex count every wiki shape has its own colour, so shapes that share a region never share a style. Unlisted shapes are grey so they do not compete; click one in the key to pick it out.</li>
-        <li>Large outlined markers are uniform H4 seeds. They are labelled by the isogonal they produce; the uniform polytope is named only when that piece is an unlisted shape.</li>
-        <li>The light green line is an order-3 ghost girdle: the axis of an order-3 rotation of the 3600-element group (the swirlprism group with its right-hand 20 quaternions widened to 60). Seeds on it give X12 polytopes with 3600 symmetries; it is one of Bowers' 20 such girdles. Groups beyond that add no further lines.</li>
-        <li>Light purple lines are the axes of the extra half-turns. Three come from a family of 150 such circles; the one from the β₂ = β₃ cross ring to C2b is one of Bowers' 30 ghost girdles with skew 20-gonal symmetry. The swirlprism group (1200 rotations) and the extra half-turn Q together make a group of 2400 rotations; it has no mirrors, so it adds no planes, only these four axis segments. A seed on an axis is its own copy, and its polytope has 2400 symmetries; the exact icosafold points (✕) lie on them. Every other point has exactly one congruent copy elsewhere in the half-cell.</li>
-        <li>"2400 fundamental domain" shows one fundamental domain of the 2400-element group: the points closer to a centre on the E2 line, β ∝ (2, 2, 2, 1) (black dot), than to any of its 2399 images (a Dirichlet domain). Centres on the E2 line are the only ones whose domain stays inside the half-cell and holds every light purple axis on its surface. It has 13 corners and 10 faces and half the half-cell's volume. Four faces lie on the half-cell's own walls: the amber pair on β₁ = 0 and β₂ = 0 (glued to each other, as the half-cell's faces are) and two slate faces, on the fold and on β₄ = 0, each folding across a cross ring. The other six cut the half-cell in two: four light purple faces, each folding onto itself across a light purple axis, and a teal pair glued to each other by the extra half-turn's coset.</li>
-        <li>With "regular prism / antiprism cells" on: pink lines are where the pentagonal prisms are regular (square sides). Prisms only exist on the faces β₂ = 0 and β₁ = 0 and the mirror β₁ = β₂; there the regular ones lie on straight lines from the 600-cell corner: β₃ = β₁ + β₄ and β₃ = β₂ + β₄ (F4, ending at spidrox) and β₁ = β₂ = (β₃ − β₄)/φ (F1). Brown lines are where the pentagonal antiprisms are regular; they are straight too: β₁ = φ²β₂, β₃ = β₁ + β₄ (F1) and β₂ = φ²β₁, β₃ = β₂ + β₄ (E1), both from the 600-cell corner to the face β₄ = 0; β₁ = β₃, β₄ = β₃/(2φ²) from the corner (1, 0, 0, 0) to the E2 line at (2φ², 2φ², 2φ², 1) (F3, F2, F1); and a short piece inside X32 from the X19 point (2φ², 1, φ², φ²) on the fold to its copy (3+2φ, 1, 2+φ, 1+φ) under the extra half-turn, which reverses it (its midpoint is on a purple axis); at both ends those antiprisms merge with other cells, so the piece stops there. A dashed copy that crosses the fold carries on from the folded point, so it can show as two pieces. Dashed: copies under the extra half-turn.</li>
-        <li>With "regular decagon faces" on: black lines are where the polytope has regular decagon faces. A decagon face is two regular pentagons (orbits of a 5-fold rotation that fixes a plane) merged into one plane; on the X19 and X26 walls they share a plane, and the decagon is regular where the two pentagons are turned exactly 36° apart. Both conditions are linear in the seed, so these loci are exact straight lines; each is drawn where the decagon really is a face (decagons.py). The ✕ marks the one point on each line where the decagon's cell is an untwisted pentagonal cupola (its pentagon lines up exactly with the decagon): β ∝ (φ², 1, 1, 1), and its copy (φ², 1, 2, 1). This is an exact geometric coincidence; the polytope there has no symmetry beyond the 1200 rotations. There are two lines, swapped by the extra half-turn: as for the prism lines, the one through M34 (in the splitting mirror) is solid and its copy, from V1 to β ∝ (2, 1, 2, 1), is dashed.</li>
-        <li>With "transitional" on, the X shapes that only live on a wall are drawn as faint patches of that wall (from a grid in each wall, so the edges are approximate) and those that live on a line as solid segments, in their own colours; clicking a row shows just that shape.</li>
-        <li>The grey line under "Where" says where a shape lives, from small nudges of its deepest sample: "fills a region", or the wall (plane) or line it lies on, or "a point or a curve" when no simple golden plane holds it. X shapes that only live on a wall, line or point are listed separately as transitional, grouped by where they lie. A shape can also appear on another wall or face (F4 also lies on the face β₂ = 0).</li>
-        <li>✕ marks exact special points that are not golden points, in the colour of the shape they produce: the icosafold points of C2a and C2b, the points of C3 with 3600 symmetries (where the green order-3 girdle ends on the cross rings; C3 is named after the shape at these points and the rest of its range is subsymmetrical, like C2), and the six points where the light purple axes meet the domain boundary (the C2a and C2b icosafold points again, two F3 points on the face β₄ = 0, and a B1 point on the main ring).</li>
-        <li>Rings take the colour of the shape each stretch produces. Solid lines are exactly traced segments (T1, E2), drawn end to end; dashed lines are their copies under the extra half-turn that maps the group to itself but is not in H4, so they give the same polytope elsewhere in the cell; T2 (outlined, faint fill) is the exact regions traced in the mirrors, with dashed copies.</li>
+        <li>The group is the swirlprism group H3●I2(10): 1200 rotations of the 3-sphere inside the H4 group of the 600-cell. A seed's 1200 images are the vertices of an isogonal polychoron, and two seeds give the same polychoron when one is an image of the other, so one fundamental domain holds every shape once.</li>
+        <li>The default view is half of one tetrahedral cell of the 600-cell (corners V₁, V₂, V₃ and M34 = β (0, 0, 1, 1), the midpoint of the edge V₃V₄), in gnomonic projection: great circles are straight lines and great spheres are planes. Points are written in barycentric weights β of the cell. The shaded top face is the H4 mirror β₃ = β₄ that splits the cell; the half-turn fixing the cell swaps V₁↔V₂ and V₃↔V₄, so the other half repeats this one, and seeds in the splitting face are also drawn at their copy there. The picture is upside down so that face is on top. The half cannot be halved again: the mirror β₁ = β₂ is not a symmetry, and the two quarters it separates hold different shapes.</li>
+        <li>Points are seeds with golden-integer weights, every uniform H4 seed, and extra samples where the golden grid is sparse; each is coloured by the polychoron it produces.</li>
+        <li>An extra half-turn Q, not in H4, maps the group to itself. A seed and its Q-image give congruent polychora, so most shapes appear twice in the domain; the group with Q has 2400 rotations.</li>
       </ul>
     </div>
     <div class="panel">
-      <h2>Renumbering</h2>
-      <ul id="renumber"></ul>
-      <p class="lede">T1 and T2 keep their numbers. C2, the subsymmetrical icosafold icosidodecaswirlchoron, sits at exact points that are not golden, so it is placed from the cross-ring analysis rather than sampled.</p>
+      <h2>Views</h2>
+      <ul>
+        <li><b>The half-cell</b> (and its two quarters β₁ ≥ β₂ and β₁ ≤ β₂, to see inside).</li>
+        <li><b>The M34 dodecahedron:</b> the points of the 3-sphere nearer to M34 than to the rest of its 120-point orbit, a cell of the dual 120-cell. The ten rotations fixing M34 turn it onto itself, so everything appears ten times about the vertical 5-fold axis (the main ring). <b>A tenth of it</b> is a fundamental domain: the upper half cut to the 72° wedge between two horizontal half-turn axes, so its edges at M34 lie on the main ring and two cross rings.</li>
+        <li><b>The V1 dodecahedron:</b> the same picture around the 600-cell vertex V1 = β (1, 0, 0, 0). Its faces are H4 mirrors, and the 15 mirrors through V1 cut it into 120 whole H4 chambers in 12 orbits of 10. <b>12 whole H4 chambers</b> is a fundamental domain made of one chamber from each orbit: the single convex solid with the most chamber edges on significant rings (8, with 14 faces shared between chambers), unique up to the rotations fixing V1. Chamber edges are drawn faintly and the faces shown are its outer boundary. It keeps regions more connected than the half-cell: 76 region pieces against 107, with F2 and F3 each in one piece.</li>
+        <li><b>Every region in one piece:</b> a fundamental domain in which each region is as few pieces as possible. Each piece of a region in the half-cell is moved by a group element to meet the region's other pieces across the half-cell's faces. 90% of the seeds stay put, so the domain is the half-cell (its edges drawn faintly) with the moved pieces as bulges, mostly F3. 11 regions are one piece: F2, F3, X12, X16, X30, X32, X37, X58, X61, X68 and X71. The other 26 stay in 2 to 4 pieces, whose nearest contacts all cross another class. Connections are read from 7800 classified seeds (shown as dots) and checked by classifying points along them, so sparse regions may join more than shown. The grey surface is an approximate outline wrapped around the seeds; click a region's row to see its own outline.</li>
+        <li>Each view keeps its own camera, so ticking boxes never moves the picture.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Names and markers</h2>
+      <ul>
+        <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200). C2a and C2b are the two subsymmetrical icosafold icosidodecaswirlchoron ranges on the cross rings, told apart by their counts.</li>
+        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Large outlined markers are uniform H4 seeds, labelled by the shape they produce. Every named shape has its own colour, darkest for shapes on a line, lighter on a wall and lightest for regions; unlisted shapes are grey, in the same steps. Click a row in the key to show only that shape.</li>
+        <li>"Where" says where a shape lives: a region, a wall (plane) or line, or a point or curve. X shapes that only live on a wall, line or point are listed separately as transitional, grouped by where they lie.</li>
+        <li>✕ marks exact points that are not golden, in the colour of their shape: the icosafold points of C2a and C2b; the points of C3 with 3600 symmetries, where the green girdle meets the cross rings (C3 is named after the shape there; the rest of its range is subsymmetrical); the points where the purple axes meet the domain's boundary; and the points where a purple axis passes through a transitional shape (X1, X7 and X78).</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Lines and axes</h2>
+      <ul>
+        <li><b>Rings</b> are great circles fixed by rotations of the group: the main ring along the edge V₃V₄ and the cross rings. They take the colour of the shape each stretch produces.</li>
+        <li><b>Purple axes</b> are the axes of the half-turns in the coset of Q. A seed on one is its own copy, and its polychoron has 2400 symmetries. The one from the β₂ = β₃ cross ring to C2b is one of Bowers' 30 ghost girdles with skew 20-gonal symmetry.</li>
+        <li><b>The green line</b> is an order-3 ghost girdle: the axis of an order-3 rotation of a 3600-element group containing the swirlprism group. Seeds on it give X12 polychora with 3600 symmetries; it is one of Bowers' 20 such girdles. A search of every fixed circle of H4, its Q-coset and this group finds no other line with more than 1200 symmetries.</li>
+        <li><b>Transitional shapes</b> (T1, T2 and the X walls and lines): T1 and E2 are exactly traced lines; T2 is three exact patches in the mirrors β₁ = β₃, β₂ = β₃ and β₁ = β₂, each with a spidrox corner; X shapes on a wall are drawn as patches of that wall and those on a line as segments.</li>
+        <li>Throughout, <b>solid</b> lines are the loci themselves and <b>dashed</b> lines are their copies under Q, which give the same polychora elsewhere in the domain.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Regular cells and faces</h2>
+      <ul>
+        <li><b>Regular pentagonal prisms</b> (pink) lie on straight lines from M34 on the faces β₁ = 0 and β₂ = 0 and the mirror β₁ = β₂: β₃ = β₁ + β₄ and β₃ = β₂ + β₄ (F4, ending at spidrox), and β₁ = β₂ = (β₃ − β₄)/φ (F1). At β ∝ (2, 3, 2, 2−φ) the prism lines end where each prism merges with ten neighbouring cells into one 20-vertex cell.</li>
+        <li><b>Regular pentagonal antiprisms</b> (brown) also lie on straight lines from M34: β₁ = φ²β₂, β₃ = β₁ + β₄ (F1) and β₂ = φ²β₁, β₃ = β₂ + β₄ (E1). Their copies run from the V points along the cell's edges and into the cell. A short piece inside X32, from the X19 point (2φ², 1, φ², φ²) to its own copy (3+2φ, 1, 2+φ, 1+φ), ends where each regular antiprism merges with another antiprism and five tetrahedra into a cupola-shaped cell. Spidrox (1, φ², φ², 0) is the one point where regular prisms and regular antiprisms are both cells.</li>
+        <li><b>Regular decagon faces</b> (black): a decagon face is two regular pentagons, orbits of a 5-fold rotation that fixes a plane, lying in one plane; that happens on the X19 and X26 walls, and the decagon is regular where the two pentagons are turned exactly 36° apart. Both conditions are linear in the seed, so these are exact straight lines: one through M34 in the splitting mirror, and its copy from V1 to β ∝ (2, 1, 2, 1). ✕ marks where each decagon's cell is an untwisted pentagonal cupola, its pentagon lined up with the decagon: β ∝ (φ², 1, 1, 1), and its copy (φ², 1, 2, 1).</li>
+        <li><b>2400 fundamental domain</b> shows one fundamental domain of the group with Q: the points closer to a centre on the E2 line, β ∝ (2, 2, 2, 1) (black dot), than to any of its 2399 images. It has 13 corners and 10 faces and half the half-cell's volume; its four purple faces each fold onto themselves across a purple axis.</li>
+      </ul>
     </div>
   </section>
 </div>
@@ -189,11 +208,8 @@ __TYPE_CSS__
     const el = (id) => document.getElementById(id);
 
     const found = D.types.filter((t) => t.listed && (t.samples || t.where)).length;
-    el("stats").innerHTML = [`${D.totalSamples} golden samples`, `${found} of ${D.types.filter((t) => t.listed).length} wiki shapes found`,
+    el("stats").innerHTML = [`${D.totalSamples} golden seeds`, `${found} of ${D.types.filter((t) => t.listed).length} wiki shapes found`,
       `${D.types.filter((t) => !t.listed).length} unlisted shapes`].map((x) => `<span class="chip">${x}</span>`).join("");
-    el("renumber").innerHTML = `<li>${Object.entries(D.oldIds).map(([a, b]) => `${a} → <b>${b}</b>`).join(", ")}</li>`
-      + `<li>From the first atlases: ${Object.entries(D.firstIds).map(([a, b]) => `${a} → <b>${b}</b>`).join(", ")}</li>`
-      + `<li>Unlisted shapes: X (1200 vertices) and Y (600 vertices), each numbered from 1.</li>`;
 
     function visibleFor(id) { return !state.only || state.only === id; }
 

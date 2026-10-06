@@ -27,10 +27,16 @@ compiled to WebAssembly). The first visit downloads about 30 MB, which the
 browser then caches. Large symmetry groups compute more slowly there than in a
 local install.
 
+A third tab, **H3●I2(10) Symmetry Domain**, maps every isogonal polychoron of
+the swirlprism group over a fundamental domain (also at
+https://2lindell.github.io/4D-Vertex-Generator/symmetry_domain.html). It is
+built by `research/swirlprism_atlas/cell_atlas2.py` into
+`assets/symmetry_domain.html`.
+
 GitHub Pages serves the committed `docs/` folder (Settings → Pages → Deploy
-from a branch, folder `/docs`). After changing the app or the package, run
-`python tools/build_pages.py` and commit `docs/`; `tests/test_pages.py` fails
-while `docs/` is out of date.
+from a branch, folder `/docs`). After changing the app, the package or the
+symmetry-domain page, run `python tools/build_pages.py` and commit `docs/`;
+`tests/test_pages.py` fails while `docs/` is out of date.
 
 ## Quick start
 

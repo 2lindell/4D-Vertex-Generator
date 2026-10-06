@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+import sys
 import zipfile
 from pathlib import Path
 
@@ -833,9 +834,34 @@ def let_wheel_scroll_page() -> None:
     components.html(WHEEL_TO_PAGE, height=0)
 
 
-generate_tab, analyze_tab = st.tabs(["Generate", "Analyze a 4OFF file"])
+DOMAIN_TITLE = "H3●I2(10) Symmetry Domain"
+DOMAIN_PAGE = Path(__file__).parent / "assets" / "symmetry_domain.html"
+
+
+def render_domain_tab() -> None:
+    st.caption(
+        "Every isogonal polychoron of the swirlprism group H3●I2(10), mapped over a fundamental "
+        "domain: hover a point for its shape and seed, and paste the seed into Generate's "
+        "Coordinates mode."
+    )
+    if sys.platform == "emscripten":
+        # in the browser build (GitHub Pages) the page is served next to the app
+        st.markdown("[Open it in its own tab](symmetry_domain.html)")
+        components.iframe("symmetry_domain.html", height=1100, scrolling=True)
+    elif DOMAIN_PAGE.exists():
+        components.html(DOMAIN_PAGE.read_text(encoding="utf-8"), height=1100, scrolling=True)
+    else:
+        st.info(
+            "The page is not in this copy of the app; it is published at "
+            "https://2lindell.github.io/4D-Vertex-Generator/symmetry_domain.html"
+        )
+
+
+generate_tab, analyze_tab, domain_tab = st.tabs(["Generate", "Analyze a 4OFF file", DOMAIN_TITLE])
 with generate_tab:
     render_generate_tab()
 with analyze_tab:
     render_analyze_tab()
+with domain_tab:
+    render_domain_tab()
 let_wheel_scroll_page()

@@ -1,4 +1,8 @@
-"""Half-cell atlas with wiki-ordered labels: one letter per vertex count and named/unnamed (see README)."""
+"""The H3●I2(10) Symmetry Domain page: every isogonal polychoron of the swirlprism group, mapped over a fundamental
+domain, with wiki-ordered labels (one letter per vertex count and named/unnamed; see README).
+
+    python cell_atlas2.py golden_22.json ../../assets/symmetry_domain.html
+"""
 from __future__ import annotations
 
 import json
@@ -55,11 +59,6 @@ CANON = [
     ("T1", "Transitional polychoron with 120+120+600+600 cells", ("wiki", "T1")),
     ("T2", "Transitional polychoron with 120+120+600+600+1200 cells", ("wiki", "T2")),
 ]
-OLD_WIKI_IDS = {  # previous labels -> current labels
-    "N1": "A1", "N2": "C1", "N3": "B1", "N4": "C2a/C2b", "Y1": "C2a", "Y2": "C2b", "N5": "C3", "N6": "C4", "N7": "C5", "N8": "C6", "N9": "E1", "N10": "E2",
-    "W1": "D1", "W2": "D2", "W3": "D3", "W4": "F1", "W5": "F2", "W6": "F3", "W7": "F4", "W8": "F5",
-}
-FIRST_WIKI_IDS = {"W1": "F1", "W2": "F2", "W3": "F3", "W4": "F4", "W5": "F5"}   # the labels used before that
 X_DESCRIPTIONS = {  # unlisted types with a known meaning
     "Cross ring: antiprisms split 120+120 (not in the wiki list)":
         "Cross-ring range around the icosafold point (antiprisms split 120+120)",
@@ -777,8 +776,7 @@ def main(samples_path, out_path):
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
-            "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples),
-            "oldIds": OLD_WIKI_IDS, "firstIds": FIRST_WIKI_IDS}
+            "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples)}
     from dodeca_view import piece_view
     from dodeca_view import view as dodeca_view
     dodeca = dodeca_view(data)                     # the same geometry seen from the M34 dodecahedron

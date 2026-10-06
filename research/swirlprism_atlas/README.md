@@ -236,7 +236,8 @@ unique within each vertex count, unlisted shapes are grey. The picture is
 drawn upside down (z -> -z) so the splitting mirror is on top.
 
 ```bash
-python cell_atlas2.py golden_22.json cell_atlas.html
+python cell_atlas2.py golden_22.json ../../assets/symmetry_domain.html   # the H3●I2(10) Symmetry Domain page
+python ../../tools/build_pages.py                                          # then refresh the GitHub Pages copy
 ```
 
 ### Exact segments and the extra half-turn (`probe.py`, `normalizer.py`)
