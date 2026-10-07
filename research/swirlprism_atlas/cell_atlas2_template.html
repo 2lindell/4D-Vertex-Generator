@@ -115,7 +115,6 @@ __TYPE_CSS__
       <label><input id="showRegular" type="checkbox"> regular prism / antiprism cells</label>
       <label><input id="showDecagon" type="checkbox"> regular decagon faces</label>
       <label><input id="showDomain" type="checkbox"> 2400 fundamental domain</label>
-      <label><input id="showT" type="checkbox" checked> transitional (T1, T2 and X walls / lines)</label>
       <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
     </div>
     <div id="plot" role="img" aria-label="3D map of the isogonal polychora produced by seeds in a fundamental domain of the H3●I2(10) group"></div>
@@ -164,7 +163,7 @@ __TYPE_CSS__
         <li><b>Rings</b> are great circles fixed by rotations of the group: the main ring along the edge V₃V₄ and the cross rings. They take the colour of the shape each stretch produces.</li>
         <li><b>Purple axes</b> are the axes of the half-turns in the coset of Q. A seed on one is its own copy, and its polychoron has 2400 symmetries. The one from the β₂ = β₃ cross ring to C2b is one of Bowers' 30 ghost girdles with skew 20-gonal symmetry.</li>
         <li><b>The green line</b> is an order-3 ghost girdle: the axis of an order-3 rotation of a 3600-element group containing the swirlprism group. Seeds on it give X12 polychora with 3600 symmetries; it is one of Bowers' 20 such girdles. A search of every fixed circle of H4, its Q-coset and this group finds no other line with more than 1200 symmetries.</li>
-        <li><b>Transitional shapes</b> (T1, T2 and the X walls and lines): T1 and E2 are exactly traced lines; T2 is three exact patches in the mirrors β₁ = β₃, β₂ = β₃ and β₁ = β₂, each with a spidrox corner; X shapes on a wall are drawn as patches of that wall and those on a line as segments.</li>
+        <li><b>Transitional shapes</b> (T1, T2 and the X walls and lines): T1 and E2 are exactly traced lines; T2 is three exact patches in the mirrors β₁ = β₃, β₂ = β₃ and β₁ = β₂, each with a spidrox corner; select a transitional shape's row in the key to see its patches of wall or its segments of line.</li>
         <li>Throughout, <b>solid</b> lines are the loci themselves and <b>dashed</b> lines are their copies under Q, which give the same polychora elsewhere in the domain.</li>
       </ul>
     </div>
@@ -293,21 +292,22 @@ __TYPE_CSS__
         out.push({ type: "scatter3d", mode: "markers", x: [c[0]], y: [c[1]], z: [c[2]], name: tip, hovertemplate: tip + "<extra></extra>",
           marker: { size: 6, color: ink, symbol: "circle" } });
       }
-      if (el("showT").checked) {
+      // a transitional shape's wall patches and line segments appear when its row in the key is selected
+      if (state.only) {
         for (const w of D.xwalls || []) {
-          if (!visibleFor(w.id)) continue;
+          if (w.id !== state.only) continue;
           const P = w.tris.flat().filter(() => true);
           out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
             i: w.tris.map((_, k) => 3 * k), j: w.tris.map((_, k) => 3 * k + 1), k: w.tris.map((_, k) => 3 * k + 2),
             color: color(byId[w.id]), opacity: 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
         }
         for (const s of D.xlines || []) {
-          if (!visibleFor(s.id)) continue;
+          if (s.id !== state.only) continue;
           const trace = lines([s.pts], s.hover, { color: color(byId[s.id]), width: 5 });
           trace.hovertemplate = s.hover + "<extra></extra>";
           out.push(trace);
         }
-        if (visibleFor("T2")) for (const p of D.tpatches) {
+        if (state.only === "T2") for (const p of D.tpatches) {
           // fan from the centroid: the patches are star-shaped about it but not all convex
           const n = p.pts.length - 1, pts = p.pts.slice(0, n);
           const c = [0, 1, 2].map((a) => pts.reduce((s, q) => s + q[a], 0) / n);
@@ -458,7 +458,7 @@ __TYPE_CSS__
       document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", r.dataset.id === state.only));
       render();
     }));
-    ["quarter", "showListed", "showX", "showRings", "showAxes", "showRegular", "showDecagon", "showDomain", "showT", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
+    ["quarter", "showListed", "showX", "showRings", "showAxes", "showRegular", "showDecagon", "showDomain", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   }
