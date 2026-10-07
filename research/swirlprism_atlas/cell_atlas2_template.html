@@ -471,10 +471,6 @@ __TYPE_CSS__
   if (!frame) return;
   document.documentElement.classList.add("embedded");
   document.documentElement.style.overflowY = "hidden";
-  // the wheel scrolls the app, not the plot (zoom with the plot's toolbar): stop it before the plot's canvas
-  window.addEventListener("wheel", (event) => {
-    if (event.target instanceof Element && event.target.closest(".js-plotly-plot .gl-container")) event.stopPropagation();
-  }, { capture: true });
   const fit = () => {
     const h = Math.ceil(document.documentElement.scrollHeight);
     if (Math.abs(frame.offsetHeight - h) > 1) { frame.style.height = h + "px"; frame.setAttribute("height", h); }
