@@ -915,6 +915,35 @@ def main(samples_path, out_path):
         if t.pop("axis_note", None):
             t["where"] = (t.get("where") or ("golden samples" if t.get("samples") else "")) + \
                 "; ✕ where a 2400-symmetry axis meets the boundary"
+    # what each shape fills (region, wall, line or point) and the shapes found on its boundary (boundaries.py)
+    for t in types:
+        loc = (t.get("locus") or "").lower()
+        if not t.get("transitional") and not t["id"].startswith("T") and (not loc or loc.startswith("fills")):
+            t["dim"] = "region"
+        elif loc.startswith("wall") or "curved wall" in loc:
+            t["dim"] = "wall"
+        elif loc.startswith("line"):
+            t["dim"] = "line"
+        else:
+            t["dim"] = "point"
+    for tid, dim in {"T1": "line", "E2": "line", "T2": "wall", "F1": "wall", "F4": "wall", "F5": "wall"}.items():
+        if tid in tmap:
+            tmap[tid]["dim"] = dim
+    for r in rings + main_ring:
+        if tmap[r["id"]].get("dim") == "region" and not tmap[r["id"]].get("samples"):
+            tmap[r["id"]]["dim"] = "line"
+    if os.path.exists("boundaries.json"):
+        def bname(nb):
+            if nb.startswith("new:"):
+                cid, xkey, _ = identify(nb[4:], refs)
+                return cid or xid.get(xkey)
+            return nb
+        for tid, nbs in json.load(open("boundaries.json")).items():
+            tid = bname(tid) if tid.startswith("new:") else tid
+            if tid in tmap:
+                ids = {bname(nb) for nb in nbs} - {None, "ERR", tid}
+                tmap[tid]["bounds"] = sorted((i for i in ids if i in tmap),
+                                             key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
