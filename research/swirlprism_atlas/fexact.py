@@ -24,6 +24,9 @@ NORMALS = {   # each wall n . beta = 0
     "b1=phi-2*b2": [1, -_P ** -2, 0, 0],
     "b2=b4": [0, 1, 0, -1],
     "b1=b4": [1, 0, 0, -1],
+    "b3=phi-2*(b1-b4)": [-_P ** -2, 0, 1, _P ** -2],     # walls found as half-turn copies of the patches above
+    "b4=phi-2*(b2-b3)": [0, -_P ** -2, _P ** -2, 1],
+    "b1=phi-2*(b3-b4)": [1, 0, -_P ** -2, _P ** -2],
     "b1=0": [1, 0, 0, 0],
     "b2=0": [0, 1, 0, 0],
     "b4=0": [0, 0, 0, 1],
@@ -208,8 +211,168 @@ def fit(target, wall, normal):
     return out
 
 
+# ---- exact patches ------------------------------------------------------------------------------------------
+CONICS = {   # curved edges, as quadratic forms in beta (fitted from the boundary, golden coefficients, verified)
+    ("F5", "b1=phi-2*b2"): lambda b: ((3 - 2 * PHI) * b[1] ** 2 + (2 - PHI) * b[1] * b[2] + (2 * PHI - 3) * b[1] * b[3]
+                                      - b[2] ** 2 + b[3] ** 2),
+    ("F5", "b2=b4"): lambda b: (5 * b[0] * b[1] - (3 - PHI) * b[0] * b[2] - (3 - PHI) * b[1] ** 2
+                                - (2 * PHI - 1) * b[1] * b[2]),
+}
+PATCHES = [("F1", "b1=b2"), ("F1", "b1=phi2*b2"), ("F1", "b1=b3"), ("F4", "b1=0"), ("F4", "b2=0"),
+           ("F4", "b1=phi-2*b2"), ("F5", "b1=phi-2*b2"), ("F5", "b2=b4")]
+
+
+def _clip(poly, m):
+    """Keep the part of a polygon (barycentric corners) with m . beta >= 0."""
+    out = []
+    for k in range(len(poly)):
+        a, b = poly[k], poly[(k + 1) % len(poly)]
+        fa, fb = a @ m, b @ m
+        if fa >= -1e-13:
+            out.append(a)
+        if (fa >= -1e-13) != (fb >= -1e-13):
+            out.append(a + fa / (fa - fb) * (b - a))
+    return out
+
+
+def _clip_conic(poly, Q, inside_pt, n=64):
+    """Keep the part with Q's sign at inside_pt: edges are cut where they cross the conic, and the conic arcs between
+    an exit and the next entry are sampled from a pencil of lines through inside_pt."""
+    sgn = np.sign(Q(inside_pt))
+    f = lambda x: sgn * Q(x)
+
+    def cross(a, b):
+        lo, hi = 0.0, 1.0
+        for _ in range(80):
+            mid = (lo + hi) / 2
+            if (f(a + mid * (b - a)) >= 0) == (f(a) >= 0):
+                lo = mid
+            else:
+                hi = mid
+        return a + (lo + hi) / 2 * (b - a)
+
+    def on_conic(d):
+        lo, hi = 0.0, 2.0
+        while f(inside_pt + hi * d) >= 0 and hi < 64:
+            hi *= 2
+        for _ in range(80):
+            mid = (lo + hi) / 2
+            if f(inside_pt + mid * d) >= 0:
+                lo = mid
+            else:
+                hi = mid
+        return inside_pt + lo * d
+    out, exit_pt = [], None
+    m = len(poly)
+    for k in range(m):
+        a, b = poly[k], poly[(k + 1) % m]
+        ins_a, ins_b = f(a) >= 0, f(b) >= 0
+        if ins_a:
+            out.append(a)
+        if ins_a and not ins_b:
+            exit_pt = cross(a, b)
+            out.append(exit_pt)
+        elif not ins_a and ins_b:
+            entry = cross(a, b)
+            if exit_pt is not None:
+                for t in np.linspace(0, 1, n)[1:-1]:
+                    d = (1 - t) * (exit_pt - inside_pt) + t * (entry - inside_pt)
+                    out.append(on_conic(d))
+            out.append(entry)
+    if out and exit_pt is not None and f(poly[0]) < 0:          # the arc closing the polygon
+        entry = out[0]
+        arc = [on_conic((1 - t) * (exit_pt - inside_pt) + t * (entry - inside_pt)) for t in np.linspace(0, 1, n)[1:-1]]
+        out = out + arc
+    return out
+
+
+def patch(target, wall, tol=1e-7):
+    """The exact patch: the wall polygon clipped by every fitted line (on the side holding the shape's grid points)
+    and, for F5, by its conic. Returns corners (barycentric) and the edge list."""
+    d = json.load(open(f"fexact_{target}_{wall}.json"))
+    pts = np.array(d["points"], float)
+    pts = pts / pts.sum(axis=1, keepdims=True)
+    ins = pts[[k for k, l in enumerate(d["labels"]) if l == target]]
+    normal = NORMALS[wall]
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for b in d["boundary"]:
+        groups[b["outside"] if b["outside"] != "ERR" else b["far"] + "*"].append(b["beta"])
+    edges = []
+    for nb, B in groups.items():
+        runs, _ = _lines(B, normal)
+        for r in runs:
+            if len(r) < 3:
+                continue
+            P = np.array([B[k] for k in r])
+            m, res, text = plane_through(P, normal)
+            if res > 1e-6 or text == "not golden":
+                continue
+            m = np.asarray(m, float) * (1 if np.mean(ins @ m) >= 0 else -1)
+            if not any(np.allclose(m / np.abs(m).max(), e[0] / np.abs(e[0]).max(), atol=1e-6) for e in edges):
+                edges.append((m, nb.rstrip("*"), text))
+    poly = [np.array(c, float) / np.sum(c) for c in WALLS[wall]]
+    for m, nb, text in edges:
+        poly = _clip(poly, m)
+    if (target, wall) in CONICS:
+        Q = CONICS[(target, wall)]
+        centre = ins.mean(axis=0)
+        poly = _clip_conic(poly, Q, centre)
+    return [p.tolist() for p in poly], [(m.tolist(), nb, text) for m, nb, text in edges]
+
+
+def _in_polygon(q, V):
+    inside = False
+    for k in range(len(V)):
+        (x1, y1), (x2, y2) = V[k], V[(k + 1) % len(V)]
+        if (y1 > q[1]) != (y2 > q[1]) and q[0] < x1 + (q[1] - y1) * (x2 - x1) / (y2 - y1):
+            inside = not inside
+    return inside
+
+
+def _dist_to_boundary(q, V):
+    best = np.inf
+    for k in range(len(V)):
+        a, b = V[k], V[(k + 1) % len(V)]
+        t = np.clip((q - a) @ (b - a) / max((b - a) @ (b - a), 1e-30), 0, 1)
+        best = min(best, np.linalg.norm(a + t * (b - a) - q))
+    return best
+
+
+def check_patch(target, wall, poly, margin=0.01):
+    """Grid points away from the patch's edge: the shape's inside the patch, the others outside."""
+    d = json.load(open(f"fexact_{target}_{wall}.json"))
+    P = np.array(d["points"], float)
+    P = P / P.sum(axis=1, keepdims=True)
+    n = np.asarray(NORMALS[wall], float)
+    basis = np.linalg.svd(np.vstack([n, np.ones(4)]))[2][2:]
+    V = np.array(poly) @ basis.T
+    good = bad_out = bad_in = 0
+    for q, lab in zip(P @ basis.T, d["labels"]):
+        if _dist_to_boundary(q, V) < margin:
+            continue
+        inside = _in_polygon(q, V)
+        if (lab == target) == inside:
+            good += 1
+        elif lab == target:
+            bad_out += 1
+        else:
+            bad_in += 1
+    return good, bad_out, bad_in
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "grid":
         run_grid(sys.argv[2].split(","), sys.argv[3])
+    elif sys.argv[1] == "patches":
+        out = {}
+        for target, wall in PATCHES:
+            poly, edges = patch(target, wall)
+            a, b, c = check_patch(target, wall, poly)
+            out[f"{target} {wall}"] = {"target": target, "wall": wall, "corners": poly, "edges": edges}
+            print(f"{target} on {wall}: {len(poly)} corners; grid points agreeing {a}, {target} outside {b}, others inside {c}")
+            for m, nb, text in edges:
+                print("    edge", text, "| across:", nb)
+        json.dump(out, open("fexact_patches.json", "w"), indent=1)
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])
