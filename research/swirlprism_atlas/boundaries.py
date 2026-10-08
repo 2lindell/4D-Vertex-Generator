@@ -34,7 +34,12 @@ def _corner_jobs(patches):
         else:
             d = [np.linalg.norm(C[(k + 1) % n] - C[k]) for k in range(n)]
             arc = np.median(d)
-            ks = sorted({k for k in range(n) if d[k] > 4 * arc} | {(k + 1) % n for k in range(n) if d[k] > 4 * arc})
+            ks = {k for k in range(n) if d[k] > 4 * arc} | {(k + 1) % n for k in range(n) if d[k] > 4 * arc}
+            labs = p.get("edge_labels", [])        # and where one labelled run of edges gives way to the next
+            for prev, cur in zip(labs[-1:] + labs[:-1], labs):
+                if prev[2] != cur[2] or len(cur) > 3:
+                    ks |= {cur[0] % n} | ({cur[1] % n} if len(cur) > 3 else set())
+            ks = sorted(ks)
         for k in ks:
             out.append((key, k, C[k]))
     return out
@@ -81,16 +86,17 @@ def main(procs=4):
         slabs = pool.map(_lab_job, [b for _, _, b in sides], chunksize=2)
     at = {(key, k): lab for (key, k, _), lab in zip(corners, clabs)}
     for (key, _, _), lab in zip(corners, clabs):
-        if lab != patches[key]["target"] and lab != "ERR":
+        # a corner on a curve can fall just past it, into the shape beyond: that shape is not on the boundary
+        if lab != patches[key]["target"] and lab != "ERR" and lab not in (patches[key].get("curved") or []):
             bnd[patches[key]["target"]].add(lab)
     for key, p in patches.items():
         tid = p["target"]
         n = len(p["corners"])
-        for a, b, lab, *_ in p.get("edge_labels", []):
+        for a, b, lab, *_ in p.get("edge_labels", []):      # _ is ["straight"] for one straight edge
             if lab == tid or lab.startswith("mixed:"):
                 continue
             bnd[tid].add(lab)
-            ends = (a, b) if n < 12 else [k for k in range(a, a + 7) if (key, k % n) in at]  # an arc: its end corners
+            ends = (a, b) if n < 12 or _ else [k for k in range(a, a + 7) if (key, k % n) in at]  # an arc: its end corners
             for k in ends:
                 if at.get((key, k % n), "ERR") not in ("ERR", lab, tid):
                     bnd[lab].add(at[(key, k % n)])
