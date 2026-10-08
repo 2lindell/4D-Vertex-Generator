@@ -461,7 +461,10 @@ def fine_grid(target, wall, k=3, radius=2.5, procs=4):
     cpts, clabs = grid_labels(wall)
     cpts = np.array(cpts, float)
     cpts = cpts / cpts.sum(axis=1, keepdims=True)
-    tpts = cpts[[i for i, l in enumerate(clabs) if l == target]]
+    kpts, klabs = _known(target, wall)        # seeded by the target's points on any grid made so far
+    kpts = np.array(kpts, float)
+    kpts = kpts / kpts.sum(axis=1, keepdims=True)
+    tpts = kpts[[i for i, l in enumerate(klabs) if l == target]]
     C = np.array(WALLS[wall], float)
     C = C / C.sum(axis=1, keepdims=True)
     spacing = max(np.linalg.norm(C[i] - C[j]) for i in range(len(C)) for j in range(i + 1, len(C))) / GRID_N
@@ -517,8 +520,20 @@ def trace(target, wall, procs=4, fine=False):
                "labels": labs, "boundary": bnd}, open(path, "w"))
 
 
-def interior_count(target, wall):
+def _known(target, wall):
+    """Grid points of the wall, labelled: the coarse grid plus every fine grid already made on it (for any shape)."""
+    import glob
     pts, labs = grid_labels(wall)
+    pts, labs = list(pts), list(labs)
+    for f in glob.glob("fexact_fgrid_*_" + glob.escape(wall) + ".json"):
+        d = json.load(open(f))
+        pts += d["points"]
+        labs += d["labels"]
+    return pts, labs
+
+
+def interior_count(target, wall, coarse=False):
+    pts, labs = grid_labels(wall) if coarse else _known(target, wall)
     pts = np.array(pts, float)
     pts = pts / pts.sum(axis=1, keepdims=True)
     nn = np.asarray(NORMALS[wall], float) / np.linalg.norm(NORMALS[wall])
@@ -674,7 +689,7 @@ def shape(target, rounds=4, min_points=1, fine_below=25, log=print):
         walls = [w for w in NORMALS if w not in walls_done and (os.path.exists(f"fexact_grid_{w}.json")
                  or glob.glob("fexact_*_" + glob.escape(w) + ".json")) and interior_count(target, w) >= min_points]
         for w in walls:
-            fine = interior_count(target, w) < fine_below
+            fine = interior_count(target, w, coarse=True) < fine_below
             trace(target, w, fine=fine)
             poly, edges, curved = patch_general(target, w)
             walls_done.add(w)
