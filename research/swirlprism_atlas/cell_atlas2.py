@@ -837,7 +837,9 @@ def main(samples_path, out_path):
                     corners.append(b)
             edges = "; ".join(f"{_eq(m)} ({nbname(nb)} beyond)" for m, nb, _ in pt["edges"])
             curved = pt.get("curved") or (["X44"] if tid == "F5" and len(C) >= 12 else [])
-            if curved:
+            if pt.get("conics"):          # exact golden conics (exact_conics.py), with the line shape living on each
+                edges += "; " + "; ".join(f"the conic {c['text']} ({nbname(c['label'])} along it)" for c in pt["conics"])
+            elif curved:
                 edges += "; " + "; ".join(f"a conic ({nbname(nb)} beyond)" for nb in curved)
             hover = (f"{label(tid)}<br>exact patch in the wall {_eq(pt['normal'])}"
                      f"{' (copy under the extra half-turn)' if copy else ''}<br>edges: {edges}"

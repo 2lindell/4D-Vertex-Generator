@@ -717,7 +717,10 @@ def shape(target, rounds=4, min_points=1, fine_below=25, log=print):
         log(f"  round {rnd + 1}: {len(mine)} patches; {len(added)} new wall(s) to trace")
         if not added:
             break
-    json.dump(allp, open("fexact_patches.json", "w"), indent=1)
+    # merge into the file as it is now: other shapes may have been traced (or edited) since this run began
+    now = json.load(open("fexact_patches.json")) if os.path.exists("fexact_patches.json") else {}
+    now.update({k: v for k, v in allp.items() if v["target"] == target})
+    json.dump(now, open("fexact_patches.json", "w"), indent=1)
     return allp
 
 
