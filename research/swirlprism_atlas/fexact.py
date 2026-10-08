@@ -373,6 +373,265 @@ def check_patch(target, wall, poly, margin=0.01):
     return good, bad_out, bad_in
 
 
+# ---- any wall shape: cached grids, automatic walls, curved edges, closure under the half-turn ------------------
+GRID_N = 24
+
+
+def wall_key(normal):
+    """A name for a wall from its normal (golden coefficients)."""
+    m = np.asarray(normal, float)
+    m = m / m[np.argmax(np.abs(m))]
+    parts = []
+    for v in m:
+        f = golden_form(v, tol=1e-6)
+        parts.append(fmt_golden(f) if f else f"{v:.6f}")
+    return "n(" + ",".join(parts) + ")"
+
+
+def load_walls():
+    """Every wall with a normal: the named ones and those found later (fexact_walls.json)."""
+    import os
+    extra = json.load(open("fexact_walls.json")) if os.path.exists("fexact_walls.json") else {}
+    for k, n in extra.items():
+        if k not in NORMALS:
+            NORMALS[k] = n
+            WALLS[k] = wall_polygon(n).tolist()
+
+
+def add_wall(normal):
+    import os
+    key = wall_key(normal)
+    for k, n in NORMALS.items():
+        a, b = np.asarray(n, float), np.asarray(normal, float)
+        if abs(abs(a @ b) - np.linalg.norm(a) * np.linalg.norm(b)) < 1e-9:
+            return k
+    extra = json.load(open("fexact_walls.json")) if os.path.exists("fexact_walls.json") else {}
+    extra[key] = list(map(float, normal))
+    json.dump(extra, open("fexact_walls.json", "w"), indent=1)
+    NORMALS[key] = list(map(float, normal))
+    WALLS[key] = wall_polygon(normal).tolist()
+    return key
+
+
+def grid_labels(wall, procs=4):
+    """The classified grid of a wall, from any earlier run on it, else classified now (fexact_grid_<wall>.json)."""
+    import glob
+    import os
+    path = f"fexact_grid_{wall}.json"
+    if os.path.exists(path):
+        d = json.load(open(path))
+        return d["points"], d["labels"]
+    for f in glob.glob("fexact_*_" + glob.escape(wall) + ".json"):
+        d = json.load(open(f))
+        if "labels" in d and d.get("n") == GRID_N:
+            json.dump({"points": d["points"], "labels": d["labels"]}, open(path, "w"))
+            return d["points"], d["labels"]
+    pts, _ = grid(WALLS[wall], GRID_N)
+    with Pool(procs) as pool:
+        labs = pool.map(_lab, pts, chunksize=4)
+    pts = [np.asarray(p).tolist() for p in pts]
+    json.dump({"points": pts, "labels": labs}, open(path, "w"))
+    return pts, labs
+
+
+def trace(target, wall, procs=4):
+    """Bisect the target's boundary on a wall from its (cached) grid."""
+    import os
+    path = f"fexact_{target}_{wall}.json"
+    if os.path.exists(path):
+        return
+    pts, labs = grid_labels(wall)
+    pts = [np.asarray(p, float) for p in pts]
+    _, idx = grid(WALLS[wall], GRID_N)
+    edges = set()
+    for (f, i, j), a in idx.items():
+        for di, dj in ((1, 0), (0, 1), (-1, 1)):
+            b = idx.get((f, i + di, j + dj))
+            if b is not None:
+                edges.add((min(a, b), max(a, b)))
+    jobs = []
+    for a, b in sorted(edges):
+        if (labs[a] == target) != (labs[b] == target):
+            ins, out = (a, b) if labs[a] == target else (b, a)
+            jobs.append((pts[ins].tolist(), pts[out].tolist(), target, labs[out]))
+    with Pool(procs) as pool:
+        bnd = pool.map(_bisect, jobs, chunksize=2)
+    json.dump({"target": target, "wall": wall, "n": GRID_N, "corners": WALLS[wall], "points": [p.tolist() for p in pts],
+               "labels": labs, "boundary": bnd}, open(path, "w"))
+
+
+def interior_count(target, wall):
+    pts, labs = grid_labels(wall)
+    pts = np.array(pts, float)
+    pts = pts / pts.sum(axis=1, keepdims=True)
+    nn = np.asarray(NORMALS[wall], float) / np.linalg.norm(NORMALS[wall])
+    sides = np.array([h for h in HALF if abs(abs(h @ nn) - np.linalg.norm(h)) > 1e-9])
+    inner = np.all(pts @ sides.T > 1e-9, axis=1)
+    return int(sum(1 for k, l in enumerate(labs) if l == target and inner[k]))
+
+
+def fit_conic(B, normal):
+    """A conic through boundary points B on a wall, as a function of beta (None if they do not fit one)."""
+    B = np.asarray(B, float)
+    n = np.asarray(normal, float)
+    basis = np.linalg.svd(n[None])[2][1:]
+    Y = B @ basis.T
+    Y = Y / np.linalg.norm(Y, axis=1, keepdims=True)
+    mons = [(i, j) for i in range(3) for j in range(i, 3)]
+    A = np.stack([Y[:, i] * Y[:, j] for i, j in mons], 1)
+    u, s, vt = np.linalg.svd(A)
+    if len(B) < 6 or s[-1] > 1e-7 or s[-2] < 1e-5:
+        return None
+    c = vt[-1]
+    S = np.zeros((3, 3))
+    for (i, j), v in zip(mons, c):
+        S[i, j] += v / (1 if i == j else 2)
+        S[j, i] = S[i, j]
+    M = basis.T @ S @ basis
+    return lambda b: float(np.asarray(b) @ M @ np.asarray(b))
+
+
+def patch_general(target, wall):
+    """Like patch(), with curved edges found automatically: boundary points no straight run explains, if they fit a
+    conic, cut the polygon along it."""
+    d = json.load(open(f"fexact_{target}_{wall}.json"))
+    pts = np.array(d["points"], float)
+    pts = pts / pts.sum(axis=1, keepdims=True)
+    normal = NORMALS[wall]
+    nn = np.asarray(normal, float) / np.linalg.norm(normal)
+    sides = np.array([h for h in HALF if abs(abs(h @ nn) - np.linalg.norm(h)) > 1e-9])
+    interior = np.all(pts @ sides.T > 1e-9, axis=1)
+    ins = pts[[k for k, l in enumerate(d["labels"]) if l == target and interior[k]]]
+    if not len(ins):
+        return None, [], []
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for b in d["boundary"]:
+        groups[b["outside"] if b["outside"] != "ERR" else b["far"] + "*"].append(b["beta"])
+    edges, curved = [], []
+    for nb, B in groups.items():
+        runs, left = _lines(B, normal)
+        for r in runs:
+            if len(r) < 3:
+                left += r
+                continue
+            P = np.array([B[k] for k in r])
+            m, res, text = plane_through(P, normal)
+            if res > 1e-6 or text == "not golden":
+                left += r
+                continue
+            m = np.asarray(m, float) * (1 if np.mean(ins @ m) >= 0 else -1)
+            if not any(np.allclose(m / np.abs(m).max(), e[0] / np.abs(e[0]).max(), atol=1e-6) for e in edges):
+                edges.append((m, nb.rstrip("*"), text))
+        if len(left) >= 6:
+            Qf = fit_conic([B[k] for k in left], normal)
+            if Qf is not None:
+                curved.append((Qf, nb.rstrip("*"), [B[k] for k in left]))
+    poly = [np.array(c, float) / np.sum(c) for c in WALLS[wall]]
+    for m, nb, text in edges:
+        poly = _clip(poly, m)
+    for Qf, nb, B in curved:
+        side = np.sign(np.mean([Qf(p) for p in ins]))
+        if side == 0 or len(poly) < 3:
+            continue
+        inside_pt = ins[np.argmax([side * Qf(p) for p in ins])]
+        poly = _clip_conic(poly, Qf, inside_pt)
+    return [p.tolist() for p in poly], [(m.tolist(), nb, text) for m, nb, text in edges], [nb for _, nb, _ in curved]
+
+
+def _reps(x):
+    from cell_atlas import to_upper
+    from cellframe import TINV
+    from dodeca_view import E
+    out = []
+    for g in E:
+        b = TINV @ (g @ x)
+        if b.sum() > 0 and (b / b.sum()).min() >= -1e-9:
+            out.append((g, to_upper(np.clip(b / b.sum(), 0, None))))
+    return out
+
+
+def on_patch(b, p, tol=1e-7):
+    n = np.array(NORMALS[p["wall"]], float)
+    if abs(b @ n) > tol * np.abs(n).sum():
+        return False
+    basis = np.linalg.svd(np.vstack([n, np.ones(4)]))[2][2:]
+    V = np.array(p["corners"]) @ basis.T
+    q = b @ basis.T
+    return _in_polygon(q, V) or _dist_to_boundary(q, V) < 1e-7
+
+
+def missing_walls(target, patches, samples=50, seed=0):
+    """Walls holding half-turn copies of the target's patches that land on none of them."""
+    from cellframe import T, TINV, seed_from_beta
+    from dodeca_view import E
+    from normalizer import halfturn
+    Qm = halfturn()
+    rng = np.random.default_rng(seed)
+    found = {}
+    Tm = np.array(T)
+    for p in patches:
+        C = np.array(p["corners"], float)
+        n = np.array(NORMALS[p["wall"]], float)
+        for _ in range(samples):
+            b = rng.dirichlet(np.ones(len(C))) @ C
+            if not on_patch(b, p):
+                continue
+            x = seed_from_beta(b)
+            for g in E:
+                M = g @ Qm
+                bb = TINV @ (M @ x)
+                if bb.sum() <= 0 or (bb / bb.sum()).min() < -1e-9:
+                    continue
+                from cell_atlas import to_upper
+                r = to_upper(np.clip(bb / bb.sum(), 0, None))
+                if any(on_patch(r, q) for q in patches):
+                    continue
+                A = TINV @ M @ Tm.T
+                if bb[2] < bb[3] - 1e-12:
+                    A = A[[1, 0, 3, 2]]
+                nn = n @ np.linalg.inv(A)
+                nn = nn / nn[np.argmax(np.abs(nn))]
+                key = tuple(np.round(nn, 6))
+                found.setdefault(key, []).append(r)
+    return found
+
+
+def shape(target, rounds=4, min_points=6, log=print):
+    """Trace a wall shape on every wall it occupies, adding the walls its half-turn copies reach."""
+    import glob
+    import os
+    load_walls()
+    allp = json.load(open("fexact_patches.json")) if os.path.exists("fexact_patches.json") else {}
+    walls_done = set()
+    for rnd in range(rounds):
+        walls = [w for w in NORMALS if w not in walls_done and (os.path.exists(f"fexact_grid_{w}.json")
+                 or glob.glob("fexact_*_" + glob.escape(w) + ".json")) and interior_count(target, w) >= min_points]
+        for w in walls:
+            trace(target, w)
+            poly, edges, curved = patch_general(target, w)
+            walls_done.add(w)
+            if poly is None or len(poly) < 3:
+                continue
+            good, bad_out, bad_in = check_patch(target, w, poly)
+            allp[f"{target} {w}"] = {"target": target, "wall": w, "normal": NORMALS[w], "corners": poly,
+                                     "edges": edges, "curved": curved, "check": [good, bad_out, bad_in]}
+            log(f"  {target} on {w}: {len(poly)} corners, grid agreeing {good}, misplaced {bad_out}+{bad_in}"
+                + (f", curved edge against {curved}" if curved else ""))
+        mine = [p for p in allp.values() if p["target"] == target]
+        miss = missing_walls(target, mine)
+        new = [k for k in miss if len(miss[k]) >= 3]
+        log(f"  round {rnd + 1}: {len(mine)} patches; copies off them on {len(new)} new wall(s)")
+        if not new:
+            break
+        for k in new:
+            w = add_wall(np.array(k))
+            grid_labels(w)
+            log(f"    new wall {w}: {interior_count(target, w)} interior {target} grid points")
+    json.dump(allp, open("fexact_patches.json", "w"), indent=1)
+    return allp
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "grid":
         run_grid(sys.argv[2].split(","), sys.argv[3])
@@ -386,5 +645,9 @@ if __name__ == "__main__":
             for m, nb, text in edges:
                 print("    edge", text, "| across:", nb)
         json.dump(out, open("fexact_patches.json", "w"), indent=1)
+    elif sys.argv[1] == "shape":
+        for t in sys.argv[2:]:
+            print(t, flush=True)
+            shape(t, log=lambda *a: print(*a, flush=True))
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])
