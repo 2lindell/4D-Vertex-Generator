@@ -848,7 +848,7 @@ def main(samples_path, out_path):
     # the shapes living on the edges of the exact patches (fexact.py label_edges): X shapes found there are drawn as
     # exact segments in their colours, and survey lines of theirs lying along them are dropped
     if os.path.exists("fexact_patches.json"):
-        seen, edge_lines = set(), {}
+        seen, edge_lines = {}, {}
         for pt in json.load(open("fexact_patches.json")).values():
             C = [np.asarray(b, float) / np.sum(b) for b in pt["corners"]]
             step = 1 if len(C) < 12 else 6
@@ -859,14 +859,17 @@ def main(samples_path, out_path):
                 # a run of `step` corners, or (marked "straight") the one edge from corner a to corner b
                 seg = [C[a], C[b]] if kind == ["straight"] else [C[(a + s) % len(C)] for s in range(step + 1)]
                 key = (tid, frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]))
+                is_copy = bool(has_plain.get(pt["target"]) and not plain(pt["normal"]))   # dashed like its patch
                 if key in seen:
+                    if not is_copy:
+                        seen[key][1] = False
                     continue
-                seen.add(key)
-                edge_lines.setdefault(tid, []).append(seg)
+                seen[key] = [seg, is_copy]
+                edge_lines.setdefault(tid, []).append(seen[key])
                 tmap[tid].setdefault("edge_of", set()).add((pt["target"], step > 1))
         def near_edges(tid, b):
             b = np.asarray(b, float) / np.sum(b)
-            for seg in edge_lines.get(tid, []):
+            for seg, _ in edge_lines.get(tid, []):
                 for p, q in zip(seg[:-1], seg[1:]):
                     t = np.clip((b - p) @ (q - p) / max((q - p) @ (q - p), 1e-30), 0, 1)
                     if np.linalg.norm(p + t * (q - p) - b) < 1e-6:
@@ -875,10 +878,10 @@ def main(samples_path, out_path):
         xlines = [s for s in xlines if not (s.get("betas") and s["id"] in edge_lines
                                             and all(near_edges(s["id"], b) for b in s["betas"][1:-1]))]
         for tid, segs in edge_lines.items():
-            for seg in segs:
+            for seg, is_copy in segs:
                 hover = (f"{label(tid)}<br>exact edge between patches<br>from β ∝ {beta_text(seg[0])}"
                          f"<br>to β ∝ {beta_text(seg[-1])}")
-                xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in seg], "hover": hover})
+                xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in seg], "hover": hover, "copy": is_copy})
 
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
@@ -1048,7 +1051,8 @@ def main(samples_path, out_path):
             t["bounds"] = sorted(set(t.get("bounds", [])) | {i for i in extra if i in tmap})
         if t.get("bounds"):   # only lower-dimensional shapes can bound a shape (corners just past a curve can mislead)
             own = rank.get(t.get("dim"), 3)
-            t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own]
+            t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own
+                           or own == 1 == rank.get(tmap[b].get("dim"), 3)]    # a line may end where it meets another
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
