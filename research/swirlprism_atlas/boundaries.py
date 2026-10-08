@@ -86,7 +86,7 @@ def main(procs=4):
     for key, p in patches.items():
         tid = p["target"]
         n = len(p["corners"])
-        for a, b, lab in p.get("edge_labels", []):
+        for a, b, lab, *_ in p.get("edge_labels", []):
             if lab == tid or lab.startswith("mixed:"):
                 continue
             bnd[tid].add(lab)

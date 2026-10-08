@@ -852,11 +852,12 @@ def main(samples_path, out_path):
         for pt in json.load(open("fexact_patches.json")).values():
             C = [np.asarray(b, float) / np.sum(b) for b in pt["corners"]]
             step = 1 if len(C) < 12 else 6
-            for a, _, lab in pt.get("edge_labels", []):
+            for a, b, lab, *kind in pt.get("edge_labels", []):
                 tid = nbname(lab) if lab.startswith("new:") else lab
                 if not tid.startswith("X") or tid not in tmap or tid == pt["target"]:
                     continue
-                seg = [C[(a + s) % len(C)] for s in range(step + 1)]
+                # a run of `step` corners, or (marked "straight") the one edge from corner a to corner b
+                seg = [C[a], C[b]] if kind == ["straight"] else [C[(a + s) % len(C)] for s in range(step + 1)]
                 key = (tid, frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]))
                 if key in seen:
                     continue
