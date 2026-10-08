@@ -668,6 +668,12 @@ def main(samples_path, out_path):
             return len(nz) == 1 or (len(nz) == 2 and abs(n[nz[0]] + n[nz[1]]) < 1e-9)
         has_plain = {t: any(plain(pt["normal"]) for pt in exact.values() if pt["target"] == t) for t in exact_ids}
 
+        def nbname(nb):                        # neighbours recorded by signature get their number
+            if nb.startswith("new:"):
+                cid, xkey, _ = identify(nb[4:], refs)
+                return cid or xid.get(xkey) or "an unnumbered shape"
+            return nb
+
         def in_exact_patch(tid, b):
             """Is beta b (displayed half) on one of the shape's exact patches?"""
             b = np.asarray(b, float) / np.sum(b)
@@ -705,10 +711,10 @@ def main(samples_path, out_path):
             for b in (C if len(C) < 12 else []):
                 if not any(np.allclose(b / b.sum(), q / q.sum(), atol=1e-9) for q in corners):
                     corners.append(b)
-            edges = "; ".join(f"{_eq(m)} ({nb} beyond)" for m, nb, _ in pt["edges"])
+            edges = "; ".join(f"{_eq(m)} ({nbname(nb)} beyond)" for m, nb, _ in pt["edges"])
             curved = pt.get("curved") or (["X44"] if tid == "F5" and len(C) >= 12 else [])
             if curved:
-                edges += "; " + "; ".join(f"a conic ({nb} beyond)" for nb in curved)
+                edges += "; " + "; ".join(f"a conic ({nbname(nb)} beyond)" for nb in curved)
             hover = (f"{label(tid)}<br>exact patch in the wall {_eq(pt['normal'])}"
                      f"{' (copy under the extra half-turn)' if copy else ''}<br>edges: {edges}"
                      + (f"<br>corners: {', '.join(beta_text(b) for b in corners)}" if corners else ""))
