@@ -851,10 +851,77 @@ def main(samples_path, out_path):
     # exact segments in their colours, and survey lines of theirs lying along them are dropped
     if os.path.exists("fexact_patches.json"):
         seen, edge_lines = {}, {}
+        def conic_runs(C, conic):
+            """The patch's corners lying on an exact conic, as runs of consecutive corners (cyclically)."""
+            c, keep = np.asarray(conic["coeffs"]), conic["vars"]
+            q = lambda b: sum(ci * b[keep[i]] * b[keep[j]] for ci, (i, j) in
+                              zip(c, [(0, 0), (1, 1), (2, 2), (0, 1), (0, 2), (1, 2)]))
+            on = [abs(q(b)) < 1e-8 for b in C]     # (corners shared by two conics carry their fit error)
+            n = len(C)
+            if all(on):          # every corner on the conic (a straight edge joins two of them): one cyclic run
+                runs = [list(range(n)) + [0]]
+            else:
+                start = next(k for k in range(n) if not on[k])
+                runs, cur = [], []
+                for s in range(1, n + 1):
+                    k = (start + s) % n
+                    if on[k]:
+                        cur.append(k)
+                    elif cur:
+                        runs.append(cur)
+                        cur = []
+                if cur:
+                    runs.append(cur)
+            # a straight edge whose two ends both lie on the conic is not part of it: break runs at steps whose
+            # midpoint is far from the conic for their length (an arc chord's midpoint sags only ~length^2)
+            def off(a, b):
+                m = (C[a] + C[b]) / 2
+                g = np.array([(q(m + e * 1e-7) - q(m - e * 1e-7)) / 2e-7 for e in np.eye(4)])
+                g = g - g.mean()
+                return abs(q(m)) / max(np.linalg.norm(g), 1e-30)
+            out = []
+            for r in runs:
+                if len(r) < 3:
+                    continue
+                steps = [np.linalg.norm(C[b] - C[a]) for a, b in zip(r, r[1:])]
+                med = float(np.median([x for x in steps if x > 1e-12] or [1.0]))
+                piece = [r[0]]
+                for a, b in zip(r, r[1:]):
+                    dd = np.linalg.norm(C[b] - C[a])
+                    if dd < 1e-12:                              # a repeated corner
+                        continue
+                    if off(a, b) > 0.05 * dd or dd > 8 * med:   # a chord across a straight edge (a thin patch's
+                                                                # straight edge stays close to its arc: also by length)
+                        if len(piece) >= 2:
+                            out.append(piece)
+                        piece = [b]
+                    else:
+                        piece.append(b)
+                if len(piece) >= 2:
+                    out.append(piece)
+            return [p for p in out if sum(np.linalg.norm(C[b] - C[a]) for a, b in zip(p, p[1:])) > 1e-9]
+
         for pt in json.load(open("fexact_patches.json")).values():
             C = [np.asarray(b, float) / np.sum(b) for b in pt["corners"]]
             step = 1 if len(C) < 12 else 6
+            if pt.get("conics"):          # curved edges: drawn along their exact conics, end to end
+                for conic in pt["conics"]:
+                    tid = nbname(conic["label"]) if conic["label"].startswith("new:") else conic["label"]
+                    if not tid.startswith("X") or tid not in tmap or tid == pt["target"]:
+                        continue
+                    is_copy = bool(has_plain.get(pt["target"]) and not plain(pt["normal"]))
+                    for run in conic_runs(C, conic):
+                        seg = [C[k] for k in run]
+                        key = (tid, frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]))
+                        if key in seen:
+                            if not is_copy:
+                                seen[key][1] = False
+                            continue
+                        seen[key] = [seg, is_copy]
+                        edge_lines.setdefault(tid, []).append(seen[key])
             for a, b, lab, *kind in pt.get("edge_labels", []):
+                if pt.get("conics") and not kind and len(C) >= 12:
+                    continue              # runs of arc points: drawn from the conics above
                 tid = nbname(lab) if lab.startswith("new:") else lab
                 if not tid.startswith("X") or tid not in tmap or tid == pt["target"]:
                     continue
