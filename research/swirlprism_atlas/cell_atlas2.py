@@ -630,8 +630,9 @@ def main(samples_path, out_path):
                     if np.linalg.norm(hi - lo) > 1e-6:
                         pts = [to_upper(lo + (hi - lo) * j / 8) for j in range(9)]
                         xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts],
-                                       "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>from β ∝ {beta_text(lo)}"
-                                                f"<br>to β ∝ {beta_text(hi)}"})
+                                       "betas": [np.asarray(p, float).tolist() for p in pts],
+                                       "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>from β ∝ {beta_text(to_upper(lo))}"
+                                                f"<br>to β ∝ {beta_text(to_upper(hi))}"})
                     k += 1
     # X10 and X33 passed the in-line nudge test only because a golden line lies in their walls; they live on curved
     # walls (CURVED_WALLS), so no line segment is drawn and no point is marked for them
@@ -666,6 +667,31 @@ def main(samples_path, out_path):
             nz = np.flatnonzero(np.abs(n) > 1e-9)
             return len(nz) == 1 or (len(nz) == 2 and abs(n[nz[0]] + n[nz[1]]) < 1e-9)
         has_plain = {t: any(plain(pt["normal"]) for pt in exact.values() if pt["target"] == t) for t in exact_ids}
+
+        def in_exact_patch(tid, b):
+            """Is beta b (displayed half) on one of the shape's exact patches?"""
+            b = np.asarray(b, float) / np.sum(b)
+            for pt in exact.values():
+                if pt["target"] != tid:
+                    continue
+                n = np.asarray(pt["normal"], float)
+                if abs(b @ n) > 1e-7 * np.abs(n).sum():
+                    continue
+                basis = np.linalg.svd(np.vstack([n, np.ones(4)]))[2][2:]
+                V = np.array(pt["corners"], float)
+                V = (V / V.sum(axis=1, keepdims=True)) @ basis.T
+                q = b @ basis.T
+                inside = False
+                for k in range(len(V)):
+                    (x1, y1), (x2, y2) = V[k], V[(k + 1) % len(V)]
+                    if (y1 > q[1]) != (y2 > q[1]) and q[0] < x1 + (q[1] - y1) * (x2 - x1) / (y2 - y1):
+                        inside = not inside
+                if inside:
+                    return True
+            return False
+        # survey lines of a traced shape that lie inside its own exact patches add nothing: drop them
+        xlines = [s for s in xlines if not (s["id"] in exact_ids and s.get("betas")
+                                            and all(in_exact_patch(s["id"], b) for b in s["betas"]))]
         for key, pt in exact.items():
             tid = pt["target"]
             if tid not in tmap or len(pt["corners"]) < 3:

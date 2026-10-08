@@ -632,6 +632,41 @@ def shape(target, rounds=4, min_points=6, log=print):
     return allp
 
 
+def _edge_job(job):
+    pts = job
+    from collections import Counter
+    labs = [_lab(p) for p in pts]
+    lab, n = Counter(labs).most_common(1)[0]
+    return lab if n >= 2 else "mixed:" + ",".join(labs)
+
+
+def label_edges(procs=4, log=print):
+    """Which shape lives on each edge of each exact patch, from three points along it (curved edges are sampled
+    every sixth segment). Stored as patch["edge_labels"] = [[first corner, last corner, label], ...]."""
+    allp = json.load(open("fexact_patches.json"))
+    jobs, where = [], []
+    for key, p in allp.items():
+        if "edge_labels" in p:
+            continue
+        C = [np.asarray(c, float) for c in p["corners"]]
+        n = len(C)
+        step = 1 if n < 12 else 6
+        for k in range(0, n, step):
+            a, b = C[k], C[(k + 1) % n]
+            if np.linalg.norm(a / a.sum() - b / b.sum()) < 1e-9:
+                continue
+            jobs.append([a + (b - a) * t for t in (0.25, 0.5, 0.75)])
+            where.append((key, k, (k + 1) % n))
+    log(f"classifying {len(jobs)} edges")
+    with Pool(procs) as pool:
+        labs = pool.map(_edge_job, jobs, chunksize=2)
+    for (key, a, b), lab in zip(where, labs):
+        allp[key].setdefault("edge_labels", []).append([a, b, lab])
+    json.dump(allp, open("fexact_patches.json", "w"), indent=1)
+    from collections import Counter
+    log("edge shapes:", Counter(l for v in allp.values() for _, _, l in v.get("edge_labels", [])).most_common())
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "grid":
         run_grid(sys.argv[2].split(","), sys.argv[3])
@@ -649,5 +684,7 @@ if __name__ == "__main__":
         for t in sys.argv[2:]:
             print(t, flush=True)
             shape(t, log=lambda *a: print(*a, flush=True))
+    elif sys.argv[1] == "edges":
+        label_edges()
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])
