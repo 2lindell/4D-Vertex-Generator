@@ -476,7 +476,7 @@ def main(samples_path, out_path):
                 tid = xid.get(identify(e["sig"], refs)[1])
                 if tid in tmap and tid not in r1:
                     tmap[tid]["locus"] = ("fills a region (found by the denser random search)" if e["kind"] == "region"
-                                          else e["kind"] if "axis" in e["kind"]
+                                          else e["kind"] if "axis" in e["kind"] or e["kind"].startswith(("wall", "line"))
                                           else f"{e['kind']} (found by the denser random search)")
                     if e["kind"] != "region":
                         tmap[tid]["transitional"] = True

@@ -61,6 +61,22 @@ def _lab(b):
     return _one(b / b.sum())[0]
 
 
+def _lab_loose(b):
+    """Label of a point on a curved edge: arc points carry float error from the conic, so a hull whose coincident
+    facets do not merge at 1e-9 is retried at 1e-7."""
+    b = np.asarray(b, float)
+    lab = _lab(b)
+    if lab != "ERR":
+        return lab
+    from classify import classify, signature
+    from probe import label_of_sig, seed_from_beta
+    try:
+        info = classify(seed_from_beta(b / b.sum()), hull_tol=1e-7)
+    except Exception:
+        return "ERR"
+    return label_of_sig(signature(info) + " | val " + ",".join(f"{k}:{v}" for k, v in info["valence"].items()))
+
+
 def grid(corners, n):
     """A triangular grid on each triangle of the polygon's fan (shared edges are sampled twice)."""
     C = np.array(corners, float)
@@ -690,30 +706,63 @@ def shape(target, rounds=4, min_points=1, fine_below=25, log=print):
     return allp
 
 
+def _on_curve(c, centre, normal, own):
+    """The point of a curved edge near arc point c, by bisecting across it (from the patch side to beyond) to 1e-13;
+    the arc points themselves carry the conic fit's error."""
+    n = np.asarray(normal, float)
+    u = c - centre
+    for v in (n / np.linalg.norm(n), np.ones(4) / 2):
+        u = u - (u @ v) * v
+    u = u / np.linalg.norm(u)
+    for d in (1e-5, 1e-4, 1e-3):
+        a, b = c - d * u, c + d * u
+        if _lab(a) == own and _lab(b) != own:
+            break
+    else:
+        return c
+    for _ in range(36):
+        m = (a + b) / 2
+        if _lab(m) == own:
+            a = m
+        else:
+            b = m
+    return (a + b) / 2
+
+
 def _edge_job(job):
-    pts = job
+    pts, own = job[:2]
     from collections import Counter
-    labs = [_lab(p) for p in pts]
+    if own:
+        centre, normal = job[2], job[3]
+        pts = [_on_curve(np.asarray(p, float) / np.sum(p), centre, normal, own) for p in pts]
+    labs = [_lab_loose(p) for p in pts]
+    if own:        # arc points carry the conic fit's error and may fall just inside the patch: those say nothing
+        labs = [l for l in labs if l not in (own, "ERR")] or labs
     lab, n = Counter(labs).most_common(1)[0]
-    return lab if n >= 2 else "mixed:" + ",".join(labs)
+    return lab if n >= min(2, len(labs)) else "mixed:" + ",".join(labs)
 
 
-def label_edges(procs=4, log=print):
+def label_edges(procs=4, log=print, redo=False):
     """Which shape lives on each edge of each exact patch, from three points along it (curved edges are sampled
-    every sixth segment). Stored as patch["edge_labels"] = [[first corner, last corner, label], ...]."""
+    every sixth segment, bisecting across the curve at arc points). Stored as patch["edge_labels"] = [[first corner, last corner, label], ...]."""
     allp = json.load(open("fexact_patches.json"))
     jobs, where = [], []
     for key, p in allp.items():
-        if "edge_labels" in p:
+        if "edge_labels" in p and not redo:
             continue
+        p.pop("edge_labels", None)
         C = [np.asarray(c, float) for c in p["corners"]]
         n = len(C)
         step = 1 if n < 12 else 6
+        centre = np.mean([c / c.sum() for c in C], axis=0)
         for k in range(0, n, step):
             a, b = C[k], C[(k + 1) % n]
             if np.linalg.norm(a / a.sum() - b / b.sum()) < 1e-9:
                 continue
-            jobs.append([a + (b - a) * t for t in (0.25, 0.5, 0.75)])
+            if step == 1:
+                jobs.append(([a + (b - a) * t for t in (0.25, 0.5, 0.75)], None))
+            else:      # a chord of the arc lies off the conic: sample the arc points themselves
+                jobs.append(([C[(k + s) % n] for s in (1, 3, 5)], p["target"], centre, p["normal"]))
             where.append((key, k, (k + 1) % n))
     log(f"classifying {len(jobs)} edges")
     with Pool(procs) as pool:
@@ -743,6 +792,6 @@ if __name__ == "__main__":
             print(t, flush=True)
             shape(t, log=lambda *a: print(*a, flush=True))
     elif sys.argv[1] == "edges":
-        label_edges()
+        label_edges(redo="redo" in sys.argv)
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])
