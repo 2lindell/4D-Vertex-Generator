@@ -218,6 +218,36 @@ code { font-family: var(--font-data); font-size: 0.86em; }
 
     function visibleFor(id) { return !state.only || state.only === id; }
 
+    // triangles filling a flat polygon (3D points, in order), by ear clipping in its own plane
+    function earClip(P) {
+      const n = P.length;
+      if (n < 3) return [];
+      const N = [0, 0, 0];                                       // Newell normal
+      for (let a = 0; a < n; a++) {
+        const p = P[a], q = P[(a + 1) % n];
+        N[0] += (p[1] - q[1]) * (p[2] + q[2]); N[1] += (p[2] - q[2]) * (p[0] + q[0]); N[2] += (p[0] - q[0]) * (p[1] + q[1]);
+      }
+      const ax = [0, 1, 2].reduce((m, a) => (Math.abs(N[a]) > Math.abs(N[m]) ? a : m), 0);
+      const [u, v] = [[1, 2], [2, 0], [0, 1]][ax], s = Math.sign(N[ax]) || 1;
+      const Q = P.map((p) => [p[u], s * p[v]]);                  // 2D, counter-clockwise
+      const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+      const inTri = (p, a, b, c) => cross(a, b, p) >= -1e-15 && cross(b, c, p) >= -1e-15 && cross(c, a, p) >= -1e-15;
+      const poly = [...Array(n).keys()], out = [];
+      let guard = 0;
+      while (poly.length > 3 && guard++ < 20000) {
+        let cut = false;
+        for (let i = 0; i < poly.length; i++) {
+          const a = poly[(i + poly.length - 1) % poly.length], b = poly[i], c = poly[(i + 1) % poly.length];
+          if (cross(Q[a], Q[b], Q[c]) <= 1e-15) continue;
+          if (poly.some((q) => q !== a && q !== b && q !== c && inTri(Q[q], Q[a], Q[b], Q[c]))) continue;
+          out.push([a, b, c]); poly.splice(i, 1); cut = true; break;
+        }
+        if (!cut) break;
+      }
+      for (let i = 1; i + 1 < poly.length; i++) out.push([poly[0], poly[i], poly[i + 1]]);
+      return out;
+    }
+
     function traces() {
       const out = [], ink = css("--ink"), faint = css("--faint");
       const quarter = el("quarter").value;
@@ -310,12 +340,10 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           out.push(trace);
         }
         if (state.only === "T2") for (const p of D.tpatches) {
-          // fan from the centroid: the patches are star-shaped about it but not all convex
-          const n = p.pts.length - 1, pts = p.pts.slice(0, n);
-          const c = [0, 1, 2].map((a) => pts.reduce((s, q) => s + q[a], 0) / n);
-          const all = [...pts, c];
-          out.push({ type: "mesh3d", x: all.map((q) => q[0]), y: all.map((q) => q[1]), z: all.map((q) => q[2]),
-            i: Array(n).fill(n), j: [...Array(n).keys()], k: [...Array(n).keys()].map((k) => (k + 1) % n),
+          // the patches are flat but not all convex: fill by ear clipping, so curved edges are never overshot
+          const pts = p.pts.slice(0, p.pts.length - 1), tri = earClip(pts);
+          out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
+            i: tri.map((t) => t[0]), j: tri.map((t) => t[1]), k: tri.map((t) => t[2]),
             color: color(byId.T2), opacity: p.copy ? 0.1 : 0.16, name: p.hover, hovertemplate: p.hover + "<extra></extra>" });
           out.push(lines([p.pts], p.hover, { color: color(byId.T2), width: 2, dash: p.copy ? "dash" : "solid" }));
         }
