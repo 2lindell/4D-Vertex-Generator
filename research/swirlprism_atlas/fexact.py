@@ -580,6 +580,14 @@ def patch_general(target, wall):
     return [p.tolist() for p in poly], [(m.tolist(), nb, text) for m, nb, text in edges], [nb for _, nb, _ in curved]
 
 
+def polygon_area(poly, normal):
+    C = np.array(poly, float)
+    C = C / C.sum(axis=1, keepdims=True)
+    basis = np.linalg.svd(np.vstack([np.asarray(normal, float), np.ones(4)]))[2][2:]
+    Q = C @ basis.T
+    return abs(sum(Q[i][0] * Q[(i + 1) % len(Q)][1] - Q[(i + 1) % len(Q)][0] * Q[i][1] for i in range(len(Q)))) / 2
+
+
 def _reps(x):
     from cell_atlas import to_upper
     from cellframe import TINV
@@ -654,7 +662,8 @@ def shape(target, rounds=4, min_points=1, fine_below=25, log=print):
             trace(target, w, fine=fine)
             poly, edges, curved = patch_general(target, w)
             walls_done.add(w)
-            if poly is None or len(poly) < 3:
+            if poly is None or len(poly) < 3 or polygon_area(poly, NORMALS[w]) < 1e-9:
+                log(f"  {target} on {w}: no area (it lives on a line there)")
                 continue
             good, bad_out, bad_in = check_patch(target, w, poly, margin=0.01 / (3 if fine else 1))
             allp[f"{target} {w}"] = {"target": target, "wall": w, "normal": NORMALS[w], "corners": poly,

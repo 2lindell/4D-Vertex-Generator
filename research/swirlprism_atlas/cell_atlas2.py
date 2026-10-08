@@ -762,6 +762,39 @@ def main(samples_path, out_path):
             xwalls.append({"id": tid, "tris": tris, "hover": hover, "copy": copy})
             xlines.append({"id": tid, "pts": Q + [Q[0]], "hover": hover, "copy": copy, "outline": True})
 
+    # the shapes living on the edges of the exact patches (fexact.py label_edges): X shapes found there are drawn as
+    # exact segments in their colours, and survey lines of theirs lying along them are dropped
+    if os.path.exists("fexact_patches.json"):
+        seen, edge_lines = set(), {}
+        for pt in json.load(open("fexact_patches.json")).values():
+            C = [np.asarray(b, float) / np.sum(b) for b in pt["corners"]]
+            step = 1 if len(C) < 12 else 6
+            for a, _, lab in pt.get("edge_labels", []):
+                tid = nbname(lab) if lab.startswith("new:") else lab
+                if not tid.startswith("X") or tid not in tmap or tid == pt["target"]:
+                    continue
+                seg = [C[(a + s) % len(C)] for s in range(step + 1)]
+                key = (tid, frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]))
+                if key in seen:
+                    continue
+                seen.add(key)
+                edge_lines.setdefault(tid, []).append(seg)
+        def near_edges(tid, b):
+            b = np.asarray(b, float) / np.sum(b)
+            for seg in edge_lines.get(tid, []):
+                for p, q in zip(seg[:-1], seg[1:]):
+                    t = np.clip((b - p) @ (q - p) / max((q - p) @ (q - p), 1e-30), 0, 1)
+                    if np.linalg.norm(p + t * (q - p) - b) < 1e-6:
+                        return True
+            return False
+        xlines = [s for s in xlines if not (s.get("betas") and s["id"] in edge_lines
+                                            and all(near_edges(s["id"], b) for b in s["betas"][1:-1]))]
+        for tid, segs in edge_lines.items():
+            for seg in segs:
+                hover = (f"{label(tid)}<br>exact edge between patches<br>from β ∝ {beta_text(seg[0])}"
+                         f"<br>to β ∝ {beta_text(seg[-1])}")
+                xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in seg], "hover": hover})
+
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
     # holds every light purple axis on its surface (domain_search.py); (2, 2, 2, 1) is its midpoint.
