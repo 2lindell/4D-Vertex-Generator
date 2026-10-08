@@ -406,6 +406,10 @@ __TYPE_CSS__
     const plot = el("plot");
     const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true });
     render();
+    // a host that resizes the frame (an auto-sizing viewer) leaves the 3D scene's mouse handling stale: redraw after
+    // each resize settles
+    let resizeTimer = null;
+    window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(render, 200); });
     plot.on("plotly_relayout", (e) => {
       const c = e && e["scene.camera"];
       if (c) cameras[el("quarter").value] = JSON.parse(JSON.stringify(c));
