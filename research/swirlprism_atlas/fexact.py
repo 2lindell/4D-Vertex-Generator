@@ -4,7 +4,8 @@ Each wall meets the half-cell in a polygon. A triangular grid on it is classifie
 the target shape starts or stops is bisected to its boundary point (with the class on the other side), and the
 boundary points are then fitted with exact lines (great circles) in the wall.
 
-    python fexact.py grid F1 b1=b2        # classify the grid and bisect the boundary (writes fexact_<wall>.json)
+    python fexact.py grid F4,F5 b2=b4     # classify the wall's grid and bisect each shape's boundary
+    python fexact.py fit F1 b1=b2         # fit exact lines to a shape's boundary points
 """
 from __future__ import annotations
 
@@ -15,10 +16,38 @@ from multiprocessing import Pool
 import numpy as np
 from probe import _one
 
-NORMALS = {"b1=b2": [1, -1, 0, 0]}
-WALLS = {   # corners of the wall's polygon in the half-cell (barycentric beta)
-    "b1=b2": [[0.5, 0.5, 0, 0], [0, 0, 1, 0], [0, 0, 0.5, 0.5]],
+_P = (1 + 5 ** 0.5) / 2
+NORMALS = {   # each wall n . beta = 0
+    "b1=b2": [1, -1, 0, 0],
+    "b1=phi2*b2": [1, -_P ** 2, 0, 0],
+    "b1=b3": [1, 0, -1, 0],
+    "b1=phi-2*b2": [1, -_P ** -2, 0, 0],
+    "b2=b4": [0, 1, 0, -1],
+    "b1=b4": [1, 0, 0, -1],
 }
+HALF = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, -1]], float)  # the half-cell: rows . beta >= 0
+
+
+def wall_polygon(normal):
+    """Corners (barycentric, in order) of the wall's polygon inside the half-cell."""
+    from itertools import combinations
+    n = np.asarray(normal, float)
+    pts = []
+    for i, j in combinations(range(len(HALF)), 2):
+        A = np.vstack([n, HALF[i], HALF[j], np.ones(4)])
+        if abs(np.linalg.det(A)) < 1e-12:
+            continue
+        b = np.linalg.solve(A, [0, 0, 0, 1])
+        if np.all(HALF @ b >= -1e-12) and not any(np.allclose(b, q) for q in pts):
+            pts.append(b)
+    P = np.array(pts)
+    c = P.mean(axis=0)
+    u = np.linalg.svd(P - c)[2][:2]
+    ang = np.arctan2(*((P - c) @ u.T)[:, ::-1].T)
+    return P[np.argsort(ang)]
+
+
+WALLS = {w: wall_polygon(n).tolist() for w, n in NORMALS.items()}
 
 
 def _lab(b):
@@ -27,13 +56,16 @@ def _lab(b):
 
 
 def grid(corners, n):
+    """A triangular grid on each triangle of the polygon's fan (shared edges are sampled twice)."""
     C = np.array(corners, float)
     pts, idx = [], {}
-    for i in range(n + 1):
-        for j in range(n + 1 - i):
-            k = n - i - j
-            idx[(i, j)] = len(pts)
-            pts.append((i * C[0] + j * C[1] + k * C[2]) / n)
+    for f in range(1, len(C) - 1):
+        T = (C[0], C[f], C[f + 1])
+        for i in range(n + 1):
+            for j in range(n + 1 - i):
+                k = n - i - j
+                idx[(f, i, j)] = len(pts)
+                pts.append((i * T[0] + j * T[1] + k * T[2]) / n)
     return pts, idx
 
 
@@ -51,28 +83,30 @@ def _bisect(job, steps=34):
             "far": lb, "t": [lo, hi]}
 
 
-def run_grid(target, wall, n=24, procs=4):
+def run_grid(targets, wall, n=24, procs=4):
     pts, idx = grid(WALLS[wall], n)
     with Pool(procs) as pool:
         labs = pool.map(_lab, pts, chunksize=4)
         edges = set()
-        for (i, j), a in idx.items():
+        for (f, i, j), a in idx.items():
             for di, dj in ((1, 0), (0, 1), (-1, 1)):
-                b = idx.get((i + di, j + dj))
+                b = idx.get((f, i + di, j + dj))
                 if b is not None:
                     edges.add((min(a, b), max(a, b)))
-        jobs = []
-        for a, b in sorted(edges):
-            if (labs[a] == target) != (labs[b] == target):
-                ins, out = (a, b) if labs[a] == target else (b, a)
-                jobs.append((pts[ins].tolist(), pts[out].tolist(), target, labs[out]))
-        print(len(jobs), "boundary crossings", flush=True)
-        bnd = pool.map(_bisect, jobs, chunksize=2)
-    json.dump({"target": target, "wall": wall, "n": n, "points": [p.tolist() for p in pts], "labels": labs,
-               "boundary": bnd}, open(f"fexact_{target}_{wall}.json", "w"))
-    from collections import Counter
-    print("grid labels:", Counter(labs).most_common())
-    print("neighbours across the boundary:", Counter(b["outside"] for b in bnd).most_common())
+        from collections import Counter
+        print(wall, "grid labels:", Counter(labs).most_common(), flush=True)
+        for target in targets:
+            jobs = []
+            for a, b in sorted(edges):
+                if (labs[a] == target) != (labs[b] == target):
+                    ins, out = (a, b) if labs[a] == target else (b, a)
+                    jobs.append((pts[ins].tolist(), pts[out].tolist(), target, labs[out]))
+            bnd = pool.map(_bisect, jobs, chunksize=2)
+            json.dump({"target": target, "wall": wall, "n": n, "corners": WALLS[wall],
+                       "points": [p.tolist() for p in pts], "labels": labs, "boundary": bnd},
+                      open(f"fexact_{target}_{wall}.json", "w"))
+            print(" ", target, len(jobs), "boundary crossings; across:", Counter(b["outside"] for b in bnd).most_common(),
+                  "| one step further:", Counter(b["far"] for b in bnd).most_common(), flush=True)
 
 
 PHI = (1 + 5 ** 0.5) / 2
@@ -126,24 +160,53 @@ def plane_through(B, wall_normal):
     return m, res, "not golden"
 
 
+def _lines(B, normal, tol=1e-7):
+    """Split boundary points into straight runs (great circles in the wall): repeatedly take the plane through the
+    most points (RANSAC over pairs), keep its inliers."""
+    B = [np.asarray(b, float) / np.sum(b) for b in B]
+    out = []
+    rest = list(range(len(B)))
+    w = np.asarray(normal, float)
+    while len(rest) >= 2:
+        best = None
+        for a in range(len(rest)):
+            for c in range(a + 1, len(rest)):
+                x, y = B[rest[a]], B[rest[c]]
+                M = np.vstack([x, y, w])
+                m = np.linalg.svd(M)[2][-1]
+                inl = [k for k in rest if abs(B[k] @ m) < tol]
+                if best is None or len(inl) > len(best):
+                    best = inl
+        if len(best) < 2:
+            break
+        out.append(best)
+        rest = [k for k in rest if k not in best]
+    return out, rest
+
+
 def fit(target, wall, normal):
     d = json.load(open(f"fexact_{target}_{wall}.json"))
     from collections import defaultdict
     groups = defaultdict(list)
     for b in d["boundary"]:
-        groups[b["outside"]].append(b["beta"])
+        groups[b["outside"] if b["outside"] != "ERR" else b["far"] + "*"].append(b["beta"])
     out = []
     for nb, B in sorted(groups.items(), key=lambda kv: -len(kv[1])):
-        B = np.array(B)
-        sv = np.linalg.svd(B / np.linalg.norm(B, axis=1, keepdims=True), compute_uv=False)
-        m, res, text = plane_through(B, normal)
-        out.append({"neighbour": nb, "points": len(B), "rank_sv": sv.tolist(), "plane": m.tolist(), "residual": res, "equation": text})
-        print(f"{target} | {nb:6s} {len(B):3d} pts  singular values {np.round(sv, 6).tolist()}  ->  {text}  (max off {res:.1e})")
+        runs, left = _lines(B, normal)
+        for r in runs:
+            P = np.array([B[k] for k in r])
+            m, res, text = plane_through(P, normal)
+            Pn = P / P.sum(axis=1, keepdims=True)
+            out.append({"neighbour": nb, "points": len(r), "plane": m.tolist(), "residual": res, "equation": text,
+                        "span": [Pn[np.argmin(Pn @ np.ones(4))].tolist()]})
+            print(f"{target} on {wall} | across {nb:6s} {len(r):3d} pts -> {text}  (max off {res:.1e})")
+        if left:
+            print(f"{target} on {wall} | across {nb:6s} {len(left):3d} isolated points", [np.round(np.array(B[k]) / np.sum(B[k]), 4).tolist() for k in left][:4])
     return out
 
 
 if __name__ == "__main__":
     if sys.argv[1] == "grid":
-        run_grid(sys.argv[2], sys.argv[3])
+        run_grid(sys.argv[2].split(","), sys.argv[3])
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])
