@@ -676,6 +676,58 @@ def main(samples_path, out_path):
                                        "hover": f"{label(tid)}<br>{tmap[tid].get('locus', '')}<br>from β ∝ {beta_text(to_upper(lo))}"
                                                 f"<br>to β ∝ {beta_text(to_upper(hi))}"})
                     k += 1
+    # X4 lives on the conic side of T2's patch A (in the mirror beta1 = beta3, from C4 to the cell centre C1): drawn
+    # exactly along it (its copy comes from the step below)
+    import t2exact
+    if "X4" in tmap:
+        A = [np.asarray(b, float) / np.sum(b) for b in t2exact.PATCHES["A"]()]
+        ph = (1 + 5 ** 0.5) / 2
+        conic = [b for b in A if abs(b[0] ** 2 + ph ** 2 * b[1] ** 2 - b[0] * b[1] - b[0] * b[3] - ph * b[1] * b[3]) < 1e-9]
+        if len(conic) >= 3:
+            tmap["X4"]["locus"] = "a curve: the conic side of T2's patch in the mirror β1 = β3, from C4 to the cell centre C1"
+            tmap["X4"]["extra_bounds"] = ["C1", "C4"]
+            tmap["T2"]["extra_bounds"] = ["X4"]
+            xlines.append({"id": "X4", "pts": [_exact(xyz(b)).tolist() for b in conic], "betas": [b.tolist() for b in conic],
+                           "hover": f"{label('X4')}<br>the conic side of T2's patch in the mirror β1 = β3<br>"
+                                    f"from β ∝ {beta_text(conic[0])}<br>to β ∝ {beta_text(conic[-1])}"})
+
+    # half-turn copies of the survey lines: each segment's images under the 2400-element group that land in the
+    # half-cell, other than the segments already found, are drawn dashed
+    from cellframe import T as T_cell
+    from normalizer import extended_group as _ext
+    M_all = np.einsum("ij,gjk,kl->gil", TINV, np.array(_ext(), float), np.array(T_cell, float).T)
+
+    def same_seg(p, q, tol=1e-5):
+        """Does segment p lie along polyline q (its midpoint and quarter points on it)? Survey ends are bisected, so
+        a segment and its image need not share end points exactly."""
+        def near(x):
+            for a, b in zip(q[:-1], q[1:]):
+                t = np.clip((x - a) @ (b - a) / max((b - a) @ (b - a), 1e-30), 0, 1)
+                if np.linalg.norm(a + t * (b - a) - x) < tol:
+                    return True
+            return False
+        n = len(p) - 1
+        return all(near(p[k]) for k in (n // 4, n // 2, 3 * n // 4))
+    norm = lambda b: np.asarray(b, float) / np.sum(b)
+    found = {}
+    for s in xlines:
+        found.setdefault(s["id"], []).append([norm(b) for b in s["betas"]])
+    for s in list(xlines):
+        B = np.array([norm(b) for b in s["betas"]])
+        imgs = np.einsum("gij,pj->gpi", M_all, B)
+        sums = imgs.sum(axis=2, keepdims=True)
+        ok = np.all(sums > 0, axis=(1, 2))
+        imgs = imgs / np.where(sums == 0, 1, sums)
+        ok &= np.all(imgs.min(axis=2) >= -1e-5, axis=1)      # survey ends are bisected, so allow their error
+        for img in imgs[ok]:
+            seg = [norm(to_upper(np.clip(b, 0, None))) for b in img]
+            if any(same_seg(seg, q) for q in found[s["id"]]):
+                continue
+            found[s["id"]].append(seg)
+            xlines.append({"id": s["id"], "copy": True, "pts": [_exact(xyz(b)).tolist() for b in seg],
+                           "betas": [b.tolist() for b in seg],
+                           "hover": f"{label(s['id'])}<br>copy under the extra half-turn<br>from β ∝ {beta_text(seg[0])}"
+                                    f"<br>to β ∝ {beta_text(seg[-1])}"})
     # X10 and X33 passed the in-line nudge test only because a golden line lies in their walls; they live on curved
     # walls (CURVED_WALLS), so no line segment is drawn and no point is marked for them
     if os.path.exists("xloci_walls.json"):
@@ -923,7 +975,7 @@ def main(samples_path, out_path):
             t["dim"] = "region"
         elif loc.startswith("wall") or "curved wall" in loc:
             t["dim"] = "wall"
-        elif loc.startswith("line"):
+        elif loc.startswith(("line", "a curve")):
             t["dim"] = "line"
         else:
             t["dim"] = "point"
@@ -951,9 +1003,13 @@ def main(samples_path, out_path):
         for tid, nbs in json.load(open("boundaries.json")).items():
             tid = bname(tid) if tid.startswith("new:") else tid
             if tid in tmap:
-                ids = {bname(nb) for nb in nbs} - {None, "ERR", tid}
+                ids = ({bname(nb) for nb in nbs} | set(tmap[tid].pop("extra_bounds", []))) - {None, "ERR", tid}
                 tmap[tid]["bounds"] = sorted((i for i in ids if i in tmap),
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
+    for t in types:        # boundaries known from the traced geometry itself (none from boundaries.json)
+        extra = t.pop("extra_bounds", None)
+        if extra:
+            t["bounds"] = sorted(set(t.get("bounds", [])) | {i for i in extra if i in tmap})
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
