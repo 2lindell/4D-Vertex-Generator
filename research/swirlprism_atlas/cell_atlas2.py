@@ -134,6 +134,48 @@ def fold_copies(beta):
     return []
 
 
+def ear_clip(C, normal):
+    """Triangles (index triples) filling a simple polygon given by barycentric corners on a wall, by ear clipping
+    in the wall's own plane, so concave patches (a curved edge bending inwards) are filled only inside."""
+    C = [np.asarray(b, float) / np.sum(b) for b in C]
+    keep = [0]
+    for k in range(1, len(C)):
+        if np.linalg.norm(C[k] - C[keep[-1]]) > 1e-12:
+            keep.append(k)
+    if len(keep) > 2 and np.linalg.norm(C[keep[0]] - C[keep[-1]]) < 1e-12:
+        keep.pop()
+    n = np.asarray(normal, float)
+    basis = np.linalg.svd(np.vstack([n, np.ones(4)]))[2][2:]
+    P = {k: C[k] @ basis.T for k in keep}
+    area = sum(P[keep[i]][0] * P[keep[(i + 1) % len(keep)]][1] - P[keep[(i + 1) % len(keep)]][0] * P[keep[i]][1]
+               for i in range(len(keep)))
+    if area < 0:
+        keep = keep[::-1]
+
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+    def inside(p, a, b, c):
+        return cross(a, b, p) >= -1e-15 and cross(b, c, p) >= -1e-15 and cross(c, a, p) >= -1e-15
+    poly, tris, guard = list(keep), [], 0
+    while len(poly) > 3 and guard < 10000:
+        guard += 1
+        for i in range(len(poly)):
+            a, b, c = poly[i - 1], poly[i], poly[(i + 1) % len(poly)]
+            if cross(P[a], P[b], P[c]) <= 1e-15:
+                continue                                  # reflex (or flat) corner: not an ear
+            if any(inside(P[q], P[a], P[b], P[c]) for q in poly if q not in (a, b, c)):
+                continue
+            tris.append((a, b, c))
+            poly.pop(i)
+            break
+        else:
+            break                                         # numerical stall: fan the rest
+    for i in range(1, len(poly) - 1):
+        tris.append((poly[0], poly[i], poly[i + 1]))
+    return tris
+
+
 def flip_vertical(data):
     """Turn the picture upside down (z -> -z) so the splitting mirror is on top."""
     def f(q):
@@ -705,8 +747,7 @@ def main(samples_path, out_path):
             C = [np.asarray(b, float) for b in pt["corners"]]
             copy = has_plain[tid] and not plain(pt["normal"])
             Q = [_exact(xyz(b / b.sum())).tolist() for b in C]
-            cen = _exact(xyz(np.mean(C, axis=0) / np.mean(C, axis=0).sum())).tolist()
-            tris = [[cen, Q[k], Q[(k + 1) % len(Q)]] for k in range(len(Q))]
+            tris = [[Q[a], Q[b], Q[c]] for a, b, c in ear_clip(C, pt["normal"])]
             corners = []
             for b in (C if len(C) < 12 else []):
                 if not any(np.allclose(b / b.sum(), q / q.sum(), atol=1e-9) for q in corners):
