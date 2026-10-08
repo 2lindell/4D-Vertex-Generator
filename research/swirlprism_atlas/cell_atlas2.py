@@ -779,6 +779,7 @@ def main(samples_path, out_path):
                     continue
                 seen.add(key)
                 edge_lines.setdefault(tid, []).append(seg)
+                tmap[tid].setdefault("edge_of", set()).add((pt["target"], step > 1))
         def near_edges(tid, b):
             b = np.asarray(b, float) / np.sum(b)
             for seg in edge_lines.get(tid, []):
@@ -926,6 +927,15 @@ def main(samples_path, out_path):
             t["dim"] = "line"
         else:
             t["dim"] = "point"
+    for t in types:        # shapes found on the edges of exact patches live on lines (curves on conic edges)
+        edge_of = t.pop("edge_of", None)
+        if edge_of:
+            t["dim"] = "line"
+            if not (t.get("locus") or "").startswith(("line", "wall")):
+                curved = sorted({w for w, c in edge_of if c})
+                straight = sorted({w for w, c in edge_of if not c})
+                t["locus"] = "; ".join(([f"a curve: the conic edges of the {', '.join(curved)} patches"] if curved else [])
+                                       + ([f"a line: edges of the {', '.join(straight)} patches"] if straight else []))
     for tid, dim in {"T1": "line", "E2": "line", "T2": "wall", "F1": "wall", "F4": "wall", "F5": "wall"}.items():
         if tid in tmap:
             tmap[tid]["dim"] = dim
