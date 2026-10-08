@@ -163,7 +163,7 @@ __TYPE_CSS__
         <li><b>Rings</b> are great circles fixed by rotations of the group: the main ring along the edge V₃V₄ and the cross rings. They take the colour of the shape each stretch produces.</li>
         <li><b>Purple axes</b> are the axes of the half-turns in the coset of Q. A seed on one is its own copy, and its polychoron has 2400 symmetries. The one from the β₂ = β₃ cross ring to C2b is one of Bowers' 30 ghost girdles with skew 20-gonal symmetry.</li>
         <li><b>The green line</b> is an order-3 ghost girdle: the axis of an order-3 rotation of a 3600-element group containing the swirlprism group. Seeds on it give X12 polychora with 3600 symmetries; it is one of Bowers' 20 such girdles. A search of every fixed circle of H4, its Q-coset and this group finds no other line with more than 1200 symmetries.</li>
-        <li><b>Transitional shapes</b> (T1, T2 and the X walls and lines): T1 and E2 are exactly traced lines; T2 is three exact patches in the mirrors β₁ = β₃, β₂ = β₃ and β₁ = β₂, each with a spidrox corner; select a transitional shape's row in the key to see its patches of wall or its segments of line.</li>
+        <li><b>Transitional shapes</b> (T1, T2 and the X walls and lines): T1 and E2 are exactly traced lines; T2 is three exact patches in the mirrors β₁ = β₃, β₂ = β₃ and β₁ = β₂, each with a spidrox corner; select a transitional shape's row in the key to see its patches of wall or its segments of line. The named wall shapes F1, F4 and F5 are traced exactly: each patch is a polygon in its wall bounded by exact lines (F5 also by a conic, along which the shape is X24), with corners and edges in its hover text. F1 lies in the mirrors β₁ = β₂ and β₁ = β₃, F4 in the faces β₁ = 0 and β₂ = 0, and F5 in the mirror β₂ = β₄; their dashed copies lie on further walls, two of them tilted.</li>
         <li>Throughout, <b>solid</b> lines are the loci themselves and <b>dashed</b> lines are their copies under Q, which give the same polychora elsewhere in the domain.</li>
       </ul>
     </div>
@@ -299,11 +299,11 @@ __TYPE_CSS__
           const P = w.tris.flat().filter(() => true);
           out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
             i: w.tris.map((_, k) => 3 * k), j: w.tris.map((_, k) => 3 * k + 1), k: w.tris.map((_, k) => 3 * k + 2),
-            color: color(byId[w.id]), opacity: 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
+            color: color(byId[w.id]), opacity: w.copy ? 0.14 : 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
         }
         for (const s of D.xlines || []) {
           if (s.id !== state.only) continue;
-          const trace = lines([s.pts], s.hover, { color: color(byId[s.id]), width: 5 });
+          const trace = lines([s.pts], s.hover, { color: color(byId[s.id]), width: s.outline ? 3 : 5, dash: s.copy ? "dash" : "solid" });
           trace.hovertemplate = s.hover + "<extra></extra>";
           out.push(trace);
         }

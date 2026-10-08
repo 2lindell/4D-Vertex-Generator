@@ -143,27 +143,33 @@ def fmt_golden(f):
 
 
 def plane_through(B, wall_normal):
-    """The second plane (normal m, m . beta = 0) holding all points B of a great circle in the wall, snapped to
-    golden coefficients; returns (m, residual, text)."""
+    """The second plane (normal m, m . beta = 0) holding all points B of a great circle in the wall. It is only
+    defined up to adding multiples of the wall's normal, so each multiple that zeroes one coordinate is tried and
+    the simplest golden form kept; returns (m, residual, text)."""
     B = np.asarray(B, float)
-    w = np.asarray(wall_normal, float) / np.linalg.norm(wall_normal)
-    P = B - np.outer(B @ w, w)                         # remove the wall direction
-    u, s, vt = np.linalg.svd(np.vstack([P, w]))
-    m = vt[-1]
-    m = m - (m @ w) * w
-    m /= np.abs(m).max()
-    m *= np.sign(m[np.argmax(np.abs(m))])
-    res = float(np.abs(B @ m).max())
-    k = np.argmax(np.abs(m))
-    snapped = []
-    for v in m / m[k]:
-        f = golden_form(v)
-        snapped.append(f)
-    if all(f is not None for f in snapped):
+    w = np.asarray(wall_normal, float)
+    wn = w / np.linalg.norm(w)
+    P = B - np.outer(B @ wn, wn)
+    m = np.linalg.svd(np.vstack([P, wn]))[2][-1]
+    m = m - (m @ wn) * wn
+    best = None
+    cands = [m] + [m - (m[i] / w[i]) * w for i in range(4) if abs(w[i]) > 1e-12]
+    for c in cands:
+        c = c / c[np.argmax(np.abs(c))]
+        snapped = [golden_form(v) for v in c]
+        if any(f is None for f in snapped):
+            continue
         mm = np.array([(a + b * PHI) / q for a, b, q in snapped])
-        terms = [f"{fmt_golden(f)}·β{i + 1}" for i, f in enumerate(snapped) if f[0] or f[1]]
-        return mm, float(np.abs(B @ mm).max()), " + ".join(terms).replace("+ -", "− ") + " = 0"
-    return m, res, "not golden"
+        res = float(np.abs(B @ mm).max())
+        if res > 1e-6:
+            continue
+        cost = sum(abs(a) + abs(b) + q for a, b, q in snapped)
+        if best is None or cost < best[0]:
+            terms = [f"{fmt_golden(f)}·β{i + 1}" for i, f in enumerate(snapped) if f[0] or f[1]]
+            best = (cost, mm, res, " + ".join(terms).replace("+ -", "− ") + " = 0")
+    if best:
+        return best[1], best[2], best[3]
+    return m / np.abs(m).max(), float(np.abs(B @ m).max()), "not golden"
 
 
 def _lines(B, normal, tol=1e-7):
@@ -219,7 +225,8 @@ CONICS = {   # curved edges, as quadratic forms in beta (fitted from the boundar
                                 - (2 * PHI - 1) * b[1] * b[2]),
 }
 PATCHES = [("F1", "b1=b2"), ("F1", "b1=phi2*b2"), ("F1", "b1=b3"), ("F4", "b1=0"), ("F4", "b2=0"),
-           ("F4", "b1=phi-2*b2"), ("F5", "b1=phi-2*b2"), ("F5", "b2=b4")]
+           ("F4", "b1=phi-2*b2"), ("F5", "b1=phi-2*b2"), ("F5", "b2=b4"),
+           ("F1", "b3=phi-2*(b1-b4)"), ("F1", "b4=phi-2*(b2-b3)"), ("F4", "b1=phi-2*(b3-b4)")]
 
 
 def _clip(poly, m):
@@ -292,8 +299,13 @@ def patch(target, wall, tol=1e-7):
     d = json.load(open(f"fexact_{target}_{wall}.json"))
     pts = np.array(d["points"], float)
     pts = pts / pts.sum(axis=1, keepdims=True)
-    ins = pts[[k for k, l in enumerate(d["labels"]) if l == target]]
+    # the side of each edge is read from the shape's grid points strictly inside the wall polygon (a shape can also
+    # run along the polygon's edge, where the wall meets one of its other walls or faces)
     normal = NORMALS[wall]
+    nn = np.asarray(normal, float) / np.linalg.norm(normal)
+    sides = np.array([h for h in HALF if abs(abs(h @ nn) - np.linalg.norm(h)) > 1e-9])   # not the wall itself
+    interior = np.all(pts @ sides.T > 1e-9, axis=1)
+    ins = pts[[k for k, l in enumerate(d["labels"]) if l == target and interior[k]]]
     from collections import defaultdict
     groups = defaultdict(list)
     for b in d["boundary"]:
@@ -369,7 +381,7 @@ if __name__ == "__main__":
         for target, wall in PATCHES:
             poly, edges = patch(target, wall)
             a, b, c = check_patch(target, wall, poly)
-            out[f"{target} {wall}"] = {"target": target, "wall": wall, "corners": poly, "edges": edges}
+            out[f"{target} {wall}"] = {"target": target, "wall": wall, "normal": NORMALS[wall], "corners": poly, "edges": edges}
             print(f"{target} on {wall}: {len(poly)} corners; grid points agreeing {a}, {target} outside {b}, others inside {c}")
             for m, nb, text in edges:
                 print("    edge", text, "| across:", nb)

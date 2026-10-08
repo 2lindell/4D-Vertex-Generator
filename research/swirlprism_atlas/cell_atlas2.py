@@ -653,6 +653,36 @@ def main(samples_path, out_path):
             for tid, tl in tris.items():
                 xwalls.append({"id": tid, "tris": tl, "hover": f"{label(tid)}<br>patch in the wall {eq}"})
 
+    # the named wall shapes F1, F4 and F5, traced exactly (fexact.py): each patch is its wall's polygon cut by exact
+    # lines (and, for F5, a conic). Patches in an H4 mirror or a cell face are drawn solid; the others are their
+    # copies under the extra half-turn (dashed outline, fainter fill). They replace the grid patches of those shapes.
+    if os.path.exists("fexact_patches.json"):
+        exact_ids = {"F1", "F4", "F5"}
+        xwalls = [w for w in xwalls if w["id"] not in exact_ids]
+        solid_walls = {"b1=b2", "b1=b3", "b1=0", "b2=0", "b2=b4"}
+        conic_text = {"F5": "a conic (the curve itself is X24) with X44 beyond"}
+        for key, pt in json.load(open("fexact_patches.json")).items():
+            tid, wall = pt["target"], pt["wall"]
+            if tid not in tmap:
+                continue
+            C = [np.asarray(b, float) for b in pt["corners"]]
+            copy = wall not in solid_walls
+            Q = [_exact(xyz(b / b.sum())).tolist() for b in C]
+            cen = _exact(xyz(np.mean(C, axis=0) / np.mean(C, axis=0).sum())).tolist()
+            tris = [[cen, Q[k], Q[(k + 1) % len(Q)]] for k in range(len(Q))]
+            corners = []
+            for b in (C if len(C) < 12 else []):
+                if not any(np.allclose(b / b.sum(), q / q.sum(), atol=1e-9) for q in corners):
+                    corners.append(b)
+            edges = "; ".join(f"{_eq(m)} ({nb} beyond)" for m, nb, _ in pt["edges"])
+            if len(C) >= 12:
+                edges += f"; and {conic_text.get(tid, 'a conic')}"
+            hover = (f"{label(tid)}<br>exact patch in the wall {_eq(pt['normal'])}"
+                     f"{' (copy under the extra half-turn)' if copy else ''}<br>edges: {edges}"
+                     + (f"<br>corners: {', '.join(beta_text(b) for b in corners)}" if corners else ""))
+            xwalls.append({"id": tid, "tris": tris, "hover": hover, "copy": copy})
+            xlines.append({"id": tid, "pts": Q + [Q[0]], "hover": hover, "copy": copy, "outline": True})
+
     # a fundamental domain of the 2400-element group: the Dirichlet domain about a point of the E2 line.
     # Only centres on that line (beta1 = beta2 = beta3) give a domain that stays inside the half-cell and
     # holds every light purple axis on its surface (domain_search.py); (2, 2, 2, 1) is its midpoint.
