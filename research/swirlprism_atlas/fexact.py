@@ -720,7 +720,7 @@ def _on_curve(c, centre, normal, own):
             break
     else:
         return c
-    for _ in range(36):
+    for _ in range(30):
         m = (a + b) / 2
         if _lab(m) == own:
             a = m
@@ -744,11 +744,11 @@ def _edge_job(job):
 
 def label_edges(procs=4, log=print, redo=False):
     """Which shape lives on each edge of each exact patch, from three points along it (curved edges are sampled
-    every sixth segment, bisecting across the curve at arc points). Stored as patch["edge_labels"] = [[first corner, last corner, label], ...]."""
+    every sixth segment, bisecting across the curve at the middle arc point). Stored as patch["edge_labels"] = [[first corner, last corner, label], ...]."""
     allp = json.load(open("fexact_patches.json"))
     jobs, where = [], []
     for key, p in allp.items():
-        if "edge_labels" in p and not redo:
+        if "edge_labels" in p and not (redo and len(p["corners"]) >= 12):
             continue
         p.pop("edge_labels", None)
         C = [np.asarray(c, float) for c in p["corners"]]
@@ -762,7 +762,7 @@ def label_edges(procs=4, log=print, redo=False):
             if step == 1:
                 jobs.append(([a + (b - a) * t for t in (0.25, 0.5, 0.75)], None))
             else:      # a chord of the arc lies off the conic: sample the arc points themselves
-                jobs.append(([C[(k + s) % n] for s in (1, 3, 5)], p["target"], centre, p["normal"]))
+                jobs.append(([C[(k + 3) % n]], p["target"], centre, p["normal"]))
             where.append((key, k, (k + 1) % n))
     log(f"classifying {len(jobs)} edges")
     with Pool(procs) as pool:
