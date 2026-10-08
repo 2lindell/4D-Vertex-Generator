@@ -697,6 +697,24 @@ def main(samples_path, out_path):
     from normalizer import extended_group as _ext
     M_all = np.einsum("ij,gjk,kl->gil", TINV, np.array(_ext(), float), np.array(T_cell, float).T)
 
+    def fold_pieces(pts, tol=1e-9):
+        """Split a polyline where it crosses the splitting mirror beta3 = beta4 and move each piece into the displayed
+        half whole (folding point by point would join the pieces with a stray chord)."""
+        d = [b[2] - b[3] for b in pts]
+        pieces, cur, side = [], [pts[0]], None
+        for k in range(1, len(pts)):
+            a, b, da, db = pts[k - 1], pts[k], d[k - 1], d[k]
+            if (da > tol and db < -tol) or (da < -tol and db > tol):
+                x = a + (b - a) * da / (da - db)
+                cur.append(x)
+                pieces.append((cur, side if side is not None else np.sign(da)))
+                cur, side = [x], None
+            cur.append(b)
+            if side is None and abs(db) > tol:
+                side = np.sign(db)
+        pieces.append((cur, side if side is not None else 1))
+        return [[norm(b[[1, 0, 3, 2]]) if sd < 0 else b for b in p] for p, sd in pieces]
+
     def same_seg(p, q, tol=1e-5):
         """Does segment p lie along polyline q (its midpoint and quarter points on it)? Survey ends are bisected, so
         a segment and its image need not share end points exactly."""
@@ -720,14 +738,14 @@ def main(samples_path, out_path):
         imgs = imgs / np.where(sums == 0, 1, sums)
         ok &= np.all(imgs.min(axis=2) >= -1e-5, axis=1)      # survey ends are bisected, so allow their error
         for img in imgs[ok]:
-            seg = [norm(to_upper(np.clip(b, 0, None))) for b in img]
-            if any(same_seg(seg, q) for q in found[s["id"]]):
-                continue
-            found[s["id"]].append(seg)
-            xlines.append({"id": s["id"], "copy": True, "pts": [_exact(xyz(b)).tolist() for b in seg],
-                           "betas": [b.tolist() for b in seg],
-                           "hover": f"{label(s['id'])}<br>copy under the extra half-turn<br>from β ∝ {beta_text(seg[0])}"
-                                    f"<br>to β ∝ {beta_text(seg[-1])}"})
+            for seg in fold_pieces([norm(np.clip(b, 0, None)) for b in img]):
+                if len(seg) < 2 or any(same_seg(seg, q) for q in found[s["id"]]):
+                    continue
+                found[s["id"]].append(seg)
+                xlines.append({"id": s["id"], "copy": True, "pts": [_exact(xyz(b)).tolist() for b in seg],
+                               "betas": [b.tolist() for b in seg],
+                               "hover": f"{label(s['id'])}<br>copy under the extra half-turn<br>from β ∝ {beta_text(seg[0])}"
+                                        f"<br>to β ∝ {beta_text(seg[-1])}"})
     # X10 and X33 passed the in-line nudge test only because a golden line lies in their walls; they live on curved
     # walls (CURVED_WALLS), so no line segment is drawn and no point is marked for them
     if os.path.exists("xloci_walls.json"):
