@@ -1043,7 +1043,7 @@ def main(samples_path, out_path):
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
     for tid in ("X80", "X81"):  # the two conics of X79's lens both run from A1 to the X2 corner
         if tid in tmap:
-            tmap[tid]["bounds"] = sorted(set(tmap[tid].get("bounds", [])) | {"A1", "X2"})
+            tmap[tid]["bounds"] = ["A1", "X2"]       # (corners where arcs meet can classify just off the point)
     rank = {"region": 3, "wall": 2, "line": 1, "point": 0}
     for t in types:        # boundaries known from the traced geometry itself (none from boundaries.json)
         extra = t.pop("extra_bounds", None)
