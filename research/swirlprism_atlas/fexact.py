@@ -361,7 +361,7 @@ def check_patch(target, wall, poly, margin=0.01):
     V = np.array(poly) @ basis.T
     good = bad_out = bad_in = 0
     for q, lab in zip(P @ basis.T, d["labels"]):
-        if _dist_to_boundary(q, V) < margin:
+        if lab == "?" or _dist_to_boundary(q, V) < margin:
             continue
         inside = _in_polygon(q, V)
         if (lab == target) == inside:
@@ -434,15 +434,54 @@ def grid_labels(wall, procs=4):
     return pts, labs
 
 
-def trace(target, wall, procs=4):
-    """Bisect the target's boundary on a wall from its (cached) grid."""
+def fine_grid(target, wall, k=3, radius=2.5, procs=4):
+    """A grid k times finer than the coarse one, classified only within `radius` coarse spacings of the target's
+    coarse grid points (elsewhere labelled '?'); coarse nodes keep their labels."""
+    import os
+    path = f"fexact_fgrid_{target}_{wall}.json"
+    if os.path.exists(path):
+        d = json.load(open(path))
+        return d["points"], d["labels"], d["n"]
+    cpts, clabs = grid_labels(wall)
+    cpts = np.array(cpts, float)
+    cpts = cpts / cpts.sum(axis=1, keepdims=True)
+    tpts = cpts[[i for i, l in enumerate(clabs) if l == target]]
+    C = np.array(WALLS[wall], float)
+    C = C / C.sum(axis=1, keepdims=True)
+    spacing = max(np.linalg.norm(C[i] - C[j]) for i in range(len(C)) for j in range(i + 1, len(C))) / GRID_N
+    fpts, _ = grid(WALLS[wall], GRID_N * k)
+    fpts = [np.asarray(p, float) / np.sum(p) for p in fpts]
+    labs, todo = [], []
+    ckd = {tuple(np.round(p, 9)): l for p, l in zip(cpts, clabs)}
+    for p in fpts:
+        key = tuple(np.round(p, 9))
+        if key in ckd:
+            labs.append(ckd[key])
+        elif len(tpts) and np.min(np.linalg.norm(tpts - p, axis=1)) <= radius * spacing:
+            labs.append(None)
+            todo.append(len(labs) - 1)
+        else:
+            labs.append("?")
+    with Pool(procs) as pool:
+        got = pool.map(_lab, [fpts[i] for i in todo], chunksize=4)
+    for i, l in zip(todo, got):
+        labs[i] = l
+    json.dump({"points": [p.tolist() for p in fpts], "labels": labs, "n": GRID_N * k}, open(path, "w"))
+    return [p.tolist() for p in fpts], labs, GRID_N * k
+
+
+def trace(target, wall, procs=4, fine=False):
+    """Bisect the target's boundary on a wall from its (cached) grid, or from a finer local grid."""
     import os
     path = f"fexact_{target}_{wall}.json"
-    if os.path.exists(path):
+    if os.path.exists(path) and (not fine or json.load(open(path)).get("n") != GRID_N):
         return
-    pts, labs = grid_labels(wall)
+    if fine:
+        pts, labs, n = fine_grid(target, wall)
+    else:
+        (pts, labs), n = grid_labels(wall), GRID_N
     pts = [np.asarray(p, float) for p in pts]
-    _, idx = grid(WALLS[wall], GRID_N)
+    _, idx = grid(WALLS[wall], n)
     edges = set()
     for (f, i, j), a in idx.items():
         for di, dj in ((1, 0), (0, 1), (-1, 1)):
@@ -451,12 +490,14 @@ def trace(target, wall, procs=4):
                 edges.add((min(a, b), max(a, b)))
     jobs = []
     for a, b in sorted(edges):
+        if "?" in (labs[a], labs[b]):
+            continue
         if (labs[a] == target) != (labs[b] == target):
             ins, out = (a, b) if labs[a] == target else (b, a)
             jobs.append((pts[ins].tolist(), pts[out].tolist(), target, labs[out]))
     with Pool(procs) as pool:
         bnd = pool.map(_bisect, jobs, chunksize=2)
-    json.dump({"target": target, "wall": wall, "n": GRID_N, "corners": WALLS[wall], "points": [p.tolist() for p in pts],
+    json.dump({"target": target, "wall": wall, "n": n, "corners": WALLS[wall], "points": [p.tolist() for p in pts],
                "labels": labs, "boundary": bnd}, open(path, "w"))
 
 
@@ -597,8 +638,9 @@ def missing_walls(target, patches, samples=50, seed=0):
     return found
 
 
-def shape(target, rounds=4, min_points=6, log=print):
-    """Trace a wall shape on every wall it occupies, adding the walls its half-turn copies reach."""
+def shape(target, rounds=4, min_points=1, fine_below=25, log=print):
+    """Trace a wall shape on every wall it occupies (small patches on a finer local grid), adding the walls its
+    half-turn copies reach."""
     import glob
     import os
     load_walls()
@@ -608,26 +650,33 @@ def shape(target, rounds=4, min_points=6, log=print):
         walls = [w for w in NORMALS if w not in walls_done and (os.path.exists(f"fexact_grid_{w}.json")
                  or glob.glob("fexact_*_" + glob.escape(w) + ".json")) and interior_count(target, w) >= min_points]
         for w in walls:
-            trace(target, w)
+            fine = interior_count(target, w) < fine_below
+            trace(target, w, fine=fine)
             poly, edges, curved = patch_general(target, w)
             walls_done.add(w)
             if poly is None or len(poly) < 3:
                 continue
-            good, bad_out, bad_in = check_patch(target, w, poly)
+            good, bad_out, bad_in = check_patch(target, w, poly, margin=0.01 / (3 if fine else 1))
             allp[f"{target} {w}"] = {"target": target, "wall": w, "normal": NORMALS[w], "corners": poly,
                                      "edges": edges, "curved": curved, "check": [good, bad_out, bad_in]}
-            log(f"  {target} on {w}: {len(poly)} corners, grid agreeing {good}, misplaced {bad_out}+{bad_in}"
-                + (f", curved edge against {curved}" if curved else ""))
+            log(f"  {target} on {w}: {len(poly)} corners{' (fine grid)' if fine else ''}, grid agreeing {good}, "
+                f"misplaced {bad_out}+{bad_in}" + (f", curved edge against {curved}" if curved else ""))
         mine = [p for p in allp.values() if p["target"] == target]
         miss = missing_walls(target, mine)
         new = [k for k in miss if len(miss[k]) >= 3]
-        log(f"  round {rnd + 1}: {len(mine)} patches; copies off them on {len(new)} new wall(s)")
-        if not new:
-            break
+        added = []
         for k in new:
             w = add_wall(np.array(k))
+            if w in walls_done:
+                continue
             grid_labels(w)
-            log(f"    new wall {w}: {interior_count(target, w)} interior {target} grid points")
+            c = interior_count(target, w)
+            log(f"    copies reach wall {w}: {c} interior {target} grid points")
+            if c >= min_points:
+                added.append(w)
+        log(f"  round {rnd + 1}: {len(mine)} patches; {len(added)} new wall(s) to trace")
+        if not added:
+            break
     json.dump(allp, open("fexact_patches.json", "w"), indent=1)
     return allp
 
