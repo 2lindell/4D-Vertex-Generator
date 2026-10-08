@@ -118,7 +118,7 @@ __TYPE_CSS__
       <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
     </div>
     <div id="plot" role="img" aria-label="3D map of the isogonal polychora produced by seeds in a fundamental domain of the H3●I2(10) group"></div>
-    <p id="hoverbox">Hover a point for its shape, golden weights and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape; click it again to show everything.</p>
+    <p id="hoverbox">Hover a point for its shape, golden weights and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape, Ctrl-click (⌘-click on a Mac) to add or remove more, and click the only selected row again to show everything.</p>
   </section>
 
   <section class="panel">
@@ -152,7 +152,7 @@ __TYPE_CSS__
       <h2>Names and markers</h2>
       <ul>
         <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200). C2a and C2b are the two subsymmetrical icosafold icosidodecaswirlchoron ranges on the cross rings, told apart by their counts.</li>
-        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Large outlined markers are uniform H4 seeds, labelled by the shape they produce. Every named shape has its own colour, darkest for shapes on a line, lighter on a wall and lightest for regions; unlisted shapes are grey, in the same steps. Click a row in the key to show only that shape.</li>
+        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Large outlined markers are uniform H4 seeds, labelled by the shape they produce. Every named shape has its own colour, darkest for shapes on a line, lighter on a wall and lightest for regions; unlisted shapes are grey, in the same steps. Click a row in the key to show only that shape; Ctrl-click (⌘-click on a Mac) more rows to show several at once, with their wall patches, lines and outlines.</li>
         <li>"Where" says where a shape lives: a region, a wall (plane) or line, or a point or curve. X shapes that only live on a wall, line or point are listed separately as transitional, grouped by where they lie.</li>
         <li>✕ marks exact points that are not golden, in the colour of their shape: the icosafold points of C2a and C2b; the points of C3 with 3600 symmetries, where the green girdle meets the cross rings (C3 is named after the shape there; the rest of its range is subsymmetrical); the points where the purple axes meet the domain's boundary; and the points where a purple axis passes through a transitional shape (X1, X7 and X78).</li>
       </ul>
@@ -207,14 +207,14 @@ __TYPE_CSS__
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
     const color = (t) => css(t.color);
-    const state = { only: null };
+    const state = { sel: new Set() };            // the rows selected in the key (none: show everything)
     const el = (id) => document.getElementById(id);
 
     const found = D.types.filter((t) => t.listed && (t.samples || t.where)).length;
     el("stats").innerHTML = [`${D.totalSamples} golden seeds`, `${found} of ${D.types.filter((t) => t.listed).length} wiki shapes found`,
       `${D.types.filter((t) => !t.listed).length} unlisted shapes`].map((x) => `<span class="chip">${x}</span>`).join("");
 
-    function visibleFor(id) { return !state.only || state.only === id; }
+    function visibleFor(id) { return !state.sel.size || state.sel.has(id); }
 
     // triangles filling a flat polygon (3D points, in order), by ear clipping in its own plane
     function earClip(P) {
@@ -264,10 +264,10 @@ __TYPE_CSS__
       if (D.split.length) out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
         color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "name" });
       // the outline of the one-piece-per-region domain (an alpha shape of its moved seeds)
-      if (D.shell && !state.only) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
+      if (D.shell && !state.sel.size) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
         name: "Outline of the domain", hoverinfo: "skip" });
-      if (D.regionShells && state.only && D.regionShells[state.only]) out.push({ type: "mesh3d", ...D.regionShells[state.only],
-        color: color(byId[state.only]), opacity: 0.35, flatshading: true, name: `Outline of ${state.only}`, hovertemplate: `Outline of ${state.only}<extra></extra>` });
+      for (const id of state.sel) if (D.regionShells && D.regionShells[id]) out.push({ type: "mesh3d", ...D.regionShells[id],
+        color: color(byId[id]), opacity: 0.35, flatshading: true, name: `Outline of ${id}`, hovertemplate: `Outline of ${id}<extra></extra>` });
       for (const f of D.dodecaFaces || []) {
         const n = f.length;
         out.push({ type: "mesh3d", x: f.map((p) => p[0]), y: f.map((p) => p[1]), z: f.map((p) => p[2]),
@@ -323,21 +323,21 @@ __TYPE_CSS__
           marker: { size: 6, color: ink, symbol: "circle" } });
       }
       // a transitional shape's wall patches and line segments appear when its row in the key is selected
-      if (state.only) {
+      if (state.sel.size) {
         for (const w of D.xwalls || []) {
-          if (w.id !== state.only) continue;
+          if (!state.sel.has(w.id)) continue;
           const P = w.tris.flat().filter(() => true);
           out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
             i: w.tris.map((_, k) => 3 * k), j: w.tris.map((_, k) => 3 * k + 1), k: w.tris.map((_, k) => 3 * k + 2),
             color: color(byId[w.id]), opacity: w.copy ? 0.14 : 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
         }
         for (const s of D.xlines || []) {
-          if (s.id !== state.only) continue;
+          if (!state.sel.has(s.id)) continue;
           const trace = lines([s.pts], s.hover, { color: color(byId[s.id]), width: s.outline ? 3 : 5, dash: s.copy ? "dash" : "solid" });
           trace.hovertemplate = s.hover + "<extra></extra>";
           out.push(trace);
         }
-        if (state.only === "T2") for (const p of D.tpatches) {
+        if (state.sel.has("T2")) for (const p of D.tpatches) {
           // the patches are flat but not all convex: fill by ear clipping, so curved edges are never overshot
           const pts = p.pts.slice(0, p.pts.length - 1), tri = earClip(pts);
           out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
@@ -349,7 +349,7 @@ __TYPE_CSS__
       for (const t of D.types) {
         if (!visibleFor(t.id)) continue;
         if (t.listed && !el("showListed").checked) continue;
-        if (!t.listed && !el("showX").checked && state.only !== t.id) continue;
+        if (!t.listed && !el("showX").checked && !state.sel.has(t.id)) continue;
         const pts = (D.samples[t.id] || []).filter(inQ);
         if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} · ${t.name}`,
           x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${typeof p[3] === "number" ? DC.samples[t.id][p[3]][3] : p[3]}`),
@@ -481,9 +481,15 @@ __TYPE_CSS__
       }
     }
     el("key").innerHTML = html + "</tbody>";
-    document.querySelectorAll("tr.row").forEach((tr) => tr.addEventListener("click", () => {
-      state.only = state.only === tr.dataset.id ? null : tr.dataset.id;
-      document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", r.dataset.id === state.only));
+    // click a row to show only that shape (again to show everything); Ctrl/Cmd-click adds or removes rows
+    document.querySelectorAll("tr.row").forEach((tr) => tr.addEventListener("click", (e) => {
+      const id = tr.dataset.id;
+      if (e.ctrlKey || e.metaKey) {
+        if (state.sel.has(id)) state.sel.delete(id); else state.sel.add(id);
+      } else {
+        state.sel = state.sel.size === 1 && state.sel.has(id) ? new Set() : new Set([id]);
+      }
+      document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", state.sel.has(r.dataset.id)));
       render();
     }));
     ["quarter", "showListed", "showX", "showRings", "showAxes", "showRegular", "showDecagon", "showDomain", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
