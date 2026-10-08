@@ -90,10 +90,10 @@ def main(procs=4):
             if lab == tid or lab.startswith("mixed:"):
                 continue
             bnd[tid].add(lab)
-            if n < 12:     # a straight edge: its ends are corners a and b
-                for k in (a, b):
-                    if at.get((key, k), "ERR") not in ("ERR", lab):
-                        bnd[lab].add(at[(key, k)])
+            ends = (a, b) if n < 12 else [k for k in range(a, a + 7) if (key, k % n) in at]  # an arc: its end corners
+            for k in ends:
+                if at.get((key, k % n), "ERR") not in ("ERR", lab, tid):
+                    bnd[lab].add(at[(key, k % n)])
     for (key, _, _), lab in zip(sides, slabs):
         if lab != "ERR" and lab != patches[key]["target"]:
             bnd[lab].add(patches[key]["target"])

@@ -774,6 +774,53 @@ def label_edges(procs=4, log=print, redo=False):
     log("edge shapes:", Counter(l for v in allp.values() for _, _, l in v.get("edge_labels", [])).most_common())
 
 
+def _beyond_job(job):
+    """The shape just past a curved edge, at the middle arc point of a segment."""
+    c, centre, normal = (np.asarray(x, float) for x in job)
+    c = c / c.sum()
+    n = normal / np.linalg.norm(normal)
+    u = c - centre
+    for v in (n, np.ones(4) / 2):
+        u = u - (u @ v) * v
+    return _lab(c + 1e-4 * u / np.linalg.norm(u))
+
+
+def fill_curved_labels(procs=4, log=print):
+    """Curved-edge segments whose bisected point still reads as the patch's own shape take the line shape found on
+    other segments between the same two shapes (the shape beyond is read just past the curve)."""
+    from collections import Counter
+    allp = json.load(open("fexact_patches.json"))
+    jobs, where = [], []
+    for key, p in allp.items():
+        C = np.array(p["corners"], float)
+        if len(C) < 12:
+            continue
+        C = C / C.sum(axis=1, keepdims=True)
+        centre = C.mean(axis=0)
+        for i, (a, b, lab) in enumerate(p["edge_labels"]):
+            jobs.append((C[(a + 3) % len(C)], centre, p["normal"]))
+            where.append((key, i))
+    with Pool(procs) as pool:
+        beyond = pool.map(_beyond_job, jobs, chunksize=2)
+    pair = {}
+    for (key, i), nb in zip(where, beyond):
+        p = allp[key]
+        lab = p["edge_labels"][i][2]
+        if lab not in (p["target"], nb) and not lab.startswith("mixed:"):
+            pair.setdefault(frozenset((p["target"], nb)), Counter())[lab] += 1
+    filled = 0
+    for (key, i), nb in zip(where, beyond):
+        p = allp[key]
+        e = p["edge_labels"][i]
+        known = pair.get(frozenset((p["target"], nb)))
+        if (e[2] == p["target"] or e[2].startswith("mixed:")) and known:
+            e[2] = known.most_common(1)[0][0]
+            filled += 1
+    json.dump(allp, open("fexact_patches.json", "w"), indent=1)
+    log(f"filled {filled} curved segments; shapes between pairs:",
+        {"|".join(sorted(k)): dict(v) for k, v in pair.items()})
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "grid":
         run_grid(sys.argv[2].split(","), sys.argv[3])
@@ -793,5 +840,6 @@ if __name__ == "__main__":
             shape(t, log=lambda *a: print(*a, flush=True))
     elif sys.argv[1] == "edges":
         label_edges(redo="redo" in sys.argv)
+        fill_curved_labels()
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])

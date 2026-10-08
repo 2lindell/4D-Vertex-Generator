@@ -56,9 +56,9 @@ html.embedded .explore .tablewrap { max-height: 760px; }
   .explore #key td.where { max-width: 10rem; }
   .explore #key td.bounds { max-width: 10rem; }
   .explore #key th, .explore #key td { padding-right: 8px; }
-  .explore > .viewer { position: sticky; top: 12px; height: calc(100vh - 24px); display: flex; flex-direction: column; }
+  .explore > .viewer { position: sticky; top: 12px; height: min(calc(100vh - 24px), 960px); display: flex; flex-direction: column; }
   .explore #plot { flex: 1 1 auto; height: auto; min-height: 280px; }
-  .explore .tablewrap { max-height: calc(100vh - 200px); min-height: 300px; overflow: auto; overscroll-behavior: contain;
+  .explore .tablewrap { max-height: min(calc(100vh - 200px), 780px); min-height: 300px; overflow: auto; overscroll-behavior: contain;
     border-top: 1px solid var(--rule); }
   .explore .tablewrap thead th { position: sticky; top: 0; z-index: 1; background: var(--panel); border-top: none;
     box-shadow: inset 0 -1px 0 var(--rule); }
