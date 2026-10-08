@@ -491,12 +491,14 @@ __TYPE_CSS__
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   }
 })();
-// When shown inside the web app's tab, grow the frame to the whole page so only the app scrolls
-// (frameElement is only reachable from a same-origin parent; elsewhere this does nothing).
+// When shown inside the web app's tab, grow the frame to the whole page so only the app scrolls.
 (() => {
   let frame = null;
-  try { frame = window.frameElement; } catch (e) { return; }
-  if (!frame) return;
+  try {
+    frame = window.frameElement;
+    // only inside the web app's tab (a Streamlit page); any other host, such as an artifact viewer, keeps its frame
+    if (!frame || !window.parent.document.querySelector('[data-testid="stApp"], .stApp')) return;
+  } catch (e) { return; }
   document.documentElement.classList.add("embedded");
   document.documentElement.style.overflowY = "hidden";
   const fit = () => {
