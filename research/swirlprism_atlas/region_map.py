@@ -17,6 +17,7 @@ import numpy as np
 from fexact import _lab_loose
 
 U = np.linalg.svd(np.ones((1, 4)))[2][1:]
+MAX_EDGES = 160
 NB = [(1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)]
 
 
@@ -69,14 +70,14 @@ def main(tid, h, out, seeds, cap=7000):
         while front and len(known) < cap:
             for k, l in pool.imap_unordered(_job, front, chunksize=4):
                 known[k] = l
-            front = sorted({tuple(np.add(k, d)) for k, l in known.items() if l == tid for d in NB} - set(known))
+            front = sorted({tuple(int(v) for v in np.add(k, d)) for k, l in known.items() if l == tid for d in NB} - set(known))
             print(f"{tid}: {sum(l == tid for l in known.values())} of {len(known)} grid points in the shape, "
                   f"{len(front)} to classify", flush=True)
-        edges = [(tid, k, tuple(np.add(k, d))) for k, l in known.items() if l == tid for d in NB
-                 if known.get(tuple(np.add(k, d)), tid) not in (tid, "OUT")]
+        edges = [(tid, k, tuple(int(v) for v in np.add(k, d))) for k, l in known.items() if l == tid for d in NB
+                 if known.get(tuple(int(v) for v in np.add(k, d)), tid) not in (tid, "OUT")]
         rng = np.random.default_rng(0)
-        if len(edges) > 400:
-            edges = [edges[i] for i in rng.choice(len(edges), 400, replace=False)]
+        if len(edges) > MAX_EDGES:
+            edges = [edges[i] for i in rng.choice(len(edges), MAX_EDGES, replace=False)]
         print(f"{tid}: bisecting {len(edges)} boundary edges", flush=True)
         res = pool.map(_edge, edges, chunksize=2)
     by = defaultdict(list)
@@ -90,7 +91,8 @@ def main(tid, h, out, seeds, cap=7000):
         walls[beyond] = {"count": len(pts), "on": Counter(o for _, o in pts).most_common(4), "normal": None if n is None else (n / n[np.argmax(np.abs(n))]).tolist(),
                          "plane_residual": resid, "points": P.tolist()}
         print(f"  beyond {beyond[:40]}: {len(pts)} points, on {walls[beyond]['on']}, plane residual {resid}", flush=True)
-    json.dump({"tid": tid, "h": h, "centre": c.tolist(), "grid": [[list(k), l] for k, l in known.items()], "walls": walls},
+    json.dump({"tid": tid, "h": h, "centre": c.tolist(), "grid": [[[int(v) for v in k], l] for k, l in known.items()],
+               "walls": walls},
               open(out, "w"))
 
 
