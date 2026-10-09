@@ -540,7 +540,7 @@ def main(samples_path, out_path):
     e1_segments = [{"id": "E1", "a": a, "b": m, "ends": ("A1", "C6"), "copy": False}
                    for a, b in (([1, 0, 0, 0], [0, 1, 0, 0]), ([1, 0, 0, 0], [0, 0, 1, 0]), ([0, 1, 0, 0], [0, 0, 1, 0]))
                    for m in ([(x + y) / 2 for x, y in zip(a, b)],) for a in (a, b)]
-    for seg in EXACT_SEGMENTS + e1_segments:
+    for seg in EXACT_SEGMENTS:
         a, b = np.array(seg["a"], float), np.array(seg["b"], float)
         a, b = a / a.sum(), b / b.sum()
         kind = "copy under the extra half-turn" if seg["copy"] else "traced"
@@ -728,6 +728,14 @@ def main(samples_path, out_path):
     if "X26" in tmap:
         tmap["X26"]["locus"] = ("wall: the mirror β3 = β4 between the D2 and X2 lines, creased by D3; its copy lies in "
                                 "β3 = β2 + β4, crossing X79's lens")
+
+    # E1 along the three edges of the face beta4 = 0 (drawn as lines of its own, so they get their dashed copies)
+    for seg in e1_segments:
+        a, b = np.array(seg["a"], float), np.array(seg["b"], float)
+        pts = [(a + (b - a) * k / 8) / np.sum(a + (b - a) * k / 8) for k in range(9)]
+        xlines.append({"id": "E1", "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
+                       "hover": f"{label('E1')}<br>the edge of the face β4 = 0, from {seg['ends'][0]} at β ∝ "
+                                f"{beta_text(pts[0])} to {seg['ends'][1]} at β ∝ {beta_text(pts[-1])}"})
 
     # half-turn copies of the survey lines: each segment's images under the 2400-element group that land in the
     # half-cell, other than the segments already found, are drawn dashed
