@@ -826,7 +826,7 @@ def main(samples_path, out_path):
                                             and all(in_exact_patch(s["id"], b) for b in s["betas"]))]
         for key, pt in exact.items():
             tid = pt["target"]
-            if tid not in tmap or len(pt["corners"]) < 3:
+            if tid not in tmap or len(pt["corners"]) < 3 or tid == "T2":   # (T2 is drawn from t2exact.py below)
                 continue
             C = [np.asarray(b, float) for b in pt["corners"]]
             copy = has_plain[tid] and not plain(pt["normal"])
