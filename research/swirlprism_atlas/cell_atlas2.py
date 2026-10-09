@@ -1275,9 +1275,9 @@ def main(samples_path, out_path):
     from place_colors import css as place_css
     # (lightness by what each class fills now, after the exact tracing, not by the first survey's guess)
     place = place_assign([t["id"] for t in types if t["listed"]], dims={t["id"]: t.get("dim") for t in types})
-    # T1 fell next to C2b's orange and E2 next to C3's gold: each takes the line-lightness hue farthest from every
-    # other colour (T1 magenta, E2 crimson)
-    for tid, light, dark in (("T1", "#8f4896", "#d38dd9"), ("E2", "#aa3f4e", "#f18790")):
+    # T1 fell next to C2b's orange, E2 next to C3's gold and E1 next to T1: each takes the line-lightness hue farthest
+    # from every other colour (T1 magenta, E2 crimson, E1 indigo)
+    for tid, light, dark in (("T1", "#8f4896", "#d38dd9"), ("E2", "#aa3f4e", "#f18790"), ("E1", "#5060b8", "#90a4fd")):
         if tid in place:
             place[tid] = (light, dark, *place[tid][2:])
     # X classes: the X grey for a region, a step darker on a wall, darker on a line, darkest at a point
