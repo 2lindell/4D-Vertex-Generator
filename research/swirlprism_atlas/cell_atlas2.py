@@ -1404,8 +1404,10 @@ def main(samples_path, out_path):
             for i, pts in pieces:
                 if i in tmap and tmap[i].get("dim") == "line" and len(pts) >= 2 and all(abs(np.dot(n, b)) < 1e-9 for b in pts):
                     entry["ids"].add(i)
-        # where two of the half tetrahedron's faces or H4 mirrors meet: the line shapes lying along that meeting line.
-        # A pair and its fold (beta1 <-> beta2, beta3 <-> beta4) are one option, holding the lines of both.
+        # special straight lines: where two of the half tetrahedron's faces or H4 mirrors meet, and any other straight
+        # line holding pieces of two or more shapes. Each line is followed all the way round the polytope (its images
+        # under the 2400-element group), so the option holds every shape with a piece on any image of it, and lines
+        # that are images of each other are one option.
         def pnormal(key):
             n = np.zeros(4)
             if key[0] == 1:
@@ -1413,12 +1415,8 @@ def main(samples_path, out_path):
             else:
                 n[key[1][0]], n[key[1][1]] = 1, -1
             return n
-        def pname(key):
-            return ("the face " if key[0] == 1 else "the mirror ") + _eq(pnormal(key))
         planes = [(1, (i,)) for i in range(4)] + [(0, (i, j)) for i in range(4) for j in range(i + 1, 4)]
-        FOLD = [1, 0, 3, 2]
-        def fold_key(key):
-            return (key[0], tuple(sorted(FOLD[i] for i in key[1])))
+
         def line_name(keys):
             """'b1 = b3 = b4' style text for the line on which all these planes meet."""
             parent = list(range(4))
@@ -1441,24 +1439,102 @@ def main(samples_path, out_path):
                 if len(g) > 1 or z:
                     parts.append(" = ".join(f"β{a + 1}" for a in g) + (" = 0" if z else ""))
             return " and ".join(parts)
-        meet = {}
+
+        HALF_IN = [np.eye(4)[k] for k in range(4)] + [np.array([0, 0, 1.0, -1.0])]
+
+        def half_segment(U):
+            """The ends of the line spanned by U's rows inside the half tetrahedron, or None if it misses it."""
+            u, v = U
+            ends = []
+            for a in HALF_IN:
+                x = (a @ v) * u - (a @ u) * v
+                if np.abs(x).max() < 1e-12:
+                    continue
+                x = x if x.sum() > 0 else -x
+                x = x / x.sum()
+                if all(h @ x > -1e-9 for h in HALF_IN) and not any(np.allclose(x, e, atol=1e-9) for e in ends):
+                    ends.append(x)
+            if len(ends) < 2:
+                return None
+            d = max(((p, q) for p in ends for q in ends), key=lambda pq: np.linalg.norm(pq[0] - pq[1]))
+            return d if np.linalg.norm(d[0] - d[1]) > 1e-6 else None
+
+        def proj(U):
+            U = np.linalg.qr(np.asarray(U, float).T)[0].T[:2]
+            return U.T @ U
+
+        cands = []            # (projector, meeting planes or None)
         for u in range(len(planes)):
             for v in range(u + 1, len(planes)):
                 nA, nB = pnormal(planes[u]), pnormal(planes[v])
-                M = np.vstack([nA, nB, np.ones(4)])
-                if np.linalg.matrix_rank(M) < 3:
+                if np.linalg.matrix_rank(np.vstack([nA, nB, np.ones(4)])) < 3:
                     continue
-                L = np.linalg.svd(np.vstack([nA, nB]))[2][2:]           # two betas spanning the line
+                L = np.linalg.svd(np.vstack([nA, nB]))[2][2:]
+                if half_segment(L) is None:
+                    continue
                 on = frozenset(k for k in planes if np.allclose(L @ pnormal(k), 0, atol=1e-12))
-                folded = frozenset(fold_key(k) for k in on)
-                canon = min(on, folded, key=lambda f: sorted(f))
-                ids = {i for i, pts in pieces if i in tmap and tmap[i].get("dim") == "line" and len(pts) >= 2
-                       and all(abs(nA @ b) < 1e-9 and abs(nB @ b) < 1e-9 and b.min() > -1e-9 and b[2] >= b[3] - 1e-9
-                               for b in pts)
-                       and max(np.linalg.norm(b - pts[0]) for b in pts) > 1e-6}      # a real piece in the half tetrahedron
-                if ids:          # (named by the first of the pair and its fold found to hold lines)
-                    meet.setdefault(canon, {"ids": set(), "fold": folded != on, "on": on})["ids"] |= ids
-        meet_opts = [{"name": "the line " + line_name(e["on"]) + (" (and its fold)" if e["fold"] else ""), "ids": e["ids"]} for canon, e in sorted(meet.items(), key=lambda kv: line_name(kv[1]["on"]))]
+                cands.append((proj(L), on))
+        # straight pieces of line shapes (rings, traced lines, segments, patch edges): the line each lies on
+        straight = []
+        for i, pts in pieces:
+            if i not in tmap or tmap[i].get("dim") != "line" or len(pts) < 2:
+                continue
+            Pm = np.array(pts, float)
+            sv = np.linalg.svd(Pm, compute_uv=False)
+            if len(sv) > 2 and sv[2] > 1e-9 * sv[0]:
+                continue                        # (a curve)
+            far = max(pts, key=lambda b: np.linalg.norm(b - pts[0]))
+            if np.linalg.norm(far - pts[0]) < 1e-6:
+                continue
+            straight.append((i, Pm))
+            cands.append((proj([pts[0], far]), None))
+        points = [(u["sample"]["id"], np.asarray(u["beta"], float) / np.sum(u["beta"])) for u in uniform
+                  if u.get("sample") and tmap.get(u["sample"]["id"], {}).get("dim") == "point"]
+
+        classes = []          # {"orbit": (G,4,4) projectors, "on": [meeting plane sets], "P": representative}
+        for Pc, on in cands:
+            hit = None
+            for c in classes:
+                if np.min(np.abs(c["orbit"] - Pc).reshape(len(c["orbit"]), -1).max(axis=1)) < 1e-7:
+                    hit = c
+                    break
+            if hit is None:
+                imgs = np.einsum("gij,jk,glk->gil", M_all, Pc, M_all)          # M P M^T spans the image line
+                orb = []
+                for Q in imgs:
+                    w, V = np.linalg.eigh(Q)
+                    Qp = proj(V[:, -2:].T)
+                    if not any(np.abs(Qp - o).max() < 1e-7 for o in orb):
+                        orb.append(Qp)
+                hit = {"orbit": np.array(orb), "on": [], "P": Pc}
+                classes.append(hit)
+            if on is not None and on not in hit["on"]:
+                hit["on"].append(on)
+        meet_opts = []
+        for c in classes:
+            orb = c["orbit"]
+            ids = set()
+            for i, Pm in straight:
+                res = np.abs(np.einsum("gij,pj->gpi", orb, Pm) - Pm[None]).max(axis=(1, 2))
+                if res.min() < 1e-8:
+                    ids.add(i)
+            for i, b in points:
+                if np.abs(np.einsum("gij,j->gi", orb, b) - b[None]).max(axis=1).min() < 1e-8:
+                    ids.add(i)
+            ids = {i for i in ids if i in tmap and tmap[i].get("dim") in ("line", "point")}
+            nline = sum(tmap[i]["dim"] == "line" for i in ids)
+            if not nline or (not c["on"] and nline < 2 and len(ids) - nline < 2):
+                continue            # (a line elsewhere needs two line shapes, or one and two special points)
+            if c["on"]:
+                names = sorted({line_name(on) for on in c["on"]}, key=lambda t: (len(t), t))
+                name = "the line " + names[0] + (f" (≅ {', '.join(names[1:])})" if len(names) > 1 else "")
+            else:
+                w, V = np.linalg.eigh(c["P"])
+                seg = half_segment(V[:, -2:].T)
+                name = (f"the line through β ∝ {beta_text(seg[0])} and {beta_text(seg[1])}" if seg is not None
+                        else "a straight line")
+            meet_opts.append({"name": name, "ids": ids, "meet": bool(c["on"])})
+        meet_opts.sort(key=lambda m: (not m["meet"], m["name"]))
         if f1 in by and (1, (1,)) in by:      # (the beta2 = 0 face was merged into the beta1 = 0 option)
             by[f1]["ids"] |= by.pop((1, (1,)))["ids"]
         srt = lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i)
