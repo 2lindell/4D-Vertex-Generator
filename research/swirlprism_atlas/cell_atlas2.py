@@ -510,11 +510,13 @@ def main(samples_path, out_path):
 
     # transitional layer: T1 lines, T2 patches in mirrors and faces
     segments = []
+    SELECTED_ONLY = {"T1"}    # drawn only while the shape's row is selected
     for seg in EXACT_SEGMENTS:
         a, b = np.array(seg["a"], float), np.array(seg["b"], float)
         a, b = a / a.sum(), b / b.sum()
         kind = "copy under the extra half-turn" if seg["copy"] else "traced"
-        segments.append({"id": seg["id"], "copy": seg["copy"], "pts": [_exact(xyz(a + (b - a) * k / 8)).tolist() for k in range(9)],
+        segments.append({"id": seg["id"], "copy": seg["copy"], "selOnly": seg["id"] in SELECTED_ONLY,
+                         "pts": [_exact(xyz(a + (b - a) * k / 8)).tolist() for k in range(9)],
                          "hover": f"{seg['id']} · exact segment ({kind})<br>from {seg['ends'][0]} at β ∝ {beta_text(a)}"
                                   f"<br>to {seg['ends'][1]} at β ∝ {beta_text(b)}"})
     # regular cells: pentagonal prisms and antiprisms (exact lines, regular_cells.py)
@@ -843,6 +845,7 @@ def main(samples_path, out_path):
 
     # the shapes living on the edges of the exact patches (fexact.py label_edges): X shapes found there are drawn as
     # exact segments in their colours, and survey lines of theirs lying along them are dropped
+    EDGE_DRAWN = {"E1"}       # named shapes living only on patch edges (the rest have rings or segments of their own)
     if os.path.exists("fexact_patches.json"):
         seen, edge_lines = {}, {}
         def conic_runs(C, conic):
@@ -901,7 +904,7 @@ def main(samples_path, out_path):
             if pt.get("conics"):          # curved edges: drawn along their exact conics, end to end
                 for conic in pt["conics"]:
                     tid = nbname(conic["label"]) if conic["label"].startswith("new:") else conic["label"]
-                    if not tid.startswith("X") or tid not in tmap or tid == pt["target"]:
+                    if not (tid.startswith("X") or tid in EDGE_DRAWN) or tid not in tmap or tid == pt["target"]:
                         continue
                     is_copy = bool(has_plain.get(pt["target"]) and not plain(pt["normal"]))
                     for run in conic_runs(C, conic):
@@ -917,7 +920,7 @@ def main(samples_path, out_path):
                 if pt.get("conics") and not kind and len(C) >= 12:
                     continue              # runs of arc points: drawn from the conics above
                 tid = nbname(lab) if lab.startswith("new:") else lab
-                if not tid.startswith("X") or tid not in tmap or tid == pt["target"]:
+                if not (tid.startswith("X") or tid in EDGE_DRAWN) or tid not in tmap or tid == pt["target"]:
                     continue
                 # a run of `step` corners, or (marked "straight") the one edge from corner a to corner b
                 seg = [C[a], C[b]] if kind == ["straight"] else [C[(a + s) % len(C)] for s in range(step + 1)]
@@ -1039,6 +1042,8 @@ def main(samples_path, out_path):
     from place_colors import assign as place_assign
     from place_colors import css as place_css
     place = place_assign([t["id"] for t in types if t["listed"]])
+    if "T1" in place:      # T1 fell next to C2b's orange: the line-lightness hue farthest from every other colour
+        place["T1"] = ("#8f4896", "#d38dd9", *place["T1"][2:])
     # transitional X classes: the X grey, a step darker on a wall, darker on a line, darkest at a point
     x_kind = {tid: r["kind"] for tid, r in r2.items()} if os.path.exists("xloci_step2.json") else {}
     for t in types:
