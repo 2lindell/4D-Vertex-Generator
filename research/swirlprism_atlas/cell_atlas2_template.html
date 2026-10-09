@@ -473,13 +473,13 @@ __TYPE_CSS__
       ["X · 1200 vertices, not in the wiki list: regions", (t) => t.id.startsWith("X") && t.dim === "region"],
       ["X · transitional walls (planes and curved walls), grouped by where", (t) => t.id.startsWith("X") && t.dim === "wall", true],
       ["X · transitional lines (straight or curved), grouped by where", (t) => t.id.startsWith("X") && t.dim === "line", true],
-      ["X · transitional points", (t) => t.id.startsWith("X") && t.dim === "point", true],
+      ["X · transitional points or curves (found off every golden plane; not traced yet)", (t) => t.id.startsWith("X") && t.dim === "point", true],
       ["Z · other vertex counts, not in the wiki list", (t) => t.id.startsWith("Z")],
     ];
     let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th>Boundaries</th><th class="num">Samples</th></tr></thead><tbody>`;
     const dimOf = Object.fromEntries(D.types.map((t) => [t.id, t.dim]));
     const DIMS = [["region", "regions"], ["wall", "walls"], ["line", "lines"], ["point", "points"]];
-    const bounds = (t) => t.dim === "point" ? `<span class="locus">none (a point)</span>`
+    const bounds = (t) => t.dim === "point" && !t.id.startsWith("X") ? `<span class="locus">none (a point)</span>`
       : !t.bounds || !t.bounds.length ? `<span class="locus">not traced yet</span>`
       : DIMS.map(([d, name]) => [name, t.bounds.filter((b) => (dimOf[b] || "point") === d)])
           .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.join(", ")}`).join("<br>");

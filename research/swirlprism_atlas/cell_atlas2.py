@@ -1128,7 +1128,7 @@ def main(samples_path, out_path):
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
     for tid in ("X80", "X81"):  # the two conics of X79's lens both run from A1 to the X2 corner
         if tid in tmap:
-            tmap[tid]["bounds"] = ["A1", "X2"]       # (corners where arcs meet can classify just off the point)
+            tmap[tid]["ends"] = ["A1", "X2"]         # A1, and where it meets the X2 line (no special point there)
     rank = {"region": 3, "wall": 2, "line": 1, "point": 0}
     for t in types:        # boundaries known from the traced geometry itself (none from boundaries.json)
         extra = t.pop("extra_bounds", None)
@@ -1137,6 +1137,9 @@ def main(samples_path, out_path):
         if t.get("bounds"):   # only lower-dimensional shapes can bound a shape (corners just past a curve can mislead)
             own = rank.get(t.get("dim"), 3)
             t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own]
+        ends = t.pop("ends", None)
+        if ends:              # a line's known ends: a point, or the line it runs into where there is no special point
+            t["bounds"] = ends
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
