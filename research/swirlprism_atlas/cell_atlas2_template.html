@@ -83,6 +83,7 @@ td.counts { font-family: var(--font-data); font-size: 0.76rem; color: var(--mute
 td.where { color: var(--muted); font-size: 0.82rem; }
 td.bounds { font-size: 0.82rem; }
 tr.row { cursor: pointer; }
+.keytools { margin: 0 0 8px; font-size: 0.88rem; }
 tr.row:hover td { background: var(--bg); }
 tr.row.active td { background: var(--bg); box-shadow: inset 0 1px 0 var(--ink); }
 .sw { display: inline-block; width: 11px; height: 11px; vertical-align: -1px; margin-right: 9px; }
@@ -126,6 +127,7 @@ __TYPE_CSS__
   <section class="panel">
     <h2>Key</h2>
     <p class="lede">Counts are symmetry classes of cells, faces and edges, written the way the wiki writes them. The example seed can be pasted into the generator's Coordinates mode.</p>
+    <p class="keytools"><label>Select the walls in <select id="mirrorPick"><option value="">— a mirror or face —</option></select></label></p>
     <div class="tablewrap"><table id="key"></table></div>
   </section>
   </div>
@@ -515,6 +517,19 @@ __TYPE_CSS__
       document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", state.sel.has(r.dataset.id)));
       render();
     }));
+    // "walls in a mirror": choosing one selects every wall shape with a patch in it, as if each row were Ctrl-clicked
+    const pick = el("mirrorPick");
+    (DC.mirrorWalls || []).forEach((m, k) => {
+      const o = document.createElement("option");
+      o.value = String(k); o.textContent = `${m.name} (${m.ids.join(", ")})`;
+      pick.appendChild(o);
+    });
+    pick.addEventListener("input", () => {
+      const m = (DC.mirrorWalls || [])[Number(pick.value)];
+      state.sel = new Set(pick.value === "" || !m ? [] : m.ids);
+      document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", state.sel.has(r.dataset.id)));
+      render();
+    });
     ["quarter", "showListed", "showX", "showRings", "showAxes", "showRegular", "showDecagon", "showDomain", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });

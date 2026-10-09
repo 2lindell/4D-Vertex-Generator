@@ -1354,10 +1354,26 @@ def main(samples_path, out_path):
     # line, which would cut across its own patch
     xlines = [s for s in xlines if not (s.get("hover", "").find("exact edge between patches") >= 0
                                         and tmap.get(s["id"], {}).get("dim") == "wall")]
+    # the wall shapes with exact patches in each H4 mirror (beta_i = beta_j) or cell face (beta_i = 0), for the key's
+    # "walls in a mirror" menu, which selects them all at once
+    mirror_walls = []
+    if os.path.exists("fexact_patches.json"):
+        by = {}
+        for pt in json.load(open("fexact_patches.json")).values():
+            n = np.asarray(pt["normal"], float)
+            nz = [i for i in range(4) if abs(n[i]) > 1e-9]
+            face = len(nz) == 1
+            mirror = len(nz) == 2 and abs(n[nz[0]] + n[nz[1]]) < 1e-9
+            if (face or mirror) and pt["target"] in tmap and len(pt["corners"]) >= 3:
+                key = (0 if mirror else 1, tuple(nz))
+                by.setdefault(key, {"name": ("the mirror " if mirror else "the face ") + _eq(n), "ids": set()})["ids"].add(pt["target"])
+        for key in sorted(by):
+            ids = sorted(by[key]["ids"], key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0)))
+            mirror_walls.append({"name": by[key]["name"], "ids": ids})
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
-            "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples)}
+            "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples), "mirrorWalls": mirror_walls}
     from dodeca_view import piece_view
     from dodeca_view import view as dodeca_view
     dodeca = dodeca_view(data)                     # the same geometry seen from the M34 dodecahedron
