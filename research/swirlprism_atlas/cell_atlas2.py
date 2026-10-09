@@ -1135,6 +1135,19 @@ def main(samples_path, out_path):
         if tid in tmap:
             tmap[tid]["ends"] = ["A1", "X2"]         # A1, and where it meets the X2 line (no special point there)
     rank = {"region": 3, "wall": 2, "line": 1, "point": 0}
+    def continues_across(pt, m, step=1e-4):
+        """Is the patch's shape also just across the splitting mirror (inside its wall) at the mirror point m? Then the
+        mirror is only the fold of the displayed half and the shape goes on (X79's two half-lenses); otherwise the
+        shape found on the edge is a true boundary (X13 between X31 and F1)."""
+        n = np.asarray(pt["normal"], float)
+        d = np.array([0, 0, -1.0, 1.0])
+        for v in (n / np.linalg.norm(n), np.ones(4) / 2):
+            d = d - (d @ v) * v
+        if np.linalg.norm(d) < 1e-12:
+            return False
+        x = m + step * d / np.linalg.norm(d)
+        return _one(x / x.sum())[0] == pt["target"]
+
     edge_walls = {}           # walls found along a patch's edge: another wall crossing it there (X20 along F5's edge)
     on_fold, off_fold = {}, {}  # shapes found on a patch's edges in the splitting mirror (the patch goes on across)
     if os.path.exists("fexact_patches.json"):
@@ -1147,7 +1160,8 @@ def main(samples_path, out_path):
                     continue
                 edge_walls.setdefault(pt["target"], set()).add(lab)
                 a, b = Cp[l[0] % len(Cp)], Cp[l[1] % len(Cp)]
-                fold = not in_mirror and len(l) > 3 and abs(a[2] - a[3]) < 1e-9 and abs(b[2] - b[3]) < 1e-9
+                fold = (not in_mirror and len(l) > 3 and abs(a[2] - a[3]) < 1e-9 and abs(b[2] - b[3]) < 1e-9
+                        and continues_across(pt, (a + b) / 2))
                 (on_fold if fold else off_fold).setdefault(pt["target"], set()).add(lab)
     for t in types:        # boundaries known from the traced geometry itself (none from boundaries.json)
         extra = t.pop("extra_bounds", None)
