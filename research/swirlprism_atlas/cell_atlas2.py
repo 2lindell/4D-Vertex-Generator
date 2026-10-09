@@ -1227,11 +1227,11 @@ def main(samples_path, out_path):
             if tid in tmap and tmap[tid]["listed"] and tid not in NAMED_WHERE:
                 solid = sorted({e for e, pl in ps if pl})
                 dashed = sorted({e for e, pl in ps if not pl})
-                txt = f"Wall: {len(ps)} exact patch{'es' if len(ps) > 1 else ''}"
+                txt = "Wall: exact patches"
                 if solid:
                     txt += " in " + ", ".join(solid)
                 if dashed:
-                    txt += ("; dashed copies in " if solid else " in ") + ", ".join(dashed)
+                    txt += ("; their dashed copies in " if solid else " in ") + ", ".join(dashed)
                 NAMED_WHERE[tid] = txt
     for t in types:
         if not t["listed"] or t["id"] not in NAMED_WHERE:
