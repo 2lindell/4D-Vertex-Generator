@@ -1093,25 +1093,6 @@ def main(samples_path, out_path):
             if len(poly) >= 3:
                 mirrors.append(poly)
 
-    # the lettered classes' colours follow location (place_colors.py): regions lightest, walls darker, lines and
-    # points darkest, in the hue family of the coloured region beside them; X classes keep their shared colour
-    from place_colors import assign as place_assign
-    from place_colors import css as place_css
-    place = place_assign([t["id"] for t in types if t["listed"]])
-    # T1 fell next to C2b's orange and E2 next to C3's gold: each takes the line-lightness hue farthest from every
-    # other colour (T1 magenta, E2 crimson)
-    for tid, light, dark in (("T1", "#8f4896", "#d38dd9"), ("E2", "#aa3f4e", "#f18790")):
-        if tid in place:
-            place[tid] = (light, dark, *place[tid][2:])
-    # transitional X classes: the X grey, a step darker on a wall, darker on a line, darkest at a point
-    x_kind = {tid: r["kind"] for tid, r in r2.items()} if os.path.exists("xloci_step2.json") else {}
-    for t in types:
-        if t["id"] in place:
-            t["color"] = f"--ty-{t['id']}"
-        elif t.get("transitional"):
-            kind = "wall" if t["id"] in CURVED_WALLS else x_kind.get(t["id"])
-            t["color"] = {"wall": "--xw", "line": "--xl"}.get(kind, "--xp")
-    type_css = place_css(place)
     for t in types:
         t.pop("counts", None)
         t.setdefault("samples", 0)
@@ -1288,6 +1269,24 @@ def main(samples_path, out_path):
                 kinds.append(o["kind"])
         t["where"] = NAMED_WHERE[t["id"]] + "".join(f"; ✕ {KIND_TEXT[k]}" for k in kinds)
         t["locus"] = None
+    # the lettered classes' colours follow location (place_colors.py): regions lightest, walls darker, lines and
+    # points darkest, in the hue family of the coloured region beside them; X classes keep their shared colour
+    from place_colors import assign as place_assign
+    from place_colors import css as place_css
+    # (lightness by what each class fills now, after the exact tracing, not by the first survey's guess)
+    place = place_assign([t["id"] for t in types if t["listed"]], dims={t["id"]: t.get("dim") for t in types})
+    # T1 fell next to C2b's orange and E2 next to C3's gold: each takes the line-lightness hue farthest from every
+    # other colour (T1 magenta, E2 crimson)
+    for tid, light, dark in (("T1", "#8f4896", "#d38dd9"), ("E2", "#aa3f4e", "#f18790")):
+        if tid in place:
+            place[tid] = (light, dark, *place[tid][2:])
+    # X classes: the X grey for a region, a step darker on a wall, darker on a line, darkest at a point
+    for t in types:
+        if t["id"] in place:
+            t["color"] = f"--ty-{t['id']}"
+        elif not t["listed"]:
+            t["color"] = {"region": "--x", "wall": "--xw", "line": "--xl"}.get(t.get("dim"), "--xp")
+    type_css = place_css(place)
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),

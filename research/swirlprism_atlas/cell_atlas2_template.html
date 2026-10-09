@@ -355,7 +355,7 @@ __TYPE_CSS__
         const pts = (D.samples[t.id] || []).filter(inQ);
         if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} · ${t.name}`,
           x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${typeof p[3] === "number" ? DC.samples[t.id][p[3]][3] : p[3]}`),
-          marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: t.listed ? 0.9 : 0.55 },
+          marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: 0.9 },   // (full shade: it shows the dimension)
           hovertemplate: "%{customdata}<extra></extra>" });
         for (const seg of D.segments.filter((g) => g.id === t.id && (!g.selOnly || state.sel.has(g.id)))) {
           const trace = lines([seg.pts], seg.hover, { color: color(t), width: seg.copy ? 3.5 : 4.5, dash: seg.copy ? "dash" : "solid" });
