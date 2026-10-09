@@ -362,8 +362,9 @@ __TYPE_CSS__
           trace.hovertemplate = seg.hover + "<extra></extra>";
           out.push(trace);
         }
-        // (the axis points of unlisted X shapes only while their row is selected; wiki shapes always show theirs)
-        const exact = D.special.filter((u) => u.id === t.id && !u.decagon && inQ(u.q) && (!u.selOnly || t.listed || state.sel.has(u.id)));
+        // (axis points only while their row is selected, except on the rings: the wiki lines always show theirs)
+        const exact = D.special.filter((u) => u.id === t.id && !u.decagon && inQ(u.q)
+          && (!u.selOnly || (t.listed && t.dim === "line") || state.sel.has(u.id)));
         if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact point)`,
           x: exact.map((u) => u.q[0]), y: exact.map((u) => u.q[1]), z: exact.map((u) => u.q[2]), customdata: exact.map((u) => u.hover),
           marker: { size: 9, color: color(t), symbol: "cross", line: { color: color(t), width: 3 } }, hovertemplate: "%{customdata}<extra></extra>" });

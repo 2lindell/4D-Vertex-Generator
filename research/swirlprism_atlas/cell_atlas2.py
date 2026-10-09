@@ -1041,13 +1041,34 @@ def main(samples_path, out_path):
             segments.append({"id": "T2", "copy": is_copy, "selOnly": True, "pts": [_exact(xyz(p)).tolist() for p in pts],
                              "hover": f"T2 · exact curve {name} ({where})<br>{desc}"})
     tpatches = []
+
+    def clean(poly):
+        """Barycentric corners without repeats (a repeated corner breaks the ear-clipping fill)."""
+        out = []
+        for b in poly:
+            b = np.asarray(b, float) / np.sum(b)
+            if not out or np.linalg.norm(b - out[-1]) > 1e-12:
+                out.append(b)
+        while len(out) > 1 and np.linalg.norm(out[0] - out[-1]) < 1e-12:
+            out.pop()
+        return out
+    pieces = []
     for name, (plane, bounds) in t2exact.DESCRIPTIONS.items():
-        polys = [(False, t2exact.PATCHES[name]())] + [(True, poly) for poly in t2exact.copies(name)]
-        for is_copy, poly in polys:
-            pts = [_exact(xyz(p)).tolist() for p in poly]
-            where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
-            tpatches.append({"plane": where, "copy": is_copy, "pts": pts + [pts[0]],
-                             "hover": f"T2 · exact region {name} ({where})<br>{bounds}"})
+        for is_copy, poly in [(False, t2exact.PATCHES[name]())] + [(True, p) for p in t2exact.copies(name)]:
+            pieces.append((name, plane, bounds, is_copy, clean(poly)))
+    # some copies come out twice (one with extra corners): keep one of each, so overlaps do not shade darker
+    keep = []
+    for i, (_, _, _, _, poly) in enumerate(pieces):
+        dup = any(j != i and len(other) >= len(poly) and (len(other) > len(poly) or j < i)
+                  and all(any(np.linalg.norm(x - y) < 1e-9 for y in other) for x in poly)
+                  for j, (_, _, _, _, other) in enumerate(pieces))
+        if not dup:
+            keep.append(pieces[i])
+    for name, plane, bounds, is_copy, poly in keep:
+        pts = [_exact(xyz(p)).tolist() for p in poly]
+        where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
+        tpatches.append({"plane": where, "copy": is_copy, "pts": pts + [pts[0]],
+                         "hover": f"T2 · exact region {name} ({where})<br>{bounds}"})
 
     # geometry
     edges = []
