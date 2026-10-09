@@ -744,6 +744,37 @@ def main(samples_path, out_path):
         "X51": ([1, 1 + PHI_, 2 + 2 * PHI_, 1 + PHI_], [1, 1, 1, 1], "in the mirror β2 = β4, from where it meets E1's dashed copy to the cell centre C1"),
         "X48": ([1, 1 + PHI_, 2 + PHI_, 1], [1, 1, 1, 1], "in the mirror β1 = β4, to the cell centre C1"),
     }
+    # more of them, traced in their mirrors (follow_line / curve_ends, x_point_lines.json): straight lines and exact
+    # golden conics, drawn between their exact ends
+    if os.path.exists("x_point_lines.json"):
+        from exact_conics import quad as _quad
+        from fexact import NORMALS as _NORMALS
+        for tid, e in json.load(open("x_point_lines.json")).items():
+            if tid not in tmap:
+                continue
+            a, b = np.array(e["a"], float), np.array(e["b"], float)
+            a, b = a / a.sum(), b / b.sum()
+            if e["kind"] == "line":
+                pts = [a + (b - a) * k / 8 for k in range(9)]
+            else:                       # the arc of the conic between its ends: points of the chord pushed onto it
+                c = e["conic"]
+                f = lambda x: _quad(c["coeffs"], np.asarray(x)[c["vars"]])
+                n_ = np.asarray(_NORMALS[e["wall"]], float)
+                Uw = np.linalg.svd(np.vstack([np.ones(4), n_]))[2][2:]
+                ch = b - a
+                d = Uw[0] * (ch @ Uw[1]) - Uw[1] * (ch @ Uw[0]); d = d / np.linalg.norm(d)
+                pts = []
+                for k in range(25):
+                    q = a + ch * k / 24
+                    A2 = (f(q + d) + f(q - d)) / 2 - f(q); B2 = (f(q + d) - f(q - d)) / 2
+                    r = np.roots([A2, B2, f(q)]) if abs(A2) > 1e-15 else np.array([-f(q) / B2])
+                    r = r[np.isreal(r)].real
+                    pts.append(q + r[np.argmin(np.abs(r))] * d if len(r) else q)
+                pts = [p / p.sum() for p in pts]
+            tmap[tid]["locus"] = f"line: {e['where']}"
+            tmap[tid]["ends_known"] = e["ends"]
+            xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
+                           "hover": f"{label(tid)}<br>{e['where']}"})
     for tid, (a, b, where) in POINT_LINES.items():
         if tid not in tmap:
             continue
@@ -1186,6 +1217,10 @@ def main(samples_path, out_path):
                 ids = ({bname(nb) for nb in nbs} | set(tmap[tid].pop("extra_bounds", []))) - {None, "ERR", tid}
                 tmap[tid]["bounds"] = sorted((i for i in ids if i in tmap),
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
+    for t in types:             # lines traced from their samples (x_point_lines.json): their two ends
+        ek = t.pop("ends_known", None)
+        if ek:
+            t["ends"] = sorted(set(ek))
     for tid in ("X51", "X48"):  # lines found from their samples: they end at the cell centre C1
         if tid in tmap:
             tmap[tid]["ends"] = ["C1", "E1"] if tid == "X51" else ["C1"]
