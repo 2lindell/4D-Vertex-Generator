@@ -797,7 +797,8 @@ def main(samples_path, out_path):
             continue
         a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
         pts = [a + (b - a) * k / 8 for k in range(9)]
-        tmap[tid]["locus"] = f"line: {where}"
+        more = tmap[tid]["locus"][6:] if tmap[tid].get("ends_known") else ""     # (further lines, x_point_lines.json)
+        tmap[tid]["locus"] = f"line: {where}" + (f"; and {more}" if more else "")
         tmap[tid]["point_line"] = True
         xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
                        "hover": f"{label(tid)}<br>line {where}<br>from β ∝ {beta_text(a)}<br>to β ∝ {beta_text(b)}"})
@@ -1304,7 +1305,7 @@ def main(samples_path, out_path):
             t["ends"] = sorted(set(ek))
     for tid in ("X51", "X48"):  # lines found from their samples: they end at the cell centre C1
         if tid in tmap:
-            tmap[tid]["ends"] = ["C1", "E1"]          # (both end on E1's dashed copy)
+            tmap[tid]["ends"] = sorted(set(tmap[tid].get("ends", [])) | {"C1", "E1"})   # (both end on E1's dashed copy)
     for tid in ("X80", "X81"):  # the two conics of X79's lens both run from A1 to the X2 corner
         if tid in tmap:
             tmap[tid]["ends"] = ["A1", "X2"]         # A1, and where it meets the X2 line (no special point there)
