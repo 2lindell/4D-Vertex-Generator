@@ -43,14 +43,17 @@ def _oklch_to_hex(L, C, h):
     return "#" + "".join(f"{int(round(v * 255)):02x}" for v in srgb)
 
 
-def assign(class_ids):
-    """{class id: (light hex, dark hex, family, dimension)} for the lettered classes."""
+def assign(class_ids, dims=None):
+    """{class id: (light hex, dark hex, family, dimension)} for the lettered classes. dims ({id: "region" | "wall" |
+    "line" | "point"}), when given, sets the dimension; otherwise the first survey's nudge test (xloci) does."""
     r1 = json.load(open("xloci_step1.json"))
     r2 = json.load(open("xloci_step2.json"))
     regions = {t for t, r in r1.items() if r["kept"] == r["of"]}
     info = {}
     for t in class_ids:
-        if t in regions:
+        if dims and dims.get(t) in ("region", "wall", "line", "point"):
+            d = {"region": 3, "wall": 2, "line": 1, "point": 0}[dims[t]]
+        elif t in regions:
             d = 3
         elif t in r2 and r2[t]["kind"] == "wall":
             d = 2
