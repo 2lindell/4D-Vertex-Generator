@@ -154,7 +154,7 @@ __TYPE_CSS__
       <h2>Names and markers</h2>
       <ul>
         <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200). C2a and C2b are the two subsymmetrical icosafold icosidodecaswirlchoron ranges on the cross rings, told apart by their counts.</li>
-        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Large outlined markers are uniform H4 seeds, labelled by the shape they produce. Every named shape has its own colour, darkest for shapes on a line, lighter on a wall and lightest for regions; unlisted shapes are grey, in the same steps. Click a row in the key to show only that shape; Ctrl-click (⌘-click on a Mac) more rows to show several at once, with their wall patches, lines and outlines.</li>
+        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Large outlined markers are uniform H4 seeds, labelled by the shape they produce; open markers of the same shape are their copies under the extra half-turn. Every named shape has its own colour, darkest for shapes on a line, lighter on a wall and lightest for regions; unlisted shapes are grey, in the same steps. Click a row in the key to show only that shape; Ctrl-click (⌘-click on a Mac) more rows to show several at once, with their wall patches, lines and outlines.</li>
         <li>"Where" says where a shape lives: a region, a wall (plane) or line, or a point or curve. X shapes that only live on a wall, line or point are listed separately as transitional walls, lines and points, each grouped by where they lie.</li>
         <li>"Boundaries" lists the shapes found on a shape's boundary, by what they fill: the shapes past either end of a traced line, the line shapes on the edges and the shapes at the corners of the exact wall patches, the regions on either side of those patches, and the transitional shapes whose nudged samples fall into a region. A shape whose surroundings are only partly traced has a partial list.</li>
         <li>✕ marks exact points that are not golden, in the colour of their shape: the icosafold points of C2a and C2b; the points of C3 with 3600 symmetries, where the green girdle meets the cross rings (C3 is named after the shape there; the rest of its range is subsymmetrical); the points where the purple axes meet the domain's boundary; and the points where a purple axis passes through a transitional shape (X1, X7 and X78).</li>
@@ -367,10 +367,17 @@ __TYPE_CSS__
         if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact point)`,
           x: exact.map((u) => u.q[0]), y: exact.map((u) => u.q[1]), z: exact.map((u) => u.q[2]), customdata: exact.map((u) => u.hover),
           marker: { size: 9, color: color(t), symbol: "cross", line: { color: color(t), width: 3 } }, hovertemplate: "%{customdata}<extra></extra>" });
-        const big = D.uniform.filter((u) => u.id === t.id && inQ(u.q));
+        const big = D.uniform.filter((u) => u.id === t.id && inQ(u.q) && !u.copy);
         if (big.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (uniform seed)`,
           x: big.map((u) => u.q[0]), y: big.map((u) => u.q[1]), z: big.map((u) => u.q[2]), customdata: big.map((u) => u.hover),
           marker: { size: 8, color: color(t), symbol: t.symbol, line: { color: ink, width: 2 } }, hovertemplate: "%{customdata}<extra></extra>" });
+        // copies under the extra half-turn: open markers (the 3D view cannot dash a marker)
+        const bigCopies = D.uniform.filter((u) => u.id === t.id && inQ(u.q) && u.copy);
+        if (bigCopies.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (uniform seed, copy)`,
+          x: bigCopies.map((u) => u.q[0]), y: bigCopies.map((u) => u.q[1]), z: bigCopies.map((u) => u.q[2]),
+          customdata: bigCopies.map((u) => u.hover),
+          marker: { size: 8, color: color(t), symbol: `${t.symbol}-open`, line: { color: color(t), width: 2 } },
+          hovertemplate: "%{customdata}<extra></extra>" });
       }
       return out;
     }

@@ -337,6 +337,30 @@ def main(samples_path, out_path):
         uniform_out.append({"id": tid, "q": _exact(xyz(u["beta"])).tolist(),
                             "hover": f"{text}<br>uniform seed, β ∝ {beta_text(u['beta'])}<br>seed {seed_text(u['beta'])}"})
 
+    # their copies under the extra half-turn: images of each uniform seed under the 2400-element group that land in
+    # the displayed half and are not already shown (drawn open, like the dashed copies of lines and patches)
+    from cellframe import T as _T
+    from normalizer import extended_group as _ext_group
+    _M = np.einsum("ij,gjk,kl->gil", TINV, np.array(_ext_group(), float), np.array(_T, float).T)
+    shown = [np.asarray(u["beta"], float) / np.sum(u["beta"]) for u in uniform]
+    for u in [u for u in uniform if u["sample"]]:
+        b0 = np.asarray(u["beta"], float) / np.sum(u["beta"])
+        tid = u["sample"]["id"]
+        text = label(tid) if tmap[tid]["listed"] else f"{tid} · piece of the {u['name']}"
+        for img in _M @ b0:
+            if img.sum() <= 0:
+                continue
+            img = img / img.sum()
+            if img.min() < -1e-9:
+                continue
+            img = to_upper(np.clip(img, 0, None))
+            if any(np.allclose(img, o, atol=1e-9) for o in shown):
+                continue
+            shown.append(img)
+            uniform_out.append({"id": tid, "q": _exact(xyz(img)).tolist(), "copy": True,
+                                "hover": f"{text}<br>uniform seed, copy under the extra half-turn, β ∝ {beta_text(img)}"
+                                         f"<br>seed {seed_text(img)}"})
+
     # C2: exact icosafold points (not golden), from the cross-ring analysis, placed in the displayed half
     phi = (1 + 5 ** 0.5) / 2
     half = float(np.degrees(np.arctan(phi))) / 2
