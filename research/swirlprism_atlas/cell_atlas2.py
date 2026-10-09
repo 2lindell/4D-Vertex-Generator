@@ -353,7 +353,7 @@ def main(samples_path, out_path):
                 b = to_upper(b / b.sum())
                 q = _exact(xyz(b)).tolist()
                 if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
-                    special.append({"id": tid, "q": q, "hover": f"{tid} · exact icosafold point (cross ring at {t_deg:.4f}°)<br>"
+                    special.append({"id": tid, "q": q, "kind": "icosafold", "hover": f"{tid} · exact icosafold point (cross ring at {t_deg:.4f}°)<br>"
                                     f"cells {c}<br>faces {fc}<br>edges {e}<br>seed "
                                     + ", ".join(fmt17(c) for c in x)})
     for tid in ("C2a", "C2b"):
@@ -372,7 +372,7 @@ def main(samples_path, out_path):
                 b = to_upper(b / b.sum())
                 q = _exact(xyz(b)).tolist()
                 if not any(np.allclose(q, o["q"], atol=1e-6) for o in special):
-                    special.append({"id": "C3", "q": q, "hover": "C3 · Pentagonal-gyroprismatic triacosihexecontachoron<br>"
+                    special.append({"id": "C3", "q": q, "kind": "girdle-end", "hover": "C3 · Pentagonal-gyroprismatic triacosihexecontachoron<br>"
                                     "exact point with 3600 symmetries: end of an order-3 ghost girdle on the cross ring<br>"
                                     f"cells {c}<br>faces {fc}<br>edges {e}<br>β = {beta_text(b)}<br>seed "
                                     + ", ".join(fmt17(v) for v in x)})
@@ -401,7 +401,7 @@ def main(samples_path, out_path):
         if tid not in tmap:
             continue
         x = seed_from_beta(p)
-        special.append({"id": tid, "q": q, "selOnly": True, "hover": f"{label(tid)}<br>exact point: {note}<br>"
+        special.append({"id": tid, "q": q, "selOnly": True, "kind": "axis-end", "hover": f"{label(tid)}<br>exact point: {note}<br>"
                         f"β = {np.round(p, 6).tolist()}<br>seed " + ", ".join(fmt17(c) for c in x)})
         tmap[tid]["axis_note"] = True
 
@@ -417,7 +417,7 @@ def main(samples_path, out_path):
             x = seed_from_beta(p)
             tid = _one(p)[0]
             c, fc, e = counts_key(signature(classify(x))).split("|")
-            special.append({"id": tid, "q": _exact(xyz(p)).tolist(), "selOnly": True,
+            special.append({"id": tid, "q": _exact(xyz(p)).tolist(), "selOnly": True, "kind": "7200",
                             "hover": f"{label(tid)}<br>exact point with 7200 symmetries: the green order-3 girdle meets a purple "
                                      f"2400 axis<br>cells {c}<br>faces {fc}<br>edges {e}<br>β ∝ {beta_text(p)}<br>seed "
                                      + ", ".join(fmt17(v) for v in x)})
@@ -437,7 +437,7 @@ def main(samples_path, out_path):
             if any(np.allclose(q, o["q"], atol=1e-6) for o in special):
                 continue
             x = seed_from_beta(p)
-            special.append({"id": tid, "q": q, "selOnly": True,
+            special.append({"id": tid, "q": q, "selOnly": True, "kind": "axis-crossing",
                             "hover": f"{label(tid)}<br>exact point where the {c['axis']} crosses it, between "
                                                         f"{c['below']} and {c['above']}; 2400 symmetries<br>β ∝ {beta_text(p)}"
                                                         "<br>seed " + ", ".join(fmt17(v) for v in x)})
@@ -511,8 +511,12 @@ def main(samples_path, out_path):
 
     # transitional layer: T1 lines, T2 patches in mirrors and faces
     segments = []
-    SELECTED_ONLY = {"T1", "E2", "T2"}    # drawn only while the shape's row is selected
-    for seg in EXACT_SEGMENTS:
+    SELECTED_ONLY = {"T1", "E2", "T2", "E1"}    # drawn only while the shape's row is selected
+    # E1 runs along the three edges of the face beta4 = 0 (V1-V2, V1-V3, V2-V3), each split at its midpoint by C6
+    e1_segments = [{"id": "E1", "a": a, "b": m, "ends": ("A1", "C6"), "copy": False}
+                   for a, b in (([1, 0, 0, 0], [0, 1, 0, 0]), ([1, 0, 0, 0], [0, 0, 1, 0]), ([0, 1, 0, 0], [0, 0, 1, 0]))
+                   for m in ([(x + y) / 2 for x, y in zip(a, b)],) for a in (a, b)]
+    for seg in EXACT_SEGMENTS + e1_segments:
         a, b = np.array(seg["a"], float), np.array(seg["b"], float)
         a, b = a / a.sum(), b / b.sum()
         kind = "copy under the extra half-turn" if seg["copy"] else "traced"
@@ -846,7 +850,7 @@ def main(samples_path, out_path):
 
     # the shapes living on the edges of the exact patches (fexact.py label_edges): X shapes found there are drawn as
     # exact segments in their colours, and survey lines of theirs lying along them are dropped
-    EDGE_DRAWN = {"E1"}       # named shapes living only on patch edges (the rest have rings or segments of their own)
+    EDGE_DRAWN = set()        # named shapes drawn along patch edges (all have rings or segments of their own)
     if os.path.exists("fexact_patches.json"):
         seen, edge_lines = {}, {}
         def conic_runs(C, conic):
@@ -1177,6 +1181,67 @@ def main(samples_path, out_path):
         ends = t.pop("ends", None)
         if ends:              # a line's known ends: a point, or the line it runs into where there is no special point
             t["bounds"] = ends
+    # the Where column for the named shapes, in one form: what it fills, where, then its exact points (each kind of
+    # point named once, however many places it is shown in the half-cell)
+    NAMED_WHERE = {
+        "A1": "Point: the four corners of the half-cell, V1 (1, 0, 0, 0), V2 (0, 1, 0, 0), V3 (0, 0, 1, 0) and M34 (0, 0, 1, 1)",
+        "C1": "Point: the cell centre, β ∝ (1, 1, 1, 1)",
+        "C4": "Point: the centre of the cell's face β2 = 0, β ∝ (1, 0, 1, 1), on the half-cell's edge V1–M34 between "
+              "C2b and D2 (and its fold (0, 1, 1, 1) on V2–M34)",
+        "C5": "Point: the centre of the face β4 = 0, β ∝ (1, 1, 1, 0)",
+        "C6": "Point: spidrox, the midpoints of the edges of the face β4 = 0, β ∝ (1, 1, 0, 0), (1, 0, 1, 0), (0, 1, 1, 0)",
+        "B1": "Line: the main ring, along the half-cell's edge V3–M34 (β1 = β2 = 0)",
+        "C2a": "Line: on the face β4 = 0, along its median β2 = β3 from D1 to spidrox C6",
+        "C2b": "Line: the middle of the half-cell's edges V1–M34 and V2–M34 (β2 = 0 or β1 = 0, β3 = β4), between D2 and C4",
+        "C3": "Line: on β1 = β2, β3 = β4 from the cell centre C1 towards C6, and on the face β4 = 0 along its median "
+              "β2 = β3 just before the face centre C5",
+        "D1": "Line: on β1 = β2, β3 = β4 next to C6, and on the face β4 = 0 along its median β2 = β3 from the face "
+              "centre C5 to C2a",
+        "D2": "Line: the two ends of the half-cell's edges V1–M34 and V2–M34: from the corner V1 (or V2) to C2b, and "
+              "from C4 to M34",
+        "D3": "Line: on β1 = β2, β3 = β4 from M34 to the cell centre C1, and on the face β4 = 0 along its median "
+              "β2 = β3 from the corner V1 to C3",
+        "E1": "Line: the three edges of the face β4 = 0 (V1–V2, V1–V3, V2–V3), each split at its midpoint by C6",
+        "E2": "Line: from the face centre C5 to the cell centre C1 (β1 = β2 = β3), and its dashed copy",
+        "T1": "Line: the edge-to-mirror line from spidrox C6 to C4 (β2 = 0, β1 = β3), and its dashed copy",
+        "F2": "Region: fills part of the half-cell",
+        "F3": "Region: fills part of the half-cell",
+        "T2": "Wall: three patches in the mirrors β1 = β3, β2 = β3 and β1 = β2, each with a spidrox corner, and a curve "
+              "in β2 = β3; dashed copies of each",
+    }
+    KIND_TEXT = {
+        "icosafold": "its exact icosafold point (not golden)",
+        "girdle-end": "its exact point with 3600 symmetries, where the green order-3 girdle ends",
+        "axis-end": "where a purple 2400-symmetry axis ends on the half-cell's boundary",
+        "7200": "the point with 7200 symmetries, where the green girdle meets a purple axis",
+        "axis-crossing": "where a purple 2400-symmetry axis crosses it",
+    }
+    if os.path.exists("fexact_patches.json"):
+        npatch = {}
+        for pt in json.load(open("fexact_patches.json")).values():
+            if len(pt["corners"]) >= 3:
+                plain_w = abs(sum(1 for v in pt["normal"] if abs(v) > 1e-9) - 1) < 1e-9 or (
+                    sum(1 for v in pt["normal"] if abs(v) > 1e-9) == 2 and abs(sum(pt["normal"])) < 1e-9)
+                npatch.setdefault(pt["target"], []).append((_eq(pt["normal"]), plain_w))
+        for tid, ps in npatch.items():
+            if tid in tmap and tmap[tid]["listed"] and tid not in NAMED_WHERE:
+                solid = sorted({e for e, pl in ps if pl})
+                dashed = sorted({e for e, pl in ps if not pl})
+                txt = f"Wall: {len(ps)} exact patch{'es' if len(ps) > 1 else ''}"
+                if solid:
+                    txt += " in " + ", ".join(solid)
+                if dashed:
+                    txt += ("; dashed copies in " if solid else " in ") + ", ".join(dashed)
+                NAMED_WHERE[tid] = txt
+    for t in types:
+        if not t["listed"] or t["id"] not in NAMED_WHERE:
+            continue
+        kinds = []
+        for o in special:
+            if o["id"] == t["id"] and o.get("kind") in KIND_TEXT and o["kind"] not in kinds:
+                kinds.append(o["kind"])
+        t["where"] = NAMED_WHERE[t["id"]] + "".join(f"; ✕ {KIND_TEXT[k]}" for k in kinds)
+        t["locus"] = None
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
