@@ -1,6 +1,7 @@
-"""The curved walls X10 and X33: their exact surfaces, their extent in the half tetrahedron, and meshes to draw.
+"""The curved walls X10, X33 and X51: their exact surfaces, their extent in the half tetrahedron, and meshes to draw.
 
-X10 lies on the quadric  b1 b4 - b2 b3 + b3^2 - b4^2 = 0  and X33 on a golden quartic (xsurface_x33.json, fitted to 60
+X10 lies on the quadric  b1 b4 - b2 b3 + b3^2 - b4^2 = 0, X51 on the ruled quadric
+b2 (b2 - b3) + phi b4 (b2 - b1) = 0 (which holds its four traced lines), and X33 on a golden quartic (xsurface_x33.json, fitted to 60
 X33 points found by coincidence and snapped to golden coefficients; residual 5e-16).
 
 The surface is meshed directly from its equation, by marching tetrahedra over a uniform grid in the hyperplane
@@ -13,7 +14,7 @@ boundary point and the shape beyond it (at a face or mirror of the half tetrahed
 The result, xsurfaces.json, holds per shape the triangles (as betas), the boundary polylines with the shape beyond each
 boundary point, and the equation.
 
-    python xsurface.py X10|X33 [h] [cache.json]
+    python xsurface.py X10|X33|X51 [h] [cache.json]
 """
 from __future__ import annotations
 
@@ -40,6 +41,10 @@ def surface(tid):
         mons = [(0, 3), (1, 2), (2, 2), (3, 3)]
         coeffs = [1.0, -1.0, 1.0, -1.0]
         eq, kind = "β1β4 − β2β3 + β3² − β4² = 0", "a quadric"
+    elif tid == "X51":                                   # (holds X51's four traced lines: it is ruled by them)
+        mons = [(1, 1), (1, 2), (1, 3), (0, 3)]
+        coeffs = [1.0, -1.0, PHI, -PHI]
+        eq, kind = "β2(β2 − β3) + φ·β4(β2 − β1) = 0", "a ruled quadric"
     else:
         S = json.load(open("xsurface_x33.json"))
         mons = [tuple(m) for m, c in zip(S["mons"], S["coeffs"]) if c]
@@ -193,6 +198,10 @@ def main(tid, h=0.012, cache_path=None, procs=4):
     if os.path.exists("xsurfaces.json"):
         old = json.load(open("xsurfaces.json")).get(tid, {})
         seeds = [b for t in old.get("tris", [])[::7] for b in t[:1]]
+    if not seeds and tid == "X51":                     # points along its lines
+        lines = [([1, 1 + PHI, 2 + 2 * PHI, 1 + PHI], [1, 1, 1, 1])] + \
+                [(v["a"], v["b"]) for v in json.load(open("x_point_lines.json")).values() if v.get("id") == "X51"]
+        seeds = [(np.array(a) / sum(a)) * (1 - t) + (np.array(b) / sum(b)) * t for a, b in lines for t in (0.2, 0.5, 0.8)]
     if not seeds:
         seeds = [json.load(open("xsurface_x33.json"))["points"][0]] if tid == "X33" else [[PHI, 2, PHI, 1]]
     active = {tuple(int(v) for v in np.floor(U @ (np.asarray(b, float) / np.sum(b) - C0) / h)) for b in seeds}
