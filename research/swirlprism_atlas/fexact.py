@@ -815,7 +815,9 @@ def fill_curved_labels(procs=4, log=print):
             continue
         C = C / C.sum(axis=1, keepdims=True)
         centre = C.mean(axis=0)
-        for i, (a, b, lab, *_) in enumerate(p["edge_labels"]):
+        for i, (a, b, lab, *kind) in enumerate(p["edge_labels"]):
+            if kind:                    # (a straight edge, labelled on its own: not a run of arc points)
+                continue
             jobs.append((C[(a + 3) % len(C)], centre, p["normal"]))
             where.append((key, i))
     with Pool(procs) as pool:
