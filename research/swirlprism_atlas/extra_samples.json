@@ -142,5 +142,29 @@
   "sig": "1200: cells 120+120+600+600+600+600+600 | faces 240+600+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200 | val 3:3600,4:1800,6:1800",
   "kind": "line (curve between X44 and X79 in the mirror \u03b22 = \u03b24; sample exactly on it, golden)",
   "hits": null
+ },
+ {
+  "beta": [
+   0.06840865199585694,
+   0.6840865199585694,
+   0.13681730399171388,
+   0.11068752405385986
+  ],
+  "golden": true,
+  "sig": "1200: cells 120+120+600+600+600+600+1200 | faces 240+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200 | val 3:1200,4:5400,8:600",
+  "kind": "line (the two X14 lines through A1 go on past X4 to A1 as this shape; sample exactly on one, golden)",
+  "hits": null
+ },
+ {
+  "beta": [
+   0.03465711742370941,
+   0.6931423484741882,
+   0.14680990531102545,
+   0.12539062879107685
+  ],
+  "golden": true,
+  "sig": "1200: cells 120+120+600+600+600+600+1200 | faces 240+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200 | val 3:1200,4:5400,8:600",
+  "kind": "line (the two X14 lines through A1 go on past X4 to A1 as this shape; sample exactly on one, golden)",
+  "hits": null
  }
 ]

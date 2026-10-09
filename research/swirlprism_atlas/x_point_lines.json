@@ -195,7 +195,7 @@
    "X4"
   ],
   "draw": false,
-  "where": "the line \u03b2 \u221d (1, t, 2, \u03c6) through the 600-cell vertex A1 = (0, 1, 0, 0), from t = 2 (on T2) to t = 3+2\u03c6 (on X4)"
+  "where": "the line \u03b2 \u221d (1, t, 2, \u03c6) through the 600-cell vertex A1 = (0, 1, 0, 0), from t = 2 (on T2) to t = 3+2\u03c6 (on X4), where X82 continues it to A1"
  },
  "X14 line 2": {
   "id": "X14",
@@ -216,7 +216,7 @@
    "T2",
    "X4"
   ],
-  "where": "the line \u03b2 \u221d (1, t, 1+2\u03c6, 2+\u03c6) through A1, from t = 1+2\u03c6 (on T2) to t = 4+6\u03c6 (on X4); beyond X4 both X14 lines go on to A1 as an unnumbered line shape"
+  "where": "the line \u03b2 \u221d (1, t, 1+2\u03c6, 2+\u03c6) through A1, from t = 1+2\u03c6 (on T2) to t = 4+6\u03c6 (on X4), where X82 continues it to A1"
  },
  "X47": {
   "kind": "line",
@@ -501,15 +501,16 @@
    0.17082039324993695
   ],
   "b": [
-   0.2763840104170307,
-   0.27639320225002106,
-   0.2764023940830115,
-   0.17082039324993692
+   1,
+   1,
+   1,
+   0.6180339887498949
   ],
   "ends": [
-   "X61"
+   "X61",
+   "E2"
   ],
-  "where": "the line from \u03b2 \u221d (2-\u03c6, 1, \u03c6, -1+\u03c6) (X61 beyond) to \u03b2 \u221d (0.999933, 0.999967, 1, 0.618013) (an unnumbered shape beyond), found from samples off its other lines"
+  "where": "the line from \u03b2 \u221d (2-\u03c6, 1, \u03c6, -1+\u03c6), where X38, X48 and X51 meet (X61 beyond), to E2's point \u03b2 \u221d (1, 1, 1, -1+\u03c6), found from samples off its other lines"
  },
  "X51 stray 3": {
   "id": "X51",
@@ -531,5 +532,65 @@
    "X74"
   ],
   "where": "the line from \u03b2 \u221d (0.763932, 1, 1, 0) (D1 beyond) to \u03b2 \u221d (0.51081, 0.668658, 1, 0.867463) (X74 beyond), found from samples off its other lines"
+ },
+ "X38": {
+  "kind": "line",
+  "a": [
+   0,
+   1,
+   2,
+   0
+  ],
+  "b": [
+   0.3819660112501051,
+   1,
+   1.618033988749895,
+   0.6180339887498949
+  ],
+  "ends": [
+   "E1"
+  ],
+  "where": "the line from \u03b2 \u221d (0, 1, 2, 0) on E1 to \u03b2 \u221d (2-\u03c6, 1, \u03c6, -1+\u03c6), where X48 continues it and the X51 lines through it meet"
+ },
+ "X82": {
+  "kind": "line",
+  "a": [
+   1,
+   6.23606797749979,
+   2,
+   1.618033988749895
+  ],
+  "b": [
+   0,
+   1,
+   0,
+   0
+  ],
+  "ends": [
+   "X4",
+   "A1"
+  ],
+  "where": "the line \u03b2 \u221d (1, t, 2, \u03c6) from t = 3+2\u03c6 (on X4), where X14 ends, on to the 600-cell vertex A1 = (0, 1, 0, 0) (t \u2192 \u221e)"
+ },
+ "X82 line 2": {
+  "id": "X82",
+  "kind": "line",
+  "a": [
+   1,
+   13.70820393249937,
+   4.23606797749979,
+   3.618033988749895
+  ],
+  "b": [
+   0,
+   1,
+   0,
+   0
+  ],
+  "ends": [
+   "X4",
+   "A1"
+  ],
+  "where": "the line \u03b2 \u221d (1, t, 1+2\u03c6, 2+\u03c6) from t = 4+6\u03c6 (on X4), where X14's second line ends, on to A1"
  }
 }
