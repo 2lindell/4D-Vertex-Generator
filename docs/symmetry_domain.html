@@ -110,7 +110,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
   <section class="panel viewer">
     <div class="controls">
       <label for="quarter">Show
-        <select id="quarter"><option value="all">the half-cell</option><option value="front">front quarter (β₁ ≥ β₂)</option><option value="back">back quarter (β₁ ≤ β₂)</option><option value="dodeca">the M34 dodecahedron</option><option value="piece">one domain: a tenth of the M34 dodecahedron</option><option value="v1">the V1 dodecahedron</option><option value="chambers">one domain: 12 whole H4 chambers in the V1 dodecahedron</option><option value="cohesive">one domain: every region in one piece</option></select>
+        <select id="quarter"><option value="all">half tetrahedron</option><option value="v1">dodecahedron</option><option value="chambers">1/10 dodecahedron</option></select>
       </label>
       <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
       <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
@@ -145,10 +145,9 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     <div class="panel">
       <h2>Views</h2>
       <ul>
-        <li><b>The half-cell</b> (and its two quarters β₁ ≥ β₂ and β₁ ≤ β₂, to see inside).</li>
-        <li><b>The M34 dodecahedron:</b> the points of the 3-sphere nearer to M34 than to the rest of its 120-point orbit, a cell of the dual 120-cell. The ten rotations fixing M34 turn it onto itself, so everything appears ten times about the vertical 5-fold axis (the main ring). <b>A tenth of it</b> is a fundamental domain: the upper half cut to the 72° wedge between two horizontal half-turn axes, so its edges at M34 lie on the main ring and two cross rings.</li>
-        <li><b>The V1 dodecahedron:</b> the same picture around the 600-cell vertex V1 = β (1, 0, 0, 0). Its faces are H4 mirrors, and the 15 mirrors through V1 cut it into 120 whole H4 chambers in 12 orbits of 10. <b>12 whole H4 chambers</b> is a fundamental domain made of one chamber from each orbit: the single convex solid with the most chamber edges on significant rings (8, with 14 faces shared between chambers), unique up to the rotations fixing V1. Chamber edges are drawn faintly and the faces shown are its outer boundary. It keeps regions more connected than the half-cell: 76 region pieces against 107, with F2 and F3 each in one piece.</li>
-        <li><b>Every region in one piece:</b> a fundamental domain in which each region is as few pieces as possible. Each piece of a region in the half-cell is moved by a group element to meet the region's other pieces across the half-cell's faces. 90% of the seeds stay put, so the domain is the half-cell (its edges drawn faintly) with the moved pieces as bulges, mostly F3. 11 regions are one piece: F2, F3, X12, X16, X30, X32, X37, X58, X61, X68 and X71. The other 26 stay in 2 to 4 pieces, whose nearest contacts all cross another class. Connections are read from 7800 classified seeds (shown as dots) and checked by classifying points along them, so sparse regions may join more than shown. The grey surface is an approximate outline wrapped around the seeds; click a region's row to see its own outline.</li>
+        <li><b>Half tetrahedron:</b> the half-cell described above.</li>
+        <li><b>Dodecahedron:</b> the points of the 3-sphere nearer to the 600-cell vertex V1 = β (1, 0, 0, 0) than to any other vertex, a cell of the dual 120-cell. Its faces are H4 mirrors, and the 15 mirrors through V1 cut it into 120 whole H4 chambers in 12 orbits of 10.</li>
+        <li><b>1/10 dodecahedron:</b> a fundamental domain made of one chamber from each of those 12 orbits: the single convex solid with the most chamber edges on significant rings (8, with 14 faces shared between chambers), unique up to the rotations fixing V1. Chamber edges are drawn faintly and the faces shown are its outer boundary. It keeps regions more connected than the half tetrahedron: 76 region pieces against 107, with F2 and F3 each in one piece.</li>
         <li>Each view keeps its own camera, so ticking boxes never moves the picture.</li>
       </ul>
     </div>
