@@ -877,6 +877,76 @@ def label_straight_edges(procs=4, log=print):
     json.dump(allp, open("fexact_patches.json", "w"), indent=1)
 
 
+def _split_job(job):
+    """Shapes along a straight edge a-b: nine samples; where the label changes, the change is bisected (to ~1e-10 of
+    the edge) and the shape exactly there is read. Returns [(t0, t1, label), ...] and [(t, label at t), ...]."""
+    a, b = (np.asarray(x, float) for x in job)
+    ts = np.linspace(0.05, 0.95, 9)
+    labs = [_lab_loose(a + t * (b - a)) for t in ts]
+    parts, points = [], []
+    t0, cur = 0.0, labs[0]
+    for k in range(1, len(ts)):
+        if labs[k] == cur:
+            continue
+        lo, hi = ts[k - 1], ts[k]
+        for _ in range(34):
+            m = (lo + hi) / 2
+            if _lab(a + m * (b - a)) == cur:
+                lo = m
+            else:
+                hi = m
+        t = (lo + hi) / 2
+        parts.append((t0, t, cur))
+        points.append((t, _lab_loose(a + t * (b - a))))
+        t0, cur = t, labs[k]
+    parts.append((t0, 1.0, cur))
+    return parts, points
+
+
+def split_straight_edges(procs=4, log=print):
+    """Every straight edge of every patch (all of a polygon's, the long ones of a curved patch that are not steps along
+    its conics), labelled part by part: [a, b, label, "straight", t0, t1]; the points where the shape along an edge
+    changes are kept as patch["edge_points"] = [[a, b, t, label], ...]."""
+    allp = json.load(open("fexact_patches.json"))
+    M = [(0, 0), (1, 1), (2, 2), (0, 1), (0, 2), (1, 2)]
+    jobs, where = [], []
+    for key, p in allp.items():
+        C = np.array(p["corners"], float)
+        n = len(C)
+        C = C / C.sum(axis=1, keepdims=True)
+        d = [np.linalg.norm(C[(k + 1) % n] - C[k]) for k in range(n)]
+        med = float(np.median([x for x in d if x > 1e-12]))
+
+        def on_arc(a, b):
+            for c in p.get("conics", []):
+                q = lambda x: sum(ci * x[c["vars"][i]] * x[c["vars"][j]] for ci, (i, j) in zip(c["coeffs"], M))
+                if abs(q(a)) < 1e-8 and abs(q(b)) < 1e-8 and abs(q((a + b) / 2)) < np.linalg.norm(b - a) ** 2:
+                    return True
+            return False
+        edges = [k for k in range(n) if d[k] > 1e-12 and (n < 12 or (d[k] > 4 * med and not on_arc(C[k], C[(k + 1) % n])))]
+        keep = [l for l in p.get("edge_labels", []) if n >= 12 and len(l) == 3]      # arc runs stay
+        keep += [l for l in p.get("edge_labels", []) if len(l) == 4 and l[2] == "X26"]  # (set by hand: the fold)
+        p["edge_labels"] = keep
+        p["edge_points"] = []
+        for k in edges:
+            if any(l[0] == k and len(l) == 4 for l in keep):
+                continue
+            jobs.append((C[k], C[(k + 1) % n]))
+            where.append((key, k, (k + 1) % n))
+    log(f"splitting {len(jobs)} straight edges")
+    with Pool(procs) as pool:
+        got = pool.map(_split_job, jobs, chunksize=1)
+    for (key, a, b), (parts, points) in zip(where, got):
+        for t0, t1, lab in parts:
+            allp[key]["edge_labels"].append([a, b, lab, "straight", t0, t1])
+        for t, lab in points:
+            allp[key]["edge_points"].append([a, b, t, lab])
+        if len(parts) > 1:
+            log(f"  {key} edge {a}-{b}: " + " | ".join(f"{lab[:10]} to {t1:.4f}" for _, t1, lab in parts)
+                + "; at the changes: " + ", ".join(l[:10] for _, l in points))
+    json.dump(allp, open("fexact_patches.json", "w"), indent=1)
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "grid":
         run_grid(sys.argv[2].split(","), sys.argv[3])
@@ -897,6 +967,6 @@ if __name__ == "__main__":
     elif sys.argv[1] == "edges":
         label_edges(redo="redo" in sys.argv)
         fill_curved_labels()
-        label_straight_edges()
+        split_straight_edges()
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])

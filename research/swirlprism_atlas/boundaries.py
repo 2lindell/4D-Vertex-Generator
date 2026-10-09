@@ -96,10 +96,23 @@ def main(procs=4):
             if lab == tid or lab.startswith("mixed:"):
                 continue
             bnd[tid].add(lab)
-            ends = (a, b) if n < 12 or _ else [k for k in range(a, a + 7) if (key, k % n) in at]  # an arc: its end corners
+            if len(_) == 3:                 # a part of a straight edge: only its ends at corners
+                ends = ([a] if _[1] < 1e-9 else []) + ([b] if _[2] > 1 - 1e-9 else [])
+            else:
+                ends = (a, b) if n < 12 or _ else [k for k in range(a, a + 7) if (key, k % n) in at]  # an arc's ends
             for k in ends:
                 if at.get((key, k % n), "ERR") not in ("ERR", lab, tid):
                     bnd[lab].add(at[(key, k % n)])
+    for key, p in patches.items():      # points where the shape along a straight edge changes (fexact split)
+        tid = p["target"]
+        labs = p.get("edge_labels", [])
+        for a, bb, t, lab in p.get("edge_points", []):
+            if lab in ("ERR", tid):
+                continue
+            bnd[tid].add(lab)
+            for l in labs:                  # it ends the parts of that edge on either side
+                if len(l) == 6 and l[0] == a and (abs(l[4] - t) < 1e-9 or abs(l[5] - t) < 1e-9) and l[2] != lab:
+                    bnd[l[2]].add(lab)
     for (key, _, _), lab in zip(sides, slabs):
         if lab != "ERR" and lab != patches[key]["target"]:
             bnd[lab].add(patches[key]["target"])

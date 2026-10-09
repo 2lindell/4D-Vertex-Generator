@@ -924,8 +924,13 @@ def main(samples_path, out_path):
                 tid = nbname(lab) if lab.startswith("new:") else lab
                 if not (tid.startswith("X") or tid in EDGE_DRAWN) or tid not in tmap or tid == pt["target"]:
                     continue
-                # a run of `step` corners, or (marked "straight") the one edge from corner a to corner b
-                seg = [C[a], C[b]] if kind == ["straight"] else [C[(a + s) % len(C)] for s in range(step + 1)]
+                # a run of `step` corners, or (marked "straight") the one edge from corner a to corner b, or the part
+                # of it from t0 to t1 where the shape along the edge changes partway
+                if kind and kind[0] == "straight":
+                    t0, t1 = (kind[1], kind[2]) if len(kind) == 3 else (0.0, 1.0)
+                    seg = [C[a] + (C[b] - C[a]) * t0, C[a] + (C[b] - C[a]) * t1]
+                else:
+                    seg = [C[(a + s) % len(C)] for s in range(step + 1)]
                 key = (tid, frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]))
                 is_copy = bool(has_plain.get(pt["target"]) and not plain(pt["normal"]))   # dashed like its patch
                 if key in seen:
@@ -1131,12 +1136,19 @@ def main(samples_path, out_path):
             tmap[tid]["ends"] = ["A1", "X2"]         # A1, and where it meets the X2 line (no special point there)
     rank = {"region": 3, "wall": 2, "line": 1, "point": 0}
     edge_walls = {}           # walls found along a patch's edge: another wall crossing it there (X20 along F5's edge)
+    on_fold, off_fold = {}, {}  # shapes found on a patch's edges in the splitting mirror (the patch goes on across)
     if os.path.exists("fexact_patches.json"):
         for pt in json.load(open("fexact_patches.json")).values():
+            Cp = [np.asarray(b, float) / np.sum(b) for b in pt["corners"]]
+            in_mirror = abs(abs(np.dot(pt["normal"], [0, 0, 1, -1])) - np.linalg.norm(pt["normal"]) * 2 ** 0.5) < 1e-9
             for l in pt.get("edge_labels", []):
                 lab = nbname(l[2]) if l[2].startswith("new:") else l[2]
-                if lab in tmap and lab != pt["target"]:
-                    edge_walls.setdefault(pt["target"], set()).add(lab)
+                if lab not in tmap or lab == pt["target"]:
+                    continue
+                edge_walls.setdefault(pt["target"], set()).add(lab)
+                a, b = Cp[l[0] % len(Cp)], Cp[l[1] % len(Cp)]
+                fold = not in_mirror and len(l) > 3 and abs(a[2] - a[3]) < 1e-9 and abs(b[2] - b[3]) < 1e-9
+                (on_fold if fold else off_fold).setdefault(pt["target"], set()).add(lab)
     for t in types:        # boundaries known from the traced geometry itself (none from boundaries.json)
         extra = t.pop("extra_bounds", None)
         if extra:
@@ -1145,6 +1157,9 @@ def main(samples_path, out_path):
             own = rank.get(t.get("dim"), 3)
             t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own
                            or (own == 2 and b in edge_walls.get(t["id"], ()))]
+            # a shape found only along the splitting mirror is a fold the patch continues across, not a boundary
+            fold_only = on_fold.get(t["id"], set()) - off_fold.get(t["id"], set())
+            t["bounds"] = [b for b in t["bounds"] if b not in fold_only or tmap[b].get("dim") == "point"]
         ends = t.pop("ends", None)
         if ends:              # a line's known ends: a point, or the line it runs into where there is no special point
             t["bounds"] = ends
