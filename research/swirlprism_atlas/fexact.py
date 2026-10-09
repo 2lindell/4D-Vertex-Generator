@@ -839,6 +839,44 @@ def fill_curved_labels(procs=4, log=print):
         {"|".join(sorted(k)): dict(v) for k, v in pair.items()})
 
 
+def label_straight_edges(procs=4, log=print):
+    """The straight edges of curved patches, labelled one by one (three points along each, as for a polygon); the
+    arc runs between them are labelled by label_edges. Stored as [a, b, label, "straight"]."""
+    from collections import Counter
+    allp = json.load(open("fexact_patches.json"))
+    jobs, where = [], []
+    for key, p in allp.items():
+        C = np.array(p["corners"], float)
+        n = len(C)
+        if n < 12:
+            continue
+        C = C / C.sum(axis=1, keepdims=True)
+        d = [np.linalg.norm(C[(k + 1) % n] - C[k]) for k in range(n)]
+        med = float(np.median([x for x in d if x > 1e-12]))
+        done = {(l[0], l[1]) for l in p.get("edge_labels", []) if len(l) > 3}
+        M = [(0, 0), (1, 1), (2, 2), (0, 1), (0, 2), (1, 2)]
+
+        def on_arc(a, b):
+            """Both ends and the midpoint (to the chord's sag) on one of the patch's conics: an arc step, not an edge."""
+            for c in p.get("conics", []):
+                q = lambda x: sum(ci * x[c["vars"][i]] * x[c["vars"][j]] for ci, (i, j) in zip(c["coeffs"], M))
+                if abs(q(a)) < 1e-8 and abs(q(b)) < 1e-8 and abs(q((a + b) / 2)) < np.linalg.norm(b - a) ** 2:
+                    return True
+            return False
+        for k in range(n):
+            if d[k] > 4 * med and (k, (k + 1) % n) not in done and not on_arc(C[k], C[(k + 1) % n]):
+                a, b = C[k], C[(k + 1) % n]
+                jobs.append(([a + (b - a) * t for t in (0.25, 0.5, 0.75)], None))
+                where.append((key, k, (k + 1) % n))
+    log(f"classifying {len(jobs)} straight edges of curved patches")
+    with Pool(procs) as pool:
+        labs = pool.map(_edge_job, jobs, chunksize=1)
+    for (key, a, b), lab in zip(where, labs):
+        allp[key].setdefault("edge_labels", []).append([a, b, lab, "straight"])
+        log(f"  {key}: edge {a}-{b}: {lab[:40]}")
+    json.dump(allp, open("fexact_patches.json", "w"), indent=1)
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "grid":
         run_grid(sys.argv[2].split(","), sys.argv[3])
@@ -859,5 +897,6 @@ if __name__ == "__main__":
     elif sys.argv[1] == "edges":
         label_edges(redo="redo" in sys.argv)
         fill_curved_labels()
+        label_straight_edges()
     elif sys.argv[1] == "fit":
         fit(sys.argv[2], sys.argv[3], NORMALS[sys.argv[3]])

@@ -1130,13 +1130,21 @@ def main(samples_path, out_path):
         if tid in tmap:
             tmap[tid]["ends"] = ["A1", "X2"]         # A1, and where it meets the X2 line (no special point there)
     rank = {"region": 3, "wall": 2, "line": 1, "point": 0}
+    edge_walls = {}           # walls found along a patch's edge: another wall crossing it there (X20 along F5's edge)
+    if os.path.exists("fexact_patches.json"):
+        for pt in json.load(open("fexact_patches.json")).values():
+            for l in pt.get("edge_labels", []):
+                lab = nbname(l[2]) if l[2].startswith("new:") else l[2]
+                if lab in tmap and lab != pt["target"]:
+                    edge_walls.setdefault(pt["target"], set()).add(lab)
     for t in types:        # boundaries known from the traced geometry itself (none from boundaries.json)
         extra = t.pop("extra_bounds", None)
         if extra:
             t["bounds"] = sorted(set(t.get("bounds", [])) | {i for i in extra if i in tmap})
         if t.get("bounds"):   # only lower-dimensional shapes can bound a shape (corners just past a curve can mislead)
             own = rank.get(t.get("dim"), 3)
-            t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own]
+            t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own
+                           or (own == 2 and b in edge_walls.get(t["id"], ()))]
         ends = t.pop("ends", None)
         if ends:              # a line's known ends: a point, or the line it runs into where there is no special point
             t["bounds"] = ends
