@@ -984,7 +984,7 @@ def main(samples_path, out_path):
             beyond = sorted({b.split(":", 1)[-1] for b, _ in sf["beyond"]} - {"OUT", "ERR", tid})
             hover = (f"{label(tid)}<br>curved wall on {sf['kind']}<br>{sf['equation']}"
                      f"<br>edges: {', '.join(nbname(b) for b in beyond)}")
-            xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in T3], "hover": hover})
+            xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in T3], "hover": hover, "curved": True})
             for line in sf["outline"]:
                 B = [np.asarray(p["beta"], float) for p in line]
                 xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in B], "hover": hover, "outline": True})
@@ -1007,7 +1007,8 @@ def main(samples_path, out_path):
                         copies.extend([[pc[0], pc[k], pc[k + 1]] for k in range(1, len(pc) - 1)])
             if copies:
                 xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in copies],
-                               "hover": hover.replace("<br>curved wall", "<br>copy under the group: curved wall"), "copy": True})
+                               "hover": hover.replace("<br>curved wall", "<br>copy under the group: curved wall"), "copy": True,
+                               "curved": True})
             print(f"{tid}: {len(T3)} surface triangles, {len(copies)} copy triangles")
 
     # the shapes living on the edges of the exact patches (fexact.py label_edges): X shapes found there are drawn as
@@ -1622,22 +1623,42 @@ def main(samples_path, out_path):
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples), "mirrorWalls": mirror_walls}
-    from dodeca_view import piece_view
     from dodeca_view import view as dodeca_view
-    dodeca = dodeca_view(data)                     # the same geometry seen from the M34 dodecahedron
-    piece = piece_view(dodeca)                     # and cut down to one domain, a tenth of it
     import chamber_domain
     import dodeca_view as dv
+
+    def coarse(tris, h=0.015):
+        """A curved wall's mesh, coarsened for the dodecahedron views (which repeat it in every chamber): vertices
+        merged on a grid of spacing h, degenerate and repeated triangles dropped."""
+        cell, acc = {}, {}
+        for t in tris:
+            for v in t:
+                k = tuple(int(np.floor(c / h)) for c in v)
+                a = acc.setdefault(k, [np.zeros(3), 0])
+                a[0] += v
+                a[1] += 1
+        mean = {k: (a[0] / a[1]).tolist() for k, a in acc.items()}
+        out, seen = [], set()
+        for t in tris:
+            ks = [tuple(int(np.floor(c / h)) for c in v) for v in t]
+            if len(set(ks)) < 3 or tuple(sorted(ks)) in seen:
+                continue
+            seen.add(tuple(sorted(ks)))
+            out.append([mean[k] for k in ks])
+        return out
+
+    # the views see the curved walls coarsened, and without their copies (the views repeat the half cell anyway)
+    view_src = {**data, "xwalls": [({**w, "tris": coarse(w["tris"])} if w.get("curved") else w)
+                                   for w in data["xwalls"] if not (w.get("curved") and w.get("copy"))]}
     dv.use_centre((1, 0, 0, 0))                    # the dodecahedron around the 600-cell vertex V1
-    v1 = dodeca_view(data)
+    v1 = dodeca_view(view_src)
     chambers = chamber_domain.view(v1)             # one domain of 12 whole H4 chambers inside it
     dv.use_centre((0, 0, 1, 1))
-    for view in (dodeca, piece, v1, chambers):
+    for view in (v1, chambers):
         dv.tidy_lines(view)
         dv.split_edges_on_rings(view)
     dv.split_edges_on_rings(data)                  # the cell view keeps its points (front/back filter them)
-    # one domain in which every region is a single piece (cohesive_domain.py writes it; slow, so run separately)
-    cohesive = json.load(open("cohesive_view.json")) if os.path.exists("cohesive_view.json") else {"samples": {}, "bounds": [[-1, -1, -1], [1, 1, 1]]}
+    dodeca = piece = cohesive = {}                 # (views no longer offered)
     flip_vertical(data)
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision
