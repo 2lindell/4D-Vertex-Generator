@@ -1367,9 +1367,18 @@ def main(samples_path, out_path):
             if (face or mirror) and pt["target"] in tmap and len(pt["corners"]) >= 3:
                 key = (0 if mirror else 1, tuple(nz))
                 by.setdefault(key, {"name": ("the mirror " if mirror else "the face ") + _eq(n), "ids": set()})["ids"].add(pt["target"])
+        # the faces beta1 = 0 and beta2 = 0 are folds of each other: one option; the splitting mirror beta3 = beta4 is
+        # also a face of the half tetrahedron; and its fourth face, beta4 = 0, holds no wall patches, only lines
+        f1, f2 = (1, (0,)), (1, (1,))
+        if f1 in by and f2 in by:
+            by[f1] = {"name": "the faces β1 = 0 and β2 = 0 (folds of each other)", "ids": by[f1]["ids"] | by.pop(f2)["ids"]}
+        if (0, (2, 3)) in by:
+            by[(0, (2, 3))]["name"] = "the splitting mirror β3 = β4 (a face of the half tetrahedron)"
+        by[(1, (3,))] = {"name": "the face β4 = 0 (no wall patches: its lines)",
+                         "ids": {i for i in ("C2a", "C3", "D1", "D3", "E1", "X10") if i in tmap}}
+        srt = lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i)
         for key in sorted(by):
-            ids = sorted(by[key]["ids"], key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0)))
-            mirror_walls.append({"name": by[key]["name"], "ids": ids})
+            mirror_walls.append({"name": by[key]["name"], "ids": sorted(by[key]["ids"], key=srt)})
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
