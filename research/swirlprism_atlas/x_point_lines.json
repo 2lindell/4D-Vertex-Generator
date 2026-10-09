@@ -592,5 +592,25 @@
    "A1"
   ],
   "where": "the line \u03b2 \u221d (1, t, 1+2\u03c6, 2+\u03c6) from t = 4+6\u03c6 (on X4), where X14's second line ends, on to A1"
+ },
+ "X38 line 2": {
+  "id": "X38",
+  "kind": "line",
+  "a": [
+   0,
+   1,
+   1.618033988749895,
+   0
+  ],
+  "b": [
+   1,
+   2.618033988749895,
+   3.618033988749895,
+   1
+  ],
+  "ends": [
+   "E1"
+  ],
+  "where": "the line in the mirror \u03b21 = \u03b24 from \u03b2 \u221d (0, 1, \u03c6, 0) on E1 to (1, 1+\u03c6, 2+\u03c6, 1) on E1's dashed copy, where X48 continues the same line to C1"
  }
 }
