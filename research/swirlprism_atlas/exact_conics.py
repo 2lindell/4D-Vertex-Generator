@@ -93,7 +93,8 @@ def main(write=False):
     allp = json.load(open("fexact_patches.json"))
     known = {}
     # patches whose conics snap most easily first, so the others can reuse them
-    for key, p in sorted(allp.items(), key=lambda kv: (kv[1]["target"] not in ("F5", "X31", "X79"), kv[0])):
+    for key, p in sorted(allp.items(), key=lambda kv: (not kv[1].get("conics"), kv[1]["target"] not in ("F5", "X31", "X79"),
+                                                       kv[0])):
         C = np.array(p["corners"], float)
         n = len(C)
         if n < 12 or not p.get("edge_labels"):
