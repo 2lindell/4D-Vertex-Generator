@@ -514,10 +514,17 @@ def main(samples_path, out_path):
         sig = ref_by_name[refname]
         ref_to_id[rid] = identify(sig, refs)[0] or xid.get(sig) or xid.get(identify(sig, refs)[1])
     rings = []
+    line_pieces = []            # (id, betas) of each piece of a line shape, for the key's mirror menu
     for F in fixed_circles(2):
         run = None
         for p, b in clip_circle(F):
             tid = ref_to_id[range_id(ring_parameter(p))]
+            bb = np.asarray(b, float) / np.sum(b)
+            if bb[2] >= bb[3] - 1e-12:
+                if line_pieces and line_pieces[-1][0] == tid and line_pieces[-1][2] is F:
+                    line_pieces[-1][1].append(bb)
+                else:
+                    line_pieces.append((tid, [bb], F))
             x = _exact(xyz(b)).tolist()
             if run is None or run["id"] != tid:
                 if run is not None:
@@ -528,6 +535,9 @@ def main(samples_path, out_path):
         if run is not None:
             rings.append(run)
     rings = [{"id": r["id"], "pts": pts} for r in rings if len(r["pts"]) >= 2 for pts in _split_upper(r["pts"])]
+    for F in fixed_circles(5):
+        line_pieces.append(("B1", [np.asarray(b, float) / np.sum(b) for _, b in clip_circle(F)
+                                   if b[2] / np.sum(b) >= b[3] / np.sum(b) - 1e-12], F))
     main_ring = [{"id": "B1", "pts": pts} for F in fixed_circles(5)
                  for pts in _split_upper([_exact(xyz(b)).tolist() for _, b in clip_circle(F)])]
     for r in rings + main_ring:
@@ -1372,10 +1382,30 @@ def main(samples_path, out_path):
         f1, f2 = (1, (0,)), (1, (1,))
         if f1 in by and f2 in by:
             by[f1] = {"name": "the faces β1 = 0 and β2 = 0 (folds of each other)", "ids": by[f1]["ids"] | by.pop(f2)["ids"]}
+            by[f2] = {"name": "", "ids": set()}         # (collects its lines below, then merges into f1)
         if (0, (2, 3)) in by:
             by[(0, (2, 3))]["name"] = "the splitting mirror β3 = β4 (a face of the half tetrahedron)"
-        by[(1, (3,))] = {"name": "the face β4 = 0 (no wall patches: its lines)",
-                         "ids": {i for i in ("C2a", "C3", "D1", "D3", "E1", "X10") if i in tmap}}
+        by.setdefault((1, (3,)), {"name": "the face β4 = 0", "ids": set()})
+        by.setdefault((0, (0, 3)), {"name": "the mirror " + _eq([1, 0, 0, -1]), "ids": set()})
+        # and the line shapes with a piece lying in that mirror or face (rings, traced lines and curves, segments)
+        pieces = [(i, pts) for i, pts, _ in line_pieces]
+        pieces += [(x["id"], [np.asarray(b, float) for b in x["betas"]]) for x in xlines if x.get("betas") and not x.get("copy")]
+        pieces += [(sg["id"], [np.asarray(sg["a"], float) / sum(sg["a"]), np.asarray(sg["b"], float) / sum(sg["b"])])
+                   for sg in EXACT_SEGMENTS if not sg["copy"]]
+        pieces += [(i, [np.asarray(b, float) for b in seg]) for i, segs in edge_lines.items()     # lines on patch edges
+                   for seg, is_copy in segs if not is_copy]
+        for key, entry in by.items():
+            kind, nz = key
+            n = np.zeros(4)
+            if kind == 1:
+                n[nz[0]] = 1
+            else:
+                n[nz[0]], n[nz[1]] = 1, -1
+            for i, pts in pieces:
+                if i in tmap and tmap[i].get("dim") == "line" and len(pts) >= 2 and all(abs(np.dot(n, b)) < 1e-9 for b in pts):
+                    entry["ids"].add(i)
+        if f1 in by and (1, (1,)) in by:      # (the beta2 = 0 face was merged into the beta1 = 0 option)
+            by[f1]["ids"] |= by.pop((1, (1,)))["ids"]
         srt = lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i)
         for key in sorted(by):
             mirror_walls.append({"name": by[key]["name"], "ids": sorted(by[key]["ids"], key=srt)})
