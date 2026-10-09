@@ -737,6 +737,23 @@ def main(samples_path, out_path):
                        "hover": f"{label('E1')}<br>the edge of the face β4 = 0, from {seg['ends'][0]} at β ∝ "
                                 f"{beta_text(pts[0])} to {seg['ends'][1]} at β ∝ {beta_text(pts[-1])}"})
 
+    # X shapes the first survey called points, found to be lines from their samples and their images under the
+    # 2400-element group (many lying on one line), with the ends bisected exactly
+    PHI_ = (1 + 5 ** 0.5) / 2
+    POINT_LINES = {
+        "X51": ([1, 1 + PHI_, 2 + 2 * PHI_, 1 + PHI_], [1, 1, 1, 1], "in the mirror β2 = β4, from where it meets E1's dashed copy to the cell centre C1"),
+        "X48": ([1, 1 + PHI_, 2 + PHI_, 1], [1, 1, 1, 1], "in the mirror β1 = β4, to the cell centre C1"),
+    }
+    for tid, (a, b, where) in POINT_LINES.items():
+        if tid not in tmap:
+            continue
+        a, b = np.array(a, float) / sum(a), np.array(b, float) / sum(b)
+        pts = [a + (b - a) * k / 8 for k in range(9)]
+        tmap[tid]["locus"] = f"line: {where}"
+        tmap[tid]["point_line"] = True
+        xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
+                       "hover": f"{label(tid)}<br>line {where}<br>from β ∝ {beta_text(a)}<br>to β ∝ {beta_text(b)}"})
+
     # half-turn copies of the survey lines: each segment's images under the 2400-element group that land in the
     # half-cell, other than the segments already found, are drawn dashed
     from cellframe import T as T_cell
@@ -1169,6 +1186,9 @@ def main(samples_path, out_path):
                 ids = ({bname(nb) for nb in nbs} | set(tmap[tid].pop("extra_bounds", []))) - {None, "ERR", tid}
                 tmap[tid]["bounds"] = sorted((i for i in ids if i in tmap),
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
+    for tid in ("X51", "X48"):  # lines found from their samples: they end at the cell centre C1
+        if tid in tmap:
+            tmap[tid]["ends"] = ["C1", "E1"] if tid == "X51" else ["C1"]
     for tid in ("X80", "X81"):  # the two conics of X79's lens both run from A1 to the X2 corner
         if tid in tmap:
             tmap[tid]["ends"] = ["A1", "X2"]         # A1, and where it meets the X2 line (no special point there)
