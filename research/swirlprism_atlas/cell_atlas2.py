@@ -1136,8 +1136,7 @@ def main(samples_path, out_path):
             t["bounds"] = sorted(set(t.get("bounds", [])) | {i for i in extra if i in tmap})
         if t.get("bounds"):   # only lower-dimensional shapes can bound a shape (corners just past a curve can mislead)
             own = rank.get(t.get("dim"), 3)
-            t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own
-                           or own == 1 == rank.get(tmap[b].get("dim"), 3)]    # a line may end where it meets another
+            t["bounds"] = [b for b in t["bounds"] if rank.get(tmap[b].get("dim"), 3) < own]
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),

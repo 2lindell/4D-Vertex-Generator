@@ -479,7 +479,8 @@ __TYPE_CSS__
     let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th>Boundaries</th><th class="num">Samples</th></tr></thead><tbody>`;
     const dimOf = Object.fromEntries(D.types.map((t) => [t.id, t.dim]));
     const DIMS = [["region", "regions"], ["wall", "walls"], ["line", "lines"], ["point", "points"]];
-    const bounds = (t) => !t.bounds || !t.bounds.length ? `<span class="locus">not traced yet</span>`
+    const bounds = (t) => t.dim === "point" ? `<span class="locus">none (a point)</span>`
+      : !t.bounds || !t.bounds.length ? `<span class="locus">not traced yet</span>`
       : DIMS.map(([d, name]) => [name, t.bounds.filter((b) => (dimOf[b] || "point") === d)])
           .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.join(", ")}`).join("<br>");
     for (const [title, test, byLocus] of groups) {
