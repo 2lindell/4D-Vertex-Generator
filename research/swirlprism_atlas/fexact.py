@@ -789,7 +789,7 @@ def label_edges(procs=4, log=print, redo=False):
         allp[key].setdefault("edge_labels", []).append([a, b, lab])
     json.dump(allp, open("fexact_patches.json", "w"), indent=1)
     from collections import Counter
-    log("edge shapes:", Counter(l for v in allp.values() for _, _, l in v.get("edge_labels", [])).most_common())
+    log("edge shapes:", Counter(e[2] for v in allp.values() for e in v.get("edge_labels", [])).most_common())
 
 
 def _beyond_job(job):

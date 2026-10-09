@@ -691,18 +691,12 @@ def main(samples_path, out_path):
                            "hover": f"{label('X4')}<br>the conic side of T2's patch in the mirror β1 = β3<br>"
                                     f"from β ∝ {beta_text(conic[0])}<br>to β ∝ {beta_text(conic[-1])}"})
 
-    # X26 is the crease through X79's lens in beta2 = beta4: the line beta3 = beta2 + beta4 from A1 to the corner the
-    # X31 and X44 conics share (past it the line is X19, then X11)
-    if "X26" in tmap and os.path.exists("fexact_patches.json"):
-        pc = json.load(open("fexact_patches.json")).get("X31 b2=b4")
-        if pc:
-            Pc = np.asarray(pc["corners"][3], float) / np.sum(pc["corners"][3])
-            seg = [np.array([1.0, 0, 0, 0]) + (Pc - np.array([1.0, 0, 0, 0])) * k / 8 for k in range(9)]
-            tmap["X26"]["locus"] = "line: β3 = β2 + β4 in the mirror β2 = β4, from A1 to the corner of the X31 and X44 conics (a crease through X79)"
-            tmap["X26"]["extra_bounds"] = ["A1"]
-            xlines.append({"id": "X26", "pts": [_exact(xyz(b)).tolist() for b in seg], "betas": [b.tolist() for b in seg],
-                           "hover": f"{label('X26')}<br>the crease β3 = β2 + β4 through X79's lens<br>"
-                                    f"from β ∝ {beta_text(seg[0])}<br>to β ∝ {beta_text(seg[-1])}"})
+    # X26 is a wall: the quadrilateral C4, M34, C4', C1 in the splitting mirror beta3 = beta4 (bounded by D2 and X2's
+    # lines, creased by D3 along M34-C1) and its copy, a triangle in beta3 = beta2 + beta4. Where that copy crosses the
+    # mirror beta2 = beta4 (from A1 to the corner of the X31 and X44 conics) it creases X79's lens.
+    if "X26" in tmap:
+        tmap["X26"]["locus"] = ("wall: the mirror β3 = β4 between the D2 and X2 lines, creased by D3; its copy lies in "
+                                "β3 = β2 + β4, crossing X79's lens")
 
     # half-turn copies of the survey lines: each segment's images under the 2400-element group that land in the
     # half-cell, other than the segments already found, are drawn dashed
@@ -1085,7 +1079,7 @@ def main(samples_path, out_path):
             t["dim"] = "point"
     for t in types:        # shapes found on the edges of exact patches live on lines (curves on conic edges)
         edge_of = t.pop("edge_of", None)
-        if edge_of:
+        if edge_of and not (t.get("locus") or "").startswith("wall"):   # (a wall can meet another along a line)
             t["dim"] = "line"
             if not (t.get("locus") or "").startswith(("line", "wall")):
                 curved = sorted({w for w, c in edge_of if c})
