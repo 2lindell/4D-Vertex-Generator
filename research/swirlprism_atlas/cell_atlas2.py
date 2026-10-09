@@ -88,6 +88,17 @@ STYLE = {
 
 # Transitional classes the line test placed on a golden line that only lies inside their wall: they live on curved
 # walls (found exactly by Newton steps on the vertex-to-cell-hyperplane distance from the golden samples).
+# line shapes along the edges of curved walls (xsurface.py meshes), as (wall, region beyond) -> the line's signature,
+# read from its sample in extra_samples.json
+def _seams():
+    out = {}
+    if os.path.exists("extra_samples.json"):
+        for e in json.load(open("extra_samples.json")):
+            if "X51 ends against the region X74" in e["kind"]:
+                out[("X51", "X74")] = e["sig"]
+    return out
+
+
 CURVED_WALLS = {
     "X10": "a curved wall (a quadric surface) with F2 on both sides; it contains the line the nudge test found",
     "X33": "a curved wall (a quartic surface) between X50 and X57; it contains the line the nudge test found",
@@ -948,6 +959,7 @@ def main(samples_path, out_path):
 
     # the curved walls X10 and X33 (xsurface.py): meshes of their exact surfaces, cut off at their boundaries, and the
     # boundary lines; with their images under the 2400-element group that land in the displayed half (fainter, dashed)
+    SURFACE_SEAMS = _seams()
     if os.path.exists("xsurfaces.json"):
         FOLD4 = [1, 0, 3, 2]
         HALF_H = [np.eye(4)[k] for k in range(4)]
@@ -988,6 +1000,25 @@ def main(samples_path, out_path):
             for line in sf["outline"]:
                 B = [np.asarray(p["beta"], float) for p in line]
                 xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in B], "hover": hover, "outline": True})
+            # a line shape along part of the wall's edge (a seam where it ends against a region): drawn along the runs
+            # of boundary points with that region beyond
+            for (wall, beyond), seam_sig in SURFACE_SEAMS.items():
+                sid = xid.get(identify(seam_sig, refs)[1]) if wall == tid else None
+                if sid not in tmap:
+                    continue
+                tmap[sid]["locus"] = f"line: the curve where the curved wall {tid} ends against the region {beyond}"
+                tmap[sid]["ends_known"] = []
+                for line in sf["outline"]:
+                    run = []
+                    for pnt in line + [{"beyond": None}]:
+                        if pnt["beyond"] == beyond:
+                            run.append(np.asarray(pnt["beta"], float))
+                            continue
+                        if len(run) >= 2:
+                            xlines.append({"id": sid, "pts": [_exact(xyz(b)).tolist() for b in run],
+                                           "betas": [b.tolist() for b in run],
+                                           "hover": f"{label(sid)}<br>where {tid} ends against {beyond}"})
+                        run = []
             seen = {tuple(np.round(t.mean(axis=0), 5)) for t in T3}
             copies = []
             for Mg in M_all:

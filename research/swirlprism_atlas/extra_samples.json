@@ -166,5 +166,17 @@
   "sig": "1200: cells 120+120+600+600+600+600+1200 | faces 240+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200 | val 3:1200,4:5400,8:600",
   "kind": "line (the two X14 lines through A1 go on past X4 to A1 as this shape; sample exactly on one, golden)",
   "hits": null
+ },
+ {
+  "beta": [
+   0.16764722858833536,
+   0.2194530712819925,
+   0.3281990449436781,
+   0.284700655185994
+  ],
+  "golden": false,
+  "sig": "1200: cells 120+120+600+600+600+600+600+1200+1200 | faces 240+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+600+1200+1200+1200+1200 | val 3:2400,4:5400,8:600,12:600",
+  "kind": "line (the curve where the curved wall X51 ends against the region X74, between X63 and X64; sample on it, not golden)",
+  "hits": null
  }
 ]
