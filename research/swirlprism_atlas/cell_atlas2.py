@@ -1086,6 +1086,17 @@ def main(samples_path, out_path):
                 straight = sorted({w for w, c in edge_of if not c})
                 t["locus"] = "; ".join(([f"a curve: the conic edges of the {', '.join(curved)} patches"] if curved else [])
                                        + ([f"a line: edges of the {', '.join(straight)} patches"] if straight else []))
+    # shapes with exact wall patches (fexact.py) are walls, whatever the survey's nudge test called them
+    if os.path.exists("fexact_patches.json"):
+        pw = {}
+        for pt in json.load(open("fexact_patches.json")).values():
+            if len(pt["corners"]) >= 3:
+                pw.setdefault(pt["target"], []).append(pt["normal"])
+        for tid, normals in pw.items():
+            if tid in tmap and tmap[tid].get("dim") != "wall":
+                tmap[tid]["dim"] = "wall"
+                walls = sorted({_eq(n) for n in normals}, key=lambda e: (len(e), e))
+                tmap[tid]["locus"] = "wall: " + ", ".join(walls) + " (exact patches)"
     for tid, dim in {"T1": "line", "E2": "line", "T2": "wall", "F1": "wall", "F4": "wall", "F5": "wall"}.items():
         if tid in tmap:
             tmap[tid]["dim"] = dim
