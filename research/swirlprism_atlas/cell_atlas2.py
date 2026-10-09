@@ -1093,10 +1093,11 @@ def main(samples_path, out_path):
             if len(pt["corners"]) >= 3:
                 pw.setdefault(pt["target"], []).append(pt["normal"])
         for tid, normals in pw.items():
-            if tid in tmap and tmap[tid].get("dim") != "wall":
+            if tid in tmap:
                 tmap[tid]["dim"] = "wall"
-                walls = sorted({_eq(n) for n in normals}, key=lambda e: (len(e), e))
-                tmap[tid]["locus"] = "wall: " + ", ".join(walls) + " (exact patches)"
+                if tid != "X26":                  # (X26's locus says more: its crease and where it meets X79)
+                    walls = sorted({_eq(n) for n in normals}, key=lambda e: (len(e), e))
+                    tmap[tid]["locus"] = "wall: " + ", ".join(walls) + " (exact patches)"
     for tid, dim in {"T1": "line", "E2": "line", "T2": "wall", "F1": "wall", "F4": "wall", "F5": "wall"}.items():
         if tid in tmap:
             tmap[tid]["dim"] = dim
