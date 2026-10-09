@@ -154,7 +154,7 @@ def main(tid, h=0.012, cache_path=None, procs=4):
     cache_path = cache_path or f"xsurface_{tid}_labels.json"
     labels = {}
     if os.path.exists(cache_path):
-        labels = {tuple(json.loads(k)): v for k, v in json.load(open(cache_path)).items()}
+        labels = {tuple(tuple(n) for n in json.loads(k)): v for k, v in json.load(open(cache_path)).items()}
 
     def node_beta(n):
         return C0 + U.T @ (h * np.asarray(n, float))
