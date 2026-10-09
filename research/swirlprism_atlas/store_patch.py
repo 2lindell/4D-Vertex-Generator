@@ -42,24 +42,32 @@ def images(corners, tol=1e-9):
     C = C / C.sum(axis=1, keepdims=True)
     M = np.einsum("ij,gjk,kl->gil", TINV, np.array(extended_group(), float), np.array(T, float).T)
 
-    def clip(poly, sign):
+    def clip_by(poly, f):
+        """Keep the part of a polygon where the linear function f >= 0 (Sutherland-Hodgman)."""
         out, n = [], len(poly)
         for k in range(n):
             a, b = poly[k], poly[(k + 1) % n]
-            da, db = sign * (a[2] - a[3]), sign * (b[2] - b[3])
+            da, db = f(a), f(b)
             if da >= -tol:
                 out.append(a)
             if (da > tol and db < -tol) or (da < -tol and db > tol):
                 out.append(a + (b - a) * da / (da - db))
         return out
+
+    def clip(poly, sign):
+        for i in range(4):                       # inside the cell (an image may straddle one of its faces)
+            poly = clip_by(poly, lambda x, i=i: x[i])
+            if len(poly) < 3:
+                return poly
+        return clip_by(poly, lambda x: sign * (x[2] - x[3]))
     pieces = []
     for g in M:
         I = C @ g.T
         if np.any(I.sum(axis=1) <= 0):
             continue
         I = I / I.sum(axis=1, keepdims=True)
-        if I.min() < -tol:
-            continue
+        if I.max(axis=0).min() < -tol:
+            continue                             # (entirely outside the cell)
         for sign in (1, -1):
             P = clip(list(I), sign)
             if len(P) < 3:

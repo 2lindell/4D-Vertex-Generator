@@ -1315,6 +1315,10 @@ def main(samples_path, out_path):
         elif not t["listed"]:
             t["color"] = {"region": "--x", "wall": "--xw", "line": "--xl"}.get(t.get("dim"), "--xp")
     type_css = place_css(place)
+    # edge lines are for line shapes: a wall found along another patch's edge (X17 along X19's) is not drawn as a
+    # line, which would cut across its own patch
+    xlines = [s for s in xlines if not (s.get("hover", "").find("exact edge between patches") >= 0
+                                        and tmap.get(s["id"], {}).get("dim") == "wall")]
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
