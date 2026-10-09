@@ -1534,6 +1534,10 @@ def main(samples_path, out_path):
             U = np.linalg.qr(np.asarray(U, float).T)[0].T[:2]
             return U.T @ U
 
+        if os.environ.get("STRAY_DUMP"):       # (for line tracing: each line shape's samples and drawn pieces)
+            json.dump({t: {"samples": [np.asarray(x["beta"], float).tolist() for x in samples if x["id"] == t],
+                           "pieces": [[np.asarray(b, float).tolist() for b in pts] for i, pts in pieces if i == t]}
+                       for t in tmap if tmap[t].get("dim") == "line"}, open(os.environ["STRAY_DUMP"], "w"))
         cands = []            # (projector, meeting planes or None)
         for u in range(len(planes)):
             for v in range(u + 1, len(planes)):
