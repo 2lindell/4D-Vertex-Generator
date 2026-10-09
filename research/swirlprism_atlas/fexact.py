@@ -903,7 +903,7 @@ def _split_job(job):
     return parts, points
 
 
-def split_straight_edges(procs=4, log=print):
+def split_straight_edges(procs=4, log=print, only_new=False):
     """Every straight edge of every patch (all of a polygon's, the long ones of a curved patch that are not steps along
     its conics), labelled part by part: [a, b, label, "straight", t0, t1]; the points where the shape along an edge
     changes are kept as patch["edge_points"] = [[a, b, t, label], ...]."""
@@ -911,6 +911,8 @@ def split_straight_edges(procs=4, log=print):
     M = [(0, 0), (1, 1), (2, 2), (0, 1), (0, 2), (1, 2)]
     jobs, where = [], []
     for key, p in allp.items():
+        if only_new and "edge_points" in p:      # (already split)
+            continue
         C = np.array(p["corners"], float)
         n = len(C)
         C = C / C.sum(axis=1, keepdims=True)

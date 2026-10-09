@@ -1186,7 +1186,8 @@ def main(samples_path, out_path):
                 lab = nbname(l[2]) if l[2].startswith("new:") else l[2]
                 if lab not in tmap or lab == pt["target"]:
                     continue
-                edge_walls.setdefault(pt["target"], set()).add(lab)
+                if tmap[lab].get("dim") == "wall":          # (a region found on an edge is never a boundary of it)
+                    edge_walls.setdefault(pt["target"], set()).add(lab)
                 a, b = Cp[l[0] % len(Cp)], Cp[l[1] % len(Cp)]
                 fold = (not in_mirror and len(l) > 3 and abs(a[2] - a[3]) < 1e-9 and abs(b[2] - b[3]) < 1e-9
                         and continues_across(pt, (a + b) / 2))
