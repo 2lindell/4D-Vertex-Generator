@@ -175,5 +175,110 @@
    "T2"
   ],
   "where": "the line \u03b21 = \u03b24, \u03b23 = 2\u03b21 + \u03b22/\u03c6, from (1, 1+\u03c6, 2+\u03c6, 1), where X28 ends, to (1, 2+2\u03c6, 2+2\u03c6, 1) on T2"
+ },
+ "X14": {
+  "kind": "line",
+  "a": [
+   1,
+   2,
+   2,
+   1.618033988749895
+  ],
+  "b": [
+   1,
+   6.23606797749979,
+   2,
+   1.618033988749895
+  ],
+  "ends": [
+   "T2",
+   "X4"
+  ],
+  "draw": false,
+  "where": "the line \u03b2 \u221d (1, t, 2, \u03c6) through the 600-cell vertex A1 = (0, 1, 0, 0), from t = 2 (on T2) to t = 3+2\u03c6 (on X4)"
+ },
+ "X14 line 2": {
+  "id": "X14",
+  "kind": "line",
+  "a": [
+   1,
+   4.23606797749979,
+   4.23606797749979,
+   3.618033988749895
+  ],
+  "b": [
+   1,
+   13.70820393249937,
+   4.23606797749979,
+   3.618033988749895
+  ],
+  "ends": [
+   "T2",
+   "X4"
+  ],
+  "where": "the line \u03b2 \u221d (1, t, 1+2\u03c6, 2+\u03c6) through A1, from t = 1+2\u03c6 (on T2) to t = 4+6\u03c6 (on X4); beyond X4 both X14 lines go on to A1 as an unnumbered line shape"
+ },
+ "X47": {
+  "kind": "line",
+  "a": [
+   1,
+   1.5,
+   2,
+   1.618033988749895
+  ],
+  "b": [
+   1,
+   2,
+   2,
+   1.618033988749895
+  ],
+  "ends": [
+   "X18",
+   "T2"
+  ],
+  "draw": false,
+  "where": "the line \u03b2 \u221d (1, t, 2, \u03c6) through A1, from t = 3/2 (X18) to t = 2 (on T2), where X14 continues it"
+ },
+ "X47 line 2": {
+  "id": "X47",
+  "kind": "line",
+  "a": [
+   1,
+   2,
+   4.23606797749979,
+   3.618033988749895
+  ],
+  "b": [
+   1,
+   2.618033988749895,
+   4.23606797749979,
+   3.618033988749895
+  ],
+  "ends": [
+   "X18",
+   "X24"
+  ],
+  "where": "the line \u03b2 \u221d (1, t, 1+2\u03c6, 2+\u03c6) through A1, from t = 2 (X18) to t = 1+\u03c6 (on X24), where X34 continues it"
+ },
+ "X34": {
+  "kind": "line",
+  "a": [
+   1,
+   2.618033988749895,
+   4.23606797749979,
+   3.618033988749895
+  ],
+  "b": [
+   1,
+   4.23606797749979,
+   4.23606797749979,
+   3.618033988749895
+  ],
+  "ends": [
+   "X24",
+   "T2"
+  ],
+  "draw": false,
+  "where": "the line \u03b2 \u221d (1, t, 1+2\u03c6, 2+\u03c6) through A1, from t = 1+\u03c6 (on X24) to t = 1+2\u03c6 (on T2), where X14 continues it"
  }
 }

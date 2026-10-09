@@ -759,7 +759,8 @@ def main(samples_path, out_path):
     if os.path.exists("x_point_lines.json"):
         from exact_conics import quad as _quad
         from fexact import NORMALS as _NORMALS
-        for tid, e in json.load(open("x_point_lines.json")).items():
+        for key, e in json.load(open("x_point_lines.json")).items():
+            tid = e.get("id", key)            # (a second line of the same shape is keyed "X14 line 2")
             if tid not in tmap:
                 continue
             a, b = np.array(e["a"], float), np.array(e["b"], float)
@@ -781,8 +782,14 @@ def main(samples_path, out_path):
                     r = r[np.isreal(r)].real
                     pts.append(q + r[np.argmin(np.abs(r))] * d if len(r) else q)
                 pts = [p / p.sum() for p in pts]
-            tmap[tid]["locus"] = f"line: {e['where']}"
-            tmap[tid]["ends_known"] = e["ends"]
+            if tid != key and tmap[tid].get("ends_known"):        # a further line: add to the first one's text
+                tmap[tid]["locus"] += f"; and {e['where']}"
+                tmap[tid]["ends_known"] = tmap[tid]["ends_known"] + e["ends"]
+            else:
+                tmap[tid]["locus"] = f"line: {e['where']}"
+                tmap[tid]["ends_known"] = list(e["ends"])
+            if e.get("draw") is False:        # (already drawn from its survey samples; this sets its text and ends)
+                continue
             xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
                            "hover": f"{label(tid)}<br>{e['where']}"})
     for tid, (a, b, where) in POINT_LINES.items():
@@ -937,6 +944,70 @@ def main(samples_path, out_path):
                      + (f"<br>corners: {', '.join(beta_text(b) for b in corners)}" if corners else ""))
             xwalls.append({"id": tid, "tris": tris, "hover": hover, "copy": copy})
             xlines.append({"id": tid, "pts": Q + [Q[0]], "hover": hover, "copy": copy, "outline": True})
+
+    # the curved walls X10 and X33 (xsurface.py): meshes of their exact surfaces, cut off at their boundaries, and the
+    # boundary lines; with their images under the 2400-element group that land in the displayed half (fainter, dashed)
+    if os.path.exists("xsurfaces.json"):
+        FOLD4 = [1, 0, 3, 2]
+        HALF_H = [np.eye(4)[k] for k in range(4)]
+
+        def clip(poly, h):                      # Sutherland-Hodgman: the part of a polygon (betas) with h . b >= 0
+            out = []
+            for k in range(len(poly)):
+                p, q = poly[k], poly[(k + 1) % len(poly)]
+                fp, fq = h @ p, h @ q
+                if fp >= 0:
+                    out.append(p)
+                if (fp >= 0) != (fq >= 0):
+                    x = p + (q - p) * (fp / (fp - fq))
+                    out.append(x / x.sum())
+            return out
+
+        def into_half(poly):                    # clipped to the cell, with the part below beta3 = beta4 folded up
+            for h in HALF_H:
+                poly = clip(poly, h)
+                if len(poly) < 3:
+                    return []
+            up = clip(poly, np.array([0, 0, 1.0, -1.0]))
+            down = clip(poly, np.array([0, 0, -1.0, 1.0]))
+            return [pc for pc in (up, [b[FOLD4] for b in down]) if len(pc) >= 3]
+
+        for tid, sf in json.load(open("xsurfaces.json")).items():
+            if tid not in tmap:
+                continue
+            T3 = np.array(sf["tris"], float)                       # (n, 3, 4)
+            lhs = sf["equation"].split(" = ")[0]
+            nterms = lhs.count(" + ") + lhs.count(" − ") + 1
+            tmap[tid]["locus"] = (f"a curved wall on {sf['kind']}: {sf['equation']}" if nterms < 6 else
+                                  f"a curved wall on {sf['kind']} ({nterms} terms; hover the surface for its equation)")
+            beyond = sorted({b.split(":", 1)[-1] for b, _ in sf["beyond"]} - {"OUT", "ERR", tid})
+            hover = (f"{label(tid)}<br>curved wall on {sf['kind']}<br>{sf['equation']}"
+                     f"<br>edges: {', '.join(nbname(b) for b in beyond)}")
+            xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in T3], "hover": hover})
+            for line in sf["outline"]:
+                B = [np.asarray(p["beta"], float) for p in line]
+                xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in B], "hover": hover, "outline": True})
+            seen = {tuple(np.round(t.mean(axis=0), 5)) for t in T3}
+            copies = []
+            for Mg in M_all:
+                V = np.einsum("ij,ntj->nti", Mg, T3)
+                sg = np.sign(V.sum(axis=2))
+                ok = (sg == sg[:, :1]).all(axis=1) & (np.abs(V.sum(axis=2)).min(axis=1) > 1e-12)
+                V = V[ok] / V[ok].sum(axis=2, keepdims=True)
+                V = V[(V.max(axis=1) > -1e-9).all(axis=1)]          # (a triangle wholly beyond a face is out)
+                if not len(V):
+                    continue
+                for t in V:
+                    for pc in into_half(list(t)):
+                        key = tuple(np.round(np.mean(pc, axis=0), 5))
+                        if key in seen:
+                            continue
+                        seen.add(key)
+                        copies.extend([[pc[0], pc[k], pc[k + 1]] for k in range(1, len(pc) - 1)])
+            if copies:
+                xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in copies],
+                               "hover": hover.replace("<br>curved wall", "<br>copy under the group: curved wall"), "copy": True})
+            print(f"{tid}: {len(T3)} surface triangles, {len(copies)} copy triangles")
 
     # the shapes living on the edges of the exact patches (fexact.py label_edges): X shapes found there are drawn as
     # exact segments in their colours, and survey lines of theirs lying along them are dropped

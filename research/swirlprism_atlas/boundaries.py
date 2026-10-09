@@ -5,6 +5,7 @@ Four sources, each exact or nearly so where it applies:
   * exact wall patches (fexact_patches.json): the line shapes on their edges (label_edges) and the shapes at their
     corners; the corners at the ends of an edge bound that edge's line shape; and the regions on the two sides of
     each patch, found by nudging its centre off the wall;
+  * the curved walls' meshes (xsurfaces.json): the shapes past their boundary lines;
   * the nudge test (xloci_step1.json): every region a transitional sample falls into when nudged has that
     transitional shape on its boundary.
 A boundary is listed as found, so a shape whose surroundings are only partly traced has a partial list.
@@ -117,6 +118,15 @@ def main(procs=4):
         if lab != "ERR" and lab != patches[key]["target"]:
             bnd[lab].add(patches[key]["target"])
 
+    try:                                    # the curved walls X10 and X33 (xsurface.py): the shapes past their edges
+        for tid, sf in json.load(open("xsurfaces.json")).items():
+            for line in sf["outline"]:
+                for p in line:
+                    lab = p["beyond"].split(":", 1)[-1]
+                    if lab not in ("OUT", "ERR", tid):
+                        bnd[tid].add(lab)
+    except FileNotFoundError:
+        pass
     for tid, r in json.load(open("xloci_step1.json")).items():
         if r["kept"] < r["of"]:
             for nb in r["neighbours"]:
