@@ -742,7 +742,7 @@ def main(samples_path, out_path):
     PHI_ = (1 + 5 ** 0.5) / 2
     POINT_LINES = {
         "X51": ([1, 1 + PHI_, 2 + 2 * PHI_, 1 + PHI_], [1, 1, 1, 1], "in the mirror β2 = β4, from where it meets E1's dashed copy to the cell centre C1"),
-        "X48": ([1, 1 + PHI_, 2 + PHI_, 1], [1, 1, 1, 1], "in the mirror β1 = β4, to the cell centre C1"),
+        "X48": ([1, 1 + PHI_, 2 + PHI_, 1], [1, 1, 1, 1], "in the mirror β1 = β4, from (1, 1+φ, 2+φ, 1) on E1's dashed copy, where X53, X28 and X41 meet, to the cell centre C1"),
     }
     # more of them, traced in their mirrors (follow_line / curve_ends, x_point_lines.json): straight lines and exact
     # golden conics, drawn between their exact ends
@@ -1223,7 +1223,7 @@ def main(samples_path, out_path):
             t["ends"] = sorted(set(ek))
     for tid in ("X51", "X48"):  # lines found from their samples: they end at the cell centre C1
         if tid in tmap:
-            tmap[tid]["ends"] = ["C1", "E1"] if tid == "X51" else ["C1"]
+            tmap[tid]["ends"] = ["C1", "E1"]          # (both end on E1's dashed copy)
     for tid in ("X80", "X81"):  # the two conics of X79's lens both run from A1 to the X2 corner
         if tid in tmap:
             tmap[tid]["ends"] = ["A1", "X2"]         # A1, and where it meets the X2 line (no special point there)
