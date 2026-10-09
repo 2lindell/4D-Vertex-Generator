@@ -401,7 +401,7 @@ def main(samples_path, out_path):
         if tid not in tmap:
             continue
         x = seed_from_beta(p)
-        special.append({"id": tid, "q": q, "hover": f"{label(tid)}<br>exact point: {note}<br>"
+        special.append({"id": tid, "q": q, "selOnly": True, "hover": f"{label(tid)}<br>exact point: {note}<br>"
                         f"β = {np.round(p, 6).tolist()}<br>seed " + ", ".join(fmt17(c) for c in x)})
         tmap[tid]["axis_note"] = True
 
@@ -417,7 +417,7 @@ def main(samples_path, out_path):
             x = seed_from_beta(p)
             tid = _one(p)[0]
             c, fc, e = counts_key(signature(classify(x))).split("|")
-            special.append({"id": tid, "q": _exact(xyz(p)).tolist(),
+            special.append({"id": tid, "q": _exact(xyz(p)).tolist(), "selOnly": True,
                             "hover": f"{label(tid)}<br>exact point with 7200 symmetries: the green order-3 girdle meets a purple "
                                      f"2400 axis<br>cells {c}<br>faces {fc}<br>edges {e}<br>β ∝ {beta_text(p)}<br>seed "
                                      + ", ".join(fmt17(v) for v in x)})
@@ -437,7 +437,8 @@ def main(samples_path, out_path):
             if any(np.allclose(q, o["q"], atol=1e-6) for o in special):
                 continue
             x = seed_from_beta(p)
-            special.append({"id": tid, "q": q, "hover": f"{label(tid)}<br>exact point where the {c['axis']} crosses it, between "
+            special.append({"id": tid, "q": q, "selOnly": True,
+                            "hover": f"{label(tid)}<br>exact point where the {c['axis']} crosses it, between "
                                                         f"{c['below']} and {c['above']}; 2400 symmetries<br>β ∝ {beta_text(p)}"
                                                         "<br>seed " + ", ".join(fmt17(v) for v in x)})
             tmap[tid]["where"] = (tmap[tid].get("where") or "golden samples") + "; ✕ where a purple axis crosses it"
@@ -510,7 +511,7 @@ def main(samples_path, out_path):
 
     # transitional layer: T1 lines, T2 patches in mirrors and faces
     segments = []
-    SELECTED_ONLY = {"T1"}    # drawn only while the shape's row is selected
+    SELECTED_ONLY = {"T1", "E2", "T2"}    # drawn only while the shape's row is selected
     for seg in EXACT_SEGMENTS:
         a, b = np.array(seg["a"], float), np.array(seg["b"], float)
         a, b = a / a.sum(), b / b.sum()
@@ -1003,7 +1004,7 @@ def main(samples_path, out_path):
         curve = t2exact.CURVES[name]()
         for is_copy, pts in [(False, curve)] + [(True, c) for c in t2exact.curve_copies(curve)]:
             where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
-            segments.append({"id": "T2", "copy": is_copy, "pts": [_exact(xyz(p)).tolist() for p in pts],
+            segments.append({"id": "T2", "copy": is_copy, "selOnly": True, "pts": [_exact(xyz(p)).tolist() for p in pts],
                              "hover": f"T2 · exact curve {name} ({where})<br>{desc}"})
     tpatches = []
     for name, (plane, bounds) in t2exact.DESCRIPTIONS.items():
@@ -1042,8 +1043,11 @@ def main(samples_path, out_path):
     from place_colors import assign as place_assign
     from place_colors import css as place_css
     place = place_assign([t["id"] for t in types if t["listed"]])
-    if "T1" in place:      # T1 fell next to C2b's orange: the line-lightness hue farthest from every other colour
-        place["T1"] = ("#8f4896", "#d38dd9", *place["T1"][2:])
+    # T1 fell next to C2b's orange and E2 next to C3's gold: each takes the line-lightness hue farthest from every
+    # other colour (T1 magenta, E2 crimson)
+    for tid, light, dark in (("T1", "#8f4896", "#d38dd9"), ("E2", "#aa3f4e", "#f18790")):
+        if tid in place:
+            place[tid] = (light, dark, *place[tid][2:])
     # transitional X classes: the X grey, a step darker on a wall, darker on a line, darkest at a point
     x_kind = {tid: r["kind"] for tid, r in r2.items()} if os.path.exists("xloci_step2.json") else {}
     for t in types:
