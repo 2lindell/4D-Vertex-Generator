@@ -1404,11 +1404,68 @@ def main(samples_path, out_path):
             for i, pts in pieces:
                 if i in tmap and tmap[i].get("dim") == "line" and len(pts) >= 2 and all(abs(np.dot(n, b)) < 1e-9 for b in pts):
                     entry["ids"].add(i)
+        # where two of the half tetrahedron's faces or H4 mirrors meet: the line shapes lying along that meeting line.
+        # A pair and its fold (beta1 <-> beta2, beta3 <-> beta4) are one option, holding the lines of both.
+        def pnormal(key):
+            n = np.zeros(4)
+            if key[0] == 1:
+                n[key[1][0]] = 1
+            else:
+                n[key[1][0]], n[key[1][1]] = 1, -1
+            return n
+        def pname(key):
+            return ("the face " if key[0] == 1 else "the mirror ") + _eq(pnormal(key))
+        planes = [(1, (i,)) for i in range(4)] + [(0, (i, j)) for i in range(4) for j in range(i + 1, 4)]
+        FOLD = [1, 0, 3, 2]
+        def fold_key(key):
+            return (key[0], tuple(sorted(FOLD[i] for i in key[1])))
+        def line_name(keys):
+            """'b1 = b3 = b4' style text for the line on which all these planes meet."""
+            parent = list(range(4))
+            def root(a):
+                while parent[a] != a:
+                    a = parent[a]
+                return a
+            zero = set()
+            for kind, idx in keys:
+                if kind == 1:
+                    zero.add(idx[0])
+                else:
+                    parent[root(idx[0])] = root(idx[1])
+            groups = {}
+            for a in range(4):
+                groups.setdefault(root(a), []).append(a)
+            parts = []
+            for g in sorted(groups.values()):
+                z = any(a in zero for a in g)
+                if len(g) > 1 or z:
+                    parts.append(" = ".join(f"β{a + 1}" for a in g) + (" = 0" if z else ""))
+            return " and ".join(parts)
+        meet = {}
+        for u in range(len(planes)):
+            for v in range(u + 1, len(planes)):
+                nA, nB = pnormal(planes[u]), pnormal(planes[v])
+                M = np.vstack([nA, nB, np.ones(4)])
+                if np.linalg.matrix_rank(M) < 3:
+                    continue
+                L = np.linalg.svd(np.vstack([nA, nB]))[2][2:]           # two betas spanning the line
+                on = frozenset(k for k in planes if np.allclose(L @ pnormal(k), 0, atol=1e-12))
+                folded = frozenset(fold_key(k) for k in on)
+                canon = min(on, folded, key=lambda f: sorted(f))
+                ids = {i for i, pts in pieces if i in tmap and tmap[i].get("dim") == "line" and len(pts) >= 2
+                       and all(abs(nA @ b) < 1e-9 and abs(nB @ b) < 1e-9 and b.min() > -1e-9 and b[2] >= b[3] - 1e-9
+                               for b in pts)
+                       and max(np.linalg.norm(b - pts[0]) for b in pts) > 1e-6}      # a real piece in the half tetrahedron
+                if ids:          # (named by the first of the pair and its fold found to hold lines)
+                    meet.setdefault(canon, {"ids": set(), "fold": folded != on, "on": on})["ids"] |= ids
+        meet_opts = [{"name": "the line " + line_name(e["on"]) + (" (and its fold)" if e["fold"] else ""), "ids": e["ids"]} for canon, e in sorted(meet.items(), key=lambda kv: line_name(kv[1]["on"]))]
         if f1 in by and (1, (1,)) in by:      # (the beta2 = 0 face was merged into the beta1 = 0 option)
             by[f1]["ids"] |= by.pop((1, (1,)))["ids"]
         srt = lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i)
         for key in sorted(by):
             mirror_walls.append({"name": by[key]["name"], "ids": sorted(by[key]["ids"], key=srt)})
+        for m in meet_opts:            # the lines where two (or more) of those planes meet
+            mirror_walls.append({"name": m["name"], "ids": sorted(m["ids"], key=srt)})
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
