@@ -908,6 +908,7 @@ def main(samples_path, out_path):
                     if not (tid.startswith("X") or tid in EDGE_DRAWN) or tid not in tmap or tid == pt["target"]:
                         continue
                     is_copy = bool(has_plain.get(pt["target"]) and not plain(pt["normal"]))
+                    tmap[tid].setdefault("edge_of", set()).add((pt["target"], True))      # it lives on this curve
                     for run in conic_runs(C, conic):
                         seg = [C[k] for k in run]
                         key = (tid, frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]))
