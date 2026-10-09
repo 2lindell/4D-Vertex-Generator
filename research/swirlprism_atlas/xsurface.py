@@ -1,19 +1,19 @@
 """The curved walls X10 and X33: their exact surfaces, their extent in the half tetrahedron, and meshes to draw.
 
 X10 lies on the quadric  b1 b4 - b2 b3 + b3^2 - b4^2 = 0  and X33 on a golden quartic (xsurface_x33.json, fitted to 60
-X33 points found by coincidence and snapped to golden coefficients; residual 5e-16). Each surface is parametrised:
-  X10: the second intersection with the quadric of each line through the sample s0 = (phi, 2, phi, 1), over a grid of
-       line directions (theta, psi) in the hyperplane sum(beta) = 1;
-  X33: a square grid in the tangent plane at its sample (1, phi, 1+2phi, 1+phi), each point pushed onto the surface by
-       Newton steps along the gradient.
-The grid points are classified (fexact._lab), growing the grid outward from the shape until it is surrounded. The grid
-triangles are then marched: corners in the shape are kept, and every edge from a corner in the shape to one outside is
-bisected in the parameter plane for the boundary point (and the shape beyond it, or, at a face or mirror of the half
-tetrahedron, the shape on the face there). The result, xsurfaces.json, holds per shape the triangles (as betas), the
-boundary polylines with the shape beyond each boundary point, and the equation.
+X33 points found by coincidence and snapped to golden coefficients; residual 5e-16).
 
-    python xsurface.py X10 [cache.json] [grid.json]
-    python xsurface.py X33 [cache.json] [grid.json]
+The surface is meshed directly from its equation, by marching tetrahedra over a uniform grid in the hyperplane
+sum(beta) = 1 (each mesh vertex then moved onto the surface exactly by Newton steps), so the mesh is even and its
+triangles share their edges. Only the grid cells around the shape are meshed: starting from cells holding known points
+of the shape, the cells next to any cell with a mesh vertex in the shape are added until the shape is surrounded. The
+mesh vertices are classified (fexact._lab_loose), and the triangles are marched: corners in the shape are kept, and
+each mesh edge from a corner in the shape to one outside is bisected (along the edge, pushed onto the surface) for the
+boundary point and the shape beyond it (at a face or mirror of the half tetrahedron: the shape on the face there).
+The result, xsurfaces.json, holds per shape the triangles (as betas), the boundary polylines with the shape beyond each
+boundary point, and the equation.
+
+    python xsurface.py X10|X33 [h] [cache.json]
 """
 from __future__ import annotations
 
@@ -21,234 +21,240 @@ import json
 import os
 import sys
 from collections import Counter
+from itertools import permutations
 from multiprocessing import Pool
 
 import numpy as np
 
-from fexact import _lab, _lab_loose
+from fexact import _lab_loose
 
 PHI = (1 + 5 ** 0.5) / 2
-STEPS = 7          # bisection steps along a grid edge (1/128 of the grid spacing)
+STEPS = 6            # bisection steps along a boundary mesh edge
+U = np.linalg.svd(np.ones((1, 4)))[2][1:]            # sum-zero directions: beta = C0 + U^T y
+C0 = np.full(4, 0.25)
 
 
 # ---------------------------------------------------------------------------------------------------------- surfaces
-def _x10():
-    mons = [(i, j) for i in range(4) for j in range(i, 4)]
-    c = np.zeros(10)
-    c[3], c[5], c[7], c[9] = 1, -1, 1, -1          # b1b4 - b2b3 + b3^2 - b4^2
-    Q = np.zeros((4, 4))
-    for v, (i, j) in zip(c, mons):
-        Q[i, j] += v / (1 if i == j else 2)
-        Q[j, i] = Q[i, j]
-    s0 = np.array([PHI, 2, PHI, 1.0])
-    s0 /= s0.sum()
-    U = np.linalg.svd(np.ones((1, 4)))[2][1:]
-    n1, n2 = 60, 120
-    ths = np.linspace(-np.pi / 2 + 1e-3, np.pi / 2 - 1e-3, n1)
-
-    def param(x):                                      # x = (theta, psi), continuous
-        th, ps = x
-        u = U.T @ np.array([np.cos(th) * np.cos(ps), np.cos(th) * np.sin(ps), np.sin(th)])
-        qu = u @ Q @ u
-        if abs(qu) < 1e-14:
-            return None
-        p = s0 + (-2 * (s0 @ Q @ u) / qu) * u
-        return p
-
-    def at(key):                                       # grid key (i, j): i a row of theta, j any integer (psi wraps)
-        return np.array([ths[key[0]], 2 * np.pi * key[1] / n2])
-
-    def norm_key(key):
-        return (key[0], key[1] % n2)
-
-    def neighbours(key):
-        i, j = key
-        return [norm_key((i + di, j + dj)) for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1))
-                if n1 // 2 - 1 <= i + di < n1]
-
-    def cells():                                       # each line through s0 once: theta >= 0 (and one row below)
-        for i in range(n1 // 2 - 1, n1 - 1):
-            for j in range(n2):
-                yield (i, j), (i + 1, j), (i + 1, j + 1), (i, j + 1)
-
-    return {"param": param, "at": at, "norm_key": norm_key, "neighbours": neighbours, "cells": cells,
-            "equation": "β1β4 − β2β3 + β3² − β4² = 0", "kind": "a quadric"}
+def surface(tid):
+    if tid == "X10":
+        mons = [(0, 3), (1, 2), (2, 2), (3, 3)]
+        coeffs = [1.0, -1.0, 1.0, -1.0]
+        eq, kind = "β1β4 − β2β3 + β3² − β4² = 0", "a quadric"
+    else:
+        S = json.load(open("xsurface_x33.json"))
+        mons = [tuple(m) for m, c in zip(S["mons"], S["coeffs"]) if c]
+        coeffs = [c for c in S["coeffs"] if c]
+        eq, kind = S["text"], "a golden quartic"
+    return {"mons": mons, "coeffs": np.array(coeffs, float), "equation": eq, "kind": kind}
 
 
-def _x33():
-    S = json.load(open("xsurface_x33.json"))
-    coeffs, mons = np.array(S["coeffs"]), [tuple(m) for m in S["mons"]]
-    s0 = np.array(S["points"][0], float)
-    s0 /= s0.sum()
-
-    def F(b):
-        return float(sum(c * np.prod(np.asarray(b)[list(m)]) for c, m in zip(coeffs, mons) if c))
-
-    def grad(b):
-        g = np.array([(F(b + e * 1e-7) - F(b - e * 1e-7)) / 2e-7 for e in np.eye(4)])
-        return g - g.mean()
-
-    n = grad(s0)
-    n /= np.linalg.norm(n)
-    B = np.linalg.svd(np.vstack([np.ones(4), n]))[2][2:]
-    h = 0.01
-
-    def param(x):
-        p = s0 + x[0] * B[0] + x[1] * B[1]
-        for _ in range(30):                            # Newton along the gradient
-            g = grad(p)
-            gg = g @ g
-            if gg < 1e-30:
-                return None
-            step = F(p) / gg
-            p = p - step * g
-            if abs(step) < 1e-16:
-                break
-        return p if abs(F(p)) < 1e-13 else None
-
-    def at(key):
-        return np.array([key[0] * h, key[1] * h])
-
-    def neighbours(key):
-        i, j = key
-        return [(i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)]
-
-    def cells_from(known):
-        def cells():
-            for (i, j) in list(known):
-                yield (i, j), (i + 1, j), (i + 1, j + 1), (i, j + 1)
-        return cells
-
-    return {"param": param, "at": at, "norm_key": lambda k: k, "neighbours": neighbours, "cells_from": cells_from,
-            "equation": S["text"], "kind": "a golden quartic"}
+def F(sf, B):
+    """The polynomial at betas B (n, 4)."""
+    B = np.atleast_2d(B)
+    out = np.zeros(len(B))
+    for c, m in zip(sf["coeffs"], sf["mons"]):
+        out += c * np.prod(B[:, list(m)], axis=1)
+    return out
 
 
-SURF = {"X10": _x10, "X33": _x33}
+def grad(sf, b):
+    g = np.zeros(4)
+    for c, m in zip(sf["coeffs"], sf["mons"]):
+        for k in range(len(m)):
+            rest = m[:k] + m[k + 1:]
+            g[m[k]] += c * np.prod(b[list(rest)])
+    return g - g.mean()                                  # (stay in sum(beta) = 1)
 
 
-# ------------------------------------------------------------------------------------------------------------ labels
-def in_half(p):
-    return p is not None and p.min() > -1e-12 and p[2] >= p[3] - 1e-12 and abs(p.sum() - 1) < 1e-9
+def project(sf, b):
+    b = np.array(b, float)
+    for _ in range(40):
+        g = grad(sf, b)
+        gg = g @ g
+        if gg < 1e-30:
+            break
+        step = F(sf, b)[0] / gg
+        b = b - step * g
+        if abs(step) < 1e-17:
+            break
+    return b
 
 
-_S = None
+def in_half(b):
+    return b.min() > -1e-12 and b[2] >= b[3] - 1e-12
+
+
+# ------------------------------------------------------------------------------------------------------------- jobs
+_SF = None
 
 
 def _init(tid):
-    global _S
-    _S = SURF[tid]()
+    global _SF
+    _SF = surface(tid)
 
 
-def _label_job(key):
-    p = _S["param"](_S["at"](key))
-    if not in_half(p):
-        return key, None, "OUT"
-    return key, p.tolist(), _lab(p)
+def _label(b):
+    b = np.asarray(b, float)
+    return _lab_loose(b / b.sum()) if in_half(b) else "OUT"
 
 
 def _edge_job(args):
-    """Bisect the grid edge from a corner in the shape to one outside: the boundary point (on the surface) and the
-    shape beyond it (at a face or mirror of the half tetrahedron: the shape on the face there)."""
-    tid, x_in, x_out, lab_out = args
-    x_in, x_out = np.array(x_in), np.array(x_out)
-    P = _S["param"]
-    if lab_out == "OUT":                               # the cell face: bisect the cheap in-cell test
+    """Bisect the mesh edge from a vertex in the shape to one outside: the boundary point (on the surface) and the
+    shape beyond it, or, at a face or mirror of the half tetrahedron, the shape on the face there."""
+    tid, a, b, lab_out = args
+    a, b = np.array(a), np.array(b)
+    lo, hi, beyond = 0.0, 1.0, lab_out
+    if lab_out == "OUT":
         for _ in range(40):
-            m = (x_in + x_out) / 2
-            if in_half(P(m)):
-                x_in = m
+            m = (lo + hi) / 2
+            if in_half(project(_SF, a + m * (b - a))):
+                lo = m
             else:
-                x_out = m
-        p = P(x_in)
-        return p.tolist(), "face:" + _lab_loose(p)
-    beyond = lab_out
+                hi = m
+        x = project(_SF, a + lo * (b - a))
+        return x.tolist(), "face:" + _lab(np.clip(x, 0, None))
     for _ in range(STEPS):
-        m = (x_in + x_out) / 2
-        pm = P(m)
-        lab = _lab(pm) if in_half(pm) else "OUT"
+        m = (lo + hi) / 2
+        x = project(_SF, a + m * (b - a))
+        lab = _label(x)
         if lab == tid:
-            x_in = m
+            lo = m
+        elif lab == "OUT":
+            return _edge_job((tid, (a + lo * (b - a)).tolist(), x.tolist(), "OUT"))
         else:
-            x_out, beyond = m, lab
-            if lab == "OUT":                           # (the face comes first along this edge)
-                return _edge_job((tid, x_in.tolist(), x_out.tolist(), "OUT"))
-    return P((x_in + x_out) / 2).tolist(), beyond
+            hi, beyond = m, lab
+    return project(_SF, a + (lo + hi) / 2 * (b - a)).tolist(), beyond
 
 
-# -------------------------------------------------------------------------------------------------------------- main
-def main(tid, cache_path, grid_path=None, procs=4):
-    _init(tid)
-    S = _S
-    known = {}
+# ------------------------------------------------------------------------------------------------------------- mesh
+CUBE = np.array([[i, j, k] for i in (0, 1) for j in (0, 1) for k in (0, 1)])
+# the cube cut into six tetrahedra along its main diagonal (the same cut in every cube, so faces match)
+TETS = []
+for perm in permutations(range(3)):
+    path = [np.zeros(3, int)]
+    for ax in perm:
+        nxt = path[-1].copy()
+        nxt[ax] = 1
+        path.append(nxt)
+    TETS.append([int(np.flatnonzero((CUBE == p).all(axis=1))[0]) for p in path])
+
+
+def main(tid, h=0.012, cache_path=None, procs=4):
+    sf = surface(tid)
+    cache_path = cache_path or f"xsurface_{tid}_labels.json"
+    labels = {}
     if os.path.exists(cache_path):
-        known = {tuple(json.loads(k)): tuple(v) for k, v in json.load(open(cache_path)).items()}
-    elif grid_path:                                     # the first grid (xsurface's predecessor scripts)
-        g = json.load(open(grid_path))
-        if tid == "X10":
-            n2 = g["n2"]
-            for k, r in enumerate(g["res"]):
-                known[(k // n2, k % n2)] = (r[0], r[1]) if r else (None, "OUT")
-        else:
-            m = g["m"]
-            for k, r in enumerate(g["res"]):
-                known[(k // m - m // 2, k % m - m // 2)] = (r[0], r[1]) if r else (None, "OUT")
+        labels = {tuple(json.loads(k)): v for k, v in json.load(open(cache_path)).items()}
 
-    def save():
-        json.dump({json.dumps(list(k)): list(v) for k, v in known.items()}, open(cache_path, "w"))
+    def node_beta(n):
+        return C0 + U.T @ (h * np.asarray(n, float))
 
+    Fn = {}
+
+    def fval(n):
+        if n not in Fn:
+            Fn[n] = F(sf, node_beta(n))[0]
+        return Fn[n]
+
+    verts = {}                                           # (node, node) -> beta on the surface
+
+    def vert(n1, n2):
+        key = (n1, n2) if n1 < n2 else (n2, n1)
+        if key not in verts:
+            f1, f2 = fval(key[0]), fval(key[1])
+            t = f1 / (f1 - f2)
+            verts[key] = project(sf, node_beta(key[0]) + t * (node_beta(key[1]) - node_beta(key[0])))
+        return key
+
+    def cell_tris(c):
+        """Marching tetrahedra in cube c: triangles as triples of vertex keys."""
+        nodes = [tuple(int(v) for v in np.add(c, d)) for d in CUBE]
+        vals = [fval(n) for n in nodes]
+        out = []
+        for tet in TETS:
+            ns = [nodes[i] for i in tet]
+            fs = [vals[i] for i in tet]
+            pos = [i for i in range(4) if fs[i] > 0]
+            neg = [i for i in range(4) if fs[i] <= 0]
+            if not pos or not neg:
+                continue
+            if len(pos) == 1 or len(neg) == 1:
+                one, rest = (pos, neg) if len(pos) == 1 else (neg, pos)
+                out.append(tuple(vert(ns[one[0]], ns[r]) for r in rest))
+            else:
+                a, b = pos
+                c_, d = neg
+                q = [vert(ns[a], ns[c_]), vert(ns[a], ns[d]), vert(ns[b], ns[d]), vert(ns[b], ns[c_])]
+                out += [(q[0], q[1], q[2]), (q[0], q[2], q[3])]
+        return out
+
+    # seed cells: those holding the shape's known points (the samples of the first mesh, if any)
+    seeds = []
+    if os.path.exists("xsurfaces.json"):
+        old = json.load(open("xsurfaces.json")).get(tid, {})
+        seeds = [b for t in old.get("tris", [])[::7] for b in t[:1]]
+    if not seeds:
+        seeds = [json.load(open("xsurface_x33.json"))["points"][0]] if tid == "X33" else [[PHI, 2, PHI, 1]]
+    active = {tuple(int(v) for v in np.floor(U @ (np.asarray(b, float) / np.sum(b) - C0) / h)) for b in seeds}
+    done, tris_by_cell = set(), {}
     with Pool(procs, initializer=_init, initargs=(tid,)) as pool:
-        # grow the grid until every grid point of the shape has its neighbours classified
+        _init(tid)
         while True:
-            front = sorted({S["norm_key"](nb) for k, (p, lab) in known.items() if lab == tid
-                            for nb in S["neighbours"](k)} - set(known))
-            print(f"{tid}: {sum(v[1] == tid for v in known.values())} grid points in the shape, {len(front)} to classify",
-                  flush=True)
-            if not front:
+            todo = active - done
+            if not todo:
                 break
-            for key, p, lab in pool.imap_unordered(_label_job, front, chunksize=4):
-                known[key] = (p, lab)
-            save()
+            new_v = set()
+            for c in todo:
+                tris_by_cell[c] = cell_tris(c)
+                for t in tris_by_cell[c]:
+                    new_v.update(k for k in t if k not in labels)
+            done |= todo
+            new_v = sorted(new_v)
+            for k, lab in zip(new_v, pool.map(_label, [verts[k] for k in new_v], chunksize=4)):
+                labels[k] = lab
+            json.dump({json.dumps([list(a), list(b)]): v for (a, b), v in labels.items()}, open(cache_path, "w"))
+            # grow: every cell next to a cell with a vertex in the shape (and crossed by the surface)
+            grow = set()
+            for c in todo:
+                if any(labels[k] == tid for t in tris_by_cell[c] for k in t):
+                    grow.update(tuple(int(v) for v in np.add(c, d)) for d in
+                                [(i, j, k) for i in (-1, 0, 1) for j in (-1, 0, 1) for k in (-1, 0, 1)])
+            active |= grow
+            n_in = sum(1 for v in labels.values() if v == tid)
+            print(f"{tid}: {len(done)} cells meshed, {len(labels)} vertices classified ({n_in} in the shape), "
+                  f"{len(active - done)} cells to mesh", flush=True)
 
-        cells = S["cells"] if "cells" in S else S["cells_from"](known)
-        inside = lambda k: known.get(S["norm_key"](k), (None, "OUT"))[1] == tid
-        tri_list = []
-        for q in cells():
-            for t in ((q[0], q[1], q[2]), (q[0], q[2], q[3])):
-                if any(inside(k) for k in t) and all(S["norm_key"](k) in known for k in t):
-                    tri_list.append(t)
+        tri_list = [t for c in done for t in tris_by_cell[c]]
+        inside = lambda k: labels.get(k) == tid
         edges = {}
         for t in tri_list:
+            if not any(inside(k) for k in t):
+                continue
             for a in range(3):
                 u, v = t[a], t[(a + 1) % 3]
                 if inside(u) != inside(v):
                     ui, vo = (u, v) if inside(u) else (v, u)
-                    key = (S["norm_key"](ui), S["norm_key"](vo))
-                    edges.setdefault(key, (S["at"](ui).tolist(), S["at"](vo).tolist(),
-                                           known[S["norm_key"](vo)][1]))
+                    edges.setdefault((ui, vo), (verts[ui].tolist(), verts[vo].tolist(), labels[vo]))
         print(f"{tid}: bisecting {len(edges)} boundary edges", flush=True)
         keys = list(edges)
-        res = pool.map(_edge_job, [(tid, *edges[k]) for k in keys], chunksize=2)
-        crossing = dict(zip(keys, res))
-
-    def beta(k):
-        return np.asarray(known[S["norm_key"](k)][0], float)
+        crossing = dict(zip(keys, pool.map(_edge_job, [(tid, *edges[k]) for k in keys], chunksize=2)))
 
     def cross(u, v):
-        ui, vo = (u, v) if inside(u) else (v, u)
-        return (S["norm_key"](ui), S["norm_key"](vo))
+        return (u, v) if inside(u) else (v, u)
 
     tris, segs = [], []
     for t in tri_list:
         flags = [inside(k) for k in t]
-        if all(flags):
-            tris.append([beta(k).tolist() for k in t])
+        if not any(flags):
             continue
-        poly = []                                      # the triangle clipped to the shape (marching triangles)
-        ends = []
+        if all(flags):
+            tris.append([verts[k].tolist() for k in t])
+            continue
+        poly, ends = [], []
         for a in range(3):
             u, v = t[a], t[(a + 1) % 3]
             if inside(u):
-                poly.append(beta(u).tolist())
+                poly.append(verts[u].tolist())
             if inside(u) != inside(v):
                 e = cross(u, v)
                 poly.append(crossing[e][0])
@@ -264,38 +270,31 @@ def main(tid, cache_path, grid_path=None, procs=4):
         adj.setdefault(a, []).append(b)
         adj.setdefault(b, []).append(a)
     seen, lines = set(), []
-    for start in adj:
+    for start in sorted(adj, key=lambda e: len(adj[e])):      # (open lines start at their ends)
         if start in seen:
             continue
-        # walk to one end first (an open line), then along
-        cur, prev = start, None
+        line = [start]
+        seen.add(start)
         while True:
-            nxt = [n for n in adj[cur] if n != prev]
-            if len(adj[cur]) < 2 or not nxt or nxt[0] == start:
-                break
-            prev, cur = cur, nxt[0]
-            if cur == start:
-                break
-        line, prev = [cur], None
-        seen.add(cur)
-        while True:
-            nxt = [n for n in adj[line[-1]] if n != prev and n not in seen]
+            nxt = [n for n in adj[line[-1]] if n not in seen]
             if not nxt:
-                if line[0] in adj[line[-1]] and len(line) > 2:
-                    line.append(line[0])                # closed
+                if len(line) > 2 and line[0] in adj[line[-1]]:
+                    line.append(line[0])                    # closed
                 break
-            prev = line[-1]
             line.append(nxt[0])
             seen.add(nxt[0])
         lines.append([{"beta": crossing[e][0], "beyond": crossing[e][1]} for e in line])
 
     out = json.load(open("xsurfaces.json")) if os.path.exists("xsurfaces.json") else {}
-    out[tid] = {"equation": S["equation"], "kind": S["kind"], "tris": tris, "outline": lines,
+    out[tid] = {"equation": sf["equation"], "kind": sf["kind"], "h": h, "tris": tris, "outline": lines,
                 "beyond": Counter(c[1] for c in crossing.values()).most_common()}
     json.dump(out, open("xsurfaces.json", "w"))
     print(f"{tid}: {len(tris)} triangles, {len(lines)} boundary lines; beyond: {out[tid]['beyond']}", flush=True)
 
 
+def _lab(b):
+    return _lab_loose(np.asarray(b) / np.sum(b))
+
+
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else f"xsurface_{sys.argv[1]}_cache.json",
-         sys.argv[3] if len(sys.argv) > 3 else None)
+    main(sys.argv[1], float(sys.argv[2]) if len(sys.argv) > 2 else 0.012, sys.argv[3] if len(sys.argv) > 3 else None)
