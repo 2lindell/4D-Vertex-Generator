@@ -42,6 +42,10 @@ def surface(tid):
         mons = [(0, 3), (1, 2), (2, 2), (3, 3)]
         coeffs = [1.0, -1.0, 1.0, -1.0]
         eq, kind = "β1β4 − β2β3 + β3² − β4² = 0", "a quadric"
+    elif tid in ("X38", "X83"):                          # further walls on X48's quadric, past its edges
+        mons = [(0, 1), (0, 2), (1, 3), (0, 3)]
+        coeffs = [PHI, -PHI, 1.0, -1.0]
+        eq, kind = "φ·β1(β2 − β3) + β4(β2 − β1) = 0", "a ruled quadric (X48's)"
     elif tid == "X48":                                   # (holds X48's four traced lines: it is ruled by them)
         mons = [(0, 1), (0, 2), (1, 3), (0, 3)]
         coeffs = [PHI, -PHI, 1.0, -1.0]
@@ -203,6 +207,8 @@ def main(tid, h=0.012, cache_path=None, procs=4):
     if os.path.exists("xsurfaces.json"):
         old = json.load(open("xsurfaces.json")).get(tid, {})
         seeds = [b for t in old.get("tris", [])[::7] for b in t[:1]]
+    if not seeds and os.path.exists("xsurface_seeds.json"):     # points just past another wall's edge
+        seeds = json.load(open("xsurface_seeds.json")).get({"X83": "X48b"}.get(tid, tid), [])
     if not seeds and tid in ("X48", "X51"):            # points along its lines
         from surface_from_lines import lines_of
         lines = lines_of(tid)
