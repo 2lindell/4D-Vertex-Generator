@@ -998,7 +998,8 @@ def main(samples_path, out_path):
             beyond = [b for b in beyond if not b.startswith("new:")]
             hover = (f"{label(tid)}<br>curved wall on {sf['kind']}<br>{sf['equation']}"
                      f"<br>edges: {', '.join(nbname(b) for b in beyond)}")
-            xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in T3], "hover": hover, "curved": True})
+            xwalls.append({"id": tid, "tris": [[[round(float(c), 4) for c in _exact(xyz(b))] for b in t] for t in T3],
+                           "hover": hover, "curved": True})
             for line in sf["outline"]:
                 B = [np.asarray(p["beta"], float) for p in line]
                 xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in B], "hover": hover, "outline": True})
@@ -1039,7 +1040,21 @@ def main(samples_path, out_path):
                         seen.add(key)
                         copies.extend([[pc[0], pc[k], pc[k + 1]] for k in range(1, len(pc) - 1)])
             if copies:
-                xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in copies],
+                # (the copies are drawn faint: a coarser mesh is enough, and keeps the page small)
+                ctris = [[_exact(xyz(b)).tolist() for b in t] for t in copies]
+                cell, acc = 0.02, {}
+                for t in ctris:
+                    for v in t:
+                        a = acc.setdefault(tuple(int(np.floor(c / cell)) for c in v), [np.zeros(3), 0])
+                        a[0] += v
+                        a[1] += 1
+                keep, seen_c = [], set()
+                for t in ctris:
+                    ks = [tuple(int(np.floor(c / cell)) for c in v) for v in t]
+                    if len(set(ks)) == 3 and tuple(sorted(ks)) not in seen_c:
+                        seen_c.add(tuple(sorted(ks)))
+                        keep.append([[round(float(c), 4) for c in acc[k][0] / acc[k][1]] for k in ks])
+                xwalls.append({"id": tid, "tris": keep,
                                "hover": hover.replace("<br>curved wall", "<br>copy under the group: curved wall"), "copy": True,
                                "curved": True})
             print(f"{tid}: {len(T3)} surface triangles, {len(copies)} copy triangles")
@@ -1660,7 +1675,7 @@ def main(samples_path, out_path):
     import chamber_domain
     import dodeca_view as dv
 
-    def coarse(tris, h=0.015):
+    def coarse(tris, h=0.025):
         """A curved wall's mesh, coarsened for the dodecahedron views (which repeat it in every chamber): vertices
         merged on a grid of spacing h, degenerate and repeated triangles dropped."""
         cell, acc = {}, {}
@@ -1699,8 +1714,8 @@ def main(samples_path, out_path):
     open(out_path, "w").write(template.replace("__TYPE_CSS__", type_css).replace("__DATA__", dump(data, 6))
                               .replace("__DODECA__", dump(dodeca, 5))
                               .replace("__PIECE__", dump(piece, 5))
-                              .replace("__V1__", dump(v1, 5))
-                              .replace("__CHAMBERS__", dump(chambers, 5))
+                              .replace("__V1__", dump(v1, 4))
+                              .replace("__CHAMBERS__", dump(chambers, 4))
                               .replace("__COHESIVE__", dump(cohesive, 5)))
     listed = [t for t in types if t["listed"]]
     print(f"{len(samples)} samples; {len(listed)} wiki shapes ({sum(1 for t in listed if t['samples'] or t.get('where'))} found), "
