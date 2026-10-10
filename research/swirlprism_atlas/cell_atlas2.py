@@ -1303,10 +1303,10 @@ def main(samples_path, out_path):
         loc = (t.get("locus") or "").lower()
         if not t.get("transitional") and not t["id"].startswith("T") and (not loc or loc.startswith("fills")):
             t["dim"] = "region"
-        elif loc.startswith("wall") or "curved wall" in loc:
-            t["dim"] = "wall"
         elif loc.startswith(("line", "a curve")):
             t["dim"] = "line"
+        elif loc.startswith("wall") or "curved wall" in loc:
+            t["dim"] = "wall"
         else:
             t["dim"] = "point"
     for t in types:        # shapes found on the edges of exact patches live on lines (curves on conic edges)
@@ -1330,6 +1330,30 @@ def main(samples_path, out_path):
                 if tid != "X26":                  # (X26's locus says more: its crease and where it meets X79)
                     walls = sorted({_eq(n) for n in normals}, key=lambda e: (len(e), e))
                     tmap[tid]["locus"] = "wall: " + ", ".join(walls) + " (exact patches)"
+    # what the X shapes once listed as points really fill (xpoint_survey.py, wall_fit.py, region_map.py); a shape whose
+    # curved wall is meshed (xsurfaces.json) keeps the mesh's text
+    meshed = set(json.load(open("xsurfaces.json"))) if os.path.exists("xsurfaces.json") else set()
+    SURVEYED = {
+        "X45": ("region", "fills a region between the cone wall X14 (F2 beyond), the curved wall X25 (X46 beyond) and the "
+                          "mirror β2 = β3 (X27); its signature also turns up on the conic edges of the X44 patches",
+                ["X14", "X25", "X27", "X46", "F2"]),
+        "X7": ("wall", "wall: a curved wall between the regions X12 and X30 (a purple axis crosses it)", ["X12", "X30"]),
+        "X15": ("wall", "wall: a curved wall between the regions X32 and X37", ["X32", "X37"]),
+        "X25": ("wall", "wall: a curved wall between the regions X45 and X46 (not a quadric)", ["X45", "X46"]),
+        "X35": ("wall", "wall: a curved wall between the regions X56 and X74", ["X56", "X74"]),
+        "X39": ("wall", "wall: a curved wall between the regions X59 and X60", ["X59", "X60"]),
+        "X52": ("wall", "wall: a curved wall between the regions X66 and X67", ["X66", "X67"]),
+        "X18": ("point", "a point where the regions X56, X64, X66, X69 and X74 meet; X47 starts and an X48 line ends there", []),
+        "X29": ("point", "a point where the regions X59, X60, X66 and X67 meet, on the walls X39 and X60", []),
+        "X78": ("point", "a point where the walls X15 and X83 meet among the regions X30, X32, X36 and X37 (a purple axis "
+                         "crosses it); no shape near it is a less symmetric split of it", []),
+    }
+    for tid, (dim, locus, nbs) in SURVEYED.items():
+        if tid in tmap:
+            tmap[tid]["dim"] = dim
+            if tid not in meshed:
+                tmap[tid]["locus"] = locus
+            tmap[tid]["extra_bounds"] = tmap[tid].get("extra_bounds", []) + nbs
     for tid, dim in {"T1": "line", "E2": "line", "E1": "line", "T2": "wall", "F1": "wall", "F4": "wall", "F5": "wall"}.items():
         if tid in tmap:
             tmap[tid]["dim"] = dim
