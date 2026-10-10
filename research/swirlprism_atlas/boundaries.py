@@ -122,8 +122,8 @@ def main(procs=4):
         for tid, sf in json.load(open("xsurfaces.json")).items():
             for line in sf["outline"]:
                 for p in line:
-                    lab = p["beyond"].split(":", 1)[-1]
-                    if lab not in ("OUT", "ERR", tid):
+                    lab = p["beyond"][5:] if p["beyond"].startswith("face:") else p["beyond"]
+                    if lab not in ("OUT", "ERR", tid) and not lab.startswith("new:"):   # (a line's tolerance halo)
                         bnd[tid].add(lab)
     except FileNotFoundError:
         pass

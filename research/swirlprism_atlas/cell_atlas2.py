@@ -993,7 +993,9 @@ def main(samples_path, out_path):
             nterms = lhs.count(" + ") + lhs.count(" − ") + 1
             tmap[tid]["locus"] = (f"a curved wall on {sf['kind']}: {sf['equation']}" if nterms < 6 else
                                   f"a curved wall on {sf['kind']} ({nterms} terms; hover the surface for its equation)")
-            beyond = sorted({b.split(":", 1)[-1] for b, _ in sf["beyond"]} - {"OUT", "ERR", tid})
+            # (unnumbered signatures just past a boundary are the looser classifier's halo around a line there)
+            beyond = sorted({b[5:] if b.startswith("face:") else b for b, _ in sf["beyond"]} - {"OUT", "ERR", tid})
+            beyond = [b for b in beyond if not b.startswith("new:")]
             hover = (f"{label(tid)}<br>curved wall on {sf['kind']}<br>{sf['equation']}"
                      f"<br>edges: {', '.join(nbname(b) for b in beyond)}")
             xwalls.append({"id": tid, "tris": [[_exact(xyz(b)).tolist() for b in t] for t in T3], "hover": hover, "curved": True})
