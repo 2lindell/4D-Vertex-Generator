@@ -40,7 +40,7 @@ def _chord(args):
     if {la, lb} != set(sides):
         return None
     lo, hi = 0.0, 1.0
-    for _ in range(40):
+    for _ in range(22):
         m = (lo + hi) / 2
         if lab(a + m * (b - a)) == la:
             lo = m
@@ -75,14 +75,14 @@ def _cross(args):
     """Bisect across the wall at centre c along normal n (half-width w): the wall point, or None."""
     tid, c, n, w, sides = args
     c, n = np.asarray(c), np.asarray(n)
-    for ww in (w, 4 * w):
+    for ww in (w, 6 * w):
         r = _chord((tid, (c - ww * n).tolist(), (c + ww * n).tolist(), sides))
         if r:
             return r
     return None
 
 
-def main(out, specs, rounds=6, per=12, step=0.004):
+def main(out, specs, rounds=4, per=12, step=0.005):
     res = {}
     with Pool(4) as pool:
         for spec in specs:
@@ -112,7 +112,7 @@ def main(out, specs, rounds=6, per=12, step=0.004):
                         t -= (t @ n) * n
                         t /= np.linalg.norm(t)
                         jobs.append((tid, (p + step * t).tolist(), n.tolist(), 3e-4 + 20 * step * step, (A, B)))
-                new = [np.array(p) for p in pool.map(_cross, jobs[:48], chunksize=2) if p]
+                new = [np.array(p) for p in pool.map(_cross, jobs[:24], chunksize=2) if p]
                 pts += [p.tolist() for p in new]
                 front = new or front
                 step *= 1.5
