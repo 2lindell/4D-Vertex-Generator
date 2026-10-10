@@ -331,9 +331,10 @@ __TYPE_CSS__
       if (state.sel.size) {
         for (const w of D.xwalls || []) {
           if (!state.sel.has(w.id)) continue;
-          const P = w.tris.flat().filter(() => true);
+          // (meshes come as shared vertices and index triples)
+          const P = w.verts, F = w.faces;
           out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
-            i: w.tris.map((_, k) => 3 * k), j: w.tris.map((_, k) => 3 * k + 1), k: w.tris.map((_, k) => 3 * k + 2),
+            i: F.map((f) => f[0]), j: F.map((f) => f[1]), k: F.map((f) => f[2]),
             color: color(byId[w.id]), opacity: w.copy ? 0.14 : 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
         }
         for (const s of D.xlines || []) {

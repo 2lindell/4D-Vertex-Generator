@@ -1732,6 +1732,27 @@ def main(samples_path, out_path):
     dv.split_edges_on_rings(data)                  # the cell view keeps its points (front/back filter them)
     dodeca = piece = cohesive = {}                 # (views no longer offered)
     flip_vertical(data)
+
+    def index_walls(view, nd):
+        """Wall meshes as shared vertices and index triples (each vertex was repeated in ~6 triangles)."""
+        for w in view.get("xwalls", []):
+            if "tris" not in w:
+                continue
+            at, verts, faces = {}, [], []
+            for t in w.pop("tris"):
+                f = []
+                for p in t:
+                    key = tuple(round(float(c), nd) for c in p[:3])
+                    if key not in at:
+                        at[key] = len(verts)
+                        verts.append(list(key))
+                    f.append(at[key])
+                if len(set(f)) == 3:
+                    faces.append(f)
+            w["verts"], w["faces"] = verts, faces
+    index_walls(data, 6)
+    index_walls(v1, 4)
+    index_walls(chambers, 4)
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision
         return json.dumps(_rounded(o, n), separators=(",", ":"))
