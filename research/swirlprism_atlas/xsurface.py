@@ -54,6 +54,9 @@ def surface(tid):
         mons = [(1, 1), (1, 2), (1, 3), (0, 3)]
         coeffs = [1.0, -1.0, PHI, -PHI]
         eq, kind = "β2(β2 − β3) + φ·β4(β2 − β1) = 0", "a ruled quadric"
+    elif os.path.exists("xsurface_equations.json") and tid in json.load(open("xsurface_equations.json")):
+        e = json.load(open("xsurface_equations.json"))[tid]      # walls found by wall_fit.py
+        mons, coeffs, eq, kind = [tuple(m) for m in e["mons"]], e["coeffs"], e["text"], e["kind"]
     else:
         S = json.load(open("xsurface_x33.json"))
         mons = [tuple(m) for m, c in zip(S["mons"], S["coeffs"]) if c]
