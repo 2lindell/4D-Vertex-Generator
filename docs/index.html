@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>4D Vertex Generator</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta name="description"
+        content="Generate 4D symmetry orbits and export them as 4OFF, in the browser.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@1.9.2/build/stlite.css">
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: Canvas; color: CanvasText; }
+    #loading { max-width: 40rem; margin: 18vh auto 0; padding: 0 16px; line-height: 1.5; }
+    #loading small { opacity: 0.7; }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div id="loading">
+      <h1>4D Vertex Generator</h1>
+      <p>Loading Python in your browser. The first visit downloads about 30 MB (Python,
+      numpy, scipy, pandas, plotly); later visits use the browser's cache and start much
+      faster.</p>
+      <p><small>Everything runs on your own computer; nothing is sent to a server. Large
+      symmetry groups take longer here than in the locally installed app.</small></p>
+      <p><small>Source, command-line tools and install instructions:
+      <a href="https://github.com/2lindell/4D-Vertex-Generator">github.com/2lindell/4D-Vertex-Generator</a>.
+      </small></p>
+      <noscript><p>This page needs JavaScript.</p></noscript>
+    </div>
+  </div>
+  <script type="module">
+    import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@1.9.2/build/stlite.js";
+    // each file's address carries a hash of its contents, so a redeploy is never hidden by a cache
+    const files = [["app.py", "37f7ed6743a8"], ["assets/favicon.svg", "9c4c874ebec2"], ["four_d_vertex_generator/__init__.py", "52e10da431b2"], ["four_d_vertex_generator/cli.py", "4967879d9424"], ["four_d_vertex_generator/generation.py", "584329a4890e"], ["four_d_vertex_generator/isogonal.py", "d93bf91dc973"], ["four_d_vertex_generator/library.py", "2beb6cf2f982"], ["four_d_vertex_generator/local_view.py", "a079c01e6b70"], ["four_d_vertex_generator/off.py", "52e6454aae5b"], ["four_d_vertex_generator/symmetry.py", "5d0156f18e33"]];
+    mount(
+      {
+        entrypoint: "app.py",
+        requirements: ["numpy", "scipy", "pandas", "plotly"],
+        files: Object.fromEntries(
+          files.map(([path, hash]) => [path, { url: `./${path}?v=${hash}` }]),
+        ),
+      },
+      document.getElementById("root"),
+    );
+  </script>
+</body>
+</html>

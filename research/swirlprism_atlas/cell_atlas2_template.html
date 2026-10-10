@@ -1,0 +1,558 @@
+<title>H3●I2(10) Symmetry Domain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: plot with its controls first, then the key grouped in the wiki's order, then notes. */
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4; --faint: #aab1bc; --x: #9aa1ab; --xw: #80878f; --xl: #666d76; --xp: #4e545c;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948; --s9: #0f93b0; --qaxis: #a68ae6; --g3axis: #5fbf6a; --rprism: #c2185b; --ranti: #6d4c41; --rdec: #1d1d1b; --dom1: #d39a2c; --dom2: #2f9e8f; --domring: #7f8ea3;
+  --mirror: #4a3aa7;
+  --font-text: "Spline Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e; --xw: #858c96; --xl: #a0a7b1; --xp: #bcc2cb;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2; --qaxis: #c3aef7; --g3axis: #7fd88a; --rprism: #f06292; --ranti: #c8a27a; --rdec: #f1f0ea; --dom1: #e2b04f; --dom2: #4cbfae; --domring: #98a6ba;
+    --mirror: #9085e9; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e; --xw: #858c96; --xl: #a0a7b1; --xp: #bcc2cb;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2; --qaxis: #c3aef7; --g3axis: #7fd88a; --rprism: #f06292; --ranti: #c8a27a; --rdec: #f1f0ea; --dom1: #e2b04f; --dom2: #4cbfae; --domring: #98a6ba;
+  --mirror: #9085e9; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 22px; }
+h1 { font-size: 1.75rem; line-height: 1.2; margin: 0; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-size: 1.05rem; margin: 0; font-weight: 600; }
+h3 { font-size: 0.8rem; margin: 0; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+p { margin: 0; max-width: 72ch; }
+.lede { color: var(--muted); }
+.eyebrow { font-family: var(--font-data); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--font-data); font-size: 0.78rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); font-variant-numeric: tabular-nums; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; font-size: 0.9rem; }
+.controls label { display: flex; gap: 8px; align-items: center; color: var(--muted); }
+select { font: inherit; font-size: 0.88rem; color: var(--ink); background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 5px 10px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+#plot { width: 100%; height: min(74vh, 700px); min-height: 380px; }
+/* inside the web app's tab the frame grows to the page, so nothing may depend on the window height */
+html.embedded #plot { height: 640px; }
+html.embedded .explore > .viewer { position: static; height: auto; }
+html.embedded .explore .tablewrap { max-height: 760px; }
+#hoverbox { font-family: var(--font-data); font-size: 0.84rem; color: var(--muted); min-height: 2.6em; }
+.tablewrap { overflow-x: auto; }
+.explore { display: grid; gap: 22px; min-width: 0; }
+/* wide screens: the model stays in view while the key scrolls in its own box beside it */
+@media (min-width: 1270px) {
+  .wrap { max-width: 1680px; }
+  .explore { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: start; }
+  .explore #key td:nth-child(3) { max-width: 13rem; overflow-wrap: anywhere; }
+  .explore #key td.counts { min-width: 11rem; }
+  .explore #key td.where { max-width: 10rem; }
+  .explore #key td.bounds { max-width: 10rem; }
+  .explore #key th, .explore #key td { padding-right: 8px; }
+  .explore > .viewer { position: sticky; top: 12px; height: min(calc(100vh - 24px), 960px); display: flex; flex-direction: column; }
+  .explore #plot { flex: 1 1 auto; height: auto; min-height: 280px; }
+  .explore .tablewrap { max-height: min(calc(100vh - 200px), 780px); min-height: 300px; overflow: auto; overscroll-behavior: contain;
+    border-top: 1px solid var(--rule); }
+  .explore .tablewrap thead th { position: sticky; top: 0; z-index: 1; background: var(--panel); border-top: none;
+    box-shadow: inset 0 -1px 0 var(--rule); }
+}
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { text-align: left; padding: 7px 10px 7px 0; border-top: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.03em; }
+tr.group td { border-top: none; padding-top: 18px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); }
+td.id { white-space: nowrap; font-weight: 600; }
+.seedline { display: inline-flex; align-items: flex-start; gap: 6px; color: var(--ink); }
+.seedline .seedtext { overflow-wrap: anywhere; }
+.copy { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-top: -3px;
+  padding: 0; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); color: var(--muted); cursor: pointer; }
+.copy:hover { color: var(--ink); border-color: var(--faint); }
+.copy:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
+.copy.copied { color: var(--s3); border-color: var(--s3); }
+.copy svg { width: 14px; height: 14px; }
+#hoverbox .pinned { font-size: 0.74rem; color: var(--faint); }
+td.counts .exact { margin-top: 0.4rem; } td.counts .xmark { font-weight: 700; }
+td.counts { font-family: var(--font-data); font-size: 0.76rem; color: var(--muted); word-break: break-word; min-width: 15rem; }
+td.where { color: var(--muted); font-size: 0.82rem; }
+td.bounds { font-size: 0.82rem; }
+tr.row { cursor: pointer; }
+.keytools { margin: 0 0 8px; font-size: 0.88rem; }
+tr.row:hover td { background: var(--bg); }
+tr.row.active td { background: var(--bg); box-shadow: inset 0 1px 0 var(--ink); }
+.sw { display: inline-block; width: 11px; height: 11px; vertical-align: -1px; margin-right: 9px; }
+.notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+@media (max-width: 780px) { .notes { grid-template-columns: minmax(0, 1fr); } }
+ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+code { font-family: var(--font-data); font-size: 0.86em; }
+  .locus { opacity: 0.75; font-size: 0.92em; }
+</style>
+<style id="type-colors">
+__TYPE_CSS__
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:6px">
+    <span class="eyebrow">h4_swirlprism · H3●I2(10) · 1200 rotations</span>
+    <h1>H3●I2(10) Symmetry Domain</h1>
+    <p class="lede">A map of every isogonal polychoron the H3●I2(10) swirlprism group produces from a single seed. Each point of one fundamental domain, half of a 600-cell's tetrahedral cell, is a seed; it is coloured by the polychoron its 1200 images make. Regions, walls, lines and points of the domain are labelled with the wiki's names where they exist, and the views below show the same map from several fundamental domains.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="explore">
+  <section class="panel viewer">
+    <div class="controls">
+      <label for="quarter">Show
+        <select id="quarter"><option value="all">half tetrahedron</option><option value="v1">dodecahedron</option><option value="chambers">1/10 dodecahedron</option></select>
+      </label>
+      <label><input id="showListed" type="checkbox" checked> wiki shapes</label>
+      <label><input id="showX" type="checkbox" checked> unlisted shapes (grey)</label>
+      <label><input id="showRings" type="checkbox" checked> rings</label>
+      <label><input id="showAxes" type="checkbox" checked> extra-symmetry axes</label>
+      <label><input id="showRegular" type="checkbox"> regular prism / antiprism cells</label>
+      <label><input id="showDecagon" type="checkbox"> regular decagon faces</label>
+      <label><input id="showDomain" type="checkbox"> 2400 fundamental domain</label>
+      <label><input id="showMirrors" type="checkbox" checked> H4 mirrors</label>
+    </div>
+    <div id="plot" role="img" aria-label="3D map of the isogonal polychora produced by seeds in a fundamental domain of the H3●I2(10) group"></div>
+    <p id="hoverbox">Hover a point for its shape, golden weights and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape, Ctrl-click (⌘-click on a Mac) to add or remove more, and click the only selected row again to show everything.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Key</h2>
+    <p class="lede">Counts are symmetry classes of cells, faces and edges, written the way the wiki writes them. The example seed can be pasted into the generator's Coordinates mode.</p>
+    <p class="keytools"><label>Select the walls in <select id="mirrorPick"><option value="">— a mirror or face —</option></select></label>
+      <span class="locus">(every blank part of a mirror is a region passing through it, or a line)</span></p>
+    <div class="tablewrap"><table id="key"></table></div>
+  </section>
+  </div>
+
+  <section class="notes">
+    <div class="panel">
+      <h2>The domain</h2>
+      <ul>
+        <li>The group is the swirlprism group H3●I2(10): 1200 rotations of the 3-sphere inside the H4 group of the 600-cell. A seed's 1200 images are the vertices of an isogonal polychoron, and two seeds give the same polychoron when one is an image of the other, so one fundamental domain holds every shape once.</li>
+        <li>The default view is half of one tetrahedral cell of the 600-cell (corners V₁, V₂, V₃ and M34 = β (0, 0, 1, 1), the midpoint of the edge V₃V₄), in gnomonic projection: great circles are straight lines and great spheres are planes. Points are written in barycentric weights β of the cell. The shaded top face is the H4 mirror β₃ = β₄ that splits the cell; the half-turn fixing the cell swaps V₁↔V₂ and V₃↔V₄, so the other half repeats this one, and seeds in the splitting face are also drawn at their copy there. The picture is upside down so that face is on top. The half cannot be halved again: the mirror β₁ = β₂ is not a symmetry, and the two quarters it separates hold different shapes.</li>
+        <li>Points are seeds with golden-integer weights, every uniform H4 seed, and extra samples where the golden grid is sparse; each is coloured by the polychoron it produces.</li>
+        <li>An extra half-turn Q, not in H4, maps the group to itself. A seed and its Q-image give congruent polychora, so most shapes appear twice in the domain; the group with Q has 2400 rotations.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Views</h2>
+      <ul>
+        <li><b>Half tetrahedron:</b> the half-cell described above.</li>
+        <li><b>Dodecahedron:</b> the points of the 3-sphere nearer to the 600-cell vertex V1 = β (1, 0, 0, 0) than to any other vertex, a cell of the dual 120-cell. Its faces are H4 mirrors, and the 15 mirrors through V1 cut it into 120 whole H4 chambers in 12 orbits of 10.</li>
+        <li><b>1/10 dodecahedron:</b> a fundamental domain made of one chamber from each of those 12 orbits: the single convex solid with the most chamber edges on significant rings (8, with 14 faces shared between chambers), unique up to the rotations fixing V1. Chamber edges are drawn faintly and the faces shown are its outer boundary. It keeps regions more connected than the half tetrahedron: 76 region pieces against 107, with F2 and F3 each in one piece.</li>
+        <li>Each view keeps its own camera, so ticking boxes never moves the picture.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Names and markers</h2>
+      <ul>
+        <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200). C2a and C2b are the two subsymmetrical icosafold icosidodecaswirlchoron ranges on the cross rings, told apart by their counts.</li>
+        <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Large outlined markers are uniform H4 seeds, labelled by the shape they produce; open markers of the same shape are their copies under the extra half-turn. Every named shape has its own colour, darkest for shapes on a line, lighter on a wall and lightest for regions; unlisted shapes are grey, in the same steps. Click a row in the key to show only that shape; Ctrl-click (⌘-click on a Mac) more rows to show several at once, with their wall patches, lines and outlines.</li>
+        <li>"Where" says where a shape lives: a region, a wall (plane) or line, or a point or curve. X shapes that only live on a wall, line or point are listed separately as transitional walls, lines and points, each grouped by where they lie.</li>
+        <li>"Boundaries" lists the shapes found on a shape's boundary, by what they fill: the shapes past either end of a traced line, the line shapes on the edges and the shapes at the corners of the exact wall patches, the regions on either side of those patches, and the transitional shapes whose nudged samples fall into a region. A shape whose surroundings are only partly traced has a partial list.</li>
+        <li>✕ marks exact points that are not golden, in the colour of their shape: the icosafold points of C2a and C2b; the points of C3 with 3600 symmetries, where the green girdle meets the cross rings (C3 is named after the shape there; the rest of its range is subsymmetrical); the points where the purple axes meet the domain's boundary; and the points where a purple axis passes through a transitional shape (X1, X7 and X78).</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Lines and axes</h2>
+      <ul>
+        <li><b>Rings</b> are great circles fixed by rotations of the group: the main ring along the edge V₃V₄ and the cross rings. They take the colour of the shape each stretch produces.</li>
+        <li><b>Purple axes</b> are the axes of the half-turns in the coset of Q. A seed on one is its own copy, and its polychoron has 2400 symmetries. The one from the β₂ = β₃ cross ring to C2b is one of Bowers' 30 ghost girdles with skew 20-gonal symmetry.</li>
+        <li><b>The green line</b> is an order-3 ghost girdle: the axis of an order-3 rotation of a 3600-element group containing the swirlprism group. Seeds on it give X12 polychora with 3600 symmetries; it is one of Bowers' 20 such girdles. A search of every fixed circle of H4, its Q-coset and this group finds no other line with more than 1200 symmetries.</li>
+        <li><b>Transitional shapes</b> (T1, T2 and the X walls and lines): T1 and E2 are exactly traced lines; T2 is three exact patches in the mirrors β₁ = β₃, β₂ = β₃ and β₁ = β₂, each with a spidrox corner; select a transitional shape's row in the key to see its patches of wall or its segments of line. The named wall shapes F1, F4 and F5 are traced exactly: each patch is a polygon in its wall bounded by exact lines (F5 also by a conic, along which the shape is X24), with corners and edges in its hover text. F1 lies in the mirrors β₁ = β₂ and β₁ = β₃, F4 in the faces β₁ = 0 and β₂ = 0, and F5 in the mirror β₂ = β₄; their dashed copies lie on further walls, two of them tilted.</li>
+        <li>Throughout, <b>solid</b> lines are the loci themselves and <b>dashed</b> lines are their copies under Q, which give the same polychora elsewhere in the domain.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Regular cells and faces</h2>
+      <ul>
+        <li><b>Regular pentagonal prisms</b> (pink) lie on straight lines from M34 on the faces β₁ = 0 and β₂ = 0 and the mirror β₁ = β₂: β₃ = β₁ + β₄ and β₃ = β₂ + β₄ (F4, ending at spidrox), and β₁ = β₂ = (β₃ − β₄)/φ (F1). At β ∝ (2, 3, 2, 2−φ) the prism lines end where each prism merges with ten neighbouring cells into one 20-vertex cell.</li>
+        <li><b>Regular pentagonal antiprisms</b> (brown) also lie on straight lines from M34: β₁ = φ²β₂, β₃ = β₁ + β₄ (F1) and β₂ = φ²β₁, β₃ = β₂ + β₄ (E1). Their copies run from the V points along the cell's edges and into the cell. A short piece inside X32, from the X19 point (2φ², 1, φ², φ²) to its own copy (3+2φ, 1, 2+φ, 1+φ), ends where each regular antiprism merges with another antiprism and five tetrahedra into a cupola-shaped cell. Spidrox (1, φ², φ², 0) is the one point where regular prisms and regular antiprisms are both cells.</li>
+        <li><b>Regular decagon faces</b> (black): a decagon face is two regular pentagons, orbits of a 5-fold rotation that fixes a plane, lying in one plane; that happens on the X19 and X26 walls, and the decagon is regular where the two pentagons are turned exactly 36° apart. Both conditions are linear in the seed, so these are exact straight lines: one through M34 in the splitting mirror, and its copy from V1 to β ∝ (2, 1, 2, 1). ✕ marks where each decagon's cell is an untwisted pentagonal cupola, its pentagon lined up with the decagon: β ∝ (φ², 1, 1, 1), and its copy (φ², 1, 2, 1).</li>
+        <li><b>2400 fundamental domain</b> shows one fundamental domain of the group with Q: the points closer to a centre on the E2 line, β ∝ (2, 2, 2, 1) (black dot), than to any of its 2399 images. It has 13 corners and 10 faces and half the half-cell's volume; its four purple faces each fold onto themselves across a purple axis.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script id="atlas-data" type="application/json">__DATA__</script>
+<script id="atlas-dodeca" type="application/json">__DODECA__</script>
+<script id="atlas-piece" type="application/json">__PIECE__</script>
+<script id="atlas-v1" type="application/json">__V1__</script>
+<script id="atlas-chambers" type="application/json">__CHAMBERS__</script>
+<script id="atlas-cohesive" type="application/json">__COHESIVE__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.2/plotly.min.js"></script>
+<script>
+(function boot() {
+  if (!window.Plotly) {
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js";
+    s.onload = start; s.onerror = () => { document.getElementById("plot").textContent = "The 3D plot library could not be loaded."; };
+    document.head.appendChild(s);
+  } else start();
+
+  function start() {
+    const DC = JSON.parse(document.getElementById("atlas-data").textContent);
+    // the same geometry mapped into the dodecahedron around M34 (dodeca_view.py); types and labels are shared
+    const DD = { ...DC, ...JSON.parse(document.getElementById("atlas-dodeca").textContent) };
+    const DP = { ...DC, ...JSON.parse(document.getElementById("atlas-piece").textContent) };
+    const DV = { ...DC, ...JSON.parse(document.getElementById("atlas-v1").textContent) };
+    const DH = { ...DC, ...JSON.parse(document.getElementById("atlas-chambers").textContent) };
+    const DQ = { ...DC, ...JSON.parse(document.getElementById("atlas-cohesive").textContent) };
+    let D = DC;
+    const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
+    const color = (t) => css(t.color);
+    const state = { sel: new Set() };            // the rows selected in the key (none: show everything)
+    const el = (id) => document.getElementById(id);
+
+    const found = D.types.filter((t) => t.listed && (t.samples || t.where)).length;
+    el("stats").innerHTML = [`${D.totalSamples} golden seeds`, `${found} of ${D.types.filter((t) => t.listed).length} wiki shapes found`,
+      `${D.types.filter((t) => !t.listed).length} unlisted shapes`].map((x) => `<span class="chip">${x}</span>`).join("");
+
+    function visibleFor(id) { return !state.sel.size || state.sel.has(id); }
+
+    // triangles filling a flat polygon (3D points, in order), by ear clipping in its own plane
+    function earClip(P) {
+      const n = P.length;
+      if (n < 3) return [];
+      const N = [0, 0, 0];                                       // Newell normal
+      for (let a = 0; a < n; a++) {
+        const p = P[a], q = P[(a + 1) % n];
+        N[0] += (p[1] - q[1]) * (p[2] + q[2]); N[1] += (p[2] - q[2]) * (p[0] + q[0]); N[2] += (p[0] - q[0]) * (p[1] + q[1]);
+      }
+      const ax = [0, 1, 2].reduce((m, a) => (Math.abs(N[a]) > Math.abs(N[m]) ? a : m), 0);
+      const [u, v] = [[1, 2], [2, 0], [0, 1]][ax], s = Math.sign(N[ax]) || 1;
+      const Q = P.map((p) => [p[u], s * p[v]]);                  // 2D, counter-clockwise
+      const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+      const inTri = (p, a, b, c) => cross(a, b, p) >= -1e-15 && cross(b, c, p) >= -1e-15 && cross(c, a, p) >= -1e-15;
+      const poly = [...Array(n).keys()], out = [];
+      let guard = 0;
+      while (poly.length > 3 && guard++ < 20000) {
+        let cut = false;
+        for (let i = 0; i < poly.length; i++) {
+          const a = poly[(i + poly.length - 1) % poly.length], b = poly[i], c = poly[(i + 1) % poly.length];
+          if (cross(Q[a], Q[b], Q[c]) <= 1e-15) continue;
+          if (poly.some((q) => q !== a && q !== b && q !== c && inTri(Q[q], Q[a], Q[b], Q[c]))) continue;
+          out.push([a, b, c]); poly.splice(i, 1); cut = true; break;
+        }
+        if (!cut) break;
+      }
+      for (let i = 1; i + 1 < poly.length; i++) out.push([poly[0], poly[i], poly[i + 1]]);
+      return out;
+    }
+
+    function traces() {
+      const out = [], ink = css("--ink"), faint = css("--faint");
+      const quarter = el("quarter").value;
+      D = { dodeca: DD, piece: DP, v1: DV, chambers: DH, cohesive: DQ }[quarter] || DC;
+      const inQ = (q) => (quarter !== "front" && quarter !== "back") || (quarter === "front" ? q[1] >= -1e-9 : q[1] <= 1e-9);
+      const lines = (segs, name, line, extra = {}) => {
+        const x = [], y = [], z = [];
+        for (const s of segs) { for (const q of s) { x.push(q[0]); y.push(q[1]); z.push(q[2]); } x.push(null); y.push(null); z.push(null); }
+        return { type: "scatter3d", mode: "lines", x, y, z, name, line, hoverinfo: "name", ...extra };
+      };
+      const frameName = { dodeca: "The dodecahedron around M34", piece: "One domain: a tenth of the M34 dodecahedron",
+        v1: "The dodecahedron around V1", chambers: "One domain: 12 whole H4 chambers", cohesive: "One domain: every region in one piece" }[quarter] || "Cell (upper half)";
+      out.push(lines(D.edges, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
+      // frame edges lying along a ring are left out while the rings are drawn, so the two lines don't fight for depth
+      if (D.edgesOnRing && !el("showRings").checked) out.push(lines(D.edgesOnRing, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
+      if (D.split.length) out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
+        color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "name" });
+      // the outline of the one-piece-per-region domain (an alpha shape of its moved seeds)
+      if (D.shell && !state.sel.size) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
+        name: "Outline of the domain", hoverinfo: "skip" });
+      for (const id of state.sel) if (D.regionShells && D.regionShells[id]) out.push({ type: "mesh3d", ...D.regionShells[id],
+        color: color(byId[id]), opacity: 0.35, flatshading: true, name: `Outline of ${id}`, hovertemplate: `Outline of ${id}<extra></extra>` });
+      for (const f of D.dodecaFaces || []) {
+        const n = f.length;
+        out.push({ type: "mesh3d", x: f.map((p) => p[0]), y: f.map((p) => p[1]), z: f.map((p) => p[2]),
+          i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
+          color: ink, opacity: 0.04, hoverinfo: "skip" });
+      }
+      if (el("showMirrors").checked) {
+        for (const m of D.mirrors) {
+          const n = m.length;
+          out.push({ type: "mesh3d", x: m.map((p) => p[0]), y: m.map((p) => p[1]), z: m.map((p) => p[2]),
+            i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
+            color: css("--mirror"), opacity: 0.05, hoverinfo: "skip" });
+        }
+      }
+      if (el("showRings").checked) {
+        const groups = {};
+        for (const r of [...D.rings, ...D.main]) (groups[r.id] ||= []).push(r.pts.filter(inQ).length > 1 ? r.pts : []);
+        for (const [id, segs] of Object.entries(groups)) {
+          const t = byId[id];            // rings stay while the checkbox is on, whatever row is selected
+          out.push(lines(segs, `${id} · ${t.name} (${id === "B1" ? "main ring" : "cross ring"})`, { color: color(t), width: id === "B1" ? 7 : 5 }));
+        }
+      }
+      if (el("showAxes").checked) for (const ax of D.qaxes) {
+        const trace = lines([ax.pts], ax.hover, { color: css(ax.order === 3 ? "--g3axis" : "--qaxis"), width: ax.copy ? 4 : 6, dash: ax.copy ? "dash" : "solid" });
+        trace.hovertemplate = ax.hover + "<extra></extra>";
+        trace.opacity = 0.9;
+        out.push(trace);
+      }
+      for (const r of D.regular || []) {
+        if (!el(r.kind === "decagon" ? "showDecagon" : "showRegular").checked) continue;
+        const trace = lines([r.pts], r.hover, { color: css({ prism: "--rprism", antiprism: "--ranti", decagon: "--rdec" }[r.kind]), width: r.copy ? 4 : 6, dash: r.copy ? "dash" : "solid" });
+        trace.hovertemplate = r.hover + "<extra></extra>";
+        out.push(trace);
+      }
+      if (el("showDecagon").checked) {
+        const pts = D.special.filter((u) => u.decagon && inQ(u.q));
+        if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: "Untwisted regular decagons",
+          x: pts.map((u) => u.q[0]), y: pts.map((u) => u.q[1]), z: pts.map((u) => u.q[2]), customdata: pts.map((u) => u.hover),
+          marker: { size: 4, color: css("--rdec"), symbol: "x" }, hovertemplate: "%{customdata}<extra></extra>" });
+      }
+      if (el("showDomain").checked) {
+        const fill = { "q-axis": "--qaxis", "ring-axis": "--domring", "pair-1": "--dom1", "pair-2": "--dom2" };
+        for (const f of D.fdomain) {
+          const n = f.pts.length, c = [0, 1, 2].map((a) => f.pts.reduce((s, q) => s + q[a], 0) / n), all = [...f.pts, c];
+          out.push({ type: "mesh3d", x: all.map((q) => q[0]), y: all.map((q) => q[1]), z: all.map((q) => q[2]),
+            i: Array(n).fill(n), j: [...Array(n).keys()], k: [...Array(n).keys()].map((k) => (k + 1) % n),
+            color: css(fill[f.kind]), opacity: 0.32, flatshading: true, name: f.hover, hovertemplate: f.hover + "<extra></extra>" });
+          out.push(lines([[...f.pts, f.pts[0]]], f.hover, { color: ink, width: 3 }));
+          if (f.axis.length === 2) out.push(lines([f.axis], "the face's fold axis", { color: css("--qaxis"), width: 7 }));
+        }
+        const c = D.fcentre, tip = "Centre of the fundamental domain, β ∝ (2, 2, 2, 1), on the E2 line";
+        out.push({ type: "scatter3d", mode: "markers", x: [c[0]], y: [c[1]], z: [c[2]], name: tip, hovertemplate: tip + "<extra></extra>",
+          marker: { size: 6, color: ink, symbol: "circle" } });
+      }
+      // a transitional shape's wall patches and line segments appear when its row in the key is selected
+      if (state.sel.size) {
+        for (const w of D.xwalls || []) {
+          if (!state.sel.has(w.id)) continue;
+          // (meshes come as shared vertices and index triples)
+          const P = w.verts, F = w.faces;
+          out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
+            i: F.map((f) => f[0]), j: F.map((f) => f[1]), k: F.map((f) => f[2]),
+            color: color(byId[w.id]), opacity: w.copy ? 0.14 : 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
+        }
+        for (const s of D.xlines || []) {
+          if (!state.sel.has(s.id)) continue;
+          const trace = lines([s.pts], s.hover, { color: color(byId[s.id]), width: s.outline ? 3 : 5, dash: s.copy ? "dash" : "solid" });
+          trace.hovertemplate = s.hover + "<extra></extra>";
+          out.push(trace);
+        }
+        if (state.sel.has("T2")) for (const p of D.tpatches) {
+          // the patches are flat but not all convex: fill by ear clipping, so curved edges are never overshot
+          const pts = p.pts.slice(0, p.pts.length - 1), tri = earClip(pts);
+          out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
+            i: tri.map((t) => t[0]), j: tri.map((t) => t[1]), k: tri.map((t) => t[2]),
+            color: color(byId.T2), opacity: p.copy ? 0.1 : 0.16, name: p.hover, hovertemplate: p.hover + "<extra></extra>" });
+          out.push(lines([p.pts], p.hover, { color: color(byId.T2), width: 2, dash: p.copy ? "dash" : "solid" }));
+        }
+      }
+      for (const t of D.types) {
+        if (!visibleFor(t.id)) continue;
+        if (t.listed && !el("showListed").checked) continue;
+        if (!t.listed && !el("showX").checked && !state.sel.has(t.id)) continue;
+        const pts = (D.samples[t.id] || []).filter(inQ);
+        if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} · ${t.name}`,
+          x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${typeof p[3] === "number" ? DC.samples[t.id][p[3]][3] : p[3]}`),
+          marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: 0.9 },   // (full shade: it shows the dimension)
+          hovertemplate: "%{customdata}<extra></extra>" });
+        for (const seg of D.segments.filter((g) => g.id === t.id && (!g.selOnly || state.sel.has(g.id)))) {
+          const trace = lines([seg.pts], seg.hover, { color: color(t), width: seg.copy ? 3.5 : 4.5, dash: seg.copy ? "dash" : "solid" });
+          trace.hovertemplate = seg.hover + "<extra></extra>";
+          out.push(trace);
+        }
+        // (axis points only while their row is selected, except on the rings: the wiki lines always show theirs)
+        const exact = D.special.filter((u) => u.id === t.id && !u.decagon && inQ(u.q)
+          && (!u.selOnly || (t.listed && t.dim === "line") || state.sel.has(u.id)));
+        if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact point)`,
+          x: exact.map((u) => u.q[0]), y: exact.map((u) => u.q[1]), z: exact.map((u) => u.q[2]), customdata: exact.map((u) => u.hover),
+          marker: { size: 9, color: color(t), symbol: "cross", line: { color: color(t), width: 3 } }, hovertemplate: "%{customdata}<extra></extra>" });
+        const big = D.uniform.filter((u) => u.id === t.id && inQ(u.q) && !u.copy);
+        if (big.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (uniform seed)`,
+          x: big.map((u) => u.q[0]), y: big.map((u) => u.q[1]), z: big.map((u) => u.q[2]), customdata: big.map((u) => u.hover),
+          marker: { size: 8, color: color(t), symbol: t.symbol, line: { color: ink, width: 2 } }, hovertemplate: "%{customdata}<extra></extra>" });
+        // copies under the extra half-turn: open markers (the 3D view cannot dash a marker)
+        const bigCopies = D.uniform.filter((u) => u.id === t.id && inQ(u.q) && u.copy);
+        if (bigCopies.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (uniform seed, copy)`,
+          x: bigCopies.map((u) => u.q[0]), y: bigCopies.map((u) => u.q[1]), z: bigCopies.map((u) => u.q[2]),
+          customdata: bigCopies.map((u) => u.hover),
+          marker: { size: 8, color: color(t), symbol: `${t.symbol}-open`, line: { color: color(t), width: 2 } },
+          hovertemplate: "%{customdata}<extra></extra>" });
+      }
+      return out;
+    }
+
+    // each view remembers where it was turned to, so ticking a box redraws without moving the camera
+    const cameras = {};
+    const cam = (dflt) => cameras[el("quarter").value] || dflt;
+    function layout() {
+      const hidden = { visible: false, showbackground: false };
+      if (["piece", "chambers", "cohesive"].includes(el("quarter").value)) {
+        const [lo, hi] = { piece: DP, chambers: DH, cohesive: DQ }[el("quarter").value].bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
+        return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
+          margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value,
+          scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
+            xaxis: { ...hidden, range: [lo[0] - pad, hi[0] + pad] }, yaxis: { ...hidden, range: [lo[1] - pad, hi[1] + pad] },
+            zaxis: { ...hidden, range: [lo[2] - pad, hi[2] + pad] },
+            camera: cam({ eye: { x: 1.3, y: -1.2, z: 0.7 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } }) } };
+      }
+      if (el("quarter").value === "dodeca" || el("quarter").value === "v1") {
+        const r = 0.45;
+        return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
+          margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value,
+          scene: { aspectmode: "cube", xaxis: { ...hidden, range: [-r, r] }, yaxis: { ...hidden, range: [-r, r] }, zaxis: { ...hidden, range: [-r, r] },
+            camera: cam({ eye: { x: 1.4, y: -1.1, z: 0.6 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } }) } };
+      }
+      return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
+        margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: "keep",
+        scene: { aspectmode: "manual", aspectratio: { x: 0.5 / 0.7, y: 1, z: 0.36 / 0.7 },
+          xaxis: { ...hidden, range: [-0.25, 0.25] }, yaxis: { ...hidden, range: [-0.35, 0.35] }, zaxis: { ...hidden, range: [-0.35, 0.01] },
+          camera: cam({ eye: { x: 1.2, y: -1.0, z: 0.12 }, center: { x: 0, y: 0, z: -0.05 }, up: { x: 0, y: 0, z: 1 } }) } };
+    }
+
+    const plot = el("plot");
+    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true });
+    render();
+    // a host that resizes the frame (an auto-sizing viewer) leaves the 3D scene's mouse handling stale: redraw after
+    // each resize settles
+    let resizeTimer = null;
+    window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(render, 200); });
+    plot.on("plotly_relayout", (e) => {
+      const c = e && e["scene.camera"];
+      if (c) cameras[el("quarter").value] = JSON.parse(JSON.stringify(c));
+    });
+    // copy buttons for seeds: the icon turns into a tick for a moment after copying
+    const COPY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>';
+    const DONE_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const copyButton = (text) => `<button type="button" class="copy" data-copy="${text}" title="Copy seed" aria-label="Copy seed">${COPY_ICON}</button>`;
+    const seedLine = (text) => `<span class="seedline"><span class="seedtext">${text}</span>${copyButton(text)}</span>`;
+    async function copyText(text) {
+      try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* blocked in some frames */ }
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      ta.remove();
+      return ok;
+    }
+    document.addEventListener("click", async (ev) => {
+      const b = ev.target.closest(".copy");
+      if (!b) return;
+      ev.stopPropagation();                    // do not also toggle the key row's filter
+      ev.preventDefault();
+      const ok = await copyText(b.dataset.copy);
+      b.innerHTML = ok ? DONE_ICON : COPY_ICON;
+      b.classList.toggle("copied", ok);
+      b.title = ok ? "Copied" : "Copy failed: select the text instead";
+      b.setAttribute("aria-label", b.title);
+      clearTimeout(b._t);
+      b._t = setTimeout(() => { b.innerHTML = COPY_ICON; b.classList.remove("copied"); b.title = "Copy seed"; b.setAttribute("aria-label", "Copy seed"); }, 1500);
+    }, true);
+    // in the hover box, a "seed ..." line gets its own copy button
+    const withCopy = (html) => html.replace(/seed (-?[0-9][0-9., e-]*[0-9])/g, (m, seed) => "seed " + seedLine(seed));
+    // hovering previews a point; clicking pins it so the mouse can reach its copy button
+    let pinned = false;
+    const show = (ev, pin) => {
+      const p = ev.points[0];
+      if (!p || !p.customdata || (pinned && !pin)) return;
+      pinned = pin;
+      el("hoverbox").innerHTML = withCopy(p.customdata) + (pin ? '<br><span class="pinned">pinned: click another point to change</span>' : "");
+    };
+    plot.on("plotly_hover", (ev) => show(ev, false));
+    plot.on("plotly_click", (ev) => show(ev, true));
+
+    // key, grouped as in the wiki's list, then the unlisted shapes
+    function swatch(t) {
+      const c = color(t);
+      const shape = { circle: "border-radius:50%", diamond: "transform:rotate(45deg) scale(0.85)", square: "" }[t.symbol];
+      return `<span class="sw" style="background:${c};${shape}"></span>`;
+    }
+    const groups = [
+      ["A · 120 vertices, named", (t) => t.id.startsWith("A")],
+      ["B · 240 vertices, named", (t) => t.id.startsWith("B")],
+      ["C · 600 vertices, named", (t) => t.id.startsWith("C")],
+      ["D · 600 vertices, unnamed", (t) => t.id.startsWith("D")],
+      ["E · 1200 vertices, named", (t) => t.id.startsWith("E")],
+      ["F · 1200 vertices, unnamed", (t) => t.id.startsWith("F")],
+      ["T · 1200 vertices, transitional", (t) => t.id.startsWith("T")],
+      ["Y · 600 vertices, not in the wiki list", (t) => t.id.startsWith("Y")],
+      ["X · 1200 vertices, not in the wiki list: regions", (t) => t.id.startsWith("X") && t.dim === "region"],
+      ["X · transitional walls (planes and curved walls), grouped by where", (t) => t.id.startsWith("X") && t.dim === "wall", true],
+      ["X · transitional lines (straight or curved), grouped by where", (t) => t.id.startsWith("X") && t.dim === "line", true],
+      ["X · transitional points or curves (found off every golden plane; not traced yet)", (t) => t.id.startsWith("X") && t.dim === "point", true],
+      ["Z · other vertex counts, not in the wiki list", (t) => t.id.startsWith("Z")],
+    ];
+    let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th>Boundaries</th><th class="num">Samples</th></tr></thead><tbody>`;
+    const dimOf = Object.fromEntries(D.types.map((t) => [t.id, t.dim]));
+    const DIMS = [["region", "regions"], ["wall", "walls"], ["line", "lines"], ["point", "points"]];
+    const bounds = (t) => t.dim === "point" && !t.id.startsWith("X") ? `<span class="locus">none (a point)</span>`
+      : !t.bounds || !t.bounds.length ? `<span class="locus">not traced yet</span>`
+      : DIMS.map(([d, name]) => [name, t.bounds.filter((b) => (dimOf[b] || "point") === d)])
+          .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.join(", ")}`).join("<br>");
+    for (const [title, test, byLocus] of groups) {
+      if (!D.types.some(test)) continue;
+      html += `<tr class="group"><td colspan="7"><h3>${title}</h3></td></tr>`;
+      const rows = D.types.filter(test);
+      if (byLocus) rows.sort((a, b) => (a.locus || "~").localeCompare(b.locus || "~"));
+      for (const t of rows) {
+        let counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br>${seedLine(t.seed)}<br>β ∝ ${t.betatext}` : "";
+        if (t.exact) counts += `<div class="exact"><span class="xmark" style="color:${color(t)}">✕</span> exact point ${t.exact.label ? "(" + t.exact.label + ")" : "at " + t.exact.angle + "°"}: cells ${t.exact.cells}<br>faces ${t.exact.faces}<br>edges ${t.exact.edges}</div>`;
+        html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
+          + `<td class="counts">${counts}</td><td class="where">${t.where || (t.samples ? "golden samples" : "not found yet")}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td><td class="bounds">${bounds(t)}</td><td class="num">${t.samples || ""}</td></tr>`;
+      }
+    }
+    el("key").innerHTML = html + "</tbody>";
+    // click a row to show only that shape (again to show everything); Ctrl/Cmd-click adds or removes rows
+    document.querySelectorAll("tr.row").forEach((tr) => tr.addEventListener("click", (e) => {
+      const id = tr.dataset.id;
+      if (e.ctrlKey || e.metaKey) {
+        if (state.sel.has(id)) state.sel.delete(id); else state.sel.add(id);
+      } else {
+        state.sel = state.sel.size === 1 && state.sel.has(id) ? new Set() : new Set([id]);
+      }
+      document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", state.sel.has(r.dataset.id)));
+      render();
+    }));
+    // "walls in a mirror": choosing one selects every wall shape with a patch in it, as if each row were Ctrl-clicked
+    const pick = el("mirrorPick");
+    (DC.mirrorWalls || []).forEach((m, k) => {
+      const o = document.createElement("option");
+      o.value = String(k); o.textContent = `${m.name} (${m.ids.join(", ")})`;
+      pick.appendChild(o);
+    });
+    pick.addEventListener("input", () => {
+      const m = (DC.mirrorWalls || [])[Number(pick.value)];
+      state.sel = new Set(pick.value === "" || !m ? [] : m.ids);
+      document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", state.sel.has(r.dataset.id)));
+      render();
+    });
+    ["quarter", "showListed", "showX", "showRings", "showAxes", "showRegular", "showDecagon", "showDomain", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+    new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+})();
+// When shown inside the web app's tab, grow the frame to the whole page so only the app scrolls.
+(() => {
+  let frame = null;
+  try {
+    frame = window.frameElement;
+    // only inside the web app's tab (a Streamlit page); any other host, such as an artifact viewer, keeps its frame
+    if (!frame || !window.parent.document.querySelector('[data-testid="stApp"], .stApp')) return;
+  } catch (e) { return; }
+  document.documentElement.classList.add("embedded");
+  document.documentElement.style.overflowY = "hidden";
+  const fit = () => {
+    const h = Math.ceil(document.documentElement.scrollHeight);
+    if (Math.abs(frame.offsetHeight - h) > 1) { frame.style.height = h + "px"; frame.setAttribute("height", h); }
+  };
+  new ResizeObserver(fit).observe(document.body);
+  window.addEventListener("load", fit);
+  fit();
+})();
+</script>

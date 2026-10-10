@@ -5,7 +5,7 @@ import pytest
 
 from four_d_vertex_generator.generation import generate_vertices_from_seed
 from four_d_vertex_generator.library import named_symmetry
-from four_d_vertex_generator.off import compute_convex_hull, to_4off
+from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
 
 
 def test_compute_convex_hull_tesseract() -> None:
@@ -104,7 +104,9 @@ def test_compute_convex_hull_degenerate_vertices_raises_value_error() -> None:
 
 
 def test_to_4off_with_explicit_faces_and_cells() -> None:
-    verts = np.array([[0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], dtype=float)
+    verts = np.array(
+        [[0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], dtype=float
+    )
     faces = [[0, 1, 2], [0, 1, 3]]
     cells = [[0, 1]]
 
@@ -139,6 +141,7 @@ def test_to_4off_with_compute_hull() -> None:
 
 def test_compute_convex_hull_swirlprism_every_face_in_two_cells() -> None:
     from collections import defaultdict
+
     from four_d_vertex_generator.library import h4_swirlprism_anchor_seed
 
     action = named_symmetry("h4_swirlprism+")
@@ -156,3 +159,46 @@ def test_compute_convex_hull_swirlprism_every_face_in_two_cells() -> None:
     assert len(face_counts) == len(faces)
     assert set(face_counts.values()) == {2}
 
+
+
+def test_parse_4off_round_trips_and_ignores_comments() -> None:
+    verts = np.array([[1.0, 0.0, 0.0, 0.0], [0.0, -0.5, 0.25, 1.0]])
+    text = "# a comment\n" + to_4off(verts).replace("4OFF", "4OFF  # header comment")
+    assert np.allclose(parse_4off(text), verts)
+
+
+def test_parse_4off_reports_missing_counts_line() -> None:
+    with pytest.raises(ValueError, match="Missing vertex/face/cell counts line"):
+        parse_4off("4OFF\n")
+
+
+def _tesseract() -> np.ndarray:
+    import itertools
+
+    return np.array(list(itertools.product([-1.0, 1.0], repeat=4)))
+
+
+@pytest.mark.parametrize("width", [1e-3, 1e-5, 1e-7])
+def test_compute_convex_hull_keeps_thin_faces(width: float) -> None:
+    # A very flat box still has 24 faces; a fixed face-width cutoff used to drop half of them.
+    faces, cells = compute_convex_hull(_tesseract() * [1, 1, 1, width])
+    assert (len(faces), len(cells)) == (24, 8)
+
+
+@pytest.mark.parametrize("height", [1e-3, 1e-6, 1e-8])
+def test_compute_convex_hull_keeps_nearly_parallel_cells_apart(height: float) -> None:
+    # A shallow pyramid on one cube cell: its 6 cells are nearly parallel but distinct.
+    # Merging facets by nearby normals used to fuse them into one (non-flat) cube cell.
+    verts = np.vstack([_tesseract(), [0.0, 0.0, 0.0, 1.0 + height]])
+    faces, cells = compute_convex_hull(verts)
+    assert (len(faces), len(cells)) == (36, 13)
+    assert sorted(len(c) for c in cells).count(5) == 6  # square pyramids
+
+
+def test_compute_convex_hull_ignores_interior_points_and_orders_faces() -> None:
+    verts = np.vstack([_tesseract(), np.zeros(4), [0.2, -0.1, 0.3, 0.0]])
+    faces, cells = compute_convex_hull(verts)
+    assert (len(faces), len(cells)) == (24, 8)
+    for face in faces:  # consecutive vertices of a square face are joined by an edge of length 2
+        pts = verts[face]
+        assert np.allclose(np.linalg.norm(pts - np.roll(pts, 1, axis=0), axis=1), 2.0)

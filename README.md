@@ -18,6 +18,26 @@ symmetry action can then partition the generated vertices into isogonal orbits.
 - Includes Coxeter, chiral, diminished, prismatic, duoprismatic, and
   icosian/swirlprism symmetry families.
 
+## Use it online
+
+The web app also runs entirely in your browser at
+**https://2lindell.github.io/4D-Vertex-Generator/**, with nothing to install. It
+uses [stlite](https://github.com/whitphx/stlite) (Streamlit on Pyodide, Python
+compiled to WebAssembly). The first visit downloads about 30 MB, which the
+browser then caches. Large symmetry groups compute more slowly there than in a
+local install.
+
+A third tab, **H3●I2(10) Symmetry Domain**, maps every isogonal polychoron of
+the swirlprism group over a fundamental domain (also at
+https://2lindell.github.io/4D-Vertex-Generator/symmetry_domain.html). It is
+built by `research/swirlprism_atlas/cell_atlas2.py` into
+`assets/symmetry_domain.html`.
+
+GitHub Pages serves the committed `docs/` folder (Settings → Pages → Deploy
+from a branch, folder `/docs`). After changing the app, the package or the
+symmetry-domain page, run `python tools/build_pages.py` and commit `docs/`;
+`tests/test_pages.py` fails while `docs/` is out of date.
+
 ## Quick start
 
 The project requires Python 3.10 or newer.
@@ -25,8 +45,12 @@ The project requires Python 3.10 or newer.
 ```bash
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
-python -m pip install -e .
+python -m pip install -e '.[app]'
 ```
+
+The `app` extra installs the web app's dependencies (Streamlit and Plotly).
+The library and the command-line tools need only numpy and scipy, so
+`python -m pip install -e .` is enough if you only use those.
 
 Generate the signed-permutation orbit of the seed $(1, 0, 0, 0)$:
 
@@ -43,39 +67,72 @@ the example therefore writes `out/vertices_8.off`.
 
 ## Interactive UI
 
-Start the local Streamlit application from the repository root:
+Start the local Streamlit application from the repository root (it needs the
+`app` extra from the quick start):
 
 ```bash
 streamlit run app.py
 ```
 
-The UI lets you choose a symmetry family and subgroup, set a seed or
-fundamental-chamber coordinates, generate the orbit, inspect a JSON preview,
-and download the result. For duoprisms, select `p` and `q` from the supported
-range. For the `h4_swirlprism`/`h4_swirlprism+` symmetry, enter an open
-four-coordinate seed or enable the predefined ring sliders. The three sliders
-start at a verified 120-point seed aligned with a 600-cell vertex and move
-along two cross rings and the perpendicular main ring.
+It serves on `localhost:8502`, so only this machine can open it; GitHub
+Codespaces and VS Code forward that port automatically. To share it on your
+network on purpose, add `--server.address 0.0.0.0`.
 
-The UI also lets you upload an existing 4D OFF file. It reports which
-built-in symmetries the uploaded vertices are invariant under, and lets you
-pick a subsymmetry to split the vertices into isogonal groups. If the
-vertices are already a single orbit under that subsymmetry, it reports that
-directly instead of splitting; otherwise it offers one downloadable `.off`
-file per isogonal group.
+The **Generate** tab lets you pick a symmetry family and subgroup (its group
+order is shown), place a seed point, generate the orbit, and download it as
+4OFF. The result stays on screen until you generate again, so downloading does
+not clear it. There are up to three ways to place the seed:
+
+- **Fundamental chamber** (Coxeter and duoprism families): four sliders give
+  the seed's distance from each mirror, i.e. each node of the Coxeter diagram.
+  A node at `0` puts the seed on that mirror; a single nonzero node gives a
+  regular polytope vertex (for example B4 node 1 → 16-cell, node 4 →
+  tesseract). This picker only appears when the chosen subgroup acts in the
+  same coordinate basis as the family's reflection group.
+- **Ring sliders** (`h4_swirlprism`/`h4_swirlprism+` only): start at a
+  600-cell vertex and move along two adjacent cross rings and the main ring.
+  The main ring is the pentagonal-swirl ring through the vertex; under
+  `h4_swirlprism` its points give 240 vertices, returning to a 600-cell every
+  18°. The cross rings are the five great circles held fixed by the
+  half-turns at the vertex: they are perpendicular to the main ring, 36° apart
+  around it, and adjacent ones run in opposite directions. Every point on a
+  cross ring gives 600 vertices, except 120 at every 90° (the original
+  600-cell) and at arctan φ ≈ 58.28° past each of those on cross ring 1
+  (31.72° on cross ring 2), where the ring meets a vertex of the second
+  600-cell.
+- **Coordinates**: type any four comma-separated numbers.
+
+Tolerance, the vertex cap, and slider step size are under **Advanced settings**.
+
+Below each result, **Around one vertex** shows a rotatable 3D view of a single
+vertex's neighbourhood instead of the whole 4D shape. The vertex's edges are
+projected into its tangent space (the 3D hyperplane perpendicular to its
+radius), so each line is an edge direction; lines are coloured by edge length,
+and a dashed outline shows the vertex figure when the convex hull is available.
+Without the hull, edges are taken to be the shortest vertex-to-vertex distances.
+
+The **Analyze a 4OFF file** tab takes an uploaded 4D OFF file, reports which
+built-in symmetries its vertices are invariant under (highest order first),
+and splits the vertices into isogonal groups under a chosen subsymmetry. If
+the vertices are already a single orbit it says so; otherwise every orbit can
+be downloaded at once as a `.zip` or individually. The same local vertex view
+is available for one representative vertex per orbit, with neighbours in the
+same orbit drawn as circles and neighbours in other orbits as diamonds.
 
 ## Command-line options
 
 | Option | Required | Description |
 | --- | --- | --- |
-| `--symmetry NAME` | Yes | A name returned by `available_symmetries()`. |
+| `--symmetry NAME` | Yes | A built-in symmetry name; misspellings get a suggestion. |
 | `--seed x,y,z,w` | Yes | Four comma-separated coordinates. |
 | `--out-off PATH` | Yes | Requested output path; the vertex count is added to its filename. |
 | `--hull` | No | Compute 4D convex hull to include faces and cells in output 4OFF. |
 | `--tol FLOAT` | No | Coordinate quantization tolerance; default `1e-8`. |
 | `--max-vertices INT` | No | Generation safety cap; default `20000`. |
+| `--list-symmetries` | No | Print every symmetry name with its group order and exit. |
 
-Use `--help` to see the argument parser's built-in help.
+Use `--help` to see the argument parser's built-in help. With `--hull`, the
+face and cell counts are printed as well.
 
 ## Analyzing an existing 4D OFF file
 
@@ -122,9 +179,13 @@ The main families are:
   (order 50) and `h4_pentagonal_swirl_ring` (order 10) are related pentagonal
   swirl subgroups; the latter splits the 600-cell into its 12 rings of 10.
 
-The built-in aliases are intentionally retained where several Coxeter names
-describe the same matrix subgroup. They make the mathematical families easier
-to navigate without changing the generated action.
+Some names are aliases for the same group (for example `a4_basic` → `a4`,
+`h4_half` → `h4_prismatic`). They are listed in `SYMMETRY_ALIASES`, still
+accepted everywhere a name is taken, and hidden from the UI pickers,
+`--list-symmetries`, and symmetry detection so the same group is not reported
+twice. Note that `b4` and `hyperoctahedral` are the same abstract group in
+different coordinate bases (Coxeter roots vs. signed permutations), as are `h4`
+and `h4_icosian`.
 
 ### Fundamental chambers
 
@@ -189,6 +250,15 @@ x y z w
 
 If faces and cells are omitted, `to_4off` emits zero counts (`<num_vertices> 0 0 0`). When `compute_hull=True` or `compute_convex_hull` is called, the 4D convex hull is computed and the full mesh is exported. Numeric output is written with high precision without exponent notation.
 
+`compute_convex_hull` checks its own result before returning it: every cell
+is flat with no vertex outside it, every face is a convex polygon shared by
+exactly two cells, every cell is a closed polyhedron and the Euler
+characteristic is 0. Points that coincide (closer than the generator's `tol`)
+are merged into their mean. If an input is too close to degenerate to resolve,
+for example a seed within about 1e-6 of a mirror or vertices jittered at the
+hull's tolerance (1e-9 of the polytope's radius), it raises `ValueError`
+instead of returning a subtly wrong hull.
+
 ## Mathematical model
 
 For a symmetry group $G$ acting on $\mathbb{R}^4$ and a seed point $v$, the
@@ -208,9 +278,15 @@ coordinates are treated as equal.
 Install the development dependencies and run the test suite with:
 
 ```bash
-python -m pip install -e '.[dev]'
+python -m pip install -e '.[app,dev]'
 pytest
 ruff check .
 ```
+
+`python tools/hull_audit.py` (add `--quick` for a shorter run) stress-tests the
+convex hull on random seeds for every symmetry, seeds approaching a mirror,
+duplicated vertices and jittered vertices, and checks every result
+independently (`tests/hull_checks.py`). Each case is reported as ok, refused
+or WRONG; a WRONG result is a bug.
 
 The repository is released under the MIT License.

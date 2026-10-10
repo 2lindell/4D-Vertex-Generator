@@ -1,8 +1,14 @@
 import numpy as np
+import pytest
 
-from four_d_vertex_generator.generation import generate_vertices_from_seed, group_order
-from four_d_vertex_generator.isogonal import compute_orbits, matches_symmetry
+from four_d_vertex_generator.generation import (
+    generate_vertices_from_seed,
+    group_order,
+    is_subgroup,
+)
+from four_d_vertex_generator.isogonal import compute_orbits, detect_symmetries, matches_symmetry
 from four_d_vertex_generator.library import (
+    SYMMETRY_ALIASES,
     available_symmetries,
     fundamental_chamber_roots,
     h4_swirlprism_anchor_seed,
@@ -10,6 +16,7 @@ from four_d_vertex_generator.library import (
     named_symmetry,
 )
 from four_d_vertex_generator.off import to_4off
+from four_d_vertex_generator.symmetry import SymmetryAction
 
 
 def test_hyperoctahedral_seed_axis_generates_8_vertices() -> None:
@@ -91,9 +98,75 @@ def test_h4_swirlprism_cross_ring_sliders_split_the_anchor_orbit() -> None:
         assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 600
 
 
-def test_h4_swirlprism_main_ring_slider_does_not_split_the_anchor_orbit() -> None:
-    seed = h4_swirlprism_predefined_seed(0.0, 0.0, 30.0)
-    assert len(generate_vertices_from_seed(seed, named_symmetry("h4_swirlprism+"), tol=1e-6)) == 120
+@pytest.mark.parametrize("slider", [0, 1])
+def test_every_point_on_a_cross_ring_gives_600_vertices_under_full_swirlprism(
+    slider: int,
+) -> None:
+    action = named_symmetry("h4_swirlprism")
+    for angle in range(5, 360, 10):
+        values = [0.0, 0.0, 0.0]
+        values[slider] = float(angle)
+        seed = h4_swirlprism_predefined_seed(*values)
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 600, angle
+    for angle in (90.0, 180.0, 270.0):
+        values = [0.0, 0.0, 0.0]
+        values[slider] = angle
+        seed = h4_swirlprism_predefined_seed(*values)
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == 120
+
+
+def test_cross_rings_meet_the_second_600_cell_at_arctan_phi() -> None:
+    action = named_symmetry("h4_swirlprism")
+    offset = float(np.degrees(np.arctan((1 + 5**0.5) / 2)))  # 58.2825...
+    for k in range(4):
+        ring_one = h4_swirlprism_predefined_seed(offset + 90 * k, 0.0, 0.0)
+        ring_two = h4_swirlprism_predefined_seed(0.0, 90 - offset + 90 * k, 0.0)
+        assert len(generate_vertices_from_seed(ring_one, action, tol=1e-6)) == 120
+        assert len(generate_vertices_from_seed(ring_two, action, tol=1e-6)) == 120
+
+
+def test_main_ring_gives_240_vertices_except_at_its_20_special_points() -> None:
+    action = named_symmetry("h4_swirlprism")
+    for angle in range(0, 360, 6):
+        seed = h4_swirlprism_predefined_seed(0.0, 0.0, float(angle))
+        expected = 120 if angle % 18 == 0 else 240
+        assert len(generate_vertices_from_seed(seed, action, tol=1e-6)) == expected, angle
+
+
+def test_cross_rings_are_adjacent_and_perpendicular_to_the_main_ring() -> None:
+    from four_d_vertex_generator.library import _h4_swirlprism_ring_basis
+
+    cross_one, cross_two, main_ring = _h4_swirlprism_ring_basis()
+    anchor = h4_swirlprism_anchor_seed()
+    for direction in (cross_one, cross_two, main_ring):
+        assert np.isclose(np.linalg.norm(direction), 1.0)
+        assert np.isclose(direction @ anchor, 0.0)
+    assert np.isclose(cross_one @ main_ring, 0.0)
+    assert np.isclose(cross_two @ main_ring, 0.0)
+    assert np.isclose(cross_one @ cross_two, np.cos(np.deg2rad(36.0)))
+
+
+def test_adjacent_cross_rings_run_in_opposite_directions() -> None:
+    # Moving forward on cross ring 2 is a symmetry image of moving backward
+    # on cross ring 1 (never of moving forward), for a point-fixing symmetry.
+    from four_d_vertex_generator.generation import group_elements
+
+    anchor = h4_swirlprism_anchor_seed()
+    stabilizer = [
+        e
+        for e in group_elements(named_symmetry("h4_swirlprism"))
+        if np.allclose(e @ anchor, anchor, atol=1e-8)
+    ]
+    for angle in (10.0, 25.0):
+        forward_two = h4_swirlprism_predefined_seed(0.0, angle, 0.0)
+        forward_one = h4_swirlprism_predefined_seed(angle, 0.0, 0.0)
+        backward_one = h4_swirlprism_predefined_seed(-angle, 0.0, 0.0)
+        assert any(np.allclose(e @ backward_one, forward_two, atol=1e-7) for e in stabilizer)
+        assert not any(np.allclose(e @ forward_one, forward_two, atol=1e-7) for e in stabilizer)
+
+
+def test_ring_slider_seed_has_no_floating_point_residue() -> None:
+    assert h4_swirlprism_predefined_seed(180.0, 0.0, 0.0).tolist() == [-1.0, 0.0, 0.0, 0.0]
 
 
 def test_h4_pentagonal_swirl_is_a_genuine_h4_subgroup() -> None:
@@ -226,3 +299,107 @@ def test_generated_coordinates_below_ten_digits_are_zeroed() -> None:
     vertices = generate_vertices_from_seed(seed, action)
 
     assert vertices.tolist() == [[0.0, -1.0e-10, 1.0e-9, 1.0]]
+
+
+def _chamber_seed(name: str, weights: list[float]) -> np.ndarray:
+    return np.linalg.solve(fundamental_chamber_roots(name), np.array(weights, dtype=float))
+
+
+CHAMBER_NAMES = [
+    "a4",
+    "b4",
+    "hyperoctahedral",
+    "d4",
+    "f4",
+    "h4",
+    "b4_prismatic_octahedral",
+    "b4_prismatic_tetrahedral",
+    "h4_prismatic",
+    *(f"duoprism_{p}_{q}" for p in range(3, 7) for q in range(p, 7)),
+]
+
+
+@pytest.mark.parametrize("name", CHAMBER_NAMES)
+def test_chamber_roots_are_mirrors_of_their_own_group(name: str) -> None:
+    roots = fundamental_chamber_roots(name)
+    reflections = SymmetryAction.from_iterable(
+        np.eye(4) - 2.0 * np.outer(root, root) / (root @ root) for root in roots
+    )
+    action = named_symmetry(name)
+    assert is_subgroup(reflections, action)
+    assert is_subgroup(action, reflections)
+
+
+@pytest.mark.parametrize(
+    ("name", "weights", "expected"),
+    [
+        ("hyperoctahedral", [1, 0, 0, 0], 8),  # 16-cell
+        ("hyperoctahedral", [0, 0, 0, 1], 16),  # tesseract
+        ("h4", [0, 0, 0, 1], 120),  # 600-cell
+        ("h4", [1, 0, 0, 0], 600),  # 120-cell
+        ("duoprism_3_3", [0, 1, 0, 1], 9),
+        ("duoprism_3_5", [0, 1, 0, 1], 15),
+        ("duoprism_5_5", [0, 1, 0, 1], 25),
+    ],
+)
+def test_chamber_corners_give_regular_vertex_counts(
+    name: str, weights: list[float], expected: int
+) -> None:
+    vertices = generate_vertices_from_seed(_chamber_seed(name, weights), named_symmetry(name))
+    assert len(vertices) == expected
+
+
+def test_is_subgroup_distinguishes_coordinate_bases() -> None:
+    assert is_subgroup(named_symmetry("b4_ionic"), named_symmetry("hyperoctahedral"))
+    assert is_subgroup(named_symmetry("b4+"), named_symmetry("b4"))
+    # Same abstract group, different coordinate embeddings.
+    assert not is_subgroup(named_symmetry("hyperoctahedral"), named_symmetry("b4"))
+    assert not is_subgroup(named_symmetry("h4_icosian"), named_symmetry("h4"))
+
+
+def test_aliases_resolve_to_the_same_group() -> None:
+    for alias, target in SYMMETRY_ALIASES.items():
+        assert group_order(named_symmetry(alias)) == group_order(named_symmetry(target))
+    assert "a4_basic" not in available_symmetries(include_aliases=False)
+    assert "duoprism_3_3_chiral" not in available_symmetries(include_aliases=False)
+    assert "a4_basic" in available_symmetries()
+
+
+def test_h4_ionic_is_not_the_chiral_prismatic_group() -> None:
+    ionic = named_symmetry("h4_ionic")
+    assert group_order(ionic) == 120
+    assert any(np.linalg.det(g) < 0 for g in ionic.generators)
+    assert is_subgroup(ionic, named_symmetry("h4_prismatic"))
+    assert not is_subgroup(ionic, named_symmetry("h4_prismatic_chiral"))
+
+
+def test_detect_symmetries_skips_aliases_by_default() -> None:
+    tesseract = generate_vertices_from_seed(
+        np.array([1.0, 1.0, 1.0, 1.0]), named_symmetry("hyperoctahedral")
+    )
+    detected = detect_symmetries(tesseract)
+    assert detected[0] == "hyperoctahedral"
+    assert not any(name in SYMMETRY_ALIASES for name in detected)
+
+
+def test_generated_coordinates_have_no_floating_point_dust() -> None:
+    vertices = generate_vertices_from_seed(np.array([1.0, 0.0, 0.0, 0.0]), named_symmetry("f4"))
+    nonzero = np.abs(vertices[vertices != 0.0])
+    assert nonzero.min() > 1e-10
+
+
+def test_dedupe_merges_copies_that_straddle_a_rounding_boundary() -> None:
+    from four_d_vertex_generator.generation import _dedupe
+
+    tol = 1e-8
+    a = np.array([0.5 * tol - 1e-17, 0.0, 0.0, 0.0])
+    b = np.array([0.5 * tol + 1e-17, 0.0, 0.0, 0.0])  # rounds to a different grid cell than a
+    assert len(_dedupe(np.vstack([a, b, [1.0, 0, 0, 0]]), tol)) == 2
+
+
+@pytest.mark.parametrize("tol", [1e-6, 1e-8, 1e-10, 1e-12, 1e-13])
+def test_orbit_size_does_not_depend_on_tolerance(tol: float) -> None:
+    # A 600-vertex swirlprism seed that grid rounding used to split into 629 points at tol 1e-12.
+    seed = np.array([-0.58259112426549198, 0.0, -0.61237243569579458, 0.53440395014171649])
+    verts = generate_vertices_from_seed(seed, named_symmetry("h4_swirlprism"), tol=tol)
+    assert len(verts) == 600
