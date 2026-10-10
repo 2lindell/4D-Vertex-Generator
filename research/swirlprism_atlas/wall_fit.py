@@ -1,5 +1,5 @@
-"""The equation of a wall shape found at a sample: points of the wall are found by bisecting short chords between its two
-neighbouring regions at spots around the sample (out to a few hundredths), keeping the boundary points that classify as
+"""The equation of a wall shape found at a sample: points of the wall are found by walking along it from the sample, bisecting
+across it between its two neighbouring regions at each step (along the local normal of the points so far), keeping the boundary points that classify as
 the shape (loose classifier). They are fitted by a plane, or else a quadric, whose coefficients are snapped to golden
 numbers and checked.
 
@@ -71,20 +71,51 @@ def fit(P):
             "plane_residual": float(np.abs(P @ n).max())}
 
 
-def main(out, specs):
+def _cross(args):
+    """Bisect across the wall at centre c along normal n (half-width w): the wall point, or None."""
+    tid, c, n, w, sides = args
+    c, n = np.asarray(c), np.asarray(n)
+    for ww in (w, 4 * w):
+        r = _chord((tid, (c - ww * n).tolist(), (c + ww * n).tolist(), sides))
+        if r:
+            return r
+    return None
+
+
+def main(out, specs, rounds=6, per=12, step=0.004):
     res = {}
     with Pool(4) as pool:
         for spec in specs:
             tid, A, B, beta = spec.split(":")
             q = N([float(v) for v in beta.split(",")])
-            jobs = []
-            for r in (0.002, 0.006, 0.015, 0.03):
-                for _ in range(16):
-                    c = q + r * (U.T @ rng.normal(size=3)) / 1.7
-                    d = U.T @ rng.normal(size=3)
-                    d = d / np.linalg.norm(d) * max(r / 4, 5e-4)
-                    jobs.append((tid, (c - d).tolist(), (c + d).tolist(), (A, B)))
-            pts = [p for p in pool.map(_chord, jobs, chunksize=2) if p]
+            # a first normal: the direction between the two regions, found from random directions around the sample
+            dirs = [U.T @ v / np.linalg.norm(v) for v in rng.normal(size=(24, 3))]
+            labs = pool.map(lab, [q + 1e-3 * d for d in dirs])
+            a = np.mean([d for d, l in zip(dirs, labs) if l == A], axis=0)
+            b = np.mean([d for d, l in zip(dirs, labs) if l == B], axis=0)
+            n = b - a
+            n = n - n.mean()
+            n /= np.linalg.norm(n)
+            pts = [p for p in pool.map(_cross, [(tid, (q + 1e-4 * t).tolist(), n.tolist(), 2e-4, (A, B))
+                                                 for t in [np.zeros(4)] + dirs[:3]]) if p]
+            front = [np.array(p) for p in pts]
+            for _ in range(rounds):
+                if len(pts) >= 6:                     # local normal from the points found so far (a plane fit)
+                    P = np.array(pts[-40:])
+                    nn = np.linalg.svd(np.vstack([P - P.mean(axis=0), np.ones((1, 4))]))[2][-1]
+                    n = nn - nn.mean()
+                    n /= np.linalg.norm(n)
+                jobs = []
+                for p in front:
+                    for _ in range(max(1, per // max(1, len(front) // 4))):
+                        t = U.T @ rng.normal(size=3)
+                        t -= (t @ n) * n
+                        t /= np.linalg.norm(t)
+                        jobs.append((tid, (p + step * t).tolist(), n.tolist(), 3e-4 + 20 * step * step, (A, B)))
+                new = [np.array(p) for p in pool.map(_cross, jobs[:48], chunksize=2) if p]
+                pts += [p.tolist() for p in new]
+                front = new or front
+                step *= 1.5
             f = fit(pts) if len(pts) >= 10 else {"kind": "too few points"}
             f["points"] = pts
             res[tid] = f
