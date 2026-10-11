@@ -28,9 +28,10 @@ def main():
                 cur.append(q)
             if cur:
                 runs.append(cur)
-            for r in runs:
+            for r in runs:                        # (three points along each edge: one may sit off it)
                 if len(r) >= 3:
-                    jobs.append((tid, r[0]["beyond"], r[len(r) // 2]["beta"]))
+                    for f in (0.25, 0.5, 0.75):
+                        jobs.append((tid, r[0]["beyond"], r[int(f * (len(r) - 1))]["beta"]))
     with Pool(4) as pool:
         labs = pool.map(lab_edge, [b for _, _, b in jobs])
     out = {}

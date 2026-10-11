@@ -195,6 +195,28 @@ def main(procs=4):
             for nb in r["neighbours"]:
                 bnd[nb].add(tid)
 
+    # a curved wall's boundary is what was measured on it: the regions on its two sides, the line along each edge,
+    # the point at each corner (other walls past its edges, and labels picked up near it, are not its boundary)
+    try:
+        import re
+        page = open("../../assets/symmetry_domain.html").read()
+        m = re.search(r'<script[^>]*id="atlas-data"[^>]*>', page)
+        dims = {t["id"]: t.get("dim") for t in json.loads(page[m.end():page.index("</script>", m.end())])["types"]}
+        sides = json.load(open("surface_sides.json"))
+        lines_ = json.load(open("edge_lines.json"))
+        corners_ = json.load(open("corner_points.json"))
+        for tid in json.load(open("xsurfaces.json")):
+            own = set()
+            sd = sides.get(tid, {})
+            total = sum(sd.values())
+            own |= {r for r, n in sd.items() if n >= max(3, 0.1 * total) and dims.get(r) == "region"}
+            own |= {l for _, l in lines_.get(tid, []) if dims.get(l) in ("line", "point")}
+            own |= {c["shape"] for c in corners_.get(tid, []) if dims.get(c["shape"]) in ("line", "point")}
+            own.discard(tid)
+            if own:
+                bnd[tid] = own
+    except (FileNotFoundError, AttributeError):
+        pass
     out = {t: sorted(s) for t, s in bnd.items()}
     json.dump(out, open("boundaries.json", "w"), indent=1)
     print(f"{len(out)} shapes with boundaries")
