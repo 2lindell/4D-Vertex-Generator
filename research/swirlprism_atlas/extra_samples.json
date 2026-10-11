@@ -169,26 +169,26 @@
  },
  {
   "beta": [
-   0.16764722858833536,
-   0.2194530712819925,
-   0.3281990449436781,
-   0.284700655185994
+   0.167319095062964,
+   0.21902353892085727,
+   0.32853530838128586,
+   0.28512205763489284
   ],
-  "golden": false,
+  "golden": true,
   "sig": "1200: cells 120+120+600+600+600+600+600+1200+1200 | faces 240+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+600+1200+1200+1200+1200 | val 3:2400,4:5400,8:600,12:600",
-  "kind": "line (the curve where the curved wall X51 ends against the region X74, between X63 and X64; sample on it, not golden)",
+  "kind": "wall (a curved wall on its own quadric, \u03c6\u00b2\u00b7\u03b21(\u03b21 \u2212 \u03b22) + (\u03b23 \u2212 \u03b24)(\u03b21 + \u03c6\u03b22) = 0, between X74 and X63; sample exactly on it: \u03b2 \u221d (44, 22+22\u03c6, 33+33\u03c6, 41+21\u03c6))",
   "hits": null
  },
  {
   "beta": [
-   0.3330168801367185,
-   0.3311225235017802,
-   0.33110580724185046,
-   0.0047547891196507725
+   0.3322247331437065,
+   0.33059195560596455,
+   0.3305718737748324,
+   0.006611437475496648
   ],
-  "golden": false,
+  "golden": true,
   "sig": "1200: cells 120+120+240+600+1200 | faces 240+240+1200+1200+1200+1200+1200+1200 | edges 600+600+600+1200+1200+1200+1200 | val 3:3600,4:2400,8:600",
-  "kind": "wall (a curved wall on X48's ruled quadric, \u03c6\u00b7\u03b21(\u03b22 \u2212 \u03b23) + \u03b24(\u03b22 \u2212 \u03b21) = 0, between X30 and X36; sample on it, not golden)",
+  "kind": "wall (a curved wall on X48's ruled quadric, \u03c6\u00b7\u03b21(\u03b22 \u2212 \u03b23) + \u03b24(\u03b22 \u2212 \u03b21) = 0, between X30 and X36; sample exactly on it (\u03b21 = 201/200\u00b7\u03b23, \u03b24 = \u03b23/50, \u03b22 solved from the quadric))",
   "hits": null
  }
 ]
