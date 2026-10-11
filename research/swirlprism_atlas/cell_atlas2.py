@@ -1737,6 +1737,10 @@ def main(samples_path, out_path):
     if os.path.exists("xsurfaces.json"):
         meshed_ids = set(json.load(open("xsurfaces.json")))
         xlines = [x for x in xlines if x["id"] not in meshed_ids or x.get("outline")]
+    if os.environ.get("WALL_DUMP"):            # (for region_shells.py: every wall piece drawn in the cell, copies too)
+        json.dump([{"id": w["id"], "copy": bool(w.get("copy")), "tris": np.asarray(w["tris"], float).tolist()}
+                   for w in xwalls] + [{"id": "T2", "copy": p["copy"], "poly": p["pts"][:-1]} for p in tpatches],
+                  open(os.environ["WALL_DUMP"], "w"))
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
@@ -1790,6 +1794,48 @@ def main(samples_path, out_path):
     dv.split_edges_on_rings(data)                  # the cell view keeps its points (front/back filter them)
     dodeca = piece = cohesive = {}                 # (views no longer offered)
     flip_vertical(data)
+    # each region's closed shell (region_shells.py): the wall pieces and cell-face parts it touches, as one mesh, and
+    # the edges of those pieces (an edge used by one triangle of a piece), drawn in the region's colour when selected
+    if os.path.exists("region_shells.json"):
+        data["regionShells"], data["regionEdges"] = {}, {}
+        fz = lambda p: (round(p[0], 5), round(p[1], 5), round(-p[2], 5))
+        for rid, parts in json.load(open("region_shells.json")).items():
+            if tmap.get(rid, {}).get("dim") != "region":
+                continue
+            at, verts, faces, segs = {}, [], [], []
+            for part in parts:
+                count = {}
+                for t in part["tris"]:
+                    f = []
+                    for p in t:
+                        key = fz(p)
+                        if key not in at:
+                            at[key] = len(verts)
+                            verts.append(list(key))
+                        f.append(at[key])
+                    if len(set(f)) == 3:
+                        faces.append(f)
+                        for a, b in ((f[0], f[1]), (f[1], f[2]), (f[2], f[0])):
+                            count[(min(a, b), max(a, b))] = count.get((min(a, b), max(a, b)), 0) + 1
+                segs += [[verts[a], verts[b]] for (a, b), n in count.items() if n == 1]
+            data["regionShells"][rid] = {"x": [v[0] for v in verts], "y": [v[1] for v in verts], "z": [v[2] for v in verts],
+                                         "i": [f[0] for f in faces], "j": [f[1] for f in faces], "k": [f[2] for f in faces]}
+            # (edges chained into polylines where they meet end to end, so the page draws few long lines)
+            chains, ends = [], {}
+            for a, b in segs:
+                a, b = tuple(a), tuple(b)
+                if a in ends:
+                    c = ends.pop(a)
+                    c.append(b) if c[-1] == a else c.insert(0, b)
+                elif b in ends:
+                    c = ends.pop(b)
+                    c.append(a) if c[-1] == b else c.insert(0, a)
+                else:
+                    c = [a, b]
+                    chains.append(c)
+                for e in (c[0], c[-1]):
+                    ends[e] = c
+            data["regionEdges"][rid] = [[list(p) for p in c] for c in chains]
 
     def index_walls(view, nd):
         """Wall meshes as shared vertices and index triples (each vertex was repeated in ~6 triangles)."""
