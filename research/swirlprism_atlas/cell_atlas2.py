@@ -95,7 +95,7 @@ def _seams():
     if os.path.exists("extra_samples.json"):
         for e in json.load(open("extra_samples.json")):
             if "X51 ends against the region X74" in e["kind"]:
-                out[("X51", "X74")] = e["sig"]
+                pass                        # (this sample's shape, X84, turned out to be a wall: xsurface_equations.json)
     out[("X39", "X52")] = "X29"                 # (two walls on X10's quadric meeting along a curve: a numbered shape)
     return out
 
@@ -865,7 +865,14 @@ def main(samples_path, out_path):
     found = {}
     for s in xlines:
         found.setdefault(s["id"], []).append([norm(b) for b in s["betas"]])
-    for s in list(xlines):
+
+    def add_copies(lines):
+        """Each line's images under the 2400-element group that land in the displayed half, other than the lines
+        already there, are drawn dashed."""
+        for s in list(lines):
+            add_copies_of(s)
+
+    def add_copies_of(s):
         B = np.array([norm(b) for b in s["betas"]])
         imgs = np.einsum("gij,pj->gpi", M_all, B)
         sums = imgs.sum(axis=2, keepdims=True)
@@ -874,13 +881,14 @@ def main(samples_path, out_path):
         ok &= np.all(imgs.min(axis=2) >= -1e-5, axis=1)      # survey ends are bisected, so allow their error
         for img in imgs[ok]:
             for seg in fold_pieces([norm(np.clip(b, 0, None)) for b in img]):
-                if len(seg) < 2 or any(same_seg(seg, q) for q in found[s["id"]]):
+                if len(seg) < 2 or any(same_seg(seg, q) for q in found.setdefault(s["id"], [])):
                     continue
                 found[s["id"]].append(seg)
                 xlines.append({"id": s["id"], "copy": True, "pts": [_exact(xyz(b)).tolist() for b in seg],
                                "betas": [b.tolist() for b in seg],
                                "hover": f"{label(s['id'])}<br>copy under the extra half-turn<br>from β ∝ {beta_text(seg[0])}"
                                         f"<br>to β ∝ {beta_text(seg[-1])}"})
+    add_copies(xlines)
     # X10 and X33 passed the in-line nudge test only because a golden line lies in their walls; they live on curved
     # walls (CURVED_WALLS), so no line segment is drawn and no point is marked for them
     if os.path.exists("xloci_walls.json"):
@@ -1032,9 +1040,11 @@ def main(samples_path, out_path):
                             run.append(np.asarray(pnt["beta"], float))
                             continue
                         if len(run) >= 2:
-                            xlines.append({"id": sid, "pts": [_exact(xyz(b)).tolist() for b in run],
-                                           "betas": [b.tolist() for b in run],
-                                           "hover": f"{label(sid)}<br>where {tid} ends against {beyond}"})
+                            seam = {"id": sid, "pts": [_exact(xyz(b)).tolist() for b in run],
+                                    "betas": [b.tolist() for b in run], "hover": f"{label(sid)}<br>where {tid} meets {beyond}"}
+                            xlines.append(seam)
+                            found.setdefault(sid, []).append([norm(b) for b in seam["betas"]])
+                            add_copies_of(seam)
                         run = []
             seen = {tuple(np.round(t.mean(axis=0), 5)) for t in T3}
             copies = []
@@ -1753,8 +1763,20 @@ def main(samples_path, out_path):
         return out
 
     # the views see the curved walls coarsened, and without their copies (the views repeat the half cell anyway)
+    def thin(line, keep=30):
+        """A long polyline (a wall's outline, a traced curve) thinned to about `keep` points, ends kept."""
+        n = len(line["pts"])
+        if n <= keep:
+            return line
+        idx = sorted(set(list(range(0, n, -(-n // keep))) + [n - 1]))
+        out = {**line, "pts": [line["pts"][i] for i in idx]}
+        if "betas" in line:
+            out["betas"] = [line["betas"][i] for i in idx]
+        return out
+
     view_src = {**data, "xwalls": [({**w, "tris": coarse(w["tris"])} if w.get("curved") else w)
-                                   for w in data["xwalls"] if not (w.get("curved") and w.get("copy"))]}
+                                   for w in data["xwalls"] if not (w.get("curved") and w.get("copy"))],
+                "xlines": [thin(x) for x in data["xlines"]]}
     dv.use_centre((1, 0, 0, 0))                    # the dodecahedron around the 600-cell vertex V1
     v1 = dodeca_view(view_src)
     chambers = chamber_domain.view(v1)             # one domain of 12 whole H4 chambers inside it
