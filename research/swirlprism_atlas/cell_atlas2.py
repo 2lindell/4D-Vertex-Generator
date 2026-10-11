@@ -1408,7 +1408,9 @@ def main(samples_path, out_path):
         for tid, nbs in json.load(open("boundaries.json")).items():
             tid = bname(tid) if tid.startswith("new:") else tid
             if tid in tmap:
-                ids = ({bname(nb) for nb in nbs} | set(tmap[tid].pop("extra_bounds", []))) - {None, "ERR", tid}
+                # (a shape can be listed twice: by its number and by its signature from before it was numbered)
+                ids = ({bname(nb) for nb in nbs} | set(tmap[tid].pop("extra_bounds", [])) | set(tmap[tid].get("bounds", []))) \
+                    - {None, "ERR", tid}
                 tmap[tid]["bounds"] = sorted((i for i in ids if i in tmap),
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
     for t in types:             # lines traced from their samples (x_point_lines.json): their two ends
