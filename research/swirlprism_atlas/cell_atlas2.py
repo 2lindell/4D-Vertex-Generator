@@ -1369,6 +1369,13 @@ def main(samples_path, out_path):
                         "from the cell centre C1 to β ∝ (1+φ, 1, 1, 0) on the face β4 = 0 (a purple axis crosses it); no shape "
                         "near it is a less symmetric split of it", ["C1", "X15", "X83"]),
     }
+    # walls whose equation is known (xsurface_equations.json) but whose mesh is still to come: walls all the same, shown
+    # for now by the lines traced in them
+    if os.path.exists("xsurface_equations.json"):
+        for tid, e in json.load(open("xsurface_equations.json")).items():
+            if tid in tmap and tid not in meshed:
+                tmap[tid]["dim"] = "wall"
+                tmap[tid]["locus"] = f"a curved wall on {e['kind']}: {e['text']} (drawn by the lines traced in it)"
     for tid, (dim, locus, nbs) in SURVEYED.items():
         if tid in tmap:
             tmap[tid]["dim"] = dim
