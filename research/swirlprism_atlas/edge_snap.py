@@ -397,7 +397,7 @@ def fill_mesh(W, outline, T, h=0.012):
 
 # ------------------------------------------------------------------------------------------------ main
 def main(tid, out="xsurfaces.json"):
-    X = json.load(open("xsurfaces.json"))
+    X = json.load(open(os.environ.get("EDGE_SRC", "xsurfaces.json")))   # (EDGE_SRC: read the meshes from elsewhere)
     sf = X[tid]
     h = sf.get("h", 0.012)
     s0 = xsurface.surface(tid)
@@ -450,6 +450,7 @@ def main(tid, out="xsurfaces.json"):
 
     new_outline, info = [], []
     MOVES, FANS, TIPS = {}, [], []
+    ALLC = []                                  # every solved corner, with the labels past the two edges meeting there
     CORNERS.clear()
     key = lambda p: tuple(np.round(p, 9))
     for li, line in enumerate(sf["outline"]):
@@ -574,6 +575,8 @@ def main(tid, out="xsurfaces.json"):
                     c[2] = c[3] = (c[2] + c[3]) / 2
                 c = c / c.sum()
             corners.append(c if ok else None)
+            if ok:
+                ALLC.append([c.tolist(), a[0], b[0]])
             print(f"  corner {li}.{r} ({a[0][:12]} | {b[0][:12]}): "
                   f"{np.round(c / c.max(), 5).tolist() if ok else 'not solved'}", flush=True)
         if FILL:
@@ -709,6 +712,7 @@ def main(tid, out="xsurfaces.json"):
     fill = FANS
     res = json.load(open(out)) if os.path.exists(out) else {}
     res[tid] = {**sf, "tris": [np.asarray(t).tolist() for t in tris], "outline": new_outline, "snapped": True,
+                "corner_points": ALLC,
                 "edge_surfaces": [[li, lab, n_, s] for li, lab, n_, s in info]}
     print(f"{tid}: {len(MOVES)} edge points moved onto exact edges, {len(FANS)} corner-fan triangles", flush=True)
     json.dump(res, open(out, "w"))

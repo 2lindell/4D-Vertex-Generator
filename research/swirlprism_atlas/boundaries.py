@@ -8,6 +8,7 @@ Four sources, each exact or nearly so where it applies:
   * the curved walls' meshes (xsurfaces.json): the shapes past their boundary lines; the regions on their two sides
     (surface_sides.json); the lines and points on their edges (edge_shapes.json); the ends of traced curves (xcurves.json);
   * rays out of the thin regions (region_rays.json): the walls they cross;
+  * the exact corners of the curved walls (corner_points.json): the shapes there;
   * the nudge test (xloci_step1.json): every region a transitional sample falls into when nudged has that
     transitional shape on its boundary.
 A boundary is listed as found, so a shape whose surroundings are only partly traced has a partial list.
@@ -155,6 +156,22 @@ def main(procs=4):
             for e in cv.get("ends", []):
                 if e and e.get("end_shape"):
                     bnd[tid].add(e["end_shape"])
+    except FileNotFoundError:
+        pass
+    # the exact corners of the curved walls (corner_points.py): the shape there bounds the wall, and the line shapes
+    # on the two edges meeting there (edge_shapes.json) end at it
+    try:
+        E = json.load(open("edge_shapes.json"))["summary"]
+        for tid, cs in json.load(open("corner_points.json")).items():
+            for c in cs:
+                lab = c["shape"]
+                if lab in ("ERR", tid) or lab.startswith("new:"):
+                    continue
+                bnd[tid].add(lab)
+                for past in c["edges"]:
+                    for on, n in E.get(f"{tid}|{past}", []):
+                        if on not in ("ERR", tid, lab) and not on.startswith("new:"):
+                            bnd[on].add(lab)
     except FileNotFoundError:
         pass
     # the walls met by rays out of a region (region_rays.py), seen at least twice
