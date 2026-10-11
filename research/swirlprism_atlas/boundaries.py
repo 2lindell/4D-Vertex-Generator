@@ -7,6 +7,7 @@ Four sources, each exact or nearly so where it applies:
     each patch, found by nudging its centre off the wall;
   * the curved walls' meshes (xsurfaces.json): the shapes past their boundary lines; the regions on their two sides
     (surface_sides.json); the lines and points on their edges (edge_shapes.json); the ends of traced curves (xcurves.json);
+  * rays out of the thin regions (region_rays.json): the walls they cross;
   * the nudge test (xloci_step1.json): every region a transitional sample falls into when nudged has that
     transitional shape on its boundary.
 A boundary is listed as found, so a shape whose surroundings are only partly traced has a partial list.
@@ -154,6 +155,14 @@ def main(procs=4):
             for e in cv.get("ends", []):
                 if e and e.get("end_shape"):
                     bnd[tid].add(e["end_shape"])
+    except FileNotFoundError:
+        pass
+    # the walls met by rays out of a region (region_rays.py), seen at least twice
+    try:
+        for tid, r in json.load(open("region_rays.json")).items():
+            for on, n in r["on"]:
+                if n >= 2 and on not in (tid, "OUT", "ERR") and not on.startswith("new:"):
+                    bnd[tid].add(on)
     except FileNotFoundError:
         pass
     for tid, r in json.load(open("xloci_step1.json")).items():
