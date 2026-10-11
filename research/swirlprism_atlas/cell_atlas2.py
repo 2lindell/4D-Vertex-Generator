@@ -1303,15 +1303,18 @@ def main(samples_path, out_path):
         loc = (t.get("locus") or "").lower()
         if not t.get("transitional") and not t["id"].startswith("T") and (not loc or loc.startswith("fills")):
             t["dim"] = "region"
+        elif "curved wall" in loc and not loc.startswith("line"):      # ("a curved wall on …" starts with "a curve")
+            t["dim"] = "wall"
         elif loc.startswith(("line", "a curve")):
             t["dim"] = "line"
-        elif loc.startswith("wall") or "curved wall" in loc:
+        elif loc.startswith("wall"):
             t["dim"] = "wall"
         else:
             t["dim"] = "point"
     for t in types:        # shapes found on the edges of exact patches live on lines (curves on conic edges)
         edge_of = t.pop("edge_of", None)
-        if edge_of and not (t.get("locus") or "").startswith("wall"):   # (a wall can meet another along a line)
+        if edge_of and not (t.get("locus") or "").startswith("wall") and "curved wall" not in (t.get("locus") or ""):
+            # (a wall can meet another along a line; a meshed curved wall stays a wall)
             t["dim"] = "line"
             if not (t.get("locus") or "").startswith(("line", "wall")):
                 curved = sorted({w for w, c in edge_of if c})
@@ -1691,6 +1694,11 @@ def main(samples_path, out_path):
             mirror_walls.append({"name": by[key]["name"], "ids": sorted(by[key]["ids"], key=srt)})
         for m in meet_opts:            # the lines where two (or more) of those planes meet
             mirror_walls.append({"name": m["name"], "ids": sorted(m["ids"], key=srt)})
+    # a curved wall drawn as a mesh needs only its outline: the straight lines traced in it before it was known to be a
+    # wall (its rulings, survey chords, patch edges) and their copies are left out
+    if os.path.exists("xsurfaces.json"):
+        meshed_ids = set(json.load(open("xsurfaces.json")))
+        xlines = [x for x in xlines if x["id"] not in meshed_ids or x.get("outline")]
     data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
