@@ -235,7 +235,15 @@ def main(tid, out="xsurfaces.json"):
             P = B[idx]
             Ps = P[:: max(1, len(P) // 25)]
             prev = next((m for m in reversed(merged) if m[3] is not None), None)
-            if prev is not None and dist(prev[3], Ps).max() <= 5e-4:
+
+            def turns(prev_idx, idx):
+                """Does the edge turn sharply (> 20 degrees) from the previous run into this one?"""
+                if len(prev_idx) < 4 or len(idx) < 4:
+                    return False
+                u = B[prev_idx[-1]] - B[prev_idx[-4]]
+                v = B[idx[3]] - B[idx[0]]
+                return u @ v < np.cos(np.radians(20)) * np.linalg.norm(u) * np.linalg.norm(v)
+            if prev is not None and dist(prev[3], Ps).max() <= 5e-4 and not turns(prev[2] or prev[1], idx):
                 prev[1] += idx
                 prev[2] += idx
                 continue
@@ -250,7 +258,7 @@ def main(tid, out="xsurfaces.json"):
         # (the outline is a loop: the last run may continue the first)
         if len(merged) > 1 and merged[0][3] is not None and merged[-1][3] is not None:
             P = B[merged[-1][2]] if merged[-1][2] else B[merged[-1][1]]
-            if dist(merged[0][3], P[:: max(1, len(P) // 25)]).max() <= 5e-4:
+            if dist(merged[0][3], P[:: max(1, len(P) // 25)]).max() <= 5e-4 and merged[0][3] is merged[-1][3]:
                 last = merged.pop()
                 merged[0] = [merged[0][0], last[1] + merged[0][1], last[2] + merged[0][2], merged[0][3]]
         if merged and merged[0][3] is None and len(merged) > 1:
@@ -281,7 +289,9 @@ def main(tid, out="xsurfaces.json"):
             ok = False
             if surf[r] is not None and surf[(r + 1) % R] is not None:
                 c = newton([W, surf[r], surf[(r + 1) % R]], guess)
-                ok = np.linalg.norm(c - guess) < 3 * h and in_half(c)
+                # (a corner the mesh never reached, a sharp tip, can be well away from the runs' ends: accepted if
+                # both edges lead to it, checked when they are marched)
+                ok = np.linalg.norm(c - guess) < 0.15 and in_half(c)
                 print(f"    newton corner {np.round(c, 6).tolist()} moved {np.linalg.norm(c - guess):.3g} in half {in_half(c)}", flush=True)
                 if not ok:
                     # (two edges meeting at a sharp tip are nearly tangent there and Newton on all three surfaces
@@ -313,8 +323,12 @@ def main(tid, out="xsurfaces.json"):
                 start = ca if ca is not None else Pp[0]
                 end = cb if cb is not None else Pp[-1]
                 seg = march(W, s, start, end, guide=None)
+                if seg is None:                      # (a corner where the surfaces are singular, A1 say: march in)
+                    seg = march(W, s, end, start, guide=None)
+                    seg = seg[::-1] if seg is not None else None
                 if seg is None:                      # (keep the run's own points, put on both surfaces)
                     seg = [start] + Pp + [end]
+                    print(f"    run past {lab}: not marched, its own points kept", flush=True)
             out_line += [{"beta": np.asarray(p).tolist(), "beyond": lab} for p in seg[:-1]]
         out_line.append(out_line[0])
         new_outline.append(out_line)
