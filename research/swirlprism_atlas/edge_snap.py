@@ -202,6 +202,8 @@ def main(tid, out="xsurfaces.json"):
         return best
 
     new_outline, info = [], []
+    MOVES, FANS = {}, []
+    key = lambda p: tuple(np.round(p, 9))
     for li, line in enumerate(sf["outline"]):
         B = np.array([q["beta"] for q in line])
         L = [q["beyond"] for q in line]
@@ -282,8 +284,11 @@ def main(tid, out="xsurfaces.json"):
             if surf[0] is None:
                 new_outline.append(line)
                 continue
-            pts = [newton([W, surf[0]], b) for b in B]
-            new_outline.append([{"beta": p.tolist(), "beyond": runs[0][0]} for p in pts + pts[:1]])
+            for k in runs[0][2]:
+                q = newton([W, surf[0]], B[k])
+                if np.linalg.norm(q - B[k]) < 1e-3:
+                    MOVES[key(B[k])] = q
+            new_outline.append(line)
             continue
         # corners: the wall and the surfaces of the two runs meeting there
         R = len(runs)
@@ -321,98 +326,54 @@ def main(tid, out="xsurfaces.json"):
             corners.append(c if ok else None)
             print(f"  corner {li}.{r} ({a[0][:12]} | {b[0][:12]}): "
                   f"{np.round(c / c.max(), 5).tolist() if ok else 'not solved'}", flush=True)
-        out_line = []
+        # the mesh is kept as it is: each edge point of a run (they are the mesh's own boundary vertices) moves onto
+        # the exact edge, and each solved corner joins the mesh by a fan to the edge points between the two runs'
+        # good stretches (the scraps there are dropped from the outline: the fan covers them)
+        pos = {k: n_ for n_, k in enumerate(range(n))}
         for r in range(R):
-            lab, idx = runs[r][0], runs[r][1]
-            s = surf[r]
-            ca, cb = corners[r - 1], corners[r]
-            P = [B[k] for k in idx]
-            if s is None:
-                seg = P
-            else:
-                Pp = [newton([W, s], p) for p in P]
-                start = ca if ca is not None else Pp[0]
-                end = cb if cb is not None else Pp[-1]
-                seg = march(W, s, start, end, guide=None)
-                if seg is None:                      # (a corner where the surfaces are singular, A1 say: march in)
-                    seg = march(W, s, end, start, guide=None)
-                    seg = seg[::-1] if seg is not None else None
-                if seg is None:                      # (keep the run's own points, put on both surfaces)
-                    seg = [start] + Pp + [end]
-                    print(f"    run past {lab}: not marched, its own points kept", flush=True)
-            out_line += [{"beta": np.asarray(p).tolist(), "beyond": lab} for p in seg[:-1]]
+            s_ = surf[r]
+            if s_ is None:
+                continue
+            for k in runs[r][2]:
+                q = newton([W, s_], B[k])
+                if np.linalg.norm(q - B[k]) < 1e-3:
+                    MOVES[key(B[k])] = q
+        skip, insert = set(), {}
+        for r in range(R):
+            c = corners[r]
+            nxt = runs[(r + 1) % R]
+            if c is None or not runs[r][2] or not nxt[2]:
+                continue
+            k0, k1 = runs[r][2][-1], nxt[2][0]
+            chain = [k0]
+            while chain[-1] != k1 and len(chain) <= n // 2:
+                chain.append((chain[-1] + 1) % n)
+            if chain[-1] != k1:
+                continue
+            for u, v in zip(chain, chain[1:]):
+                FANS.append([c, B[u], B[v]])
+            skip.update(chain[1:-1])
+            insert[k0] = (c, runs[r][0])
+        out_line = []
+        for k in range(n):
+            if k in skip:
+                continue
+            out_line.append({"beta": B[k].tolist(), "beyond": L[k]})
+            if k in insert:
+                out_line.append({"beta": insert[k][0].tolist(), "beyond": insert[k][1]})
         out_line.append(out_line[0])
         new_outline.append(out_line)
 
-    # the mesh: cut back 1.5h from the exact edge, then stitch the strip between the cut and the edge
-    E = np.array([q["beta"] for l in new_outline for q in l])
-    near = np.array([np.min(np.linalg.norm(t[:, None, :] - E[None, ::2], axis=2)) < 0.8 * h for t in T])
-    keep = T[~near]
-    key = lambda p: tuple(np.round(p, 9))
-    cnt, at = {}, {}
-    for t in keep:
-        for c in range(3):
-            e = tuple(sorted((key(t[c]), key(t[(c + 1) % 3]))))
-            cnt[e] = cnt.get(e, 0) + 1
-            at[key(t[c])] = t[c]
-    adj = {}
-    for e, c in cnt.items():
-        if c == 1:
-            adj.setdefault(e[0], []).append(e[1])
-            adj.setdefault(e[1], []).append(e[0])
-    loops, seen = [], set()
-    for v0 in adj:
-        if v0 in seen:
-            continue
-        loop, v = [v0], v0
-        seen.add(v0)
-        while True:
-            nx = [u for u in adj[v] if u not in seen]
-            if not nx:
-                break
-            v = nx[0]
-            loop.append(v)
-            seen.add(v)
-        if len(loop) > 3:
-            loops.append(np.array([at[u] for u in loop]))
-    fill = []
-    for l in new_outline:
-        O = np.array([q["beta"] for q in l])
-        if len(O) < 4 or not np.allclose(O[0], O[-1]):
-            continue
-        O = O[:-1]
-        if not loops:
-            break
-        I = max(loops, key=lambda L_: np.sum(np.min(np.linalg.norm(L_[:, None, :] - O[None], axis=2), axis=1) < 3 * h))
-        # align and orient, then zip: each step takes the shorter new diagonal
-        d = np.linalg.norm(I[:, None, :] - O[None], axis=2)
-        i0 = int(np.argmin(d.min(axis=1)))
-        o0 = int(np.argmin(d[i0]))
-        I = np.roll(I, -i0, axis=0)
-        O = np.roll(O, -o0, axis=0)
-        if (I[1] - I[0]) @ (O[1] - O[0]) < 0 and (I[-1] - I[0]) @ (O[1] - O[0]) > 0:
-            I = np.vstack([I[:1], I[1:][::-1]])
-        nI, nO = len(I), len(O)
-        i = o = 0
-        while i < nI or o < nO:
-            Ii, Ii1, Oo, Oo1 = I[i % nI], I[(i + 1) % nI], O[o % nO], O[(o + 1) % nO]
-            if o >= nO or (i < nI and np.linalg.norm(Oo - Ii1) < np.linalg.norm(Oo1 - Ii)):
-                fill.append([Oo, Ii1, Ii])
-                i += 1
-            else:
-                fill.append([Oo, Oo1, Ii])
-                o += 1
-    # the strip's triangles cut in four, the new points put on the wall's surface
-    sw = xsurface.surface(tid)
-    fine = []
-    for a, b, c in fill:
-        ab, bc, ca = (xsurface.project(sw, (u + v) / 2) for u, v in ((a, b), (b, c), (c, a)))
-        fine += [[a, ab, ca], [ab, b, bc], [ca, bc, c], [ab, bc, ca]]
-    fill = fine
-    tris = [t for t in keep] + [np.array(t) for t in fill]
+    def moved(p):
+        return MOVES.get(key(p), p)
+    tris = [np.array([moved(v) for v in t]) for t in T] + [np.array([f[0], moved(f[1]), moved(f[2])]) for f in FANS]
+    new_outline = [[{"beta": np.asarray(moved(np.asarray(q["beta"]))).tolist(), "beyond": q["beyond"]} for q in l]
+                   for l in new_outline]
+    fill = FANS
     res = json.load(open(out)) if os.path.exists(out) else {}
     res[tid] = {**sf, "tris": [np.asarray(t).tolist() for t in tris], "outline": new_outline, "snapped": True,
                 "edge_surfaces": [[li, lab, n_, s] for li, lab, n_, s in info]}
+    print(f"{tid}: {len(MOVES)} edge points moved onto exact edges, {len(FANS)} corner-fan triangles", flush=True)
     json.dump(res, open(out, "w"))
     print(f"{tid}: {len(T)} -> {len(tris)} triangles ({len(fill)} in the stitched strip)", flush=True)
 
