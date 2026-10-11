@@ -195,21 +195,32 @@ def main(tid, out="xsurfaces.json"):
         gx = gx - gx.mean(axis=2, keepdims=True)
         return np.abs(f) / np.maximum(np.linalg.norm(gx, axis=2), 1e-300)
 
+    def degree(b):
+        return max(len(m) for m in b.mons)
+
     def best_surface(P):
-        """The known surface (or image) the run's points lie on, not the wall's own."""
-        best = None
+        """The known surface (or image) the run's points lie on, not the wall's own: of those fitting well (every
+        point within 2.5e-4), the one of lowest degree (a conic's plane before its cone: the cone meets the wall in
+        other branches too, which throw the corners off), then the closest."""
+        good, loose = [], None
         for b in bases:
             D = dists_all(b, P)
-            med = np.median(D, axis=1)
-            for gi in np.argsort(med)[:6]:
-                if med[gi] > 2e-3 or (best is not None and med[gi] >= best[0]):
+            mx, med = D.max(axis=1), np.median(D, axis=1)
+            for gi in np.argsort(med)[:8]:
+                if med[gi] > 2e-3:
                     break
                 img = Image(b, Ginv[gi], b.name + (f" (image {gi})" if gi else ""))
                 if np.median(dist(img, inner)) < 1e-6:          # (the wall's own surface)
                     continue
-                best = (float(med[gi]), float(D[gi].max()), img)
+                cand = (float(med[gi]), float(mx[gi]), img)
+                if mx[gi] <= 2.5e-4:
+                    good.append((degree(b), cand))
+                if loose is None or cand[0] < loose[0]:
+                    loose = cand
                 break
-        return best
+        if good:
+            return min(good, key=lambda dc: (dc[0], dc[1][0]))[1]
+        return loose
 
     new_outline, info = [], []
     MOVES, FANS = {}, []
@@ -264,8 +275,10 @@ def main(tid, out="xsurfaces.json"):
                 prev[1] += idx
                 prev[2] += idx
                 continue
-            f = best_surface(Ps)
-            if f is None or f[1] > 5e-4:
+            # (a short run, under 12 points, is not an edge of its own: with so many candidate surfaces one would
+            # always fit it by chance)
+            f = best_surface(Ps) if len(idx) >= 12 or not merged else None
+            if f is None or f[1] > 2.5e-4:
                 if merged:
                     merged[-1][1] += idx
                 else:
