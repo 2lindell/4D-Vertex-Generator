@@ -97,16 +97,15 @@
  },
  {
   "beta": [
-   0.3991520752401432,
-   0.25627140851887775,
-   0.2311857767205062,
-   0.113390739520473
+   0.35,
+   0.2597316237684381,
+   0.23497896945739288,
+   0.15528940677416903
   ],
-  "golden": false,
+  "golden": true,
   "sig": "1200: cells 120+120+240+600 | faces 240+240+1200+1200+1200+1200 | edges 600+600+600+1200+1200+1200 | val 3:3600,4:1800",
-  "kind": "point (where a purple axis crosses it)",
-  "hits": 0,
-  "hull_tol": 1e-08
+  "kind": "line (the curve where the curved walls X15 and X83 meet; sample exactly on it: \u03b21 = 0.35, the other coordinates solved from both surfaces' equations)",
+  "hits": 0
  },
  {
   "beta": [
