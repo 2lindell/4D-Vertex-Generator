@@ -287,7 +287,7 @@ def fill_mesh(W, outline, T, h=0.012):
     c0 = V.mean(axis=0)
     basis = np.linalg.svd(np.vstack([np.ones(4)]))[2][1:]               # sum-zero space
     Q = (V - c0) @ basis.T
-    E = np.linalg.svd(Q - Q.mean(0))[2]
+    E = np.linalg.svd(Q - Q.mean(0), full_matrices=False)[2]
     ax2, nrm = E[:2] @ basis, E[2] @ basis                               # chart axes and normal (in beta)
     chart = lambda X: (np.asarray(X) - c0) @ ax2.T
     # the wall must lie over the chart plane: every triangle facing the same way
