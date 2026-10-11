@@ -263,6 +263,57 @@ __TYPE_CSS__
       }
       return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K });
     }
+    // the copies' edges: each segment of the wall's outline (its outline lines in the key's data) mapped by the same
+    // group elements, cut to the cell (beta_i >= 0) and, below the splitting mirror, folded up
+    const edgeCache = {};
+    function copyEdges(w) {
+      if (edgeCache[w.id]) return edgeCache[w.id];
+      const Minv = DC.cellInv, P = DC.cellP;
+      const toBeta = (q) => { const v = [q[0], q[1], -q[2], 1]; return Minv.map((r) => r[0] * v[0] + r[1] * v[1] + r[2] * v[2] + r[3] * v[3]); };
+      const toXyz = (b) => { const t = b[0] + b[1] + b[2] + b[3];
+        return [0, 1, 2].map((a) => (a === 2 ? -1 : 1) * (b[0] * P[0][a] + b[1] * P[1][a] + b[2] * P[2][a] + b[3] * P[3][a]) / t); };
+      const outl = DC.xlines.filter((l) => l.id === w.id && l.outline && !l.copy).map((l) => l.pts.map(toBeta));
+      const segs = [];
+      for (const g of w.copyOps) {
+        const M = DC.copyMats[g];
+        for (const line of outl) {
+          const V = line.map((b) => { const v = M.map((r) => r[0] * b[0] + r[1] * b[1] + r[2] * b[2] + r[3] * b[3]); const t = v[0] + v[1] + v[2] + v[3]; return Math.abs(t) < 1e-12 ? null : v.map((x) => x / t); });
+          let run = [];
+          const flush = () => { if (run.length > 1) segs.push(run.map(toXyz)); run = []; };
+          for (let k = 0; k + 1 < V.length; k++) {
+            let a = V[k], b = V[k + 1];
+            if (!a || !b) { flush(); continue; }
+            // cut the segment to beta_i >= 0
+            let t0 = 0, t1 = 1;
+            for (let i = 0; i < 4; i++) {
+              const fa = a[i], fb = b[i];
+              if (fa < 0 && fb < 0) { t0 = 1; t1 = 0; break; }
+              if (fa < 0) t0 = Math.max(t0, fa / (fa - fb));
+              if (fb < 0) t1 = Math.min(t1, fa / (fa - fb));
+            }
+            if (t0 >= t1) { flush(); continue; }
+            const at = (t) => a.map((x, i) => x + (b[i] - x) * t);
+            let pa = at(t0), pb = at(t1);
+            if (t0 > 0) flush();
+            // split at the splitting mirror and fold the part below it
+            const fa = pa[2] - pa[3], fb = pb[2] - pb[3];
+            const fold = (p) => (p[2] - p[3] >= 0 ? p : [p[1], p[0], p[3], p[2]]);
+            if ((fa >= 0) !== (fb >= 0)) {
+              const m = pa.map((x, i) => x + (pb[i] - x) * (fa / (fa - fb)));
+              if (!run.length) run.push(fold(pa));
+              run.push(m); flush(); run.push(m);
+              run.push(fold(pb));
+            } else {
+              if (!run.length) run.push(fold(pa));
+              run.push(fold(pb));
+            }
+            if (t1 < 1) flush();
+          }
+          flush();
+        }
+      }
+      return (edgeCache[w.id] = segs);
+    }
     const state = { sel: new Set() };            // the rows selected in the key (none: show everything)
     const el = (id) => document.getElementById(id);
 
@@ -412,7 +463,14 @@ __TYPE_CSS__
           if (w.copyOps && w.copyOps.length && D === DC) {
             const c = wallCopies(w), hv = w.hover.replace("<br>curved wall", "<br>copy under the group: curved wall");
             out.push({ type: "mesh3d", x: c.x, y: c.y, z: c.z, i: c.i, j: c.j, k: c.k,
-              color: color(byId[w.id]), opacity: 0.14, flatshading: true, name: hv, hovertemplate: hv + "<extra></extra>" });
+              color: color(byId[w.id]), opacity: 0.2, flatshading: true, name: hv, hovertemplate: hv + "<extra></extra>" });
+            // the copies' edges: the wall's own outline taken through the same group elements, dashed
+            const e = copyEdges(w);
+            if (e.length) {
+              const trace = lines(e, hv, { color: color(byId[w.id]), width: 3, dash: "dash" });
+              trace.hovertemplate = hv + "<extra></extra>";
+              out.push(trace);
+            }
           }
         }
         for (const s of D.xlines || []) {
