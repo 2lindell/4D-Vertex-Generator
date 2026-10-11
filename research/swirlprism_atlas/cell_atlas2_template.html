@@ -450,7 +450,7 @@ __TYPE_CSS__
       // frame edges lying along a ring are left out while the rings are drawn, so the two lines don't fight for depth
       if (D.edgesOnRing && !el("showRings").checked) out.push(lines(D.edgesOnRing, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
       if (D.split.length) out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
-        color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "skip" });   // (skip: it would catch the cursor before whatever lies behind it)
+        color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "skip", meta: "nopick" });   // (skip: it would catch the cursor before whatever lies behind it)
       // the outline of the one-piece-per-region domain (an alpha shape of its moved seeds)
       if (D.shell && !state.sel.size) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
         name: "Outline of the domain", hoverinfo: "skip" });
@@ -470,7 +470,7 @@ __TYPE_CSS__
           for (const p of f) { x.push(p[0]); y.push(p[1]); z.push(p[2]); }
           for (let m = 1; m < f.length - 1; m++) { i.push(o); j.push(o + m); k.push(o + m + 1); }
         }
-        out.push({ type: "mesh3d", x, y, z, i, j, k, color: ink, opacity: 0.04, hoverinfo: "skip" });
+        out.push({ type: "mesh3d", x, y, z, i, j, k, color: ink, opacity: 0.04, hoverinfo: "skip", meta: "nopick" });
       }
       if (el("showMirrors").checked) {
         const x = [], y = [], z = [], i = [], j = [], k = [];
@@ -479,7 +479,7 @@ __TYPE_CSS__
           for (const p of m) { x.push(p[0]); y.push(p[1]); z.push(p[2]); }
           for (let q = 1; q < m.length - 1; q++) { i.push(o); j.push(o + q); k.push(o + q + 1); }
         }
-        if (x.length) out.push({ type: "mesh3d", x, y, z, i, j, k, color: css("--mirror"), opacity: 0.05, hoverinfo: "skip" });
+        if (x.length) out.push({ type: "mesh3d", x, y, z, i, j, k, color: css("--mirror"), opacity: 0.05, hoverinfo: "skip", meta: "nopick" });
       }
       if (el("showRings").checked) {
         const groups = {};
@@ -633,7 +633,17 @@ __TYPE_CSS__
     }
 
     const plot = el("plot");
-    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true });
+    // (surfaces drawn only for context, the mirrors and faces, are taken out of the 3D picking: hoverinfo "skip" alone
+    // still lets them catch the cursor before whatever lies behind them)
+    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }).then(() => {
+      const sc = plot._fullLayout.scene && plot._fullLayout.scene._scene;
+      // (the pick slots are handed out when an object joins the scene: so it leaves and joins again)
+      if (sc) for (const t of Object.values(sc.traces)) if (t.mesh && t.data && t.data.meta === "nopick" && t.mesh.pickSlots) {
+        t.mesh.pickSlots = 0;
+        sc.glplot.remove(t.mesh);
+        sc.glplot.add(t.mesh);
+      }
+    });
     render();
     // a host that resizes the frame (an auto-sizing viewer) leaves the 3D scene's mouse handling stale: redraw after
     // each resize settles
