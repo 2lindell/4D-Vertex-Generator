@@ -169,6 +169,111 @@ def march(W, S, a, b, step=0.003, guide=None):
     return None
 
 
+
+def tip(W, c, SA, SB, la, lb, pa, pb, tris, outline):
+    """A sharp corner rebuilt: the mesh is cut off across the wall at the line from pa (on edge A) to pb (on edge B),
+    and the tip beyond is filled with rows of points running from the cut into the corner c, blended between the two
+    exact edges and put on the wall's surface; the outline follows the exact edges into the corner."""
+    m0 = (pa + pb) / 2
+    u = c - m0
+    u /= np.linalg.norm(u)
+    zone = lambda p: (np.asarray(p) - m0) @ u > 1e-9
+    keep = [t for t in tris if not any(zone(v) for v in t)]
+    key = lambda p: tuple(np.round(p, 9))
+    cnt, at = {}, {}
+    for t in keep:
+        for i in range(3):
+            e = tuple(sorted((key(t[i]), key(t[(i + 1) % 3]))))
+            cnt[e] = cnt.get(e, 0) + 1
+            at[key(t[i])] = np.asarray(t[i])
+    adj = {}
+    for e, n in cnt.items():
+        if n == 1 and all((at[v] - m0) @ u > -0.03 for v in e):
+            adj.setdefault(e[0], []).append(e[1])
+            adj.setdefault(e[1], []).append(e[0])
+    if not adj:
+        return tris, outline
+    near = lambda q: min(adj, key=lambda v: np.linalg.norm(at[v] - q))
+    s0, s1 = near(pa), near(pb)
+    # the cut: the shortest path between them along the kept mesh's edge near the cut
+    import heapq
+    dist_, prev, hq = {s0: 0.0}, {}, [(0.0, s0)]
+    while hq:
+        d, v = heapq.heappop(hq)
+        if v == s1:
+            break
+        if d > dist_.get(v, 1e9):
+            continue
+        for w in adj[v]:
+            nd = d + np.linalg.norm(at[w] - at[v])
+            if nd < dist_.get(w, 1e9):
+                dist_[w], prev[w] = nd, v
+                heapq.heappush(hq, (nd, w))
+    if s1 not in dist_:
+        return tris, outline
+    chain = [s1]
+    while chain[-1] != s0:
+        chain.append(prev[chain[-1]])
+    chain = [at[v] for v in chain[::-1]]
+    EA = march(W, SA, chain[0], c) or [chain[0], c]
+    EB = march(W, SB, chain[-1], c) or [chain[-1], c]
+
+    def resample(P, n):
+        P = np.asarray(P)
+        sl = np.r_[0, np.cumsum(np.linalg.norm(np.diff(P, axis=0), axis=1))]
+        out_ = []
+        for t in np.linspace(0, sl[-1], n + 1):
+            k = min(np.searchsorted(sl, t, side="right") - 1, len(P) - 2)
+            f = (t - sl[k]) / max(sl[k + 1] - sl[k], 1e-300)
+            out_.append(P[k] + f * (P[k + 1] - P[k]))
+        return out_
+    L = max(np.linalg.norm(c - chain[0]), np.linalg.norm(c - chain[-1]))
+    N = max(8, int(np.ceil(L / 0.004)))
+    A_, B_ = resample(EA, N), resample(EB, N)
+    Cs = np.r_[0, np.cumsum(np.linalg.norm(np.diff(np.array(chain), axis=0), axis=1))]
+    sj = Cs / max(Cs[-1], 1e-300)
+    base = [chain[j] - ((1 - sj[j]) * chain[0] + sj[j] * chain[-1]) for j in range(len(chain))]
+    rows = []
+    for r in range(N + 1):
+        t = r / N
+        row = []
+        for j in range(len(chain)):
+            q = (1 - sj[j]) * A_[r] + sj[j] * B_[r] + (1 - t) * base[j]
+            row.append(c if r == N else (chain[j] if r == 0 else newton([W], q)))
+        if 0 < r < N:
+            row[0], row[-1] = A_[r], B_[r]
+        rows.append(row)
+    new_t = []
+    for r in range(N):
+        for j in range(len(chain) - 1):
+            a, b, cc, d = rows[r][j], rows[r][j + 1], rows[r + 1][j + 1], rows[r + 1][j]
+            new_t.append(np.array([a, b, cc]))
+            if r < N - 1:
+                new_t.append(np.array([a, cc, d]))
+    # the outline: its points in the cut-off tip go, the exact edges into the corner come in
+    out_lines = []
+    for l in outline:
+        P = [np.asarray(q["beta"]) for q in l]
+        inz = [zone(p) for p in P]
+        if not any(inz):
+            out_lines.append(l)
+            continue
+        body = l[:-1] if len(l) > 1 and np.allclose(P[0], P[-1]) else l
+        inz = inz[:len(body)]
+        n = len(body)
+        k = next(i for i in range(n) if not inz[i] and inz[(i + 1) % n])   # last point before the tip
+        first = body[k]
+        side_a = np.linalg.norm(np.asarray(first["beta"]) - chain[0]) < np.linalg.norm(np.asarray(first["beta"]) - chain[-1])
+        ins = ([{"beta": p.tolist(), "beyond": la} for p in A_[1:]] + [{"beta": p.tolist(), "beyond": lb} for p in B_[::-1][1:-1]]
+               if side_a else
+               [{"beta": p.tolist(), "beyond": lb} for p in B_[1:]] + [{"beta": p.tolist(), "beyond": la} for p in A_[::-1][1:-1]])
+        rot = body[k + 1:] + body[:k + 1]                        # start just after the last point before the tip
+        rest = [q for q, z in zip(rot, inz[k + 1:] + inz[:k + 1]) if not z]
+        new = rest[-1:] + ins + rest[:-1]
+        out_lines.append(new + new[:1])
+    print(f"    tip at {np.round(c / c.max(), 5).tolist()}: cut back {L:.3f}, {len(new_t)} triangles in {N} rows", flush=True)
+    return keep + new_t, out_lines
+
 # ------------------------------------------------------------------------------------------------ main
 def main(tid, out="xsurfaces.json"):
     X = json.load(open("xsurfaces.json"))
@@ -223,7 +328,7 @@ def main(tid, out="xsurfaces.json"):
         return loose
 
     new_outline, info = [], []
-    MOVES, FANS = {}, []
+    MOVES, FANS, TIPS = {}, [], []
     key = lambda p: tuple(np.round(p, 9))
     for li, line in enumerate(sf["outline"]):
         B = np.array([q["beta"] for q in line])
@@ -386,6 +491,18 @@ def main(tid, out="xsurfaces.json"):
                 eb = eb[::-1] if eb is not None else None
             ea = ea if ea is not None else [pa, c]
             eb = eb if eb is not None else [c, pb]
+            # a sharp corner (the two edges meet at under 30 degrees, a tip): rebuilt whole afterwards (tip())
+            if len(ea) > 1 and len(eb) > 1 and surf[r] is not None and surf[(r + 1) % R] is not None:
+                u_, v_ = np.asarray(ea[-2]) - c, np.asarray(eb[1]) - c
+                if u_ @ v_ > np.cos(np.radians(30)) * np.linalg.norm(u_) * np.linalg.norm(v_):
+                    # the cut goes where the wall is first 0.03 wide, walking back from the tip along edge A
+                    PA = [MOVES.get(key(B[k]), B[k]) for k in runs[r][2]][::-1]
+                    PB = np.array([MOVES.get(key(B[k]), B[k]) for k in nxt[2]])
+                    A0 = next((p_ for p_ in PA if np.min(np.linalg.norm(PB - p_, axis=1)) >= 0.03), PA[-1])
+                    ud = (c - A0) / np.linalg.norm(c - A0)       # (straight across: as far along as A0 toward c)
+                    B0 = PB[np.argmin(np.abs((PB - A0) @ ud) + 0.1 * np.linalg.norm(PB - A0, axis=1))]
+                    TIPS.append((c, surf[r], surf[(r + 1) % R], runs[r][0], runs[(r + 1) % R][0], A0, B0))
+                    continue
             # the sliver between them and the mesh's old edge there: filled in the tangent plane, its triangles cut
             # small with their new points put on the wall's surface
             poly = [np.asarray(p_) for p_ in ea] + [np.asarray(p_) for p_ in eb[1:]] + [B[k] for k in chain[::-1][1:-1]]
@@ -426,6 +543,8 @@ def main(tid, out="xsurfaces.json"):
     tris = [np.array([moved(v) for v in t]) for t in T] + [np.array([moved(np.asarray(v)) for v in f]) for f in FANS]
     new_outline = [[{"beta": np.asarray(moved(np.asarray(q["beta"]))).tolist(), "beyond": q["beyond"]} for q in l]
                    for l in new_outline]
+    for c, SA, SB, la, lb, pa, pb in TIPS:
+        tris, new_outline = tip(W, c, SA, SB, la, lb, moved(pa), moved(pb), tris, new_outline)
     fill = FANS
     res = json.load(open(out)) if os.path.exists(out) else {}
     res[tid] = {**sf, "tris": [np.asarray(t).tolist() for t in tris], "outline": new_outline, "snapped": True,
