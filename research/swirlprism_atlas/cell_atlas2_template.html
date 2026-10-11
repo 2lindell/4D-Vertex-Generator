@@ -269,7 +269,8 @@ __TYPE_CSS__
         } else segs.push([toXyz(fold(pa)), toXyz(fold(pb))]);
       };
       const X = [], Y = [], Z = [], I = [], J = [], K = [];
-      const push = (b) => { const t = b[0] + b[1] + b[2] + b[3];
+      const BV = [];
+      const push = (b) => { const t = b[0] + b[1] + b[2] + b[3]; BV.push(b.map((x) => x / t));
         X.push((b[0] * P[0][0] + b[1] * P[1][0] + b[2] * P[2][0] + b[3] * P[3][0]) / t);
         Y.push((b[0] * P[0][1] + b[1] * P[1][1] + b[2] * P[2][1] + b[3] * P[3][1]) / t);
         Z.push(-(b[0] * P[0][2] + b[1] * P[1][2] + b[2] * P[2][2] + b[3] * P[3][2]) / t); return X.length - 1; };
@@ -323,7 +324,11 @@ __TYPE_CSS__
         }
       }
       const msegs = [];
-      for (const [, [c, [u, v]]] of ecnt) if (c === 1) msegs.push([[X[u], Y[u], Z[u]], [X[v], Y[v], Z[v]]]);
+      // (an edge along a face of the cell or the splitting mirror is where the copy was cut to the cell, not its own
+      // edge: left out)
+      const onFace = (u, v) => [0, 1, 2, 3].some((a) => Math.abs(BV[u][a]) < 1e-7 && Math.abs(BV[v][a]) < 1e-7)
+        || (Math.abs(BV[u][2] - BV[u][3]) < 1e-7 && Math.abs(BV[v][2] - BV[v][3]) < 1e-7);
+      for (const [, [c, [u, v]]] of ecnt) if (c === 1 && !onFace(u, v)) msegs.push([[X[u], Y[u], Z[u]], [X[v], Y[v], Z[v]]]);
       return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K, segs: msegs });
     }
     // the copies' edges: the wall's own edge, mapped with the copied triangles it bounds (made with them in wallCopies)

@@ -354,6 +354,7 @@ def main(samples_path, out_path):
     from normalizer import extended_group as _ext_group
     _M = np.einsum("ij,gjk,kl->gil", TINV, np.array(_ext_group(), float), np.array(_T, float).T)
     shown = [np.asarray(u["beta"], float) / np.sum(u["beta"]) for u in uniform]
+    SEED_COPIES = {}          # shape -> [(its uniform seed, the seed's copy in the displayed half)]
     for u in [u for u in uniform if u["sample"]]:
         b0 = np.asarray(u["beta"], float) / np.sum(u["beta"])
         tid = u["sample"]["id"]
@@ -368,6 +369,7 @@ def main(samples_path, out_path):
             if any(np.allclose(img, o, atol=1e-9) for o in shown):
                 continue
             shown.append(img)
+            SEED_COPIES.setdefault(tid, []).append((b0, img))
             uniform_out.append({"id": tid, "q": _exact(xyz(img)).tolist(), "copy": True,
                                 "hover": f"{text}<br>uniform seed, copy under the extra half-turn, β ∝ {beta_text(img)}"
                                          f"<br>seed {seed_text(img)}"})
@@ -1006,10 +1008,102 @@ def main(samples_path, out_path):
             down = clip(poly, np.array([0, 0, -1.0, 1.0]))
             return [pc for pc in (up, [b[FOLD4] for b in down]) if len(pc) >= 3]
 
+        def seed_half(tid, T3, outline, b0, img):
+            """A curved wall holding a uniform seed keeps, as itself, only the part with the seed: a piece of its mesh
+            holding only the seed's copy is that piece's copy (the page draws it dashed, from the rest), and a piece
+            holding both (the wall crosses the extra half-turn's axis) is cut where s(x) = f(x) - f(sigma x) changes
+            sign, f(x) = |x - seed| - |x - copy| and sigma the group element taking the seed to its copy (sigma swaps
+            the two sides of that cut, so the half with the copy is exactly the image of the other)."""
+            fold = np.eye(4)[[1, 0, 3, 2]]
+            sigma = None
+            for G in M_all:
+                for Gf in (G, fold @ G):
+                    y = Gf @ b0
+                    if abs(y.sum()) > 1e-12 and np.allclose(y / y.sum(), img, atol=1e-7):
+                        sigma = Gf
+                        break
+                if sigma is not None:
+                    break
+            if sigma is None:
+                return T3, outline
+
+            def nrm(x):
+                return x / x.sum(axis=-1, keepdims=True)
+
+            def s_of(x):
+                f = lambda y: np.linalg.norm(y - b0, axis=-1) - np.linalg.norm(y - img, axis=-1)
+                return f(x) - f(nrm(x @ sigma.T))
+            # pieces of the mesh (triangles sharing vertices)
+            keys = {}
+            par = []
+
+            def find(a):
+                while par[a] != a:
+                    par[a] = par[par[a]]
+                    a = par[a]
+                return a
+            vid = np.zeros(T3.shape[:2], int)
+            for n, t in enumerate(T3):
+                for c in range(3):
+                    k = tuple(np.round(t[c], 9))
+                    if k not in keys:
+                        keys[k] = len(par)
+                        par.append(len(par))
+                    vid[n, c] = keys[k]
+            for n in range(len(T3)):
+                par[find(vid[n, 0])] = find(vid[n, 1])
+                par[find(vid[n, 1])] = find(vid[n, 2])
+            comp = np.array([find(vid[n, 0]) for n in range(len(T3))])
+            cen = T3.mean(axis=1)
+            c_seed = comp[np.argmin(np.linalg.norm(cen - b0, axis=1))]
+            c_copy = comp[np.argmin(np.linalg.norm(cen - img, axis=1))]
+            if np.min(np.linalg.norm(cen - b0, axis=1)) > 0.03:
+                return T3, outline                      # (the seed is not on this mesh)
+            if c_seed != c_copy:
+                keep = comp != c_copy
+                print(f"{tid}: the piece holding the seed's copy ({np.sum(~keep)} triangles) is drawn as a copy")
+                dropped = T3[~keep]
+                T3 = T3[keep]
+                dv = dropped.reshape(-1, 4)
+                out = [l for l in outline
+                       if np.median([np.min(np.linalg.norm(dv - np.asarray(q["beta"]), axis=1)) for q in l]) > 1e-6]
+                return T3, out
+            # the wall crosses the axis: cut it (triangles across the cut are split along it)
+            sv = {}
+            out_t = []
+            for t in T3:
+                st = s_of(t)
+                if (st <= 0).all():
+                    out_t.append(t)
+                elif (st < 0).any():
+                    poly = []
+                    for c in range(3):
+                        p, q, fp, fq = t[c], t[(c + 1) % 3], st[c], st[(c + 1) % 3]
+                        if fp <= 0:
+                            poly.append(p)
+                        if (fp <= 0) != (fq <= 0):
+                            poly.append(p + (q - p) * (fp / (fp - fq)))
+                    out_t += [np.array([poly[0], poly[k], poly[k + 1]]) for k in range(1, len(poly) - 1)]
+            out = []
+            for l in outline:                            # the outline is cut the same way
+                run = []
+                for q in l + [None]:
+                    if q is not None and s_of(np.asarray(q["beta"])) <= 0:
+                        run.append(q)
+                        continue
+                    if len(run) >= 2:
+                        out.append(run)
+                    run = []
+            print(f"{tid}: cut across the half-turn's axis, {len(out_t)} of {len(T3)} triangles kept as the wall itself")
+            return np.array(out_t), out
+
         for tid, sf in json.load(open("xsurfaces.json")).items():
             if tid not in tmap:
                 continue
             T3 = np.array(sf["tris"], float)                       # (n, 3, 4)
+            outline_src = sf["outline"]
+            if tid in SEED_COPIES:
+                T3, outline_src = seed_half(tid, T3, sf["outline"], *SEED_COPIES[tid][0])
             lhs = sf["equation"].split(" = ")[0]
             nterms = lhs.count(" + ") + lhs.count(" − ") + 1
             tmap[tid]["locus"] = (f"a curved wall on {sf['kind']}: {sf['equation']}" if nterms < 6 else
@@ -1022,7 +1116,7 @@ def main(samples_path, out_path):
             orig = {"id": tid, "tris": [[[round(float(c), 4) for c in _exact(xyz(b))] for b in t] for t in T3],
                     "hover": hover, "curved": True}
             xwalls.append(orig)
-            for line in sf["outline"]:
+            for line in outline_src:
                 B = [np.asarray(p["beta"], float) for p in line]
                 xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in B], "hover": hover, "outline": True})
             # a line shape along part of the wall's edge (a seam where it ends against a region): drawn along the runs
