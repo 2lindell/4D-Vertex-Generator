@@ -601,6 +601,21 @@ __TYPE_CSS__
           marker: { size: 8, color: color(t), symbol: `${t.symbol}-open`, line: { color: color(t), width: 2 } },
           hovertemplate: "%{customdata}<extra></extra>" });
       }
+      // hover boxes kept short (two lines, each cut at 70 characters), so they never cover what the cursor is on;
+      // the full text (equations, edges, corners) is in the key
+      const brief = (h) => {
+        if (typeof h !== "string") return h;
+        const tail = h.endsWith("<extra></extra>") ? "<extra></extra>" : "";
+        const lines = h.replace("<extra></extra>", "").split("<br>").slice(0, 2)
+          .map((l) => (l.replace(/<[^>]+>/g, "").length > 70 && !l.includes("%{") ? l.replace(/<[^>]+>/g, "").slice(0, 69) + "…" : l));
+        return lines.join("<br>") + tail;
+      };
+      for (const t of out) {
+        if (t.hovertemplate) t.hovertemplate = brief(t.hovertemplate);
+        if (Array.isArray(t.customdata) && typeof t.customdata[0] === "string") t.customdata = t.customdata.map(brief);
+        if (Array.isArray(t.text)) t.text = t.text.map(brief);
+        if (typeof t.name === "string" && t.name.length > 80) t.name = t.name.replace(/<[^>]+>/g, " ").slice(0, 79) + "…";
+      }
       return out;
     }
 
@@ -612,7 +627,7 @@ __TYPE_CSS__
       if (["piece", "chambers", "cohesive"].includes(el("quarter").value)) {
         const [lo, hi] = { piece: DP, chambers: DH, cohesive: DQ }[el("quarter").value].bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
         return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
-          margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value,
+          margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value, hoverlabel: { font: { size: 11 }, namelength: 40 },
           scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
             xaxis: { ...hidden, range: [lo[0] - pad, hi[0] + pad] }, yaxis: { ...hidden, range: [lo[1] - pad, hi[1] + pad] },
             zaxis: { ...hidden, range: [lo[2] - pad, hi[2] + pad] },
@@ -621,7 +636,7 @@ __TYPE_CSS__
       if (el("quarter").value === "dodeca" || el("quarter").value === "v1") {
         const r = 0.45;
         return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
-          margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value,
+          margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value, hoverlabel: { font: { size: 11 }, namelength: 40 },
           scene: { aspectmode: "cube", xaxis: { ...hidden, range: [-r, r] }, yaxis: { ...hidden, range: [-r, r] }, zaxis: { ...hidden, range: [-r, r] },
             camera: cam({ eye: { x: 1.4, y: -1.1, z: 0.6 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } }) } };
       }
