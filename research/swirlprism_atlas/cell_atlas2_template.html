@@ -273,9 +273,20 @@ __TYPE_CSS__
         X.push((b[0] * P[0][0] + b[1] * P[1][0] + b[2] * P[2][0] + b[3] * P[3][0]) / t);
         Y.push((b[0] * P[0][1] + b[1] * P[1][1] + b[2] * P[2][1] + b[3] * P[3][1]) / t);
         Z.push(-(b[0] * P[0][2] + b[1] * P[1][2] + b[2] * P[2][2] + b[3] * P[3][2]) / t); return X.length - 1; };
+      // points already drawn (the wall, then each copy taken), hashed on a grid, to skip a group element whose image
+      // lies on them: one that maps the wall onto itself, or onto a copy already made, only differently triangulated
+      const H = 0.012, grid = new Set();
+      const cellOf = (b) => [0, 1, 2].map((a) => Math.floor(b[a] / H));
+      const addPt = (b) => grid.add(cellOf(b).join(","));
+      const near = (b) => { const c = cellOf(b);
+        for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++)
+          if (grid.has([c[0] + dx, c[1] + dy, c[2] + dz].join(","))) return true;
+        return false; };
+      B.forEach((b) => addPt(norm(b)));
       for (const g of w.copyOps) {
         const M = DC.copyMats[g];
         const V = B.map((b) => M.map((r) => r[0] * b[0] + r[1] * b[1] + r[2] * b[2] + r[3] * b[3]));
+        const polys = [];
         for (const f of F) {
           const s = f.map((k) => V[k][0] + V[k][1] + V[k][2] + V[k][3]);
           if (!(Math.sign(s[0]) === Math.sign(s[1]) && Math.sign(s[1]) === Math.sign(s[2])) || Math.min(...s.map(Math.abs)) <= 1e-12) continue;
@@ -284,22 +295,69 @@ __TYPE_CSS__
           // (near the plane the map sends to infinity a small triangle is stretched across the cell: not a copy)
           const d = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2], p[3] - q[3]);
           if (Math.max(d(t[0], t[1]), d(t[1], t[2]), d(t[2], t[0])) > 0.12) continue;
-          let kept = false;
-          for (const pc of intoHalf(t)) {
-            const kk = key(pc);
-            if (seen.has(kk)) continue;
-            seen.add(kk);
-            kept = true;
-            const idx = pc.map(push);
-            for (let m = 1; m < idx.length - 1; m++) { I.push(idx[0]); J.push(idx[m]); K.push(idx[m + 1]); }
-          }
-          if (kept) for (let a = 0; a < 3; a++) if (isEdge(f[a], f[(a + 1) % 3])) clipSeg(t[a], t[(a + 1) % 3]);
+          for (const pc of intoHalf(t)) polys.push(pc);
+        }
+        if (!polys.length) continue;
+        const cen = (pc) => [0, 1, 2, 3].map((a) => pc.reduce((s, b) => s + b[a], 0) / pc.length);
+        let on = 0;
+        for (const pc of polys) if (near(cen(pc))) on++;
+        if (on > 0.5 * polys.length) continue;
+        for (const pc of polys) {
+          const kk = key(pc);
+          if (seen.has(kk)) continue;
+          seen.add(kk);
+          const idx = pc.map(push);
+          pc.forEach(addPt);
+          for (let m = 1; m < idx.length - 1; m++) { I.push(idx[0]); J.push(idx[m]); K.push(idx[m + 1]); }
         }
       }
-      return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K, segs });
+      // the copies' edges: the edges of the copied mesh that only one of its triangles uses
+      const vk = (n) => X[n].toFixed(6) + "," + Y[n].toFixed(6) + "," + Z[n].toFixed(6);
+      const ecnt = new Map();
+      for (let q = 0; q < I.length; q++) {
+        const tri = [I[q], J[q], K[q]];
+        for (let a = 0; a < 3; a++) {
+          const u = vk(tri[a]), v = vk(tri[(a + 1) % 3]), e = u < v ? u + "|" + v : v + "|" + u;
+          const c = ecnt.get(e);
+          ecnt.set(e, c ? [c[0] + 1, c[1]] : [1, [tri[a], tri[(a + 1) % 3]]]);
+        }
+      }
+      const msegs = [];
+      for (const [, [c, [u, v]]] of ecnt) if (c === 1) msegs.push([[X[u], Y[u], Z[u]], [X[v], Y[v], Z[v]]]);
+      return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K, segs: msegs });
     }
     // the copies' edges: the wall's own edge, mapped with the copied triangles it bounds (made with them in wallCopies)
-    const copyEdges = (w) => wallCopies(w).segs;
+    // (joined end to end into long polylines: the dash pattern restarts on every piece, so short pieces look broken)
+    const edgeCache = {};
+    function copyEdges(w) {
+      if (edgeCache[w.id]) return edgeCache[w.id];
+      const k = (p) => p.map((x) => x.toFixed(6)).join(",");
+      const adj = new Map(), used = new Set(), segs = wallCopies(w).segs;
+      segs.forEach((sg, n) => { for (const e of [0, 1]) { const key = k(sg[e]); if (!adj.has(key)) adj.set(key, []); adj.get(key).push(n); } });
+      const lines = [];
+      const walk = (start, from) => {          // extend from the point "from" of segment start
+        const line = [];
+        let n = start, at = from;
+        while (n !== undefined && !used.has(n)) {
+          used.add(n);
+          const sg = segs[n], other = k(sg[0]) === at ? sg[1] : sg[0];
+          line.push(other);
+          at = k(other);
+          n = (adj.get(at) || []).find((m) => !used.has(m));
+        }
+        return line;
+      };
+      // start at loose ends first, so open edges come out whole
+      const order = [...segs.keys()].sort((a, b) => Math.min(...[0, 1].map((e) => adj.get(k(segs[a][e])).length)) - Math.min(...[0, 1].map((e) => adj.get(k(segs[b][e])).length)));
+      for (const n of order) {
+        if (used.has(n)) continue;
+        const sg = segs[n];
+        const end = adj.get(k(sg[0])).length === 1 ? 0 : 1;
+        const line = [sg[end], ...walk(n, k(sg[end]))];
+        lines.push(line);
+      }
+      return (edgeCache[w.id] = lines);
+    }
     const state = { sel: new Set() };            // the rows selected in the key (none: show everything)
     const el = (id) => document.getElementById(id);
 
