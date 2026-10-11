@@ -239,6 +239,35 @@ __TYPE_CSS__
       const key = (pc) => { const c = [0, 1, 2, 3].map((a) => pc.reduce((s, b) => s + b[a], 0) / pc.length); return c.map((x) => x.toFixed(5)).join(","); };
       const B = w.verts.map(toBeta), F = w.faces;
       const seen = new Set(F.map((f) => key(f.map((k) => norm(B[k])))));
+      // the mesh's boundary edges (used by one triangle): the wall's edge, mapped along with each copied triangle
+      const ecount = {};
+      for (const f of F) for (let a = 0; a < 3; a++) { const u = f[a], v = f[(a + 1) % 3], e = u < v ? u + "," + v : v + "," + u; ecount[e] = (ecount[e] || 0) + 1; }
+      const isEdge = (u, v) => ecount[u < v ? u + "," + v : v + "," + u] === 1;
+      const segs = [];
+      const toXyz = (b) => { const t = b[0] + b[1] + b[2] + b[3];
+        return [0, 1, 2].map((a) => (a === 2 ? -1 : 1) * (b[0] * P[0][a] + b[1] * P[1][a] + b[2] * P[2][a] + b[3] * P[3][a]) / t); };
+      const clipSeg = (a, b) => {           // the part with every beta_i >= 0, split at the splitting mirror, folded up
+        let t0 = 0, t1 = 1;
+        for (let i = 0; i < 4; i++) {
+          const fa = a[i], fb = b[i];
+          if (fa < 0 && fb < 0) return;
+          if (fa < 0) t0 = Math.max(t0, fa / (fa - fb));
+          if (fb < 0) t1 = Math.min(t1, fa / (fa - fb));
+        }
+        if (t0 >= t1) return;
+        const at = (p, q, t) => p.map((x, i) => x + (q[i] - x) * t);
+        const pa = at(a, b, t0), pb = at(a, b, t1);
+        const fold = (p) => (p[2] - p[3] >= 0 ? p : [p[1], p[0], p[3], p[2]]);
+        const fa = pa[2] - pa[3], fb = pb[2] - pb[3];
+        // (the fold swaps beta1, beta2 and beta3, beta4: it maps the mirror to itself but moves its points, so the part
+        // below the mirror is folded whole, the crossing point with it)
+        const flip = (p) => [p[1], p[0], p[3], p[2]];
+        if ((fa >= 0) !== (fb >= 0)) {
+          const m = at(pa, pb, fa / (fa - fb));
+          segs.push(fa >= 0 ? [toXyz(pa), toXyz(m)] : [toXyz(flip(pa)), toXyz(flip(m))],
+                    fb >= 0 ? [toXyz(m), toXyz(pb)] : [toXyz(flip(m)), toXyz(flip(pb))]);
+        } else segs.push([toXyz(fold(pa)), toXyz(fold(pb))]);
+      };
       const X = [], Y = [], Z = [], I = [], J = [], K = [];
       const push = (b) => { const t = b[0] + b[1] + b[2] + b[3];
         X.push((b[0] * P[0][0] + b[1] * P[1][0] + b[2] * P[2][0] + b[3] * P[3][0]) / t);
@@ -252,68 +281,25 @@ __TYPE_CSS__
           if (!(Math.sign(s[0]) === Math.sign(s[1]) && Math.sign(s[1]) === Math.sign(s[2])) || Math.min(...s.map(Math.abs)) <= 1e-12) continue;
           const t = f.map((k, a) => V[k].map((x) => x / s[a]));
           if (!t.every((b) => Math.max(...b) > -1e-9)) continue;
+          // (near the plane the map sends to infinity a small triangle is stretched across the cell: not a copy)
+          const d = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2], p[3] - q[3]);
+          if (Math.max(d(t[0], t[1]), d(t[1], t[2]), d(t[2], t[0])) > 0.12) continue;
+          let kept = false;
           for (const pc of intoHalf(t)) {
             const kk = key(pc);
             if (seen.has(kk)) continue;
             seen.add(kk);
+            kept = true;
             const idx = pc.map(push);
             for (let m = 1; m < idx.length - 1; m++) { I.push(idx[0]); J.push(idx[m]); K.push(idx[m + 1]); }
           }
+          if (kept) for (let a = 0; a < 3; a++) if (isEdge(f[a], f[(a + 1) % 3])) clipSeg(t[a], t[(a + 1) % 3]);
         }
       }
-      return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K });
+      return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K, segs });
     }
-    // the copies' edges: each segment of the wall's outline (its outline lines in the key's data) mapped by the same
-    // group elements, cut to the cell (beta_i >= 0) and, below the splitting mirror, folded up
-    const edgeCache = {};
-    function copyEdges(w) {
-      if (edgeCache[w.id]) return edgeCache[w.id];
-      const Minv = DC.cellInv, P = DC.cellP;
-      const toBeta = (q) => { const v = [q[0], q[1], -q[2], 1]; return Minv.map((r) => r[0] * v[0] + r[1] * v[1] + r[2] * v[2] + r[3] * v[3]); };
-      const toXyz = (b) => { const t = b[0] + b[1] + b[2] + b[3];
-        return [0, 1, 2].map((a) => (a === 2 ? -1 : 1) * (b[0] * P[0][a] + b[1] * P[1][a] + b[2] * P[2][a] + b[3] * P[3][a]) / t); };
-      const outl = DC.xlines.filter((l) => l.id === w.id && l.outline && !l.copy).map((l) => l.pts.map(toBeta));
-      const segs = [];
-      for (const g of w.copyOps) {
-        const M = DC.copyMats[g];
-        for (const line of outl) {
-          const V = line.map((b) => { const v = M.map((r) => r[0] * b[0] + r[1] * b[1] + r[2] * b[2] + r[3] * b[3]); const t = v[0] + v[1] + v[2] + v[3]; return Math.abs(t) < 1e-12 ? null : v.map((x) => x / t); });
-          let run = [];
-          const flush = () => { if (run.length > 1) segs.push(run.map(toXyz)); run = []; };
-          for (let k = 0; k + 1 < V.length; k++) {
-            let a = V[k], b = V[k + 1];
-            if (!a || !b) { flush(); continue; }
-            // cut the segment to beta_i >= 0
-            let t0 = 0, t1 = 1;
-            for (let i = 0; i < 4; i++) {
-              const fa = a[i], fb = b[i];
-              if (fa < 0 && fb < 0) { t0 = 1; t1 = 0; break; }
-              if (fa < 0) t0 = Math.max(t0, fa / (fa - fb));
-              if (fb < 0) t1 = Math.min(t1, fa / (fa - fb));
-            }
-            if (t0 >= t1) { flush(); continue; }
-            const at = (t) => a.map((x, i) => x + (b[i] - x) * t);
-            let pa = at(t0), pb = at(t1);
-            if (t0 > 0) flush();
-            // split at the splitting mirror and fold the part below it
-            const fa = pa[2] - pa[3], fb = pb[2] - pb[3];
-            const fold = (p) => (p[2] - p[3] >= 0 ? p : [p[1], p[0], p[3], p[2]]);
-            if ((fa >= 0) !== (fb >= 0)) {
-              const m = pa.map((x, i) => x + (pb[i] - x) * (fa / (fa - fb)));
-              if (!run.length) run.push(fold(pa));
-              run.push(m); flush(); run.push(m);
-              run.push(fold(pb));
-            } else {
-              if (!run.length) run.push(fold(pa));
-              run.push(fold(pb));
-            }
-            if (t1 < 1) flush();
-          }
-          flush();
-        }
-      }
-      return (edgeCache[w.id] = segs);
-    }
+    // the copies' edges: the wall's own edge, mapped with the copied triangles it bounds (made with them in wallCopies)
+    const copyEdges = (w) => wallCopies(w).segs;
     const state = { sel: new Set() };            // the rows selected in the key (none: show everything)
     const el = (id) => document.getElementById(id);
 
@@ -463,7 +449,7 @@ __TYPE_CSS__
           if (w.copyOps && w.copyOps.length && D === DC) {
             const c = wallCopies(w), hv = w.hover.replace("<br>curved wall", "<br>copy under the group: curved wall");
             out.push({ type: "mesh3d", x: c.x, y: c.y, z: c.z, i: c.i, j: c.j, k: c.k,
-              color: color(byId[w.id]), opacity: 0.2, flatshading: true, name: hv, hovertemplate: hv + "<extra></extra>" });
+              color: color(byId[w.id]), opacity: 0.14, flatshading: true, name: hv, hovertemplate: hv + "<extra></extra>" });
             // the copies' edges: the wall's own outline taken through the same group elements, dashed
             const e = copyEdges(w);
             if (e.length) {
