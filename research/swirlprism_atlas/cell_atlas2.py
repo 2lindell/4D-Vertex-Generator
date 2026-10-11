@@ -804,6 +804,17 @@ def main(samples_path, out_path):
                 continue
             xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
                            "hover": f"{label(tid)}<br>{e['where']}"})
+    # curves where two exact surfaces meet (curve_trace.py), traced point by point along both surfaces
+    if os.path.exists("xcurves.json"):
+        for tid, cv in json.load(open("xcurves.json")).items():
+            if tid not in tmap:
+                continue
+            pts = [np.asarray(b, float) for b in cv["pts"]]
+            where = (f"the curve where the walls {' and '.join(cv['surfaces'])} meet ({cv['equations'][0]} and "
+                     f"{cv['equations'][1]}), from β ∝ {beta_text(pts[0])} to β ∝ {beta_text(pts[-1])}")
+            tmap[tid]["curve_where"] = where
+            xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
+                           "hover": f"{label(tid)}<br>{where}"})
     for tid, (a, b, where) in POINT_LINES.items():
         if tid not in tmap:
             continue
@@ -1352,8 +1363,9 @@ def main(samples_path, out_path):
         "X18": ("point", "a point where the regions X56, X64, X66, X69 and X74 meet; X47 starts and an X48 line ends there", []),
         "X29": ("line", "line: the curve where the curved walls X39 and X52 meet on X10's quadric β1β4 − β2β3 + β3² − β4² = 0, "
                         "among the regions X59, X60, X66 and X67", ["X39", "X52"]),
-        "X78": ("point", "a point where the walls X15 and X83 meet among the regions X30, X32, X36 and X37 (a purple axis "
-                         "crosses it); no shape near it is a less symmetric split of it", []),
+        "X78": ("line", "line: the curve where the curved walls X15 and X83 meet, among the regions X30, X32, X36 and X37, "
+                        "from the cell centre C1 to β ∝ (1+φ, 1, 1, 0) on the face β4 = 0 (a purple axis crosses it); no shape "
+                        "near it is a less symmetric split of it", ["C1", "X15", "X83"]),
     }
     for tid, (dim, locus, nbs) in SURVEYED.items():
         if tid in tmap:
