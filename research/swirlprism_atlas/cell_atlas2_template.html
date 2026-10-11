@@ -324,11 +324,31 @@ __TYPE_CSS__
         }
       }
       const msegs = [];
-      // (an edge along a face of the cell or the splitting mirror is where the copy was cut to the cell, not its own
-      // edge: left out)
-      const onFace = (u, v) => [0, 1, 2, 3].some((a) => Math.abs(BV[u][a]) < 1e-7 && Math.abs(BV[v][a]) < 1e-7)
-        || (Math.abs(BV[u][2] - BV[u][3]) < 1e-7 && Math.abs(BV[v][2] - BV[v][3]) < 1e-7);
-      for (const [, [c, [u, v]]] of ecnt) if (c === 1 && !onFace(u, v)) msegs.push([[X[u], Y[u], Z[u]], [X[v], Y[v], Z[v]]]);
+      // (where the copy meets a face of the cell, or the splitting mirror, the curve there is drawn; only an edge along
+      // an edge of the cell, two faces at once, is left out, the frame is drawn there)
+      const onEdge = (u, v) => {
+        const fu = [0, 1, 2, 3].filter((a) => Math.abs(BV[u][a]) < 1e-7 && Math.abs(BV[v][a]) < 1e-7).length
+          + (Math.abs(BV[u][2] - BV[u][3]) < 1e-7 && Math.abs(BV[v][2] - BV[v][3]) < 1e-7 ? 1 : 0);
+        return fu >= 2;
+      };
+      // a solid line beats a dashed one: an edge on the wall's own outline is left to it
+      const SH = 0.003, solid = new Set();
+      const sk = (p) => p.map((x) => Math.floor(x / SH));
+      for (const l of DC.xlines) if (l.id === w.id && l.outline && !l.copy)
+        for (let a = 0; a + 1 < l.pts.length; a++) {
+          const p = l.pts[a], q = l.pts[a + 1], n = Math.max(1, Math.ceil(Math.hypot(q[0] - p[0], q[1] - p[1], q[2] - p[2]) / SH));
+          for (let m = 0; m <= n; m++) solid.add(sk(p.map((x, i) => x + (q[i] - x) * m / n)).join(","));
+        }
+      const onSolid = (p) => { const c = sk(p);
+        for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++)
+          if (solid.has([c[0] + dx, c[1] + dy, c[2] + dz].join(","))) return true;
+        return false; };
+      for (const [, [c, [u, v]]] of ecnt) {
+        if (c !== 1 || onEdge(u, v)) continue;
+        const pu = [X[u], Y[u], Z[u]], pv = [X[v], Y[v], Z[v]];
+        if (onSolid(pu) && onSolid(pv)) continue;
+        msegs.push([pu, pv]);
+      }
       return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K, segs: msegs });
     }
     // the copies' edges: the wall's own edge, mapped with the copied triangles it bounds (made with them in wallCopies)

@@ -355,6 +355,7 @@ def main(samples_path, out_path):
     _M = np.einsum("ij,gjk,kl->gil", TINV, np.array(_ext_group(), float), np.array(_T, float).T)
     shown = [np.asarray(u["beta"], float) / np.sum(u["beta"]) for u in uniform]
     SEED_COPIES = {}          # shape -> [(its uniform seed, the seed's copy in the displayed half)]
+    BY_SAMPLE = {"X38"}       # curved walls without a uniform seed whose sample picks the main part
     for u in [u for u in uniform if u["sample"]]:
         b0 = np.asarray(u["beta"], float) / np.sum(u["beta"])
         tid = u["sample"]["id"]
@@ -1084,7 +1085,44 @@ def main(samples_path, out_path):
                         if (fp <= 0) != (fq <= 0):
                             poly.append(p + (q - p) * (fp / (fp - fq)))
                     out_t += [np.array([poly[0], poly[k], poly[k + 1]]) for k in range(1, len(poly) - 1)]
+            # the cut itself: the wall goes on as its copy there, so the line is drawn solid (it overrides the dash)
+            cut = []
+            for t in T3:
+                st = s_of(t)
+                if (st < 0).any() and (st > 0).any():
+                    pts = [t[c] + (t[(c + 1) % 3] - t[c]) * (st[c] / (st[c] - st[(c + 1) % 3]))
+                           for c in range(3) if (st[c] <= 0) != (st[(c + 1) % 3] <= 0)]
+                    if len(pts) == 2:
+                        cut.append(pts)
             out = []
+            ends = {}
+            for a, b in cut:                             # chained into polylines
+                ka, kb = tuple(np.round(a, 9)), tuple(np.round(b, 9))
+                la, lb = ends.pop(ka, None), ends.pop(kb, None)
+                if la is None and lb is None:
+                    line = [a, b]
+                elif la is not None and lb is None:
+                    line = la if np.allclose(la[-1], a) else la[::-1]
+                    line.append(b)
+                elif lb is not None and la is None:
+                    line = lb if np.allclose(lb[-1], b) else lb[::-1]
+                    line.append(a)
+                else:
+                    l1 = la if np.allclose(la[-1], a) else la[::-1]
+                    l2 = lb if np.allclose(lb[0], b) else lb[::-1]
+                    if l1 is l2:
+                        l1.append(b)
+                        continue
+                    line = l1 + l2
+                    for k in [k for k, v in ends.items() if v is la or v is lb]:
+                        ends.pop(k)
+                ends[tuple(np.round(line[0], 9))] = line
+                ends[tuple(np.round(line[-1], 9))] = line
+            seen_l = []
+            for l in ends.values():
+                if not any(l is m for m in seen_l):
+                    seen_l.append(l)
+                    out.append([{"beta": np.asarray(p).tolist(), "beyond": tid} for p in l])
             for l in outline:                            # the outline is cut the same way
                 run = []
                 for q in l + [None]:
@@ -1102,8 +1140,28 @@ def main(samples_path, out_path):
                 continue
             T3 = np.array(sf["tris"], float)                       # (n, 3, 4)
             outline_src = sf["outline"]
-            if tid in SEED_COPIES:
-                T3, outline_src = seed_half(tid, T3, sf["outline"], *SEED_COPIES[tid][0])
+            pair = SEED_COPIES.get(tid, [None])[0]
+            if pair is None and tid in BY_SAMPLE:   # (no uniform seed: the wall's sample decides which part is main)
+                b0 = next((np.asarray(x["beta"], float) / np.sum(x["beta"]) for x in samples if x["id"] == tid), None)
+                if b0 is not None:
+                    cen = T3.mean(axis=1)
+                    best = None
+                    for G in M_all:
+                        y = G @ b0
+                        if abs(y.sum()) < 1e-12:
+                            continue
+                        y = y / y.sum()
+                        if y.min() < -1e-9:
+                            continue
+                        y = to_upper(np.clip(y, 0, None))
+                        if np.allclose(y, b0, atol=1e-7):
+                            continue
+                        d = np.min(np.linalg.norm(cen - y, axis=1))
+                        if d < 0.01 and (best is None or d < best[0]):
+                            best = (d, y)
+                    pair = (b0, best[1]) if best else None
+            if pair is not None:
+                T3, outline_src = seed_half(tid, T3, sf["outline"], *pair)
             lhs = sf["equation"].split(" = ")[0]
             nterms = lhs.count(" + ") + lhs.count(" − ") + 1
             tmap[tid]["locus"] = (f"a curved wall on {sf['kind']}: {sf['equation']}" if nterms < 6 else
