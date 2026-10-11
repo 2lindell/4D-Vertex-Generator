@@ -22,6 +22,7 @@ from collections import Counter
 import numpy as np
 
 import xsurface
+from cell_atlas2 import ear_clip
 
 PHI = (1 + 5 ** 0.5) / 2
 
@@ -128,6 +129,15 @@ def newton(surfs, x, iters=60):
         if np.abs(dx).max() < 1e-16:
             break
     return x
+
+
+def grad1(W, x):
+    return W.grad(np.atleast_2d(x))[0]
+
+
+def project_w(W, x):
+    """x moved onto the surface W (sum = 1 kept)."""
+    return newton([W], x)
 
 
 def in_half(b):
@@ -350,23 +360,57 @@ def main(tid, out="xsurfaces.json"):
                 chain.append((chain[-1] + 1) % n)
             if chain[-1] != k1:
                 continue
-            for u, v in zip(chain, chain[1:]):
-                FANS.append([c, B[u], B[v]])
+            # the two exact edges, from the mesh's last good edge points into the corner
+            pa = MOVES.get(key(B[k0]), B[k0])
+            pb = MOVES.get(key(B[k1]), B[k1])
+            ea = march(W, surf[r], pa, c) if surf[r] is not None else None
+            if ea is None and surf[r] is not None:
+                ea = march(W, surf[r], c, pa)
+                ea = ea[::-1] if ea is not None else None
+            eb = march(W, surf[(r + 1) % R], c, pb) if surf[(r + 1) % R] is not None else None
+            if eb is None and surf[(r + 1) % R] is not None:
+                eb = march(W, surf[(r + 1) % R], pb, c)
+                eb = eb[::-1] if eb is not None else None
+            ea = ea if ea is not None else [pa, c]
+            eb = eb if eb is not None else [c, pb]
+            # the sliver between them and the mesh's old edge there: filled in the tangent plane, its triangles cut
+            # small with their new points put on the wall's surface
+            poly = [np.asarray(p_) for p_ in ea] + [np.asarray(p_) for p_ in eb[1:]] + [B[k] for k in chain[::-1][1:-1]]
+            clean = []
+            for p_ in poly:
+                if not clean or np.linalg.norm(p_ - clean[-1]) > 1e-10:
+                    clean.append(p_)
+            while len(clean) > 1 and np.linalg.norm(clean[0] - clean[-1]) < 1e-10:
+                clean.pop()
+            if len(clean) >= 3:
+                cut = [[clean[a_], clean[b_], clean[c_]] for a_, b_, c_ in ear_clip(clean, grad1(W, np.mean(clean, axis=0)))]
+                for _ in range(2):
+                    nxt_ = []
+                    for t_ in cut:
+                        if max(np.linalg.norm(t_[i_] - t_[(i_ + 1) % 3]) for i_ in range(3)) < 0.01:
+                            nxt_.append(t_)
+                            continue
+                        m_ = [project_w(W, (t_[i_] + t_[(i_ + 1) % 3]) / 2) for i_ in range(3)]
+                        nxt_ += [[t_[0], m_[0], m_[2]], [m_[0], t_[1], m_[1]], [m_[2], m_[1], t_[2]], [m_[0], m_[1], m_[2]]]
+                    cut = nxt_
+                FANS.extend(cut)
             skip.update(chain[1:-1])
-            insert[k0] = (c, runs[r][0])
+            insert[k0] = ([np.asarray(p_) for p_ in ea[1:]] + [np.asarray(p_) for p_ in eb[1:-1]], runs[r][0], runs[(r + 1) % R][0])
         out_line = []
         for k in range(n):
             if k in skip:
                 continue
             out_line.append({"beta": B[k].tolist(), "beyond": L[k]})
             if k in insert:
-                out_line.append({"beta": insert[k][0].tolist(), "beyond": insert[k][1]})
+                pts_, la_, lb_ = insert[k]
+                half = len(pts_) // 2
+                out_line += [{"beta": q.tolist(), "beyond": la_ if i_ <= half else lb_} for i_, q in enumerate(pts_)]
         out_line.append(out_line[0])
         new_outline.append(out_line)
 
     def moved(p):
         return MOVES.get(key(p), p)
-    tris = [np.array([moved(v) for v in t]) for t in T] + [np.array([f[0], moved(f[1]), moved(f[2])]) for f in FANS]
+    tris = [np.array([moved(v) for v in t]) for t in T] + [np.array([moved(np.asarray(v)) for v in f]) for f in FANS]
     new_outline = [[{"beta": np.asarray(moved(np.asarray(q["beta"]))).tolist(), "beyond": q["beyond"]} for q in l]
                    for l in new_outline]
     fill = FANS
