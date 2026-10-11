@@ -374,8 +374,7 @@ def fill_mesh(W, outline, T, h=0.012):
         print(f"    fill: triangulation failed ({ex}); old mesh kept", flush=True)
         return [np.asarray(t) for t in T]
     P2, tri = res_["vertices"], res_["triangles"]
-    # lift: the outline's points are exact already; each new point goes onto the surface along the chart normal,
-    # starting from the height of the nearest old mesh vertex (so it stays on the wall's own sheet of the surface)
+    # lift: the outline's points are exact already; each new point goes onto the surface from the old mesh
     from scipy.spatial import cKDTree
     Vc = chart(V)
     tree = cKDTree(Vc)
@@ -384,18 +383,13 @@ def fill_mesh(W, outline, T, h=0.012):
         if k < len(bpts):
             P4.append(bpts[k])
             continue
-        x0 = c0 + p2[0] * ax2[0] + p2[1] * ax2[1]
-        t = (V[tree.query(p2)[1]] - x0) @ nrm
-        for _ in range(60):
-            x = x0 + t * nrm
-            f = W(x)[0]
-            g = W.grad(x)[0] @ nrm
-            if abs(g) < 1e-300:
-                break
-            t -= f / g
-            if abs(f) < 1e-15:
-                break
-        P4.append(x0 + t * nrm)
+        # (start on the old mesh, interpolated from its nearest vertices in the chart, then the shortest move onto
+        # the surface: along a fixed line the surface can have other sheets, and a point could jump to one)
+        dd, ii = tree.query(p2, k=4)
+        w_ = 1.0 / np.maximum(dd, 1e-12)
+        x = (V[ii] * w_[:, None]).sum(axis=0) / w_.sum()
+        x = newton([W], x / x.sum())
+        P4.append(x)
     P4 = np.array(P4)
     G2 = P2[len(bpts):]
     print(f"    fill: {len(bpts)} edge points, {len(G2)} inner points, {len(tri)} triangles", flush=True)
@@ -595,12 +589,18 @@ def main(tid, out="xsurfaces.json"):
                 else:
                     Pp = [newton([W, s_], p_) for p_ in (runs[r][2] and [B[k] for k in runs[r][2]] or P)]
                     st, en = (ca if ca is not None else Pp[0]), (cb if cb is not None else Pp[-1])
+                    # (a marched edge must follow the run: from a point where branches of the intersection cross,
+                    # the cell's centre say, it can set off along the wrong one)
+                    Pa = np.array(P)
+                    follows = lambda sg: sg is not None and max(np.min(np.linalg.norm(Pa - q_, axis=1)) for q_ in sg) < 3 * h \
+                        and max(np.min(np.linalg.norm(np.array(sg) - q_, axis=1)) for q_ in Pa) < 3 * h
                     seg = march(W, s_, st, en)
-                    if seg is None:
+                    if not follows(seg):
                         seg = march(W, s_, en, st)
                         seg = seg[::-1] if seg is not None else None
-                    if seg is None:
+                    if not follows(seg):
                         seg = [st] + Pp + [en]
+                        print(f"    run past {lab_}: its own points kept (the marched edge strays)", flush=True)
                     seg = seg[:-1]
                 loop += [{"beta": np.asarray(p_).tolist(), "beyond": lab_} for p_ in seg]
             # (close to a corner two edges meeting at a sharp angle can cross before they meet: their points within
