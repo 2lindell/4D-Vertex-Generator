@@ -177,7 +177,7 @@ def main(procs=4):
     # the line shape along each edge of the curved walls (edge_lines.py: each edge's middle, now exact)
     try:
         for tid, pairs in json.load(open("edge_lines.json")).items():
-            for past, lab in pairs:
+            for past, lab, *_ in pairs:
                 if lab not in ("ERR", tid) and not lab.startswith("new:"):
                     bnd[tid].add(lab)
     except FileNotFoundError:
@@ -210,7 +210,11 @@ def main(procs=4):
             sd = sides.get(tid, {})
             total = sum(sd.values())
             own |= {r for r, n in sd.items() if n >= max(3, 0.1 * total) and dims.get(r) == "region"}
-            own |= {l for _, l in lines_.get(tid, []) if dims.get(l) in ("line", "point")}
+            # (the shape found on the edge itself, at two of its three samples at least: a line or point shape,
+            # or a wall or region the edge runs along (T2, say), but not the wall's own side regions)
+            sides_ = {r for r, n in sd.items() if n >= max(3, 0.1 * total)}
+            own |= {e[1] for e in lines_.get(tid, []) if (len(e) < 3 or e[2] >= 2) and e[1] not in sides_
+                    and not e[1].startswith("new:") and e[1] != "ERR"}
             own |= {c["shape"] for c in corners_.get(tid, []) if dims.get(c["shape"]) in ("line", "point")}
             own.discard(tid)
             if own:

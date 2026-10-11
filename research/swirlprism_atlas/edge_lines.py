@@ -1,7 +1,7 @@
 """The line shape along every edge of every curved wall: each run of a wall's outline (one shape past it, or a face
 of the cell) is now exact, so its middle point lies on the edge; classified with the hull tolerance relaxed, it gives
 the line shape there (a D or C line along a face or mirror, X18 along a seam, ...). Written to edge_lines.json as
-{wall: [[shape past, line shape], ...]}.
+{wall: [[shape past, shape on the edge, at how many of its samples], ...]}.
 
     python edge_lines.py
 """
@@ -34,14 +34,18 @@ def main():
                         jobs.append((tid, r[0]["beyond"], r[int(f * (len(r) - 1))]["beta"]))
     with Pool(4) as pool:
         labs = pool.map(lab_edge, [b for _, _, b in jobs])
-    out = {}
+    # (per edge, the shapes found at its sample points, with how many of them)
+    from collections import Counter, defaultdict
+    per = defaultdict(Counter)
     for (tid, past, _), lab in zip(jobs, labs):
-        pair = [past, lab]
-        if pair not in out.setdefault(tid, []):
-            out[tid].append(pair)
+        per[(tid, past)][lab] += 1
+    out = {}
+    for (tid, past), cnt in per.items():
+        for lab, n in cnt.items():
+            out.setdefault(tid, []).append([past, lab, n])
     json.dump(out, open("edge_lines.json", "w"), indent=1)
     for tid, v in out.items():
-        print(tid, sorted({l for _, l in v if not l.startswith("new:")}))
+        print(tid, sorted({(l, n) for _, l, n in v if not l.startswith("new:")}))
 
 
 if __name__ == "__main__":
