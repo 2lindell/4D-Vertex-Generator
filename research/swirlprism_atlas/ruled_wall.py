@@ -15,7 +15,7 @@ from multiprocessing import Pool
 
 import numpy as np
 
-from fexact import _lab
+from fexact import _lab, _lab_loose
 from xsurface import surface, F, grad
 
 # wall: (apex, first ruling's other point, last ruling's other point, what lies past each ruling)
@@ -68,6 +68,9 @@ def _ruling(args):
             lo = m
         else:
             hi, beyond = m, l
+    if beyond == "ERR":                       # (the strict classifier fails right at the edge: look just past it)
+        x = A + (lo + 1e-6) * d
+        beyond = _lab_loose(x / x.sum())
     return k, (A + lo * (section(tid, k / K) - A)).tolist(), beyond, lab(A + 0.5 * lo * d)
 
 
