@@ -76,6 +76,13 @@ def main(out, tids=None):
             res.setdefault(f"{tid}|{beyond}", []).append({"other": other, "on": on, "beta": m})
             print(f"{tid} | {beyond}: across {other}, on the edge {(on or '-')[:60]}", flush=True)
     summary = {k: Counter(r["on"] for r in v if r["on"]).most_common() for k, v in res.items()}
+    try:                                         # (merge with an earlier run: walls checked now replace their entries)
+        old = json.load(open(out))
+        done = {k.split("|")[0] for k in res}
+        summary = {**{k: v for k, v in old["summary"].items() if k.split("|")[0] not in done}, **summary}
+        res = {**{k: v for k, v in old["points"].items() if k.split("|")[0] not in done}, **res}
+    except FileNotFoundError:
+        pass
     json.dump({"summary": summary, "points": res}, open(out, "w"), indent=1)
 
 
