@@ -26,7 +26,8 @@ from cell_atlas2 import ear_clip
 
 PHI = (1 + 5 ** 0.5) / 2
 FILL = os.environ.get("FILL") == "1"
-CORNERS = []                             # the exact corners of the wall being done (kept by fill_mesh)     # rebuild the wall's mesh inside its exact outline (fill_mesh)
+CORNERS = []                             # the exact corners of the wall being done (kept by fill_mesh)
+DROPPED_LOOPS = []                       # outline loops fill_mesh found to be fragments inside the main one     # rebuild the wall's mesh inside its exact outline (fill_mesh)
 
 
 # ------------------------------------------------------------------------------------------------ polynomials
@@ -145,6 +146,30 @@ def project_w(W, x):
 def in_half(b):
     return b.min() > -1e-7 and b[2] >= b[3] - 1e-7
 
+
+
+def extend_to_meet(W, SA, SB, start, toward, step=0.002, max_len=0.6):
+    """Follow edge A (W and SA) on from start, in the direction it was heading (toward), until it meets edge B (W
+    and SB): the corner the mesh never reached (the mesher broke up in a thin tip). The path and the corner, or None."""
+    x = newton([W, SA], start)
+    path, d = [x], np.asarray(toward, float)
+    for _ in range(int(max_len / step)):
+        J = np.vstack([W.grad(x)[0], SA.grad(x)[0], np.ones(4)])
+        t = np.linalg.svd(J)[2][-1]
+        t = t if t @ d > 0 else -t
+        y = newton([W, SA], x + step * t)
+        if not np.isfinite(y).all() or np.linalg.norm(y - x) > 3 * step or not in_half(y):
+            return None
+        q = newton([W, SB], y)
+        if np.isfinite(q).all() and np.linalg.norm(q - y) < 2 * step:
+            c = newton([W, SA, SB], (q + y) / 2)
+            if np.linalg.norm(c - y) < 4 * step and in_half(c):
+                path.append(c)
+                return path, c
+        d = y - x
+        path.append(y)
+        x = y
+    return None
 
 def march(W, S, a, b, step=0.003, guide=None):
     """Points along the curve W ∩ S from a toward b (both on it); None if it does not arrive."""
@@ -311,6 +336,24 @@ def fill_mesh(W, outline, T, h=0.012):
             elif np.linalg.norm(p - keep[-1]) > h / 3:
                 keep.append(p)
         loops.append(np.array(keep))
+    # (a smaller loop lying wholly inside the largest one is a fragment of the old mesh in a stretch the largest now
+    # covers, not a hole: it goes)
+    if len(loops) > 1:
+        big = max(range(len(loops)), key=lambda i: len(loops[i]))
+        L2 = chart(loops[big])
+
+        def inside_big(P2):
+            res = np.zeros(len(P2), bool)
+            x1, y1 = L2[:, 0], L2[:, 1]
+            x2, y2 = np.roll(x1, -1), np.roll(y1, -1)
+            for a, b, c_, d in zip(x1, y1, x2, y2):
+                cr = ((b > P2[:, 1]) != (d > P2[:, 1]))
+                xi = a + (P2[:, 1] - b) * (c_ - a) / np.where(d != b, d - b, 1e-300)
+                res ^= cr & (P2[:, 0] < xi)
+            return res
+        keep_i = [i for i, L in enumerate(loops) if i == big or not inside_big(chart(L)).all()]
+        loops = [loops[i] for i in keep_i]
+        DROPPED_LOOPS[:] = [i for i in range(len(outline)) if i not in keep_i]
     # (near a sharp corner the two edges can still cross: the points closest to the corner go until no two
     # segments of the outline cross)
     def crossings(L2):
@@ -424,6 +467,8 @@ def main(tid, out="xsurfaces.json"):
     def degree(b):
         return max(len(m) for m in b.mons)
 
+    EXCLUDE = None
+
     def best_surface(P):
         """The known surface (or image) the run's points lie on, not the wall's own: of those fitting well (every
         point within 2.5e-4), the one of lowest degree (a conic's plane before its cone: the cone meets the wall in
@@ -437,6 +482,8 @@ def main(tid, out="xsurfaces.json"):
                     break
                 img = Image(b, Ginv[gi], b.name + (f" (image {gi})" if gi else ""))
                 if np.median(dist(img, inner)) < 1e-6:          # (the wall's own surface)
+                    continue
+                if EXCLUDE is not None and np.median(dist(img, EXCLUDE)) < 1e-4:   # (fits the whole outline: no use)
                     continue
                 cand = (float(med[gi]), float(mx[gi]), img)
                 if mx[gi] <= 2.5e-4:
@@ -486,6 +533,12 @@ def main(tid, out="xsurfaces.json"):
         # runs go together by the surface they lie on, not by the label past them (a wall ending on this one's edge
         # changes the label without making a corner): a run lying on the previous run's surface joins it; one
         # fitting no surface well is a scrap of the mesher (it joins the run before, not used for fitting)
+        # (a surface through the whole outline, all its edges at once, cannot tell them apart: left out)
+        EXCLUDE = None
+        whole = best_surface(B[:: max(1, len(B) // 40)])
+        if whole is not None and whole[0] <= 2e-5 and len(B) > 40:
+            EXCLUDE = B[:: max(1, len(B) // 40)]
+            print(f"  outline {li}: {whole[2].name} holds the whole outline; left out", flush=True)
         merged = []                               # [label, all indices, good indices, surface]
         for lab, idx in runs:
             P = B[idx]
@@ -580,6 +633,30 @@ def main(tid, out="xsurfaces.json"):
             print(f"  corner {li}.{r} ({a[0][:12]} | {b[0][:12]}): "
                   f"{np.round(c / c.max(), 5).tolist() if ok else 'not solved'}", flush=True)
         if FILL:
+            # a corner not solved where the wall runs out in a thin tip the mesh broke up in: edge A is followed on
+            # until it meets edge B, and that is the corner
+            extended = set()
+            # (also a solved corner with pieces of the broken-up mesh just past it: the wall goes on past them)
+            others = [np.array([q["beta"] for q in l]) for j, l in enumerate(sf["outline"]) if j != li]
+            others = np.vstack(others) if others else np.zeros((0, 4))
+            for r in range(R):
+                c_ = corners[r]
+                if c_ is None or not len(others) or len(runs[r][2]) <= 3:
+                    continue
+                A_ = [B[k] for k in runs[r][2]]
+                ahead = (others - c_) @ (A_[-1] - A_[-4])
+                near_ = np.linalg.norm(others - c_, axis=1)
+                if np.any((near_ < 0.05) & (ahead > 0)):
+                    corners[r] = None
+            for r in range(R):
+                if corners[r] is None and surf[r] is not None and surf[(r + 1) % R] is not None and len(runs[r][2]) > 3:
+                    A_ = [B[k] for k in runs[r][2]]
+                    e = extend_to_meet(W, surf[r], surf[(r + 1) % R], A_[-1], A_[-1] - A_[-4])
+                    if e is not None:
+                        corners[r] = e[1]
+                        ALLC.append([e[1].tolist(), runs[r][0], runs[(r + 1) % R][0]])
+                        extended.update([r, (r + 1) % R])
+                        print(f"  corner {li}.{r} reached by following the edge on: {np.round(e[1] / e[1].max(), 5).tolist()}", flush=True)
             # the outline drawn afresh: each run's exact edge marched from corner to corner (or its own points put
             # on both surfaces where it cannot be marched)
             loop = []
@@ -595,8 +672,8 @@ def main(tid, out="xsurfaces.json"):
                     # (a marched edge must follow the run: from a point where branches of the intersection cross,
                     # the cell's centre say, it can set off along the wrong one)
                     Pa = np.array(P)
-                    follows = lambda sg: sg is not None and max(np.min(np.linalg.norm(Pa - q_, axis=1)) for q_ in sg) < 3 * h \
-                        and max(np.min(np.linalg.norm(np.array(sg) - q_, axis=1)) for q_ in Pa) < 3 * h
+                    follows = lambda sg: sg is not None and max(np.min(np.linalg.norm(np.array(sg) - q_, axis=1)) for q_ in Pa) < 3 * h \
+                        and (r in extended or max(np.min(np.linalg.norm(Pa - q_, axis=1)) for q_ in sg) < 3 * h)
                     seg = march(W, s_, st, en)
                     if not follows(seg):
                         seg = march(W, s_, en, st)
@@ -705,7 +782,9 @@ def main(tid, out="xsurfaces.json"):
     new_outline = [[{"beta": np.asarray(moved(np.asarray(q["beta"]))).tolist(), "beyond": q["beyond"]} for q in l]
                    for l in new_outline]
     if FILL:
+        DROPPED_LOOPS.clear()
         tris = fill_mesh(W, new_outline, T)
+        new_outline = [l for i, l in enumerate(new_outline) if i not in DROPPED_LOOPS]
         TIPS = []
     for c, SA, SB, la, lb, pa, pb in TIPS:
         tris, new_outline = tip(W, c, SA, SB, la, lb, moved(pa), moved(pb), tris, new_outline)
