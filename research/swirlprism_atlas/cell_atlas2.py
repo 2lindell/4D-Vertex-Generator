@@ -96,7 +96,6 @@ def _seams():
         for e in json.load(open("extra_samples.json")):
             if "X51 ends against the region X74" in e["kind"]:
                 pass                        # (this sample's shape, X84, turned out to be a wall: xsurface_equations.json)
-    out[("X39", "X52")] = "X29"                 # (two walls on X10's quadric meeting along a curve: a numbered shape)
     return out
 
 
@@ -1375,7 +1374,8 @@ def main(samples_path, out_path):
                         "the cell centre C1, among the regions X56, X64, X66, X69 and X74; it crosses the cone at (1, 3/2, 2, φ) "
                         "and (1, 2, 1+2φ, 2+φ), where X47 starts", ["C1", "X48", "X52"]),
         "X29": ("line", "line: the curve where the curved walls X39 and X52 meet on X10's quadric β1β4 − β2β3 + β3² − β4² = 0, "
-                        "among the regions X59, X60, X66 and X67", ["X39", "X52"]),
+                        "among the regions X59, X60, X66 and X67, from X8's line at β ∝ (2-φ, 1, 1, 2-φ) to the corner A1 = "
+                        "(0, 0, 1, 1)", ["X8", "A1"]),
         "X78": ("line", "line: the curve where the curved walls X15 and X83 meet, among the regions X30, X32, X36 and X37, "
                         "from the cell centre C1 to β ∝ (1+φ, 1, 1, 0) on the face β4 = 0 (a purple axis crosses it); no shape "
                         "near it is a less symmetric split of it", ["C1", "X15", "X83"]),
