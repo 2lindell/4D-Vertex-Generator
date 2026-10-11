@@ -279,19 +279,24 @@ __TYPE_CSS__
         trace.hovertemplate = `Boundary of ${id}<extra></extra>`;
         out.push(trace);
       }
-      for (const f of D.dodecaFaces || []) {
-        const n = f.length;
-        out.push({ type: "mesh3d", x: f.map((p) => p[0]), y: f.map((p) => p[1]), z: f.map((p) => p[2]),
-          i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
-          color: ink, opacity: 0.04, hoverinfo: "skip" });
+      // (the faces as one mesh: a trace per face, a thousand in the chambers view, stalled every redraw)
+      if ((D.dodecaFaces || []).length) {
+        const x = [], y = [], z = [], i = [], j = [], k = [];
+        for (const f of D.dodecaFaces) {
+          const o = x.length;
+          for (const p of f) { x.push(p[0]); y.push(p[1]); z.push(p[2]); }
+          for (let m = 1; m < f.length - 1; m++) { i.push(o); j.push(o + m); k.push(o + m + 1); }
+        }
+        out.push({ type: "mesh3d", x, y, z, i, j, k, color: ink, opacity: 0.04, hoverinfo: "skip" });
       }
       if (el("showMirrors").checked) {
+        const x = [], y = [], z = [], i = [], j = [], k = [];
         for (const m of D.mirrors) {
-          const n = m.length;
-          out.push({ type: "mesh3d", x: m.map((p) => p[0]), y: m.map((p) => p[1]), z: m.map((p) => p[2]),
-            i: Array(n - 2).fill(0), j: [...Array(n - 2).keys()].map((k) => k + 1), k: [...Array(n - 2).keys()].map((k) => k + 2),
-            color: css("--mirror"), opacity: 0.05, hoverinfo: "skip" });
+          const o = x.length;
+          for (const p of m) { x.push(p[0]); y.push(p[1]); z.push(p[2]); }
+          for (let q = 1; q < m.length - 1; q++) { i.push(o); j.push(o + q); k.push(o + q + 1); }
         }
+        if (x.length) out.push({ type: "mesh3d", x, y, z, i, j, k, color: css("--mirror"), opacity: 0.05, hoverinfo: "skip" });
       }
       if (el("showRings").checked) {
         const groups = {};
@@ -301,17 +306,28 @@ __TYPE_CSS__
           out.push(lines(segs, `${id} · ${t.name} (${id === "B1" ? "main ring" : "cross ring"})`, { color: color(t), width: id === "B1" ? 7 : 5 }));
         }
       }
-      if (el("showAxes").checked) for (const ax of D.qaxes) {
-        const trace = lines([ax.pts], ax.hover, { color: css(ax.order === 3 ? "--g3axis" : "--qaxis"), width: ax.copy ? 4 : 6, dash: ax.copy ? "dash" : "solid" });
-        trace.hovertemplate = ax.hover + "<extra></extra>";
-        trace.opacity = 0.9;
-        out.push(trace);
+      if (el("showAxes").checked) {             // (one trace per kind of axis, as for the regular cells below)
+        const groups = {};
+        for (const ax of D.qaxes) (groups[ax.order + (ax.copy ? ":copy" : "")] ||= []).push(ax);
+        for (const axs of Object.values(groups)) {
+          const a0 = axs[0], x = [], y = [], z = [], text = [];
+          for (const ax of axs) { for (const q of ax.pts) { x.push(q[0]); y.push(q[1]); z.push(q[2]); text.push(ax.hover); } x.push(null); y.push(null); z.push(null); text.push(""); }
+          out.push({ type: "scatter3d", mode: "lines", x, y, z, text, name: a0.hover, hovertemplate: "%{text}<extra></extra>", opacity: 0.9,
+            line: { color: css(a0.order === 3 ? "--g3axis" : "--qaxis"), width: a0.copy ? 4 : 6, dash: a0.copy ? "dash" : "solid" } });
+        }
       }
+      // (one trace per kind and copy flag: the dodecahedron views hold hundreds of these lines, and a trace each made
+      // ticking the boxes stall the page)
+      const regGroups = {};
       for (const r of D.regular || []) {
         if (!el(r.kind === "decagon" ? "showDecagon" : "showRegular").checked) continue;
-        const trace = lines([r.pts], r.hover, { color: css({ prism: "--rprism", antiprism: "--ranti", decagon: "--rdec" }[r.kind]), width: r.copy ? 4 : 6, dash: r.copy ? "dash" : "solid" });
-        trace.hovertemplate = r.hover + "<extra></extra>";
-        out.push(trace);
+        (regGroups[r.kind + (r.copy ? ":copy" : "")] ||= []).push(r);
+      }
+      for (const rs of Object.values(regGroups)) {
+        const r0 = rs[0], x = [], y = [], z = [], text = [];
+        for (const r of rs) { for (const q of r.pts) { x.push(q[0]); y.push(q[1]); z.push(q[2]); text.push(r.hover); } x.push(null); y.push(null); z.push(null); text.push(""); }
+        out.push({ type: "scatter3d", mode: "lines", x, y, z, text, name: r0.kind, hovertemplate: "%{text}<extra></extra>",
+          line: { color: css({ prism: "--rprism", antiprism: "--ranti", decagon: "--rdec" }[r0.kind]), width: r0.copy ? 4 : 6, dash: r0.copy ? "dash" : "solid" } });
       }
       if (el("showDecagon").checked) {
         const pts = D.special.filter((u) => u.decagon && inQ(u.q));
