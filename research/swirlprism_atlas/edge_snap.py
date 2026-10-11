@@ -121,6 +121,8 @@ def newton(surfs, x, iters=60):
     for _ in range(iters):
         r = np.array([s(x)[0] for s in surfs] + [x.sum() - 1])
         J = np.vstack([s.grad(x)[0] for s in surfs] + [np.ones(4)])
+        if np.abs(r).max() < 1e-15:
+            break
         dx = np.linalg.lstsq(J, -r, rcond=None)[0]
         x += dx
         if np.abs(dx).max() < 1e-16:
@@ -129,7 +131,7 @@ def newton(surfs, x, iters=60):
 
 
 def in_half(b):
-    return b.min() > -1e-9 and b[2] >= b[3] - 1e-9
+    return b.min() > -1e-7 and b[2] >= b[3] - 1e-7
 
 
 def march(W, S, a, b, step=0.003, guide=None):
@@ -147,7 +149,10 @@ def march(W, S, a, b, step=0.003, guide=None):
         if t @ want < 0:
             t = -t
         y = newton([W, S], x + step * t)
-        if np.linalg.norm(y - x) > 3 * step:
+        if np.linalg.norm(y - x) > 3 * step or not np.isfinite(y).all():
+            if np.linalg.norm(b - x) < 8 * step:      # (into a singular corner such as A1: finish at it)
+                pts.append(b)
+                return pts
             return None
         pts.append(y)
         x = y
@@ -297,7 +302,7 @@ def main(tid, out="xsurfaces.json"):
                     # (two edges meeting at a sharp tip are nearly tangent there and Newton on all three surfaces
                     # fails: alternate between the two edges instead, from the ends of their good stretches)
                     q = B[a[2][-1]] if len(a) > 2 and a[2] else B[a[1][-1]]
-                    for _ in range(4000):
+                    for _ in range(300):
                         p_ = newton([W, surf[r]], q)
                         q = newton([W, surf[(r + 1) % R]], p_)
                         if np.linalg.norm(p_ - q) < 1e-11:
@@ -307,6 +312,12 @@ def main(tid, out="xsurfaces.json"):
                     ok = np.linalg.norm(p_ - q) < 1e-8 and np.linalg.norm(c - guess) < 0.15 and in_half(c)
             else:
                 c = guess
+            if ok:                                # (at a singular point, A1 say, Newton only creeps up on it: snap
+                c = c.copy()                      # coordinates within 1e-4 of the cell's own values onto them)
+                c[np.abs(c) < 1e-4] = 0.0
+                if abs(c[2] - c[3]) < 1e-4:
+                    c[2] = c[3] = (c[2] + c[3]) / 2
+                c = c / c.sum()
             corners.append(c if ok else None)
             print(f"  corner {li}.{r} ({a[0][:12]} | {b[0][:12]}): "
                   f"{np.round(c / c.max(), 5).tolist() if ok else 'not solved'}", flush=True)
