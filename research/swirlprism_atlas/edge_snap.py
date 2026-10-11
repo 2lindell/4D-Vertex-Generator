@@ -25,6 +25,8 @@ import xsurface
 from cell_atlas2 import ear_clip
 
 PHI = (1 + 5 ** 0.5) / 2
+FILL = os.environ.get("FILL") == "1"
+CORNERS = []                             # the exact corners of the wall being done (kept by fill_mesh)     # rebuild the wall's mesh inside its exact outline (fill_mesh)
 
 
 # ------------------------------------------------------------------------------------------------ polynomials
@@ -274,6 +276,131 @@ def tip(W, c, SA, SB, la, lb, pa, pb, tris, outline):
     print(f"    tip at {np.round(c / c.max(), 5).tolist()}: cut back {L:.3f}, {len(new_t)} triangles in {N} rows", flush=True)
     return keep + new_t, out_lines
 
+
+def fill_mesh(W, outline, T, h=0.012):
+    """A fresh mesh inside the exact outline: the outline loops and an even grid of points inside them, in the plane
+    that fits the wall best, joined by a Delaunay triangulation (triangles whose middle is outside the outline are
+    dropped), then every inner point lifted onto the wall's surface along that plane's normal. No triangle overlaps
+    another, and the edge is the exact outline. Falls back to the old mesh if the wall does not lie over that plane."""
+    from scipy.spatial import Delaunay
+    V = np.asarray(T, float).reshape(-1, 4)
+    c0 = V.mean(axis=0)
+    basis = np.linalg.svd(np.vstack([np.ones(4)]))[2][1:]               # sum-zero space
+    Q = (V - c0) @ basis.T
+    E = np.linalg.svd(Q - Q.mean(0))[2]
+    ax2, nrm = E[:2] @ basis, E[2] @ basis                               # chart axes and normal (in beta)
+    chart = lambda X: (np.asarray(X) - c0) @ ax2.T
+    # the wall must lie over the chart plane: every triangle facing the same way
+    G = np.array([W.grad(t.mean(axis=0))[0] for t in np.asarray(T, float)])
+    if np.mean(np.sign(G @ nrm) == np.sign(np.median(G @ nrm))) < 0.995:
+        print("    fill: the wall folds over its best plane; old mesh kept", flush=True)
+        return [np.asarray(t) for t in T]
+    loops = []
+    for l in outline:
+        Pb = np.array([q["beta"] for q in l])
+        if len(Pb) > 3 and np.allclose(Pb[0], Pb[-1]):
+            Pb = Pb[:-1]
+        # (edge points no closer than h/3, so the triangles along the edge are not slivers)
+        iscorner = lambda p: any(np.linalg.norm(p - c_) < 1e-12 for c_ in CORNERS)
+        keep = [Pb[0]]
+        for p in Pb[1:]:
+            if iscorner(p):                       # (corners always stay; a point just before one gives way)
+                if np.linalg.norm(p - keep[-1]) < h / 6 and not iscorner(keep[-1]) and len(keep) > 1:
+                    keep.pop()
+                keep.append(p)
+            elif np.linalg.norm(p - keep[-1]) > h / 3:
+                keep.append(p)
+        loops.append(np.array(keep))
+    # (near a sharp corner the two edges can still cross: the points closest to the corner go until no two
+    # segments of the outline cross)
+    def crossings(L2):
+        n_ = len(L2)
+        segs_ = [(L2[i], L2[(i + 1) % n_]) for i in range(n_)]
+        bad = set()
+        for i in range(n_):
+            for j in range(i + 2, n_):
+                if i == 0 and j == n_ - 1:
+                    continue
+                (p1, p2), (p3, p4) = segs_[i], segs_[j]
+                d1 = np.cross(p2 - p1, p3 - p1); d2 = np.cross(p2 - p1, p4 - p1)
+                d3 = np.cross(p4 - p3, p1 - p3); d4 = np.cross(p4 - p3, p2 - p3)
+                if d1 * d2 < 0 and d3 * d4 < 0:
+                    bad.update([i, (i + 1) % n_, j, (j + 1) % n_])
+        return bad
+    fixed = []
+    for L in loops:
+        L = list(L)
+        for _ in range(40):
+            bad = crossings(chart(np.array(L)))
+            if not bad:
+                break
+            # drop the non-corner point of a crossing segment nearest a corner
+            cand = [k for k in bad if not any(np.linalg.norm(L[k] - c_) < 1e-12 for c_ in CORNERS)]
+            if not cand or len(L) <= 4:
+                break
+            k = min(cand, key=lambda k: min([np.linalg.norm(L[k] - c_) for c_ in CORNERS] or [0]))
+            L.pop(k)
+        fixed.append(np.array(L))
+    loops = fixed
+    # (spurs, an outline doubling straight back on itself, are cut out: the triangulation needs simple loops)
+    clean = []
+    for L in loops:
+        out_ = list(L)
+        changed = True
+        while changed and len(out_) > 3:
+            changed = False
+            for i in range(len(out_)):
+                a_, b_, c_ = out_[i - 1], out_[i], out_[(i + 1) % len(out_)]
+                u_, v_ = chart(b_[None])[0] - chart(a_[None])[0], chart(c_[None])[0] - chart(b_[None])[0]
+                if u_ @ v_ < -0.95 * np.linalg.norm(u_) * np.linalg.norm(v_) and not any(np.linalg.norm(b_ - c_) < 1e-12 for c_ in CORNERS):
+                    out_.pop(i)                   # (a sharp corner is not a spur: it stays)
+                    changed = True
+                    break
+        clean.append(np.array(out_))
+    loops = clean
+    bpts = np.vstack(loops)
+    B2 = chart(bpts)
+    import triangle as tr
+    segs, o = [], 0
+    for L in loops:
+        n_ = len(L)
+        segs += [[o + i, o + (i + 1) % n_] for i in range(n_)]
+        o += n_
+    # quality triangulation inside the loops: no angle under 25 degrees, no triangle bigger than an h-sided one,
+    # no new points on the outline (Y): the edge stays the exact one
+    try:
+        res_ = tr.triangulate({"vertices": B2, "segments": np.array(segs)}, f"pq25Ya{h * h * 0.43:.8f}")
+    except Exception as ex:
+        print(f"    fill: triangulation failed ({ex}); old mesh kept", flush=True)
+        return [np.asarray(t) for t in T]
+    P2, tri = res_["vertices"], res_["triangles"]
+    # lift: the outline's points are exact already; each new point goes onto the surface along the chart normal,
+    # starting from the height of the nearest old mesh vertex (so it stays on the wall's own sheet of the surface)
+    from scipy.spatial import cKDTree
+    Vc = chart(V)
+    tree = cKDTree(Vc)
+    P4 = []
+    for k, p2 in enumerate(P2):
+        if k < len(bpts):
+            P4.append(bpts[k])
+            continue
+        x0 = c0 + p2[0] * ax2[0] + p2[1] * ax2[1]
+        t = (V[tree.query(p2)[1]] - x0) @ nrm
+        for _ in range(60):
+            x = x0 + t * nrm
+            f = W(x)[0]
+            g = W.grad(x)[0] @ nrm
+            if abs(g) < 1e-300:
+                break
+            t -= f / g
+            if abs(f) < 1e-15:
+                break
+        P4.append(x0 + t * nrm)
+    P4 = np.array(P4)
+    G2 = P2[len(bpts):]
+    print(f"    fill: {len(bpts)} edge points, {len(G2)} inner points, {len(tri)} triangles", flush=True)
+    return [P4[t] for t in tri]
+
 # ------------------------------------------------------------------------------------------------ main
 def main(tid, out="xsurfaces.json"):
     X = json.load(open("xsurfaces.json"))
@@ -329,6 +456,7 @@ def main(tid, out="xsurfaces.json"):
 
     new_outline, info = [], []
     MOVES, FANS, TIPS = {}, [], []
+    CORNERS.clear()
     key = lambda p: tuple(np.round(p, 9))
     for li, line in enumerate(sf["outline"]):
         B = np.array([q["beta"] for q in line])
@@ -454,6 +582,36 @@ def main(tid, out="xsurfaces.json"):
             corners.append(c if ok else None)
             print(f"  corner {li}.{r} ({a[0][:12]} | {b[0][:12]}): "
                   f"{np.round(c / c.max(), 5).tolist() if ok else 'not solved'}", flush=True)
+        if FILL:
+            # the outline drawn afresh: each run's exact edge marched from corner to corner (or its own points put
+            # on both surfaces where it cannot be marched)
+            loop = []
+            for r in range(R):
+                lab_, s_ = runs[r][0], surf[r]
+                P = [B[k] for k in runs[r][1]]
+                ca, cb = corners[r - 1], corners[r]
+                if s_ is None:
+                    seg = ([ca] if ca is not None else []) + P
+                else:
+                    Pp = [newton([W, s_], p_) for p_ in (runs[r][2] and [B[k] for k in runs[r][2]] or P)]
+                    st, en = (ca if ca is not None else Pp[0]), (cb if cb is not None else Pp[-1])
+                    seg = march(W, s_, st, en)
+                    if seg is None:
+                        seg = march(W, s_, en, st)
+                        seg = seg[::-1] if seg is not None else None
+                    if seg is None:
+                        seg = [st] + Pp + [en]
+                    seg = seg[:-1]
+                loop += [{"beta": np.asarray(p_).tolist(), "beyond": lab_} for p_ in seg]
+            # (close to a corner two edges meeting at a sharp angle can cross before they meet: their points within
+            # 0.015 of a corner go, so both run straight into it)
+            cs = [c_ for c_ in corners if c_ is not None]
+            CORNERS.extend(cs)
+            is_c = lambda p_: any(np.linalg.norm(p_ - c_) < 1e-12 for c_ in cs)
+            loop = [q for q in loop if is_c(np.asarray(q["beta"])) or all(np.linalg.norm(np.asarray(q["beta"]) - c_) > 0.015 for c_ in cs)]
+            loop.append(loop[0])
+            new_outline.append(loop)
+            continue
         # the mesh is kept as it is: each edge point of a run (they are the mesh's own boundary vertices) moves onto
         # the exact edge, and each solved corner joins the mesh by a fan to the edge points between the two runs'
         # good stretches (the scraps there are dropped from the outline: the fan covers them)
@@ -543,6 +701,9 @@ def main(tid, out="xsurfaces.json"):
     tris = [np.array([moved(v) for v in t]) for t in T] + [np.array([moved(np.asarray(v)) for v in f]) for f in FANS]
     new_outline = [[{"beta": np.asarray(moved(np.asarray(q["beta"]))).tolist(), "beyond": q["beyond"]} for q in l]
                    for l in new_outline]
+    if FILL:
+        tris = fill_mesh(W, new_outline, T)
+        TIPS = []
     for c, SA, SB, la, lb, pa, pb in TIPS:
         tris, new_outline = tip(W, c, SA, SB, la, lb, moved(pa), moved(pb), tris, new_outline)
     fill = FANS
