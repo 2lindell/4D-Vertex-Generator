@@ -5,7 +5,8 @@ Four sources, each exact or nearly so where it applies:
   * exact wall patches (fexact_patches.json): the line shapes on their edges (label_edges) and the shapes at their
     corners; the corners at the ends of an edge bound that edge's line shape; and the regions on the two sides of
     each patch, found by nudging its centre off the wall;
-  * the curved walls' meshes (xsurfaces.json): the shapes past their boundary lines;
+  * the curved walls' meshes (xsurfaces.json): the shapes past their boundary lines; the regions on their two sides
+    (surface_sides.json); the lines and points on their edges (edge_shapes.json); the ends of traced curves (xcurves.json);
   * the nudge test (xloci_step1.json): every region a transitional sample falls into when nudged has that
     transitional shape on its boundary.
 A boundary is listed as found, so a shape whose surroundings are only partly traced has a partial list.
@@ -125,6 +126,34 @@ def main(procs=4):
                     lab = p["beyond"][5:] if p["beyond"].startswith("face:") else p["beyond"]
                     if lab not in ("OUT", "ERR", tid) and not lab.startswith("new:"):   # (a line's tolerance halo)
                         bnd[tid].add(lab)
+    except FileNotFoundError:
+        pass
+    # the regions on either side of each curved wall (surface_sides.py): each bounds the other; a side met only a
+    # few times is a passing neighbour near an edge, not a side
+    try:
+        for tid, sides in json.load(open("surface_sides.json")).items():
+            total = sum(sides.values())
+            for reg, n in sides.items():
+                if n >= max(3, 0.1 * total) and not reg.startswith("new:"):
+                    bnd[reg].add(tid)
+                    bnd[tid].add(reg)
+    except FileNotFoundError:
+        pass
+    # the shapes found on the curved walls' edges (edge_shapes.py): a line or point there bounds the wall
+    try:
+        for key, ons in json.load(open("edge_shapes.json"))["summary"].items():
+            wall, beyond = key.split("|")
+            for on, n in ons:
+                if on not in (wall, beyond, "ERR") and not on.startswith("new:"):
+                    bnd[wall].add(on)
+    except FileNotFoundError:
+        pass
+    # the ends of the traced curves (xcurves.json)
+    try:
+        for tid, cv in json.load(open("xcurves.json")).items():
+            for e in cv.get("ends", []):
+                if e and e.get("end_shape"):
+                    bnd[tid].add(e["end_shape"])
     except FileNotFoundError:
         pass
     for tid, r in json.load(open("xloci_step1.json")).items():

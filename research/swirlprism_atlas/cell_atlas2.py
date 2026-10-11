@@ -813,6 +813,7 @@ def main(samples_path, out_path):
             where = (f"the curve where the walls {' and '.join(cv['surfaces'])} meet ({cv['equations'][0]} and "
                      f"{cv['equations'][1]}), from β ∝ {beta_text(pts[0])} to β ∝ {beta_text(pts[-1])}")
             tmap[tid]["curve_where"] = where
+            tmap[tid]["ends_known"] = sorted({e["end_shape"] for e in cv.get("ends", []) if e and e.get("end_shape")})
             xlines.append({"id": tid, "pts": [_exact(xyz(p)).tolist() for p in pts], "betas": [p.tolist() for p in pts],
                            "hover": f"{label(tid)}<br>{where}"})
     for tid, (a, b, where) in POINT_LINES.items():
