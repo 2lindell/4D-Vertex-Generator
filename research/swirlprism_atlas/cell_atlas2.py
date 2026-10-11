@@ -1360,7 +1360,9 @@ def main(samples_path, out_path):
         "X35": ("wall", "wall: a curved wall between the regions X56 and X74", ["X56", "X74"]),
         "X39": ("wall", "wall: a curved wall between the regions X59 and X60", ["X59", "X60"]),
         "X52": ("wall", "wall: a curved wall between the regions X66 and X67", ["X66", "X67"]),
-        "X18": ("point", "a point where the regions X56, X64, X66, X69 and X74 meet; X47 starts and an X48 line ends there", []),
+        "X18": ("line", "line: the curve where X48's quadric meets X10's quadric (X52's), from the corner β ∝ (0, 0, 1, 1) to "
+                        "the cell centre C1, among the regions X56, X64, X66, X69 and X74; it crosses the cone at (1, 3/2, 2, φ) "
+                        "and (1, 2, 1+2φ, 2+φ), where X47 starts", ["C1", "X48", "X52"]),
         "X29": ("line", "line: the curve where the curved walls X39 and X52 meet on X10's quadric β1β4 − β2β3 + β3² − β4² = 0, "
                         "among the regions X59, X60, X66 and X67", ["X39", "X52"]),
         "X78": ("line", "line: the curve where the curved walls X15 and X83 meet, among the regions X30, X32, X36 and X37, "
