@@ -174,6 +174,14 @@ def main(procs=4):
                             bnd[on].add(lab)
     except FileNotFoundError:
         pass
+    # the line shape along each edge of the curved walls (edge_lines.py: each edge's middle, now exact)
+    try:
+        for tid, pairs in json.load(open("edge_lines.json")).items():
+            for past, lab in pairs:
+                if lab not in ("ERR", tid) and not lab.startswith("new:"):
+                    bnd[tid].add(lab)
+    except FileNotFoundError:
+        pass
     # the walls met by rays out of a region (region_rays.py), seen at least twice
     try:
         for tid, r in json.load(open("region_rays.json")).items():
