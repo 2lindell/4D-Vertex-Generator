@@ -326,13 +326,14 @@ __TYPE_CSS__
       const msegs = [];
       // (where the copy meets a face of the cell, or the splitting mirror, the curve there is drawn; only an edge along
       // an edge of the cell, two faces at once, is left out, the frame is drawn there)
+      // (to 1e-4: the page keeps 6 decimals of the mesh, and the group elements magnify that, so a vertex on a face comes back only near it)
       const onEdge = (u, v) => {
-        const fu = [0, 1, 2, 3].filter((a) => Math.abs(BV[u][a]) < 1e-7 && Math.abs(BV[v][a]) < 1e-7).length
-          + (Math.abs(BV[u][2] - BV[u][3]) < 1e-7 && Math.abs(BV[v][2] - BV[v][3]) < 1e-7 ? 1 : 0);
+        const fu = [0, 1, 2, 3].filter((a) => Math.abs(BV[u][a]) < 1e-4 && Math.abs(BV[v][a]) < 1e-4).length
+          + (Math.abs(BV[u][2] - BV[u][3]) < 1e-4 && Math.abs(BV[v][2] - BV[v][3]) < 1e-4 ? 1 : 0);
         return fu >= 2;
       };
       // a solid line beats a dashed one: an edge on the wall's own outline is left to it
-      const SH = 0.003, solid = new Set();
+      const SH = 0.004, solid = new Set();
       const sk = (p) => p.map((x) => Math.floor(x / SH));
       for (const l of DC.xlines) if (l.id === w.id && l.outline && !l.copy)
         for (let a = 0; a + 1 < l.pts.length; a++) {
@@ -346,7 +347,7 @@ __TYPE_CSS__
       for (const [, [c, [u, v]]] of ecnt) {
         if (c !== 1 || onEdge(u, v)) continue;
         const pu = [X[u], Y[u], Z[u]], pv = [X[v], Y[v], Z[v]];
-        if (onSolid(pu) && onSolid(pv)) continue;
+        if ([pu, pv, pu.map((x, i) => (x + pv[i]) / 2)].filter(onSolid).length >= 2) continue;
         msegs.push([pu, pv]);
       }
       return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K, segs: msegs });
@@ -354,6 +355,13 @@ __TYPE_CSS__
     // the copies' edges: the wall's own edge, mapped with the copied triangles it bounds (made with them in wallCopies)
     // (joined end to end into long polylines: the dash pattern restarts on every piece, so short pieces look broken)
     const edgeCache = {};
+    const nearCellEdge = (q) => {             // within 0.01 of an edge of the displayed half (two of its faces)
+      const Minv = DC.cellInv, v = [q[0], q[1], -q[2], 1];
+      const b = Minv.map((r) => r[0] * v[0] + r[1] * v[1] + r[2] * v[2] + r[3] * v[3]);
+      const c = [Math.abs(b[0]), Math.abs(b[1]), Math.abs(b[2]), Math.abs(b[3]), Math.abs(b[2] - b[3])];
+      for (let i = 0; i < 5; i++) for (let j = i + 1; j < 5; j++) if (Math.max(c[i], c[j]) < 0.01) return true;
+      return false;
+    };
     function copyEdges(w) {
       if (edgeCache[w.id]) return edgeCache[w.id];
       const k = (p) => p.map((x) => x.toFixed(6)).join(",");
@@ -379,7 +387,11 @@ __TYPE_CSS__
         const sg = segs[n];
         const end = adj.get(k(sg[0])).length === 1 ? 0 : 1;
         const line = [sg[end], ...walk(n, k(sg[end]))];
-        lines.push(line);
+        let len = 0;
+        for (let a = 0; a + 1 < line.length; a++) len += Math.hypot(...[0, 1, 2].map((i) => line[a + 1][i] - line[a][i]));
+        // (scraps are not drawn: a piece shorter than 0.025, or one hugging an edge of the cell, where the copy runs into
+        // the edge and its meetings with the two faces there zigzag along it)
+        if (len >= 0.025 && !line.every(nearCellEdge)) lines.push(line);
       }
       return (edgeCache[w.id] = lines);
     }
