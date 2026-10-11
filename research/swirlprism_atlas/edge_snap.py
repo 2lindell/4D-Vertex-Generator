@@ -428,10 +428,26 @@ def fill_mesh(W, outline, T, h=0.012):
             continue
         # (start on the old mesh, interpolated from its nearest vertices in the chart, then the shortest move onto
         # the surface: along a fixed line the surface can have other sheets, and a point could jump to one)
+        # straight along the chart normal (so the point keeps its place in the chart and no triangle folds over),
+        # from the height of the old mesh there; only if that fails, the shortest move from the old mesh
         dd, ii = tree.query(p2, k=4)
         w_ = 1.0 / np.maximum(dd, 1e-12)
-        x = (V[ii] * w_[:, None]).sum(axis=0) / w_.sum()
-        x = newton([W], x / x.sum())
+        xo = (V[ii] * w_[:, None]).sum(axis=0) / w_.sum()
+        x0 = c0 + p2[0] * ax2[0] + p2[1] * ax2[1]
+        t0 = t = (xo - x0) @ nrm
+        ok = False
+        for _ in range(60):
+            x = x0 + t * nrm
+            f = W(x)[0]
+            g = W.grad(x)[0] @ nrm
+            if abs(f) < 1e-15:
+                ok = True
+                break
+            if abs(g) < 1e-300:
+                break
+            t -= f / g
+        if not ok or abs(t - t0) > 0.03:
+            x = newton([W], xo / xo.sum())
         P4.append(x)
     P4 = np.array(P4)
     G2 = P2[len(bpts):]
