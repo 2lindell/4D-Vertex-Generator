@@ -227,35 +227,38 @@ def main(tid, out="xsurfaces.json"):
         # each run is fitted on its own; a run fitting no surface well is a scrap of the mesher in a tight corner: its
         # points join the neighbouring run (not used for that run's fit), and runs left side by side with one label
         # are joined. Then the fits are made on the good points of each run.
-        fit0 = []
+        # runs go together by the surface they lie on, not by the label past them (a wall ending on this one's edge
+        # changes the label without making a corner): a run lying on the previous run's surface joins it; one
+        # fitting no surface well is a scrap of the mesher (it joins the run before, not used for fitting)
+        merged = []                               # [label, all indices, good indices, surface]
         for lab, idx in runs:
             P = B[idx]
-            f = best_surface(P[:: max(1, len(P) // 25)])
-            fit0.append(f is not None and f[1] <= 5e-4)
-        if not any(fit0):
-            fit0 = [True] * len(runs)
-        merged = []                               # [label, all indices, good indices]
-        for (lab, idx), good in zip(runs, fit0):
-            if not good:
+            Ps = P[:: max(1, len(P) // 25)]
+            prev = next((m for m in reversed(merged) if m[3] is not None), None)
+            if prev is not None and dist(prev[3], Ps).max() <= 5e-4:
+                prev[1] += idx
+                prev[2] += idx
+                continue
+            f = best_surface(Ps)
+            if f is None or f[1] > 5e-4:
                 if merged:
                     merged[-1][1] += idx
                 else:
-                    merged.append([None, list(idx), []])
+                    merged.append([lab, list(idx), [], None])
                 continue
-            if merged and (merged[-1][0] == lab or merged[-1][0] is None):
-                merged[-1][0] = lab
-                merged[-1][1] += idx
-                merged[-1][2] += idx
-            else:
-                merged.append([lab, list(idx), list(idx)])
-        if len(merged) > 1 and (merged[0][0] == merged[-1][0] or merged[0][0] is None):
-            last = merged.pop()
-            merged[0] = [last[0], last[1] + merged[0][1], last[2] + merged[0][2]]
-        runs = merged
-        fits = []
-        for lab, idx, core in runs:
-            P = B[core]
-            fits.append(best_surface(P[:: max(1, len(P) // 25)]))
+            merged.append([lab, list(idx), list(idx), f[2]])
+        # (the outline is a loop: the last run may continue the first)
+        if len(merged) > 1 and merged[0][3] is not None and merged[-1][3] is not None:
+            P = B[merged[-1][2]] if merged[-1][2] else B[merged[-1][1]]
+            if dist(merged[0][3], P[:: max(1, len(P) // 25)]).max() <= 5e-4:
+                last = merged.pop()
+                merged[0] = [merged[0][0], last[1] + merged[0][1], last[2] + merged[0][2], merged[0][3]]
+        if merged and merged[0][3] is None and len(merged) > 1:
+            first = merged.pop(0)
+            merged[-1][1] += first[1]
+        runs = [m[:3] for m in merged]
+        fits = [None if m[3] is None else (float(np.median(dist(m[3], B[m[2]]))), float(dist(m[3], B[m[2]]).max()), m[3])
+                for m in merged]
         surf = []
         for (lab, idx, *_), bs in zip(runs, fits):
             surf.append(bs[2] if bs else None)
@@ -279,6 +282,7 @@ def main(tid, out="xsurfaces.json"):
             if surf[r] is not None and surf[(r + 1) % R] is not None:
                 c = newton([W, surf[r], surf[(r + 1) % R]], guess)
                 ok = np.linalg.norm(c - guess) < 3 * h and in_half(c)
+                print(f"    newton corner {np.round(c, 6).tolist()} moved {np.linalg.norm(c - guess):.3g} in half {in_half(c)}", flush=True)
                 if not ok:
                     # (two edges meeting at a sharp tip are nearly tangent there and Newton on all three surfaces
                     # fails: alternate between the two edges instead, from the ends of their good stretches)
@@ -289,6 +293,7 @@ def main(tid, out="xsurfaces.json"):
                         if np.linalg.norm(p_ - q) < 1e-11:
                             break
                     c = (p_ + q) / 2
+                    print(f"    alternating corner {np.round(c, 6).tolist()} gap {np.linalg.norm(p_ - q):.2g} moved {np.linalg.norm(c - guess):.3g}", flush=True)
                     ok = np.linalg.norm(p_ - q) < 1e-8 and np.linalg.norm(c - guess) < 0.15 and in_half(c)
             else:
                 c = guess
