@@ -450,7 +450,7 @@ __TYPE_CSS__
       // frame edges lying along a ring are left out while the rings are drawn, so the two lines don't fight for depth
       if (D.edgesOnRing && !el("showRings").checked) out.push(lines(D.edgesOnRing, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
       if (D.split.length) out.push({ type: "mesh3d", x: D.split.map((p) => p[0]), y: D.split.map((p) => p[1]), z: D.split.map((p) => p[2]), i: [0], j: [1], k: [2],
-        color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "name" });
+        color: ink, opacity: 0.1, name: "Splitting mirror β₃ = β₄", hoverinfo: "skip" });   // (skip: it would catch the cursor before whatever lies behind it)
       // the outline of the one-piece-per-region domain (an alpha shape of its moved seeds)
       if (D.shell && !state.sel.size) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
         name: "Outline of the domain", hoverinfo: "skip" });
