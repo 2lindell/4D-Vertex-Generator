@@ -96,6 +96,7 @@ def _seams():
         for e in json.load(open("extra_samples.json")):
             if "X51 ends against the region X74" in e["kind"]:
                 out[("X51", "X74")] = e["sig"]
+    out[("X39", "X52")] = "X29"                 # (two walls on X10's quadric meeting along a curve: a numbered shape)
     return out
 
 
@@ -1006,10 +1007,12 @@ def main(samples_path, out_path):
             # a line shape along part of the wall's edge (a seam where it ends against a region): drawn along the runs
             # of boundary points with that region beyond
             for (wall, beyond), seam_sig in SURFACE_SEAMS.items():
-                sid = xid.get(identify(seam_sig, refs)[1]) if wall == tid else None
+                sid = (seam_sig if seam_sig in tmap else xid.get(identify(seam_sig, refs)[1])) if wall == tid else None
                 if sid not in tmap:
                     continue
-                tmap[sid]["locus"] = f"line: the curve where the curved wall {tid} ends against the region {beyond}"
+                tmap[sid]["locus"] = (f"line: the curve where the curved wall {tid} ends against the region {beyond}"
+                                      if tmap.get(beyond, {}).get("dim") == "region" else
+                                      f"line: the curve where the curved walls {tid} and {beyond} meet ({sf['equation']})")
                 tmap[sid]["ends_known"] = []
                 for line in sf["outline"]:
                     run = []
@@ -1347,7 +1350,8 @@ def main(samples_path, out_path):
         "X39": ("wall", "wall: a curved wall between the regions X59 and X60", ["X59", "X60"]),
         "X52": ("wall", "wall: a curved wall between the regions X66 and X67", ["X66", "X67"]),
         "X18": ("point", "a point where the regions X56, X64, X66, X69 and X74 meet; X47 starts and an X48 line ends there", []),
-        "X29": ("point", "a point where the regions X59, X60, X66 and X67 meet, on the walls X39 and X60", []),
+        "X29": ("line", "line: the curve where the curved walls X39 and X52 meet on X10's quadric β1β4 − β2β3 + β3² − β4² = 0, "
+                        "among the regions X59, X60, X66 and X67", ["X39", "X52"]),
         "X78": ("point", "a point where the walls X15 and X83 meet among the regions X30, X32, X36 and X37 (a purple axis "
                          "crosses it); no shape near it is a less symmetric split of it", []),
     }
