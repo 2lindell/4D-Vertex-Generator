@@ -980,6 +980,7 @@ def main(samples_path, out_path):
     # the curved walls X10 and X33 (xsurface.py): meshes of their exact surfaces, cut off at their boundaries, and the
     # boundary lines; with their images under the 2400-element group that land in the displayed half (fainter, dashed)
     SURFACE_SEAMS = _seams()
+    COPY_OPS = set()
     if os.path.exists("xsurfaces.json"):
         FOLD4 = [1, 0, 3, 2]
         HALF_H = [np.eye(4)[k] for k in range(4)]
@@ -1018,8 +1019,9 @@ def main(samples_path, out_path):
             beyond = [b for b in beyond if not b.startswith("new:")]
             hover = (f"{label(tid)}<br>curved wall on {sf['kind']}<br>{sf['equation']}"
                      f"<br>edges: {', '.join(nbname(b) for b in beyond)}")
-            xwalls.append({"id": tid, "tris": [[[round(float(c), 4) for c in _exact(xyz(b))] for b in t] for t in T3],
-                           "hover": hover, "curved": True})
+            orig = {"id": tid, "tris": [[[round(float(c), 4) for c in _exact(xyz(b))] for b in t] for t in T3],
+                    "hover": hover, "curved": True}
+            xwalls.append(orig)
             for line in sf["outline"]:
                 B = [np.asarray(p["beta"], float) for p in line]
                 xlines.append({"id": tid, "pts": [_exact(xyz(b)).tolist() for b in B], "hover": hover, "outline": True})
@@ -1047,8 +1049,9 @@ def main(samples_path, out_path):
                             add_copies_of(seam)
                         run = []
             seen = {tuple(np.round(t.mean(axis=0), 5)) for t in T3}
-            copies = []
-            for Mg in M_all:
+            copies, ops = [], []
+            for gi, Mg in enumerate(M_all):
+                n_before = len(copies)
                 V = np.einsum("ij,ntj->nti", Mg, T3)
                 sg = np.sign(V.sum(axis=2))
                 ok = (sg == sg[:, :1]).all(axis=1) & (np.abs(V.sum(axis=2)).min(axis=1) > 1e-12)
@@ -1063,6 +1066,12 @@ def main(samples_path, out_path):
                             continue
                         seen.add(key)
                         copies.extend([[pc[0], pc[k], pc[k + 1]] for k in range(1, len(pc) - 1)])
+                if len(copies) > n_before:
+                    ops.append(gi)
+            # the page makes the copies itself, at full resolution, from the wall's mesh and these group elements
+            # (copyMats); the coarse copies below only feed the region shells (WALL_DUMP)
+            orig["copyOps"] = ops
+            COPY_OPS.update(ops)
             if copies:
                 # (the copies are drawn faint: a coarser mesh is enough, and keeps the page small)
                 ctris = [[_exact(xyz(b)).tolist() for b in t] for t in copies]
@@ -1080,7 +1089,7 @@ def main(samples_path, out_path):
                         keep.append([[round(float(c), 4) for c in acc[k][0] / acc[k][1]] for k in ks])
                 xwalls.append({"id": tid, "tris": keep,
                                "hover": hover.replace("<br>curved wall", "<br>copy under the group: curved wall"), "copy": True,
-                               "curved": True})
+                               "curved": True, "dumpOnly": True})
             print(f"{tid}: {len(T3)} surface triangles, {len(copies)} copy triangles")
 
     # the shapes living on the edges of the exact patches (fexact.py label_edges): X shapes found there are drawn as
@@ -1741,7 +1750,10 @@ def main(samples_path, out_path):
         json.dump([{"id": w["id"], "copy": bool(w.get("copy")), "tris": np.asarray(w["tris"], float).tolist()}
                    for w in xwalls] + [{"id": "T2", "copy": p["copy"], "poly": p["pts"][:-1]} for p in tpatches],
                   open(os.environ["WALL_DUMP"], "w"))
-    data = {"types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
+    xwalls = [w for w in xwalls if not w.get("dumpOnly")]
+    M_INV = np.linalg.inv(np.vstack([P.T, np.ones(4)]))
+    data = {"copyMats": {str(g): M_all[g].tolist() for g in sorted(COPY_OPS)}, "cellP": P.tolist(), "cellInv": M_INV.tolist(),
+            "types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
             "fcentre": _exact(xyz(centre_beta / centre_beta.sum())).tolist(),
             "mirrors": mirrors, "split": split, "edges": edges, "totalSamples": len(samples), "mirrorWalls": mirror_walls}

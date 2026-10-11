@@ -212,6 +212,57 @@ __TYPE_CSS__
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
     const color = (t) => css(t.color);
+    // a curved wall's copies under the 2400-element group that land in the displayed half: made here, at the wall's
+    // full resolution, from its mesh and the group elements listed for it (each copy clipped to the cell and its part
+    // below the splitting mirror folded up), instead of being stored coarsened in the page
+    const copyCache = {};
+    function wallCopies(w) {
+      if (copyCache[w.id]) return copyCache[w.id];
+      const Minv = DC.cellInv, P = DC.cellP;
+      const toBeta = (q) => { const v = [q[0], q[1], -q[2], 1]; return Minv.map((r) => r[0] * v[0] + r[1] * v[1] + r[2] * v[2] + r[3] * v[3]); };
+      const norm = (b) => { const t = b[0] + b[1] + b[2] + b[3]; return b.map((x) => x / t); };
+      const clip = (poly, h) => {
+        const out = [];
+        for (let k = 0; k < poly.length; k++) {
+          const p = poly[k], q = poly[(k + 1) % poly.length];
+          const fp = h[0] * p[0] + h[1] * p[1] + h[2] * p[2] + h[3] * p[3], fq = h[0] * q[0] + h[1] * q[1] + h[2] * q[2] + h[3] * q[3];
+          if (fp >= 0) out.push(p);
+          if ((fp >= 0) !== (fq >= 0)) { const t = fp / (fp - fq); out.push(norm(p.map((x, a) => x + (q[a] - x) * t))); }
+        }
+        return out;
+      };
+      const intoHalf = (poly) => {
+        for (let a = 0; a < 4; a++) { poly = clip(poly, [0, 1, 2, 3].map((b) => (b === a ? 1 : 0))); if (poly.length < 3) return []; }
+        const up = clip(poly, [0, 0, 1, -1]), down = clip(poly, [0, 0, -1, 1]).map((b) => [b[1], b[0], b[3], b[2]]);
+        return [up, down].filter((pc) => pc.length >= 3);
+      };
+      const key = (pc) => { const c = [0, 1, 2, 3].map((a) => pc.reduce((s, b) => s + b[a], 0) / pc.length); return c.map((x) => x.toFixed(5)).join(","); };
+      const B = w.verts.map(toBeta), F = w.faces;
+      const seen = new Set(F.map((f) => key(f.map((k) => norm(B[k])))));
+      const X = [], Y = [], Z = [], I = [], J = [], K = [];
+      const push = (b) => { const t = b[0] + b[1] + b[2] + b[3];
+        X.push((b[0] * P[0][0] + b[1] * P[1][0] + b[2] * P[2][0] + b[3] * P[3][0]) / t);
+        Y.push((b[0] * P[0][1] + b[1] * P[1][1] + b[2] * P[2][1] + b[3] * P[3][1]) / t);
+        Z.push(-(b[0] * P[0][2] + b[1] * P[1][2] + b[2] * P[2][2] + b[3] * P[3][2]) / t); return X.length - 1; };
+      for (const g of w.copyOps) {
+        const M = DC.copyMats[g];
+        const V = B.map((b) => M.map((r) => r[0] * b[0] + r[1] * b[1] + r[2] * b[2] + r[3] * b[3]));
+        for (const f of F) {
+          const s = f.map((k) => V[k][0] + V[k][1] + V[k][2] + V[k][3]);
+          if (!(Math.sign(s[0]) === Math.sign(s[1]) && Math.sign(s[1]) === Math.sign(s[2])) || Math.min(...s.map(Math.abs)) <= 1e-12) continue;
+          const t = f.map((k, a) => V[k].map((x) => x / s[a]));
+          if (!t.every((b) => Math.max(...b) > -1e-9)) continue;
+          for (const pc of intoHalf(t)) {
+            const kk = key(pc);
+            if (seen.has(kk)) continue;
+            seen.add(kk);
+            const idx = pc.map(push);
+            for (let m = 1; m < idx.length - 1; m++) { I.push(idx[0]); J.push(idx[m]); K.push(idx[m + 1]); }
+          }
+        }
+      }
+      return (copyCache[w.id] = { x: X, y: Y, z: Z, i: I, j: J, k: K });
+    }
     const state = { sel: new Set() };            // the rows selected in the key (none: show everything)
     const el = (id) => document.getElementById(id);
 
@@ -358,6 +409,11 @@ __TYPE_CSS__
           out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
             i: F.map((f) => f[0]), j: F.map((f) => f[1]), k: F.map((f) => f[2]),
             color: color(byId[w.id]), opacity: w.copy ? 0.14 : 0.28, flatshading: true, name: w.hover, hovertemplate: w.hover + "<extra></extra>" });
+          if (w.copyOps && w.copyOps.length && D === DC) {
+            const c = wallCopies(w), hv = w.hover.replace("<br>curved wall", "<br>copy under the group: curved wall");
+            out.push({ type: "mesh3d", x: c.x, y: c.y, z: c.z, i: c.i, j: c.j, k: c.k,
+              color: color(byId[w.id]), opacity: 0.14, flatshading: true, name: hv, hovertemplate: hv + "<extra></extra>" });
+          }
         }
         for (const s of D.xlines || []) {
           if (!state.sel.has(s.id)) continue;
