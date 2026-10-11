@@ -52,10 +52,10 @@ def _ray(args):
     return (x0 + lo * d).tolist(), x.tolist(), lab(x), beyond
 
 
-def main(tid, out, start, rays=96):
+def main(tid, out, start, rays=64):
     starts, seen, res = [np.asarray(start, float) / sum(start)], [], []
     with Pool(4) as pool:
-        for gen in range(3):
+        for gen in range(2):
             jobs = [(tid, s.tolist(), 1000 * gen + 97 * i + j) for i, s in enumerate(starts) for j in range(rays // len(starts))]
             got = [g for g in pool.map(_ray, jobs) if g]
             res += got
