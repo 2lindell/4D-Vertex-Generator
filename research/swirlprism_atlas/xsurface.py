@@ -260,7 +260,23 @@ def main(tid, h=0.012, cache_path=None, procs=4):
                     edges.setdefault((ui, vo), (verts[ui].tolist(), verts[vo].tolist(), labels[vo]))
         print(f"{tid}: bisecting {len(edges)} boundary edges", flush=True)
         keys = list(edges)
-        crossing = dict(zip(keys, pool.map(_edge_job, [(tid, *edges[k]) for k in keys], chunksize=2)))
+        # (each bisection is kept in a cache file as it finishes, so a run cut off by a restart resumes here)
+        edge_cache = f"xsurface_{tid}_edges.jsonl"
+        crossing = {}
+        if os.path.exists(edge_cache):
+            for line in open(edge_cache):
+                try:
+                    k, v = json.loads(line)
+                    deep = lambda x: tuple(deep(y) for y in x) if isinstance(x, list) else x
+                    crossing[deep(k)] = tuple(v)
+                except ValueError:
+                    pass
+        todo = [k for k in keys if k not in crossing]
+        print(f"{tid}: bisecting {len(todo)} boundary edges ({len(keys) - len(todo)} done before)", flush=True)
+        for k, v in zip(todo, pool.imap(_edge_job, [(tid, *edges[k]) for k in todo], chunksize=2)):
+            crossing[k] = v
+            with open(edge_cache, "a") as f:
+                f.write(json.dumps([k, list(v)]) + "\n")
 
     def cross(u, v):
         return (u, v) if inside(u) else (v, u)
