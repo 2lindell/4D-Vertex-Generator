@@ -18,6 +18,7 @@ A boundary is listed as found, so a shape whose surroundings are only partly tra
 from __future__ import annotations
 
 import json
+import os
 from collections import defaultdict
 from multiprocessing import Pool
 
@@ -254,7 +255,11 @@ def main(procs=4):
                         and dims.get(e[1]) in ("line", "point")}
             own = {o for o in own if not o.startswith("new:") and o not in ("ERR", "OUT")}
             # (another piece of the wall's own surface is not on its boundary: X39 and X52 beside X10 on its quadric)
-            own = {o for o in own if not (o in json.load(open("xsurfaces.json")) and eq(o) == eq(tid))}
+            # ... unless the two meet directly, with no line between them (same_surface_bounds.py)
+            direct = set(json.load(open("same_surface_bounds.json")).get(tid, [])) \
+                if os.path.exists("same_surface_bounds.json") else set()
+            own = {o for o in own if not (o in json.load(open("xsurfaces.json")) and eq(o) == eq(tid)) or o in direct}
+            own |= direct
             own.discard(tid)
             if own:
                 bnd[tid] = own

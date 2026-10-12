@@ -636,7 +636,8 @@ def main(tid, out="xsurfaces.json"):
                     d_, med, mx, img = min(fit, key=lambda g: (g[0], g[1])) if fit else min(good, key=lambda g: g[1])
                     print(f"    edge past {lab}: {on}'s points ({len(near)}) lie on {img.name} (max {mx:.1e})", flush=True)
                     return (med, float(dist(img, P).max()), img)
-        if DIMS.get(on) == "wall" and (on in json.load(open("xsurfaces.json")) or on in json.load(open("xsurface_equations.json"))):
+        if DIMS.get(on) == "wall" and on not in OWN and \
+                (on in json.load(open("xsurfaces.json")) or on in json.load(open("xsurface_equations.json"))):
             sf_ = xsurface.surface(on)
             b = Poly(sf_["mons"], sf_["coeffs"], f"{on}'s surface")
             Dm = np.median(dists_all(b, P), axis=1)
@@ -718,7 +719,8 @@ def main(tid, out="xsurfaces.json"):
                         new_lab = ln
                         break
                 if new_lab is None:
-                    # (to the neighbouring edge whose surface it lies nearer)
+                    # (to the neighbouring edge whose surface it lies on; but a stretch on neither, long enough to be
+                    # an edge, is the edge between the two pieces of the surface where no line separates them)
                     best_nb = None
                     for d in (1, -1, 2, -2):
                         l_, ix_ = runs[(r_ + d) % len(runs)]
@@ -730,8 +732,10 @@ def main(tid, out="xsurfaces.json"):
                         if best_nb is None or dd < best_nb[0]:
                             best_nb = (dd, l_)
                     new_lab = best_nb[1] if best_nb else lab_
+                    if best_nb is not None and best_nb[0] > 2.5e-4 and len(ix) >= 12:
+                        new_lab = lab_
                 runs[r_][0] = new_lab
-                print(f"    stretch past {lab_} ({len(ix)} points): {'along ' + new_lab if new_lab in OWN_LINES.get(lab_, []) else 'part of the edge past ' + new_lab}", flush=True)
+                print(f"    stretch past {lab_} ({len(ix)} points): {'along ' + new_lab if new_lab in OWN_LINES.get(lab_, []) else 'an edge with it (no line between)' if new_lab == lab_ else 'part of the edge past ' + new_lab}", flush=True)
             joined = []
             for lab_, ix in runs:
                 if joined and joined[-1][0] == lab_:

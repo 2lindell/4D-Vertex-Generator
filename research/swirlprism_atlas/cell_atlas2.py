@@ -1662,10 +1662,17 @@ def main(samples_path, out_path):
             (set(json.load(open("xsurface_equations.json"))) if os.path.exists("xsurface_equations.json") else set())
         same_surface = lambda a, b: a in known_eq and b in known_eq and \
             xsurface.surface(a)["equation"] == xsurface.surface(b)["equation"]
+        direct_meet = json.load(open("same_surface_bounds.json")) if os.path.exists("same_surface_bounds.json") else {}
+        for w, ons in direct_meet.items():        # (pieces of one surface meeting with no line between: walls on the edge)
+            if w in tmap:
+                for on in ons:
+                    if on in tmap:
+                        edge_walls.setdefault(w, set()).add(on)
+                        tmap[w]["bounds"] = sorted(set(tmap[w].get("bounds", [])) | {on})
         for w, es in json.load(open("edge_lines.json")).items():
             for past, on, *n in es:
-                if same_surface(w, on):           # (another piece of its own surface: X39 beside X10, not an edge)
-                    continue
+                if same_surface(w, on) and on not in direct_meet.get(w, []):
+                    continue                      # (another piece of its own surface: X39 beside X10, not an edge)
                 if w in tmap and on in tmap and on not in (w, past) and tmap[on].get("dim") == "wall" and (not n or n[0] >= 2):
                     edge_walls.setdefault(w, set()).add(on)
                     tmap[w]["bounds"] = sorted(set(tmap[w].get("bounds", [])) | {on})
@@ -2004,7 +2011,10 @@ def main(samples_path, out_path):
         for l in rings + main_ring + segments + xlines:
             if tmap.get(l["id"], {}).get("dim") == "line" and len(l.get("pts", [])) >= 2 and not l.get("copy"):
                 B = np.array([M_INV @ np.r_[q[:3], 1.0] for q in l["pts"]])
-                line_pts.setdefault(l["id"], []).append(B / B.sum(axis=1, keepdims=True))
+                B = B / B.sum(axis=1, keepdims=True)
+                if len(B) == 2:                  # (a straight segment: its ends on a quadric do not put it there)
+                    B = np.array([B[0] + t * (B[1] - B[0]) for t in np.linspace(0, 1, 9)])
+                line_pts.setdefault(l["id"], []).append(B)
         for g in groups.values():
             if len(g["ids"]) < 2:
                 continue
