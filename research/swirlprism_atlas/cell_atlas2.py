@@ -1360,14 +1360,22 @@ def main(samples_path, out_path):
             # (a straight piece split in two at a patch corner is drawn once, as its two parts)
             keys = {frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]) for seg, _ in segs}
             pts_ = {tuple(np.round(p, 7)) for seg, _ in segs for p in (seg[0], seg[-1])}
-            def split(seg):
+            byk = {frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]): s for s in segs for seg in [s[0]]}
+            def split(s):
+                seg = s[0]
                 a, b = tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))
-                return len(seg) == 2 and any(m not in (a, b) and on_seg(seg, np.array(m)) and frozenset([a, m]) in keys
-                                             and frozenset([m, b]) in keys for m in pts_)
-            segs[:] = [s for s in segs if not split(s[0])]
-            if tmap[tid].get("dim") != "line":
-                continue
-            seeds =[np.asarray(s["beta"], float) / np.sum(s["beta"]) for s in samples if s["id"] == tid]
+                for m in pts_:
+                    if len(seg) == 2 and m not in (a, b) and on_seg(seg, np.array(m)) and frozenset([a, m]) in keys \
+                            and frozenset([m, b]) in keys:
+                        for part in (byk[frozenset([a, m])], byk[frozenset([m, b])]):
+                            part[1] = part[1] and s[1]       # (solid if the whole was)
+                        return True
+                return False
+            segs[:] = [s for s in segs if not split(s)]
+            # (its samples in a face of the cell: a line shape with some there runs along the faces, and a piece
+            # inside the cell not joined to those is an image of them)
+            seeds = [np.asarray(s["beta"], float) / np.sum(s["beta"]) for s in samples if s["id"] == tid]
+            seeds = [b for b in seeds if b.min() < 1e-9]
             seeds += [f / f.sum() for b in seeds for f in fold_copies(b)]
             main = {k for k, (seg, _) in enumerate(segs) if any(on_seg(seg, b) for b in seeds)}
             if not main:
@@ -1648,6 +1656,12 @@ def main(samples_path, out_path):
                 fold = (not in_mirror and len(l) > 3 and abs(a[2] - a[3]) < 1e-9 and abs(b[2] - b[3]) < 1e-9
                         and continues_across(pt, (a + b) / 2))
                 (on_fold if fold else off_fold).setdefault(pt["target"], set()).add(lab)
+    if os.path.exists("edge_lines.json"):   # a curved wall whose edge lies on another wall (X25 ends on X14)
+        for w, es in json.load(open("edge_lines.json")).items():
+            for past, on, *n in es:
+                if w in tmap and on in tmap and on not in (w, past) and tmap[on].get("dim") == "wall" and (not n or n[0] >= 2):
+                    edge_walls.setdefault(w, set()).add(on)
+                    tmap[w]["bounds"] = sorted(set(tmap[w].get("bounds", [])) | {on})
     for t in types:        # boundaries known from the traced geometry itself (none from boundaries.json)
         extra = t.pop("extra_bounds", None)
         if extra:
@@ -1660,7 +1674,7 @@ def main(samples_path, out_path):
             fold_only = on_fold.get(t["id"], set()) - off_fold.get(t["id"], set())
             t["bounds"] = [b for b in t["bounds"] if b not in fold_only or tmap[b].get("dim") == "point"]
         ends = t.pop("ends", None)
-        if ends:              # a line's known ends: a point, or the line it runs into where there is no special point
+        if ends and t.get("dim") == "line":     # a line's known ends: a point, or the line it runs into where there is no special point
             t["bounds"] = ends
     if os.path.exists("wall_sides.json"):     # the regions each wall separates (boundaries.py), listed apart
         for tid, regs in json.load(open("wall_sides.json")).items():
