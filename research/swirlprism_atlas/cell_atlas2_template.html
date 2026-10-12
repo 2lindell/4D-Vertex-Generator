@@ -363,6 +363,50 @@ __TYPE_CSS__
       for (let i = 0; i < 5; i++) for (let j = i + 1; j < 5; j++) if (Math.max(c[i], c[j]) < 0.01) return true;
       return false;
     };
+    // the wall triangles that border a region's cell (region_cells.py): each triangle of every wall, and of every
+    // copy, stepped off on both sides onto the cell's voxels (run-length coded); a hit keeps it
+    const paintCache = {};
+    function regionPaint(id) {
+      if (paintCache[id]) return paintCache[id];
+      const G = DC.regionGrid, runs = G.runs[id], [nx, ny, nz] = G.shape, lo = G.lo, h = G.h;
+      const inCell = (x, y, z) => {
+        const i = Math.floor((x - lo[0]) / h), j = Math.floor((y - lo[1]) / h), k = Math.floor((-z - lo[2]) / h);
+        if (i < 0 || j < 0 || k < 0 || i >= nx || j >= ny || k >= nz) return false;
+        const f = (i * ny + j) * nz + k;
+        let a = 0, b = runs.length - 1, r = -1;
+        while (a <= b) { const m = (a + b) >> 1; if (runs[m][0] <= f) { r = m; a = m + 1; } else b = m - 1; }
+        return r >= 0 && f < runs[r][0] + runs[r][1];
+      };
+      const X = [], Y = [], Z = [], I = [], J = [], K = [];
+      const test = (A, B, C) => {
+        const cx = (A[0] + B[0] + C[0]) / 3, cy = (A[1] + B[1] + C[1]) / 3, cz = (A[2] + B[2] + C[2]) / 3;
+        const u = [B[0] - A[0], B[1] - A[1], B[2] - A[2]], v = [C[0] - A[0], C[1] - A[1], C[2] - A[2]];
+        const n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+        const ln = Math.hypot(...n);
+        if (ln < 1e-14) return;
+        for (const s of [1, -1]) for (const k of [1.5, 2.5, 3.5]) {
+          const t = s * k * h / ln;
+          if (inCell(cx + t * n[0], cy + t * n[1], cz + t * n[2])) {
+            const o = X.length;
+            for (const P of [A, B, C]) { X.push(P[0]); Y.push(P[1]); Z.push(P[2]); }
+            I.push(o); J.push(o + 1); K.push(o + 2);
+            return;
+          }
+        }
+      };
+      for (const w of DC.xwalls || []) {
+        for (const f of w.faces) test(w.verts[f[0]], w.verts[f[1]], w.verts[f[2]]);
+        if (w.copyOps && w.copyOps.length) {
+          const c = wallCopies(w), P = (q) => [c.x[q], c.y[q], c.z[q]];
+          for (let q = 0; q < c.i.length; q++) test(P(c.i[q]), P(c.j[q]), P(c.k[q]));
+        }
+      }
+      for (const p of DC.tpatches || []) {
+        const Q = p.pts.slice(0, -1);
+        for (let q = 1; q + 1 < Q.length; q++) test(Q[0], Q[q], Q[q + 1]);
+      }
+      return (paintCache[id] = { x: X, y: Y, z: Z, i: I, j: J, k: K });
+    }
     function copyEdges(w) {
       if (edgeCache[w.id]) return edgeCache[w.id];
       const k = (p) => p.map((x) => x.toFixed(6)).join(",");
@@ -455,7 +499,14 @@ __TYPE_CSS__
       // the outline of the one-piece-per-region domain (an alpha shape of its moved seeds)
       if (D.shell && !state.sel.size) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
         name: "Outline of the domain", hoverinfo: "skip" });
-      for (const id of state.sel) if (D.regionShells && D.regionShells[id]) {
+      // a region checked against the walls (region_cells.py): the wall triangles around its cell, in its colour
+      for (const id of state.sel) if (D === DC && D.regionGrid && D.regionGrid.runs[id]) {
+        const rc = D.regionCells[id], m = regionPaint(id);
+        const nm = `${id}: the walls around ${rc[0] === 1 ? "its one cell" : rc[0] + " cells"} on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
+        if (m.i.length) out.push({ type: "mesh3d", ...m, color: color(byId[id]), opacity: 0.4, flatshading: true,
+          name: nm, hovertemplate: `${nm}<extra></extra>` });
+      }
+      for (const id of state.sel) if (D.regionShells && D.regionShells[id] && !(D.regionGrid && D.regionGrid.runs[id])) {
         const rc = D.regionCells && D.regionCells[id];
         const nm = rc ? `${id}: ${rc[0] === 1 ? "one cell" : rc[0] + " cells"} on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell), bounded by the walls` : `Outline of ${id}`;
         out.push({ type: "mesh3d", ...D.regionShells[id], color: color(byId[id]), opacity: D === DC ? 0.22 : 0.35,

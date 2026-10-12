@@ -248,12 +248,25 @@ def main(dump, h=0.0025, out="region_cells.json", per_pocket=4, min_voxels=8):
         labs = {l for _, l in samples}
         # (boundary triangles kept only for the regions being drawn, REGION_CELLS_DRAW: the rest would be ~100 MB)
         draw = set(os.environ.get("REGION_CELLS_DRAW", "F2").split(","))
-        tris = np.round(np.array(bound.get(cid, [])), 5).tolist() if len(labs) == 1 and labs <= draw else []
+        tris = []
         out_cells.append({"id": int(cid), "pockets": [int(c) for c in ps], "voxels": int(sum(sizes[c] for c in ps)),
                           "samples": samples, "tris": tris, "walls": sorted(walls_of.get(cid, []))})
         for l in labs:
             regions[l].append(int(cid))
-    json.dump({"h": h, "cells": out_cells, "regions": regions}, open(out, "w"), separators=(",", ":"))
+    # the voxels of each drawn region's cell, run-length coded over the flattened grid: the page recolours the wall
+    # triangles beside them (the walls' own meshes and copies, nothing drawn anew)
+    draw = set(os.environ.get("REGION_CELLS_DRAW", "F2").split(","))
+    member = {}
+    for cid, ps in cells.items():
+        labs = {cache[key(b)] for c in ps for b in spread[c]}
+        if len(labs) == 1 and labs <= draw:
+            rid = labs.pop()
+            m = np.isin(lab, ps).ravel()
+            d = np.diff(np.r_[0, m.astype(np.int8), 0])
+            starts, ends = np.nonzero(d == 1)[0], np.nonzero(d == -1)[0]
+            member.setdefault(rid, []).extend([[int(a), int(b - a)] for a, b in zip(starts, ends)])
+    grid = {"lo": lo.tolist(), "h": h, "shape": [int(v) for v in shape], "runs": member}
+    json.dump({"h": h, "cells": out_cells, "regions": regions, "grid": grid}, open(out, "w"), separators=(",", ":"))
     mixed = [c for c in out_cells if len({l for _, l in c["samples"]}) > 1]
     print(f"{len(out_cells)} cells; {len(regions)} shapes in them; {len(mixed)} with more than one", flush=True)
     for c in sorted(out_cells, key=lambda c: -c["voxels"]):

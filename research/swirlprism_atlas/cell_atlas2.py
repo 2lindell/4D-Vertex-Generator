@@ -2008,10 +2008,63 @@ def main(samples_path, out_path):
                 if len(B) == 2:                  # (a straight segment: its ends on a quadric do not put it there)
                     B = np.array([B[0] + t * (B[1] - B[0]) for t in np.linspace(0, 1, 9)])
                 line_pts.setdefault(l["id"], []).append(B)
+        # (a surface and its image under the group, the half-turn swapping the cell's halves among them, are one
+        # surface on the 3-sphere: their groups are merged)
+        import edge_snap as _es
+        G_ = _es.group()
+        GT_ = np.transpose(np.linalg.inv(G_), (0, 2, 1))
+        X_ = json.load(open("xsurfaces.json"))
+        patches_ = json.load(open("fexact_patches.json")) if os.path.exists("fexact_patches.json") else {}
+
+        def poly_of(g):
+            if "n" in g:
+                return _es.Poly([(i,) for i in range(4)], list(g["n"]), "plane")
+            return _es.Poly(g["sf"]["mons"], g["sf"]["coeffs"], "surface")
+
+        def points_of(g):
+            pts = []
+            for tid in g["ids"]:
+                if "n" not in g and tid in X_:
+                    V = np.asarray(X_[tid]["tris"], float).reshape(-1, 4)
+                    pts += list(V[:: max(1, len(V) // 10)][:10])
+                for pt in patches_.values():
+                    if pt["target"] == tid and "n" in g:
+                        nn = np.asarray(pt["normal"], float)
+                        nn = nn / nn[np.argmax(np.abs(nn))]
+                        if np.allclose(nn, g["n"], atol=1e-9):
+                            pts += [np.asarray(c, float) / np.sum(c) for c in pt["corners"][:4]]
+            return np.array(pts)
+
+        def on_image(b, P_):
+            Y = np.einsum("nj,gjk->gnk", P_, GT_)
+            f = b(Y.reshape(-1, 4)).reshape(len(G_), -1)
+            gy = b.grad(Y.reshape(-1, 4)).reshape(len(G_), -1, 4)
+            gx = np.einsum("gnj,gjk->gnk", gy, np.linalg.inv(G_))
+            gx = gx - gx.mean(axis=2, keepdims=True)
+            return bool(np.min(np.max(np.abs(f) / np.maximum(np.linalg.norm(gx, axis=2), 1e-300), axis=1)) < 1e-8)
+        keys = [k for k in groups if groups[k]["ids"]]
+        pts_ = {k: points_of(groups[k]) for k in keys}
+        merged_into = {}
+        for i, a in enumerate(keys):
+            if a in merged_into or not len(pts_[a]):
+                continue
+            for b in keys[i + 1:]:
+                if b in merged_into or not len(pts_[b]) or "n" in groups[a] or "n" in groups[b]:   # (curved only)
+                    continue
+                if on_image(poly_of(groups[a]), pts_[b]):
+                    groups[a]["ids"] |= groups[b]["ids"]
+                    groups[a].setdefault("images", []).append(groups[b]["name"].replace("the surface ", "").replace("the plane ", ""))
+                    merged_into[b] = a
+        for b in merged_into:
+            groups[b]["ids"] = set()
+        for g in groups.values():
+            if g.get("images"):
+                g["name"] += " (with its image" + ("s" if len(g["images"]) > 1 else "") + " " + "; ".join(g["images"]) + ")"
         for g in groups.values():
             if len(g["ids"]) < 2:
                 continue
-            lines_on = {lid for lid, Bs in line_pts.items() if any(len(B) >= 2 and on_surface(g, B) for B in Bs)}
+            lines_on = {lid for lid, Bs in line_pts.items()
+                        if any(len(B) >= 2 and (on_surface(g, B) or (g.get("images") and on_image(poly_of(g), B))) for B in Bs)}
             mirror_walls.append({"name": g["name"], "ids": sorted(g["ids"] | lines_on, key=srt)})
     data = {"copyMats": {str(g): M_all[g].tolist() for g in sorted(COPY_OPS)}, "cellP": P.tolist(), "cellInv": M_INV.tolist(),
             "types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
@@ -2110,34 +2163,19 @@ def main(samples_path, out_path):
                     ends[e] = c
             data["regionEdges"][rid] = [[list(p) for p in c] for c in chains]
 
-    # the cells of the half-cell cut by every wall (region_cells.py) that the region in them fills: drawn as that
-    # region's shape when its row is selected (only the regions being checked so far, REGION_CELLS)
+    # the cells of the half-cell cut by every wall (region_cells.py): for the regions being checked (REGION_CELLS),
+    # the voxels of the region's cell, so the page can colour the walls around it in the region's colour (the walls'
+    # own triangles and copies; nothing is drawn anew)
     REGION_CELLS = ("F2",)
     if os.path.exists("region_cells.json"):
-        data.setdefault("regionShells", {})
-        fz = lambda p: [round(p[0], 5), round(p[1], 5), round(-p[2], 5)]
-        for rid in REGION_CELLS:
-            # (its boundary drawn with the walls' own triangles, and the parts of the cell's faces it reaches)
-            cells = [c for c in json.load(open("region_cells.json"))["cells"]
-                     if c["tris"] and {l for _, l in c["samples"]} == {rid}]
-            at, verts, faces = {}, [], []
-            for c in cells:
-                for t in c["tris"]:
-                    f = []
-                    for p in t:
-                        k = tuple(fz(p))
-                        if k not in at:
-                            at[k] = len(verts)
-                            verts.append(list(k))
-                        f.append(at[k])
-                    if len(set(f)) == 3:
-                        faces.append(f)
-            if faces:
-                data["regionShells"][rid] = {"x": [v[0] for v in verts], "y": [v[1] for v in verts],
-                                             "z": [v[2] for v in verts], "i": [f[0] for f in faces],
-                                             "j": [f[1] for f in faces], "k": [f[2] for f in faces]}
-                data.setdefault("regionCells", {})[rid] = [len(cells), sum(len(c["pockets"]) for c in cells)]
-                print(f"  {rid}: {len(cells)} cells drawn ({len(faces)} triangles)", flush=True)
+        RC = json.load(open("region_cells.json"))
+        if RC.get("grid"):
+            runs = {rid: RC["grid"]["runs"][rid] for rid in REGION_CELLS if rid in RC["grid"]["runs"]}
+            data["regionGrid"] = {**{k: RC["grid"][k] for k in ("lo", "h", "shape")}, "runs": runs}
+            for rid in runs:
+                cs = [c for c in RC["cells"] if {l for _, l in c["samples"]} == {rid}]
+                data.setdefault("regionCells", {})[rid] = [len(cs), sum(len(c["pockets"]) for c in cs)]
+                print(f"  {rid}: {len(cs)} cell(s), {sum(len(c['pockets']) for c in cs)} pieces in the half-cell", flush=True)
 
     def index_walls(view, nd):
         """Wall meshes as shared vertices and index triples (each vertex was repeated in ~6 triangles)."""
