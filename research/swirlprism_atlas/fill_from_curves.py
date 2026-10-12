@@ -23,7 +23,7 @@ def main(tid, *parts):
     W = E.Poly(s0["mons"], s0["coeffs"], tid)
     loop, corners = [], []
     for part in parts:
-        name, lab = part.split(":")
+        name, lab = part.split(":", 1)
         if name == "line":
             continue
         P = [np.asarray(p, float) / np.sum(p) for p in C[name]["pts"]]
@@ -32,7 +32,7 @@ def main(tid, *parts):
         corners += [P[0], P[-1]]
         loop += [(p, lab) for p in (P if not loop else P[1:])]
     # the closing straight line
-    lab = [p.split(":")[1] for p in parts if p.startswith("line:")][0]
+    lab = [p.split(":", 1)[1] for p in parts if p.startswith("line:")][0]
     a, b = loop[-1][0], loop[0][0]
     n = max(2, int(np.linalg.norm(b - a) / 0.004))
     loop += [(a + (b - a) * t, lab) for t in np.linspace(0, 1, n + 1)[1:-1]]

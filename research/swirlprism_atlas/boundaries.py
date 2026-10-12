@@ -244,10 +244,17 @@ def main(procs=4):
                     own |= {o for o, n in ons if n >= 2 and o not in sides_ and o != "ERR" and not o.startswith("new:")}
             # two curved walls meeting along an edge share its line: the line another wall measured on its edge past
             # this one is on this wall's edge too
+            # (not between two pieces of one surface, X10 and X39 on the same quadric: they meet only at points)
+            import xsurface
+            eq = lambda w: xsurface.surface(w)["equation"]
             for w, es in lines_.items():
+                if w != tid and any(e[0] == tid for e in es) and eq(w) == eq(tid):
+                    continue
                 own |= {e[1] for e in es if w != tid and e[0] == tid and (len(e) < 3 or e[2] >= 2)
                         and dims.get(e[1]) in ("line", "point")}
             own = {o for o in own if not o.startswith("new:") and o not in ("ERR", "OUT")}
+            # (another piece of the wall's own surface is not on its boundary: X39 and X52 beside X10 on its quadric)
+            own = {o for o in own if not (o in json.load(open("xsurfaces.json")) and eq(o) == eq(tid))}
             own.discard(tid)
             if own:
                 bnd[tid] = own

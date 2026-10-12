@@ -128,7 +128,7 @@ __TYPE_CSS__
   <section class="panel">
     <h2>Key</h2>
     <p class="lede">Counts are symmetry classes of cells, faces and edges, written the way the wiki writes them. The example seed can be pasted into the generator's Coordinates mode.</p>
-    <p class="keytools"><label>Select the walls in <select id="mirrorPick"><option value="">— a mirror or face —</option></select></label>
+    <p class="keytools"><label>Select the shapes in <select id="mirrorPick"><option value="">— a mirror, face or surface —</option></select></label>
       <span class="locus">(every blank part of a mirror is a region passing through it, or a line)</span></p>
     <div class="tablewrap"><table id="key"></table></div>
   </section>
@@ -770,7 +770,8 @@ __TYPE_CSS__
       document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", state.sel.has(r.dataset.id)));
       render();
     }));
-    // "walls in a mirror": choosing one selects every wall shape with a patch in it, as if each row were Ctrl-clicked
+    // "shapes in a mirror, face or surface": choosing one selects every wall shape with a patch in it (and, for a
+    // curved surface or a plane shared by walls, the lines lying in it), as if each row were Ctrl-clicked
     const pick = el("mirrorPick");
     (DC.mirrorWalls || []).forEach((m, k) => {
       const o = document.createElement("option");

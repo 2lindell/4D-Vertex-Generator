@@ -1657,8 +1657,15 @@ def main(samples_path, out_path):
                         and continues_across(pt, (a + b) / 2))
                 (on_fold if fold else off_fold).setdefault(pt["target"], set()).add(lab)
     if os.path.exists("edge_lines.json"):   # a curved wall whose edge lies on another wall (X25 ends on X14)
+        import xsurface
+        known_eq = (set(json.load(open("xsurfaces.json"))) if os.path.exists("xsurfaces.json") else set()) | \
+            (set(json.load(open("xsurface_equations.json"))) if os.path.exists("xsurface_equations.json") else set())
+        same_surface = lambda a, b: a in known_eq and b in known_eq and \
+            xsurface.surface(a)["equation"] == xsurface.surface(b)["equation"]
         for w, es in json.load(open("edge_lines.json")).items():
             for past, on, *n in es:
+                if same_surface(w, on):           # (another piece of its own surface: X39 beside X10, not an edge)
+                    continue
                 if w in tmap and on in tmap and on not in (w, past) and tmap[on].get("dim") == "wall" and (not n or n[0] >= 2):
                     edge_walls.setdefault(w, set()).add(on)
                     tmap[w]["bounds"] = sorted(set(tmap[w].get("bounds", [])) | {on})
@@ -1960,6 +1967,49 @@ def main(samples_path, out_path):
                   open(os.environ["WALL_DUMP"], "w"))
     xwalls = [w for w in xwalls if not w.get("dumpOnly")]
     M_INV = np.linalg.inv(np.vstack([P.T, np.ones(4)]))
+    # shapes on one surface, for the same menu: the curved walls with one equation (X10, X39, X52, ... on X10's
+    # quadric), the flat walls with patches in one plane other than a mirror or face (those are listed above), and
+    # the line shapes lying in that surface (their drawn points on it)
+    if os.path.exists("xsurfaces.json"):
+        import xsurface
+        srt = lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i)
+        groups = {}                              # surface key -> {name, F (betas -> residual), ids}
+        curved = set(json.load(open("xsurfaces.json"))) | (set(json.load(open("xsurface_equations.json")))
+                                                             if os.path.exists("xsurface_equations.json") else set())
+        for tid in sorted(curved, key=srt):
+            if tid not in tmap:
+                continue
+            sf = xsurface.surface(tid)
+            c = np.asarray(sf["coeffs"], float)
+            key = tuple(sorted((tuple(m), round(v, 9)) for m, v in zip(sf["mons"], c / c[np.argmax(np.abs(c))])))
+            g = groups.setdefault(key, {"name": f"the surface {sf['equation']}", "sf": sf, "ids": set()})
+            g["ids"].add(tid)
+        if os.path.exists("fexact_patches.json"):
+            for pt in json.load(open("fexact_patches.json")).values():
+                n = np.asarray(pt["normal"], float)
+                nz = [i for i in range(4) if abs(n[i]) > 1e-9]
+                if len(nz) == 1 or (len(nz) == 2 and abs(n[nz[0]] + n[nz[1]]) < 1e-9) or pt["target"] not in tmap:
+                    continue                     # (mirrors and faces: listed above)
+                n = n / n[np.argmax(np.abs(n))]
+                key = ("plane",) + tuple(np.round(n, 9))
+                g = groups.setdefault(key, {"name": f"the plane {_eq(n)}", "n": n, "ids": set()})
+                g["ids"].add(pt["target"])
+
+        def on_surface(g, B):
+            B = np.asarray(B, float)
+            if "n" in g:
+                return np.all(np.abs(B @ g["n"]) < 1e-7 * np.abs(B).sum(axis=1))
+            return np.all(np.abs(xsurface.F(g["sf"], B)) < 1e-7)
+        line_pts = {}
+        for l in rings + main_ring + segments + xlines:
+            if tmap.get(l["id"], {}).get("dim") == "line" and len(l.get("pts", [])) >= 2 and not l.get("copy"):
+                B = np.array([M_INV @ np.r_[q[:3], 1.0] for q in l["pts"]])
+                line_pts.setdefault(l["id"], []).append(B / B.sum(axis=1, keepdims=True))
+        for g in groups.values():
+            if len(g["ids"]) < 2:
+                continue
+            lines_on = {lid for lid, Bs in line_pts.items() if any(len(B) >= 2 and on_surface(g, B) for B in Bs)}
+            mirror_walls.append({"name": g["name"], "ids": sorted(g["ids"] | lines_on, key=srt)})
     data = {"copyMats": {str(g): M_all[g].tolist() for g in sorted(COPY_OPS)}, "cellP": P.tolist(), "cellInv": M_INV.tolist(),
             "types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,

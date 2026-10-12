@@ -582,6 +582,26 @@ def main(tid, out="xsurfaces.json"):
 
     named, (LPTS, DIMS) = (named_edges(tid), shape_points()) if NAMED else ({}, ({}, {}))
     named_all = named_edges(tid, every=True) if NAMED else {}
+    for past_, ons in named_all.items():     # (a region found on an edge is a sample just off it: a line or wall
+        better = [o for o in ons if DIMS.get(o) != "region"]      # found there names the edge)
+        if better and DIMS.get(named.get(past_)) == "region":
+            named[past_] = better[0]
+    # walls on this wall's own surface (X39 and X52 on X10's quadric): a stretch labelled with one is not an edge
+    # with it, only the mesher seeing the neighbouring piece of the same surface along the true edge there
+    OWN, OWN_LINES = set(), {}
+    if NAMED:
+        eqs = set(json.load(open("xsurfaces.json"))) | set(json.load(open("xsurface_equations.json")))
+        for w in eqs - {tid}:
+            sf_ = xsurface.surface(w)
+            if np.min(np.median(dists_all(Poly(sf_["mons"], sf_["coeffs"], w), inner), axis=1)) < 1e-9:
+                OWN.add(w)
+        if OWN:
+            print(f"  on {tid}'s own surface too: {sorted(OWN)}", flush=True)
+        # (the lines either piece measured on the stretch between them: X29 between X39 and X52)
+        EL = json.load(open("edge_lines.json"))
+        OWN_LINES = {w: list(dict.fromkeys([e[1] for e in EL.get(tid, []) if e[0] == w and DIMS.get(e[1]) == "line"] +
+                                           [e[1] for e in EL.get(w, []) if e[0] == tid and DIMS.get(e[1]) == "line"]))
+                     for w in OWN}
     planes = [Poly([(i,)], [1.0], f"face β{i + 1} = 0") for i in range(4)] + \
         [Poly([(i,), (j,)], [1.0, -1.0], f"mirror β{i + 1} = β{j + 1}") for i in range(4) for j in range(i + 1, 4)]
 
@@ -609,8 +629,11 @@ def main(tid, out="xsurfaces.json"):
                         if np.median(dist(img, inner)) < 1e-6:          # (the wall's own surface)
                             continue
                         good.append((degree(b), float(np.median(dist(img, P))), float(Dm[gi]), img))
-                if good:
-                    d_, med, mx, img = min(good, key=lambda g: (g[0], g[1]))
+                # (the run's own points must lie on it too: a few of the line's points, bunched at a corner, lie on
+                # many surfaces)
+                fit = [g for g in good if g[1] <= 2.5e-4]
+                if fit or good:
+                    d_, med, mx, img = min(fit, key=lambda g: (g[0], g[1])) if fit else min(good, key=lambda g: g[1])
                     print(f"    edge past {lab}: {on}'s points ({len(near)}) lie on {img.name} (max {mx:.1e})", flush=True)
                     return (med, float(dist(img, P).max()), img)
         if DIMS.get(on) == "wall" and (on in json.load(open("xsurfaces.json")) or on in json.load(open("xsurface_equations.json"))):
@@ -635,6 +658,7 @@ def main(tid, out="xsurfaces.json"):
         # now by the line, is one edge, and a stretch past a region but along a wall is that wall's edge)
         canon = lambda l_: named.get(l_, l_[5:] if l_.startswith("face:") and l_[5:] in LPTS else l_)
         L = [canon(q["beyond"]) if NAMED else q["beyond"] for q in line]
+
         LORIG = [q["beyond"] for q in line]                 # (the shapes past the edge, kept for the outline)
         # (other shapes named on the edges a canonical name stands for: a run along two lines is split between them)
         ALT = {}
@@ -679,6 +703,46 @@ def main(tid, out="xsurfaces.json"):
         if whole is not None and whole[0] <= 2e-5 and len(B) > 40:
             EXCLUDE = B[:: max(1, len(B) // 40)]
             print(f"  outline {li}: {whole[2].name} holds the whole outline; left out", flush=True)
+        # (named: a stretch past a piece of the wall's own surface is an edge only along a line measured there whose
+        # surface holds it; otherwise the mesher saw the neighbouring piece along the edge it is on, and it takes
+        # that edge's label; then neighbours with one label are one run)
+        if NAMED and OWN:
+            for r_, (lab_, ix) in enumerate(runs):
+                if lab_ not in OWN:
+                    continue
+                Pr = B[ix][:: max(1, len(ix) // 25)]
+                new_lab = None
+                for ln in OWN_LINES.get(lab_, []):
+                    f2 = named_surface(ln, Pr)
+                    if f2 is not None and np.median(dist(f2[2], B[ix])) <= 2.5e-4:
+                        new_lab = ln
+                        break
+                if new_lab is None:
+                    # (to the neighbouring edge whose surface it lies nearer)
+                    best_nb = None
+                    for d in (1, -1, 2, -2):
+                        l_, ix_ = runs[(r_ + d) % len(runs)]
+                        if l_ in OWN:
+                            continue
+                        Pn = B[ix_][:: max(1, len(ix_) // 25)]
+                        f_ = named_surface(l_, Pn) or (best_surface(Pn) if len(ix_) >= 12 else None)
+                        dd = float(np.median(dist(f_[2], B[ix]))) if f_ is not None else 1.0
+                        if best_nb is None or dd < best_nb[0]:
+                            best_nb = (dd, l_)
+                    new_lab = best_nb[1] if best_nb else lab_
+                runs[r_][0] = new_lab
+                print(f"    stretch past {lab_} ({len(ix)} points): {'along ' + new_lab if new_lab in OWN_LINES.get(lab_, []) else 'part of the edge past ' + new_lab}", flush=True)
+            joined = []
+            for lab_, ix in runs:
+                if joined and joined[-1][0] == lab_:
+                    joined[-1][1] += ix
+                else:
+                    joined.append([lab_, list(ix)])
+            if len(joined) > 1 and joined[0][0] == joined[-1][0]:
+                joined[0][1] = joined.pop()[1] + joined[0][1]
+            runs = joined
+        if os.environ.get("DEBUG_RUNS"):
+            print("  runs:", [(lab_, len(ix)) for lab_, ix in runs], flush=True)
         merged = []                               # [label, all indices, good indices, surface]
         for lab, idx in runs:
             P = B[idx]
@@ -700,6 +764,12 @@ def main(tid, out="xsurfaces.json"):
             # (a short run, under 12 points, is not an edge of its own: with so many candidate surfaces one would
             # always fit it by chance)
             f = named_surface(lab, Ps) if NAMED else None
+            if NAMED and f is None and len(idx) >= 12:
+                # (no surface from the name, a flat wall's say: the known surface holding most of the run, the rest
+                # split off below)
+                fb = best_surface(Ps)
+                if fb is not None and np.median(dist(fb[2], B[idx])) <= 2.5e-4:
+                    f = fb
             if f is not None:
                 ok_ = dist(f[2], B[idx]) <= 2.5e-4
                 if ok_.all() or ok_.sum() < 4:

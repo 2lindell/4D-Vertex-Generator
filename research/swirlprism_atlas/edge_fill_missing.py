@@ -28,7 +28,7 @@ def main(specs):
     X = json.load(open("xsurfaces.json"))
     jobs = []
     for spec in specs:
-        tid, past = spec.split(":")
+        tid, past = spec.split(":", 1)
         P = [q["beta"] for l in X[tid]["outline"] for q in l if q["beyond"] == past]
         for f in (0.15, 0.35, 0.5, 0.65, 0.85):
             jobs.append((tid, past, P[int(f * (len(P) - 1))]))
