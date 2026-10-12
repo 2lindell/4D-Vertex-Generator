@@ -2110,6 +2110,27 @@ def main(samples_path, out_path):
                     ends[e] = c
             data["regionEdges"][rid] = [[list(p) for p in c] for c in chains]
 
+    # the cells of the half-cell cut by every wall (region_cells.py) that the region in them fills: drawn as that
+    # region's shape when its row is selected (only the regions being checked so far, REGION_CELLS)
+    REGION_CELLS = ("F2",)
+    if os.path.exists("region_cells.json"):
+        data.setdefault("regionShells", {})
+        fz = lambda p: [round(p[0], 5), round(p[1], 5), round(-p[2], 5)]
+        for rid in REGION_CELLS:
+            cells = [c for c in json.load(open("region_cells.json"))["cells"]
+                     if c["faces"] and {l for _, l in c["samples"]} == {rid}]
+            verts, faces = [], []
+            for c in cells:
+                o = len(verts)
+                verts += [fz(v) for v in c["verts"]]
+                faces += [[a + o, b + o, d + o] for a, b, d in c["faces"]]
+            if faces:
+                data["regionShells"][rid] = {"x": [v[0] for v in verts], "y": [v[1] for v in verts],
+                                             "z": [v[2] for v in verts], "i": [f[0] for f in faces],
+                                             "j": [f[1] for f in faces], "k": [f[2] for f in faces]}
+                data.setdefault("regionCells", {})[rid] = len(cells)
+                print(f"  {rid}: {len(cells)} cells drawn ({len(faces)} triangles)", flush=True)
+
     def index_walls(view, nd):
         """Wall meshes as shared vertices and index triples (each vertex was repeated in ~6 triangles)."""
         for w in view.get("xwalls", []):

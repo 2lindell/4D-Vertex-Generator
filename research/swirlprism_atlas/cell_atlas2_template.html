@@ -455,8 +455,11 @@ __TYPE_CSS__
       // the outline of the one-piece-per-region domain (an alpha shape of its moved seeds)
       if (D.shell && !state.sel.size) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
         name: "Outline of the domain", hoverinfo: "skip" });
-      for (const id of state.sel) if (D.regionShells && D.regionShells[id]) out.push({ type: "mesh3d", ...D.regionShells[id],
-        color: color(byId[id]), opacity: D === DC ? 0.22 : 0.35, flatshading: true, name: `Outline of ${id}`, hovertemplate: `Outline of ${id}<extra></extra>` });
+      for (const id of state.sel) if (D.regionShells && D.regionShells[id]) {
+        const nm = D.regionCells && D.regionCells[id] ? `${id}: ${D.regionCells[id]} cell${D.regionCells[id] > 1 ? "s" : ""} cut off by the walls` : `Outline of ${id}`;
+        out.push({ type: "mesh3d", ...D.regionShells[id], color: color(byId[id]), opacity: D === DC ? 0.22 : 0.35,
+          flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
+      }
       // a selected region's shell in the cell: the edges of the wall pieces and face parts around it
       for (const id of state.sel) if (D.regionEdges && D.regionEdges[id]) {
         const trace = lines(D.regionEdges[id], `Boundary of ${id}`, { color: color(byId[id]), width: 3 });
