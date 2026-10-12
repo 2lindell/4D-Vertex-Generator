@@ -506,6 +506,19 @@ __TYPE_CSS__
         if (m.i.length) out.push({ type: "mesh3d", ...m, color: color(byId[id]), opacity: 0.4, flatshading: true,
           name: nm, hovertemplate: `${nm}<extra></extra>` });
       }
+      // ... and in the dodecahedron views: their own wall triangles listed as bordering it (w.paint)
+      for (const id of state.sel) if (D !== DC && DC.regionGrid && DC.regionGrid.runs[id]) {
+        const X = [], Y = [], Z = [], I = [], J = [], K = [];
+        for (const w of D.xwalls || []) if (w.paint && w.paint[id]) for (const f of w.paint[id]) {
+          const o = X.length;
+          for (const v of w.faces[f]) { const q = w.verts[v]; X.push(q[0]); Y.push(q[1]); Z.push(q[2]); }
+          I.push(o); J.push(o + 1); K.push(o + 2);
+        }
+        const rc = DC.regionCells[id];
+        const nm = `${id}: the walls around ${rc[0] === 1 ? "its one cell" : rc[0] + " cells"} on the 3-sphere`;
+        if (I.length) out.push({ type: "mesh3d", x: X, y: Y, z: Z, i: I, j: J, k: K, color: color(byId[id]), opacity: 0.4,
+          flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
+      }
       for (const id of state.sel) if (D.regionShells && D.regionShells[id] && !(D.regionGrid && D.regionGrid.runs[id])) {
         const rc = D.regionCells && D.regionCells[id];
         const nm = rc ? `${id}: ${rc[0] === 1 ? "one cell" : rc[0] + " cells"} on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell), bounded by the walls` : `Outline of ${id}`;

@@ -2197,6 +2197,12 @@ def main(samples_path, out_path):
     index_walls(data, 6)
     index_walls(v1, 4)
     index_walls(chambers, 4)
+    if data.get("regionGrid"):                  # (the views' wall triangles around each checked region's cell)
+        import region_paint
+        Cv, Bv, _ = dv._frame((1, 0, 0, 0))
+        for name, view in (("V1 dodecahedron", v1), ("chambers", chambers)):
+            tot = region_paint.paint(view, (Cv, Bv), data["regionGrid"], data["regionGrid"]["runs"])
+            print(f"  {name} view: wall triangles around {tot}", flush=True)
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision
         return json.dumps(_rounded(o, n), separators=(",", ":"))
