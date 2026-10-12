@@ -71,6 +71,7 @@ def _lab_job(b):
 
 def main(procs=4):
     bnd = defaultdict(set)
+    sep = defaultdict(set)          # the regions on the two sides of each wall (wall_sides.json)
 
     for tid, chords in json.load(open("xloci_lines.json")).items():
         for ch in chords.values():
@@ -120,6 +121,7 @@ def main(procs=4):
     for (key, _, _), lab in zip(sides, slabs):
         if lab != "ERR" and lab != patches[key]["target"]:
             bnd[lab].add(patches[key]["target"])
+            sep[patches[key]["target"]].add(lab)
 
     try:                                    # the curved walls X10 and X33 (xsurface.py): the shapes past their edges
         for tid, sf in json.load(open("xsurfaces.json")).items():
@@ -139,6 +141,7 @@ def main(procs=4):
                 if n >= max(3, 0.1 * total) and not reg.startswith("new:"):
                     bnd[reg].add(tid)
                     bnd[tid].add(reg)
+                    sep[tid].add(reg)
     except FileNotFoundError:
         pass
     # the shapes found on the curved walls' edges (edge_shapes.py): a line or point there bounds the wall
@@ -188,12 +191,20 @@ def main(procs=4):
             for on, n in r["on"]:
                 if n >= 2 and on not in (tid, "OUT", "ERR") and not on.startswith("new:"):
                     bnd[tid].add(on)
+                    bnd[on].add(tid)                 # (and the wall has the region on one side)
+                    sep[on].add(tid)
+            for (on, _), (past, n) in zip(r["on"], r.get("beyond", [])):   # (the region across each wall, in order)
+                if past not in (tid, on, "OUT", "ERR") and not past.startswith("new:"):
+                    bnd[on].add(past)
+                    bnd[past].add(on)
+                    sep[on].add(past)
     except FileNotFoundError:
         pass
     for tid, r in json.load(open("xloci_step1.json")).items():
         if r["kept"] < r["of"]:
             for nb in r["neighbours"]:
                 bnd[nb].add(tid)
+                sep[tid].add(nb)
 
     # a curved wall's boundary is what was measured on it: the regions on its two sides, the line along each edge,
     # the point at each corner (other walls past its edges, and labels picked up near it, are not its boundary)
@@ -216,6 +227,27 @@ def main(procs=4):
             own |= {e[1] for e in lines_.get(tid, []) if (len(e) < 3 or e[2] >= 2) and e[1] not in sides_
                     and not e[1].startswith("new:") and e[1] != "ERR"}
             own |= {c["shape"] for c in corners_.get(tid, []) if dims.get(c["shape"]) in ("line", "point")}
+            # every stretch of the outline bisected onto a face of the cell (face:<shape>) has that shape along it,
+            # and a stretch whose shape past it is a line shape runs along that line
+            for l in json.load(open("xsurfaces.json"))[tid]["outline"]:
+                labs_ = [q["beyond"] for q in l]
+                for k in range(len(labs_)):
+                    lab_ = labs_[k]
+                    if k >= 2 and labs_[k - 1] == lab_ and labs_[k - 2] == lab_:      # (three points at least)
+                        if lab_.startswith("face:"):
+                            own.add(lab_[5:])
+                        elif dims.get(lab_) in ("line", "point"):
+                            own.add(lab_)
+            # the shapes the bisected edge check found on the edge itself (edge_shapes.json)
+            for key, ons in json.load(open("edge_shapes.json"))["summary"].items():
+                if key.split("|")[0] == tid:
+                    own |= {o for o, n in ons if n >= 2 and o not in sides_ and o != "ERR" and not o.startswith("new:")}
+            # two curved walls meeting along an edge share its line: the line another wall measured on its edge past
+            # this one is on this wall's edge too
+            for w, es in lines_.items():
+                own |= {e[1] for e in es if w != tid and e[0] == tid and (len(e) < 3 or e[2] >= 2)
+                        and dims.get(e[1]) in ("line", "point")}
+            own = {o for o in own if not o.startswith("new:") and o not in ("ERR", "OUT")}
             own.discard(tid)
             if own:
                 bnd[tid] = own
@@ -223,6 +255,9 @@ def main(procs=4):
         pass
     out = {t: sorted(s) for t, s in bnd.items()}
     json.dump(out, open("boundaries.json", "w"), indent=1)
+    # (only regions: the page keeps the walls' entries and drops the rest)
+    json.dump({t: sorted(r for r in s if r not in ("ERR", "OUT", t) and not r.startswith("new:"))
+               for t, s in sep.items()}, open("wall_sides.json", "w"), indent=1)
     print(f"{len(out)} shapes with boundaries")
 
 

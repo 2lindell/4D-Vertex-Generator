@@ -1350,6 +1350,40 @@ def main(samples_path, out_path):
             return False
         xlines = [s for s in xlines if not (s.get("betas") and s["id"] in edge_lines
                                             and all(near_edges(s["id"], b) for b in s["betas"][1:-1]))]
+        # a line shape whose seeds lie on some of its pieces is that run; a piece not joined to one of them (end to
+        # end) is an image of it running elsewhere through the cell (X5 inside the cell, between β1 = 0 and β4 = 0),
+        # drawn dashed
+        def on_seg(seg, b):
+            return any(np.linalg.norm(p + np.clip((b - p) @ (q - p) / max((q - p) @ (q - p), 1e-30), 0, 1) * (q - p) - b)
+                       < 1e-7 for p, q in zip(seg[:-1], seg[1:]))
+        for tid, segs in edge_lines.items():
+            # (a straight piece split in two at a patch corner is drawn once, as its two parts)
+            keys = {frozenset([tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))]) for seg, _ in segs}
+            pts_ = {tuple(np.round(p, 7)) for seg, _ in segs for p in (seg[0], seg[-1])}
+            def split(seg):
+                a, b = tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))
+                return len(seg) == 2 and any(m not in (a, b) and on_seg(seg, np.array(m)) and frozenset([a, m]) in keys
+                                             and frozenset([m, b]) in keys for m in pts_)
+            segs[:] = [s for s in segs if not split(s[0])]
+            if tmap[tid].get("dim") != "line":
+                continue
+            seeds =[np.asarray(s["beta"], float) / np.sum(s["beta"]) for s in samples if s["id"] == tid]
+            seeds += [f / f.sum() for b in seeds for f in fold_copies(b)]
+            main = {k for k, (seg, _) in enumerate(segs) if any(on_seg(seg, b) for b in seeds)}
+            if not main:
+                continue
+            ends = [{tuple(np.round(seg[0], 7)), tuple(np.round(seg[-1], 7))} for seg, _ in segs]
+            grew = True
+            while grew:
+                grew = False
+                for k in range(len(segs)):
+                    if k not in main and any(ends[k] & ends[j] for j in main):
+                        main.add(k)
+                        grew = True
+            for k, s in enumerate(segs):
+                if k not in main and not s[1]:
+                    print(f"  {tid}: edge piece {beta_text(s[0][0])} - {beta_text(s[0][-1])} is a copy (no seed on its run)")
+                    s[1] = True
         for tid, segs in edge_lines.items():
             for seg, is_copy in segs:
                 hover = (f"{label(tid)}<br>exact edge between patches<br>from β ∝ {beta_text(seg[0])}"
@@ -1628,6 +1662,14 @@ def main(samples_path, out_path):
         ends = t.pop("ends", None)
         if ends:              # a line's known ends: a point, or the line it runs into where there is no special point
             t["bounds"] = ends
+    if os.path.exists("wall_sides.json"):     # the regions each wall separates (boundaries.py), listed apart
+        for tid, regs in json.load(open("wall_sides.json")).items():
+            if tid in tmap and tmap[tid].get("dim") == "wall":
+                rs = {nbname(r) if r.startswith("new:") else r for r in regs} - {None, tid}
+                rs = sorted((r for r in rs if r in tmap and tmap[r].get("dim") == "region"),
+                            key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
+                if rs:
+                    tmap[tid]["separates"] = rs
     # the Where column for the named shapes, in one form: what it fills, where, then its exact points (each kind of
     # point named once, however many places it is shown in the half-cell)
     NAMED_WHERE = {
