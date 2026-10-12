@@ -2117,18 +2117,26 @@ def main(samples_path, out_path):
         data.setdefault("regionShells", {})
         fz = lambda p: [round(p[0], 5), round(p[1], 5), round(-p[2], 5)]
         for rid in REGION_CELLS:
+            # (its boundary drawn with the walls' own triangles, and the parts of the cell's faces it reaches)
             cells = [c for c in json.load(open("region_cells.json"))["cells"]
-                     if c["faces"] and {l for _, l in c["samples"]} == {rid}]
-            verts, faces = [], []
+                     if c["tris"] and {l for _, l in c["samples"]} == {rid}]
+            at, verts, faces = {}, [], []
             for c in cells:
-                o = len(verts)
-                verts += [fz(v) for v in c["verts"]]
-                faces += [[a + o, b + o, d + o] for a, b, d in c["faces"]]
+                for t in c["tris"]:
+                    f = []
+                    for p in t:
+                        k = tuple(fz(p))
+                        if k not in at:
+                            at[k] = len(verts)
+                            verts.append(list(k))
+                        f.append(at[k])
+                    if len(set(f)) == 3:
+                        faces.append(f)
             if faces:
                 data["regionShells"][rid] = {"x": [v[0] for v in verts], "y": [v[1] for v in verts],
                                              "z": [v[2] for v in verts], "i": [f[0] for f in faces],
                                              "j": [f[1] for f in faces], "k": [f[2] for f in faces]}
-                data.setdefault("regionCells", {})[rid] = len(cells)
+                data.setdefault("regionCells", {})[rid] = [len(cells), sum(len(c["pockets"]) for c in cells)]
                 print(f"  {rid}: {len(cells)} cells drawn ({len(faces)} triangles)", flush=True)
 
     def index_walls(view, nd):

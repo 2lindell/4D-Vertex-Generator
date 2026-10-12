@@ -456,7 +456,8 @@ __TYPE_CSS__
       if (D.shell && !state.sel.size) out.push({ type: "mesh3d", ...D.shell, color: ink, opacity: 0.1, flatshading: true,
         name: "Outline of the domain", hoverinfo: "skip" });
       for (const id of state.sel) if (D.regionShells && D.regionShells[id]) {
-        const nm = D.regionCells && D.regionCells[id] ? `${id}: ${D.regionCells[id]} cell${D.regionCells[id] > 1 ? "s" : ""} cut off by the walls` : `Outline of ${id}`;
+        const rc = D.regionCells && D.regionCells[id];
+        const nm = rc ? `${id}: ${rc[0] === 1 ? "one cell" : rc[0] + " cells"} on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell), bounded by the walls` : `Outline of ${id}`;
         out.push({ type: "mesh3d", ...D.regionShells[id], color: color(byId[id]), opacity: D === DC ? 0.22 : 0.35,
           flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
       }
