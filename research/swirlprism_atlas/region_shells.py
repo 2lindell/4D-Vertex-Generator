@@ -6,6 +6,7 @@ faces that regions reach (the face beta4 = 0 and the splitting mirror beta3 = be
 the region there changes. Written to region_shells.json as {region: [{piece, wall, tris (cell xyz, unflipped)}]}.
 
     WALL_DUMP=walls.json python cell_atlas2.py ...      then      python region_shells.py walls.json
+(REGION_SHELLS_CACHE names the file of classifications kept, so an interrupted run resumes.)
 """
 from __future__ import annotations
 
@@ -28,11 +29,32 @@ def beta(q):
     return M_INV @ np.r_[np.asarray(q, float)[:3], 1.0]
 
 
+# every classification is kept in a cache file (REGION_SHELLS_CACHE), one line each, so a run cut off (the machine
+# restarting) resumes where it stopped
+import os
+CACHE_PATH = os.environ.get("REGION_SHELLS_CACHE", "region_shells_cache.jsonl")
+CACHE = {}
+if os.path.exists(CACHE_PATH):
+    for line in open(CACHE_PATH):
+        try:
+            k, v = json.loads(line)
+            CACHE[tuple(k)] = v
+        except ValueError:
+            pass
+
+
 def lab(q):
     b = beta(q)
     if b.min() < -1e-12 or b[2] < b[3] - 1e-12:
         return "OUT"
-    return _lab(b / b.sum())
+    b = b / b.sum()
+    k = tuple(np.round(b, 11).tolist())
+    if k in CACHE:
+        return CACHE[k]
+    v = _lab(b)
+    with open(CACHE_PATH, "a") as f:
+        f.write(json.dumps([list(k), v]) + "\n")
+    return v
 
 
 def _sides(args):
