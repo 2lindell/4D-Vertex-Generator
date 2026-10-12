@@ -29,8 +29,9 @@ def _dist(V, simplex, j):
     return float(n @ (V[j] - P[0]) / np.linalg.norm(P[0]))
 
 
-def coincidence(sample, h=1e-3, seed=0):
-    """(simplex, vertex) whose distance is ~0 at the sample but not at nearby points in two random directions."""
+def coincidence(sample, h=1e-3, seed=0, tol=1e-11):
+    """(simplex, vertex) whose distance is ~0 at the sample (within tol: a sample bisected onto a wall is only good to
+    ~1e-10) but not at nearby points in two random directions."""
     s = np.asarray(sample, float) / np.sum(sample)
     rng = np.random.default_rng(seed)
     d1, d2 = (rng.normal(size=4) for _ in range(2))
@@ -44,7 +45,7 @@ def coincidence(sample, h=1e-3, seed=0):
             if j in simplex:
                 continue
             g0 = _dist(V0, simplex, j)
-            if abs(g0) > 1e-11:
+            if abs(g0) > tol:
                 continue
             g1, g2 = _dist(V1, simplex, j), _dist(V2, simplex, j)
             if min(abs(g1), abs(g2)) > 1e-9 and (best is None or abs(g1) < best[0]):

@@ -613,7 +613,11 @@ __TYPE_CSS__
       };
       for (const t of out) {
         if (t.hovertemplate) t.hovertemplate = brief(t.hovertemplate);
-        if (Array.isArray(t.customdata) && typeof t.customdata[0] === "string") t.customdata = t.customdata.map(brief);
+        // (the box at the bottom keeps the full text, with the seed to copy: each point carries both)
+        if (Array.isArray(t.customdata) && typeof t.customdata[0] === "string") {
+          t.customdata = t.customdata.map((h) => [brief(h), h]);
+          if (t.hovertemplate) t.hovertemplate = t.hovertemplate.replace(/%\{customdata\}/g, "%{customdata[0]}");
+        }
         if (Array.isArray(t.text)) t.text = t.text.map(brief);
         if (typeof t.name === "string" && t.name.length > 80) t.name = t.name.replace(/<[^>]+>/g, " ").slice(0, 79) + "…";
       }
@@ -705,7 +709,8 @@ __TYPE_CSS__
       const p = ev.points[0];
       if (!p || !p.customdata || (pinned && !pin)) return;
       pinned = pin;
-      el("hoverbox").innerHTML = withCopy(p.customdata) + (pin ? '<br><span class="pinned">pinned: click another point to change</span>' : "");
+      const full = Array.isArray(p.customdata) ? p.customdata[1] : p.customdata;     // (not the shortened hover)
+      el("hoverbox").innerHTML = withCopy(full) + (pin ? '<br><span class="pinned">pinned: click another point to change</span>' : "");
     };
     plot.on("plotly_hover", (ev) => show(ev, false));
     plot.on("plotly_click", (ev) => show(ev, true));

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import itertools
 import json
+import os
 import sys
 from multiprocessing import Pool
 
@@ -26,7 +27,7 @@ def _root(args):
     return None if r is None else (r / r.sum()).tolist()
 
 
-def main(out, specs, n=120, radius=0.06):
+def main(out, specs, n=int(os.environ.get("FIT_N", 120)), radius=float(os.environ.get("FIT_RADIUS", 0.06))):
     res = {}
     rng = np.random.default_rng(3)
     U = np.linalg.svd(np.ones((1, 4)))[2][1:]
@@ -34,7 +35,7 @@ def main(out, specs, n=120, radius=0.06):
         tid, beta = spec.split(":")
         s = np.array([float(v) for v in beta.split(",")])
         s /= s.sum()
-        co = coincidence(s)
+        co = coincidence(s, tol=float(os.environ.get("COINC_TOL", 1e-11)))
         if co is None:
             print(f"{tid}: no coincidence found at the sample", flush=True)
             continue
@@ -47,7 +48,7 @@ def main(out, specs, n=120, radius=0.06):
             pts = [q for q in pool.map(_root, jobs) if q]
         P = np.array(pts)
         r = {"coincidence": [list(co[0]), co[1]], "points": pts}
-        for deg in (1, 2, 3, 4):
+        for deg in range(1, int(os.environ.get("FIT_MAXDEG", 4)) + 1):
             mons = list(itertools.combinations_with_replacement(range(4), deg))
             if len(mons) >= len(P) - 5:
                 break

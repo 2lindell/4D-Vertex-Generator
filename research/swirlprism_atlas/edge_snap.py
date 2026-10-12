@@ -26,6 +26,7 @@ from cell_atlas2 import ear_clip
 
 PHI = (1 + 5 ** 0.5) / 2
 FILL = os.environ.get("FILL") == "1"
+NAMED = os.environ.get("NAMED") == "1"   # pick each edge's second surface from the shape named on it (edge_lines.json)
 CORNERS = []                             # the exact corners of the wall being done (kept by fill_mesh)
 DROPPED_LOOPS = []                       # outline loops fill_mesh found to be fragments inside the main one     # rebuild the wall's mesh inside its exact outline (fill_mesh)
 
@@ -112,6 +113,21 @@ def base_surfaces():
 
 
 # ------------------------------------------------------------------------------------------------ geometry
+def _golden_points():
+    """Points of the cell with golden coordinates from a small set (its corners, centres, A1 = (0, 0, 1, 1), ...)."""
+    import itertools
+    V = [0.0, 1 / PHI ** 2, 1 / PHI, 0.5, 1.0, PHI, PHI ** 2, 2.0]
+    out = {}
+    for t in itertools.product(V, repeat=4):
+        if sum(t) > 0:
+            b = np.array(t) / sum(t)
+            out[tuple(np.round(b, 12))] = b
+    return list(out.values())
+
+
+GOLDEN = _golden_points()
+
+
 def dist(s, X):
     """Distance estimate of points X from surface s (|f| / |grad f| in the sum-zero directions)."""
     g = s.grad(X)
@@ -204,7 +220,8 @@ def tip(W, c, SA, SB, la, lb, pa, pb, tris, outline):
     m0 = (pa + pb) / 2
     u = c - m0
     u /= np.linalg.norm(u)
-    zone = lambda p: (np.asarray(p) - m0) @ u > 1e-9
+    rad = 1.5 * max(np.linalg.norm(c - pa), np.linalg.norm(c - pb))     # (only near the tip: the wall may come
+    zone = lambda p: (np.asarray(p) - m0) @ u > 1e-9 and np.linalg.norm(np.asarray(p) - c) < rad   # back past it)
     keep = [t for t in tris if not any(zone(v) for v in t)]
     key = lambda p: tuple(np.round(p, 9))
     cnt, at = {}, {}
@@ -288,6 +305,8 @@ def tip(W, c, SA, SB, la, lb, pa, pb, tris, outline):
         body = l[:-1] if len(l) > 1 and np.allclose(P[0], P[-1]) else l
         inz = inz[:len(body)]
         n = len(body)
+        if all(inz):                                             # (a scrap wholly in the tip: the new rows cover it)
+            continue
         k = next(i for i in range(n) if not inz[i] and inz[(i + 1) % n])   # last point before the tip
         first = body[k]
         side_a = np.linalg.norm(np.asarray(first["beta"]) - chain[0]) < np.linalg.norm(np.asarray(first["beta"]) - chain[-1])
@@ -401,6 +420,19 @@ def fill_mesh(W, outline, T, h=0.012):
                     break
         clean.append(np.array(out_))
     loops = clean
+    # (no point twice, in the chart: the triangulator crashes on a repeated vertex)
+    seen_, dedup = set(), []
+    for L in loops:
+        out_ = []
+        for p_ in L:
+            k_ = tuple(np.round(chart(p_[None])[0], 10))
+            if k_ in seen_:
+                continue
+            seen_.add(k_)
+            out_.append(p_)
+        if len(out_) >= 3:
+            dedup.append(np.array(out_))
+    loops = dedup
     bpts = np.vstack(loops)
     B2 = chart(bpts)
     import triangle as tr
@@ -453,6 +485,43 @@ def fill_mesh(W, outline, T, h=0.012):
     G2 = P2[len(bpts):]
     print(f"    fill: {len(bpts)} edge points, {len(G2)} inner points, {len(tri)} triangles", flush=True)
     return [P4[t] for t in tri]
+
+# ------------------------------------------------------------------------------------------------ named edges
+def named_edges(tid, every=False):
+    """The shape found on each edge of the wall (edge_lines.json, edge_relabel/edge_fill_missing): label past the
+    edge -> the shape on it, the most often seen (every: all of them, most seen first)."""
+    out = {}
+    for past, on, *n in json.load(open("edge_lines.json")).get(tid, []):
+        if on in (tid, "ERR") or on.startswith("new:"):
+            continue
+        out.setdefault(past, {})
+        out[past][on] = out[past].get(on, 0) + (n[0] if n else 1)
+    if every:
+        return {k: sorted(v, key=lambda o: -v[o]) for k, v in out.items()}
+    return {k: max(v, key=v.get) for k, v in out.items()}
+
+
+def shape_points():
+    """Points of the drawn line shapes and the dims of all shapes, from the built page (betas from its xyz, ~1e-6)."""
+    import re
+    page = open("../../assets/symmetry_domain.html").read()
+    m = re.search(r'<script[^>]*id="atlas-data"[^>]*>', page)
+    D = json.loads(page[m.end():page.index("</script>", m.end())])
+    Minv = np.array(D["cellInv"], float)
+    tob = lambda q: (lambda b: b / b.sum())(Minv @ np.r_[q[0], q[1], -q[2], 1])
+    dims = {t["id"]: t.get("dim") for t in D["types"]}
+    pts = {}
+    for l in D["xlines"] + D["segments"] + D["rings"] + D["main"]:
+        if (dims.get(l["id"]) != "line" and l not in D["rings"] + D["main"]) or len(l["pts"]) < 2:
+            continue
+        B = np.array([tob(q) for q in l["pts"]])
+        dense = [a + t * (b - a) for a, b in zip(B[:-1], B[1:]) for t in np.linspace(0, 1, 6)[:-1]] + [B[-1]]
+        pts.setdefault(l["id"], []).extend(dense)
+    if os.path.exists("xcurves.json"):
+        for lid, cv in json.load(open("xcurves.json")).items():
+            pts.setdefault(lid, []).extend(np.asarray(cv["pts"], float))
+    return {k: np.array(v) for k, v in pts.items()}, dims
+
 
 # ------------------------------------------------------------------------------------------------ main
 def main(tid, out="xsurfaces.json"):
@@ -511,14 +580,69 @@ def main(tid, out="xsurfaces.json"):
             return min(good, key=lambda dc: (dc[0], dc[1][0]))[1]
         return loose
 
+    named, (LPTS, DIMS) = (named_edges(tid), shape_points()) if NAMED else ({}, ({}, {}))
+    named_all = named_edges(tid, every=True) if NAMED else {}
+    planes = [Poly([(i,)], [1.0], f"face β{i + 1} = 0") for i in range(4)] + \
+        [Poly([(i,), (j,)], [1.0, -1.0], f"mirror β{i + 1} = β{j + 1}") for i in range(4) for j in range(i + 1, 4)]
+
+    def named_surface(lab, P):
+        """The second surface of an edge from the shape named on it: a line's own exact points pick the surface
+        holding them (with the wall's: an image of a known surface); a wall named there gives its own surface's
+        images; a cell face gives the faces and mirrors. None when the name does not settle it."""
+        on = lab                                  # (labels are the named shapes already: canon below)
+        if lab.startswith("face:"):
+            cands = [(1, Image(b, np.eye(4), b.name)) for b in planes]
+            D_ = [(float(np.median(dist(c, P))), float(dist(c, P).max()), c) for _, c in cands]
+            best = min(D_, key=lambda d: d[0])
+            return best if best[1] < 1e-3 else None
+        if on in LPTS:
+            Lp = LPTS[on]
+            near = Lp[np.min(np.linalg.norm(Lp[:, None] - P[None], axis=2), axis=1) < 0.01]
+            if len(near) >= 3:
+                good = []
+                for b in bases + planes:
+                    Dm = dists_all(b, near).max(axis=1)
+                    for gi in np.argsort(Dm)[:6]:
+                        if Dm[gi] > 2e-5:
+                            break
+                        img = Image(b, Ginv[gi], b.name + (f" (image {gi})" if gi else ""))
+                        if np.median(dist(img, inner)) < 1e-6:          # (the wall's own surface)
+                            continue
+                        good.append((degree(b), float(np.median(dist(img, P))), float(Dm[gi]), img))
+                if good:
+                    d_, med, mx, img = min(good, key=lambda g: (g[0], g[1]))
+                    print(f"    edge past {lab}: {on}'s points ({len(near)}) lie on {img.name} (max {mx:.1e})", flush=True)
+                    return (med, float(dist(img, P).max()), img)
+        if DIMS.get(on) == "wall" and (on in json.load(open("xsurfaces.json")) or on in json.load(open("xsurface_equations.json"))):
+            sf_ = xsurface.surface(on)
+            b = Poly(sf_["mons"], sf_["coeffs"], f"{on}'s surface")
+            Dm = np.median(dists_all(b, P), axis=1)
+            gi = int(np.argmin(Dm))
+            img = Image(b, Ginv[gi], b.name + (f" (image {gi})" if gi else ""))
+            print(f"    edge past {lab}: on the wall {on}, {img.name} (median {Dm[gi]:.1e})", flush=True)
+            return (float(Dm[gi]), float(dist(img, P).max()), img) if Dm[gi] < 2e-3 else None
+        return None
+
     new_outline, info = [], []
     MOVES, FANS, TIPS = {}, [], []
+    CINFO = []                                 # (FILL) each solved corner with the surfaces and labels of its two edges
     ALLC = []                                  # every solved corner, with the labels past the two edges meeting there
     CORNERS.clear()
     key = lambda p: tuple(np.round(p, 9))
     for li, line in enumerate(sf["outline"]):
         B = np.array([q["beta"] for q in line])
-        L = [q["beyond"] for q in line]
+        # (named: a stretch is known by the shape on its edge, so a line in a cell face, labelled now by the face and
+        # now by the line, is one edge, and a stretch past a region but along a wall is that wall's edge)
+        canon = lambda l_: named.get(l_, l_[5:] if l_.startswith("face:") and l_[5:] in LPTS else l_)
+        L = [canon(q["beyond"]) if NAMED else q["beyond"] for q in line]
+        LORIG = [q["beyond"] for q in line]                 # (the shapes past the edge, kept for the outline)
+        # (other shapes named on the edges a canonical name stands for: a run along two lines is split between them)
+        ALT = {}
+        for q in line:
+            ALT.setdefault(canon(q["beyond"]), [])
+            for o in named_all.get(q["beyond"], []):
+                if o not in ALT[canon(q["beyond"])]:
+                    ALT[canon(q["beyond"])].append(o)
         closed = len(B) > 3 and np.allclose(B[0], B[-1])
         if not closed:
             new_outline.append(line)
@@ -568,12 +692,51 @@ def main(tid, out="xsurfaces.json"):
                 u = B[prev_idx[-1]] - B[prev_idx[-4]]
                 v = B[idx[3]] - B[idx[0]]
                 return u @ v < np.cos(np.radians(20)) * np.linalg.norm(u) * np.linalg.norm(v)
-            if prev is not None and dist(prev[3], Ps).max() <= 5e-4 and not turns(prev[2] or prev[1], idx):
+            same_name = not NAMED or prev is None or prev[0] == lab
+            if prev is not None and same_name and dist(prev[3], Ps).max() <= 5e-4 and not turns(prev[2] or prev[1], idx):
                 prev[1] += idx
                 prev[2] += idx
                 continue
             # (a short run, under 12 points, is not an edge of its own: with so many candidate surfaces one would
             # always fit it by chance)
+            f = named_surface(lab, Ps) if NAMED else None
+            if f is not None:
+                ok_ = dist(f[2], B[idx]) <= 2.5e-4
+                if ok_.all() or ok_.sum() < 4:
+                    merged.append([lab, list(idx), list(idx), f[2]])
+                    continue
+                # (the named surface holds only part of the run: the run follows two lines, and the rest is on
+                # another shape named on that edge, or else on whatever known surface holds it)
+                parts = []
+                for k_, g_ in zip(idx, ok_):
+                    if parts and parts[-1][0] == g_:
+                        parts[-1][1].append(k_)
+                    else:
+                        parts.append([g_, [k_]])
+                for g_, sub in parts:
+                    if g_:
+                        merged.append([lab, sub, sub, f[2]])
+                        continue
+                    Psub = B[sub][:: max(1, len(sub) // 25)]
+                    alt = None
+                    for on2 in ALT.get(lab, []):
+                        if on2 != lab:
+                            f2 = named_surface(on2, Psub)
+                            if f2 is not None and dist(f2[2], B[sub]).max() <= 2.5e-4:
+                                alt = (on2, f2)
+                                break
+                    if alt is None and len(sub) >= 12:
+                        f2 = best_surface(Psub)
+                        if f2 is not None and f2[1] <= 2.5e-4:
+                            alt = (lab + "'", f2)
+                    if alt is not None:
+                        print(f"    run past {lab}: {len(sub)} of its points are on {alt[0]} ({alt[1][2].name})", flush=True)
+                        merged.append([alt[0], sub, sub, alt[1][2]])
+                    elif merged:
+                        merged[-1][1] += sub
+                    else:
+                        merged.append([lab, sub, [], None])
+                continue
             f = best_surface(Ps) if len(idx) >= 12 or not merged else None
             if f is None or f[1] > 2.5e-4:
                 if merged:
@@ -592,6 +755,7 @@ def main(tid, out="xsurfaces.json"):
             first = merged.pop(0)
             merged[-1][1] += first[1]
         runs = [m[:3] for m in merged]
+        orig = lambda r_: Counter(LORIG[k] for k in runs[r_][1]).most_common(1)[0][0] if NAMED else runs[r_][0]
         fits = [None if m[3] is None else (float(np.median(dist(m[3], B[m[2]]))), float(dist(m[3], B[m[2]]).max()), m[3])
                 for m in merged]
         surf = []
@@ -618,10 +782,22 @@ def main(tid, out="xsurfaces.json"):
             guess = (B[a[1][-1]] + B[b[1][0]]) / 2
             ok = False
             if surf[r] is not None and surf[(r + 1) % R] is not None:
-                c = newton([W, surf[r], surf[(r + 1) % R]], guess)
+                S3 = [W, surf[r], surf[(r + 1) % R]]
+                c = newton(S3, guess)
                 # (a corner the mesh never reached, a sharp tip, can be well away from the runs' ends: accepted if
-                # both edges lead to it, checked when they are marched)
-                ok = np.linalg.norm(c - guess) < 0.15 and in_half(c)
+                # both edges lead to it, checked when they are marched; and only if it is on all three surfaces:
+                # Newton only creeps up on a singular point, A1 say, or wanders along a line two of them share)
+                on3 = lambda x: np.isfinite(x).all() and max(float(dist(s3, x)[0]) for s3 in S3) < 1e-10
+                ok = np.linalg.norm(c - guess) < 0.15 and in_half(c) and on3(c)
+                # (an exact golden point on all three surfaces, within 0.01 of the corner found, or within 0.03 of
+                # where the two runs meet when none was found: a corner at a special point of the cell, A1 say,
+                # which Newton only creeps up on)
+                near = [g_ for g_ in GOLDEN if (ok and np.linalg.norm(g_ - c) < 0.01 or not ok and np.linalg.norm(g_ - guess) < 0.03)
+                        and in_half(g_) and on3(g_)]
+                if near:
+                    c = min(near, key=lambda g_: np.linalg.norm(g_ - (c if ok else guess)))
+                    ok = True
+                    print(f"    corner at the golden point {np.round(c / c.max(), 5).tolist()}", flush=True)
                 print(f"    newton corner {np.round(c, 6).tolist()} moved {np.linalg.norm(c - guess):.3g} in half {in_half(c)}", flush=True)
                 if not ok:
                     # (two edges meeting at a sharp tip are nearly tangent there and Newton on all three surfaces
@@ -634,7 +810,8 @@ def main(tid, out="xsurfaces.json"):
                             break
                     c = (p_ + q) / 2
                     print(f"    alternating corner {np.round(c, 6).tolist()} gap {np.linalg.norm(p_ - q):.2g} moved {np.linalg.norm(c - guess):.3g}", flush=True)
-                    ok = np.linalg.norm(p_ - q) < 1e-8 and np.linalg.norm(c - guess) < 0.15 and in_half(c)
+                    ok = np.linalg.norm(p_ - q) < 1e-8 and np.linalg.norm(c - guess) < 0.15 and in_half(c) and \
+                        max(float(dist(s3, c)[0]) for s3 in S3) < 1e-8
             else:
                 c = guess
             if ok:                                # (at a singular point, A1 say, Newton only creeps up on it: snap
@@ -645,7 +822,7 @@ def main(tid, out="xsurfaces.json"):
                 c = c / c.sum()
             corners.append(c if ok else None)
             if ok:
-                ALLC.append([c.tolist(), a[0], b[0]])
+                ALLC.append([c.tolist(), orig(r), orig((r + 1) % R)])
             print(f"  corner {li}.{r} ({a[0][:12]} | {b[0][:12]}): "
                   f"{np.round(c / c.max(), 5).tolist() if ok else 'not solved'}", flush=True)
         if FILL:
@@ -670,7 +847,7 @@ def main(tid, out="xsurfaces.json"):
                     e = extend_to_meet(W, surf[r], surf[(r + 1) % R], A_[-1], A_[-1] - A_[-4])
                     if e is not None:
                         corners[r] = e[1]
-                        ALLC.append([e[1].tolist(), runs[r][0], runs[(r + 1) % R][0]])
+                        ALLC.append([e[1].tolist(), orig(r), orig((r + 1) % R)])
                         extended.update([r, (r + 1) % R])
                         print(f"  corner {li}.{r} reached by following the edge on: {np.round(e[1] / e[1].max(), 5).tolist()}", flush=True)
             # the outline drawn afresh: each run's exact edge marched from corner to corner (or its own points put
@@ -698,11 +875,14 @@ def main(tid, out="xsurfaces.json"):
                         seg = [st] + Pp + [en]
                         print(f"    run past {lab_}: its own points kept (the marched edge strays)", flush=True)
                     seg = seg[:-1]
+                lab_ = orig(r)                    # (the shape past the edge, as the mesher found it there)
                 loop += [{"beta": np.asarray(p_).tolist(), "beyond": lab_} for p_ in seg]
             # (close to a corner two edges meeting at a sharp angle can cross before they meet: their points within
             # 0.015 of a corner go, so both run straight into it)
             cs = [c_ for c_ in corners if c_ is not None]
             CORNERS.extend(cs)
+            CINFO.extend((corners[r], surf[r], surf[(r + 1) % R], orig(r), orig((r + 1) % R))
+                         for r in range(R) if corners[r] is not None and surf[r] is not None and surf[(r + 1) % R] is not None)
             is_c = lambda p_: any(np.linalg.norm(p_ - c_) < 1e-12 for c_ in cs)
             loop = [q for q in loop if is_c(np.asarray(q["beta"])) or all(np.linalg.norm(np.asarray(q["beta"]) - c_) > 0.015 for c_ in cs)]
             loop.append(loop[0])
@@ -802,6 +982,35 @@ def main(tid, out="xsurfaces.json"):
         tris = fill_mesh(W, new_outline, T)
         new_outline = [l for i, l in enumerate(new_outline) if i not in DROPPED_LOOPS]
         TIPS = []
+        # (at a corner where the wall is singular, A1 say, points lifted along the chart's normal can land on another
+        # sheet and fold the mesh over: the tip there is rebuilt in rows between its two exact edges, from where the
+        # wall is 0.03 wide)
+        U_ = np.linalg.svd(np.ones((1, 4)))[2][1:]
+
+        def folded(tris_):
+            T_ = np.asarray(tris_)
+            P_ = T_ @ U_.T
+            n_ = np.cross(P_[:, 1] - P_[:, 0], P_[:, 2] - P_[:, 0])
+            sg = np.sign((n_ * (W.grad(T_.mean(1)) @ U_.T)).sum(1))
+            return T_.mean(1)[sg != np.sign(np.sum(sg))]
+        for c, SA, SB, la, lb in CINFO:
+            bad = folded(tris)
+            if not len(bad) or np.min(np.linalg.norm(bad - c, axis=1)) > 0.04:
+                continue
+            ol = [np.asarray(q["beta"]) for l in new_outline for q in l]
+            labs = [q["beyond"] for l in new_outline for q in l]
+            reach = max(0.03, float(np.max(np.linalg.norm(bad[np.linalg.norm(bad - c, axis=1) < 0.04] - c, axis=1))) + 0.01)
+            pick = lambda lab_: min((p_ for p_, l_ in zip(ol, labs) if l_ == lab_), default=None,
+                                    key=lambda p_: abs(np.linalg.norm(p_ - c) - reach))
+            pa, pb = pick(la), pick(lb)
+            if pa is None or pb is None:
+                continue
+            n0 = len(bad)
+            t2, o2 = tip(W, c, SA, SB, la, lb, pa, pb, tris, new_outline)
+            n1 = len(folded(t2))
+            print(f"    tip at a singular corner: {n0} folded triangles -> {n1}{'' if n1 < n0 else ' (not kept)'}", flush=True)
+            if n1 < n0:                           # (kept only if it helps)
+                tris, new_outline = t2, o2
     for c, SA, SB, la, lb, pa, pb in TIPS:
         tris, new_outline = tip(W, c, SA, SB, la, lb, moved(pa), moved(pb), tris, new_outline)
     fill = FANS
