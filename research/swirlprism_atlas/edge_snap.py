@@ -370,7 +370,9 @@ def fill_mesh(W, outline, T, h=0.012):
                 xi = a + (P2[:, 1] - b) * (c_ - a) / np.where(d != b, d - b, 1e-300)
                 res ^= cr & (P2[:, 0] < xi)
             return res
-        keep_i = [i for i, L in enumerate(loops) if i == big or not inside_big(chart(L)).all()]
+        # (mostly inside: a fragment at a tip can poke out a little past the exact outline, and its crossing edges
+        # would make the triangulator refine without end)
+        keep_i = [i for i, L in enumerate(loops) if i == big or inside_big(chart(L)).mean() < 0.6]
         loops = [loops[i] for i in keep_i]
         DROPPED_LOOPS[:] = [i for i in range(len(outline)) if i not in keep_i]
     # (near a sharp corner the two edges can still cross: the points closest to the corner go until no two
@@ -671,6 +673,11 @@ def main(tid, out="xsurfaces.json"):
         closed = len(B) > 3 and np.allclose(B[0], B[-1])
         if not closed:
             new_outline.append(line)
+            continue
+        # (FILL: a small loop beside a much larger one is a scrap of the mesher at a thin tip, which the larger
+        # loop's exact edges now cover; worked on, its edges would be followed on along the larger loop's)
+        if FILL and len(line) < 40 and len(line) < 0.1 * max(len(l_) for l_ in sf["outline"]):
+            print(f"  outline {li}: a scrap of {len(line)} points beside the main outline; left out", flush=True)
             continue
         B, L = B[:-1], L[:-1]
         n = len(B)
