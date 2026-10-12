@@ -1662,17 +1662,10 @@ def main(samples_path, out_path):
             (set(json.load(open("xsurface_equations.json"))) if os.path.exists("xsurface_equations.json") else set())
         same_surface = lambda a, b: a in known_eq and b in known_eq and \
             xsurface.surface(a)["equation"] == xsurface.surface(b)["equation"]
-        direct_meet = json.load(open("same_surface_bounds.json")) if os.path.exists("same_surface_bounds.json") else {}
-        for w, ons in direct_meet.items():        # (pieces of one surface meeting with no line between: walls on the edge)
-            if w in tmap:
-                for on in ons:
-                    if on in tmap:
-                        edge_walls.setdefault(w, set()).add(on)
-                        tmap[w]["bounds"] = sorted(set(tmap[w].get("bounds", [])) | {on})
         for w, es in json.load(open("edge_lines.json")).items():
             for past, on, *n in es:
-                if same_surface(w, on) and on not in direct_meet.get(w, []):
-                    continue                      # (another piece of its own surface: X39 beside X10, not an edge)
+                if same_surface(w, on):           # (another piece of its own surface: X39 beside X10, not an edge)
+                    continue
                 if w in tmap and on in tmap and on not in (w, past) and tmap[on].get("dim") == "wall" and (not n or n[0] >= 2):
                     edge_walls.setdefault(w, set()).add(on)
                     tmap[w]["bounds"] = sorted(set(tmap[w].get("bounds", [])) | {on})
