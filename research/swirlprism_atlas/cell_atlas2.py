@@ -219,15 +219,23 @@ def load_refs():
     return refs, ref_by_name
 
 
+# Edge valences of the named shapes matched by counts alone: a hull with the same counts but other valences is a
+# different shape (F2's counts recur where X36 meets X37, with 5-valent edges, and on β1 = β3 and β4 = 0 inside F2)
+CANON_VALENCE = {"F2": "3:2400,4:3000,6:1200,8:600"}
+
+
 def identify(sig, refs=None):
     """Return (canonical id or None, x-key, reference name or None)."""
     refs = refs if refs is not None else load_refs()[0]
     if sig.startswith("ERR"):
         return None, "ERR", None
     ref = refs.get(sig)
+    val = sig.split(" | val ")[-1].strip() if " | val " in sig else None
     for cid, _, (kind, arg) in CANON:
         if kind == "ref" and ref == arg:
             return cid, None, ref
+        if kind in ("wiki", "counts") and val and CANON_VALENCE.get(cid, val) != val:
+            continue
         if kind == "wiki" and match(sig) == arg:
             return cid, None, ref
         if kind == "counts" and counts_key(sig) == arg:
