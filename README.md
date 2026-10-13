@@ -100,6 +100,11 @@ not clear it. There are up to three ways to place the seed:
   600-cell) and at arctan φ ≈ 58.28° past each of those on cross ring 1
   (31.72° on cross ring 2), where the ring meets a vertex of the second
   600-cell.
+- **Tubical groups**: choose an icosahedral, octahedral, or tetrahedral factor,
+  then select a cyclic or dihedral family (including the classified index
+  subgroups) and its parameter `n`. The icosahedral families at `n=5` are the
+  existing small swirlprism groups; other orders use coordinate seeds and need
+  not preserve the 600-cell.
 - **Coordinates**: type any four comma-separated numbers.
 
 Tolerance, the vertex cap, and slider step size are under **Advanced settings**.
