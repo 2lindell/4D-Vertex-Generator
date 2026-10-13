@@ -164,17 +164,23 @@ def _symmetry_labels() -> dict[str, str]:
 SYMMETRY_LABELS = _symmetry_labels()
 
 
+# Bound every cache: unbounded caches of large vertex/hull arrays grew until the
+# long-running server ran out of memory and the generator stopped responding.
+_CACHE_MAX_ENTRIES = 16
+_CACHE_TTL_SECONDS = 3600
+
+
 def _describe(name: str) -> str:
     label = SYMMETRY_LABELS.get(name)
     return f"{label} — {name}" if label else name
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _group_order(name: str) -> int | None:
     return group_order(named_symmetry(name))
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _compatible_chamber(symmetry_name: str, candidates: tuple[str, ...]) -> str | None:
     action = named_symmetry(symmetry_name)
     for candidate in candidates:
@@ -184,7 +190,7 @@ def _compatible_chamber(symmetry_name: str, candidates: tuple[str, ...]) -> str 
     return None
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_generate(
     seed: tuple[float, float, float, float],
     symmetry_name: str,
@@ -199,12 +205,12 @@ def _cached_generate(
     )
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_convex_hull(vertices: np.ndarray):
     return compute_convex_hull(vertices)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_detect_symmetries(vertices: np.ndarray, tol: float) -> list[str]:
     return detect_symmetries(vertices, tol=tol)
 
@@ -262,7 +268,7 @@ CENTER_COLOR = "#52514e"
 MAX_EDGE_CLASSES = len(EDGE_COLORS)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_nearest_edges(vertices: np.ndarray) -> set[tuple[int, int]]:
     return nearest_neighbour_edges(vertices)
 
@@ -596,9 +602,9 @@ def render_generate_tab() -> None:
                 "cells": cells,
                 "hull_error": hull_error,
             }
-        except (ValueError, RuntimeError) as err:
+        except (ValueError, RuntimeError, MemoryError) as err:
             st.session_state.pop("generated", None)
-            st.error(str(err))
+            st.error(str(err) or type(err).__name__)
 
     result = st.session_state.get("generated")
     if result is None:
