@@ -261,6 +261,14 @@ def main(procs=4):
                 bnd[tid] = own
     except (FileNotFoundError, AttributeError):
         pass
+    # boundaries checked by hand (boundaries_checked.json) override what was found
+    if os.path.exists("boundaries_checked.json"):
+        chk = json.load(open("boundaries_checked.json"))
+        walls_ = {t for t, d in dims.items() if d == "wall"} if "dims" in dir() else set()
+        for rid, c in chk.get("regions", {}).items():
+            bnd[rid] = {b for b in bnd.get(rid, set()) if b not in walls_} | set(c["walls"])
+        for wid, regs in chk.get("separates", {}).items():
+            sep[wid] = set(regs)
     out = {t: sorted(s) for t, s in bnd.items()}
     json.dump(out, open("boundaries.json", "w"), indent=1)
     # (only regions: the page keeps the walls' entries and drops the rest)

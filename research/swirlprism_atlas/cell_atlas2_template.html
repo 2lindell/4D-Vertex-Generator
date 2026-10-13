@@ -501,8 +501,12 @@ __TYPE_CSS__
         name: "Outline of the domain", hoverinfo: "skip" });
       // a region checked against the walls (region_cells.py): the wall triangles around its cell, in its colour
       for (const id of state.sel) if (D === DC && D.regionGrid && D.regionGrid.runs[id]) {
-        const rc = D.regionCells[id], m = regionPaint(id);
-        const nm = `${id}: the walls around ${rc[0] === 1 ? "its one cell" : rc[0] + " cells"} on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
+        const rc = D.regionCells[id], rw = D.regionWalls && D.regionWalls[id];
+        // (the outer walls' coloured parts, cut where the walls meet: region_walls.py)
+        const m = rw ? { x: rw.tris.flatMap((t) => [t[0], t[3], t[6]]), y: rw.tris.flatMap((t) => [t[1], t[4], t[7]]),
+          z: rw.tris.flatMap((t) => [t[2], t[5], t[8]]), i: rw.tris.map((_, q) => 3 * q), j: rw.tris.map((_, q) => 3 * q + 1),
+          k: rw.tris.map((_, q) => 3 * q + 2) } : regionPaint(id);
+        const nm = `${id}: its outer walls${rw ? " (" + rw.walls.join(", ") + ")" : ""}, one cell on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
         if (m.i.length) out.push({ type: "mesh3d", ...m, color: color(byId[id]), opacity: 0.4, flatshading: true,
           name: nm, hovertemplate: `${nm}<extra></extra>` });
       }

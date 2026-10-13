@@ -2200,19 +2200,17 @@ def main(samples_path, out_path):
                     ends[e] = c
             data["regionEdges"][rid] = [[list(p) for p in c] for c in chains]
 
-    # the cells of the half-cell cut by every wall (region_cells.py): for the regions being checked (REGION_CELLS),
-    # the voxels of the region's cell, so the page can colour the walls around it in the region's colour (the walls'
-    # own triangles and copies; nothing is drawn anew)
-    REGION_CELLS = ("F2",)
-    if os.path.exists("region_cells.json"):
-        RC = json.load(open("region_cells.json"))
-        if RC.get("grid"):
-            runs = {rid: RC["grid"]["runs"][rid] for rid in REGION_CELLS if rid in RC["grid"]["runs"]}
-            data["regionGrid"] = {**{k: RC["grid"][k] for k in ("lo", "h", "shape")}, "runs": runs}
-            for rid in runs:
-                cs = [c for c in RC["cells"] if {l for _, l in c["samples"]} == {rid}]
-                data.setdefault("regionCells", {})[rid] = [len(cs), sum(len(c["pockets"]) for c in cs)]
-                print(f"  {rid}: {len(cs)} cell(s), {sum(len(c['pockets']) for c in cs)} pieces in the half-cell", flush=True)
+    # a region's outer walls (region_walls.py): the coloured parts of the walls it really borders, cut exactly where
+    # the walls meet (crisp edges; the walls inside it are left alone), and the voxels of its cell, for the
+    # dodecahedron views' own wall triangles
+    if os.path.exists("region_walls.json"):
+        RW = json.load(open("region_walls.json"))
+        g0 = next(iter(RW.values()))["grid"]
+        data["regionGrid"] = {**{k: g0[k] for k in ("lo", "h", "shape")}, "runs": {r: v["grid"]["runs"] for r, v in RW.items()}}
+        data["regionWalls"] = {r: {"tris": v["tris"], "walls": v["walls"]} for r, v in RW.items()}
+        for r, v in RW.items():
+            data.setdefault("regionCells", {})[r] = [1, v["pockets"]]
+            print(f"  {r}: outer walls {', '.join(v['walls'])}; {len(v['tris'])} coloured triangles", flush=True)
 
     def index_walls(view, nd):
         """Wall meshes as shared vertices and index triples (each vertex was repeated in ~6 triangles)."""
@@ -2238,7 +2236,8 @@ def main(samples_path, out_path):
         import region_paint
         Cv, Bv, _ = dv._frame((1, 0, 0, 0))
         for name, view in (("V1 dodecahedron", v1), ("chambers", chambers)):
-            tot = region_paint.paint(view, (Cv, Bv), data["regionGrid"], data["regionGrid"]["runs"])
+            tot = region_paint.paint(view, (Cv, Bv), data["regionGrid"], data["regionGrid"]["runs"],
+                                   walls_by_region={r: set(v["walls"]) for r, v in data.get("regionWalls", {}).items()})
             print(f"  {name} view: wall triangles around {tot}", flush=True)
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision

@@ -22,9 +22,10 @@ def _member(grid, runs):
     return m.reshape(grid["shape"])
 
 
-def paint(view, centre_frame, grid, runs_by_region, steps=(0.004, 0.007, 0.011)):
+def paint(view, centre_frame, grid, runs_by_region, steps=(0.004, 0.007, 0.011), walls_by_region=None):
     """Sets w["paint"] = {region: [face indices]} on every wall of the view (after its walls are indexed into
-    verts/faces). centre_frame = (C, B): the view's chart, X ~ C + B^T u."""
+    verts/faces). centre_frame = (C, B): the view's chart, X ~ C + B^T u. With walls_by_region, only those walls
+    are coloured, and only where the cell is on one side of them (not the walls inside it)."""
     import edge_snap
     C, B = centre_frame
     G = edge_snap.group()
@@ -63,13 +64,19 @@ def paint(view, centre_frame, grid, runs_by_region, steps=(0.004, 0.007, 0.011))
         n = np.cross(Bv - A, Cv - A)
         ln = np.linalg.norm(n, axis=1)
         n = n / np.maximum(ln, 1e-300)[:, None]
-        hit = {r: np.zeros(len(F), bool) for r in members}
+        side = {(r, s): np.zeros(len(F), bool) for r in members for s in (1, -1)}
         for s in (1, -1):
             for st in steps:
                 got = regions_at(c + s * st * n)
                 for k, rs in enumerate(got):
                     for r in rs:
-                        hit[r][k] = True
+                        side[(r, s)][k] = True
+        hit = {}
+        for r in members:
+            if walls_by_region and r in walls_by_region:
+                hit[r] = (side[(r, 1)] != side[(r, -1)]) if w["id"] in walls_by_region[r] else np.zeros(len(F), bool)
+            else:
+                hit[r] = side[(r, 1)] | side[(r, -1)]
         w["paint"] = {r: np.flatnonzero(hv & (ln > 1e-14)).tolist() for r, hv in hit.items() if hv.any()}
         for r in w["paint"]:
             total[r] += len(w["paint"][r])
