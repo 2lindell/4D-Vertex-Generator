@@ -1436,6 +1436,13 @@ def main(samples_path, out_path):
                       f"1200-vertex polytopes (X12) with 3600 symmetries<br>from β = {np.round(a, 5).tolist()}"
                       f"<br>to β = {np.round(b, 5).tolist()}"})
 
+    # the point where both regular prism lines end, on the T2 wall (regular_cells.py): the prisms become corealmic
+    # with their neighbours there; an antiprism line passes through it. Shown with the prism lines.
+    _pt2 = np.array([2.0, 3.0, 2.0, 2 - (1 + 5 ** 0.5) / 2])
+    special.append({"id": "T2", "q": _exact(xyz(_pt2 / _pt2.sum())).tolist(), "prismT2": True,
+                    "hover": "Both regular prism lines end here, on T2: the prisms become corealmic with their neighbours "
+                             "(class T2, 120+120+600+600+1200 cells); an antiprism line passes through<br>"
+                             f"β ∝ {beta_text(_pt2)}<br>seed {seed_text(_pt2)}"})
     # the untwisted regular-decagon points (decagon_twist.py)
     phi2 = ((1 + 5 ** 0.5) / 2) ** 2
     for p, copy in ((np.array([phi2, 1, 1, 1]), False), (np.array([phi2, 1, 2, 1]), True)):

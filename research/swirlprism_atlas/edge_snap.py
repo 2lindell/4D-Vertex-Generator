@@ -607,6 +607,18 @@ def main(tid, out="xsurfaces.json"):
     planes = [Poly([(i,)], [1.0], f"face β{i + 1} = 0") for i in range(4)] + \
         [Poly([(i,), (j,)], [1.0, -1.0], f"mirror β{i + 1} = β{j + 1}") for i in range(4) for j in range(i + 1, 4)]
 
+    V_wall = np.asarray(sf["tris"], float).reshape(-1, 4)[:: 7]          # (points of this wall, coarsely)
+
+    def exact_edge_points(P, n=6):
+        """Points of the edge itself, bisected onto it across the wall from points P along it (edge_shapes._job)."""
+        from multiprocessing import Pool
+        from edge_shapes import _job
+        pts = [P[int(f * (len(P) - 1))] for f in np.linspace(0.1, 0.9, n)]
+        with Pool(min(4, n)) as pool_:
+            R_ = pool_.map(_job, [(tid, "", np.asarray(p_).tolist()) for p_ in pts])
+        ex = [np.asarray(r_[4], float) for r_ in R_ if r_[4] is not None]
+        return np.array([e_ / e_.sum() for e_ in ex])
+
     def named_surface(lab, P):
         """The second surface of an edge from the shape named on it: a line's own exact points pick the surface
         holding them (with the wall's: an image of a known surface); a wall named there gives its own surface's
@@ -634,8 +646,30 @@ def main(tid, out="xsurfaces.json"):
                 # (the run's own points must lie on it too: a few of the line's points, bunched at a corner, lie on
                 # many surfaces)
                 fit = [g for g in good if g[1] <= 2.5e-4]
+                # (the surface holding the line's own points closest first, to their 1e-6 precision: a short arc
+                # lies within the tolerance of several planes, only one of which holds it all the way, X80 into V1)
+                # (several surfaces hold the drawn line about equally well, a straight stretch of it say: the edge's
+                # own points, bisected onto it exactly, decide between them)
+                # (not a surface that also holds another line named on this wall, X80 for X87's X2 edge: the corner
+                # between the two edges would be lost along that line)
+                others = [LPTS[o][np.min(np.linalg.norm(LPTS[o][:, None] - V_wall[None], axis=2), axis=1) < 0.02]
+                          for o in set(named.values()) if o in LPTS and o != on]
+                others = [o_ for o_ in others if len(o_) >= 3]
+                fit = [g for g in fit if not any(float(dist(g[3], o_).max()) < 1e-5 for o_ in others)] or fit
+                # (NAMED_EXCLUDE: candidate surfaces to leave out by name, for a wall where two nearly coinciding
+                # walls make the exact-point test pick a surface through the neighbouring line, X87's X2 edge)
+                ex_ = [w_ for w_ in os.environ.get("NAMED_EXCLUDE", "").split(",") if w_]
+                fit = [g for g in fit if not any(w_ in g[3].name for w_ in ex_)] or fit
+                close = [g for g in fit if g[2] < 2 * min(g_[2] for g_ in fit) + 2e-6] if fit else []
+                if len(close) > 1:
+                    ex = exact_edge_points(P)
+                    if len(ex):
+                        scored = sorted(close, key=lambda g: float(dist(g[3], ex).max()))
+                        print(f"    edge past {lab}: {len(close)} surfaces hold {on}'s drawn points; on {len(ex)} exact "
+                              f"edge points {scored[0][3].name} holds them ({float(dist(scored[0][3], ex).max()):.1e})", flush=True)
+                        fit = [scored[0]]
                 if fit or good:
-                    d_, med, mx, img = min(fit, key=lambda g: (g[0], g[1])) if fit else min(good, key=lambda g: g[1])
+                    d_, med, mx, img = min(fit, key=lambda g: (round(g[2] / 2e-6), g[0], g[1])) if fit else min(good, key=lambda g: g[1])
                     print(f"    edge past {lab}: {on}'s points ({len(near)}) lie on {img.name} (max {mx:.1e})", flush=True)
                     return (med, float(dist(img, P).max()), img)
         if DIMS.get(on) == "wall" and on not in OWN and \
@@ -743,6 +777,8 @@ def main(tid, out="xsurfaces.json"):
                         new_lab = lab_
                 runs[r_][0] = new_lab
                 print(f"    stretch past {lab_} ({len(ix)} points): {'along ' + new_lab if new_lab in OWN_LINES.get(lab_, []) else 'an edge with it (no line between)' if new_lab == lab_ else 'part of the edge past ' + new_lab}", flush=True)
+
+        if NAMED:                                 # (runs left side by side with one label are one edge)
             joined = []
             for lab_, ix in runs:
                 if joined and joined[-1][0] == lab_:
@@ -796,7 +832,15 @@ def main(tid, out="xsurfaces.json"):
                         parts.append([g_, [k_]])
                 for g_, sub in parts:
                     if g_:
-                        merged.append([lab, sub, sub, f[2]])
+                        if merged and merged[-1][0] == lab and merged[-1][3] is f[2]:
+                            merged[-1][1] += sub
+                            merged[-1][2] += sub
+                        else:
+                            merged.append([lab, sub, sub, f[2]])
+                        continue
+                    if len(sub) < 4:                  # (a few stray points: part of the edge they sit in)
+                        if merged:
+                            merged[-1][1] += sub
                         continue
                     Psub = B[sub][:: max(1, len(sub) // 25)]
                     alt = None
@@ -938,6 +982,9 @@ def main(tid, out="xsurfaces.json"):
                 lab_, s_ = runs[r][0], surf[r]
                 P = [B[k] for k in runs[r][1]]
                 ca, cb = corners[r - 1], corners[r]
+                if ca is not None and cb is not None and np.linalg.norm(ca - cb) < 1e-9 and R > 2:
+                    print(f"    run past {lab_}: between two corners at one point (a scrap at a tip); left out", flush=True)
+                    continue
                 if s_ is None:
                     seg = ([ca] if ca is not None else []) + P
                 else:

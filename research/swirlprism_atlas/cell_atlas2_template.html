@@ -581,6 +581,12 @@ __TYPE_CSS__
         out.push({ type: "scatter3d", mode: "lines", x, y, z, text, name: r0.kind, hovertemplate: "%{text}<extra></extra>",
           line: { color: css({ prism: "--rprism", antiprism: "--ranti", decagon: "--rdec" }[r0.kind]), width: r0.copy ? 4 : 6, dash: r0.copy ? "dash" : "solid" } });
       }
+      if (el("showRegular").checked) {           // where both prism lines end, on T2
+        const pts = D.special.filter((u) => u.prismT2 && inQ(u.q));
+        if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: "Both prism lines end on T2",
+          x: pts.map((u) => u.q[0]), y: pts.map((u) => u.q[1]), z: pts.map((u) => u.q[2]), customdata: pts.map((u) => u.hover),
+          marker: { size: 6, color: css("--rprism"), symbol: "x" }, hovertemplate: "%{customdata}<extra></extra>" });
+      }
       if (el("showDecagon").checked) {
         const pts = D.special.filter((u) => u.decagon && inQ(u.q));
         if (pts.length) out.push({ type: "scatter3d", mode: "markers", name: "Untwisted regular decagons",
@@ -653,7 +659,7 @@ __TYPE_CSS__
           out.push(trace);
         }
         // (axis points only while their row is selected, except on the rings: the wiki lines always show theirs)
-        const exact = D.special.filter((u) => u.id === t.id && !u.decagon && inQ(u.q)
+        const exact = D.special.filter((u) => u.id === t.id && !u.decagon && !u.prismT2 && inQ(u.q)
           && (!u.selOnly || (t.listed && t.dim === "line") || state.sel.has(u.id)));
         if (exact.length) out.push({ type: "scatter3d", mode: "markers", name: `${t.id} (exact point)`,
           x: exact.map((u) => u.q[0]), y: exact.map((u) => u.q[1]), z: exact.map((u) => u.q[2]), customdata: exact.map((u) => u.hover),
