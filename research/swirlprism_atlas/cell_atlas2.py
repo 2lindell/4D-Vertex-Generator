@@ -221,7 +221,8 @@ def load_refs():
 
 # Edge valences of the named shapes matched by counts alone: a hull with the same counts but other valences is a
 # different shape (F2's counts recur where X36 meets X37, with 5-valent edges, and on β1 = β3 and β4 = 0 inside F2)
-CANON_VALENCE = {"F2": "3:2400,4:3000,6:1200,8:600"}
+CANON_VALENCE = {"F2": "3:2400,4:3000,6:1200,8:600", "T2": "3:2400,4:3000,6:600",
+                 "F5": "3:2400,4:3000,5:1200,6:1200,8:600,10:600"}
 
 
 def identify(sig, refs=None):
@@ -1463,10 +1464,18 @@ def main(samples_path, out_path):
 
     # T2: exact patches in the mirrors (t2exact.py) and their copies under the extra half-turn
     import t2exact
+    # (pieces of t2exact.py that turned out to be other shapes once edge valences are compared: region B is the wall
+    # X96, curve D the line X97; they keep their exact geometry under their own ids)
+    T2_SPLIT = {"B": "X96", "D": "X97"}
     for name, (plane, desc) in t2exact.CURVE_DESCRIPTIONS.items():
         curve = t2exact.CURVES[name]()
+        own = T2_SPLIT.get(name)
         for is_copy, pts in [(False, curve)] + [(True, c) for c in t2exact.curve_copies(curve)]:
             where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
+            if own and own in tmap:
+                xlines.append({"id": own, "copy": is_copy, "pts": [_exact(xyz(p)).tolist() for p in pts],
+                               "hover": f"{label(own)}<br>exact curve ({where}): {desc}"})
+                continue
             segments.append({"id": "T2", "copy": is_copy, "selOnly": True, "pts": [_exact(xyz(p)).tolist() for p in pts],
                              "hover": f"T2 · exact curve {name} ({where})<br>{desc}"})
     tpatches = []
@@ -1496,6 +1505,15 @@ def main(samples_path, out_path):
     for name, plane, bounds, is_copy, poly in keep:
         pts = [_exact(xyz(p)).tolist() for p in poly]
         where = "copy under the extra half-turn" if is_copy else f"in the mirror {plane}"
+        own = T2_SPLIT.get(name)
+        if own and own in tmap:
+            P_ = np.array([np.asarray(p, float) / np.sum(p) for p in poly])
+            nrm = np.linalg.svd(P_)[2][-1]                      # (the plane n . beta = 0 holding it)
+            tris = [[pts[a], pts[b], pts[c]] for a, b, c in ear_clip(list(P_), nrm)]
+            hover = f"{label(own)}<br>exact patch ({where})<br>{bounds}"
+            xwalls.append({"id": own, "tris": tris, "hover": hover, "copy": is_copy})
+            xlines.append({"id": own, "pts": pts + [pts[0]], "hover": hover, "copy": is_copy, "outline": True})
+            continue
         tpatches.append({"plane": where, "copy": is_copy, "pts": pts + [pts[0]],
                          "hover": f"T2 · exact region {name} ({where})<br>{bounds}"})
 
@@ -1575,6 +1593,10 @@ def main(samples_path, out_path):
                 if tid != "X26":                  # (X26's locus says more: its crease and where it meets X79)
                     walls = sorted({_eq(n) for n in normals}, key=lambda e: (len(e), e))
                     tmap[tid]["locus"] = "wall: " + ", ".join(walls) + " (exact patches)"
+    # (T2's region B, drawn from t2exact.py, is the wall X96)
+    if "X96" in tmap:
+        tmap["X96"]["dim"] = "wall"
+        tmap["X96"]["locus"] = "wall: β2 = β3 (the triangle that was T2's exact region B: spidrox (0,1,1,0), C4, (1, φ², φ², 0))"
     # what the X shapes once listed as points really fill (xpoint_survey.py, wall_fit.py, region_map.py); a shape whose
     # curved wall is meshed (xsurfaces.json) keeps the mesh's text
     meshed = set(json.load(open("xsurfaces.json"))) if os.path.exists("xsurfaces.json") else set()
