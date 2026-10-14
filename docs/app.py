@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import sys
+import time
 import zipfile
 from pathlib import Path
 
@@ -629,19 +630,30 @@ def render_generate_tab() -> None:
             # Ring-slider seeds are built from eigenvectors, so they carry
             # ~1e-8 noise; a looser merge tolerance keeps the orbit exact.
             orbit_tol = max(orbit_tol, 1e-6)
+        started = time.perf_counter()
+        status = st.status("Generating vertices...", expanded=True)
         try:
-            with st.spinner("Generating vertices..."):
-                vertices = _cached_generate(
-                    tuple(float(x) for x in seed), symmetry_name, orbit_tol, int(max_vertices)
-                )
+            vertices = _cached_generate(
+                tuple(float(x) for x in seed), symmetry_name, orbit_tol, int(max_vertices)
+            )
+            status.write(
+                f"✅ {len(vertices):,} vertices ({time.perf_counter() - started:.1f} s)"
+            )
             faces = cells = None
             hull_error = None
             if compute_hull:
+                status.update(label="Computing 4D convex hull (slow for tens of thousands of "
+                                    "faces)...")
+                hull_started = time.perf_counter()
                 try:
-                    with st.spinner("Computing 4D convex hull..."):
-                        faces, cells = _cached_convex_hull(vertices)
+                    faces, cells = _cached_convex_hull(vertices)
+                    status.write(
+                        f"✅ {len(faces):,} faces, {len(cells):,} cells "
+                        f"({time.perf_counter() - hull_started:.1f} s)"
+                    )
                 except ValueError as err:
                     hull_error = str(err)
+                    status.write(f"⚠️ Convex hull not computed: {hull_error}")
             st.session_state["generated"] = {
                 "symmetry": symmetry_name,
                 "order": order,
@@ -651,9 +663,16 @@ def render_generate_tab() -> None:
                 "cells": cells,
                 "hull_error": hull_error,
             }
+            status.update(
+                label=f"Done in {time.perf_counter() - started:.1f} s",
+                state="complete",
+                expanded=False,
+            )
         except (ValueError, RuntimeError, MemoryError) as err:
             st.session_state.pop("generated", None)
-            st.error(str(err) or type(err).__name__)
+            message = str(err) or type(err).__name__
+            status.update(label="Failed", state="error", expanded=True)
+            status.error(message)
 
     result = st.session_state.get("generated")
     if result is None:
