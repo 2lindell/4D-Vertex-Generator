@@ -5,9 +5,8 @@
 The app runs entirely in the visitor's browser with stlite (Streamlit on Pyodide, Python compiled to
 WebAssembly), so the page needs no server and stays available. The output is index.html plus app.py
 and the four_d_vertex_generator package, which index.html mounts into the in-browser file
-system, and the three standalone symmetry-domain pages. symmetry_domain.html is
-the H3●I2(10) page built by research/swirlprism_atlas/cell_atlas2.py; the
-tetrahedral and octahedral pages are built by research/tetraswirl_atlas.
+system, and symmetry_domain.html (the H3●I2(10) Symmetry Domain, built by
+research/swirlprism_atlas/cell_atlas2.py), which the app's third tab shows.
 
 GitHub Pages serves the committed docs/ folder ("Deploy from a branch", folder /docs). Rebuild and
 commit docs/ after changing the app; tests/test_pages.py fails while docs/ is out of date.
@@ -127,9 +126,8 @@ def build(out: Path) -> list[str]:
         (out / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, out / rel)
         files.append(rel)
-    # Symmetry-domain pages are served as-is (not mounted) by the app's atlas tabs.
-    for page in ("symmetry_domain.html", "tetraswirl_tet_domain.html"):
-        shutil.copy2(ROOT / "assets" / page, out / page)
+    # the H3●I2(10) Symmetry Domain page is served as it is (not mounted): the app's third tab
+    shutil.copy2(ROOT / "assets" / "symmetry_domain.html", out / "symmetry_domain.html")
     hashed = [[rel, hashlib.sha256((out / rel).read_bytes()).hexdigest()[:12]] for rel in files]
     page = (
         PAGE.replace("__VERSION__", STLITE_VERSION)
