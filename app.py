@@ -908,36 +908,49 @@ def let_wheel_scroll_page() -> None:
     components.html(WHEEL_TO_PAGE, height=0)
 
 
-DOMAIN_TITLE = "H3●I2(10) Symmetry Domain"
-DOMAIN_PAGE = Path(__file__).parent / "assets" / "symmetry_domain.html"
-
-
-def render_domain_tab() -> None:
-    st.caption(
+ATLAS_PAGES = (
+    (
+        "H3●I2(10) Symmetry Domain",
+        "symmetry_domain.html",
         "Every isogonal polychoron of the swirlprism group H3●I2(10), mapped over a fundamental "
         "domain: hover a point for its shape and seed, and paste the seed into Generate's "
-        "Coordinates mode."
-    )
+        "Coordinates mode.",
+    ),
+    (
+        "Tetrahedral swirl domain",
+        "tetraswirl_tet_domain.html",
+        "Every isogonal polychoron of the index-3 tetrahedral swirl group, mapped over one "
+        "fundamental domain.",
+    ),
+)
+
+
+def render_domain_tab(title: str, filename: str, caption: str) -> None:
+    page = Path(__file__).parent / "assets" / filename
+    st.caption(caption)
     # the page grows its frame to its own height (it reaches the frame from the same origin),
     # so the app's scroll bar is the only one
     if sys.platform == "emscripten":
         # in the browser build (GitHub Pages) the page is served next to the app
-        st.markdown("[Open it in its own tab](symmetry_domain.html)")
-        components.iframe("symmetry_domain.html", height=1100)
-    elif DOMAIN_PAGE.exists():
-        components.html(DOMAIN_PAGE.read_text(encoding="utf-8"), height=1100)
+        st.markdown(f"[Open {title} in its own tab]({filename})")
+        components.iframe(filename, height=1100)
+    elif page.exists():
+        components.html(page.read_text(encoding="utf-8"), height=1100)
     else:
         st.info(
             "The page is not in this copy of the app; it is published at "
-            "https://2lindell.github.io/4D-Vertex-Generator/symmetry_domain.html"
+            f"https://2lindell.github.io/4D-Vertex-Generator/{filename}"
         )
 
 
-generate_tab, analyze_tab, domain_tab = st.tabs(["Generate", "Analyze a 4OFF file", DOMAIN_TITLE])
+generate_tab, analyze_tab, *atlas_tabs = st.tabs(
+    ["Generate", "Analyze a 4OFF file", *(atlas[0] for atlas in ATLAS_PAGES)]
+)
 with generate_tab:
     render_generate_tab()
 with analyze_tab:
     render_analyze_tab()
-with domain_tab:
-    render_domain_tab()
+for atlas_tab, (title, filename, caption) in zip(atlas_tabs, ATLAS_PAGES):
+    with atlas_tab:
+        render_domain_tab(title, filename, caption)
 let_wheel_scroll_page()

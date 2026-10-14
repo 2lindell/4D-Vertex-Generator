@@ -27,11 +27,19 @@ compiled to WebAssembly). The first visit downloads about 30 MB, which the
 browser then caches. Large symmetry groups compute more slowly there than in a
 local install.
 
-A third tab, **H3●I2(10) Symmetry Domain**, maps every isogonal polychoron of
-the swirlprism group over a fundamental domain (also at
-https://2lindell.github.io/4D-Vertex-Generator/symmetry_domain.html). It is
-built by `research/swirlprism_atlas/cell_atlas2.py` into
-`assets/symmetry_domain.html`.
+Three symmetry-domain tabs map every isogonal polychoron of their group over a
+fundamental domain:
+
+- **H3●I2(10) Symmetry Domain** for the swirlprism group (also at
+  https://2lindell.github.io/4D-Vertex-Generator/symmetry_domain.html).
+- **Tetrahedral swirl domain** for the index-3 tetrahedral tubical group (also
+  at https://2lindell.github.io/4D-Vertex-Generator/tetraswirl_tet_domain.html).
+- The octahedral atlas is still under research and is not published yet; its
+  intermediate survey is retained under `research/tetraswirl_atlas/`.
+
+The first page is built by `research/swirlprism_atlas/cell_atlas2.py`. The two
+tubical pages are built from their classified atlas data by
+`research/tetraswirl_atlas/render_atlas.py`.
 
 GitHub Pages serves the committed `docs/` folder (Settings → Pages → Deploy
 from a branch, folder `/docs`). After changing the app, the package or the
