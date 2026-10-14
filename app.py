@@ -473,7 +473,7 @@ def render_generate_tab() -> None:
             tubical_order = st.number_input(
                 "Family parameter n",
                 min_value=family_options[tubical_family][1],
-                max_value=50,
+                max_value=120,
                 value=5,
                 step=1,
             )
