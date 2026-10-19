@@ -257,7 +257,10 @@ def main(walls):
     unsure = lambda sn: None in sn or any(str(x).startswith(("mixed", "TIMEOUT", "ERR")) for x in sn)
     # (1) where the voxels give up (next to a face of the cell, or wedged between walls): the same place's other
     # images in the half-cell, away from its faces, where the voxels hold
-    redo = [i for i, sn in enumerate(side_names) if unsure(sn)]
+    # (the shortcuts (1) and (2) save classifier calls but can step past a thin region next to a cell face: off unless
+    # SIDE_SHORTCUTS=1; with the fast classifier every unsure part is classified directly in minutes)
+    shortcuts = os.environ.get("SIDE_SHORTCUTS") == "1"
+    redo = [i for i, sn in enumerate(side_names) if unsure(sn)] if shortcuts else []
     if redo:
         got = image_sides(C[redo], Nn[redo])
         new_pk = sorted({int(p) for p in got.ravel() if p > 0} - set(plab))
@@ -268,7 +271,7 @@ def main(walls):
     n_img = len(redo) - sum(unsure(side_names[i]) for i in redo)
     # (2) the parts of one piece of wall between the lines where other walls cross it all have the same sides:
     # carried over from the parts that know them
-    comp, flip = _components(curved_parts, piece_T)
+    comp, flip = _components(curved_parts, piece_T) if shortcuts else (list(range(len(curved_parts))), [False] * len(curved_parts))
     by = defaultdict(Counter)
     for i, sn in enumerate(side_names):
         if not unsure(sn):
