@@ -47,7 +47,7 @@ svg { display: block; width: 100%; height: auto; font-family: var(--font-data); 
 <div class="wrap">
   <header>
     <h1>Shape map</h1>
-    <p class="sub">Every shape in the atlas, coloured by dimension. Select one and it moves to the middle, with the shapes on its boundary and the shapes it bounds arranged around it, each placed in the direction it lies from the selected shape in the cell. Rings always run regions, walls, lines, points from the inside out.</p>
+    <p class="sub">Every shape in the atlas, coloured by dimension. Select one and it moves to the middle, with the shapes on its boundary and the shapes it bounds arranged around it, each placed in the direction it lies from the selected shape in the cell. Rings count down the dimensions from the selected shape outwards, wrapping from points round to regions (3, 2, 1, 0, 3, …).</p>
   </header>
   <div class="bar">
     <label>Find <input id="find" list="ids" placeholder="F2" autocomplete="off"></label>
@@ -90,11 +90,11 @@ for (const n of Object.values(N)) {
   els[n.id] = { g, x, y, o: 0.15, s: 0.7, tx: x, ty: y, to: 0.15, ts: 0.7 };
 }
 const edgeEls = D.edges.map((e) => ({ e, l: mk("line", { stroke: "var(--line)", "stroke-width": 1, opacity: 0 }, gE) }));
-// rings: one per dimension among the neighbours, the adjacent dimensions nearest, the others further out
+// rings: one per dimension among the neighbours, in the same cyclic order whatever is selected
 function layout(id) {
   const f = N[id], nb = [...new Set((adj[id] || []).map((e) => other(e, id)))].filter((k) => N[k]);
-  const dims = [...new Set(nb.map((k) => N[k].d))].sort((a, b) => b - a); // fixed order: 3d innermost, then 2d, 1d, 0d
-  const radius = Object.fromEntries(dims.map((d, i) => [d, 125 + 85 * i]));
+  const dims = [...new Set(nb.map((k) => N[k].d))].sort((a, b) => (f.d - a + 4) % 4 - (f.d - b + 4) % 4); // cyclic: counting down from the centre, 0d wraps round to 3d
+  const radius = Object.fromEntries(dims.map((d, i) => [d, 105 + 75 * i]));
   const rings = {};
   for (const k of nb) {
     const n = N[k], ang = Math.atan2(n.xy[1] - f.xy[1], n.xy[0] - f.xy[0]);
@@ -113,7 +113,7 @@ function layout(id) {
         if (gap < minGap) { const push = (minGap - gap) / 2; a.ang -= push; b.ang += push; }
       }
     }
-    for (const { k, ang } of list) pos[k] = [rad * Math.cos(ang), rad * Math.sin(ang) * 0.95];
+    for (const { k, ang } of list) pos[k] = [rad * 1.2 * Math.cos(ang), rad * 0.95 * Math.sin(ang)];
   }
   return { pos, nb: new Set(nb) };
 }
