@@ -9,8 +9,9 @@ borders. Built from the page as drawn (every wall piece at the page's resolution
     it (a pocket whose points disagree is marked mixed); where the voxels give up (a part next to a face of the cell,
     or wedged between walls), the part is classified directly.
 
-Sides are named from the drawn half: "outside" is past a face of the cell, "mirror" past the splitting mirror (what
-lies there is drawn beside the wall's copy).
+The shapes are taken in their full extent on the 3-sphere: the half-cell's faces and splitting mirror only cut the
+view, so a side reaching past them is named by the shape actually there (the point brought back into the half-cell
+by the group). Only region_pieces.json notes it, for drawing: "cut" marks a side that lies past the view's cut.
 
     python region_db.py T2,X3,X9,X10,X11,X14,X21        (the walls to add or redo; reads ../../assets/symmetry_domain.html)
 """
@@ -47,15 +48,14 @@ class Labels:
     key = staticmethod(lambda b: ",".join(f"{x:.10f}" for x in b / b.sum()))
 
     def __call__(self, B):
-        """Shapes at betas B (n, 4); "outside" past a face of the cell, "mirror" past the splitting mirror."""
+        """Shapes at betas B (n, 4), each taken where it really is on the 3-sphere (brought into the half-cell)."""
         B = np.asarray(B, float)
         out = [None] * len(B)
         todo = {}
+        B = home(B)
         for i, b in enumerate(B):
-            if b.min() <= 0:
-                out[i] = "outside"
-            elif b[2] < b[3]:
-                out[i] = "mirror"
+            if np.isnan(b).any():
+                out[i] = "ERR"
             else:
                 k = self.key(b)
                 if k in self.cache:
@@ -76,6 +76,29 @@ class Labels:
                     if (n_ + 1) % 100 == 0:
                         print(f"    classified {n_ + 1} of {len(ks)}", flush=True)
         return out
+
+
+def _group():
+    if not hasattr(_group, "G"):
+        import edge_snap
+        _group.G = edge_snap.group()                    # (acting on beta)
+    return _group.G
+
+
+def home(B):
+    """Betas brought into the half-cell by the group (the same place on the 3-sphere); NaN where none lands there."""
+    B = np.asarray(B, float)
+    B = B / B.sum(axis=1, keepdims=True)
+    out = B.copy()
+    away = ~rc.inside(B)
+    if away.any():
+        Y = np.einsum("gij,nj->ngi", _group(), B[away])
+        s = Y.sum(axis=-1, keepdims=True)
+        Y = Y / np.where(np.abs(s) < 1e-12, 1e-12, s)
+        ok = rc.inside(Y) & (s[..., 0] > 0)
+        first = np.where(ok.any(axis=1), ok.argmax(axis=1), -1)
+        out[away] = np.where(first[:, None] >= 0, Y[np.arange(len(Y)), np.maximum(first, 0)], np.nan)
+    return out
 
 
 def _lab_timed(b, seconds=30):
@@ -159,8 +182,18 @@ def main(walls):
         v = np.full(len(X), -1)
         v[ok] = lab[tuple(i[ok].T)]
         B = rc.betas(X)
-        v[B.min(axis=1) <= 0] = -2                    # (outside the cell)
-        v[(B.min(axis=1) > 0) & (B[:, 2] < B[:, 3])] = -3   # (past the mirror)
+        away = ~rc.inside(B)                          # (past the view's cut: the pocket where it really is)
+        if away.any():
+            H = home(B[away])
+            good = ~np.isnan(H).any(axis=1)
+            w = np.full(away.sum(), -1)
+            if good.any():
+                j = np.floor((rc.xyz(H[good]) - lo) / h).astype(int)
+                okj = np.all((j >= 0) & (j < shape), axis=1)
+                wg = np.full(good.sum(), -1)
+                wg[okj] = lab[tuple(j[okj].T)]
+                w[good] = wg
+            v[away] = w
         return v
 
     def pocket_sides(C, N):
@@ -194,7 +227,8 @@ def main(walls):
     pk = sorted({int(p) for p in ps.ravel() if p > 0})
     print(f"  {len(pk)} pockets beside them; labelling", flush=True)
     plab = pocket_labels(lab, lo, h, pk, labels)
-    name = lambda p: plab.get(int(p)) if p > 0 else {-2: "outside", -3: "mirror"}.get(int(p))
+    name = lambda p: plab.get(int(p)) if p > 0 else None
+    cut = lambda C, N: np.stack([~rc.inside(rc.betas(C + s * 4e-4 * N)) for s in (1, -1)], 1) if len(C) else np.zeros((0, 2), bool)
     side_names = [[name(a), name(b)] for a, b in ps]
     # where the voxels give up, or a pocket is mixed: the classifier, a short step off the part
     redo = [i for i, sn in enumerate(side_names) if None in sn or any(str(x).startswith("mixed") for x in sn)]
@@ -240,12 +274,12 @@ def main(walls):
     fp = json.load(open(PIECES)) if os.path.exists(PIECES) else {}
     for wid in targets:
         fp[wid] = []
-    for (wid, kind, pg, n), sn in zip(curved_parts, side_names):
-        fp[wid].append({"sides": [str(x) for x in sn], "kind": kind, "mirror": _in_mirror(pg),
+    for (wid, kind, pg, n), sn, cc in zip(curved_parts, side_names, cut(C, Nn)):
+        fp[wid].append({"sides": [str(x) for x in sn], "cut": [bool(x) for x in cc], "kind": kind, "mirror": _in_mirror(pg),
                         "tris": [np.r_[pg[0], pg[m], pg[m + 1]].round(7).tolist() for m in range(1, len(pg) - 1)]})
-    for (wid, kind, g, frame, n, P, thin), sn in zip(flat_faces, flat_sides):
+    for (wid, kind, g, frame, n, P, thin), sn, cc in zip(flat_faces, flat_sides, cut(P3, N3)):
         T = _fill(g, frame)
-        fp[wid].append({"sides": [str(x) for x in sn], "kind": kind, "mirror": _in_mirror(T.reshape(-1, 3)),
+        fp[wid].append({"sides": [str(x) for x in sn], "cut": [bool(x) for x in cc], "kind": kind, "mirror": _in_mirror(T.reshape(-1, 3)),
                         "tris": T.reshape(-1, 9).round(7).tolist()})
     json.dump(fp, open(PIECES, "w"), separators=(",", ":"))
     for wid in targets:
