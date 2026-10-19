@@ -1,0 +1,202 @@
+<title>Shape Map</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a toolbar (search, dimension key), then the moving map beside a details panel */
+:root { --bg: #f5f5f1; --panel: #ffffff; --fg: #1d2124; --muted: #5c6367; --line: #cfd2ce;
+  --d3: #c0603f; --d2: #2f6f9a; --d1: #4f8a2a; --d0: #8a4fa0;
+  --font-text: "Spline Sans", system-ui, sans-serif; --font-data: "Spline Sans Mono", ui-monospace, monospace; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #141719; --panel: #1c2023; --fg: #e5e8e6; --muted: #9aa1a5; --line: #384044;
+  --d3: #f29a7c; --d2: #7fb6df; --d1: #9acb6f; --d0: #c99be0; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #141719; --panel: #1c2023; --fg: #e5e8e6; --muted: #9aa1a5; --line: #384044;
+  --d3: #f29a7c; --d2: #7fb6df; --d1: #9acb6f; --d0: #c99be0; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-text); }
+.wrap { padding-inline: 16px; padding-block: 18px 36px; max-width: 1360px; margin: 0 auto; display: grid; gap: 14px; }
+h1 { font-size: 1.35rem; font-weight: 600; margin: 0; }
+.sub { color: var(--muted); margin: 4px 0 0; max-width: 80ch; line-height: 1.45; font-size: 14px; }
+.bar { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+.bar input { font: 14px var(--font-data); padding: 6px 10px; border: 1px solid var(--line); border-radius: 5px; background: var(--panel); color: var(--fg); width: 11em; }
+.bar input:focus-visible { outline: 2px solid var(--d2); outline-offset: 1px; }
+.key { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
+.key span { display: inline-flex; gap: 6px; align-items: center; }
+.key i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 14px; align-items: start; }
+@media (max-width: 920px) { .main { grid-template-columns: 1fr; } }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.map { overflow: hidden; }
+svg { display: block; width: 100%; height: auto; font-family: var(--font-data); touch-action: manipulation; }
+.node { cursor: pointer; }
+.node:focus-visible circle { stroke: var(--fg); stroke-width: 3; }
+.lab { pointer-events: none; }
+.detail { padding: 14px 16px; font-size: 13px; line-height: 1.45; min-width: 0; }
+.detail h2 { margin: 0; font: 600 1.2rem var(--font-data); }
+.detail .kind { color: var(--muted); font-size: 12.5px; margin: 2px 0 10px; }
+.grp { margin-top: 10px; }
+.grp h3 { margin: 0 0 6px; font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { font: 12px var(--font-data); padding: 2px 8px; border-radius: 10px; border: 1px solid currentColor; background: none; color: inherit; cursor: pointer; }
+.chip:focus-visible { outline: 2px solid var(--fg); }
+.chip small { color: var(--muted); }
+.faces { margin-top: 10px; width: 100%; border-collapse: collapse; font-size: 12px; }
+.faces td, .faces th { text-align: left; padding: 3px 6px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.faces th { font: 600 11px var(--font-text); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.faces td { font-family: var(--font-data); }
+.note { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+.crumbs { display: flex; flex-wrap: wrap; gap: 4px; font: 12px var(--font-data); color: var(--muted); }
+.crumbs button { font: inherit; color: inherit; background: none; border: 0; padding: 0 2px; cursor: pointer; text-decoration: underline; }
+</style>
+<div class="wrap">
+  <header>
+    <h1>Shape map</h1>
+    <p class="sub">Every shape in the atlas, coloured by dimension. Select one and it moves to the middle, with the shapes on its boundary and the shapes it bounds arranged around it, each placed in the direction it lies from the selected shape in the cell. Nearer rings hold the adjacent dimensions.</p>
+  </header>
+  <div class="bar">
+    <label>Find <input id="find" list="ids" placeholder="F2" autocomplete="off"></label>
+    <datalist id="ids"></datalist>
+    <div class="key" aria-label="Colour by dimension"><span><i style="background:var(--d3)"></i>region (3D)</span><span><i style="background:var(--d2)"></i>wall (2D)</span><span><i style="background:var(--d1)"></i>line (1D)</span><span><i style="background:var(--d0)"></i>point (0D)</span></div>
+    <div class="crumbs" id="crumbs"></div>
+  </div>
+  <div class="main">
+    <div class="box map"><svg id="g" viewBox="-450 -360 900 720" role="img" aria-label="Map of the atlas shapes around the selected one"></svg></div>
+    <aside class="box detail" id="detail" aria-live="polite"></aside>
+  </div>
+</div>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById("data").textContent);
+const DIM = { region: 3, wall: 2, line: 1, point: 0 };
+const N = Object.fromEntries(D.nodes.map((n) => [n.id, { ...n, d: DIM[n.dim] }]));
+const adj = {};
+for (const e of D.edges) { (adj[e.a] ||= []).push(e); (adj[e.b] ||= []).push(e); }
+const other = (e, id) => (e.a === id ? e.b : e.a);
+const svg = document.getElementById("g"), NS = "http://www.w3.org/2000/svg";
+const mk = (t, a, p) => { const x = document.createElementNS(NS, t); for (const k in a) x.setAttribute(k, a[k]); p.appendChild(x); return x; };
+const gE = mk("g", {}, svg), gN = mk("g", {}, svg);
+const col = (n) => `var(--d${n.d})`;
+const R = (n) => [9, 12, 16, 22][n.d];
+// the overview: every shape at its place in the cell (two main directions of all their centres)
+const xs = D.nodes.map((n) => n.xy[0]), ys = D.nodes.map((n) => n.xy[1]);
+const sx = 820 / (Math.max(...xs) - Math.min(...xs)), sy = 640 / (Math.max(...ys) - Math.min(...ys)), s0 = Math.min(sx, sy);
+const mx = (Math.max(...xs) + Math.min(...xs)) / 2, my = (Math.max(...ys) + Math.min(...ys)) / 2;
+const home = (n) => [(n.xy[0] - mx) * s0, (n.xy[1] - my) * s0];
+const els = {};
+for (const n of Object.values(N)) {
+  const g = mk("g", { class: "node", tabindex: 0, role: "button", "aria-label": `${n.id}, ${n.dim}` }, gN);
+  mk("circle", { r: R(n), fill: col(n), "fill-opacity": 0.18, stroke: col(n), "stroke-width": 1.6 }, g);
+  const t = mk("text", { class: "lab", "text-anchor": "middle", dy: "0.35em", "font-size": n.d === 3 ? 11.5 : 10.5, fill: "var(--fg)" }, g);
+  t.textContent = n.id;
+  g.addEventListener("click", () => select(n.id));
+  g.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(n.id); } });
+  const [x, y] = home(n);
+  els[n.id] = { g, x, y, o: 0.15, s: 0.7, tx: x, ty: y, to: 0.15, ts: 0.7 };
+}
+const edgeEls = D.edges.map((e) => ({ e, l: mk("line", { stroke: "var(--line)", "stroke-width": 1, opacity: 0 }, gE) }));
+// rings: one per dimension among the neighbours, the adjacent dimensions nearest, the others further out
+function layout(id) {
+  const f = N[id], nb = [...new Set((adj[id] || []).map((e) => other(e, id)))].filter((k) => N[k]);
+  const dims = [...new Set(nb.map((k) => N[k].d))].sort((a, b) => Math.abs(a - f.d) - Math.abs(b - f.d) || b - a);
+  const radius = Object.fromEntries(dims.map((d, i) => [d, 125 + 85 * i]));
+  const rings = {};
+  for (const k of nb) {
+    const n = N[k], ang = Math.atan2(n.xy[1] - f.xy[1], n.xy[0] - f.xy[0]);
+    (rings[n.d] ||= []).push({ k, ang });
+  }
+  const pos = { [id]: [0, 0] };
+  for (const [d, list] of Object.entries(rings)) {
+    const rad = radius[d], size = 2 * R({ d: +d }) + 10;
+    const minGap = Math.min(2 * Math.PI / list.length, size / rad);
+    list.sort((a, b) => a.ang - b.ang);
+    // spread round the ring, keeping the order the directions give (a few relaxation passes)
+    for (let it = 0; it < 80; it++) {
+      for (let i = 0; i < list.length; i++) {
+        const a = list[i], b = list[(i + 1) % list.length];
+        let gap = b.ang - a.ang; if (i === list.length - 1) gap += 2 * Math.PI;
+        if (gap < minGap) { const push = (minGap - gap) / 2; a.ang -= push; b.ang += push; }
+      }
+    }
+    for (const { k, ang } of list) pos[k] = [rad * Math.cos(ang), rad * Math.sin(ang) * 0.95];
+  }
+  return { pos, nb: new Set(nb) };
+}
+let current = null, history = [];
+function select(id, push = true) {
+  if (!N[id]) return;
+  if (push && current && current !== id) history.push(current);
+  current = id;
+  const { pos, nb } = layout(id);
+  for (const [k, el] of Object.entries(els)) {
+    if (pos[k]) { [el.tx, el.ty] = pos[k]; el.to = 1; el.ts = k === id ? 1.5 : 1; }
+    else { const [x, y] = home(N[k]); el.tx = x * 1.45; el.ty = y * 1.45; el.to = 0.05; el.ts = 0.55; }
+  }
+  for (const ee of edgeEls) {
+    const { e, l } = ee, a = e.a === id || e.b === id, both = pos[e.a] && pos[e.b];
+    ee.to = a ? 0.9 : both ? 0.22 : 0;
+    l.setAttribute("stroke", a ? (e.src.includes("faces") ? "var(--fg)" : "var(--muted)") : "var(--line)");
+    l.setAttribute("stroke-width", a && e.src.includes("faces") ? 2.2 : 1);
+  }
+  gN.appendChild(els[id].g);
+  animate();
+  panel(id, nb);
+  crumbs();
+  try { history.length > 30 && history.shift(); } catch (_) {}
+}
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let raf = null;
+function animate() {
+  const t0 = performance.now(), from = Object.fromEntries(Object.entries(els).map(([k, e]) => [k, [e.x, e.y, e.o, e.s]]));
+  const eFrom = edgeEls.map((ee) => +ee.l.getAttribute("opacity"));
+  cancelAnimationFrame(raf);
+  const step = (now) => {
+    let t = reduce ? 1 : Math.min(1, (now - t0) / 650); const k = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    for (const [id, e] of Object.entries(els)) {
+      const [x0, y0, o0, s0_] = from[id];
+      e.x = x0 + (e.tx - x0) * k; e.y = y0 + (e.ty - y0) * k; e.o = o0 + (e.to - o0) * k; e.s = s0_ + (e.ts - s0_) * k;
+      e.g.setAttribute("transform", `translate(${e.x.toFixed(1)},${e.y.toFixed(1)}) scale(${e.s.toFixed(3)})`);
+      e.g.setAttribute("opacity", e.o.toFixed(3));
+      e.g.style.pointerEvents = e.to < 0.5 ? "none" : "auto";
+    }
+    edgeEls.forEach((ee, i) => {
+      const a = els[ee.e.a], b = els[ee.e.b];
+      ee.l.setAttribute("x1", a.x); ee.l.setAttribute("y1", a.y); ee.l.setAttribute("x2", b.x); ee.l.setAttribute("y2", b.y);
+      ee.l.setAttribute("opacity", (eFrom[i] + (ee.to - eFrom[i]) * k).toFixed(3));
+    });
+    if (t < 1) raf = requestAnimationFrame(step);
+  };
+  raf = requestAnimationFrame(step);
+}
+const detail = document.getElementById("detail");
+const label = { region: "regions", wall: "walls", line: "lines", point: "points" };
+function panel(id, nb) {
+  const n = N[id], es = adj[id] || [];
+  const groups = { region: [], wall: [], line: [], point: [] };
+  for (const e of es) { const k = other(e, id); if (N[k]) groups[N[k].dim].push({ k, e }); }
+  let html = `<h2 style="color:${col(n)}">${id}</h2><div class="kind">${n.dim} · ${n.name}</div>`;
+  for (const dim of ["region", "wall", "line", "point"]) {
+    const g = groups[dim]; if (!g.length) continue;
+    g.sort((a, b) => a.k.localeCompare(b.k, undefined, { numeric: true }));
+    html += `<div class="grp"><h3>${label[dim]} (${g.length})</h3><div class="chips">` + g.map(({ k, e }) =>
+      `<button class="chip" style="color:${col(N[k])}" data-id="${k}" title="from: ${e.src.join(", ")}">${k}${e.src.includes("faces") ? " <small>●</small>" : ""}</button>`).join("") + `</div></div>`;
+  }
+  // measured faces (region_db.json): for a wall, the regions on its two sides; for a region, the walls and what is across
+  const rows = [];
+  for (const e of es) for (const [pair, a] of Object.entries(e.faces || {})) {
+    const [r, o] = pair.split("|");
+    if (n.dim === "wall") { if (!rows.some((x) => x[0] === [r, o].sort().join(" | "))) rows.push([[r, o].sort().join(" | "), a]); }
+    else if (r === id) rows.push([`${other(e, id)} → ${o}`, a]);
+  }
+  if (rows.length) html += `<table class="faces"><thead><tr><th>${n.dim === "wall" ? "Faces: sides" : "Wall → across"}</th><th>Area</th></tr></thead><tbody>` +
+    rows.sort((a, b) => b[1] - a[1]).map(([k, a]) => `<tr><td>${k}</td><td>${a.toFixed(4)}</td></tr>`).join("") + `</tbody></table>`;
+  html += `<p class="note">● measured face by face (region database). Other links come from the boundaries column and the walls' separates lists, and are still to be measured.</p>`;
+  detail.innerHTML = html;
+  detail.querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => select(b.dataset.id)));
+}
+function crumbs() {
+  const c = document.getElementById("crumbs");
+  c.innerHTML = history.length ? "Back to: " + history.slice(-6).map((h, i, a) => `<button data-i="${history.length - a.length + i}">${h}</button>`).join(" ›") : "";
+  c.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { const i = +b.dataset.i, id = history[i]; history = history.slice(0, i); select(id, false); }));
+}
+const dl = document.getElementById("ids");
+for (const id of Object.keys(N).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))) { const o = document.createElement("option"); o.value = id; dl.appendChild(o); }
+document.getElementById("find").addEventListener("change", (ev) => { const v = ev.target.value.trim().toUpperCase(); if (N[v]) select(v); });
+for (const el of Object.values(els)) { el.g.setAttribute("transform", `translate(${el.x},${el.y}) scale(${el.s})`); el.g.setAttribute("opacity", el.o); }
+select("F2", false);
+</script>
