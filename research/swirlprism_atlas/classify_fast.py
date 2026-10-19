@@ -157,7 +157,7 @@ def classify(seed: np.ndarray, hull_tol: float = 1e-9) -> dict:
 
     def senders(u):
         if u not in to0:
-            to0[u] = np.flatnonzero(np.linalg.norm(E @ verts[u] - verts[0], axis=1) < 1e-6)
+            to0[u] = np.flatnonzero(np.linalg.norm(E @ verts[u] - verts[0], axis=1) < 1e-10)   # (near-twin vertices sit ~1e-7 apart)
         return to0[u]
 
     def orbits(items):
