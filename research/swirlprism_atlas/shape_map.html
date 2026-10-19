@@ -47,7 +47,7 @@ svg { display: block; width: 100%; height: auto; font-family: var(--font-data); 
 <div class="wrap">
   <header>
     <h1>Shape map</h1>
-    <p class="sub">Every shape in the atlas, coloured by dimension. Select one and it moves to the middle, with the shapes on its boundary and the shapes it bounds arranged around it, each placed in the direction it lies from the selected shape in the cell. Nearer rings hold the adjacent dimensions.</p>
+    <p class="sub">Every shape in the atlas, coloured by dimension. Select one and it moves to the middle, with the shapes on its boundary and the shapes it bounds arranged around it, each placed in the direction it lies from the selected shape in the cell. Rings always run regions, walls, lines, points from the inside out.</p>
   </header>
   <div class="bar">
     <label>Find <input id="find" list="ids" placeholder="F2" autocomplete="off"></label>
@@ -93,7 +93,7 @@ const edgeEls = D.edges.map((e) => ({ e, l: mk("line", { stroke: "var(--line)", 
 // rings: one per dimension among the neighbours, the adjacent dimensions nearest, the others further out
 function layout(id) {
   const f = N[id], nb = [...new Set((adj[id] || []).map((e) => other(e, id)))].filter((k) => N[k]);
-  const dims = [...new Set(nb.map((k) => N[k].d))].sort((a, b) => Math.abs(a - f.d) - Math.abs(b - f.d) || b - a);
+  const dims = [...new Set(nb.map((k) => N[k].d))].sort((a, b) => b - a); // fixed order: 3d innermost, then 2d, 1d, 0d
   const radius = Object.fromEntries(dims.map((d, i) => [d, 125 + 85 * i]));
   const rings = {};
   for (const k of nb) {
