@@ -151,7 +151,7 @@ def classified_sides(rid, cache_path="region_walls_cache.jsonl", step=0.0004, pr
     def sides(C, N):
         B = [rc.betas((C + s * step * N))[:, None, :] for s in (1, -1)]
         B = np.concatenate(B, axis=1)                     # (n, 2, 4)
-        todo = sorted({key(b) for b in B.reshape(-1, 4) if b.min() > 0} - set(cache))
+        todo = sorted({key(b) for b in B.reshape(-1, 4) if b.min() > 0 and b[2] >= b[3]} - set(cache))
         if todo:
             with Pool(procs) as pool:
                 got = pool.map(rc._lab_job, [np.array([float(x) for x in k.split(",")]) for k in todo], chunksize=1)
@@ -163,12 +163,14 @@ def classified_sides(rid, cache_path="region_walls_cache.jsonl", step=0.0004, pr
         for i in range(len(B)):
             for j in range(2):
                 b = B[i, j]
-                out[i, j] = 0 if b.min() <= 0 else (1 if cache[key(b)] == rid else 2)
+                # (past a face of the cell or the splitting mirror is outside the drawn half: what lies there is
+                # drawn beside the copy, not here)
+                out[i, j] = 0 if (b.min() <= 0 or b[2] < b[3]) else (1 if cache[key(b)] == rid else 2)
         return out
     return sides
 
 
-def paint(pieces, sides, reach=0.03, max_parts=64, exact_sides=None, exact_walls=(), min_exact_area=1.5e-5, judge=None):
+def paint(pieces, sides, reach=0.03, max_parts=64, exact_sides=None, exact_walls=(), min_exact_area=1.5e-5, judge=None, near_face_reach=0.02):
     """The coloured triangles of the pieces [(wall, kind, index, triangles)]: every triangle another of the walls
     crosses is cut along that wall's triangles first, and each part is kept when the cell is on one side of it.
     The pieces of exact_walls (flat walls of a few large triangles) are judged by exact_sides instead."""
@@ -204,7 +206,18 @@ def paint(pieces, sides, reach=0.03, max_parts=64, exact_sides=None, exact_walls
                 parts.append((wid, pg, N[j], kind))
     out, ids, kinds, count = [], [], [], Counter()
     area = lambda pg: 0.5 * np.linalg.norm(sum(np.cross(pg[m] - pg[0], pg[m + 1] - pg[0]) for m in range(1, len(pg) - 1)))
+    def near_face(pg, r=near_face_reach):
+        """Within r of a face of the cell or the splitting mirror (in betas): the voxels there are unreliable."""
+        B = rc.betas(np.asarray(pg))
+        return (B.min() < r) or ((B[:, 2] - B[:, 3]).min() < r)
     use_exact = [p[0] in exact_walls and area(p[1]) > min_exact_area for p in parts]
+    if exact_sides is not None:                        # (near a face, where the voxel test gives up: the classifier)
+        idx_ = [i for i, p in enumerate(parts) if not use_exact[i] and near_face(p[1])]
+        if idx_:
+            vs = sides(np.array([parts[i][1].mean(0) for i in idx_]), np.array([parts[i][2] for i in idx_]))
+            for i, v in zip(idx_, vs):
+                if -1 in v or (0 in v and 1 not in v):
+                    use_exact[i] = True
     print(f"  {len(parts)} parts, {sum(use_exact)} judged by the classifier", flush=True)
     if os.environ.get("DRY"):
         return np.zeros((0, 3, 3))
@@ -245,9 +258,13 @@ def flat_paint(pieces, exact_sides, voxel_sides, eps=3e-6, inset=0.0015, extend=
     from shapely.geometry import LineString, MultiLineString, Polygon
     from shapely.ops import unary_union
     flat = [p for p in pieces if is_flat(p[3])]
+    # (a piece lying in the splitting mirror is not coloured: the mirror folds the drawn half, and what lies past it
+    # is drawn beside the wall's copy)
+    in_mirror = lambda T: np.abs(np.diff(rc.betas(T.reshape(-1, 3))[:, 2:], axis=1)).max() < 1e-6
+    colourable = {id(p[3]) for p in flat if not in_mirror(p[3])}
     others = [(w, T) for w, _, _, T in pieces]
     faces = []                                         # (wall, 3D polygon list, normal, inner point)
-    for wid, kind, idx, T in flat:
+    for wid, kind, idx, T in [p for p in flat if id(p[3]) in colourable]:
         o, n = plane_of(T)
         e1 = np.linalg.svd(T.reshape(-1, 3) - o)[2][0]
         e2 = np.cross(n, e1)
@@ -327,7 +344,7 @@ def main(rid, walls):
     curved = [p for p in pieces if not is_flat(p[3])]
     # (the curved walls, finely meshed: their triangles cut where other walls cross them, judged by the voxels;
     # the flat walls, a few large triangles: split along the other walls' traces, each face judged by the classifier)
-    tris = paint(pieces, vox, judge=[p for p in curved])
+    tris = paint(pieces, vox, judge=[p for p in curved], exact_sides=ex)
     ids = list(paint.ids)
     kinds0 = list(paint.kinds)
     ft, fids = flat_paint(pieces, ex, vox)
