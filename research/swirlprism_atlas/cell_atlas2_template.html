@@ -365,6 +365,9 @@ __TYPE_CSS__
     };
     // the wall triangles that border a region's cell (region_cells.py): each triangle of every wall, and of every
     // copy, stepped off on both sides onto the cell's voxels (run-length coded); a hit keeps it
+    // a region's coloured outer walls (region_walls.py): shared vertices and index triples, as a mesh3d's arrays
+    const meshOf = (rw) => ({ x: rw.verts.map((v) => v[0]), y: rw.verts.map((v) => v[1]), z: rw.verts.map((v) => v[2]),
+      i: rw.faces.map((f) => f[0]), j: rw.faces.map((f) => f[1]), k: rw.faces.map((f) => f[2]) });
     const paintCache = {};
     function regionPaint(id) {
       if (paintCache[id]) return paintCache[id];
@@ -503,15 +506,18 @@ __TYPE_CSS__
       for (const id of state.sel) if (D === DC && D.regionGrid && D.regionGrid.runs[id]) {
         const rc = D.regionCells[id], rw = D.regionWalls && D.regionWalls[id];
         // (the outer walls' coloured parts, cut where the walls meet: region_walls.py)
-        const m = rw ? { x: rw.tris.flatMap((t) => [t[0], t[3], t[6]]), y: rw.tris.flatMap((t) => [t[1], t[4], t[7]]),
-          z: rw.tris.flatMap((t) => [t[2], t[5], t[8]]), i: rw.tris.map((_, q) => 3 * q), j: rw.tris.map((_, q) => 3 * q + 1),
-          k: rw.tris.map((_, q) => 3 * q + 2) } : regionPaint(id);
+        const m = rw ? meshOf(rw) : regionPaint(id);
         const nm = `${id}: its outer walls${rw ? " (" + rw.walls.join(", ") + ")" : ""}, one cell on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
         if (m.i.length) out.push({ type: "mesh3d", ...m, color: color(byId[id]), opacity: 0.4, flatshading: true,
           name: nm, hovertemplate: `${nm}<extra></extra>` });
       }
       // ... and in the dodecahedron views: their own wall triangles listed as bordering it (w.paint)
-      for (const id of state.sel) if (D !== DC && DC.regionGrid && DC.regionGrid.runs[id]) {
+      for (const id of state.sel) if (D !== DC && D.regionWalls && D.regionWalls[id]) {
+        const rw = D.regionWalls[id], nm = `${id}: its outer walls`;
+        if (rw.faces.length) out.push({ type: "mesh3d", ...meshOf(rw),
+          color: color(byId[id]), opacity: 0.4, flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
+      }
+      for (const id of state.sel) if (D !== DC && !(D.regionWalls && D.regionWalls[id]) && DC.regionGrid && DC.regionGrid.runs[id]) {
         const X = [], Y = [], Z = [], I = [], J = [], K = [];
         for (const w of D.xwalls || []) if (w.paint && w.paint[id]) for (const f of w.paint[id]) {
           const o = X.length;

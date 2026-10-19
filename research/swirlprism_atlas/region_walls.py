@@ -11,6 +11,7 @@ that changes is cut along the other wall crossing it, so the colour stops on the
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from collections import Counter, defaultdict
@@ -81,7 +82,9 @@ def cell(d, rid, pieces, h=0.0025):
     return lab, lo, h, set(ins)
 
 
-def paint(pieces, lab, lo, h, ins):
+def cell_sides(lab, lo, h, ins):
+    """sides(C, N) -> (n, 2): 1 in the cell, 2 elsewhere, 0 outside the half-cell, -1 not found, a few voxels off
+    each side of the points C along N (cell xyz)."""
     shape = np.array(lab.shape)
 
     def side(X):
@@ -104,63 +107,214 @@ def paint(pieces, lab, lo, h, ins):
                 r[m] = q[m]
             res.append(r)
         return np.stack(res, 1)
+    return sides
 
-    coloured = lambda st: (st[0] == 1) != (st[1] == 1) and -1 not in st
 
-    def clip(poly, p0, n):
-        out = []
-        for k in range(len(poly)):
-            a, b = poly[k], poly[(k + 1) % len(poly)]
-            fa, fb = (a - p0) @ n, (b - p0) @ n
-            if fa >= 0:
-                out.append(a)
-            if (fa >= 0) != (fb >= 0):
-                out.append(a + (b - a) * fa / (fa - fb))
+def _clip(poly, p0, n):
+    out = []
+    for k in range(len(poly)):
+        a, b = poly[k], poly[(k + 1) % len(poly)]
+        fa, fb = (a - p0) @ n, (b - p0) @ n
+        if fa >= 0:
+            out.append(a)
+        if (fa >= 0) != (fb >= 0):
+            out.append(a + (b - a) * fa / (fa - fb))
+    return out
+
+
+def _crosses(t, u, eps=3e-6):
+    """Does triangle u cross triangle t's plane through t, or end on it (a wall ending on another touches it along
+    its edge without crossing: the page's coordinates are kept to 1e-6)?"""
+    n = np.cross(t[1] - t[0], t[2] - t[0])
+    nu = np.cross(u[1] - u[0], u[2] - u[0])
+    if np.linalg.norm(n) < 1e-15 or np.linalg.norm(nu) < 1e-15:
+        return False
+    n, nu = n / np.linalg.norm(n), nu / np.linalg.norm(nu)
+    fu, ft = (t - u[0]) @ nu, (u - t[0]) @ n
+    if abs(n @ nu) > 1 - 1e-9:                          # (parallel: no line to cut along)
+        return False
+    return fu.max() > eps and fu.min() < -eps and ft.max() >= -eps and ft.min() <= eps
+
+
+def classified_sides(rid, cache_path="region_walls_cache.jsonl", step=0.0004, procs=4):
+    """sides for a list of points by the classifier itself (cached): 1 where the shape a step off is the region,
+    2 another shape, 0 outside the cell. Slow (seconds a point), so only for the few pieces of the flat walls."""
+    import os
+    from multiprocessing import Pool
+    cache = {}
+    if os.path.exists(cache_path):
+        for line in open(cache_path):
+            k, v = json.loads(line)
+            cache[k] = v
+    key = lambda b: ",".join(f"{x:.10f}" for x in b / b.sum())
+
+    def sides(C, N):
+        B = [rc.betas((C + s * step * N))[:, None, :] for s in (1, -1)]
+        B = np.concatenate(B, axis=1)                     # (n, 2, 4)
+        todo = sorted({key(b) for b in B.reshape(-1, 4) if b.min() > 0} - set(cache))
+        if todo:
+            with Pool(procs) as pool:
+                got = pool.map(rc._lab_job, [np.array([float(x) for x in k.split(",")]) for k in todo], chunksize=1)
+            with open(cache_path, "a") as f:
+                for k, l in zip(todo, got):
+                    cache[k] = l
+                    f.write(json.dumps([k, l]) + "\n")
+        out = np.zeros(B.shape[:2], int)
+        for i in range(len(B)):
+            for j in range(2):
+                b = B[i, j]
+                out[i, j] = 0 if b.min() <= 0 else (1 if cache[key(b)] == rid else 2)
         return out
+    return sides
+
+
+def paint(pieces, sides, reach=0.03, max_parts=64, exact_sides=None, exact_walls=(), min_exact_area=1.5e-5, judge=None):
+    """The coloured triangles of the pieces [(wall, kind, index, triangles)]: every triangle another of the walls
+    crosses is cut along that wall's triangles first, and each part is kept when the cell is on one side of it.
+    The pieces of exact_walls (flat walls of a few large triangles) are judged by exact_sides instead."""
+    coloured = lambda st: (st[0] == 1) != (st[1] == 1) and -1 not in st
     allT = np.concatenate([T for *_, T in pieces])
-    owner = np.concatenate([[k] * len(T) for k, (*_, T) in enumerate(pieces)])
+    wall_of = np.concatenate([[w] * len(T) for w, *_, T in pieces])
     rad = np.max(np.linalg.norm(allT - allT.mean(axis=1)[:, None], axis=2), axis=1)
-    small = rad < 0.03
+    small = rad < reach
     tree, sidx, big = cKDTree(allT[small].mean(axis=1)), np.flatnonzero(small), np.flatnonzero(~small)
-    out, count = [], Counter()
-    for k, (wid, kind, idx, T) in enumerate(pieces):
+    parts = []                                          # (wall, polygon, normal)
+    for wid, kind, idx, T in (pieces if judge is None else judge):
         N = np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0])
         ln = np.linalg.norm(N, axis=1)
         N = N / np.maximum(ln, 1e-300)[:, None]
-        st = np.array([coloured(s) for s in sides(T.mean(1), N)]) & (ln > 1e-15)
-        key = lambda p: tuple(np.round(p, 6))
-        E = defaultdict(list)
         for j, t in enumerate(T):
-            for a in range(3):
-                E[tuple(sorted((key(t[a]), key(t[(a + 1) % 3]))))].append(j)
-        front = {j for js in E.values() if len(js) == 2 and st[js[0]] != st[js[1]] for j in js}
-        for j, t in enumerate(T):
-            if j not in front:
-                if st[j]:
-                    out.append(t)
-                    count[wid] += 1
+            if ln[j] < 1e-15:
                 continue
             rt = np.max(np.linalg.norm(t - t.mean(0), axis=1))
-            cand = [c for c in list(sidx[tree.query_ball_point(t.mean(0), rt + 0.03)]) + list(big) if owner[c] != k]
+            cand = [c for c in list(sidx[tree.query_ball_point(t.mean(0), rt + reach)]) + list(big)
+                    if wall_of[c] != wid and _crosses(t, allT[c])]
             polys = [list(t)]
-            for c in cand:                         # (cut by every other wall's triangle crossing this one)
+            for c in cand:                     # (cut along every other wall crossing it)
                 u = allT[c]
                 nu = np.cross(u[1] - u[0], u[2] - u[0])
-                if np.linalg.norm(nu) < 1e-15:
-                    continue
-                fu, ft = (t - u[0]) @ nu, (u - t[0]) @ N[j]
-                if fu.max() <= 0 or fu.min() >= 0 or ft.max() <= 0 or ft.min() >= 0:
-                    continue
-                polys = [q for pg in polys for q in (clip(pg, u[0], nu), clip(pg, u[0], -nu)) if len(q) >= 3]
-                if len(polys) > 6:
+                polys = [q for pg in polys for q in (_clip(pg, u[0], nu), _clip(pg, u[0], -nu)) if len(q) >= 3]
+                if len(polys) > max_parts:
                     break
             for pg in polys:
                 pg = np.array(pg)
-                if coloured(sides(pg.mean(0)[None], N[j][None])[0]):
-                    out += [np.array([pg[0], pg[m], pg[m + 1]]) for m in range(1, len(pg) - 1)]
-                    count[wid] += 1
+                # (a sliver too thin to step off from is judged with its neighbours: skipped)
+                if np.linalg.norm(sum(np.cross(pg[m] - pg[0], pg[m + 1] - pg[0]) for m in range(1, len(pg) - 1))) < 1e-12:
+                    continue
+                parts.append((wid, pg, N[j], kind))
+    out, ids, kinds, count = [], [], [], Counter()
+    area = lambda pg: 0.5 * np.linalg.norm(sum(np.cross(pg[m] - pg[0], pg[m + 1] - pg[0]) for m in range(1, len(pg) - 1)))
+    use_exact = [p[0] in exact_walls and area(p[1]) > min_exact_area for p in parts]
+    print(f"  {len(parts)} parts, {sum(use_exact)} judged by the classifier", flush=True)
+    if os.environ.get("DRY"):
+        return np.zeros((0, 3, 3))
+    for ex in (False, True):
+        sel = [p for p, e in zip(parts, use_exact) if e == ex]
+        if not sel:
+            continue
+        fn = exact_sides if ex else sides
+        st = fn(np.array([pg.mean(0) for _, pg, _, _ in sel]), np.array([n for _, _, n, _ in sel]))
+        for (wid, pg, _, kd), s in zip(sel, st):
+            if coloured(s):
+                out += [np.array([pg[0], pg[m], pg[m + 1]]) for m in range(1, len(pg) - 1)]
+                ids += [wid] * (len(pg) - 2)
+                kinds += [kd] * (len(pg) - 2)
+                count[wid] += 1
     print(f"  coloured pieces: {dict(count)}", flush=True)
+    paint.ids, paint.kinds = ids, kinds
     return np.array(out)
+
+
+def plane_of(T):
+    """Centre and unit normal of the plane best through the triangles' corners."""
+    V = T.reshape(-1, 3)
+    c = V.mean(0)
+    return c, np.linalg.svd(V - c)[2][-1]
+
+
+def is_flat(T, tol=1e-5):
+    c, n = plane_of(T)
+    return np.abs((T.reshape(-1, 3) - c) @ n).max() < tol
+
+
+def flat_paint(pieces, exact_sides, voxel_sides, eps=3e-6, inset=0.0015, extend=1.5e-3):
+    """The coloured faces of the flat pieces: each piece, in its own plane, is split along the traces the region's
+    other walls leave on it (where they cross it, and where they end on it), and every face is judged once by the
+    classifier at a point well inside it. Returns (triangles, wall ids)."""
+    import shapely
+    from shapely.geometry import LineString, MultiLineString, Polygon
+    from shapely.ops import unary_union
+    flat = [p for p in pieces if is_flat(p[3])]
+    others = [(w, T) for w, _, _, T in pieces]
+    faces = []                                         # (wall, 3D polygon list, normal, inner point)
+    for wid, kind, idx, T in flat:
+        o, n = plane_of(T)
+        e1 = np.linalg.svd(T.reshape(-1, 3) - o)[2][0]
+        e2 = np.cross(n, e1)
+        to2 = lambda X: np.c_[(X - o) @ e1, (X - o) @ e2]
+        patch = unary_union([Polygon(to2(t)) for t in T if np.linalg.norm(np.cross(t[1] - t[0], t[2] - t[0])) > 1e-14])
+        lo_, hi_ = T.reshape(-1, 3).min(0) - 1e-3, T.reshape(-1, 3).max(0) + 1e-3
+        segs = []
+        for w2, U in others:
+            if w2 == wid:
+                continue
+            m = np.all((U.max(1) >= lo_) & (U.min(1) <= hi_), axis=1)
+            for u in U[m]:
+                f = (u - o) @ n
+                on = np.abs(f) < eps
+                if on.sum() == 3:                       # (a wall in the same plane: its edges split this one)
+                    segs += [to2(u[[a_, (a_ + 1) % 3]]) for a_ in range(3)]
+                elif on.sum() == 2:                     # (an edge lying on the plane: a wall ending here)
+                    segs.append(to2(u[on]))
+                elif f.max() > eps and f.min() < -eps:  # (crossing)
+                    pp = []
+                    for a_ in range(3):
+                        b_ = (a_ + 1) % 3
+                        if (f[a_] > 0) != (f[b_] > 0) and abs(f[a_] - f[b_]) > 0:
+                            pp.append(u[a_] + f[a_] / (f[a_] - f[b_]) * (u[b_] - u[a_]))
+                        elif on[a_]:
+                            pp.append(u[a_])
+                    if len(pp) >= 2:
+                        segs.append(to2(np.array(pp[:2])))
+        segs = [s_ for s_ in segs if np.linalg.norm(s_[1] - s_[0]) > 1e-10]
+        # (traces of different walls meet only to the meshes' precision: each segment is lengthened a little at both
+        # ends so they join and close off faces; an overshoot only splits a face whose parts are judged alike)
+        segs = [np.array([a_ - (b_ - a_) / np.linalg.norm(b_ - a_) * extend, b_ + (b_ - a_) / np.linalg.norm(b_ - a_) * extend])
+                for a_, b_ in segs]
+        cut = unary_union(MultiLineString([LineString(s_) for s_ in segs]).buffer(1e-7)) if segs else None
+        parts = patch.difference(cut) if cut is not None else patch
+        geoms = list(parts.geoms) if hasattr(parts, "geoms") else [parts]
+        frame = (o, e1, e2)
+        for g in geoms:
+            if g.area < 1e-12:
+                continue
+            core = g.buffer(-inset)
+            pt = (core if not core.is_empty else g).representative_point()
+            P3 = o + pt.x * e1 + pt.y * e2
+            faces.append((wid, g, frame, n, P3, core.is_empty, kind))
+    print(f"  flat walls: {len(faces)} faces", flush=True)
+    st_exact = exact_sides(np.array([f[4] for f in faces]), np.array([f[3] for f in faces])) if faces else []
+    st_vox = voxel_sides(np.array([f[4] for f in faces]), np.array([f[3] for f in faces])) if faces else []
+    coloured = lambda st: (st[0] == 1) != (st[1] == 1) and -1 not in st
+    out, ids, kinds, cnt = [], [], [], Counter()
+    keep = defaultdict(list)                           # (the coloured faces of each piece, merged before filling)
+    for i, ((wid, g, frame, n, P3, thin, kind), se, sv) in enumerate(zip(faces, st_exact, st_vox)):
+        if coloured(sv if thin else se):
+            cnt[wid] += 1
+            keep[(wid, kind, id(frame))].append((g, frame))
+    for (wid, kind, _), gs in keep.items():
+        o, e1, e2 = gs[0][1]
+        # (merged across the hair-thin cuts, then rid of the cut ends' extra vertices)
+        m = unary_union([g.buffer(2e-7) for g, _ in gs]).buffer(-2e-7).simplify(1e-7, preserve_topology=True)
+        for t in [t for part in (m.geoms if hasattr(m, "geoms") else [m]) if part.area > 0
+                  for t in shapely.constrained_delaunay_triangles(part).geoms]:
+            c = np.array(t.exterior.coords)[:3]
+            out.append(o + c[:, :1] * e1 + c[:, 1:2] * e2)
+            ids.append(wid)
+            kinds.append(kind)
+    print(f"  flat walls coloured faces: {dict(cnt)}", flush=True)
+    flat_paint.kinds = kinds
+    return out, ids
 
 
 def main(rid, walls):
@@ -168,7 +322,18 @@ def main(rid, walls):
     d = page_data()
     pieces = pieces_of(d, walls)
     lab, lo, h, ins = cell(d, rid, pieces)
-    tris = paint(pieces, lab, lo, h, ins)
+    vox = cell_sides(lab, lo, h, ins)
+    ex = classified_sides(rid)
+    curved = [p for p in pieces if not is_flat(p[3])]
+    # (the curved walls, finely meshed: their triangles cut where other walls cross them, judged by the voxels;
+    # the flat walls, a few large triangles: split along the other walls' traces, each face judged by the classifier)
+    tris = paint(pieces, vox, judge=[p for p in curved])
+    ids = list(paint.ids)
+    kinds0 = list(paint.kinds)
+    ft, fids = flat_paint(pieces, ex, vox)
+    tris = np.concatenate([tris.reshape(-1, 3, 3), np.array(ft).reshape(-1, 3, 3)])
+    paint.ids = ids + fids
+    paint.kinds = kinds0 + flat_paint.kinds
     m = np.isin(lab, list(ins)).ravel()
     dd = np.diff(np.r_[0, m.astype(np.int8), 0])
     runs = [[int(a), int(b - a)] for a, b in zip(np.flatnonzero(dd == 1), np.flatnonzero(dd == -1))]
@@ -177,7 +342,7 @@ def main(rid, walls):
         allr = json.load(open("region_walls.json"))
     except FileNotFoundError:
         allr = {}
-    allr[rid] = {"walls": sorted(walls), "pockets": len(ins), "tris": P.reshape(-1, 9).tolist(),
+    allr[rid] = {"walls": sorted(walls), "pockets": len(ins), "tris": P.reshape(-1, 9).tolist(), "ids": paint.ids, "kinds": paint.kinds,
                  "grid": {"lo": lo.tolist(), "h": h, "shape": list(lab.shape), "runs": runs}}
     json.dump(allr, open("region_walls.json", "w"), separators=(",", ":"))
     print(f"{rid}: {len(tris)} triangles", flush=True)

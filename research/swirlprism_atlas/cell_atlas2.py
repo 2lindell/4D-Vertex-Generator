@@ -225,6 +225,22 @@ CANON_VALENCE = {"F2": "3:2400,4:3000,6:1200,8:600", "T2": "3:2400,4:3000,6:600"
                  "F5": "3:2400,4:3000,5:1200,6:1200,8:600,10:600"}
 
 
+def _indexed(tris, nd):
+    """Triangles as shared vertices (rounded to nd places) and index triples, for the page."""
+    at, verts, faces = {}, [], []
+    for t in tris:
+        f = []
+        for p in t:
+            key = tuple(round(float(c), nd) for c in p[:3])
+            if key not in at:
+                at[key] = len(verts)
+                verts.append(list(key))
+            f.append(at[key])
+        if len(set(f)) == 3:
+            faces.append(f)
+    return {"verts": verts, "faces": faces}
+
+
 def identify(sig, refs=None):
     """Return (canonical id or None, x-key, reference name or None)."""
     refs = refs if refs is not None else load_refs()[0]
@@ -2147,9 +2163,20 @@ def main(samples_path, out_path):
     view_src = {**data, "xwalls": [({**w, "tris": coarse(w["tris"])} if w.get("curved") else w)
                                    for w in data["xwalls"] if not (w.get("curved") and w.get("copy"))],
                 "xlines": [thin(x) for x in data["xlines"]]}
+    # a region's coloured outer walls (region_walls.py) go through the views as a hidden wall of their own, so the
+    # views show the same exact pieces (their originals only: the views make every image themselves)
+    RW_ = json.load(open("region_walls.json")) if os.path.exists("region_walls.json") else {}
+    for rid, v in RW_.items():
+        keep = [np.array(t, float).reshape(3, 3) * [1, 1, -1] for t, k in zip(v["tris"], v.get("kinds", ["orig"] * len(v["tris"])))
+                if k in ("orig", "tpatch")]
+        view_src["xwalls"] = view_src["xwalls"] + [{"id": f"__region_{rid}", "tris": [t.tolist() for t in keep], "hover": ""}]
     dv.use_centre((1, 0, 0, 0))                    # the dodecahedron around the 600-cell vertex V1
     v1 = dodeca_view(view_src)
     chambers = chamber_domain.view(v1)             # one domain of 12 whole H4 chambers inside it
+    for view in (v1, chambers):
+        for w in [w for w in view["xwalls"] if w["id"].startswith("__region_")]:
+            view["xwalls"].remove(w)
+            view.setdefault("regionWalls", {})[w["id"][9:]] = _indexed(w["tris"], 4)
     dv.use_centre((0, 0, 1, 1))
     for view in (v1, chambers):
         dv.tidy_lines(view)
@@ -2207,7 +2234,7 @@ def main(samples_path, out_path):
         RW = json.load(open("region_walls.json"))
         g0 = next(iter(RW.values()))["grid"]
         data["regionGrid"] = {**{k: g0[k] for k in ("lo", "h", "shape")}, "runs": {r: v["grid"]["runs"] for r, v in RW.items()}}
-        data["regionWalls"] = {r: {"tris": v["tris"], "walls": v["walls"]} for r, v in RW.items()}
+        data["regionWalls"] = {r: {**_indexed([np.reshape(t, (3, 3)) for t in v["tris"]], 6), "walls": v["walls"]} for r, v in RW.items()}
         for r, v in RW.items():
             data.setdefault("regionCells", {})[r] = [1, v["pockets"]]
             print(f"  {r}: outer walls {', '.join(v['walls'])}; {len(v['tris'])} coloured triangles", flush=True)
@@ -2232,7 +2259,7 @@ def main(samples_path, out_path):
     index_walls(data, 6)
     index_walls(v1, 4)
     index_walls(chambers, 4)
-    if data.get("regionGrid"):                  # (the views' wall triangles around each checked region's cell)
+    if data.get("regionGrid") and not data.get("regionWalls"):     # (old voxel colouring of the views' own triangles)
         import region_paint
         Cv, Bv, _ = dv._frame((1, 0, 0, 0))
         for name, view in (("V1 dodecahedron", v1), ("chambers", chambers)):
