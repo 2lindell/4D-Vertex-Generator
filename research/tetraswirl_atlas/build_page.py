@@ -183,6 +183,10 @@ def main():
     whole = "16-cell tetrahedron" if D.DOMAIN == "cell16" else "Voronoi cell"
     views = [{"id": "domain", "name": f"third of a 16-cell tetrahedron" if D.DOMAIN == "cell16" else f"fundamental domain (1/{D.M} of the cell)",
               "maps": [ident.round(12).tolist()], "bounds": bounds([ident])}]
+    if D.DOMAIN == "cell16":                # (the wedge faced from its open side, halfway between W1 and W2)
+        a_ = np.pi / D.M
+        views[0]["camera"] = {"eye": {"x": 1.7 * np.cos(a_), "y": 1.7 * np.sin(a_), "z": 0.45},
+                              "center": {"x": 0, "y": 0, "z": 0}, "up": {"x": 0, "y": 0, "z": 1}}
     if D.M > 1:
         views.append({"id": "cell", "name": f"whole {whole} ({D.M} domains)", "maps": [M.round(12).tolist() for M in maps_cell],
                       "bounds": bounds(maps_cell)})

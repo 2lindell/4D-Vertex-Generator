@@ -272,7 +272,7 @@ __TYPE_CSS__
         scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
           xaxis: { ...hidden, range: [lo[0] - pad, hi[0] + pad] }, yaxis: { ...hidden, range: [lo[1] - pad, hi[1] + pad] },
           zaxis: { ...hidden, range: [lo[2] - pad, hi[2] + pad] },
-          camera: cameras[view().id] || { eye: { x: 1.4, y: -1.2, z: 0.7 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } } } };
+          camera: cameras[view().id] || view().camera || { eye: { x: 1.4, y: -1.2, z: 0.7 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } } } };
     }
     const plot = el("plot");
     // (context surfaces are taken out of the 3D picking, so they never catch the cursor before what lies behind them)
