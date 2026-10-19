@@ -28,6 +28,15 @@ def _quaternion_right_matrix(quaternion: tuple[float, float, float, float]) -> n
     )
 
 
+def _quaternion_pair_matrix(
+    left: tuple[float, float, float, float],
+    right: tuple[float, float, float, float],
+) -> np.ndarray:
+    """Matrix for the quaternion action [left, right]: x -> conjugate(left) x right."""
+    conjugate_left = (left[0], -left[1], -left[2], -left[3])
+    return _quaternion_right_matrix(right) @ _quaternion_left_matrix(conjugate_left)
+
+
 def _h4_icosian_chiral_generators() -> list[np.ndarray]:
     """Rotation subgroup (order 7200) of H4 on standard 600-cell icosian coordinates."""
     binary_icosahedral = (
@@ -53,6 +62,92 @@ def _h4_icosian_generators() -> list[np.ndarray]:
 # icosahedral rotation lifted to its double cover, so its quaternion order is
 # 10 rather than 5). Verified by BFS closure: 2I has exactly 24 such elements.
 _ICOSIAN_ORDER_TEN = (0.809016994374947, -0.309016994374947, 0.0, -0.5)
+
+
+def _h4_icosahedral_tubical_generators(n: int, *, dihedral: bool) -> list[np.ndarray]:
+    """Return the icosahedral cyclic/dihedral tubical group generators."""
+    if n < 1 or (dihedral and n < 2):
+        raise ValueError("Cyclic tubical groups require n >= 1; dihedral groups require n >= 2")
+
+    binary_icosahedral = (
+        (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
+        (0.809016994374947, -0.309016994374947, 0.0, -0.5),
+    )
+    axis = np.asarray(_ICOSIAN_ORDER_TEN[1:], dtype=float)
+    axis /= np.linalg.norm(axis)
+    angle = np.pi / n
+    step = (float(np.cos(angle)), *(np.sin(angle) * axis))
+    generators = [_quaternion_left_matrix(q) for q in binary_icosahedral]
+    generators.append(_quaternion_right_matrix(step))
+    if dihedral:
+        generators.append(_quaternion_right_matrix((0.0, 0.0, 1.0, 0.0)))
+    return generators
+
+
+def _h4_polyhedral_tubical_generators(family: str, n: int) -> list[np.ndarray]:
+    """Return tetrahedral or octahedral tubical group generators from Table 2."""
+    minimum_n = {
+        "tetrahedral_cyclic": 1,
+        "tetrahedral_cyclic_index3": 1,
+        "tetrahedral_dihedral": 2,
+        "octahedral_cyclic": 1,
+        "octahedral_cyclic_index2": 1,
+        "octahedral_dihedral": 2,
+        "octahedral_dihedral_index2_4n": 2,
+        "octahedral_dihedral_index2_2n": 2,
+        "octahedral_dihedral_index6_6n": 1,
+    }
+    if family not in minimum_n:
+        raise ValueError(f"Unknown tetrahedral/octahedral tubical family '{family}'")
+    if n < minimum_n[family]:
+        raise ValueError(f"{family} requires n >= {minimum_n[family]}")
+
+    one = (1.0, 0.0, 0.0, 0.0)
+    i = (0.0, 1.0, 0.0, 0.0)
+    j = (0.0, 0.0, 1.0, 0.0)
+    omega = (-0.5, 0.5, 0.5, 0.5)
+    inverse_sqrt_two = 1.0 / np.sqrt(2.0)
+    i_octahedral = (0.0, 0.0, inverse_sqrt_two, inverse_sqrt_two)
+
+    def e(order: int) -> tuple[float, float, float, float]:
+        angle = np.pi / order
+        return (float(np.cos(angle)), float(np.sin(angle)), 0.0, 0.0)
+
+    def pair(
+        left: tuple[float, float, float, float],
+        right: tuple[float, float, float, float] = one,
+    ) -> np.ndarray:
+        return _quaternion_pair_matrix(left, right)
+
+    if family == "tetrahedral_cyclic":
+        return [pair(i), pair(omega), pair(one, e(n))]
+    if family == "tetrahedral_cyclic_index3":
+        return [pair(i), pair(one, e(n)), pair(omega, e(3 * n))]
+    if family == "tetrahedral_dihedral":
+        return [pair(i), pair(omega), pair(one, e(n)), pair(one, j)]
+    if family == "octahedral_cyclic":
+        return [pair(i_octahedral), pair(omega), pair(one, e(n))]
+    if family == "octahedral_cyclic_index2":
+        return [pair(i), pair(omega), pair(one, e(n)), pair(i_octahedral, e(2 * n))]
+    if family == "octahedral_dihedral":
+        return [pair(i_octahedral), pair(omega), pair(one, e(n)), pair(one, j)]
+    if family == "octahedral_dihedral_index2_4n":
+        return [
+            pair(i),
+            pair(omega),
+            pair(one, e(n)),
+            pair(one, j),
+            pair(i_octahedral, e(2 * n)),
+        ]
+    if family == "octahedral_dihedral_index2_2n":
+        return [pair(i), pair(omega), pair(one, e(n)), pair(i_octahedral, j)]
+    return [
+        pair(i),
+        pair(j),
+        pair(one, e(n)),
+        pair(i_octahedral, j),
+        pair(omega, e(3 * n)),
+    ]
 
 
 def _pentagonal_swirl_generators() -> list[np.ndarray]:
@@ -87,20 +182,12 @@ def _h4_swirlprism_chiral_generators() -> list[np.ndarray]:
     shares the 600-cell's vertices, matching the "small swirlprism" [5,3:5]
     construction.
     """
-    binary_icosahedral = (
-        (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
-        (0.809016994374947, -0.309016994374947, 0.0, -0.5),
-    )
-    return [_quaternion_left_matrix(q) for q in binary_icosahedral] + [
-        _quaternion_right_matrix(_ICOSIAN_ORDER_TEN)
-    ]
+    return _h4_icosahedral_tubical_generators(5, dihedral=False)
 
 
 def _h4_swirlprism_generators() -> list[np.ndarray]:
     """Full order-1200 "small swirlprism" subgroup of H4 (icosian basis)."""
-    return _h4_swirlprism_chiral_generators() + [
-        _quaternion_right_matrix((0.0, 0.0, 1.0, 0.0))
-    ]
+    return _h4_icosahedral_tubical_generators(5, dihedral=True)
 
 
 def h4_swirlprism_anchor_seed() -> np.ndarray:
@@ -534,6 +621,20 @@ def named_symmetry(name: str) -> SymmetryAction:
         gens = _h4_swirlprism_generators()
     elif name == "h4_swirlprism+":
         gens = _h4_swirlprism_chiral_generators()
+    elif name.startswith("h4_tubical_icosahedral_"):
+        parts = name.removeprefix("h4_tubical_icosahedral_").rsplit("_", 1)
+        if len(parts) != 2 or parts[0] not in ("cyclic", "dihedral") or not parts[1].isdigit():
+            raise ValueError(f"Invalid icosahedral tubical symmetry '{name}'")
+        family, order = parts[0], int(parts[1])
+        gens = _h4_icosahedral_tubical_generators(order, dihedral=family == "dihedral")
+    elif name.startswith("h4_tubical_tetrahedral_") or name.startswith(
+        "h4_tubical_octahedral_"
+    ):
+        parts = name.removeprefix("h4_tubical_").rsplit("_", 1)
+        if len(parts) != 2 or not parts[1].isdigit():
+            raise ValueError(f"Invalid tetrahedral/octahedral tubical symmetry '{name}'")
+        family, order = parts[0], int(parts[1])
+        gens = _h4_polyhedral_tubical_generators(family, order)
     elif name == "a4+":
         gens = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
     elif name == "b4+":

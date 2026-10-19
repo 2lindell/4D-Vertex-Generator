@@ -75,9 +75,17 @@ def compute_convex_hull(
     n_simplices = len(eqs)
     eps = tol * max(radius, 1e-300)
 
+    eq_rows = eqs.tolist()
+    neighbor_rows = hull.neighbors.tolist()
+
     def same_plane(i: int, j: int) -> bool:
-        return bool(
-            np.abs(eqs[i, :4] - eqs[j, :4]).max() <= tol and abs(eqs[i, 4] - eqs[j, 4]) <= eps
+        a, b = eq_rows[i], eq_rows[j]
+        return (
+            abs(a[0] - b[0]) <= tol
+            and abs(a[1] - b[1]) <= tol
+            and abs(a[2] - b[2]) <= tol
+            and abs(a[3] - b[3]) <= tol
+            and abs(a[4] - b[4]) <= eps
         )
 
     parent = [-1] * n_simplices
@@ -88,8 +96,7 @@ def compute_convex_hull(
         queue = [start]
         while queue:
             current = queue.pop()
-            for n_idx in hull.neighbors[current]:
-                n_idx = int(n_idx)
+            for n_idx in neighbor_rows[current]:
                 if parent[n_idx] == -1 and same_plane(start, n_idx):
                     parent[n_idx] = start
                     queue.append(n_idx)
@@ -103,51 +110,52 @@ def compute_convex_hull(
     # A flat sliver simplex (Qhull's triangulation of a nearly degenerate facet) can carry an
     # inaccurate hyperplane and so fail the test above. A real cell never has all its vertices in
     # another cell, so fold any group whose vertices all lie in a neighbouring group into it.
-    def group_vertices() -> dict[int, set[int]]:
-        groups: dict[int, set[int]] = defaultdict(set)
-        for s_idx, simplex in enumerate(hull.simplices):
-            groups[find(s_idx)].update(int(v) for v in simplex)
-        return groups
+    simplex_rows = hull.simplices.tolist()
+    groups: dict[int, set[int]] = defaultdict(set)
+    for s_idx, simplex in enumerate(simplex_rows):
+        groups[find(s_idx)].update(simplex)
 
     changed = True
     while changed:
         changed = False
-        groups = group_vertices()
-        for s_idx, neighbours in enumerate(hull.neighbors):
-            a = find(s_idx)
-            for n_idx in neighbours:
-                b = find(int(n_idx))
-                if a != b and (groups[a] <= groups[b] or groups[b] <= groups[a]):
-                    small, big = (a, b) if len(groups[a]) <= len(groups[b]) else (b, a)
-                    parent[small] = big
-                    groups[big] |= groups.pop(small)
-                    a = find(s_idx)
-                    changed = True
+        roots = np.array([find(i) for i in range(n_simplices)])
+        nb_roots = roots[hull.neighbors]
+        differing = nb_roots != roots[:, None]
+        pairs_arr = np.unique(
+            np.stack([np.broadcast_to(roots[:, None], nb_roots.shape)[differing], nb_roots[differing]], axis=1),
+            axis=0,
+        )
+        for a, b in pairs_arr.tolist():
+            a, b = find(a), find(b)
+            if a != b and (groups[a] <= groups[b] or groups[b] <= groups[a]):
+                small, big = (a, b) if len(groups[a]) <= len(groups[b]) else (b, a)
+                parent[small] = big
+                groups[big] |= groups.pop(small)
+                changed = True
 
     root_to_cell: dict[int, int] = {}
     simplex_cell = np.array(
         [root_to_cell.setdefault(find(i), len(root_to_cell)) for i in range(n_simplices)]
     )
     cell_sets: list[set[int]] = [set() for _ in root_to_cell]
-    for s_idx, simplex in enumerate(hull.simplices):
-        cell_sets[simplex_cell[s_idx]].update(int(v) for v in simplex)
+    for cell_idx, simplex in zip(simplex_cell.tolist(), simplex_rows):
+        cell_sets[cell_idx].update(simplex)
     cells_v = [frozenset(c) for c in cell_sets]
     _check_cells(verts, cells_v, eps)
 
     # Faces: two cells share a face exactly when Qhull's triangulation has neighbouring simplices
     # in both (they meet across a triangle of that face). This needs no width threshold, so
     # sliver faces of nearly degenerate seeds are kept.
-    pairs: set[tuple[int, int]] = set()
-    for s_idx, neighbours in enumerate(hull.neighbors):
-        a = int(simplex_cell[s_idx])
-        for n_idx in neighbours:
-            b = int(simplex_cell[n_idx])
-            if a != b:
-                pairs.add((min(a, b), max(a, b)))
+    nb_cells = simplex_cell[hull.neighbors]
+    differing = nb_cells != simplex_cell[:, None]
+    ca = np.broadcast_to(simplex_cell[:, None], nb_cells.shape)[differing]
+    cb = nb_cells[differing]
+    pair_arr = np.unique(np.stack([np.minimum(ca, cb), np.maximum(ca, cb)], axis=1), axis=0)
+    pairs = [(int(x), int(y)) for x, y in pair_arr]
 
     faces_list: list[list[int]] = []
     cell_faces: list[list[int]] = [[] for _ in cells_v]
-    for a, b in sorted(pairs):
+    for a, b in pairs:
         shared = sorted(cells_v[a] & cells_v[b])
         if len(shared) < 3:
             raise ValueError(

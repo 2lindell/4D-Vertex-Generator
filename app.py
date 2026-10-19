@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import sys
+import time
 import zipfile
 from pathlib import Path
 
@@ -123,6 +124,7 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
             ("h4_ionic", "Ionic diminished [(5,3)+,2]"),
         ),
     ),
+    "h4_tubical": ("Tubical groups (swirl)", ()),
     "duoprism": ("Duoprismatic ([p,2,q])", ()),
 }
 
@@ -144,6 +146,25 @@ CHAMBER_CANDIDATES: dict[str, tuple[str, ...]] = {
 }
 
 SWIRL_SYMMETRIES = ("h4_swirlprism", "h4_swirlprism+")
+TUBICAL_FAMILIES: dict[str, dict[str, tuple[str, int]]] = {
+    "icosahedral": {
+        "cyclic": ("Chiral cyclic Σ[I × Cₙ] · order 120n", 1),
+        "dihedral": ("Dihedral Σ[I × D₂ₙ] · order 240n", 2),
+    },
+    "tetrahedral": {
+        "cyclic": ("Cyclic Σ[T × Cₙ] · order 24n", 1),
+        "cyclic_index3": ("Index-3 Σ₁/₃[T × C₃ₙ] · order 24n", 1),
+        "dihedral": ("Dihedral Σ[T × D₂ₙ] · order 48n", 2),
+    },
+    "octahedral": {
+        "cyclic": ("Cyclic Σ[O × Cₙ] · order 48n", 1),
+        "cyclic_index2": ("Index-2 Σ₁/₂[O × C₂ₙ] · order 48n", 1),
+        "dihedral": ("Dihedral Σ[O × D₂ₙ] · order 96n", 2),
+        "dihedral_index2_4n": ("Index-2 Σ₁/₂[O × D₄ₙ] · order 96n", 2),
+        "dihedral_index2_2n": ("Index-2 Σ₁/₂[O × D₂ₙ] · order 48n", 2),
+        "dihedral_index6_6n": ("Index-6 Σ₁/₆[O × D₆ₙ] · order 48n", 1),
+    },
+}
 SEED_MODE_CHAMBER = "Fundamental chamber"
 SEED_MODE_COORDINATES = "Coordinates"
 SEED_MODE_RINGS = "Ring sliders"
@@ -164,17 +185,23 @@ def _symmetry_labels() -> dict[str, str]:
 SYMMETRY_LABELS = _symmetry_labels()
 
 
+# Bound every cache: unbounded caches of large vertex/hull arrays grew until the
+# long-running server ran out of memory and the generator stopped responding.
+_CACHE_MAX_ENTRIES = 16
+_CACHE_TTL_SECONDS = 3600
+
+
 def _describe(name: str) -> str:
     label = SYMMETRY_LABELS.get(name)
     return f"{label} — {name}" if label else name
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _group_order(name: str) -> int | None:
     return group_order(named_symmetry(name))
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _compatible_chamber(symmetry_name: str, candidates: tuple[str, ...]) -> str | None:
     action = named_symmetry(symmetry_name)
     for candidate in candidates:
@@ -184,7 +211,7 @@ def _compatible_chamber(symmetry_name: str, candidates: tuple[str, ...]) -> str 
     return None
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_generate(
     seed: tuple[float, float, float, float],
     symmetry_name: str,
@@ -199,12 +226,12 @@ def _cached_generate(
     )
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_convex_hull(vertices: np.ndarray):
     return compute_convex_hull(vertices)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_detect_symmetries(vertices: np.ndarray, tol: float) -> list[str]:
     return detect_symmetries(vertices, tol=tol)
 
@@ -262,7 +289,7 @@ CENTER_COLOR = "#52514e"
 MAX_EDGE_CLASSES = len(EDGE_COLORS)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _cached_nearest_edges(vertices: np.ndarray) -> set[tuple[int, int]]:
     return nearest_neighbour_edges(vertices)
 
@@ -430,17 +457,46 @@ def render_generate_tab() -> None:
                 (f"duoprism_{p}_{q}_chiral_extended", f"Chiral extended [[{p},2,{q}]]+"),
             ]
         chamber_candidates: tuple[str, ...] = (f"duoprism_{p}_{q}",)
+    elif group_key == "h4_tubical":
+        with right:
+            polyhedral_factor = st.selectbox(
+                "Polyhedral factor",
+                options=tuple(TUBICAL_FAMILIES),
+                format_func=lambda factor: factor.capitalize(),
+            )
+            family_options = TUBICAL_FAMILIES[polyhedral_factor]
+            tubical_family = st.selectbox(
+                "Tubical subgroup",
+                options=tuple(family_options),
+                format_func=lambda family: family_options[family][0],
+            )
+            tubical_order = st.number_input(
+                "Family parameter n",
+                min_value=family_options[tubical_family][1],
+                max_value=120,
+                value=5,
+                step=1,
+            )
+        if polyhedral_factor == "icosahedral" and tubical_order == 5:
+            symmetry_name = "h4_swirlprism+" if tubical_family == "cyclic" else "h4_swirlprism"
+        else:
+            symmetry_name = (
+                f"h4_tubical_{polyhedral_factor}_{tubical_family}_{int(tubical_order)}"
+            )
+        subgroup_choices = [(symmetry_name, family_options[tubical_family][0])]
+        chamber_candidates = ()
     else:
         subgroup_choices = list(GROUP_OPTIONS[group_key][1])
         chamber_candidates = CHAMBER_CANDIDATES.get(group_key, ())
 
     choice_labels = dict(subgroup_choices)
-    with left if group_key == "duoprism" else right:
-        symmetry_name = st.selectbox(
-            "Subgroup",
-            options=list(choice_labels),
-            format_func=choice_labels.__getitem__,
-        )
+    if group_key != "h4_tubical":
+        with left if group_key == "duoprism" else right:
+            symmetry_name = st.selectbox(
+                "Subgroup",
+                options=list(choice_labels),
+                format_func=choice_labels.__getitem__,
+            )
     order = _group_order(symmetry_name)
     st.caption(
         f"`{symmetry_name}` · group order {order if order is not None else 'unknown'}"
@@ -574,19 +630,30 @@ def render_generate_tab() -> None:
             # Ring-slider seeds are built from eigenvectors, so they carry
             # ~1e-8 noise; a looser merge tolerance keeps the orbit exact.
             orbit_tol = max(orbit_tol, 1e-6)
+        started = time.perf_counter()
+        status = st.status("Generating vertices...", expanded=True)
         try:
-            with st.spinner("Generating vertices..."):
-                vertices = _cached_generate(
-                    tuple(float(x) for x in seed), symmetry_name, orbit_tol, int(max_vertices)
-                )
+            vertices = _cached_generate(
+                tuple(float(x) for x in seed), symmetry_name, orbit_tol, int(max_vertices)
+            )
+            status.write(
+                f"✅ {len(vertices):,} vertices ({time.perf_counter() - started:.1f} s)"
+            )
             faces = cells = None
             hull_error = None
             if compute_hull:
+                status.update(label="Computing 4D convex hull (slow for tens of thousands of "
+                                    "faces)...")
+                hull_started = time.perf_counter()
                 try:
-                    with st.spinner("Computing 4D convex hull..."):
-                        faces, cells = _cached_convex_hull(vertices)
+                    faces, cells = _cached_convex_hull(vertices)
+                    status.write(
+                        f"✅ {len(faces):,} faces, {len(cells):,} cells "
+                        f"({time.perf_counter() - hull_started:.1f} s)"
+                    )
                 except ValueError as err:
                     hull_error = str(err)
+                    status.write(f"⚠️ Convex hull not computed: {hull_error}")
             st.session_state["generated"] = {
                 "symmetry": symmetry_name,
                 "order": order,
@@ -596,9 +663,16 @@ def render_generate_tab() -> None:
                 "cells": cells,
                 "hull_error": hull_error,
             }
-        except (ValueError, RuntimeError) as err:
+            status.update(
+                label=f"Done in {time.perf_counter() - started:.1f} s",
+                state="complete",
+                expanded=False,
+            )
+        except (ValueError, RuntimeError, MemoryError) as err:
             st.session_state.pop("generated", None)
-            st.error(str(err))
+            message = str(err) or type(err).__name__
+            status.update(label="Failed", state="error", expanded=True)
+            status.error(message)
 
     result = st.session_state.get("generated")
     if result is None:

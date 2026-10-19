@@ -13,6 +13,14 @@
     body { margin: 0; font-family: system-ui, sans-serif; background: Canvas; color: CanvasText; }
     #loading { max-width: 40rem; margin: 18vh auto 0; padding: 0 16px; line-height: 1.5; }
     #loading small { opacity: 0.7; }
+    #busy { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 1000000;
+      display: none; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 8px;
+      background: #2a78d6; color: #fff; font-size: 14px; box-shadow: 0 2px 10px #0006; }
+    #busy.error { background: #c62828; }
+    #busy .dot { width: 14px; height: 14px; border: 2px solid #fff6; border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.8s linear infinite; }
+    #busy.error .dot { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -30,10 +38,39 @@
       <noscript><p>This page needs JavaScript.</p></noscript>
     </div>
   </div>
+  <div id="busy" role="status" aria-live="polite"><span class="dot"></span><span id="busy-text"></span></div>
+  <script>
+    // Python runs in a worker, so the page stays responsive while a calculation runs; this banner
+    // shows that it is still working (Streamlit's own indicator is easy to miss) and for how long.
+    (() => {
+      const busy = document.getElementById("busy");
+      const text = document.getElementById("busy-text");
+      let since = null;
+      const show = (message, error) => {
+        busy.className = error ? "error" : "";
+        text.textContent = message;
+        busy.style.display = "flex";
+      };
+      setInterval(() => {
+        if (busy.classList.contains("error")) return;
+        const running = document.querySelector('[data-testid="stStatusWidget"]');
+        if (!running) { since = null; busy.style.display = "none"; return; }
+        since = since ?? Date.now();
+        const seconds = Math.floor((Date.now() - since) / 1000);
+        let message = `Working... ${seconds} s`;
+        if (seconds >= 15) message += " (large symmetry groups are slow in the browser; this is not frozen)";
+        if (seconds >= 90) message += ". Still too slow? Untick the convex hull or lower Max vertices.";
+        show(message, false);
+      }, 500);
+      const fail = (reason) => show(`Something went wrong (${reason}). Reload the page and try a smaller calculation.`, true);
+      window.addEventListener("error", (e) => fail(e.message || "script error"));
+      window.addEventListener("unhandledrejection", (e) => fail(String(e.reason?.message ?? e.reason)));
+    })();
+  </script>
   <script type="module">
     import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@1.9.2/build/stlite.js";
     // each file's address carries a hash of its contents, so a redeploy is never hidden by a cache
-    const files = [["app.py", "37f7ed6743a8"], ["assets/favicon.svg", "9c4c874ebec2"], ["four_d_vertex_generator/__init__.py", "52e10da431b2"], ["four_d_vertex_generator/cli.py", "4967879d9424"], ["four_d_vertex_generator/generation.py", "584329a4890e"], ["four_d_vertex_generator/isogonal.py", "d93bf91dc973"], ["four_d_vertex_generator/library.py", "2beb6cf2f982"], ["four_d_vertex_generator/local_view.py", "a079c01e6b70"], ["four_d_vertex_generator/off.py", "52e6454aae5b"], ["four_d_vertex_generator/symmetry.py", "5d0156f18e33"]];
+    const files = [["app.py", "4bfb39d24862"], ["assets/favicon.svg", "9c4c874ebec2"], ["four_d_vertex_generator/__init__.py", "52e10da431b2"], ["four_d_vertex_generator/cli.py", "4967879d9424"], ["four_d_vertex_generator/generation.py", "584329a4890e"], ["four_d_vertex_generator/isogonal.py", "d93bf91dc973"], ["four_d_vertex_generator/library.py", "2f7e86c7d5b0"], ["four_d_vertex_generator/local_view.py", "a079c01e6b70"], ["four_d_vertex_generator/off.py", "772a79609759"], ["four_d_vertex_generator/symmetry.py", "5d0156f18e33"]];
     mount(
       {
         entrypoint: "app.py",

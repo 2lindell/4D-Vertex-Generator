@@ -215,6 +215,63 @@ def test_h4_swirlprism_has_order_1200_and_is_vertex_transitive_on_600_cell() -> 
         assert partition.num_orbits == 1
 
 
+@pytest.mark.parametrize(
+    ("family", "swirlprism_name", "expected_order"),
+    (("cyclic", "h4_swirlprism+", 600), ("dihedral", "h4_swirlprism", 1200)),
+)
+def test_icosahedral_tubical_family_contains_swirlprism_at_order_five(
+    family: str, swirlprism_name: str, expected_order: int
+) -> None:
+    tubical = named_symmetry(f"h4_tubical_icosahedral_{family}_5")
+    swirlprism = named_symmetry(swirlprism_name)
+
+    assert group_order(tubical) == expected_order
+    assert is_subgroup(tubical, swirlprism)
+    assert is_subgroup(swirlprism, tubical)
+
+
+def test_icosahedral_tubical_orders_have_expected_group_sizes() -> None:
+    for n in (2, 3, 7):
+        assert group_order(named_symmetry(f"h4_tubical_icosahedral_cyclic_{n}")) == 120 * n
+        assert group_order(named_symmetry(f"h4_tubical_icosahedral_dihedral_{n}")) == 240 * n
+
+
+@pytest.mark.parametrize(
+    ("family", "order_factor"),
+    (
+        ("tetrahedral_cyclic", 24),
+        ("tetrahedral_cyclic_index3", 24),
+        ("tetrahedral_dihedral", 48),
+        ("octahedral_cyclic", 48),
+        ("octahedral_cyclic_index2", 48),
+        ("octahedral_dihedral", 96),
+        ("octahedral_dihedral_index2_4n", 96),
+        ("octahedral_dihedral_index2_2n", 48),
+        ("octahedral_dihedral_index6_6n", 48),
+    ),
+)
+def test_tetrahedral_and_octahedral_tubical_group_orders(family: str, order_factor: int) -> None:
+    assert group_order(named_symmetry(f"h4_tubical_{family}_2")) == order_factor * 2
+
+
+@pytest.mark.parametrize(
+    ("child", "parent"),
+    (
+        ("tetrahedral_cyclic_index3_2", "tetrahedral_cyclic_6"),
+        ("octahedral_cyclic_index2_2", "octahedral_cyclic_4"),
+        ("octahedral_dihedral_index2_4n_2", "octahedral_dihedral_4"),
+        ("octahedral_dihedral_index2_2n_2", "octahedral_dihedral_2"),
+        ("octahedral_dihedral_index6_6n_2", "octahedral_dihedral_6"),
+    ),
+)
+def test_tubical_subgroups_embed_in_corresponding_full_families(
+    child: str, parent: str
+) -> None:
+    child_action = named_symmetry(f"h4_tubical_{child}")
+    parent_action = named_symmetry(f"h4_tubical_{parent}")
+    assert is_subgroup(child_action, parent_action)
+
+
 def test_hyperoctahedral_chiral_symmetry_uses_b4_name() -> None:
     action = named_symmetry("b4+")
     assert len(action.generators) == 3
