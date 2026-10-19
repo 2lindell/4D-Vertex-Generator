@@ -29,7 +29,7 @@ def view(rid, path="region_pieces.json", kinds=False):
                 continue
             # (a face lying in the view's cut is drawn where the region is on the visible side: past the cut, the
             # same place is drawn again at the glued copy)
-            if f.get("cut", [False, False])[0 if a == rid else 1]:
+            if f.get("cut", [False, False])[0 if a == rid else 1] and _in_cut(f["tris"]):
                 continue
             out[wid] += f["tris"]
             kd[wid] += [f["kind"]] * len(f["tris"])
@@ -68,6 +68,14 @@ def export(regions=None, keep=("F2",)):
     json.dump(out, open("region_walls.json", "w"), separators=(",", ":"))
     waiting = {r: sorted(set(ws) - done) for r, ws in db.get("touch", {}).items() if not set(ws) <= done}
     return ready, waiting
+
+
+def _in_cut(tris, tol=1e-6):
+    """A face lying in a face of the cell or in the splitting mirror (not one merely beside them)."""
+    import region_cells as rc
+    B = rc.betas(np.array(tris).reshape(-1, 3))
+    return bool((np.abs(B).min(axis=1) < tol).all() and (np.argmin(np.abs(B), axis=1) == np.argmin(np.abs(B[0]))).all()
+                or (np.abs(B[:, 2] - B[:, 3]) < tol).all())
 
 
 def area(T):
