@@ -250,6 +250,60 @@ def is_flat(T, tol=1e-5):
     return np.abs((T.reshape(-1, 3) - c) @ n).max() < tol
 
 
+def split_flat(wid, T, others, eps=3e-6, inset=0.0015, extend=1.5e-3):
+    """A flat piece (triangles T of wall wid) split, in its own plane, along the traces the other walls leave on it
+    (others: [(wall, triangles)]; where they cross it, end on it or lie in its plane). Returns its faces as
+    (polygon in the plane, (origin, e1, e2), normal, a point well inside, too thin to step off from)."""
+    from shapely.geometry import LineString, MultiLineString, Polygon
+    from shapely.ops import unary_union
+    out = []
+    o, n = plane_of(T)
+    e1 = np.linalg.svd(T.reshape(-1, 3) - o)[2][0]
+    e2 = np.cross(n, e1)
+    to2 = lambda X: np.c_[(X - o) @ e1, (X - o) @ e2]
+    patch = unary_union([Polygon(to2(t)) for t in T if np.linalg.norm(np.cross(t[1] - t[0], t[2] - t[0])) > 1e-14])
+    lo_, hi_ = T.reshape(-1, 3).min(0) - 1e-3, T.reshape(-1, 3).max(0) + 1e-3
+    segs = []
+    for w2, U in others:
+        if w2 == wid:
+            continue
+        m = np.all((U.max(1) >= lo_) & (U.min(1) <= hi_), axis=1)
+        for u in U[m]:
+            f = (u - o) @ n
+            on = np.abs(f) < eps
+            if on.sum() == 3:                       # (a wall in the same plane: its edges split this one)
+                segs += [to2(u[[a_, (a_ + 1) % 3]]) for a_ in range(3)]
+            elif on.sum() == 2:                     # (an edge lying on the plane: a wall ending here)
+                segs.append(to2(u[on]))
+            elif f.max() > eps and f.min() < -eps:  # (crossing)
+                pp = []
+                for a_ in range(3):
+                    b_ = (a_ + 1) % 3
+                    if (f[a_] > 0) != (f[b_] > 0) and abs(f[a_] - f[b_]) > 0:
+                        pp.append(u[a_] + f[a_] / (f[a_] - f[b_]) * (u[b_] - u[a_]))
+                    elif on[a_]:
+                        pp.append(u[a_])
+                if len(pp) >= 2:
+                    segs.append(to2(np.array(pp[:2])))
+    segs = [s_ for s_ in segs if np.linalg.norm(s_[1] - s_[0]) > 1e-10]
+    # (traces of different walls meet only to the meshes' precision: each segment is lengthened a little at both
+    # ends so they join and close off faces; an overshoot only splits a face whose parts are judged alike)
+    segs = [np.array([a_ - (b_ - a_) / np.linalg.norm(b_ - a_) * extend, b_ + (b_ - a_) / np.linalg.norm(b_ - a_) * extend])
+            for a_, b_ in segs]
+    cut = unary_union(MultiLineString([LineString(s_) for s_ in segs]).buffer(1e-7)) if segs else None
+    parts = patch.difference(cut) if cut is not None else patch
+    geoms = list(parts.geoms) if hasattr(parts, "geoms") else [parts]
+    frame = (o, e1, e2)
+    for g in geoms:
+        if g.area < 1e-12:
+            continue
+        core = g.buffer(-inset)
+        pt = (core if not core.is_empty else g).representative_point()
+        P3 = o + pt.x * e1 + pt.y * e2
+        out.append((g, frame, n, P3, core.is_empty))
+    return out
+
+
 def flat_paint(pieces, exact_sides, voxel_sides, eps=3e-6, inset=0.0015, extend=1.5e-3):
     """The coloured faces of the flat pieces: each piece, in its own plane, is split along the traces the region's
     other walls leave on it (where they cross it, and where they end on it), and every face is judged once by the
@@ -265,50 +319,8 @@ def flat_paint(pieces, exact_sides, voxel_sides, eps=3e-6, inset=0.0015, extend=
     others = [(w, T) for w, _, _, T in pieces]
     faces = []                                         # (wall, 3D polygon list, normal, inner point)
     for wid, kind, idx, T in [p for p in flat if id(p[3]) in colourable]:
-        o, n = plane_of(T)
-        e1 = np.linalg.svd(T.reshape(-1, 3) - o)[2][0]
-        e2 = np.cross(n, e1)
-        to2 = lambda X: np.c_[(X - o) @ e1, (X - o) @ e2]
-        patch = unary_union([Polygon(to2(t)) for t in T if np.linalg.norm(np.cross(t[1] - t[0], t[2] - t[0])) > 1e-14])
-        lo_, hi_ = T.reshape(-1, 3).min(0) - 1e-3, T.reshape(-1, 3).max(0) + 1e-3
-        segs = []
-        for w2, U in others:
-            if w2 == wid:
-                continue
-            m = np.all((U.max(1) >= lo_) & (U.min(1) <= hi_), axis=1)
-            for u in U[m]:
-                f = (u - o) @ n
-                on = np.abs(f) < eps
-                if on.sum() == 3:                       # (a wall in the same plane: its edges split this one)
-                    segs += [to2(u[[a_, (a_ + 1) % 3]]) for a_ in range(3)]
-                elif on.sum() == 2:                     # (an edge lying on the plane: a wall ending here)
-                    segs.append(to2(u[on]))
-                elif f.max() > eps and f.min() < -eps:  # (crossing)
-                    pp = []
-                    for a_ in range(3):
-                        b_ = (a_ + 1) % 3
-                        if (f[a_] > 0) != (f[b_] > 0) and abs(f[a_] - f[b_]) > 0:
-                            pp.append(u[a_] + f[a_] / (f[a_] - f[b_]) * (u[b_] - u[a_]))
-                        elif on[a_]:
-                            pp.append(u[a_])
-                    if len(pp) >= 2:
-                        segs.append(to2(np.array(pp[:2])))
-        segs = [s_ for s_ in segs if np.linalg.norm(s_[1] - s_[0]) > 1e-10]
-        # (traces of different walls meet only to the meshes' precision: each segment is lengthened a little at both
-        # ends so they join and close off faces; an overshoot only splits a face whose parts are judged alike)
-        segs = [np.array([a_ - (b_ - a_) / np.linalg.norm(b_ - a_) * extend, b_ + (b_ - a_) / np.linalg.norm(b_ - a_) * extend])
-                for a_, b_ in segs]
-        cut = unary_union(MultiLineString([LineString(s_) for s_ in segs]).buffer(1e-7)) if segs else None
-        parts = patch.difference(cut) if cut is not None else patch
-        geoms = list(parts.geoms) if hasattr(parts, "geoms") else [parts]
-        frame = (o, e1, e2)
-        for g in geoms:
-            if g.area < 1e-12:
-                continue
-            core = g.buffer(-inset)
-            pt = (core if not core.is_empty else g).representative_point()
-            P3 = o + pt.x * e1 + pt.y * e2
-            faces.append((wid, g, frame, n, P3, core.is_empty, kind))
+        for g, frame, n, P3, thin in split_flat(wid, T, others, eps, inset, extend):
+            faces.append((wid, g, frame, n, P3, thin, kind))
     print(f"  flat walls: {len(faces)} faces", flush=True)
     st_exact = exact_sides(np.array([f[4] for f in faces]), np.array([f[3] for f in faces])) if faces else []
     st_vox = voxel_sides(np.array([f[4] for f in faces]), np.array([f[3] for f in faces])) if faces else []
