@@ -8,7 +8,12 @@ from multiprocessing import Pool
 import numpy as np
 from cell_atlas2 import identify, load_refs
 from cellframe import seed_from_beta
-from classify import classify, signature
+from classify import signature
+
+if os.environ.get("CLASSIFY") == "slow":
+    from classify import classify
+else:                                   # (the same info from one vertex's cells, ~20x faster: classify_fast.py)
+    from classify_fast import classify
 
 REFS = load_refs()[0]
 XIDS = json.load(open("atlas_xids.json")) if os.path.exists("atlas_xids.json") else {}
