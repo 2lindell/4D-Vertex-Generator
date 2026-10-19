@@ -31,6 +31,7 @@ import region_walls as rw
 
 CACHE = "region_walls_cache.jsonl"          # (beta -> shape, shared with region_walls.py)
 OUT = "region_db.json"
+PIECES = "region_pieces.json"
 
 
 class Labels:
@@ -235,6 +236,18 @@ def main(walls):
         e["pieces"][kind] += 1
         if len(e["points"]) < 6:
             e["points"].append(np.round(rc.betas(P[None])[0], 6).tolist())
+    # the faces themselves, for drawing any region from them (region_pieces.json: cell xyz triangles, fanned)
+    fp = json.load(open(PIECES)) if os.path.exists(PIECES) else {}
+    for wid in targets:
+        fp[wid] = []
+    for (wid, kind, pg, n), sn in zip(curved_parts, side_names):
+        fp[wid].append({"sides": [str(x) for x in sn], "kind": kind, "mirror": _in_mirror(pg),
+                        "tris": [np.r_[pg[0], pg[m], pg[m + 1]].round(7).tolist() for m in range(1, len(pg) - 1)]})
+    for (wid, kind, g, frame, n, P, thin), sn in zip(flat_faces, flat_sides):
+        T = _fill(g, frame)
+        fp[wid].append({"sides": [str(x) for x in sn], "kind": kind, "mirror": _in_mirror(T.reshape(-1, 3)),
+                        "tris": T.reshape(-1, 9).round(7).tolist()})
+    json.dump(fp, open(PIECES, "w"), separators=(",", ":"))
     for wid in targets:
         db["walls"][wid] = {"dim": dims.get(wid), "sides": {k: {"area": round(v["area"], 6), "pieces": dict(v["pieces"]),
                                                                "points": v["points"]} for k, v in acc[wid].items()}}
@@ -259,6 +272,24 @@ def main(walls):
         print(wid)
         for k, v in sorted(db["walls"][wid]["sides"].items(), key=lambda kv: -kv[1]["area"]):
             print(f"    {k:28s} area {v['area']:.5f}  {v['pieces']}")
+
+
+def _in_mirror(P):
+    """Lying in the splitting mirror (such a face is drawn by the wall's copy past it, not here)."""
+    B = rc.betas(np.asarray(P))
+    return bool(np.abs(B[:, 2] - B[:, 3]).max() < 1e-6)
+
+
+def _fill(g, frame):
+    """A flat face (shapely polygon in its plane) as triangles in cell xyz."""
+    import shapely
+    o, e1, e2 = frame
+    out = []
+    for part in (g.geoms if hasattr(g, "geoms") else [g]):
+        for t in shapely.constrained_delaunay_triangles(part).geoms:
+            c = np.array(t.exterior.coords)[:3]
+            out.append(o + c[:, :1] * e1 + c[:, 1:2] * e2)
+    return np.array(out).reshape(-1, 3, 3)
 
 
 def _cut_parts(T, wid, pieces, reach=0.03, max_parts=64):
