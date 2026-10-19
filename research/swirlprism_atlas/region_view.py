@@ -16,10 +16,12 @@ from scipy.spatial import cKDTree
 FLIP = np.array([1, 1, -1.0])
 
 
-def view(rid, path="region_pieces.json"):
-    """{wall: triangles (n, 3, 3) in cell xyz} of the faces the region borders."""
-    fp = json.load(open(path))
+def view(rid, path="region_pieces.json", kinds=False):
+    """{wall: triangles (n, 3, 3) in cell xyz} of the faces the region borders (with kinds: also {wall: [kind of
+    each triangle]})."""
+    fp = view.cache.get(path) or view.cache.setdefault(path, json.load(open(path)))
     out = defaultdict(list)
+    kd = defaultdict(list)
     for wid, faces in fp.items():
         for f in faces:
             a, b = f["sides"]
@@ -30,7 +32,42 @@ def view(rid, path="region_pieces.json"):
             if f.get("cut", [False, False])[0 if a == rid else 1]:
                 continue
             out[wid] += f["tris"]
-    return {w: np.array(T).reshape(-1, 3, 3) for w, T in out.items()}
+            kd[wid] += [f["kind"]] * len(f["tris"])
+    tris = {w: np.array(T).reshape(-1, 3, 3) for w, T in out.items()}
+    return (tris, dict(kd)) if kinds else tris
+
+
+view.cache = {}
+
+
+def export(regions=None, keep=("F2",)):
+    """region_walls.json (the page's region colouring) for every complete region: one whose pockets touch only walls
+    already in the database. The regions in keep stay as they are there (hand-checked)."""
+    db = json.load(open("region_db.json"))
+    grid = json.load(open("region_grid.json"))
+    done = set(db["walls"])
+    try:
+        out = json.load(open("region_walls.json"))
+    except FileNotFoundError:
+        out = {}
+    ready = [r for r, ws in db.get("touch", {}).items() if set(ws) <= done and r in grid["runs"]]
+    for r in ready:
+        if (regions and r not in regions) or r in keep:
+            continue
+        tris, kinds = view(r, kinds=True)
+        T = [t for w in sorted(tris) for t in tris[w]]
+        if not T:
+            continue
+        P = (np.array(T).reshape(-1, 3) * FLIP).round(6)
+        out[r] = {"walls": sorted(w for w in tris if len(tris[w])), "pockets": grid["pockets"][r],
+                  "tris": P.reshape(-1, 9).tolist(), "ids": [w for w in sorted(tris) for _ in tris[w]],
+                  "kinds": [k for w in sorted(tris) for k in kinds[w]],
+                  "grid": {"lo": grid["lo"], "h": grid["h"], "shape": grid["shape"], "runs": grid["runs"][r]},
+                  "source": "region_db"}
+        print(f"  {r}: {len(T)} triangles on {', '.join(out[r]['walls'])}")
+    json.dump(out, open("region_walls.json", "w"), separators=(",", ":"))
+    waiting = {r: sorted(set(ws) - done) for r, ws in db.get("touch", {}).items() if not set(ws) <= done}
+    return ready, waiting
 
 
 def area(T):
@@ -81,7 +118,12 @@ def check(rid):
 
 
 if __name__ == "__main__":
-    if "--check" in sys.argv:
+    if "--export" in sys.argv:
+        ready, waiting = export()
+        print(f"complete: {', '.join(sorted(ready))}")
+        for r, ws in sorted(waiting.items(), key=lambda kv: len(kv[1])):
+            print(f"  {r} waits for {', '.join(ws)}")
+    elif "--check" in sys.argv:
         check(sys.argv[1])
     else:
         v = view(sys.argv[1])

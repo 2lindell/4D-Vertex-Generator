@@ -33,6 +33,7 @@ import region_walls as rw
 CACHE = os.environ.get("REGION_CACHE", "region_walls_cache.jsonl")   # (beta -> shape, shared with region_walls.py)
 OUT = "region_db.json"
 PIECES = "region_pieces.json"
+GRID = "region_grid.json"
 
 
 class Labels:
@@ -122,7 +123,9 @@ def voxels(pieces, h=0.0025):
     shape = tuple(np.ceil((hi - lo) / h).astype(int) + 1)
     vox = lambda X: np.clip(np.floor((np.asarray(X) - lo) / h).astype(int), 0, np.array(shape) - 1)
     wall = np.zeros(shape, bool)
-    for _, _, _, T in pieces:
+    wall_id = np.full(shape, -1, np.int16)              # (the last wall drawn through each voxel)
+    names = sorted({p[0] for p in pieces})
+    for wid, _, _, T in pieces:
         for t in T:
             e = max(np.linalg.norm(t[1] - t[0]), np.linalg.norm(t[2] - t[1]), np.linalg.norm(t[0] - t[2]))
             n = max(1, int(np.ceil(e / (0.4 * h))))
@@ -131,6 +134,8 @@ def voxels(pieces, h=0.0025):
             a, b = a_[k] / n, b_[k] / n
             idx = vox(t[0] + a[:, None] * (t[1] - t[0]) + b[:, None] * (t[2] - t[0]))
             wall[idx[:, 0], idx[:, 1], idx[:, 2]] = True
+            wall_id[idx[:, 0], idx[:, 1], idx[:, 2]] = names.index(wid)
+    voxels.wall_id, voxels.names = wall_id, names
     g = np.stack(np.meshgrid(*[lo[k] + h * (np.arange(shape[k]) + 0.5) for k in range(3)], indexing="ij"), -1)
     Bg = rc.betas(g.reshape(-1, 3)).reshape(shape + (4,))
     lab, _ = ndimage.label(rc.inside(Bg) & ~wall)
@@ -368,6 +373,36 @@ def main(walls):
                     e["across"][other] += v["area"]
     db["regions"] = {r: {wid: {"area": round(v["area"], 6), "across": {k: round(x, 6) for k, x in v["across"].most_common()},
                                "inside": round(v["inside"], 6)} for wid, v in ws.items()} for r, ws in regs.items()}
+    # every pocket's shape, and the walls each region's pockets touch (from the voxels: a wall voxel beside one of
+    # its pockets), so a region is complete once all those walls are in the database
+    sizes = np.bincount(lab.ravel())
+    every = [int(p) for p in np.flatnonzero(sizes) if p > 0 and sizes[p] >= 8]
+    plab.update(pocket_labels(lab, lo, h, sorted(set(every) - set(plab)), labels))
+    touch = defaultdict(set)
+    W, names = voxels.wall_id, voxels.names
+    for ax in range(3):
+        for sh in (1, -1):
+            nb = np.roll(lab, sh, axis=ax)
+            m = (W >= 0) & (nb > 0)
+            for w, p in set(zip(W[m].tolist(), nb[m].tolist())):
+                touch[p].add(names[w])
+    reg_pockets = defaultdict(list)
+    for p in every:
+        l = plab.get(p)
+        if l and dims.get(l) == "region":
+            reg_pockets[l].append(p)
+    db["touch"] = {r: sorted(set().union(*(touch[p] for p in ps))) for r, ps in sorted(reg_pockets.items())}
+    # (each region's voxels as runs over the flattened grid, for the page's views)
+    grid = {"lo": lo.tolist(), "h": h, "shape": list(lab.shape), "runs": {}}
+    for r, ps in reg_pockets.items():
+        m = np.isin(lab, ps).ravel()
+        dd = np.diff(np.r_[0, m.astype(np.int8), 0])
+        grid["runs"][r] = [[int(a), int(b - a)] for a, b in zip(np.flatnonzero(dd == 1), np.flatnonzero(dd == -1))]
+    grid["pockets"] = {r: len(ps) for r, ps in reg_pockets.items()}
+    json.dump(grid, open(GRID, "w"), separators=(",", ":"))
+    done = set(db["walls"])
+    print("regions complete (every wall they touch is in the database):",
+          ", ".join(r for r, ws in db["touch"].items() if set(ws) <= done), flush=True)
     json.dump(db, open(OUT, "w"), indent=1)
     for wid in sorted(targets):
         print(wid)
