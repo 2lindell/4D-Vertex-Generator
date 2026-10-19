@@ -25,6 +25,10 @@ def view(rid, path="region_pieces.json"):
             a, b = f["sides"]
             if f["mirror"] or (a == rid) == (b == rid):
                 continue
+            # (a face lying in the view's cut is drawn where the region is on the visible side: past the cut, the
+            # same place is drawn again at the glued copy)
+            if f.get("cut", [False, False])[0 if a == rid else 1]:
+                continue
             out[wid] += f["tris"]
     return {w: np.array(T).reshape(-1, 3, 3) for w, T in out.items()}
 

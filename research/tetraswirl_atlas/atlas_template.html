@@ -348,7 +348,7 @@ __TYPE_CSS__
       if (!rows.length) { html += `<tr><td colspan="7" class="pending">${g.empty}</td></tr>`; continue; }
       for (const t of rows) {
         const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}${t.valence ? `<br>valence ${t.valence}` : ""}<br>${t.seed ? seedLine(t.seed) : ""}` : pending("no hull");
-        html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name || pending("unnamed")}</td>`
+        html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name || pending("—")}</td>`
           + `<td class="counts">${counts}</td><td class="where">${t.where || pending("not found yet")}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td>`
           + `<td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;
       }

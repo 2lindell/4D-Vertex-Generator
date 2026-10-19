@@ -30,7 +30,7 @@ from scipy.spatial import cKDTree
 import region_cells as rc
 import region_walls as rw
 
-CACHE = "region_walls_cache.jsonl"          # (beta -> shape, shared with region_walls.py)
+CACHE = os.environ.get("REGION_CACHE", "region_walls_cache.jsonl")   # (beta -> shape, shared with region_walls.py)
 OUT = "region_db.json"
 PIECES = "region_pieces.json"
 
