@@ -241,7 +241,7 @@ __TYPE_CSS__
         if (!pts.length) continue;
         out.push({ type: "scatter3d", mode: "markers", name: `${label(t)}`,
           x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]),
-          customdata: pts.map((p) => `${label(t)}<br>seed ${p[3]}<br>chart (${p.slice(0, 3).map((x) => x.toFixed(4)).join(", ")})`),
+          customdata: pts.map((p) => `${label(t)}<br>${p[4] ? "β " + p[4] + "<br>" : ""}seed ${p[3]}<br>chart (${p.slice(0, 3).map((x) => x.toFixed(4)).join(", ")})`),
           marker: { size: t.dim === "region" ? 2.6 : 3.6, color: color(t), symbol: t.symbol, opacity: 0.9 },
           hovertemplate: "%{customdata}<extra></extra>" });
       }
@@ -347,7 +347,7 @@ __TYPE_CSS__
       html += `<tr class="group"><td colspan="7"><h3>${g.title}</h3></td></tr>`;
       if (!rows.length) { html += `<tr><td colspan="7" class="pending">${g.empty}</td></tr>`; continue; }
       for (const t of rows) {
-        const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}${t.valence ? `<br>valence ${t.valence}` : ""}<br>${t.seed ? seedLine(t.seed) : ""}` : pending("no hull");
+        const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}${t.valence ? `<br>valence ${t.valence}` : ""}<br>${t.seed ? seedLine(t.seed) : ""}${t.beta ? `<br>β ${t.beta}` : ""}` : pending("no hull");
         html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name || pending("—")}</td>`
           + `<td class="counts">${counts}</td><td class="where">${t.where || pending("not found yet")}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td>`
           + `<td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;

@@ -58,24 +58,8 @@ def domain_geometry(tol=1e-9):
         if not any(np.linalg.norm(v - k) < 1e-7 for k in keep):
             keep.append(v)
     V = np.array(keep)
-    # (the halfspaces again, with what each one is)
-    rows, names, kinds = [], [], []
-    seen = []
-    for g in D.ELEMENTS:
-        ga = g @ D.A
-        if np.linalg.norm(ga - D.A) < 1e-9 or any(np.linalg.norm(ga - s) < 1e-9 for s in seen):
-            continue
-        seen.append(ga)
-        w = D.A - ga
-        rows.append(np.concatenate([-(D.FRAME @ w), [-(D.A @ w)]]))
-        ang = np.degrees(np.arccos(np.clip(D.A @ ga, -1, 1)))
-        names.append(f"bisector of the anchor and an image {ang:.1f}° away")
-        kinds.append("bisector")
-    W = D.wedge_halfspaces()
-    for k, r in enumerate(W):
-        rows.append(r)
-        names.append(f"cut through the rotation axis at {0 if k == 0 else round(360 / D.M)}°")
-        kinds.append("cut")
+    # (the halfspaces, with what each one is)
+    rows, names, kinds = zip(*D.domain_faces())
     faces, scale = [], np.abs(V).max()
     for r, name, kind in zip(rows, names, kinds):
         on = np.flatnonzero(np.abs(V @ r[:3] + r[3]) / np.linalg.norm(r[:3]) < 1e-7 * max(scale, 1))
@@ -115,6 +99,14 @@ def seed_text(u):
     return ", ".join(f"{x:.6f}" for x in s)
 
 
+def beta_text(u):
+    """β in the 16-cell's tetrahedron, scaled so the weights sum to 1 (cell16 domain)."""
+    if D.DOMAIN != "cell16":
+        return ""
+    b = D.beta_from_seed(D.seed_from_chart(np.asarray(u, float)))
+    return "(" + ", ".join(f"{x:.4f}" for x in b) + ")"
+
+
 def main():
     V, E, F = domain_geometry()
     # samples
@@ -149,7 +141,9 @@ def main():
                       "cells": p[1] if p else None, "faces": p[2] if p else None, "edges": p[3] if p else None,
                       "valence": p[4] if p else None, "seed": seed_text(rep), "samples": int(n), "sig": sig,
                       "where": f"region ({100 * n / len(pts):.1f}% of the samples)", "bounds": [], "separates": []})
-        samples[tid] = [[round(float(x), 5) for x in q] + [seed_text(q)] for q in P]
+        samples[tid] = [[round(float(x), 5) for x in q] + [seed_text(q), beta_text(q)] for q in P]
+        if D.DOMAIN == "cell16":
+            types[-1]["beta"] = beta_text(rep)
     # traced data, when there
     traced = json.load(open(f"atlas_{KEY}.json")) if os.path.exists(f"atlas_{KEY}.json") else {}
     by = {t["id"]: t for t in types}
@@ -186,10 +180,11 @@ def main():
     def bounds(maps):
         Q = np.vstack([V @ M[:, :3].T + M[:, 3] for M in maps])
         return [Q.min(0).round(5).tolist(), Q.max(0).round(5).tolist()]
-    views = [{"id": "domain", "name": f"fundamental domain (1/{D.M} of the cell)", "maps": [ident.round(12).tolist()],
-              "bounds": bounds([ident])}]
+    whole = "16-cell tetrahedron" if D.DOMAIN == "cell16" else "Voronoi cell"
+    views = [{"id": "domain", "name": f"third of a 16-cell tetrahedron" if D.DOMAIN == "cell16" else f"fundamental domain (1/{D.M} of the cell)",
+              "maps": [ident.round(12).tolist()], "bounds": bounds([ident])}]
     if D.M > 1:
-        views.append({"id": "cell", "name": f"whole Voronoi cell ({D.M} domains)", "maps": [M.round(12).tolist() for M in maps_cell],
+        views.append({"id": "cell", "name": f"whole {whole} ({D.M} domains)", "maps": [M.round(12).tolist() for M in maps_cell],
                       "bounds": bounds(maps_cell)})
     zs = np.linspace(V[:, 2].min() - 1, V[:, 2].max() + 1, 4001)
     on = zs[D.in_domain(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs], 1e-12)]
@@ -201,12 +196,21 @@ def main():
             f"The group is the {GROUP['short']} group <code>{D.NAME}</code>: {ORDER} rotations of the 3-sphere. A seed's "
             f"{ORDER} images are the vertices of an isogonal polychoron, and two seeds give the same polychoron when one "
             f"is an image of the other, so one fundamental domain holds every shape once.",
-            f"The domain is drawn in the gnomonic chart at an anchor on the fixed circle of an order-{D.M} rotation, so "
-            f"great circles are straight lines and great spheres are planes. It is the part of the anchor's Voronoi cell "
-            f"(the points nearer the anchor than any of its images) between two cuts through the rotation axis, 1/{D.M} "
-            f"of the cell: {len(V)} corners and {len(F)} faces.",
-            "This domain is provisional: the extra symmetries that map the group to itself (its normalizer) are still "
-            "to be found, and with them a smaller domain and the face gluings.",
+            *([f"The group maps two 16-cells to themselves and moves the 16 tetrahedral cells of each into one another; a "
+               f"cell is fixed only by an order-3 rotation about one of its vertices, V, through the centre of the opposite "
+               f"face W₁W₂W₃. So a third of the cell is a fundamental domain, as half of a 600-cell's tetrahedron is for "
+               f"the swirlprism group: the tetrahedron with corners V, W₁, W₂ and the face centre F, where β₃ is the least "
+               f"of β₁, β₂, β₃. Its cut faces β₁ = β₃ and β₂ = β₃ are mirrors of the 16-cell; the rotation carries the "
+               f"other two thirds onto it.",
+               "It is drawn in the gnomonic chart at the cell's centre, so great circles are straight lines and great "
+               "spheres are planes, with V at the top. Points are written in barycentric weights β = (β_V, β₁, β₂, β₃) "
+               "of the cell, summing to 1."] if D.DOMAIN == "cell16" else
+              [f"The domain is drawn in the gnomonic chart at an anchor on the fixed circle of an order-{D.M} rotation, so "
+               f"great circles are straight lines and great spheres are planes. It is the part of the anchor's Voronoi "
+               f"cell (the points nearer the anchor than any of its images) between two cuts through the rotation "
+               f"axis, 1/{D.M} of the cell: {len(V)} corners and {len(F)} faces."]),
+            "Still to find: the extra symmetries that map the group to itself (its normalizer), which may halve the "
+            "domain again, as the half-turn Q does for the swirlprism group.",
         ]},
         {"title": "Views", "items": [v["name"][0].upper() + v["name"][1:] + "." for v in views]
          + ["Each view keeps its own camera, so ticking boxes never moves the picture."]},
