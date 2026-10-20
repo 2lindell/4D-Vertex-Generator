@@ -140,6 +140,17 @@ def main():
         e["surfaces"][surf] = e["surfaces"].get(surf, 0) + 1
         e["pairs"].add(pair)
         e["pts"].append(b)
+    # (a shape found on a surface that is one of the regions' shapes is not a transitional: the region reaches onto
+    # its own boundary there, where a cell collapses flat; it is noted on the region's row, not listed as a wall)
+    region_of = {sg: rid for sg, rid in ids.items() if rid.startswith("R")}
+    reach = {}
+    for sg in [x for x in by_shape if x in region_of]:
+        e = by_shape.pop(sg)
+        reach[region_of[sg]] = e
+    for rid, e in reach.items():
+        other = sorted({r for pr in e["pairs"] for r in pr.split("|")} - {rid}, key=lambda r: int(r[1:]))
+        types.append({"id": rid, "dim": "region", "locus": f"also holds on parts of {len(e['surfaces'])} surface"
+                      f"{'s' if len(e['surfaces']) > 1 else ''} where it meets {', '.join(other)} (no transitional shape there)"})
     for k, (sg, e) in enumerate(sorted(by_shape.items(), key=lambda kv: -len(kv[1]["pts"])), 1):
         wid = f"W{k}"
         surf_list = sorted(e["surfaces"].items(), key=lambda kv: -kv[1])
@@ -233,7 +244,9 @@ def main():
         groups = {}
         for l in lp.get("lines", []):
             sg = l.get("on", "")
-            if str(sg)[:1].isdigit() and sg not in sym_sigs:
+            # (a line's shape that is a region's or a wall's is not a new transitional)
+            wall_sigs = {t.get("sig") for t in types if t["dim"] == "wall"}
+            if str(sg)[:1].isdigit() and sg not in sym_sigs and sg not in region_of and sg not in wall_sigs:
                 groups.setdefault(sg, []).append(l)
         for k, (sg, ls) in enumerate(sorted(groups.items(), key=lambda kv: -sum(len(x["points"]) for x in kv[1])), 1):
             lid = f"L{k}"
@@ -246,7 +259,8 @@ def main():
         pgroups = {}
         for p in lp.get("points", []):
             sg = p.get("on", "")
-            if str(sg)[:1].isdigit():
+            known = {t.get("sig") for t in types if t["dim"] in ("wall", "line")} | set(region_of)
+            if str(sg)[:1].isdigit() and (sg not in known or any(t["dim"] == "point" and t.get("sig") == sg for t in types)):
                 pgroups.setdefault(sg, []).append(p)
         n0 = len([t for t in types if t["dim"] == "point"])
         for k, (sg, ps) in enumerate(sorted(pgroups.items(), key=lambda kv: -len(kv[1])), n0 + 1):
