@@ -196,7 +196,7 @@ __TYPE_CSS__
       const out = [], ink = css("--ink"), faint = css("--faint");
       // the domain: its edges always, its faces (each a bisector of the anchor and one of its images, or a cut through
       // the rotation axis) when asked
-      const dom = D.domain;
+      const dom = view().domain || D.domain;              // (a view in another chart brings its own domain)
       for (const M of view().maps) {
         const map = (p) => [0, 1, 2].map((a) => M[a][0] * p[0] + M[a][1] * p[1] + M[a][2] * p[2] + (M[a][3] || 0));
         out.push(lines(dom.edges.map(([a, b]) => [map(dom.verts[a]), map(dom.verts[b])]), "domain edges", { color: faint, width: 2 }));
@@ -207,12 +207,14 @@ __TYPE_CSS__
             color: css(f.kind === "cut" ? "--mirror" : "--domring"), opacity: 0.07, name: f.name, hoverinfo: "skip", meta: "nopick" });
         }
       }
-      if (el("showAxis").checked && D.axis) out.push(lines([D.axis.pts], D.axis.name, { color: css("--g3axis"), width: 4 },
-        { hoverinfo: "text", text: D.axis.pts.map(() => D.axis.name) }));
+      const ax = view().axis !== undefined ? view().axis : D.axis;
+      if (el("showAxis").checked && ax) out.push(lines([ax.pts], ax.name, { color: css("--g3axis"), width: 4 },
+        { hoverinfo: "text", text: ax.pts.map(() => ax.name) }));
+      const own = !view().chart;                          // (traced walls, lines and points are in the page's own chart)
       // traced walls, lines and points (none until the build's tracing stages fill them in)
       for (const w of D.walls) {
         const t = byId[w.id];
-        if (!t || !visibleFor(w.id) || !el("showWalls").checked) continue;
+        if (!own || !t || !visibleFor(w.id) || !el("showWalls").checked) continue;
         for (const M of view().maps) {
           const V = w.verts.map((p) => [0, 1, 2].map((a) => M[a][0] * p[0] + M[a][1] * p[1] + M[a][2] * p[2] + (M[a][3] || 0)));
           out.push({ type: "mesh3d", x: V.map((q) => q[0]), y: V.map((q) => q[1]), z: V.map((q) => q[2]),
@@ -223,12 +225,12 @@ __TYPE_CSS__
       }
       for (const s of D.lines) {
         const t = byId[s.id];
-        if (!t || !visibleFor(s.id) || !el("showLines").checked) continue;
+        if (!own || !t || !visibleFor(s.id) || !el("showLines").checked) continue;
         const tr = lines([mapPts(s.pts)], `${label(t)}`, { color: color(t), width: 5, dash: s.copy ? "dash" : "solid" });
         tr.hovertemplate = (s.hover || `${label(t)}`) + "<extra></extra>";
         out.push(tr);
       }
-      const pts0 = D.points.filter((p) => byId[p.id] && visibleFor(p.id) && el("showPoints").checked);
+      const pts0 = own ? D.points.filter((p) => byId[p.id] && visibleFor(p.id) && el("showPoints").checked) : [];
       if (pts0.length) {
         const P = mapPts(pts0.map((p) => p.q.concat([p.hover || p.id])));
         out.push({ type: "scatter3d", mode: "markers", name: "points", x: P.map((p) => p[0]), y: P.map((p) => p[1]), z: P.map((p) => p[2]),
@@ -237,7 +239,7 @@ __TYPE_CSS__
       // samples, each coloured by its polychoron
       for (const t of D.types) {
         if (!visibleFor(t.id) || !el(dimBox[t.dim] || "showRegions").checked) continue;
-        const pts = mapPts(D.samples[t.id] || []);           // ([x, y, z, seed] each)
+        const pts = mapPts((view().samples || D.samples)[t.id] || []);           // ([x, y, z, seed] each)
         if (!pts.length) continue;
         out.push({ type: "scatter3d", mode: "markers", name: `${label(t)}`,
           x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]),

@@ -52,14 +52,17 @@ GROUPS = [
 
 def domain_geometry(tol=1e-9):
     """Corners (merged), edges, and faces (ordered loops) of the domain, each face named."""
-    V = D.domain_vertices()
+    rows, names, kinds = zip(*D.domain_faces())
+    return geometry(D.domain_vertices(), rows, names, kinds)
+
+
+def geometry(V, rows, names, kinds):
+    """Corners (merged), edges and named faces of a polyhedron given its corners and halfspace rows."""
     keep = []
     for v in V:
         if not any(np.linalg.norm(v - k) < 1e-7 for k in keep):
             keep.append(v)
     V = np.array(keep)
-    # (the halfspaces, with what each one is)
-    rows, names, kinds = zip(*D.domain_faces())
     faces, scale = [], np.abs(V).max()
     for r, name, kind in zip(rows, names, kinds):
         on = np.flatnonzero(np.abs(V @ r[:3] + r[3]) / np.linalg.norm(r[:3]) < 1e-7 * max(scale, 1))
@@ -78,6 +81,63 @@ def domain_geometry(tol=1e-9):
         for a, b in zip(L, L[1:] + L[:1]):
             edges.add((min(a, b), max(a, b)))
     return V, sorted(edges), faces
+
+
+def voronoi_views(P, sample_seeds):
+    """The Voronoi wedge domain and whole Voronoi cell (the first domain tried), with the samples moved into it: for
+    a page whose own domain is another (the 16-cell third), so both can be shown. P: (n, 3) chart points of the
+    samples in the page's own domain."""
+    from scipy.spatial import HalfspaceIntersection
+    Av, Fv, Sv, Mv = D._anchor_frame()
+    rows, names, kinds, seen = [], [], [], []
+    for g in D.ELEMENTS:
+        ga = g @ Av
+        if np.linalg.norm(ga - Av) < 1e-9 or any(np.linalg.norm(ga - x) < 1e-9 for x in seen):
+            continue
+        seen.append(ga)
+        w = Av - ga
+        rows.append(np.concatenate([-(Fv @ w), [-(Av @ w)]]))
+        names.append(f"bisector of the anchor and an image {np.degrees(np.arccos(np.clip(Av @ ga, -1, 1))):.1f}° away")
+        kinds.append("cell")
+    t = 2 * np.pi / Mv
+    rows += [np.array([0.0, -1.0, 0.0, 0.0]), np.array([-np.sin(t), np.cos(t), 0.0, 0.0])]
+    names += ["cut through the rotation axis at 0°", f"cut through the rotation axis at {round(360 / Mv)}°"]
+    kinds += ["cut", "cut"]
+    H = np.array(rows)
+    rng = np.random.default_rng(0)
+    best, bm = None, -1
+    for _ in range(4000):
+        r, a, z = rng.uniform(0.01, 0.3), rng.uniform(0.2, 0.8) * t, rng.uniform(-0.3, 0.3)
+        p = np.array([r * np.cos(a), r * np.sin(a), z])
+        m = np.min(-(H[:, :3] @ p + H[:, 3]) / np.linalg.norm(H[:, :3], axis=1))
+        if m > bm:
+            best, bm = p, m
+    V, E, F = geometry(HalfspaceIntersection(H, best).intersections, rows, names, kinds)
+    dom = {"verts": V.round(6).tolist(), "edges": [list(e) for e in E], "faces": F}
+    # (each sample's image in the wedge)
+    X = D.seed_from_chart(P)
+    Y = np.einsum("gij,nj->gni", D.ELEMENTS, X)
+    sY = Y @ Av
+    U = (Y / np.where(np.abs(sY) < 1e-12, 1e-12, sY)[..., None] - Av) @ Fv.T
+    ok = (sY > 0) & (np.einsum("gnk,hk->gnh", U, H[:, :3]) + H[:, 3] <= 1e-9).all(2)
+    first = ok.argmax(0)
+    Q = U[first, np.arange(len(P))]
+    found = ok.any(0)
+    Rv = Fv @ Sv @ Fv.T
+    ident = np.c_[np.eye(3), np.zeros(3)]
+    cell = [np.c_[np.linalg.matrix_power(Rv, k), np.zeros(3)] for k in range(Mv)]
+    bnd = lambda maps: [np.vstack([V @ M[:, :3].T for M in maps]).min(0).round(5).tolist(),
+                        np.vstack([V @ M[:, :3].T for M in maps]).max(0).round(5).tolist()]
+    zs = np.linspace(V[:, 2].min() - 1, V[:, 2].max() + 1, 4001)
+    inside = lambda u: (u @ H[:, :3].T + H[:, 3] <= 1e-12).all(1)
+    on = zs[inside(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs])]
+    axis = {"pts": [[0, 0, float(on.min())], [0, 0, float(on.max())]],
+            "name": f"axis of the order-{Mv} rotation fixing the Voronoi anchor"} if len(on) else None
+    return Q, found, [
+        {"id": "vwedge", "name": f"Voronoi wedge (1/{Mv} of the anchor's Voronoi cell)", "maps": [ident.tolist()],
+         "bounds": bnd([ident]), "domain": dom, "axis": axis, "chart": "voronoi"},
+        {"id": "vcell", "name": f"whole Voronoi cell ({Mv} wedges)", "maps": [M.round(12).tolist() for M in cell],
+         "bounds": bnd(cell), "domain": dom, "axis": axis, "chart": "voronoi"}]
 
 
 def parse_sig(sig):
@@ -190,6 +250,19 @@ def main():
     if D.M > 1:
         views.append({"id": "cell", "name": f"whole {whole} ({D.M} domains)", "maps": [M.round(12).tolist() for M in maps_cell],
                       "bounds": bounds(maps_cell)})
+    if D.DOMAIN == "cell16":                # (the Voronoi views as well, the samples moved into the Voronoi wedge)
+        allP = np.vstack([np.array([q[:3] for q in v]) for v in samples.values()])
+        Q, found, vv = voronoi_views(allP, None)
+        k = 0
+        for tid, v in samples.items():
+            pts_ = []
+            for q in v:
+                if found[k]:
+                    pts_.append([round(float(x), 5) for x in Q[k]] + q[3:])
+                k += 1
+            for view_ in vv:
+                view_.setdefault("samples", {})[tid] = pts_
+        views += vv
     zs = np.linspace(V[:, 2].min() - 1, V[:, 2].max() + 1, 4001)
     on = zs[D.in_domain(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs], 1e-12)]
     axis = {"pts": [[0, 0, float(on.min())], [0, 0, float(on.max())]],
