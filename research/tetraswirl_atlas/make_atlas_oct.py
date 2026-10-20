@@ -117,26 +117,57 @@ def main():
         ("V = β (1, 0, 0, 0): a vertex of the 16-cell", [1, 0, 0, 0]),
         ("W₁ = β (0, 1, 0, 0): a vertex of the 16-cell", [0, 1, 0, 0]),
         ("W₂ = β (0, 0, 1, 0): a vertex of the 16-cell", [0, 0, 1, 0]),
-        ("F = β (0, ⅓, ⅓, ⅓): the centre of the face W₁W₂W₃", [0, third, third, third]),
+        ("F = β (0, ⅓, ⅓, ⅓): the centre of the face W₁W₂W₃, a vertex of the group's other 16-cell (not an image of V)", [0, third, third, third]),
         ("the midpoint of VW₁ = β (½, ½, 0, 0)", [0.5, 0.5, 0, 0]),
         ("the midpoint of W₁W₂ = β (0, ½, ½, 0)", [0, 0.5, 0.5, 0]),
     ]
-    jobs = [np.array(a) * 0.5 + np.array(b) * 0.5 for _, a, b in sym_lines] + [np.array(p) for _, p in sym_points]
+    # (copies glued together: a point or line is listed once, drawn at each place it appears in the domain)
+    from four_d_vertex_generator.generation import generate_vertices_from_seed
+
+    def orbit(beta):
+        x = np.asarray(beta, float) @ D.CELL
+        return generate_vertices_from_seed(x / np.linalg.norm(x), D.ACTION)
+
+    def same(A, B):
+        return len(A) == len(B) and all(np.min(np.linalg.norm(B - a, axis=1)) < 1e-9 for a in A)
+
+    def cluster(items, key):
+        groups = []
+        for it in items:
+            o = orbit(key(it))
+            for g in groups:
+                if same(g["orbit"], o):
+                    g["members"].append(it)
+                    break
+            else:
+                groups.append({"orbit": o, "members": [it]})
+        return [g["members"] for g in groups]
+    mid = lambda l: np.array(l[1]) * 0.5 + np.array(l[2]) * 0.5
+    line_groups = cluster(sym_lines, mid)
+    point_groups = cluster(sym_points, lambda p: p[1])
+    jobs = [mid(g[0]) for g in line_groups] + [np.array(g[0][1]) for g in point_groups]
     with Pool(4) as pool:
         labs = pool.map(label, jobs)
-    for k, ((name, a, b), lab) in enumerate(zip(sym_lines, labs), 1):
+    for k, (g, lab) in enumerate(zip(line_groups, labs), 1):
         lid = f"S{k}"
-        ts = np.linspace(0.02, 0.98, 25)
-        pts = [np.array(a) * (1 - t) + np.array(b) * t for t in ts]
+        name = g[0][0] + (" — the same line as " + "; ".join(x[0].split(":")[0] for x in g[1:]) if len(g) > 1 else "")
+        p0 = mid(g[0])
         types.append({"id": lid, "dim": "line", "name": "", "sig": lab if lab[0].isdigit() else None,
-                      "where": name, "bounds": [], "seed": seed_text(pts[12]), "beta": beta_text(pts[12])})
-        lines.append({"id": lid, "pts": [[round(float(x), 5) for x in chart(p)] for p in [np.array(a), np.array(b)]],
-                      "hover": f"{lid} · {name}"})
-    for k, ((name, p), lab) in enumerate(zip(sym_points, labs[len(sym_lines):]), 1):
+                      "where": name, "bounds": [], "seed": seed_text(p0), "beta": beta_text(p0)})
+        for _, a, b in g:
+            lines.append({"id": lid, "pts": [[round(float(x), 5) for x in chart(p)] for p in (np.array(a), np.array(b))],
+                          "hover": f"{lid} · {name}"})
+    for k, (g, lab) in enumerate(zip(point_groups, labs[len(line_groups):]), 1):
         pid = f"P{k}"
+        name = g[0][0] if len(g) == 1 else (" = ".join(x[0].split(":")[0].split(" = β")[0] for x in g)
+                                             + f": one point of the 3-sphere, at {len(g)} places on the domain's boundary ("
+                                             + "; ".join(x[0] for x in g) + ")")
+        p0 = g[0][1]
         types.append({"id": pid, "dim": "point", "name": "", "sig": lab if lab[0].isdigit() else None,
-                      "where": name, "bounds": [], "seed": seed_text(p), "beta": beta_text(p)})
-        points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p)], "beta": beta_text(p), "hover": f"{pid} · {name}"})
+                      "where": name, "bounds": [], "seed": seed_text(p0), "beta": beta_text(p0)})
+        for nm, p in g:
+            points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p)], "beta": beta_text(p), "hover": f"{pid} · {nm}"})
+    n_sym_points = len(point_groups)
     # lines and points where walls meet, when atlas_model.py has found them
     if os.path.exists(f"lines_points_{D.KEY}.json"):
         lp = json.load(open(f"lines_points_{D.KEY}.json"))
@@ -148,7 +179,7 @@ def main():
                           "bounds": [], "seed": seed_text(l["points"][0]), "beta": beta_text(l["points"][0]),
                           "sig": l.get("on") if str(l.get("on", ""))[:1].isdigit() else None})
             samples[lid] = [sample_row(p) for p in l["points"][:40]]
-        for k, p in enumerate(lp.get("points", []), len(sym_points) + 1):
+        for k, p in enumerate(lp.get("points", []), n_sym_points + 1):
             pid = f"P{k}"
             ws = [wall_id.get(w, "?") for w in p["walls"]]
             types.append({"id": pid, "dim": "point", "name": "", "where": f"where {', '.join(ws)} meet",

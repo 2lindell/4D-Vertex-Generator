@@ -601,23 +601,13 @@
    "dim": "line",
    "name": "",
    "sig": "24: cells 16x[6v8f]+24x[4v4f]+24x[4v4f] | faces 8x3g+8x3g+48x3g+48x3g+48x3g | edges 24x4+24x5+24x5+48x3",
-   "where": "F\u2013W\u2081: \u03b2_V = 0, \u03b2\u2082 = \u03b2\u2083 (half-turn; 24 vertices)",
+   "where": "F\u2013W\u2081: \u03b2_V = 0, \u03b2\u2082 = \u03b2\u2083 (half-turn; 24 vertices) \u2014 the same line as F\u2013W\u2082",
    "bounds": [],
    "seed": "-0.915118987793, -0.379054695929, -0.126927651733, -0.052575154788",
    "beta": "(0.0000, 0.6667, 0.1667, 0.1667)"
   },
   {
    "id": "S3",
-   "dim": "line",
-   "name": "",
-   "sig": "24: cells 16x[6v8f]+24x[4v4f]+24x[4v4f] | faces 8x3g+8x3g+48x3g+48x3g+48x3g | edges 24x4+24x5+24x5+48x3",
-   "where": "F\u2013W\u2082: \u03b2_V = 0, \u03b2\u2081 = \u03b2\u2083 (half-turn; 24 vertices)",
-   "bounds": [],
-   "seed": "-0.459350948854, -0.439057696576, 0.413697444505, 0.651981187823",
-   "beta": "(0.0000, 0.1667, 0.6667, 0.1667)"
-  },
-  {
-   "id": "S4",
    "dim": "line",
    "name": "24-cell",
    "sig": "24: cells 8x[6v8f]+16x[6v8f] | faces 8x3g+16x3g+24x3g+48x3g | edges 24x3+24x3+48x3",
@@ -631,7 +621,7 @@
    "dim": "point",
    "name": "16-cell",
    "sig": "8: cells 16x[4v4f] | faces 8x3g+24x3g | edges 24x4",
-   "where": "V = \u03b2 (1, 0, 0, 0): a vertex of the 16-cell",
+   "where": "V = W\u2081 = W\u2082: one point of the 3-sphere, at 3 places on the domain's boundary (V = \u03b2 (1, 0, 0, 0): a vertex of the 16-cell; W\u2081 = \u03b2 (0, 1, 0, 0): a vertex of the 16-cell; W\u2082 = \u03b2 (0, 0, 1, 0): a vertex of the 16-cell)",
    "bounds": [],
    "seed": "-0.339851142980, 0.820473238570, -0.175919896606, 0.424708200278",
    "beta": "(1.0000, 0.0000, 0.0000, 0.0000)"
@@ -641,50 +631,20 @@
    "dim": "point",
    "name": "16-cell",
    "sig": "8: cells 16x[4v4f] | faces 8x3g+24x3g | edges 24x4",
-   "where": "W\u2081 = \u03b2 (0, 1, 0, 0): a vertex of the 16-cell",
-   "bounds": [],
-   "seed": "-0.820473238570, -0.339851142980, -0.424708200278, -0.175919896606",
-   "beta": "(0.0000, 1.0000, 0.0000, 0.0000)"
-  },
-  {
-   "id": "P3",
-   "dim": "point",
-   "name": "16-cell",
-   "sig": "8: cells 16x[4v4f] | faces 8x3g+24x3g | edges 24x4",
-   "where": "W\u2082 = \u03b2 (0, 0, 1, 0): a vertex of the 16-cell",
-   "bounds": [],
-   "seed": "-0.175919896606, -0.424708200278, 0.339851142980, 0.820473238570",
-   "beta": "(0.0000, 0.0000, 1.0000, 0.0000)"
-  },
-  {
-   "id": "P4",
-   "dim": "point",
-   "name": "16-cell",
-   "sig": "8: cells 16x[4v4f] | faces 8x3g+24x3g | edges 24x4",
-   "where": "F = \u03b2 (0, \u2153, \u2153, \u2153): the centre of the face W\u2081W\u2082W\u2083",
+   "where": "F = \u03b2 (0, \u2153, \u2153, \u2153): the centre of the face W\u2081W\u2082W\u2083, a vertex of the group's other 16-cell (not an image of V)",
    "bounds": [],
    "seed": "-0.820473238570, -0.339851142980, 0.424708200278, 0.175919896606",
    "beta": "(0.0000, 0.3333, 0.3333, 0.3333)"
   },
   {
-   "id": "P5",
+   "id": "P3",
    "dim": "point",
    "name": "24-cell",
    "sig": "24: cells 8x[6v8f]+16x[6v8f] | faces 8x3g+16x3g+24x3g+48x3g | edges 24x3+24x3+48x3",
-   "where": "the midpoint of VW\u2081 = \u03b2 (\u00bd, \u00bd, 0, 0)",
+   "where": "the midpoint of VW\u2081 = the midpoint of W\u2081W\u2082: one point of the 3-sphere, at 2 places on the domain's boundary (the midpoint of VW\u2081 = \u03b2 (\u00bd, \u00bd, 0, 0); the midpoint of W\u2081W\u2082 = \u03b2 (0, \u00bd, \u00bd, 0))",
    "bounds": [],
    "seed": "-0.820473238570, 0.339851142980, -0.424708200278, 0.175919896606",
    "beta": "(0.5000, 0.5000, 0.0000, 0.0000)"
-  },
-  {
-   "id": "P6",
-   "dim": "point",
-   "name": "24-cell",
-   "sig": "24: cells 8x[6v8f]+16x[6v8f] | faces 8x3g+16x3g+24x3g+48x3g | edges 24x3+24x3+48x3",
-   "where": "the midpoint of W\u2081W\u2082 = \u03b2 (0, \u00bd, \u00bd, 0)",
-   "bounds": [],
-   "seed": "-0.704556342611, -0.540625096237, -0.060003000647, 0.455768038939",
-   "beta": "(0.0000, 0.5000, 0.5000, 0.0000)"
   }
  ],
  "samples": {
@@ -2066,10 +2026,10 @@
      -0.57735
     ]
    ],
-   "hover": "S2 \u00b7 F\u2013W\u2081: \u03b2_V = 0, \u03b2\u2082 = \u03b2\u2083 (half-turn; 24 vertices)"
+   "hover": "S2 \u00b7 F\u2013W\u2081: \u03b2_V = 0, \u03b2\u2082 = \u03b2\u2083 (half-turn; 24 vertices) \u2014 the same line as F\u2013W\u2082"
   },
   {
-   "id": "S3",
+   "id": "S2",
    "pts": [
     [
      0.0,
@@ -2082,10 +2042,10 @@
      -0.57735
     ]
    ],
-   "hover": "S3 \u00b7 F\u2013W\u2082: \u03b2_V = 0, \u03b2\u2081 = \u03b2\u2083 (half-turn; 24 vertices)"
+   "hover": "S2 \u00b7 F\u2013W\u2081: \u03b2_V = 0, \u03b2\u2082 = \u03b2\u2083 (half-turn; 24 vertices) \u2014 the same line as F\u2013W\u2082"
   },
   {
-   "id": "S4",
+   "id": "S3",
    "pts": [
     [
      1.63299,
@@ -2098,7 +2058,7 @@
      0.57735
     ]
    ],
-   "hover": "S4 \u00b7 W\u2081 to the midpoint of VW\u2082: \u03b2\u2083 = 0, \u03b2_V = \u03b2\u2082 (half-turn; 24 vertices)"
+   "hover": "S3 \u00b7 W\u2081 to the midpoint of VW\u2082: \u03b2\u2083 = 0, \u03b2_V = \u03b2\u2082 (half-turn; 24 vertices)"
   }
  ],
  "points": [
@@ -2113,54 +2073,54 @@
    "hover": "P1 \u00b7 V = \u03b2 (1, 0, 0, 0): a vertex of the 16-cell"
   },
   {
-   "id": "P2",
+   "id": "P1",
    "q": [
     1.63299,
     0.0,
     -0.57735
    ],
    "beta": "(0.0000, 1.0000, 0.0000, 0.0000)",
-   "hover": "P2 \u00b7 W\u2081 = \u03b2 (0, 1, 0, 0): a vertex of the 16-cell"
+   "hover": "P1 \u00b7 W\u2081 = \u03b2 (0, 1, 0, 0): a vertex of the 16-cell"
   },
   {
-   "id": "P3",
+   "id": "P1",
    "q": [
     -0.8165,
     1.41421,
     -0.57735
    ],
    "beta": "(0.0000, 0.0000, 1.0000, 0.0000)",
-   "hover": "P3 \u00b7 W\u2082 = \u03b2 (0, 0, 1, 0): a vertex of the 16-cell"
+   "hover": "P1 \u00b7 W\u2082 = \u03b2 (0, 0, 1, 0): a vertex of the 16-cell"
   },
   {
-   "id": "P4",
+   "id": "P2",
    "q": [
     0.0,
     -0.0,
     -0.57735
    ],
    "beta": "(0.0000, 0.3333, 0.3333, 0.3333)",
-   "hover": "P4 \u00b7 F = \u03b2 (0, \u2153, \u2153, \u2153): the centre of the face W\u2081W\u2082W\u2083"
+   "hover": "P2 \u00b7 F = \u03b2 (0, \u2153, \u2153, \u2153): the centre of the face W\u2081W\u2082W\u2083, a vertex of the group's other 16-cell (not an image of V)"
   },
   {
-   "id": "P5",
+   "id": "P3",
    "q": [
     0.8165,
     0.0,
     0.57735
    ],
    "beta": "(0.5000, 0.5000, 0.0000, 0.0000)",
-   "hover": "P5 \u00b7 the midpoint of VW\u2081 = \u03b2 (\u00bd, \u00bd, 0, 0)"
+   "hover": "P3 \u00b7 the midpoint of VW\u2081 = \u03b2 (\u00bd, \u00bd, 0, 0)"
   },
   {
-   "id": "P6",
+   "id": "P3",
    "q": [
     0.40825,
     0.70711,
     -0.57735
    ],
    "beta": "(0.0000, 0.5000, 0.5000, 0.0000)",
-   "hover": "P6 \u00b7 the midpoint of W\u2081W\u2082 = \u03b2 (0, \u00bd, \u00bd, 0)"
+   "hover": "P3 \u00b7 the midpoint of W\u2081W\u2082 = \u03b2 (0, \u00bd, \u00bd, 0)"
   }
  ]
 }
