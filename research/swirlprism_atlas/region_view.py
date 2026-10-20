@@ -7,6 +7,7 @@ side and something else on the other. With --check, compared wall by wall with t
 from __future__ import annotations
 
 import json
+import os
 import sys
 from collections import defaultdict
 
@@ -19,7 +20,13 @@ FLIP = np.array([1, 1, -1.0])
 def view(rid, path="region_pieces.json", kinds=False):
     """{wall: triangles (n, 3, 3) in cell xyz} of the faces the region borders (with kinds: also {wall: [kind of
     each triangle]})."""
-    fp = view.cache.get(path) or view.cache.setdefault(path, json.load(open(path)))
+    if path not in view.cache:
+        if path.endswith(".json") and os.path.exists(path):
+            view.cache[path] = json.load(open(path))
+        else:
+            from region_db import load_pieces
+            view.cache[path] = load_pieces()
+    fp = view.cache[path]
     out = defaultdict(list)
     kd = defaultdict(list)
     for wid, faces in fp.items():

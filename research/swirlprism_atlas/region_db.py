@@ -32,7 +32,32 @@ import region_walls as rw
 
 CACHE = os.environ.get("REGION_CACHE", "region_walls_cache.jsonl")   # (beta -> shape, shared with region_walls.py)
 OUT = "region_db.json"
-PIECES = "region_pieces.json"
+PIECES = "region_pieces.json"                # (old single file: moved into PIECES_DIR when met)
+PIECES_DIR = "region_pieces"                  # (one gzipped file per wall: <wall>.json.gz)
+
+
+def load_pieces(only=None):
+    """{wall: [faces]} from PIECES_DIR (and the old single file, if still there)."""
+    import glob
+    import gzip
+    fp = {}
+    if os.path.exists(PIECES):
+        fp.update(json.load(open(PIECES)))
+    for path in glob.glob(os.path.join(PIECES_DIR, "*.json.gz")):
+        wid = os.path.basename(path)[:-8]
+        if only is None or wid in only:
+            fp[wid] = json.load(gzip.open(path, "rt"))
+    return fp
+
+
+def save_pieces(fp, walls):
+    import gzip
+    os.makedirs(PIECES_DIR, exist_ok=True)
+    for wid in walls:
+        with gzip.open(os.path.join(PIECES_DIR, f"{wid}.json.gz"), "wt") as f:
+            json.dump(fp[wid], f, separators=(",", ":"))
+    if os.path.exists(PIECES):                 # (the old single file, now moved over)
+        os.remove(PIECES)
 GRID = "region_grid.json"
 
 
@@ -355,7 +380,7 @@ def main(walls):
         if len(e["points"]) < 6:
             e["points"].append(np.round(rc.betas(P[None])[0], 6).tolist())
     # the faces themselves, for drawing any region from them (region_pieces.json: cell xyz triangles, fanned)
-    fp = json.load(open(PIECES)) if os.path.exists(PIECES) else {}
+    fp = load_pieces(targets)
     for wid in targets:
         fp[wid] = []
     for (wid, kind, pg, n, *_), sn, cc in zip(curved_parts, side_names, cut(C, Nn)):
@@ -365,7 +390,7 @@ def main(walls):
         T = _fill(g, frame)
         fp[wid].append({"sides": [str(x) for x in sn], "cut": [bool(x) for x in cc], "kind": kind, "mirror": _in_mirror(T.reshape(-1, 3)),
                         "tris": T.reshape(-1, 9).round(7).tolist()})
-    json.dump(fp, open(PIECES, "w"), separators=(",", ":"))
+    save_pieces(fp, set(fp) if os.path.exists(PIECES) else targets)
     for wid in targets:
         db["walls"][wid] = {"dim": dims.get(wid), "sides": {k: {"area": round(v["area"], 6), "pieces": dict(v["pieces"]),
                                                                "points": v["points"]} for k, v in acc[wid].items()}}
