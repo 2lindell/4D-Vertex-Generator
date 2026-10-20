@@ -156,7 +156,7 @@ def parse_sig(sig):
 
 def seed_text(u):
     s = D.seed_from_chart(np.asarray(u, float))
-    return ", ".join(f"{x:.6f}" for x in s)
+    return ", ".join(f"{x:.12f}" for x in s)
 
 
 def beta_text(u):

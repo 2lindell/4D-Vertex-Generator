@@ -68,7 +68,7 @@ def chart(beta):
 def seed_text(beta):
     x = np.asarray(beta, float) @ D.CELL
     x /= np.linalg.norm(x)
-    return ", ".join(f"{v:.6f}" for v in x)
+    return ", ".join(f"{v:.12f}" for v in x)
 
 
 def beta_text(beta):
@@ -156,8 +156,13 @@ def main():
                           "sig": p.get("on") if str(p.get("on", ""))[:1].isdigit() else None})
             points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p["beta"])], "beta": beta_text(p["beta"]),
                            "hover": f"{pid} · where {', '.join(ws)} meet"})
+    # (the regular polytopes among them, recognised by their counts)
+    regular = {"8: cells 16x[4v4f]": "16-cell", "16: cells 8x[8v6f]": "tesseract", "24: cells 8x[6v8f]+16x[6v8f]": "24-cell"}
     for t in types:
         t.pop("equation", None)
+        for k, v in regular.items():
+            if (t.get("sig") or "").startswith(k + " |"):
+                t["name"] = v
     json.dump({"types": types, "samples": samples, "lines": lines, "points": points}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
     from collections import Counter
     print(f"atlas_{D.KEY}.json: {dict(Counter(t['dim'] for t in types))}; {len(points)} points")
