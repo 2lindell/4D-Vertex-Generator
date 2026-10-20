@@ -8,5 +8,5 @@ start() {   # name, script, marker of a finished job, process pattern
   setsid nohup bash "$J/$2" > /dev/null 2>&1 < /dev/null &
   echo "$1: started"
 }
-start "region database" region_db_batches.sh region_db.done "region_db.py|region_db_batches.sh" all
-start "octahedral lines and points" oct_lines.sh oct_lines.done "atlas_model.py|oct_lines.sh"
+start "region database" region_db_batches.sh region_db.done "^python3 region_db.py|^bash .*region_db_batches.sh" all
+start "octahedral lines and points" oct_lines.sh oct_lines.done "^python3 -u atlas_model.py|^bash .*oct_lines.sh"

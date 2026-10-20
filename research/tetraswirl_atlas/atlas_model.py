@@ -132,6 +132,12 @@ def main():
     ver = json.load(open(f"walls_verified_{D.KEY}.json"))
     walls = [w["surface"] for w in ver["walls"] if w["verdict"] == "wall"]
     S = {f: Surf(f) for f in walls}
+    done_lines = f"lines_{D.KEY}.json"
+    if os.path.exists(done_lines) and json.load(open(done_lines)).get("complete"):
+        saved = json.load(open(done_lines))
+        lines, pc_cov = saved["lines"], saved["coverage"]
+        print(f"{len(lines)} lines (saved)", flush=True)
+        return finish(S, lines, pc_cov)
     # coverage: how much of the domain the pieces account for
     Bd = domain_betas(200000, seed=11)
     pc = piece_at(Bd)
@@ -179,22 +185,40 @@ def main():
         around = Counter(" ".join(sorted(k)) for k, r in zip(kinds, real) if r)
         lines.append({"walls": [fl[a], fl[b]], "points": B[real].round(8).tolist(), "around": dict(around)})
     print(f"{len(lines)} lines where two walls meet", flush=True)
-    json.dump({"coverage": float(np.mean(pc >= 0)), "lines": lines}, open(f"lines_{D.KEY}.json", "w"))
+    json.dump({"coverage": float(np.mean(pc >= 0)), "lines": lines, "complete": True}, open(f"lines_{D.KEY}.json", "w"))
+    return finish(S, lines, float(np.mean(pc >= 0)))
+
+
+def finish(S, lines, coverage):
+    """Points where three walls meet, then the classifier on every line and point."""
     # points: where three walls meet on lines
     pts, seen_pts = [], set()
     print(f"  finding points among {len(lines)} lines", flush=True)
+    pc_cov = coverage
     for la, lb in itertools.combinations(range(len(lines)), 2):
         ws = sorted(set(lines[la]["walls"]) | set(lines[lb]["walls"]))
         if len(ws) != 3:
             continue
         seed = np.vstack([lines[la]["points"][:100], lines[lb]["points"][:100]])
-        B, ok = project(seed, [S[w] for w in ws])
+        surfs3 = [S[w] for w in ws]
+        B, ok = project(seed, surfs3)
         B = B[ok & in_domain(B, 1e-12)]
-        for p in np.unique(B.round(7), axis=0):
-            key = tuple(p.round(6))
-            if key not in seen_pts:
-                seen_pts.add(key)
-                pts.append({"beta": p.tolist(), "walls": ws})
+        if not len(B):
+            continue
+        # (an isolated crossing: the three normals independent; three surfaces sharing a whole curve give no point)
+        N = unit_normals(B, surfs3)                                   # (n, 3, 4)
+        vol = np.abs(np.linalg.det(np.einsum("nki,nli->nkl", N, N)))   # (Gram determinant)
+        B = B[vol > 1e-6]
+        for p in np.unique(B.round(6), axis=0):
+            key = tuple(p.round(5))
+            if key in seen_pts:
+                continue
+            seen_pts.add(key)
+            # (three or more shapes round it)
+            around = sides(p[None], unit_normals(p[None], surfs3))[0]
+            kinds = {TYPE[PIECES[i]] for i in around if i >= 0}
+            if len(kinds) >= 3:
+                pts.append({"beta": p.tolist(), "walls": ws, "around": sorted(kinds)})
     print(f"{len(pts)} points where three walls meet", flush=True)
     # the classifier on each line and point: what lies there
     jobs = [np.mean(l["points"], 0) if False else np.array(l["points"][len(l["points"]) // 2]) for l in lines] + [np.array(p["beta"]) for p in pts]
@@ -207,8 +231,7 @@ def main():
         print(f"  line  {l['walls'][0][:28]:28s} x {l['walls'][1][:28]:28s} {len(l['points']):4d} pts; around {list(l['around'])[:2]}; on it {l['on'][:60]}")
     for p in pts:
         print(f"  point beta {np.round(p['beta'], 5)}; walls {[w[:20] for w in p['walls']]}; {p['on'][:60]}")
-    json.dump({"coverage": float(np.mean(pc >= 0)), "walls": {f: {"extent_points": int(len(ext[f]))} for f in S},
-               "lines": lines, "points": pts}, open(f"lines_points_{D.KEY}.json", "w"), indent=1)
+    json.dump({"coverage": pc_cov, "lines": lines, "points": pts}, open(f"lines_points_{D.KEY}.json", "w"), indent=1)
 
 
 if __name__ == "__main__":

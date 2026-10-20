@@ -225,25 +225,43 @@ def main():
         for nm, p in g:
             points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p)], "beta": beta_text(p), "hover": f"{pid} · {nm}"})
     n_sym_points = len(point_groups)
-    # lines and points where walls meet, when atlas_model.py has found them
+    # lines and points where walls meet (atlas_model.py), one row per shape found there, as for the walls
     if os.path.exists(f"lines_points_{D.KEY}.json"):
         lp = json.load(open(f"lines_points_{D.KEY}.json"))
         wall_id = {f: t["id"] for t in types for f in t.get("surfaces", [])}
-        for k, l in enumerate(lp.get("lines", []), 1):
+        sym_sigs = {t.get("sig") for t in types if t["dim"] in ("line", "point")}
+        groups = {}
+        for l in lp.get("lines", []):
+            sg = l.get("on", "")
+            if str(sg)[:1].isdigit() and sg not in sym_sigs:
+                groups.setdefault(sg, []).append(l)
+        for k, (sg, ls) in enumerate(sorted(groups.items(), key=lambda kv: -sum(len(x["points"]) for x in kv[1])), 1):
             lid = f"L{k}"
-            ws = [wall_id.get(w, "?") for w in l["walls"]]
-            types.append({"id": lid, "dim": "line", "name": "", "where": f"where {ws[0]} and {ws[1]} meet",
-                          "bounds": [], "seed": seed_text(l["points"][0]), "beta": beta_text(l["points"][0]),
-                          "sig": l.get("on") if str(l.get("on", ""))[:1].isdigit() else None})
-            samples[lid] = [sample_row(p) for p in l["points"][:40]]
-        for k, p in enumerate(lp.get("points", []), n_sym_points + 1):
-            pid = f"P{k}"
-            ws = [wall_id.get(w, "?") for w in p["walls"]]
-            types.append({"id": pid, "dim": "point", "name": "", "where": f"where {', '.join(ws)} meet",
-                          "bounds": [], "seed": seed_text(p["beta"]), "beta": beta_text(p["beta"]),
-                          "sig": p.get("on") if str(p.get("on", ""))[:1].isdigit() else None})
-            points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p["beta"])], "beta": beta_text(p["beta"]),
-                           "hover": f"{pid} · where {', '.join(ws)} meet"})
+            pairs = sorted({" × ".join(wall_id.get(w, "?") for w in l["walls"]) for l in ls})
+            types.append({"id": lid, "dim": "line", "name": "", "sig": sg, "bounds": [],
+                          "where": f"where walls meet: {', '.join(pairs[:6])}{f' and {len(pairs) - 6} more' if len(pairs) > 6 else ''}",
+                          "locus": f"{len(ls)} curve{'s' if len(ls) > 1 else ''}",
+                          "seed": seed_text(ls[0]["points"][0]), "beta": beta_text(ls[0]["points"][0])})
+            samples[lid] = [sample_row(p) for l in ls for p in l["points"][:: max(1, len(l["points"]) // 12)]][:120]
+        pgroups = {}
+        for p in lp.get("points", []):
+            sg = p.get("on", "")
+            if str(sg)[:1].isdigit():
+                pgroups.setdefault(sg, []).append(p)
+        n0 = len([t for t in types if t["dim"] == "point"])
+        for k, (sg, ps) in enumerate(sorted(pgroups.items(), key=lambda kv: -len(kv[1])), n0 + 1):
+            # (a shape already listed at a symmetry point: its new places are added to that row)
+            old = next((t for t in types if t["dim"] == "point" and t.get("sig") == sg), None)
+            pid = old["id"] if old else f"P{k}"
+            if not old:
+                walls_ = sorted({wall_id.get(w, "?") for p in ps for w in p["walls"]})
+                types.append({"id": pid, "dim": "point", "name": "", "sig": sg, "bounds": [],
+                              "where": f"where walls meet ({', '.join(walls_[:6])}{' …' if len(walls_) > 6 else ''})",
+                              "locus": f"{len(ps)} place{'s' if len(ps) > 1 else ''}",
+                              "seed": seed_text(ps[0]["beta"]), "beta": beta_text(ps[0]["beta"])})
+            for p in ps:
+                points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p["beta"])], "beta": beta_text(p["beta"]),
+                               "hover": f"{pid} · where {', '.join(wall_id.get(w, '?') for w in p['walls'])} meet"})
     # (the regular polytopes among them, recognised by their counts)
     regular = {"8: cells 16x[4v4f]": "16-cell", "16: cells 8x[8v6f]": "tesseract", "24: cells 8x[6v8f]+16x[6v8f]": "24-cell"}
     for t in types:
