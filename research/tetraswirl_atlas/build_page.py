@@ -218,6 +218,10 @@ def main():
                 t.update(vertices=p[0], cells=p[1], faces=p[2], edges=p[3], valence=p[4])
             types.append(t)
             by[t["id"]] = t
+    for tid, v in traced.get("samples", {}).items():     # (points on walls and lines, drawn in their colour)
+        samples[tid] = v
+        if tid in by:
+            by[tid]["samples"] = len(v)
     for k, ids_ in traced.get("faces", {}).items():
         F[int(k)]["ids"] = ids_
     # colours: lightness by dimension (as the Symmetry Domain page), hues spread round the circle within each dimension

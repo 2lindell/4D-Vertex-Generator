@@ -72,13 +72,17 @@ def project(B, surfs, iters=40):
     for _ in range(iters):
         F = np.stack([s.val(B) for s in surfs], 1)                       # (n, k)
         J = np.stack([s.grad(B) for s in surfs], 1)                      # (n, k, 4)
+        bad = ~(np.isfinite(F).all(1) & np.isfinite(J).all((1, 2)) & np.isfinite(B).all(1))
+        F[bad], J[bad] = 0.0, 0.0                                        # (a point gone astray stops; dropped below)
+        B[bad] = np.nan_to_num(B[bad])
         J = J - J.mean(2, keepdims=True)                                 # (stay on sum = 1)
         step = np.einsum("nki,nk->ni", np.linalg.pinv(J).transpose(0, 2, 1) if False else
                          np.transpose(np.linalg.pinv(J), (0, 2, 1)), F)
         B = B - step
         if np.abs(F).max() < 1e-13:
             break
-    ok = np.stack([np.abs(s.val(B)) < 1e-10 for s in surfs], 1).all(1)
+    with np.errstate(invalid="ignore"):
+        ok = np.stack([np.abs(s.val(B)) < 1e-10 for s in surfs], 1).all(1) & np.isfinite(B).all(1)
     return B, ok
 
 
@@ -168,8 +172,9 @@ def main():
         around = Counter(" ".join(sorted(k)) for k, r in zip(kinds, real) if r)
         lines.append({"walls": [fl[a], fl[b]], "points": B[real].round(8).tolist(), "around": dict(around)})
     print(f"{len(lines)} lines where two walls meet", flush=True)
+    json.dump({"coverage": float(np.mean(pc >= 0)), "lines": lines}, open(f"lines_{D.KEY}.json", "w"))
     # points: where three walls meet on lines
-    pts = []
+    pts, seen_pts = [], set()
     print(f"  finding points among {len(lines)} lines", flush=True)
     for la, lb in itertools.combinations(range(len(lines)), 2):
         ws = sorted(set(lines[la]["walls"]) | set(lines[lb]["walls"]))
@@ -178,8 +183,10 @@ def main():
         seed = np.vstack([lines[la]["points"][:100], lines[lb]["points"][:100]])
         B, ok = project(seed, [S[w] for w in ws])
         B = B[ok & in_domain(B, 1e-12)]
-        for p in np.unique(B.round(8), axis=0):
-            if not any(np.allclose(p, q["beta"], atol=1e-7) for q in pts):
+        for p in np.unique(B.round(7), axis=0):
+            key = tuple(p.round(6))
+            if key not in seen_pts:
+                seen_pts.add(key)
                 pts.append({"beta": p.tolist(), "walls": ws})
     print(f"{len(pts)} points where three walls meet", flush=True)
     # the classifier on each line and point: what lies there
