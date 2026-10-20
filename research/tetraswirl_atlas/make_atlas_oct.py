@@ -147,10 +147,13 @@ def main():
     for sg in [x for x in by_shape if x in region_of]:
         e = by_shape.pop(sg)
         reach[region_of[sg]] = e
+    # (noted by hand: where a region's shape holds on a surface it may gain a 2-fold symmetry; Bowers' "2-astettic")
+    extra_symmetry = {"R1": "2-astettic there (an extra 2-fold symmetry)", "R5": "2-astettic there (an extra 2-fold symmetry)"}
     for rid, e in reach.items():
         other = sorted({r for pr in e["pairs"] for r in pr.split("|")} - {rid}, key=lambda r: int(r[1:]))
         types.append({"id": rid, "dim": "region", "locus": f"also holds on parts of {len(e['surfaces'])} surface"
-                      f"{'s' if len(e['surfaces']) > 1 else ''} where it meets {', '.join(other)} (no transitional shape there)"})
+                      f"{'s' if len(e['surfaces']) > 1 else ''} where it meets {', '.join(other)} (no transitional shape there"
+                      + (f"; {extra_symmetry[rid]}" if rid in extra_symmetry else "") + ")"})
     for k, (sg, e) in enumerate(sorted(by_shape.items(), key=lambda kv: -len(kv[1]["pts"])), 1):
         wid = f"W{k}"
         surf_list = sorted(e["surfaces"].items(), key=lambda kv: -kv[1])
