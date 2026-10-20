@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import itertools
 import json
+import os
 from collections import Counter, defaultdict
 from multiprocessing import Pool
 
@@ -146,10 +147,16 @@ def main():
         prs = Counter("|".join(sorted([TYPE[PIECES[a]], TYPE[PIECES[b]]])) for a, b, k in zip(near, far, sep) if k)
         print(f"  {f[:58]:58s} {sep.mean():6.3f} of its points separate: {dict(prs.most_common(4))}", flush=True)
     # lines: where two walls both separate shapes at once (three or four shapes round the point)
-    lines = []
     fl = list(S)
+    # (resumable: the lines found so far and the pairs done are saved every 25 pairs, so a restart loses little)
+    part = f"lines_{D.KEY}.partial.json"
+    saved = json.load(open(part)) if os.path.exists(part) else {"done": 0, "lines": []}
+    lines = saved["lines"]
     for n_, (a, b) in enumerate(itertools.combinations(range(len(fl)), 2)):
-        if n_ % 50 == 0:
+        if n_ < saved["done"]:
+            continue
+        if n_ % 25 == 0:
+            json.dump({"done": n_, "lines": lines}, open(part, "w"))
             print(f"  pair {n_} of {len(fl) * (len(fl) - 1) // 2}; {len(lines)} lines so far", flush=True)
         if not len(ext[fl[a]]) or not len(ext[fl[b]]):
             continue
