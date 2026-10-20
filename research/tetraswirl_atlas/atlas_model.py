@@ -91,6 +91,23 @@ def sides(B, normals, d=2e-4):
     return np.stack(out, 1)
 
 
+def wall_here(B, s, d=2e-4, tol=1e-9):
+    """Pieces either side of points B on surface s, and whether s is the wall between them there: a condition of
+    the near piece that fails on the far side vanishes at B itself (not a surface merely passing close to a wall)."""
+    N = unit_normals(B, [s])[:, 0]
+    near, far = piece_at(B - d * N), piece_at(B + d * N)
+    Mo, Mf = _monos(B), _monos(B + d * N)
+    ok = np.zeros(len(B), bool)
+    for i in range(len(B)):
+        p, q = near[i], far[i]
+        if p < 0 or q < 0 or TYPE[PIECES[p]] == TYPE[PIECES[q]]:
+            continue
+        C = _C[p]
+        fail = (Mf[i] @ C.T) <= 0
+        ok[i] = bool((np.abs(Mo[i] @ C[fail].T) < tol * np.abs(C[fail]).sum(1)).any())
+    return near, far, ok
+
+
 def unit_normals(B, surfs):
     N = np.stack([s.grad(B) for s in surfs], 1)
     N = N - N.mean(2, keepdims=True)
@@ -120,15 +137,16 @@ def main():
     for f, s in S.items():
         B, ok = project(Bd[rng.permutation(len(Bd))[:6000]], [s])
         B = B[ok & in_domain(B)]
-        sd = sides(B, unit_normals(B, [s]))
-        sep = np.array([a >= 0 and b >= 0 and TYPE[PIECES[a]] != TYPE[PIECES[b]] for a, b in sd])
+        near, far, sep = wall_here(B, s)
         ext[f] = B[sep]
-        prs = Counter("|".join(sorted([TYPE[PIECES[a]], TYPE[PIECES[b]]])) for (a, b), k in zip(sd, sep) if k)
+        prs = Counter("|".join(sorted([TYPE[PIECES[a]], TYPE[PIECES[b]]])) for a, b, k in zip(near, far, sep) if k)
         print(f"  {f[:58]:58s} {sep.mean():6.3f} of its points separate: {dict(prs.most_common(4))}", flush=True)
     # lines: where two walls both separate shapes at once (three or four shapes round the point)
     lines = []
     fl = list(S)
-    for a, b in itertools.combinations(range(len(fl)), 2):
+    for n_, (a, b) in enumerate(itertools.combinations(range(len(fl)), 2)):
+        if n_ % 50 == 0:
+            print(f"  pair {n_} of {len(fl) * (len(fl) - 1) // 2}; {len(lines)} lines so far", flush=True)
         if not len(ext[fl[a]]) or not len(ext[fl[b]]):
             continue
         seed = np.vstack([ext[fl[a]][:300], ext[fl[b]][:300]])
@@ -139,7 +157,12 @@ def main():
         B = np.unique(B.round(9), axis=0)
         sd = sides(B, unit_normals(B, [S[fl[a]], S[fl[b]]]))
         kinds = [set(TYPE[PIECES[i]] for i in row if i >= 0) for row in sd]
-        real = np.array([len(k) >= 3 or (len(k) == 2 and (row >= 0).all()) for k, row in zip(kinds, sd)])
+        # (each surface is the wall just off the line, on one side of the other surface at least)
+        Ng = unit_normals(B, [S[fl[b]]])[:, 0]
+        Nf = unit_normals(B, [S[fl[a]]])[:, 0]
+        wa = wall_here(project(B + 3e-4 * Ng, [S[fl[a]]])[0], S[fl[a]])[2] | wall_here(project(B - 3e-4 * Ng, [S[fl[a]]])[0], S[fl[a]])[2]
+        wb = wall_here(project(B + 3e-4 * Nf, [S[fl[b]]])[0], S[fl[b]])[2] | wall_here(project(B - 3e-4 * Nf, [S[fl[b]]])[0], S[fl[b]])[2]
+        real = wa & wb & np.array([len(k) >= 2 for k in kinds])
         if real.sum() < 2:
             continue
         around = Counter(" ".join(sorted(k)) for k, r in zip(kinds, real) if r)
@@ -147,6 +170,7 @@ def main():
     print(f"{len(lines)} lines where two walls meet", flush=True)
     # points: where three walls meet on lines
     pts = []
+    print(f"  finding points among {len(lines)} lines", flush=True)
     for la, lb in itertools.combinations(range(len(lines)), 2):
         ws = sorted(set(lines[la]["walls"]) | set(lines[lb]["walls"]))
         if len(ws) != 3:
