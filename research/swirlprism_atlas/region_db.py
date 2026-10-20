@@ -51,6 +51,8 @@ class Labels:
     def __call__(self, B):
         """Shapes at betas B (n, 4), each taken where it really is on the 3-sphere (brought into the half-cell)."""
         B = np.asarray(B, float)
+        if not len(B):
+            return []
         out = [None] * len(B)
         todo = {}
         B = home(B)
@@ -88,7 +90,7 @@ def _group():
 
 def home(B):
     """Betas brought into the half-cell by the group (the same place on the 3-sphere); NaN where none lands there."""
-    B = np.asarray(B, float)
+    B = np.asarray(B, float).reshape(-1, 4)
     B = B / B.sum(axis=1, keepdims=True)
     out = B.copy()
     away = ~rc.inside(B)
@@ -238,6 +240,7 @@ def main(walls):
     curved_parts = []                                   # (wall, kind, polygon, normal, piece, triangle)
     piece_T = {}
     flat_faces = []                                     # (wall, kind, polygon (shapely), frame, normal, inner point, thin)
+    jobs = []
     for pid, (wid, kind, idx, T) in enumerate(pieces):
         if wid not in targets:
             continue
@@ -245,9 +248,18 @@ def main(walls):
             for g, frame, n, P3, thin in rw.split_flat(wid, T, others):
                 flat_faces.append((wid, kind, g, frame, n, P3, thin))
         else:
-            parts = _cut_parts(T, wid, pieces)
             piece_T[pid] = T
+            jobs += [(pid, j0, min(j0 + CHUNK, len(T))) for j0 in range(0, len(T), CHUNK)]
+    # (the curved pieces' triangles cut in chunks on every core; the workers share the pieces by forking)
+    global _PIECES
+    _PIECES = pieces
+    _cut_parts(np.zeros((0, 3, 3)), "", pieces)          # (the index of every wall triangle, built once, before forking)
+    with Pool(4) as pool:
+        for k, (pid, parts) in enumerate(pool.imap(_cut_chunk, jobs, chunksize=1)):
+            wid, kind = pieces[pid][0], pieces[pid][1]
             curved_parts += [(wid, kind, pg, n, pid, j) for pg, n, j in parts]
+            if (k + 1) % 50 == 0:
+                print(f"    cut {k + 1} of {len(jobs)} chunks", flush=True)
     print(f"{len(flat_faces)} flat faces, {len(curved_parts)} curved parts", flush=True)
     # curved parts: pockets on both sides, then the pockets' shapes
     C = np.array([p[2].mean(0) for p in curved_parts]) if curved_parts else np.zeros((0, 3))
@@ -474,6 +486,16 @@ def _components(parts, piece_T, tol=1e-9, share=0.25):
                         par[ri] = pi ^ pk ^ f
     out = [find(i) for i in range(len(parts))]
     return [r for r, _ in out], [p for _, p in out]
+
+
+CHUNK = 200
+_PIECES = None
+
+
+def _cut_chunk(job):
+    pid, j0, j1 = job
+    wid, _, _, T = _PIECES[pid]
+    return pid, [(pg, n, j + j0) for pg, n, j in _cut_parts(T[j0:j1], wid, _PIECES)]
 
 
 def _cut_parts(T, wid, pieces, reach=0.03, max_parts=64):
