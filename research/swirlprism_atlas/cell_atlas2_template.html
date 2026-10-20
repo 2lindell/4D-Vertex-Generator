@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>H3●I2(10) Symmetry Domain</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -210,6 +211,22 @@ __TYPE_CSS__
     const DH = { ...DC, ...JSON.parse(document.getElementById("atlas-chambers").textContent) };
     const DQ = { ...DC, ...JSON.parse(document.getElementById("atlas-cohesive").textContent) };
     let D = DC;
+    // a region's coloured outer walls are fetched from beside the page when it is selected (written by cell_atlas2.py)
+    const RW_DIR = "symmetry_domain_regions";        // (the same name wherever the page is served)
+    const rwCache = {};
+    const viewKey = (Dv) => (Dv === DV ? "v1" : Dv === DH ? "chambers" : Dv === DC ? "cell" : null);
+    function regionWallsFor(Dv, id) {
+      if (Dv.regionWalls && Dv.regionWalls[id]) return Dv.regionWalls[id];          // (older pages carry them inline)
+      const vk = viewKey(Dv);
+      if (!vk || !(Dv.regionWallsIds || []).includes(id)) return null;
+      const key = vk + "/" + id;
+      if (!(key in rwCache)) {
+        rwCache[key] = null;
+        fetch(`${RW_DIR}/${key}.json`).then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+          .then((j) => { rwCache[key] = j; render(); }).catch(() => { rwCache[key] = false; });
+      }
+      return rwCache[key] || null;
+    }
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
     const color = (t) => css(t.color);
@@ -504,20 +521,22 @@ __TYPE_CSS__
         name: "Outline of the domain", hoverinfo: "skip" });
       // a region checked against the walls (region_cells.py): the wall triangles around its cell, in its colour
       for (const id of state.sel) if (D === DC && D.regionGrid && D.regionGrid.runs[id]) {
-        const rc = D.regionCells[id], rw = D.regionWalls && D.regionWalls[id];
+        const rc = D.regionCells[id], rw = regionWallsFor(D, id);
         // (the outer walls' coloured parts, cut where the walls meet: region_walls.py)
         const m = rw ? meshOf(rw) : regionPaint(id);
-        const nm = `${id}: its outer walls${rw ? " (" + rw.walls.join(", ") + ")" : ""}, one cell on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
+        const ws = rw ? rw.walls || (D.regionWallsInfo || {})[id] || [] : [];
+        const nm = `${id}: its outer walls${rw ? " (" + ws.join(", ") + ")" : ""}, one cell on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
         if (m.i.length) out.push({ type: "mesh3d", ...m, color: color(byId[id]), opacity: 0.4, flatshading: true,
           name: nm, hovertemplate: `${nm}<extra></extra>` });
       }
       // ... and in the dodecahedron views: their own wall triangles listed as bordering it (w.paint)
-      for (const id of state.sel) if (D !== DC && D.regionWalls && D.regionWalls[id]) {
-        const rw = D.regionWalls[id], nm = `${id}: its outer walls`;
+      for (const id of state.sel) if (D !== DC && regionWallsFor(D, id)) {
+        const rw = regionWallsFor(D, id), nm = `${id}: its outer walls`;
         if (rw.faces.length) out.push({ type: "mesh3d", ...meshOf(rw),
           color: color(byId[id]), opacity: 0.4, flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
       }
-      for (const id of state.sel) if (D !== DC && !(D.regionWalls && D.regionWalls[id]) && DC.regionGrid && DC.regionGrid.runs[id]) {
+      for (const id of state.sel) if (D !== DC && !(D.regionWalls && D.regionWalls[id]) && !(D.regionWallsIds || []).includes(id)
+          && DC.regionGrid && DC.regionGrid.runs[id]) {
         const X = [], Y = [], Z = [], I = [], J = [], K = [];
         for (const w of D.xwalls || []) if (w.paint && w.paint[id]) for (const f of w.paint[id]) {
           const o = X.length;

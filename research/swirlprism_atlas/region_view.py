@@ -62,6 +62,15 @@ def export(regions=None, keep=("F2",)):
         if (regions and r not in regions) or r in keep:
             continue
         tris, kinds = view(r, kinds=True)
+        # (the pieces of each wall triangle merged back, by kind, so the page carries far fewer triangles)
+        for w in list(tris):
+            parts = []
+            kd = np.array(kinds[w])
+            for k in sorted(set(kinds[w])):
+                M = merge_coplanar(tris[w][kd == k])
+                parts.append((M, [k] * len(M)))
+            tris[w] = np.concatenate([p[0] for p in parts]) if parts else tris[w]
+            kinds[w] = [k for p in parts for k in p[1]]
         T = [t for w in sorted(tris) for t in tris[w]]
         if not T:
             continue
@@ -75,6 +84,45 @@ def export(regions=None, keep=("F2",)):
     json.dump(out, open("region_walls.json", "w"), separators=(",", ":"))
     waiting = {r: sorted(set(ws) - done) for r, ws in db.get("touch", {}).items() if not set(ws) <= done}
     return ready, waiting
+
+
+def merge_coplanar(T, tol=1e-9):
+    """The triangles T (n, 3, 3) with the pieces of each original wall triangle merged back: pieces lying in one plane
+    and touching are joined in that plane and filled again, so a triangle coloured whole is one triangle again while
+    the line where the colour stops stays exact."""
+    import shapely
+    from shapely.ops import unary_union
+    from shapely.geometry import Polygon
+    T = np.asarray(T, float)
+    if not len(T):
+        return T
+    N = np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0])
+    ln = np.linalg.norm(N, axis=1)
+    keep = ln > 1e-18
+    T, N = T[keep], N[keep] / ln[keep][:, None]
+    N *= np.where(N[np.arange(len(N)), np.abs(N).argmax(1)] < 0, -1, 1)[:, None]      # (one orientation per plane)
+    d = np.einsum("ni,ni->n", N, T[:, 0])
+    key = np.c_[np.round(N / 1e-7), np.round(d / 1e-8)].astype(np.int64)
+    _, grp = np.unique(key, axis=0, return_inverse=True)
+    out = []
+    for g in range(grp.max() + 1):
+        idx = np.flatnonzero(grp == g)
+        if len(idx) == 1:
+            out.append(T[idx[0]])
+            continue
+        n, o = N[idx[0]], T[idx[0], 0]
+        e1 = T[idx[0], 1] - o
+        e1 /= np.linalg.norm(e1)
+        e2 = np.cross(n, e1)
+        polys = [Polygon(np.c_[(t - o) @ e1, (t - o) @ e2]) for t in T[idx]]
+        m = unary_union([p.buffer(1e-9) for p in polys]).buffer(-1e-9).simplify(1e-9, preserve_topology=True)
+        for part in (m.geoms if hasattr(m, "geoms") else [m]):
+            if part.area <= 0:
+                continue
+            for tri in shapely.constrained_delaunay_triangles(part).geoms:
+                c = np.array(tri.exterior.coords)[:3]
+                out.append(o + c[:, :1] * e1 + c[:, 1:2] * e2)
+    return np.array(out).reshape(-1, 3, 3)
 
 
 def _in_cut(tris, tol=1e-6):

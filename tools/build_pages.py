@@ -129,6 +129,9 @@ def build(out: Path) -> list[str]:
         files.append(rel)
     # the H3●I2(10) Symmetry Domain page is served as it is (not mounted): the app's third tab
     shutil.copy2(ROOT / "assets" / "symmetry_domain.html", out / "symmetry_domain.html")
+    # (its regions' coloured walls, fetched by the page when a region is selected)
+    if (ROOT / "assets" / "symmetry_domain_regions").exists():
+        shutil.copytree(ROOT / "assets" / "symmetry_domain_regions", out / "symmetry_domain_regions")
     # ... and the Octahedral Swirl Symmetry Domain (research/tetraswirl_atlas/build_page.py): the fourth tab
     shutil.copy2(ROOT / "assets" / "tetraswirl_oct_domain.html", out / "tetraswirl_oct_domain.html")
     hashed = [[rel, hashlib.sha256((out / rel).read_bytes()).hexdigest()[:12]] for rel in files]

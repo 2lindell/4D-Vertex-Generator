@@ -2269,6 +2269,21 @@ def main(samples_path, out_path):
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision
         return json.dumps(_rounded(o, n), separators=(",", ":"))
+    # each region's coloured outer walls go in a file of their own beside the page (<page>_regions/<view>/<id>.json),
+    # fetched when the region is selected, so the page does not grow with every region coloured
+    import shutil
+    from pathlib import Path
+    rdir = Path(out_path).with_name(Path(out_path).stem + "_regions")
+    shutil.rmtree(rdir, ignore_errors=True)
+    for vkey, obj, nd in (("cell", data, 6), ("v1", v1, 4), ("chambers", chambers, 4)):
+        rw = obj.pop("regionWalls", {}) or {}
+        (rdir / vkey).mkdir(parents=True, exist_ok=True)
+        for rid, m in rw.items():
+            (rdir / vkey / f"{rid}.json").write_text(dump(m, nd))
+        obj["regionWallsIds"] = sorted(rw)
+        if vkey == "cell":
+            obj["regionWallsInfo"] = {rid: m.get("walls", []) for rid, m in rw.items()}
+    print(f"  region colouring written to {rdir}/ ({sum(1 for _ in rdir.rglob('*.json'))} files)", flush=True)
     open(out_path, "w").write(template.replace("__TYPE_CSS__", type_css).replace("__DATA__", dump(data, 6))
                               .replace("__DODECA__", dump(dodeca, 5))
                               .replace("__PIECE__", dump(piece, 5))
