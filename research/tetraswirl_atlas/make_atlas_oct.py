@@ -81,11 +81,17 @@ def sample_row(beta):
     return [round(float(x), 5) for x in chart(beta)] + [seed_text(beta), beta_text(beta)]
 
 
-def label(beta):
+def label(beta, hull_tol=1e-9):
     try:
-        return D.signature(D.classify(np.asarray(beta, float) @ D.CELL / np.linalg.norm(np.asarray(beta, float) @ D.CELL)))
+        x = np.asarray(beta, float) @ D.CELL
+        return D.signature(D.classify(x / np.linalg.norm(x), hull_tol=hull_tol))
     except Exception:
         return "ERR"
+
+
+def label_coarse(beta):
+    """The shape with flatness judged 100 times more loosely: a shape that changes is a sliver of near-flat faces."""
+    return label(beta, 1e-7)
 
 
 _T = 1 / 3
@@ -202,12 +208,45 @@ def scan_rings(n=2000):
     return pieces, spots
 
 
-def group_by(items):
-    """[(shape, [items])], in order of first appearance."""
+def group_by(items, rep=None):
+    """[(shape, [items])], in order of first appearance. With rep (an item's beta), shapes with the same counts whose
+    polytopes are the same (isomorphic vertex-cell incidence) are one shape, at more than one position: their group
+    counts can differ, as the group splits the classes differently at each."""
     out = {}
     for it in items:
         out.setdefault(it["sig"], []).append(it)
+    if rep:
+        keys = list(out)
+        for i, k1 in enumerate(keys):
+            for k2 in keys[i + 1:]:
+                if k1 in out and k2 in out and _counts(k1) == _counts(k2) and _same_polytope(rep(out[k1][0]), rep(out[k2][0])):
+                    out[k1] += out.pop(k2)
     return list(out.items())
+
+
+def _counts(sig):
+    if not sig[:1].isdigit():
+        return None
+    parts = dict(re.findall(r"(cells|faces|edges) ([^|]+)", sig))
+    return (sig.split(":")[0],) + tuple(sum(int(x.split("x")[0]) for x in parts[k].strip().split("+")) for k in ("cells", "faces", "edges"))
+
+
+def _same_polytope(b1, b2):
+    import networkx as nx
+    from domain import compute_convex_hull
+    from four_d_vertex_generator.generation import generate_vertices_from_seed
+
+    def incidence(beta):
+        x = np.asarray(beta, float) @ D.CELL
+        V = generate_vertices_from_seed(x / np.linalg.norm(x), D.ACTION, tol=1e-9)
+        faces, cells = compute_convex_hull(V, tol=1e-9)
+        G = nx.Graph()
+        G.add_nodes_from((("v", i) for i in range(len(V))), k="v")
+        for i, c in enumerate(cells):
+            G.add_node(("c", i), k="c")
+            G.add_edges_from((("v", v), ("c", i)) for v in {v for f in c for v in faces[f]})
+        return G
+    return nx.is_isomorphic(incidence(b1), incidence(b2), node_match=lambda a, b: a["k"] == b["k"])
 
 
 def main():
@@ -310,7 +349,7 @@ def main():
         return [g["members"] for g in groups]
     pieces, spots = scan_rings()
     ring_segs = [(np.array(r[3], float), np.array(r[4], float)) for r in RINGS]
-    for k, (sg, ps) in enumerate(group_by(pieces), 1):
+    for k, (sg, ps) in enumerate(group_by(pieces, rep=lambda p: p["mid"]), 1):
         lid = f"S{k}"
         rings_ = sorted({p["ring"] for p in ps})
         types.append({"id": lid, "dim": "line", "name": "", "sig": sg if sg[:1].isdigit() else None,
@@ -322,7 +361,7 @@ def main():
             lines.append({"id": lid, "pts": [[round(float(x), 5) for x in chart(q)] for q in (p["a"], p["b"])],
                           "hover": f"{lid} · {p['ring']}, {p['from']} to {p['to']}"})
             samples.setdefault(lid, []).extend(sample_row((1 - t) * p["a"] + t * p["b"]) for t in np.linspace(0.1, 0.9, 5))
-    for k, (sg, ps) in enumerate(group_by(spots), 1):
+    for k, (sg, ps) in enumerate(group_by(spots, rep=lambda p: p["beta"]), 1):
         pid = f"P{k}"
         poss = cluster(ps, lambda p: p["beta"])
         text = "; ".join(" = ".join(p["text"] for p in pos) for pos in poss)
@@ -334,14 +373,10 @@ def main():
         for p in ps:
             points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p["beta"])], "beta": beta_text(p["beta"]),
                            "hover": f"{pid} · {p['text']}"})
-    # the ghost girdles: circles a rotation turns along itself; seeds there keep all 48 images (no fewer vertices),
-    # but 6 or 8 of them lie on one great circle; drawn for reference
-    for k, (name, a, b) in enumerate(GIRDLES, 1):
-        gid = f"G{k}"
-        types.append({"id": gid, "dim": "line", "group": "symmetry", "name": "", "sig": None, "where": name,
-                      "locus": "48 vertices (no fewer: not a transition by itself)", "bounds": []})
-        lines.append({"id": gid, "pts": [[round(float(x), 5) for x in chart(np.array(q, float))] for q in (a, b)],
-                      "hover": f"{gid} · {name}"})
+    # the ghost girdles: circles a rotation turns along itself; seeds there keep all 48 images and no new shape
+    # appears along them (6 or 8 of the images lie on one great circle): drawn for reference, not listed in the key
+    girdles = [{"pts": [[round(float(x), 5) for x in chart(np.array(q, float))] for q in (a, b)], "hover": name}
+               for name, a, b in GIRDLES]
     n_sym_points = len([t for t in types if t["dim"] == "point"])
     # lines and points where walls meet (atlas_model.py), one row per shape found there, as for the walls
     if os.path.exists(f"lines_points_{D.KEY}.json"):
@@ -354,13 +389,19 @@ def main():
         # (every traced point classified on its own: a crossing curve of two surfaces is a line only where both are
         # walls, so it runs on into stretches with a wall's or a region's shape, and along the rings; each point goes
         # under the shape it really has, and points on a ring are left to the exact scan)
+        # (the traced points were stored to 8 decimals, 1e-8 off the crossing: the faces that are flat there show as
+        # slivers and give a false shape, so each is put back on both surfaces at full precision first)
         cand = []
+        surf_ = {}
         for n_, l in enumerate(lp.get("lines", [])):
             P = np.array(l["points"], float)
             P = P[np.linspace(0, len(P) - 1, min(len(P), 40)).round().astype(int)]
-            cand += [(n_, p) for p in P if on_ring(p[None], None) > 1e-6]
+            P, okp = project(P, [surf_.setdefault(w, Surf(w)) for w in l["walls"]])
+            cand += [(n_, p) for p, o in zip(P, okp) if o and on_ring(p[None], None) > 1e-6]
         with Pool(4) as pool:
             own = pool.map(label, [p for _, p in cand], chunksize=10)
+            coarse = pool.map(label_coarse, [p for _, p in cand], chunksize=10)
+        own = [o if o == c else "unsure" for o, c in zip(own, coarse)]
         wall_sigs = {t.get("sig") for t in types if t["dim"] == "wall"}
         for (n_, p), sg in zip(cand, own):
             # (a shape that is a region's or a wall's is not a new transitional)
@@ -374,6 +415,10 @@ def main():
             ls = [lines_in[n_] for n_ in by_curve]
             pairs = sorted({" × ".join(wall_id.get(w, "?") for w in l["walls"]) for l in ls})
             pts_ = [p for v in by_curve.values() for p in v]
+            # (its example seed: the point furthest from the corners and the rings' special points)
+            special = np.array([b for b in CORNERS] + [[0.5, 1 / 6, 1 / 6, 1 / 6], [0.4, 0.2, 0.4, 0]], float)
+            far = np.argmax([np.min(np.linalg.norm(special - p / p.sum(), axis=1)) for p in pts_])
+            pts_ = [pts_[far]] + pts_[:far] + pts_[far + 1:]
             types.append({"id": lid, "dim": "line", "name": "", "sig": sg, "bounds": [],
                           "where": f"where walls meet: {', '.join(pairs[:6])}{f' and {len(pairs) - 6} more' if len(pairs) > 6 else ''}",
                           "locus": f"{len(pts_)} points on {len(ls)} curve{'s' if len(ls) > 1 else ''}",
@@ -412,12 +457,36 @@ def main():
                 t["name"] = v
                 # (a line whose shape is a regular polytope's is regular only at its special spots: marked on it)
                 if t["dim"] == "line" and v == "24-cell":
-                    t["name"] = "24-cell (regular at M₀₁ = M₁₂ and at M₀₂)"
+                    t["name"] = "24-cell (the regular 24-cell at M₀₁ = M₁₂ and at M₀₂)"
                     for nm, b in (("M₀₁ (the midpoint of VW₁)", [0.5, 0.5, 0, 0]), ("M₁₂ (the midpoint of W₁W₂)", [0, 0.5, 0.5, 0]),
                                   ("M₀₂ (the midpoint of VW₂)", [0.5, 0, 0.5, 0])):
                         points.append({"id": t["id"], "q": [round(float(x), 5) for x in chart(b)], "beta": beta_text(b),
                                        "hover": f"{t['id']} · the regular 24-cell, at {nm}"})
-    json.dump({"types": types, "samples": samples, "lines": lines, "points": points}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
+    # (names from the 1-astettic list, names_oct.txt: matched by vertex, cell, face and edge counts and the cells
+    # round each class of edge; the list merges classes a more symmetric shape joins, so the values are compared as
+    # a set when the sequence itself differs)
+    if os.path.exists(f"names_{D.KEY}.txt"):
+        ref = []
+        for line in open(f"names_{D.KEY}.txt"):
+            m = re.match(r"(\d+): (.*?) \((\d+)/(\d+)/(\d+), ([\d-]+)\)", line.strip())
+            if m:
+                ref.append(((m.group(1),) + tuple(int(m.group(k)) for k in (3, 4, 5)), m.group(6), m.group(2)))
+        sigs = dict(ids)
+        sigs.update({t["sig"]: t["id"] for t in types if t.get("sig")})
+        by_id = {t["id"]: t for t in types}
+        for sg, tid in sigs.items():
+            c = _counts(sg)
+            if not c:
+                continue
+            pat = "-".join(map(str, sorted((int(x.split("x")[1]) for x in sg.split("edges ")[1].split("+")), reverse=True)))
+            hit = [r for r in ref if r[0] == c and r[1] == pat] or [r for r in ref if r[0] == c and set(r[1].split("-")) == set(pat.split("-"))]
+            if len(hit) == 1:
+                t = by_id.setdefault(tid, {"id": tid, "dim": "region"})
+                if t not in types:
+                    types.append(t)
+                regular_note = t.get("name", "").split(" (", 1)[1] if " (the regular" in t.get("name", "") else ""
+                t["name"] = hit[0][2] + (f" ({regular_note}" if regular_note else "")
+    json.dump({"types": types, "samples": samples, "lines": lines, "points": points, "girdles": girdles}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
     from collections import Counter
     print(f"atlas_{D.KEY}.json: {dict(Counter(t['dim'] for t in types))}; {len(points)} points")
     for t in types[:6]:

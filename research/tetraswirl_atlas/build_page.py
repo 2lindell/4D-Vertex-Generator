@@ -47,7 +47,6 @@ GROUPS = [
                                "of different regions and names each wall by the five orbit points that become coplanar there"),
     ("lines", "Lines", "line", "none traced yet: lines are where two walls meet"),
     ("points", "Points", "point", "none traced yet: points are where lines meet"),
-    ("symmetry", "Ghost girdles", "line", "none in this domain"),
 ]
 
 
@@ -294,7 +293,8 @@ def main():
             *(["In Bowers' terms the group is [3;3:1], 1-astettic: two sets of eight kitrippic points (V, W₁, W₂ and "
                "the other 16-cell's F: P1), four rectic swirl rings giving 16 kitrig spots (the axis V–F: S1, S2, with "
                "the two tesseract positions P2 on it), twelve essic cross rings giving 24 essic spots (F–W₁, F–W₂, "
-               "F–M₁₂ and W₁–M₀₂: S3, S4, S5, with P3), four 6/3 gyrogon and six skew square ghost girdles (G1, G2, G3), "
+               "F–M₁₂ and W₁–M₀₂: S3, S4, with P3), four 6/3 gyrogon and six skew square ghost girdles (the ghost "
+               "girdles box: no new shape along them), "
                "and white space of 48 images with no symmetry. Seeds on a ring have fewer images; on a ghost girdle "
                "all 48, but 6 or 8 of them on one great circle.",
                "The half-turns fold two faces of the domain onto themselves, so a shape there appears twice, mirrored "
@@ -334,6 +334,7 @@ def main():
         "groups": [{"id": g, "title": title, "empty": empty} for g, title, _, empty in GROUPS],
         "types": types, "samples": samples, "totalSamples": len(pts),
         "walls": traced.get("walls", []), "lines": traced.get("lines", []), "points": traced.get("points", []),
+        "girdles": traced.get("girdles", []),
         "notes": notes,
     }
     template = open("atlas_template.html").read()

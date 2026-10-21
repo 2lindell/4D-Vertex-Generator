@@ -124,6 +124,7 @@ __TYPE_CSS__
       <label><input id="showLines" type="checkbox" checked> lines</label>
       <label><input id="showPoints" type="checkbox" checked> points</label>
       <label><input id="showAxis" type="checkbox" checked> rotation axis</label>
+      <label><input id="showGirdles" type="checkbox"> ghost girdles</label>
       <label><input id="showFaces" type="checkbox" checked> domain faces</label>
     </div>
     <div id="plot" role="img" aria-label="3D map of the polychora produced by seeds in a fundamental domain"></div>
@@ -212,6 +213,12 @@ __TYPE_CSS__
       if (el("showAxis").checked && ax) out.push(lines([ax.pts], ax.name, { color: css("--g3axis"), width: 4 },
         { hoverinfo: "text", text: ax.pts.map(() => ax.name) }));
       const own = !view().chart;                          // (traced walls, lines and points are in the page's own chart)
+      // ghost girdles: circles a rotation turns along itself (no new shape along them), for reference
+      if (own && el("showGirdles").checked) for (const g of D.girdles || []) {
+        const tr = lines([mapPts(g.pts)], "ghost girdle", { color: faint, width: 3, dash: "dot" });
+        tr.hovertemplate = g.hover + "<extra></extra>";
+        out.push(tr);
+      }
       // traced walls, lines and points (none until the build's tracing stages fill them in)
       for (const w of D.walls) {
         const t = byId[w.id];
@@ -378,7 +385,7 @@ __TYPE_CSS__
       syncRows();
       render();
     });
-    ["view", "showRegions", "showWalls", "showLines", "showPoints", "showAxis", "showFaces"].forEach((id) => el(id).addEventListener("input", render));
+    ["view", "showRegions", "showWalls", "showLines", "showPoints", "showAxis", "showGirdles", "showFaces"].forEach((id) => el(id).addEventListener("input", render));
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   }
