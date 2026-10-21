@@ -249,7 +249,7 @@ def main():
                 keep &= okq & in_domain(Q) & wq & (nq == near) & (fq == far)
             B, near, far = B[keep], near[keep], far[keep]
         rng_ = np.random.default_rng(len(found))
-        pick = rng_.permutation(len(B))[:20]
+        pick = rng_.permutation(len(B))[:60]
         for i in pick:
             found.append((w["surface"], B[i], "|".join(sorted([TYPE[PIECES[near[i]]], TYPE[PIECES[far[i]]]]))))
     with Pool(4) as pool:
@@ -351,22 +351,34 @@ def main():
         groups = {}
         on_ring = lambda B, tol: min(seg_dist(np.atleast_2d(B), a_, b_).max() if tol is None else
                                      np.median(seg_dist(np.atleast_2d(B), a_, b_)) for a_, b_ in ring_segs)
-        for l in lp.get("lines", []):
-            sg = l.get("on", "")
-            if on_ring(np.array(l["points"]), "median") < 1e-5:
-                continue                       # (a ring's piece: listed from the exact scan above)
-            # (a line's shape that is a region's or a wall's is not a new transitional)
-            wall_sigs = {t.get("sig") for t in types if t["dim"] == "wall"}
+        # (every traced point classified on its own: a crossing curve of two surfaces is a line only where both are
+        # walls, so it runs on into stretches with a wall's or a region's shape, and along the rings; each point goes
+        # under the shape it really has, and points on a ring are left to the exact scan)
+        cand = []
+        for n_, l in enumerate(lp.get("lines", [])):
+            P = np.array(l["points"], float)
+            P = P[np.linspace(0, len(P) - 1, min(len(P), 40)).round().astype(int)]
+            cand += [(n_, p) for p in P if on_ring(p[None], None) > 1e-6]
+        with Pool(4) as pool:
+            own = pool.map(label, [p for _, p in cand], chunksize=10)
+        wall_sigs = {t.get("sig") for t in types if t["dim"] == "wall"}
+        for (n_, p), sg in zip(cand, own):
+            # (a shape that is a region's or a wall's is not a new transitional)
             if str(sg)[:1].isdigit() and sg not in sym_sigs and sg not in region_of and sg not in wall_sigs:
-                groups.setdefault(sg, []).append(l)
-        for k, (sg, ls) in enumerate(sorted(groups.items(), key=lambda kv: -sum(len(x["points"]) for x in kv[1])), 1):
+                groups.setdefault(sg, {}).setdefault(n_, []).append(p)
+        lines_in = lp.get("lines", [])
+        # (a shape met only at a point or two of each curve is where the curve crosses another wall, not a line)
+        groups = {sg: v for sg, v in groups.items() if max(len(x) for x in v.values()) >= 5}
+        for k, (sg, by_curve) in enumerate(sorted(groups.items(), key=lambda kv: -sum(len(v) for v in kv[1].values())), 1):
             lid = f"L{k}"
+            ls = [lines_in[n_] for n_ in by_curve]
             pairs = sorted({" × ".join(wall_id.get(w, "?") for w in l["walls"]) for l in ls})
+            pts_ = [p for v in by_curve.values() for p in v]
             types.append({"id": lid, "dim": "line", "name": "", "sig": sg, "bounds": [],
                           "where": f"where walls meet: {', '.join(pairs[:6])}{f' and {len(pairs) - 6} more' if len(pairs) > 6 else ''}",
-                          "locus": f"{len(ls)} curve{'s' if len(ls) > 1 else ''}",
-                          "seed": seed_text(ls[0]["points"][0]), "beta": beta_text(ls[0]["points"][0])})
-            samples[lid] = [sample_row(p) for l in ls for p in l["points"][:: max(1, len(l["points"]) // 12)]][:120]
+                          "locus": f"{len(pts_)} points on {len(ls)} curve{'s' if len(ls) > 1 else ''}",
+                          "seed": seed_text(pts_[0]), "beta": beta_text(pts_[0])})
+            samples[lid] = [sample_row(p) for p in pts_[:: max(1, len(pts_) // 400)]]
         pgroups = {}
         for p in lp.get("points", []):
             sg = p.get("on", "")
