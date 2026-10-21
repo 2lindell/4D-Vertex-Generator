@@ -88,6 +88,128 @@ def label(beta):
         return "ERR"
 
 
+_T = 1 / 3
+_R2 = np.sqrt(2)
+_V, _W1, _W2, _F = [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, _T, _T, _T]
+# the rings of [3;3:1] (great circles fixed by a rotation: seeds there have fewer vertices) where they cross the domain:
+# (name, kind, vertices, from, to); the corner names go in the text
+RINGS = [
+    ("swirl ring V–F (β₁ = β₂ = β₃)", "rectic swirl ring (order-3 rotation)", 16, _V, _F),
+    ("cross ring F–W₁ (β_V = 0, β₂ = β₃)", "essic cross ring (half-turn)", 24, _F, _W1),
+    ("cross ring F–W₂ (β_V = 0, β₁ = β₃)", "essic cross ring (half-turn)", 24, _F, _W2),
+    ("cross ring F–M₁₂ (β_V = 0, β₁ = β₂)", "essic cross ring (half-turn)", 24, _F, [0, 0.5, 0.5, 0]),
+    ("cross ring W₁–M₀₂ (β₃ = 0, β_V = β₂)", "essic cross ring (half-turn)", 24, _W1, [0.5, 0, 0.5, 0]),
+]
+# the ghost girdles (circles a rotation turns along itself, fixing no point) that cross the domain
+GIRDLES = [
+    ("6/3 gyrogon ghost girdle M₀₁–M₁₂ (β₃ = 0, β₁ = ½): 6 of the 48 images on one great circle",
+     [0.5, 0.5, 0, 0], [0, 0.5, 0.5, 0]),
+    ("skew square ghost girdle (8 of the 48 images on one great circle), from β (√2/4, ½ − √2/4, √2/4, ½ − √2/4) on "
+     "β₁ = β₃ to β (1 − √2/2, 1 − √2/2, √2 − 1, 0) on β₃ = 0",
+     [_R2 / 4, 0.5 - _R2 / 4, _R2 / 4, 0.5 - _R2 / 4], [1 - _R2 / 2, 1 - _R2 / 2, _R2 - 1, 0]),
+    ("skew square ghost girdle (8 of the 48 images on one great circle), from β (√2 − 1, 1 − √2/2, 1 − √2/2, 0) on "
+     "β₃ = 0 to β (√2/4, √2/4, ½ − √2/4, ½ − √2/4) on β₂ = β₃",
+     [_R2 - 1, 1 - _R2 / 2, 1 - _R2 / 2, 0], [_R2 / 4, _R2 / 4, 0.5 - _R2 / 4, 0.5 - _R2 / 4]),
+]
+CORNERS = {(1, 0, 0, 0): "V", (0, 1, 0, 0): "W₁", (0, 0, 1, 0): "W₂", (0, _T, _T, _T): "F",
+           (0.5, 0.5, 0, 0): "M₀₁ (the midpoint of VW₁)", (0, 0.5, 0.5, 0): "M₁₂ (the midpoint of W₁W₂)",
+           (0.5, 0, 0.5, 0): "M₀₂ (the midpoint of VW₂)", (0.25, 0.25, 0.25, 0.25): "C (the cell's centre)",
+           (_T, _T, _T, 0): "the centre of the face VW₁W₂"}
+
+
+def seg_dist(B, a, b):
+    """Distance of each beta in B from the segment a-b."""
+    B = B / B.sum(axis=1, keepdims=True)
+    d = b - a
+    t = np.clip((B - a) @ d / (d @ d), 0, 1)
+    return np.linalg.norm(B - a - t[:, None] * d, axis=1)
+
+
+def exact_text(beta):
+    """A place on a ring: its corner name, or its weights as fractions."""
+    from fractions import Fraction
+    b = np.asarray(beta, float)
+    for k, v in CORNERS.items():
+        if np.abs(b - np.array(k)).max() < 1e-9:
+            return f"{v} = β ({', '.join(_frac(x) for x in k)})"
+    fr = [Fraction(float(x)).limit_denominator(60) for x in b]
+    if max(abs(float(f) - x) for f, x in zip(fr, b)) < 1e-9:
+        return "β (" + ", ".join(_frac(float(f)) for f in fr) + ")"
+    return "β " + beta_text(b)
+
+
+def _frac(x):
+    from fractions import Fraction
+    f = Fraction(float(x)).limit_denominator(60)
+    return {0: "0", 1: "1"}.get(f, "½" if f == Fraction(1, 2) else "⅓" if f == Fraction(1, 3) else "¼" if f == Fraction(1, 4)
+                                      else "⅙" if f == Fraction(1, 6) else f"{f.numerator}/{f.denominator}")
+
+
+def _snap(t):
+    """A breakpoint's parameter, made exact when it is a simple fraction."""
+    from fractions import Fraction
+    f = Fraction(t).limit_denominator(60)
+    return float(f) if abs(float(f) - t) < 1e-8 else t
+
+
+def scan_rings(n=2000):
+    """Each ring's piece in the domain split where its shape changes. Returns (pieces, spots): pieces {"sig", "ring",
+    "kind", "copies", "a", "b", "mid", "from", "to"}; spots (the ends of the pieces and the corners, where the shape is
+    not the pieces' either side) {"sig", "beta", "text", "rings", "copies"}."""
+    pieces, spots = [], []
+    with Pool(4) as pool:
+        for name, kind, copies, a, b in RINGS:
+            a, b = np.array(a, float), np.array(b, float)
+            at = lambda t: (1 - t) * a + t * b
+            ts = np.linspace(0, 1, n + 1)
+            L = pool.map(label, [at(t) for t in ts], chunksize=25)
+            runs = []
+            for t, l in zip(ts, L):
+                if runs and runs[-1][2] == l:
+                    runs[-1][1] = t
+                else:
+                    runs.append([t, t, l])
+            # (each change bisected to 1e-13 and snapped to a simple fraction when it is one)
+            cuts = [0.0]
+            for (_, t0, l0), (t1, _, _) in zip(runs, runs[1:]):
+                lo, hi = t0, t1
+                for _ in range(45):
+                    m = (lo + hi) / 2
+                    lo, hi = (m, hi) if label(at(m)) == l0 else (lo, m)
+                c = _snap((lo + hi) / 2)
+                if c - cuts[-1] > 1e-9:
+                    cuts.append(c)
+            if 1.0 - cuts[-1] > 1e-9:
+                cuts.append(1.0)
+            for t0, t1 in zip(cuts, cuts[1:]):
+                sg = label(at((t0 + t1) / 2))
+                if pieces and pieces[-1]["ring"] == name and pieces[-1]["sig"] == sg:
+                    pieces[-1].update(b=at(t1), to=exact_text(at(t1)))
+                    continue
+                pieces.append({"sig": sg, "ring": name, "kind": kind, "copies": copies, "a": at(t0), "b": at(t1),
+                               "mid": at((t0 + t1) / 2), "from": exact_text(at(t0)), "to": exact_text(at(t1))})
+            mine = [p for p in pieces if p["ring"] == name]
+            for t in cuts:
+                sg = label(at(t))
+                if any(sg == p["sig"] and (np.allclose(p["a"], at(t)) or np.allclose(p["b"], at(t))) for p in mine):
+                    continue                       # (the end of a piece with the piece's own shape)
+                hit = next((s for s in spots if np.allclose(s["beta"], at(t), atol=1e-9)), None)
+                if hit:
+                    hit["rings"].add(name.split(" (")[0])
+                else:
+                    spots.append({"sig": sg, "beta": at(t), "text": exact_text(at(t)), "rings": {name.split(" (")[0]},
+                                  "copies": int(sg.split(":")[0]) if sg[:1].isdigit() else copies})
+    return pieces, spots
+
+
+def group_by(items):
+    """[(shape, [items])], in order of first appearance."""
+    out = {}
+    for it in items:
+        out.setdefault(it["sig"], []).append(it)
+    return list(out.items())
+
+
 def main():
     ver = json.load(open(f"walls_verified_{D.KEY}.json"))["walls"]
     ids = json.load(open(f"ids_{D.KEY}.json"))
@@ -164,23 +286,8 @@ def main():
                       "separates": sep, "bounds": [], "seed": seed_text(e["pts"][0]), "beta": beta_text(e["pts"][0]),
                       "surfaces": [f for f, _ in surf_list]})
         samples[wid] = [sample_row(p) for p in e["pts"]]
-    # lines and points fixed by rotations of the group (seeds there have 24, 16 or 8 vertices)
-    third = 1 / 3
-    sym_lines = [
-        ("the axis V–F: β₁ = β₂ = β₃ (order-3 rotation; 16 vertices)", [1, 0, 0, 0], [0, third, third, third]),
-        ("F–W₁: β_V = 0, β₂ = β₃ (half-turn; 24 vertices)", [0, third, third, third], [0, 1, 0, 0]),
-        ("F–W₂: β_V = 0, β₁ = β₃ (half-turn; 24 vertices)", [0, third, third, third], [0, 0, 1, 0]),
-        ("W₁ to the midpoint of VW₂: β₃ = 0, β_V = β₂ (half-turn; 24 vertices)", [0, 1, 0, 0], [0.5, 0, 0.5, 0]),
-    ]
-    sym_points = [
-        ("V = β (1, 0, 0, 0): a vertex of the 16-cell", [1, 0, 0, 0]),
-        ("W₁ = β (0, 1, 0, 0): a vertex of the 16-cell", [0, 1, 0, 0]),
-        ("W₂ = β (0, 0, 1, 0): a vertex of the 16-cell", [0, 0, 1, 0]),
-        ("F = β (0, ⅓, ⅓, ⅓): the centre of the face W₁W₂W₃, a vertex of the group's other 16-cell", [0, third, third, third]),
-        ("the midpoint of VW₁ = β (½, ½, 0, 0)", [0.5, 0.5, 0, 0]),
-        ("the midpoint of W₁W₂ = β (0, ½, ½, 0)", [0, 0.5, 0.5, 0]),
-    ]
-    # (copies glued together: a point or line is listed once, drawn at each place it appears in the domain)
+    # lines and points fixed by rotations of the group (seeds there have 24, 16 or 8 vertices): the rings of [3;3:1]
+    # where they cross the domain, each scanned with the classifier and split exactly where its shape changes
     from four_d_vertex_generator.generation import generate_vertices_from_seed
 
     def orbit(beta):
@@ -201,52 +308,53 @@ def main():
             else:
                 groups.append({"orbit": o, "members": [it]})
         return [g["members"] for g in groups]
-    mid = lambda l: np.array(l[1]) * 0.5 + np.array(l[2]) * 0.5
-    with Pool(4) as pool:
-        lab_l = pool.map(label, [mid(l) for l in sym_lines])
-        lab_p = pool.map(label, [np.array(p[1]) for p in sym_points])
-
-    def by_shape_then_position(items, labs_, key):
-        """[(shape, [[items at one position], ...])]: one entry per shape, its positions (orbits) inside it."""
-        out = {}
-        for it, lb in zip(items, labs_):
-            out.setdefault(lb, []).append(it)
-        return [(lb, cluster(its, key)) for lb, its in out.items()]
-    line_groups = by_shape_then_position(sym_lines, lab_l, mid)
-    point_groups = by_shape_then_position(sym_points, lab_p, lambda p: p[1])
-    labs = [lb for lb, _ in line_groups] + [lb for lb, _ in point_groups]
-    pos_text = lambda poss: "; ".join(" = ".join(x[0].split(":")[0] for x in pos) for pos in poss)
-    for k, ((lab, poss), _) in enumerate(zip(line_groups, labs), 1):
+    pieces, spots = scan_rings()
+    ring_segs = [(np.array(r[3], float), np.array(r[4], float)) for r in RINGS]
+    for k, (sg, ps) in enumerate(group_by(pieces), 1):
         lid = f"S{k}"
-        g = [x for pos in poss for x in pos]
-        name = g[0][0] if len(g) == 1 else (f"{len(poss)} position{'s' if len(poss) > 1 else ''}: {pos_text(poss)} ("
-                                            + "; ".join(x[0] for x in g) + ")")
-        p0 = mid(g[0])
-        types.append({"id": lid, "dim": "line", "name": "", "sig": lab if lab[0].isdigit() else None,
-                      "where": name, "bounds": [], "seed": seed_text(p0), "beta": beta_text(p0)})
-        for _, a, b in g:
-            lines.append({"id": lid, "pts": [[round(float(x), 5) for x in chart(p)] for p in (np.array(a), np.array(b))],
-                          "hover": f"{lid} · {name}"})
-    for k, (lab, poss) in enumerate(point_groups, 1):
+        rings_ = sorted({p["ring"] for p in ps})
+        types.append({"id": lid, "dim": "line", "name": "", "sig": sg if sg[:1].isdigit() else None,
+                      "where": "; ".join(f"{p['ring']}, {p['from']} to {p['to']}" for p in ps),
+                      "locus": f"{ps[0]['copies']} vertices: {' and '.join(sorted({p['kind'] for p in ps}))}"
+                               + (f"; {len(ps)} pieces" if len(ps) > 1 else ""),
+                      "bounds": [], "seed": seed_text(ps[0]["mid"]), "beta": beta_text(ps[0]["mid"])})
+        for p in ps:
+            lines.append({"id": lid, "pts": [[round(float(x), 5) for x in chart(q)] for q in (p["a"], p["b"])],
+                          "hover": f"{lid} · {p['ring']}, {p['from']} to {p['to']}"})
+            samples.setdefault(lid, []).extend(sample_row((1 - t) * p["a"] + t * p["b"]) for t in np.linspace(0.1, 0.9, 5))
+    for k, (sg, ps) in enumerate(group_by(spots), 1):
         pid = f"P{k}"
-        g = [x for pos in poss for x in pos]
-        name = g[0][0] if len(g) == 1 else (f"{len(poss)} position{'s' if len(poss) > 1 else ''} (one per orbit; a "
-                                            f"position at several places is one point, glued): {pos_text(poss)} ("
-                                            + "; ".join(x[0] for x in g) + ")")
-        p0 = g[0][1]
-        types.append({"id": pid, "dim": "point", "name": "", "sig": lab if lab[0].isdigit() else None,
-                      "where": name, "bounds": [], "seed": seed_text(p0), "beta": beta_text(p0)})
-        for nm, p in g:
-            points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p)], "beta": beta_text(p), "hover": f"{pid} · {nm}"})
-    n_sym_points = len(point_groups)
+        poss = cluster(ps, lambda p: p["beta"])
+        text = "; ".join(" = ".join(p["text"] for p in pos) for pos in poss)
+        types.append({"id": pid, "dim": "point", "name": "", "sig": sg if sg[:1].isdigit() else None,
+                      "where": (f"{len(poss)} positions (one per orbit; a position at several places is one point, "
+                                f"glued): " if len(poss) > 1 else "") + text,
+                      "locus": f"{ps[0]['copies']} vertices; on {', '.join(sorted({r for p in ps for r in p['rings']}))}",
+                      "bounds": [], "seed": seed_text(ps[0]["beta"]), "beta": beta_text(ps[0]["beta"])})
+        for p in ps:
+            points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p["beta"])], "beta": beta_text(p["beta"]),
+                           "hover": f"{pid} · {p['text']}"})
+    # the ghost girdles: circles a rotation turns along itself; seeds there keep all 48 images (no fewer vertices),
+    # but 6 or 8 of them lie on one great circle; drawn for reference
+    for k, (name, a, b) in enumerate(GIRDLES, 1):
+        gid = f"G{k}"
+        types.append({"id": gid, "dim": "line", "group": "symmetry", "name": "", "sig": None, "where": name,
+                      "locus": "48 vertices (no fewer: not a transition by itself)", "bounds": []})
+        lines.append({"id": gid, "pts": [[round(float(x), 5) for x in chart(np.array(q, float))] for q in (a, b)],
+                      "hover": f"{gid} · {name}"})
+    n_sym_points = len([t for t in types if t["dim"] == "point"])
     # lines and points where walls meet (atlas_model.py), one row per shape found there, as for the walls
     if os.path.exists(f"lines_points_{D.KEY}.json"):
         lp = json.load(open(f"lines_points_{D.KEY}.json"))
         wall_id = {f: t["id"] for t in types for f in t.get("surfaces", [])}
         sym_sigs = {t.get("sig") for t in types if t["dim"] in ("line", "point")}
         groups = {}
+        on_ring = lambda B, tol: min(seg_dist(np.atleast_2d(B), a_, b_).max() if tol is None else
+                                     np.median(seg_dist(np.atleast_2d(B), a_, b_)) for a_, b_ in ring_segs)
         for l in lp.get("lines", []):
             sg = l.get("on", "")
+            if on_ring(np.array(l["points"]), "median") < 1e-5:
+                continue                       # (a ring's piece: listed from the exact scan above)
             # (a line's shape that is a region's or a wall's is not a new transitional)
             wall_sigs = {t.get("sig") for t in types if t["dim"] == "wall"}
             if str(sg)[:1].isdigit() and sg not in sym_sigs and sg not in region_of and sg not in wall_sigs:
@@ -262,6 +370,9 @@ def main():
         pgroups = {}
         for p in lp.get("points", []):
             sg = p.get("on", "")
+            if on_ring(np.array([p["beta"]]), None) < 1e-3:
+                continue                       # (on or by a ring: its points come from the exact scan; one found a hair off
+                                               # the ring carries a near-degenerate copy of the ring's shape)
             known = {t.get("sig") for t in types if t["dim"] in ("wall", "line")} | set(region_of)
             if str(sg)[:1].isdigit() and (sg not in known or any(t["dim"] == "point" and t.get("sig") == sg for t in types)):
                 pgroups.setdefault(sg, []).append(p)
@@ -287,11 +398,18 @@ def main():
         for k, v in regular.items():
             if (t.get("sig") or "").startswith(k + " |"):
                 t["name"] = v
+                # (a line whose shape is a regular polytope's is regular only at its special spots: marked on it)
+                if t["dim"] == "line" and v == "24-cell":
+                    t["name"] = "24-cell (regular at M₀₁ = M₁₂ and at M₀₂)"
+                    for nm, b in (("M₀₁ (the midpoint of VW₁)", [0.5, 0.5, 0, 0]), ("M₁₂ (the midpoint of W₁W₂)", [0, 0.5, 0.5, 0]),
+                                  ("M₀₂ (the midpoint of VW₂)", [0.5, 0, 0.5, 0])):
+                        points.append({"id": t["id"], "q": [round(float(x), 5) for x in chart(b)], "beta": beta_text(b),
+                                       "hover": f"{t['id']} · the regular 24-cell, at {nm}"})
     json.dump({"types": types, "samples": samples, "lines": lines, "points": points}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
     from collections import Counter
     print(f"atlas_{D.KEY}.json: {dict(Counter(t['dim'] for t in types))}; {len(points)} points")
     for t in types[:6]:
-        print("  ", t["id"], t["where"], t.get("separates"))
+        print("  ", t["id"], t.get("where"), t.get("separates"))
 
 
 if __name__ == "__main__":

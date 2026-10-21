@@ -47,6 +47,7 @@ GROUPS = [
                                "of different regions and names each wall by the five orbit points that become coplanar there"),
     ("lines", "Lines", "line", "none traced yet: lines are where two walls meet"),
     ("points", "Points", "point", "none traced yet: points are where lines meet"),
+    ("symmetry", "Ghost girdles", "line", "none in this domain"),
 ]
 
 
@@ -290,6 +291,16 @@ def main():
                f"great circles are straight lines and great spheres are planes. It is the part of the anchor's Voronoi "
                f"cell (the points nearer the anchor than any of its images) between two cuts through the rotation "
                f"axis, 1/{D.M} of the cell: {len(V)} corners and {len(F)} faces."]),
+            *(["In Bowers' terms the group is [3;3:1], 1-astettic: two sets of eight kitrippic points (V, W₁, W₂ and "
+               "the other 16-cell's F: P1), four rectic swirl rings giving 16 kitrig spots (the axis V–F: S1, S2, with "
+               "the two tesseract positions P2 on it), twelve essic cross rings giving 24 essic spots (F–W₁, F–W₂, "
+               "F–M₁₂ and W₁–M₀₂: S3, S4, S5, with P3), four 6/3 gyrogon and six skew square ghost girdles (G1, G2, G3), "
+               "and white space of 48 images with no symmetry. Seeds on a ring have fewer images; on a ghost girdle "
+               "all 48, but 6 or 8 of them on one great circle.",
+               "The half-turns fold two faces of the domain onto themselves, so a shape there appears twice, mirrored "
+               "(as A1 does in the swirlprism atlas): on β₃ = 0, β (a, b, c, 0) is β (c, b, a, 0) (V and W₂ swapped, "
+               "about W₁–M₀₂); on β_V = 0, β (0, a, b, c) is β (0, b, a, c) (W₁ and W₂ swapped, about F–M₁₂). The "
+               "order-3 rotation glues the face β₁ = β₃ to the face β₂ = β₃."] if KEY == "oct" else []),
             "Still to find: the extra symmetries that map the group to itself (its normalizer), which may halve the "
             "domain again, as the half-turn Q does for the swirlprism group.",
         ]},
