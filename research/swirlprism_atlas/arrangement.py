@@ -195,7 +195,7 @@ class Mesh:
         if new_v:
             W = np.array(new_v)
             # (each new vertex put on this mesh's surface and on the cutting surface)
-            W = project(W, [self.surf, s])
+            W = project(W, [s] if self.surf is None else [self.surf, s])
             self.V = np.vstack([self.V, W])
         self.T = out
         return n_cut
