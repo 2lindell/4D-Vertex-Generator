@@ -52,31 +52,77 @@ def view(rid, path="region_pieces.json", kinds=False):
 view.cache = {}
 
 
-def whole_faces(walls, rid=None):
+def known_line(lid):
+    """A known line of the page (traced line, segment or symmetry ring) by its name: polylines in cell xyz."""
+    import region_walls as rw
+    d = rw.page_data()
+    flip = np.array([1, 1, -1.0])
+    out = []
+    for key in ("xlines", "segments", "rings"):
+        for l in d.get(key, []):
+            if isinstance(l, dict) and l.get("id") == lid and isinstance(l.get("pts"), list) and len(l["pts"]) > 1:
+                out.append(np.array(l["pts"], float) * flip)
+    return out
+
+
+def split_along(T, lines, tol=1e-5):
+    """A flat piece's triangles (n, 3, 3) split along the known lines lying in its plane: [triangles] per part."""
+    import shapely
+    from shapely.geometry import LineString, Polygon
+    from shapely.ops import split, unary_union
+    P = T.reshape(-1, 3)
+    o = P.mean(0)
+    _, _, vt = np.linalg.svd(P - o)
+    e1, e2, n = vt
+    to2 = lambda X: np.c_[(X - o) @ e1, (X - o) @ e2]
+    poly = unary_union([Polygon(to2(t)).buffer(1e-9) for t in T]).buffer(-1e-9)
+    parts = [poly]
+    for L in lines:
+        if np.abs((L - o) @ n).max() > tol:
+            continue                                     # (not in this piece's plane)
+        xy = to2(L)
+        d_ = (xy[-1] - xy[0]) / np.linalg.norm(xy[-1] - xy[0])
+        line = LineString(np.vstack([xy[0] - d_, xy, xy[-1] + d_]))   # (carried a little past its ends)
+        parts = [q for p in parts for q in split(p, line).geoms]
+    out = []
+    for p in parts:
+        for g in (p.geoms if hasattr(p, "geoms") else [p]):
+            if g.area > 1e-10:
+                tri = [np.array(t.exterior.coords)[:3] for t in shapely.constrained_delaunay_triangles(g).geoms]
+                out.append(np.array([o + c[:, :1] * e1 + c[:, 1:2] * e2 for c in tri]))
+    return out
+
+
+def whole_faces(walls, rid=None, splits=None):
     """Every piece of the walls' meshes (original and copies), for a region a wall borders over all of it. A piece
     lying in the splitting mirror is left out (the region beside it there is its own mirror image: a matter of the
-    view, not a wall between two regions); a piece lying in a face of the cell is kept only where the region is on
-    its inside (the cell's other face holds its glued double)."""
+    view, not a wall between two regions) unless the region is on its inside, where it is drawn once; a piece lying
+    in a face of the cell likewise only where the region is on its inside (the cell's other face holds its glued
+    double)."""
     import region_cells as rc
     import region_walls as rw
     from wall_sections import Grid
     d = rw.page_data()
     grid = Grid() if rid else None
     out = defaultdict(list)
+    pieces = []
     for w, kind, i, T in rw.pieces_of(d, set(walls)):
+        lines = [L for lid in (splits or {}).get(w, []) for L in known_line(lid)]
+        pieces += [(w, kind, i, Tp) for Tp in (split_along(T, lines) if lines else [T])]
+    for w, kind, i, T in pieces:
         B = rc.betas(T.reshape(-1, 3))
-        if np.abs(B[:, 2] - B[:, 3]).max() < 1e-6:
-            continue
         face = [k for k in range(4) if np.abs(B[:, k]).max() < 1e-6]
-        if face and grid is not None:
-            # (the region on the inside: the first labelled voxels stepping into the cell from the piece)
-            k = face[0]
+        mirror = np.abs(B[:, 2] - B[:, 3]).max() < 1e-6
+        if mirror and grid is None:
+            continue
+        if (face or mirror) and grid is not None:
+            # (the region on the inside: the first labelled voxels stepping into the half-cell from the piece)
+            into = np.eye(4)[face[0]] if face else np.array([0, 0, 0.5, -0.5])
             X = T.mean(1)
             Bc = rc.betas(X)
             labs = []
             for depth in (1.5, 2.5, 3.5, 4.5, 5.5):
-                Bi = Bc.copy()
-                Bi[:, k] += depth * 0.0025
+                Bi = Bc + depth * 0.0025 * into
                 labs.append(grid.at(rc.xyz(Bi / Bi.sum(1, keepdims=True))))
             labs = np.array(labs).T
             first = np.array([next((x for x in r if x), 0) for r in labs])
@@ -88,7 +134,7 @@ def whole_faces(walls, rid=None):
     return out
 
 
-def export(regions=None, keep=("F2",), path="region_pieces.json", whole=()):
+def export(regions=None, keep=("F2",), path="region_pieces.json", whole=(), only=None, splits=None):
     """region_walls.json (the page's region colouring) for every complete region: one whose pockets touch only walls
     already in the database. The regions in keep stay as they are there (hand-checked)."""
     db = json.load(open("region_db.json"))
@@ -106,9 +152,12 @@ def export(regions=None, keep=("F2",), path="region_pieces.json", whole=()):
         if (regions and r not in regions) or r in keep:
             continue
         tris, kinds = view(r, path=path, kinds=True)
+        if only is not None:                       # (only the walls decided for the region)
+            tris = {w: t for w, t in tris.items() if w in only}
+            kinds = {w: k for w, k in kinds.items() if w in only}
         if whole:
             # (walls the region borders over all of them: their whole meshes, in place of their sections)
-            for w, fs in whole_faces(whole, r).items():
+            for w, fs in whole_faces(whole, r, splits).items():
                 tris[w] = np.array([t for f in fs for t in f["tris"]]).reshape(-1, 3, 3)
                 kinds[w] = [k for f in fs for k in [f["kind"]] * len(f["tris"])]
         # (the pieces of each wall triangle merged back, by kind, so the page carries far fewer triangles)
@@ -233,7 +282,27 @@ def check(rid):
 
 
 if __name__ == "__main__":
-    if "--export" in sys.argv:
+    if "--defs" in sys.argv:
+        # (the regions as decided in region_defs.json: whole walls, and walls in part from their pieces)
+        import subprocess
+        defs = {k: v for k, v in json.load(open("region_defs.json")).items() if not k.startswith("_")}
+        for script in sorted({s for d in defs.values() for s in d.get("pieces", {}).values()}):
+            subprocess.run([sys.executable] + script.split(), check=True, stdout=subprocess.DEVNULL)
+        for r, dd in defs.items():
+            export(regions=[r], path="sec_pieces", whole=dd.get("whole", []), only=set(dd.get("whole", [])) | set(dd.get("pieces", {})),
+                   splits=dd.get("split"))
+        # (the database: each decided region's walls, and the regions each of those walls separates)
+        db = json.load(open("region_db.json"))
+        sides = json.load(open("wall_sides.json")) if os.path.exists("wall_sides.json") else {}
+        for r, dd in defs.items():
+            walls = sorted(set(dd.get("whole", [])) | set(dd.get("pieces", {})))
+            db.setdefault("touch", {})[r] = walls
+            for w in walls:
+                sides[w] = sorted(set(sides.get(w, [])) | {r})
+        json.dump(db, open("region_db.json", "w"), indent=1)
+        json.dump(sides, open("wall_sides.json", "w"), indent=1)
+        print("region_db.json and wall_sides.json: " + "; ".join(f"{r}: {', '.join(sorted(set(dd.get('whole', [])) | set(dd.get('pieces', {}))))}" for r, dd in defs.items()))
+    elif "--export" in sys.argv:
         # (--sections [region,...]: those regions from the wall sections, sec_pieces/)
         if "--sections" in sys.argv:
             k = sys.argv.index("--sections")
