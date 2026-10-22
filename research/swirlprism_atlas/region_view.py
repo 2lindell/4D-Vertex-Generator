@@ -52,18 +52,37 @@ def view(rid, path="region_pieces.json", kinds=False):
 view.cache = {}
 
 
-def whole_faces(walls):
-    """Every piece of the walls' meshes (original and copies), for a region a wall borders over all of it; a piece
+def whole_faces(walls, rid=None):
+    """Every piece of the walls' meshes (original and copies), for a region a wall borders over all of it. A piece
     lying in the splitting mirror is left out (the region beside it there is its own mirror image: a matter of the
-    view, not a wall between two regions)."""
+    view, not a wall between two regions); a piece lying in a face of the cell is kept only where the region is on
+    its inside (the cell's other face holds its glued double)."""
     import region_cells as rc
     import region_walls as rw
+    from wall_sections import Grid
     d = rw.page_data()
+    grid = Grid() if rid else None
     out = defaultdict(list)
     for w, kind, i, T in rw.pieces_of(d, set(walls)):
         B = rc.betas(T.reshape(-1, 3))
         if np.abs(B[:, 2] - B[:, 3]).max() < 1e-6:
             continue
+        face = [k for k in range(4) if np.abs(B[:, k]).max() < 1e-6]
+        if face and grid is not None:
+            # (the region on the inside: the first labelled voxels stepping into the cell from the piece)
+            k = face[0]
+            X = T.mean(1)
+            Bc = rc.betas(X)
+            labs = []
+            for depth in (1.5, 2.5, 3.5, 4.5, 5.5):
+                Bi = Bc.copy()
+                Bi[:, k] += depth * 0.0025
+                labs.append(grid.at(rc.xyz(Bi / Bi.sum(1, keepdims=True))))
+            labs = np.array(labs).T
+            first = np.array([next((x for x in r if x), 0) for r in labs])
+            got = np.bincount(first[first > 0]).argmax() if (first > 0).any() else 0
+            if grid.names[got] != rid:
+                continue
         out[w].append({"sides": ["*", "*"], "kind": kind, "mirror": False, "cut": [False, False],
                        "tris": T.reshape(-1, 9).round(7).tolist()})
     return out
@@ -89,7 +108,7 @@ def export(regions=None, keep=("F2",), path="region_pieces.json", whole=()):
         tris, kinds = view(r, path=path, kinds=True)
         if whole:
             # (walls the region borders over all of them: their whole meshes, in place of their sections)
-            for w, fs in whole_faces(whole).items():
+            for w, fs in whole_faces(whole, r).items():
                 tris[w] = np.array([t for f in fs for t in f["tris"]]).reshape(-1, 3, 3)
                 kinds[w] = [k for f in fs for k in [f["kind"]] * len(f["tris"])]
         # (the pieces of each wall triangle merged back, by kind, so the page carries far fewer triangles)
