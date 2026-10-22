@@ -52,7 +52,24 @@ def view(rid, path="region_pieces.json", kinds=False):
 view.cache = {}
 
 
-def export(regions=None, keep=("F2",), path="region_pieces.json"):
+def whole_faces(walls):
+    """Every piece of the walls' meshes (original and copies), for a region a wall borders over all of it; a piece
+    lying in the splitting mirror is left out (the region beside it there is its own mirror image: a matter of the
+    view, not a wall between two regions)."""
+    import region_cells as rc
+    import region_walls as rw
+    d = rw.page_data()
+    out = defaultdict(list)
+    for w, kind, i, T in rw.pieces_of(d, set(walls)):
+        B = rc.betas(T.reshape(-1, 3))
+        if np.abs(B[:, 2] - B[:, 3]).max() < 1e-6:
+            continue
+        out[w].append({"sides": ["*", "*"], "kind": kind, "mirror": False, "cut": [False, False],
+                       "tris": T.reshape(-1, 9).round(7).tolist()})
+    return out
+
+
+def export(regions=None, keep=("F2",), path="region_pieces.json", whole=()):
     """region_walls.json (the page's region colouring) for every complete region: one whose pockets touch only walls
     already in the database. The regions in keep stay as they are there (hand-checked)."""
     db = json.load(open("region_db.json"))
@@ -70,6 +87,11 @@ def export(regions=None, keep=("F2",), path="region_pieces.json"):
         if (regions and r not in regions) or r in keep:
             continue
         tris, kinds = view(r, path=path, kinds=True)
+        if whole:
+            # (walls the region borders over all of them: their whole meshes, in place of their sections)
+            for w, fs in whole_faces(whole).items():
+                tris[w] = np.array([t for f in fs for t in f["tris"]]).reshape(-1, 3, 3)
+                kinds[w] = [k for f in fs for k in [f["kind"]] * len(f["tris"])]
         # (the pieces of each wall triangle merged back, by kind, so the page carries far fewer triangles)
         for w in list(tris):
             parts = []
@@ -194,7 +216,9 @@ if __name__ == "__main__":
         if "--sections" in sys.argv:
             k = sys.argv.index("--sections")
             regs = sys.argv[k + 1].split(",") if len(sys.argv) > k + 1 else None
-            ready, waiting = export(regions=regs, path="sec_pieces")
+            # (--whole walls: walls the regions border over all of them, coloured whole)
+            wh = sys.argv[sys.argv.index("--whole") + 1].split(",") if "--whole" in sys.argv else ()
+            ready, waiting = export(regions=regs, path="sec_pieces", whole=wh)
         else:
             ready, waiting = export()
         print(f"complete: {', '.join(sorted(ready))}")
