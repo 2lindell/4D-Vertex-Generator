@@ -6,7 +6,8 @@ a traced line, along the edge of a wall that ends on it, or where a wall passes 
 such wall's exact surface (arrangement.py's surfaces), across the whole mesh, so a crossing that stops part way is
 carried on to the mesh's edge as an invisible line. The sections are the neighbouring triangles on the same side of
 every one of those surfaces. Each section has one region on each side: the one most of the database's voxels
-(region_grid.json) beside it on that side belong to. No classification.
+(region_grid.json) beside it on that side belong to, counting only voxels on the section's own side of every cutting
+wall. No classification.
 
     python wall_sections.py X3,X7,X10,X83,T2,X11     (writes sec_pieces/<wall>.json.gz, as region_pieces/)
 """
@@ -28,6 +29,7 @@ from meetings import mesh_edges, sample_segs, tri_tri
 
 OUT = "sec_pieces"
 TOL = 2e-3
+SLIVER = 2e-4
 
 
 def weld(T, nd=7):
@@ -166,13 +168,35 @@ def main(walls):
             X = Tri[j, 0] + u[:, None] * (Tri[j, 1] - Tri[j, 0]) + v[:, None] * (Tri[j, 2] - Tri[j, 0])
             n = N[j] * np.sign(N[j] @ N[idx[a.argmax()]])[:, None]           # (one orientation over the section)
             sides = []
+            sec_sign = S[idx[a.argmax()]]
             for sgn in (1, -1):
                 votes = Counter()
                 for k in (1.5, 2.5, 3.5, 4.5):
-                    lab = grid.at(X + sgn * k * grid.h * n)
-                    votes.update(int(x) for x in lab if x)
+                    Y = X + sgn * k * grid.h * n
+                    lab = grid.at(Y)
+                    # (a voxel counts only on the section's own side of every wall cutting this one: a vote never
+                    # reaches across a wall the section ends on)
+                    same = np.ones(len(Y), bool)
+                    for kk, cs in enumerate(cutters):
+                        if sec_sign[kk]:
+                            same &= np.sign(cs.at(Y)) == sec_sign[kk]
+                    votes.update(int(x) for x in lab[same] if x)
+                if not votes:
+                    # (a side past the half-cell's faces: the same places brought into the half-cell by the group,
+                    # as the database names them)
+                    from region_db import home
+                    for k in (1.5, 2.5, 3.5, 4.5):
+                        Bh = home(rc.betas(X + sgn * k * grid.h * n))
+                        okh = ~np.isnan(Bh).any(1)
+                        votes.update(int(x) for x in grid.at(rc.xyz(Bh[okh])) if x)
                 sides.append(grid.names[votes.most_common(1)[0][0]] if votes else "unknown")
             if sides[0] == sides[1]:
+                continue
+            # (a section never more than SLIVER from a wall cutting it is this mesh's edge poking past that wall, where
+            # it ends on it: not a part of the wall)
+            V_ = np.concatenate([Tri[idx].mean(1), (Tri[idx] + Tri[idx][:, [1, 2, 0]]).reshape(-1, 3) / 2])   # (inside the triangles,
+            # not their corners, which may lie on the cutting wall where the section is a large flat triangle)
+            if any((np.abs(cs.at(V_)) / (np.linalg.norm(cs.grad(V_), axis=1) + 1e-30)).max() < SLIVER for cs in cutters):
                 continue
             nn = N[idx[a.argmax()]]
             cc = Tri[idx[a.argmax()]].mean(0)
