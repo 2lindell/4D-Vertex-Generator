@@ -23,6 +23,11 @@ def view(rid, path="region_pieces.json", kinds=False):
     if path not in view.cache:
         if path.endswith(".json") and os.path.exists(path):
             view.cache[path] = json.load(open(path))
+        elif os.path.isdir(path):                  # (a folder of <wall>.json.gz, as wall_sections.py writes)
+            import glob
+            import gzip
+            view.cache[path] = {os.path.basename(f).split(".")[0]: json.load(gzip.open(f, "rt"))
+                                for f in glob.glob(os.path.join(path, "*.json.gz"))}
         else:
             from region_db import load_pieces
             view.cache[path] = load_pieces()
@@ -47,7 +52,7 @@ def view(rid, path="region_pieces.json", kinds=False):
 view.cache = {}
 
 
-def export(regions=None, keep=("F2",)):
+def export(regions=None, keep=("F2",), path="region_pieces.json"):
     """region_walls.json (the page's region colouring) for every complete region: one whose pockets touch only walls
     already in the database. The regions in keep stay as they are there (hand-checked)."""
     db = json.load(open("region_db.json"))
@@ -61,7 +66,7 @@ def export(regions=None, keep=("F2",)):
     for r in ready:
         if (regions and r not in regions) or r in keep:
             continue
-        tris, kinds = view(r, kinds=True)
+        tris, kinds = view(r, path=path, kinds=True)
         # (the pieces of each wall triangle merged back, by kind, so the page carries far fewer triangles)
         for w in list(tris):
             parts = []
@@ -79,7 +84,7 @@ def export(regions=None, keep=("F2",)):
                   "tris": P.reshape(-1, 9).tolist(), "ids": [w for w in sorted(tris) for _ in tris[w]],
                   "kinds": [k for w in sorted(tris) for k in kinds[w]],
                   "grid": {"lo": grid["lo"], "h": grid["h"], "shape": grid["shape"], "runs": grid["runs"][r]},
-                  "source": "region_db"}
+                  "source": "wall_sections" if os.path.isdir(path) else "region_db"}
         print(f"  {r}: {len(T)} triangles on {', '.join(out[r]['walls'])}")
     json.dump(out, open("region_walls.json", "w"), separators=(",", ":"))
     waiting = {r: sorted(set(ws) - done) for r, ws in db.get("touch", {}).items() if not set(ws) <= done}
@@ -182,7 +187,13 @@ def check(rid):
 
 if __name__ == "__main__":
     if "--export" in sys.argv:
-        ready, waiting = export()
+        # (--sections [region,...]: those regions from the wall sections, sec_pieces/)
+        if "--sections" in sys.argv:
+            k = sys.argv.index("--sections")
+            regs = sys.argv[k + 1].split(",") if len(sys.argv) > k + 1 else None
+            ready, waiting = export(regions=regs, path="sec_pieces")
+        else:
+            ready, waiting = export()
         print(f"complete: {', '.join(sorted(ready))}")
         for r, ws in sorted(waiting.items(), key=lambda kv: len(kv[1])):
             print(f"  {r} waits for {', '.join(ws)}")
