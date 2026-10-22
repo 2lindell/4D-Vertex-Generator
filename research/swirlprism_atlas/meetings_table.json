@@ -914,8 +914,8 @@
    "X94:1200"
   ],
   "ends": [
-   "STOPS: error",
-   "STOPS: error"
+   "line X33 (0.0025 on along the curve)",
+   "line X94 (0.0005 on along the curve)"
   ]
  },
  {
@@ -2130,7 +2130,7 @@
    "X94:1200"
   ],
   "ends": [
-   "STOPS: error",
+   "another line (0.0120 on along the curve)",
    "edge"
   ]
  },
@@ -2148,7 +2148,7 @@
   ],
   "ends": [
    "edge",
-   "STOPS: error"
+   "another line (0.0120 on along the curve)"
   ]
  },
  {
@@ -2164,8 +2164,8 @@
    "X94:1200"
   ],
   "ends": [
-   "STOPS: error",
-   "STOPS: error"
+   "another line (0.0120 on along the curve)",
+   "edge (0.0055 on along the curve)"
   ]
  },
  {
@@ -3529,8 +3529,8 @@
    "X10:1200"
   ],
   "ends": [
-   "STOPS: error",
-   "STOPS: error"
+   "edge (0.0040 on along the curve)",
+   "edge (0.0045 on along the curve)"
   ]
  },
  {

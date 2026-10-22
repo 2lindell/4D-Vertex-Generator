@@ -32,6 +32,7 @@ from meetings import mesh_edges, sample_segs, tri_tri
 
 FLIP = np.array([1, 1, -1.0])
 TOL = 1.5e-3
+REACH = 0.03                  # (how far an end is carried on along its exact curve before it is said to stop)
 
 
 def named_things(d):
@@ -157,7 +158,7 @@ def main(walls):
                             "kind": str(kd), "line": ", ".join(names), "length": round(L, 4),
                             "from": where(E[i0]), "to": where(E[j0]),
                             "surfaces": [sa.name if sa else None, sb.name if sb else None],
-                            "_host": pa, "_ends": [E[i0], E[j0]], "_pts": E})
+                            "_host": pa, "_ends": [E[i0], E[j0]], "_pts": E, "_s": (sa, sb)})
     # (a cut never stops part way across a wall: each end of a line on A must meet A's edge, a named line, or another
     # line on A; one that meets none is an error, something missing there)
     for r in out:
@@ -167,18 +168,41 @@ def main(walls):
         others = [o["_pts"] for o in out if o.get("_host") == pa and o is not r and "_pts" in o]
         oth = cKDTree(np.concatenate(others)) if others else None
         res = []
-        for e in r["_ends"]:
+        sa, sb = r["_s"]
+
+        def meets(e):
             if edge[pa] is not None and edge[pa].query(e)[0] < TOL:
-                res.append("edge")
-            elif any(tr.query(e)[0] < TOL for _, tr in lines):
-                res.append("line " + next(n for n, tr in lines if tr.query(e)[0] < TOL))
-            elif oth is not None and oth.query(e)[0] < TOL:
-                res.append("another line")
-            else:
-                res.append("STOPS: error")
+                return "edge"
+            for n_, tr in lines:
+                if tr.query(e)[0] < TOL:
+                    return "line " + n_
+            if oth is not None and oth.query(e)[0] < TOL:
+                return "another line"
+            return None
+        P = r["_pts"]
+        for e, far in ((r["_ends"][0], r["_ends"][1]), (r["_ends"][1], r["_ends"][0])):
+            got = meets(e)
+            # (a mesh stops a little short of its true edge: the end carried on along the exact curve, where both
+            # walls' equations vanish, for up to REACH, before it is said to stop)
+            if got is None and sa is not None and sb is not None:
+                near = P[np.argsort(np.linalg.norm(P - e, axis=1))[:6]]
+                t = e - near.mean(0)
+                t = t / (np.linalg.norm(t) + 1e-30)
+                x, run = e.copy(), 0.0
+                while got is None and run < REACH:
+                    y = project((x + 5e-4 * t)[None], [sa, sb])[0]
+                    if not np.isfinite(y).all():
+                        break
+                    t = (y - x) / (np.linalg.norm(y - x) + 1e-30)
+                    run += np.linalg.norm(y - x)
+                    x = y
+                    got = meets(x)
+                if got is not None:
+                    got += f" ({run:.4f} on along the curve)"
+            res.append(got or "STOPS: error")
         r["ends"] = res
     for r in out:
-        for k in ("_host", "_ends", "_pts"):
+        for k in ("_host", "_ends", "_pts", "_s"):
             r.pop(k, None)
     # (the same curve seen from two pieces of a wall listed once)
     uniq = {}
