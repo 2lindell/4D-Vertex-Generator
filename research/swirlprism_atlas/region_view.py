@@ -66,31 +66,46 @@ def known_line(lid):
 
 
 def split_along(T, lines, tol=1e-5):
-    """A flat piece's triangles (n, 3, 3) split along the known lines lying in its plane: [triangles] per part."""
-    import shapely
-    from shapely.geometry import LineString, Polygon
-    from shapely.ops import split, unary_union
+    """A flat piece's triangles (n, 3, 3) split along the known lines lying in its plane: [triangles] per part. Each
+    triangle is clipped exactly by the lines' half-planes (convex pieces, fanned), so no needle-thin triangles."""
     P = T.reshape(-1, 3)
     o = P.mean(0)
     _, _, vt = np.linalg.svd(P - o)
     e1, e2, n = vt
     to2 = lambda X: np.c_[(X - o) @ e1, (X - o) @ e2]
-    poly = unary_union([Polygon(to2(t)).buffer(1e-9) for t in T]).buffer(-1e-9)
-    parts = [poly]
+    cuts = []
     for L in lines:
         if np.abs((L - o) @ n).max() > tol:
             continue                                     # (not in this piece's plane)
         xy = to2(L)
-        d_ = (xy[-1] - xy[0]) / np.linalg.norm(xy[-1] - xy[0])
-        line = LineString(np.vstack([xy[0] - d_, xy, xy[-1] + d_]))   # (carried a little past its ends)
-        parts = [q for p in parts for q in split(p, line).geoms]
-    out = []
-    for p in parts:
-        for g in (p.geoms if hasattr(p, "geoms") else [p]):
-            if g.area > 1e-10:
-                tri = [np.array(t.exterior.coords)[:3] for t in shapely.constrained_delaunay_triangles(g).geoms]
-                out.append(np.array([o + c[:, :1] * e1 + c[:, 1:2] * e2 for c in tri]))
-    return out
+        a, b = xy[0], xy[-1]
+        nn = np.array([-(b - a)[1], (b - a)[0]])
+        cuts.append((a, nn / np.linalg.norm(nn)))        # (straight lines: a point and a normal)
+
+    def clip(poly, a, nn, sgn):
+        out = []
+        for k in range(len(poly)):
+            p, q = poly[k], poly[(k + 1) % len(poly)]
+            fp, fq = sgn * (p - a) @ nn, sgn * (q - a) @ nn
+            if fp >= 0:
+                out.append(p)
+            if (fp >= 0) != (fq >= 0):
+                out.append(p + (q - p) * fp / (fp - fq))
+        return out
+    parts = {}
+    for t in T:
+        polys = [(to2(t).tolist(), ())]
+        for ci, (a, nn) in enumerate(cuts):
+            polys = [(clip(np.array(p), a, nn, s), key + (s,)) for p, key in polys for s in (1, -1)]
+            polys = [(p, k) for p, k in polys if len(p) >= 3]
+        for p, key in polys:
+            p = np.array(p)
+            if 0.5 * abs(np.cross(p[1:-1] - p[0], p[2:] - p[0]).sum()) < 1e-14:
+                continue
+            for m in range(1, len(p) - 1):
+                parts.setdefault(key, []).append(o + np.array([p[0], p[m], p[m + 1]])[:, :1] * e1
+                                                 + np.array([p[0], p[m], p[m + 1]])[:, 1:2] * e2)
+    return [np.array(v) for v in parts.values()]
 
 
 def whole_faces(walls, rid=None, splits=None):
@@ -216,7 +231,7 @@ def merge_coplanar(T, tol=1e-9):
         e1 /= np.linalg.norm(e1)
         e2 = np.cross(n, e1)
         polys = [Polygon(np.c_[(t - o) @ e1, (t - o) @ e2]) for t in T[idx]]
-        m = unary_union([p.buffer(1e-9) for p in polys]).buffer(-1e-9).simplify(1e-9, preserve_topology=True)
+        m = unary_union([p.buffer(1e-9) for p in polys]).buffer(-1e-9).simplify(1e-6, preserve_topology=True)
         for part in (m.geoms if hasattr(m, "geoms") else [m]):
             if part.area <= 0:
                 continue

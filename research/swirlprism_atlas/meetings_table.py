@@ -3,13 +3,17 @@
 For each wall A asked for and every other wall B, their meshes (the page's, originals and copies) are intersected and
 the pieces joined into curves. Each curve is one of:
 
+    same surface the two walls lie on one surface, side by side: not a crossing
     named line   it runs along a line the page already has (a traced line, segment or ring): defined
     B ends on A  it runs along B's own edge: a line on A, where A is cut for a region changing across it
     A ends on B  it runs along A's own edge: A's own boundary, nothing new on A
     crossing     along neither wall's edge: the walls pass through each other, a line to create on both
 
-with its length and its two ends (a named point where there is one, else beta), so the lines still to make can be
-read off. Writes meetings_table.json.
+Each meeting is put exactly on both walls' surfaces before its pieces are joined, so a curve comes out whole; it is
+given with its length, the two surfaces whose meeting it is, and its two ends (a named point where there is one, else beta), so the lines still to make can be
+read off. A line on a wall must end on the wall's edge, a named line or another line on it: a cut never stops part
+way across (it may come back to the line it left); one that does is flagged as an error, something missing there.
+Writes meetings_table.json.
 
     python meetings_table.py X3,X9,X10,X11,X14,X21,T2
 """
@@ -79,14 +83,42 @@ def main(walls):
     seg, pairs = seg[ok], pairs[ok]
     # (each meeting piece, seen from wall A's side)
     by = defaultdict(list)
+    tri_a = defaultdict(list)
     for (i, j), s in zip(pairs, seg):
         for a, b in ((i, j), (j, i)):
             if wall_of[a] in want:
                 by[(owner[a], owner[b])].append(s)
-    seen_pair = set()
+                tri_a[(owner[a], owner[b])].append(a)
+    # (each piece's exact surface: a meeting is put on both walls' surfaces, so its pieces join along the exact
+    # curve; two walls on the same surface lie side by side there, they do not cross)
+    from arrangement import carriers, project, surfaces
+    from wall_sections import surface_of
+    surfs = surfaces()
+    carry = carriers(surfs)
+    from arrangement import DOMAIN
+    surfs = [x for x in surfs if x.name in carry] + DOMAIN      # (walls lying in a face of the cell too)
+    surf = {}
+    for pid in {p for k in by for p in k}:
+        surf[pid] = surface_of(pieces[pid][3], surfs)
     out = []
     for (pa, pb), S in by.items():
         S = np.array(S)
+        sa, sb = surf[pa], surf[pb]
+        if sa is not None and sb is not None:
+            # (the same surface: the other's equation vanishes over A's own triangles there, not just on the meeting)
+            Ca = allT[np.array(tri_a[(pa, pb)])].mean(1)
+            Cb = allT[np.array(tri_a.get((pb, pa), [])) if (pb, pa) in tri_a else
+                      np.array([t for t in range(len(allT)) if owner[t] == pb])].mean(1)
+            # (both ways: a surface that splits into factors can vanish on a wall it does not hold)
+            on = lambda s_, X: np.median(np.abs(s_.at(X)) / (np.linalg.norm(s_.grad(X), axis=1) + 1e-30)) < 1e-6
+            if sa is sb or (on(sb, Ca) and on(sa, Cb)):
+                L = float(np.linalg.norm(S[:, 1] - S[:, 0], axis=1).sum())
+                if L >= 1e-3:
+                    out.append({"A": f"{pieces[pa][0]} ({pieces[pa][1]})", "B": f"{pieces[pb][0]} ({pieces[pb][1]})",
+                                "kind": "same surface", "line": "", "length": round(L, 4), "from": "", "to": "",
+                                "surfaces": [sa.name, sb.name]})
+                continue
+            S = project(S.reshape(-1, 3), [sa, sb]).reshape(-1, 2, 3)
         P3 = np.stack([S[:, 0], S.mean(1), S[:, 1]], 1)
         on_named = [None] * len(S)
         for n, tr in lines:
@@ -108,7 +140,7 @@ def main(walls):
                     parent[x] = parent[parent[x]]
                     x = parent[x]
                 return x
-            for p, q in cKDTree(ends).query_pairs(2e-3):
+            for p, q in cKDTree(ends).query_pairs(1e-2):
                 parent[find(p % len(m))] = find(q % len(m))
             comps = defaultdict(list)
             for k in range(len(m)):
@@ -123,7 +155,31 @@ def main(walls):
                 names = sorted({on_named[k] for k in ks if on_named[k]})
                 out.append({"A": f"{pieces[pa][0]} ({pieces[pa][1]})", "B": f"{pieces[pb][0]} ({pieces[pb][1]})",
                             "kind": str(kd), "line": ", ".join(names), "length": round(L, 4),
-                            "from": where(E[i0]), "to": where(E[j0])})
+                            "from": where(E[i0]), "to": where(E[j0]),
+                            "surfaces": [sa.name if sa else None, sb.name if sb else None],
+                            "_host": pa, "_ends": [E[i0], E[j0]], "_pts": E})
+    # (a cut never stops part way across a wall: each end of a line on A must meet A's edge, a named line, or another
+    # line on A; one that meets none is an error, something missing there)
+    for r in out:
+        if "_host" not in r or r["kind"] in ("A ends on B", "same surface"):
+            continue
+        pa = r["_host"]
+        others = [o["_pts"] for o in out if o.get("_host") == pa and o is not r and "_pts" in o]
+        oth = cKDTree(np.concatenate(others)) if others else None
+        res = []
+        for e in r["_ends"]:
+            if edge[pa] is not None and edge[pa].query(e)[0] < TOL:
+                res.append("edge")
+            elif any(tr.query(e)[0] < TOL for _, tr in lines):
+                res.append("line " + next(n for n, tr in lines if tr.query(e)[0] < TOL))
+            elif oth is not None and oth.query(e)[0] < TOL:
+                res.append("another line")
+            else:
+                res.append("STOPS: error")
+        r["ends"] = res
+    for r in out:
+        for k in ("_host", "_ends", "_pts"):
+            r.pop(k, None)
     # (the same curve seen from two pieces of a wall listed once)
     uniq = {}
     for r in out:
@@ -132,7 +188,9 @@ def main(walls):
     out = sorted(uniq.values(), key=lambda r: (r["A"], r["B"], r["kind"], -r["length"]))
     json.dump(out, open("meetings_table.json", "w"), indent=1)
     for r in out:
-        print(f"{r['A']:13s} x {r['B']:13s} {r['kind']:12s} {r['line'][:28]:28s} {r['length']:.4f}  {r['from']}  ->  {r['to']}")
+        if r["kind"] != "named line":
+            print(f"{r['A']:13s} x {r['B']:13s} {r['kind']:12s} {r['length']:.4f}  {r['from']}  ->  {r['to']}"
+                  + (f"   ends: {' / '.join(r['ends'])}" if r.get("ends") else ""))
 
 
 if __name__ == "__main__":

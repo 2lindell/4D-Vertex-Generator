@@ -38,7 +38,7 @@ def split_by(P, f):
     from skimage.measure import find_contours
     for c in find_contours(vals, 0.0):
         xy = np.c_[b[0] + c[:, 1] / (m - 1) * (b[2] - b[0]), b[1] + c[:, 0] / (m - 1) * (b[3] - b[1])]
-        line = LineString(xy)
+        line = LineString(xy).simplify(2e-5)         # (the contour's dense points thinned: no needle triangles)
         if not line.intersects(poly):
             continue
         parts = [q for p in parts for q in split(p, line).geoms]
