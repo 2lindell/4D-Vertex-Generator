@@ -28,6 +28,27 @@ from region_db import Labels, load_pieces, save_pieces
 
 COVER = 0.97          # (the share of each wall's area whose faces are classified)
 STEP = 4e-4
+FLAT_STEP = 2e-5      # (where another wall nearly touches one, the region between is thinner than STEP, which jumps
+                      # clean across it: X12 between X3 and X7)
+_PHI = (1 + 5 ** 0.5) / 2
+# walls whose exact surface is known (in the cell's normalised betas): every face of them is classified, a short step
+# (FLAT_STEP) off its middle put back on the surface, along the surface's own normal; the mesh lies up to 1e-4 off
+# the surface, and near the edges where another wall comes close the region between is thinner than STEP
+EXACT = {
+    "X7": lambda B: _PHI ** 2 * B[:, 0] * B[:, 3] - B[:, 1] * B[:, 3] + _PHI * B[:, 2] * (B[:, 2] - B[:, 1] - B[:, 3]),
+}
+
+
+def on_surface(f, X, iters=8, e=1e-7):
+    """Points X (cell xyz) moved onto f(betas) = 0, and the unit normals there."""
+    val = lambda Y: f(rc.betas(Y) / rc.betas(Y).sum(1, keepdims=True))
+    grad = lambda Y: np.stack([(val(Y + e * np.eye(3)[k]) - val(Y - e * np.eye(3)[k])) / (2 * e) for k in range(3)], 1)
+    Y = np.array(X, float)
+    for _ in range(iters):
+        g = grad(Y)
+        Y = Y - (val(Y) / np.einsum("ni,ni->n", g, g))[:, None] * g
+    g = grad(Y)
+    return Y, g / np.linalg.norm(g, axis=1, keepdims=True)
 
 
 def polygon(f):
@@ -243,10 +264,15 @@ def main(walls=None):
         # face's biggest piece; the small rest keep the sides most of their pieces have)
         big = sorted(fa, key=lambda c: -fa[c])
         cs = np.cumsum([fa[c] for c in big]) / sum(fa.values())
-        big = big[:int(np.searchsorted(cs, COVER)) + 1]
+        big = big if wid in EXACT else big[:int(np.searchsorted(cs, COVER)) + 1]
         C = np.array([lead[c][1].mean(0) for c in big])
         N = np.array([lead[c][2] for c in big])
-        got = labels(np.concatenate([rc.betas(C + STEP * N), rc.betas(C - STEP * N)])) if big else []
+        step = STEP
+        if wid in EXACT and big:
+            C, G = on_surface(EXACT[wid], C)
+            N = G * np.sign(np.einsum("ni,ni->n", G, N))[:, None]     # (the pieces' own orientation)
+            step = FLAT_STEP
+        got = labels(np.concatenate([rc.betas(C + step * N), rc.betas(C - step * N)])) if big else []
         best = {c: votes[c].most_common(1)[0][0] for c in votes}
         n_cls = 0
         for m, c in enumerate(big):
@@ -268,10 +294,6 @@ def main(walls=None):
         print(f"{wid}: {n_s} crossing surfaces; {len(parts)} pieces in {len(set(comp))} faces ({n_cls} "
               f"classified); {changed / max(total, 1e-30):.1%} of the area relabelled to its face's sides", flush=True)
         save_pieces(fp, [wid])
-
-
-FLAT_STEP = 2e-5      # (flat walls: where another wall nearly touches one, the region between is thinner than the
-                      # 4e-4 step used elsewhere, which jumps clean across it: X12 between X3 and X7)
 
 
 def relabel_flat(walls):
