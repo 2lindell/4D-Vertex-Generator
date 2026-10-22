@@ -11,6 +11,7 @@ faces making up most of the wall (COVER of its area) are classified once on each
 piece; the small rest take the sides most of their area has. The pieces' own labels are kept as "sides_piece".
 
     python region_faces.py [walls]          (all walls in region_pieces/ by default; then region_view.py --export)
+    python region_faces.py --flat walls     (flat walls: each face's sides from several points, a short step off)
 """
 from __future__ import annotations
 
@@ -269,5 +270,69 @@ def main(walls=None):
         save_pieces(fp, [wid])
 
 
+FLAT_STEP = 2e-5      # (flat walls: where another wall nearly touches one, the region between is thinner than the
+                      # 4e-4 step used elsewhere, which jumps clean across it: X12 between X3 and X7)
+
+
+def relabel_flat(walls):
+    """Each face of a flat wall given the sides most of it has: both sides classified a short step (FLAT_STEP) off a
+    few points spread over the face (more on bigger faces), clear of the mirror β3 = β4, where a step can cross it."""
+    fp = load_pieces(set(walls.split(",")))
+    labels = Labels()
+    for wid, faces in sorted(fp.items()):
+        jobs, owner, normal = [], [], {}
+        rng = np.random.default_rng(0)
+        for i, f in enumerate(faces):
+            if not f["tris"]:
+                continue
+            T = np.array(f["tris"], float).reshape(-1, 3, 3)
+            N = np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0])
+            a = 0.5 * np.linalg.norm(N, axis=1)
+            if a.sum() < 1e-14:
+                continue
+            n = N[a.argmax()] / np.linalg.norm(N[a.argmax()])
+            k = int(np.clip(a.sum() / 2e-6, 3, 40))
+            j = rng.choice(len(T), 4 * k, p=a / a.sum())
+            u, v = rng.random(4 * k), rng.random(4 * k)
+            fl = u + v > 1
+            u[fl], v[fl] = 1 - u[fl], 1 - v[fl]
+            X = T[j, 0] + u[:, None] * (T[j, 1] - T[j, 0]) + v[:, None] * (T[j, 2] - T[j, 0])
+            B = rc.betas(X)
+            X = X[np.abs(B[:, 2] - B[:, 3]) > 1e-4][:k]
+            if not len(X):
+                continue
+            normal[i] = n
+            for x in X:
+                jobs += [x + FLAT_STEP * n, x - FLAT_STEP * n]
+                owner.append(i)
+        got = labels(rc.betas(np.array(jobs))) if jobs else []
+        votes = defaultdict(Counter)
+        for m, i in enumerate(owner):
+            sn = (got[2 * m], got[2 * m + 1])
+            if not any(x is None or str(x).startswith(("mixed", "TIMEOUT", "ERR")) for x in sn):
+                votes[i][sn] += 1
+        changed = total = 0.0
+        for i, f in enumerate(faces):
+            if i not in votes or not votes[i]:
+                continue
+            n = normal[i]
+            sn = list(votes[i].most_common(1)[0][0])
+            T = np.array(f["tris"], float).reshape(-1, 3, 3)
+            c = T.reshape(-1, 3).mean(0)
+            a = area(T.reshape(-1, 3)) if len(T) == 1 else 0.5 * np.linalg.norm(np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]), axis=1).sum()
+            f.setdefault("sides_piece", f["sides"])
+            total += a
+            if sorted(sn) != sorted(f["sides_piece"]):
+                changed += a
+            f["sides"] = sn
+            # (the cut flags follow the sides, now in this normal's orientation)
+            f["cut"] = [bool(~rc.inside(rc.betas((c + s_ * 4e-4 * n)[None]))[0]) for s_ in (1, -1)]
+        print(f"{wid}: {len(votes)} flat faces classified; {changed / max(total, 1e-30):.1%} of the area relabelled", flush=True)
+        save_pieces(fp, [wid])
+
+
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else None)
+    if len(sys.argv) > 2 and sys.argv[1] == "--flat":
+        relabel_flat(sys.argv[2])
+    else:
+        main(sys.argv[1] if len(sys.argv) > 1 else None)
