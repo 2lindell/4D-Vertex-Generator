@@ -6,8 +6,10 @@ a traced line, along the edge of a wall that ends on it, or where a wall passes 
 such wall's exact surface (arrangement.py's surfaces), across the whole mesh, so a crossing that stops part way is
 carried on to the mesh's edge as an invisible line. The sections are the neighbouring triangles on the same side of
 every one of those surfaces. Each section has one region on each side: the one most of the database's voxels
-(region_grid.json) beside it on that side belong to, counting only voxels on the section's own side of every cutting
-wall. No classification.
+(region_grid.json) beside it on that side belong to: for each of a few hundred points spread over the section, the
+first labelled voxel going out from it, counting only voxels on the section's own side of every cutting wall. Where
+those split between two regions, a line no wall's mesh marks crosses the section: the wall surface through the points
+where they change is found and the section cut along it too. No classification.
 
     python wall_sections.py X3,X7,X10,X83,T2,X11     (writes sec_pieces/<wall>.json.gz, as region_pieces/)
 """
@@ -77,6 +79,125 @@ class Grid:
         return out
 
 
+def _sections(T, S_me, cutters, kind, grid):
+    """The mesh cut along the cutting surfaces into sections, each named from the database's voxels; and the
+    sections whose far side the voxels split between two regions (point sets either side of a line not yet cut)."""
+    mixed = []
+    V, F = weld(T)
+    m = Mesh(V, F, S_me)
+    for k, s in enumerate(cutters):
+        m.cut(s, k)
+    # (sections: neighbouring triangles on the same side of every cutting surface, by their furthest corner)
+    Ti = np.array(m.T)
+    S = np.zeros((len(Ti), len(cutters)), np.int8)
+    for k, s in enumerate(cutters):
+        g = s.at(m.V)[Ti]
+        S[:, k] = np.sign(g[np.arange(len(Ti)), np.abs(g).argmax(1)])
+    parent = list(range(len(Ti)))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    by_edge = defaultdict(list)
+    for t, (a, b, c) in enumerate(Ti):
+        for e in ((a, b), (b, c), (c, a)):
+            by_edge[(min(e), max(e))].append(t)
+    for ts in by_edge.values():
+        for t in ts[1:]:
+            if (S[t] == S[ts[0]]).all():
+                parent[find(t)] = find(ts[0])
+    comp = np.array([find(t) for t in range(len(Ti))])
+    Tri = m.V[Ti]
+    A = 0.5 * np.linalg.norm(np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0]), axis=1)
+    N = np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0])
+    N /= np.linalg.norm(N, axis=1, keepdims=True) + 1e-300
+    rng = np.random.default_rng(1)
+    faces = []
+    for c in np.unique(comp):
+        idx = np.flatnonzero(comp == c)
+        a = A[idx]
+        if a.sum() < 1e-12:
+            continue
+        # (points spread over the section, and the voxels a few voxels off it on each side)
+        j = idx[rng.choice(len(idx), min(400, 20 * len(idx)), p=a / a.sum())]
+        u, v = rng.random(len(j)), rng.random(len(j))
+        fl = u + v > 1
+        u[fl], v[fl] = 1 - u[fl], 1 - v[fl]
+        X = Tri[j, 0] + u[:, None] * (Tri[j, 1] - Tri[j, 0]) + v[:, None] * (Tri[j, 2] - Tri[j, 0])
+        n = N[j] * np.sign(N[j] @ N[idx[a.argmax()]])[:, None]           # (one orientation over the section)
+        sides = []
+        sec_sign = S[idx[a.argmax()]]
+        for sgn in (1, -1):
+            votes = Counter()
+            first = np.zeros(len(X), int)                 # (each point: the first region met going out from it)
+            for k in (1.5, 2.5, 3.5, 4.5, 5.5):
+                Y = X + sgn * k * grid.h * n
+                lab = grid.at(Y)
+                # (a voxel counts only on the section's own side of every wall cutting this one: a vote never
+                # reaches across a wall the section ends on)
+                same = np.ones(len(Y), bool)
+                for kk, cs in enumerate(cutters):
+                    if sec_sign[kk]:
+                        same &= np.sign(cs.at(Y)) == sec_sign[kk]
+                take = (first == 0) & same & (lab > 0)
+                first[take] = lab[take]
+            votes.update(int(x) for x in first if x)
+            if votes:
+                # (two regions beside one section: a line between them crosses it that no wall's mesh marks)
+                (r1, n1), *rest = votes.most_common(2)
+                if rest and rest[0][1] >= 15 and rest[0][1] > 0.15 * sum(votes.values()):
+                    r2 = rest[0][0]
+                    mixed.append((X[first == r1], X[first == r2], grid.names[r1], grid.names[r2]))
+            if not votes:
+                # (a side past the half-cell's faces: the same places brought into the half-cell by the group,
+                # as the database names them)
+                from region_db import home
+                for k in (1.5, 2.5, 3.5, 4.5):
+                    Bh = home(rc.betas(X + sgn * k * grid.h * n))
+                    okh = ~np.isnan(Bh).any(1)
+                    votes.update(int(x) for x in grid.at(rc.xyz(Bh[okh])) if x)
+            sides.append(grid.names[votes.most_common(1)[0][0]] if votes else "unknown")
+        if sides[0] == sides[1]:
+            continue
+        # (a section never more than SLIVER from a wall cutting it is this mesh's edge poking past that wall, where
+        # it ends on it: not a part of the wall)
+        V_ = np.concatenate([Tri[idx].mean(1), (Tri[idx] + Tri[idx][:, [1, 2, 0]]).reshape(-1, 3) / 2])   # (inside the triangles,
+        # not their corners, which may lie on the cutting wall where the section is a large flat triangle)
+        if any((np.abs(cs.at(V_)) / (np.linalg.norm(cs.grad(V_), axis=1) + 1e-30)).max() < SLIVER for cs in cutters):
+            continue
+        nn = N[idx[a.argmax()]]
+        cc = Tri[idx[a.argmax()]].mean(0)
+        faces.append({"sides": sides, "kind": kind, "mirror": False,
+                      "cut": [bool(~rc.inside(rc.betas((cc + sg_ * 4e-4 * nn)[None]))[0]) for sg_ in (1, -1)],
+                      "tris": Tri[idx].reshape(-1, 9).round(7).tolist()})
+    return faces, len(np.unique(comp)), mixed
+
+
+def _separator(mixed, surfs, exclude, h):
+    """The wall surface the line between two regions lies on: points of one region's side and the other's nearest
+    them, their midpoints, and the surface passing closest through them."""
+    mids = []
+    for Pa, Pb, ra, rb in mixed:
+        if not len(Pa) or not len(Pb):
+            continue
+        dd, jj = cKDTree(Pb).query(Pa)
+        k = dd < 0.02
+        mids.append((Pa[k] + Pb[jj[k]]) / 2)
+    if not mids:
+        return None
+    M = np.concatenate(mids)
+    best = None
+    for s in surfs:
+        if any(s is e for e in exclude):
+            continue
+        dist = np.median(np.abs(s.at(M)) / (np.linalg.norm(s.grad(M), axis=1) + 1e-30))
+        if best is None or dist < best[0]:
+            best = (dist, s)
+    return best[1] if best and best[0] < 3 * h else None
+
+
 def main(walls):
     want = set(walls.split(","))
     d = rw.page_data()
@@ -123,89 +244,20 @@ def main(walls):
             s = surface_of(pieces[q][3], surfs)
             if s is not None and s is not S_me and all(s is not c for c in cutters):
                 cutters.append(s)
-        V, F = weld(T)
-        m = Mesh(V, F, S_me)
-        for k, s in enumerate(cutters):
-            m.cut(s, k)
-        # (sections: neighbouring triangles on the same side of every cutting surface, by their furthest corner)
-        Ti = np.array(m.T)
-        S = np.zeros((len(Ti), len(cutters)), np.int8)
-        for k, s in enumerate(cutters):
-            g = s.at(m.V)[Ti]
-            S[:, k] = np.sign(g[np.arange(len(Ti)), np.abs(g).argmax(1)])
-        parent = list(range(len(Ti)))
-
-        def find(x):
-            while parent[x] != x:
-                parent[x] = parent[parent[x]]
-                x = parent[x]
-            return x
-        by_edge = defaultdict(list)
-        for t, (a, b, c) in enumerate(Ti):
-            for e in ((a, b), (b, c), (c, a)):
-                by_edge[(min(e), max(e))].append(t)
-        for ts in by_edge.values():
-            for t in ts[1:]:
-                if (S[t] == S[ts[0]]).all():
-                    parent[find(t)] = find(ts[0])
-        comp = np.array([find(t) for t in range(len(Ti))])
-        Tri = m.V[Ti]
-        A = 0.5 * np.linalg.norm(np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0]), axis=1)
-        N = np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0])
-        N /= np.linalg.norm(N, axis=1, keepdims=True) + 1e-300
-        rng = np.random.default_rng(1)
-        faces = []
-        for c in np.unique(comp):
-            idx = np.flatnonzero(comp == c)
-            a = A[idx]
-            if a.sum() < 1e-12:
-                continue
-            # (points spread over the section, and the voxels a few voxels off it on each side)
-            j = idx[rng.choice(len(idx), min(400, 20 * len(idx)), p=a / a.sum())]
-            u, v = rng.random(len(j)), rng.random(len(j))
-            fl = u + v > 1
-            u[fl], v[fl] = 1 - u[fl], 1 - v[fl]
-            X = Tri[j, 0] + u[:, None] * (Tri[j, 1] - Tri[j, 0]) + v[:, None] * (Tri[j, 2] - Tri[j, 0])
-            n = N[j] * np.sign(N[j] @ N[idx[a.argmax()]])[:, None]           # (one orientation over the section)
-            sides = []
-            sec_sign = S[idx[a.argmax()]]
-            for sgn in (1, -1):
-                votes = Counter()
-                for k in (1.5, 2.5, 3.5, 4.5):
-                    Y = X + sgn * k * grid.h * n
-                    lab = grid.at(Y)
-                    # (a voxel counts only on the section's own side of every wall cutting this one: a vote never
-                    # reaches across a wall the section ends on)
-                    same = np.ones(len(Y), bool)
-                    for kk, cs in enumerate(cutters):
-                        if sec_sign[kk]:
-                            same &= np.sign(cs.at(Y)) == sec_sign[kk]
-                    votes.update(int(x) for x in lab[same] if x)
-                if not votes:
-                    # (a side past the half-cell's faces: the same places brought into the half-cell by the group,
-                    # as the database names them)
-                    from region_db import home
-                    for k in (1.5, 2.5, 3.5, 4.5):
-                        Bh = home(rc.betas(X + sgn * k * grid.h * n))
-                        okh = ~np.isnan(Bh).any(1)
-                        votes.update(int(x) for x in grid.at(rc.xyz(Bh[okh])) if x)
-                sides.append(grid.names[votes.most_common(1)[0][0]] if votes else "unknown")
-            if sides[0] == sides[1]:
-                continue
-            # (a section never more than SLIVER from a wall cutting it is this mesh's edge poking past that wall, where
-            # it ends on it: not a part of the wall)
-            V_ = np.concatenate([Tri[idx].mean(1), (Tri[idx] + Tri[idx][:, [1, 2, 0]]).reshape(-1, 3) / 2])   # (inside the triangles,
-            # not their corners, which may lie on the cutting wall where the section is a large flat triangle)
-            if any((np.abs(cs.at(V_)) / (np.linalg.norm(cs.grad(V_), axis=1) + 1e-30)).max() < SLIVER for cs in cutters):
-                continue
-            nn = N[idx[a.argmax()]]
-            cc = Tri[idx[a.argmax()]].mean(0)
-            faces.append({"sides": sides, "kind": kind, "mirror": False,
-                          "cut": [bool(~rc.inside(rc.betas((cc + sg_ * 4e-4 * nn)[None]))[0]) for sg_ in (1, -1)],
-                          "tris": Tri[idx].reshape(-1, 9).round(7).tolist()})
+        found = []
+        for attempt in range(4):
+            faces, n_sec, mixed = _sections(T, S_me, cutters, kind, grid)
+            if not mixed:
+                break
+            extra = _separator(mixed, surfs, cutters + [S_me], grid.h)
+            if extra is None:
+                break
+            cutters.append(extra)
+            found.append(extra.name)
         by_wall[w] += faces
-        print(f"  {w} ({kind}): cut along {len(cutters)} surfaces ({', '.join(c.name for c in cutters)}); "
-              f"{len(np.unique(comp))} sections, {len(faces)} of them between two regions", flush=True)
+        print(f"  {w} ({kind}): cut along {len(cutters)} surfaces ({', '.join(c.name for c in cutters)})"
+              + (f" [found from the regions: {', '.join(found)}]" if found else "")
+              + f"; {n_sec} sections, {len(faces)} of them between two regions", flush=True)
     for w, faces in by_wall.items():
         json.dump(faces, gzip.open(os.path.join(OUT, f"{w}.json.gz"), "wt"), separators=(",", ":"))
 

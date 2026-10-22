@@ -63,6 +63,9 @@ def export(regions=None, keep=("F2",), path="region_pieces.json"):
     except FileNotFoundError:
         out = {}
     ready = [r for r, ws in db.get("touch", {}).items() if set(ws) <= done and r in grid["runs"]]
+    if os.path.isdir(path) and regions:
+        # (from the wall sections: the regions asked for, whole; a hand-checked colouring is replaced too)
+        ready, keep = list(regions), ()
     for r in ready:
         if (regions and r not in regions) or r in keep:
             continue
