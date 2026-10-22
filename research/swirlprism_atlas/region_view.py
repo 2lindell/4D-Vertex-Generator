@@ -101,6 +101,9 @@ def export(regions=None, keep=("F2",), path="region_pieces.json", whole=()):
                 parts.append((M, [k] * len(M)))
             tris[w] = np.concatenate([p[0] for p in parts]) if parts else tris[w]
             kinds[w] = [k for p in parts for k in p[1]]
+        # (a wall the region touches over a negligible area is a sliver where walls meet, not one of its walls)
+        for w in [w for w in tris if len(tris[w]) and area(np.asarray(tris[w]).reshape(-1, 3, 3)).sum() < 1e-5]:
+            tris[w], kinds[w] = np.zeros((0, 3, 3)), []
         T = [t for w in sorted(tris) for t in tris[w]]
         if not T:
             continue
