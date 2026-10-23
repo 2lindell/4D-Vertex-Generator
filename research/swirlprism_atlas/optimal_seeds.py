@@ -42,7 +42,8 @@ OUT = "optimal_seeds.json"
 FOLD = np.eye(4)[[1, 0, 3, 2]]
 ON = 1e-9                  # (a sample lies on a surface: |f| / |grad f| below this, betas summing to 1)
 STEP = 1e-4                # (the step along a candidate locus that must keep the classification)
-STARTS = 3                 # (refined starts per shape)
+STARTS = 2                 # (refined starts per shape)
+SPREAD = 20                # (samples scored per shape, spread over its list)
 
 
 def ratio_of(b):
@@ -221,7 +222,7 @@ def refine(args):
     h = {"region": 0.02, "wall": 0.01, "line": 0.01}[dim]
     simplex = np.vstack([np.zeros(len(U)), h * np.eye(len(U))])
     res = minimize(f, np.zeros(len(U)), method="Nelder-Mead",
-                   options={"initial_simplex": simplex, "xatol": 1e-7, "fatol": 1e-8, "maxiter": 120 * len(U)})
+                   options={"initial_simplex": simplex, "xatol": 1e-7, "fatol": 1e-8, "maxiter": 60 * len(U)})
     best = at(res.x) if res.fun < r0 else b0
     return {"ratio": float(min(res.fun, r0)), "beta": home(best).tolist(), "start": home(b0).tolist(),
             "start_ratio": float(r0), "constraints": [c.name for c in cons]}
@@ -237,38 +238,43 @@ def samples_by_shape():
     return by
 
 
+DIMS, BY = {}, {}
+
+
+def shape(tid):
+    """The optimal seed of one shape (run in a worker)."""
+    dim, B = DIMS[tid], np.array(BY.get(tid, []))
+    if not len(B):
+        return tid, None
+    if dim == "point":
+        b = B[0]
+        return tid, {"dim": dim, "beta": b.tolist(), "ratio": score(b, tid), "constraints": "the point itself"}
+    # (the samples' own ratios, spread over the locus: the best few are the starts)
+    idx = np.unique(np.linspace(0, len(B) - 1, min(len(B), SPREAD)).astype(int))
+    r = [score(B[i], tid) for i in idx]
+    order = [idx[i] for i in np.argsort(r)[:STARTS] if np.isfinite(r[i])]
+    if not order:
+        return tid, None
+    res = [refine((tid, dim, B[i])) for i in order]
+    return tid, {"dim": dim, **min(res, key=lambda x: x["ratio"])}
+
+
 def main(only=None):
+    global LIB, DIMS, BY
     d = rw.page_data()
-    dims = {t["id"]: t.get("dim") for t in d["types"]}
-    by = samples_by_shape()
+    DIMS = {t["id"]: t.get("dim") for t in d["types"]}
+    BY = samples_by_shape()
     done = json.load(open(OUT)) if os.path.exists(OUT) else {}
-    todo = [t for t in dims if (only is None and t not in done) or (only is not None and t in only)]
-    global LIB
-    lib = LIB = library()                                 # (the workers share it by forking)
-    print(f"{len(lib[0])} planes, {len(lib[1])} curved surfaces in the library; {len(todo)} shapes", flush=True)
+    todo = [t for t in DIMS if (only is None and t not in done) or (only is not None and t in only)]
+    LIB = library()                                       # (the workers share it by forking)
+    print(f"{len(LIB[0])} planes, {len(LIB[1])} curved surfaces in the library; {len(todo)} shapes", flush=True)
     with Pool(int(os.environ.get("PROCS", 4))) as pool:
-        for tid in todo:
-            dim = dims[tid]
-            B = np.array(by.get(tid, []))
-            if not len(B):
-                print(f"{tid}: no sample", flush=True)
+        for tid, e in pool.imap_unordered(shape, todo):
+            if e is None:
+                print(f"{tid}: no sample classifies as the shape", flush=True)
                 continue
-            if dim == "point":
-                b = B[0]
-                done[tid] = {"dim": dim, "beta": b.tolist(), "ratio": score(b, tid), "constraints": "the point itself"}
-            else:
-                # (the samples' own ratios, spread over the locus: the best few are the starts)
-                idx = np.unique(np.linspace(0, len(B) - 1, min(len(B), 40)).astype(int))
-                r = pool.starmap(score, [(B[i], tid) for i in idx])
-                order = [idx[i] for i in np.argsort(r)[:STARTS] if np.isfinite(r[i])]
-                if not order:
-                    print(f"{tid}: no sample classifies as the shape", flush=True)
-                    continue
-                res = pool.map(refine, [(tid, dim, B[i]) for i in order])
-                best = min(res, key=lambda x: x["ratio"])
-                done[tid] = {"dim": dim, **best}
-            e = done[tid]
-            print(f"{tid} ({dim}): ratio {e.get('start_ratio', e['ratio']):.4f} -> {e['ratio']:.6f} at beta "
+            done[tid] = e
+            print(f"{tid} ({e['dim']}): ratio {e.get('start_ratio', e['ratio']):.4f} -> {e['ratio']:.6f} at beta "
                   f"{np.round(e['beta'], 8).tolist()}; locus {e['constraints']}", flush=True)
             json.dump(done, open(OUT, "w"), indent=1)
 
