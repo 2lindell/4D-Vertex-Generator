@@ -91,9 +91,10 @@ class PolyCut:
         return self._m(np.atleast_2d(X))[1]
 
 
-def sample_tris(T, h):
-    """Points spread over the triangles about h apart (each triangle on its own grid): centres of its sub-triangles."""
-    out = []
+def sample_tris(T, h, owner=False):
+    """Points spread over the triangles about h apart (each triangle on its own grid): centres of its sub-triangles
+    (with owner: also the triangle each point lies in)."""
+    out, own = [], []
     L = np.linalg.norm(T - T[:, [1, 2, 0]], axis=2).max(1)
     ns = np.maximum(1, np.ceil(L / h)).astype(int)
     for n in np.unique(ns):
@@ -103,7 +104,8 @@ def sample_tris(T, h):
         u, v = (i[k] + 1 / 3) / n, (j[k] + 1 / 3) / n
         out.append((Tn[:, None, 0] + u[None, :, None] * (Tn[:, None, 1] - Tn[:, None, 0])
                     + v[None, :, None] * (Tn[:, None, 2] - Tn[:, None, 0])).reshape(-1, 3))
-    return np.concatenate(out)
+        own.append(np.repeat(np.flatnonzero(ns == n), len(u)))
+    return (np.concatenate(out), np.concatenate(own)) if owner else np.concatenate(out)
 
 
 def weld_close(T, tol=1e-6):
@@ -299,7 +301,18 @@ def flat_cut(T, plines):
                 continue
             Q2 = to2(Q)
             keep = np.array([near_piece.contains(shapely.Point(q)) for q in Q2])
-            ls = [g for r in runs(Q2[keep], 3e-3) for g in [r]] if keep.sum() > 1 else []
+            ls = runs(Q2[keep], 3e-3) if keep.sum() > 1 else []
+            # (a named line's runs carried on straight from their ends, to close a gap or reach the outline)
+            for i_, r_ in enumerate(ls):
+                C = np.array(r_.coords)
+                if len(C) < 2:
+                    continue
+                d0 = C[0] - C[min(3, len(C) - 1)]
+                d1 = C[-1] - C[max(-4, -len(C))]
+                d0, d1 = d0 / (np.linalg.norm(d0) + 1e-30), d1 / (np.linalg.norm(d1) + 1e-30)
+                ext = np.linspace(0, 0.03, 61)[1:, None]
+                C2 = np.vstack([(C[0] + ext * d0)[::-1], C, C[-1] + ext * d1])
+                whole[(k, i_)] = (C2, 60, 60 + len(C))
         else:
             # (the zero set of the cutter in the plane, on a grid over the piece; kept beside the line's points, the
             # rest kept to carry the line on with below)
@@ -335,14 +348,12 @@ def flat_cut(T, plines):
             if len(path) < 2:
                 continue
             ext = LineString(path)
-            if stop.distance(shapely.Point(path[0])) < 1e-7:
-                continue
             hit = ext.intersection(stop)
             if hit.is_empty:
                 continue
             ds = [ext.project(p_) for p_ in getattr(hit, "geoms", [hit]) for p_ in
                   ([p_] if p_.geom_type == "Point" else [shapely.Point(p_.coords[0])])]
-            d_ = min(x for x in ds if x > 1e-9) if any(x > 1e-9 for x in ds) else None
+            d_ = min(ds) if ds else None             # (an end already touching: carried just through it)
             if d_ is None or d_ > 0.15:
                 continue
             seg = shapely.ops.substring(ext, 0, d_ + 1e-6)
@@ -355,8 +366,13 @@ def flat_cut(T, plines):
             runs_k = [key for key in whole if key[0] == k]
             if not runs_k:
                 continue
-            stop = unary_union([poly.boundary] + [x for j, x in geoms.items() if j != k])
-            geoms[k] = unary_union([carried(k, *whole[key], stop) for key in runs_k]).simplify(2e-5)
+            parts = {key: LineString(whole[key][0][whole[key][1]:whole[key][2]]) for key in runs_k}
+            done_k = []
+            for key in runs_k:
+                stop = unary_union([poly.boundary] + [x for j, x in geoms.items() if j != k]
+                                   + [g for kk, g in parts.items() if kk != key])
+                done_k.append(carried(k, *whole[key], stop))
+            geoms[k] = unary_union(done_k).simplify(2e-5)
     if os.environ.get("CUTDBG"):
         for k, g_ in geoms.items():
             oth = unary_union([poly.boundary] + [x for j, x in geoms.items() if j != k])

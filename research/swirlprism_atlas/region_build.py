@@ -32,7 +32,7 @@ from region_db import home
 
 OUT = "sections"
 SLIVER = 1e-4          # (sections smaller than this are not checked or counted)
-OFF = (0.0012, 0.0025)  # (how far off the section the points are classified)
+OFF = (3e-4, 6e-4, 1.2e-3, 2.5e-3)  # (steps off the section: each point is named by the first region it meets)
 NPTS = 5
 BEYOND = "(beyond the half-cell)"
 
@@ -44,27 +44,28 @@ def _classify(b):
 
 
 def inner_points(T, n=NPTS):
-    """Points well inside a section: its triangles' centroids farthest from its own edge, with their normals."""
-    from collections import Counter as C_
+    """Points well inside a section, spread over it: of points sampled over it, the farthest from its own edge,
+    taken apart from each other; with the normal there and the distance to the edge."""
+    from cut_walls import sample_tris
     key = lambda p: tuple(np.round(p, 7))
-    cnt = C_()
+    cnt = Counter()
     for t in T:
         for a, b in ((0, 1), (1, 2), (2, 0)):
             cnt[frozenset((key(t[a]), key(t[b])))] += 1
     E = [np.array(list(e)) for e, k in cnt.items() if k == 1 and len(e) == 2]
-    C = T.mean(1)
+    X, owner = sample_tris(T, 0.0015, owner=True)
     N = np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0])
-    A = np.linalg.norm(N, axis=1)
-    N = N / (A[:, None] + 1e-300)
-    if E:
-        S = np.concatenate([a + np.linspace(0, 1, 12)[:, None] * (b - a) for a, b in E])
-        far = cKDTree(S).query(C)[0]
-    else:
-        far = np.ones(len(C))
-    # (small triangles crowd the edges of a section; the most central of the bigger ones)
-    order = np.argsort(-(far * np.sqrt(A + 1e-30)))
-    pick = order[:n]
-    return C[pick], N[pick], far[pick]
+    N = N / (np.linalg.norm(N, axis=1, keepdims=True) + 1e-300)
+    far = cKDTree(np.concatenate([a + np.linspace(0, 1, 40)[:, None] * (b - a) for a, b in E])).query(X)[0] if E \
+        else np.ones(len(X))
+    pick = []
+    for i in np.argsort(-far):
+        if all(np.linalg.norm(X[i] - X[j]) > 0.5 * far[i] for j in pick):
+            pick.append(i)
+        if len(pick) == n:
+            break
+    pick = np.array(pick)
+    return X[pick], N[owner[pick]], far[pick]
 
 
 def main():
@@ -85,31 +86,42 @@ def main():
                 Bp = rc.betas(P)
                 fk = [j for j in range(4) if np.abs(Bp[:, j]).max() < 1e-6]
                 into = np.eye(4)[fk[0]] if fk else np.array([0, 0, 0.5, -0.5])
-            for off in OFF:
-                for sd, sg in ((0, 1), (1, -1)):
-                    if face:
-                        if sd == 1:
-                            continue
-                        Y = rc.betas(P) + 0.6 * off * into
-                        Y = Y / Y.sum(1, keepdims=True)
-                    else:
-                        Y = rc.betas(P + sg * off * N)
-                    for y in home(Y):
-                        jobs.append(y)
-                        where.append((w, k, sd))
+            for sd, sg in ((0, 1), (1, -1)):
+                if face and sd == 1:
+                    continue
+                for pi_ in range(len(P)):
+                    for oi, off in enumerate(OFF):
+                        off = min(off, 0.45 * float(far[pi_]))
+                        if face:
+                            Y = rc.betas(P[pi_][None]) + 0.6 * off * into
+                            Y = Y / Y.sum(1, keepdims=True)
+                        else:
+                            Y = rc.betas((P[pi_] + sg * off * N[pi_])[None])
+                        jobs.append(home(Y)[0])
+                        where.append((w, k, sd, pi_, oi))
     print(f"{len(jobs)} points to classify on {sum(len(v) for v in secs.values())} sections of {len(secs)} walls", flush=True)
     with Pool(4) as pool:
         labs = pool.map(_classify, jobs, chunksize=20)
+    # (each point named by the first region met stepping out from the section; a wall's or line's own name, or an
+    # error, at a small step is passed over)
+    region_set = set(regions)
+    steps = defaultdict(dict)
+    for (w, k, sd, pi_, oi), lab in zip(where, labs):
+        steps[(w, k, sd, pi_)][oi] = lab
     got = defaultdict(lambda: defaultdict(Counter))
-    for (w, k, sd), lab in zip(where, labs):
-        got[(w, k)][sd][lab] += 1
+    for (w, k, sd, pi_), by_off in steps.items():
+        seq = [by_off[o] for o in sorted(by_off)]
+        first = next((x for x in seq if x in region_set), None)
+        if first is None:
+            first = next((x for x in seq if x not in ("ERR", "TIMEOUT", "OUT")), seq[-1])
+        got[(w, k)][sd][first] += 1
     findings = {"changed": [], "mixed": [], "new_shapes": [], "same_both_sides": [], "unclassified": []}
     for (w, k), by in got.items():
         f = secs[w][k]
         face = BEYOND in f["sides"]
         names = []
         for sd in ((0,) if face else (0, 1)):
-            c = by[sd]
+            c = Counter({k_: v_ for k_, v_ in by[sd].items() if k_ not in ("ERR", "TIMEOUT")}) or by[sd]
             top, n_top = c.most_common(1)[0]
             tot = sum(c.values())
             if n_top < 0.7 * tot:
