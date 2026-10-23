@@ -484,21 +484,26 @@ def extended():
     return ext()
 
 
+BEYOND_ = "(beyond the half-cell)"
+
+
 def copies_as_main(out, G):
     """Each copy's sections named as the main piece's sections they are the images of."""
     # (a copy is the wall carried by an element of the extended group, regions with it: each of its sections takes
     # the sides of the main piece's section it is the image of, not its own voxel votes)
     GG = np.array([F @ M for M in G for F in (np.eye(4), FOLD)])
     for w, faces in out.items():
-        main_f = [f for f in faces if f["kind"] == "orig"]
+        is_copy = lambda f: f.get("copy", f["kind"] == "copy")
+        main_f = [f for f in faces if not is_copy(f) and BEYOND_ not in f["sides"]]   # (not a face's view of it)
         if not main_f:
             continue
-        P0 = np.concatenate([np.array(f["tris"]).reshape(-1, 3, 3).mean(1) for f in main_f])
+        T0 = np.concatenate([np.array(f["tris"]).reshape(-1, 3, 3) for f in main_f])
+        P0 = T0.mean(1)
         lab0 = np.concatenate([[k] * len(f["tris"]) for k, f in enumerate(main_f)])
         tree0 = cKDTree(P0)
         reach = 0.75 * max(float(np.linalg.norm(np.array(f["tris"]).reshape(-1, 3, 3) - np.array(f["tris"]).reshape(-1, 3, 3).mean(1)[:, None], axis=2).max()) for f in main_f)
         for f in faces:
-            if f["kind"] != "copy":
+            if not is_copy(f) or BEYOND_ in f["sides"]:
                 continue
             T_ = np.array(f["tris"]).reshape(-1, 3, 3)
             A_ = 0.5 * np.linalg.norm(np.cross(T_[:, 1] - T_[:, 0], T_[:, 2] - T_[:, 0]), axis=1)
@@ -511,12 +516,31 @@ def copies_as_main(out, G):
                 B = Y[g] / s_[g]
                 if (B < -1e-9).any() or (B[:, 2] < B[:, 3] - 1e-9).any():
                     continue
-                dd, ii = tree0.query(rc.xyz(B))
-                if dd.max() < reach and (best is None or dd.max() < best[0]):
-                    best = (dd.max(), ii)
+                Xg = rc.xyz(B)
+                dd, _ = tree0.query(Xg)
+                if dd.max() > reach:
+                    continue
+                # (each image point inside a main triangle, exactly: on its plane and within it)
+                labs_ = []
+                for x in Xg:
+                    hit = None
+                    for t in tree0.query_ball_point(x, reach):
+                        tri = T0[t]
+                        e1, e2 = tri[1] - tri[0], tri[2] - tri[0]
+                        nrm_ = np.cross(e1, e2)
+                        if abs((x - tri[0]) @ nrm_) > 1e-6 * np.linalg.norm(nrm_) * max(np.linalg.norm(e1), 1e-9) * 10:
+                            continue
+                        uv = np.linalg.lstsq(np.c_[e1, e2], x - tri[0], rcond=None)[0]
+                        if uv.min() > -1e-6 and uv.sum() < 1 + 1e-6:
+                            hit = lab0[t]
+                            break
+                    labs_.append(hit)
+                n_in = sum(h_ is not None for h_ in labs_)
+                if n_in >= 0.9 * len(labs_) and (best is None or n_in > best[0]):
+                    best = (n_in, np.array([h_ for h_ in labs_ if h_ is not None]))
             if best is None:
                 continue
-            k = np.bincount(lab0[best[1]]).argmax()
+            k = np.bincount(best[1]).argmax()
             src = main_f[k]["sides"]
             if set(src) != set(f["sides"]):
                 f["voxels_said"] = f["sides"]

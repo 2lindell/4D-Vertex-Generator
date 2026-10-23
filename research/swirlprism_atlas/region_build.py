@@ -73,6 +73,14 @@ def main():
     regions = [t["id"] for t in d["types"] if t.get("dim") == "region"]
     known = {t["id"] for t in d["types"]}
     secs = {os.path.basename(f).split(".")[0]: json.load(gzip.open(f, "rt")) for f in sorted(glob.glob(f"{OUT}/*.json.gz"))}
+    for faces in secs.values():                       # (each section as the cutter named it, before any later pass)
+        for f in faces:
+            if "voxels_said" in f:
+                f["sides"] = f.pop("voxels_said")
+            if "voxel_sides" in f:
+                f["sides"] = f.pop("voxel_sides")
+            if f.get("named") in ("classified", "as its main piece"):
+                f["named"] = "voxels"
     jobs, where = [], []
     for w, faces in secs.items():
         for k, f in enumerate(faces):
@@ -159,6 +167,17 @@ def main():
         f["checked"] = {str(sd): dict(c) for sd, c in by.items()}
     for w, faces in secs.items():
         json.dump(faces, gzip.open(os.path.join(OUT, f"{w}.json.gz"), "wt"), separators=(",", ":"))
+    # (a copy patch or mesh is the wall carried by the group, regions with it: its sections take the sides of the
+    # main piece's sections they are images of, after these are checked)
+    from cut_walls import copies_as_main
+    from t2_pieces import extended
+    pieces = rw.pieces_of(d, {w_["id"] for w_ in d["xwalls"]} | {"T2"})
+    for w, faces in secs.items():
+        for f in faces:
+            _, kind_, i_, _ = pieces[f["piece"]]
+            f["copy"] = kind_ == "copy"               # (a curved wall's copy mesh; a flat wall's copy patches are
+            #                                           traced in their own planes and keep their own sides)
+    copies_as_main(secs, extended())
     # (2) each region's walls, and the partial ones
     # (a section with one region on both sides lies inside it: not a boundary; a wall's own or a line's name on a
     # side is a place the classifier could not step clear of, noted)
