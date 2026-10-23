@@ -886,7 +886,8 @@ __TYPE_CSS__
       const rows = D.types.filter(test);
       if (byLocus) rows.sort((a, b) => (a.locus || "~").localeCompare(b.locus || "~"));
       for (const t of rows) {
-        let counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br>${seedLine(t.seed)}<br>β ∝ ${t.betatext}` : "";
+        let counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br>${seedLine(t.seed)}<br>β ∝ ${t.betatext}`
+          + (t.evenness ? `<br><span class="locus">most even edges: longest/shortest ${t.evenness.toFixed(4)}</span>` : "") : "";
         if (t.exact) counts += `<div class="exact"><span class="xmark" style="color:${color(t)}">✕</span> exact point ${t.exact.label ? "(" + t.exact.label + ")" : "at " + t.exact.angle + "°"}: cells ${t.exact.cells}<br>faces ${t.exact.faces}<br>edges ${t.exact.edges}</div>`;
         html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
           + `<td class="counts">${counts}</td><td class="where">${t.where || (t.samples ? "golden samples" : "not found yet")}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td><td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;

@@ -1556,6 +1556,15 @@ def main(samples_path, out_path):
             if len(poly) >= 3:
                 mirrors.append(poly)
 
+    # the example seed of each shape: its most even-edged point (optimal_seeds.py), where one has been found
+    opt = json.load(open("optimal_seeds.json")) if os.path.exists("optimal_seeds.json") else {}
+    for t in types:
+        o = opt.get(t["id"])
+        if not o or not np.isfinite(o.get("ratio", np.inf)) or "seed" not in t:
+            continue
+        b = to_upper(np.array(o["beta"], float))
+        t.update({"example": f"{seed_text(b)}  β ∝ {beta_text(b)}", "seed": seed_text(b), "betatext": beta_text(b),
+                  "evenness": round(float(o["ratio"]), 6)})
     for t in types:
         t.pop("counts", None)
         t.setdefault("samples", 0)
