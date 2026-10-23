@@ -191,10 +191,10 @@ def export(regions=None, keep=("F2",), path="region_pieces.json", whole=(), only
         if not T:
             continue
         P = (np.array(T).reshape(-1, 3) * FLIP).round(6)
-        out[r] = {"walls": sorted(w for w in tris if len(tris[w])), "pockets": grid["pockets"][r],
+        out[r] = {"walls": sorted(w for w in tris if len(tris[w])), "pockets": grid["pockets"].get(r, []),
                   "tris": P.reshape(-1, 9).tolist(), "ids": [w for w in sorted(tris) for _ in tris[w]],
                   "kinds": [k for w in sorted(tris) for k in kinds[w]],
-                  "grid": {"lo": grid["lo"], "h": grid["h"], "shape": grid["shape"], "runs": grid["runs"][r]},
+                  "grid": {"lo": grid["lo"], "h": grid["h"], "shape": grid["shape"], "runs": grid["runs"].get(r, [])},
                   "source": "wall_sections" if os.path.isdir(path) else "region_db"}
         print(f"  {r}: {len(T)} triangles on {', '.join(out[r]['walls'])}")
     json.dump(out, open("region_walls.json", "w"), separators=(",", ":"))

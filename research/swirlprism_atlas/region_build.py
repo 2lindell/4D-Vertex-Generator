@@ -147,17 +147,26 @@ def main():
     for w, faces in secs.items():
         json.dump(faces, gzip.open(os.path.join(OUT, f"{w}.json.gz"), "wt"), separators=(",", ":"))
     # (2) each region's walls, and the partial ones
+    # (a section with one region on both sides lies inside it: not a boundary; a wall's own or a line's name on a
+    # side is a place the classifier could not step clear of, noted)
+    region_set = set(regions)
     walls_of, part_of = defaultdict(set), defaultdict(set)
+    findings["wall_names_as_sides"] = []
     for w, faces in secs.items():
-        for f in faces:
-            if f["area"] < SLIVER:
+        for k, f in enumerate(faces):
+            f["inside"] = len(f["sides"]) == 2 and f["sides"][0] == f["sides"][1]
+            if f["area"] < SLIVER or f["inside"]:
                 continue
             for r in f["sides"]:
-                if r != BEYOND:
+                if r == BEYOND:
+                    continue
+                if r in region_set:
                     walls_of[r].add(w)
+                else:
+                    findings["wall_names_as_sides"].append({"wall": w, "section": k, "area": f["area"], "name": r})
     for r, ws in walls_of.items():
         for w in ws:
-            if any(r not in f["sides"] and BEYOND not in f["sides"] and f["area"] >= SLIVER for f in secs[w]):
+            if any((r not in f["sides"] or f["inside"]) and BEYOND not in f["sides"] and f["area"] >= SLIVER for f in secs[w]):
                 part_of[r].add(w)
     # (3) against the survey and the page's regions
     db = json.load(open("region_db.json"))
@@ -171,6 +180,22 @@ def main():
                       "survey_only": sorted(b - a), "sections_only": sorted(a - b),
                       "listed": r in regions}
     findings["regions"] = compare
+    # (each mixed side: a wall known to separate its two regions, which then should have cut it, or none known)
+    for x in findings["mixed"]:
+        labs = [l for l, n in sorted(x["labels"].items(), key=lambda kv: -kv[1]) if l in region_set]
+        if len(labs) >= 2:
+            a, b = labs[:2]
+            x["between"] = [a, b]
+            x["walls_between"] = sorted(set(walls_of.get(a, ())) & set(walls_of.get(b, ())) - {x["wall"]})
+            x["lines_on_it"] = secs[x["wall"]][x["section"]]["lines"]
+    sides_db = defaultdict(set)
+    for w, faces in secs.items():
+        for f in faces:
+            if f["area"] >= SLIVER and not f["inside"]:
+                sides_db[w] |= {r for r in f["sides"] if r in region_set}
+    json.dump({w: sorted(v) for w, v in sorted(sides_db.items())}, open("wall_sides.json", "w"), indent=1)
+    for w, faces in secs.items():
+        json.dump(faces, gzip.open(os.path.join(OUT, f"{w}.json.gz"), "wt"), separators=(",", ":"))
     findings["regions_without_sections"] = sorted(r for r in regions if r not in walls_of)
     json.dump(findings, open("region_check.json", "w"), indent=1)
     defs = json.load(open("region_defs.json"))
@@ -180,7 +205,7 @@ def main():
         if c["walls"] and c["listed"]:
             defs[r] = {"walls": c["walls"]}
     open("region_defs.json", "w").write(json.dumps(defs, indent=1, ensure_ascii=False) + "\n")
-    for k in ("changed", "mixed", "new_shapes", "same_both_sides", "unclassified"):
+    for k in ("changed", "mixed", "new_shapes", "same_both_sides", "unclassified", "wall_names_as_sides"):
         print(f"{k}: {len(findings[k])}")
     print(f"regions without sections: {findings['regions_without_sections']}")
     for r, c in compare.items():

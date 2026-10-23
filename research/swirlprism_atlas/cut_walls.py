@@ -635,8 +635,9 @@ def main(walls):
             continue
         sa, sb = r["_s"]
         P = r["_pts"]
-        if np.median(edge_tree[pa].query(P)[0]) < 1.5e-3:
-            continue                                  # (along the piece's own edge: its boundary, not a cut)
+        P = P[edge_tree[pa].query(P)[0] >= 1.5e-3]   # (the part along the piece's own edge is its boundary, not a cut)
+        if len(P) < 5 or np.linalg.norm(P.max(0) - P.min(0)) < 3e-3:
+            continue
         B = r["B"].split(" (")[0]
         Cb = pieces[r["_other"]][3].mean(1)
         db = cKDTree(P).query(Cb)[0]

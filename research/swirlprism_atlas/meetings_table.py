@@ -80,7 +80,9 @@ def main(walls, raw=False):
     extra = [(b, j) for b in np.flatnonzero(R > rs) for j in tree.query_ball_point(C[b], R[b] + rs)]
     if extra:
         pairs = np.vstack([pairs, np.array(extra)])
-    pairs = pairs[wall_of[pairs[:, 0]] != wall_of[pairs[:, 1]]]
+    # (two pieces of one wall can cross too, a bent wall's patches or a wall and its copy: only a piece is skipped
+    # against itself; pieces meeting along a common edge give lines along their edges, which cut nothing)
+    pairs = pairs[owner[pairs[:, 0]] != owner[pairs[:, 1]]]
     pairs = pairs[np.isin(wall_of[pairs[:, 0]], want) | np.isin(wall_of[pairs[:, 1]], want)]
     seg, ok = tri_tri(allT[pairs[:, 0]], allT[pairs[:, 1]])
     seg, pairs = seg[ok], pairs[ok]
