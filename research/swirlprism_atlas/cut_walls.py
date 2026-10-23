@@ -91,18 +91,19 @@ class PolyCut:
         return self._m(np.atleast_2d(X))[1]
 
 
-def subdivide(T, h=SUB):
-    """Every triangle split n by n, the same n over the piece, so neighbours share their new vertices."""
+def sample_tris(T, h):
+    """Points spread over the triangles about h apart (each triangle on its own grid): centres of its sub-triangles."""
     out = []
-    n = max(1, int(np.ceil(np.linalg.norm(T - T[:, [1, 2, 0]], axis=2).max() / h)))
-    for t in T:
-        P = lambda i, j: t[0] + (i / n) * (t[1] - t[0]) + (j / n) * (t[2] - t[0])
-        for i in range(n):
-            for j in range(n - i):
-                out.append([P(i, j), P(i + 1, j), P(i, j + 1)])
-                if i + j < n - 1:
-                    out.append([P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)])
-    return np.array(out)
+    L = np.linalg.norm(T - T[:, [1, 2, 0]], axis=2).max(1)
+    ns = np.maximum(1, np.ceil(L / h)).astype(int)
+    for n in np.unique(ns):
+        Tn = T[ns == n]
+        i, j = np.meshgrid(np.arange(n), np.arange(n), indexing="ij")
+        k = i + j < n
+        u, v = (i[k] + 1 / 3) / n, (j[k] + 1 / 3) / n
+        out.append((Tn[:, None, 0] + u[None, :, None] * (Tn[:, None, 1] - Tn[:, None, 0])
+                    + v[None, :, None] * (Tn[:, None, 2] - Tn[:, None, 0])).reshape(-1, 3))
+    return np.concatenate(out)
 
 
 def weld_close(T, tol=1e-6):
@@ -258,24 +259,148 @@ def plane_normal(T):
     return np.linalg.svd(X - X.mean(0))[2][-1]
 
 
-def flat_merge(Tr, T):
-    """A flat section's triangles joined in the piece's plane and filled again: as few triangles as its outline needs."""
+def flat_cut(T, plines):
+    """A flat piece cut exactly in its own plane: its outline and the lines on it noded together, the faces between
+    them the sections. A line is the cutter's zero set in the plane near its points (a named line: its own points);
+    a line ending inside the piece leaves no face behind. Returns the sections' triangles, the section of each, the
+    sections each line separates (section, other, line) and the lines bounding each section."""
     import shapely
-    from shapely.geometry import Polygon
-    from shapely.ops import unary_union
+    from shapely.geometry import LineString, Polygon
+    from shapely.ops import polygonize, unary_union
+    from skimage.measure import find_contours
     X = T.reshape(-1, 3)
     o, n = X.mean(0), plane_normal(T)
     e1 = np.linalg.svd(X - o)[2][0]
     e2 = np.cross(n, e1)
-    m = unary_union([Polygon(np.c_[(t - o) @ e1, (t - o) @ e2]).buffer(1e-9) for t in Tr]).buffer(-1e-9)
-    out = []
-    for part in (m.geoms if hasattr(m, "geoms") else [m]):
-        if part.area <= 0:
-            continue
-        for tri in shapely.constrained_delaunay_triangles(part.simplify(1e-7, preserve_topology=True)).geoms:
+    to2 = lambda P: np.c_[(np.asarray(P) - o) @ e1, (np.asarray(P) - o) @ e2]
+    poly = unary_union([Polygon(to2(t)).buffer(1e-10) for t in T]).buffer(-1e-10)
+    lo, hi = np.array(poly.bounds[:2]) - 0.003, np.array(poly.bounds[2:]) + 0.003
+
+    def runs(Q, gap):
+        out, cur = [], [Q[0]]
+        for a, b in zip(Q[:-1], Q[1:]):
+            if np.linalg.norm(b - a) > gap:
+                if len(cur) > 1:
+                    out.append(LineString(cur))
+                cur = []
+            cur.append(b)
+        if len(cur) > 1:
+            out.append(LineString(cur))
+        return out
+    geoms, whole = {}, {}
+    near_piece = poly.buffer(0.002)
+    for k, (nm, s, P, _) in enumerate(plines):
+        Xs = T.mean(1)
+        if np.median(np.abs(s.at(Xs)) / (np.linalg.norm(s.grad(Xs), axis=1) + 1e-30)) < 1e-6:
+            continue                                  # (the cutter holds the piece itself: no line on it)
+        if isinstance(s, PolyCut):
+            Q = s.Q[np.abs((s.Q - o) @ n) < 2e-4]
+            if len(Q) < 2:
+                continue
+            Q2 = to2(Q)
+            keep = np.array([near_piece.contains(shapely.Point(q)) for q in Q2])
+            ls = [g for r in runs(Q2[keep], 3e-3) for g in [r]] if keep.sum() > 1 else []
+        else:
+            # (the zero set of the cutter in the plane, on a grid over the piece; kept beside the line's points, the
+            # rest kept to carry the line on with below)
+            P2 = to2(P)
+            h = 4e-4
+            u = np.arange(lo[0], hi[0] + h, h)
+            v = np.arange(lo[1], hi[1] + h, h)
+            U, Vv = np.meshgrid(u, v, indexing="ij")
+            G3 = o + U.reshape(-1, 1) * e1 + Vv.reshape(-1, 1) * e2
+            F = s.at(G3).reshape(U.shape)
+            tree = cKDTree(P2)
+            ls = []
+            for c in find_contours(F, 0.0):
+                C2 = np.c_[lo[0] + c[:, 0] * h, lo[1] + c[:, 1] * h]
+                keep = tree.query(C2)[0] < 2.5e-3
+                for a_, b_ in _true_runs(keep):
+                    if b_ - a_ > 1:
+                        ls.append(LineString(C2[a_:b_]))
+                        whole[(k, len(ls) - 1)] = (C2, a_, b_)
+        if ls:
+            geoms[k] = unary_union(ls).simplify(2e-5)
+        if os.environ.get("CUTDBG"):
+            g_ = geoms.get(k)
+            print(f"     {nm}: {type(s).__name__}, {len(P)} pts, {len(ls)} runs, length {g_.length if g_ else 0:.4f}, "
+                  f"meets the outline at {len(list(getattr(g_.intersection(poly.boundary), 'geoms', [0]))) if g_ else 0}"
+                  f", ends off the outline {[round(poly.boundary.distance(shapely.Point(c)), 4) for r in (getattr(g_, 'geoms', [g_]) if g_ else []) for c in (r.coords[0], r.coords[-1])]}")
+    # (each run carried on along its zero set, both ways, to where it first meets the outline or another line: a
+    # cut never stops part way; twice, so two lines carried toward each other meet)
+    def carried(k, C2, a_, b_, stop):
+        pts = list(C2[a_:b_])
+        for fwd in (True, False):
+            path = C2[b_ - 1:] if fwd else C2[:a_ + 1][::-1]
+            if len(path) < 2:
+                continue
+            ext = LineString(path)
+            if stop.distance(shapely.Point(path[0])) < 1e-7:
+                continue
+            hit = ext.intersection(stop)
+            if hit.is_empty:
+                continue
+            ds = [ext.project(p_) for p_ in getattr(hit, "geoms", [hit]) for p_ in
+                  ([p_] if p_.geom_type == "Point" else [shapely.Point(p_.coords[0])])]
+            d_ = min(x for x in ds if x > 1e-9) if any(x > 1e-9 for x in ds) else None
+            if d_ is None or d_ > 0.15:
+                continue
+            seg = shapely.ops.substring(ext, 0, d_ + 1e-6)
+            add = list(np.array(seg.coords)[1:])
+            pts = pts + add if fwd else add[::-1] + pts
+        return LineString(pts)
+    import shapely.ops
+    for _ in range(2):
+        for k in list(geoms):
+            runs_k = [key for key in whole if key[0] == k]
+            if not runs_k:
+                continue
+            stop = unary_union([poly.boundary] + [x for j, x in geoms.items() if j != k])
+            geoms[k] = unary_union([carried(k, *whole[key], stop) for key in runs_k]).simplify(2e-5)
+    if os.environ.get("CUTDBG"):
+        for k, g_ in geoms.items():
+            oth = unary_union([poly.boundary] + [x for j, x in geoms.items() if j != k])
+            print(f"     line {plines[k][0]}: ends off the outline or another line "
+                  f"{[round(oth.distance(shapely.Point(c)), 4) for r in getattr(g_, 'geoms', [g_]) for c in (r.coords[0], r.coords[-1])]}")
+    noded = unary_union([poly.boundary] + list(geoms.values()))
+    faces = [f for f in polygonize(noded) if f.area > 1e-12 and poly.contains(f.representative_point())]
+    tris, comp = [], []
+    for i, f in enumerate(faces):
+        for tri in shapely.constrained_delaunay_triangles(f).geoms:
             c = np.array(tri.exterior.coords)[:3]
-            out.append(o + c[:, :1] * e1 + c[:, 1:2] * e2)
-    return np.array(out).reshape(-1, 3, 3)
+            t3 = o + c[:, :1] * e1 + c[:, 1:2] * e2
+            if np.cross(t3[1] - t3[0], t3[2] - t3[0]) @ n < 0:
+                t3 = t3[[0, 2, 1]]                    # (all one way round: the piece's normal)
+            tris.append(t3)
+            comp.append(i)
+    across, bounding = defaultdict(set), defaultdict(set)
+    for i, f in enumerate(faces):
+        for k, g in geoms.items():
+            if f.boundary.intersection(g.buffer(1e-7)).length > 1e-6:
+                bounding[i].add(k)
+    for i in range(len(faces)):
+        for j in range(i + 1, len(faces)):
+            sh = faces[i].boundary.intersection(faces[j].boundary)
+            if sh.length <= 1e-6:
+                continue
+            m_ = sh.interpolate(0.5, normalized=True)
+            for k, g in geoms.items():
+                if g.distance(m_) < 1e-6:
+                    across[i].add((j, k))
+                    across[j].add((i, k))
+    return np.array(tris).reshape(-1, 3, 3), np.array(comp, int), across, bounding
+
+
+def _true_runs(mask):
+    """(start, end) of each run of True."""
+    out, a = [], None
+    for i, x in enumerate(list(mask) + [False]):
+        if x and a is None:
+            a = i
+        elif not x and a is not None:
+            out.append((a, i))
+            a = None
+    return out
 
 
 def far_ends(P):
@@ -365,6 +490,66 @@ def copies_as_main(out, G):
                 print(f"  {w} copy section {f['area']:.4f}: {'|'.join(f['voxels_said'])} -> {'|'.join(src)} (as its main piece)")
 
 
+def curved_cut(T, plines, S, names):
+    """A curved piece cut along its lines on its own mesh: the sections as triangles joined across every edge not on
+    a cut (a scrap of the mesh cut off by a gap joins the section nearest it)."""
+    V, F = weld_close(T)
+    crease = creases(V, T)
+    F = orient(F, crease)
+    m = EdgeMesh(V, F, S if S is not None and S.kind != "domain" else None)
+    for k, (nm, s, P, _) in enumerate(plines):
+        Xs = T.mean(1)
+        if np.median(np.abs(s.at(Xs)) / (np.linalg.norm(s.grad(Xs), axis=1) + 1e-30)) < 1e-6:
+            continue                              # (the cutter holds the piece itself: no line on it)
+        cut_near(m, s, k, P)
+    Ti = np.array(m.T)
+    crease = creases(m.V, T)                      # (with the cuts' new vertices on a crease too)
+    # (sections: triangles joined across every edge that is not on a cut)
+    parent = list(range(len(Ti)))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    by_edge = defaultdict(list)
+    for t, (a, b, c) in enumerate(Ti):
+        for e in ((a, b), (b, c), (c, a)):
+            by_edge[(min(e), max(e))].append(t)
+    for (a, b), ts in by_edge.items():
+        if m.on.get(a, set()) & m.on.get(b, set()) or is_crease(a, b, crease):
+            continue                              # (both ends on one cut: the edge lies along it)
+        for t in ts[1:]:
+            parent[find(t)] = find(ts[0])
+    comp = np.array([find(t) for t in range(len(Ti))])
+    Tri = m.V[Ti]
+    A = 0.5 * np.linalg.norm(np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0]), axis=1)
+    # (a scrap of a mesh, a few triangles cut off by a gap where the page's mesh was clipped, with no cut on it,
+    # belongs to the section nearest it)
+    oncut = {c for t, c in zip(Ti, comp) if any(m.on.get(v_) for v_ in t)}
+    size = defaultdict(float)
+    for c, a_ in zip(comp, A):
+        size[c] += a_
+    big = [c for c in size if size[c] >= 0.02 * A.sum() or c in oncut]
+    if big:
+        bt = cKDTree(Tri[np.isin(comp, big)].reshape(-1, 3))
+        bc = np.repeat(comp[np.isin(comp, big)], 3)
+        for c in [c for c in size if c not in big]:
+            k = np.flatnonzero(comp == c)
+            comp[k] = bc[bt.query(Tri[k].reshape(-1, 3))[1][np.argmin(bt.query(Tri[k].reshape(-1, 3))[0])]]
+    across = defaultdict(set)
+    for (a_, b_), ts in by_edge.items():
+        for k in m.on.get(a_, set()) & m.on.get(b_, set()):
+            cs = {comp[t] for t in ts}
+            if len(cs) == 2:
+                c1, c2 = cs
+                across[c1].add((c2, k))
+                across[c2].add((c1, k))
+    bounding_of = {c: sorted({names[k] for t in Ti[comp == c] for v_ in t for k in m.on.get(v_, set()) if 0 <= k < len(names)})
+                   for c in set(comp)}
+    return Tri, comp, A, across, bounding_of
+
+
 def main(walls):
     want = walls.split(",")
     d = rw.page_data()
@@ -413,7 +598,7 @@ def main(walls):
     used = defaultdict(dict)
     for pid in mine:
         T = pieces[pid][3]
-        near = cKDTree(subdivide(T, 0.002).mean(1))
+        near = cKDTree(sample_tris(T, 0.002))
         for lid, L in named.items():
             Q = sample_segs(np.stack([L[:-1], L[1:]], 1))
             Q = Q[near.query(Q)[0] < 2e-3]
@@ -466,102 +651,73 @@ def main(walls):
     by_wall = defaultdict(list)
     for pid in mine:
         by_wall[pieces[pid][0]].append(pid)
+    GG = np.array([F @ M for M in G for F in (np.eye(4), FOLD)])
+    dense = {}
+
+    def dense_of(q):
+        if q not in dense:
+            dense[q] = cKDTree(sample_tris(pieces[q][3], 0.002))
+        return dense[q]
+
+    def images(Pb, gs):
+        """Points (betas) carried by each element: (len(gs), n, 3) in xyz, NaN where they leave the chart."""
+        Y = np.einsum("gij,nj->gni", GG[gs], Pb)
+        s_ = Y.sum(2, keepdims=True)
+        bad = np.abs(s_[..., 0]) < 1e-12
+        X = rc.xyz((Y / np.where(np.abs(s_) < 1e-12, 1.0, s_)).reshape(-1, 4)).reshape(len(gs), -1, 3)
+        X[bad] = np.nan
+        return X
     for w, pids in by_wall.items():
         for p in pids:
-            Sp = rc.betas(pieces[p][3][:, 0])
-            Sp = Sp[np.linspace(0, len(Sp) - 1, min(len(Sp), 24)).astype(int)]
+            if not lines[p]:
+                continue
+            T_ = pieces[p][3]
+            Sp = rc.betas(sample_tris(T_, 0.02))
+            Sp = Sp[np.linspace(0, len(Sp) - 1, min(len(Sp), 40)).astype(int)]
             for q in pids:
-                if q == p or S_of[q] is None or not lines[p]:
+                if q == p or S_of[q] is None:
                     continue
-                for M in G:
-                    hit = None
-                    for F in (np.eye(4), FOLD):
-                        g = F @ M
-                        Y = Sp @ g.T
-                        if (np.abs(Y.sum(1)) < 1e-12).any():
-                            continue
-                        X = rc.xyz(nrm(Y))
-                        if np.abs(S_of[q].at(X)).max() / (np.linalg.norm(S_of[q].grad(X), axis=1).min() + 1e-30) < 1e-6:
-                            hit = g
-                            break
-                    if hit is None:
-                        continue
+                # (the elements taking piece p onto piece q: its points onto q's surface, most of them onto q itself)
+                X = images(Sp, np.arange(len(GG)))
+                fin = np.isfinite(X).all((1, 2))
+                gs = np.flatnonzero(fin)
+                Xf = X[gs].reshape(-1, 3)
+                f = (np.abs(S_of[q].at(Xf)) / (np.linalg.norm(S_of[q].grad(Xf), axis=1) + 1e-30)).reshape(len(gs), -1)
+                gs = gs[f.max(1) < 1e-6]
+                near = (dense_of(q).query(X[gs].reshape(-1, 3))[0] < 3e-3).reshape(len(gs), -1).mean(1) if len(gs) else []
+                hits = [g for g, m_ in zip(gs, near) if m_ > 0.3]
+                for g in hits:
+                    hit = GG[g]
                     for nm, s, P, wb in lines[p]:
-                        Y = rc.betas(P) @ hit.T
-                        ok = np.abs(Y.sum(1)) > 1e-12
-                        X = rc.xyz(nrm(Y[ok]))
-                        X = X[[inside[q](x) for x in X]] if len(X) else X
-                        if len(X) < 5 or any(np.median(cKDTree(P2).query(X)[0]) < 1e-3 for _, _, P2, _ in lines[q]):
+                        Xl = images(rc.betas(P), [g])[0]
+                        Xl = Xl[np.isfinite(Xl).all(1)]
+                        Xl = Xl[dense_of(q).query(Xl)[0] < 2e-3] if len(Xl) else Xl
+                        if len(Xl) < 5 or any(np.median(cKDTree(P2).query(Xl)[0]) < 1e-3 for _, _, P2, _ in lines[q]):
                             continue
                         if wb is not None and len(wb[1]):
-                            Yb = rc.betas(wb[1]) @ hit.T      # (the meeting wall carried along with its line)
-                            okb = np.abs(Yb.sum(1)) > 1e-12
-                            wb = (wb[0], rc.xyz(nrm(Yb[okb])))
+                            Xb = images(rc.betas(wb[1]), [g])[0]   # (the meeting wall carried along with its line)
+                            wb = (wb[0], Xb[np.isfinite(Xb).all(1)])
                         if isinstance(s, PolyCut):
                             # (a line given by its points: its image, by the images of its points, in order)
-                            Y = rc.betas(s.Q) @ hit.T
-                            img = PolyCut(nm, rc.xyz(nrm(Y)), normal_of(q), gap=5 * 2e-4)
+                            Xq = images(rc.betas(s.Q), [g])[0]
+                            img = PolyCut(nm, Xq[np.isfinite(Xq).all(1)], normal_of(q), gap=5 * 2e-4)
                         else:
                             img = Image(s, hit)
-                        lines[q].append((nm + " (carried)", img, X, wb))
+                        lines[q].append((nm + " (carried)", img, Xl, wb))
     # (3) cut, gather sections, name them
     os.makedirs(OUT, exist_ok=True)
     out = defaultdict(list)
     for pid in mine:
         w, kind, _, T = pieces[pid]
         flat = S_of[pid] is not None and S_of[pid].kind in ("plane", "domain")
-        Ts = subdivide(T) if flat else T              # (a curved wall's mesh is already fine; a flat one is a few big triangles)
-        V, F = weld_close(Ts)
-        crease = creases(V, T)
-        F = orient(F, crease)
-        m = EdgeMesh(V, F, S_of[pid] if S_of[pid] is not None and S_of[pid].kind != "domain" else None)
-        names = []
-        for k, (nm, s, P, _) in enumerate(lines[pid]):
-            Xs = T.mean(1)
-            if np.median(np.abs(s.at(Xs)) / (np.linalg.norm(s.grad(Xs), axis=1) + 1e-30)) < 1e-6:
-                names.append(nm)
-                continue                              # (the cutter holds the piece itself: no line on it)
-            nc = cut_near(m, s, k, P)
-            names.append(nm)
-            if os.environ.get("CUTDBG"):
-                e0, e1 = edge_tree[pid].query(np.array(far_ends(P)))[0]
-                print(f"     {nm}: {nc} triangles cut; {len(P)} pts, end-to-edge {e0:.4f} {e1:.4f}, "
-                      f"|s| on pts {np.median(np.abs(s.at(P))):.2e}", flush=True)
-        Ti = np.array(m.T)
-        crease = creases(m.V, T)                      # (with the cuts' new vertices on a crease too)
-        # (sections: triangles joined across every edge that is not on a cut)
-        parent = list(range(len(Ti)))
-
-        def find(x):
-            while parent[x] != x:
-                parent[x] = parent[parent[x]]
-                x = parent[x]
-            return x
-        by_edge = defaultdict(list)
-        for t, (a, b, c) in enumerate(Ti):
-            for e in ((a, b), (b, c), (c, a)):
-                by_edge[(min(e), max(e))].append(t)
-        for (a, b), ts in by_edge.items():
-            if m.on.get(a, set()) & m.on.get(b, set()) or is_crease(a, b, crease):
-                continue                              # (both ends on one cut: the edge lies along it)
-            for t in ts[1:]:
-                parent[find(t)] = find(ts[0])
-        comp = np.array([find(t) for t in range(len(Ti))])
-        Tri = m.V[Ti]
-        A = 0.5 * np.linalg.norm(np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0]), axis=1)
-        # (a scrap of a mesh, a few triangles cut off by a gap where the page's mesh was clipped, with no cut on it,
-        # belongs to the section nearest it)
-        oncut = {c for t, c in zip(Ti, comp) if any(m.on.get(v_) for v_ in t)}
-        size = defaultdict(float)
-        for c, a_ in zip(comp, A):
-            size[c] += a_
-        big = [c for c in size if size[c] >= 0.02 * A.sum() or c in oncut]
-        if big:
-            bt = cKDTree(Tri[np.isin(comp, big)].reshape(-1, 3))
-            bc = np.repeat(comp[np.isin(comp, big)], 3)
-            for c in [c for c in size if c not in big]:
-                k = np.flatnonzero(comp == c)
-                comp[k] = bc[bt.query(Tri[k].reshape(-1, 3))[1][np.argmin(bt.query(Tri[k].reshape(-1, 3))[0])]]
+        names = [x[0] for x in lines[pid]]
+        if flat:
+            # (a flat piece: cut exactly in its plane)
+            Tri, comp, across, bnd = flat_cut(T, lines[pid])
+            A = 0.5 * np.linalg.norm(np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0]), axis=1)
+            bounding_of = {c: sorted({names[k] for k in bnd.get(c, ())}) for c in set(comp)}
+        else:
+            Tri, comp, A, across, bounding_of = curved_cut(T, lines[pid], S_of[pid], names)
         N = np.cross(Tri[:, 1] - Tri[:, 0], Tri[:, 2] - Tri[:, 0])
         N /= np.linalg.norm(N, axis=1, keepdims=True) + 1e-300
         Bv = rc.betas(T.reshape(-1, 3))
@@ -607,14 +763,6 @@ def main(walls):
         # (the sides named once, from the database: the largest section by its voxels, and each section beside it
         # across a line from the one before: on the side the meeting wall stands, the region changes to the wall's
         # other side; on the other side it stays)
-        across = defaultdict(set)
-        for (a_, b_), ts in by_edge.items():
-            for k in m.on.get(a_, set()) & m.on.get(b_, set()):
-                cs = {comp[t] for t in ts}
-                if len(cs) == 2:
-                    c1, c2 = cs
-                    across[c1].add((c2, k))
-                    across[c2].add((c1, k))
         cen = cKDTree(Tri.mean(1))
         stand = {}
         for k, x in enumerate(lines[pid]):
@@ -651,10 +799,10 @@ def main(walls):
                     todo.append(c2)
         for c in secs:
             idx = np.flatnonzero(comp == c)
-            bounding = sorted({names[k] for t in Ti[idx] for v_ in t for k in m.on.get(v_, set()) if 0 <= k < len(names)})
+            bounding = bounding_of.get(c, [])
             out[w].append({"piece": pid, "kind": kind, "sides": name[c], "named": how[c], "voxels": vox[c],
                            "lines": bounding, "mirror": False, "cut": [False, False],
-                           "area": round(float(A[idx].sum()), 6), "tris": (flat_merge(Tri[idx], T) if flat else Tri[idx]).reshape(-1, 9).round(7).tolist()})
+                           "area": round(float(A[idx].sum()), 6), "tris": Tri[idx].reshape(-1, 9).round(7).tolist()})
         print(f"  {w} ({kind}, piece {pid}): {len(lines[pid])} lines ({', '.join(x[0] for x in lines[pid]) or 'none'}); "
               f"{len(set(comp))} sections: " + "; ".join(f"{f['sides'][0]}|{f['sides'][1]} {f['area']:.4f}" + (f" ({f['named']})" if f['named'] != "voxels" else "")
                                                         for f in out[w] if f["piece"] == pid), flush=True)
