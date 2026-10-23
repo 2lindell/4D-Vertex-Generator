@@ -37,6 +37,13 @@ def main():
     S = surfaces()
     keep = carriers(S)
     S = [s for s in S if s.name in keep] + DOMAIN
+    carry_map = keep
+    import region_walls as rw
+    d = rw.page_data()
+    mesh_tree = {}
+    for w_, k_, i_, T_ in rw.pieces_of(d, {w["id"] for w in d["xwalls"]} | {"T2"}):
+        mesh_tree.setdefault(w_, []).append(T_)
+    mesh_tree = {w_: cKDTree(sample_tris(np.concatenate(Ts), 0.002)) for w_, Ts in mesh_tree.items()}
     regions = set(c["regions"])
     import os
     out = json.load(open("boundary_points.json")) if os.path.exists("boundary_points.json") else []
@@ -70,15 +77,35 @@ def main():
                 r = np.abs(s.at(bpts)) / (np.linalg.norm(s.grad(bpts), axis=1) + 1e-30)
                 fits.append((float(np.median(r)), s.name))
             fits.sort()
+        # (beside the section's own edge: a wall leaving that edge at a shallow angle, or a bent wall's next
+        # patch, crossed by the stepped points; not a boundary on the section)
+        from collections import Counter as C_
+        key_ = lambda p: tuple(np.round(p, 7))
+        cnt = C_()
+        for t in T:
+            for a_, b_ in ((0, 1), (1, 2), (2, 0)):
+                cnt[frozenset((key_(t[a_]), key_(t[b_])))] += 1
+        E = [np.array(list(e)) for e, k_ in cnt.items() if k_ == 1 and len(e) == 2]
+        edge_d = float(np.median(cKDTree(np.concatenate([p + np.linspace(0, 1, 50)[:, None] * (q - p) for p, q in E]))
+                                 .query(bpts)[0])) if len(bpts) and E else None
+        # (the walls the surface carries, and how far the page's nearest mesh of each is from the boundary)
+        carried_by, near = [], {}
+        if fits and fits[0][0] < 2e-4:
+            carried_by = sorted(carry_map.get(fits[0][1], []))
+            for w_ in carried_by:
+                if w_ in mesh_tree:
+                    near[w_] = round(float(np.median(mesh_tree[w_].query(bpts)[0])), 4)
         rec = {"wall": x["wall"], "section": x["section"], "side": x["side"], "between": [a, b],
+               "edge_distance": edge_d, "surface_carries": carried_by, "nearest_mesh": near,
                "counts": {k: int((L == k).sum()) for k in set(L)}, "boundary_points": bpts.tolist(),
                "best_surfaces": fits[:3]}
         out.append(rec)
         best = fits[0] if fits else None
         json.dump(out, open("boundary_points.json", "w"), indent=1)
-        print(f"{x['wall']} s{x['section']} side {x['side']}: {a}|{b}, {len(bpts)} boundary points; "
-              + (f"nearest surface {best[1]} (median {best[0]:.1e})" if best else "no boundary found")
-              + ("  -> a known surface" if best and best[0] < 2e-4 else "  -> NO known surface" if best else ""),
+        print(f"{x['wall']} s{x['section']} side {x['side']}: {a}|{b}, {len(bpts)} boundary points"
+              + (f", {edge_d:.4f} from the section's edge" if edge_d is not None else "") + "; "
+              + (f"on {best[1]} (median {best[0]:.1e}), carrying {carried_by}, page meshes at {near}" if best and best[0] < 2e-4
+                 else f"NO known surface (nearest {best[1]}, {best[0]:.1e})" if best else "no boundary found"),
               flush=True)
     json.dump(out, open("boundary_points.json", "w"), indent=1)
 
