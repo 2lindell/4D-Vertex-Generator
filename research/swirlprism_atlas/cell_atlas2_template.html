@@ -845,7 +845,7 @@ __TYPE_CSS__
     const bounds = (t) => t.dim === "point" && !t.id.startsWith("X") ? `<span class="locus">none (a point)</span>`
       : !t.bounds || !t.bounds.length ? `<span class="locus">not traced yet</span>`
       : DIMS.map(([d, name]) => [name, t.bounds.filter((b) => (dimOf[b] || "point") === d)])
-          .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.join(", ")}`).join("<br>");
+          .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.map((b) => (t.partial || []).includes(b) ? `${b} <span class="locus">(part)</span>` : b).join(", ")}`).join("<br>");
     // a wall's own boundary first, then (apart, so they are not read as its edges) the regions on its two sides
     const boundsCell = (t) => bounds(t) + (t.separates && t.separates.length
       ? `<div class="separates"><span class="locus">separates:</span> ${t.separates.join(", ")}</div>` : "");

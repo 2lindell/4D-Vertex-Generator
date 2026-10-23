@@ -298,25 +298,34 @@ def check(rid):
 
 if __name__ == "__main__":
     if "--defs" in sys.argv:
-        # (the regions as decided in region_defs.json: whole walls, and walls in part from their pieces)
+        # (the regions as decided in region_defs.json: their walls cut into sections (cut_walls.py), each region
+        # coloured on the sections beside it)
+        import gzip
         import subprocess
         defs = {k: v for k, v in json.load(open("region_defs.json")).items() if not k.startswith("_")}
-        for script in sorted({s for d in defs.values() for s in d.get("pieces", {}).values()}):
-            subprocess.run([sys.executable] + script.split(), check=True, stdout=subprocess.DEVNULL)
+        walls_all = sorted({w for d in defs.values() for w in d["walls"]})
+        if "--nocut" not in sys.argv:
+            subprocess.run([sys.executable, "cut_walls.py", ",".join(walls_all)], check=True, stdout=subprocess.DEVNULL)
+        view.cache.clear()
         for r, dd in defs.items():
-            export(regions=[r], path="sec_pieces", whole=dd.get("whole", []), only=set(dd.get("whole", [])) | set(dd.get("pieces", {})),
-                   splits=dd.get("split"))
-        # (the database: each decided region's walls, and the regions each of those walls separates)
+            export(regions=[r], path="sections", only=set(dd["walls"]))
+        # (the database: each decided region's walls, the partial ones, and the regions each wall separates)
         db = json.load(open("region_db.json"))
         sides = json.load(open("wall_sides.json")) if os.path.exists("wall_sides.json") else {}
+        secs = {w: json.load(gzip.open(os.path.join("sections", f"{w}.json.gz"), "rt")) for w in walls_all}
         for r, dd in defs.items():
-            walls = sorted(set(dd.get("whole", [])) | set(dd.get("pieces", {})))
-            db.setdefault("touch", {})[r] = walls
-            for w in walls:
+            db.setdefault("touch", {})[r] = sorted(dd["walls"])
+            part = sorted(w for w in dd["walls"]
+                          if any(r not in f["sides"] and "(beyond the half-cell)" not in f["sides"] and f["area"] > 1e-4
+                                 for f in secs[w]))
+            db.setdefault("partial", {})[r] = part
+            for w in dd["walls"]:
                 sides[w] = sorted(set(sides.get(w, [])) | {r})
         json.dump(db, open("region_db.json", "w"), indent=1)
         json.dump(sides, open("wall_sides.json", "w"), indent=1)
-        print("region_db.json and wall_sides.json: " + "; ".join(f"{r}: {', '.join(sorted(set(dd.get('whole', [])) | set(dd.get('pieces', {}))))}" for r, dd in defs.items()))
+        print("region_db.json and wall_sides.json: " + "; ".join(
+            f"{r}: {', '.join(w + (' (part)' if w in db['partial'][r] else '') for w in sorted(dd['walls']))}"
+            for r, dd in defs.items()))
     elif "--export" in sys.argv:
         # (--sections [region,...]: those regions from the wall sections, sec_pieces/)
         if "--sections" in sys.argv:

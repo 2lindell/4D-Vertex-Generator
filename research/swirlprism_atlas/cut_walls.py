@@ -38,7 +38,7 @@ from wall_sections import Grid, surface_of, weld
 OUT = "sections"
 FLIP = np.array([1, 1, -1.0])
 SUB = 0.004            # (pieces subdivided to this edge length)
-TUBE = 0.006           # (a line cuts only the triangles this close to it)
+TUBE = 0.012           # (a line cuts only the triangles this close to it)
 REACH = 0.3            # (at most this far a line is carried on along its exact curve to reach an edge or line)
 FOLD = np.eye(4)[[1, 0, 3, 2]]
 
@@ -200,6 +200,26 @@ def plane_normal(T):
     """A flat piece's normal, fitted to all its vertices (one triangle may be a sliver)."""
     X = T.reshape(-1, 3)
     return np.linalg.svd(X - X.mean(0))[2][-1]
+
+
+def flat_merge(Tr, T):
+    """A flat section's triangles joined in the piece's plane and filled again: as few triangles as its outline needs."""
+    import shapely
+    from shapely.geometry import Polygon
+    from shapely.ops import unary_union
+    X = T.reshape(-1, 3)
+    o, n = X.mean(0), plane_normal(T)
+    e1 = np.linalg.svd(X - o)[2][0]
+    e2 = np.cross(n, e1)
+    m = unary_union([Polygon(np.c_[(t - o) @ e1, (t - o) @ e2]).buffer(1e-9) for t in Tr]).buffer(-1e-9)
+    out = []
+    for part in (m.geoms if hasattr(m, "geoms") else [m]):
+        if part.area <= 0:
+            continue
+        for tri in shapely.constrained_delaunay_triangles(part.simplify(1e-7, preserve_topology=True)).geoms:
+            c = np.array(tri.exterior.coords)[:3]
+            out.append(o + c[:, :1] * e1 + c[:, 1:2] * e2)
+    return np.array(out).reshape(-1, 3, 3)
 
 
 def far_ends(P):
@@ -393,7 +413,8 @@ def main(walls):
     out = defaultdict(list)
     for pid in mine:
         w, kind, _, T = pieces[pid]
-        Ts = subdivide(T)
+        flat = S_of[pid] is not None and S_of[pid].kind in ("plane", "domain")
+        Ts = subdivide(T) if flat else T              # (a curved wall's mesh is already fine; a flat one is a few big triangles)
         V, F = weld_close(Ts)
         crease = creases(V, T)
         F = orient(F, crease)
@@ -451,7 +472,7 @@ def main(walls):
         face = [k for k in range(4) if np.abs(Bv[:, k]).max() < 1e-6]
         into = np.eye(4)[face[0]] if face else (np.array([0, 0, 0.5, -0.5]) if np.abs(Bv[:, 2] - Bv[:, 3]).max() < 1e-6 else None)
         rng = np.random.default_rng(pid)
-        vox, secs = {}, [c for c in np.unique(comp) if A[comp == c].sum() >= 1e-8]
+        vox, secs = {}, [c for c in np.unique(comp) if A[comp == c].sum() >= 1e-5]   # (smaller: degenerate slivers along a line)
         for c in secs:
             idx = np.flatnonzero(comp == c)
             a = A[idx]
@@ -537,7 +558,7 @@ def main(walls):
             bounding = sorted({names[k] for t in Ti[idx] for v_ in t for k in m.on.get(v_, set()) if 0 <= k < len(names)})
             out[w].append({"piece": pid, "kind": kind, "sides": name[c], "named": how[c], "voxels": vox[c],
                            "lines": bounding, "mirror": False, "cut": [False, False],
-                           "area": round(float(A[idx].sum()), 6), "tris": Tri[idx].reshape(-1, 9).round(7).tolist()})
+                           "area": round(float(A[idx].sum()), 6), "tris": (flat_merge(Tri[idx], T) if flat else Tri[idx]).reshape(-1, 9).round(7).tolist()})
         print(f"  {w} ({kind}, piece {pid}): {len(lines[pid])} lines ({', '.join(x[0] for x in lines[pid]) or 'none'}); "
               f"{len(set(comp))} sections: " + "; ".join(f"{f['sides'][0]}|{f['sides'][1]} {f['area']:.4f}" + (f" ({f['named']})" if f['named'] != "voxels" else "")
                                                         for f in out[w] if f["piece"] == pid), flush=True)
