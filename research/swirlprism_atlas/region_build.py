@@ -131,16 +131,29 @@ def main():
                 findings["new_shapes"].append({"wall": w, "section": k, "label": top, "count": n_top})
             if top in ("ERR", "OUT", "TIMEOUT"):
                 findings["unclassified"].append({"wall": w, "section": k, "side": sd, "labels": dict(c)})
-            names.append(top)
+            names.append(top if top in region_set else None)
+        # (a side the classifier could not step clear of a wall or line on keeps the name it had; only region
+        # names found by the classifier replace a section's sides)
+        stored = f.get("voxel_sides", f["sides"])
         if face:
+            if names[0] is None:
+                names[0] = stored[0]
             names.append(BEYOND)
-        stored = f["sides"]
+        elif None in names:
+            known_ = [n for n in names if n is not None]
+            if known_ and known_[0] in stored and stored[0] != stored[1]:
+                other = stored[1 - stored.index(known_[0])]
+                names = [n if n is not None else other for n in names]
+            else:
+                names = list(stored)
         if set(names) != set(stored) and not any(n in ("ERR", "OUT", "TIMEOUT") for n in names):
             findings["changed"].append({"wall": w, "section": k, "area": f["area"], "piece": f["piece"], "kind": f["kind"],
                                         "stored": stored, "classified": names})
             f["voxel_sides"] = stored
             f["sides"] = names
             f["named"] = "classified"
+        else:
+            f["sides"] = names
         if not face and names[0] == names[1]:
             findings["same_both_sides"].append({"wall": w, "section": k, "area": f["area"], "region": names[0]})
         f["checked"] = {str(sd): dict(c) for sd, c in by.items()}
