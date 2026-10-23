@@ -173,9 +173,10 @@ def stays(b, cons, tid):
     if not len(U):
         return False
     for u in U:
-        for sgn in (1, -1):
-            if label(onto(b + sgn * STEP * u, cons)) != tid:
-                return False
+        # (each way along it, unless that way leaves the half-cell at once: a locus ending on its face)
+        labs = [label(onto(b + sgn * STEP * u, cons)) for sgn in (1, -1)]
+        if any(x not in (tid, None) for x in labs) or all(x is None for x in labs):
+            return False
     return True
 
 
@@ -195,6 +196,10 @@ def constraints(b, tid, dim):
             continue
         if stays(b, cons, tid):
             return cons
+    # (a curved wall at a sample where it meets other shapes, so no step keeps it: its own surface, named for it)
+    own = [c for c in cand if isinstance(c, Curved) and c.name.split(":")[0] == tid and ":" not in c.name]
+    if dim == "wall" and own:
+        return own[:1]
     return None
 
 
@@ -252,10 +257,19 @@ def shape(tid):
     # (the samples' own ratios, spread over the locus: the best few are the starts)
     idx = np.unique(np.linspace(0, len(B) - 1, min(len(B), SPREAD)).astype(int))
     r = [score(B[i], tid) for i in idx]
-    order = [idx[i] for i in np.argsort(r)[:STARTS] if np.isfinite(r[i])]
+    order = [idx[i] for i in np.argsort(r) if np.isfinite(r[i])]
     if not order:
         return tid, None
-    res = [refine((tid, dim, B[i])) for i in order]
+    # (the best starts whose locus is found; failing those, the best sample as it is)
+    res = []
+    for i in order[:3 * STARTS]:
+        x = refine((tid, dim, B[i]))
+        if x["constraints"] is not None:
+            res.append(x)
+            if len(res) == STARTS:
+                break
+    if not res:
+        res = [refine((tid, dim, B[order[0]]))]
     return tid, {"dim": dim, **min(res, key=lambda x: x["ratio"])}
 
 
