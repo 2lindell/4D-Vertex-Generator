@@ -706,6 +706,7 @@ def main(walls):
         lines[pa].append([B, sb, P, wb])
     # (c) another wall ending on the piece exactly along its own edge: that edge lies in the piece's surface but
     # the two meshes only touch there, so no crossing of triangles finds it; it is read off the walls' outlines
+    # (to 1e-4: a curved wall's outline is exact, but the page keeps its points to 6 decimals)
     bbox = {pid: (pieces[pid][3].reshape(-1, 3).min(0) - 0.01, pieces[pid][3].reshape(-1, 3).max(0) + 0.01)
             for pid in range(len(pieces))}
     outl = {}
@@ -728,7 +729,7 @@ def main(walls):
             X_ = E.reshape(-1, 3)
             r_ = (np.abs(S.at(X_)) / (np.linalg.norm(S.grad(X_), axis=1) + 1e-30)).reshape(-1, 2).max(1)
             M_ = E.mean(1)
-            keep = (r_ < 1e-6) & (near_a.query(M_)[0] < 1.5e-3) & (edge_tree[pa].query(M_)[0] > 1.5e-3)
+            keep = (r_ < 1e-4) & (near_a.query(M_)[0] < 1.5e-3) & (edge_tree[pa].query(M_)[0] > 1.5e-3)
             if not keep.any() or np.linalg.norm(E[keep, 1] - E[keep, 0], axis=1).sum() < 3e-3:
                 continue
             seg = E[keep]

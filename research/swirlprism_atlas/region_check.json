@@ -198,7 +198,7 @@
   {
    "wall": "X22",
    "section": 2,
-   "area": 0.001658,
+   "area": 0.002336,
    "piece": 80,
    "kind": "copy",
    "stored": [
@@ -213,7 +213,7 @@
   {
    "wall": "X22",
    "section": 3,
-   "area": 0.008587,
+   "area": 0.008886,
    "piece": 80,
    "kind": "copy",
    "stored": [
@@ -1161,8 +1161,7 @@
     "X49"
    ],
    "walls_between": [
-    "T2",
-    "X28"
+    "T2"
    ],
    "lines_on_it": []
   },
@@ -1183,9 +1182,7 @@
     "F3",
     "X50"
    ],
-   "walls_between": [
-    "X28"
-   ],
+   "walls_between": [],
    "lines_on_it": [
     "X28"
    ]
@@ -1325,6 +1322,28 @@
    "stored": [
     "X49",
     "F2"
+   ]
+  },
+  {
+   "wall": "T2",
+   "section": 12,
+   "area": 0.00302,
+   "side": 1,
+   "labels": {
+    "F3": 2,
+    "F2": 3
+   },
+   "stored": [
+    "F3",
+    "F2"
+   ],
+   "between": [
+    "F2",
+    "F3"
+   ],
+   "walls_between": [],
+   "lines_on_it": [
+    "F1 (its edge) (carried)"
    ]
   },
   {
@@ -1591,9 +1610,7 @@
     "X72",
     "X73"
    ],
-   "walls_between": [
-    "X79"
-   ],
+   "walls_between": [],
    "lines_on_it": [
     "X40",
     "X79 (its edge)",
@@ -1894,15 +1911,14 @@
    "walls": [
     "F1",
     "T2",
-    "X22",
-    "X28"
+    "X22"
    ],
    "partial": [
-    "F1",
-    "T2",
+    "T2"
+   ],
+   "survey_only": [
     "X28"
    ],
-   "survey_only": [],
    "sections_only": [],
    "listed": true
   },
@@ -1960,9 +1976,7 @@
     "T2"
    ],
    "survey_only": [],
-   "sections_only": [
-    "X11"
-   ],
+   "sections_only": [],
    "listed": true
   },
   "X37": {
@@ -2012,18 +2026,16 @@
   "X46": {
    "walls": [
     "X14",
-    "X17",
     "X19",
     "X25"
    ],
    "partial": [
-    "X14",
+    "X14"
+   ],
+   "survey_only": [
     "X17"
    ],
-   "survey_only": [],
-   "sections_only": [
-    "X17"
-   ],
+   "sections_only": [],
    "listed": true
   },
   "X49": {
@@ -2037,8 +2049,7 @@
    "partial": [
     "F1",
     "F4",
-    "T2",
-    "X28"
+    "T2"
    ],
    "survey_only": [],
    "sections_only": [],
@@ -2052,7 +2063,6 @@
    ],
    "partial": [
     "F1",
-    "X28",
     "X33"
    ],
    "survey_only": [],
@@ -2082,8 +2092,7 @@
     "X90"
    ],
    "partial": [
-    "X27",
-    "X44"
+    "X27"
    ],
    "survey_only": [],
    "sections_only": [],
@@ -2113,14 +2122,14 @@
   "X58": {
    "walls": [
     "F4",
-    "X41",
-    "X96"
+    "X41"
    ],
    "partial": [
-    "F4",
+    "F4"
+   ],
+   "survey_only": [
     "X96"
    ],
-   "survey_only": [],
    "sections_only": [],
    "listed": true
   },
@@ -2181,16 +2190,16 @@
   },
   "X63": {
    "walls": [
-    "F1",
     "X40",
     "X51",
     "X84"
    ],
    "partial": [
-    "F1",
     "X84"
    ],
-   "survey_only": [],
+   "survey_only": [
+    "F1"
+   ],
    "sections_only": [],
    "listed": true
   },
@@ -2284,33 +2293,27 @@
   },
   "X71": {
    "walls": [
-    "X79",
     "X85",
     "X86"
    ],
-   "partial": [
+   "partial": [],
+   "survey_only": [
     "X79"
    ],
-   "survey_only": [],
-   "sections_only": [
-    "X79"
-   ],
+   "sections_only": [],
    "listed": true
   },
   "X72": {
    "walls": [
     "X26",
-    "X79",
     "X86",
     "X91"
    ],
-   "partial": [
+   "partial": [],
+   "survey_only": [
     "X79"
    ],
-   "survey_only": [],
-   "sections_only": [
-    "X79"
-   ],
+   "sections_only": [],
    "listed": true
   },
   "X73": {
@@ -2320,9 +2323,7 @@
     "X88",
     "X89"
    ],
-   "partial": [
-    "X79"
-   ],
+   "partial": [],
    "survey_only": [],
    "sections_only": [],
    "listed": true
@@ -2349,17 +2350,14 @@
   },
   "X76": {
    "walls": [
-    "X79",
     "X89",
     "X90"
    ],
-   "partial": [
+   "partial": [],
+   "survey_only": [
     "X79"
    ],
-   "survey_only": [],
-   "sections_only": [
-    "X79"
-   ],
+   "sections_only": [],
    "listed": true
   },
   "X77": {

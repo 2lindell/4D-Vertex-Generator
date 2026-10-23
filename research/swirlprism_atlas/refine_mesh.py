@@ -42,13 +42,30 @@ def main(tid, hmax=0.02):
     for f in F:
         for a, b in ((f[0], f[1]), (f[1], f[2]), (f[2], f[0])):
             count[frozenset((a, b))] = count.get(frozenset((a, b)), 0) + 1
+    # the outline (exact edge): a boundary edge's midpoint goes onto it, not just onto the surface
+    OL = [np.array([q["beta"] for q in l], float) for l in sf.get("outline", [])]
+    SA = np.concatenate([L[:-1] for L in OL]) if OL else None
+    SB = np.concatenate([L[1:] for L in OL]) if OL else None
+
+    def on_outline(p):
+        d = SB - SA
+        t = np.clip(((p - SA) * d).sum(1) / np.maximum((d * d).sum(1), 1e-30), 0, 1)
+        Q = SA + t[:, None] * d
+        i = np.argmin(np.linalg.norm(Q - p, axis=1))
+        return Q[i], float(np.linalg.norm(Q[i] - p))
+
     for _ in range(12):
         mid = {}
         for f in F:
             for a, b in ((f[0], f[1]), (f[1], f[2]), (f[2], f[0])):
                 e = frozenset((a, b))
                 if e not in mid and np.linalg.norm(V[a] - V[b]) > hmax:
-                    m = newton([W], (V[a] + V[b]) / 2)
+                    m = (V[a] + V[b]) / 2
+                    if count.get(e, 2) == 1 and SA is not None:
+                        q, dq = on_outline(m)
+                        m = q if dq < 0.25 * np.linalg.norm(V[a] - V[b]) else newton([W], m)
+                    else:
+                        m = newton([W], m)
                     mid[e] = len(V)
                     V.append(m / m.sum())
         if not mid:
@@ -72,8 +89,17 @@ def main(tid, hmax=0.02):
                     out += [[a, ab, c], [ab, b, c]]
                 else:
                     out += [[a, ab, c], [ab, b, bc], [ab, bc, c]]
+        for e, m in mid.items():
+            if count.get(e, 2) == 1:
+                a, b = tuple(e)
+                count[frozenset((a, m))] = count[frozenset((m, b))] = 1
         F = out
     V = np.array(V)
+    # back onto the mirror β3 = β4 and the faces β = 0 where a projection stepped a hair past them
+    d = V[:, 2] - V[:, 3]
+    near = (d < 0) & (d > -1e-6)
+    V[near, 2] = V[near, 3] = (V[near, 2] + V[near, 3]) / 2
+    V[(V < 0) & (V > -1e-9)] = 0
     res = np.abs(W(V)).max()
     sf["tris"] = V[np.array(F)].tolist()
     sf.setdefault("refined", []).append({"hmax": hmax, "triangles_before": n0, "after": len(F)})

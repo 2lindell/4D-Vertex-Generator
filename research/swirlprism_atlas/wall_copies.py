@@ -1,6 +1,6 @@
 """The page's wall copies (cell_atlas2_template.html, wallCopies), made the same way in Python: each curved wall's
 mesh mapped by the group elements listed for it (copyOps), clipped to the cell, the part below the splitting mirror
-folded up, and an image lying on the wall or on a copy already made skipped. Returned as triangles in betas."""
+folded up, and the part of an image lying on the wall or on a copy already made skipped. Returned as triangles in betas."""
 from __future__ import annotations
 
 import numpy as np
@@ -46,8 +46,21 @@ def copies(w, data, H=0.012):
     seen = {key([Bn[k] for k in f]) for f in F}
     grid = set()
     cell = lambda b: tuple(np.floor(b[:3] / H).astype(int))
-    for b in Bn:
-        grid.add(cell(b))
+
+    def add_poly(pc):
+        pc = np.asarray(pc)
+        L = max(np.linalg.norm(pc[a] - pc[(a + 1) % len(pc)]) for a in range(len(pc)))
+        n = max(1, int(np.ceil(L / (H / 2))))
+        for m in range(1, len(pc) - 1):
+            for i in range(n + 1):
+                for j in range(n + 1 - i):
+                    grid.add(cell((pc[0] * (n - i - j) + pc[m] * i + pc[m + 1] * j) / n))
+
+    def area(pc):
+        pc = np.asarray(pc)
+        return sum(np.linalg.norm(np.cross((pc[m] - pc[0])[:3], (pc[m + 1] - pc[0])[:3])) for m in range(1, len(pc) - 1))
+    for f in F:
+        add_poly(Bn[f])
 
     def near(b):
         c = cell(b)
@@ -66,19 +79,19 @@ def copies(w, data, H=0.012):
                 continue
             if max(np.linalg.norm(t[0] - t[1]), np.linalg.norm(t[1] - t[2]), np.linalg.norm(t[2] - t[0])) > 0.12:
                 continue
-            polys += _into_half(list(t))
+            polys += [pc for pc in _into_half(list(t)) if area(pc) > 1e-10]
         if not polys:
             continue
-        on = sum(near(np.mean(pc, axis=0)) for pc in polys)
-        if on > 0.5 * len(polys):
-            continue
-        for pc in polys:
+        is_on = [near(np.mean(pc, axis=0)) for pc in polys]
+        most = sum(is_on) > 0.5 * len(polys)
+        for pc, o in zip(polys, is_on):
+            if most and o:
+                continue
             kk = key(pc)
             if kk in seen:
                 continue
             seen.add(kk)
-            for b in pc:
-                grid.add(cell(b))
+            add_poly(pc)
             for m in range(1, len(pc) - 1):
                 out.append(np.array([pc[0], pc[m], pc[m + 1]]))
     return out

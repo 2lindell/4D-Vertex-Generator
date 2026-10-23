@@ -297,11 +297,25 @@ __TYPE_CSS__
       const H = 0.012, grid = new Set();
       const cellOf = (b) => [0, 1, 2].map((a) => Math.floor(b[a] / H));
       const addPt = (b) => grid.add(cellOf(b).join(","));
+      // (a polygon's points sampled across it at half the grid step, so a large triangle counts as drawn all over)
+      const addPoly = (pc) => {
+        let L = 0;
+        for (let a = 0; a < pc.length; a++) { const p = pc[a], q = pc[(a + 1) % pc.length]; L = Math.max(L, Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2], p[3] - q[3])); }
+        const n = Math.max(1, Math.ceil(L / (H / 2)));
+        for (let m = 1; m < pc.length - 1; m++)
+          for (let i = 0; i <= n; i++) for (let j = 0; i + j <= n; j++)
+            addPt([0, 1, 2, 3].map((a) => (pc[0][a] * (n - i - j) + pc[m][a] * i + pc[m + 1][a] * j) / n));
+      };
+      const area = (pc) => { let s = 0;
+        for (let m = 1; m < pc.length - 1; m++) {
+          const u = [0, 1, 2].map((a) => pc[m][a] - pc[0][a]), v = [0, 1, 2].map((a) => pc[m + 1][a] - pc[0][a]);
+          s += Math.hypot(u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]); }
+        return s; };
       const near = (b) => { const c = cellOf(b);
         for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++)
           if (grid.has([c[0] + dx, c[1] + dy, c[2] + dz].join(","))) return true;
         return false; };
-      B.forEach((b) => addPt(norm(b)));
+      for (const f of F) addPoly(f.map((k) => norm(B[k])));
       for (const g of w.copyOps) {
         const M = DC.copyMats[g];
         const V = B.map((b) => M.map((r) => r[0] * b[0] + r[1] * b[1] + r[2] * b[2] + r[3] * b[3]));
@@ -314,19 +328,23 @@ __TYPE_CSS__
           // (near the plane the map sends to infinity a small triangle is stretched across the cell: not a copy)
           const d = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2], p[3] - q[3]);
           if (Math.max(d(t[0], t[1]), d(t[1], t[2]), d(t[2], t[0])) > 0.12) continue;
-          for (const pc of intoHalf(t)) polys.push(pc);
+          // (a triangle with an edge on the splitting mirror leaves a flat sliver below it: not a piece)
+          for (const pc of intoHalf(t)) if (area(pc) > 1e-10) polys.push(pc);
         }
         if (!polys.length) continue;
         const cen = (pc) => [0, 1, 2, 3].map((a) => pc.reduce((s, b) => s + b[a], 0) / pc.length);
-        let on = 0;
-        for (const pc of polys) if (near(cen(pc))) on++;
-        if (on > 0.5 * polys.length) continue;
-        for (const pc of polys) {
+        const isOn = polys.map((pc) => near(cen(pc)));
+        // (an image lying mostly on what is drawn maps the wall onto itself or onto a copy: only its pieces off
+        // them are new, the part of the copy the earlier ones left out)
+        const most = isOn.filter((x) => x).length > 0.5 * polys.length;
+        for (let q = 0; q < polys.length; q++) {
+          const pc = polys[q];
+          if (most && isOn[q]) continue;
           const kk = key(pc);
           if (seen.has(kk)) continue;
           seen.add(kk);
           const idx = pc.map(push);
-          pc.forEach(addPt);
+          addPoly(pc);
           for (let m = 1; m < idx.length - 1; m++) { I.push(idx[0]); J.push(idx[m]); K.push(idx[m + 1]); }
         }
       }

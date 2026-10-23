@@ -21,7 +21,7 @@ from wall_sections import Grid
 
 FL = np.array([1, 1, -1.0])
 FOLD = np.eye(4)[[1, 0, 3, 2]]
-DROP = {4}                                   # (patch 5, a sliver: not a piece of T2)
+DROP = set()                                 # (patch 5, once a sliver, is now the exact copy of region C (patch 4))
 CUT = {0: np.array([0, -1, 1, -1.0])}        # (patch 1: beta3 - beta2 - beta4 = 0, X11's plane)
 
 
