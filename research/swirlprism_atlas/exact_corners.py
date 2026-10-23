@@ -123,6 +123,45 @@ def fan_corner(T, K):
     return fan, gap, spread, (chain[0], chain[-1])
 
 
+def outline_to(sf, K, a, b, tol=0.003):
+    """The corner K put into the wall's outline: the outline's run between the points nearest the wedge's two ends
+    (the short way round) replaced by those ends and K."""
+    K = K / K.sum()
+    for loop in sf.get("outline", []):
+        closed = len(loop) > 1 and np.allclose(loop[0]["beta"], loop[-1]["beta"])
+        L = loop[:-1] if closed else loop
+        B = np.array([q["beta"] for q in L], float)
+        B = B / B.sum(1, keepdims=True)
+        if np.linalg.norm(B - K, axis=1).min() < 1e-9:
+            return True                               # (already there)
+        da, db = np.linalg.norm(B - a / a.sum(), axis=1), np.linalg.norm(B - b / b.sum(), axis=1)
+        ia, ib = int(da.argmin()), int(db.argmin())
+        if da[ia] > tol or db[ib] > tol or ia == ib:
+            continue
+        n = len(L)
+        fwd = (ib - ia) % n                           # (steps from ia to ib going forward)
+        if fwd > n - fwd:
+            ia, ib, fwd = ib, ia, n - fwd
+        new = {"beta": K.tolist(), "beyond": L[ia]["beyond"]}
+        idx = [(ia + k) % n for k in range(1, fwd)]   # (the run strictly between: replaced by K)
+        keep = [L[k] for k in range(n) if k not in set(idx)]
+        pos = keep.index(L[ia]) + 1
+        keep.insert(pos, new)
+        loop[:] = keep + ([keep[0]] if closed else [])
+        return True
+    return False
+
+
+def ends_of_fan(T, K):
+    """The outer ends of the fan at K: the vertices of K's triangles used by only one of them."""
+    K = K / K.sum()
+    at = [t for t in T if np.linalg.norm(t - K, axis=1).min() < 1e-9]
+    from collections import Counter
+    c = Counter(tuple(np.round(v, 10)) for t in at for v in t if np.linalg.norm(v - K) > 1e-9)
+    ends = [np.array(k) for k, n in c.items() if n == 1]
+    return ends if len(ends) == 2 else None
+
+
 def main(which=None):
     X = json.load(open("xsurfaces.json"))
     d = rw.page_data()
@@ -158,20 +197,7 @@ def main(which=None):
             T = np.concatenate([T, np.array(fan)])
             V = rc.xyz(T.reshape(-1, 4))
             sf.setdefault("filled_corners", []).append({"corner": K.tolist(), "point": names[i], "triangles": len(fan)})
-            # (the corner into the outline, between the outline points nearest the wedge's two ends)
-            for loop in sf.get("outline", []):
-                B = np.array([q["beta"] for q in loop], float)
-                B = B / B.sum(1, keepdims=True)
-                ia = int(np.linalg.norm(B - np.array(a), axis=1).argmin())
-                ib = int(np.linalg.norm(B - np.array(b), axis=1).argmin())
-                if np.linalg.norm(B[ia] - np.array(a)) > 1e-6 or np.linalg.norm(B[ib] - np.array(b)) > 1e-6:
-                    continue
-                lo, hi = sorted((ia, ib))
-                if hi - lo <= len(loop) - 1 - hi + lo:          # (the short way round, between them)
-                    loop[lo + 1:hi] = [{"beta": K.tolist(), "beyond": loop[lo]["beyond"]}]
-                else:
-                    loop[hi + 1:] = [{"beta": K.tolist(), "beyond": loop[hi]["beyond"]}, dict(loop[lo])] if lo == 0 else loop[hi + 1:]
-                break
+            outline_to(sf, K, np.array(a), np.array(b))
             notes.append(f"corner {names[i]} joined ({gap:.4f} short, wedge {spread:.0f}°, {len(fan)} fan triangles)")
         if notes:
             sf["tris"] = T.tolist()
@@ -180,4 +206,18 @@ def main(which=None):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1].split(",") if len(sys.argv) > 1 else None)
+    if len(sys.argv) > 1 and sys.argv[1] == "--outlines":
+        # (outlines of corners already joined, brought round them)
+        X = json.load(open("xsurfaces.json"))
+        for tid, sf in X.items():
+            T = np.array(sf["tris"], float)
+            T = T / T.sum(2, keepdims=True)
+            for fc in sf.get("filled_corners", []):
+                if "point" not in fc:
+                    continue
+                K = np.array(fc["corner"], float)
+                e = ends_of_fan(T, K)
+                print(tid, fc["point"], "outline brought round" if e and outline_to(sf, K, *e) else "not matched")
+        json.dump(X, open("xsurfaces.json", "w"))
+    else:
+        main(sys.argv[1].split(",") if len(sys.argv) > 1 else None)

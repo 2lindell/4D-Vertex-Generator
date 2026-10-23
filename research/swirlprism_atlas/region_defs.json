@@ -1,5 +1,35 @@
 {
  "_about": "Each region's walls, as decided. Every wall is cut into sections along the lines on it (cut_walls.py: where other walls meet it, the page's named lines in it, and their images on the wall's other pieces), each section named by the regions on its two sides; a region is coloured on the sections it lies beside (a piece in a face of the cell or in the splitting mirror from its inside only). A wall some section of which the region does not border (outside the face and mirror views) is partial. region_view.py --defs cuts the walls, exports these and records the partial walls; cell_atlas2.py lists the walls in the key's Boundaries column, partial ones marked.",
- "F2": {"walls": ["T2", "X3", "X9", "X10", "X11", "X14", "X21"]},
- "X12": {"walls": ["X3", "X7"]}
+ "F2": {
+  "walls": [
+   "T2",
+   "X3",
+   "X9",
+   "X10",
+   "X11",
+   "X14",
+   "X21"
+  ]
+ },
+ "X12": {
+  "walls": [
+   "X3",
+   "X7"
+  ]
+ },
+ "X45": {
+  "walls": [
+   "X14",
+   "X25",
+   "X27"
+  ]
+ },
+ "X46": {
+  "walls": [
+   "X14",
+   "X17",
+   "X19",
+   "X25"
+  ]
+ }
 }

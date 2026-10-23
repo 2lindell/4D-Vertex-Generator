@@ -325,6 +325,46 @@ def extended():
     return ext()
 
 
+def copies_as_main(out, G):
+    """Each copy's sections named as the main piece's sections they are the images of."""
+    # (a copy is the wall carried by an element of the extended group, regions with it: each of its sections takes
+    # the sides of the main piece's section it is the image of, not its own voxel votes)
+    GG = np.array([F @ M for M in G for F in (np.eye(4), FOLD)])
+    for w, faces in out.items():
+        main_f = [f for f in faces if f["kind"] == "orig"]
+        if not main_f:
+            continue
+        P0 = np.concatenate([np.array(f["tris"]).reshape(-1, 3, 3).mean(1) for f in main_f])
+        lab0 = np.concatenate([[k] * len(f["tris"]) for k, f in enumerate(main_f)])
+        tree0 = cKDTree(P0)
+        reach = 0.75 * max(float(np.linalg.norm(np.array(f["tris"]).reshape(-1, 3, 3) - np.array(f["tris"]).reshape(-1, 3, 3).mean(1)[:, None], axis=2).max()) for f in main_f)
+        for f in faces:
+            if f["kind"] != "copy":
+                continue
+            T_ = np.array(f["tris"]).reshape(-1, 3, 3)
+            A_ = 0.5 * np.linalg.norm(np.cross(T_[:, 1] - T_[:, 0], T_[:, 2] - T_[:, 0]), axis=1)
+            X_ = T_[np.argsort(-A_)[:min(len(T_), 12)]].mean(1)
+            Y = np.einsum("gij,nj->gni", GG, rc.betas(X_))
+            s_ = Y.sum(2, keepdims=True)
+            ok = (np.abs(s_[..., 0]) > 1e-12).all(1)
+            best = None
+            for g in np.flatnonzero(ok):
+                B = Y[g] / s_[g]
+                if (B < -1e-9).any() or (B[:, 2] < B[:, 3] - 1e-9).any():
+                    continue
+                dd, ii = tree0.query(rc.xyz(B))
+                if dd.max() < reach and (best is None or dd.max() < best[0]):
+                    best = (dd.max(), ii)
+            if best is None:
+                continue
+            k = np.bincount(lab0[best[1]]).argmax()
+            src = main_f[k]["sides"]
+            if set(src) != set(f["sides"]):
+                f["voxels_said"] = f["sides"]
+                f["sides"], f["named"] = list(src), "as its main piece"
+                print(f"  {w} copy section {f['area']:.4f}: {'|'.join(f['voxels_said'])} -> {'|'.join(src)} (as its main piece)")
+
+
 def main(walls):
     want = walls.split(",")
     d = rw.page_data()
@@ -618,9 +658,16 @@ def main(walls):
         print(f"  {w} ({kind}, piece {pid}): {len(lines[pid])} lines ({', '.join(x[0] for x in lines[pid]) or 'none'}); "
               f"{len(set(comp))} sections: " + "; ".join(f"{f['sides'][0]}|{f['sides'][1]} {f['area']:.4f}" + (f" ({f['named']})" if f['named'] != "voxels" else "")
                                                         for f in out[w] if f["piece"] == pid), flush=True)
+    copies_as_main(out, G)
     for w, faces in out.items():
         json.dump(faces, gzip.open(os.path.join(OUT, f"{w}.json.gz"), "wt"), separators=(",", ":"))
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    if sys.argv[1] == "--copies":                     # (the copies of walls already cut, named again from their mains)
+        out = {w: json.load(gzip.open(os.path.join(OUT, f"{w}.json.gz"), "rt")) for w in sys.argv[2].split(",")}
+        copies_as_main(out, extended())
+        for w, faces in out.items():
+            json.dump(faces, gzip.open(os.path.join(OUT, f"{w}.json.gz"), "wt"), separators=(",", ":"))
+    else:
+        main(sys.argv[1])
