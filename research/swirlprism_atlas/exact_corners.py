@@ -152,6 +152,37 @@ def outline_to(sf, K, a, b, tol=0.003):
     return False
 
 
+def snap_tip(sf, T, K, reach=0.01, straight=1.0):
+    """A mesh ending in a tip just short of K along a straight edge pointing at K (the mesher stops short at a
+    singular point): the tip vertex moved onto K, in the triangles and the outline. None if not so."""
+    pos, nbr = boundary_loops(T)
+    keys = list(nbr)
+    if not keys:
+        return None
+    xk = rc.xyz((K / K.sum())[None])[0]
+    Xb = {k: rc.xyz(np.array([pos[k]]))[0] for k in keys}
+    k0 = min(keys, key=lambda k: np.linalg.norm(Xb[k] - xk))
+    gap = float(np.linalg.norm(Xb[k0] - xk))
+    if not 1e-9 < gap < reach or len(nbr[k0]) != 2:
+        return None
+    u = (Xb[k0] - xk) / gap
+    for s_ in nbr[k0]:
+        w = (Xb[s_] - xk) / np.linalg.norm(Xb[s_] - xk)
+        if np.degrees(np.arccos(np.clip(u @ w, -1, 1))) < straight:
+            break                                     # (an edge running straight on through the tip to K)
+    else:
+        return None
+    old = pos[k0].copy()                         # (pos holds views into T)
+    T[np.linalg.norm(T - old, axis=2) < 1e-9] = K / K.sum()
+    xo = rc.xyz(old[None])[0]
+    for loop in sf.get("outline", []):           # (the outline's own point at the tip: the nearest, within 2e-4)
+        B = np.array([q["beta"] for q in loop], float)
+        dd = np.linalg.norm(rc.xyz(B / B.sum(1, keepdims=True)) - xo, axis=1)
+        for j in np.flatnonzero(dd < 2e-4):
+            loop[j]["beta"] = (K / K.sum()).tolist()
+    return gap
+
+
 def ends_of_fan(T, K):
     """The outer ends of the fan at K: the vertices of K's triangles used by only one of them."""
     K = K / K.sum()
@@ -189,6 +220,12 @@ def main(which=None):
             K = BP[i]
             gap = np.linalg.norm(V - rc.xyz(K[None])[0], axis=1).min()
             if not GAP[0] < gap < GAP[1]:
+                continue
+            tip = snap_tip(sf, T, K)
+            if tip is not None:
+                V = rc.xyz(T.reshape(-1, 4))
+                sf.setdefault("filled_corners", []).append({"corner": K.tolist(), "point": names[i], "moved_tip": tip})
+                notes.append(f"corner {names[i]}: the tip {tip:.4f} short of it moved onto it")
                 continue
             got = fan_corner(T, K)
             if got is None:
