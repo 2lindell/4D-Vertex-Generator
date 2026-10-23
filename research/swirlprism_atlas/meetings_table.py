@@ -51,8 +51,10 @@ def named_things(d):
     return lines, names, cKDTree(np.array([pts[k] for k in names]))
 
 
-def main(walls):
-    want = walls.split(",")
+def main(walls, raw=False):
+    """The table (printed and written); with raw, instead the curves themselves, for cut_walls.py: (records with
+    their host piece, other piece, exact surfaces and points, and the page's wall pieces)."""
+    want = walls.split(",") if isinstance(walls, str) else list(walls)
     d = rw.page_data()
     pieces = rw.pieces_of(d, {w["id"] for w in d["xwalls"]} | {"T2"})
     lines, pnames, ptree = named_things(d)
@@ -158,7 +160,7 @@ def main(walls):
                             "kind": str(kd), "line": ", ".join(names), "length": round(L, 4),
                             "from": where(E[i0]), "to": where(E[j0]),
                             "surfaces": [sa.name if sa else None, sb.name if sb else None],
-                            "_host": pa, "_ends": [E[i0], E[j0]], "_pts": E, "_s": (sa, sb)})
+                            "_host": pa, "_other": pb, "_ends": [E[i0], E[j0]], "_pts": E, "_s": (sa, sb)})
     # (a cut never stops part way across a wall: each end of a line on A must meet A's edge, a named line, or another
     # line on A; one that meets none is an error, something missing there)
     for r in out:
@@ -201,8 +203,10 @@ def main(walls):
                     got += f" ({run:.4f} on along the curve)"
             res.append(got or "STOPS: error")
         r["ends"] = res
+    if raw:
+        return out, pieces
     for r in out:
-        for k in ("_host", "_ends", "_pts", "_s"):
+        for k in ("_host", "_other", "_ends", "_pts", "_s"):
             r.pop(k, None)
     # (the same curve seen from two pieces of a wall listed once)
     uniq = {}
