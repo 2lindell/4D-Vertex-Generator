@@ -168,8 +168,8 @@ def main():
     for w, faces in secs.items():
         for k, f in enumerate(faces):
             f["inside"] = len(f["sides"]) == 2 and f["sides"][0] == f["sides"][1]
-            if f["area"] < SLIVER or f["inside"]:
-                continue
+            if f["area"] < SLIVER:
+                continue                              # (a section with the region on both sides borders it too)
             for r in f["sides"]:
                 if r == BEYOND:
                     continue
@@ -179,7 +179,7 @@ def main():
                     findings["wall_names_as_sides"].append({"wall": w, "section": k, "area": f["area"], "name": r})
     for r, ws in walls_of.items():
         for w in ws:
-            if any((r not in f["sides"] or f["inside"]) and BEYOND not in f["sides"] and f["area"] >= SLIVER for f in secs[w]):
+            if any(r not in f["sides"] and BEYOND not in f["sides"] and f["area"] >= SLIVER for f in secs[w]):
                 part_of[r].add(w)
     # (3) against the survey and the page's regions
     db = json.load(open("region_db.json"))
@@ -204,7 +204,7 @@ def main():
     sides_db = defaultdict(set)
     for w, faces in secs.items():
         for f in faces:
-            if f["area"] >= SLIVER and not f["inside"]:
+            if f["area"] >= SLIVER:
                 sides_db[w] |= {r for r in f["sides"] if r in region_set}
     json.dump({w: sorted(v) for w, v in sorted(sides_db.items())}, open("wall_sides.json", "w"), indent=1)
     for w, faces in secs.items():

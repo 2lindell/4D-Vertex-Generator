@@ -37,8 +37,8 @@ def view(rid, path="region_pieces.json", kinds=False):
     for wid, faces in fp.items():
         for f in faces:
             a, b = f["sides"]
-            if f["mirror"] or (a == rid) == (b == rid):
-                continue
+            if f["mirror"] or rid not in (a, b):
+                continue                                # (the region on both sides of a section: coloured too)
             # (a face lying in the view's cut is drawn where the region is on the visible side: past the cut, the
             # same place is drawn again at the glued copy)
             if f.get("cut", [False, False])[0 if a == rid else 1] and _in_cut(f["tris"]):

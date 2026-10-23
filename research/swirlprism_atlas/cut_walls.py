@@ -64,10 +64,12 @@ class PolyCut:
     """A line given by its points in order (a named line, or a line's image), as a cut: near the line, the signed
     distance across it within the piece (the line's direction crossed with the piece's normal)."""
 
-    def __init__(self, name, L, normal, h=2e-4, gap=5e-3):
+    def __init__(self, name, L, normal, h=2e-4, gap=5e-3, segs=None):
         L = np.asarray(L, float)
         Q, D = [], []
-        for a, b in zip(L[:-1], L[1:]):
+        self.segs = None if segs is None else np.asarray(segs, float)
+        pairs = list(zip(L[:-1], L[1:])) if segs is None else [(a, b) for a, b in self.segs]
+        for a, b in pairs:
             n_ = np.linalg.norm(b - a)
             if n_ < 1e-12 or n_ > gap:
                 continue
@@ -295,7 +297,23 @@ def flat_cut(T, plines):
         Xs = T.mean(1)
         if np.median(np.abs(s.at(Xs)) / (np.linalg.norm(s.grad(Xs), axis=1) + 1e-30)) < 1e-6:
             continue                                  # (the cutter holds the piece itself: no line on it)
-        if isinstance(s, PolyCut):
+        if isinstance(s, PolyCut) and s.segs is not None:
+            # (another wall's own edge lying in the piece: its segments, joined, each run carried on straight)
+            from shapely.ops import linemerge
+            sg = [LineString(to2(seg)) for seg in s.segs if np.abs((seg - o) @ n).max() < 2e-4]
+            if not sg:
+                continue
+            u_ = unary_union(sg)
+            m_ = linemerge(u_) if u_.geom_type == "MultiLineString" else u_
+            ls = list(getattr(m_, "geoms", [m_]))
+            for i_, r_ in enumerate(ls):
+                C = np.array(r_.coords)
+                d0 = C[0] - C[1]
+                d1 = C[-1] - C[-2]
+                d0, d1 = d0 / (np.linalg.norm(d0) + 1e-30), d1 / (np.linalg.norm(d1) + 1e-30)
+                ext = np.linspace(0, 0.03, 61)[1:, None]
+                whole[(k, i_)] = (np.vstack([(C[0] + ext * d0)[::-1], C, C[-1] + ext * d1]), 60, 60 + len(C))
+        elif isinstance(s, PolyCut):
             Q = s.Q[np.abs((s.Q - o) @ n) < 2e-4]
             if len(Q) < 2:
                 continue
@@ -662,6 +680,44 @@ def main(walls):
             P = carry_on(P, sa, sb, edge_tree[pa], inside[pa], cKDTree(np.concatenate(others)) if others else None,
                          where=btree)
         lines[pa].append([B, sb, P, wb])
+    # (c) another wall ending on the piece exactly along its own edge: that edge lies in the piece's surface but
+    # the two meshes only touch there, so no crossing of triangles finds it; it is read off the walls' outlines
+    bbox = {pid: (pieces[pid][3].reshape(-1, 3).min(0) - 0.01, pieces[pid][3].reshape(-1, 3).max(0) + 0.01)
+            for pid in range(len(pieces))}
+    outl = {}
+    for pa in mine:
+        S = S_of[pa]
+        if S is None:
+            continue
+        near_a = cKDTree(sample_tris(pieces[pa][3], 0.002))
+        for pb in range(len(pieces)):
+            if pb == pa:
+                continue
+            lo_, hi_ = bbox[pb]
+            if (lo_ > bbox[pa][1]).any() or (hi_ < bbox[pa][0]).any():
+                continue
+            if pb not in outl:
+                outl[pb] = mesh_edges(pieces[pb][3])
+            E = outl[pb]
+            if not len(E):
+                continue
+            X_ = E.reshape(-1, 3)
+            r_ = (np.abs(S.at(X_)) / (np.linalg.norm(S.grad(X_), axis=1) + 1e-30)).reshape(-1, 2).max(1)
+            M_ = E.mean(1)
+            keep = (r_ < 1e-6) & (near_a.query(M_)[0] < 1.5e-3) & (edge_tree[pa].query(M_)[0] > 1.5e-3)
+            if not keep.any() or np.linalg.norm(E[keep, 1] - E[keep, 0], axis=1).sum() < 3e-3:
+                continue
+            seg = E[keep]
+            P = sample_segs(seg)
+            if any(np.median(cKDTree(x[2]).query(P)[0]) < 1e-3 for x in lines[pa]):
+                continue                              # (already a line on the piece)
+            B = pieces[pb][0]
+            Cb = pieces[pb][3].mean(1)
+            db = cKDTree(P).query(Cb)[0]
+            lines[pa].append([f"{B} (its edge)", PolyCut(f"{B} (its edge)", P[:2], normal_of(pa), gap=np.inf, segs=seg), P,
+                              (B, Cb[(db > 2e-3) & (db < 1.2e-2)])])
+            if os.environ.get("CUTDBG"):
+                print(f"     {B}'s edge lies in piece {pa}: {keep.sum()} segments", flush=True)
     for pid in lines:
         lines[pid] = [tuple(x) for x in lines[pid]]
     # (2) the images of each piece's lines on the wall's other pieces
