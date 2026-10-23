@@ -175,6 +175,62 @@ def orient(F, crease=None):
     return F
 
 
+class EdgeMesh(Mesh):
+    """Mesh.cut with each new point found on its own edge: the cutter's zero bisected along the edge (each trial
+    point put on the wall's surface), so a cut point never slides off the edge it splits."""
+
+    def cut(self, s, si):
+        g = s.at(self.V)
+        scale = np.abs(g).max()
+        if scale < 1e-14:
+            return 0
+        g[np.abs(g) < 1e-12 * scale] = 0.0
+        pairs, cache, out, n_cut = [], {}, [], 0
+
+        def mid(i, j):
+            k = (min(i, j), max(i, j))
+            if k not in cache:
+                cache[k] = len(self.V) + len(pairs)
+                pairs.append((i, j))
+                self.on[cache[k]] |= (self.on[i] & self.on[j]) | {si}
+            return cache[k]
+        for tri in self.T:
+            sg = np.sign(g[list(tri)])
+            if not ((sg > 0).any() and (sg < 0).any()):
+                out.append(tri)
+                continue
+            n_cut += 1
+            a, b, c = tri
+            zero = 0 in sg
+            for _ in range(3):
+                sa, sb, sc = np.sign(g[[a, b, c]])
+                if (sa == 0) if zero else (sa != sb and sa != sc):
+                    break
+                a, b, c = b, c, a
+            if zero:
+                p = mid(b, c)
+                self.on[a].add(si)
+                out += [(a, b, p), (a, p, c)]
+            else:
+                p, q = mid(a, b), mid(a, c)
+                out += [(a, p, q), (p, b, c), (p, c, q)]
+        if pairs:
+            I, J = np.array(pairs).T
+            lo, hi = np.zeros(len(I)), np.ones(len(I))
+            gi = g[I]
+            on_w = (lambda X: project(X, [self.surf])) if self.surf is not None else (lambda X: X)
+            for _ in range(40):
+                t = (lo + hi) / 2
+                X = on_w(self.V[I] + t[:, None] * (self.V[J] - self.V[I]))
+                same = np.sign(s.at(X)) == np.sign(gi)
+                lo = np.where(same, t, lo)
+                hi = np.where(same, hi, t)
+            t = (lo + hi) / 2
+            self.V = np.vstack([self.V, on_w(self.V[I] + t[:, None] * (self.V[J] - self.V[I]))])
+        self.T = out
+        return n_cut
+
+
 def cut_near(m, s, si, pts, r=TUBE):
     """Mesh.cut, only for the triangles near the points of the line."""
     tree = cKDTree(pts)
@@ -418,7 +474,7 @@ def main(walls):
         V, F = weld_close(Ts)
         crease = creases(V, T)
         F = orient(F, crease)
-        m = Mesh(V, F, S_of[pid] if S_of[pid] is not None and S_of[pid].kind != "domain" else None)
+        m = EdgeMesh(V, F, S_of[pid] if S_of[pid] is not None and S_of[pid].kind != "domain" else None)
         names = []
         for k, (nm, s, P, _) in enumerate(lines[pid]):
             Xs = T.mean(1)
