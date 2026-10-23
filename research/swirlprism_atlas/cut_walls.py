@@ -790,8 +790,12 @@ def main(walls):
                         Xl = images(rc.betas(P), [g])[0]
                         Xl = Xl[np.isfinite(Xl).all(1)]
                         Xl = Xl[dense_of(q).query(Xl)[0] < 2e-3] if len(Xl) else Xl
-                        if len(Xl) < 5 or any(np.median(cKDTree(P2).query(Xl)[0]) < 1e-3 for _, _, P2, _ in lines[q]):
+                        # (a wall's edge read off its outline gives way to the exact line carried onto it)
+                        if len(Xl) < 5 or any(np.median(cKDTree(P2).query(Xl)[0]) < 1e-3 for n2, _, P2, _ in lines[q]
+                                              if not n2.endswith("(its edge)")):
                             continue
+                        lines[q] = [x for x in lines[q] if not (x[0].endswith("(its edge)")
+                                                                and np.median(cKDTree(Xl).query(x[2])[0]) < 1e-3)]
                         if wb is not None and len(wb[1]):
                             Xb = images(rc.betas(wb[1]), [g])[0]   # (the meeting wall carried along with its line)
                             wb = (wb[0], Xb[np.isfinite(Xb).all(1)])
@@ -802,6 +806,42 @@ def main(walls):
                         else:
                             img = Image(s, hit)
                         lines[q].append((nm + " (carried)", img, Xl, wb))
+    # (2b) a flat copy cut in two where it crosses the splitting mirror, the part below folded up: one piece, so each
+    # line reaching the seam goes on across it, on the other part, as its image under the fold
+    def on_mirror(pid):
+        E = mesh_edges(pieces[pid][3])
+        if not len(E):
+            return E
+        Bm = rc.betas(E.reshape(-1, 3)).reshape(-1, 2, 4)
+        return E[(np.abs(Bm[..., 2] - Bm[..., 3]) < 1e-5).all(1)]
+    fold_xyz = lambda X: rc.xyz(rc.betas(X)[:, [1, 0, 3, 2]])
+    flat_ = lambda pid: S_of[pid] is not None and S_of[pid].kind in ("plane", "domain")
+    seams = {pid: on_mirror(pid) for pid in mine if flat_(pid)}
+    for p in seams:
+        for q in seams:
+            if q == p or pieces[q][0] != pieces[p][0] or not len(seams[p]) or not len(seams[q]):
+                continue
+            sp = sample_segs(seams[p])
+            sq = fold_xyz(sample_segs(seams[q]))
+            shared = sp[cKDTree(sq).query(sp)[0] < 2e-4]
+            if len(shared) < 5 or np.linalg.norm(shared.max(0) - shared.min(0)) < 2e-3:
+                continue
+            st = cKDTree(shared)
+            for nm, s_, P, wb in list(lines[p]):
+                if isinstance(s_, PolyCut) or "(across the fold)" in nm:
+                    continue
+                Pn = P[st.query(P)[0] < 3e-3]
+                if len(Pn) < 2:
+                    continue
+                Xq = fold_xyz(Pn)
+                if any(np.median(cKDTree(P2).query(Xq)[0]) < 1e-3 for _, _, P2, _ in lines[q]):
+                    continue
+                img = Image(s_.s, FOLD @ np.linalg.inv(s_.A)) if isinstance(s_, Image) else Image(s_, FOLD)
+                if wb is not None and len(wb[1]):
+                    wb = (wb[0], fold_xyz(wb[1]))
+                lines[q].append((nm + " (across the fold)", img, Xq, wb))
+                if os.environ.get("CUTDBG"):
+                    print(f"     {nm} on piece {p} carried across the fold onto piece {q}")
     # (3) cut, gather sections, name them
     os.makedirs(OUT, exist_ok=True)
     out = defaultdict(list)
