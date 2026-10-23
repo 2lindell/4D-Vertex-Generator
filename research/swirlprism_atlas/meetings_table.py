@@ -88,12 +88,13 @@ def main(walls, raw=False):
     seg, pairs = seg[ok], pairs[ok]
     # (each meeting piece, seen from wall A's side)
     by = defaultdict(list)
-    tri_a = defaultdict(list)
+    tri_a, tri_b = defaultdict(list), defaultdict(list)
     for (i, j), s in zip(pairs, seg):
         for a, b in ((i, j), (j, i)):
             if wall_of[a] in want:
                 by[(owner[a], owner[b])].append(s)
                 tri_a[(owner[a], owner[b])].append(a)
+                tri_b[(owner[a], owner[b])].append(b)
     # (each piece's exact surface: a meeting is put on both walls' surfaces, so its pieces join along the exact
     # curve; two walls on the same surface lie side by side there, they do not cross)
     from arrangement import carriers, project, surfaces
@@ -108,7 +109,10 @@ def main(walls, raw=False):
     out = []
     for (pa, pb), S in by.items():
         S = np.array(S)
-        sa, sb = surf[pa], surf[pb]
+        # (each wall's surface where they meet: a copy made of several images of a wall lies on several surfaces,
+        # the one there taken from its triangles at the meeting)
+        sa = surface_of(allT[np.unique(tri_a[(pa, pb)])], surfs) or surf[pa]
+        sb = surface_of(allT[np.unique(tri_b[(pa, pb)])], surfs) or surf[pb]
         if sa is not None and sb is not None:
             # (the same surface: the other's equation vanishes over A's own triangles there, not just on the meeting)
             Ca = allT[np.array(tri_a[(pa, pb)])].mean(1)
