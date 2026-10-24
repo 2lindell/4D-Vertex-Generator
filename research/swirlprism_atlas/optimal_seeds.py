@@ -252,9 +252,11 @@ def shape(tid):
     if dim == "wall" and tid in MESH:
         # (a curved wall's mesh lies on its exact surface: its vertices, spread over it and put back on the
         # surface, are starts too; its samples can sit too near an edge to classify as the wall)
-        own = [c for c in LIB[1] if c.name == tid]
         V = MESH[tid]
         V = V[np.linspace(0, len(V) - 1, min(len(V), SPREAD)).astype(int)]
+        # (the surface the mesh lies on: named for the wall, or another wall's surface it shares)
+        res_ = lambda c: max(abs(c.f(v)[0]) / (np.linalg.norm(c.grad(v)) + 1e-30) for v in V)
+        own = [c for c in LIB[1] if c.name == tid] or [c for c in LIB[1] if res_(c) < 1e-6][:1]
         extra = [home(onto(v, own)) for v in V] if own else []
         B = np.array(list(B) + extra) if len(B) else np.array(extra)
     if not len(B):
@@ -307,5 +309,53 @@ def main(only=None):
             json.dump(done, open(OUT, "w"), indent=1)
 
 
+def robust(b, cons, tid, step=STEP):
+    """The shape holds a step each way along its locus from b (or one way, where the other leaves the half-cell)."""
+    return label(b) == tid and stays(b, cons, tid) if cons else label(b) == tid and all(
+        label(home(b + sgn * step * u)) in (tid, None) for u in np.eye(4)[:3] - 0.25 for sgn in (1, -1))
+
+
+def settle_one(args):
+    """An optimum that sits on the edge of its shape (where it meets another, the ratio still falling) moved back
+    toward its start, by bisection along the locus, to the last point where the shape holds all round."""
+    tid, e = args
+    names = e.get("constraints")
+    if not isinstance(names, list) or "start" not in e:
+        return tid, e
+    planes, curved = LIB
+    by_name = {p.name: p for p in planes} | {c.name: c for c in curved}
+    cons = [by_name[n] for n in names if n in by_name]
+    b1, b0 = np.array(e["beta"]), np.array(e["start"])
+    if robust(b1, cons, tid):
+        return tid, {**e, "settled": "the optimum itself"}
+    if not robust(b0, cons, tid):
+        return tid, {**e, "settled": "not robust (kept)"}
+    at = lambda t: onto(b0 + t * (b1 - b0), cons) if cons else b0 + t * (b1 - b0)
+    lo, hi = 0.0, 1.0
+    for _ in range(14):
+        m = (lo + hi) / 2
+        if robust(at(m), cons, tid):
+            lo = m
+        else:
+            hi = m
+    b = home(at(lo))
+    return tid, {**e, "beta": b.tolist(), "ratio": score(b, tid), "optimum_at_edge": e["ratio"],
+                 "settled": f"backed off to {lo:.4f} of the way from the start"}
+
+
+def settle():
+    global LIB
+    LIB = library()
+    done = json.load(open(OUT))
+    with Pool(int(os.environ.get("PROCS", 4))) as pool:
+        for tid, e in pool.imap_unordered(settle_one, list(done.items())):
+            done[tid] = e
+            print(f"{tid}: {e.get('settled')}, ratio {e['ratio']:.6f}", flush=True)
+            json.dump(done, open(OUT, "w"), indent=1)
+
+
 if __name__ == "__main__":
-    main(set(sys.argv[1].split(",")) if len(sys.argv) > 1 else None)
+    if sys.argv[1:] == ["--settle"]:
+        settle()
+    else:
+        main(set(sys.argv[1].split(",")) if len(sys.argv) > 1 else None)
