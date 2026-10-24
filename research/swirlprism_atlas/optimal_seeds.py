@@ -243,12 +243,20 @@ def samples_by_shape():
     return by
 
 
-DIMS, BY = {}, {}
+DIMS, BY, MESH = {}, {}, {}
 
 
 def shape(tid):
     """The optimal seed of one shape (run in a worker)."""
     dim, B = DIMS[tid], np.array(BY.get(tid, []))
+    if dim == "wall" and tid in MESH:
+        # (a curved wall's mesh lies on its exact surface: its vertices, spread over it and put back on the
+        # surface, are starts too; its samples can sit too near an edge to classify as the wall)
+        own = [c for c in LIB[1] if c.name == tid]
+        V = MESH[tid]
+        V = V[np.linspace(0, len(V) - 1, min(len(V), SPREAD)).astype(int)]
+        extra = [home(onto(v, own)) for v in V] if own else []
+        B = np.array(list(B) + extra) if len(B) else np.array(extra)
     if not len(B):
         return tid, None
     if dim == "point":
@@ -274,10 +282,16 @@ def shape(tid):
 
 
 def main(only=None):
-    global LIB, DIMS, BY
+    global LIB, DIMS, BY, MESH
     d = rw.page_data()
     DIMS = {t["id"]: t.get("dim") for t in d["types"]}
     BY = samples_by_shape()
+    X = json.load(open("xsurfaces.json"))
+    for tid, sf in X.items():
+        V = np.unique(np.round(np.array(sf["tris"], float).reshape(-1, 4), 12), axis=0)
+        V = V / V.sum(1, keepdims=True)
+        V = V[(V > 0.01).all(1)]                          # (away from the half-cell's faces)
+        MESH[tid] = V
     done = json.load(open(OUT)) if os.path.exists(OUT) else {}
     todo = [t for t in DIMS if (only is None and t not in done) or (only is not None and t in only)]
     LIB = library()                                       # (the workers share it by forking)
