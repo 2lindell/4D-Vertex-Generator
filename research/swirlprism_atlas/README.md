@@ -390,6 +390,10 @@ exact about where a shape lives:
   (20 spread over its samples are scored, the best 2 whose locus is found are refined): each trial point is moved
   back onto the constraint surfaces by Newton steps in the betas, classified (`probe._one`), and scored by its edge
   ratio, infinite where it is not the shape. A Nelder–Mead simplex does the minimising.
+- **Settling.** The ratio usually keeps falling right up to the edge of a shape (where it meets the next one), so
+  the minimiser ends a hair from that edge. Each optimum is checked to hold its shape a step of 1e-4 each way along
+  its locus; where it does not, it is moved back toward its starting sample (bisection along the locus) to the last
+  point where it does (`python optimal_seeds.py --settle`; the edge optimum is kept as `optimum_at_edge`).
 - **Output.** `optimal_seeds.json`: per shape its dimension, the optimal beta (in the displayed half), the ratio,
   the starting sample and its ratio, and the constraint surfaces. `cell_atlas2.py` uses it for each shape's example
   seed and β text. Shapes whose locus could not be found keep their best sample.
@@ -398,3 +402,10 @@ exact about where a shape lives:
 python optimal_seeds.py            # all shapes not yet in optimal_seeds.json (resumes); PROCS=4 workers
 python optimal_seeds.py X7,X10     # just these, recomputed
 ```
+
+Results (120 shapes: 5 points, 24 lines, 53 walls, 38 regions): the example seed's ratio improves on the best
+sample by a median factor of 1.06 on lines, 1.32 on walls and 1.23 on regions (at most 2.26, 17.3 and 3.18); no
+shape got worse. 83 optima sat at the edge of their shape and were settled just inside it, 61 of them within 1% of the
+way back. Lines whose shape holds all along (E1, E2, T1) keep the same ratio everywhere (2, φ², 1.902…). One shape
+has no exact locus found: the line X81, whose only sample sits where several walls meet; it keeps that sample.
+
