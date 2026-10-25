@@ -1,7 +1,51 @@
 {
- "_about": "Walls whose edges are taken as checked by hand or from the domain page's own lists, over what wall_outline.py derives. T2: regions A and C joined across the face b4 = 0 and on into their copies across the cross ring b3 = b4 (D1), leaving T1, the conic X4, E2 and the line X1 (b1 = b3 + phi^2 b4); X5 and C2a are X96's (T2's former region B). X17: its key's lines X2, X4. X26: its main patch's edges in the mirror b3 = b4 (D2 on b1 = 0 and b2 = 0, X2 on the two other sides); its copy adds none. X38: the edges listed on the page.",
- "T2": {"edges": ["E2", "T1", "X1", "X4"], "points": ["C1", "C4", "C5", "C6"]},
- "X17": {"edges": ["X2", "X4"], "points": ["C1", "C4", "C5"]},
- "X26": {"edges": ["D2", "X2"], "points": ["A1", "C1", "C4"]},
- "X38": {"edges": ["B1", "C2a", "D1", "E1", "X26", "X48"], "points": ["A1", "C6"]}
+ "_about": "Walls whose edges are taken as checked by hand or from the domain page's own lists, over what wall_outline.py derives. T2: regions A and C joined across the face b4 = 0 and on into their copies across the cross ring b3 = b4 (D1), leaving T1, the conic X4, E2 and the line X1 (b1 = b3 + phi^2 b4); X5 and C2a are X96's (T2's former region B). X17: its key's lines X2, X4. X26: D2 and X2 from its main patch in the mirror b3 = b4, and D3, where the other side is its mirror image. X38: B1, C2a and E1.",
+ "T2": {
+  "edges": [
+   "E2",
+   "T1",
+   "X1",
+   "X4"
+  ],
+  "points": [
+   "C1",
+   "C4",
+   "C5",
+   "C6"
+  ]
+ },
+ "X17": {
+  "edges": [
+   "X2",
+   "X4"
+  ],
+  "points": [
+   "C1",
+   "C4",
+   "C5"
+  ]
+ },
+ "X26": {
+  "edges": [
+   "D2",
+   "D3",
+   "X2"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C4"
+  ]
+ },
+ "X38": {
+  "edges": [
+   "B1",
+   "C2a",
+   "E1"
+  ],
+  "points": [
+   "A1",
+   "C6"
+  ]
+ }
 }
