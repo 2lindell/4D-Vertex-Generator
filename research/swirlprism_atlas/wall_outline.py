@@ -146,6 +146,10 @@ def main():
             r["edges"] = sorted(x for x in extra[w] if dims.get(x) in ("line", "wall"))
             r["points"] |= {x for x in extra[w] if dims.get(x) == "point"}
         r["points"] = sorted(r["points"])
+    # (walls checked by hand, or as the domain page lists them: wall_outline_checked.json)
+    for w, r in json.load(open("wall_outline_checked.json")).items():
+        if not w.startswith("_"):
+            out[w] = {**out.get(w, {}), **r, "checked": True}
     json.dump(out, open("wall_outline.json", "w"), indent=1)
     for w in walls:
         r = out[w]

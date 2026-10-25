@@ -45,14 +45,10 @@
  },
  "T2": {
   "edges": [
-   "C2a",
-   "D1",
    "E2",
    "T1",
    "X1",
-   "X17",
-   "X4",
-   "X5"
+   "X4"
   ],
   "points": [
    "C1",
@@ -63,7 +59,8 @@
   "goes_on_across": [
    "D1",
    "T2"
-  ]
+  ],
+  "checked": true
  },
  "X3": {
   "edges": [
@@ -158,15 +155,19 @@
  },
  "X17": {
   "edges": [
+   "X2",
    "X4"
   ],
   "points": [
-   "C4"
+   "C1",
+   "C4",
+   "C5"
   ],
   "goes_on_across": [
    "X17",
    "X4"
-  ]
+  ],
+  "checked": true
  },
  "X19": {
   "edges": [
@@ -249,16 +250,19 @@
  },
  "X26": {
   "edges": [
+   "D2",
    "X2"
   ],
   "points": [
+   "A1",
    "C1",
    "C4"
   ],
   "goes_on_across": [
    "D2",
    "D3"
-  ]
+  ],
+  "checked": true
  },
  "X27": {
   "edges": [
@@ -334,7 +338,12 @@
  },
  "X38": {
   "edges": [
-   "E1"
+   "B1",
+   "C2a",
+   "D1",
+   "E1",
+   "X26",
+   "X48"
   ],
   "points": [
    "A1",
@@ -342,7 +351,8 @@
   ],
   "goes_on_across": [
    "C2a"
-  ]
+  ],
+  "checked": true
  },
  "X39": {
   "edges": [
