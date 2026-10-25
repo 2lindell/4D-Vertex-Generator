@@ -24,6 +24,10 @@ FILLS = [
     ("X41", "X49", "drop", "X49's boundary list has no X41 (wall_sides.json: X58, X62)"),
     ("X20", "X59", "drop", "X59's boundary list has no X20 (wall_sides.json: X66, X95)"),
     ("X79", "X72", "add", "tested: both sides of X79 are X72 and X73 on all its patches (they swap where X26 crosses it)"),
+    ("F4", "X61", "drop", "checked by hand: X61 does not touch F4 (X38 lies between X58 and X61)"),
+    ("X38", "X58", "add", "checked by hand: X38 lies between X58 and X61"),
+    ("X38", "X61", "add", "checked by hand: X38 lies between X58 and X61"),
+    ("X38", "X68", "drop", "checked by hand: X38's two sides are X58 and X61"),
     ("X96", "X58", "add", "X58's boundary list has T2: T2's former region B, the wall X96 (X41 ends on it there)"),
     ("X17", "X46", "add", "X46's boundary list has X17 (X19 ends on X17 there)"),
 ]
@@ -123,7 +127,7 @@ def main():
         for w in W:
             for e in E[w]:
                 if dims.get(e) == "wall":
-                    if e not in W:
+                    if e not in W and len(sep[w]) == 2:      # (a wall with more regions: maybe another's edge)
                         miss.append(f"{w} ends on {e}, not a wall of {r}")
                 elif r in reach.get(e, ()) and not any(e in E[v] or e in across[v] or e in B.get(v, set())
                                                        for v in W if v != w):

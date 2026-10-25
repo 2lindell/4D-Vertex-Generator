@@ -32,6 +32,30 @@
    "why": "tested: both sides of X79 are X72 and X73 on all its patches (they swap where X26 crosses it)"
   },
   {
+   "wall": "F4",
+   "region": "X61",
+   "action": "drop",
+   "why": "checked by hand: X61 does not touch F4 (X38 lies between X58 and X61)"
+  },
+  {
+   "wall": "X38",
+   "region": "X58",
+   "action": "add",
+   "why": "checked by hand: X38 lies between X58 and X61"
+  },
+  {
+   "wall": "X38",
+   "region": "X61",
+   "action": "add",
+   "why": "checked by hand: X38 lies between X58 and X61"
+  },
+  {
+   "wall": "X38",
+   "region": "X68",
+   "action": "drop",
+   "why": "checked by hand: X38's two sides are X58 and X61"
+  },
+  {
    "wall": "X96",
    "region": "X58",
    "action": "add",
@@ -112,10 +136,9 @@
    ],
    "regions": [
     "X49",
-    "X58",
-    "X61"
+    "X58"
    ],
-   "cuts_needed": 1,
+   "cuts_needed": 0,
    "cuts": []
   },
   "F5": {
@@ -673,7 +696,8 @@
     "C6"
    ],
    "regions": [
-    "X68"
+    "X58",
+    "X61"
    ],
    "cuts_needed": 0,
    "cuts": []
@@ -1322,6 +1346,7 @@
   "X58": {
    "walls": [
     "F4",
+    "X38",
     "X41",
     "X96"
    ]
@@ -1344,7 +1369,7 @@
   },
   "X61": {
    "walls": [
-    "F4",
+    "X38",
     "X99"
    ]
   },
@@ -1395,7 +1420,6 @@
   },
   "X68": {
    "walls": [
-    "X38",
     "X99"
    ]
   },
@@ -1480,15 +1504,14 @@
   "X37": [
    "X15's edge X78 meets no other wall of X37"
   ],
-  "X50": [
-   "F1 ends on T2, not a wall of X50"
-  ],
-  "X61": [
-   "X99's edge C2a meets no other wall of X61"
-  ],
   "X66": [
    "X20's edge X5 meets no other wall of X66",
    "X48's edge E1 meets no other wall of X66"
+  ],
+  "X68": [
+   "X99's edge B1 meets no other wall of X68",
+   "X99's edge C2a meets no other wall of X68",
+   "X99's edge E1 meets no other wall of X68"
   ]
  }
 }
