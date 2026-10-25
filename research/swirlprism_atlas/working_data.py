@@ -23,7 +23,6 @@ FILLS = [
     ("F4", "X60", "drop", "X60's boundary list has no F4"),
     ("X41", "X49", "drop", "X49's boundary list has no X41 (wall_sides.json: X58, X62)"),
     ("X20", "X59", "drop", "X59's boundary list has no X20 (wall_sides.json: X66, X95)"),
-    ("X38", "F3", "add", "X38's boundary list has F3: its second side"),
     ("X79", "X72", "add", "X72's boundary list has X79: its second side (wall_sides.json: X72, X73)"),
     ("T2", "X58", "add", "X58's boundary list has T2 (X41 ends on T2 there)"),
     ("X17", "X46", "add", "X46's boundary list has X17 (X19 ends on X17 there)"),

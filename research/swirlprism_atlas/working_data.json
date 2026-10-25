@@ -26,12 +26,6 @@
    "why": "X59's boundary list has no X20 (wall_sides.json: X66, X95)"
   },
   {
-   "wall": "X38",
-   "region": "F3",
-   "action": "add",
-   "why": "X38's boundary list has F3: its second side"
-  },
-  {
    "wall": "X79",
    "region": "X72",
    "action": "add",
@@ -643,7 +637,6 @@
     "C6"
    ],
    "regions": [
-    "F3",
     "X68"
    ],
    "cuts_needed": 0,
@@ -1137,8 +1130,7 @@
    "walls": [
     "F1",
     "T2",
-    "X22",
-    "X38"
+    "X22"
    ]
   },
   "X12": {
@@ -1400,9 +1392,9 @@
  },
  "open": {
   "F3": [
+   "F1's edge B1 meets no other wall of F3",
    "T2's edge T1 meets no other wall of F3",
-   "T2's edge X1 meets no other wall of F3",
-   "X38's edge E1 meets no other wall of F3"
+   "T2's edge X1 meets no other wall of F3"
   ],
   "X12": [
    "X3's edge X1 meets no other wall of X12"
