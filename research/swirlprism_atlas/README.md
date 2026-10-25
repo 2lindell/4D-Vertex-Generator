@@ -385,7 +385,8 @@ exact about where a shape lives:
   are those the shape stays on: a step of 1e-4 each way along the candidate surface (a wall) or along the curve two
   candidates share (a line) keeps the sample's classification. A surface passing through a sample by chance is
   never taken, and a locus may end on a face of the half-cell (a step that leaves the half-cell is allowed one way).
-  A curved wall whose samples sit where it meets other shapes falls back on its own surface.
+  A curved wall whose samples sit where it meets other shapes falls back on its own surface; a line traced as a
+  conic edge of a flat patch is the patch's plane with that conic (`fexact_patches.json`), its samples put onto it.
 - **Search.** In the locus's own coordinates (3, 2 or 1 of them), from the shape's samples with the lowest ratios
   (20 spread over its samples are scored, the best 2 whose locus is found are refined): each trial point is moved
   back onto the constraint surfaces by Newton steps in the betas, classified (`probe._one`), and scored by its edge
@@ -406,6 +407,8 @@ python optimal_seeds.py X7,X10     # just these, recomputed
 Results (120 shapes: 5 points, 24 lines, 53 walls, 38 regions): the example seed's ratio improves on the best
 sample by a median factor of 1.06 on lines, 1.32 on walls and 1.23 on regions (at most 2.26, 17.3 and 3.18); no
 shape got worse. 83 optima sat at the edge of their shape and were settled just inside it, 61 of them within 1% of the
-way back. Lines whose shape holds all along (E1, E2, T1) keep the same ratio everywhere (2, φ², 1.902…). One shape
-has no exact locus found: the line X81, whose only sample sits where several walls meet; it keeps that sample.
+way back. Lines whose shape holds all along (E1, E2, T1) keep the same ratio everywhere (2, φ², 1.902…). The line X81
+(a conic edge of X79's lens) had a single sample, where several walls meet, and no pair of library surfaces through
+it stays X81; its exact locus is the patch's plane β₂ = β₄ with the conic stored for that edge
+(`fexact_patches.json`), so conic edges are part of the library too, and X81 goes from 6.054 to 4.981.
 

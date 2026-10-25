@@ -89,6 +89,41 @@ class Curved:
                          for k in range(4)])
 
 
+class Conic:
+    """A conic edge of a flat patch (fexact_patches.json), as the quadric cone it lies on: a homogeneous quadratic
+    in three of the betas (x², y², z², xy, xz, yz)."""
+
+    def __init__(self, label, var, coeffs, name):
+        self.label, self.v, self.c, self.name = label, list(var), np.asarray(coeffs, float), name
+
+    def f(self, B):
+        B = np.atleast_2d(B)
+        x, y, z = (B[:, k] for k in self.v)
+        a = self.c
+        return a[0] * x * x + a[1] * y * y + a[2] * z * z + a[3] * x * y + a[4] * x * z + a[5] * y * z
+
+    def grad(self, b, e=1e-7):
+        b = np.asarray(b, float)
+        return np.array([(self.f(b + e * np.eye(4)[k])[0] - self.f(b - e * np.eye(4)[k])[0]) / (2 * e)
+                         for k in range(4)])
+
+
+def conic_pairs():
+    """Each line shape traced as a conic edge of a flat patch: (its patch's plane, the conic), from fexact_patches."""
+    out = defaultdict(list)
+    d = json.load(open("fexact_patches.json"))
+    for p in (d if isinstance(d, list) else d.values()):
+        if not isinstance(p, dict):
+            continue
+        for c in p.get("conics", []):
+            out[c["label"]].append([Plane(p["normal"], f"plane of {p['target']} ({p['wall']})"),
+                                    Conic(c["label"], c["vars"], c["coeffs"], f"conic {c['label']} in {p['wall']}")])
+    return out
+
+
+CONICS = {}
+
+
 def library():
     """Every exact plane of the half-cell carried by the extended group, and the curved walls' surfaces."""
     from arrangement import surfaces
@@ -191,6 +226,9 @@ def constraints(b, tid, dim):
         sets = [[c] for c in cand]
     else:
         sets = [[c1, c2] for i, c1 in enumerate(cand) for c2 in cand[i + 1:]]
+    if dim == "line":                                  # (a conic edge traced exactly: its plane and its conic)
+        sets = [pc for pc in CONICS.get(tid, []) if all(abs(c.f(b)[0]) / (np.linalg.norm(c.grad(b)) + 1e-30) < 1e-7
+                                                         for c in pc)] + sets
     for cons in sets:
         if len(tangent(b, cons)) != 3 - k:
             continue
@@ -259,6 +297,17 @@ def shape(tid):
         own = [c for c in LIB[1] if c.name == tid] or [c for c in LIB[1] if res_(c) < 1e-6][:1]
         extra = [home(onto(v, own)) for v in V] if own else []
         B = np.array(list(B) + extra) if len(B) else np.array(extra)
+    if dim == "line" and tid in CONICS and len(B):
+        # (a conic line: its samples put onto the conic, and points spread along it, as starts)
+        extra = []
+        for pc in CONICS[tid]:
+            for b in B[:4]:
+                x = onto(b, pc)
+                if np.isfinite(x).all() and (x > -1e-12).all():
+                    U = tangent(x, pc)
+                    extra += [home(onto(x + t * U[0], pc)) for t in np.linspace(-0.2, 0.2, 9)] if len(U) else []
+        extra = [x for x in extra if np.isfinite(x).all() and (x > -1e-12).all()]
+        B = np.array(list(B) + extra)
     if not len(B):
         return tid, None
     if dim == "point":
@@ -284,7 +333,7 @@ def shape(tid):
 
 
 def main(only=None):
-    global LIB, DIMS, BY, MESH
+    global LIB, DIMS, BY, MESH, CONICS
     d = rw.page_data()
     DIMS = {t["id"]: t.get("dim") for t in d["types"]}
     BY = samples_by_shape()
@@ -297,6 +346,7 @@ def main(only=None):
     done = json.load(open(OUT)) if os.path.exists(OUT) else {}
     todo = [t for t in DIMS if (only is None and t not in done) or (only is not None and t in only)]
     LIB = library()                                       # (the workers share it by forking)
+    CONICS.update(conic_pairs())
     print(f"{len(LIB[0])} planes, {len(LIB[1])} curved surfaces in the library; {len(todo)} shapes", flush=True)
     with Pool(int(os.environ.get("PROCS", 4))) as pool:
         for tid, e in pool.imap_unordered(shape, todo):
@@ -323,7 +373,8 @@ def settle_one(args):
     if not isinstance(names, list) or "start" not in e:
         return tid, e
     planes, curved = LIB
-    by_name = {p.name: p for p in planes} | {c.name: c for c in curved}
+    by_name = {p.name: p for p in planes} | {c.name: c for c in curved} | \
+        {c.name: c for pcs in conic_pairs().values() for pc in pcs for c in pc}
     cons = [by_name[n] for n in names if n in by_name]
     b1, b0 = np.array(e["beta"]), np.array(e["start"])
     if robust(b1, cons, tid):

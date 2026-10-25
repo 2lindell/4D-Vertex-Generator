@@ -38,7 +38,7 @@ def bisect(args):
     """The point between x0 (named a) and x1 (named otherwise) on the section where the name changes."""
     x0, x1, n0, n1, sg, a = args
     lo, hi = 0.0, 1.0
-    for _ in range(22):
+    for _ in range(14):
         m = (lo + hi) / 2
         x = x0 + m * (x1 - x0)
         nn = n0 + m * (n1 - n0)
@@ -77,7 +77,7 @@ def main():
             pairs = [(i, j) for i, j in tree.query_pairs(h) if labs[i] != labs[j] and labs[i] in regions
                      and labs[j] in regions]
             rng = np.random.default_rng(0)
-            pairs = [pairs[i] for i in rng.choice(len(pairs), min(len(pairs), 24), replace=False)] if pairs else []
+            pairs = [pairs[i] for i in rng.choice(len(pairs), min(len(pairs), 12), replace=False)] if pairs else []
             if not pairs:
                 continue
             P = np.array(pool.map(bisect, [(X[i], X[j], N[i], N[j], sg, labs[i]) for i, j in pairs]))
@@ -85,7 +85,13 @@ def main():
             B = B / B.sum(1, keepdims=True)
             # (the library surface through the boundary points)
             best = []
+            # (not a surface the section lies in: every point just off it would fit that one)
+            Bs = rc.betas(X[np.random.default_rng(1).choice(len(X), min(len(X), 12), replace=False)])
+            Bs = Bs / Bs.sum(1, keepdims=True)
             for s in list(planes) + list(curved):
+                rs = np.median([abs(s.f(b)[0]) / (np.linalg.norm(s.grad(b)) + 1e-30) for b in Bs])
+                if rs < 3e-4:
+                    continue
                 r = np.array([abs(s.f(b)[0]) / (np.linalg.norm(s.grad(b)) + 1e-30) for b in B])
                 best.append((np.median(r), (r < 1e-4).mean(), s))
             best.sort(key=lambda x: x[0])
@@ -97,6 +103,7 @@ def main():
                 n_ = s.n.tolist() if isinstance(s, osd.Plane) else None
                 out[w].append({"section": k, "side": sd, "regions": regions, "surface": s.name, "normal": n_,
                                "points": P.round(8).tolist(), "median_off": float(r_med)})
+                json.dump(out, open(OUT, "w"), indent=1)
     json.dump(out, open(OUT, "w"), indent=1)
 
 

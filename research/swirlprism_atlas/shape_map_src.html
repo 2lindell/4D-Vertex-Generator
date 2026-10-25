@@ -170,11 +170,12 @@ function panel(id, nb) {
   const groups = { region: [], wall: [], line: [], point: [] };
   for (const e of es) { const k = other(e, id); if (N[k]) groups[N[k].dim].push({ k, e }); }
   let html = `<h2 style="color:${col(n)}">${id}</h2><div class="kind">${n.dim} · ${n.name}</div>`;
+  if (n.seed) html += `<div class="kind">example seed (most even edges, longest/shortest ${n.even.toFixed(4)}):<br><code>${n.seed}</code></div>`;
   for (const dim of ["region", "wall", "line", "point"]) {
     const g = groups[dim]; if (!g.length) continue;
     g.sort((a, b) => a.k.localeCompare(b.k, undefined, { numeric: true }));
     html += `<div class="grp"><h3>${label[dim]} (${g.length})</h3><div class="chips">` + g.map(({ k, e }) =>
-      `<button class="chip" style="color:${col(N[k])}" data-id="${k}" title="from: ${e.src.join(", ")}">${k}${e.src.includes("faces") ? " <small>●</small>" : ""}</button>`).join("") + `</div></div>`;
+      `<button class="chip" style="color:${col(N[k])}" data-id="${k}" title="from: ${e.src.join(", ")}">${k}${e.src.includes("faces") ? " <small>●</small>" : ""}${(e.part || []).length ? " <small>(part)</small>" : ""}</button>`).join("") + `</div></div>`;
   }
   // measured faces (region_db.json): for a wall, the regions on its two sides; for a region, the walls and what is across
   const rows = [];
@@ -185,7 +186,7 @@ function panel(id, nb) {
   }
   if (rows.length) html += `<table class="faces"><thead><tr><th>${n.dim === "wall" ? "Faces: sides" : "Wall → across"}</th><th>Area</th></tr></thead><tbody>` +
     rows.sort((a, b) => b[1] - a[1]).map(([k, a]) => `<tr><td>${k}</td><td>${a.toFixed(4)}</td></tr>`).join("") + `</tbody></table>`;
-  html += `<p class="note">● measured face by face (region database). Other links come from the boundaries column and the walls' separates lists, and are still to be measured.</p>`;
+  html += `<p class="note">● measured face by face (region database). Other links come from the boundaries column, the walls' separates lists and the regions' wall lists (region definitions); (part): the wall bounds the region along part of it only.</p>`;
   detail.innerHTML = html;
   detail.querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => select(b.dataset.id)));
 }
