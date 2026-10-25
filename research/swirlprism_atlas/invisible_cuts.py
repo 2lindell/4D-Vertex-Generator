@@ -23,6 +23,11 @@ def main():
     T = {t["id"]: t for t in d["types"]}
     dims = {k: t["dim"] for k, t in T.items()}
     sep = {k: set(t.get("separates") or []) for k, t in T.items() if t["dim"] == "wall"}
+    # (F4, X20 and X41 as the database has them now (wall_sides.json): the page key's lists for them are older and
+    # name regions that do not touch them (F4: X43, X60; X20: X59; X41: X49))
+    sides = json.load(open("wall_sides.json"))
+    for w in ("F4", "X20", "X41"):
+        sep[w] = set(sides[w])
     bnd = {k: set(v) for k, v in json.load(open("boundaries.json")).items()}
     for k, v in json.load(open("boundaries_extra.json")).items():
         if not k.startswith("_"):

@@ -20,13 +20,11 @@
  },
  "F4": {
   "regions": [
-   "X43",
    "X49",
    "X58",
-   "X60",
    "X61"
   ],
-  "cuts_needed": 3,
+  "cuts_needed": 1,
   "cuts": []
  },
  "F5": {
@@ -206,11 +204,10 @@
  },
  "X20": {
   "regions": [
-   "X59",
    "X66",
    "X95"
   ],
-  "cuts_needed": 1,
+  "cuts_needed": 0,
   "cuts": []
  },
  "X21": {
@@ -370,11 +367,10 @@
  },
  "X41": {
   "regions": [
-   "X49",
    "X58",
    "X62"
   ],
-  "cuts_needed": 1,
+  "cuts_needed": 0,
   "cuts": []
  },
  "X42": {
