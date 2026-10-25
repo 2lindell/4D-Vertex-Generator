@@ -6,9 +6,9 @@
       two points or more (one point is a corner brushing past);
     * a line on a side of one of its main patches (fexact_patches.json; not its copies: a copy's edges are images
       of its main's, and not a stale patch that is another wall now, as T2's old region B is X96);
-    * a face line of the half-cell where it ends, or where its copy or own mirror image lies across (wall_outline.py's
-      goes_on_across): those are edges too;
   and not:
+    * a line it goes on across (wall_outline.py's goes_on_across): on the 3-sphere the wall carries on there, into
+      itself, its copy or its mirror image alike, so the line lies inside the wall, not on its edge;
     * a region (a region beyond an edge says what is there, not what the edge is);
     * another wall on the same surface (X39, X52, X35 on X10's quadric are its neighbours there, not its edges);
     * a wall met where the face it lies in is crossed ("face:F4" past X39's edge: X39 passes through F4 there).
@@ -78,13 +78,11 @@ def edges(w, ctx):
         for e in p.get("edge_labels") or []:
             if LW(e[2]):
                 s.add(e[2])
-    for x in outline.get(w, {}).get("goes_on_across", []):
-        if LW(x) and dims.get(x) == "line":
-            s.add(x)
     g = base & s if base else s
     g = {x for x in g if not (dims.get(x) == "wall" and same_surface(w, x, known))}
     if len(g) < 2:
         g |= {x for x in base if dims.get(x) == "line"}
+    g -= {x for x in outline.get(w, {}).get("goes_on_across", []) if dims.get(x) == "line"}
     return sorted(g)
 
 
@@ -107,7 +105,7 @@ if __name__ == "__main__":
     ctx = context()
     dims = ctx[0]
     checked = {k: v for k, v in json.load(open("wall_outline_checked.json")).items() if not k.startswith("_")}
-    checked["F1"] = {"edges": ["B1", "D3", "E2", "T2", "X13"]}
+    checked["F1"] = {"edges": ["B1", "E2", "T2", "X13"]}
     cur = ctx[4]
     ok = 0
     for w in sorted(checked):
