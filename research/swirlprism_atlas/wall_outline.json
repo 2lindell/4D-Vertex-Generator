@@ -378,17 +378,15 @@
  },
  "X39": {
   "edges": [
-   "F4",
-   "X10",
    "X23",
    "X29",
-   "X35",
-   "X52"
+   "X8"
   ],
   "points": [
    "A1"
   ],
-  "goes_on_across": []
+  "goes_on_across": [],
+  "checked": true
  },
  "X40": {
   "edges": [
