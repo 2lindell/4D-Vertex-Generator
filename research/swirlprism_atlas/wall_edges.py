@@ -125,17 +125,22 @@ JOBS = []
 
 def across(i):
     """From the edge's middle m, a step along the wall each way across the edge: (one side, the other)."""
-    m, own, edge = JOBS[i]
+    m, own, edge, dirn = JOBS[i]
     S = [own, edge] if own is not None else [edge]
     q = osd.onto(m, [s for s in S if s is not None])
     T = osd.tangent(q, [own]) if own is not None else None
     D = osd.tangent(q, [s for s in S if s is not None])
     if T is None or not len(D) or not len(T):
         return "?", "?"
-    d = D[0]
-    u = T[0] - (T[0] @ d) * d if len(T) else None
-    if len(T) > 1 and np.linalg.norm(u) < 1e-6:
-        u = T[1] - (T[1] @ d) * d
+    # (the edge's direction from its own points: where two surfaces touch along it, rather than cross, their
+    # common tangent says nothing)
+    d = dirn - (dirn @ own.grad(q)) * own.grad(q) / (own.grad(q) @ own.grad(q)) if own is not None else dirn
+    d = d - d.mean()
+    d = d / np.linalg.norm(d)
+    T = [t for t in T]
+    # (across the edge within the wall: the direction of the wall's tangent plane at right angles to the edge)
+    cand = [t - (t @ d) * d for t in T]
+    u = max(cand, key=np.linalg.norm)
     u = u / np.linalg.norm(u)
     lab = lambda x: _one(osd.home(osd.onto(x, [own])))[0]
     return lab(q + STEP * u), lab(q - STEP * u)
@@ -218,8 +223,10 @@ def main():
                             off = 0.0
                 e = {"kind": "edge", "surface": s.name, "max_off": off, "exact": off < EXACT, "points": len(R),
                      "beyond": lab}
-                m = R[len(R) // 2] if len(R) > 2 else nrm(R.mean(0))
-                jobs.append((m, own_s, s))
+                k = len(R) // 2
+                m = R[k] if len(R) > 2 else nrm(R.mean(0))
+                dirn = (R[min(k + 2, len(R) - 1)] - R[max(k - 2, 0)]) if len(R) > 2 else (R[1] - R[0])
+                jobs.append((m, own_s, s, dirn / np.linalg.norm(dirn)))
                 where.append(e)
             e["from"], e["to"] = R[0].round(10).tolist(), R[-1].round(10).tolist()
             edges.append(e)

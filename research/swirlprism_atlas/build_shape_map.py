@@ -45,6 +45,17 @@ def main():
             if isinstance(x, dict) and "q" in x:
                 geo[x["id"]].append(x["q"])
     seeds = json.load(open("optimal_seeds.json")) if os.path.exists("optimal_seeds.json") else {}
+    # (each wall's edges, checked: wall_edges.py)
+    wall_edges = collections.defaultdict(list)
+    if os.path.exists("wall_edges.json"):
+        for t_ in json.load(open("wall_edges.json")):
+            if "stray" in t_:
+                continue
+            for e in t_["edges"]:
+                wall_edges[t_["wall"]].append({
+                    "piece": t_["piece"], "kind": e["kind"],
+                    "on": e.get("surface") or e.get("on"), "exact": e.get("exact", True),
+                    "off": e.get("max_off"), "beyond": e.get("beyond"), "across": e.get("across")})
     nodes = []
     for tid, t in T.items():
         P = geo.get(tid) or pts.get(tid)
@@ -54,8 +65,11 @@ def main():
         n = {"id": tid, "dim": t["dim"], "name": t["name"], "c": np.round(c, 4).tolist(),
              "bounds": t.get("bounds") or [], "sep": t.get("separates") or []}
         if tid in seeds and np.isfinite(seeds[tid].get("ratio", np.inf)):
-            n["seed"] = t.get("seed")
+            from cell_atlas import seed_text, to_upper
+            n["seed"] = seed_text(to_upper(np.array(seeds[tid]["beta"], float)))
             n["even"] = round(float(seeds[tid]["ratio"]), 4)
+        if tid in wall_edges:
+            n["edges"] = wall_edges[tid]
         nodes.append(n)
     ids = {n["id"] for n in nodes}
     E = {}

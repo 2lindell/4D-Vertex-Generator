@@ -1,9 +1,9 @@
 X10  ok  3 edges, 0 seams, 2 cuts of the view
 X33  GAP 2 edges, 0 seams, 2 cuts of the view: 1 stray loop(s) (dropped)
-X51  GAP 3 edges, 0 seams, 1 cuts of the view: edge on X7:1127 (beyond E2): across it ERR|X30, not the wall on one side only
-X48  GAP 3 edges, 0 seams, 1 cuts of the view: edge on X38:1127 (beyond new:1200: cells 120+120+240+600+1200 | faces 240+240+1200+1200+1200+1200+1200+1200 | edges 600+600+600+1200+1200+1200+1200 | val 3:3600,4:2400,8:600): across it E2|E2, not the wall on one side only
+X51  ok  3 edges, 0 seams, 1 cuts of the view
+X48  ok  3 edges, 0 seams, 1 cuts of the view
 X38  ok  1 edges, 0 seams, 4 cuts of the view
-X83  GAP 2 edges, 0 seams, 1 cuts of the view: edge on X38:1127 (beyond X48): across it E2|E2, not the wall on one side only
+X83  ok  2 edges, 0 seams, 1 cuts of the view
 X15  ok  3 edges, 0 seams, 0 cuts of the view
 X14  ok  2 edges, 0 seams, 2 cuts of the view
 X47  GAP 8 edges, 0 seams, 0 cuts of the view: 3 stray loop(s) (dropped)
@@ -30,7 +30,7 @@ X87  ok  3 edges, 0 seams, 0 cuts of the view
 X91  ok  1 edges, 0 seams, 2 cuts of the view
 X92  ok  1 edges, 0 seams, 2 cuts of the view
 X93  ok  2 edges, 0 seams, 1 cuts of the view
-X94  GAP 3 edges, 0 seams, 1 cuts of the view: edge on plane (0, -0.57735, 0.57735, (beyond X11): across it X11|X11, not the wall on one side only
+X94  ok  3 edges, 0 seams, 1 cuts of the view
 X99  GAP 3 edges, 0 seams, 12 cuts of the view: 4 stray loop(s) (dropped)
 F1   ok  6 edges, 0 seams, 12 cuts of the view
 F4   ok  2 edges, 0 seams, 13 cuts of the view
@@ -42,7 +42,7 @@ X31  GAP 4 edges, 0 seams, 1 cuts of the view: edge on X42:fold (beyond None): a
 X44  ok  6 edges, 0 seams, 0 cuts of the view
 X79  ok  4 edges, 0 seams, 0 cuts of the view
 X26  ok  1 edges, 0 seams, 6 cuts of the view
-T2   GAP 8 edges, 3 seams, 8 cuts of the view: edge on X94:1200 (beyond None): across it F2|X3, not the wall on one side only; edge (beyond None) not exact: best plane (-0.707107, 0, -0, 0.707107) 1e-03
+T2   GAP 9 edges, 2 seams, 9 cuts of the view: edge (beyond None) not exact: best plane (-0.707107, 0, -0, 0.707107) 1e-03
 X20  ok  5 edges, 0 seams, 5 cuts of the view
 X21  ok  5 edges, 0 seams, 1 cuts of the view
 X27  ok  2 edges, 0 seams, 0 cuts of the view
@@ -51,4 +51,4 @@ X11  ok  2 edges, 0 seams, 5 cuts of the view
 X19  ok  3 edges, 0 seams, 11 cuts of the view
 X98  ok  6 edges, 0 seams, 0 cuts of the view
 X96  ok  1 edges, 0 seams, 2 cuts of the view
-53 walls, 11 with something to fix
+53 walls, 7 with something to fix
