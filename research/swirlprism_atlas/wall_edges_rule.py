@@ -12,6 +12,7 @@
     * a region (a region beyond an edge says what is there, not what the edge is);
     * another wall on the same surface (X39, X52, X35 on X10's quadric are its neighbours there, not its edges);
     * a wall met where the face it lies in is crossed ("face:F4" past X39's edge: X39 passes through F4 there).
+  (A record naming T2 where the edge lies on X97, T2's former curve D, means X97.)
   A wall with fewer than two such edges takes the lines of its boundary list (X17's X2 is only there).
 
     python wall_edges_rule.py        (prints the rule's edges against wall_outline_checked.json and wall_outline.json)
@@ -97,6 +98,19 @@ def context():
     fp = [p for p in (lambda x: x if isinstance(x, list) else x.values())(json.load(open("fexact_patches.json")))
           if isinstance(p, dict)]
     outline = json.load(open("wall_outline.json")) if os.path.exists("wall_outline.json") else {}
+    # (T2's former curve D is the line X97 now (C1 to C4 in b2 = b3): a wall whose traced edge lies on it, with no
+    # edge on T2 itself, still names it T2 in the old records (X14, X34, X47); those records mean X97)
+    on_x97, on_t2 = set(), set()
+    for t in json.load(open("wall_edges.json")):
+        for e in t.get("edges", []):
+            sf = str(e.get("surface"))
+            if sf.startswith("conic X97") and all(abs(p[1] - p[2]) < 1e-8 for p in (e["from"], e["to"])):
+                on_x97.add(t.get("wall"))
+            elif sf.startswith("conic T2"):
+                on_t2.add(t.get("wall"))
+    fix = lambda w, x: "X97" if x == "T2" and w in on_x97 - on_t2 else x
+    EL = {w: [[fix(w, p), fix(w, o), *n] for p, o, *n in v] for w, v in EL.items()}
+    bnd = {w: [fix(w, x) for x in v] for w, v in bnd.items()}
     known = set(json.load(open("xsurfaces.json"))) | set(json.load(open("xsurface_equations.json")))
     return dims, bnd, EL, fp, outline, d, known
 
