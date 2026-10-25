@@ -6,7 +6,8 @@ From the original data alone:
     changes both sides at once and counts twice);
   * a cut is made by a wall touching it: another wall that ends on it (it is among that wall's edges,
     wall_outline.json) or meets it in the boundary lists (boundaries.json), and separates two of its regions;
-  * the line of the cut is a line both walls list as a boundary (the curve they meet along), else it is unnamed.
+  * the cut runs along the curve where the two walls meet, which is never a named line (a line both walls list is
+    where their boundaries meet, not where one cuts the other).
 
     python invisible_cuts.py
 """
@@ -42,15 +43,13 @@ def main():
             between = sorted(sep[y] & R)
             if len(between) < 2:
                 continue
-            line = sorted(x for x in bnd.get(w, set()) & bnd.get(y, set()) if dims.get(x) == "line"
-                          and x not in edges.get(w, set()))
-            cuts.append({"by": y, "between": between, "ends_on": ends_on, "line": line or None})
+            cuts.append({"by": y, "between": between, "ends_on": ends_on, "along": f"{w} meets {y}"})
         out[w] = {"regions": sorted(R), "cuts_needed": need, "cuts": cuts}
     json.dump(out, open("invisible_cuts.json", "w"), indent=1)
     for w, r in out.items():
         flag = "" if len(r["cuts"]) == r["cuts_needed"] else f"   <-- {len(r['cuts'])} found, {r['cuts_needed']} needed"
         print(f"{w:4s} {'|'.join(r['regions']):24s} " + "; ".join(
-            f"{c['by']}{'' if c['ends_on'] else '?'} ({'|'.join(c['between'])}) on {c['line'] or 'unnamed'}" for c in r["cuts"]) + flag)
+            f"{c['by']}{'' if c['ends_on'] else '?'} ({'|'.join(c['between'])})" for c in r["cuts"]) + flag)
 
 
 if __name__ == "__main__":

@@ -14,7 +14,7 @@
      "X50"
     ],
     "ends_on": true,
-    "line": null
+    "along": "F1 meets X28"
    }
   ]
  },
@@ -54,7 +54,7 @@
      "X49"
     ],
     "ends_on": true,
-    "line": null
+    "along": "T2 meets F1"
    },
    {
     "by": "X11",
@@ -64,7 +64,7 @@
      "X37"
     ],
     "ends_on": true,
-    "line": null
+    "along": "T2 meets X11"
    },
    {
     "by": "X94",
@@ -73,9 +73,7 @@
      "X37"
     ],
     "ends_on": true,
-    "line": [
-     "X2"
-    ]
+    "along": "T2 meets X94"
    }
   ]
  },
@@ -94,9 +92,7 @@
      "X95"
     ],
     "ends_on": true,
-    "line": [
-     "C3"
-    ]
+    "along": "X3 meets X10"
    }
   ]
  },
@@ -123,7 +119,7 @@
      "X95"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X9 meets X10"
    }
   ]
  },
@@ -150,7 +146,7 @@
      "X37"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X11 meets X94"
    }
   ]
  },
@@ -169,7 +165,7 @@
      "X46"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X14 meets X25"
    }
   ]
  },
@@ -196,7 +192,7 @@
      "X54"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X17 meets X31"
    }
   ]
  },
@@ -232,7 +228,7 @@
      "X67"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X21 meets X98"
    }
   ]
  },
@@ -251,7 +247,7 @@
      "X70"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X22 meets X93"
    }
   ]
  },
@@ -270,7 +266,7 @@
      "X60"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X23 meets X39"
    }
   ]
  },
@@ -305,7 +301,7 @@
      "X65"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X27 meets X44"
    }
   ]
  },
@@ -475,7 +471,7 @@
      "X64"
     ],
     "ends_on": true,
-    "line": null
+    "along": "X84 meets X51"
    }
   ]
  },
