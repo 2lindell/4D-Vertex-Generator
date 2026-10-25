@@ -23,10 +23,18 @@ FILLS = [
     ("F4", "X60", "drop", "X60's boundary list has no F4"),
     ("X41", "X49", "drop", "X49's boundary list has no X41 (wall_sides.json: X58, X62)"),
     ("X20", "X59", "drop", "X59's boundary list has no X20 (wall_sides.json: X66, X95)"),
-    ("X79", "X73", "drop", "X79 does not border X73 (checked by hand: X72 and X73 close on a curve near it)"),
+    ("X79", "X72", "add", "tested: both sides of X79 are X72 and X73 on all its patches (they swap where X26 crosses it)"),
     ("X96", "X58", "add", "X58's boundary list has T2: T2's former region B, the wall X96 (X41 ends on it there)"),
     ("X17", "X46", "add", "X46's boundary list has X17 (X19 ends on X17 there)"),
 ]
+
+
+# (lines a wall runs straight through, on into the next cell: no edge there, but the wall is at that line)
+THROUGH = {"X27": ["X2"], "X53": ["D1"]}
+# (walls crossing each other: each passes through the other along a curve, where the two regions beside both swap
+# sides; an invisible line on each, though no region is added)
+CROSSINGS = [("X26", "X79", "tested: X26 lies in b3 = b2 + b4 and runs through X79 along b2 = b4, b3 = 2 b2; "
+              "X72 and X73 swap sides on X79 there")]
 
 
 def key(x):
@@ -73,7 +81,7 @@ def main():
         for w in ws:
             sep.setdefault(w, set()).add(r)
     E = {w: set(outline.get(w, {}).get("edges", [])) for w in walls}
-    across = {w: set(outline.get(w, {}).get("goes_on_across", [])) for w in walls}
+    across = {w: set(outline.get(w, {}).get("goes_on_across", [])) | set(THROUGH.get(w, [])) for w in walls}
     # (the cuts)
     cuts = {}
     for w in walls:
@@ -87,6 +95,12 @@ def main():
             between = sorted(sep[y] & sep[w], key=key)
             if len(between) >= 2:
                 cuts[w].append({"by": y, "between": between, "along": f"{w} meets {y}"})
+        for a, b_, why in CROSSINGS:
+            if w in (a, b_):
+                y = b_ if w == a else a
+                cuts[w] = [c for c in cuts[w] if c["by"] != y]
+                cuts[w].append({"by": y, "between": sorted(sep[w] & sep[y], key=key), "along": f"{w} crosses {y}",
+                                "crossing": True})
     # (which regions reach each line: beyond a wall's edge on it (edge_lines.json), or beside a wall with two
     # regions and no cut that ends on it; a region of a wall with more regions may lie along its other edges only)
     EL = json.load(open("edge_lines.json"))
@@ -98,7 +112,7 @@ def main():
                 reach.setdefault(on, set()).add(p)
     for w in walls:
         if len(sep[w]) == 2:
-            for e in E[w]:
+            for e in E[w] | across[w]:
                 if dims.get(e) == "line":
                     reach.setdefault(e, set()).update(sep[w])
     # (closure of each region)
@@ -119,7 +133,9 @@ def main():
     out = {
         "_about": __doc__.strip().split("\n\n")[0],
         "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS] + deduced,
-        "walls": {w: {"edges": sorted(E[w], key=key), "points": outline.get(w, {}).get("points", []),
+        "through": THROUGH,
+        "crossings": [{"walls": [a, b_], "why": why} for a, b_, why in CROSSINGS],
+        "walls": {w: {"edges": sorted(E[w], key=key), "through": THROUGH.get(w, []), "points": outline.get(w, {}).get("points", []),
                       "regions": sorted(sep[w], key=key), "cuts_needed": max(len(sep[w]) - 2, 0), "cuts": cuts[w]}
                   for w in walls},
         "regions": {r: {"walls": sorted(rw_.get(r, set()), key=key)} for r in regions},
@@ -128,7 +144,7 @@ def main():
     json.dump(out, open("working_data.json", "w"), indent=1)
     print("walls with one side:", [w for w in walls if len(sep[w]) < 2])
     print("walls short of cuts:", {w: (len(cuts[w]), max(len(sep[w]) - 2, 0)) for w in walls
-                                   if len(cuts[w]) < len(sep[w]) - 2})
+                                   if len([c for c in cuts[w] if not c.get("crossing")]) < len(sep[w]) - 2})
     print(f"closed regions: {len(regions) - len(open_)}/{len(regions)}")
     for r, m in open_.items():
         print(f"  {r}: " + "; ".join(m))
