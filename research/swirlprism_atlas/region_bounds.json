@@ -1,0 +1,1140 @@
+{
+ "F2": {
+  "walls": [
+   "T2",
+   "X10",
+   "X11",
+   "X14",
+   "X21",
+   "X3",
+   "X9"
+  ],
+  "partial": [
+   "T2",
+   "X3",
+   "X9"
+  ],
+  "lines": [
+   "C2b",
+   "C3",
+   "D1",
+   "T1",
+   "X1",
+   "X4",
+   "X5",
+   "X6",
+   "X8",
+   "X97"
+  ],
+  "points": [
+   "C1",
+   "C4",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C2b": "on its walls (0.181 of it)",
+   "C3": "on its walls (0.136 of it)",
+   "C4": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.104 of it)",
+   "T1": "on its walls (0.196 of it)",
+   "X1": "on its walls (0.126 of it)",
+   "X4": "on its walls (0.092 of it)",
+   "X5": "on its walls (0.128 of it)",
+   "X6": "on its walls (0.166 of it)",
+   "X8": "on its walls (0.138 of it)",
+   "X97": "on its walls (0.151 of it)"
+  }
+ },
+ "F3": {
+  "walls": [
+   "F1",
+   "T2",
+   "X22"
+  ],
+  "partial": [
+   "T2"
+  ],
+  "lines": [
+   "B1",
+   "D3",
+   "E2",
+   "X1",
+   "X13",
+   "X4"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C5"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "B1": "on its walls (0.338 of it)",
+   "C1": "on its walls",
+   "C5": "on its walls",
+   "D3": "on its walls (0.508 of it)",
+   "E2": "on its walls (0.140 of it)",
+   "X1": "on its walls (0.126 of it)",
+   "X13": "on its walls (0.252 of it)",
+   "X4": "on its walls (0.087 of it)"
+  }
+ },
+ "X12": {
+  "walls": [
+   "X3",
+   "X7"
+  ],
+  "partial": [],
+  "lines": [
+   "C3",
+   "E2",
+   "X1"
+  ],
+  "points": [
+   "C1",
+   "C5"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C3": "on its walls (0.136 of it)",
+   "C5": "on its walls",
+   "E2": "on its walls (0.140 of it)",
+   "X1": "on its walls (0.126 of it)"
+  }
+ },
+ "X16": {
+  "walls": [
+   "X9",
+   "X96"
+  ],
+  "partial": [],
+  "lines": [
+   "C2a",
+   "C2b",
+   "T1",
+   "X5"
+  ],
+  "points": [
+   "C4",
+   "C6"
+  ],
+  "how": {
+   "C2a": "on its walls (0.092 of it)",
+   "C2b": "on its walls (0.181 of it)",
+   "C4": "on its walls",
+   "C6": "on its walls",
+   "T1": "on its walls (0.196 of it)",
+   "X5": "on its walls (0.190 of it)"
+  }
+ },
+ "X30": {
+  "walls": [
+   "X7",
+   "X83"
+  ],
+  "partial": [],
+  "lines": [
+   "C3",
+   "E2",
+   "X78"
+  ],
+  "points": [
+   "C1",
+   "C5"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C3": "on its walls (0.136 of it)",
+   "C5": "on its walls",
+   "E2": "on its walls (0.140 of it)",
+   "X78": "on its walls (0.198 of it)"
+  }
+ },
+ "X32": {
+  "walls": [
+   "X15",
+   "X17",
+   "X19"
+  ],
+  "partial": [
+   "X17"
+  ],
+  "lines": [
+   "C2b",
+   "X2",
+   "X4",
+   "X6",
+   "X78"
+  ],
+  "points": [
+   "C1",
+   "C4"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C2b": "on its walls (0.181 of it)",
+   "C4": "on its walls",
+   "X2": "on its walls (0.141 of it)",
+   "X4": "on its walls (0.087 of it)",
+   "X6": "on its walls (0.166 of it)",
+   "X78": "on its walls (0.198 of it)"
+  }
+ },
+ "X36": {
+  "walls": [
+   "T2",
+   "X11",
+   "X83",
+   "X94"
+  ],
+  "partial": [
+   "T2",
+   "X11"
+  ],
+  "lines": [
+   "C3",
+   "E2",
+   "X78"
+  ],
+  "points": [
+   "C1",
+   "C5"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C3": "on its walls (0.136 of it)",
+   "C5": "on its walls",
+   "E2": "on its walls (0.140 of it)",
+   "X78": "on its walls (0.198 of it)"
+  }
+ },
+ "X37": {
+  "walls": [
+   "T2",
+   "X11",
+   "X15",
+   "X94"
+  ],
+  "partial": [
+   "T2",
+   "X11"
+  ],
+  "lines": [
+   "X4",
+   "X6",
+   "X78"
+  ],
+  "points": [
+   "C1"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "X4": "on its walls (0.087 of it)",
+   "X6": "on its walls (0.166 of it)",
+   "X78": "on its walls (0.198 of it)"
+  }
+ },
+ "X43": {
+  "walls": [
+   "F4",
+   "X17",
+   "X31",
+   "X82",
+   "X85"
+  ],
+  "partial": [
+   "F4",
+   "X17"
+  ],
+  "lines": [
+   "D2",
+   "T1",
+   "X13",
+   "X2",
+   "X4",
+   "X80"
+  ],
+  "points": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C4": "on its walls",
+   "C6": "on its walls",
+   "D2": "on its walls (0.209 of it)",
+   "T1": "on its walls (0.196 of it)",
+   "X13": "on its walls (0.252 of it)",
+   "X2": "on its walls (0.064 of it)",
+   "X4": "on its walls (0.092 of it)",
+   "X80": "on its walls (0.221 of it)"
+  }
+ },
+ "X45": {
+  "walls": [
+   "X14",
+   "X25",
+   "X27"
+  ],
+  "partial": [
+   "X14"
+  ],
+  "lines": [
+   "C2b",
+   "X2",
+   "X97"
+  ],
+  "points": [
+   "C1",
+   "C4"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C2b": "on its walls (0.061 of it)",
+   "C4": "on its walls",
+   "X2": "on its walls (0.141 of it)",
+   "X97": "on its walls (0.151 of it)"
+  }
+ },
+ "X46": {
+  "walls": [
+   "X14",
+   "X19",
+   "X25"
+  ],
+  "partial": [
+   "X14"
+  ],
+  "lines": [
+   "C2b",
+   "X2",
+   "X4",
+   "X6"
+  ],
+  "points": [
+   "C1",
+   "C4"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C2b": "on its walls (0.181 of it)",
+   "C4": "on its walls",
+   "X2": "on its walls (0.141 of it)",
+   "X4": "on its walls (0.092 of it)",
+   "X6": "on its walls (0.166 of it)"
+  }
+ },
+ "X49": {
+  "walls": [
+   "F1",
+   "F4",
+   "T2",
+   "X28",
+   "X41",
+   "X82"
+  ],
+  "partial": [
+   "F1",
+   "F4",
+   "T2",
+   "X41"
+  ],
+  "lines": [
+   "B1",
+   "D1",
+   "D2",
+   "D3",
+   "E1",
+   "T1",
+   "X13",
+   "X4"
+  ],
+  "points": [
+   "A1",
+   "C4",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "B1": "on its walls (0.338 of it)",
+   "C4": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "D2": "on its walls (0.208 of it)",
+   "D3": "on its walls (0.102 of it)",
+   "E1": "on its walls (0.340 of it)",
+   "T1": "on its walls (0.196 of it)",
+   "X13": "on its walls (0.252 of it)",
+   "X4": "on its walls (0.092 of it)"
+  }
+ },
+ "X50": {
+  "walls": [
+   "F1",
+   "X28",
+   "X33"
+  ],
+  "partial": [
+   "F1"
+  ],
+  "lines": [
+   "D1",
+   "D3",
+   "E1",
+   "E2"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "D3": "on its walls (0.508 of it)",
+   "E1": "on its walls (0.326 of it)",
+   "E2": "on its walls (0.140 of it)"
+  }
+ },
+ "X54": {
+  "walls": [
+   "X17",
+   "X22",
+   "X31",
+   "X93"
+  ],
+  "partial": [
+   "X17",
+   "X22"
+  ],
+  "lines": [
+   "X13",
+   "X2",
+   "X4",
+   "X80"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "X13": "on its walls (0.252 of it)",
+   "X2": "on its walls (0.077 of it)",
+   "X4": "on its walls (0.087 of it)",
+   "X80": "on its walls (0.221 of it)"
+  }
+ },
+ "X55": {
+  "walls": [
+   "X27",
+   "X34",
+   "X44",
+   "X90"
+  ],
+  "partial": [
+   "X27"
+  ],
+  "lines": [
+   "D2",
+   "X2",
+   "X24",
+   "X81",
+   "X97"
+  ],
+  "points": [
+   "A1",
+   "C4"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C4": "on its walls",
+   "D2": "on its walls (0.209 of it)",
+   "X2": "on its walls (0.064 of it)",
+   "X24": "on its walls (0.234 of it)",
+   "X81": "on its walls (0.221 of it)",
+   "X97": "on its walls (0.072 of it)"
+  }
+ },
+ "X56": {
+  "walls": [
+   "X35",
+   "X42",
+   "X92"
+  ],
+  "partial": [],
+  "lines": [
+   "D3",
+   "X18",
+   "X2",
+   "X81"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "D3": "on its walls (0.508 of it)",
+   "X18": "on its walls (0.275 of it)",
+   "X2": "on its walls (0.077 of it)",
+   "X81": "on its walls (0.221 of it)"
+  }
+ },
+ "X57": {
+  "walls": [
+   "X33",
+   "X40"
+  ],
+  "partial": [],
+  "lines": [
+   "D1",
+   "D3",
+   "E1",
+   "E2"
+  ],
+  "points": [
+   "A1",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "D3": "on its walls (0.508 of it)",
+   "E1": "on its walls (0.327 of it)",
+   "E2": "on its walls (0.140 of it)"
+  }
+ },
+ "X58": {
+  "walls": [
+   "F4",
+   "X41"
+  ],
+  "partial": [
+   "F4",
+   "X41"
+  ],
+  "lines": [
+   "B1",
+   "C2a",
+   "D2",
+   "E1",
+   "T1"
+  ],
+  "points": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "B1": "on its walls (0.329 of it)",
+   "C2a": "on its walls (0.032 of it)",
+   "C4": "on its walls",
+   "C6": "on its walls",
+   "D2": "on its walls (0.195 of it)",
+   "E1": "on its walls (0.329 of it)",
+   "T1": "on its walls (0.196 of it)"
+  }
+ },
+ "X59": {
+  "walls": [
+   "F5",
+   "X20",
+   "X23",
+   "X39"
+  ],
+  "partial": [
+   "X20",
+   "X23"
+  ],
+  "lines": [
+   "D2",
+   "E1",
+   "X29",
+   "X5",
+   "X8"
+  ],
+  "points": [
+   "A1",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C6": "on its walls",
+   "D2": "on its walls (0.008 of it)",
+   "E1": "on its walls (0.340 of it)",
+   "X29": "on its walls (0.281 of it)",
+   "X5": "on its walls (0.062 of it)",
+   "X8": "on its walls (0.029 of it)"
+  }
+ },
+ "X60": {
+  "walls": [
+   "F4",
+   "X21",
+   "X23",
+   "X34",
+   "X39",
+   "X98"
+  ],
+  "partial": [
+   "F4",
+   "X21",
+   "X23"
+  ],
+  "lines": [
+   "D2",
+   "E1",
+   "T1",
+   "X24",
+   "X29",
+   "X5",
+   "X8",
+   "X97"
+  ],
+  "points": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C4": "on its walls",
+   "C6": "on its walls",
+   "D2": "on its walls (0.209 of it)",
+   "E1": "on its walls (0.013 of it)",
+   "T1": "on its walls (0.196 of it)",
+   "X24": "on its walls (0.234 of it)",
+   "X29": "on its walls (0.281 of it)",
+   "X5": "on its walls (0.128 of it)",
+   "X8": "on its walls (0.029 of it)",
+   "X97": "on its walls (0.072 of it)"
+  }
+ },
+ "X61": {
+  "walls": [
+   "F4",
+   "X99"
+  ],
+  "partial": [
+   "F4"
+  ],
+  "lines": [
+   "B1",
+   "C2a",
+   "E1"
+  ],
+  "points": [
+   "A1",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "B1": "on its walls (0.338 of it)",
+   "C2a": "on its walls (0.094 of it)",
+   "C6": "on its walls",
+   "E1": "on its walls (0.340 of it)"
+  }
+ },
+ "X62": {
+  "walls": [
+   "X23",
+   "X41"
+  ],
+  "partial": [
+   "X41"
+  ],
+  "lines": [
+   "C2a",
+   "D2",
+   "E1",
+   "X5"
+  ],
+  "points": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C2a": "on its walls (0.032 of it)",
+   "C4": "on its walls",
+   "C6": "on its walls",
+   "D2": "on its walls (0.208 of it)",
+   "E1": "on its walls (0.340 of it)",
+   "X5": "on its walls (0.190 of it)"
+  }
+ },
+ "X63": {
+  "walls": [
+   "X40",
+   "X51",
+   "X84"
+  ],
+  "partial": [
+   "X84"
+  ],
+  "lines": [
+   "D1",
+   "D3",
+   "E1",
+   "E2",
+   "X18"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "D3": "on its walls (0.508 of it)",
+   "E1": "on its walls (0.340 of it)",
+   "E2": "on its walls (0.140 of it)",
+   "X18": "on its walls (0.044 of it)"
+  }
+ },
+ "X64": {
+  "walls": [
+   "X51",
+   "X53",
+   "X84"
+  ],
+  "partial": [
+   "X84"
+  ],
+  "lines": [
+   "D1",
+   "D3",
+   "E1",
+   "E2",
+   "X18"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "D3": "on its walls (0.101 of it)",
+   "E1": "on its walls (0.326 of it)",
+   "E2": "on its walls (0.140 of it)",
+   "X18": "on its walls (0.275 of it)"
+  }
+ },
+ "X65": {
+  "walls": [
+   "X27",
+   "X42",
+   "X44",
+   "X47"
+  ],
+  "partial": [
+   "X27"
+  ],
+  "lines": [
+   "X18",
+   "X2",
+   "X24",
+   "X81",
+   "X97"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "X18": "on its walls (0.275 of it)",
+   "X2": "on its walls (0.077 of it)",
+   "X24": "on its walls (0.234 of it)",
+   "X81": "on its walls (0.221 of it)",
+   "X97": "on its walls (0.079 of it)"
+  }
+ },
+ "X66": {
+  "walls": [
+   "F5",
+   "X20",
+   "X48",
+   "X52"
+  ],
+  "partial": [
+   "X20"
+  ],
+  "lines": [
+   "D1",
+   "E1",
+   "E2",
+   "X18",
+   "X29",
+   "X8"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "E1": "on its walls (0.340 of it)",
+   "E2": "on its walls (0.140 of it)",
+   "X18": "on its walls (0.275 of it)",
+   "X29": "on its walls (0.281 of it)",
+   "X8": "on its walls (0.109 of it)"
+  }
+ },
+ "X67": {
+  "walls": [
+   "X21",
+   "X47",
+   "X52",
+   "X98"
+  ],
+  "partial": [
+   "X21"
+  ],
+  "lines": [
+   "X18",
+   "X24",
+   "X29",
+   "X8",
+   "X97"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "X18": "on its walls (0.275 of it)",
+   "X24": "on its walls (0.234 of it)",
+   "X29": "on its walls (0.281 of it)",
+   "X8": "on its walls (0.109 of it)",
+   "X97": "on its walls (0.079 of it)"
+  }
+ },
+ "X68": {
+  "walls": [
+   "X38",
+   "X99"
+  ],
+  "partial": [],
+  "lines": [
+   "B1",
+   "C2a",
+   "E1"
+  ],
+  "points": [
+   "A1",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "B1": "on its walls (0.338 of it)",
+   "C2a": "on its walls (0.094 of it)",
+   "C6": "on its walls",
+   "E1": "on its walls (0.340 of it)"
+  }
+ },
+ "X69": {
+  "walls": [
+   "X48",
+   "X53"
+  ],
+  "partial": [],
+  "lines": [
+   "D1",
+   "E1",
+   "E2",
+   "X18"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "E1": "on its walls (0.326 of it)",
+   "E2": "on its walls (0.140 of it)",
+   "X18": "on its walls (0.275 of it)"
+  }
+ },
+ "X70": {
+  "walls": [
+   "X22",
+   "X87",
+   "X93"
+  ],
+  "partial": [
+   "X22"
+  ],
+  "lines": [
+   "D3",
+   "X13",
+   "X2",
+   "X80"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "D3": "on its walls (0.508 of it)",
+   "X13": "on its walls (0.060 of it)",
+   "X2": "on its walls (0.077 of it)",
+   "X80": "on its walls (0.221 of it)"
+  }
+ },
+ "X71": {
+  "walls": [
+   "X85",
+   "X86"
+  ],
+  "partial": [],
+  "lines": [
+   "D2",
+   "X2",
+   "X80"
+  ],
+  "points": [
+   "A1",
+   "C4"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C4": "on its walls",
+   "D2": "on its walls (0.209 of it)",
+   "X2": "on its walls (0.063 of it)",
+   "X80": "on its walls (0.221 of it)"
+  }
+ },
+ "X72": {
+  "walls": [
+   "X26",
+   "X86",
+   "X91"
+  ],
+  "partial": [],
+  "lines": [
+   "D2",
+   "D3",
+   "X2",
+   "X80",
+   "X81"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "C4": "on its walls",
+   "D2": "on its walls (0.209 of it)",
+   "D3": "on its walls (0.508 of it)",
+   "X2": "on its walls (0.141 of it)",
+   "X80": "on its walls (0.221 of it)",
+   "X81": "on its walls (0.221 of it)"
+  }
+ },
+ "X73": {
+  "walls": [
+   "X26",
+   "X79",
+   "X88",
+   "X89"
+  ],
+  "partial": [],
+  "lines": [
+   "D2",
+   "D3",
+   "X2",
+   "X80",
+   "X81"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "C4": "on its walls",
+   "D2": "on its walls (0.209 of it)",
+   "D3": "on its walls (0.508 of it)",
+   "X2": "on its walls (0.141 of it)",
+   "X80": "on its walls (0.221 of it)",
+   "X81": "on its walls (0.221 of it)"
+  }
+ },
+ "X74": {
+  "walls": [
+   "X35",
+   "X84"
+  ],
+  "partial": [],
+  "lines": [
+   "D3",
+   "X18"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "D3": "on its walls (0.508 of it)",
+   "X18": "on its walls (0.275 of it)"
+  }
+ },
+ "X75": {
+  "walls": [
+   "X87",
+   "X88"
+  ],
+  "partial": [],
+  "lines": [
+   "D3",
+   "X2",
+   "X80"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "D3": "on its walls (0.508 of it)",
+   "X2": "on its walls (0.077 of it)",
+   "X80": "on its walls (0.221 of it)"
+  }
+ },
+ "X76": {
+  "walls": [
+   "X89",
+   "X90"
+  ],
+  "partial": [],
+  "lines": [
+   "D2",
+   "X2",
+   "X81"
+  ],
+  "points": [
+   "A1",
+   "C4"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C4": "on its walls",
+   "D2": "on its walls (0.209 of it)",
+   "X2": "on its walls (0.064 of it)",
+   "X81": "on its walls (0.221 of it)"
+  }
+ },
+ "X77": {
+  "walls": [
+   "X91",
+   "X92"
+  ],
+  "partial": [],
+  "lines": [
+   "D3",
+   "X2",
+   "X81"
+  ],
+  "points": [
+   "A1",
+   "C1"
+  ],
+  "how": {
+   "A1": "on its walls",
+   "C1": "on its walls",
+   "D3": "on its walls (0.508 of it)",
+   "X2": "on its walls (0.077 of it)",
+   "X81": "on its walls (0.221 of it)"
+  }
+ },
+ "X95": {
+  "walls": [
+   "X10",
+   "X20",
+   "X3",
+   "X9"
+  ],
+  "partial": [
+   "X3",
+   "X9"
+  ],
+  "lines": [
+   "C3",
+   "D1",
+   "E2",
+   "X5",
+   "X8"
+  ],
+  "points": [
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "how": {
+   "C1": "on its walls",
+   "C3": "on its walls (0.081 of it)",
+   "C5": "on its walls",
+   "C6": "on its walls",
+   "D1": "on its walls (0.103 of it)",
+   "E2": "on its walls (0.140 of it)",
+   "X5": "on its walls (0.062 of it)",
+   "X8": "on its walls (0.138 of it)"
+  }
+ }
+}
