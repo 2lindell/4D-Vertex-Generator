@@ -2,7 +2,6 @@
  "F1": {
   "edges": [
    "B1",
-   "D3",
    "E2",
    "T2",
    "X13"
@@ -12,14 +11,10 @@
    "C1",
    "C5"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D3",
+   "F1"
+  ]
  },
  "F4": {
   "edges": [
@@ -33,13 +28,10 @@
    "C4",
    "C6"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D2",
+   "F4"
+  ]
  },
  "F5": {
   "edges": [
@@ -47,14 +39,9 @@
    "X8"
   ],
   "points": [
-   "A1",
-   "C6"
+   "A1"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "T2": {
   "edges": [
@@ -73,20 +60,13 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D1",
+   "T2"
+  ]
  },
  "X3": {
   "edges": [
-   "C3",
    "E2",
    "X1"
   ],
@@ -94,11 +74,9 @@
    "C1",
    "C5"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "C3"
+  ]
  },
  "X7": {
   "edges": [
@@ -109,11 +87,7 @@
    "C1",
    "C5"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X9": {
   "edges": [
@@ -125,16 +99,12 @@
    "C4",
    "C6"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "C2b"
+  ]
  },
  "X10": {
   "edges": [
-   "C3",
    "D1",
    "X29",
    "X3",
@@ -147,31 +117,24 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "C3"
+  ]
  },
  "X11": {
   "edges": [
-   "C3",
    "T2",
    "X6"
   ],
   "points": [
-   "C1",
    "C5"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "C3"
+  ]
  },
  "X14": {
   "edges": [
-   "C2b",
    "T2",
    "X4",
    "X6"
@@ -180,13 +143,7 @@
    "C1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "C2b (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X15": {
   "edges": [
@@ -197,34 +154,22 @@
   "points": [
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X17": {
   "edges": [
-   "X2",
    "X4"
   ],
   "points": [
-   "C1",
-   "C4",
-   "C5"
+   "C4"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": [
-   "X2 (boundary list)"
+  "goes_on_across": [
+   "X17",
+   "X4"
   ]
  },
  "X19": {
   "edges": [
-   "C2b",
    "X17",
    "X2",
    "X6"
@@ -233,31 +178,24 @@
    "C1",
    "C4"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "C2b"
+  ]
  },
  "X20": {
   "edges": [
-   "D1",
    "E2",
    "X5",
    "X8"
   ],
   "points": [
    "C1",
-   "C5",
-   "C6"
+   "C5"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D1",
+   "X20"
+  ]
  },
  "X21": {
   "edges": [
@@ -269,11 +207,7 @@
   "points": [
    "C4"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X22": {
   "edges": [
@@ -285,11 +219,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X23": {
   "edges": [
@@ -302,12 +232,9 @@
    "C4",
    "C6"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D2"
+  ]
  },
  "X25": {
   "edges": [
@@ -318,28 +245,20 @@
    "C1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X26": {
   "edges": [
-   "D2",
-   "D3",
    "X2"
   ],
   "points": [
-   "A1",
    "C1",
    "C4"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D2",
+   "D3"
+  ]
  },
  "X27": {
   "edges": [
@@ -347,14 +266,9 @@
    "X97"
   ],
   "points": [
-   "C1",
    "C4"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X28": {
   "edges": [
@@ -367,11 +281,9 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D1"
+  ]
  },
  "X31": {
   "edges": [
@@ -382,11 +294,7 @@
   "points": [
    "A1"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X33": {
   "edges": [
@@ -400,15 +308,10 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X34": {
   "edges": [
-   "D2",
    "T2",
    "X24"
   ],
@@ -416,13 +319,7 @@
    "A1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D2 (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X35": {
   "edges": [
@@ -433,28 +330,18 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X38": {
   "edges": [
-   "B1",
-   "C2a",
    "E1"
   ],
   "points": [
    "A1",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "B1 (corner records)"
+  "goes_on_across": [
+   "C2a"
   ]
  },
  "X39": {
@@ -469,15 +356,10 @@
   "points": [
    "A1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X40": {
   "edges": [
-   "D1",
    "E1",
    "E2"
   ],
@@ -485,11 +367,9 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "D1"
+  ]
  },
  "X41": {
   "edges": [
@@ -503,11 +383,7 @@
    "C4",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X42": {
   "edges": [
@@ -519,11 +395,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X44": {
   "edges": [
@@ -532,11 +404,7 @@
    "X81"
   ],
   "points": [],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X47": {
   "edges": [
@@ -549,11 +417,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X48": {
   "edges": [
@@ -568,11 +432,7 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X51": {
   "edges": [
@@ -587,11 +447,7 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X52": {
   "edges": [
@@ -603,11 +459,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X53": {
   "edges": [
@@ -621,27 +473,17 @@
    "C5",
    "C6"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X79": {
   "edges": [
-   "X26",
    "X80",
    "X81"
   ],
-  "points": [
-   "A1"
-  ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "points": [],
+  "goes_on_across": [
+   "X26"
+  ]
  },
  "X82": {
   "edges": [
@@ -653,11 +495,7 @@
    "A1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X83": {
   "edges": [
@@ -669,11 +507,7 @@
    "C1",
    "C5"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X84": {
   "edges": [
@@ -685,16 +519,11 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X85": {
   "edges": [
    "D2",
-   "D3",
    "X2",
    "X80"
   ],
@@ -702,19 +531,10 @@
    "A1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "X2 (corner records)",
-   "D2 (corner records)",
-   "D3 (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X86": {
   "edges": [
-   "D2",
    "X2",
    "X80"
   ],
@@ -722,18 +542,10 @@
    "A1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D2 (corner records)",
-   "X2 (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X87": {
   "edges": [
-   "D3",
    "X2",
    "X80"
   ],
@@ -741,13 +553,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D3 (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X88": {
   "edges": [
@@ -759,13 +565,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D3 (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X89": {
   "edges": [
@@ -777,31 +577,19 @@
    "A1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D2 (boundary list)",
-   "X2 (boundary list)"
-  ]
+  "goes_on_across": []
  },
  "X90": {
   "edges": [
    "D2",
+   "X2",
    "X81"
   ],
   "points": [
    "A1",
    "C4"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D2 (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X91": {
   "edges": [
@@ -813,14 +601,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D3 (boundary list)",
-   "X2 (boundary list)"
-  ]
+  "goes_on_across": []
  },
  "X92": {
   "edges": [
@@ -832,14 +613,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "D3 (boundary list)",
-   "X2 (boundary list)"
-  ]
+  "goes_on_across": []
  },
  "X93": {
   "edges": [
@@ -851,13 +625,7 @@
    "A1",
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": [
-   "X2 (corner records)"
-  ]
+  "goes_on_across": []
  },
  "X94": {
   "edges": [
@@ -867,11 +635,9 @@
   "points": [
    "C1"
   ],
-  "source": [
-   "edge_lines",
-   "corner_points"
-  ],
-  "filled": []
+  "goes_on_across": [
+   "X11"
+  ]
  },
  "X96": {
   "edges": [
@@ -883,12 +649,7 @@
    "C4",
    "C6"
   ],
-  "source": [],
-  "filled": [
-   "T1 (exact geometry)",
-   "X5 (exact geometry)",
-   "C2a (exact geometry)"
-  ]
+  "goes_on_across": []
  },
  "X98": {
   "edges": [
@@ -899,11 +660,7 @@
   "points": [
    "A1"
   ],
-  "source": [
-   "patch edge labels",
-   "patch edge labels"
-  ],
-  "filled": []
+  "goes_on_across": []
  },
  "X99": {
   "edges": [
@@ -915,13 +672,6 @@
    "A1",
    "C6"
   ],
-  "source": [
-   "corner_points"
-  ],
-  "filled": [
-   "B1 (corner records)",
-   "E1 (corner records)",
-   "C2a (corner records)"
-  ]
+  "goes_on_across": []
  }
 }
