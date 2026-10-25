@@ -1680,11 +1680,14 @@ def main(samples_path, out_path):
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
     if os.path.exists("region_defs.json"):   # regions whose walls are decided (region_defs.json): those walls, with the
         # lines and points already recorded for them
+        rbounds = json.load(open("region_bounds.json")) if os.path.exists("region_bounds.json") else {}
         for rid, dd in json.load(open("region_defs.json")).items():
             if rid.startswith("_") or rid not in tmap:
                 continue
             walls = set(dd.get("walls", [])) | set(dd.get("whole", [])) | set(dd.get("pieces", {}))
             keep = {b for b in tmap[rid].get("bounds", []) if b in tmap and tmap[b].get("dim") != "wall"}
+            if rid in rbounds:     # (checked against its walls: only the lines and points on the part facing it)
+                keep = set(rbounds[rid]["lines"]) | set(rbounds[rid]["points"])
             tmap[rid]["bounds"] = sorted((i for i in keep | walls if i in tmap),
                                          key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
             tmap[rid]["walls_decided"] = True

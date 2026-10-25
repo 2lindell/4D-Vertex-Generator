@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import os
 from collections import defaultdict
 from multiprocessing import Pool
 
@@ -54,16 +55,23 @@ def main():
     osd.LIB = osd.library()
     planes, curved = osd.LIB
     out = defaultdict(list)
+    if os.path.exists(OUT):                           # (sections already done are kept)
+        out.update(json.load(open(OUT)))
     todo = [m for m in check["mixed"] if m.get("area", 0) > 1e-4]
     with Pool(4) as pool:
         for m in todo:
             w, k, sd = m["wall"], m["section"], m["side"]
+            if any(e["section"] == k and e["side"] == sd for e in out.get(w, [])):
+                continue
             f = json.load(gzip.open(f"sections/{w}.json.gz", "rt"))[k]
             T = np.array(f["tris"]).reshape(-1, 3, 3)
             X, owner = sample_tris(T, max(0.0015, np.sqrt(f["area"]) / 15), owner=True)
             N = np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0])
             N = N / (np.linalg.norm(N, axis=1, keepdims=True) + 1e-300)
             N = N[owner]
+            if len(X) > 200:                          # (200 points spread over it are plenty)
+                pick = np.random.default_rng(0).choice(len(X), 200, replace=False)
+                X, N = X[pick], N[pick]
             sg = 1 if sd == 0 else -1
             labs = pool.map(name_at, [(x, n, sg) for x, n in zip(X, N)])
             labs = np.array(labs)
