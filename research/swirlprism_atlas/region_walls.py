@@ -31,6 +31,22 @@ def page_data(path="../../assets/symmetry_domain.html"):
     return json.loads(re.search(r'<script id="atlas-data" type="application/json">(.*?)</script>', t, re.S).group(1))
 
 
+def polygon_tris(Q):
+    """A flat polygon (its corners in order) in triangles that stay inside it: a patch with a curved side is not
+    convex, and a fan from one corner would reach past that side."""
+    import shapely
+    from shapely.geometry import Polygon
+    o = Q.mean(0)
+    _, _, vt = np.linalg.svd(Q - o)
+    e1, e2 = vt[0], vt[1]
+    P = Polygon(np.c_[(Q - o) @ e1, (Q - o) @ e2])
+    tris = []
+    for t in shapely.constrained_delaunay_triangles(P).geoms:
+        c = np.array(t.exterior.coords)[:3]
+        tris.append(o + c[:, :1] * e1 + c[:, 1:2] * e2)
+    return np.array(tris)
+
+
 def pieces_of(d, walls):
     """(wall, kind, index, triangles in cell xyz) for every drawn piece of the walls."""
     out = []
@@ -46,7 +62,7 @@ def pieces_of(d, walls):
     if "T2" in walls:
         for pi, p in enumerate(d["tpatches"]):
             Q = np.array(p["pts"][:-1], float) * FLIP
-            out.append(("T2", "tpatch", pi, np.array([[Q[0], Q[i], Q[i + 1]] for i in range(1, len(Q) - 1)])))
+            out.append(("T2", "tpatch", pi, polygon_tris(Q)))
     return out
 
 

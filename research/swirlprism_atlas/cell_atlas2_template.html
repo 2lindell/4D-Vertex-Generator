@@ -688,16 +688,17 @@ __TYPE_CSS__
           out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
             i: tri.map((t) => t[0]), j: tri.map((t) => t[1]), k: tri.map((t) => t[2]),
             color: color(byId.T2), opacity: p.copy ? 0.1 : 0.16, name: p.hover, hovertemplate: p.hover + "<extra></extra>" });
-          // (a copy's edge in the splitting mirror is only where it was cut to be folded into the half: the copy
-          // goes on across it, so it is not drawn)
+          // (an edge two copy patches share is inside the copy, where it was drawn in two parts: not drawn)
           let runs = [p.pts];
           if (p.copy) {
-            const Mi = DC.cellInv, off = (q) => { const v = [q[0], q[1], -q[2], 1];
-              const b = Mi.map((r) => r[0] * v[0] + r[1] * v[1] + r[2] * v[2] + r[3] * v[3]);
-              return Math.abs(b[2] - b[3]) / Math.abs(b[0] + b[1] + b[2] + b[3]) < 1e-4; };
+            const ek = (u, v) => { const a = u.map((x) => x.toFixed(5)).join(","), b = v.map((x) => x.toFixed(5)).join(",");
+              return a < b ? a + "|" + b : b + "|" + a; };
+            const shared = new Set();
+            for (const q of D.tpatches) if (q !== p && q.copy)
+              for (let k = 1; k < q.pts.length; k++) shared.add(ek(q.pts[k - 1], q.pts[k]));
             runs = [[p.pts[0]]];
             for (let k = 1; k < p.pts.length; k++) {
-              if (off(p.pts[k - 1]) && off(p.pts[k])) runs.push([p.pts[k]]); else runs[runs.length - 1].push(p.pts[k]);
+              if (shared.has(ek(p.pts[k - 1], p.pts[k]))) runs.push([p.pts[k]]); else runs[runs.length - 1].push(p.pts[k]);
             }
             runs = runs.filter((r) => r.length > 1);
           }

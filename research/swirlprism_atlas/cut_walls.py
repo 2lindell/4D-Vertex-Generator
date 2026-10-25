@@ -400,8 +400,7 @@ def flat_cut(T, plines):
     faces = [f for f in polygonize(noded) if f.area > 1e-12 and poly.contains(f.representative_point())]
     tris, comp = [], []
     for i, f in enumerate(faces):
-        for tri in shapely.constrained_delaunay_triangles(f).geoms:
-            c = np.array(tri.exterior.coords)[:3]
+        for c in quality_tris(f):
             t3 = o + c[:, :1] * e1 + c[:, 1:2] * e2
             if np.cross(t3[1] - t3[0], t3[2] - t3[0]) @ n < 0:
                 t3 = t3[[0, 2, 1]]                    # (all one way round: the piece's normal)
@@ -423,6 +422,32 @@ def flat_cut(T, plines):
                     across[i].add((j, k))
                     across[j].add((i, k))
     return np.array(tris).reshape(-1, 3, 3), np.array(comp, int), across, bounding
+
+
+def quality_tris(f, min_angle=25):
+    """A face (shapely polygon) in triangles with no angle under min_angle: points added inside it and along its
+    sides as needed. A bare constrained triangulation fans long slivers from a straight side to a finely sampled
+    curve, and the page shades each sliver by its own (rounded, so tilted) normal: streaks across a flat wall."""
+    import shapely
+    import triangle as tr
+    f = shapely.geometry.polygon.orient(f.simplify(0), 1.0)
+    V, S, H = [], [], []
+    for ring in [f.exterior, *f.interiors]:
+        C = np.array(ring.coords)[:-1]
+        k = len(V)
+        V += list(C)
+        S += [(k + j, k + (j + 1) % len(C)) for j in range(len(C))]
+    for ring in f.interiors:
+        H.append(np.array(shapely.geometry.Polygon(ring).representative_point().coords[0]))
+    data = {"vertices": np.array(V), "segments": np.array(S)}
+    if H:
+        data["holes"] = np.array(H)
+    try:
+        out = tr.triangulate(data, f"pq{min_angle}Q")
+        P, T = out["vertices"], out["triangles"]
+        return [P[t] for t in T]
+    except Exception:
+        return [np.array(t.exterior.coords)[:3] for t in shapely.constrained_delaunay_triangles(f).geoms]
 
 
 def _true_runs(mask):
@@ -644,6 +669,12 @@ def main(walls):
             return False
         return f
     inside = {pid: inside_piece(pid) for pid in mine}
+    _dense = {}
+
+    def dense_tree(pid):
+        if pid not in _dense:
+            _dense[pid] = cKDTree(sample_tris(pieces[pid][3], 0.002))
+        return _dense[pid]
     def normal_of(pid):
         S, T = S_of[pid], pieces[pid][3]
         if S is not None:
@@ -743,6 +774,27 @@ def main(walls):
                               (B, Cb[(db > 2e-3) & (db < 1.2e-2)])])
             if os.environ.get("CUTDBG"):
                 print(f"     {B}'s edge lies in piece {pa}: {keep.sum()} segments", flush=True)
+    # (d) lines found from the regions themselves (mixed_lines.py): where a section's side changes region, the
+    # exact surface passing through it there, which no meeting of meshes found
+    if os.path.exists("forced_lines.json"):
+        forced = json.load(open("forced_lines.json"))
+        all_s = {x.name: x for x in surfaces()}
+        for pid in mine:
+            for e in forced.get(pieces[pid][0], []):
+                if e.get("normal") is not None:
+                    from arrangement import Surface
+                    cut = Surface(e["surface"], (lambda n: lambda B: B @ n)(np.array(e["normal"], float)), [], "plane")
+                elif e["surface"] in all_s:
+                    cut = all_s[e["surface"]]
+                else:
+                    continue
+                P = np.array(e["points"], float)
+                P = P[dense_tree(pid).query(P)[0] < 2e-3]
+                if len(P) < 3 or any(np.median(cKDTree(x[2]).query(P)[0]) < 1e-3 for x in lines[pid]):
+                    continue
+                lines[pid].append((f"{e['surface']} (region boundary)", cut, P, None))
+                if os.environ.get("CUTDBG"):
+                    print(f"     {e['surface']} (region boundary) on piece {pid}: {len(P)} pts", flush=True)
     for pid in lines:
         lines[pid] = [tuple(x) for x in lines[pid]]
     # (2) the images of each piece's lines on the wall's other pieces

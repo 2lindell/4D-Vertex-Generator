@@ -64,6 +64,21 @@ def inside_tris(X, T, tree, R, tol):
     return out
 
 
+def _counts(f):
+    return [{k: v for k, v in f.get("checked", {}).get(str(sd), {}).items() if not k.startswith("(")} for sd in (0, 1)]
+
+
+def mixed(f):
+    """The classifier met more than one region on a side of the section."""
+    return any(len(c) > 1 for c in _counts(f))
+
+
+def whole(f):
+    """The classifier met one region on each side of the section, the one it is named with."""
+    c = _counts(f)
+    return all(len(x) == 1 for x in c) and [next(iter(x)) for x in c] == list(f["sides"])
+
+
 def main(dry=False, walls=None):
     d = rw.page_data()
     pieces = rw.pieces_of(d, {w["id"] for w in d["xwalls"]} | {"T2"})
@@ -112,6 +127,13 @@ def main(dry=False, walls=None):
             top, n_top = votes.most_common(1)[0]
             src = faces[top]["sides"]
             share = n_top / sum(votes.values())
+            # (a main section the classifier found mixed, part one region and part another on a side, is short of
+            # a cut; a copy the classifier found whole on both sides keeps its own names rather than take the mixed
+            # main's majority)
+            if set(src) != set(f["sides"]) and mixed(faces[top]) and whole(f):
+                print(f"  {w} copy section {k} (piece {f['piece']}): keeps {'|'.join(f['sides'])}; its main section "
+                      f"{top} ({'|'.join(src)}) is mixed: {faces[top].get('checked')}")
+                continue
             if set(src) != set(f["sides"]):
                 print(f"  {w} copy section {k} (piece {f['piece']}, {f['area']:.4f}): {'|'.join(f['sides'])} -> "
                       f"{'|'.join(src)}  (lands in main section {top}, {share:.0%} of {sum(votes.values())} hits)")
