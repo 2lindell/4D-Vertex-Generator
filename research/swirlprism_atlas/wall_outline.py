@@ -146,6 +146,11 @@ def main():
             r["edges"] = sorted(x for x in extra[w] if dims.get(x) in ("line", "wall"))
             r["points"] |= {x for x in extra[w] if dims.get(x) == "point"}
         r["points"] = sorted(r["points"])
+    # (a face or mirror side the wall goes on across is still an edge: what lies across is its copy or its own
+    # mirror image (T2 at D1, X26 at D3), not more of the same piece)
+    for w, r in out.items():
+        add = [x for x in r["goes_on_across"] if x != w and dims.get(x) == "line" and x not in r["edges"]]
+        r["edges"] = sorted(set(r["edges"]) | set(add))
     # (walls checked by hand, or as the domain page lists them: wall_outline_checked.json)
     for w, r in json.load(open("wall_outline_checked.json")).items():
         if not w.startswith("_"):
