@@ -160,6 +160,8 @@ def main():
     for w in out:
         out[w]["edges"] = wall_edges_rule.edges(w, ctx)
     json.dump(out, open("wall_outline.json", "w"), indent=1)
+    import working_data                              # (the working data follows the corrected edges)
+    working_data.main()
     for w in walls:
         r = out[w]
         print(f"{w:4s} edges {r['edges']}  points {r['points']}" + (f"   (goes on across {r['goes_on_across']})" if r["goes_on_across"] else ""))

@@ -89,7 +89,9 @@ def main():
             e["part"].append(part)
     # (a wall's boundary: its own edges, lines or walls, and the points at their ends (wall_outline.json, from the
     # walls' traced edges and corners); other shapes keep the key's boundary lists)
-    outline = json.load(open("wall_outline.json")) if os.path.exists("wall_outline.json") else {}
+    # (the working data, in one place: working_data.json, by working_data.py)
+    work = json.load(open("working_data.json"))
+    outline = work["walls"]
     for n in nodes:
         if n["dim"] == "wall" and n["id"] in outline:
             n["bounds"] = outline[n["id"]]["edges"] + outline[n["id"]]["points"]
@@ -102,7 +104,7 @@ def main():
         for r in n["sep"]:
             add(n["id"], r, "separates")
     db = json.load(open("region_db.json"))
-    defs = json.load(open("region_defs.json"))
+    defs = work["regions"]
     partial = db.get("partial", {})
     for r, v in defs.items():
         if not isinstance(v, dict):
