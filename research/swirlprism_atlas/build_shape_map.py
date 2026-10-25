@@ -68,10 +68,10 @@ def main():
             from cell_atlas import seed_text, to_upper
             n["seed"] = seed_text(to_upper(np.array(seeds[tid]["beta"], float)))
             n["even"] = round(float(seeds[tid]["ratio"]), 4)
-        if tid in wall_edges:
-            n["edges"] = wall_edges[tid]
+
         nodes.append(n)
     ids = {n["id"] for n in nodes}
+    N_DIM = {n["id"]: n["dim"] for n in nodes}
     E = {}
 
     def add(a, b, src, info=None, part=None):
@@ -85,9 +85,18 @@ def main():
             e["faces"].update(info)
         if part and part not in e["part"]:
             e["part"].append(part)
+    # (a wall's boundary: its own edges, lines or walls, and the points at their ends (wall_outline.json, from the
+    # walls' traced edges and corners); other shapes keep the key's boundary lists)
+    outline = json.load(open("wall_outline.json")) if os.path.exists("wall_outline.json") else {}
     for n in nodes:
+        if n["dim"] == "wall" and n["id"] in outline:
+            n["bounds"] = outline[n["id"]]["edges"] + outline[n["id"]]["points"]
+            for b in n["bounds"]:
+                add(n["id"], b, "edges")
+            continue
         for b in n["bounds"]:
-            add(n["id"], b, "column")
+            if n["dim"] in ("line", "point") or N_DIM.get(b) != "wall" or b not in outline:
+                add(n["id"], b, "column")
         for r in n["sep"]:
             add(n["id"], r, "separates")
     db = json.load(open("region_db.json"))
