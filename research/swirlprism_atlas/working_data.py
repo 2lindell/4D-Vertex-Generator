@@ -23,10 +23,9 @@ FILLS = [
     ("F4", "X60", "drop", "X60's boundary list has no F4"),
     ("X41", "X49", "drop", "X49's boundary list has no X41 (wall_sides.json: X58, X62)"),
     ("X20", "X59", "drop", "X59's boundary list has no X20 (wall_sides.json: X66, X95)"),
-    ("X79", "X72", "add", "X72's boundary list has X79: its second side (wall_sides.json: X72, X73)"),
-    ("T2", "X58", "add", "X58's boundary list has T2 (X41 ends on T2 there)"),
+    ("X79", "X73", "drop", "X79 does not border X73 (checked by hand: X72 and X73 close on a curve near it)"),
+    ("X96", "X58", "add", "X58's boundary list has T2: T2's former region B, the wall X96 (X41 ends on it there)"),
     ("X17", "X46", "add", "X46's boundary list has X17 (X19 ends on X17 there)"),
-    ("T2", "X62", "add", "X41 ends on T2 and has only X58 and X62 beside it, with no cut: both run along T2"),
 ]
 
 
@@ -49,6 +48,7 @@ def main():
     sep = {w: set(T[w].get("separates") or []) for w in walls}
     for w in ("F4", "X20", "X41"):                    # (the page key's lists for these are out of date)
         sep[w] = set(sides[w])
+    deduced = []
     rw_ = {r: set(v["walls"]) for r, v in json.load(open("region_defs.json")).items() if isinstance(v, dict)}
     for w, r, act, _ in FILLS:
         if act == "add":
@@ -57,6 +57,15 @@ def main():
         else:
             sep[w].discard(r)
             rw_.get(r, set()).discard(w)
+    # (a wall with two regions and no cut that ends on another wall: both its regions run along that wall)
+    E0 = {w: set(outline.get(w, {}).get("edges", [])) for w in walls}
+    for y in walls:
+        if len(sep[y]) == 2:
+            for w in E0[y] & set(walls):
+                for r in sep[y] - sep[w]:
+                    sep[w].add(r)
+                    deduced.append({"wall": w, "region": r, "action": "add",
+                                    "why": f"{y} ends on {w} with only {' and '.join(sorted(sep[y]))} beside it"})
     for w in walls:                                   # (a region beside a wall lists it, and the other way round)
         for r in sep[w]:
             rw_.setdefault(r, set()).add(w)
@@ -78,6 +87,20 @@ def main():
             between = sorted(sep[y] & sep[w], key=key)
             if len(between) >= 2:
                 cuts[w].append({"by": y, "between": between, "along": f"{w} meets {y}"})
+    # (which regions reach each line: beyond a wall's edge on it (edge_lines.json), or beside a wall with two
+    # regions and no cut that ends on it; a region of a wall with more regions may lie along its other edges only)
+    EL = json.load(open("edge_lines.json"))
+    reach = {}
+    for w, v in EL.items():
+        for past, on, *n in v:
+            p = str(past)[5:] if str(past).startswith("face:") else past
+            if dims.get(p) == "region" and dims.get(on) == "line":
+                reach.setdefault(on, set()).add(p)
+    for w in walls:
+        if len(sep[w]) == 2:
+            for e in E[w]:
+                if dims.get(e) == "line":
+                    reach.setdefault(e, set()).update(sep[w])
     # (closure of each region)
     open_ = {}
     for r in regions:
@@ -88,13 +111,14 @@ def main():
                 if dims.get(e) == "wall":
                     if e not in W:
                         miss.append(f"{w} ends on {e}, not a wall of {r}")
-                elif not any(e in E[v] or e in across[v] or e in B.get(v, set()) for v in W if v != w):
+                elif r in reach.get(e, ()) and not any(e in E[v] or e in across[v] or e in B.get(v, set())
+                                                       for v in W if v != w):
                     miss.append(f"{w}'s edge {e} meets no other wall of {r}")
         if miss:
             open_[r] = sorted(miss)
     out = {
         "_about": __doc__.strip().split("\n\n")[0],
-        "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS],
+        "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS] + deduced,
         "walls": {w: {"edges": sorted(E[w], key=key), "points": outline.get(w, {}).get("points", []),
                       "regions": sorted(sep[w], key=key), "cuts_needed": max(len(sep[w]) - 2, 0), "cuts": cuts[w]}
                   for w in walls},

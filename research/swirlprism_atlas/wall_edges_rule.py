@@ -12,7 +12,8 @@
     * a region (a region beyond an edge says what is there, not what the edge is);
     * another wall on the same surface (X39, X52, X35 on X10's quadric are its neighbours there, not its edges);
     * a wall met where the face it lies in is crossed ("face:F4" past X39's edge: X39 passes through F4 there).
-  (A record naming T2 where the edge lies on X97, T2's former curve D, means X97.)
+  (A record naming T2 where the edge lies on X97, T2's former curve D, means X97; one with X16 beyond it means X96,
+  T2's former region B.)
   A wall with fewer than two such edges takes the lines of its boundary list (X17's X2 is only there).
 
     python wall_edges_rule.py        (prints the rule's edges against wall_outline_checked.json and wall_outline.json)
@@ -110,6 +111,13 @@ def context():
                 on_t2.add(t.get("wall"))
     fix = lambda w, x: "X97" if x == "T2" and w in on_x97 - on_t2 else x
     EL = {w: [[fix(w, p), fix(w, o), *n] for p, o, *n in v] for w, v in EL.items()}
+    # (likewise T2's former region B is the wall X96 now (in b2 = b3, X16 beside it): a wall whose every record
+    # naming T2 has X16 beyond it ends on X96 (X41))
+    on_x96 = {w for w, v in EL.items() if any(o == "T2" for p, o, *n in v)
+              and all(p == "X16" for p, o, *n in v if o == "T2")}
+    fix96 = lambda w, x: "X96" if x == "T2" and w in on_x96 else x
+    EL = {w: [[p, fix96(w, o), *n] for p, o, *n in v] for w, v in EL.items()}
+    bnd = {w: [fix96(w, x) for x in v] for w, v in bnd.items()}
     bnd = {w: [fix(w, x) for x in v] for w, v in bnd.items()}
     known = set(json.load(open("xsurfaces.json"))) | set(json.load(open("xsurface_equations.json")))
     return dims, bnd, EL, fp, outline, d, known

@@ -27,15 +27,15 @@
   },
   {
    "wall": "X79",
-   "region": "X72",
-   "action": "add",
-   "why": "X72's boundary list has X79: its second side (wall_sides.json: X72, X73)"
+   "region": "X73",
+   "action": "drop",
+   "why": "X79 does not border X73 (checked by hand: X72 and X73 close on a curve near it)"
   },
   {
-   "wall": "T2",
+   "wall": "X96",
    "region": "X58",
    "action": "add",
-   "why": "X58's boundary list has T2 (X41 ends on T2 there)"
+   "why": "X58's boundary list has T2: T2's former region B, the wall X96 (X41 ends on it there)"
   },
   {
    "wall": "X17",
@@ -44,10 +44,10 @@
    "why": "X46's boundary list has X17 (X19 ends on X17 there)"
   },
   {
-   "wall": "T2",
+   "wall": "X96",
    "region": "X62",
    "action": "add",
-   "why": "X41 ends on T2 and has only X58 and X62 beside it, with no cut: both run along T2"
+   "why": "X41 ends on X96 with only X58 and X62 beside it"
   }
  ],
  "walls": {
@@ -132,11 +132,9 @@
     "F3",
     "X36",
     "X37",
-    "X49",
-    "X58",
-    "X62"
+    "X49"
    ],
-   "cuts_needed": 5,
+   "cuts_needed": 3,
    "cuts": [
     {
      "by": "F1",
@@ -154,14 +152,6 @@
       "X37"
      ],
      "along": "T2 meets X11"
-    },
-    {
-     "by": "X41",
-     "between": [
-      "X58",
-      "X62"
-     ],
-     "along": "T2 meets X41"
     },
     {
      "by": "X94",
@@ -507,16 +497,7 @@
     "X73"
    ],
    "cuts_needed": 0,
-   "cuts": [
-    {
-     "by": "X79",
-     "between": [
-      "X72",
-      "X73"
-     ],
-     "along": "X26 meets X79"
-    }
-   ]
+   "cuts": []
   },
   "X27": {
    "edges": [
@@ -679,7 +660,7 @@
     "C2a",
     "D2",
     "E1",
-    "T2"
+    "X96"
    ],
    "points": [
     "A1",
@@ -822,21 +803,9 @@
     "X81"
    ],
    "points": [],
-   "regions": [
-    "X72",
-    "X73"
-   ],
+   "regions": [],
    "cuts_needed": 0,
-   "cuts": [
-    {
-     "by": "X26",
-     "between": [
-      "X72",
-      "X73"
-     ],
-     "along": "X79 meets X26"
-    }
-   ]
+   "cuts": []
   },
   "X82": {
    "edges": [
@@ -1075,10 +1044,21 @@
     "C6"
    ],
    "regions": [
-    "X16"
+    "X16",
+    "X58",
+    "X62"
    ],
-   "cuts_needed": 0,
-   "cuts": []
+   "cuts_needed": 1,
+   "cuts": [
+    {
+     "by": "X41",
+     "between": [
+      "X58",
+      "X62"
+     ],
+     "along": "X96 meets X41"
+    }
+   ]
   },
   "X98": {
    "edges": [
@@ -1245,8 +1225,8 @@
   "X58": {
    "walls": [
     "F4",
-    "T2",
-    "X41"
+    "X41",
+    "X96"
    ]
   },
   "X59": {
@@ -1273,9 +1253,9 @@
   },
   "X62": {
    "walls": [
-    "T2",
     "X23",
-    "X41"
+    "X41",
+    "X96"
    ]
   },
   "X63": {
@@ -1344,7 +1324,6 @@
   "X72": {
    "walls": [
     "X26",
-    "X79",
     "X86",
     "X91"
    ]
@@ -1352,7 +1331,6 @@
   "X73": {
    "walls": [
     "X26",
-    "X79",
     "X88",
     "X89"
    ]
@@ -1391,17 +1369,6 @@
   }
  },
  "open": {
-  "F3": [
-   "F1's edge B1 meets no other wall of F3",
-   "T2's edge T1 meets no other wall of F3",
-   "T2's edge X1 meets no other wall of F3"
-  ],
-  "X12": [
-   "X3's edge X1 meets no other wall of X12"
-  ],
-  "X16": [
-   "X96's edge C2a meets no other wall of X16"
-  ],
   "X30": [
    "X83's edge X78 meets no other wall of X30"
   ],
@@ -1409,69 +1376,25 @@
    "X15's edge X78 meets no other wall of X32"
   ],
   "X36": [
-   "T2's edge T1 meets no other wall of X36",
-   "T2's edge X1 meets no other wall of X36",
-   "X11's edge X6 meets no other wall of X36",
    "X83's edge X78 meets no other wall of X36"
   ],
   "X37": [
-   "T2's edge E2 meets no other wall of X37",
-   "T2's edge T1 meets no other wall of X37",
-   "T2's edge X1 meets no other wall of X37",
    "X15's edge X78 meets no other wall of X37"
   ],
   "X45": [
-   "X14's edge X4 meets no other wall of X45",
-   "X14's edge X6 meets no other wall of X45",
    "X25's edge X2 meets no other wall of X45"
   ],
-  "X46": [
-   "X14's edge X97 meets no other wall of X46"
-  ],
-  "X49": [
-   "T2's edge X1 meets no other wall of X49"
-  ],
   "X50": [
-   "F1 ends on T2, not a wall of X50",
-   "F1's edge B1 meets no other wall of X50",
-   "F1's edge X13 meets no other wall of X50"
-  ],
-  "X54": [
-   "X22's edge D3 meets no other wall of X54"
+   "F1 ends on T2, not a wall of X50"
   ],
   "X55": [
    "X90's edge X2 meets no other wall of X55"
   ],
-  "X58": [
-   "F4's edge B1 meets no other wall of X58",
-   "T2's edge E2 meets no other wall of X58",
-   "T2's edge X1 meets no other wall of X58",
-   "T2's edge X4 meets no other wall of X58"
-  ],
-  "X59": [
-   "X23's edge E1 meets no other wall of X59"
-  ],
-  "X60": [
-   "X23's edge E1 meets no other wall of X60"
-  ],
   "X61": [
-   "F4's edge T1 meets no other wall of X61",
    "X99's edge C2a meets no other wall of X61"
   ],
-  "X62": [
-   "T2's edge E2 meets no other wall of X62",
-   "T2's edge T1 meets no other wall of X62",
-   "T2's edge X1 meets no other wall of X62",
-   "T2's edge X4 meets no other wall of X62"
-  ],
-  "X63": [
-   "X84's edge D2 meets no other wall of X63",
-   "X84's edge X18 meets no other wall of X63"
-  ],
   "X64": [
-   "X51's edge D1 meets no other wall of X64",
-   "X84's edge D2 meets no other wall of X64",
-   "X84's edge D3 meets no other wall of X64"
+   "X51's edge D1 meets no other wall of X64"
   ],
   "X65": [
    "X42's edge X2 meets no other wall of X65"
@@ -1480,22 +1403,16 @@
    "X20's edge X5 meets no other wall of X66",
    "X48's edge E1 meets no other wall of X66"
   ],
-  "X67": [
-   "X21's edge X5 meets no other wall of X67"
-  ],
   "X69": [
    "X48's edge D1 meets no other wall of X69"
   ],
-  "X70": [
-   "X22's edge X13 meets no other wall of X70",
-   "X22's edge X4 meets no other wall of X70"
+  "X72": [
+   "X86's edge X80 meets no other wall of X72",
+   "X91's edge X81 meets no other wall of X72"
   ],
-  "X74": [
-   "X84's edge D2 meets no other wall of X74"
-  ],
-  "X95": [
-   "X3's edge X1 meets no other wall of X95",
-   "X9's edge T1 meets no other wall of X95"
+  "X73": [
+   "X88's edge X80 meets no other wall of X73",
+   "X89's edge X81 meets no other wall of X73"
   ]
  }
 }
