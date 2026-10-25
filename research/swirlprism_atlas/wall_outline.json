@@ -15,9 +15,6 @@
   "goes_on_across": [
    "D3",
    "F1"
-  ],
-  "restored": [
-   "D3"
   ]
  },
  "F4": {
@@ -64,8 +61,7 @@
   "goes_on_across": [
    "D1",
    "T2"
-  ],
-  "checked": true
+  ]
  },
  "X3": {
   "edges": [
@@ -78,9 +74,6 @@
    "C5"
   ],
   "goes_on_across": [
-   "C3"
-  ],
-  "restored": [
    "C3"
   ]
  },
@@ -124,11 +117,7 @@
   ],
   "goes_on_across": [
    "C3"
-  ],
-  "restored": [
-   "C3"
-  ],
-  "checked": true
+  ]
  },
  "X11": {
   "edges": [
@@ -141,13 +130,11 @@
   ],
   "goes_on_across": [
    "C3"
-  ],
-  "restored": [
-   "C3"
   ]
  },
  "X14": {
   "edges": [
+   "C2b",
    "T2",
    "X4",
    "X6"
@@ -182,8 +169,7 @@
   "goes_on_across": [
    "X17",
    "X4"
-  ],
-  "checked": true
+  ]
  },
  "X19": {
   "edges": [
@@ -197,9 +183,6 @@
    "C4"
   ],
   "goes_on_across": [
-   "C2b"
-  ],
-  "restored": [
    "C2b"
   ]
  },
@@ -217,14 +200,10 @@
   "goes_on_across": [
    "D1",
    "X20"
-  ],
-  "restored": [
-   "D1"
   ]
  },
  "X21": {
   "edges": [
-   "T2",
    "X5",
    "X8",
    "X97"
@@ -264,7 +243,8 @@
  "X25": {
   "edges": [
    "C2b",
-   "X14"
+   "X14",
+   "X2"
   ],
   "points": [
    "C1",
@@ -286,12 +266,10 @@
   "goes_on_across": [
    "D2",
    "D3"
-  ],
-  "checked": true
+  ]
  },
  "X27": {
   "edges": [
-   "T2",
    "X97"
   ],
   "points": [
@@ -341,6 +319,7 @@
  },
  "X34": {
   "edges": [
+   "D2",
    "T2",
    "X24"
   ],
@@ -373,8 +352,7 @@
   ],
   "goes_on_across": [
    "C2a"
-  ],
-  "checked": true
+  ]
  },
  "X39": {
   "edges": [
@@ -385,8 +363,7 @@
   "points": [
    "A1"
   ],
-  "goes_on_across": [],
-  "checked": true
+  "goes_on_across": []
  },
  "X40": {
   "edges": [
@@ -399,9 +376,6 @@
    "C6"
   ],
   "goes_on_across": [
-   "D1"
-  ],
-  "restored": [
    "D1"
   ]
  },
@@ -444,8 +418,7 @@
   "edges": [
    "T2",
    "X18",
-   "X24",
-   "X34"
+   "X24"
   ],
   "points": [
    "A1",
@@ -497,7 +470,6 @@
  },
  "X53": {
   "edges": [
-   "D1",
    "E1",
    "E2",
    "X18"
@@ -569,6 +541,7 @@
  },
  "X86": {
   "edges": [
+   "D2",
    "X2",
    "X80"
   ],
@@ -591,7 +564,6 @@
  },
  "X88": {
   "edges": [
-   "D3",
    "X2",
    "X80"
   ],
@@ -651,7 +623,6 @@
  },
  "X93": {
   "edges": [
-   "X2",
    "X22",
    "X80"
   ],

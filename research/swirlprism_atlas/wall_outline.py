@@ -151,10 +151,13 @@ def main():
     for w, r in out.items():
         add = [x for x in r["goes_on_across"] if x != w and dims.get(x) == "line" and x not in r["edges"]]
         r["edges"] = sorted(set(r["edges"]) | set(add))
-    # (walls checked by hand, or as the domain page lists them: wall_outline_checked.json)
-    for w, r in json.load(open("wall_outline_checked.json")).items():
-        if not w.startswith("_"):
-            out[w] = {**out.get(w, {}), **r, "checked": True}
+    # (the edges themselves by the rule read off the walls checked by hand: wall_edges_rule.py; the checked walls,
+    # wall_outline_checked.json, are its test)
+    json.dump(out, open("wall_outline.json", "w"), indent=1)
+    import wall_edges_rule
+    ctx = wall_edges_rule.context()
+    for w in out:
+        out[w]["edges"] = wall_edges_rule.edges(w, ctx)
     json.dump(out, open("wall_outline.json", "w"), indent=1)
     for w in walls:
         r = out[w]
