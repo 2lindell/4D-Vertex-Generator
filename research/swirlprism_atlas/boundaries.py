@@ -270,6 +270,11 @@ def main(procs=4):
         for wid, regs in chk.get("separates", {}).items():
             sep[wid] = set(regs)
     out = {t: sorted(s) for t, s in bnd.items()}
+    # (shapes with no traced source here, from their exact geometry: boundaries_extra.json)
+    if os.path.exists("boundaries_extra.json"):
+        for tid, nbs in json.load(open("boundaries_extra.json")).items():
+            if not tid.startswith("_"):
+                out[tid] = sorted(set(out.get(tid, [])) | set(nbs))
     json.dump(out, open("boundaries.json", "w"), indent=1)
     # (only regions: the page keeps the walls' entries and drops the rest)
     json.dump({t: sorted(r for r in s if r not in ("ERR", "OUT", t) and not r.startswith("new:"))

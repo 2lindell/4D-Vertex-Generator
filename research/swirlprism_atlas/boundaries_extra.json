@@ -1,0 +1,5 @@
+{
+ "_about": "Boundaries of shapes with no traced source boundaries.py reads, from their exact geometry: each corner and points along each edge classified with the hull tolerance relaxed (edge_relabel.lab_edge). X96: T2's former region B, the triangle (0,1,1,0), (0,1,1,1), (1,phi^2,phi^2,0) in beta2 = beta3; X97: T2's former curve D, from C1 (1,1,1,1) to C4 (0,1,1,1).",
+ "X96": ["C4", "C6", "T1", "X5", "C2a"],
+ "X97": ["C1", "C4"]
+}
