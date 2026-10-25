@@ -56,6 +56,8 @@ def main():
                     "piece": t_["piece"], "kind": e["kind"],
                     "on": e.get("surface") or e.get("on"), "exact": e.get("exact", True),
                     "off": e.get("max_off"), "beyond": e.get("beyond"), "across": e.get("across")})
+    # (the boundary lists as the database has them now (boundaries.json), over the page key's older copy)
+    B = json.load(open("boundaries.json")) if os.path.exists("boundaries.json") else {}
     nodes = []
     for tid, t in T.items():
         P = geo.get(tid) or pts.get(tid)
@@ -63,7 +65,7 @@ def main():
             continue
         c = np.mean(np.array(P, float), axis=0)
         n = {"id": tid, "dim": t["dim"], "name": t["name"], "c": np.round(c, 4).tolist(),
-             "bounds": t.get("bounds") or [], "sep": t.get("separates") or []}
+             "bounds": B.get(tid) or t.get("bounds") or [], "sep": t.get("separates") or []}
         if tid in seeds and np.isfinite(seeds[tid].get("ratio", np.inf)):
             from cell_atlas import seed_text, to_upper
             n["seed"] = seed_text(to_upper(np.array(seeds[tid]["beta"], float)))
