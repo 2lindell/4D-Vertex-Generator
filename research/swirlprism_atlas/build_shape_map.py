@@ -110,9 +110,13 @@ def main():
                 if N_DIM.get(b) in ("line", "point"):
                     add(i_, b, "column")
         elif n["dim"] == "region":
-            n["bounds"] = work["regions"].get(i_, {}).get("walls", [])
-            for w in n["bounds"]:
-                add(i_, w, "region walls")
+            R = work["regions"].get(i_, {})
+            ext = R.get("wall_extent", {})
+            n["bounds"] = R.get("walls", []) + R.get("lines", []) + R.get("points", [])
+            for w in R.get("walls", []):
+                add(i_, w, "region walls", part=i_ if ext.get(w) == "partial" else None)
+            for x in R.get("lines", []) + R.get("points", []):
+                add(i_, x, "region boundary")
     edges = list(E.values())
     C = np.array([n["c"] for n in nodes])
     C0 = C - C.mean(0)

@@ -14,6 +14,7 @@ What is still open is printed, and kept in the file under "open".
 from __future__ import annotations
 
 import json
+import os
 
 import region_walls as rw
 
@@ -170,6 +171,9 @@ def main():
                     miss.append(f"{w}'s edge {e} meets no other wall of {r}")
         if miss:
             open_[r] = sorted(miss)
+    # (each region's walls, full or partial, its lines and points: from the regions beside the walls' pieces,
+    # piece_regions.py, where they have been found)
+    PR = json.load(open("piece_regions.json")) if os.path.exists("piece_regions.json") else {}
     out = {
         "_about": __doc__.strip().split("\n\n")[0],
         "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS] + deduced,
@@ -184,7 +188,10 @@ def main():
                       **({"both_sides": SAME_BOTH_SIDES[w]} if w in SAME_BOTH_SIDES else {}), "points": outline.get(w, {}).get("points", []),
                       "regions": sorted(sep[w], key=key), "cuts_needed": max(len(sep[w]) - 2, 0), "cuts": cuts[w]}
                   for w in walls},
-        "regions": {r: {"walls": sorted(rw_.get(r, set()), key=key)} for r in regions},
+        "regions": {r: {"walls": sorted(rw_.get(r, set()), key=key),
+                        **({"wall_extent": PR["regions"][r]["walls"], "lines": PR["regions"][r]["lines"],
+                            "points": PR["regions"][r]["points"]} if r in PR.get("regions", {}) else {})}
+                    for r in regions},
         "open": open_,
     }
     json.dump(out, open("working_data.json", "w"), indent=1)
