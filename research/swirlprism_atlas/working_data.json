@@ -45,9 +45,6 @@
   }
  ],
  "through": {
-  "X27": [
-   "X2"
-  ],
   "X53": [
    "D1"
   ],
@@ -59,6 +56,9 @@
   ],
   "X25": [
    "C2b"
+  ],
+  "F5": [
+   "X8"
   ]
  },
  "self_meet": {
@@ -71,7 +71,11 @@
  },
  "edge_fills": {
   "F5": [
-   "E1"
+   "E1",
+   "X20"
+  ],
+  "X27": [
+   "X2"
   ]
  },
  "edge_drops": {
@@ -80,6 +84,9 @@
   ],
   "X25": [
    "C2b"
+  ],
+  "F5": [
+   "X8"
   ]
  },
  "crossings": [
@@ -174,10 +181,12 @@
   "F5": {
    "edges": [
     "E1",
-    "X8",
+    "X20",
     "X29"
    ],
-   "through": [],
+   "through": [
+    "X8"
+   ],
    "points": [
     "A1"
    ],
@@ -479,8 +488,7 @@
       "X59",
       "X66"
      ],
-     "along": "X20 meets F5",
-     "deduced": "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 there); F5 is the only wall between X59 and X66"
+     "along": "X20 meets F5"
     }
    ]
   },
@@ -614,11 +622,10 @@
   },
   "X27": {
    "edges": [
+    "X2",
     "X97"
    ],
-   "through": [
-    "X2"
-   ],
+   "through": [],
    "points": [
     "C4"
    ],

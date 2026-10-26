@@ -258,6 +258,9 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000):
                 out_tris.append([poly[0], poly[k], poly[k + 1]])
             if len(ends) == 2:
                 segs.append(ends)
+    # (zero-area slivers left by the cuts are dropped)
+    area = lambda t: np.linalg.norm(np.cross(*(U @ (np.asarray(t[1:]) - t[0]).T).T))
+    out_tris = [t for t in out_tris if area(t) > 1e-14]
     return out_tris, segs, len(cells) >= max_cells
 
 
@@ -336,8 +339,8 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
                     gb = np.array([grad(S, p) for p in P[::max(1, len(P) // 5)]])
                     c = np.abs((ga * gb).sum(1)) / (np.linalg.norm(ga, axis=1) * np.linalg.norm(gb, axis=1) + 1e-300)
                     if c.max() < 0.999:
-                        cand.append(n)
-                cand.sort(key=lambda n: (not n.startswith("plane"), n))
+                        cand.append((float(c.max()), n))
+                cand = [n for _, n in sorted(cand)]               # (the one crossing the wall most steeply)
                 if cand:
                     stretches.append(Stretch(e, dens(P, h / 3), LIB[cand[0]], "edge"))
         else:
