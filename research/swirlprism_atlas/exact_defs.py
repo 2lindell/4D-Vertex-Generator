@@ -76,6 +76,7 @@ def main():
                 P = np.vstack([P[0], nrm(P[0] + P[1]), P[1]])
             per.append(sorted(s.name for s in through(P, LIB, OFF)))
         line_defs[L] = {"pieces": len(Ps), "surfaces": per,
+                        "points": [np.round(P, 12).tolist() for P in Ps],
                         "exact": bool(per) and all(len(x) >= 2 for x in per)}
     # (walls' own surfaces)
     fp = [p for p in (lambda x: x if isinstance(x, list) else x.values())(json.load(open("fexact_patches.json")))
