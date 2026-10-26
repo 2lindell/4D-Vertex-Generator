@@ -37,7 +37,7 @@ SELF_MEET = {"X15": ["X78"], "X83": ["X78"]}
 EDGE_FILLS = {"F5": ["E1"]}
 # (edges the rule keeps that are not edges: the wall meets its own image across a face of the cell there (ring test
 # with the neighbouring cell brought back by the group: the wall twice round the line), so it goes on through it)
-EDGE_DROPS = {"X14": ["C2b"]}
+EDGE_DROPS = {"X14": ["C2b"], "X25": ["C2b"]}
 # (cuts deduced in the closed set: the only wall separating the two regions that change on the wall; not yet traced)
 CUT_FILLS = [("X20", "F5", "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 "
               "there); F5 is the only wall between X59 and X66")]

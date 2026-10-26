@@ -3708,12 +3708,6 @@
      "surface": "X25:fold",
      "corners": [
       [
-       0.333333333333,
-       0.0,
-       0.333333333333,
-       0.333333333333
-      ],
-      [
        0.25,
        0.25,
        0.25,
@@ -3750,24 +3744,23 @@
        0.25
       ]
      ],
-     "corner_count": 7,
+     "corner_count": 6,
      "corner_lines": [
       "W:X6",
       "W:X97",
-      "Y:C2b",
       "Y:X2"
      ],
-     "on_Y_lines": 2,
+     "on_Y_lines": 1,
      "next_best": [
       [
-       2,
-       7,
+       1,
+       6,
        "X25:172:fold"
       ],
       [
-       0,
-       3,
-       "X25:1200"
+       1,
+       4,
+       "X25:172"
       ]
      ],
      "between": [
@@ -4666,9 +4659,6 @@
     "X25"
    ],
    "edges": {
-    "C2b": {
-     "status": "no surface through C2b crosses the wall's surface there"
-    },
     "X2": {
      "status": "exact",
      "line": "X2",
@@ -4679,49 +4669,55 @@
       "X14:1200",
       "X15:1127"
      ],
-     "side": 1,
-     "side_votes": 226
+     "side": null,
+     "side_votes": 0
     },
     "X14": {
      "status": "exact",
-     "surface": "X14:1828:fold",
+     "surface": "X14",
      "corners": [
       [
-       0.25000014352,
-       0.250000064184,
-       0.249999935816,
-       0.24999985648
+       0.25,
+       0.25,
+       0.25,
+       0.25
       ],
       [
-       0.566915245263,
-       0.216542377369,
-       0.216542377369,
-       0.0
+       0.25,
+       0.25,
+       0.25,
+       0.25
       ],
       [
-       0.566915245263,
-       0.216542377369,
-       0.216542377369,
-       0.0
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      [
+       0.25,
+       0.25,
+       0.25,
+       0.25
       ]
      ],
-     "corner_count": 3,
+     "corner_count": 4,
      "corner_lines": [
-      "Y:X4",
+      "W:X2",
       "Y:X6",
       "Y:X97"
      ],
      "on_Y_lines": 3,
      "next_best": [
       [
+       3,
+       3,
+       "X14:1828:fold"
+      ],
+      [
        1,
        2,
        "X14:fold"
-      ],
-      [
-       0,
-       1,
-       "X14:1200:fold"
       ]
      ]
     }
@@ -8797,7 +8793,5 @@
    "cuts": {}
   }
  },
- "not_from_equations": [
-  "X25 edge C2b: no surface through C2b crosses the wall's surface there"
- ]
+ "not_from_equations": []
 }
