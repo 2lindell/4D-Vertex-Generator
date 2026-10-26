@@ -34,13 +34,22 @@ def nrm(b):
 
 
 def dist(s, P):
-    P = np.atleast_2d(P)
+    """Distance of points to a surface (first order), all points at once."""
+    P = np.atleast_2d(np.asarray(P, float))
     if isinstance(s, osd.Plane):
         n = s.n - s.n.mean()
         return np.abs(P @ s.n) / (np.linalg.norm(n) + 1e-300)
-    g = np.array([s.grad(p) for p in P], float)
+    e = 1e-7
+    F = s.f(P).ravel()
+    g = np.stack([(s.f(P + e * u).ravel() - s.f(P - e * u).ravel()) / (2 * e) for u in np.eye(4)], 1)
     g = g - g.mean(1, keepdims=True)
-    return np.abs(s.f(P).ravel()) / (np.linalg.norm(g, axis=1) + 1e-300)
+    return np.abs(F) / (np.linalg.norm(g, axis=1) + 1e-300)
+
+
+def through(P, surfaces, tol):
+    """The surfaces through every point of P (tried on three points first)."""
+    probe = P[np.linspace(0, len(P) - 1, min(3, len(P))).astype(int)]
+    return [s for s in surfaces if dist(s, probe).max() < tol and dist(s, P).max() < tol]
 
 
 def main():
@@ -59,12 +68,13 @@ def main():
                 V = np.array(x["pts"], float) * [1, 1, -1.0]
                 pieces.setdefault(x["id"], []).append(nrm(np.c_[V, np.ones(len(V))] @ Ci.T))
     line_defs = {}
+    print(f"{len(pieces)} lines, {len(LIB)} surfaces", flush=True)
     for L, Ps in pieces.items():
         per = []
         for P in Ps:
             if len(P) == 2:                               # (a straight piece: its ends and middle fix it)
                 P = np.vstack([P[0], nrm(P[0] + P[1]), P[1]])
-            per.append(sorted(s.name for s in LIB if dist(s, P).max() < OFF))
+            per.append(sorted(s.name for s in through(P, LIB, OFF)))
         line_defs[L] = {"pieces": len(Ps), "surfaces": per,
                         "exact": bool(per) and all(len(x) >= 2 for x in per)}
     # (walls' own surfaces)
@@ -94,9 +104,11 @@ def main():
     WP, _ = edge_display._points(work)                     # (every wall's exact points, all images)
     YP = {y: np.asarray(V, float) for y, (V, h) in WP.items() if len(V)}
     YT = {y: cKDTree(V) for y, V in YP.items()}
+    print("lines done", flush=True)
     walls = {}
     unverified = []
     for w, v in work["walls"].items():
+        print(w, flush=True)
         base = ec.base_mesh(w, X, fp).reshape(-1, 4)
         tb = cKDTree(base) if len(base) else None
         rec = {"surface": own.get(w, []), "edges": {}, "cuts": {}, "through": {}}
