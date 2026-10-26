@@ -35,6 +35,9 @@ def nrm(b):
 
 def dist(s, P):
     P = np.atleast_2d(P)
+    if isinstance(s, osd.Plane):
+        n = s.n - s.n.mean()
+        return np.abs(P @ s.n) / (np.linalg.norm(n) + 1e-300)
     g = np.array([s.grad(p) for p in P], float)
     g = g - g.mean(1, keepdims=True)
     return np.abs(s.f(P).ravel()) / (np.linalg.norm(g, axis=1) + 1e-300)
@@ -151,8 +154,13 @@ def main():
             if len(QY) < 6:
                 return {"status": f"unverified: {Y} has no points next to the curve"}
             loc = base[sorted({j for c in C for j in tb.query_ball_point(c, 0.02)})]
+            rng = np.random.default_rng(0)
+            QY = QY[rng.choice(len(QY), min(150, len(QY)), replace=False)]
+            loc = loc[rng.choice(len(loc), min(150, len(loc)), replace=False)] if len(loc) else loc
             fits = []
             for s_ in LIB:
+                if np.mean(dist(s_, QY[:20]) < 1e-6) < 0.15:      # (quick rejection on a few points)
+                    continue
                 dy = dist(s_, QY)
                 share = float(np.mean(dy < 1e-6))
                 if share > 0.3 and np.mean(dist(s_, loc) < 1e-6) < 0.5:
