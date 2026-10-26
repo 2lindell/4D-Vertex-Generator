@@ -22,7 +22,6 @@ FILLS = [
     ("F4", "X43", "drop", "X43's boundary list has no F4 (and F4 has X49, X58, X61 in wall_sides.json)"),
     ("F4", "X60", "drop", "X60's boundary list has no F4"),
     ("X41", "X49", "drop", "X49's boundary list has no X41 (wall_sides.json: X58, X62)"),
-    ("X20", "X59", "drop", "X59's boundary list has no X20 (wall_sides.json: X66, X95)"),
     ("X79", "X72", "add", "tested: both sides of X79 are X72 and X73 on all its patches (they swap where X26 crosses it)"),
     ("X96", "X58", "add", "X58's boundary list has T2: T2's former region B, the wall X96 (X41 ends on it there)"),
     ("X17", "X46", "add", "X46's boundary list has X17 (X19 ends on X17 there)"),
@@ -30,20 +29,29 @@ FILLS = [
 
 
 # (lines a wall runs straight through, on into the next cell: no edge there, but the wall is at that line)
-THROUGH = {"X27": ["X2"], "X53": ["D1"]}
+THROUGH = {"X27": ["X2"], "X53": ["D1"], "X94": ["X78"]}
+# (lines where a wall meets its own image, closing a wedge region by itself: ring test, X32 between two sheets of X15
+# and X30 between two sheets of X83 around X78)
+SELF_MEET = {"X15": ["X78"], "X83": ["X78"]}
+# (edges the traced data misses, found by the ring test: the wall is met once around the line, so it ends there)
+EDGE_FILLS = {"F5": ["E1"]}
+# (cuts deduced in the closed set: the only wall separating the two regions that change on the wall; not yet traced)
+CUT_FILLS = [("X20", "F5", "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 "
+              "there); F5 is the only wall between X59 and X66")]
 # (walls with the same region on both sides: tested, X38 on its own quadric (its key sample and seed lie on it) has X68
 # on both sides at 217 of 225 points, down to 1e-7 off it: a wall inside X68, between X68 and its mirror image)
 SAME_BOTH_SIDES = {"X38": "X68"}
 # (walls found that are not in the atlas yet, under a provisional name: their regions, surface and what they cut)
 NEW_WALLS = {
-    "new X58|X61": {
+    "X100": {
         "regions": ["X58", "X61"], "surface": "X7 (its own quadric; also X51's image 1127)",
         "signature": "1200: cells 120+120+600+600+600+1200+1200+1200 | faces 240+600+1200+1200+1200+1200+1200+1200+1200"
                      "+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200+1200 | val 3:1800,4:4200,6:1800,"
                      "11:600",
         "why": "tested: 25 points bisected between X58 and X61 off F4's face piece (b1 = 0.001 to 0.015) lie on X7's "
                "quadric to 1e-7, and all classify as this shape; it ends on F4, where X58 changes to X61",
-        "ends_on": ["F4"]},
+        "edges": ["C2a", "E1", "F4"],
+        "edges_why": "ring test: met once around C2a and around E1, between X61 and X58; it ends on F4"},
 }
 # (walls crossing each other: each passes through the other along a curve, where the two regions beside both swap
 # sides; an invisible line on each, though no region is added)
@@ -64,11 +72,17 @@ def main():
         if not k.startswith("_"):
             B.setdefault(k, set(v))
     outline = json.load(open("wall_outline.json"))
+    for w, es in EDGE_FILLS.items():
+        outline[w]["edges"] = sorted(set(outline[w]["edges"]) | set(es))
+    for nw, v in NEW_WALLS.items():                   # (new walls join the walls, as the page will list them)
+        outline[nw] = {"edges": v["edges"], "points": [], "goes_on_across": []}
+        dims[nw] = "wall"
+        T[nw] = {"id": nw, "dim": "wall", "separates": v["regions"]}
     sides = json.load(open("wall_sides.json"))
     walls = sorted((k for k, v in dims.items() if v == "wall"), key=key)
     regions = sorted((k for k, v in dims.items() if v == "region"), key=key)
     sep = {w: set(T[w].get("separates") or []) for w in walls}
-    for w in ("F4", "X20", "X41"):                    # (the page key's lists for these are out of date)
+    for w in ("F4", "X41"):                          # (the page key's lists for these are out of date)
         sep[w] = set(sides[w])
     deduced = []
     rw_ = {r: set(v["walls"]) for r, v in json.load(open("region_defs.json")).items() if isinstance(v, dict)}
@@ -109,9 +123,10 @@ def main():
             between = sorted(sep[y] & sep[w], key=key)
             if len(between) >= 2:
                 cuts[w].append({"by": y, "between": between, "along": f"{w} meets {y}"})
-        for nw, v in NEW_WALLS.items():
-            if w in v["ends_on"] and len(set(v["regions"]) & sep[w]) >= 2:
-                cuts[w].append({"by": nw, "between": v["regions"], "along": f"{w} meets {nw}", "new": True})
+        for w_, y, why in CUT_FILLS:
+            if w == w_ and not any(c["by"] == y for c in cuts[w]):
+                cuts[w].append({"by": y, "between": sorted(sep[w] & sep[y], key=key), "along": f"{w} meets {y}",
+                                "deduced": why})
         for a, b_, why in CROSSINGS:
             if w in (a, b_):
                 y = b_ if w == a else a
@@ -132,9 +147,6 @@ def main():
             for e in E[w] | across[w]:
                 if dims.get(e) == "line":
                     reach.setdefault(e, set()).update(sep[w])
-    for nw, v in NEW_WALLS.items():
-        for r in v["regions"]:
-            rw_.setdefault(r, set()).add(nw)
     # (closure of each region)
     open_ = {}
     for r in regions:
@@ -145,8 +157,8 @@ def main():
                 if dims.get(e) == "wall":
                     if e not in W and len(sep[w]) == 2:      # (a wall with more regions: maybe another's edge)
                         miss.append(f"{w} ends on {e}, not a wall of {r}")
-                elif r in reach.get(e, ()) and not any(e in E[v] or e in across[v] or e in B.get(v, set())
-                                                       for v in W & set(walls) if v != w):
+                elif r in reach.get(e, ()) and e not in SELF_MEET.get(w, []) and not any(
+                        e in E[v] or e in across[v] or e in B.get(v, set()) for v in W & set(walls) if v != w):
                     miss.append(f"{w}'s edge {e} meets no other wall of {r}")
         if miss:
             open_[r] = sorted(miss)
@@ -154,6 +166,8 @@ def main():
         "_about": __doc__.strip().split("\n\n")[0],
         "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS] + deduced,
         "through": THROUGH,
+        "self_meet": SELF_MEET,
+        "edge_fills": EDGE_FILLS,
         "crossings": [{"walls": [a, b_], "why": why} for a, b_, why in CROSSINGS],
         "same_both_sides": SAME_BOTH_SIDES,
         "new_walls": NEW_WALLS,
@@ -161,7 +175,7 @@ def main():
                       **({"both_sides": SAME_BOTH_SIDES[w]} if w in SAME_BOTH_SIDES else {}), "points": outline.get(w, {}).get("points", []),
                       "regions": sorted(sep[w], key=key), "cuts_needed": max(len(sep[w]) - 2, 0), "cuts": cuts[w]}
                   for w in walls},
-        "regions": {r: {"walls": sorted(rw_.get(r, set()), key=lambda x: (x.startswith("new"), key(x)))} for r in regions},
+        "regions": {r: {"walls": sorted(rw_.get(r, set()), key=key)} for r in regions},
         "open": open_,
     }
     json.dump(out, open("working_data.json", "w"), indent=1)

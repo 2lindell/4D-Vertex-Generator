@@ -1890,5 +1890,40 @@
   "text": "(2-φ)·β1³β2 + (-2+φ)·β1³β3 + β1³β4 + (-3+2φ)·β1²β2² + (3-2φ)·β1²β2β3 + (-2+φ)·β1²β2β4 + (4-3φ)·β1²β3β4 + (-3+2φ)·β1²β4² + (2-φ)·β1β2³ + (-2+φ)·β1β2²β3 + (4-2φ)·β1β2²β4 + (-9+5φ)·β1β2β3β4 + (4-3φ)·β1β2β4² + (-3+2φ)·β2³β4 + (5-3φ)·β2²β3β4 + (-1+φ)·β2²β4² = 0",
   "kind": "a quartic",
   "note": "found where X61 meets X68 beside F4 (region_check / find_boundaries): fitted to exact coincidence points (exact_wall_fit), snapped to golden coefficients"
+ },
+ "X100": {
+  "mons": [
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    3
+   ]
+  ],
+  "coeffs": [
+   2.618033988749895,
+   -1.0,
+   1.618033988749895,
+   -1.618033988749895,
+   -1.618033988749895
+  ],
+  "text": "φ²·β1β4 − β2β4 + φβ3(β3 − β2 − β4) = 0",
+  "kind": "a quadric",
+  "sides": "['X58', 'X61']",
+  "note": "on X7's own quadric (also X51's image 1127): found where X58 meets X61 beside F4 (ring_test / bisection between the regions: 25 points on the quadric to 1e-7, all one shape not yet in the list)"
  }
 }

@@ -20,12 +20,6 @@
    "why": "X49's boundary list has no X41 (wall_sides.json: X58, X62)"
   },
   {
-   "wall": "X20",
-   "region": "X59",
-   "action": "drop",
-   "why": "X59's boundary list has no X20 (wall_sides.json: X66, X95)"
-  },
-  {
    "wall": "X79",
    "region": "X72",
    "action": "add",
@@ -56,6 +50,22 @@
   ],
   "X53": [
    "D1"
+  ],
+  "X94": [
+   "X78"
+  ]
+ },
+ "self_meet": {
+  "X15": [
+   "X78"
+  ],
+  "X83": [
+   "X78"
+  ]
+ },
+ "edge_fills": {
+  "F5": [
+   "E1"
   ]
  },
  "crossings": [
@@ -71,7 +81,7 @@
   "X38": "X68"
  },
  "new_walls": {
-  "new X58|X61": {
+  "X100": {
    "regions": [
     "X58",
     "X61"
@@ -79,9 +89,12 @@
    "surface": "X7 (its own quadric; also X51's image 1127)",
    "signature": "1200: cells 120+120+600+600+600+1200+1200+1200 | faces 240+600+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200+1200 | val 3:1800,4:4200,6:1800,11:600",
    "why": "tested: 25 points bisected between X58 and X61 off F4's face piece (b1 = 0.001 to 0.015) lie on X7's quadric to 1e-7, and all classify as this shape; it ends on F4, where X58 changes to X61",
-   "ends_on": [
+   "edges": [
+    "C2a",
+    "E1",
     "F4"
-   ]
+   ],
+   "edges_why": "ring test: met once around C2a and around E1, between X61 and X58; it ends on F4"
   }
  },
  "walls": {
@@ -135,18 +148,18 @@
    "cuts_needed": 1,
    "cuts": [
     {
-     "by": "new X58|X61",
+     "by": "X100",
      "between": [
       "X58",
       "X61"
      ],
-     "along": "F4 meets new X58|X61",
-     "new": true
+     "along": "F4 meets X100"
     }
    ]
   },
   "F5": {
    "edges": [
+    "E1",
     "X8",
     "X29"
    ],
@@ -439,11 +452,22 @@
     "C5"
    ],
    "regions": [
+    "X59",
     "X66",
     "X95"
    ],
-   "cuts_needed": 0,
-   "cuts": []
+   "cuts_needed": 1,
+   "cuts": [
+    {
+     "by": "F5",
+     "between": [
+      "X59",
+      "X66"
+     ],
+     "along": "X20 meets F5",
+     "deduced": "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 there); F5 is the only wall between X59 and X66"
+    }
+   ]
   },
   "X21": {
    "edges": [
@@ -1144,7 +1168,9 @@
     "T2",
     "X11"
    ],
-   "through": [],
+   "through": [
+    "X78"
+   ],
    "points": [
     "C1"
    ],
@@ -1214,6 +1240,21 @@
    "regions": [
     "X61",
     "X68"
+   ],
+   "cuts_needed": 0,
+   "cuts": []
+  },
+  "X100": {
+   "edges": [
+    "C2a",
+    "E1",
+    "F4"
+   ],
+   "through": [],
+   "points": [],
+   "regions": [
+    "X58",
+    "X61"
    ],
    "cuts_needed": 0,
    "cuts": []
@@ -1352,12 +1393,13 @@
     "F4",
     "X41",
     "X96",
-    "new X58|X61"
+    "X100"
    ]
   },
   "X59": {
    "walls": [
     "F5",
+    "X20",
     "X23",
     "X39"
    ]
@@ -1375,7 +1417,7 @@
    "walls": [
     "F4",
     "X99",
-    "new X58|X61"
+    "X100"
    ]
   },
   "X62": {
@@ -1497,25 +1539,5 @@
    ]
   }
  },
- "open": {
-  "X30": [
-   "X83's edge X78 meets no other wall of X30"
-  ],
-  "X32": [
-   "X15's edge X78 meets no other wall of X32"
-  ],
-  "X36": [
-   "X83's edge X78 meets no other wall of X36"
-  ],
-  "X37": [
-   "X15's edge X78 meets no other wall of X37"
-  ],
-  "X61": [
-   "X99's edge C2a meets no other wall of X61"
-  ],
-  "X66": [
-   "X20's edge X5 meets no other wall of X66",
-   "X48's edge E1 meets no other wall of X66"
-  ]
- }
+ "open": {}
 }
