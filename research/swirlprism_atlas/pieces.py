@@ -33,6 +33,7 @@ from t2_pieces import extended
 from xsurface import CUBE, TETS, U, C0
 
 FOLD = np.eye(4)[[1, 0, 3, 2]]
+OUT = os.environ.get("PIECES_OUT", "pieces.json")
 HALF = [("face b1=0", np.eye(4)[0]), ("face b2=0", np.eye(4)[1]), ("face b3=0", np.eye(4)[2]),
         ("face b4=0", np.eye(4)[3]), ("mirror b3=b4", np.array([0, 0, 1, -1.0]))]
 
@@ -260,6 +261,144 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000):
     return out_tris, segs, len(cells) >= max_cells
 
 
+
+
+def line_pieces_on(L, S, GG, LIB):
+    """The pieces of a line (its verified pieces carried by every group element) lying on the surface S in the
+    half-cell, each with the library surfaces through it."""
+    out, seen = [], set()
+    for P in L["points"]:
+        P = np.asarray(P, float)
+        if len(P) < 2:
+            continue
+        if len(P) == 2:
+            P = np.vstack([P[0], nrm(P[0] + P[1]), P[1]])
+        Y = np.einsum("gij,nj->gni", GG, P)
+        sm = Y.sum(-1, keepdims=True)
+        good = (np.abs(sm) > 1e-9).all((1, 2))
+        Y = Y[good] / sm[good]
+        ok = (Y > -3e-6).all((1, 2)) & (Y[..., 2] >= Y[..., 3] - 3e-6).all(1)   # (6 decimals kept)
+        for Q in Y[ok]:
+            key = tuple(np.round(np.sort(Q[[0, -1]], axis=0).ravel(), 6))
+            if key in seen:
+                continue
+            gs = np.array([np.linalg.norm(grad(S, q)) for q in Q]) + 1e-300
+            if (np.abs([fval(S, q) for q in Q]) / gs).max() > 3e-6:
+                continue
+            seen.add(key)
+            probe = Q[np.linspace(0, len(Q) - 1, 3).astype(int)]
+            Sn = [n for n, s_ in LIB.items() if all(abs(fval(s_, q)) / (np.linalg.norm(grad(s_, q)) + 1e-300) < 3e-6 for q in probe)]
+            out.append((Q, Sn))
+    return out
+
+
+def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
+    """One patch of the wall: the part of the surface Sname bounded by its stretches (and its other planes)."""
+    S = LIB[Sname]
+    refs = []
+    if w in seeds:
+        b0 = nrm(seeds[w])
+        for g in GG:
+            y = g @ b0
+            if abs(y.sum()) > 1e-12:
+                y = y / y.sum()
+                if in_half(y) and abs(fval(S, y)) < 1e-10 and not any(np.allclose(y, r) for r in refs):
+                    refs.append(y)
+    if not refs:
+        # (no image of the seed on this surface: a point of the wall just off one of its edge lines lying on it)
+        for e in work["walls"][w]["edges"]:
+            if e not in ex["lines"]:
+                continue
+            for P, _ in line_pieces_on(ex["lines"][e], S, GG, LIB):
+                p = P[len(P) // 2]
+                t = P[min(len(P) - 1, len(P) // 2 + 1)] - P[max(0, len(P) // 2 - 1)]
+                T_ = np.linalg.svd(np.vstack([grad(S, p), np.ones(4), t]))[2][-1]
+                for r in (3 * h, 6 * h):
+                    for sg in (1, -1):
+                        y = nrm(project([S], p + sg * r * T_))
+                        if in_half(y) and _one(y)[0] == w:
+                            refs.append(y)
+            if refs:
+                break
+    if not refs:
+        print(f"{w} on {Sname}: no point of the wall on this surface", flush=True)
+        return None
+    stretches = []
+    for e in work["walls"][w]["edges"]:
+        if e in ex["lines"]:
+            L = ex["lines"][e]
+            for P, Sn in line_pieces_on(L, S, GG, LIB):
+                cand = []
+                for n in Sn:
+                    if n == Sname or n not in LIB:
+                        continue
+                    ga = np.array([grad(LIB[n], p) for p in P[::max(1, len(P) // 5)]])
+                    gb = np.array([grad(S, p) for p in P[::max(1, len(P) // 5)]])
+                    c = np.abs((ga * gb).sum(1)) / (np.linalg.norm(ga, axis=1) * np.linalg.norm(gb, axis=1) + 1e-300)
+                    if c.max() < 0.999:
+                        cand.append(n)
+                cand.sort(key=lambda n: (not n.startswith("plane"), n))
+                if cand:
+                    stretches.append(Stretch(e, dens(P, h / 3), LIB[cand[0]], "edge"))
+        else:
+            r = eq[w]["edges"].get(e, {})
+            # (each of the other wall's own surfaces bounds it too, all along where they meet: a stretch the
+            # corners did not reach is still closed)
+            traced = {rr["surface"] for rr in ([r] if r.get("surface") else []) + r.get("more", [])}
+            for n in ex["walls"].get(e, {}).get("surface", []):
+                if n in LIB and n not in traced and n != Sname:
+                    stretches.append(Stretch(e, None, LIB[n], "edge"))
+            for rr in ([r] if r.get("surface") else []) + r.get("more", []):
+                if rr["surface"] not in LIB:
+                    continue
+                C = [np.asarray(c, float) for c in rr.get("corners", [])]
+                for c in C:
+                    for run in trace(S, LIB[rr["surface"]], c, C):
+                        stretches.append(Stretch(e, run, LIB[rr["surface"]], "edge"))
+    # (a flat wall's other planes: where its patches meet, a seam that bounds this patch)
+    for n in own:
+        if n != Sname:
+            stretches.append(Stretch(f"seam {n}", None, LIB[n], "seam"))
+    cuts = []
+    for Y, r in eq[w]["cuts"].items():
+        if r.get("surface") in LIB:
+            C = [np.asarray(c, float) for c in r.get("corners", [])]
+            for c in C:
+                for run in trace(S, LIB[r["surface"]], c, C):
+                    cuts.append(Stretch(Y, run, LIB[r["surface"]], "cut"))
+    # (the reference point: of the seed's images on the wall's own surface, the one farthest from every stretch)
+    far = lambda y: min([s.tree.query(y)[0] for s in stretches if s.tree is not None]
+                        + [min(y.min(), (y[2] - y[3]) / 2)] or [1.0])
+    ref = max(refs, key=far)
+    if far(ref) < 2 * h:
+        # (the seed lies on an edge: a point of the wall's surface a little off it, still the wall)
+        T_ = np.linalg.svd(np.vstack([grad(S, ref), np.ones(4)]))[2][2:]
+        tries = []
+        for r in (3 * h, 6 * h, 12 * h):
+            for ang in np.linspace(0, 2 * np.pi, 12, endpoint=False):
+                y = nrm(project([S], ref + r * (np.cos(ang) * T_[0] + np.sin(ang) * T_[1])))
+                if in_half(y) and _one(y)[0] == w:
+                    tries.append(y)
+        if tries:
+            ref = max(tries, key=far)
+    tris, segs, capped = build(w, S, stretches, ref, h)
+    T = np.array(tris)
+    lab = Counter(n for sg in segs for _, n in sg)
+    rng = np.random.default_rng(0)
+    pts = [nrm(project([S], p)) for p in (T.mean(1)[rng.choice(len(T), min(80, len(T)), replace=False)] if len(T) else [])]
+    cls = Counter(_one(p)[0][:8] for p in pts)
+    rec = {"surface": Sname, "ref": ref.round(12).tolist(), "h": h,
+              "stretches": [[s.name, s.surf.name, None if s.P is None else len(s.P)] for s in stretches],
+              "tris": T.round(10).tolist(),
+              "boundary": [[[x.round(10).tolist(), n] for x, n in sg] for sg in segs],
+              "cuts": [[s.name, s.P.round(10).tolist()] for s in cuts],
+              "check": {"share_classified_as_wall": round(cls.get(w, 0) / max(1, len(pts)), 3),
+                        "classified": dict(cls.most_common(5))},
+              "bounded_by": dict(lab), "capped": capped}
+    print(f"{w} on {Sname}: {len(T)} triangles; {len(stretches)} stretches; bounded by {dict(lab)}; "
+          f"points classified {dict(cls.most_common(4))}{' (capped)' if capped else ''}", flush=True)
+    return rec
+
 def main(only=None, h=0.008):
     work = json.load(open("working_data.json"))
     eq = json.load(open("wall_equations.json"))["walls"]
@@ -273,104 +412,18 @@ def main(only=None, h=0.008):
     LIB = {s.name: s for s in list(planes) + list(curved)}
     G = extended()
     GG = np.concatenate([G, G @ FOLD])
-    out = json.load(open("pieces.json")) if only and os.path.exists("pieces.json") else {}
+    out = json.load(open(OUT)) if only and os.path.exists(OUT) else {}
     for w in work["walls"]:
         if only and w not in only:
             continue
         own = ex["walls"][w]["surface"]
-        if len(own) != 1 or own[0].startswith("plane"):
-            print(f"{w}: flat (planes {len(own)}): later", flush=True)
-            continue
-        S = LIB[own[0]]
-        refs = []
-        if w in seeds:
-            b0 = nrm(seeds[w])
-            for g in GG:
-                y = g @ b0
-                if abs(y.sum()) > 1e-12:
-                    y = y / y.sum()
-                    if in_half(y) and abs(fval(S, y)) < 1e-10 and not any(np.allclose(y, r) for r in refs):
-                        refs.append(y)
-        if not refs:
-            print(f"{w}: no point of the wall on its own surface", flush=True)
-            continue
-        stretches = []
-        for e in work["walls"][w]["edges"]:
-            if e in ex["lines"]:
-                L = ex["lines"][e]
-                for P, Sn in zip(L["points"], L["surfaces"]):
-                    P = np.asarray(P, float)
-                    gs = np.array([np.linalg.norm(grad(S, p)) for p in P]) + 1e-300
-                    if len(P) < 2 or (np.abs([fval(S, p) for p in P]) / gs).max() > 3e-6:
-                        continue                                  # (this piece of the line is not on the wall)
-                    if len(P) == 2:
-                        P = np.vstack([P[0], nrm(P[0] + P[1]), P[1]])
-                    cand = []
-                    for n in Sn:
-                        if n == own[0] or n not in LIB:
-                            continue
-                        ga = np.array([grad(LIB[n], p) for p in P[::max(1, len(P) // 5)]])
-                        gb = np.array([grad(S, p) for p in P[::max(1, len(P) // 5)]])
-                        c = np.abs((ga * gb).sum(1)) / (np.linalg.norm(ga, axis=1) * np.linalg.norm(gb, axis=1) + 1e-300)
-                        if c.max() < 0.999:
-                            cand.append(n)
-                    cand.sort(key=lambda n: (not n.startswith("plane"), n))
-                    if cand:
-                        stretches.append(Stretch(e, dens(P, h / 3), LIB[cand[0]], "edge"))
-            else:
-                r = eq[w]["edges"].get(e, {})
-                # (each of the other wall's own surfaces bounds it too, all along where they meet: a stretch the
-                # corners did not reach is still closed)
-                traced = {rr["surface"] for rr in ([r] if r.get("surface") else []) + r.get("more", [])}
-                for n in ex["walls"].get(e, {}).get("surface", []):
-                    if n in LIB and n not in traced and n != own[0]:
-                        stretches.append(Stretch(e, None, LIB[n], "edge"))
-                for rr in ([r] if r.get("surface") else []) + r.get("more", []):
-                    if rr["surface"] not in LIB:
-                        continue
-                    C = [np.asarray(c, float) for c in rr.get("corners", [])]
-                    for c in C:
-                        for run in trace(S, LIB[rr["surface"]], c, C):
-                            stretches.append(Stretch(e, run, LIB[rr["surface"]], "edge"))
-        cuts = []
-        for Y, r in eq[w]["cuts"].items():
-            if r.get("surface") in LIB:
-                C = [np.asarray(c, float) for c in r.get("corners", [])]
-                for c in C:
-                    for run in trace(S, LIB[r["surface"]], c, C):
-                        cuts.append(Stretch(Y, run, LIB[r["surface"]], "cut"))
-        # (the reference point: of the seed's images on the wall's own surface, the one farthest from every stretch)
-        far = lambda y: min([s.tree.query(y)[0] for s in stretches if s.tree is not None]
-                            + [min(y.min(), (y[2] - y[3]) / 2)] or [1.0])
-        ref = max(refs, key=far)
-        if far(ref) < 2 * h:
-            # (the seed lies on an edge: a point of the wall's surface a little off it, still the wall)
-            T_ = np.linalg.svd(np.vstack([grad(S, ref), np.ones(4)]))[2][2:]
-            tries = []
-            for r in (3 * h, 6 * h, 12 * h):
-                for ang in np.linspace(0, 2 * np.pi, 12, endpoint=False):
-                    y = nrm(project([S], ref + r * (np.cos(ang) * T_[0] + np.sin(ang) * T_[1])))
-                    if in_half(y) and _one(y)[0] == w:
-                        tries.append(y)
-            if tries:
-                ref = max(tries, key=far)
-        tris, segs, capped = build(w, S, stretches, ref, h)
-        T = np.array(tris)
-        lab = Counter(n for sg in segs for _, n in sg)
-        rng = np.random.default_rng(0)
-        pts = [nrm(project([S], p)) for p in (T.mean(1)[rng.choice(len(T), min(80, len(T)), replace=False)] if len(T) else [])]
-        cls = Counter(_one(p)[0][:8] for p in pts)
-        out[w] = {"surface": own[0], "ref": ref.round(12).tolist(), "h": h,
-                  "stretches": [[s.name, s.surf.name, None if s.P is None else len(s.P)] for s in stretches],
-                  "tris": T.round(10).tolist(),
-                  "boundary": [[[x.round(10).tolist(), n] for x, n in sg] for sg in segs],
-                  "cuts": [[s.name, s.P.round(10).tolist()] for s in cuts],
-                  "check": {"share_classified_as_wall": round(cls.get(w, 0) / max(1, len(pts)), 3),
-                            "classified": dict(cls.most_common(5))},
-                  "bounded_by": dict(lab), "capped": capped}
-        print(f"{w}: {len(T)} triangles; {len(stretches)} stretches; bounded by {dict(lab)}; "
-              f"points classified {dict(cls.most_common(4))}{' (capped)' if capped else ''}", flush=True)
-        json.dump(out, open("pieces.json", "w"))
+        patches = []
+        for Sname in own:                                  # (a curved wall: its surface; a flat wall: each plane)
+            rec = patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h)
+            if rec:
+                patches.append(rec)
+        out[w] = {"patches": patches}
+        json.dump(out, open(OUT, "w"))
 
 
 if __name__ == "__main__":
