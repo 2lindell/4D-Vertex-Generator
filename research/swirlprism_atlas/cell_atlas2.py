@@ -2250,7 +2250,7 @@ def main(samples_path, out_path):
 
     view_src = {**data, "xwalls": [({**w, "tris": coarse(w["tris"])} if w.get("curved") else w)
                                    for w in data["xwalls"] if not (w.get("curved") and w.get("copy"))],
-                "xlines": [thin(x) for x in data["xlines"]]}
+                "xlines": [thin(x) for x in data["xlines"] if not (x.get("kind") and x.get("copy"))]}
     # a region's coloured outer walls (region_walls.py) go through the views as a hidden wall of their own, so the
     # views show the same exact pieces (their originals only: the views make every image themselves)
     RW_ = json.load(open("region_walls.json")) if os.path.exists("region_walls.json") else {}
