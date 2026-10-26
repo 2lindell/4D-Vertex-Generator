@@ -224,7 +224,7 @@ function panel(id, nb) {
         + `<td>${e.across ? e.across.join(" | ") : (e.beyond || "")}</td></tr>`).join("") + `</tbody></table>`
       + `<p class="note">Edges: a true edge is where the wall ends, on the exact surface given (with how closely it fits); across it, a step along the wall each way finds the wall on one side only. A cut of the view lies on a face of the half-cell or the splitting mirror (the wall goes on across it on the 3-sphere); a seam joins two pieces of the same wall. ⚠ not exact.</p>`;
   }
-  html += `<p class="note">● measured face by face (region database). Other links come from the boundaries column, the walls' separates lists and the regions' wall lists (region definitions); (part): the wall bounds the region along part of it only.</p>`;
+  html += `<p class="note">Only what this shape touches, from the working data: a wall's edges, the points at their ends, the regions on its two sides and the walls that end on it or cross it; a region's walls; a line's or point's own boundary list. Hover a chip to see which.</p>`;
   detail.innerHTML = html;
   detail.querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => select(b.dataset.id)));
 }

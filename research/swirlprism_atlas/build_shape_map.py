@@ -2,7 +2,7 @@
 shapes it bounds, from the current database. Run after cell_atlas2.py (it reads the page's data) and region_view.py
 --defs (region_db.json).
 
-Links, each tagged with where it comes from:
+Links (all from working_data.json), each tagged with where it comes from:
   - "column": a shape's boundary list in the page's key (its points, lines and walls);
   - "separates": a wall's two sides;
   - "region walls": a region's walls in region_defs.json (a wall bounding it only in part is marked as partial);
@@ -87,44 +87,32 @@ def main():
             e["faces"].update(info)
         if part and part not in e["part"]:
             e["part"].append(part)
-    # (a wall's boundary: its own edges, lines or walls, and the points at their ends (wall_outline.json, from the
-    # walls' traced edges and corners); other shapes keep the key's boundary lists)
-    # (the working data, in one place: working_data.json, by working_data.py)
+    # (every link from the working data (working_data.json, by working_data.py), so a shape lists only what it
+    # touches: a wall its edges, the points at their ends, the regions on its two sides and the walls that end on it
+    # (its invisible cuts); a region its walls; a line or point its own boundary list (the points or lines at its
+    # ends). A region's full boundary list and the old cut's measured faces name shapes past its edges, so they are
+    # not used)
     work = json.load(open("working_data.json"))
-    outline = work["walls"]
+    W = work["walls"]
     for n in nodes:
-        if n["dim"] == "wall" and n["id"] in outline:
-            n["bounds"] = outline[n["id"]]["edges"] + outline[n["id"]]["points"]
+        i_ = n["id"]
+        if n["dim"] == "wall" and i_ in W:
+            n["bounds"] = W[i_]["edges"] + W[i_]["points"]
+            n["sep"] = W[i_]["regions"]
             for b in n["bounds"]:
-                add(n["id"], b, "edges")
-            continue
-        for b in n["bounds"]:
-            if n["dim"] in ("line", "point") or N_DIM.get(b) != "wall" or b not in outline:
-                add(n["id"], b, "column")
-        for r in n["sep"]:
-            add(n["id"], r, "separates")
-    db = json.load(open("region_db.json"))
-    defs = work["regions"]
-    partial = db.get("partial", {})
-    for r, v in defs.items():
-        if not isinstance(v, dict):
-            continue                                  # (the file's own notes)
-        for w in v.get("walls", []):
-            add(r, w, "region walls", part=r if w in partial.get(r, []) else None)
-    # (each wall's measured faces: its sections' areas by the regions on their two sides, after region_build)
-    import glob
-    import gzip
-    for fn in sorted(glob.glob("sections/*.json.gz")):
-        w = os.path.basename(fn).split(".")[0]
-        area = collections.Counter()
-        for f in json.load(gzip.open(fn, "rt")):
-            x, y = f["sides"]
-            if x == y or x.startswith("(") or y.startswith("(") or "unknown" in (x, y):
-                continue
-            area[tuple(sorted((x, y)))] += f["area"]
-        for (x, y), a in area.items():
-            for r, o in ((x, y), (y, x)):
-                add(w, r, "faces", {f"{r}|{o}": round(a, 6)})
+                add(i_, b, "edges")
+            for r in W[i_]["regions"]:
+                add(i_, r, "separates")
+            for c in W[i_]["cuts"]:
+                add(i_, c["by"], "crosses" if c.get("crossing") else "ends on it")
+        elif n["dim"] in ("line", "point"):
+            for b in n["bounds"]:
+                if N_DIM.get(b) in ("line", "point"):
+                    add(i_, b, "column")
+        elif n["dim"] == "region":
+            n["bounds"] = work["regions"].get(i_, {}).get("walls", [])
+            for w in n["bounds"]:
+                add(i_, w, "region walls")
     edges = list(E.values())
     C = np.array([n["c"] for n in nodes])
     C0 = C - C.mean(0)
