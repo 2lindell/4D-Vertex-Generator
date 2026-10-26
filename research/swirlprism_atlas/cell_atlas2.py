@@ -2161,7 +2161,7 @@ def main(samples_path, out_path):
             B = dens(np.asarray(B, float))
             for kind, run in edge_display.runs(B, cls.kinds(s["id"], B)):
                 out.append({**{k: v for k, v in s.items() if k not in ("pts", "betas")}, "copy": copy,
-                            "pts": [to_xyz(b) for b in run], "kind": kind})
+                            "pts": edge_display.thin([to_xyz(b) for b in run]), "kind": kind})
             return out
 
         def carried(B, Mg):

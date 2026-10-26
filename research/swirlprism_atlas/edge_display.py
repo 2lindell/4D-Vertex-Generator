@@ -3,8 +3,9 @@
 A wall's outline (each drawn piece of it: the main piece and each copy) is split into runs:
   edge  on one of the wall's edges in working_data.json: a line (any image of it in the half-cell) or another wall
         (any of its pieces); drawn in the wall's colour (solid, dashed on a copy);
-  gap   on something else that is not one of its edges: a named line or another wall, where the wall goes on across
-        it (to its own copy, or past a wall that ends on it or crosses it); drawn white, to show the break;
+  gap   on a named line that is not one of its edges, where the wall goes on across it (to its own copy), or where
+        it crosses another wall (working_data.json's crossings); drawn white, to show the break. (A wall that ends on
+        it is drawn there already, as that wall's own edge.)
   none  on nothing (a face of the half-cell or the splitting mirror where the wall goes on into a copy drawn
         elsewhere, and nothing lies there): not drawn.
 So no line is drawn on a wall but its own edges, and the white lines where it is cut.
@@ -22,7 +23,8 @@ from scipy.spatial import cKDTree
 
 import edge_curves as ec
 
-TOL_LINE = 2.5e-3
+TOL_EDGE = 6e-3             # (the page's lines are chords of the curves: an outline on its edge can be this far off)
+TOL_GAP = 3e-3
 CACHE = "edge_display_cache.npz"
 
 
@@ -50,7 +52,12 @@ class Classifier:
     def __init__(self):
         self.work = json.load(open("working_data.json"))
         walls, lines = _points(self.work)
-        self.wt = {w: (cKDTree(V), max(TOL_LINE, 0.7 * h)) for w, (V, h) in walls.items() if len(V)}
+        self.wt = {w: (cKDTree(V), max(TOL_EDGE, 0.7 * h)) for w, (V, h) in walls.items() if len(V)}
+        self.cross = {}
+        for c in self.work.get("crossings", []):
+            a, b = c["walls"]
+            self.cross.setdefault(a, set()).add(b)
+            self.cross.setdefault(b, set()).add(a)
         self.lt = {l: cKDTree(P) for l, P in lines.items() if len(P)}
 
     def kinds(self, w, B):
@@ -58,7 +65,7 @@ class Classifier:
         B = np.asarray(B, float)
         edges = set(self.work["walls"].get(w, {}).get("edges", []))
         out = np.array([None] * len(B), dtype=object)
-        near = lambda shape: (self.lt[shape].query(B)[0] < TOL_LINE) if shape in self.lt else (
+        near = lambda shape, tl=TOL_EDGE: (self.lt[shape].query(B)[0] < tl) if shape in self.lt else (
             (self.wt[shape][0].query(B)[0] < self.wt[shape][1]) if shape in self.wt else np.zeros(len(B), bool))
         on_edge = np.zeros(len(B), bool)
         for e in edges:
@@ -67,9 +74,9 @@ class Classifier:
         rest = ~on_edge
         if rest.any():
             other = np.zeros(len(B), bool)
-            for s in list(self.lt) + list(self.wt):
+            for s in list(self.lt) + sorted(self.cross.get(w, ())):
                 if s != w and s not in edges:
-                    other[rest] |= near(s)[rest]
+                    other[rest] |= near(s, TOL_GAP)[rest]
             out[rest & other] = "gap"
         return out
 
@@ -87,3 +94,27 @@ def runs(pts, kinds):
     if k0 is not None and len(cur) >= 2:
         out.append((k0, cur))
     return out
+
+
+def thin(P, tol=3e-4):
+    """A polyline (xyz) with only the points needed to keep it within tol (Douglas-Peucker)."""
+    P = np.asarray(P, float)
+    if len(P) < 3:
+        return P.tolist()
+    keep = np.zeros(len(P), bool)
+    keep[0] = keep[-1] = True
+    stack = [(0, len(P) - 1)]
+    while stack:
+        i, j = stack.pop()
+        if j <= i + 1:
+            continue
+        a, b = P[i], P[j]
+        ab = b - a
+        L = np.linalg.norm(ab)
+        seg = P[i + 1:j] - a
+        d = np.linalg.norm(seg - np.outer(seg @ ab / (L * L), ab), axis=1) if L > 1e-15 else np.linalg.norm(seg, axis=1)
+        k = int(np.argmax(d))
+        if d[k] > tol:
+            keep[i + 1 + k] = True
+            stack += [(i, i + 1 + k), (i + 1 + k, j)]
+    return P[keep].tolist()
