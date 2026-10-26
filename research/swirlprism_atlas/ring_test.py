@@ -48,9 +48,25 @@ def line_points(d, L):
     return out
 
 
+def full_home(b):
+    """A point anywhere on the 3-sphere (betas, possibly negative: past a face of the cell) brought into the half-cell
+    by the extended group."""
+    from edge_curves import group
+    for g in group():
+        y = g @ b
+        s = y.sum()
+        if abs(s) > 1e-12:
+            y = y / s
+            if (y > -1e-12).all() and y[2] >= y[3] - 1e-12:
+                return y
+    return None
+
+
 def lab(b):
-    if (b < -1e-12).any():
-        return "OUT"
+    b = np.asarray(b, float)
+    if (b < -1e-12).any():                               # (past a face of the cell: the neighbouring cell's point)
+        h = full_home(b)
+        return _one(h)[0] if h is not None else "OUT"
     h = osd.home(nrm(b))
     return _one(h)[0] if np.isfinite(h).all() else "ERR"
 

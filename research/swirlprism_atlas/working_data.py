@@ -35,6 +35,9 @@ THROUGH = {"X27": ["X2"], "X53": ["D1"], "X94": ["X78"]}
 SELF_MEET = {"X15": ["X78"], "X83": ["X78"]}
 # (edges the traced data misses, found by the ring test: the wall is met once around the line, so it ends there)
 EDGE_FILLS = {"F5": ["E1"]}
+# (edges the rule keeps that are not edges: the wall meets its own image across a face of the cell there (ring test
+# with the neighbouring cell brought back by the group: the wall twice round the line), so it goes on through it)
+EDGE_DROPS = {"X14": ["C2b"]}
 # (cuts deduced in the closed set: the only wall separating the two regions that change on the wall; not yet traced)
 CUT_FILLS = [("X20", "F5", "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 "
               "there); F5 is the only wall between X59 and X66")]
@@ -74,6 +77,10 @@ def main():
     outline = json.load(open("wall_outline.json"))
     for w, es in EDGE_FILLS.items():
         outline[w]["edges"] = sorted(set(outline[w]["edges"]) | set(es))
+    for w, es in EDGE_DROPS.items():
+        outline[w]["edges"] = sorted(set(outline[w]["edges"]) - set(es))
+        THROUGH.setdefault(w, [])
+        THROUGH[w] = sorted(set(THROUGH[w]) | set(es))
     for nw, v in NEW_WALLS.items():                   # (new walls join the walls, as the page will list them)
         outline[nw] = {"edges": v["edges"], "points": [], "goes_on_across": []}
         dims[nw] = "wall"
@@ -81,7 +88,8 @@ def main():
     sides = json.load(open("wall_sides.json"))
     walls = sorted((k for k, v in dims.items() if v == "wall"), key=key)
     regions = sorted((k for k, v in dims.items() if v == "region"), key=key)
-    sep = {w: set(T[w].get("separates") or []) for w in walls}
+    base = json.load(open("wall_regions_base.json"))      # (frozen: a page rebuild does not change them)
+    sep = {w: set(base.get(w) or T[w].get("separates") or []) for w in walls}
     for w in ("F4", "X41"):                          # (the page key's lists for these are out of date)
         sep[w] = set(sides[w])
     deduced = []
@@ -168,6 +176,7 @@ def main():
         "through": THROUGH,
         "self_meet": SELF_MEET,
         "edge_fills": EDGE_FILLS,
+        "edge_drops": EDGE_DROPS,
         "crossings": [{"walls": [a, b_], "why": why} for a, b_, why in CROSSINGS],
         "same_both_sides": SAME_BOTH_SIDES,
         "new_walls": NEW_WALLS,

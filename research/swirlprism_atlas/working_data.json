@@ -53,6 +53,9 @@
   ],
   "X94": [
    "X78"
+  ],
+  "X14": [
+   "C2b"
   ]
  },
  "self_meet": {
@@ -66,6 +69,11 @@
  "edge_fills": {
   "F5": [
    "E1"
+  ]
+ },
+ "edge_drops": {
+  "X14": [
+   "C2b"
   ]
  },
  "crossings": [
@@ -343,12 +351,13 @@
   },
   "X14": {
    "edges": [
-    "C2b",
     "X4",
     "X6",
     "X97"
    ],
-   "through": [],
+   "through": [
+    "C2b"
+   ],
    "points": [
     "C1",
     "C4"

@@ -2152,7 +2152,7 @@ def main(samples_path, out_path):
         from edge_curves import dens
         cls = edge_display.Classifier()
         own = set(cls.work["walls"])
-        to_beta = lambda p: (lambda b: b / b.sum())(M_INV @ np.array([p[0], p[1], -p[2], 1.0]))
+        to_beta = lambda p: (lambda b: b / b.sum())(M_INV @ np.array([p[0], p[1], p[2], 1.0]))   # (not flipped yet)
         to_xyz = lambda b: _exact(xyz(b / b.sum())).tolist()
         fold4 = np.eye(4)[[1, 0, 3, 2]]
 
