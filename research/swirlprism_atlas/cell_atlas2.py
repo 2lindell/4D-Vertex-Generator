@@ -2144,6 +2144,69 @@ def main(samples_path, out_path):
             lines_on = {lid for lid, Bs in line_pts.items()
                         if any(len(B) >= 2 and (on_surface(g, B) or (g.get("images") and on_image(poly_of(g), B))) for B in Bs)}
             mirror_walls.append({"name": g["name"], "ids": sorted(g["ids"] | lines_on, key=srt)})
+    # a wall's outline is drawn only along its own edges (working_data.json), in its colour, and white where it goes on
+    # across a line or wall that lies there (edge_display.py); nothing else. A curved wall's copies get their outline
+    # here too, from the same group elements as their mesh, so the page draws no edge of its own for them
+    if os.path.exists("working_data.json"):
+        import edge_display
+        from edge_curves import dens
+        cls = edge_display.Classifier()
+        own = set(cls.work["walls"])
+        to_beta = lambda p: (lambda b: b / b.sum())(M_INV @ np.array([p[0], p[1], -p[2], 1.0]))
+        to_xyz = lambda b: _exact(xyz(b / b.sum())).tolist()
+        fold4 = np.eye(4)[[1, 0, 3, 2]]
+
+        def drawn(s, B, copy):
+            out = []
+            B = dens(np.asarray(B, float))
+            for kind, run in edge_display.runs(B, cls.kinds(s["id"], B)):
+                out.append({**{k: v for k, v in s.items() if k not in ("pts", "betas")}, "copy": copy,
+                            "pts": [to_xyz(b) for b in run], "kind": kind})
+            return out
+
+        def carried(B, Mg):
+            """An outline (betas) carried by a group element: the runs of it in the cell, the part below the
+            splitting mirror folded up."""
+            Y = np.asarray(B, float) @ Mg.T
+            s = Y.sum(1)
+            out, cur, side = [], [], None
+            for y, sy in zip(Y, s):
+                ok = abs(sy) > 1e-12 and (y / sy > -1e-9).all()
+                b = y / sy if ok else None
+                sd = None if b is None else (b[2] >= b[3] - 1e-12)
+                if b is not None and not sd:
+                    b = fold4 @ b
+                if b is None or sd != side or (cur and np.linalg.norm(b - cur[-1]) > 0.12):
+                    if len(cur) >= 2:
+                        out.append(cur)
+                    cur = []
+                side = sd
+                if b is not None:
+                    cur.append(b)
+            if len(cur) >= 2:
+                out.append(cur)
+            return out
+        base_outlines, new_lines = {}, []
+        for s in xlines:
+            if not s.get("outline") or s["id"] not in own:
+                new_lines.append(s)
+                continue
+            B = [to_beta(p) for p in s["pts"]]
+            if not s.get("copy"):
+                base_outlines.setdefault(s["id"], []).append(B)
+            new_lines += drawn(s, B, bool(s.get("copy")))
+        for w in xwalls:
+            if w.get("copy") or not w.get("copyOps") or w["id"] not in own:
+                continue
+            w["edgesGiven"] = True
+            proto = next((s for s in xlines if s["id"] == w["id"] and s.get("outline")), {"id": w["id"], "hover": w["hover"]})
+            for gi in w["copyOps"]:
+                for B in base_outlines.get(w["id"], []):
+                    for piece in carried(B, M_all[gi]):
+                        new_lines += drawn({**proto, "hover": proto.get("hover", "") + "<br>(copy)"}, piece, True)
+        xlines = new_lines
+        print(f"  outlines: {sum(1 for s in xlines if s.get('kind') == 'edge')} edge runs, "
+              f"{sum(1 for s in xlines if s.get('kind') == 'gap')} white runs", flush=True)
     data = {"copyMats": {str(g): M_all[g].tolist() for g in sorted(COPY_OPS)}, "cellP": P.tolist(), "cellInv": M_INV.tolist(),
             "types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,

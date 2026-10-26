@@ -160,8 +160,8 @@ class Wall:
             if p["target"] != w:
                 continue
             C = nrm(np.array(p["corners"], float))
-            if w == "T2" and len(C) == 3 and abs(np.asarray(p["normal"], float) @ [0, 1, -1, 0]) > 1.4:
-                continue                                              # (T2's former region B: the wall X96)
+            if w == "T2" and {e[2] for e in p.get("edge_labels") or []} == {"T1", "X5", "C2a"}:
+                continue                                  # (T2's former region B and its copy: the wall X96)
             labs = p.get("edge_labels") or [[k, (k + 1) % len(C), None] for k in range(len(C))]
             polys.append((C, [(i_, j_) for i_, j_, lab, *_ in labs if lab != w]))   # (a side on itself: a seam)
         if w == "X96":
@@ -213,7 +213,7 @@ def main(only=None):
                     Lc[e] = line_images(L0[e])
                 C, kind = Lc[e], "line"
             elif e in walls and walls[e].treeV is not None and len(W.B):
-                C, kind = W.B[walls[e].treeV.query(W.B)[0] < ON], "wall"
+                C, kind = W.B[walls[e].treeV.query(W.B)[0] < max(ON, 0.7 * walls[e].h)], "wall"
             else:
                 rec[e] = {"kind": "?", "status": "no curve (not a drawn line or a meshed wall)"}
                 continue
