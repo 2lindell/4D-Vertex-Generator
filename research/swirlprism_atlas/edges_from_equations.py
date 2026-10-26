@@ -25,6 +25,8 @@ import optimal_seeds as osd
 from t2_pieces import extended
 
 FOLD = np.eye(4)[[1, 0, 3, 2]]
+# (known end points of a cut, as exact betas: the cut's surface must pass through them)
+CUT_ENDS = {("X96", "X41"): {"C4": [0, 1, 1, 1]}}
 TOL = 3e-6
 
 
@@ -187,6 +189,12 @@ def main():
             return {"status": f"no corner: no surface of {Y} meets the wall's surface at its edge lines"}
         # (first the surface holding Y's own edge lines at the corners, then the one through the most corners)
         own_side = lambda k: sum(1 for who, _, _ in score[k] if who == "Y")
+        ends = CUT_ENDS.get((w, Y), {})
+        if ends:
+            E_ = nrm(np.array(list(ends.values()), float))
+            score = {k: c for k, c in score.items() if dist(LIB[k], E_).max() < 1e-12}
+            if not score:
+                return {"status": f"no surface of {Y} through its known ends {sorted(ends)}"}
         n = max(score, key=lambda k: (own_side(k), len(score[k]), k in own.get(Y, []), not k.startswith("plane"), k))
         C = np.array([x for _, _, x in score[n]])
         return {"status": "exact", "surface": n, "corners": C.round(12).tolist(), "corner_count": len(C),
