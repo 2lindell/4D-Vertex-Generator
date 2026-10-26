@@ -59,8 +59,8 @@ def main():
     for L, Ps in pieces.items():
         per = []
         for P in Ps:
-            if len(P) < 3:
-                continue
+            if len(P) == 2:                               # (a straight piece: its ends and middle fix it)
+                P = np.vstack([P[0], nrm(P[0] + P[1]), P[1]])
             per.append(sorted(s.name for s in LIB if dist(s, P).max() < OFF))
         line_defs[L] = {"pieces": len(Ps), "surfaces": per,
                         "exact": bool(per) and all(len(x) >= 2 for x in per)}
@@ -87,6 +87,10 @@ def main():
                 ns.append(min(planes, key=lambda s: np.linalg.norm(s.n / np.linalg.norm(s.n) - np.array([0, 1, -1, 0]) / 2 ** 0.5)).name)
             own[w] = sorted(set(ns))
     E = json.load(open("edge_curves.json"))
+    import edge_display
+    WP, _ = edge_display._points(work)                     # (every wall's exact points, all images)
+    YP = {y: np.asarray(V, float) for y, (V, h) in WP.items() if len(V)}
+    YT = {y: cKDTree(V) for y, V in YP.items()}
     walls = {}
     unverified = []
     for w, v in work["walls"].items():
@@ -114,14 +118,19 @@ def main():
             if not ld or not ld["surfaces"] or tb is None:
                 return {"status": "unverified: the line has no exact surface through its points"}
             # (the pieces of the line next to the wall's own piece, and the surfaces through each of them)
-            near = [(P, S) for P, S in zip([P for P in pieces[L] if len(P) >= 3], ld["surfaces"])
-                    if tb.query(P)[0].min() < 0.02]
-            if not near:
+            # (the piece of the line nearest the wall's own piece, and the surfaces through it, but the one the wall
+            # lies in there: a flat wall's other planes may bound it, where its patches meet)
+            ds = [(tb.query(P)[0].min(), k) for k, P in enumerate(pieces[L])]
+            dmin, k = min(ds)
+            if dmin > 0.02:
                 return {"status": "unverified: no piece of the line comes near the wall"}
-            if not any(S for _, S in near):
+            P, S = pieces[L][k], ld["surfaces"][k]
+            if not S:
                 return {"status": "unverified: the line has no exact surface through its points"}
-            cand = [n for n in sorted(set.intersection(*[set(S) for _, S in near if S]))
-                    if n not in rec["surface"]]
+            loc = base[sorted({j for p in P for j in tb.query_ball_point(p, 0.02)})]
+            lies_in = {n for n in S if n in byname and np.mean(dist(byname[n], loc) < 1e-6) > 0.5}
+            cand = [n for n in S if n not in lies_in]
+            near = [(P, S)]
             cand.sort(key=lambda n: (not n.startswith("plane"), n))
             if not cand:
                 return {"status": "unverified: no surface through the line other than the wall's own"}
@@ -130,17 +139,28 @@ def main():
                     **({"side": side(byname[cand[0]], pts)} if cand[0] in byname else {})}
 
         def for_wall(Y, C):
+            """The surface of Y where it meets the wall: Y's own exact points (all its images) next to the curve lie
+            on it, and the wall does not."""
             if len(C) and tb is not None:                  # (the curve next to the wall's own piece only)
                 C = C[tb.query(C)[0] < 0.015]
             if not len(C):
                 return {"status": "unverified: no points where they meet"}
-            names = [s.name for s in LIB if s.name == Y or s.name.startswith(Y + ":") or s.name in own.get(Y, [])]
-            fits = sorted((float(np.median(dist(byname[n], C))), n) for n in names)
-            if not fits or fits[0][0] > 1e-4:
-                return {"status": f"unverified: no surface of {Y} through the curve"
-                                  + (f" (best {fits[0][1]}, off {fits[0][0]:.1e})" if fits else "")}
-            n = fits[0][1]
-            return {"status": "exact" if fits[0][0] < 1e-6 else "close", "surface": n, "off": fits[0][0],
+            if Y not in YT:
+                return {"status": f"unverified: {Y} has no points"}
+            QY = YP[Y][sorted({j for c in C for j in YT[Y].query_ball_point(c, 0.02)})]
+            if len(QY) < 6:
+                return {"status": f"unverified: {Y} has no points next to the curve"}
+            loc = base[sorted({j for c in C for j in tb.query_ball_point(c, 0.02)})]
+            fits = []
+            for s_ in LIB:
+                dy = dist(s_, QY)
+                share = float(np.mean(dy < 1e-6))
+                if share > 0.3 and np.mean(dist(s_, loc) < 1e-6) < 0.5:
+                    fits.append((share, float(np.median(dist(s_, C))), s_.name))
+            if not fits:
+                return {"status": f"unverified: no surface holds {Y}'s points next to the curve"}
+            share, off, n = max(fits, key=lambda x: (x[0], -x[1]))
+            return {"status": "exact", "surface": n, "share_of_Y": round(share, 3), "curve_off": off,
                     "side": side(byname[n], C)}
 
         for e in v["edges"]:
