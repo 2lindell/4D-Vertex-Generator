@@ -183,6 +183,22 @@ def main():
                         continue
                     for x in crossings_on(P, S, LIB[n]):
                         score.setdefault(n, []).append(("W", L, x))
+        # (corners at the ends of either wall's edge lines lying on both surfaces: a line lying in Y's surface, or
+        # ending on it, crosses it nowhere)
+        for who, wall_, Ls in (("W", w, work["walls"][w]["edges"]), ("Y", Y, work["walls"].get(Y, {}).get("edges", []))):
+            for L in Ls:
+                if L not in lines:
+                    continue
+                for P, S, _m in on_wall(wall_, L):
+                    for p in (np.asarray(P[0], float), np.asarray(P[-1], float)):
+                        if dist(LIB[own[w][0]], p)[0] > 1e-5:
+                            continue
+                        for n in own.get(Y, []):
+                            if n in own[w] or dist(LIB[n], p)[0] > 1e-5:
+                                continue
+                            x = solve([LIB[own[w][0]], LIB[n]] + [LIB[q] for q in S if q not in (own[w][0], n)][:1], p)
+                            if max(dist(q, x)[0] for q in (LIB[own[w][0]], LIB[n])) < 1e-9:
+                                score.setdefault(n, []).append((who, L, x))
         score = {n: c for n, c in score.items() if n not in own[w] and crosses(LIB[n], LIB[own[w][0]], np.array([x for _, _, x in c]))
                  if isinstance(LIB[own[w][0]], osd.Plane) or True}
         if not score:
@@ -195,9 +211,15 @@ def main():
             score = {k: c for k, c in score.items() if dist(LIB[k], E_).max() < 1e-12}
             if not score:
                 return {"status": f"no surface of {Y} through its known ends {sorted(ends)}"}
-        n = max(score, key=lambda k: (own_side(k), len(score[k]), k in own.get(Y, []), not k.startswith("plane"), k))
+        # (Y's own surface first, where it meets the wall at all; then the one holding Y's own edge lines at the
+        # corners, then the one through the most corners)
+        n = max(score, key=lambda k: (k in own.get(Y, []), own_side(k), len(score[k]), not k.startswith("plane"), k))
         C = np.array([x for _, _, x in score[n]])
+        # (a wall that is several flat patches may meet the wall on more than one of them: each with its corners)
+        more = [{"surface": k, "corners": np.array([x for _, _, x in score[k]]).round(12).tolist()}
+                for k in own.get(Y, []) if k in score and k != n]
         return {"status": "exact", "surface": n, "corners": C.round(12).tolist(), "corner_count": len(C),
+                **({"more": more} if more else {}),
                 "corner_lines": sorted({f"{who}:{L}" for who, L, _ in score[n]}),
                 "on_Y_lines": own_side(n),
                 "next_best": sorted(((own_side(k), len(c), k) for k, c in score.items() if k != n), reverse=True)[:2]}
