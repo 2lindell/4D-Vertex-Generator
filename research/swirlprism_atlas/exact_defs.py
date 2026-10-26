@@ -109,8 +109,30 @@ def main():
     unverified = []
     for w, v in work["walls"].items():
         print(w, flush=True)
-        base = ec.base_mesh(w, X, fp).reshape(-1, 4)
-        tb = cKDTree(base) if len(base) else None
+        # (the wall's points: its exact points in the half-cell, all images; a curved wall's mesh vertices lie on its
+        # surface, a flat wall's are spread over its patches)
+        base = YP.get(w, np.zeros((0, 4)))
+        tb = YT.get(w)
+        # (the main piece's own points only: the surface it lies in there is excluded, not its images, which may
+        # bound it where it meets itself)
+        M = ec.base_mesh(w, X, fp)
+        if len(M) and w not in X:
+            S_ = []
+            for t in M:
+                k = max(1, int(max(np.linalg.norm(t[1] - t[0]), np.linalg.norm(t[2] - t[0])) / 3e-3))
+                u, v_ = np.meshgrid(np.linspace(0, 1, k + 1), np.linspace(0, 1, k + 1))
+                m = (u + v_) <= 1
+                S_.append(t[0] + np.outer(u[m], t[1] - t[0]) + np.outer(v_[m], t[2] - t[0]))
+            main_pts = np.vstack(S_)
+        else:
+            main_pts = M.reshape(-1, 4)
+        tm = cKDTree(main_pts) if len(main_pts) else None
+
+        def off_curve(Q, C, r=0.02, gap=2e-3):
+            """The wall's points next to the curve C but not on it."""
+            idx = sorted({j for c in C for j in tb.query_ball_point(c, r)})
+            Q = Q[idx]
+            return Q[cKDTree(C).query(Q)[0] > gap] if len(Q) else Q
         rec = {"surface": own.get(w, []), "edges": {}, "cuts": {}, "through": {}}
         if not rec["surface"]:
             unverified.append(f"{w}: its own surface is not in the library")
@@ -119,8 +141,8 @@ def main():
             """The sign of s at the wall's own points next to the curve (C), away from it."""
             if tb is None or not len(C):
                 return None
-            near = base[sorted({j for c in C for j in tb.query_ball_point(c, 0.03)})]
-            far = near[dist(s, near) > 2e-3]
+            far = off_curve(base, C, 0.03)
+            far = far[dist(s, far) > 2e-3] if len(far) else far
             if not len(far):
                 return None
             sg = Counter(np.sign(s.f(far).ravel()).astype(int).tolist())
@@ -142,8 +164,9 @@ def main():
             P, S = pieces[L][k], ld["surfaces"][k]
             if not S:
                 return {"status": "unverified: the line has no exact surface through its points"}
-            loc = base[sorted({j for p in P for j in tb.query_ball_point(p, 0.02)})]
-            lies_in = {n for n in S if n in byname and np.mean(dist(byname[n], loc) < 1e-6) > 0.5}
+            loc = main_pts[sorted({j for p in P for j in tm.query_ball_point(p, 0.02)})] if tm is not None else main_pts
+            loc = loc[cKDTree(P).query(loc)[0] > 2e-3] if len(loc) else loc
+            lies_in = {n for n in S if n in byname and len(loc) and np.mean(dist(byname[n], loc) < 1e-6) > 0.45}
             cand = [n for n in S if n not in lies_in]
             near = [(P, S)]
             cand.sort(key=lambda n: (not n.startswith("plane"), n))
@@ -165,7 +188,7 @@ def main():
             QY = YP[Y][sorted({j for c in C for j in YT[Y].query_ball_point(c, 0.02)})]
             if len(QY) < 6:
                 return {"status": f"unverified: {Y} has no points next to the curve"}
-            loc = base[sorted({j for c in C for j in tb.query_ball_point(c, 0.02)})]
+            loc = off_curve(base, C)
             rng = np.random.default_rng(0)
             QY = QY[rng.choice(len(QY), min(150, len(QY)), replace=False)]
             loc = loc[rng.choice(len(loc), min(150, len(loc)), replace=False)] if len(loc) else loc
@@ -175,7 +198,7 @@ def main():
                     continue
                 dy = dist(s_, QY)
                 share = float(np.mean(dy < 1e-6))
-                if share > 0.3 and np.mean(dist(s_, loc) < 1e-6) < 0.5:
+                if share > 0.3 and (not len(loc) or np.mean(dist(s_, loc) < 1e-6) < 0.25):
                     fits.append((share, float(np.median(dist(s_, C))), s_.name))
             if not fits:
                 return {"status": f"unverified: no surface holds {Y}'s points next to the curve"}

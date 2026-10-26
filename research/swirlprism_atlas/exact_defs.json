@@ -338,18 +338,152 @@
   },
   "X13": {
    "pieces": 3,
-   "surfaces": [],
-   "exact": false
+   "surfaces": [
+    [
+     "X14:1828:fold",
+     "X15",
+     "X25:1200",
+     "X42:1200",
+     "X42:1493",
+     "X42:fold",
+     "X53:1127",
+     "X53:1828:fold",
+     "X85:2327",
+     "X87:1127",
+     "X88:1127",
+     "X89:1144:fold",
+     "X89:1200",
+     "X89:1493",
+     "X89:172",
+     "X90:1200",
+     "X90:1493",
+     "X91:1144",
+     "X91:1200",
+     "X91:1493",
+     "X92:1200",
+     "X92:1493",
+     "X99:1479:fold",
+     "X99:1860:fold",
+     "plane (-0.356822, 0.934172, 0, 0)",
+     "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
+     "plane (0, -0.57735, 0.57735, -0.57735)",
+     "plane (0, 0.57735, -0.57735, 0.57735)",
+     "plane (0.371748, -0.371748, -0.601501, 0.601501)"
+    ],
+    [
+     "X14",
+     "X15:1200:fold",
+     "X25:172:fold",
+     "X25:1828:fold",
+     "X25:1977:fold",
+     "X25:fold",
+     "X42:1828",
+     "X42:1828:fold",
+     "X42:fold",
+     "X53",
+     "X53:1200",
+     "X85",
+     "X85:1144",
+     "X87:1200",
+     "X87:2344",
+     "X88:1200",
+     "X88:2344",
+     "X89:1493:fold",
+     "X89:172:fold",
+     "X89:fold",
+     "X90:172:fold",
+     "X90:fold",
+     "X91:fold",
+     "X92:fold",
+     "X99:1127",
+     "plane (-0.707107, 0, -0, 0.707107)",
+     "plane (-0.707107, 0, 0.707107, 0)",
+     "plane (0, 0, -0.707107, 0.707107)",
+     "plane (0, 0, 0.707107, -0.707107)",
+     "plane (0.707107, -0, -0.707107, -0)",
+     "plane (0.707107, 0, 0, -0.707107)"
+    ],
+    [
+     "X14:fold",
+     "X15:1200",
+     "X25",
+     "X25:172",
+     "X25:1828",
+     "X25:1977",
+     "X42",
+     "X42:1828",
+     "X42:1828:fold",
+     "X53:1200:fold",
+     "X53:fold",
+     "X85:1144:fold",
+     "X85:fold",
+     "X87:1200:fold",
+     "X87:2344:fold",
+     "X88:1200:fold",
+     "X88:2344:fold",
+     "X89",
+     "X89:1493",
+     "X89:172",
+     "X90",
+     "X90:172",
+     "X91",
+     "X92",
+     "X99:1127:fold",
+     "plane (0, -0.707107, 0, 0.707107)",
+     "plane (0, -0.707107, 0.707107, 0)",
+     "plane (0, 0, -0.707107, 0.707107)",
+     "plane (0, 0, 0.707107, -0.707107)",
+     "plane (0, 0.707107, -0.707107, 0)",
+     "plane (0, 0.707107, 0, -0.707107)"
+    ]
+   ],
+   "exact": true
   },
   "X1": {
    "pieces": 1,
-   "surfaces": [],
-   "exact": false
+   "surfaces": [
+    [
+     "X42",
+     "X42:1200",
+     "X53:1828:fold",
+     "X53:fold",
+     "X88:fold",
+     "X90",
+     "X90:1200",
+     "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "plane (-0.707107, 0.707107, 0, 0)",
+     "plane (0.707107, -0.707107, -0, -0)"
+    ]
+   ],
+   "exact": true
   },
   "X5": {
    "pieces": 5,
-   "surfaces": [],
-   "exact": false
+   "surfaces": [
+    [
+     "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "plane (1, -0, -0, -0)"
+    ],
+    [
+     "plane (0, -0.707107, 0.707107, 0)",
+     "plane (0, 0.707107, -0.707107, 0)",
+     "plane (0.879839, 0, -0.336068, 0.336068)"
+    ],
+    [
+     "plane (0, -0.707107, 0.707107, 0)",
+     "plane (0, 0.707107, -0.707107, 0)",
+     "plane (0.879839, 0, -0.336068, 0.336068)"
+    ],
+    [
+     "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "plane (0, 1, 0, 0)"
+    ],
+    [
+     "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "plane (0, 1, 0, 0)"
+    ]
+   ],
+   "exact": true
   },
   "X80": {
    "pieces": 3,
@@ -374,6 +508,43 @@
      "X88",
      "plane (0, -0.707107, 0, 0.707107)",
      "plane (0, 0.707107, 0, -0.707107)"
+    ],
+    [
+     "X14",
+     "X15:1200:fold",
+     "X25:172:fold",
+     "X25:1828:fold",
+     "X25:1977:fold",
+     "X25:fold",
+     "X42:1828",
+     "X42:1828:fold",
+     "X42:fold",
+     "X53",
+     "X53:1127",
+     "X53:1200",
+     "X53:1379",
+     "X85",
+     "X85:1144",
+     "X87:1200",
+     "X87:2344",
+     "X88:1127",
+     "X88:1200",
+     "X88:2344",
+     "X89:1493:fold",
+     "X89:172:fold",
+     "X89:fold",
+     "X90:172:fold",
+     "X90:fold",
+     "X91:fold",
+     "X92:fold",
+     "X99:1127",
+     "plane (-0.356822, 0.934172, 0, 0)",
+     "plane (-0.707107, 0, -0, 0.707107)",
+     "plane (-0.707107, 0, 0.707107, 0)",
+     "plane (0, 0, -0.707107, 0.707107)",
+     "plane (0, 0, 0.707107, -0.707107)",
+     "plane (0.707107, -0, -0.707107, -0)",
+     "plane (0.707107, 0, 0, -0.707107)"
     ]
    ],
    "exact": true
@@ -454,13 +625,114 @@
   },
   "X45": {
    "pieces": 1,
-   "surfaces": [],
-   "exact": false
+   "surfaces": [
+    [
+     "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "plane (0, -0.707107, 0, 0.707107)",
+     "plane (0, 0.707107, 0, -0.707107)"
+    ]
+   ],
+   "exact": true
   },
   "X2": {
    "pieces": 3,
-   "surfaces": [],
-   "exact": false
+   "surfaces": [
+    [
+     "X14:1200",
+     "X15:1127",
+     "X25:172:fold",
+     "X25:1828:fold",
+     "X25:1977:fold",
+     "X25:fold",
+     "X42:1828:fold",
+     "X42:fold",
+     "X53",
+     "X53:1200",
+     "X85:1200",
+     "X85:1822:fold",
+     "X87",
+     "X87:622:fold",
+     "X88",
+     "X89:1828:fold",
+     "X89:1977:fold",
+     "X90:1828:fold",
+     "X90:1977:fold",
+     "X91:1828:fold",
+     "X92:1828:fold",
+     "X99:1200:fold",
+     "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "plane (-0.336068, -0, 0.879839, 0.336068)",
+     "plane (0, -0.57735, 0.57735, -0.57735)",
+     "plane (0, 0.57735, -0.57735, 0.57735)"
+    ],
+    [
+     "X14:fold",
+     "X15:1200",
+     "X25",
+     "X25:172",
+     "X25:1828",
+     "X25:1977",
+     "X42",
+     "X42:1828",
+     "X42:1828:fold",
+     "X53:1200:fold",
+     "X53:fold",
+     "X85:1144:fold",
+     "X85:fold",
+     "X87:1200:fold",
+     "X87:2344:fold",
+     "X88:1200:fold",
+     "X88:2344:fold",
+     "X89",
+     "X89:1493",
+     "X89:172",
+     "X90",
+     "X90:172",
+     "X91",
+     "X92",
+     "X99:1127:fold",
+     "plane (0, -0.707107, 0, 0.707107)",
+     "plane (0, -0.707107, 0.707107, 0)",
+     "plane (0, 0, -0.707107, 0.707107)",
+     "plane (0, 0, 0.707107, -0.707107)",
+     "plane (0, 0.707107, -0.707107, 0)",
+     "plane (0, 0.707107, 0, -0.707107)"
+    ],
+    [
+     "X14",
+     "X15:1200:fold",
+     "X25:172:fold",
+     "X25:1828:fold",
+     "X25:1977:fold",
+     "X25:fold",
+     "X42:1828",
+     "X42:1828:fold",
+     "X42:fold",
+     "X53",
+     "X53:1200",
+     "X85",
+     "X85:1144",
+     "X87:1200",
+     "X87:2344",
+     "X88:1200",
+     "X88:2344",
+     "X89:1493:fold",
+     "X89:172:fold",
+     "X89:fold",
+     "X90:172:fold",
+     "X90:fold",
+     "X91:fold",
+     "X92:fold",
+     "X99:1127",
+     "plane (-0.707107, 0, -0, 0.707107)",
+     "plane (-0.707107, 0, 0.707107, 0)",
+     "plane (0, 0, -0.707107, 0.707107)",
+     "plane (0, 0, 0.707107, -0.707107)",
+     "plane (0.707107, -0, -0.707107, -0)",
+     "plane (0.707107, 0, 0, -0.707107)"
+    ]
+   ],
+   "exact": true
   },
   "X4": {
    "pieces": 3,
@@ -489,8 +761,28 @@
   },
   "X8": {
    "pieces": 2,
-   "surfaces": [],
-   "exact": false
+   "surfaces": [
+    [
+     "X10",
+     "X40:1200",
+     "X40:1200:fold",
+     "plane (-0.707107, 0, -0, 0.707107)",
+     "plane (0, -0.707107, 0.707107, 0)",
+     "plane (0, 0.707107, -0.707107, 0)",
+     "plane (0.707107, 0, 0, -0.707107)"
+    ],
+    [
+     "X10:1200",
+     "X40",
+     "X40:1127",
+     "X40:1317:fold",
+     "X40:1977",
+     "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
+     "plane (0.371748, -0.371748, -0.601501, 0.601501)"
+    ]
+   ],
+   "exact": true
   },
   "X97": {
    "pieces": 3,
@@ -520,8 +812,106 @@
   },
   "X6": {
    "pieces": 3,
-   "surfaces": [],
-   "exact": false
+   "surfaces": [
+    [
+     "X14:1828:fold",
+     "X15",
+     "X25:1200",
+     "X42:1200",
+     "X42:1493",
+     "X42:fold",
+     "X53:1127",
+     "X53:1828:fold",
+     "X85:2327",
+     "X87:1127",
+     "X88:1127",
+     "X89:1144:fold",
+     "X89:1200",
+     "X89:1493",
+     "X89:172",
+     "X90:1200",
+     "X90:1493",
+     "X91:1144",
+     "X91:1200",
+     "X91:1493",
+     "X92:1200",
+     "X92:1493",
+     "X99:1479:fold",
+     "X99:1860:fold",
+     "plane (-0.356822, 0.934172, 0, 0)",
+     "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
+     "plane (0, -0.57735, 0.57735, -0.57735)",
+     "plane (0, 0.57735, -0.57735, 0.57735)",
+     "plane (0.371748, -0.371748, -0.601501, 0.601501)"
+    ],
+    [
+     "X14",
+     "X15:1200:fold",
+     "X25:172:fold",
+     "X25:1828:fold",
+     "X25:1977:fold",
+     "X25:fold",
+     "X42:1828",
+     "X42:1828:fold",
+     "X42:fold",
+     "X53",
+     "X53:1200",
+     "X85",
+     "X85:1144",
+     "X87:1200",
+     "X87:2344",
+     "X88:1200",
+     "X88:2344",
+     "X89:1493:fold",
+     "X89:172:fold",
+     "X89:fold",
+     "X90:172:fold",
+     "X90:fold",
+     "X91:fold",
+     "X92:fold",
+     "X99:1127",
+     "plane (-0.707107, 0, -0, 0.707107)",
+     "plane (-0.707107, 0, 0.707107, 0)",
+     "plane (0, 0, -0.707107, 0.707107)",
+     "plane (0, 0, 0.707107, -0.707107)",
+     "plane (0.707107, -0, -0.707107, -0)",
+     "plane (0.707107, 0, 0, -0.707107)"
+    ],
+    [
+     "X14:fold",
+     "X15:1200",
+     "X25",
+     "X25:172",
+     "X25:1828",
+     "X25:1977",
+     "X42",
+     "X42:1828",
+     "X42:1828:fold",
+     "X53:1200:fold",
+     "X53:fold",
+     "X85:1144:fold",
+     "X85:fold",
+     "X87:1200:fold",
+     "X87:2344:fold",
+     "X88:1200:fold",
+     "X88:2344:fold",
+     "X89",
+     "X89:1493",
+     "X89:172",
+     "X90",
+     "X90:172",
+     "X91",
+     "X92",
+     "X99:1127:fold",
+     "plane (0, -0.707107, 0, 0.707107)",
+     "plane (0, -0.707107, 0.707107, 0)",
+     "plane (0, 0, -0.707107, 0.707107)",
+     "plane (0, 0, 0.707107, -0.707107)",
+     "plane (0, 0.707107, -0.707107, 0)",
+     "plane (0, 0.707107, 0, -0.707107)"
+    ]
+   ],
+   "exact": true
   },
   "D2": {
    "pieces": 4,
@@ -2037,44 +2427,58 @@
    "edges": {
     "B1": {
      "status": "exact",
-     "surface": "plane (-0.707107, 0.707107, 0, 0)",
+     "surface": "plane (0, 1, 0, 0)",
      "also": [
-      "plane (0, 1, 0, 0)",
       "plane (0.295242, 0.955423, 0, 0)",
       "plane (0.525731, 0.850651, 0, 0)",
       "plane (0.707107, 0.707107, 0, 0)",
-      "plane (0.850651, 0.525731, 0, 0)"
+      "plane (0.850651, 0.525731, 0, 0)",
+      "plane (0.934172, -0.356822, 0, 0)"
      ],
-     "side": null
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "E2": {
      "status": "exact",
-     "surface": "X100",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
      "also": [
-      "X100:1200",
-      "X33:1127",
-      "X33:1200:fold",
-      "X51:1127",
-      "X51:1200:fold"
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "X100",
+      "X100:1200"
      ],
-     "side": null
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "T2": {
      "status": "exact",
-     "surface": "plane (0.707107, -0, -0.707107, -0)",
-     "off": 0.0,
-     "side": null
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "share_of_Y": 1.0,
+     "curve_off": 2.427260836037458e-07,
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     },
     "X13": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no surface through the line other than the wall's own"
     }
    },
    "cuts": {
     "X28": {
-     "status": "close",
+     "status": "exact",
      "surface": "X28:1977",
-     "off": 2.110308906893545e-05,
-     "side": null,
+     "share_of_Y": 0.61,
+     "curve_off": 9.742878984656398e-06,
+     "side": {
+      "sign": -1,
+      "share": 0.539
+     },
      "between": [
       "X49",
       "X50"
@@ -2096,26 +2500,57 @@
      "surface": "plane (-0.356822, 0.934172, 0, 0)",
      "also": [
       "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, 1, 0, 0)",
       "plane (0.295242, 0.955423, 0, 0)",
       "plane (0.525731, 0.850651, 0, 0)",
-      "plane (0.707107, -0.707107, -0, -0)",
-      "plane (0.707107, 0.707107, 0, 0)"
+      "plane (0.707107, -0.707107, -0, -0)"
      ],
-     "side": null
+     "side": {
+      "sign": 1,
+      "share": 0.692
+     }
     },
     "E1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
+     "also": [
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "X100:1479:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "T1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
+     "also": [
+      "plane (0.707107, -0, -0.707107, -0)",
+      "X22:1561",
+      "X38:1561:fold",
+      "X42:1828:fold",
+      "X82:631:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 0.996
+     }
     }
    },
    "cuts": {
     "X100": {
      "status": "exact",
-     "surface": "X100",
-     "off": 1.7745010872506689e-07,
-     "side": null,
+     "surface": "X51:1127",
+     "share_of_Y": 0.613,
+     "curve_off": 2.0173470631063956e-07,
+     "side": {
+      "sign": 1,
+      "share": 0.684
+     },
      "between": [
       "X58",
       "X61"
@@ -2131,13 +2566,34 @@
    ],
    "edges": {
     "E1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
+     "also": [
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 1, 0, 0)",
+      "X100:1479:fold",
+      "X100:1828:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X8": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no piece of the line comes near the wall"
     },
     "X29": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X10",
+     "also": [
+      "X40:1200",
+      "X40:1200:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {},
@@ -2153,37 +2609,71 @@
    "edges": {
     "E2": {
      "status": "exact",
-     "surface": "X100",
+     "surface": "plane (-0.707107, 0.707107, 0, 0)",
      "also": [
-      "X100:1200",
-      "X33:1127",
-      "X33:1200:fold",
-      "X51:1127",
-      "X51:1200:fold"
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0.707107, -0.707107, -0, -0)",
+      "X100",
+      "X100:1200"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.888
+     }
+    },
+    "T1": {
+     "status": "exact",
+     "surface": "plane (0, 1, 0, 0)",
+     "also": [
+      "X22:1561",
+      "X38:1561:fold",
+      "X42:1828:fold",
+      "X82:631:fold",
+      "X90:1828:fold"
      ],
      "side": {
       "sign": 1,
       "share": 1.0
      }
     },
-    "T1": {
-     "status": "unverified: no surface through the line other than the wall's own"
-    },
     "X1": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0.707107, 0, 0)",
+     "also": [
+      "plane (0.707107, -0.707107, -0, -0)",
+      "X42",
+      "X42:1200",
+      "X53:1828:fold",
+      "X53:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 0.676
+     }
     },
     "X4": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X14:1828:fold",
+     "also": [
+      "X15",
+      "X99:1479:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 0.913
+     }
     }
    },
    "cuts": {
     "F1": {
      "status": "exact",
-     "surface": "plane (0.707107, -0, -0.707107, -0)",
-     "off": 0.0,
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
+     "share_of_Y": 1.0,
+     "curve_off": 0.0,
      "side": {
-      "sign": -1,
-      "share": 1.0
+      "sign": 1,
+      "share": 0.589
      },
      "between": [
       "F3",
@@ -2192,10 +2682,11 @@
     },
     "X11": {
      "status": "exact",
-     "surface": "plane (0, 0, 0.707107, -0.707107)",
-     "off": 0.0,
+     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "share_of_Y": 1.0,
+     "curve_off": 0.0,
      "side": {
-      "sign": 1,
+      "sign": -1,
       "share": 1.0
      },
      "between": [
@@ -2206,11 +2697,12 @@
     },
     "X94": {
      "status": "exact",
-     "surface": "X94",
-     "off": 2.6314758737695105e-07,
+     "surface": "X94:1200",
+     "share_of_Y": 0.886,
+     "curve_off": 2.1386052563255826e-07,
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.788
      },
      "between": [
       "X36",
@@ -2227,27 +2719,22 @@
    ],
    "edges": {
     "E2": {
-     "status": "exact",
-     "surface": "X100",
-     "also": [
-      "X100:1200",
-      "X33:1127",
-      "X33:1200:fold",
-      "X51:1127",
-      "X51:1200:fold"
-     ],
-     "side": null
+     "status": "unverified: no surface through the line other than the wall's own"
     },
     "X1": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no surface through the line other than the wall's own"
     }
    },
    "cuts": {
     "X10": {
      "status": "exact",
      "surface": "X10",
-     "off": 0.0,
-     "side": null,
+     "share_of_Y": 1.0,
+     "curve_off": 0.0,
+     "side": {
+      "sign": 1,
+      "share": 0.72
+     },
      "between": [
       "F2",
       "X95"
@@ -2263,13 +2750,13 @@
    "edges": {
     "C3": {
      "status": "exact",
-     "surface": "X10",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
      "also": [
-      "X100:1200",
-      "X10:1200",
-      "X33",
-      "X33:1127",
-      "X33:1127:fold"
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.707107, -0.707107, 0)"
      ],
      "side": {
       "sign": 1,
@@ -2278,14 +2765,18 @@
     },
     "E2": {
      "status": "exact",
-     "surface": "X100:1200",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
      "also": [
-      "X33:1127",
-      "X33:1200:fold",
-      "X51:1127",
-      "X51:1200:fold"
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "plane (0.707107, -0.707107, -0, -0)"
      ],
-     "side": null
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {},
@@ -2299,15 +2790,34 @@
    ],
    "edges": {
     "T1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
+     "also": [
+      "plane (0.707107, -0, -0.707107, -0)",
+      "X22:1561",
+      "X38:1561:fold",
+      "X42:1828:fold",
+      "X82:631:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     },
     "X5": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no surface through the line other than the wall's own"
     }
    },
    "cuts": {
     "X10": {
-     "status": "unverified: no surface of X10 through the curve (best X10:1127, off 5.2e-03)",
+     "status": "exact",
+     "surface": "X10",
+     "share_of_Y": 0.679,
+     "curve_off": 0.011552694894146533,
+     "side": {
+      "sign": -1,
+      "share": 0.925
+     },
      "between": [
       "F2",
       "X95"
@@ -2323,13 +2833,13 @@
    "edges": {
     "D1": {
      "status": "exact",
-     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
      "also": [
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, -0.707107, 0.707107, 0)",
-      "plane (0, 0, 0, 1)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0, 0.707107, -0.707107, 0)"
+      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)"
      ],
      "side": {
       "sign": 1,
@@ -2338,20 +2848,32 @@
     },
     "X3": {
      "status": "exact",
-     "surface": "plane (0.707107, -0.707107, -0, -0)",
-     "off": 0.0,
+     "surface": "plane (-0.707107, 0.707107, 0, 0)",
+     "share_of_Y": 0.973,
+     "curve_off": 0.0,
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
+    },
+    "X8": {
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0.707107, 0, 0, -0.707107)"
+     ],
      "side": {
       "sign": -1,
       "share": 1.0
      }
     },
-    "X8": {
-     "status": "unverified: the line has no exact surface through its points"
-    },
     "X9": {
      "status": "exact",
-     "surface": "plane (0.879839, 0, -0.336068, 0.336068)",
-     "off": 2.6913702651776027e-07,
+     "surface": "plane (1, -0, -0, -0)",
+     "share_of_Y": 0.513,
+     "curve_off": 0.0,
      "side": {
       "sign": 1,
       "share": 1.0
@@ -2370,16 +2892,39 @@
     "T2": {
      "status": "exact",
      "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
-     "off": 3.0984629082358064e-07,
-     "side": null
+     "share_of_Y": 1.0,
+     "curve_off": 3.8285683683274973e-07,
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X6": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (-0.707107, 0, 0.707107, 0)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "plane (0.707107, 0, 0, -0.707107)",
+      "X14",
+      "X15:1200:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
     "X94": {
-     "status": "unverified: no surface of X94 through the curve (best X94, off 3.2e-04)",
+     "status": "exact",
+     "surface": "X94:1200",
+     "share_of_Y": 0.361,
+     "curve_off": 0.017393575581070683,
+     "side": {
+      "sign": -1,
+      "share": 0.875
+     },
      "between": [
       "X36",
       "X37"
@@ -2394,17 +2939,37 @@
    ],
    "edges": {
     "X4": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X14:1828:fold",
+     "also": [
+      "X15",
+      "X99:1479:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 0.667
+     }
     },
     "X6": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (-0.707107, 0, 0.707107, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "plane (0.707107, 0, 0, -0.707107)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 0.812
+     }
     },
     "X97": {
      "status": "exact",
      "surface": "plane (0, -0.707107, 0.707107, 0)",
      "also": [
       "plane (0, 0.707107, -0.707107, 0)",
-      "X15:1200:fold",
       "X87:fold"
      ],
      "side": {
@@ -2415,13 +2980,7 @@
    },
    "cuts": {
     "X25": {
-     "status": "exact",
-     "surface": "X25",
-     "off": 0.0,
-     "side": {
-      "sign": -1,
-      "share": 0.601
-     },
+     "status": "unverified: no surface holds X25's points next to the curve",
      "between": [
       "X45",
       "X46"
@@ -2431,16 +2990,16 @@
    "through": {
     "C2b": {
      "status": "exact",
-     "surface": "plane (-0.57735, 0, -0.57735, 0.57735)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
       "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "plane (0.57735, 0, 0.57735, -0.57735)",
-      "plane (0.879839, 0, -0.336068, 0.336068)",
-      "plane (1, -0, -0, -0)"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     }
@@ -2452,22 +3011,46 @@
    ],
    "edges": {
     "X4": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
+     "also": [
+      "plane (0.707107, -0, -0.707107, -0)",
+      "X99:1479:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     },
     "X6": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (-0.707107, 0, 0.707107, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "plane (0.707107, 0, 0, -0.707107)"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     },
     "X78": {
      "status": "exact",
-     "surface": "X14:1828:fold",
+     "surface": "X14:fold",
      "also": [
-      "X14:fold",
       "X15:1200",
       "X38",
       "X38:1127",
-      "X38:1200"
+      "X38:1200",
+      "X38:1200:fold"
      ],
-     "side": null
+     "side": {
+      "sign": -1,
+      "share": 0.984
+     }
     }
    },
    "cuts": {},
@@ -2481,19 +3064,41 @@
    ],
    "edges": {
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (0, -0.707107, 0, 0.707107)",
+     "also": [
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0, 0.707107, 0, -0.707107)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X4": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X14:1828:fold",
+     "also": [
+      "X15",
+      "X99:1479:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
     "X19": {
      "status": "exact",
-     "surface": "plane (0, 0, 0.707107, -0.707107)",
-     "off": 0.0,
+     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "share_of_Y": 1.0,
+     "curve_off": 0.0,
      "side": {
-      "sign": 1,
+      "sign": -1,
       "share": 1.0
      },
      "between": [
@@ -2502,7 +3107,14 @@
      ]
     },
     "X31": {
-     "status": "unverified: no surface of X31 through the curve (best plane (0, 0.707107, 0, -0.707107), off 2.8e-01)",
+     "status": "exact",
+     "surface": "plane (-0.356822, 0.934172, 0, 0)",
+     "share_of_Y": 0.987,
+     "curve_off": 2.474426998619671e-07,
+     "side": {
+      "sign": 1,
+      "share": 0.504
+     },
      "between": [
       "X43",
       "X54"
@@ -2518,13 +3130,44 @@
    ],
    "edges": {
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (0, -0.707107, 0, 0.707107)",
+     "also": [
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "X14:fold",
+      "X15:1200"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.702
+     }
     },
     "X6": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (-0.707107, 0, 0.707107, 0)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "plane (0.707107, 0, 0, -0.707107)",
+      "X14",
+      "X15:1200:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 0.788
+     }
     },
     "X17": {
-     "status": "unverified: no surface of X17 through the curve (best plane (-0, -0.336068, 0.336068, 0.879839), off 1.6e-01)"
+     "status": "exact",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "share_of_Y": 1.0,
+     "curve_off": 0.0017464731085925867,
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {},
@@ -2539,21 +3182,40 @@
    "edges": {
     "E2": {
      "status": "exact",
-     "surface": "X100",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
      "also": [
-      "X100:1200",
-      "X33:1127",
-      "X33:1200:fold",
-      "X51:1127",
-      "X51:1200:fold"
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "plane (0.707107, -0.707107, -0, -0)",
+      "X100",
+      "X100:1200"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
+    },
+    "X5": {
+     "status": "exact",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "also": [
+      "plane (1, -0, -0, -0)"
      ],
      "side": null
     },
-    "X5": {
-     "status": "unverified: the line has no exact surface through its points"
-    },
     "X8": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (0.707107, 0, 0, -0.707107)",
+      "X10",
+      "X40:1200",
+      "X40:1200:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
@@ -2574,23 +3236,50 @@
    ],
    "edges": {
     "X5": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (0.879839, 0, -0.336068, 0.336068)",
+     "also": [],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X8": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (0.707107, 0, 0, -0.707107)",
+      "X10",
+      "X40:1200",
+      "X40:1200:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X97": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X14",
+     "also": [
+      "X15:1200:fold",
+      "X87:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.975
+     }
     }
    },
    "cuts": {
     "X98": {
      "status": "exact",
      "surface": "plane (0.934172, -0.356822, 0, 0)",
-     "off": 2.4957553116902053e-07,
+     "share_of_Y": 1.0,
+     "curve_off": 2.484494882495321e-07,
      "side": {
       "sign": 1,
-      "share": 0.5
+      "share": 0.555
      },
      "between": [
       "X60",
@@ -2625,7 +3314,6 @@
      "surface": "plane (-0.707107, 0, 0.707107, 0)",
      "also": [
       "plane (0.707107, -0, -0.707107, -0)",
-      "X14:1828:fold",
       "X99:1479:fold"
      ],
      "side": {
@@ -2634,17 +3322,30 @@
      }
     },
     "X13": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.356822, 0.934172, 0, 0)",
+     "also": [
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "X87:1127",
+      "X89:1144:fold",
+      "X89:1200"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
     "X93": {
      "status": "exact",
      "surface": "X25:fold",
-     "off": 3.343946893197583e-07,
+     "share_of_Y": 0.969,
+     "curve_off": 3.343946893197583e-07,
      "side": {
       "sign": -1,
-      "share": 0.571
+      "share": 0.543
      },
      "between": [
       "X54",
@@ -2662,18 +3363,40 @@
    ],
    "edges": {
     "E1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
+     "also": [
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "X100:1479:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X5": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "also": [],
+     "side": {
+      "sign": -1,
+      "share": 0.979
+     }
     }
    },
    "cuts": {
     "X39": {
      "status": "exact",
-     "surface": "X10",
-     "off": 4.684562921660225e-07,
-     "side": null,
+     "surface": "X39:1977",
+     "share_of_Y": 0.905,
+     "curve_off": 3.1816940109435925e-07,
+     "side": {
+      "sign": 1,
+      "share": 0.533
+     },
      "between": [
       "X59",
       "X60"
@@ -2689,26 +3412,39 @@
    "edges": {
     "C2b": {
      "status": "exact",
-     "surface": "plane (-0.57735, 0, -0.57735, 0.57735)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
       "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "plane (0.57735, 0, 0.57735, -0.57735)",
-      "plane (0.879839, 0, -0.336068, 0.336068)",
-      "plane (1, -0, -0, -0)"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
-      "share": 1.0
+      "sign": 1,
+      "share": 0.875
      }
     },
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (0, -0.707107, 0, 0.707107)",
+     "also": [
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0, 0.707107, 0, -0.707107)"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.812
+     }
     },
     "X14": {
      "status": "exact",
      "surface": "X14",
-     "off": 0.0,
+     "share_of_Y": 1.0,
+     "curve_off": 0.0,
      "side": {
       "sign": -1,
       "share": 1.0
@@ -2725,7 +3461,19 @@
    ],
    "edges": {
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (0, -0.707107, 0, 0.707107)",
+     "also": [
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "X14:fold",
+      "X15:1200"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
@@ -2747,17 +3495,27 @@
    ],
    "edges": {
     "X97": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X14",
+     "also": [
+      "X15:1200:fold",
+      "X87:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
     "X44": {
      "status": "exact",
-     "surface": "plane (0, 0.707107, 0, -0.707107)",
-     "off": 0.0,
+     "surface": "plane (0.934172, -0.356822, 0, 0)",
+     "share_of_Y": 0.613,
+     "curve_off": 3.9273658421688554e-07,
      "side": {
       "sign": 1,
-      "share": 0.714
+      "share": 0.747
      },
      "between": [
       "X55",
@@ -2767,7 +3525,19 @@
    },
    "through": {
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (0, -0.707107, 0, 0.707107)",
+     "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "X14:fold",
+      "X15:1200"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.996
+     }
     }
    }
   },
@@ -2778,26 +3548,27 @@
    "edges": {
     "E1": {
      "status": "exact",
-     "surface": "plane (-0.54377, -0.336068, 0.54377, -0.54377)",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
      "also": [
-      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0.54377, 0.336068, -0.54377, 0.54377)",
-      "plane (0.601501, -0.601501, 0.371748, -0.371748)"
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
       "sign": 1,
-      "share": 0.725
+      "share": 1.0
      }
     },
     "F1": {
      "status": "exact",
-     "surface": "plane (0.707107, -0.707107, -0, -0)",
-     "off": 0.0,
+     "surface": "plane (-0.707107, 0.707107, 0, 0)",
+     "share_of_Y": 0.567,
+     "curve_off": 0.000813526351755123,
      "side": {
-      "sign": -1,
-      "share": 1.0
+      "sign": 1,
+      "share": 0.638
      }
     }
    },
@@ -2811,14 +3582,27 @@
    ],
    "edges": {
     "X13": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
+     "also": [
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)",
+      "X14:1828:fold",
+      "X15"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.996
+     }
     },
     "X17": {
      "status": "exact",
-     "surface": "plane (0.707107, -0, -0.707107, -0)",
-     "off": 0.0,
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
+     "share_of_Y": 0.92,
+     "curve_off": 0.0,
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -2828,9 +3612,14 @@
      "also": [
       "X25:1828:fold",
       "X25:1977:fold",
-      "X25:fold"
+      "X25:fold",
+      "X85",
+      "X87:1200"
      ],
-     "side": null
+     "side": {
+      "sign": -1,
+      "share": 0.958
+     }
     }
    },
    "cuts": {},
@@ -2843,17 +3632,17 @@
    "edges": {
     "D1": {
      "status": "exact",
-     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
      "also": [
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, -0.707107, 0.707107, 0)",
-      "plane (0, 0, 0, 1)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0, 0.707107, -0.707107, 0)"
+      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)"
      ],
      "side": {
-      "sign": 1,
-      "share": 1.0
+      "sign": -1,
+      "share": 0.677
      }
     },
     "D3": {
@@ -2873,16 +3662,16 @@
     },
     "E1": {
      "status": "exact",
-     "surface": "plane (-0.54377, -0.336068, 0.54377, -0.54377)",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
      "also": [
-      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0.54377, 0.336068, -0.54377, 0.54377)",
-      "plane (0.601501, -0.601501, 0.371748, -0.371748)"
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -2912,14 +3701,16 @@
    "edges": {
     "D2": {
      "status": "exact",
-     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "X53",
-      "X53:fold"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -2927,11 +3718,11 @@
      "status": "exact",
      "surface": "plane (0.934172, -0.356822, 0, 0)",
      "also": [
-      "X15:1200:fold",
       "X25:172:fold",
       "X25:1828:fold",
       "X25:1977:fold",
-      "X25:fold"
+      "X25:fold",
+      "X92:fold"
      ],
      "side": {
       "sign": -1,
@@ -2940,14 +3731,14 @@
     },
     "X97": {
      "status": "exact",
-     "surface": "plane (0, -0.707107, 0.707107, 0)",
+     "surface": "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
      "also": [
-      "plane (0, 0.707107, -0.707107, 0)",
-      "X15:1200:fold",
-      "X87:fold"
+      "X14:1828:fold",
+      "X15",
+      "X87:1200"
      ],
      "side": {
-      "sign": 1,
+      "sign": -1,
       "share": 1.0
      }
     }
@@ -2962,13 +3753,13 @@
    "edges": {
     "D3": {
      "status": "exact",
-     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
      "also": [
-      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
-      "plane (-0.707107, 0.707107, 0, 0)",
-      "plane (0, 0, -0.707107, 0.707107)",
-      "plane (0, 0, 0.707107, -0.707107)",
-      "plane (0.371748, -0.371748, -0.601501, 0.601501)"
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.707107, -0.707107, 0)"
      ],
      "side": {
       "sign": 1,
@@ -3011,11 +3802,23 @@
      ],
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.982
      }
     },
     "E1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
+     "also": [
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {},
@@ -3027,27 +3830,28 @@
    ],
    "edges": {
     "X8": {
-     "status": "unverified: the line has no exact surface through its points"
-    },
-    "X23": {
      "status": "exact",
-     "surface": "plane (1, -0, -0, -0)",
-     "off": 0.0,
+     "surface": "plane (-0.707107, 0, -0, 0.707107)",
+     "also": [
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0.707107, 0, 0, -0.707107)"
+     ],
      "side": {
       "sign": 1,
       "share": 1.0
      }
     },
+    "X23": {
+     "status": "unverified: no surface holds X23's points next to the curve"
+    },
     "X29": {
      "status": "exact",
      "surface": "plane (0.934172, -0.356822, 0, 0)",
-     "also": [
-      "X40:1200",
-      "X40:1200:fold"
-     ],
+     "also": [],
      "side": {
       "sign": -1,
-      "share": 0.998
+      "share": 0.989
      }
     }
    },
@@ -3061,16 +3865,16 @@
    "edges": {
     "E1": {
      "status": "exact",
-     "surface": "plane (-0.54377, -0.336068, 0.54377, -0.54377)",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
      "also": [
-      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0.54377, 0.336068, -0.54377, 0.54377)",
-      "plane (0.601501, -0.601501, 0.371748, -0.371748)"
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -3110,27 +3914,48 @@
      ],
      "side": {
       "sign": 1,
-      "share": 0.511
+      "share": 0.612
      }
     },
     "D2": {
      "status": "exact",
-     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "X53",
-      "X53:fold"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
-      "share": 1.0
+      "sign": 1,
+      "share": 0.636
      }
     },
     "E1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
+     "also": [
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X96": {
-     "status": "unverified: no surface of X96 through the curve (best plane (0, 0.707107, -0.707107, 0), off 2.9e-01)"
+     "status": "exact",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "share_of_Y": 0.66,
+     "curve_off": 5.137429562846447e-07,
+     "side": {
+      "sign": -1,
+      "share": 0.609
+     }
     }
    },
    "cuts": {},
@@ -3142,7 +3967,7 @@
    ],
    "edges": {
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no surface through the line other than the wall's own"
     },
     "X18": {
      "status": "exact",
@@ -3156,7 +3981,7 @@
      ],
      "side": {
       "sign": -1,
-      "share": 1.0
+      "share": 0.976
      }
     },
     "X81": {
@@ -3184,19 +4009,43 @@
    ],
    "edges": {
     "X24": {
-     "status": "unverified: no surface through the line other than the wall's own"
-    },
-    "X27": {
      "status": "exact",
-     "surface": "plane (0, 0.707107, -0.707107, 0)",
-     "off": 0.0,
+     "surface": "X14",
+     "also": [
+      "X15:1200:fold",
+      "X25:172:fold",
+      "X25:1828:fold",
+      "X25:1977:fold",
+      "X25:fold"
+     ],
      "side": {
       "sign": -1,
       "share": 1.0
      }
     },
+    "X27": {
+     "status": "exact",
+     "surface": "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "share_of_Y": 0.513,
+     "curve_off": 0.5218290063132456,
+     "side": {
+      "sign": 1,
+      "share": 0.611
+     }
+    },
     "X81": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X42",
+     "also": [
+      "X89",
+      "X90",
+      "X91",
+      "X92"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.602
+     }
     }
    },
    "cuts": {},
@@ -3211,11 +4060,11 @@
      "status": "exact",
      "surface": "X10",
      "also": [
-      "X15:1200:fold",
       "X38",
       "X38:1127",
       "X38:1317:fold",
-      "X38:1977"
+      "X38:1977",
+      "X40:1200"
      ],
      "side": {
       "sign": -1,
@@ -3226,11 +4075,11 @@
      "status": "exact",
      "surface": "plane (0.934172, -0.356822, 0, 0)",
      "also": [
-      "X15:1200:fold",
       "X25:172:fold",
       "X25:1828:fold",
       "X25:1977:fold",
-      "X25:fold"
+      "X25:fold",
+      "X92:fold"
      ],
      "side": {
       "sign": 1,
@@ -3242,7 +4091,6 @@
      "surface": "plane (0, -0.707107, 0.707107, 0)",
      "also": [
       "plane (0, 0.707107, -0.707107, 0)",
-      "X15:1200:fold",
       "X87:fold"
      ],
      "side": {
@@ -3261,31 +4109,31 @@
    "edges": {
     "D1": {
      "status": "exact",
-     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
      "also": [
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, -0.707107, 0.707107, 0)",
-      "plane (0, 0, 0, 1)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0, 0.707107, -0.707107, 0)"
+      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)"
      ],
      "side": {
-      "sign": 1,
-      "share": 1.0
+      "sign": -1,
+      "share": 0.947
      }
     },
     "E1": {
      "status": "exact",
-     "surface": "plane (-0.54377, -0.336068, 0.54377, -0.54377)",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
      "also": [
-      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0.54377, 0.336068, -0.54377, 0.54377)",
-      "plane (0.601501, -0.601501, 0.371748, -0.371748)"
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -3310,9 +4158,9 @@
      "also": [
       "X14",
       "X15:1200:fold",
-      "X38:1127",
-      "X38:1317:fold",
-      "X38:1977"
+      "X40:1200",
+      "X40:1200:fold",
+      "X42"
      ],
      "side": {
       "sign": 1,
@@ -3330,31 +4178,31 @@
    "edges": {
     "D1": {
      "status": "exact",
-     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
      "also": [
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, -0.707107, 0.707107, 0)",
-      "plane (0, 0, 0, 1)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0, 0.707107, -0.707107, 0)"
+      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)"
      ],
      "side": {
-      "sign": 1,
-      "share": 1.0
+      "sign": -1,
+      "share": 0.964
      }
     },
     "E1": {
      "status": "exact",
-     "surface": "plane (-0.54377, -0.336068, 0.54377, -0.54377)",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
      "also": [
-      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0.54377, 0.336068, -0.54377, 0.54377)",
-      "plane (0.601501, -0.601501, 0.371748, -0.371748)"
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -3376,10 +4224,11 @@
     "X84": {
      "status": "exact",
      "surface": "X84",
-     "off": 2.6282047524934754e-07,
+     "share_of_Y": 1.0,
+     "curve_off": 3.034014582365543e-07,
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.948
      }
     }
    },
@@ -3392,7 +4241,7 @@
    ],
    "edges": {
     "X8": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no surface through the line other than the wall's own"
     },
     "X18": {
      "status": "exact",
@@ -3412,10 +4261,7 @@
     "X29": {
      "status": "exact",
      "surface": "plane (0.934172, -0.356822, 0, 0)",
-     "also": [
-      "X40:1200",
-      "X40:1200:fold"
-     ],
+     "also": [],
      "side": {
       "sign": 1,
       "share": 1.0
@@ -3432,16 +4278,16 @@
    "edges": {
     "E1": {
      "status": "exact",
-     "surface": "plane (-0.54377, -0.336068, 0.54377, -0.54377)",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
      "also": [
-      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0.54377, 0.336068, -0.54377, 0.54377)",
-      "plane (0.601501, -0.601501, 0.371748, -0.371748)"
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -3480,17 +4326,17 @@
    "through": {
     "D1": {
      "status": "exact",
-     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
      "also": [
-      "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, -0.707107, 0.707107, 0)",
-      "plane (0, 0, 0, 1)",
-      "plane (0, 0.57735, -0.57735, 0.57735)",
-      "plane (0, 0.707107, -0.707107, 0)"
+      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)"
      ],
      "side": {
-      "sign": 1,
-      "share": 1.0
+      "sign": -1,
+      "share": 0.96
      }
     }
    }
@@ -3508,7 +4354,9 @@
      "also": [
       "X25:1828:fold",
       "X25:1977:fold",
-      "X25:fold"
+      "X25:fold",
+      "X85:1200",
+      "X87"
      ],
      "side": {
       "sign": -1,
@@ -3516,7 +4364,18 @@
      }
     },
     "X81": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X42",
+     "also": [
+      "X89",
+      "X90",
+      "X91",
+      "X92"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
@@ -3538,13 +4397,13 @@
    "edges": {
     "D2": {
      "status": "exact",
-     "surface": "plane (-0.57735, 0, -0.57735, 0.57735)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
       "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "plane (0.57735, 0, 0.57735, -0.57735)",
-      "plane (0.879839, 0, -0.336068, 0.336068)",
-      "plane (1, -0, -0, -0)"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
       "sign": -1,
@@ -3555,7 +4414,6 @@
      "status": "exact",
      "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
      "also": [
-      "X15:1200:fold",
       "X99:1127"
      ],
      "side": {
@@ -3564,7 +4422,19 @@
      }
     },
     "X13": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.356822, 0.934172, 0, 0)",
+     "also": [
+      "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)",
+      "X14:1828:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 0.786
+     }
     }
    },
    "cuts": {},
@@ -3577,13 +4447,13 @@
    "edges": {
     "C3": {
      "status": "exact",
-     "surface": "X10",
+     "surface": "plane (-0.371748, 0.371748, 0.601501, -0.601501)",
      "also": [
-      "X100",
-      "X100:1200",
-      "X10:1200",
-      "X33",
-      "X33:1127"
+      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0.371748, -0.371748, -0.601501, 0.601501)"
      ],
      "side": {
       "sign": 1,
@@ -3592,16 +4462,16 @@
     },
     "E2": {
      "status": "exact",
-     "surface": "X100",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
      "also": [
-      "X100:1200",
-      "X33:1127",
-      "X33:1200:fold",
-      "X51:1127",
-      "X51:1200:fold"
+      "plane (-0.707107, 0.707107, 0, 0)",
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "plane (0.707107, -0.707107, -0, -0)"
      ],
      "side": {
-      "sign": 1,
+      "sign": -1,
       "share": 1.0
      }
     },
@@ -3612,12 +4482,12 @@
       "X14:fold",
       "X15",
       "X15:1200",
-      "X38:1127",
-      "X38:1200"
+      "X38:1200",
+      "X38:1200:fold"
      ],
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.667
      }
     }
    },
@@ -3631,14 +4501,16 @@
    "edges": {
     "D2": {
      "status": "exact",
-     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "X53",
-      "X53:fold"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
@@ -3659,16 +4531,16 @@
     },
     "X18": {
      "status": "exact",
-     "surface": "X10",
+     "surface": "X14",
      "also": [
-      "X14",
       "X15:1200:fold",
       "X38",
       "X38:1127",
-      "X38:1317:fold"
+      "X38:1317:fold",
+      "X38:1977"
      ],
      "side": {
-      "sign": 1,
+      "sign": -1,
       "share": 1.0
      }
     }
@@ -3676,11 +4548,12 @@
    "cuts": {
     "X51": {
      "status": "exact",
-     "surface": "X51",
-     "off": 2.4344638407594713e-07,
+     "surface": "X100:628:fold",
+     "share_of_Y": 0.899,
+     "curve_off": 2.820085846843908e-07,
      "side": {
       "sign": -1,
-      "share": 0.983
+      "share": 0.91
      },
      "between": [
       "X63",
@@ -3697,11 +4570,13 @@
    "edges": {
     "D2": {
      "status": "exact",
-     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "X53",
-      "X53:fold"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
       "sign": -1,
@@ -3709,7 +4584,19 @@
      }
     },
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "also": [
+      "plane (-0.336068, -0, 0.879839, 0.336068)",
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "X14:1200",
+      "X15:1127"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     },
     "X80": {
      "status": "exact",
@@ -3723,7 +4610,7 @@
      ],
      "side": {
       "sign": -1,
-      "share": 1.0
+      "share": 0.972
      }
     }
    },
@@ -3737,11 +4624,13 @@
    "edges": {
     "D2": {
      "status": "exact",
-     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "X53",
-      "X53:fold"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
      ],
      "side": {
       "sign": -1,
@@ -3749,21 +4638,31 @@
      }
     },
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "also": [
+      "plane (-0.336068, -0, 0.879839, 0.336068)",
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "X14:1200",
+      "X15:1127"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     },
     "X80": {
      "status": "exact",
      "surface": "plane (-0.356822, 0.934172, 0, 0)",
      "also": [
-      "X25:172:fold",
-      "X25:1828:fold",
-      "X25:1977:fold",
       "X85",
-      "X87:1200"
+      "X87:1200",
+      "X88:1200"
      ],
      "side": {
       "sign": -1,
-      "share": 1.0
+      "share": 0.973
      }
     }
    },
@@ -3776,21 +4675,33 @@
    ],
    "edges": {
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
-    },
-    "X80": {
      "status": "exact",
      "surface": "plane (0, -0.707107, 0, 0.707107)",
      "also": [
-      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0, 0.707107, 0, -0.707107)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
+    },
+    "X80": {
+     "status": "exact",
+     "surface": "plane (-0.356822, 0.934172, 0, 0)",
+     "also": [
       "X25:172:fold",
       "X25:1828:fold",
       "X25:1977:fold",
-      "X25:fold"
+      "X25:fold",
+      "X85"
      ],
      "side": {
-      "sign": -1,
-      "share": 0.997
+      "sign": 1,
+      "share": 0.988
      }
     }
    },
@@ -3803,20 +4714,32 @@
    ],
    "edges": {
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
-    },
-    "X80": {
      "status": "exact",
      "surface": "plane (0, -0.707107, 0, 0.707107)",
      "also": [
-      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0, -0.707107, 0.707107)",
+      "plane (0, 0, 0.707107, -0.707107)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "plane (0, 0.707107, 0, -0.707107)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
+    },
+    "X80": {
+     "status": "exact",
+     "surface": "plane (-0.356822, 0.934172, 0, 0)",
+     "also": [
       "X25:172:fold",
       "X25:1828:fold",
       "X25:1977:fold",
-      "X25:fold"
+      "X25:fold",
+      "X85"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     }
@@ -3831,19 +4754,33 @@
    "edges": {
     "D2": {
      "status": "exact",
-     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "X53",
-      "X53:fold"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
+    },
+    "X2": {
+     "status": "exact",
+     "surface": "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "also": [
+      "plane (-0.336068, -0, 0.879839, 0.336068)",
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "X14:1200",
+      "X15:1127"
      ],
      "side": {
       "sign": -1,
       "share": 1.0
      }
-    },
-    "X2": {
-     "status": "unverified: the line has no exact surface through its points"
     },
     "X81": {
      "status": "exact",
@@ -3856,7 +4793,7 @@
      ],
      "side": {
       "sign": -1,
-      "share": 1.0
+      "share": 0.979
      }
     }
    },
@@ -3870,19 +4807,33 @@
    "edges": {
     "D2": {
      "status": "exact",
-     "surface": "plane (0, 0, -0.707107, 0.707107)",
+     "surface": "plane (0, -0.57735, 0.57735, -0.57735)",
      "also": [
+      "plane (0, 0, -0.707107, 0.707107)",
       "plane (0, 0, 0.707107, -0.707107)",
-      "X53",
-      "X53:fold"
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0, 0.879839, 0.336068, -0.336068)",
+      "plane (0, 1, 0, 0)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
+    },
+    "X2": {
+     "status": "exact",
+     "surface": "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+     "also": [
+      "plane (-0.336068, -0, 0.879839, 0.336068)",
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "X14:1200",
+      "X15:1127"
      ],
      "side": {
       "sign": -1,
       "share": 1.0
      }
-    },
-    "X2": {
-     "status": "unverified: the line has no exact surface through its points"
     },
     "X81": {
      "status": "exact",
@@ -3895,7 +4846,7 @@
      ],
      "side": {
       "sign": -1,
-      "share": 1.0
+      "share": 0.979
      }
     }
    },
@@ -3919,11 +4870,11 @@
      ],
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.977
      }
     },
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no surface through the line other than the wall's own"
     },
     "X81": {
      "status": "exact",
@@ -3960,11 +4911,11 @@
      ],
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.976
      }
     },
     "X2": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "unverified: no surface through the line other than the wall's own"
     },
     "X81": {
      "status": "exact",
@@ -3991,22 +4942,21 @@
    "edges": {
     "X22": {
      "status": "exact",
-     "surface": "X15",
-     "off": 2.664067954935902e-07,
+     "surface": "X42:fold",
+     "share_of_Y": 0.827,
+     "curve_off": 0.0014040573137489806,
      "side": {
       "sign": -1,
-      "share": 1.0
+      "share": 0.867
      }
     },
     "X80": {
      "status": "exact",
      "surface": "plane (-0.356822, 0.934172, 0, 0)",
      "also": [
-      "X25:172:fold",
-      "X25:1828:fold",
-      "X25:1977:fold",
       "X85",
-      "X87:1200"
+      "X87:1200",
+      "X88:1200"
      ],
      "side": {
       "sign": 1,
@@ -4024,21 +4974,16 @@
    "edges": {
     "T2": {
      "status": "exact",
-     "surface": "plane (0.707107, -0, -0.707107, -0)",
-     "off": 0.0,
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
+     "share_of_Y": 0.927,
+     "curve_off": 0.0,
      "side": {
-      "sign": 1,
+      "sign": -1,
       "share": 1.0
      }
     },
     "X11": {
-     "status": "exact",
-     "surface": "plane (0, 0, 0.707107, -0.707107)",
-     "off": 0.0,
-     "side": {
-      "sign": 1,
-      "share": 1.0
-     }
+     "status": "unverified: no surface holds X11's points next to the curve"
     }
    },
    "cuts": {},
@@ -4054,7 +4999,7 @@
       "X38:1127"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 0.504
      }
     }
@@ -4070,26 +5015,53 @@
      "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
      "also": [
       "plane (0, -0.57735, 0.57735, -0.57735)",
-      "plane (0, -0.707107, 0.707107, 0)",
       "plane (0, 0, 0, 1)",
       "plane (0, 0.57735, -0.57735, 0.57735)",
-      "X10"
+      "X10",
+      "X100"
      ],
-     "side": null
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "T1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0.707107, 0, 0.707107, 0)",
+     "also": [
+      "plane (0, 1, 0, 0)",
+      "plane (0.707107, -0, -0.707107, -0)",
+      "X22:1561",
+      "X38:1561:fold",
+      "X42:1828:fold"
+     ],
+     "side": {
+      "sign": -1,
+      "share": 1.0
+     }
     },
     "X5": {
-     "status": "unverified: the line has no exact surface through its points"
+     "status": "exact",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "also": [
+      "plane (1, -0, -0, -0)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {
     "X41": {
      "status": "exact",
-     "surface": "X28",
-     "off": 7.636157939064597e-08,
-     "side": null,
+     "surface": "X28:1977",
+     "share_of_Y": 0.991,
+     "curve_off": 2.1814575459031196e-07,
+     "side": {
+      "sign": 1,
+      "share": 0.689
+     },
      "between": [
       "X58",
       "X62"
@@ -4106,18 +5078,40 @@
    "edges": {
     "X21": {
      "status": "exact",
-     "surface": "plane (0, 0.707107, -0.707107, 0)",
-     "off": 0.0,
+     "surface": "plane (0, -0.707107, 0.707107, 0)",
+     "share_of_Y": 1.0,
+     "curve_off": 0.0,
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
     "X24": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X14",
+     "also": [
+      "X15:1200:fold",
+      "X25:172:fold",
+      "X25:1828:fold",
+      "X25:1977:fold",
+      "X25:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     },
     "X29": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "X10",
+     "also": [
+      "X40:1200",
+      "X40:1200:fold"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 0.842
+     }
     }
    },
    "cuts": {},
@@ -4140,7 +5134,7 @@
      ],
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.985
      }
     },
     "C2a": {
@@ -4155,11 +5149,23 @@
      ],
      "side": {
       "sign": 1,
-      "share": 1.0
+      "share": 0.93
      }
     },
     "E1": {
-     "status": "unverified: no surface through the line other than the wall's own"
+     "status": "exact",
+     "surface": "plane (-0, 0.525731, -0, 0.850651)",
+     "also": [
+      "plane (-0, 0.850651, -0, 0.525731)",
+      "plane (0, -0.707107, 0, 0.707107)",
+      "plane (0, 0, 0, 1)",
+      "plane (0, 0.707107, 0, -0.707107)",
+      "plane (0, 1, 0, 0)"
+     ],
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
     }
    },
    "cuts": {},
@@ -4187,23 +5193,24 @@
     },
     "E1": {
      "status": "exact",
-     "surface": "X28",
+     "surface": "plane (-0.54377, -0.336068, 0.54377, -0.54377)",
      "also": [
-      "X28:1127",
-      "X28:1317:fold",
-      "X28:1977",
-      "X38",
-      "X38:1127"
+      "plane (-0.601501, 0.601501, -0.371748, 0.371748)",
+      "plane (0, -0.57735, 0.57735, -0.57735)",
+      "plane (0, 0.57735, -0.57735, 0.57735)",
+      "plane (0.54377, 0.336068, -0.54377, 0.54377)",
+      "plane (0.601501, -0.601501, 0.371748, -0.371748)"
      ],
      "side": {
-      "sign": -1,
+      "sign": 1,
       "share": 1.0
      }
     },
     "F4": {
      "status": "exact",
      "surface": "plane (1, -0, -0, -0)",
-     "off": 0.0,
+     "share_of_Y": 0.627,
+     "curve_off": 0.0,
      "side": {
       "sign": 1,
       "share": 1.0
@@ -4215,70 +5222,20 @@
   }
  },
  "unverified": [
-  "F1 edge X13: unverified: the line has no exact surface through its points",
-  "F1 cut by X28: close",
-  "F4 edge E1: unverified: no surface through the line other than the wall's own",
-  "F4 edge T1: unverified: no surface through the line other than the wall's own",
-  "F5 edge E1: unverified: no surface through the line other than the wall's own",
-  "F5 edge X8: unverified: the line has no exact surface through its points",
-  "F5 edge X29: unverified: no surface through the line other than the wall's own",
-  "T2 edge T1: unverified: no surface through the line other than the wall's own",
-  "T2 edge X1: unverified: the line has no exact surface through its points",
-  "T2 edge X4: unverified: no surface through the line other than the wall's own",
-  "X3 edge X1: unverified: the line has no exact surface through its points",
-  "X9 edge T1: unverified: no surface through the line other than the wall's own",
-  "X9 edge X5: unverified: the line has no exact surface through its points",
-  "X9 cut by X10: unverified: no surface of X10 through the curve (best X10:1127, off 5.2e-03)",
-  "X10 edge X8: unverified: the line has no exact surface through its points",
-  "X11 edge X6: unverified: the line has no exact surface through its points",
-  "X11 cut by X94: unverified: no surface of X94 through the curve (best X94, off 3.2e-04)",
-  "X14 edge X4: unverified: no surface through the line other than the wall's own",
-  "X14 edge X6: unverified: the line has no exact surface through its points",
-  "X15 edge X4: unverified: no surface through the line other than the wall's own",
-  "X15 edge X6: unverified: the line has no exact surface through its points",
-  "X17 edge X2: unverified: the line has no exact surface through its points",
-  "X17 edge X4: unverified: no surface through the line other than the wall's own",
-  "X17 cut by X31: unverified: no surface of X31 through the curve (best plane (0, 0.707107, 0, -0.707107), off 2.8e-01)",
-  "X19 edge X2: unverified: the line has no exact surface through its points",
-  "X19 edge X6: unverified: the line has no exact surface through its points",
-  "X19 edge X17: unverified: no surface of X17 through the curve (best plane (-0, -0.336068, 0.336068, 0.879839), off 1.6e-01)",
-  "X20 edge X5: unverified: the line has no exact surface through its points",
-  "X20 edge X8: unverified: the line has no exact surface through its points",
+  "F1 edge X13: unverified: no surface through the line other than the wall's own",
+  "F5 edge X8: unverified: no piece of the line comes near the wall",
+  "X3 edge E2: unverified: no surface through the line other than the wall's own",
+  "X3 edge X1: unverified: no surface through the line other than the wall's own",
+  "X9 edge X5: unverified: no surface through the line other than the wall's own",
+  "X14 cut by X25: unverified: no surface holds X25's points next to the curve",
   "X20 cut by F5: unverified: the cutting wall's edge on it is not traced",
-  "X21 edge X5: unverified: the line has no exact surface through its points",
-  "X21 edge X8: unverified: the line has no exact surface through its points",
-  "X21 edge X97: unverified: no surface through the line other than the wall's own",
-  "X22 edge X13: unverified: the line has no exact surface through its points",
-  "X23 edge E1: unverified: no surface through the line other than the wall's own",
-  "X23 edge X5: unverified: the line has no exact surface through its points",
-  "X25 edge X2: unverified: the line has no exact surface through its points",
-  "X26 edge X2: unverified: the line has no exact surface through its points",
   "X26 cut by X79: unverified: the cutting wall's edge on it is not traced",
-  "X27 edge X97: unverified: no surface through the line other than the wall's own",
-  "X31 edge X13: unverified: the line has no exact surface through its points",
-  "X38 edge E1: unverified: no surface through the line other than the wall's own",
-  "X39 edge X8: unverified: the line has no exact surface through its points",
-  "X41 edge E1: unverified: no surface through the line other than the wall's own",
-  "X41 edge X96: unverified: no surface of X96 through the curve (best plane (0, 0.707107, -0.707107, 0), off 2.9e-01)",
-  "X42 edge X2: unverified: the line has no exact surface through its points",
-  "X44 edge X24: unverified: no surface through the line other than the wall's own",
-  "X44 edge X81: unverified: no surface through the line other than the wall's own",
-  "X52 edge X8: unverified: the line has no exact surface through its points",
-  "X79 edge X81: unverified: no surface through the line other than the wall's own",
+  "X39 edge X23: unverified: no surface holds X23's points next to the curve",
+  "X42 edge X2: unverified: no surface through the line other than the wall's own",
+  "X52 edge X8: unverified: no surface through the line other than the wall's own",
   "X79 cut by X26: unverified: the cutting wall's edge on it is not traced",
-  "X82 edge X13: unverified: the line has no exact surface through its points",
-  "X85 edge X2: unverified: the line has no exact surface through its points",
-  "X86 edge X2: unverified: the line has no exact surface through its points",
-  "X87 edge X2: unverified: the line has no exact surface through its points",
-  "X88 edge X2: unverified: the line has no exact surface through its points",
-  "X89 edge X2: unverified: the line has no exact surface through its points",
-  "X90 edge X2: unverified: the line has no exact surface through its points",
-  "X91 edge X2: unverified: the line has no exact surface through its points",
-  "X92 edge X2: unverified: the line has no exact surface through its points",
-  "X96 edge T1: unverified: no surface through the line other than the wall's own",
-  "X96 edge X5: unverified: the line has no exact surface through its points",
-  "X98 edge X24: unverified: no surface through the line other than the wall's own",
-  "X98 edge X29: unverified: no surface through the line other than the wall's own",
-  "X99 edge E1: unverified: no surface through the line other than the wall's own"
+  "X91 edge X2: unverified: no surface through the line other than the wall's own",
+  "X92 edge X2: unverified: no surface through the line other than the wall's own",
+  "X94 edge X11: unverified: no surface holds X11's points next to the curve"
  ]
 }
