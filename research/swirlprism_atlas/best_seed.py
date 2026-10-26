@@ -36,7 +36,10 @@ def ratio(b):
     if _one(b)[0] != TID:
         return np.inf
     V = generate_vertices_from_seed(seed_from_beta(b), ACTION, tol=1e-9)
-    faces, _ = compute_convex_hull(V, tol=1e-9)
+    try:
+        faces, _ = compute_convex_hull(V, tol=1e-9)
+    except ValueError:                                   # (an ambiguous hull: a point on the edge of the shape)
+        return np.inf
     E = np.array([tuple(e) for e in hull_edges(faces)])
     L = np.linalg.norm(V[E[:, 0]] - V[E[:, 1]], axis=1)
     return float(L.max() / L.min())
