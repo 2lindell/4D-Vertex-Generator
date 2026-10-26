@@ -26,7 +26,7 @@ from t2_pieces import extended
 
 FOLD = np.eye(4)[[1, 0, 3, 2]]
 # (known end points of a cut, as exact betas: the cut's surface must pass through them)
-CUT_ENDS = {("X96", "X41"): {"C4": [0, 1, 1, 1]}}
+CUT_ENDS = {("X96", "X41"): {"C4": [0, 1, 1, 1]}, ("X14", "X25"): {"C1": [1, 1, 1, 1]}}
 TOL = 3e-6
 
 
