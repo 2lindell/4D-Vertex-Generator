@@ -25,7 +25,7 @@ import edge_curves as ec
 import optimal_seeds as osd
 import region_walls as rw
 
-OFF = 1e-7
+OFF = 3e-6                   # (the page keeps 6 decimals of a line's points)
 
 
 def nrm(b):
@@ -71,7 +71,9 @@ def main():
     own = {}
     for w in work["walls"]:
         if w in X:
-            own[w] = [w] if w in byname else []
+            V = nrm(np.array(X[w]["tris"], float).reshape(-1, 4))[::7][:300]
+            fits = sorted((float(np.median(dist(c, V))), c.name) for c in curved)
+            own[w] = [fits[0][1]] if fits and fits[0][0] < 1e-8 else []
         else:
             ns = []
             for p in fp:
@@ -109,18 +111,27 @@ def main():
 
         def for_line(L):
             ld = line_defs.get(L)
-            if not ld or not ld["surfaces"]:
+            if not ld or not ld["surfaces"] or tb is None:
                 return {"status": "unverified: the line has no exact surface through its points"}
-            cand = [n for n in sorted(set.intersection(*map(set, ld["surfaces"])) or set(ld["surfaces"][0]))
+            # (the pieces of the line next to the wall's own piece, and the surfaces through each of them)
+            near = [(P, S) for P, S in zip([P for P in pieces[L] if len(P) >= 3], ld["surfaces"])
+                    if tb.query(P)[0].min() < 0.02]
+            if not near:
+                return {"status": "unverified: no piece of the line comes near the wall"}
+            if not any(S for _, S in near):
+                return {"status": "unverified: the line has no exact surface through its points"}
+            cand = [n for n in sorted(set.intersection(*[set(S) for _, S in near if S]))
                     if n not in rec["surface"]]
             cand.sort(key=lambda n: (not n.startswith("plane"), n))
             if not cand:
                 return {"status": "unverified: no surface through the line other than the wall's own"}
-            pts = np.vstack(pieces[L])
-            return {"status": "exact", "surface": cand[0], "also": cand[1:6], "line_surfaces": ld["surfaces"],
+            pts = np.vstack([P for P, _ in near])
+            return {"status": "exact", "surface": cand[0], "also": cand[1:6],
                     **({"side": side(byname[cand[0]], pts)} if cand[0] in byname else {})}
 
         def for_wall(Y, C):
+            if len(C) and tb is not None:                  # (the curve next to the wall's own piece only)
+                C = C[tb.query(C)[0] < 0.015]
             if not len(C):
                 return {"status": "unverified: no points where they meet"}
             names = [s.name for s in LIB if s.name == Y or s.name.startswith(Y + ":") or s.name in own.get(Y, [])]
