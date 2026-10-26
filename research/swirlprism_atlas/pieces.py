@@ -266,6 +266,22 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000):
 
 
 
+def ends_here(w, S, run, h):
+    """The wall ends along the run: at most points inside it, one side (just off it along S) is the wall, the other not."""
+    if len(run) < 5:
+        return False
+    hits = 0
+    for i in np.linspace(1, len(run) - 2, 5).astype(int):
+        p, t = run[i], run[i + 1] - run[i - 1]
+        T_ = np.linalg.svd(np.vstack([grad(S, p), np.ones(4), t]))[2][-1]
+        sides = []
+        for sg in (1, -1):
+            y = nrm(project([S], p + sg * 3 * h * T_))
+            sides.append(in_half(y) and _one(y)[0] == w)
+        hits += sides[0] != sides[1]
+    return hits >= 3
+
+
 def line_pieces_on(L, S, GG, LIB):
     """The pieces of a line (its verified pieces carried by every group element) lying on the surface S in the
     half-cell, each with the library surfaces through it."""
@@ -327,10 +343,10 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
         print(f"{w} on {Sname}: no point of the wall on this surface", flush=True)
         return None
     stretches = []
+    on_S = {e: line_pieces_on(ex["lines"][e], S, GG, LIB) for e in work["walls"][w]["edges"] if e in ex["lines"]}
     for e in work["walls"][w]["edges"]:
         if e in ex["lines"]:
-            L = ex["lines"][e]
-            for P, Sn in line_pieces_on(L, S, GG, LIB):
+            for P, Sn in on_S[e]:
                 cand = []
                 for n in Sn:
                     if n == Sname or n not in LIB:
@@ -358,6 +374,45 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
                 for c in C:
                     for run in trace(S, LIB[rr["surface"]], c, C):
                         stretches.append(Stretch(e, run, LIB[rr["surface"]], "edge"))
+            # (a copy of the other wall may meet this one at the same corners: every other image of its surfaces
+            # through a corner, traced, where the wall does end along it (its two sides not both the wall))
+            bases = {n.split(":")[0] for n in ex["walls"].get(e, {}).get("surface", [])}
+            used = {rr["surface"] for rr in ([r] if r.get("surface") else []) + r.get("more", [])}
+            C = [np.asarray(c, float) for rr in ([r] if r.get("surface") else []) + r.get("more", [])
+                 for c in rr.get("corners", [])]
+            C = [c for c in C if (np.abs(c) < 1e-6).sum() < 2]
+            for n, sY in LIB.items():
+                if n in used or n == Sname or n.split(":")[0] not in bases:
+                    continue
+                for c in C:
+                    if abs(fval(sY, c)) / (np.linalg.norm(grad(sY, c)) + 1e-300) > 1e-6:
+                        continue
+                    for run in trace(S, sY, nrm(project([S, sY], c)), C):
+                        if ends_here(w, S, run, h):
+                            stretches.append(Stretch(e, run, sY, "edge"))
+    # (an end of one of the wall's lines inside the half-cell, where none of its other lines is: a wall edge meets it
+    # there, perhaps a copy of that wall (an image of its surface through the end), whose curve bounds the patch too)
+    allP = [(e, P) for e, ps in on_S.items() for P, _ in ps if np.linalg.norm(P[-1] - P[0]) > 1e-6]   # (not a lone point)
+    same = lambda P, Q: min(np.linalg.norm(P[0] - Q[0]) + np.linalg.norm(P[-1] - Q[-1]),
+                            np.linalg.norm(P[0] - Q[-1]) + np.linalg.norm(P[-1] - Q[0])) < 2e-4   # (the same piece twice)
+    walls_e = [e for e in work["walls"][w]["edges"] if e not in ex["lines"]]
+    for e, P in allP:
+        for p in (P[0], P[-1]):
+            if p.min() < 1e-6 or p[2] - p[3] < 1e-6 or any(
+                    Q is not P and not same(P, Q) and np.min(np.linalg.norm(Q - p, axis=1)) < 1e-4 for _, Q in allP):
+                continue
+            for Y in walls_e:
+                bases = {n.split(":")[0] for n in ex["walls"].get(Y, {}).get("surface", [])}
+                for n, sY in LIB.items():
+                    if n == Sname or n.split(":")[0] not in bases or isinstance(sY, osd.Plane) != (n.startswith("plane")):
+                        continue
+                    if abs(fval(sY, p)) / (np.linalg.norm(grad(sY, p)) + 1e-300) > 1e-4:
+                        continue
+                    if any(s_.surf is sY and s_.tree is not None and s_.tree.query(p)[0] < 2 * h for s_ in stretches):
+                        continue
+                    c = nrm(project([S, sY], p))
+                    for run in trace(S, sY, c, [c]):
+                        stretches.append(Stretch(Y, run, sY, "edge"))
     # (a flat wall's other planes: where its patches meet, a seam that bounds this patch)
     for n in own:
         if n != Sname:
