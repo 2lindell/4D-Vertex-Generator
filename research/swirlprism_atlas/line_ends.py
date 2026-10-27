@@ -274,7 +274,31 @@ def snap(d):
                 r.pop("unrefined", None)
 
 
+def check_piece(job):
+    """Is a stored piece its line? Points along it moved onto its two surfaces, classified."""
+    L_, k, P, names = job
+    P = np.asarray(P, float)
+    ab = pair(P, names)
+    if ab is None:
+        return (L_, k, len(P), None, [])
+    A, B = lib()[ab[0]], lib()[ab[1]]
+    Q = [nrm(P[0] * (1 - s) + P[1] * s) for s in np.linspace(0.1, 0.9, 5)] if len(P) == 2 else \
+        [P[i] for i in np.linspace(1, len(P) - 2, 5).astype(int)]
+    return (L_, k, len(P), ab, [lab(nrm(project([A, B], q))) for q in Q])
+
+
+def check_all():
+    ex = json.load(open("exact_defs.json"))["lines"]
+    jobs = [(L_, k, P, ex[L_]["surfaces"][k]) for L_ in ex for k, P in enumerate(ex[L_]["points"]) if len(P) >= 2]
+    with Pool(4) as pool:
+        for L_, k, n, ab, labs in pool.imap_unordered(check_piece, jobs):
+            print(("OK  " if labs and all(x == L_ for x in labs) else "BAD "), L_, k, n, ab, labs, flush=True)
+
+
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["--check"]:
+        check_all()
+        sys.exit()
     if sys.argv[1:2] == ["--refine"]:
         refine_all()
     elif sys.argv[1:2] == ["--snap"]:
