@@ -70,7 +70,25 @@ def corner(i):
     return lab_edge(osd.home(pc.nrm(JOBS[i])))
 
 
+def named_points():
+    """The named points, exactly: each line's ends that are points (working data) and the cross-ring points."""
+    work = json.load(open("working_data.json"))
+    out = [(p["name"], np.array(p["beta"], float)) for p in json.load(open("cross_ring_points.json"))["points"]
+           if p["name"] != "icosafold point"]
+    for v in work.get("lines", {}).values():
+        for e in v.get("ends", []):
+            if e.get("status") == "point" and e.get("at"):
+                x = np.array(e["at"], float)
+                if not any(np.linalg.norm(x - y) < 1e-7 for _, y in out):
+                    out.append((e["on"], x))
+    return out
+
+
+NAMED_POINTS = []
+
+
 def main():
+    NAMED_POINTS[:] = named_points()
     work = json.load(open("working_data.json"))
     P = json.load(open("pieces.json"))
     dims = {w: "wall" for w in work["walls"]}
@@ -201,15 +219,27 @@ def main():
                     if d < 0.04:
                         for r in Pr[i]:
                             reg[r]["lines"].add(n)
-            for name, lb, x in cpts.get((w, k), []):
-                if name.startswith(("new", "ERR", "OUT")):
+            # (points: the named points, exact (the lines' ends and the cross-ring points), lying on this wall's surface
+            # at its piece's boundary, belong to the parts beside them there)
+            S = lib()[pt["surface"]]
+            Bp = np.array([x for sg in segs for x, _ in sg], float)
+            tb = cKDTree(Bp)
+            for name, x in NAMED_POINTS:
+                if tb.query(x)[0] > 0.012 or abs(pc.fval(S, x)) / (np.linalg.norm(pc.grad(S, x)) + 1e-300) > 1e-8:
                     continue
                 d, i = tx.query(x)
                 if d < 0.04:
                     for r in Pr[i]:
                         reg[r]["points"].add(name)
+    # (a line that only touches a region at one of its points, without bounding it along its length: partial)
+    ends = {L_: {e["on"] for e in v.get("ends", []) if e.get("status") == "point"}
+            for L_, v in work.get("lines", {}).items()}
+    for r, v in reg.items():
+        v["lines_partial"] = {L_ for L_, pts in ends.items() if L_ not in v["lines"] and pts & v["points"]}
     out = {"_about": __doc__.strip().split("\n\n")[0], "walls": walls_out,
-           "regions": {r: {"walls": dict(sorted(v["walls"].items())), "lines": sorted(v["lines"]),
+           "regions": {r: {"walls": dict(sorted(v["walls"].items())),
+                           "lines": {**{L_: "full" for L_ in sorted(v["lines"])},
+                                     **{L_: "partial (touches at a point)" for L_ in sorted(v["lines_partial"])}},
                            "points": sorted(v["points"])} for r, v in sorted(reg.items())}}
     json.dump(out, open("piece_regions.json", "w"), indent=1)
     print(f"{len(walls_out)} walls; {len(out['regions'])} regions")

@@ -6,7 +6,9 @@ Links (all from working_data.json), each tagged with where it comes from:
   - "column": a shape's boundary list in the page's key (its points, lines and walls);
   - "separates": a wall's two sides;
   - "region walls": a region's walls (a wall bounding it only in part, as its piece shows, is marked as partial);
-  - "region boundary": the lines and points bounding a region's walls' pieces;
+  - "region boundary": the lines and points bounding a region's walls' pieces (a line touching it only at a point is
+    marked as partial);
+  - "ends on": a line's ends, solved exactly from its equations (line_ends.py): the points or lines it ends on;
   - "faces": the measured sections of each wall between two regions (sections/, as region_build left them), with
     their areas.
 Each node also carries its example seed's evenness (optimal_seeds.json). The nodes are laid out by the two main
@@ -106,6 +108,14 @@ def main():
                 add(i_, r, "separates")
             for c in W[i_]["cuts"]:
                 add(i_, c["by"], "crosses" if c.get("crossing") else "ends on it")
+        elif n["dim"] == "line" and i_ in work.get("lines", {}):
+            # (a line's ends, solved exactly from its equations: the points or lines it ends on)
+            ends = [e for e in work["lines"][i_]["ends"] if e.get("status") in ("point", "line")]
+            n["bounds"] = sorted({e["on"] for e in ends})
+            n["ends_unresolved"] = [e.get("on", e.get("why")) for e in work["lines"][i_]["ends"]
+                                    if e.get("status") not in ("point", "line")]
+            for b in n["bounds"]:
+                add(i_, b, "ends on")
         elif n["dim"] in ("line", "point"):
             for b in n["bounds"]:
                 if N_DIM.get(b) in ("line", "point"):
@@ -113,10 +123,15 @@ def main():
         elif n["dim"] == "region":
             R = work["regions"].get(i_, {})
             ext = R.get("wall_extent", {})
-            n["bounds"] = R.get("walls", []) + R.get("lines", []) + R.get("points", [])
+            lines = R.get("lines", {})
+            if isinstance(lines, list):
+                lines = {L_: "full" for L_ in lines}
+            n["bounds"] = R.get("walls", []) + list(lines) + R.get("points", [])
             for w in R.get("walls", []):
                 add(i_, w, "region walls", part=i_ if ext.get(w) == "partial" else None)
-            for x in R.get("lines", []) + R.get("points", []):
+            for x, how in lines.items():
+                add(i_, x, "region boundary", part=i_ if how != "full" else None)
+            for x in R.get("points", []):
                 add(i_, x, "region boundary")
     edges = list(E.values())
     C = np.array([n["c"] for n in nodes])
