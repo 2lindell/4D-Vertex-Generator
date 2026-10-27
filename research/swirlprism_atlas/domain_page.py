@@ -64,10 +64,33 @@ def frame():
 PV, UV, RV = frame()
 
 
-def view(B):
-    """Betas (rows) to the half-cell view."""
+def _gnom(B):
     X = np.atleast_2d(np.asarray(B, float)) @ TCELL
     return (X / (X @ PV)[:, None]) @ UV.T / RV
+
+
+def turn():
+    """The view turned so the splitting mirror b3 = b4 (the plane through the middle of the tetrahedron) is the top face,
+    level, with the corner V1 = b (1, 0, 0, 0) at the back (+y, away from the default camera)."""
+    F = _gnom([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, .5, .5]])
+    z = np.cross(F[1] - F[0], F[2] - F[0])
+    z /= np.linalg.norm(z)
+    inner = _gnom([[.3, .3, .3, .1]])[0]                      # (a point with b3 > b4: inside, below the top face)
+    if (inner - F[0]) @ z > 0:
+        z = -z
+    c = _gnom(CORNERS).mean(0)
+    y = _gnom([[1, 0, 0, 0]])[0] - c
+    y -= (y @ z) * z
+    y /= np.linalg.norm(y)
+    return np.vstack([np.cross(y, z), y, z]), c
+
+
+ROT, CEN = turn()
+
+
+def view(B):
+    """Betas (rows) to the half-cell view (centred on the corners' centroid, turned by ROT)."""
+    return (_gnom(B) - CEN) @ ROT.T
 
 
 def chart(B):
@@ -175,7 +198,7 @@ def clip_polyline(P, tol=1e-9):
 # ---------------------------------------------------------------- meshes
 
 def coarsen(T, G, tags):
-    """Vertex merging on a grid in betas (boundary vertices on a grid 4 times finer, so edges stay in place):
+    """Vertex merging on a grid in betas (boundary vertices kept exactly, so edges stay in place):
     (vertices, faces, tag per face)."""
     Vu, inv = np.unique(T.reshape(-1, 4).round(12), axis=0, return_inverse=True)
     F = inv.ravel().reshape(-1, 3)
@@ -183,7 +206,9 @@ def coarsen(T, G, tags):
     e, c = np.unique(E, axis=0, return_counts=True)
     bnd = np.zeros(len(Vu), bool)
     bnd[e[c == 1].ravel()] = True
-    key = np.where(bnd[:, None], np.round(Vu[:, :3] / (G / 4)) * 4 + 1, np.round(Vu[:, :3] / G) * 4).astype(np.int64)
+    # (a boundary vertex is kept exactly where it is, so the wall's edges stay on its lines)
+    key = np.round(Vu[:, :3] / G).astype(np.int64)
+    key[bnd] = np.c_[np.flatnonzero(bnd), np.zeros((bnd.sum(), 2), np.int64)]
     key = np.c_[key, bnd]
     _, first, cl = np.unique(key, axis=0, return_index=True, return_inverse=True)
     V, I = Vu[first], cl.ravel()[F]
@@ -212,6 +237,50 @@ class Sides:
         tree, pairs = self.by[surf]
         d, i = tree.query(X)
         return [pairs[j] if dd < 0.03 else None for dd, j in zip(d, i)]
+
+
+def patch_sides(pt, sides):
+    """The two regions beside each triangle of a patch: the patch split into its parts at its cuts (the triangles a cut
+    passes through set aside), each part given the pair most of its classified points show, and the triangles along a
+    cut the pair of the nearest part."""
+    from collections import Counter
+
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+    T = np.array(pt["tris"], float)
+    C = T.mean(1)
+    own = sides(pt["surface"], C)
+    h = float(pt.get("h", 0.008))
+    near = np.zeros(len(T), bool)
+    for _, P in pt.get("cuts", []):
+        P = np.asarray(P, float)
+        for a, b in zip(P[:-1], P[1:]):
+            d = b - a
+            t = np.clip(((C - a) @ d) / max(d @ d, 1e-300), 0, 1)
+            near |= np.linalg.norm(C - (a + t[:, None] * d), axis=1) < 0.6 * h
+    _, inv = np.unique(T.reshape(-1, 4).round(10), axis=0, return_inverse=True)
+    F = inv.ravel().reshape(-1, 3)
+    E = np.concatenate([np.sort(F[:, [0, 1]], 1), np.sort(F[:, [1, 2]], 1), np.sort(F[:, [2, 0]], 1)])
+    tri = np.tile(np.arange(len(T)), 3)
+    order = np.lexsort((E[:, 1], E[:, 0]))
+    E, tri = E[order], tri[order]
+    same = (E[1:] == E[:-1]).all(1)
+    a, b = tri[:-1][same], tri[1:][same]
+    keep = ~near[a] & ~near[b]
+    n = len(T)
+    G = coo_matrix((np.ones(keep.sum()), (a[keep], b[keep])), shape=(n, n))
+    _, comp = connected_components(G, directed=False)
+    vote = {}
+    for c in np.unique(comp[~near]):
+        cnt = Counter(tuple(own[i]) for i in np.flatnonzero((comp == c) & ~near) if own[i])
+        vote[c] = cnt.most_common(1)[0][0] if cnt else None
+    out = [vote.get(comp[i]) if not near[i] else None for i in range(n)]
+    good = np.flatnonzero([o is not None for o in out])
+    if len(good):
+        tree = cKDTree(C[good])
+        for i in np.flatnonzero([o is None for o in out]):
+            out[i] = out[good[tree.query(C[i])[1]]]
+    return out
 
 
 def chains(segs, nd=9):
@@ -272,7 +341,7 @@ def wall_in_cell(w, rec, edges, sides, G):
         T = np.array(pt["tris"], float)
         if not len(T):
             continue
-        V, F, tg = coarsen(T, G, sides(pt["surface"], T.mean(1)))
+        V, F, tg = coarsen(T, G, patch_sides(pt, sides))
         rng = np.random.default_rng(0)
         B = [(np.array(a, float), np.array(b, float), na) for (a, na), (b, nb) in pt["boundary"]]
         Bs = np.array([a for a, _, _ in B]) if B else np.zeros((0, 4))
@@ -286,8 +355,12 @@ def wall_in_cell(w, rec, edges, sides, G):
             if not len(C):
                 continue
             cen = C.mean(1)
-            if tree is not None and (tree.query(cen)[0] < 0.006).mean() > 0.5:
-                continue                                   # (this image is a part already drawn)
+            # (a triangle lying on one already drawn, from an image that maps the wall onto itself or onto a copy
+            # already made, is left out: drawn twice, the two fight for depth and the wall shows static)
+            new = tree.query(cen)[0] > 0.5 * G if tree is not None else np.ones(len(C), bool)
+            if not new.any():
+                continue
+            C, S, cen = C[new], S[new], cen[new]
             tris.append(C)
             pairs += [tg[ok[s]] for s in S]
             kept = np.vstack([kept, cen])
@@ -314,7 +387,7 @@ def wall_in_cell_chart(rec, edges, sides, G):
         T = np.array(pt["tris"], float)
         if not len(T):
             continue
-        V, F, tg = coarsen(T, G, sides(pt["surface"], T.mean(1)))
+        V, F, tg = coarsen(T, G, patch_sides(pt, sides))
         seg = [(np.array(a, float), np.array(b, float)) for (a, na), (b, nb) in pt["boundary"] if na in edges]
         for fold in (False, True):
             Vf = V[:, FOLD] if fold else V
@@ -416,15 +489,39 @@ def write_base(page):
     print("domain_page_base.json written")
 
 
+def ring_betas(DC):
+    """The rings (cross rings and the main ring) of the old half-cell view as betas, corrected: on the face b4 = 0 the
+    old D3 stretch of the cross ring along the median b2 = b3 ran from the C1 point (0.567, 0.217, 0.217, 0) the wrong
+    way, across C3, D1 and C2a to the far end of the median; D3 there runs from that point to the corner V1."""
+    inv = DC["cellInv"]
+    out = {}
+    for key in ("rings", "main"):
+        out[key] = []
+        for r in DC[key]:
+            B = old_to_beta(r["pts"], inv)
+            if r["id"] == "D3" and np.abs(B[:, 3]).max() < 1e-4 and B[:, 0].min() < 0.1:
+                a = B[np.argmax(B[:, 0])]
+                B = np.linspace(a, [1.0, 0, 0, 0], 40)
+            out[key].append((r, B))
+    return out
+
+
 def move_cell_view(DC):
     """The fixed geometry of the half-cell view moved from the old view into the new projection."""
     inv = DC["cellInv"]
+    rb = ring_betas(DC)
+    for key in ("rings", "main"):
+        for r, B in rb[key]:
+            r["pts"] = B.tolist()                                # (as betas here: moved into the view below)
     mv = lambda pts: view(old_to_beta(pts, inv)).tolist() if len(pts) else []
     DC["samples"] = {k: [q + [p[3]] for q, p in zip(mv([p[:3] for p in v]), v)] for k, v in DC["samples"].items()}
     for key in ("uniform", "special"):
         for u in DC[key]:
             u["q"] = mv([u["q"]])[0]
-    for key in ("rings", "main", "segments", "qaxes", "regular"):
+    for key in ("rings", "main"):
+        for r in DC[key]:
+            r["pts"] = view(r["pts"]).tolist()
+    for key in ("segments", "qaxes", "regular"):
         for r in DC[key]:
             r["pts"] = mv(r["pts"])
     for f in DC["fdomain"]:
@@ -484,6 +581,7 @@ def main(out_path):
     ex = json.load(open("exact_defs.json"))["lines"]
     by = {t["id"]: t for t in DC["types"]}
     sides = Sides()
+    rb = ring_betas(DC)
     move_cell_view(DC)
     update_types(DC["types"], work, ex)
     ring_ids = {r["id"] for r in DC["rings"] + DC["main"]}
@@ -537,16 +635,15 @@ def main(out_path):
             if len(Pc) > 1:
                 for Pf in (Pc, Pc[:, FOLD]):
                     src[key].append({"id": L, "copy": False, **extra, "pts": thin_line(chart(Pf), LINE_TOL / 12).tolist(), "hover": hv})
-    # a region's wall pieces (the sides of each piece) and their edges
+    # a region's wall pieces (the sides of each piece) and their edges; the pieces in a file of their own beside the
+    # page (symmetry_domain_regions/cell/<id>.json), fetched when the region is selected
+    cell_files = {}
     for r, Cs in shell_cell.items():
         if by.get(r, {}).get("dim") != "region":
             continue
         C = np.array(Cs)
-        V, F, _ = coarsen(C, G_SHELL[0], [None] * len(C))
-        C = V[F]
         verts, faces = mesh(view(C.reshape(-1, 4)).reshape(-1, 3, 3), 4)
-        cell["regionShells"][r] = {"x": [p[0] for p in verts], "y": [p[1] for p in verts], "z": [p[2] for p in verts],
-                                   "i": [f[0] for f in faces], "j": [f[1] for f in faces], "k": [f[2] for f in faces]}
+        cell_files[r] = {"verts": verts, "faces": faces, "walls": work["regions"].get(r, {}).get("walls", [])}
         cell["regionEdges"][r] = [thin_line(view(np.array(c)), LINE_TOL).tolist() for c in chains(boundary_segments(C), 7)]
     for r, Cs in shell_src.items():
         if by.get(r, {}).get("dim") != "region":
@@ -561,15 +658,21 @@ def main(out_path):
     # the dodecahedron views: the same walls and lines, every image under the group, cut to each view
     empty = {"samples": {}, "uniform": [], "special": [], "rings": [], "main": [], "qaxes": [], "regular": [],
              "tpatches": [], "mirrors": [], "fdomain": [], "fcentre": [0, 0, 0]}
+    for key in ("rings", "main"):
+        src[key] = [{**r, "pts": chart(Bf).tolist()} for r, B in rb[key] for Bf in (B, B[:, FOLD])]
     dv.use_centre((1, 0, 0, 0))
     v1 = dv.view({**empty, **src})
-    ch = chamber_domain.view({**empty, **{k: v1[k] for k in ("xwalls", "xlines", "segments")}, "tpatches": []})
+    ch = chamber_domain.view({**empty, **{k: v1[k] for k in ("xwalls", "xlines", "segments", "rings", "main")},
+                              "tpatches": []})
     dv.use_centre((0, 0, 1, 1))
     # (a region's wall pieces in these views go in files of their own beside the page, fetched when it is selected:
     # symmetry_domain_regions/<view>/<id>.json; the page's own shells are emptied so the half-cell's are not shown)
     region_files = {}
     for vk, vw, new in (("v1", V1, v1), ("chambers", CH, ch)):
-        dv.tidy_lines(new, keys=("segments", "xlines"))
+        dv.tidy_lines(new, keys=("segments", "xlines", "rings", "main"))
+        vw["rings"], vw["main"] = new["rings"], new["main"]
+        vw["edges"], vw["edgesOnRing"] = vw["edges"] + vw.get("edgesOnRing", []), []
+        dv.split_edges_on_rings(vw)
         vw["regionShells"], vw["regionEdges"] = {}, {}
         for w in [w for w in new["xwalls"] if w["id"].startswith("__region_")]:
             verts, faces = mesh(w["tris"], 3)
@@ -590,8 +693,12 @@ def main(out_path):
         vw["segments"] = [{**s, "pts": thin_line(s["pts"], LINE_TOL / 4).tolist()} for s in new["segments"]]
         vw["regionEdges"] = {}          # (as before: these views show a region's wall pieces, without their edges)
         vw["tpatches"] = []
+    for r, m in cell_files.items():
+        region_files[f"cell/{r}.json"] = m
     DC.update(cell)
+    DC["regionShells"], DC["regionWallsIds"] = {}, sorted(cell_files)
     DC["tpatches"] = []
+    DC["camera"] = {"eye": {"x": 0.35, "y": -1.6, "z": 0.8}, "center": {"x": 0, "y": 0, "z": -0.1}, "up": {"x": 0, "y": 0, "z": 1}}
     lo, hi = np.min([view(CORNERS).min(0)], 0)[0], np.max([view(CORNERS).max(0)], 0)[0]
     DC["bounds"] = [lo.tolist(), hi.tolist()]
 
@@ -604,7 +711,7 @@ def main(out_path):
     shutil.rmtree(rdir, ignore_errors=True)
     for f, m in region_files.items():
         (rdir / f).parent.mkdir(parents=True, exist_ok=True)
-        (rdir / f).write_text(dump3(m))
+        (rdir / f).write_text(dump(m) if f.startswith("cell/") else dump3(m))
     html = (template.replace("__TYPE_CSS__", base["type-css"]).replace("__DATA__", dump(DC)).replace("__DODECA__", "{}")
             .replace("__PIECE__", "{}").replace("__V1__", dump3(V1)).replace("__CHAMBERS__", dump3(CH))
             .replace("__COHESIVE__", "{}"))

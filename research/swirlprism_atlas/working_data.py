@@ -71,6 +71,135 @@ CROSSINGS = [("X26", "X79", "tested: X26 lies in b3 = b2 + b4 and runs through X
               "X72 and X73 swap sides on X79 there")]
 
 
+def settle_ring(r1, r2, sides, same=None, touch=None):
+    """The ring round a line stretch, settled from its two readings by the known contacts on the full 3-sphere: each
+    wall crossed round the line must have the regions before and after it as its two sides, and must be known to touch
+    the line (touch: the walls with the line as an edge, or passing through it, or meeting their own image along it).
+    A crossing that breaks this hides what the ring stepped over (a wall it could not name, ERR, or thin regions): it is
+    replaced by the shortest chain of regions and walls that fits, if there is just one (a tie is decided by what the
+    other reading saw), keeping the wall that was seen. Settled when both readings come out the same; or when one has
+    more (thin regions the other stepped over) and every extra wall touches the line. Else None.
+    Returns (ring, notes on what was settled)."""
+    same = same or {}
+    touch = set(touch or ())
+    adj = {}
+    for w, rs_ in sides.items():
+        for a in rs_:
+            for b in rs_:
+                if a != b:
+                    adj.setdefault(a, []).append((w, b))
+        if same.get(w):
+            adj.setdefault(same[w], []).append((w, same[w]))
+
+    def ok(w, a, b):
+        if w not in sides:
+            return False
+        return (a == b and same.get(w) == a) or (a != b and {a, b} <= sides[w])
+
+    def parse(ring):
+        rs, ws = [], []
+        for x in ring:
+            if x.startswith("["):
+                if len(ws) < len(rs):
+                    ws.append(x.strip("[]"))
+                elif ws:
+                    ws[-1] = x.strip("[]")
+            else:
+                if rs and len(ws) < len(rs):
+                    ws.append(None)                       # (two regions with nothing named between them)
+                rs.append(x)
+        if len(ws) < len(rs):
+            ws.append(None)
+        return rs, ws
+
+    def chains(a, b, w, seen, depth=3, any_wall=False):
+        """Shortest chains a [w1] x1 [w2] ... b, walls touching the line, the wall seen (w) among them if it is known."""
+        known = w in sides
+        out, frontier = [], [((), a)]
+        for _ in range(depth):
+            nxt = []
+            for path, at in frontier:
+                for v, x in adj.get(at, []):
+                    if touch and v not in touch and v not in seen_ok and not any_wall:
+                        continue
+                    p = path + ((v, x),)
+                    if x == b:
+                        if not known or any(u == w for u, _ in p):
+                            out.append(p)
+                    elif x not in (a, b) and all(x != y for _, y in path):
+                        nxt.append((p, x))
+            if out:
+                break
+            frontier = nxt
+        if len(out) > 1:                                  # (a tie: what the other reading saw decides)
+            out = [p for p in out if all(v in seen and (x in seen or x == b) for v, x in p)] or out
+        return out
+
+    def fix(ring, seen):
+        rs, ws = parse(ring)
+        if any(r in ("ERR", "OUT") for r in rs):
+            return None, []
+        notes, out = [], []
+        n = len(rs)
+        for k in range(n):
+            a, b, w = rs[k], rs[(k + 1) % n], ws[k]
+            if a == b and (w is None or w == "ERR"):
+                continue                                  # (the same region on both sides of nothing: one region)
+            out.append(a)
+            if ok(w, a, b):                               # (seen, with the right sides: evidence it touches the line)
+                out.append(f"[{w}]")
+                continue
+            c = chains(a, b, w, seen)
+            if not c:                                     # (no known contact fits: a chain that is the only one
+                c = chains(a, b, w, seen, any_wall=True)  # possible at all, its walls then touch the line)
+                if len(c) == 1:
+                    inferred.update(v for v, _ in c[0] if v not in touch and v not in seen_ok)
+            if len(c) != 1:
+                return None, []
+            for v, x in c[0]:
+                out.append(f"[{v}]")
+                if x != b:
+                    out.append(x)
+            notes.append(f"{a} [{w}] {b}: " + " ".join(f"[{v}] {x}" for v, x in c[0]))
+        return out, notes
+
+    def canon(ring):
+        k = min(range(0, len(ring), 2), key=lambda i: tuple(ring[i:] + ring[:i])) if ring else 0
+        return tuple(ring[k:] + ring[:k])
+
+    def within(small, big):
+        """Is the cyclic ring small the cyclic ring big with some stretches left out?"""
+        S, B_ = [x for x in small if not x.startswith("[")], [x for x in big if not x.startswith("[")]
+        for k in range(len(B_)):
+            R_ = B_[k:] + B_[:k]
+            j = 0
+            for y in R_:
+                if j < len(S) and y == S[j]:
+                    j += 1
+            if j == len(S):
+                return True
+        return False
+
+    inferred = set()
+    seen = {x.strip("[]") for x in r1 + r2}
+    seen_ok = {r[k].strip("[]") for r in (r1, r2) for k in range(1, len(r), 2)
+               if ok(r[k].strip("[]"), r[k - 1], r[(k + 1) % len(r)])}
+    f1, n1 = fix(r1, seen)
+    f2, n2 = fix(r2, seen)
+    if f1 is None or f2 is None:
+        return None, []
+    notes = sorted(set(n1 + n2))
+    if inferred:
+        notes.append(f"walls that must touch the line though nothing lists it: {', '.join(sorted(inferred))}")
+    if canon(f1) == canon(f2):
+        return f1, notes + ([] if r1 == r2 else ["the two readings agree once settled"])
+    big, small = (f1, f2) if len(f1) > len(f2) else (f2, f1)
+    extra = {x.strip("[]") for x in big if x.startswith("[")} - {x.strip("[]") for x in small if x.startswith("[")}
+    if within(small, big) and extra <= (touch | seen_ok):
+        return big, notes + [f"one reading stepped over thin regions; their walls ({', '.join(sorted(extra))}) touch the line"]
+    return None, []
+
+
 def key(x):
     return (x[0], int("".join(c for c in x[1:] if c.isdigit()) or 0), x)
 
@@ -194,16 +323,31 @@ def main():
     # points along it; a wall's piece between regions a and b has the line L where L's ring shows the wall between
     # a and b; a region has L where it appears in L's ring, all along it (full) or along part of it (partial))
     RT = json.load(open("ring_test.json"))["rings"] if os.path.exists("ring_test.json") else {}
-    ring_lines, piece_lines, ring_unsure = {}, {}, {}
+    ring_lines, piece_lines, ring_unsure, ring_settled, contacts_found = {}, {}, {}, {}, {}
+    sides_of = {w: set(sep[w]) for w in walls}
+    # (the walls known to touch each line: it is one of their edges, they pass through it, or meet their own image along it)
+    touch = {}
+    for w in walls:
+        for L_ in set(outline.get(w, {}).get("edges", [])) | set(THROUGH.get(w, [])) | set(SELF_MEET.get(w, [])):
+            touch.setdefault(L_, set()).add(w)
     for L_, stretches in RT.items():
         if L_ not in line_pts:
             continue
         total, have = 0.0, {}
         for st in stretches:
-            ring = st["ring"]
-            if not st.get("agree", True) or any("ERR" in x or "OUT" in x for x in ring):
+            ring, how = settle_ring(st["ring"], st.get("ring2", st["ring"]), sides_of, SAME_BOTH_SIDES, touch.get(L_))
+            if ring is None:
                 ring_unsure.setdefault(L_, []).append([st.get("from"), st.get("to")])
                 continue
+            for k_ in range(1, len(ring), 2):           # (a wall seen round the line that its data does not list)
+                w_ = ring[k_].strip("[]")
+                if w_ not in touch.get(L_, set()):
+                    n_ = sum(1 for y in ring if y == ring[k_])
+                    contacts_found.setdefault(L_, {})[w_] = "ends on it (met once round it)" if n_ == 1 else \
+                        f"passes through it or meets its own image along it (met {n_} times round it)"
+            if how:
+                ring_settled.setdefault(L_, []).append({"from": st.get("from"), "to": st.get("to"), "ring": " ".join(ring),
+                                                        "how": how})
             ln = st.get("length", 1.0)
             total += ln
             for r in {x for x in ring if not x.startswith("[")}:
@@ -218,6 +362,10 @@ def main():
             ring_lines.setdefault(r, {})[L_] = "full" if ln >= 0.98 * total else "partial"
     if ring_unsure:
         to_check["ring_stretches_unsure"] = ring_unsure
+    if ring_settled:
+        to_check["ring_stretches_settled"] = ring_settled
+    if contacts_found:
+        to_check["contacts_found_by_rings"] = contacts_found
 
     def piece_data(r):
         """A region's walls' extent (full or partial: from their pieces, piece_regions.py), and its lines and points
