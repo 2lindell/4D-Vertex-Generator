@@ -267,19 +267,20 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000):
 
 
 def ends_here(w, S, run, h):
-    """The wall ends along the run: at most points inside it, one side (just off it along S) is the wall, the other not."""
+    """The wall ends along the run: at most of the points tested inside it, one side (just off it along S) is the wall
+    and the other not (sides past the half-cell's faces tell nothing)."""
     if len(run) < 5:
         return False
-    hits = 0
-    for i in np.linspace(1, len(run) - 2, 5).astype(int):
+    hits = tried = 0
+    for i in np.linspace(1, len(run) - 2, 7).astype(int):
         p, t = run[i], run[i + 1] - run[i - 1]
         T_ = np.linalg.svd(np.vstack([grad(S, p), np.ones(4), t]))[2][-1]
-        sides = []
-        for sg in (1, -1):
-            y = nrm(project([S], p + sg * 3 * h * T_))
-            sides.append(in_half(y) and _one(y)[0] == w)
-        hits += sides[0] != sides[1]
-    return hits >= 3
+        ys = [nrm(project([S], p + sg * 3 * h * T_)) for sg in (1, -1)]
+        if not all(in_half(y) for y in ys):
+            continue
+        tried += 1
+        hits += (_one(ys[0])[0] == w) != (_one(ys[1])[0] == w)
+    return tried >= 3 and hits >= 0.6 * tried
 
 
 def line_pieces_on(L, S, GG, LIB):
@@ -412,7 +413,8 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
                         continue
                     c = nrm(project([S, sY], p))
                     for run in trace(S, sY, c, [c]):
-                        stretches.append(Stretch(Y, run, sY, "edge"))
+                        if ends_here(w, S, run, h):
+                            stretches.append(Stretch(Y, run, sY, "edge"))
     # (a flat wall's other planes: where its patches meet, a seam that bounds this patch)
     for n in own:
         if n != Sname:
