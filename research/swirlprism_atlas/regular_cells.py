@@ -106,33 +106,6 @@ def _solve(job):
     return kind, b0.tolist(), b.tolist(), float(np.abs(r.fun[:-1]).max())
 
 
-def find(kind, types):
-    """Solve for a regular cell from the deepest golden sample of each given type (plus two random ones)."""
-    from multiprocessing import Pool
-
-    from core import identify, REFS
-    refs = REFS
-    xids = json.load(open("atlas_xids.json"))
-    by_type = {}
-    for s in json.load(open("golden_22.json")):
-        cid, xkey, _ = identify(s["sig"])
-        t = cid or xids.get(xkey)
-        if t in types:
-            b = np.array(s["beta"], float)
-            by_type.setdefault(t, []).append(b / b.sum())
-    rng = np.random.default_rng(0)
-    starts = []
-    for t, bs in sorted(by_type.items()):
-        picks = [max(bs, key=lambda x: x.min())] + [bs[i] for i in rng.choice(len(bs), min(2, len(bs)), replace=False)]
-        starts += [(kind, b) for b in picks]
-    out = []
-    with Pool(4) as pool:
-        for r in pool.imap_unordered(_solve, starts):
-            out.append(r)
-            print(np.round(r[1], 4).tolist(), "->", r[2] and np.round(r[2], 8).tolist(), r[3], flush=True)
-    json.dump(out, open(f"regular_{kind}_minima.json", "w"))
-
-
 def prism_residual(beta):
     """(side edge / pentagon edge - 1, full defect) for the pentagonal prisms at beta; None without prisms.
 
@@ -181,54 +154,6 @@ def _bis_prism(job, steps=40):
             b = m
     rm = prism_residual((a + b) / 2)
     return ((a + b) / 2).tolist(), rm
-
-
-def prism_curves(n=12):
-    """Marching triangles on each prism-carrying plane for side/base = 1, kept in the displayed half."""
-    from multiprocessing import Pool
-
-    from xloci import _order, _section
-    jobs, tri = [], []
-    for name, nrm in PRISM_PLANES.items():
-        nrm = np.array(nrm, float)
-        poly = _order(_section([nrm]), nrm)
-        c = np.mean(poly, axis=0)
-        for k in range(len(poly)):
-            a, b = poly[k], poly[(k + 1) % len(poly)]
-            idx = {}
-            for i in range(n + 1):
-                for j in range(n + 1 - i):
-                    idx[(i, j)] = len(jobs)
-                    jobs.append((i * a + j * b + (n - i - j) * c) / n)
-            for i in range(n):
-                for j in range(n - i):
-                    tri.append((name, idx[(i, j)], idx[(i + 1, j)], idx[(i, j + 1)]))
-                    if i + j + 2 <= n:
-                        tri.append((name, idx[(i + 1, j)], idx[(i + 1, j + 1)], idx[(i, j + 1)]))
-    print(len(jobs), "grid points", flush=True)
-    with Pool(4) as pool:
-        res = pool.map(_res, jobs, chunksize=8)
-        edges = {}
-        for name, *vs in tri:
-            for u, w in ((vs[0], vs[1]), (vs[1], vs[2]), (vs[2], vs[0])):
-                ru, rw = res[u], res[w]
-                if ru and rw and len(ru) == len(rw):
-                    for k in range(len(ru)):
-                        if np.sign(ru[k][0]) != np.sign(rw[k][0]):
-                            edges.setdefault((min(u, w), max(u, w), k), (name, jobs[u], jobs[w], k))
-        keys = list(edges)
-        hits = pool.map(_bis_prism, [(edges[e][1], edges[e][2], e[2], e[2]) for e in keys])
-    crossing = {e: h for e, h in zip(keys, hits) if h}
-    segs = []
-    for name, *vs in tri:
-        pts = [crossing[(min(u, w), max(u, w), k)][0] for u, w in ((vs[0], vs[1]), (vs[1], vs[2]), (vs[2], vs[0]))
-               for k in range(3) if (min(u, w), max(u, w), k) in crossing]
-        if len(pts) == 2:
-            segs.append({"plane": name, "pts": pts})
-    out = {"segments": segs, "points": [{"beta": h[0], "res": h[1]} for h in crossing.values()]}
-    json.dump(out, open("regular_prism_curves.json", "w"))
-    worst = max((r[1] for h in crossing.values() for r in (h[1] or [])), default=None)
-    print(len(segs), "segments,", len(crossing), "crossings; largest full defect on them", worst)
 
 
 def antiprism_residuals(v, faces, cells):
@@ -308,7 +233,7 @@ def _anti_solve(b0):
 def antiprism_find(count=48):
     """Solve from golden samples spread over the cell (only those whose antiprisms are already close)."""
     from multiprocessing import Pool
-    S = json.load(open("golden_22.json"))
+    S = json.load(open("golden_seeds.json"))["seeds"]
     rng = np.random.default_rng(2)
     B = [np.array(s["beta"], float) / sum(s["beta"]) for s in S]
     B = [b for b in B if b.min() > 0.02]                        # inside, away from faces
@@ -333,7 +258,7 @@ def _trace_one(job, h0=0.02, max_steps=120, h_min=2e-4):
     for the first step, then the secant through the last two points (robust where the two conditions are
     tangent, as on the X32 segment); corrector: least squares across the curve; the step halves when a
     correction fails and the trace stops below h_min (the regular antiprism has gone or the cell's edge)."""
-    from probe import _one
+    from core import label as _one
     from scipy.optimize import least_squares
     b, sign = job
     b = np.asarray(b, float)
@@ -415,7 +340,7 @@ def antiprism_segments():
     """Straight pieces the tracer cannot follow (the two conditions are tangent there, so the Jacobian has
     rank 1): solutions that line up are joined, and each line is bisected to where the regular antiprism ends.
     Appended to regular_antiprism_curves.json."""
-    from probe import _one
+    from core import label as _one
     sols = [np.array(r[1]) for r in json.load(open("regular_antiprism_minima.json"))
             if r[1] and isinstance(r[2], list) and r[2][0] < 1e-8]
     curves = json.load(open("regular_antiprism_curves.json"))
@@ -466,27 +391,6 @@ def main():
     if sys.argv[1] == "antiprism_find":
         antiprism_find()
         return
-    if sys.argv[1] == "prism_curves":
-        prism_curves()
-        return
-    if sys.argv[1] == "find":
-        find(sys.argv[2], sys.argv[3].split(","))
-        return
-    if sys.argv[1] == "survey":
-        from core import identify, REFS
-        refs = REFS
-        xids = json.load(open("atlas_xids.json"))
-        seen = {}
-        for s in json.load(open("golden_22.json")):
-            cid, xkey, _ = identify(s["sig"])
-            tid = cid or xids.get(xkey)
-            b = np.array(s["beta"], float)
-            if tid and (tid not in seen or b.min() > seen[tid].min()):
-                seen[tid] = b
-        for tid, b in sorted(seen.items()):
-            r = cell_defects(b / b.sum())
-            if r:
-                print(tid, {k: (n, round(m, 4)) for k, (n, m, _) in r.items()}, flush=True)
 
 
 def _regular_at(job):
