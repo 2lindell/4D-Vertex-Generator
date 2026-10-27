@@ -6735,7 +6735,20 @@
       "plane (0.295242, 0.955423, 0, 0)"
      ],
      "side": 1,
-     "side_votes": 60
+     "side_votes": 118
+    },
+    "C2a": {
+     "status": "exact",
+     "line": "C2a",
+     "wall_surface": "X38",
+     "surface": "plane (-0, -0.336068, 0.336068, 0.879839)",
+     "also": [
+      "plane (0, -0.707107, 0.707107, 0)",
+      "plane (0, 0.707107, -0.707107, 0)",
+      "X10"
+     ],
+     "side": 1,
+     "side_votes": 258
     },
     "E1": {
      "status": "exact",
@@ -6748,7 +6761,7 @@
       "X39:1977:fold"
      ],
      "side": 1,
-     "side_votes": 200
+     "side_votes": 258
     }
    },
    "cuts": {}

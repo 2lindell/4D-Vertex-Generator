@@ -33,10 +33,10 @@ FILLS = [
 THROUGH = {"X53": ["D1"], "X94": ["X78"]}
 # (lines where a wall meets its own image, closing a wedge region by itself: ring test, X32 between two sheets of X15
 # and X30 between two sheets of X83 around X78)
-SELF_MEET = {"X15": ["X78"], "X83": ["X78"], "X14": ["C2b"], "X25": ["C2b"]}   # (X14, X25: a different copy of
-# the wall across C2b, as with X38 between X68 and its copy: C2b is their edge, not a line they go through)
+SELF_MEET = {"X15": ["X78"], "X83": ["X78"], "X14": ["C2b"], "X25": ["C2b"], "X38": ["C2a"]}   # (X14, X25: a different copy of
+# the wall across C2b, X38 across C2a (on the face b4=0): their edge, not a line they go through)
 # (edges the traced data misses, found by the ring test: the wall is met once around the line, so it ends there)
-EDGE_FILLS = {"F5": ["E1", "X20"], "X27": ["X2"]}   # (F5 ends on X20, cutting it; X27 ends on X2: checked by hand)
+EDGE_FILLS = {"F5": ["E1", "X20"], "X27": ["X2"], "X38": ["C2a"]}   # (F5 ends on X20, cutting it; X27 ends on X2: checked by hand)
 # (edges the rule keeps that are not edges: the wall meets its own image across a face of the cell there (ring test
 # with the neighbouring cell brought back by the group: the wall twice round the line), so it goes on through it)
 EDGE_DROPS = {"F5": ["X8"]}   # (F5: the sides labelled X8 classify as F5)
