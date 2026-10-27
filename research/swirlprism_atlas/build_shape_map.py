@@ -6,8 +6,8 @@ Links (all from working_data.json), each tagged with where it comes from:
   - "column": a shape's boundary list in the page's key (its points, lines and walls);
   - "separates": a wall's two sides;
   - "region walls": a region's walls (a wall bounding it only in part, as its piece shows, is marked as partial);
-  - "region boundary": the lines and points bounding a region's walls' pieces (a line touching it only at a point is
-    marked as partial);
+  - "region boundary": the lines on a region's boundary (where two of its walls meet, an edge of a wall lying wholly on
+    it, or where one of its walls meets its own copy) and their end points;
   - "ends on": a line's ends, solved exactly from its equations (line_ends.py): the points or lines it ends on;
   - "faces": the measured sections of each wall between two regions (sections/, as region_build left them), with
     their areas.

@@ -184,17 +184,35 @@ def main():
     PR = json.load(open("piece_regions.json")) if os.path.exists("piece_regions.json") else {}
     to_check = {}
 
+    LE = json.load(open("line_ends.json"))["lines"] if os.path.exists("line_ends.json") else {}
+    line_pts = {L_: sorted({r["on"] for r in rs if r["type"] == "ends" and r["on"] not in LE
+                            and not r["on"].startswith(("unnamed", "ERR", "new:"))
+                            and r["on"] not in walls and r["on"] not in regions})
+                for L_, rs in LE.items()}
+
     def piece_data(r):
-        """A region's walls' extent (full or partial), lines and points, as its walls' pieces show them: only for the
-        walls verified beside it; what the pieces show beyond that is listed under pieces_to_check, not taken."""
-        if r not in PR.get("regions", {}):
-            return {}
-        pr, mine = PR["regions"][r], rw_.get(r, set())
-        extent = {w: pr["walls"].get(w, "not found beside it in the pieces") for w in sorted(mine, key=key)}
-        extra = sorted((w for w in pr["walls"] if w not in mine), key=key)
-        if extra:
-            to_check.setdefault("region_walls", {})[r] = extra
-        return {"wall_extent": extent, "lines": pr["lines"], "points": pr["points"]}
+        """A region's walls' extent (full or partial: from their pieces, piece_regions.py), and its lines and points
+        from the walls' own boundaries: a line is on the region's boundary where two of its walls meet along it, where
+        a wall lying wholly on it has it as an edge, or where one of its walls meets its own copy along it; the
+        points are those lines' ends."""
+        mine = rw_.get(r, set())
+        extent = {}
+        if r in PR.get("regions", {}):
+            pr = PR["regions"][r]
+            extent = {w: pr["walls"].get(w, "not found beside it in the pieces") for w in sorted(mine, key=key)}
+            extra = sorted((w for w in pr["walls"] if w not in mine), key=key)
+            if extra:
+                to_check.setdefault("region_walls", {})[r] = extra
+        full = {w for w in mine if extent.get(w) == "full"}
+        lines_r = set()
+        for L_ in line_pts:
+            on = [w for w in mine if L_ in E.get(w, ())]
+            if len(on) >= 2 or any(w in full for w in on) or any(
+                    L_ in SELF_MEET.get(w, []) + FACE_EDGES.get(w, []) for w in on):
+                lines_r.add(L_)
+        pts = sorted({p for L_ in lines_r for p in line_pts[L_]}, key=key)
+        return {"wall_extent": extent, "lines": sorted(lines_r, key=key), "points": pts}
+
     out = {
         "_about": __doc__.strip().split("\n\n")[0],
         "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS] + deduced,
@@ -206,7 +224,8 @@ def main():
         "crossings": [{"walls": [a, b_], "why": why} for a, b_, why in CROSSINGS],
         "same_both_sides": SAME_BOTH_SIDES,
         "new_walls": NEW_WALLS,
-        "walls": {w: {"edges": sorted(E[w], key=key), "through": THROUGH.get(w, []),
+        "walls": {w: {"edges": sorted(E[w], key=key),
+                      "boundary_points": sorted({p for L_ in E[w] if L_ in line_pts for p in line_pts[L_]}, key=key), "through": THROUGH.get(w, []),
                       **({"both_sides": SAME_BOTH_SIDES[w]} if w in SAME_BOTH_SIDES else {}), "points": outline.get(w, {}).get("points", []),
                       "regions": sorted(sep[w], key=key), "cuts_needed": max(len(sep[w]) - 2, 0), "cuts": cuts[w]}
                   for w in walls},
