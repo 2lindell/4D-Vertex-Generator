@@ -42,7 +42,7 @@ HALF = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 
 CORNERS = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]])
 FOLD = [1, 0, 3, 2]
 G_CELL = 0.012          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
-G_DODECA = 0.06         # (... for the dodecahedron views, which hold about 20 half-cells)
+G_DODECA = 0.08         # (... for the dodecahedron views, which hold about 20 half-cells)
 G_SHELL = (0.03, 0.08)  # (a selected region's wall pieces, in the half-cell and the dodecahedron views)
 LINE_TOL = 1e-3         # (polylines kept where they turn by more than this, in view coordinates)
 BLOCKS = ("atlas-data", "atlas-v1", "atlas-chambers")
@@ -565,24 +565,28 @@ def main(out_path):
     v1 = dv.view({**empty, **src})
     ch = chamber_domain.view({**empty, **{k: v1[k] for k in ("xwalls", "xlines", "segments")}, "tpatches": []})
     dv.use_centre((0, 0, 1, 1))
-    for vw, new in ((V1, v1), (CH, ch)):
+    # (a region's wall pieces in these views go in files of their own beside the page, fetched when it is selected:
+    # symmetry_domain_regions/<view>/<id>.json; the page's own shells are emptied so the half-cell's are not shown)
+    region_files = {}
+    for vk, vw, new in (("v1", V1, v1), ("chambers", CH, ch)):
         dv.tidy_lines(new, keys=("segments", "xlines"))
         vw["regionShells"], vw["regionEdges"] = {}, {}
         for w in [w for w in new["xwalls"] if w["id"].startswith("__region_")]:
-            verts, faces = mesh(w["tris"], 4)
-            vw["regionShells"][w["id"][9:]] = {"x": [p[0] for p in verts], "y": [p[1] for p in verts], "z": [p[2] for p in verts],
-                                               "i": [f[0] for f in faces], "j": [f[1] for f in faces], "k": [f[2] for f in faces]}
+            verts, faces = mesh(w["tris"], 3)
+            r = w["id"][9:]
+            region_files[f"{vk}/{r}.json"] = {"verts": verts, "faces": faces, "walls": work["regions"].get(r, {}).get("walls", [])}
+        vw["regionWallsIds"] = sorted(f.split("/")[1][:-5] for f in region_files if f.startswith(vk + "/"))
         for s in [s for s in new["xlines"] if s["id"].startswith("__region_")]:
             vw["regionEdges"].setdefault(s["id"][9:], []).append(s["pts"])
         vw["xwalls"] = []
         for w in new["xwalls"]:
             if not w["id"].startswith("__region_"):
-                verts, faces = mesh(w["tris"], 4)
+                verts, faces = mesh(w["tris"], 3)
                 vw["xwalls"].append({**{a: b for a, b in w.items() if a != "tris"}, "verts": verts, "faces": faces})
-        vw["xlines"] = [{**s, "pts": thin_line(s["pts"], LINE_TOL).tolist()} for s in new["xlines"]
+        vw["xlines"] = [{**s, "pts": thin_line(s["pts"], 2 * LINE_TOL).tolist()} for s in new["xlines"]
                         if not s["id"].startswith("__region_")]
         vw["segments"] = [{**s, "pts": thin_line(s["pts"], LINE_TOL / 4).tolist()} for s in new["segments"]]
-        vw["regionEdges"] = {r: [thin_line(c, LINE_TOL).tolist() for c in cs] for r, cs in vw["regionEdges"].items()}
+        vw["regionEdges"] = {r: [thin_line(c, 2 * LINE_TOL).tolist() for c in cs] for r, cs in vw["regionEdges"].items()}
         vw["tpatches"] = []
     DC.update(cell)
     DC["tpatches"] = []
@@ -591,8 +595,16 @@ def main(out_path):
 
     template = open("cell_atlas2_template.html").read()
     dump = lambda o: json.dumps(rounded(o, 4), separators=(",", ":"))
+    dump3 = lambda o: json.dumps(rounded(o, 3), separators=(",", ":"))      # (the dodecahedron views: 3 places)
+    import shutil
+    from pathlib import Path
+    rdir = Path(out_path).parent / "symmetry_domain_regions"
+    shutil.rmtree(rdir, ignore_errors=True)
+    for f, m in region_files.items():
+        (rdir / f).parent.mkdir(parents=True, exist_ok=True)
+        (rdir / f).write_text(dump3(m))
     html = (template.replace("__TYPE_CSS__", base["type-css"]).replace("__DATA__", dump(DC)).replace("__DODECA__", "{}")
-            .replace("__PIECE__", "{}").replace("__V1__", dump(V1)).replace("__CHAMBERS__", dump(CH))
+            .replace("__PIECE__", "{}").replace("__V1__", dump3(V1)).replace("__CHAMBERS__", dump3(CH))
             .replace("__COHESIVE__", "{}"))
     open(out_path, "w").write(html)
     n = lambda D: sum(len(w["faces"]) for w in D["xwalls"])
