@@ -410,7 +410,90 @@ def check_all():
             print(("OK  " if labs and all(x == L_ for x in labs) else "BAD "), L_, k, n, ab, labs, flush=True)
 
 
+
+def passes():
+    """A followed path that passes through a known point lying on the line's curve (a cross-ring point, or another
+    line's named end) stops there: the line ends at that point (steps along the curve can pass over a single point)."""
+    d = json.load(open("line_ends.json"))
+    L = lib()
+    known = [(p["name"], np.array(p["beta"], float)) for p in json.load(open("cross_ring_points.json"))["points"]]
+    for rs in d["lines"].values():
+        for r in rs:
+            if r["type"] == "ends" and r.get("exact") and not r["on"].startswith(("unnamed", "new:", "ERR")) \
+                    and r["on"] not in d["lines"]:
+                known.append((r["on"], np.array(r["exact"], float)))
+    changed = []
+    for L_, rs in d["lines"].items():
+        for r in rs:
+            if not r.get("path") or r["type"] not in ("ends", "goes on across a face"):
+                continue
+            A, B = L[r["surfaces"][0]], L[r["surfaces"][1]]
+            on_curve = [(n, k) for n, k in known if dist(A, k) < 1e-8 and dist(B, k) < 1e-8]
+            P = np.asarray(r["path"], float)
+            for i in range(len(P) - 1):
+                a, y = P[i], P[i + 1]
+                hit = [(np.linalg.norm(k - a), n, k) for n, k in on_curve
+                       if np.linalg.norm(k - a) > 1e-9 and
+                       np.linalg.norm(k - a) + np.linalg.norm(y - k) - np.linalg.norm(y - a) < 1e-9]
+                if hit and i + 1 < len(P) - 1:
+                    _, n, k = min(hit, key=lambda h: h[0])
+                    r.update({"path": np.vstack([P[:i + 1], k]).round(12).tolist(), "exact": k.round(15).tolist(),
+                              "on": n, "type": "ends", "passed_point": True})
+                    changed.append((L_, r["piece"], r["side"], n))
+                    break
+    json.dump(d, open("line_ends.json", "w"), indent=1)
+    for c in changed:
+        print("stops at a point it passed:", c)
+
+
+def extend():
+    """The line pieces in exact_defs.json brought to their exact ends: a piece that stopped short goes on along its
+    curve to the end found; one that ran past it is cut back there; a piece that reaches a face of the half-cell stops
+    exactly on it. Pieces found not to be their line are dropped, and X45 (a region) is no longer a line."""
+    ex = json.load(open("exact_defs.json"))
+    d = json.load(open("line_ends.json"))["lines"]
+    for L_ in NOT_LINES:
+        ex["lines"].pop(L_, None)
+    for L_, v in ex["lines"].items():
+        pts = [np.asarray(P, float) for P in v["points"]]
+        for r in sorted(d.get(L_, []), key=lambda r: r["side"] != "end"):
+            if r["type"] not in ("ends", "goes on across a face") or not r.get("path"):
+                continue
+            P = pts[r["piece"]]
+            path = np.asarray(r["path"], float)
+            own, other = (P[-1], P[0]) if r["side"] == "end" else (P[0], P[-1])
+            if len(P) > 2 and np.linalg.norm(path[0] - own) < 1e-3 and \
+                    np.linalg.norm(path[-1] - other) < np.linalg.norm(path[-1] - own):
+                print(f"  {L_} piece {r['piece']} {r['side']}: the followed path turns back along the line; "
+                      f"the stored end kept")
+                continue
+            if r.get("exact"):
+                path[-1] = np.asarray(r["exact"], float)
+            if r["side"] == "end":
+                i0 = int(np.argmin(np.linalg.norm(P - path[0], axis=1)))
+                pts[r["piece"]] = np.vstack([P[:i0], path])
+            else:
+                i0 = int(np.argmin(np.linalg.norm(P - path[0], axis=1)))
+                pts[r["piece"]] = np.vstack([path[::-1], P[i0 + 1:]])
+        keep = [k for k in range(len(pts)) if (L_, k) not in DROP_PIECES]
+        v["points"] = [pts[k].round(12).tolist() for k in keep]
+        v["surfaces"] = [v["surfaces"][k] for k in keep]
+        v["pieces"] = len(keep)
+        v["ends"] = [{"on": r["on"], "at": r.get("exact") or r.get("approx")} for r in d.get(L_, [])
+                     if r["type"] == "ends"]
+    ex["_about_ends"] = "line pieces brought to their exact ends (line_ends.py --extend)"
+    json.dump(ex, open("exact_defs.json", "w"), indent=1)
+    for L_, v in sorted(ex["lines"].items()):
+        print(L_, [len(P) for P in v["points"]], sorted({e["on"] for e in v["ends"]}))
+
+
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["--passes"]:
+        passes()
+        sys.exit()
+    if sys.argv[1:2] == ["--extend"]:
+        extend()
+        sys.exit()
     if sys.argv[1:2] == ["--check"]:
         check_all()
         sys.exit()

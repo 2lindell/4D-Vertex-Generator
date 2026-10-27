@@ -2264,6 +2264,17 @@
     },
     {
      "status": "point",
+     "on": "C6",
+     "at": [
+      0.5,
+      0.5,
+      0.0,
+      0.0
+     ],
+     "exact": true
+    },
+    {
+     "status": "point",
      "on": "A1",
      "at": [
       0.0,
@@ -2275,11 +2286,33 @@
     },
     {
      "status": "point",
+     "on": "C6",
+     "at": [
+      0.5,
+      0.0,
+      0.5,
+      0.0
+     ],
+     "exact": true
+    },
+    {
+     "status": "point",
      "on": "A1",
      "at": [
       0.0,
       0.0,
       1.0,
+      0.0
+     ],
+     "exact": true
+    },
+    {
+     "status": "point",
+     "on": "C6",
+     "at": [
+      0.0,
+      0.5,
+      0.5,
       0.0
      ],
      "exact": true
