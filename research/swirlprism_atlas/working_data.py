@@ -36,7 +36,12 @@ THROUGH = {"X53": ["D1"], "X94": ["X78"]}
 SELF_MEET = {"X15": ["X78"], "X83": ["X78"], "X14": ["C2b"], "X25": ["C2b"], "X38": ["C2a"]}   # (X14, X25: a different copy of
 # the wall across C2b, X38 across C2a (on the face b4=0): their edge, not a line they go through)
 # (edges the traced data misses, found by the ring test: the wall is met once around the line, so it ends there)
-EDGE_FILLS = {"F5": ["E1", "X20"], "X27": ["X2"], "X38": ["C2a"]}   # (F5 ends on X20, cutting it; X27 ends on X2: checked by hand)
+EDGE_FILLS = {"F5": ["E1", "X20"], "X27": ["X2"], "X38": ["C2a"]}
+# (named lines lying on a face of the half-cell along a wall's piece: a named shape there is always an edge, where the
+# wall meets a different copy of itself across the face (sphere_complex.py found them; X53 goes through D1, verified))
+FACE_EDGES = {"F1": ["D3"], "F4": ["D2"], "T2": ["D1"], "X3": ["C3", "D1"], "X9": ["C2b", "D2"], "X10": ["C3"],
+              "X19": ["C2b", "D2"], "X20": ["D1"], "X23": ["D2"], "X26": ["D2", "D3"], "X40": ["D1", "D3"],
+              "X42": ["D2", "D3"], "X87": ["C3", "D3"], "X88": ["D3"]}   # (F5 ends on X20, cutting it; X27 ends on X2: checked by hand)
 # (edges the rule keeps that are not edges: the wall meets its own image across a face of the cell there (ring test
 # with the neighbouring cell brought back by the group: the wall twice round the line), so it goes on through it)
 EDGE_DROPS = {"F5": ["X8"]}   # (F5: the sides labelled X8 classify as F5)
@@ -77,7 +82,7 @@ def main():
         if not k.startswith("_"):
             B.setdefault(k, set(v))
     outline = json.load(open("wall_outline.json"))
-    for w, es in EDGE_FILLS.items():
+    for w, es in list(EDGE_FILLS.items()) + list(FACE_EDGES.items()):
         outline[w]["edges"] = sorted(set(outline[w]["edges"]) | set(es))
     for w, es in EDGE_DROPS.items():
         outline[w]["edges"] = sorted(set(outline[w]["edges"]) - set(es))
@@ -167,7 +172,7 @@ def main():
                 if dims.get(e) == "wall":
                     if e not in W and len(sep[w]) == 2:      # (a wall with more regions: maybe another's edge)
                         miss.append(f"{w} ends on {e}, not a wall of {r}")
-                elif r in reach.get(e, ()) and e not in SELF_MEET.get(w, []) and not any(
+                elif r in reach.get(e, ()) and e not in SELF_MEET.get(w, []) + FACE_EDGES.get(w, []) and not any(
                         e in E[v] or e in across[v] or e in B.get(v, set()) for v in W & set(walls) if v != w):
                     miss.append(f"{w}'s edge {e} meets no other wall of {r}")
         if miss:
@@ -194,6 +199,7 @@ def main():
         "through": THROUGH,
         "self_meet": SELF_MEET,
         "edge_fills": EDGE_FILLS,
+        "face_edges": FACE_EDGES,
         "edge_drops": EDGE_DROPS,
         "crossings": [{"walls": [a, b_], "why": why} for a, b_, why in CROSSINGS],
         "same_both_sides": SAME_BOTH_SIDES,

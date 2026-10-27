@@ -134,7 +134,9 @@ def relations(D, LIB):
                         close = dp["seam_tree"].query(Y)[0] < dp["h"]
                         Z = carry(dq["inner"][:8], gi)          # (the image lies on the plane p's seam names)
                         Z = Z[np.isfinite(Z).all(1)]
-                        if close.sum() >= 3 and surf_dist(dp["S"], Y[close][:5]).max() < 1e-8 and len(Z) and any(
+                        # (a seam on both sides: p's own seam points met as well, not a touch at a point)
+                        back = cKDTree(Y).query(dp["seam"])[0] < dp["h"] if len(Y) else np.zeros(0, bool)
+                        if close.sum() >= 10 and back.sum() >= 10 and surf_dist(dp["S"], Y[close][:5]).max() < 1e-8 and len(Z) and any(
                                 surf_dist(LIB[n], Z).max() < 1e-8 for n in dp["seam_planes"] if n in LIB):
                             how = "at a seam"
                 if how is None:
