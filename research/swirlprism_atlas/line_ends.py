@@ -415,6 +415,7 @@ def passes():
     """A followed path that passes through a known point lying on the line's curve (a cross-ring point, or another
     line's named end) stops there: the line ends at that point (steps along the curve can pass over a single point)."""
     d = json.load(open("line_ends.json"))
+    stored = json.load(open("exact_defs.json"))["lines"]
     L = lib()
     known = [(p["name"], np.array(p["beta"], float)) for p in json.load(open("cross_ring_points.json"))["points"]]
     for rs in d["lines"].values():
@@ -430,7 +431,12 @@ def passes():
             A, B = L[r["surfaces"][0]], L[r["surfaces"][1]]
             on_curve = [(n, k) for n, k in known if dist(A, k) < 1e-8 and dist(B, k) < 1e-8]
             P = np.asarray(r["path"], float)
-            for i in range(len(P) - 1):
+            # (only past the stored piece's own end: a line goes on through a point where other lines end on it, so
+            # the verified piece is never cut at one)
+            S0 = np.asarray(stored[L_]["points"][r["piece"]], float)
+            own = S0[-1] if r["side"] == "end" else S0[0]
+            i_own = int(np.argmin(np.linalg.norm(P - own, axis=1)))
+            for i in range(i_own, len(P) - 1):
                 a, y = P[i], P[i + 1]
                 hit = [(np.linalg.norm(k - a), n, k) for n, k in on_curve
                        if np.linalg.norm(k - a) > 1e-9 and
@@ -454,10 +460,16 @@ def extend():
     d = json.load(open("line_ends.json"))["lines"]
     for L_ in NOT_LINES:
         ex["lines"].pop(L_, None)
+    W = json.load(open("working_data.json"))
+    not_named = set(W["walls"]) | set(W["regions"])
+    unresolved = lambda on: on in not_named or on.startswith(("ERR", "unnamed", "new:"))
     for L_, v in ex["lines"].items():
         pts = [np.asarray(P, float) for P in v["points"]]
         for r in sorted(d.get(L_, []), key=lambda r: r["side"] != "end"):
             if r["type"] not in ("ends", "goes on across a face") or not r.get("path"):
+                continue
+            if r["type"] == "ends" and unresolved(r["on"]):     # (an end not yet named: the stored extent kept)
+                print(f"  {L_} piece {r['piece']} {r['side']}: end unresolved ({r['on'][:30]}); the stored end kept")
                 continue
             P = pts[r["piece"]]
             path = np.asarray(r["path"], float)
@@ -468,7 +480,11 @@ def extend():
                       f"the stored end kept")
                 continue
             if r.get("exact"):
-                path[-1] = np.asarray(r["exact"], float)
+                # (the end kept exactly on the line's own two surfaces: a point named from nearby is projected onto
+                # them)
+                A, B = lib()[r["surfaces"][0]], lib()[r["surfaces"][1]]
+                e = np.asarray(r["exact"], float)
+                path[-1] = e if dist(A, e) < 1e-9 and dist(B, e) < 1e-9 else nrm(project([A, B], e))
             if r["side"] == "end":
                 i0 = int(np.argmin(np.linalg.norm(P - path[0], axis=1)))
                 pts[r["piece"]] = np.vstack([P[:i0], path])
