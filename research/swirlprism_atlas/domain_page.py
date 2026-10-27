@@ -42,7 +42,9 @@ HALF = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 
 CORNERS = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]])
 FOLD = [1, 0, 3, 2]
 G_CELL = 0.012          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
-G_DODECA = 0.04         # (... for the dodecahedron views, which hold about 20 half-cells)
+G_DODECA = 0.06         # (... for the dodecahedron views, which hold about 20 half-cells)
+G_SHELL = (0.03, 0.08)  # (a selected region's wall pieces, in the half-cell and the dodecahedron views)
+LINE_TOL = 1e-3         # (polylines kept where they turn by more than this, in view coordinates)
 BLOCKS = ("atlas-data", "atlas-v1", "atlas-chambers")
 
 
@@ -136,19 +138,19 @@ def clip_tris(T):
     return C[keep], S[keep]
 
 
-def clip_polyline(P):
-    """A polyline (betas) cut to the half-cell: its pieces inside."""
+def clip_polyline(P, tol=1e-9):
+    """A polyline (betas) cut to the half-cell: its pieces inside (a piece lying in a face, to round-off, kept)."""
     runs, cur = [], []
     for a, b in zip(P[:-1], P[1:]):
         lo, hi = 0.0, 1.0
         for n in HALF:
             fa, fb = a @ n, b @ n
-            if fa < 0 and fb < 0:
+            if fa < -tol and fb < -tol:
                 lo, hi = 1, 0
                 break
-            if fa < 0:
+            if fa < -tol:
                 lo = max(lo, fa / (fa - fb))
-            elif fb < 0:
+            elif fb < -tol:
                 hi = min(hi, fa / (fa - fb))
         if hi - lo <= 1e-12:
             if len(cur) > 1:
@@ -214,7 +216,13 @@ class Sides:
 
 def chains(segs, nd=9):
     """Segments (pairs of points) joined end to end into polylines."""
-    key = lambda p: tuple(np.round(p, nd))
+    key = lambda p: tuple(np.round(p, nd) + 0.0)
+    uniq = {}
+    for a, b in segs:                                   # (a segment listed twice, or of no length, once or not at all)
+        ka, kb = key(a), key(b)
+        if ka != kb:
+            uniq.setdefault(tuple(sorted((ka, kb))), (a, b))
+    segs = list(uniq.values())
     adj = {}
     for n, (a, b) in enumerate(segs):
         adj.setdefault(key(a), []).append(n)
@@ -374,6 +382,17 @@ def thin_line(P, tol):
 
 # ---------------------------------------------------------------- the page
 
+def rounded(o, n):
+    """Every float in the page data rounded to n places (the only rounding: everything is computed at full precision)."""
+    if isinstance(o, float):
+        return round(o, n)
+    if isinstance(o, dict):
+        return {k: rounded(v, n) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [rounded(v, n) for v in o]
+    return o
+
+
 def read_blocks(html):
     out = {}
     for b in BLOCKS:
@@ -484,10 +503,10 @@ def main(out_path):
             verts, faces = mesh(Q, 4)
             cell["xwalls"].append({"id": w, "hover": hv, "copy": False, "verts": verts, "faces": faces})
             for line in g["solid"]:
-                cell["xlines"].append({"id": w, "outline": True, "copy": False, "pts": view(thin_line(line, 1e-6)).round(5).tolist(),
+                cell["xlines"].append({"id": w, "outline": True, "copy": False, "pts": thin_line(view(line), LINE_TOL).tolist(),
                                        "hover": f"{w} · edge of the wall"})
             for y, line in g["dashed"]:
-                cell["xlines"].append({"id": w, "outline": True, "copy": True, "pts": view(thin_line(line, 1e-6)).round(5).tolist(),
+                cell["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(view(line), LINE_TOL).tolist(),
                                        "hover": f"{w} · invisible cut, where {y} meets it (the wall goes on, between other regions)"})
             for C, pr in zip(g["tris"], g["pairs"]):
                 for r in pr or ():
@@ -496,10 +515,10 @@ def main(out_path):
         h = wall_in_cell_chart(P[w], edges, sides, G_DODECA)
         src["xwalls"].append({"id": w, "hover": hv, "copy": False, "tris": chart(h["tris"].reshape(-1, 4)).reshape(-1, 3, 3).tolist()})
         for line in h["solid"]:
-            src["xlines"].append({"id": w, "outline": True, "copy": False, "pts": chart(thin_line(line, 1e-6)).tolist(),
+            src["xlines"].append({"id": w, "outline": True, "copy": False, "pts": thin_line(chart(line), LINE_TOL / 3).tolist(),
                                   "hover": f"{w} · edge of the wall"})
         for y, line in h["dashed"]:
-            src["xlines"].append({"id": w, "outline": True, "copy": True, "pts": chart(thin_line(line, 1e-6)).tolist(),
+            src["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(chart(line), LINE_TOL / 3).tolist(),
                                   "hover": f"{w} · invisible cut, where {y} meets it"})
         for C, pr in zip(h["tris"], h["pairs"]):
             for r in pr or ():
@@ -512,28 +531,32 @@ def main(out_path):
         key = "segments" if L in seg_ids or by[L]["listed"] else "xlines"
         extra = {"selOnly": seg_ids.get(L, False)} if key == "segments" else {}
         for r in line_in_cell(v["points"]):
-            cell[key].append({"id": L, "copy": False, **extra, "pts": view(thin_line(r, 1e-7)).round(5).tolist(), "hover": hv})
+            cell[key].append({"id": L, "copy": False, **extra, "pts": thin_line(view(r), LINE_TOL / 4).tolist(), "hover": hv})
         for Pc in v["points"]:
             Pc = np.asarray(Pc, float)
             if len(Pc) > 1:
                 for Pf in (Pc, Pc[:, FOLD]):
-                    src[key].append({"id": L, "copy": False, **extra, "pts": chart(thin_line(Pf, 1e-7)).tolist(), "hover": hv})
+                    src[key].append({"id": L, "copy": False, **extra, "pts": thin_line(chart(Pf), LINE_TOL / 12).tolist(), "hover": hv})
     # a region's wall pieces (the sides of each piece) and their edges
     for r, Cs in shell_cell.items():
         if by.get(r, {}).get("dim") != "region":
             continue
         C = np.array(Cs)
+        V, F, _ = coarsen(C, G_SHELL[0], [None] * len(C))
+        C = V[F]
         verts, faces = mesh(view(C.reshape(-1, 4)).reshape(-1, 3, 3), 4)
         cell["regionShells"][r] = {"x": [p[0] for p in verts], "y": [p[1] for p in verts], "z": [p[2] for p in verts],
                                    "i": [f[0] for f in faces], "j": [f[1] for f in faces], "k": [f[2] for f in faces]}
-        cell["regionEdges"][r] = [view(thin_line(np.array(c), 1e-6)).round(5).tolist() for c in chains(boundary_segments(C), 7)]
+        cell["regionEdges"][r] = [thin_line(view(np.array(c)), LINE_TOL).tolist() for c in chains(boundary_segments(C), 7)]
     for r, Cs in shell_src.items():
         if by.get(r, {}).get("dim") != "region":
             continue
         C = np.array(Cs)
+        V, F, _ = coarsen(C, G_SHELL[1], [None] * len(C))
+        C = V[F]
         src["xwalls"].append({"id": f"__region_{r}", "hover": "", "tris": chart(C.reshape(-1, 4)).reshape(-1, 3, 3).tolist()})
         for c in chains(boundary_segments(C), 7):
-            src["xlines"].append({"id": f"__region_{r}", "pts": chart(thin_line(np.array(c), 1e-6)).tolist()})
+            src["xlines"].append({"id": f"__region_{r}", "pts": thin_line(chart(np.array(c)), LINE_TOL / 3).tolist()})
 
     # the dodecahedron views: the same walls and lines, every image under the group, cut to each view
     empty = {"samples": {}, "uniform": [], "special": [], "rings": [], "main": [], "qaxes": [], "regular": [],
@@ -556,8 +579,10 @@ def main(out_path):
             if not w["id"].startswith("__region_"):
                 verts, faces = mesh(w["tris"], 4)
                 vw["xwalls"].append({**{a: b for a, b in w.items() if a != "tris"}, "verts": verts, "faces": faces})
-        vw["xlines"] = [s for s in new["xlines"] if not s["id"].startswith("__region_")]
-        vw["segments"] = new["segments"]
+        vw["xlines"] = [{**s, "pts": thin_line(s["pts"], LINE_TOL).tolist()} for s in new["xlines"]
+                        if not s["id"].startswith("__region_")]
+        vw["segments"] = [{**s, "pts": thin_line(s["pts"], LINE_TOL / 4).tolist()} for s in new["segments"]]
+        vw["regionEdges"] = {r: [thin_line(c, LINE_TOL).tolist() for c in cs] for r, cs in vw["regionEdges"].items()}
         vw["tpatches"] = []
     DC.update(cell)
     DC["tpatches"] = []
@@ -565,7 +590,7 @@ def main(out_path):
     DC["bounds"] = [lo.tolist(), hi.tolist()]
 
     template = open("cell_atlas2_template.html").read()
-    dump = lambda o: json.dumps(o, separators=(",", ":"))
+    dump = lambda o: json.dumps(rounded(o, 4), separators=(",", ":"))
     html = (template.replace("__TYPE_CSS__", base["type-css"]).replace("__DATA__", dump(DC)).replace("__DODECA__", "{}")
             .replace("__PIECE__", "{}").replace("__V1__", dump(V1)).replace("__CHAMBERS__", dump(CH))
             .replace("__COHESIVE__", "{}"))
