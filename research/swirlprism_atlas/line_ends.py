@@ -174,7 +174,8 @@ def _follow(job):
 NOT_LINES = {"X45"}
 # (ends given by hand where the classifier reads something else: X81 ends on X2 and on A1, like X80 (its pieces 1 and
 # 3 run to the vertex, A1; the stretch before it reads as X79))
-USER_ENDS = {("X81", 1, "start"): "A1", ("X81", 3, "start"): "A1"}
+# X29 runs from X8 to A1 the same way (its pieces 1 and 3 run to the vertex; the stretch before it reads as F5)
+USER_ENDS = {("X81", 1, "start"): "A1", ("X81", 3, "start"): "A1", ("X29", 1, "end"): "A1", ("X29", 3, "end"): "A1"}
 
 
 def user_ends():
