@@ -118,8 +118,11 @@ def dens(P, h):
     return np.array(out)
 
 
-def build(w, S, stretches, ref, h=0.008, max_cells=120000):
-    """The piece: (triangles, boundary segments [(point, label), (point, label)], cut curves, capped)."""
+def build(w, S, stretches, ref, h=0.008, max_cells=120000, cuts=()):
+    """The piece: (triangles, boundary segments [(point, label), (point, label)], capped, parts). The parts are the
+    patch divided by its cuts the same way it is bounded by its edges: grown across mesh edges no cut crosses, each
+    triangle a cut passes through divided at the exact points where it crosses (on the wall's surface and the cutting
+    wall's); each part with its triangles and its boundary, and the parts meeting across each cut."""
     node = lambda n: C0 + U.T @ (h * np.asarray(n, float))
     Fn = {}
 
@@ -158,11 +161,11 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000):
         return out
     bars = [s for s in stretches if s.kind != "cut"]
 
-    def blocker(u, v):
+    def blocker(u, v, among=None):
         """The stretch cutting the mesh edge u-v, if any (its second surface changes sign along it, at a point on
         the stretch), and the exact point where it does."""
         a, b = verts[u], verts[v]
-        for s in bars:
+        for s in (bars if among is None else among):
             if s.tree is not None and s.tree.query((a + b) / 2)[0] > 2.5 * h:
                 continue
             fa, fb = fval(s.surf, a), fval(s.surf, b)
@@ -261,9 +264,115 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000):
     # (zero-area slivers left by the cuts are dropped)
     area = lambda t: np.linalg.norm(np.cross(*(U @ (np.asarray(t[1:]) - t[0]).T).T))
     out_tris = [t for t in out_tris if area(t) > 1e-14]
-    return out_tris, segs, len(cells) >= max_cells
+    parts = []
+    if cuts:
+        # (the parts: the reached vertices grown again, now across no mesh edge a cut crosses)
+        cuts = list(cuts)
+        part = {}
+        for k0 in reached:
+            if k0 in part:
+                continue
+            pid = len(parts)
+            parts.append(None)
+            part[k0] = pid
+            q = deque([k0])
+            while q:
+                k = q.popleft()
+                for m in adj.get(k, ()):
+                    if m in reached and m not in part and not blocker(k, m, cuts):
+                        part[m] = pid
+                        q.append(m)
+        ccache, links = {}, set()
+
+        def across(u, v):
+            """Where the mesh edge u-v (both ends reached, in different parts) crosses a cut: (point, label)."""
+            k = (u, v) if u < v else (v, u)
+            if k not in ccache:
+                bl = blocker(u, v, cuts)
+                ccache[k] = (bl[1], f"cut by {bl[0].name}") if bl else ((verts[u] + verts[v]) / 2, "cut by ?")
+                if bl:
+                    links.add((min(part[u], part[v]), max(part[u], part[v]), bl[0].name))
+            return ccache[k]
+        ptris = [[] for _ in parts]
+        psegs = [[] for _ in parts]
+        for c in cells:
+            for t in tris[c]:
+                ins = [k in reached for k in t]
+                if not any(ins):
+                    continue
+                for pid in {part[k] for k in t if k in reached}:
+                    poly, ends = [], []
+                    for a_ in range(3):
+                        u, v = t[a_], t[(a_ + 1) % 3]
+                        iu, iv = u in reached and part[u] == pid, v in reached and part[v] == pid
+                        if iu:
+                            poly.append(verts[u])
+                        if iu != iv:
+                            ki, ko = (u, v) if iu else (v, u)
+                            x, name = across(ki, ko) if ko in reached else boundary(ki, ko)
+                            poly.append(x)
+                            ends.append((x, name))
+                    for k in range(1, len(poly) - 1):
+                        tt = [poly[0], poly[k], poly[k + 1]]
+                        if area(tt) > 1e-14:
+                            ptris[pid].append(tt)
+                    if len(ends) == 2:
+                        psegs[pid].append(ends)
+        parts = [{"tris": ptris[i], "boundary": psegs[i]} for i in range(len(parts)) if ptris[i]]
+        keep = [i for i in range(len(ptris)) if ptris[i]]
+        renum = {i: n for n, i in enumerate(keep)}
+        parts = [dict(p, links=[[renum[j] if i == old else renum[i], y] for i, j, y in links
+                                 if old in (i, j) and i in renum and j in renum])
+                 for old, p in zip(keep, parts)]
+    return out_tris, segs, len(cells) >= max_cells, parts
 
 
+
+
+PIECES_OLD = json.load(open("pieces.json")) if os.path.exists("pieces.json") else {}   # (the walls as last built: their edges)
+
+
+class Image:
+    """A library surface carried by a group element g: f(x) = surface(g^-1 x)."""
+
+    def __init__(self, s, g):
+        self.s, self.ginv, self.name = s, np.linalg.inv(g), s.name
+
+    def f(self, X):
+        Y = np.atleast_2d(X) @ self.ginv.T
+        return self.s.f(Y / Y.sum(1, keepdims=True))
+
+
+def cut_edge_stretches(w, Y, S, LIB, GG, h, tol=1e-7):
+    """The cut of the wall w by Y on its surface S: Y's own edge on w (the boundary segments of Y's patches labelled
+    w), carried by each group element that lays segments of it on S in the half-cell; one stretch per image, with the
+    image of Y's surface (its second surface, for the side test). Joined end to end and densified."""
+    out = []
+    for pt in PIECES_OLD.get(Y, {}).get("patches", []):
+        segs = [(np.asarray(a, float), np.asarray(b, float)) for (a, na), (b, nb) in pt["boundary"] if na == w]
+        if not segs or pt["surface"] not in LIB:
+            continue
+        A = np.array([a for a, _ in segs])
+        Bv = np.array([b for _, b in segs])
+        for g in GG:
+            Ya, Yb = A @ g.T, Bv @ g.T
+            sa, sb = Ya.sum(1), Yb.sum(1)
+            if (np.abs(sa) < 1e-9).any() or (np.abs(sb) < 1e-9).any():
+                continue
+            Ya, Yb = Ya / sa[:, None], Yb / sb[:, None]
+            ok = np.array([in_half(a, tol) and in_half(b, tol) for a, b in zip(Ya, Yb)])
+            if not ok.any():
+                continue
+            on = np.array([all(abs(fval(S, y)) / (np.linalg.norm(grad(S, y)) + 1e-300) < 1e-6 for y in (a, b))
+                           for a, b in zip(Ya[ok], Yb[ok])])
+            if not on.any():
+                continue
+            key = tuple(np.round(np.sort(np.vstack([Ya[ok][on], Yb[ok][on]]), axis=0)[[0, -1]].ravel(), 6))
+            if any(k == key for k, _ in out):
+                continue                                   # (the same curve from another element)
+            pts = np.vstack([dens(np.array([a, b]), h / 4) for a, b in zip(Ya[ok][on], Yb[ok][on])])
+            out.append((key, Stretch(Y, pts, Image(LIB[pt["surface"]], g), "cut")))
+    return [s_ for _, s_ in out]
 
 
 def ends_here(w, S, run, h):
@@ -431,6 +540,16 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
             for c in C:
                 for run in trace(S, LIB[r["surface"]], c, C):
                     cuts.append(Stretch(Y, run, LIB[r["surface"]], "cut"))
+    # (the cuts that divide the patch into its pieces: each cutting wall's own edge on this wall (its boundary segments
+    # labelled w, solved exactly onto both surfaces), carried by every group element that lays it on this surface, so a
+    # cut runs only as far as the cutting wall really goes; a wall that crosses this one, both going on, has no such
+    # edge: its traced curve is used)
+    dividers = []
+    if PIECES_OLD:
+        for c in work["walls"][w].get("cuts", []):
+            Y = c["by"]
+            got = cut_edge_stretches(w, Y, S, LIB, GG, h)
+            dividers += got if got else [s_ for s_ in cuts if s_.name == Y]
     # (the reference point: of the seed's images on the wall's own surface, the one farthest from every stretch)
     far = lambda y: min([s.tree.query(y)[0] for s in stretches if s.tree is not None]
                         + [min(y.min(), (y[2] - y[3]) / 2)] or [1.0])
@@ -446,7 +565,7 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
                     tries.append(y)
         if tries:
             ref = max(tries, key=far)
-    tris, segs, capped = build(w, S, stretches, ref, h)
+    tris, segs, capped, parts = build(w, S, stretches, ref, h, cuts=dividers)
     T = np.array(tris)
     lab = Counter(n for sg in segs for _, n in sg)
     rng = np.random.default_rng(0)
@@ -459,7 +578,10 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
               "cuts": [[s.name, s.P.round(10).tolist()] for s in cuts],
               "check": {"share_classified_as_wall": round(cls.get(w, 0) / max(1, len(pts)), 3),
                         "classified": dict(cls.most_common(5))},
-              "bounded_by": dict(lab), "capped": capped}
+              "bounded_by": dict(lab), "capped": capped,
+              "parts": [{"tris": np.array(p["tris"]).round(10).tolist(),
+                         "boundary": [[[x.round(10).tolist(), n] for x, n in sg] for sg in p["boundary"]],
+                         "links": p["links"]} for p in parts]}
     print(f"{w} on {Sname}: {len(T)} triangles; {len(stretches)} stretches; bounded by {dict(lab)}; "
           f"points classified {dict(cls.most_common(4))}{' (capped)' if capped else ''}", flush=True)
     return rec

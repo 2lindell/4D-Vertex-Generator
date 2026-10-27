@@ -5,16 +5,16 @@ The page and its features stay as they are; what feeds it is rebuilt:
     straight lines and flat planes, so the half-cell's edges and faces are straight and flat), centred on the pole of
     the half-cell's four A1 corners (betas (1,0,0,0), (0,1,0,0), (0,0,1,0), (0,0,1/2,1/2)), so all four lie at the same
     distance from the centre (radius 1 in the view);
-  - walls: every wall piece (pieces.json) and every image of it under the symmetry group that reaches into the
-    half-cell, cut exactly at the half-cell's faces (the part outside discarded, no line drawn along the cut); copies
-    are drawn exactly like the pieces. A wall's real edges (working_data.json) are solid lines, the invisible cuts in
-    the middle of a wall dashed;
+  - walls: each wall's pieces (wall_parts.json: built by pieces.py out to the wall's exact edges and cuts, named from
+    the working data), each drawn as a mesh of its own, with every image of it under the symmetry group that reaches
+    into the half-cell, cut exactly at the half-cell's faces (the part outside discarded, no line drawn along the cut);
+    copies are drawn exactly like the pieces. A wall's real edges are solid lines; the invisible lines in the middle of
+    a wall (where a cut divides two of its pieces) dashed;
   - lines: the named lines' verified pieces (exact_defs.json), every image of them in the half-cell;
   - lists: a wall's boundary is its edges and points and it separates its regions; a region's boundary is its walls
     (partial where only part of the wall faces it), its lines and points; a line's boundary is what its ends lie on
     (all from working_data.json); the example seeds are the optimal seeds (optimal_seeds.json);
-  - a selected region shows the wall pieces beside it (the sides of each piece from piece_regions_cache.pkl, the
-    classified points stepped off the pieces) and their edges.
+  - a selected region shows the wall pieces with it on one side (the same triangles the walls draw) and their rims.
 The fixed geometry of the page (rings, axes, regular cells, the 2400 fundamental domain, H4 mirrors, the uniform and
 exact points, the golden samples) is exact and is taken from domain_page_base.json, moved into the new projection.
 The dodecahedron views map the same walls and lines (the half-cell's pieces and their fold images, under the group).
@@ -25,7 +25,6 @@ The dodecahedron views map the same walls and lines (the half-cell's pieces and 
 from __future__ import annotations
 
 import json
-import pickle
 import re
 import sys
 
@@ -43,7 +42,6 @@ CORNERS = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]])
 FOLD = [1, 0, 3, 2]
 G_CELL = 0.015          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
 G_DODECA = 0.1          # (... for the dodecahedron views, which hold about 20 half-cells)
-G_SHELL = (0.045, 0.08)  # (a selected region's wall pieces, in the half-cell and the dodecahedron views)
 LINE_TOL = 1e-3         # (polylines kept where they turn by more than this, in view coordinates)
 BLOCKS = ("atlas-data", "atlas-v1", "atlas-chambers")
 
@@ -219,70 +217,6 @@ def coarsen(T, G, tags):
     return V, I[k], [tg[i] for i in k]
 
 
-class Sides:
-    """The two regions beside a wall at a point: the classified points stepped off the pieces (piece_regions.py's
-    cache), nearest on the same surface."""
-
-    def __init__(self):
-        by = {}
-        for (surf, x), pair in pickle.load(open("piece_regions_cache.pkl", "rb")).items():
-            if surf == "self" or not isinstance(pair, (list, tuple)) or len(pair) != 2:
-                continue                                   # (a sample's own label, not the sides there)
-            by.setdefault(surf, []).append((np.asarray(x, float), tuple(pair) if pair else None))
-        self.by = {s: (cKDTree(np.array([x for x, _ in v])), [p for _, p in v]) for s, v in by.items()}
-
-    def __call__(self, surf, X):
-        if surf not in self.by:
-            return [None] * len(X)
-        tree, pairs = self.by[surf]
-        d, i = tree.query(X)
-        return [pairs[j] if dd < 0.03 else None for dd, j in zip(d, i)]
-
-
-def patch_sides(pt, sides):
-    """The two regions beside each triangle of a patch: the patch split into its parts at its cuts (the triangles a cut
-    passes through set aside), each part given the pair most of its classified points show, and the triangles along a
-    cut the pair of the nearest part."""
-    from collections import Counter
-
-    from scipy.sparse import coo_matrix
-    from scipy.sparse.csgraph import connected_components
-    T = np.array(pt["tris"], float)
-    C = T.mean(1)
-    own = sides(pt["surface"], C)
-    h = float(pt.get("h", 0.008))
-    near = np.zeros(len(T), bool)
-    for _, P in pt.get("cuts", []):
-        P = np.asarray(P, float)
-        for a, b in zip(P[:-1], P[1:]):
-            d = b - a
-            t = np.clip(((C - a) @ d) / max(d @ d, 1e-300), 0, 1)
-            near |= np.linalg.norm(C - (a + t[:, None] * d), axis=1) < 0.6 * h
-    _, inv = np.unique(T.reshape(-1, 4).round(10), axis=0, return_inverse=True)
-    F = inv.ravel().reshape(-1, 3)
-    E = np.concatenate([np.sort(F[:, [0, 1]], 1), np.sort(F[:, [1, 2]], 1), np.sort(F[:, [2, 0]], 1)])
-    tri = np.tile(np.arange(len(T)), 3)
-    order = np.lexsort((E[:, 1], E[:, 0]))
-    E, tri = E[order], tri[order]
-    same = (E[1:] == E[:-1]).all(1)
-    a, b = tri[:-1][same], tri[1:][same]
-    keep = ~near[a] & ~near[b]
-    n = len(T)
-    G = coo_matrix((np.ones(keep.sum()), (a[keep], b[keep])), shape=(n, n))
-    _, comp = connected_components(G, directed=False)
-    vote = {}
-    for c in np.unique(comp[~near]):
-        cnt = Counter(tuple(own[i]) for i in np.flatnonzero((comp == c) & ~near) if own[i])
-        vote[c] = cnt.most_common(1)[0][0] if cnt else None
-    out = [vote.get(comp[i]) if not near[i] else None for i in range(n)]
-    good = np.flatnonzero([o is not None for o in out])
-    if len(good):
-        tree = cKDTree(C[good])
-        for i in np.flatnonzero([o is None for o in out]):
-            out[i] = out[good[tree.query(C[i])[1]]]
-    return out
-
-
 def chains(segs, nd=9):
     """Segments (pairs of points) joined end to end into polylines."""
     key = lambda p: tuple(np.round(p, nd) + 0.0)
@@ -322,83 +256,87 @@ def on_face(a, b, tol=1e-7):
     return any(abs(a @ n) < tol and abs(b @ n) < tol for n in HALF)
 
 
-def boundary_segments(C):
-    """The edges of a triangle set (betas) used by one triangle, except those lying in a face of the half-cell."""
-    cnt = {}
-    key = lambda p: tuple(np.round(p, 7))
-    for t in C:
-        for a, b in ((t[0], t[1]), (t[1], t[2]), (t[2], t[0])):
-            k = tuple(sorted((key(a), key(b))))
-            cnt[k] = (cnt[k][0] + 1, a, b) if k in cnt else (1, a, b)
-    return [(a, b) for n, a, b in cnt.values() if n == 1 and not on_face(a, b)]
+def piece_rims(pc, edges):
+    """A piece's boundary segments by kind: its wall's real edges (solid), its cuts (dashed, with the cutting wall),
+    and its whole rim but the half-cell's faces and seams (the region's edges there)."""
+    solid, dashed, rim = [], [], []
+    for (a, na), (b, nb) in pc["boundary"]:
+        a, b = np.asarray(a, float), np.asarray(b, float)
+        if na in edges:
+            solid.append((a, b))
+        elif na.startswith("cut by"):
+            dashed.append((na[7:], a, b))
+        if not na.startswith(("face", "mirror", "seam", "?")):
+            rim.append((a, b))
+    return solid, dashed, rim
 
 
-def wall_in_cell(w, rec, edges, sides, G):
-    """A wall's triangles in the half-cell (betas) with the regions beside each, its solid edges and dashed cuts."""
-    tris, pairs, solid, dashed = [], [], [], []
-    tree, kept = None, np.zeros((0, 4))
-    for pt in rec["patches"]:
-        T = np.array(pt["tris"], float)
+def carry_segs(S_, g):
+    """Segments [(a, b)] carried by g and cut to the half-cell."""
+    if not S_:
+        return []
+    Sg = np.stack([carry(np.array([a for a, _ in S_]), g), carry(np.array([b for _, b in S_]), g)], 1)
+    return [(p, q) for a, b in Sg[np.isfinite(Sg).all((1, 2))] for r in clip_polyline(np.array([a, b]))
+            for p, q in zip(r[:-1], r[1:])]
+
+
+def wall_in_cell(w, pieces, edges, G):
+    """A wall's pieces (wall_parts.json) in the half-cell: each piece and every image of it under the group reaching into
+    the half-cell, cut at the faces; a triangle lying on one already drawn for this wall (an image mapping the wall onto
+    itself, or onto a copy already made) left out. Returns per piece: {between, tris (betas), solid, dashed, rim}."""
+    out, tree, kept = [], None, np.zeros((0, 4))
+    for pc in pieces:
+        T = np.array(pc["tris"], float)
         if not len(T):
             continue
-        V, F, tg = coarsen(T, G, patch_sides(pt, sides))
+        V, F, _ = coarsen(T, G, [None] * len(T))
+        solid, dashed, rim = piece_rims(pc, edges)
         rng = np.random.default_rng(0)
-        B = [(np.array(a, float), np.array(b, float), na) for (a, na), (b, nb) in pt["boundary"]]
-        Bs = np.array([a for a, _, _ in B]) if B else np.zeros((0, 4))
+        Bs = np.array([a for a, _ in rim + solid]) if rim + solid else np.zeros((0, 4))
         Vs = V[rng.choice(len(V), min(500, len(V)), replace=False)]
         cand = images(np.vstack([Vs, Bs[:: max(1, len(Bs) // 200)]]) if len(Bs) else Vs)
         ident = [g for g in cand if np.allclose(GG[g], GG[g][0, 0] * np.eye(4))]
+        rec = {"between": pc["between"], "tris": [], "solid": [], "dashed": [], "rim": []}
         for gi in ident + [g for g in cand if g not in ident]:
             Tg = carry(V, GG[gi])[F]
             ok = np.flatnonzero(np.isfinite(Tg).all((1, 2)))
-            C, S = clip_tris(Tg[ok])
+            C, _ = clip_tris(Tg[ok])
             if not len(C):
                 continue
             cen = C.mean(1)
-            # (a triangle lying on one already drawn, from an image that maps the wall onto itself or onto a copy
-            # already made, is left out: drawn twice, the two fight for depth and the wall shows static)
             new = tree.query(cen)[0] > 0.5 * G if tree is not None else np.ones(len(C), bool)
             if not new.any():
                 continue
-            C, S, cen = C[new], S[new], cen[new]
-            tris.append(C)
-            pairs += [tg[ok[s]] for s in S]
-            kept = np.vstack([kept, cen])
+            rec["tris"].append(C[new])
+            kept = np.vstack([kept, cen[new]])
             tree = cKDTree(kept)
-            seg = [(a, b) for a, b, na in B if na in edges]
-            if seg:
-                Sg = np.stack([carry(np.array([a for a, _ in seg]), GG[gi]), carry(np.array([b for _, b in seg]), GG[gi])], 1)
-                for a, b in Sg[np.isfinite(Sg).all((1, 2))]:
-                    solid += [(p, q) for r in clip_polyline(np.array([a, b])) for p, q in zip(r[:-1], r[1:])]
-            for by, Pc in pt.get("cuts", []):
-                Pc = carry(np.asarray(Pc, float), GG[gi])
-                Pc = Pc[np.isfinite(Pc).all(1)]
-                dashed += [(by, r) for r in clip_polyline(Pc)] if len(Pc) > 1 else []
-    if not tris:
-        return None
-    return {"tris": np.concatenate(tris), "pairs": pairs, "solid": chains(solid), "dashed": dashed}
+            g = GG[gi]
+            rec["solid"] += carry_segs(solid, g)
+            rec["rim"] += carry_segs(rim, g)
+            for y in {y for y, _, _ in dashed}:
+                rec["dashed"] += [(y, p, q) for p, q in carry_segs([(a, b) for y_, a, b in dashed if y_ == y], g)]
+        if rec["tris"]:
+            rec["tris"] = np.concatenate(rec["tris"])
+            out.append(rec)
+    return out
 
 
-def wall_in_cell_chart(rec, edges, sides, G):
-    """A wall's pieces in the whole cell (the half-cell's pieces and their fold images), for the dodecahedron views:
-    triangles (betas) with the regions beside each, solid edges and dashed cuts."""
-    tris, pairs, solid, dashed = [], [], [], []
-    for pt in rec["patches"]:
-        T = np.array(pt["tris"], float)
+def wall_in_cell_chart(pieces, edges, G):
+    """A wall's pieces in the whole cell (each piece and its fold image), for the dodecahedron views: per piece
+    {between, tris (betas), solid, dashed, rim}."""
+    out = []
+    for pc in pieces:
+        T = np.array(pc["tris"], float)
         if not len(T):
             continue
-        V, F, tg = coarsen(T, G, patch_sides(pt, sides))
-        seg = [(np.array(a, float), np.array(b, float)) for (a, na), (b, nb) in pt["boundary"] if na in edges]
+        V, F, _ = coarsen(T, G, [None] * len(T))
+        solid, dashed, rim = piece_rims(pc, edges)
         for fold in (False, True):
-            Vf = V[:, FOLD] if fold else V
-            tris.append(Vf[F])
-            pairs += tg
-            if seg:
-                solid += chains([(a[FOLD], b[FOLD]) if fold else (a, b) for a, b in seg])
-            for by, Pc in pt.get("cuts", []):
-                Pc = np.asarray(Pc, float)
-                dashed.append((by, Pc[:, FOLD] if fold else Pc))
-    return {"tris": np.concatenate(tris), "pairs": pairs, "solid": solid, "dashed": dashed}
+            f = (lambda x: x[FOLD]) if fold else (lambda x: x)
+            out.append({"between": pc["between"], "tris": (V[:, FOLD] if fold else V)[F],
+                        "solid": [(f(a), f(b)) for a, b in solid], "rim": [(f(a), f(b)) for a, b in rim],
+                        "dashed": [(y, f(a), f(b)) for y, a, b in dashed]})
+    return out
 
 
 def line_in_cell(pieces):
@@ -577,10 +515,9 @@ def main(out_path):
     base = json.load(open("domain_page_base.json"))
     DC, V1, CH = (base[b] for b in BLOCKS)
     work = json.load(open("working_data.json"))
-    P = json.load(open("pieces.json"))
+    P = json.load(open("wall_parts.json"))           # (each wall's pieces: wall_parts.py, from pieces.py)
     ex = json.load(open("exact_defs.json"))["lines"]
     by = {t["id"]: t for t in DC["types"]}
-    sides = Sides()
     rb = ring_betas(DC)
     move_cell_view(DC)
     update_types(DC["types"], work, ex)
@@ -589,38 +526,48 @@ def main(out_path):
 
     cell = {"xwalls": [], "xlines": [], "segments": [], "regionShells": {}, "regionEdges": {}}
     src = {"xwalls": [], "xlines": [], "segments": []}           # (the cell chart, for the dodecahedron views)
-    shell_cell, shell_src = {}, {}
+    shell_cell, shell_src = {}, {}          # (region: its pieces' triangles and rims; the pieces themselves)
     for w, v in work["walls"].items():
         if w not in P:
             continue
         t, edges = by[w], set(v["edges"])
         hv = wall_hover(w, t, v)
-        g = wall_in_cell(w, P[w], edges, sides, G_CELL)
-        if g:
-            Q = view(g["tris"].reshape(-1, 4)).reshape(-1, 3, 3)
+        n_tri = 0
+        for pc in wall_in_cell(w, P[w]["pieces"], edges, G_CELL):
+            Q = view(pc["tris"].reshape(-1, 4)).reshape(-1, 3, 3)
             verts, faces = mesh(Q, 4)
-            cell["xwalls"].append({"id": w, "hover": hv, "copy": False, "verts": verts, "faces": faces})
-            for line in g["solid"]:
+            n_tri += len(faces)
+            pair = pc["between"]
+            phv = hv + (f"<br>this piece: between {' and '.join(pair)}" if pair else "<br>this piece: sides not settled")
+            cell["xwalls"].append({"id": w, "hover": phv, "copy": False, "verts": verts, "faces": faces})
+            for line in chains(pc["solid"]):
                 cell["xlines"].append({"id": w, "outline": True, "copy": False, "pts": thin_line(view(line), LINE_TOL).tolist(),
                                        "hover": f"{w} · edge of the wall"})
-            for y, line in g["dashed"]:
-                cell["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(view(line), LINE_TOL).tolist(),
-                                       "hover": f"{w} · invisible cut by {y}"})
-            for C, pr in zip(g["tris"], g["pairs"]):
-                for r in pr or ():
-                    shell_cell.setdefault(r, []).append(C)
-            print(f"{w}: {len(faces)} triangles in the half-cell", flush=True)
-        h = wall_in_cell_chart(P[w], edges, sides, G_DODECA)
-        src["xwalls"].append({"id": w, "hover": hv, "copy": False, "tris": chart(h["tris"].reshape(-1, 4)).reshape(-1, 3, 3).tolist()})
-        for line in h["solid"]:
-            src["xlines"].append({"id": w, "outline": True, "copy": False, "pts": thin_line(chart(line), LINE_TOL / 3).tolist(),
-                                  "hover": f"{w} · edge of the wall"})
-        for y, line in h["dashed"]:
-            src["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(chart(line), LINE_TOL / 3).tolist(),
-                                  "hover": f"{w} · invisible cut by {y}"})
-        for C, pr in zip(h["tris"], h["pairs"]):
-            for r in pr or ():
-                shell_src.setdefault(r, []).append(C)
+            for y in {y for y, _, _ in pc["dashed"]}:
+                for line in chains([(a, b) for y_, a, b in pc["dashed"] if y_ == y]):
+                    cell["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(view(line), LINE_TOL).tolist(),
+                                           "hover": f"{w} · invisible line: where {y} meets it, between its pieces"})
+            for r in pair or ():
+                shell_cell.setdefault(r, {"tris": [], "rim": []})
+                shell_cell[r]["tris"].append(Q)
+                shell_cell[r]["rim"] += pc["rim"]
+        print(f"{w}: {len(P[w]['pieces'])} pieces, {n_tri} triangles in the half-cell", flush=True)
+        for pc in wall_in_cell_chart(P[w]["pieces"], edges, G_DODECA):
+            pair = pc["between"]
+            phv = hv + (f"<br>this piece: between {' and '.join(pair)}" if pair else "")
+            src["xwalls"].append({"id": w, "hover": phv, "copy": False,
+                                  "tris": chart(pc["tris"].reshape(-1, 4)).reshape(-1, 3, 3).tolist()})
+            for line in chains(pc["solid"]):
+                src["xlines"].append({"id": w, "outline": True, "copy": False, "pts": thin_line(chart(line), LINE_TOL / 3).tolist(),
+                                      "hover": f"{w} · edge of the wall"})
+            for y in {y for y, _, _ in pc["dashed"]}:
+                for line in chains([(a, b) for y_, a, b in pc["dashed"] if y_ == y]):
+                    src["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(chart(line), LINE_TOL / 3).tolist(),
+                                          "hover": f"{w} · invisible line: where {y} meets it, between its pieces"})
+            for r in pair or ():
+                shell_src.setdefault(r, {"tris": [], "rim": []})
+                shell_src[r]["tris"].append(pc["tris"])
+                shell_src[r]["rim"] += pc["rim"]
     for L, v in ex.items():
         if L not in by or L in ring_ids and L not in seg_ids:
             continue
@@ -638,22 +585,17 @@ def main(out_path):
     # a region's wall pieces (the sides of each piece) and their edges; the pieces in a file of their own beside the
     # page (symmetry_domain_regions/cell/<id>.json), fetched when the region is selected
     cell_files = {}
-    for r, Cs in shell_cell.items():
+    for r, sh in shell_cell.items():
         if by.get(r, {}).get("dim") != "region":
             continue
-        C = np.array(Cs)
-        verts, faces = mesh(view(C.reshape(-1, 4)).reshape(-1, 3, 3), 4)
+        verts, faces = mesh(np.concatenate(sh["tris"]), 4)            # (the very triangles its walls' pieces draw)
         cell_files[r] = {"verts": verts, "faces": faces, "walls": work["regions"].get(r, {}).get("walls", [])}
-        cell["regionEdges"][r] = [thin_line(view(np.array(c)), LINE_TOL).tolist() for c in chains(boundary_segments(C), 7)]
-    for r, Cs in shell_src.items():
+        cell["regionEdges"][r] = [thin_line(view(np.array(c)), LINE_TOL).tolist() for c in chains(sh["rim"], 7)]
+    for r, sh in shell_src.items():
         if by.get(r, {}).get("dim") != "region":
             continue
-        C = np.array(Cs)
-        V, F, _ = coarsen(C, G_SHELL[1], [None] * len(C))
-        C = V[F]
-        src["xwalls"].append({"id": f"__region_{r}", "hover": "", "tris": chart(C.reshape(-1, 4)).reshape(-1, 3, 3).tolist()})
-        for c in chains(boundary_segments(C), 7):
-            src["xlines"].append({"id": f"__region_{r}", "pts": thin_line(chart(np.array(c)), LINE_TOL / 3).tolist()})
+        src["xwalls"].append({"id": f"__region_{r}", "hover": "",
+                              "tris": chart(np.concatenate(sh["tris"]).reshape(-1, 4)).reshape(-1, 3, 3).tolist()})
 
     # the dodecahedron views: the same walls and lines, every image under the group, cut to each view
     empty = {"samples": {}, "uniform": [], "special": [], "rings": [], "main": [], "qaxes": [], "regular": [],
