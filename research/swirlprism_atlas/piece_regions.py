@@ -61,6 +61,11 @@ def sides(i):
     return out
 
 
+def own_label(i):
+    x = JOBS[i]
+    return _one(osd.home(pc.nrm(x)))[0]
+
+
 def corner(i):
     return lab_edge(osd.home(pc.nrm(JOBS[i])))
 
@@ -123,6 +128,18 @@ def main():
             cache[keys[i]] = r
     pickle.dump(cache, open(CACHE, "wb"))
     S2 = [cache[kk] for kk in keys]
+    # (a sample beside a cut counts only where it is on the wall itself, not on another wall on the same surface)
+    ci = [i for i, wh in enumerate(where) if len(wh) > 2]
+    ck = [("self", kk) for kk in (keys[i] for i in ci)]
+    todo = [n for n, kk in enumerate(ck) if kk not in cache]
+    JOBS[:] = [jobs[i][0] for i in ci]
+    with Pool(4) as pool:
+        for n, r in zip(todo, pool.map(own_label, todo, chunksize=16)):
+            cache[ck[n]] = r
+    pickle.dump(cache, open(CACHE, "wb"))
+    for i, kk in zip(ci, ck):
+        if cache[kk] != where[i][0]:
+            S2[i] = ["UNSURE", "UNSURE"]
     JOBS[:] = corners
     with Pool(4) as pool:
         CN = pool.map(corner, range(len(corners)), chunksize=16)
