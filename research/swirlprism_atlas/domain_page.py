@@ -42,8 +42,8 @@ HALF = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 
 CORNERS = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]])
 FOLD = [1, 0, 3, 2]
 G_CELL = 0.015          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
-G_DODECA = 0.08         # (... for the dodecahedron views, which hold about 20 half-cells)
-G_SHELL = (0.03, 0.08)  # (a selected region's wall pieces, in the half-cell and the dodecahedron views)
+G_DODECA = 0.1          # (... for the dodecahedron views, which hold about 20 half-cells)
+G_SHELL = (0.045, 0.08)  # (a selected region's wall pieces, in the half-cell and the dodecahedron views)
 LINE_TOL = 1e-3         # (polylines kept where they turn by more than this, in view coordinates)
 BLOCKS = ("atlas-data", "atlas-v1", "atlas-chambers")
 
