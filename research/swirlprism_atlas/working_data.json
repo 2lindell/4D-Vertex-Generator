@@ -4096,15 +4096,15 @@
      "exact": true
     },
     {
-     "status": "unresolved",
-     "on": "X79",
+     "status": "point",
+     "on": "A1",
      "at": [
-      0.861012275,
-      0.030782274,
-      0.077423177,
-      0.030782274
+      0.999999623,
+      -2.17e-07,
+      2.97e-07,
+      2.97e-07
      ],
-     "exact": false
+     "exact": true
     },
     {
      "status": "line",

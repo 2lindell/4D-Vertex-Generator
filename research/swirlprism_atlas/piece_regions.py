@@ -176,7 +176,7 @@ def main():
     for (w, k, labs), name, x in zip(cwhere, CN, corners):
         cpts[(w, k)].append((name, labs, x))
     walls_out = {}
-    reg = defaultdict(lambda: {"walls": {}, "lines": set(), "points": set()})
+    reg = defaultdict(lambda: {"walls": {}, "lines": set(), "points": set(), "at": []})
     for w, rec in P.items():
         ps = rec.get("patches", [rec])
         sides_all = Counter()
@@ -231,11 +231,15 @@ def main():
                 if d < 0.04:
                     for r in Pr[i]:
                         reg[r]["points"].add(name)
+                        reg[r]["at"].append(x)
     # (a line that only touches a region at one of its points, without bounding it along its length: partial)
-    ends = {L_: {e["on"] for e in v.get("ends", []) if e.get("status") == "point"}
+    # (by position: a point name has several places in the half-cell, and a line touches the region only at the one
+    # where it ends)
+    ends = {L_: [np.array(e["at"], float) for e in v.get("ends", []) if e.get("at")]
             for L_, v in work.get("lines", {}).items()}
     for r, v in reg.items():
-        v["lines_partial"] = {L_ for L_, pts in ends.items() if L_ not in v["lines"] and pts & v["points"]}
+        v["lines_partial"] = {L_ for L_, xs in ends.items() if L_ not in v["lines"] and any(
+            np.linalg.norm(x - y) < 1e-6 for x in xs for y in v["at"])}
     out = {"_about": __doc__.strip().split("\n\n")[0], "walls": walls_out,
            "regions": {r: {"walls": dict(sorted(v["walls"].items())),
                            "lines": {**{L_: "full" for L_ in sorted(v["lines"])},

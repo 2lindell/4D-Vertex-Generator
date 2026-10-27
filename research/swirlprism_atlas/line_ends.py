@@ -172,6 +172,22 @@ def _follow(job):
 # (stored pieces that are not their line: classified along the curve, line_ends.py --check; X45 is a region, its one
 # stored piece lies on X27; X80's piece 2 lies on X31; X18's piece 1 is regions throughout)
 NOT_LINES = {"X45"}
+# (ends given by hand where the classifier reads something else: X81 ends on X2 and on A1, like X80 (its pieces 1 and
+# 3 run to the vertex, A1; the stretch before it reads as X79))
+USER_ENDS = {("X81", 1, "start"): "A1", ("X81", 3, "start"): "A1"}
+
+
+def user_ends():
+    d = json.load(open("line_ends.json"))
+    ex = json.load(open("exact_defs.json"))["lines"]
+    for (L_, k, side), name in USER_ENDS.items():
+        for r in d["lines"].get(L_, []):
+            if r["piece"] == k and r["side"] == side:
+                P = np.asarray(ex[L_]["points"][k], float)
+                at = P[0] if side == "start" else P[-1]
+                r.update({"type": "ends", "on": name, "exact": nrm(at).round(12).tolist(), "given": True})
+                r.pop("path", None)
+    json.dump(d, open("line_ends.json", "w"), indent=1)
 DROP_PIECES = {("X80", 2), ("X18", 1)}
 
 
@@ -504,6 +520,9 @@ def extend():
 
 
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["--user"]:
+        user_ends()
+        sys.exit()
     if sys.argv[1:2] == ["--passes"]:
         passes()
         sys.exit()
