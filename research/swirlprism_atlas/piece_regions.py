@@ -26,7 +26,7 @@ import pieces as pc
 from edge_relabel import lab_edge
 from probe import _one
 
-STEP = 3e-4
+STEP = 1e-5                   # (off the wall: small enough not to pass a thin region, X68 is 1.6e-4 across)
 N = 300
 EDGE_OFF = 0.01
 MINOR = 0.02
