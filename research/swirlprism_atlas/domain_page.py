@@ -41,7 +41,7 @@ from sphere_complex import GG, PROJ
 HALF = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, -1.0]])
 CORNERS = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]])
 FOLD = [1, 0, 3, 2]
-G_CELL = 0.012          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
+G_CELL = 0.015          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
 G_DODECA = 0.08         # (... for the dodecahedron views, which hold about 20 half-cells)
 G_SHELL = (0.03, 0.08)  # (a selected region's wall pieces, in the half-cell and the dodecahedron views)
 LINE_TOL = 1e-3         # (polylines kept where they turn by more than this, in view coordinates)
@@ -507,7 +507,7 @@ def main(out_path):
                                        "hover": f"{w} · edge of the wall"})
             for y, line in g["dashed"]:
                 cell["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(view(line), LINE_TOL).tolist(),
-                                       "hover": f"{w} · invisible cut, where {y} meets it (the wall goes on, between other regions)"})
+                                       "hover": f"{w} · invisible cut by {y}"})
             for C, pr in zip(g["tris"], g["pairs"]):
                 for r in pr or ():
                     shell_cell.setdefault(r, []).append(C)
@@ -519,7 +519,7 @@ def main(out_path):
                                   "hover": f"{w} · edge of the wall"})
         for y, line in h["dashed"]:
             src["xlines"].append({"id": w, "outline": True, "copy": True, "pts": thin_line(chart(line), LINE_TOL / 3).tolist(),
-                                  "hover": f"{w} · invisible cut, where {y} meets it"})
+                                  "hover": f"{w} · invisible cut by {y}"})
         for C, pr in zip(h["tris"], h["pairs"]):
             for r in pr or ():
                 shell_src.setdefault(r, []).append(C)
@@ -583,10 +583,12 @@ def main(out_path):
             if not w["id"].startswith("__region_"):
                 verts, faces = mesh(w["tris"], 3)
                 vw["xwalls"].append({**{a: b for a, b in w.items() if a != "tris"}, "verts": verts, "faces": faces})
+        # (scraps are left out: a piece shorter than 0.015, where an image only grazes the view)
+        length = lambda P: float(np.linalg.norm(np.diff(np.asarray(P, float), axis=0), axis=1).sum())
         vw["xlines"] = [{**s, "pts": thin_line(s["pts"], 2 * LINE_TOL).tolist()} for s in new["xlines"]
-                        if not s["id"].startswith("__region_")]
+                        if not s["id"].startswith("__region_") and length(s["pts"]) >= 0.015]
         vw["segments"] = [{**s, "pts": thin_line(s["pts"], LINE_TOL / 4).tolist()} for s in new["segments"]]
-        vw["regionEdges"] = {r: [thin_line(c, 2 * LINE_TOL).tolist() for c in cs] for r, cs in vw["regionEdges"].items()}
+        vw["regionEdges"] = {}          # (as before: these views show a region's wall pieces, without their edges)
         vw["tpatches"] = []
     DC.update(cell)
     DC["tpatches"] = []
