@@ -123,7 +123,8 @@ def main():
         P, S, mine = pcs[0]
         if len(P) == 2:
             P = np.vstack([P[0], nrm(P[0] + P[1]), P[1]])
-        cand = [n for n in S if n != mine and crosses(LIB[n], LIB[mine], P)]
+        Pi = P[1:-1] if len(P) > 2 else P               # (inside the piece: at a vertex of the cell surfaces can touch)
+        cand = [n for n in S if n != mine and crosses(LIB[n], LIB[mine], Pi)]
         cand.sort(key=lambda n: (not n.startswith("plane"), n))
         if not cand:
             return {"status": f"no surface through {L} crosses the wall's surface there"}
