@@ -183,6 +183,7 @@
     "C1",
     "C5"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -229,6 +230,7 @@
     "C4",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -273,6 +275,7 @@
     "A1",
     "C6"
    ],
+   "pieces": [],
    "through": [
     "X8"
    ],
@@ -308,6 +311,7 @@
     "C5",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -374,6 +378,7 @@
     "C5",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -416,6 +421,7 @@
     "C1",
     "C5"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -448,6 +454,7 @@
     "C4",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C4",
@@ -495,6 +502,20 @@
     "C5",
     "C6"
    ],
+   "pieces": [
+    {
+     "between": [
+      "F2",
+      "X95"
+     ],
+     "lines": [
+      "X8"
+     ],
+     "points": [
+      "C1"
+     ]
+    }
+   ],
    "through": [],
    "points": [
     "C1",
@@ -524,6 +545,7 @@
    "boundary_points": [
     "C1"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C5"
@@ -564,6 +586,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -604,6 +627,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1"
@@ -632,6 +656,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C4"
@@ -684,6 +709,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -719,6 +745,32 @@
     "C4",
     "C5",
     "C6"
+   ],
+   "pieces": [
+    {
+     "between": [
+      "X59",
+      "X95"
+     ],
+     "lines": [
+      "X8"
+     ],
+     "points": [
+      "C1"
+     ]
+    },
+    {
+     "between": [
+      "X66",
+      "X95"
+     ],
+     "lines": [
+      "X8"
+     ],
+     "points": [
+      "C1"
+     ]
+    }
    ],
    "through": [],
    "points": [
@@ -764,6 +816,32 @@
     "C4",
     "C6"
    ],
+   "pieces": [
+    {
+     "between": [
+      "F2",
+      "X60"
+     ],
+     "lines": [
+      "X8"
+     ],
+     "points": [
+      "C1"
+     ]
+    },
+    {
+     "between": [
+      "F2",
+      "X67"
+     ],
+     "lines": [
+      "X8"
+     ],
+     "points": [
+      "C1"
+     ]
+    }
+   ],
    "through": [],
    "points": [
     "C4"
@@ -804,6 +882,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -843,6 +922,7 @@
     "C4",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -886,6 +966,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -917,6 +998,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -959,6 +1041,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C4"
@@ -997,6 +1080,7 @@
     "A1",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1025,6 +1109,7 @@
    "boundary_points": [
     "A1"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1"
@@ -1057,6 +1142,7 @@
     "C5",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1087,6 +1173,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1114,6 +1201,7 @@
     "A1",
     "C1"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1142,6 +1230,7 @@
     "A1",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "both_sides": "X68",
    "points": [
@@ -1174,6 +1263,20 @@
     "A1",
     "C1"
    ],
+   "pieces": [
+    {
+     "between": [
+      "X59",
+      "X60"
+     ],
+     "lines": [
+      "X8"
+     ],
+     "points": [
+      "C1"
+     ]
+    }
+   ],
    "through": [],
    "points": [
     "A1"
@@ -1204,6 +1307,7 @@
     "C5",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C5",
@@ -1237,6 +1341,7 @@
     "C4",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1269,6 +1374,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1299,6 +1405,7 @@
    "boundary_points": [
     "A1"
    ],
+   "pieces": [],
    "through": [],
    "points": [],
    "regions": [
@@ -1325,6 +1432,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1356,6 +1464,7 @@
     "C5",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1389,6 +1498,7 @@
     "C5",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1418,6 +1528,20 @@
    "boundary_points": [
     "A1",
     "C1"
+   ],
+   "pieces": [
+    {
+     "between": [
+      "X66",
+      "X67"
+     ],
+     "lines": [
+      "X8"
+     ],
+     "points": [
+      "C1"
+     ]
+    }
    ],
    "through": [],
    "points": [
@@ -1449,6 +1573,7 @@
     "C5",
     "C6"
    ],
+   "pieces": [],
    "through": [
     "D1"
    ],
@@ -1480,6 +1605,7 @@
    "boundary_points": [
     "A1"
    ],
+   "pieces": [],
    "through": [],
    "points": [],
    "regions": [
@@ -1516,6 +1642,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1544,6 +1671,7 @@
     "C1",
     "C5"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C1",
@@ -1575,6 +1703,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1614,6 +1743,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1643,6 +1773,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1674,6 +1805,7 @@
     "C4",
     "C5"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1706,6 +1838,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1737,6 +1870,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1766,6 +1900,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1795,6 +1930,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1824,6 +1960,7 @@
     "C1",
     "C4"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1850,6 +1987,7 @@
    "boundary_points": [
     "A1"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1874,6 +2012,7 @@
     "X11"
    ],
    "boundary_points": [],
+   "pieces": [],
    "through": [
     "X78"
    ],
@@ -1905,6 +2044,7 @@
     "C4",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "C4",
@@ -1942,6 +2082,7 @@
    "boundary_points": [
     "A1"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1"
@@ -1971,6 +2112,7 @@
     "A1",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [
     "A1",
@@ -1999,6 +2141,7 @@
     "A1",
     "C6"
    ],
+   "pieces": [],
    "through": [],
    "points": [],
    "regions": [
@@ -2035,26 +2178,11 @@
     "X14": "full",
     "X21": "full"
    },
-   "lines": [
-    "C2b",
-    "C3",
-    "D1",
-    "D2",
-    "E2",
-    "T1",
-    "X1",
-    "X4",
-    "X5",
-    "X6",
-    "X8",
-    "X97"
-   ],
+   "lines": {
+    "X8": "full"
+   },
    "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C5",
-    "C6"
+    "C1"
    ]
   },
   "F3": {
@@ -2068,21 +2196,8 @@
     "T2": "partial",
     "X22": "full"
    },
-   "lines": [
-    "B1",
-    "D1",
-    "D3",
-    "E2",
-    "X4",
-    "X13"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X12": {
    "walls": [
@@ -2093,17 +2208,8 @@
     "X3": "full",
     "X7": "full"
    },
-   "lines": [
-    "C3",
-    "D1",
-    "E2",
-    "X1"
-   ],
-   "points": [
-    "C1",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X16": {
    "walls": [
@@ -2114,18 +2220,8 @@
     "X9": "full",
     "X96": "full"
    },
-   "lines": [
-    "C2a",
-    "C2b",
-    "D2",
-    "T1",
-    "X5"
-   ],
-   "points": [
-    "A1",
-    "C4",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X30": {
    "walls": [
@@ -2136,15 +2232,8 @@
     "X7": "full",
     "X83": "full"
    },
-   "lines": [
-    "C3",
-    "E2",
-    "X78"
-   ],
-   "points": [
-    "C1",
-    "C5"
-   ]
+   "lines": {},
+   "points": []
   },
   "X32": {
    "walls": [
@@ -2157,19 +2246,8 @@
     "X17": "partial",
     "X19": "full"
    },
-   "lines": [
-    "C2b",
-    "D2",
-    "X2",
-    "X4",
-    "X6",
-    "X78"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X36": {
    "walls": [
@@ -2184,17 +2262,8 @@
     "X83": "full",
     "X94": "full"
    },
-   "lines": [
-    "C3",
-    "D1",
-    "E2",
-    "X78"
-   ],
-   "points": [
-    "C1",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X37": {
    "walls": [
@@ -2209,18 +2278,8 @@
     "X15": "full",
     "X94": "full"
    },
-   "lines": [
-    "D1",
-    "X4",
-    "X6",
-    "X78"
-   ],
-   "points": [
-    "C1",
-    "C4",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X43": {
    "walls": [
@@ -2235,18 +2294,8 @@
     "X82": "full",
     "X85": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X4",
-    "X13",
-    "X80"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X45": {
    "walls": [
@@ -2259,15 +2308,8 @@
     "X25": "full",
     "X27": "full"
    },
-   "lines": [
-    "C2b",
-    "X2",
-    "X97"
-   ],
-   "points": [
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X46": {
    "walls": [
@@ -2282,18 +2324,8 @@
     "X19": "full",
     "X25": "full"
    },
-   "lines": [
-    "C2b",
-    "D2",
-    "X2",
-    "X4",
-    "X6"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X49": {
    "walls": [
@@ -2310,24 +2342,8 @@
     "X28": "full",
     "X82": "full"
    },
-   "lines": [
-    "B1",
-    "D1",
-    "D2",
-    "D3",
-    "E1",
-    "E2",
-    "T1",
-    "X4",
-    "X13"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X50": {
    "walls": [
@@ -2340,18 +2356,8 @@
     "X28": "full",
     "X33": "full"
    },
-   "lines": [
-    "D1",
-    "D3",
-    "E1",
-    "E2"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X54": {
    "walls": [
@@ -2366,16 +2372,8 @@
     "X31": "full",
     "X93": "full"
    },
-   "lines": [
-    "X4",
-    "X13",
-    "X80"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X55": {
    "walls": [
@@ -2390,18 +2388,8 @@
     "X44": "full",
     "X90": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X24",
-    "X81",
-    "X97"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X56": {
    "walls": [
@@ -2414,18 +2402,8 @@
     "X42": "full",
     "X92": "full"
    },
-   "lines": [
-    "D2",
-    "D3",
-    "X2",
-    "X18",
-    "X81"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X57": {
    "walls": [
@@ -2436,18 +2414,8 @@
     "X33": "full",
     "X40": "full"
    },
-   "lines": [
-    "D1",
-    "D3",
-    "E1",
-    "E2"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X58": {
    "walls": [
@@ -2462,17 +2430,8 @@
     "X96": "partial",
     "X100": "full"
    },
-   "lines": [
-    "C2a",
-    "D2",
-    "E1",
-    "T1"
-   ],
-   "points": [
-    "A1",
-    "C4",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X59": {
    "walls": [
@@ -2487,20 +2446,11 @@
     "X23": "partial",
     "X39": "full"
    },
-   "lines": [
-    "D1",
-    "D2",
-    "E1",
-    "X5",
-    "X8",
-    "X29"
-   ],
+   "lines": {
+    "X8": "partial"
+   },
    "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C5",
-    "C6"
+    "C1"
    ]
   },
   "X60": {
@@ -2518,19 +2468,11 @@
     "X39": "full",
     "X98": "full"
    },
-   "lines": [
-    "D2",
-    "X5",
-    "X8",
-    "X24",
-    "X29",
-    "X97"
-   ],
+   "lines": {
+    "X8": "partial"
+   },
    "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C6"
+    "C1"
    ]
   },
   "X61": {
@@ -2544,17 +2486,8 @@
     "X99": "full",
     "X100": "full"
    },
-   "lines": [
-    "B1",
-    "C2a",
-    "D2",
-    "E1"
-   ],
-   "points": [
-    "A1",
-    "C4",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X62": {
    "walls": [
@@ -2567,17 +2500,8 @@
     "X41": "full",
     "X96": "partial"
    },
-   "lines": [
-    "C2a",
-    "D2",
-    "E1",
-    "X5"
-   ],
-   "points": [
-    "A1",
-    "C4",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X63": {
    "walls": [
@@ -2590,18 +2514,8 @@
     "X51": "full",
     "X84": "partial"
    },
-   "lines": [
-    "D1",
-    "D3",
-    "E1",
-    "E2"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X64": {
    "walls": [
@@ -2614,18 +2528,8 @@
     "X53": "full",
     "X84": "partial"
    },
-   "lines": [
-    "D1",
-    "E1",
-    "E2",
-    "X18"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X65": {
    "walls": [
@@ -2640,20 +2544,8 @@
     "X44": "full",
     "X47": "full"
    },
-   "lines": [
-    "D2",
-    "D3",
-    "X2",
-    "X18",
-    "X24",
-    "X81",
-    "X97"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X66": {
    "walls": [
@@ -2668,19 +2560,11 @@
     "X48": "full",
     "X52": "full"
    },
-   "lines": [
-    "D1",
-    "E1",
-    "E2",
-    "X8",
-    "X18",
-    "X29"
-   ],
+   "lines": {
+    "X8": "partial"
+   },
    "points": [
-    "A1",
-    "C1",
-    "C5",
-    "C6"
+    "C1"
    ]
   },
   "X67": {
@@ -2696,17 +2580,11 @@
     "X52": "full",
     "X98": "full"
    },
-   "lines": [
-    "X8",
-    "X18",
-    "X24",
-    "X29",
-    "X97"
-   ],
+   "lines": {
+    "X8": "partial"
+   },
    "points": [
-    "A1",
-    "C1",
-    "C4"
+    "C1"
    ]
   },
   "X68": {
@@ -2718,15 +2596,8 @@
     "X38": "full",
     "X99": "full"
    },
-   "lines": [
-    "B1",
-    "C2a",
-    "E1"
-   ],
-   "points": [
-    "A1",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X69": {
    "walls": [
@@ -2737,18 +2608,8 @@
     "X48": "full",
     "X53": "full"
    },
-   "lines": [
-    "D1",
-    "E1",
-    "E2",
-    "X18"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C5",
-    "C6"
-   ]
+   "lines": {},
+   "points": []
   },
   "X70": {
    "walls": [
@@ -2761,18 +2622,8 @@
     "X87": "full",
     "X93": "full"
    },
-   "lines": [
-    "C3",
-    "D3",
-    "X2",
-    "X80"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C5"
-   ]
+   "lines": {},
+   "points": []
   },
   "X71": {
    "walls": [
@@ -2783,16 +2634,8 @@
     "X85": "full",
     "X86": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X80"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X72": {
    "walls": [
@@ -2807,18 +2650,8 @@
     "X86": "full",
     "X91": "full"
    },
-   "lines": [
-    "D2",
-    "D3",
-    "X2",
-    "X80",
-    "X81"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X73": {
    "walls": [
@@ -2833,18 +2666,8 @@
     "X88": "full",
     "X89": "full"
    },
-   "lines": [
-    "D2",
-    "D3",
-    "X2",
-    "X80",
-    "X81"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X74": {
    "walls": [
@@ -2855,16 +2678,8 @@
     "X35": "full",
     "X84": "full"
    },
-   "lines": [
-    "D2",
-    "D3",
-    "X18"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X75": {
    "walls": [
@@ -2875,18 +2690,8 @@
     "X87": "full",
     "X88": "full"
    },
-   "lines": [
-    "C3",
-    "D3",
-    "X2",
-    "X80"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C5"
-   ]
+   "lines": {},
+   "points": []
   },
   "X76": {
    "walls": [
@@ -2897,16 +2702,8 @@
     "X89": "full",
     "X90": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X81"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X77": {
    "walls": [
@@ -2917,16 +2714,8 @@
     "X91": "full",
     "X92": "full"
    },
-   "lines": [
-    "D3",
-    "X2",
-    "X81"
-   ],
-   "points": [
-    "A1",
-    "C1",
-    "C4"
-   ]
+   "lines": {},
+   "points": []
   },
   "X95": {
    "walls": [
@@ -2941,21 +2730,11 @@
     "X10": "full",
     "X20": "full"
    },
-   "lines": [
-    "C2b",
-    "C3",
-    "D1",
-    "D2",
-    "E2",
-    "X5",
-    "X8"
-   ],
+   "lines": {
+    "X8": "full"
+   },
    "points": [
-    "A1",
-    "C1",
-    "C4",
-    "C5",
-    "C6"
+    "C1"
    ]
   }
  },
