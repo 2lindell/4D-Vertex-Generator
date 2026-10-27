@@ -248,6 +248,16 @@ def main():
                     uniq.append(e)
             lines_out[L_] = {"ends": uniq, "bounds_walls": sorted((w for w in walls if L_ in E[w]), key=key)}
         out["lines"] = lines_out
+    # (each wall as a whole on the 3-sphere: sphere_complex.py, its half-cell pieces carried by the symmetries and
+    # joined across faces, at seams and where they are the same part)
+    if os.path.exists("sphere_complex.json"):
+        SC = json.load(open("sphere_complex.json"))
+        for w, v in SC.items():
+            if w in out["walls"]:
+                out["walls"][w]["sphere"] = {
+                    "patch_images": len(v["whole_piece"]), "stabiliser": len(v["stabiliser"]),
+                    "joins": sorted({j["how"] for j in v["joins"]}),
+                    "meets_copies_along": sorted(set(FACE_EDGES.get(w, [])) | set(SELF_MEET.get(w, [])))}
     for w, v in PR.get("walls", {}).items():                   # (sides the pieces show that the wall is not given)
         extra = {p: f for p, f in v["sides"].items() if any(x not in sep.get(w, set()) for x in p.split("|"))}
         if extra:

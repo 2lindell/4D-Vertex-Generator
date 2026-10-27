@@ -100,6 +100,12 @@ def main():
     for n in nodes:
         i_ = n["id"]
         if n["dim"] == "wall" and i_ in W:
+            sp = W[i_].get("sphere")
+            if sp:
+                n["note"] = (f"on the 3-sphere: one whole piece of {sp['patch_images']} half-cell patch images, "
+                             f"carried onto itself by {sp['stabiliser']} symmetr{'y' if sp['stabiliser'] == 1 else 'ies'}"
+                             + (f"; meets copies of itself along {', '.join(sp['meets_copies_along'])}"
+                                if sp.get("meets_copies_along") else ""))
             n["bounds"] = W[i_]["edges"] + W[i_]["points"]
             n["sep"] = W[i_]["regions"]
             for b in n["bounds"]:
@@ -116,6 +122,8 @@ def main():
                                     if e.get("status") not in ("point", "line")]
             for b in n["bounds"]:
                 add(i_, b, "ends on")
+            if n["ends_unresolved"]:
+                n["note"] = "an end not yet named: " + "; ".join(str(x) for x in n["ends_unresolved"])
         elif n["dim"] in ("line", "point"):
             for b in n["bounds"]:
                 if N_DIM.get(b) in ("line", "point"):

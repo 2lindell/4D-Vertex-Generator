@@ -199,6 +199,7 @@ function panel(id, nb) {
   const groups = { region: [], wall: [], line: [], point: [] };
   for (const e of es) { const k = other(e, id); if (N[k]) groups[N[k].dim].push({ k, e }); }
   let html = `<h2 style="color:${col(n)}">${id}</h2><div class="kind">${n.dim} · ${n.name}</div>`;
+  if (n.note) html += `<div class="kind">${n.note}</div>`;
   if (n.seed) html += `<div class="kind">example seed (most even edges, longest/shortest ${n.even.toFixed(4)}):</div>`
     + `<div class="seedline"><code>${n.seed}</code><button type="button" class="copy" data-copy="${n.seed}" title="Copy seed" aria-label="Copy seed">${COPY_ICON}</button></div>`;
   for (const dim of ["region", "wall", "line", "point"]) {
