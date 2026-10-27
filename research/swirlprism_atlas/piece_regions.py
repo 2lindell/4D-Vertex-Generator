@@ -85,6 +85,34 @@ def named_points():
 
 
 NAMED_POINTS = []
+_LP = {}
+
+
+def wall_points_lines(w, ps, work):
+    """The wall's named points (exact) and its edge lines: each edge line's verified pieces carried by the group onto
+    the wall's surfaces; their ends that are named points, where the wall's piece comes within reach of them."""
+    from t2_pieces import FOLD, extended
+    if "GG" not in _LP:
+        G = extended()
+        _LP["GG"] = np.concatenate([G, G @ FOLD])
+        _LP["ex"] = json.load(open("exact_defs.json"))["lines"]
+    lines = [e for e in work["walls"][w]["edges"] if e in _LP["ex"]]
+    pts = []
+    for pt in ps:
+        S = lib()[pt["surface"]]
+        B = np.array([x for sg in pt.get("boundary", []) for x, _ in sg], float)
+        if not len(B):
+            continue
+        tb = cKDTree(B)
+        for e in lines:
+            for P, _ in pc.line_pieces_on(_LP["ex"][e], S, _LP["GG"], lib()):
+                for x in (P[0], P[-1]):
+                    if tb.query(x)[0] > 0.03:
+                        continue
+                    for name, y in NAMED_POINTS:
+                        if np.linalg.norm(x - y) < 1e-5 and not any(np.linalg.norm(y - z) < 1e-9 for _, z in pts):
+                            pts.append((name, y))
+    return pts, set(lines)
 
 
 def main():
@@ -176,7 +204,7 @@ def main():
     for (w, k, labs), name, x in zip(cwhere, CN, corners):
         cpts[(w, k)].append((name, labs, x))
     walls_out = {}
-    reg = defaultdict(lambda: {"walls": {}, "lines": set(), "points": set(), "at": []})
+    reg = defaultdict(lambda: {"walls": {}, "line_share": {}, "points": set()})
     for w, rec in P.items():
         ps = rec.get("patches", [rec])
         sides_all = Counter()
@@ -200,8 +228,11 @@ def main():
             for r in (a, b):
                 share = sum(m for pair, m in sides_all.items() if r in pair) / max(1, tot)
                 reg[r]["walls"][w] = "full" if share > 0.97 else "partial"
-        # (lines and points: each boundary point of the piece, and each corner, belongs to the parts of the nearest
-        # sample points (their sides))
+        # (a wall's own points and lines: the ends of its edge lines lying on it (any copy of their verified pieces),
+        # matched to the named points at their exact places, where the wall's piece reaches them; and the edge lines)
+        wpts, wlines = wall_points_lines(w, ps, work)
+        walls_out[w]["points"] = sorted({n for n, _ in wpts})
+        walls_out[w]["lines"] = sorted(wlines)
         for k, pt in enumerate(ps):
             segs = pt.get("boundary", [])
             prt = parts.get((w, k), {})
@@ -210,40 +241,37 @@ def main():
             X = np.array([x for xs in prt.values() for x in xs])
             Pr = [pair for pair, xs in prt.items() for _ in xs]
             tx = cKDTree(X)
-            edges = set(work["walls"][w]["edges"]) | {c["by"] for c in work["walls"][w]["cuts"]}
+            # (lines: each boundary point labelled with an edge line goes to the parts of the nearest sample points;
+            # the share of the line's boundary here that faces the region says whether it bounds it all along)
+            tot_l, got = Counter(), defaultdict(Counter)
             for sg in segs:
                 for x, n in sg:
-                    if n not in edges or n in work["walls"]:
+                    if n not in wlines:
                         continue
+                    tot_l[n] += 1
                     d, i = tx.query(np.asarray(x, float))
                     if d < 0.04:
                         for r in Pr[i]:
-                            reg[r]["lines"].add(n)
-            # (points: the named points, exact (the lines' ends and the cross-ring points), lying on this wall's surface
-            # at its piece's boundary, belong to the parts beside them there)
-            S = lib()[pt["surface"]]
-            Bp = np.array([x for sg in segs for x, _ in sg], float)
-            tb = cKDTree(Bp)
-            for name, x in NAMED_POINTS:
-                if tb.query(x)[0] > 0.012 or abs(pc.fval(S, x)) / (np.linalg.norm(pc.grad(S, x)) + 1e-300) > 1e-8:
-                    continue
+                            got[r][n] += 1
+            for r, c in got.items():
+                for n, m in c.items():
+                    reg[r]["line_share"][n] = max(reg[r]["line_share"].get(n, 0), m / tot_l[n])
+            # (points: the wall's points go to the parts beside them)
+            for name, x in wpts:
                 d, i = tx.query(x)
-                if d < 0.04:
+                if d < 0.06:
                     for r in Pr[i]:
                         reg[r]["points"].add(name)
-                        reg[r]["at"].append(x)
-    # (a line that only touches a region at one of its points, without bounding it along its length: partial)
-    # (by position: a point name has several places in the half-cell, and a line touches the region only at the one
-    # where it ends)
-    ends = {L_: [np.array(e["at"], float) for e in v.get("ends", []) if e.get("at")]
-            for L_, v in work.get("lines", {}).items()}
+    # (a wall lying wholly on a region gives it all its points and lines)
     for r, v in reg.items():
-        v["lines_partial"] = {L_ for L_, xs in ends.items() if L_ not in v["lines"] and any(
-            np.linalg.norm(x - y) < 1e-6 for x in xs for y in v["at"])}
+        for w, ext in v["walls"].items():
+            if ext == "full":
+                v["points"] |= set(walls_out[w]["points"])
+                for n in walls_out[w]["lines"]:
+                    v["line_share"][n] = 1.0
     out = {"_about": __doc__.strip().split("\n\n")[0], "walls": walls_out,
            "regions": {r: {"walls": dict(sorted(v["walls"].items())),
-                           "lines": {**{L_: "full" for L_ in sorted(v["lines"])},
-                                     **{L_: "partial (touches at a point)" for L_ in sorted(v["lines_partial"])}},
+                           "lines": {L_: ("full" if f >= 0.9 else "partial") for L_, f in sorted(v["line_share"].items())},
                            "points": sorted(v["points"])} for r, v in sorted(reg.items())}}
     json.dump(out, open("piece_regions.json", "w"), indent=1)
     print(f"{len(walls_out)} walls; {len(out['regions'])} regions")
