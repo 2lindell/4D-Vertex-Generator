@@ -28,6 +28,7 @@ STEP = 3e-4
 N = 300
 EDGE_OFF = 0.01
 MINOR = 0.02
+CUT_OFF = 0.004
 LIB = None
 JOBS = []
 
@@ -84,6 +85,19 @@ def main():
                     continue
                 jobs.append((x, pt["surface"]))
                 where.append((w, k))
+            # (beside each cut, both ways: the parts it divides, however narrow)
+            for name, Pc in pt.get("cuts", []):
+                Pc = np.asarray(Pc, float)
+                if len(Pc) < 3:
+                    continue
+                for i in np.linspace(1, len(Pc) - 2, 8).astype(int):
+                    p, t = Pc[i], Pc[i + 1] - Pc[i - 1]
+                    Tn = np.linalg.svd(np.vstack([pc.grad(S, p), np.ones(4), t]))[2][-1]
+                    for sg in (1, -1):
+                        x = pc.nrm(pc.project([S], p + sg * CUT_OFF * Tn))
+                        if pc.in_half(x):
+                            jobs.append((x, pt["surface"]))
+                            where.append((w, k, "cut"))
             # (corners: where the boundary label changes between neighbouring boundary segments)
             segs = pt.get("boundary", [])
             ends = [(np.array(a[0]), a[1]) for sg in segs for a in sg]
@@ -96,18 +110,22 @@ def main():
                         corners.append(pc.nrm((E[i] + E[j]) / 2))
                         cwhere.append((w, k, tuple(sorted((L[i], L[j])))))
     JOBS[:] = jobs
-    with Pool(3) as pool:
+    with Pool(4) as pool:
         S2 = pool.map(sides, range(len(jobs)), chunksize=16)
     JOBS[:] = corners
-    with Pool(3) as pool:
+    with Pool(4) as pool:
         CN = pool.map(corner, range(len(corners)), chunksize=16)
     # (each patch: its parts by region pair, with their sample points)
     parts = defaultdict(lambda: defaultdict(list))
-    for (w, k), (a, b), x in zip(where, S2, [j[0] for j in jobs]):
+    cut_pairs = defaultdict(set)
+    for wh, (a, b), x in zip(where, S2, [j[0] for j in jobs]):
+        w, k = wh[:2]
         a = a if a in regions else None
         b = b if b in regions else None
-        if a and b and a != b:
+        if a and b and (a != b or w in work.get("same_both_sides", {})):   # (a wall with one region both sides)
             parts[(w, k)][tuple(sorted((a, b)))].append(x)
+            if len(wh) > 2:
+                cut_pairs[w].add(tuple(sorted((a, b))))
     cpts = defaultdict(list)
     for (w, k, labs), name, x in zip(cwhere, CN, corners):
         cpts[(w, k)].append((name, labs, x))
@@ -121,7 +139,7 @@ def main():
                 sides_all[pair] += len(xs)
         tot = sum(sides_all.values())
         # (a pair of sides seen at under MINOR of the wall's points is listed for review, not counted)
-        minor = {pair for pair, n in sides_all.items() if n < MINOR * tot}
+        minor = {pair for pair, n in sides_all.items() if n < MINOR * tot and pair not in cut_pairs[w]}
         walls_out[w] = {"sides": {f"{a}|{b}": round(n / max(1, tot), 3) for (a, b), n in sides_all.most_common()
                                   if (a, b) not in minor},
                         "minor_sides": {f"{a}|{b}": round(n / max(1, tot), 3) for (a, b), n in sides_all.most_common()

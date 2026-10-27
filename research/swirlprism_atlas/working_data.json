@@ -1293,6 +1293,35 @@
     "X11",
     "X14",
     "X21"
+   ],
+   "wall_extent": {
+    "T2": "partial",
+    "X3": "partial",
+    "X9": "full",
+    "X10": "full",
+    "X11": "full",
+    "X14": "full",
+    "X21": "full"
+   },
+   "lines": [
+    "D1",
+    "E2",
+    "T1",
+    "X1",
+    "X4",
+    "X5",
+    "X6",
+    "X8",
+    "X97"
+   ],
+   "points": [
+    "C3",
+    "D1",
+    "T2",
+    "X14",
+    "X21",
+    "X45",
+    "X46"
    ]
   },
   "F3": {
@@ -1300,29 +1329,98 @@
     "F1",
     "T2",
     "X22"
+   ],
+   "wall_extent": {
+    "F1": "full",
+    "T2": "partial",
+    "X22": "full"
+   },
+   "lines": [
+    "B1",
+    "D3",
+    "E2",
+    "X1",
+    "X13",
+    "X4"
+   ],
+   "points": [
+    "E2",
+    "F1",
+    "T2",
+    "X31",
+    "X4",
+    "X43"
    ]
   },
   "X12": {
    "walls": [
     "X3",
     "X7"
+   ],
+   "wall_extent": {
+    "X3": "full",
+    "X7": "full"
+   },
+   "lines": [
+    "C3",
+    "E2",
+    "X1"
+   ],
+   "points": [
+    "C1"
    ]
   },
   "X16": {
    "walls": [
     "X9",
     "X96"
-   ]
+   ],
+   "wall_extent": {
+    "X9": "full",
+    "X96": "full"
+   },
+   "lines": [
+    "C2a",
+    "T1",
+    "X5"
+   ],
+   "points": []
   },
   "X30": {
    "walls": [
     "X7",
     "X83"
-   ]
+   ],
+   "wall_extent": {
+    "X7": "full",
+    "X83": "full"
+   },
+   "lines": [
+    "C3",
+    "E2",
+    "X78"
+   ],
+   "points": []
   },
   "X32": {
    "walls": [
     "X15",
+    "X17",
+    "X19"
+   ],
+   "wall_extent": {
+    "X15": "full",
+    "X17": "partial",
+    "X19": "full"
+   },
+   "lines": [
+    "X2",
+    "X4",
+    "X6",
+    "X78"
+   ],
+   "points": [
+    "T2",
     "X17",
     "X19"
    ]
@@ -1333,6 +1431,23 @@
     "X11",
     "X83",
     "X94"
+   ],
+   "wall_extent": {
+    "T2": "partial",
+    "X11": "partial",
+    "X83": "full",
+    "X94": "full"
+   },
+   "lines": [
+    "C3",
+    "E2",
+    "X4",
+    "X78"
+   ],
+   "points": [
+    "F2",
+    "T2",
+    "X11"
    ]
   },
   "X37": {
@@ -1341,6 +1456,23 @@
     "X11",
     "X15",
     "X94"
+   ],
+   "wall_extent": {
+    "T2": "partial",
+    "X11": "partial",
+    "X15": "full",
+    "X94": "full"
+   },
+   "lines": [
+    "E2",
+    "X4",
+    "X6",
+    "X78"
+   ],
+   "points": [
+    "F2",
+    "X11",
+    "X4"
    ]
   },
   "X43": {
@@ -1349,6 +1481,25 @@
     "X31",
     "X82",
     "X85"
+   ],
+   "wall_extent": {
+    "X17": "partial",
+    "X31": "full",
+    "X82": "full",
+    "X85": "full"
+   },
+   "lines": [
+    "D2",
+    "X13",
+    "X2",
+    "X4",
+    "X80"
+   ],
+   "points": [
+    "X17",
+    "X31",
+    "X71",
+    "X72"
    ]
   },
   "X45": {
@@ -1356,6 +1507,19 @@
     "X14",
     "X25",
     "X27"
+   ],
+   "wall_extent": {
+    "X14": "partial",
+    "X25": "full",
+    "X27": "full"
+   },
+   "lines": [
+    "X2",
+    "X6",
+    "X97"
+   ],
+   "points": [
+    "X45"
    ]
   },
   "X46": {
@@ -1364,6 +1528,22 @@
     "X17",
     "X19",
     "X25"
+   ],
+   "wall_extent": {
+    "X14": "partial",
+    "X17": "partial",
+    "X19": "full",
+    "X25": "full"
+   },
+   "lines": [
+    "X2",
+    "X4",
+    "X6"
+   ],
+   "points": [
+    "X14",
+    "X19",
+    "X46"
    ]
   },
   "X49": {
@@ -1373,6 +1553,31 @@
     "T2",
     "X28",
     "X82"
+   ],
+   "wall_extent": {
+    "F1": "partial",
+    "F4": "full",
+    "T2": "partial",
+    "X28": "full",
+    "X82": "full"
+   },
+   "lines": [
+    "B1",
+    "D2",
+    "E1",
+    "E2",
+    "T1",
+    "X1",
+    "X13",
+    "X4"
+   ],
+   "points": [
+    "D1",
+    "E2",
+    "F1",
+    "F4",
+    "T2",
+    "X31"
    ]
   },
   "X50": {
@@ -1380,6 +1585,22 @@
     "F1",
     "X28",
     "X33"
+   ],
+   "wall_extent": {
+    "F1": "partial",
+    "X28": "full",
+    "X33": "full"
+   },
+   "lines": [
+    "B1",
+    "D1",
+    "D3",
+    "E1",
+    "E2"
+   ],
+   "points": [
+    "E2",
+    "F1"
    ]
   },
   "X54": {
@@ -1388,6 +1609,25 @@
     "X22",
     "X31",
     "X93"
+   ],
+   "wall_extent": {
+    "X17": "partial",
+    "X22": "partial",
+    "X31": "full",
+    "X93": "full"
+   },
+   "lines": [
+    "D3",
+    "X13",
+    "X2",
+    "X4",
+    "X80"
+   ],
+   "points": [
+    "T2",
+    "X17",
+    "X31",
+    "X43"
    ]
   },
   "X55": {
@@ -1396,6 +1636,23 @@
     "X34",
     "X44",
     "X90"
+   ],
+   "wall_extent": {
+    "X27": "partial",
+    "X34": "full",
+    "X44": "full",
+    "X90": "full"
+   },
+   "lines": [
+    "D2",
+    "X2",
+    "X24",
+    "X81",
+    "X97"
+   ],
+   "points": [
+    "X45",
+    "X55"
    ]
   },
   "X56": {
@@ -1403,13 +1660,39 @@
     "X35",
     "X42",
     "X92"
+   ],
+   "wall_extent": {
+    "X35": "full",
+    "X42": "full",
+    "X92": "full"
+   },
+   "lines": [
+    "D3",
+    "X18",
+    "X2",
+    "X81"
+   ],
+   "points": [
+    "C1",
+    "X2"
    ]
   },
   "X57": {
    "walls": [
     "X33",
     "X40"
-   ]
+   ],
+   "wall_extent": {
+    "X33": "full",
+    "X40": "full"
+   },
+   "lines": [
+    "D1",
+    "D3",
+    "E1",
+    "E2"
+   ],
+   "points": []
   },
   "X58": {
    "walls": [
@@ -1417,6 +1700,23 @@
     "X41",
     "X96",
     "X100"
+   ],
+   "wall_extent": {
+    "F4": "partial",
+    "X41": "full",
+    "X96": "partial",
+    "X100": "full"
+   },
+   "lines": [
+    "C2a",
+    "D2",
+    "E1",
+    "T1",
+    "X5"
+   ],
+   "points": [
+    "X57",
+    "X58"
    ]
   },
   "X59": {
@@ -1425,6 +1725,21 @@
     "X20",
     "X23",
     "X39"
+   ],
+   "wall_extent": {
+    "F5": "full",
+    "X20": "partial",
+    "X23": "partial",
+    "X39": "full"
+   },
+   "lines": [
+    "E1",
+    "X29",
+    "X5",
+    "X8"
+   ],
+   "points": [
+    "F5"
    ]
   },
   "X60": {
@@ -1434,6 +1749,28 @@
     "X34",
     "X39",
     "X98"
+   ],
+   "wall_extent": {
+    "X21": "partial",
+    "X23": "partial",
+    "X34": "full",
+    "X39": "full",
+    "X98": "full"
+   },
+   "lines": [
+    "D2",
+    "X24",
+    "X29",
+    "X5",
+    "X8",
+    "X97"
+   ],
+   "points": [
+    "X21",
+    "X44",
+    "X45",
+    "X55",
+    "X98"
    ]
   },
   "X61": {
@@ -1441,6 +1778,19 @@
     "F4",
     "X99",
     "X100"
+   ],
+   "wall_extent": {
+    "F4": "partial",
+    "X99": "full",
+    "X100": "full"
+   },
+   "lines": [
+    "B1",
+    "C2a",
+    "E1"
+   ],
+   "points": [
+    "F4"
    ]
   },
   "X62": {
@@ -1448,6 +1798,21 @@
     "X23",
     "X41",
     "X96"
+   ],
+   "wall_extent": {
+    "X23": "full",
+    "X41": "full",
+    "X96": "partial"
+   },
+   "lines": [
+    "C2a",
+    "D2",
+    "E1",
+    "X5"
+   ],
+   "points": [
+    "X57",
+    "X58"
    ]
   },
   "X63": {
@@ -1455,14 +1820,39 @@
     "X40",
     "X51",
     "X84"
-   ]
+   ],
+   "wall_extent": {
+    "X40": "full",
+    "X51": "full",
+    "X84": "partial"
+   },
+   "lines": [
+    "D1",
+    "D3",
+    "E1",
+    "E2",
+    "X18"
+   ],
+   "points": []
   },
   "X64": {
    "walls": [
     "X51",
     "X53",
     "X84"
-   ]
+   ],
+   "wall_extent": {
+    "X51": "full",
+    "X53": "full",
+    "X84": "partial"
+   },
+   "lines": [
+    "D1",
+    "E1",
+    "E2",
+    "X18"
+   ],
+   "points": []
   },
   "X65": {
    "walls": [
@@ -1470,6 +1860,23 @@
     "X42",
     "X44",
     "X47"
+   ],
+   "wall_extent": {
+    "X27": "partial",
+    "X42": "full",
+    "X44": "full",
+    "X47": "full"
+   },
+   "lines": [
+    "X18",
+    "X2",
+    "X24",
+    "X81",
+    "X97"
+   ],
+   "points": [
+    "C1",
+    "X2"
    ]
   },
   "X66": {
@@ -1478,6 +1885,24 @@
     "X20",
     "X48",
     "X52"
+   ],
+   "wall_extent": {
+    "F5": "full",
+    "X20": "partial",
+    "X48": "full",
+    "X52": "full"
+   },
+   "lines": [
+    "D1",
+    "E1",
+    "E2",
+    "X18",
+    "X29",
+    "X5",
+    "X8"
+   ],
+   "points": [
+    "F5"
    ]
   },
   "X67": {
@@ -1486,31 +1911,96 @@
     "X47",
     "X52",
     "X98"
+   ],
+   "wall_extent": {
+    "X21": "partial",
+    "X47": "full",
+    "X52": "full",
+    "X98": "full"
+   },
+   "lines": [
+    "X18",
+    "X24",
+    "X29",
+    "X8",
+    "X97"
+   ],
+   "points": [
+    "X21",
+    "X44",
+    "X98"
    ]
   },
   "X68": {
    "walls": [
     "X38",
     "X99"
-   ]
+   ],
+   "wall_extent": {
+    "X38": "not found beside it in the pieces",
+    "X99": "full"
+   },
+   "lines": [
+    "B1",
+    "C2a",
+    "E1"
+   ],
+   "points": []
   },
   "X69": {
    "walls": [
     "X48",
     "X53"
-   ]
+   ],
+   "wall_extent": {
+    "X48": "full",
+    "X53": "full"
+   },
+   "lines": [
+    "D1",
+    "E1",
+    "E2",
+    "X18"
+   ],
+   "points": []
   },
   "X70": {
    "walls": [
     "X22",
     "X87",
     "X93"
+   ],
+   "wall_extent": {
+    "X22": "partial",
+    "X87": "full",
+    "X93": "full"
+   },
+   "lines": [
+    "D3",
+    "X2",
+    "X80"
+   ],
+   "points": [
+    "X79"
    ]
   },
   "X71": {
    "walls": [
     "X85",
     "X86"
+   ],
+   "wall_extent": {
+    "X85": "full",
+    "X86": "full"
+   },
+   "lines": [
+    "D2",
+    "X2",
+    "X80"
+   ],
+   "points": [
+    "X71",
+    "X72"
    ]
   },
   "X72": {
@@ -1519,6 +2009,25 @@
     "X79",
     "X86",
     "X91"
+   ],
+   "wall_extent": {
+    "X26": "full",
+    "X79": "full",
+    "X86": "full",
+    "X91": "full"
+   },
+   "lines": [
+    "D2",
+    "D3",
+    "X2",
+    "X80",
+    "X81"
+   ],
+   "points": [
+    "A1",
+    "D3",
+    "X26",
+    "X72"
    ]
   },
   "X73": {
@@ -1527,31 +2036,89 @@
     "X79",
     "X88",
     "X89"
+   ],
+   "wall_extent": {
+    "X26": "full",
+    "X79": "full",
+    "X88": "full",
+    "X89": "full"
+   },
+   "lines": [
+    "D2",
+    "X2",
+    "X80",
+    "X81"
+   ],
+   "points": [
+    "A1",
+    "D3",
+    "X26",
+    "X79"
    ]
   },
   "X74": {
    "walls": [
     "X35",
     "X84"
-   ]
+   ],
+   "wall_extent": {
+    "X35": "full",
+    "X84": "full"
+   },
+   "lines": [
+    "D3",
+    "X18"
+   ],
+   "points": []
   },
   "X75": {
    "walls": [
     "X87",
     "X88"
+   ],
+   "wall_extent": {
+    "X87": "full",
+    "X88": "full"
+   },
+   "lines": [
+    "X2",
+    "X80"
+   ],
+   "points": [
+    "X79"
    ]
   },
   "X76": {
    "walls": [
     "X89",
     "X90"
-   ]
+   ],
+   "wall_extent": {
+    "X89": "full",
+    "X90": "full"
+   },
+   "lines": [
+    "D2",
+    "X2",
+    "X81"
+   ],
+   "points": []
   },
   "X77": {
    "walls": [
     "X91",
     "X92"
-   ]
+   ],
+   "wall_extent": {
+    "X91": "full",
+    "X92": "full"
+   },
+   "lines": [
+    "D3",
+    "X2",
+    "X81"
+   ],
+   "points": []
   },
   "X95": {
    "walls": [
@@ -1559,8 +2126,26 @@
     "X9",
     "X10",
     "X20"
+   ],
+   "wall_extent": {
+    "X3": "partial",
+    "X9": "not found beside it in the pieces",
+    "X10": "full",
+    "X20": "full"
+   },
+   "lines": [
+    "D1",
+    "E2",
+    "X1",
+    "X5",
+    "X8"
+   ],
+   "points": [
+    "C1",
+    "C3"
    ]
   }
  },
+ "pieces_to_check": {},
  "open": {}
 }
