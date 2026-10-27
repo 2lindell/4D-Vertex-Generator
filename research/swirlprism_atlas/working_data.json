@@ -1870,7 +1870,6 @@
     "X1": "full",
     "D1": "partial (touches at a point)",
     "D3": "partial (touches at a point)",
-    "X18": "partial (touches at a point)",
     "X2": "partial (touches at a point)",
     "X4": "partial (touches at a point)",
     "X6": "partial (touches at a point)",
@@ -2154,8 +2153,7 @@
     "X29": "partial (touches at a point)",
     "X5": "partial (touches at a point)",
     "X80": "partial (touches at a point)",
-    "X81": "partial (touches at a point)",
-    "X97": "partial (touches at a point)"
+    "X81": "partial (touches at a point)"
    },
    "points": [
     "A1",
@@ -2180,7 +2178,6 @@
     "D3": "full",
     "E1": "full",
     "E2": "full",
-    "B1": "partial (touches at a point)",
     "C2a": "partial (touches at a point)",
     "C3": "partial (touches at a point)",
     "D2": "partial (touches at a point)",
@@ -2190,13 +2187,11 @@
     "X18": "partial (touches at a point)",
     "X2": "partial (touches at a point)",
     "X24": "partial (touches at a point)",
-    "X29": "partial (touches at a point)",
     "X4": "partial (touches at a point)",
     "X5": "partial (touches at a point)",
     "X6": "partial (touches at a point)",
     "X78": "partial (touches at a point)",
     "X8": "partial (touches at a point)",
-    "X80": "partial (touches at a point)",
     "X81": "partial (touches at a point)",
     "X97": "partial (touches at a point)"
    },
@@ -2259,7 +2254,6 @@
     "X97": "full",
     "C2b": "partial (touches at a point)",
     "T1": "partial (touches at a point)",
-    "X4": "partial (touches at a point)",
     "X5": "partial (touches at a point)"
    },
    "points": [
@@ -2408,8 +2402,7 @@
     "X97": "full",
     "C2b": "partial (touches at a point)",
     "T1": "partial (touches at a point)",
-    "X2": "partial (touches at a point)",
-    "X4": "partial (touches at a point)"
+    "X2": "partial (touches at a point)"
    },
    "points": [
     "C4"
@@ -2467,7 +2460,6 @@
     "D1": "partial (touches at a point)",
     "T1": "partial (touches at a point)",
     "X2": "partial (touches at a point)",
-    "X4": "partial (touches at a point)",
     "X97": "partial (touches at a point)"
    },
    "points": [
@@ -2707,7 +2699,6 @@
     "X80": "full",
     "C3": "partial (touches at a point)",
     "E2": "partial (touches at a point)",
-    "X18": "partial (touches at a point)",
     "X4": "partial (touches at a point)",
     "X6": "partial (touches at a point)",
     "X78": "partial (touches at a point)",
@@ -2810,7 +2801,6 @@
     "X18": "partial (touches at a point)",
     "X24": "partial (touches at a point)",
     "X29": "partial (touches at a point)",
-    "X4": "partial (touches at a point)",
     "X5": "partial (touches at a point)",
     "X97": "partial (touches at a point)"
    },
@@ -2875,7 +2865,6 @@
     "X81": "full",
     "C2b": "partial (touches at a point)",
     "T1": "partial (touches at a point)",
-    "X4": "partial (touches at a point)",
     "X5": "partial (touches at a point)",
     "X97": "partial (touches at a point)"
    },
@@ -4007,15 +3996,15 @@
      "exact": true
     },
     {
-     "status": "unresolved",
-     "on": "unnamed point (X29 | F5)",
+     "status": "point",
+     "on": "A1",
      "at": [
-      0.667630067,
-      0.049393606,
-      0.233582721,
-      0.049393606
+      0.999999623,
+      -2.17e-07,
+      2.97e-07,
+      2.97e-07
      ],
-     "exact": false
+     "exact": true
     }
    ],
    "bounds_walls": [
