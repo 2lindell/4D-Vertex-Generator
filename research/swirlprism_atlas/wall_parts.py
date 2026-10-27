@@ -39,6 +39,9 @@ def wall_pieces(w, rec, work_w, lines):
     if not known and len(work_w.get("regions", [])) == 2:
         known = [tuple(sorted(work_w["regions"]))]
         plines[known[0]] = set()
+    if not known and len(work_w.get("regions", [])) == 1:   # (the same region on both sides: X38 inside X68)
+        known = [(work_w["regions"][0], work_w["regions"][0])]
+        plines[known[0]] = set()
     cut_sides = {c["by"]: tuple(c["between"]) for c in work_w.get("cuts", []) if len(c.get("between", [])) >= 2}
     parts, links = [], []
     for k, pt in enumerate(rec["patches"]):
@@ -64,13 +67,23 @@ def wall_pieces(w, rec, work_w, lines):
     for p in parts:
         size[p["patch"]] += len(p["tris"])
     scrap = [len(p["tris"]) < 0.01 * size[p["patch"]] for p in parts]
-    start = []
+    start, extra_lines = [], []
     for p in parts:
         # (a line runs along the part: three of its segments or more, and a real share of the part's lines)
         cnt = Counter(n for (_, n), (_, m) in p["segs"] if n == m and n in lines)
         top = max(cnt.values(), default=0)
         Lp = {n for n, c in cnt.items() if c >= max(3, 0.1 * top)}
-        start.append({x for x in known if Lp <= plines[x]} if Lp else set(known))
+        if len(known) == 1 or not Lp:
+            start.append(set(known))                       # (one piece only, or nothing to tell them apart)
+            continue
+        sub = {x for x in known if Lp <= plines[x]}
+        if not sub:
+            # (lines the working data does not list on any piece: the pieces sharing the most of the part's lines,
+            # and the rest recorded as contacts the working data misses)
+            best = max(len(Lp & plines[x]) for x in known)
+            sub = {x for x in known if best and len(Lp & plines[x]) == best}
+            extra_lines.append((len(start), Lp))
+        start.append(sub)
 
     def swaps(x, y):
         s = cut_sides.get(y, ())
@@ -94,7 +107,8 @@ def wall_pieces(w, rec, work_w, lines):
         if not empty:
             break
         scrap[min(empty, key=lambda i: len(parts[i]["tris"]))] = True
-    name = [next(iter(d)) if len(d) == 1 and not scrap[i] else None for i, d in enumerate(dom)]
+    name = [next(iter(d)) if len(d) == 1 and not scrap[i] else next(iter(start[i])) if len(start[i]) == 1 else None
+            for i, d in enumerate(dom)]
     root = list(range(len(parts)))
 
     def find(i):
@@ -131,6 +145,12 @@ def wall_pieces(w, rec, work_w, lines):
                          f"{', '.join('|'.join(x) for x in sorted(d)) or 'none of the working data pieces'})")
         out.append({"patch": parts[mem[0]]["patch"], "surface": parts[mem[0]]["surface"], "tris": tris,
                     "boundary": segs, "between": list(nm) if nm else None})
+        for i, Lp in extra_lines:
+            if i in mem and nm:
+                miss = sorted(Lp - plines.get(nm, set()))
+                if miss:
+                    notes.append(f"the piece {'|'.join(nm)} is bounded by {', '.join(miss)} too, which the working data "
+                                 f"does not list for it")
     return out, notes
 
 
