@@ -124,7 +124,9 @@ def main():
                 add(i_, b, "ends on")
             if n["ends_unresolved"]:
                 n["note"] = "an end not yet named: " + "; ".join(str(x) for x in n["ends_unresolved"])
-        elif n["dim"] in ("line", "point"):
+        elif n["dim"] == "point":
+            n["bounds"] = []                              # (a point has no boundary: what touches it links to it)
+        elif n["dim"] == "line":
             for b in n["bounds"]:
                 if N_DIM.get(b) in ("line", "point"):
                     add(i_, b, "column")
