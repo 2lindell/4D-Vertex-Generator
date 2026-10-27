@@ -25,7 +25,9 @@ from edge_relabel import lab_edge
 from probe import _one
 
 STEP = 3e-4
-N = 240
+N = 300
+EDGE_OFF = 0.01
+MINOR = 0.02
 LIB = None
 JOBS = []
 
@@ -46,9 +48,12 @@ def sides(i):
     g = g / (np.linalg.norm(g) + 1e-300)
     out = []
     for sg in (1, -1):
-        y = x + sg * STEP * g
-        h = osd.home(y / y.sum()) if (y > -1e-12).all() else None
-        out.append(_one(h)[0] if h is not None else "OUT")
+        got = set()
+        for st in (STEP, STEP / 3):                        # (two distances off: they must agree)
+            y = x + sg * st * g
+            h = osd.home(y / y.sum()) if (y > -1e-12).all() else None
+            got.add(_one(h)[0] if h is not None else "OUT")
+        out.append(got.pop() if len(got) == 1 else "UNSURE")
     return out
 
 
@@ -71,8 +76,12 @@ def main():
             S = lib()[pt["surface"]]
             rng = np.random.default_rng(0)
             idx = rng.choice(len(T), min(N, len(T)), replace=False)
+            segs = pt.get("boundary", [])
+            Bt = cKDTree(np.array([a[0] for sg in segs for a in sg], float)) if segs else None
             for t in T[idx]:
                 x = pc.nrm(pc.project([S], t.mean(0)))
+                if Bt is not None and Bt.query(x)[0] < EDGE_OFF:   # (too near the piece's edge to tell its sides)
+                    continue
                 jobs.append((x, pt["surface"]))
                 where.append((w, k))
             # (corners: where the boundary label changes between neighbouring boundary segments)
@@ -111,34 +120,48 @@ def main():
             for pair, xs in parts.get((w, k), {}).items():
                 sides_all[pair] += len(xs)
         tot = sum(sides_all.values())
-        walls_out[w] = {"sides": {f"{a}|{b}": round(n / max(1, tot), 3) for (a, b), n in sides_all.most_common()}}
+        # (a pair of sides seen at under MINOR of the wall's points is listed for review, not counted)
+        minor = {pair for pair, n in sides_all.items() if n < MINOR * tot}
+        walls_out[w] = {"sides": {f"{a}|{b}": round(n / max(1, tot), 3) for (a, b), n in sides_all.most_common()
+                                  if (a, b) not in minor},
+                        "minor_sides": {f"{a}|{b}": round(n / max(1, tot), 3) for (a, b), n in sides_all.most_common()
+                                        if (a, b) in minor}}
+        for pair in minor:
+            del sides_all[pair]
+            for k in range(len(ps)):
+                parts.get((w, k), {}).pop(pair, None)
+        tot = sum(sides_all.values())
         # (a region beside the wall: full if it faces all of the wall on its side, else partial)
         for (a, b), n in sides_all.items():
             for r in (a, b):
                 share = sum(m for pair, m in sides_all.items() if r in pair) / max(1, tot)
                 reg[r]["walls"][w] = "full" if share > 0.97 else "partial"
-        # (lines and points: the boundary of the parts facing each region)
+        # (lines and points: each boundary point of the piece, and each corner, belongs to the parts of the nearest
+        # sample points (their sides))
         for k, pt in enumerate(ps):
             segs = pt.get("boundary", [])
-            if not segs:
+            prt = parts.get((w, k), {})
+            if not segs or not prt:
                 continue
-            B = np.array([a[0] for sg in segs for a in sg], float)
-            labs = [a[1] for sg in segs for a in sg]
-            tb = cKDTree(B)
-            for pair, xs in parts.get((w, k), {}).items():
-                X = np.array(xs)
-                near = set()
-                for x in X:
-                    for i in tb.query_ball_point(x, 0.05):
-                        near.add(labs[i])
-                ls = {n for n in near if n in work["walls"][w]["edges"] or n in [c["by"] for c in work["walls"][w]["cuts"]]}
-                pts = set()
-                for name, lb, x in cpts.get((w, k), []):
-                    if np.min(np.linalg.norm(X - x, axis=1)) < 0.08 and not name.startswith(("new", "ERR", "OUT")):
-                        pts.add(name)
-                for r in pair:
-                    reg[r]["lines"] |= {n for n in ls if n not in work["walls"]}
-                    reg[r]["points"] |= pts
+            X = np.array([x for xs in prt.values() for x in xs])
+            Pr = [pair for pair, xs in prt.items() for _ in xs]
+            tx = cKDTree(X)
+            edges = set(work["walls"][w]["edges"]) | {c["by"] for c in work["walls"][w]["cuts"]}
+            for sg in segs:
+                for x, n in sg:
+                    if n not in edges or n in work["walls"]:
+                        continue
+                    d, i = tx.query(np.asarray(x, float))
+                    if d < 0.04:
+                        for r in Pr[i]:
+                            reg[r]["lines"].add(n)
+            for name, lb, x in cpts.get((w, k), []):
+                if name.startswith(("new", "ERR", "OUT")):
+                    continue
+                d, i = tx.query(x)
+                if d < 0.04:
+                    for r in Pr[i]:
+                        reg[r]["points"].add(name)
     out = {"_about": __doc__.strip().split("\n\n")[0], "walls": walls_out,
            "regions": {r: {"walls": dict(sorted(v["walls"].items())), "lines": sorted(v["lines"]),
                            "points": sorted(v["points"])} for r, v in sorted(reg.items())}}

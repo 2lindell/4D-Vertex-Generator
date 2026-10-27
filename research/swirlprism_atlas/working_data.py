@@ -174,6 +174,19 @@ def main():
     # (each region's walls, full or partial, its lines and points: from the regions beside the walls' pieces,
     # piece_regions.py, where they have been found)
     PR = json.load(open("piece_regions.json")) if os.path.exists("piece_regions.json") else {}
+    to_check = {}
+
+    def piece_data(r):
+        """A region's walls' extent (full or partial), lines and points, as its walls' pieces show them: only for the
+        walls verified beside it; what the pieces show beyond that is listed under pieces_to_check, not taken."""
+        if r not in PR.get("regions", {}):
+            return {}
+        pr, mine = PR["regions"][r], rw_.get(r, set())
+        extent = {w: pr["walls"].get(w, "not found beside it in the pieces") for w in sorted(mine, key=key)}
+        extra = sorted((w for w in pr["walls"] if w not in mine), key=key)
+        if extra:
+            to_check.setdefault("region_walls", {})[r] = extra
+        return {"wall_extent": extent, "lines": pr["lines"], "points": pr["points"]}
     out = {
         "_about": __doc__.strip().split("\n\n")[0],
         "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS] + deduced,
@@ -188,17 +201,23 @@ def main():
                       **({"both_sides": SAME_BOTH_SIDES[w]} if w in SAME_BOTH_SIDES else {}), "points": outline.get(w, {}).get("points", []),
                       "regions": sorted(sep[w], key=key), "cuts_needed": max(len(sep[w]) - 2, 0), "cuts": cuts[w]}
                   for w in walls},
-        "regions": {r: {"walls": sorted(rw_.get(r, set()), key=key),
-                        **({"wall_extent": PR["regions"][r]["walls"], "lines": PR["regions"][r]["lines"],
-                            "points": PR["regions"][r]["points"]} if r in PR.get("regions", {}) else {})}
-                    for r in regions},
+        "regions": {r: {"walls": sorted(rw_.get(r, set()), key=key), **piece_data(r)} for r in regions},
+        "pieces_to_check": to_check,
         "open": open_,
     }
+    for w, v in PR.get("walls", {}).items():                   # (sides the pieces show that the wall is not given)
+        extra = {p: f for p, f in v["sides"].items() if any(x not in sep.get(w, set()) for x in p.split("|"))}
+        if extra:
+            to_check.setdefault("wall_sides", {})[w] = extra
     json.dump(out, open("working_data.json", "w"), indent=1)
     print("walls with one side:", [w for w in walls if len(sep[w]) < 2 and w not in SAME_BOTH_SIDES])
     print("walls short of cuts:", {w: (len(cuts[w]), max(len(sep[w]) - 2, 0)) for w in walls
                                    if len([c for c in cuts[w] if not c.get("crossing")]) < len(sep[w]) - 2})
     print(f"closed regions: {len(regions) - len(open_)}/{len(regions)}")
+    for k, v in to_check.items():
+        print(f"pieces to check ({k}):")
+        for x, y in v.items():
+            print(f"  {x}: {y}")
     for r, m in open_.items():
         print(f"  {r}: " + "; ".join(m))
 
