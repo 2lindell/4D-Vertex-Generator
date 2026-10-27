@@ -29,10 +29,12 @@ from collections import Counter
 import numpy as np
 from scipy.spatial import cKDTree
 
+from core import FOLD, extended, in_half
+
 OUT = "wall_parts.json"
 
 
-def wall_pieces(w, rec, work_w, lines):
+def wall_pieces(w, rec, work_w, lines, line_trees=None, region_lines=None, GG=None):
     """The wall's pieces, named by the working data: [{patch, surface, tris, boundary, between}], and notes."""
     known = [tuple(sorted(p["between"])) for p in work_w.get("pieces", [])]
     plines = {tuple(sorted(p["between"])): set(p["lines"]) for p in work_w.get("pieces", [])}
@@ -62,6 +64,28 @@ def wall_pieces(w, rec, work_w, lines):
             i, j = seam[a][0], seam[b][0]
             if parts[i]["patch"] != parts[j]["patch"]:
                 links.append((min(i, j), max(i, j), "seam"))
+    # (the faces of the cell and its mirror: where a part's rim lies on one, the wall goes on into its own image there;
+    # a group element laying that stretch of rim onto another part's rim on a face is the same piece carried over)
+    if GG is not None:
+        face = [(i, (np.asarray(x, float) + np.asarray(y, float)) / 2) for i, p in enumerate(parts)
+                for (x, nx), (y, ny) in p["segs"] if nx.startswith(("face", "mirror")) and nx == ny]
+        if face:
+            M = np.array([m for _, m in face])
+            tree = cKDTree(M)
+            hits = Counter()
+            for g in GG:
+                Y = M @ g.T
+                sm = Y.sum(1)
+                ok = np.abs(sm) > 1e-9
+                if not ok.any():
+                    continue
+                d, k = tree.query(Y[ok] / sm[ok, None])
+                for (i, _), dd, kk in zip([f for f, o in zip(face, ok) if o], d, k):
+                    j = face[kk][0]
+                    if dd < 1e-7 and j != i:
+                        hits[(min(i, j), max(i, j))] += 1
+            # (a join: three stretches of rim or more laid on the other part's rim, not one shared end)
+            links += [(i, j, "seam") for (i, j), n in hits.items() if n >= 3]
     links = sorted(set(links))
     size = Counter()
     for p in parts:
@@ -84,6 +108,19 @@ def wall_pieces(w, rec, work_w, lines):
             sub = {x for x in known if best and len(Lp & plines[x]) == best}
             extra_lines.append((len(start), Lp))
         start.append(sub)
+    # (a part reaching a line can only be a piece whose two regions both touch that line: where that tells the candidates
+    # apart, the others are dropped)
+    if line_trees and region_lines:
+        for i, p in enumerate(parts):
+            if len(start[i]) < 2:
+                continue
+            V_ = np.array(p["tris"], float).reshape(-1, 4)
+            touched = {L for L, t in line_trees.items() if t.query(V_)[0].min() < 0.016}
+            ok = lambda x, L: all(L in region_lines.get(r, ()) for r in x)
+            tell = [L for L in touched if len({ok(x, L) for x in start[i]}) == 2]
+            keep = {x for x in start[i] if all(ok(x, L) for L in tell)}
+            if keep:
+                start[i] = keep
 
     def swaps(x, y):
         s = cut_sides.get(y, ())
@@ -157,12 +194,36 @@ def wall_pieces(w, rec, work_w, lines):
 def main(only=None, src="pieces.json"):
     P = json.load(open(src))
     work = json.load(open("working_data.json"))["walls"]
-    lines = set(json.load(open("exact_defs.json"))["lines"])
+    ex = json.load(open("exact_defs.json"))["lines"]
+    lines = set(ex)
+    E_ = extended()
+    GG = np.concatenate([E_, E_ @ FOLD])
+    # (each line's pieces and their images in the half-cell, for telling which lines a part reaches)
+    line_trees = {}
+    for L_, v in ex.items():
+        pts = []
+        for P_ in v["points"]:
+            P_ = np.asarray(P_, float)
+            if len(P_) < 2:
+                continue
+            for g in GG:
+                Y = P_ @ g.T
+                sm = Y.sum(1)
+                if (np.abs(sm) < 1e-9).any():
+                    continue
+                Y = Y / sm[:, None]
+                Y = Y[[in_half(y, 1e-9) for y in Y]]
+                if len(Y):
+                    pts.append(Y)
+        if pts:
+            line_trees[L_] = cKDTree(np.unique(np.vstack(pts).round(9), axis=0))
+    WD = json.load(open("working_data.json"))
+    region_lines = {r: set(v.get("lines", {})) for r, v in WD["regions"].items()}
     out = json.load(open(OUT)) if only and os.path.exists(OUT) else {}
     for w, rec in P.items():
         if only and w not in only:
             continue
-        pcs, notes = wall_pieces(w, rec, work.get(w, {}), lines)
+        pcs, notes = wall_pieces(w, rec, work.get(w, {}), lines, line_trees, region_lines, GG)
         out[w] = {"pieces": pcs, "notes": notes}
         got = Counter("|".join(p["between"]) if p["between"] else "?" for p in pcs)
         print(f"{w}: {len(pcs)} pieces {dict(got)}" + (f"; {len(notes)} not settled" if notes else ""), flush=True)
