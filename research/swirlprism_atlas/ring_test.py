@@ -38,14 +38,9 @@ def nrm(b):
 
 
 def line_points(d, L):
-    Ci = np.asarray(d["cellInv"], float)
-    out = []
-    for src in ("xlines", "rings", "segments", "main"):
-        for x in d.get(src, []):
-            if isinstance(x, dict) and x.get("id") == L and x.get("pts") and not x.get("outline"):
-                V = np.array(x["pts"], float) * [1, 1, -1.0]
-                out.append(nrm(np.c_[V, np.ones(len(V))] @ Ci.T))
-    return out
+    """The line's verified pieces, exact (exact_defs.json, brought to their ends by line_ends.py)."""
+    ex = json.load(open("exact_defs.json"))["lines"]
+    return [np.asarray(P, float) for P in ex.get(L, {}).get("points", []) if len(P) >= 2]
 
 
 def full_home(b):
@@ -101,8 +96,11 @@ def ring(args):
 
 
 def main(lines):
-    d = rw.page_data()
-    res = {}
+    d = None
+    old = json.load(open("ring_test.json")) if __import__("os").path.exists("ring_test.json") else {}
+    res = dict(old.get("rings", {}))                          # (earlier lines kept; the ones run now replaced)
+    if not lines:
+        lines = sorted(json.load(open("exact_defs.json"))["lines"])
     with Pool(3) as pool:
         for L in lines:
             jobs = []
@@ -114,6 +112,9 @@ def main(lines):
                     f = (t - s_[i - 1]) / max(s_[i] - s_[i - 1], 1e-300)
                     jobs.append((nrm(P[i - 1] + f * (P[i] - P[i - 1])), P[i] - P[i - 1]))
             R = pool.map(ring, jobs)
+            json.dump({"rings": {**res, L: [{"at": np.round(j[0], 4).tolist(), "on": short(r[1]),
+                                             "ring": [short(x) for x in r[0]]} for j, r in zip(jobs, R)]},
+                       "new shapes": {v: k for k, v in NEW.items()}}, open("ring_test.json", "w"), indent=1)
             res[L] = [{"at": np.round(j[0], 4).tolist(), "on": short(r[1]), "ring": [short(x) for x in r[0]]}
                       for j, r in zip(jobs, R)]
             print(L)
