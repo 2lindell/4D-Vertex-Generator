@@ -5,7 +5,8 @@ shapes it bounds, from the current database. Run after cell_atlas2.py (it reads 
 Links (all from working_data.json), each tagged with where it comes from:
   - "column": a shape's boundary list in the page's key (its points, lines and walls);
   - "separates": a wall's two sides;
-  - "region walls": a region's walls in region_defs.json (a wall bounding it only in part is marked as partial);
+  - "region walls": a region's walls (a wall bounding it only in part, as its piece shows, is marked as partial);
+  - "region boundary": the lines and points bounding a region's walls' pieces;
   - "faces": the measured sections of each wall between two regions (sections/, as region_build left them), with
     their areas.
 Each node also carries its example seed's evenness (optimal_seeds.json). The nodes are laid out by the two main
