@@ -767,8 +767,10 @@ __TYPE_CSS__
     const cam = (dflt) => cameras[el("quarter").value] || dflt;
     function layout() {
       const hidden = { visible: false, showbackground: false };
-      if (["piece", "chambers", "cohesive"].includes(el("quarter").value)) {
-        const [lo, hi] = { piece: DP, chambers: DH, cohesive: DQ }[el("quarter").value].bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
+      // (the half-cell view has bounds of its own when it is the projection centred on its four A1 corners)
+      const boxed = { piece: DP, chambers: DH, cohesive: DQ, all: DC.bounds ? DC : null }[el("quarter").value];
+      if (boxed) {
+        const [lo, hi] = boxed.bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
         return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
           margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value, hoverlabel: { font: { size: 11 }, namelength: 40 },
           scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
