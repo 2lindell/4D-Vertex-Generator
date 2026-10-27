@@ -96,6 +96,11 @@ def _follow(job):
     if ab is None:
         return {"line": L_, "piece": k, "side": side, "type": "no surfaces"}
     A, B = L[ab[0]], L[ab[1]]
+    if len(P) < 24:                                      # (a short piece: points along it, on the curve)
+        Q = [P[0]]
+        for p, q in zip(P[:-1], P[1:]):
+            Q += [nrm(project([A, B], p + s * (q - p))) for s in np.linspace(0, 1, max(2, 24 // (len(P) - 1)) + 1)[1:]]
+        P = np.array(Q)
     # (a start on the line: the stored end, or the nearest point inward that is the line)
     i0 = len(P) - 1
     x = nrm(project([A, B], P[i0]))
@@ -164,18 +169,26 @@ def _follow(job):
     return {"line": L_, "piece": k, "side": side, "type": "no end within reach", "surfaces": ab}
 
 
+# (stored pieces that are not their line: classified along the curve, line_ends.py --check; X45 is a region, its one
+# stored piece lies on X27; X80's piece 2 lies on X31; X18's piece 1 is regions throughout)
+NOT_LINES = {"X45"}
+DROP_PIECES = {("X80", 2), ("X18", 1)}
+
+
 def main(only=None):
     ex = json.load(open("exact_defs.json"))["lines"]
+    ex = {L_: v for L_, v in ex.items() if L_ not in NOT_LINES}
     jobs = []
     for L_, v in ex.items():
         if only and L_ not in only:
             continue
         for k, (P, names) in enumerate(zip(v["points"], v["surfaces"])):
-            if len(P) >= 2:
+            if len(P) >= 2 and (L_, k) not in DROP_PIECES:
                 jobs += [(L_, k, "start", P, names), (L_, k, "end", P, names)]
     with Pool(4) as pool:
         res = pool.map(follow, jobs, chunksize=1)
-    out = {}
+    old = json.load(open("line_ends.json"))["lines"] if only else {}
+    out = {L_: rs for L_, rs in old.items() if L_ not in only and L_ not in NOT_LINES} if only else {}
     for r in res:
         out.setdefault(r["line"], []).append(r)
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "lines": out}, open("line_ends.json", "w"), indent=1)
@@ -250,6 +263,17 @@ def snap(d):
     """Ends left unsure (not refined, not classified, or reading as their own line) moved onto the nearest point known
     exactly (a vertex of the half-cell, or another end that was refined and named) lying on the line's two surfaces."""
     L = lib()
+    cross = [(p["name"], np.array(p["beta"], float)) for p in json.load(open("cross_ring_points.json"))["points"]]
+    # (an end at a cross-ring point is that point: named by the cross ring's sequence, which the classifier cannot always
+    # read at the exact point)
+    for rs in d["lines"].values():
+        for r in rs:
+            if r["type"] == "ends" and (r.get("exact") or r.get("approx")):
+                x = np.asarray(r.get("exact") or r.get("approx"), float)
+                near = min(cross, key=lambda c: np.linalg.norm(c[1] - x))
+                if np.linalg.norm(near[1] - x) < 1e-4:
+                    r.update({"exact": near[1].round(15).tolist(), "on": near[0], "cross_ring": True})
+                    r.pop("unrefined", None)
     known = [np.array(v, float) for v in ([1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5])]
     for rs in d["lines"].values():
         for r in rs:
@@ -272,6 +296,63 @@ def snap(d):
                 k = known[near[0][1]]
                 r.update({"exact": k.round(12).tolist(), "on": lab(k), "snapped": float(near[0][0])})
                 r.pop("unrefined", None)
+    # (an end still reading as a wall or region, or unnamed: where the line meets a copy of another line)
+    names = set(d["lines"])
+    for L_, rs in d["lines"].items():
+        for r in rs:
+            if r["type"] != "ends":
+                continue
+            on = r["on"]
+            bad = on == "ERR" or on.startswith("unnamed") or (on not in names and on.startswith(("X", "F", "T"))
+                                                             and not on.startswith("new:"))
+            if bad:
+                m = meet_line(L_, r)
+                if m:
+                    r.update(m)
+
+
+def meet_line(L_, r, reach=3e-3):
+    """Where the line L_ (its curve, near the end r) meets any copy of another line: solved exactly on the line's two
+    surfaces and a surface of the other line's copy that crosses it, checked on both of the copy's surfaces."""
+    from t2_pieces import FOLD, extended
+    L = lib()
+    G = extended()
+    GG = np.concatenate([G, G @ FOLD])
+    ex = json.load(open("exact_defs.json"))["lines"]
+    x = np.asarray(r.get("exact") or r.get("approx"), float)
+    A, B = L[r["surfaces"][0]], L[r["surfaces"][1]]
+    best = None
+    for M, v in ex.items():
+        if M == L_ or M in NOT_LINES:
+            continue
+        for P in v["points"]:
+            P = np.asarray(P, float)
+            if len(P) < 2:
+                continue
+            Y = np.einsum("gij,nj->gni", GG, P)
+            sm = Y.sum(-1, keepdims=True)
+            ok = (np.abs(sm) > 1e-9).all((1, 2))
+            Y = Y[ok] / sm[ok]
+            dmin = np.linalg.norm(Y - x, axis=-1).min(1)
+            for Q in Y[dmin < reach]:
+                probe = Q[np.linspace(0, len(Q) - 1, 3).astype(int)]
+                thru = [n for n, s_ in L.items() if all(dist(s_, q) < 3e-6 for q in probe)]
+                for cn in thru:
+                    C = L[cn]
+                    J = np.vstack([grad(A, x), grad(B, x), grad(C, x), np.ones(4)])
+                    if np.linalg.svd(J, compute_uv=False)[-1] < 1e-6:
+                        continue
+                    y = nrm(project([A, B, C], x))
+                    if np.linalg.norm(y - x) > reach or sum(dist(L[t], y) < 1e-8 for t in thru) < 2:
+                        continue
+                    if best is None or np.linalg.norm(y - x) < best[0]:
+                        best = (np.linalg.norm(y - x), M, y)
+    if best is None:
+        return None
+    y = best[2]
+    nm = lab(y)
+    return {"exact": y.round(12).tolist(), "on": nm if nm != L_ else best[1], "meets_line": best[1],
+            "moved": float(best[0])}
 
 
 def check_piece(job):
