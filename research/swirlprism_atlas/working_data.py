@@ -194,25 +194,30 @@ def main():
     # points along it; a wall's piece between regions a and b has the line L where L's ring shows the wall between
     # a and b; a region has L where it appears in L's ring, all along it (full) or along part of it (partial))
     RT = json.load(open("ring_test.json"))["rings"] if os.path.exists("ring_test.json") else {}
-    ring_lines, piece_lines = {}, {}
-    for L_, samples in RT.items():
+    ring_lines, piece_lines, ring_unsure = {}, {}, {}
+    for L_, stretches in RT.items():
         if L_ not in line_pts:
             continue
-        seen = []
-        for smp in samples:
-            ring = smp["ring"]
-            if any("ERR" in x or "OUT" in x for x in ring):
+        total, have = 0.0, {}
+        for st in stretches:
+            ring = st["ring"]
+            if not st.get("agree", True) or any("ERR" in x or "OUT" in x for x in ring):
+                ring_unsure.setdefault(L_, []).append([st.get("from"), st.get("to")])
                 continue
-            regs = [x for x in ring if not x.startswith("[")]
-            seen.append(set(regs))
+            ln = st.get("length", 1.0)
+            total += ln
+            for r in {x for x in ring if not x.startswith("[")}:
+                have[r] = have.get(r, 0.0) + ln
             n = len(ring)
             for i, x in enumerate(ring):
                 if x.startswith("["):
                     wall_ = x.strip("[]")
                     a_, b_ = ring[(i - 1) % n], ring[(i + 1) % n]
                     piece_lines.setdefault(wall_, {}).setdefault("|".join(sorted((a_, b_), key=key)), set()).add(L_)
-        for r in set().union(*seen) if seen else set():
-            ring_lines.setdefault(r, {})[L_] = "full" if all(r in x for x in seen) else "partial"
+        for r, ln in have.items():
+            ring_lines.setdefault(r, {})[L_] = "full" if ln >= 0.98 * total else "partial"
+    if ring_unsure:
+        to_check["ring_stretches_unsure"] = ring_unsure
 
     def piece_data(r):
         """A region's walls' extent (full or partial: from their pieces, piece_regions.py), and its lines and points
