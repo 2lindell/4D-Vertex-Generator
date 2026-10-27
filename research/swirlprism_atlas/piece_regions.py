@@ -13,6 +13,8 @@ some parts do), the lines bounding those parts, and the points at their corners.
 from __future__ import annotations
 
 import json
+import os
+import pickle
 from collections import Counter, defaultdict
 from multiprocessing import Pool
 
@@ -29,6 +31,7 @@ N = 300
 EDGE_OFF = 0.01
 MINOR = 0.02
 CUT_OFF = 0.004
+CACHE = os.environ.get("PR_CACHE", "piece_regions_cache.pkl")
 LIB = None
 JOBS = []
 
@@ -86,6 +89,7 @@ def main():
                 jobs.append((x, pt["surface"]))
                 where.append((w, k))
             # (beside each cut, both ways: the parts it divides, however narrow)
+            Tc = cKDTree(T.mean(1))
             for name, Pc in pt.get("cuts", []):
                 Pc = np.asarray(Pc, float)
                 if len(Pc) < 3:
@@ -95,7 +99,7 @@ def main():
                     Tn = np.linalg.svd(np.vstack([pc.grad(S, p), np.ones(4), t]))[2][-1]
                     for sg in (1, -1):
                         x = pc.nrm(pc.project([S], p + sg * CUT_OFF * Tn))
-                        if pc.in_half(x):
+                        if pc.in_half(x) and Tc.query(x)[0] < 2 * pt.get("h", 0.008):   # (on the piece only)
                             jobs.append((x, pt["surface"]))
                             where.append((w, k, "cut"))
             # (corners: where the boundary label changes between neighbouring boundary segments)
@@ -109,9 +113,16 @@ def main():
                     if L[i] != L[j]:
                         corners.append(pc.nrm((E[i] + E[j]) / 2))
                         cwhere.append((w, k, tuple(sorted((L[i], L[j])))))
+    # (side checks cached by point, so a rerun only does the new ones)
+    cache = pickle.load(open(CACHE, "rb")) if os.path.exists(CACHE) else {}
+    keys = [(sn, tuple(np.round(x, 12))) for x, sn in jobs]
+    todo = [i for i, kk in enumerate(keys) if kk not in cache]
     JOBS[:] = jobs
     with Pool(4) as pool:
-        S2 = pool.map(sides, range(len(jobs)), chunksize=16)
+        for i, r in zip(todo, pool.map(sides, todo, chunksize=16)):
+            cache[keys[i]] = r
+    pickle.dump(cache, open(CACHE, "wb"))
+    S2 = [cache[kk] for kk in keys]
     JOBS[:] = corners
     with Pool(4) as pool:
         CN = pool.map(corner, range(len(corners)), chunksize=16)

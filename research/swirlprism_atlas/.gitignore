@@ -1,3 +1,4 @@
 sections/
 edge_display_cache.npz
 pieces.json
+piece_regions_cache.pkl
