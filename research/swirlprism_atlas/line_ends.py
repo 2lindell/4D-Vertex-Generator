@@ -270,8 +270,11 @@ def snap(d):
         for r in rs:
             if r["type"] == "ends" and (r.get("exact") or r.get("approx")):
                 x = np.asarray(r.get("exact") or r.get("approx"), float)
+                A, B = L[r["surfaces"][0]], L[r["surfaces"][1]]
                 near = min(cross, key=lambda c: np.linalg.norm(c[1] - x))
-                if np.linalg.norm(near[1] - x) < 1e-4:
+                dn = np.linalg.norm(near[1] - x)
+                # (close by, or a little further where the point lies exactly on the line's own two surfaces)
+                if dn < 1e-4 or (dn < 5e-3 and dist(A, near[1]) < 1e-8 and dist(B, near[1]) < 1e-8):
                     r.update({"exact": near[1].round(15).tolist(), "on": near[0], "cross_ring": True})
                     r.pop("unrefined", None)
     known = [np.array(v, float) for v in ([1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5])]
@@ -302,7 +305,7 @@ def snap(d):
     todo = []
     for L_, rs in d["lines"].items():
         for r in rs:
-            if r["type"] != "ends":
+            if r["type"] != "ends" or r.get("cross_ring"):
                 continue
             on = r["on"]
             if on == "ERR" or on.startswith("unnamed") or (on not in names and on.startswith(("X", "F", "T"))):
@@ -382,7 +385,7 @@ def meet_line(job, reach=3e-3):
         return None
     y = best[2]
     nm = lab(y)
-    return {"exact": y.round(12).tolist(), "on": nm if nm != L_ else best[1], "meets_line": best[1],
+    return {"exact": y.round(12).tolist(), "on": nm if nm not in (L_, "ERR") else best[1], "meets_line": best[1],
             "moved": float(best[0])}
 
 
