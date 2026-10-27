@@ -3,17 +3,16 @@
  "walls": {
   "F1": {
    "sides": {
-    "F3|X49": 0.71,
-    "F3|X50": 0.288,
-    "F3|X63": 0.002
+    "F3|X50": 0.538,
+    "F3|X49": 0.462
    },
    "minor_sides": {}
   },
   "F4": {
    "sides": {
-    "X49|X61": 0.56,
-    "X49|X58": 0.414,
-    "X49|X68": 0.026
+    "X49|X61": 0.616,
+    "X49|X58": 0.337,
+    "X49|X68": 0.047
    },
    "minor_sides": {}
   },
@@ -25,18 +24,18 @@
   },
   "T2": {
    "sides": {
-    "F2|X49": 0.358,
-    "F2|F3": 0.264,
-    "F3|X37": 0.198,
-    "F3|X36": 0.181
+    "F2|X49": 0.429,
+    "F3|X36": 0.209,
+    "F3|X37": 0.204,
+    "F2|F3": 0.158
    },
    "minor_sides": {}
   },
   "X3": {
    "sides": {
-    "X12|X95": 0.731,
-    "F2|X12": 0.231,
-    "X30|X95": 0.038
+    "X12|X95": 0.664,
+    "F2|X12": 0.332,
+    "X30|X95": 0.004
    },
    "minor_sides": {}
   },
@@ -48,8 +47,8 @@
   },
   "X9": {
    "sides": {
-    "F2|X16": 0.899,
-    "X16|X95": 0.101
+    "F2|X16": 0.845,
+    "X16|X95": 0.155
    },
    "minor_sides": {}
   },
@@ -68,8 +67,8 @@
   },
   "X14": {
    "sides": {
-    "F2|X46": 0.62,
-    "F2|X45": 0.38
+    "F2|X46": 0.762,
+    "F2|X45": 0.238
    },
    "minor_sides": {}
   },
@@ -81,9 +80,9 @@
   },
   "X17": {
    "sides": {
-    "X32|X54": 0.507,
-    "X32|X43": 0.339,
-    "X43|X46": 0.153
+    "X32|X54": 0.464,
+    "X32|X43": 0.385,
+    "X43|X46": 0.151
    },
    "minor_sides": {}
   },
@@ -95,31 +94,29 @@
   },
   "X20": {
    "sides": {
-    "X66|X95": 0.841,
-    "X59|X95": 0.152,
-    "F2|X59": 0.006,
-    "F2|X66": 0.001
+    "X66|X95": 0.847,
+    "X59|X95": 0.153
    },
    "minor_sides": {}
   },
   "X21": {
    "sides": {
-    "F2|X60": 0.578,
-    "F2|X67": 0.422
+    "F2|X60": 0.562,
+    "F2|X67": 0.438
    },
    "minor_sides": {}
   },
   "X22": {
    "sides": {
-    "F3|X54": 0.724,
-    "F3|X70": 0.276
+    "F3|X54": 0.71,
+    "F3|X70": 0.29
    },
    "minor_sides": {}
   },
   "X23": {
    "sides": {
-    "X59|X62": 0.534,
-    "X60|X62": 0.466
+    "X59|X62": 0.547,
+    "X60|X62": 0.453
    },
    "minor_sides": {}
   },
@@ -131,16 +128,14 @@
   },
   "X26": {
    "sides": {
-    "X72|X73": 0.997
+    "X72|X73": 1.0
    },
-   "minor_sides": {
-    "X56|X70": 0.003
-   }
+   "minor_sides": {}
   },
   "X27": {
    "sides": {
-    "X45|X65": 0.582,
-    "X45|X55": 0.418
+    "X45|X65": 0.592,
+    "X45|X55": 0.408
    },
    "minor_sides": {}
   },
@@ -262,8 +257,8 @@
   },
   "X84": {
    "sides": {
-    "X63|X74": 0.773,
-    "X64|X74": 0.227
+    "X63|X74": 0.754,
+    "X64|X74": 0.246
    },
    "minor_sides": {}
   },
@@ -360,30 +355,35 @@
     "X10": "full",
     "X11": "full",
     "X14": "full",
-    "X20": "partial",
     "X21": "full",
     "X3": "partial",
     "X9": "partial"
    },
-   "lines": [
-    "D1",
-    "E2",
-    "T1",
-    "X1",
-    "X4",
-    "X5",
-    "X6",
-    "X8",
-    "X97"
-   ],
+   "lines": {
+    "C2b": "full",
+    "C3": "full",
+    "D1": "full",
+    "E2": "full",
+    "T1": "full",
+    "X1": "full",
+    "X4": "full",
+    "X5": "full",
+    "X6": "full",
+    "X8": "full",
+    "X97": "full",
+    "C2a": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "E1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X78": "partial (touches at a point)"
+   },
    "points": [
-    "C3",
-    "D1",
-    "T2",
-    "X14",
-    "X21",
-    "X45",
-    "X46"
+    "C1",
+    "C4",
+    "C5",
+    "C6"
    ]
   },
   "F3": {
@@ -392,46 +392,74 @@
     "T2": "partial",
     "X22": "full"
    },
-   "lines": [
-    "B1",
-    "D3",
-    "E2",
-    "X1",
-    "X13",
-    "X4"
-   ],
+   "lines": {
+    "B1": "full",
+    "D3": "full",
+    "E2": "full",
+    "X13": "full",
+    "X4": "full",
+    "C3": "partial (touches at a point)",
+    "D1": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "E1": "partial (touches at a point)",
+    "X1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X24": "partial (touches at a point)",
+    "X29": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X80": "partial (touches at a point)",
+    "X81": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "E2",
-    "F1",
-    "T2",
-    "X31",
-    "X4",
-    "X43"
+    "A1",
+    "C1",
+    "C5"
    ]
   },
   "X12": {
    "walls": {
-    "X3": "partial",
+    "X3": "full",
     "X7": "full"
    },
-   "lines": [
-    "C3",
-    "E2",
-    "X1"
-   ],
-   "points": []
+   "lines": {
+    "C3": "full",
+    "E2": "full",
+    "X1": "full",
+    "D1": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
+   "points": [
+    "C1",
+    "C5"
+   ]
   },
   "X16": {
    "walls": {
     "X9": "full",
     "X96": "full"
    },
-   "lines": [
-    "C2a",
-    "T1",
-    "X5"
-   ],
-   "points": []
+   "lines": {
+    "C2a": "full",
+    "C2b": "full",
+    "T1": "full",
+    "X5": "full",
+    "D1": "partial (touches at a point)",
+    "E1": "partial (touches at a point)"
+   },
+   "points": [
+    "C6"
+   ]
   },
   "X30": {
    "walls": {
@@ -439,13 +467,23 @@
     "X7": "full",
     "X83": "full"
    },
-   "lines": [
-    "C3",
-    "E2",
-    "X78"
-   ],
+   "lines": {
+    "C3": "full",
+    "E2": "full",
+    "X78": "full",
+    "D1": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "X1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "C1"
+    "C1",
+    "C5"
    ]
   },
   "X32": {
@@ -454,16 +492,25 @@
     "X17": "partial",
     "X19": "full"
    },
-   "lines": [
-    "X2",
-    "X4",
-    "X6",
-    "X78"
-   ],
+   "lines": {
+    "C2b": "full",
+    "X2": "full",
+    "X4": "full",
+    "X6": "full",
+    "X78": "full",
+    "C3": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "T2",
-    "X17",
-    "X19"
+    "C1",
+    "C4"
    ]
   },
   "X36": {
@@ -473,15 +520,23 @@
     "X83": "full",
     "X94": "full"
    },
-   "lines": [
-    "C3",
-    "E2",
-    "X78"
-   ],
+   "lines": {
+    "C3": "full",
+    "E2": "full",
+    "X78": "full",
+    "D1": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "X1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "F2",
-    "T2",
-    "X11"
+    "C1",
+    "C5"
    ]
   },
   "X37": {
@@ -491,16 +546,20 @@
     "X15": "full",
     "X94": "full"
    },
-   "lines": [
-    "E2",
-    "X4",
-    "X6",
-    "X78"
-   ],
+   "lines": {
+    "E2": "full",
+    "X4": "full",
+    "X6": "full",
+    "X78": "full",
+    "C3": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "F2",
-    "X11",
-    "X4"
+    "C1"
    ]
   },
   "X43": {
@@ -510,18 +569,19 @@
     "X82": "full",
     "X85": "full"
    },
-   "lines": [
-    "D2",
-    "X13",
-    "X2",
-    "X4",
-    "X80"
-   ],
+   "lines": {
+    "D2": "full",
+    "X13": "full",
+    "X2": "full",
+    "X4": "full",
+    "X80": "full",
+    "C2b": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "X17",
-    "X31",
-    "X71",
-    "X72"
+    "C4"
    ]
   },
   "X45": {
@@ -530,13 +590,25 @@
     "X25": "full",
     "X27": "full"
    },
-   "lines": [
-    "X2",
-    "X6",
-    "X97"
-   ],
+   "lines": {
+    "C2b": "full",
+    "X2": "full",
+    "X6": "full",
+    "X97": "full",
+    "C3": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)"
+   },
    "points": [
-    "X45"
+    "C1",
+    "C4"
    ]
   },
   "X46": {
@@ -546,15 +618,25 @@
     "X19": "full",
     "X25": "full"
    },
-   "lines": [
-    "X2",
-    "X4",
-    "X6"
-   ],
+   "lines": {
+    "C2b": "full",
+    "X2": "full",
+    "X4": "full",
+    "X6": "full",
+    "X97": "full",
+    "C3": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)"
+   },
    "points": [
-    "X14",
-    "X19",
-    "X46"
+    "C1",
+    "C4"
    ]
   },
   "X49": {
@@ -565,21 +647,34 @@
     "X28": "full",
     "X82": "full"
    },
-   "lines": [
-    "B1",
-    "D2",
-    "E1",
-    "T1",
-    "X1",
-    "X13",
-    "X4"
-   ],
+   "lines": {
+    "B1": "full",
+    "D1": "full",
+    "D2": "full",
+    "E1": "full",
+    "T1": "full",
+    "X1": "full",
+    "X13": "full",
+    "X4": "full",
+    "C2a": "partial (touches at a point)",
+    "C2b": "partial (touches at a point)",
+    "C3": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X24": "partial (touches at a point)",
+    "X29": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X80": "partial (touches at a point)",
+    "X81": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "D1",
-    "F1",
-    "F4",
-    "T2",
-    "X31"
+    "A1",
+    "C4",
+    "C5",
+    "C6"
    ]
   },
   "X50": {
@@ -588,16 +683,36 @@
     "X28": "full",
     "X33": "full"
    },
-   "lines": [
-    "B1",
-    "D1",
-    "D3",
-    "E1",
-    "E2"
-   ],
+   "lines": {
+    "D1": "full",
+    "D3": "full",
+    "E1": "full",
+    "E2": "full",
+    "B1": "partial (touches at a point)",
+    "C2a": "partial (touches at a point)",
+    "C3": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X1": "partial (touches at a point)",
+    "X13": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X24": "partial (touches at a point)",
+    "X29": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X80": "partial (touches at a point)",
+    "X81": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "E2",
-    "F1"
+    "A1",
+    "C1",
+    "C5",
+    "C6"
    ]
   },
   "X54": {
@@ -607,18 +722,22 @@
     "X31": "full",
     "X93": "full"
    },
-   "lines": [
-    "D3",
-    "X13",
-    "X2",
-    "X4",
-    "X80"
-   ],
+   "lines": {
+    "D3": "full",
+    "X13": "full",
+    "X2": "full",
+    "X4": "full",
+    "X80": "full",
+    "C3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "T2",
-    "X17",
-    "X31",
-    "X43"
+    "C1"
    ]
   },
   "X55": {
@@ -628,16 +747,19 @@
     "X44": "full",
     "X90": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X24",
-    "X81",
-    "X97"
-   ],
+   "lines": {
+    "D2": "full",
+    "X2": "full",
+    "X24": "full",
+    "X81": "full",
+    "X97": "full",
+    "C2b": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)"
+   },
    "points": [
-    "X45",
-    "X55"
+    "C4"
    ]
   },
   "X56": {
@@ -646,15 +768,21 @@
     "X42": "full",
     "X92": "full"
    },
-   "lines": [
-    "D3",
-    "X18",
-    "X2",
-    "X81"
-   ],
+   "lines": {
+    "D3": "full",
+    "X18": "full",
+    "X2": "full",
+    "X81": "full",
+    "C3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "C1",
-    "X2"
+    "C1"
    ]
   },
   "X57": {
@@ -662,13 +790,29 @@
     "X33": "full",
     "X40": "full"
    },
-   "lines": [
-    "D1",
-    "D3",
-    "E1",
-    "E2"
-   ],
-   "points": []
+   "lines": {
+    "D1": "full",
+    "D3": "full",
+    "E1": "full",
+    "E2": "full",
+    "C2a": "partial (touches at a point)",
+    "C3": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
+   "points": [
+    "C1",
+    "C5",
+    "C6"
+   ]
   },
   "X58": {
    "walls": {
@@ -677,16 +821,21 @@
     "X41": "full",
     "X96": "partial"
    },
-   "lines": [
-    "C2a",
-    "D2",
-    "E1",
-    "T1",
-    "X5"
-   ],
+   "lines": {
+    "C2a": "full",
+    "D2": "full",
+    "E1": "full",
+    "T1": "full",
+    "X5": "full",
+    "C2b": "partial (touches at a point)",
+    "D1": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "X57",
-    "X58"
+    "C4",
+    "C6"
    ]
   },
   "X59": {
@@ -696,15 +845,18 @@
     "X23": "partial",
     "X39": "full"
    },
-   "lines": [
-    "E1",
-    "X29",
-    "X5",
-    "X8"
-   ],
+   "lines": {
+    "D2": "full",
+    "E1": "full",
+    "X29": "full",
+    "X5": "full",
+    "X8": "full",
+    "C2a": "partial (touches at a point)",
+    "D1": "partial (touches at a point)",
+    "T1": "partial (touches at a point)"
+   },
    "points": [
-    "F5",
-    "X23"
+    "C6"
    ]
   },
   "X60": {
@@ -715,20 +867,20 @@
     "X39": "full",
     "X98": "full"
    },
-   "lines": [
-    "D2",
-    "X24",
-    "X29",
-    "X5",
-    "X8",
-    "X97"
-   ],
+   "lines": {
+    "D2": "full",
+    "X24": "full",
+    "X29": "full",
+    "X5": "full",
+    "X8": "full",
+    "X97": "full",
+    "C2b": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)"
+   },
    "points": [
-    "X21",
-    "X44",
-    "X45",
-    "X55",
-    "X98"
+    "C4"
    ]
   },
   "X61": {
@@ -737,13 +889,25 @@
     "X100": "full",
     "X99": "full"
    },
-   "lines": [
-    "B1",
-    "C2a",
-    "E1"
-   ],
+   "lines": {
+    "B1": "full",
+    "C2a": "full",
+    "E1": "full",
+    "D1": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X13": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X24": "partial (touches at a point)",
+    "X29": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X80": "partial (touches at a point)",
+    "X81": "partial (touches at a point)"
+   },
    "points": [
-    "F4"
+    "A1",
+    "C6"
    ]
   },
   "X62": {
@@ -752,33 +916,52 @@
     "X41": "full",
     "X96": "partial"
    },
-   "lines": [
-    "C2a",
-    "D2",
-    "E1",
-    "X5"
-   ],
+   "lines": {
+    "C2a": "full",
+    "D2": "full",
+    "E1": "full",
+    "X5": "full",
+    "C2b": "partial (touches at a point)",
+    "D1": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "X23",
-    "X57",
-    "X58"
+    "C4",
+    "C6"
    ]
   },
   "X63": {
    "walls": {
-    "F1": "partial",
     "X40": "full",
     "X51": "full",
     "X84": "partial"
    },
-   "lines": [
-    "D1",
-    "D3",
-    "E1",
-    "E2",
-    "X18"
-   ],
-   "points": []
+   "lines": {
+    "D1": "full",
+    "D3": "full",
+    "E1": "full",
+    "E2": "full",
+    "X18": "full",
+    "C2a": "partial (touches at a point)",
+    "C3": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X1": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
+   "points": [
+    "C1",
+    "C5",
+    "C6"
+   ]
   },
   "X64": {
    "walls": {
@@ -786,12 +969,12 @@
     "X53": "full",
     "X84": "partial"
    },
-   "lines": [
-    "D1",
-    "E1",
-    "E2",
-    "X18"
-   ],
+   "lines": {
+    "D1": "full",
+    "E1": "full",
+    "E2": "full",
+    "X18": "full"
+   },
    "points": []
   },
   "X65": {
@@ -801,16 +984,22 @@
     "X44": "full",
     "X47": "full"
    },
-   "lines": [
-    "X18",
-    "X2",
-    "X24",
-    "X81",
-    "X97"
-   ],
+   "lines": {
+    "D3": "full",
+    "X18": "full",
+    "X2": "full",
+    "X24": "full",
+    "X81": "full",
+    "X97": "full",
+    "C3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)"
+   },
    "points": [
-    "C1",
-    "X2"
+    "C1"
    ]
   },
   "X66": {
@@ -820,17 +1009,29 @@
     "X48": "full",
     "X52": "full"
    },
-   "lines": [
-    "D1",
-    "E1",
-    "E2",
-    "X18",
-    "X29",
-    "X5",
-    "X8"
-   ],
+   "lines": {
+    "D1": "full",
+    "E1": "full",
+    "E2": "full",
+    "X18": "full",
+    "X29": "full",
+    "X5": "full",
+    "X8": "full",
+    "C2a": "partial (touches at a point)",
+    "C3": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X1": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "F5"
+    "C1",
+    "C5",
+    "C6"
    ]
   },
   "X67": {
@@ -840,17 +1041,22 @@
     "X52": "full",
     "X98": "full"
    },
-   "lines": [
-    "X18",
-    "X24",
-    "X29",
-    "X8",
-    "X97"
-   ],
+   "lines": {
+    "X18": "full",
+    "X24": "full",
+    "X29": "full",
+    "X8": "full",
+    "X97": "full",
+    "C3": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)"
+   },
    "points": [
-    "X21",
-    "X44",
-    "X98"
+    "C1"
    ]
   },
   "X68": {
@@ -859,25 +1065,53 @@
     "X38": "full",
     "X99": "full"
    },
-   "lines": [
-    "B1",
-    "C2a",
-    "E1"
-   ],
-   "points": []
+   "lines": {
+    "B1": "full",
+    "C2a": "full",
+    "E1": "full",
+    "D1": "partial (touches at a point)",
+    "D2": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X13": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X24": "partial (touches at a point)",
+    "X29": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X80": "partial (touches at a point)",
+    "X81": "partial (touches at a point)"
+   },
+   "points": [
+    "A1",
+    "C6"
+   ]
   },
   "X69": {
    "walls": {
     "X48": "full",
     "X53": "full"
    },
-   "lines": [
-    "D1",
-    "E1",
-    "E2",
-    "X18"
-   ],
-   "points": []
+   "lines": {
+    "D1": "full",
+    "E1": "full",
+    "E2": "full",
+    "X18": "full",
+    "C2a": "partial (touches at a point)",
+    "C3": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
+   "points": [
+    "C1",
+    "C6"
+   ]
   },
   "X70": {
    "walls": {
@@ -885,13 +1119,21 @@
     "X87": "full",
     "X93": "full"
    },
-   "lines": [
-    "D3",
-    "X2",
-    "X80"
-   ],
+   "lines": {
+    "D3": "full",
+    "X2": "full",
+    "X80": "full",
+    "C3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "X79"
+    "C1"
    ]
   },
   "X71": {
@@ -899,14 +1141,18 @@
     "X85": "full",
     "X86": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X80"
-   ],
+   "lines": {
+    "D2": "full",
+    "X2": "full",
+    "X80": "full",
+    "C2b": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
-    "X71",
-    "X72"
+    "C4"
    ]
   },
   "X72": {
@@ -916,18 +1162,33 @@
     "X86": "full",
     "X91": "full"
    },
-   "lines": [
-    "D2",
-    "D3",
-    "X2",
-    "X80",
-    "X81"
-   ],
+   "lines": {
+    "D2": "full",
+    "D3": "full",
+    "X2": "full",
+    "X80": "full",
+    "X81": "full",
+    "B1": "partial (touches at a point)",
+    "C2b": "partial (touches at a point)",
+    "C3": "partial (touches at a point)",
+    "E1": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X13": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X24": "partial (touches at a point)",
+    "X29": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
     "A1",
-    "D3",
-    "X26",
-    "X72"
+    "C1",
+    "C4"
    ]
   },
   "X73": {
@@ -937,17 +1198,27 @@
     "X88": "full",
     "X89": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X80",
-    "X81"
-   ],
+   "lines": {
+    "D2": "full",
+    "D3": "full",
+    "X2": "full",
+    "X80": "full",
+    "X81": "full",
+    "B1": "partial (touches at a point)",
+    "C2b": "partial (touches at a point)",
+    "E1": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X13": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X24": "partial (touches at a point)",
+    "X29": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
     "A1",
-    "D3",
-    "X26",
-    "X79"
+    "C4"
    ]
   },
   "X74": {
@@ -955,48 +1226,74 @@
     "X35": "full",
     "X84": "full"
    },
-   "lines": [
-    "D3",
-    "X18"
-   ],
-   "points": []
+   "lines": {
+    "D3": "full",
+    "X18": "full",
+    "C3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
+   "points": [
+    "C1"
+   ]
   },
   "X75": {
    "walls": {
     "X87": "full",
     "X88": "full"
    },
-   "lines": [
-    "X2",
-    "X80"
-   ],
-   "points": [
-    "X79"
-   ]
+   "lines": {
+    "D3": "full",
+    "X2": "full",
+    "X80": "full"
+   },
+   "points": []
   },
   "X76": {
    "walls": {
     "X89": "full",
     "X90": "full"
    },
-   "lines": [
-    "D2",
-    "X2",
-    "X81"
-   ],
-   "points": []
+   "lines": {
+    "D2": "full",
+    "X2": "full",
+    "X81": "full",
+    "C2b": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X5": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
+   "points": [
+    "C4"
+   ]
   },
   "X77": {
    "walls": {
     "X91": "full",
     "X92": "full"
    },
-   "lines": [
-    "D3",
-    "X2",
-    "X81"
-   ],
-   "points": []
+   "lines": {
+    "D3": "full",
+    "X2": "full",
+    "X81": "full",
+    "C3": "partial (touches at a point)",
+    "E2": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X8": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
+   "points": [
+    "C1"
+   ]
   },
   "X95": {
    "walls": {
@@ -1005,16 +1302,28 @@
     "X3": "partial",
     "X9": "partial"
    },
-   "lines": [
-    "D1",
-    "E2",
-    "X1",
-    "X5",
-    "X8"
-   ],
+   "lines": {
+    "C3": "full",
+    "D1": "full",
+    "E2": "full",
+    "X1": "full",
+    "X5": "full",
+    "X8": "full",
+    "C2a": "partial (touches at a point)",
+    "D3": "partial (touches at a point)",
+    "E1": "partial (touches at a point)",
+    "T1": "partial (touches at a point)",
+    "X18": "partial (touches at a point)",
+    "X2": "partial (touches at a point)",
+    "X4": "partial (touches at a point)",
+    "X6": "partial (touches at a point)",
+    "X78": "partial (touches at a point)",
+    "X97": "partial (touches at a point)"
+   },
    "points": [
     "C1",
-    "C3"
+    "C5",
+    "C6"
    ]
   }
  }
