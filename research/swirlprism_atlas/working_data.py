@@ -14,6 +14,8 @@ What is still open is printed, and kept in the file under "open".
 from __future__ import annotations
 
 import json
+
+import numpy as np
 import os
 
 import region_walls as rw
@@ -212,6 +214,40 @@ def main():
         "pieces_to_check": to_check,
         "open": open_,
     }
+    # (each line's ends, solved exactly from its equations: line_ends.py; a named point, another line, a new point not
+    # yet named, or unresolved where the classifier cannot name the exact end)
+    if os.path.exists("line_ends.json"):
+        LE = json.load(open("line_ends.json"))["lines"]
+        lines_out = {}
+        for L_, rs in LE.items():
+            ends = []
+            for r in rs:
+                if r["type"] == "goes on across a face":
+                    continue
+                if r["type"] != "ends":
+                    ends.append({"status": "unresolved", "why": r["type"], "piece": r["piece"], "side": r["side"]})
+                    continue
+                on = r["on"]
+                at = r.get("exact") or r.get("approx")
+                if on.startswith("new:"):
+                    st, name = "new point", on
+                elif on.startswith("unnamed point"):
+                    m = on.split("| ")[1].rstrip(")")
+                    st, name = ("line", m) if m in LE else ("unresolved", on)
+                elif on in LE:
+                    st, name = "line", on
+                elif on == "ERR" or on in walls or on in regions:
+                    st, name = "unresolved", on
+                else:
+                    st, name = "point", on
+                ends.append({"status": st, "on": name, "at": [round(v, 9) for v in at], "exact": "exact" in r})
+            uniq = []
+            for e in ends:
+                if not any(e.get("on") == u.get("on") and e.get("at") and u.get("at") and
+                           np.allclose(e["at"], u["at"], atol=1e-6) for u in uniq):
+                    uniq.append(e)
+            lines_out[L_] = {"ends": uniq, "bounds_walls": sorted((w for w in walls if L_ in E[w]), key=key)}
+        out["lines"] = lines_out
     for w, v in PR.get("walls", {}).items():                   # (sides the pieces show that the wall is not given)
         extra = {p: f for p, f in v["sides"].items() if any(x not in sep.get(w, set()) for x in p.split("|"))}
         if extra:

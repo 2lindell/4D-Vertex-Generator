@@ -187,5 +187,101 @@ def main(only=None):
               f"other {[r['type'] for r in out[L_] if r['type'] not in ('ends', 'goes on across a face')]}", flush=True)
 
 
+
+
+def refine(r):
+    """An end solved on every surface through it at once (least squares: where many surfaces meet, one third surface
+    leaves it slightly off); surfaces that only pass near it are dropped and it is solved again; then named."""
+    L = lib()
+    x = np.asarray(r.get("exact") or r.get("approx"), float)
+    A, B = L[r["surfaces"][0]], L[r["surfaces"][1]]
+
+    def jac(s, y):
+        if isinstance(s, osd.Plane):
+            return np.asarray(s.n, float)
+        return np.array([(fval(s, y + 1e-7 * u) - fval(s, y - 1e-7 * u)) / 2e-7 for u in np.eye(4)])
+
+    thru = [s for n, s in L.items() if dist(s, x) < 1e-4]
+    y = x.copy()
+    for _ in range(4):
+        if len(thru) < 3:
+            break
+        z = y.copy()
+        for _ in range(40):
+            F = np.array([fval(s, z) for s in thru] + [z.sum() - 1])
+            J = np.vstack([jac(s, z) for s in thru] + [np.ones(4)])
+            dz = np.linalg.lstsq(J, -F, rcond=None)[0]
+            z = z + dz
+            if np.linalg.norm(dz) < 1e-15:
+                break
+        d = np.array([dist(s, z) for s in thru])
+        keep = [s for s, e in zip(thru, d) if e < 1e-8]
+        y = z
+        if len(keep) == len(thru):
+            break
+        thru = keep
+    ok = len(thru) >= 3 and dist(A, y) < 1e-8 and dist(B, y) < 1e-8 and np.linalg.norm(y - x) < 1e-4
+    if not ok:
+        return {"on": lab(x), "surfaces_through": 0, "unrefined": True}
+    y = nrm(np.where(np.abs(y) < 1e-12, 0.0, y))
+    return {"exact": y.round(12).tolist(), "on": lab(y), "surfaces_through": len(thru),
+            "moved": float(np.linalg.norm(y - x))}
+
+
+def refine_all():
+    d = json.load(open("line_ends.json"))
+    jobs = [(L_, i) for L_, rs in d["lines"].items() for i, r in enumerate(rs)
+            if r["type"] == "ends" and (r.get("exact") or r.get("approx"))]
+    with Pool(4) as pool:
+        res = pool.map(refine, [d["lines"][L_][i] for L_, i in jobs], chunksize=1)
+    for (L_, i), u in zip(jobs, res):
+        r = d["lines"][L_][i]
+        r.update({k: v for k, v in u.items()})
+        if r["on"] == L_:
+            r["on"] = f"unnamed point ({L_} | {r.get('beyond')})"
+    snap(d)
+    json.dump(d, open("line_ends.json", "w"), indent=1)
+    for L_ in sorted(d["lines"]):
+        ends = [r for r in d["lines"][L_] if r["type"] == "ends"]
+        print(f"{L_}: ends on {sorted({r['on'] for r in ends})}", flush=True)
+
+
+def snap(d):
+    """Ends left unsure (not refined, not classified, or reading as their own line) moved onto the nearest point known
+    exactly (a vertex of the half-cell, or another end that was refined and named) lying on the line's two surfaces."""
+    L = lib()
+    known = [np.array(v, float) for v in ([1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5])]
+    for rs in d["lines"].values():
+        for r in rs:
+            if r["type"] == "ends" and not r.get("unrefined") and r.get("exact") and not r["on"].startswith(
+                    ("ERR", "unnamed", "new:")) and r["on"] not in d["lines"]:
+                known.append(np.array(r["exact"], float))
+    for L_, rs in d["lines"].items():
+        for r in rs:
+            if r["type"] != "ends":
+                continue
+            unsure = r.get("unrefined") or r["on"] == "ERR" or r["on"].startswith(f"unnamed point ({L_} | {L_}") \
+                or "ERR" in r["on"]
+            if not unsure:
+                continue
+            x = np.asarray(r.get("exact") or r.get("approx"), float)
+            A, B = L[r["surfaces"][0]], L[r["surfaces"][1]]
+            near = sorted(((np.linalg.norm(k - x), i) for i, k in enumerate(known)
+                           if dist(A, k) < 1e-8 and dist(B, k) < 1e-8))
+            if near and near[0][0] < 1e-4:
+                k = known[near[0][1]]
+                r.update({"exact": k.round(12).tolist(), "on": lab(k), "snapped": float(near[0][0])})
+                r.pop("unrefined", None)
+
+
 if __name__ == "__main__":
-    main(set(sys.argv[1].split(",")) if len(sys.argv) > 1 and sys.argv[1] else None)
+    if sys.argv[1:2] == ["--refine"]:
+        refine_all()
+    elif sys.argv[1:2] == ["--snap"]:
+        d = json.load(open("line_ends.json"))
+        snap(d)
+        json.dump(d, open("line_ends.json", "w"), indent=1)
+        for L_ in sorted(d["lines"]):
+            print(f"{L_}: ends on {sorted({r['on'] for r in d['lines'][L_] if r['type'] == 'ends'})}")
+    else:
+        main(set(sys.argv[1].split(",")) if len(sys.argv) > 1 and sys.argv[1] else None)
