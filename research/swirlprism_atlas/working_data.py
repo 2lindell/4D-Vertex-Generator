@@ -33,12 +33,13 @@ FILLS = [
 THROUGH = {"X53": ["D1"], "X94": ["X78"]}
 # (lines where a wall meets its own image, closing a wedge region by itself: ring test, X32 between two sheets of X15
 # and X30 between two sheets of X83 around X78)
-SELF_MEET = {"X15": ["X78"], "X83": ["X78"]}
+SELF_MEET = {"X15": ["X78"], "X83": ["X78"], "X14": ["C2b"], "X25": ["C2b"]}   # (X14, X25: a different copy of
+# the wall across C2b, as with X38 between X68 and its copy: C2b is their edge, not a line they go through)
 # (edges the traced data misses, found by the ring test: the wall is met once around the line, so it ends there)
 EDGE_FILLS = {"F5": ["E1", "X20"], "X27": ["X2"]}   # (F5 ends on X20, cutting it; X27 ends on X2: checked by hand)
 # (edges the rule keeps that are not edges: the wall meets its own image across a face of the cell there (ring test
 # with the neighbouring cell brought back by the group: the wall twice round the line), so it goes on through it)
-EDGE_DROPS = {"X14": ["C2b"], "X25": ["C2b"], "F5": ["X8"]}   # (F5: the sides labelled X8 classify as F5)
+EDGE_DROPS = {"F5": ["X8"]}   # (F5: the sides labelled X8 classify as F5)
 # (cuts deduced in the closed set: the only wall separating the two regions that change on the wall; not yet traced)
 CUT_FILLS = [("X20", "F5", "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 "
               "there); F5 is the only wall between X59 and X66")]
