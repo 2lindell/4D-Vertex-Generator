@@ -110,12 +110,12 @@ def find(kind, types):
     """Solve for a regular cell from the deepest golden sample of each given type (plus two random ones)."""
     from multiprocessing import Pool
 
-    from cell_atlas2 import identify, load_refs
-    refs = load_refs()[0]
+    from core import identify, REFS
+    refs = REFS
     xids = json.load(open("atlas_xids.json"))
     by_type = {}
     for s in json.load(open("golden_22.json")):
-        cid, xkey, _ = identify(s["sig"], refs)
+        cid, xkey, _ = identify(s["sig"])
         t = cid or xids.get(xkey)
         if t in types:
             b = np.array(s["beta"], float)
@@ -376,7 +376,7 @@ def antiprism_trace():
     earlier trace already passed; results are saved after every batch."""
     from multiprocessing import Pool
 
-    from cell_atlas import to_upper
+    from core import to_upper
     sols = [np.array(r[1]) for r in json.load(open("regular_antiprism_minima.json"))
             if r[1] and isinstance(r[2], list) and r[2][0] < 1e-8]
     seeds = []
@@ -473,12 +473,12 @@ def main():
         find(sys.argv[2], sys.argv[3].split(","))
         return
     if sys.argv[1] == "survey":
-        from cell_atlas2 import identify, load_refs
-        refs = load_refs()[0]
+        from core import identify, REFS
+        refs = REFS
         xids = json.load(open("atlas_xids.json"))
         seen = {}
         for s in json.load(open("golden_22.json")):
-            cid, xkey, _ = identify(s["sig"], refs)
+            cid, xkey, _ = identify(s["sig"])
             tid = cid or xids.get(xkey)
             b = np.array(s["beta"], float)
             if tid and (tid not in seen or b.min() > seen[tid].min()):

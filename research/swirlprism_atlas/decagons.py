@@ -160,7 +160,7 @@ def tidy(lines):
     """Drop stretches lying on another one (a piece split where the clipping met a corner), and mark copies:
     the extra half-turn Q (not in the group) swaps decagon lines in pairs, so as for the prism lines, the
     stretch through M34 = beta (0, 0, 1, 1) is drawn solid and its Q-images dashed."""
-    from cell_atlas import to_upper
+    from core import to_upper
     from normalizer import halfturn
     Q = halfturn()
     B = [np.array([_beta(np.array(x)) for x in s["seeds"]]) for s in lines]

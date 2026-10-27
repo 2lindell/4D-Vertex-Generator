@@ -13,19 +13,19 @@ The page and its features stay as they are; what feeds it is rebuilt:
   - lines: the named lines' verified pieces (exact_defs.json), every image of them in the half-cell;
   - lists: a wall's boundary is its edges and points and it separates its regions; a region's boundary is its walls
     (partial where only part of the wall faces it), its lines and points; a line's boundary is what its ends lie on
-    (all from working_data.json); the example seeds are the optimal seeds (optimal_seeds.json);
+    (all from working_data.json); each shape's example seed (working_data.json); the golden samples, uniform seeds
+    and exact points named by the classifier;
   - a selected region shows the wall pieces with it on one side (the same triangles the walls draw) and their rims.
-The fixed geometry of the page (rings, axes, regular cells, the 2400 fundamental domain, H4 mirrors, the uniform and
-exact points, the golden samples) is exact and is taken from domain_page_base.json, moved into the new projection.
-The dodecahedron views map the same walls and lines (the half-cell's pieces and their fold images, under the group).
+The page's overlays (the frame, H4 mirrors, extra-symmetry axes, the 2400 fundamental domain, the regular cells) are
+computed from the group alone (overlays.py); the golden samples, uniform seeds and exact points are named by the
+classifier; the rings are the exact cross-ring and main-ring lines. The dodecahedron views map the same content (the
+half-cell's, under the group: the fold is one of its elements).
 
     python domain_page.py ../../assets/symmetry_domain.html
-    python domain_page.py --base OLD_PAGE.html      (writes domain_page_base.json from a built page)
 """
 from __future__ import annotations
 
 import json
-import re
 import sys
 
 import numpy as np
@@ -33,17 +33,16 @@ from scipy.spatial import cKDTree
 
 import chamber_domain
 import dodeca_view as dv
-from cell_atlas import P as CHART, beta_text, seed_text
+import overlays
+from core import CANON, CHART, beta_text, extended, home, in_half, label, seed_text
 from cellframe import T as TCELL
 from sphere_complex import GG, PROJ
 
 HALF = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, -1.0]])
 CORNERS = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]])
-FOLD = [1, 0, 3, 2]
 G_CELL = 0.015          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
 G_DODECA = 0.1          # (... for the dodecahedron views, which hold about 20 half-cells)
 LINE_TOL = 1e-3         # (polylines kept where they turn by more than this, in view coordinates)
-BLOCKS = ("atlas-data", "atlas-v1", "atlas-chambers")
 
 
 # ---------------------------------------------------------------- projection
@@ -95,14 +94,6 @@ def chart(B):
     """Betas (rows) to the cell chart the dodecahedron views start from (cell_atlas.P, before the picture's flip)."""
     B = np.atleast_2d(np.asarray(B, float))
     return (B / B.sum(1, keepdims=True)) @ CHART
-
-
-def old_to_beta(Q, inv):
-    """Points of the old half-cell view (flipped cell chart) back to betas."""
-    Q = np.atleast_2d(np.asarray(Q, float))[:, :3]
-    V = np.c_[Q[:, 0], Q[:, 1], -Q[:, 2], np.ones(len(Q))]
-    B = V @ np.asarray(inv, float).T
-    return B / B.sum(1, keepdims=True)
 
 
 # ---------------------------------------------------------------- the half-cell and the group
@@ -322,8 +313,8 @@ def wall_in_cell(w, pieces, edges, G):
 
 
 def wall_in_cell_chart(pieces, edges, G):
-    """A wall's pieces in the whole cell (each piece and its fold image), for the dodecahedron views: per piece
-    {between, tris (betas), solid, dashed, rim}."""
+    """A wall's pieces in the half-cell, for the dodecahedron views (the group carries them over the whole 3-sphere: the
+    fold is one of its elements): per piece {between, tris (betas), solid, dashed, rim}."""
     out = []
     for pc in pieces:
         T = np.array(pc["tris"], float)
@@ -331,11 +322,7 @@ def wall_in_cell_chart(pieces, edges, G):
             continue
         V, F, _ = coarsen(T, G, [None] * len(T))
         solid, dashed, rim = piece_rims(pc, edges)
-        for fold in (False, True):
-            f = (lambda x: x[FOLD]) if fold else (lambda x: x)
-            out.append({"between": pc["between"], "tris": (V[:, FOLD] if fold else V)[F],
-                        "solid": [(f(a), f(b)) for a, b in solid], "rim": [(f(a), f(b)) for a, b in rim],
-                        "dashed": [(y, f(a), f(b)) for y, a, b in dashed]})
+        out.append({"between": pc["between"], "tris": V[F], "solid": solid, "rim": rim, "dashed": dashed})
     return out
 
 
@@ -404,102 +391,105 @@ def rounded(o, n):
     return o
 
 
-def read_blocks(html):
+RINGS = ("C2a", "C2b", "C3", "D1", "D2", "D3")   # (the cross ring's stretches; B1 is the main ring)
+DIM_TOKEN = {"region": "--x", "wall": "--xw", "line": "--xl", "point": "--xp"}
+
+
+def order_key(tid):
+    """The wiki's order for its shapes (core.CANON), then the others by letter and number."""
+    ids = [c[0] for c in CANON]
+    if tid in ids:
+        return (0, ids.index(tid), 0)
+    return (1, tid[0], int("".join(ch for ch in tid[1:] if ch.isdigit()) or 0))
+
+
+def _label(b):
+    return label(b)[0]
+
+
+def page_samples():
+    """The golden seeds (golden_seeds.json: seeds with golden weights), each named by the classifier."""
+    from multiprocessing import Pool
+    B = [home(s["beta"]) for s in json.load(open("golden_seeds.json"))["seeds"]]
+    with Pool(4) as pool:
+        names = pool.map(_label, B, chunksize=16)
     out = {}
-    for b in BLOCKS:
-        m = re.search(r'<script id="%s" type="application/json">(.*?)</script>' % b, html, re.S)
-        out[b] = json.loads(m.group(1))
-    out["type-css"] = re.search(r'<style id="type-colors">\n(.*?)\n</style>', html, re.S).group(1)
+    for b, n in zip(B, names):
+        out.setdefault(n, []).append((b, f"β ∝ {beta_text(b)}<br>seed {seed_text(b)}"))
     return out
 
 
-FIXED = ("types", "samples", "uniform", "special", "rings", "main", "segments", "qaxes", "regular", "fdomain", "fcentre",
-         "mirrors", "split", "edges", "edgesOnRing", "totalSamples", "mirrorWalls", "cellInv", "dodecaFaces", "bounds",
-         "chamberInfo")
-
-
-def write_base(page):
-    """The page's fixed, exact geometry and its type list, kept from a built page (domain_page_base.json)."""
-    b = read_blocks(open(page).read())
-    keep = {k: {a: v for a, v in b[k].items() if a in FIXED} for k in BLOCKS}
-    keep["type-css"] = b["type-css"]
-    json.dump(keep, open("domain_page_base.json", "w"), separators=(",", ":"))
-    print("domain_page_base.json written")
-
-
-def ring_betas(DC):
-    """The rings (cross rings and the main ring) of the old half-cell view as betas, corrected: on the face b4 = 0 the
-    old D3 stretch of the cross ring along the median b2 = b3 ran from the C1 point (0.567, 0.217, 0.217, 0) the wrong
-    way, across C3, D1 and C2a to the far end of the median; D3 there runs from that point to the corner V1."""
-    inv = DC["cellInv"]
-    out = {}
-    for key in ("rings", "main"):
-        out[key] = []
-        for r in DC[key]:
-            B = old_to_beta(r["pts"], inv)
-            if r["id"] == "D3" and np.abs(B[:, 3]).max() < 1e-4 and B[:, 0].min() < 0.1:
-                a = B[np.argmax(B[:, 0])]
-                B = np.linspace(a, [1.0, 0, 0, 0], 40)
-            out[key].append((r, B))
+def page_uniform(names_of):
+    """The uniform H4 seeds (the 15 sets of the cell's corners), each in the half-cell with its copy under the extra
+    half-turn Q, named by the classifier."""
+    from itertools import combinations
+    E = extended()
+    out = []
+    for k in range(1, 5):
+        for sub in combinations(range(4), k):
+            b0 = np.zeros(4)
+            b0[list(sub)] = 1.0
+            n = _label(b0)
+            seen = []
+            for gi, g in enumerate(E):
+                y = g @ b0
+                if abs(y.sum()) < 1e-12:
+                    continue
+                y = home(y)
+                if not in_half(y, 1e-9) or any(np.allclose(y, s_, atol=1e-9) for s_, _ in seen):
+                    continue
+                seen.append((y, gi >= len(E) // 2))
+            for y, copy in seen:
+                out.append({"id": n, "b": y, "copy": copy,
+                            "hover": f"{n} · {names_of.get(n, n)}<br>uniform seed, β ∝ {beta_text(b0)}"
+                                     + ("<br>(its copy under the extra half-turn)" if copy else "") + f"<br>seed {seed_text(y)}"})
     return out
 
 
-def move_cell_view(DC):
-    """The fixed geometry of the half-cell view moved from the old view into the new projection."""
-    inv = DC["cellInv"]
-    rb = ring_betas(DC)
-    for key in ("rings", "main"):
-        for r, B in rb[key]:
-            r["pts"] = B.tolist()                                # (as betas here: moved into the view below)
-    mv = lambda pts: view(old_to_beta(pts, inv)).tolist() if len(pts) else []
-    DC["samples"] = {k: [q + [p[3]] for q, p in zip(mv([p[:3] for p in v]), v)] for k, v in DC["samples"].items()}
-    for key in ("uniform", "special"):
-        for u in DC[key]:
-            u["q"] = mv([u["q"]])[0]
-    for key in ("rings", "main"):
-        for r in DC[key]:
-            r["pts"] = view(r["pts"]).tolist()
-    for key in ("segments", "qaxes", "regular"):
-        for r in DC[key]:
-            r["pts"] = mv(r["pts"])
-    for f in DC["fdomain"]:
-        f["pts"], f["axis"] = mv(f["pts"]), mv(f["axis"])
-    DC["fcentre"] = mv([DC["fcentre"]])[0]
-    DC["mirrors"] = [mv(m) for m in DC["mirrors"]]
-    DC["split"] = mv(DC["split"])
-    DC["edges"] = [mv(e) for e in DC["edges"]] + [mv(e) for e in DC.get("edgesOnRing", [])]
-    DC["edgesOnRing"] = []
-    dv.split_edges_on_rings(DC)
+def page_special(names_of):
+    """The exact points that are not golden: the icosafold points on the cross ring (cross_ring_points.json)."""
+    out = []
+    for c in json.load(open("cross_ring_points.json"))["points"]:
+        if c["name"] == "icosafold point":
+            b = np.asarray(c["beta"], float)
+            n = _label(b)
+            out.append({"id": n, "b": b, "kind": "icosafold",
+                        "hover": f"{n} · exact icosafold point (not golden)<br>{names_of.get(n, n)}<br>seed {seed_text(b)}"})
+    return out
 
 
-def update_types(types, work, ex):
-    by = {t["id"]: t for t in types}
-    opt = json.load(open("optimal_seeds.json"))
-    for w, v in work["walls"].items():
-        if w in by:
-            by[w].update({"bounds": v["edges"] + [p for p in v.get("boundary_points", v["points"]) if p not in v["edges"]],
-                          "separates": v["regions"]})
-            by[w].pop("partial", None)
-    for r, v in work["regions"].items():
-        if r in by:
+def page_types(work, counts):
+    """The key: every shape of the working data, with its seed, its counts and its boundary lists."""
+    types = []
+    for tid in sorted(work["shapes"], key=order_key):
+        s = work["shapes"][tid]
+        t = {"id": tid, "name": s["name"], "listed": bool(s.get("listed")), "dim": s["dim"],
+             "color": f"--ty-{tid}" if s.get("listed") else DIM_TOKEN[s["dim"]],
+             "symbol": {"1200": "circle", "600": "diamond"}.get(str(s.get("vertices")), "square"),
+             "samples": counts.get(tid, 0), "vertices": s.get("vertices"), "cells": s.get("cells"),
+             "faces": s.get("faces"), "edges": s.get("edges"), "locus": None, "bounds": []}
+        if s.get("seed"):
+            b = home(s["seed"])
+            t.update({"example": f"{seed_text(b)}  β ∝ {beta_text(b)}", "seed": seed_text(b), "betatext": beta_text(b)})
+        if s.get("evenness"):
+            t["evenness"] = s["evenness"]
+        if tid in work["walls"]:
+            v = work["walls"][tid]
+            t.update({"bounds": v["edges"] + [p for p in v["boundary_points"] if p not in v["edges"]],
+                      "separates": v["regions"], "where": "Wall between " + ", ".join(v["regions"])})
+        elif tid in work["regions"]:
+            v = work["regions"][tid]
             ext, ls = v.get("wall_extent", {}), v.get("lines", {})
-            by[r].update({"bounds": v["walls"] + list(ls) + v.get("points", []),
-                          "partial": [w for w in v["walls"] if ext.get(w) == "partial"]
-                          + [L for L, s in ls.items() if s == "partial"], "walls_decided": True})
-    for L, v in work["lines"].items():
-        if L in by:
-            ends = []
-            for e in v["ends"]:
-                if e.get("on") and e["on"] not in ends:
-                    ends.append(e["on"])
-            by[L]["bounds"] = ends
-            by[L].pop("partial", None)
-    for t in types:
-        o = opt.get(t["id"])
-        if o and np.isfinite(o.get("ratio", np.inf)) and "seed" in t:
-            b = o["beta"]
-            t.update({"example": f"{seed_text(b)}  β ∝ {beta_text(b)}", "seed": seed_text(b), "betatext": beta_text(b),
-                      "evenness": round(float(o["ratio"]), 6)})
+            t.update({"bounds": v["walls"] + list(ls) + v.get("points", []),
+                      "partial": [w for w in v["walls"] if ext.get(w) == "partial"] + [L for L, h in ls.items() if h == "partial"],
+                      "where": "Region bounded by " + ", ".join(v["walls"])})
+        elif tid in work.get("lines", {}):
+            ends = list(dict.fromkeys(e["on"] for e in work["lines"][tid]["ends"] if e.get("on")))
+            t.update({"bounds": ends, "where": "Line" + (" ending on " + ", ".join(ends) if ends else "")})
+        else:
+            t["where"] = s["dim"].capitalize()
+        types.append(t)
+    return types
 
 
 def wall_hover(w, t, v):
@@ -512,17 +502,48 @@ def wall_hover(w, t, v):
 
 
 def main(out_path):
-    base = json.load(open("domain_page_base.json"))
-    DC, V1, CH = (base[b] for b in BLOCKS)
+    DC = {}
     work = json.load(open("working_data.json"))
     P = json.load(open("wall_parts.json"))           # (each wall's pieces: wall_parts.py, from pieces.py)
     ex = json.load(open("exact_defs.json"))["lines"]
+    names_of = {k: v["name"] for k, v in work["shapes"].items()}
+    # (the overlays, from the group alone: overlays.py)
+    edges_b, split_b, mirrors_b = overlays.frame()
+    axes_b = overlays.axes()
+    fdom_b, fcentre_b = overlays.fundamental_domain()
+    regular_b, regular_pts = overlays.regular(names_of)
+    seg9 = lambda a, b: np.array([a + (b - a) * k / 8 for k in range(9)])
+    DC["edges"], DC["edgesOnRing"] = [view(e).tolist() for e in edges_b], []
+    DC["split"] = view(split_b).tolist()
+    DC["mirrors"] = [view(m).tolist() for m in mirrors_b]
+    DC["qaxes"] = [{"pts": view(seg9(a["a"], a["b"])).tolist(), "order": a["order"], "hover": a["hover"]} for a in axes_b]
+    DC["fdomain"] = [{"kind": f["kind"], "pts": view(f["pts"]).tolist(), "axis": view(f["axis"]).tolist() if f["axis"] else [],
+                      "hover": f["hover"]} for f in fdom_b]
+    DC["fcentre"] = view([fcentre_b])[0].tolist()
+    DC["regular"] = [{"kind": r["kind"], "copy": r["copy"], "pts": view(r["pts"]).tolist(), "hover": r["hover"]} for r in regular_b]
+    # (the key, the golden samples, the uniform seeds, the exact points and the rings: from the working data, the
+    # classifier and the exact lines alone)
+    samples = page_samples()
+    DC["types"] = page_types(work, {k: len(v) for k, v in samples.items()})
     by = {t["id"]: t for t in DC["types"]}
-    rb = ring_betas(DC)
-    move_cell_view(DC)
-    update_types(DC["types"], work, ex)
-    ring_ids = {r["id"] for r in DC["rings"] + DC["main"]}
-    seg_ids = {s["id"]: s.get("selOnly", False) for s in DC["segments"]}
+    DC["totalSamples"] = sum(len(v) for v in samples.values())
+    DC["samples"] = {k: [view([b])[0].tolist() + [h] for b, h in v] for k, v in samples.items()}
+    uniform, special = page_uniform(names_of), page_special(names_of) + regular_pts
+    DC["uniform"] = [{"id": u["id"], "q": view([u["b"]])[0].tolist(), "hover": u["hover"], "copy": u["copy"]} for u in uniform]
+    DC["special"] = [{**{a: u[a] for a in u if a != "b"}, "q": view([u["b"]])[0].tolist()} for u in special]
+    rings = {L: line_in_cell(ex[L]["points"]) for L in RINGS + ("B1",) if L in ex}
+    DC["rings"] = [{"id": L, "pts": view(r).tolist()} for L in RINGS for r in rings.get(L, [])]
+    DC["main"] = [{"id": "B1", "pts": view(r).tolist()} for r in rings.get("B1", [])]
+    dv.split_edges_on_rings(DC)
+    # (the shapes in each surface: the walls with a piece on it, from their pieces)
+    surf = {}
+    for w, v in P.items():
+        for p in v["pieces"]:
+            surf.setdefault(p["surface"], set()).add(w)
+    DC["mirrorWalls"] = [{"name": f"the plane n · β = 0, n = {n[6:]}" if n.startswith("plane") else f"the surface {n}",
+                          "ids": sorted(ws, key=order_key)} for n, ws in sorted(surf.items()) if len(ws) > 1]
+    seg_ids = {"T1": True, "E1": False, "E2": False}
+    ring_ids = set(RINGS) | {"B1"}
 
     cell = {"xwalls": [], "xlines": [], "segments": [], "regionShells": {}, "regionEdges": {}}
     src = {"xwalls": [], "xlines": [], "segments": []}           # (the cell chart, for the dodecahedron views)
@@ -580,8 +601,7 @@ def main(out_path):
         for Pc in v["points"]:
             Pc = np.asarray(Pc, float)
             if len(Pc) > 1:
-                for Pf in (Pc, Pc[:, FOLD]):
-                    src[key].append({"id": L, "copy": False, **extra, "pts": thin_line(chart(Pf), LINE_TOL / 12).tolist(), "hover": hv})
+                src[key].append({"id": L, "copy": False, **extra, "pts": thin_line(chart(Pc), LINE_TOL / 12).tolist(), "hover": hv})
     # a region's wall pieces (the sides of each piece) and their edges; the pieces in a file of their own beside the
     # page (symmetry_domain_regions/cell/<id>.json), fetched when the region is selected
     cell_files = {}
@@ -600,20 +620,30 @@ def main(out_path):
     # the dodecahedron views: the same walls and lines, every image under the group, cut to each view
     empty = {"samples": {}, "uniform": [], "special": [], "rings": [], "main": [], "qaxes": [], "regular": [],
              "tpatches": [], "mirrors": [], "fdomain": [], "fcentre": [0, 0, 0]}
-    for key in ("rings", "main"):
-        src[key] = [{**r, "pts": chart(Bf).tolist()} for r, B in rb[key] for Bf in (B, B[:, FOLD])]
+    src = {**empty, **src}
+    src["rings"] = [{"id": L, "pts": chart(r).tolist()} for L in RINGS for r in rings.get(L, [])]
+    src["main"] = [{"id": "B1", "pts": chart(r).tolist()} for r in rings.get("B1", [])]
+    src["samples"] = {k: [chart([b])[0].tolist() for b, _ in v] for k, v in samples.items()}
+    src["uniform"] = [{**{a: u[a] for a in u if a != "b"}, "q": chart([u["b"]])[0].tolist()} for u in uniform]
+    src["special"] = [{**{a: u[a] for a in u if a != "b"}, "q": chart([u["b"]])[0].tolist()} for u in special]
+    src["qaxes"] = [{"pts": chart(seg9(a["a"], a["b"])).tolist(), "order": a["order"], "hover": a["hover"]} for a in axes_b]
+    src["regular"] = [{"kind": r["kind"], "copy": r["copy"], "pts": chart(r["pts"]).tolist(), "hover": r["hover"]} for r in regular_b]
+    src["mirrors"] = [chart(m).tolist() for m in mirrors_b]
+    src["fdomain"] = [{"kind": f["kind"], "pts": chart(f["pts"]).tolist(), "axis": [], "hover": f["hover"]} for f in fdom_b]
+    src["fcentre"] = chart([fcentre_b])[0].tolist()
     dv.use_centre((1, 0, 0, 0))
-    v1 = dv.view({**empty, **src})
-    ch = chamber_domain.view({**empty, **{k: v1[k] for k in ("xwalls", "xlines", "segments", "rings", "main")},
-                              "tpatches": []})
+    v1 = dv.view(src)
+    ch = chamber_domain.view(v1)
     dv.use_centre((0, 0, 1, 1))
+    V1 = {k: v for k, v in v1.items() if k not in ("xwalls", "xlines", "segments")}
+    CH = {k: v for k, v in ch.items() if k not in ("xwalls", "xlines", "segments")}
     # (a region's wall pieces in these views go in files of their own beside the page, fetched when it is selected:
     # symmetry_domain_regions/<view>/<id>.json; the page's own shells are emptied so the half-cell's are not shown)
     region_files = {}
     for vk, vw, new in (("v1", V1, v1), ("chambers", CH, ch)):
-        dv.tidy_lines(new, keys=("segments", "xlines", "rings", "main"))
-        vw["rings"], vw["main"] = new["rings"], new["main"]
-        vw["edges"], vw["edgesOnRing"] = vw["edges"] + vw.get("edgesOnRing", []), []
+        dv.tidy_lines(new)
+        for k_ in ("rings", "main", "qaxes", "regular"):
+            vw[k_] = new[k_]
         dv.split_edges_on_rings(vw)
         vw["regionShells"], vw["regionEdges"] = {}, {}
         for w in [w for w in new["xwalls"] if w["id"].startswith("__region_")]:
@@ -654,7 +684,10 @@ def main(out_path):
     for f, m in region_files.items():
         (rdir / f).parent.mkdir(parents=True, exist_ok=True)
         (rdir / f).write_text(dump(m) if f.startswith("cell/") else dump3(m))
-    html = (template.replace("__TYPE_CSS__", base["type-css"]).replace("__DATA__", dump(DC)).replace("__DODECA__", "{}")
+    from place_colors import assign, css
+    listed = [t["id"] for t in DC["types"] if t["listed"]]
+    type_css = css(assign(listed, {t["id"]: t["dim"] for t in DC["types"]}))
+    html = (template.replace("__TYPE_CSS__", type_css).replace("__DATA__", dump(DC)).replace("__DODECA__", "{}")
             .replace("__PIECE__", "{}").replace("__V1__", dump3(V1)).replace("__CHAMBERS__", dump3(CH))
             .replace("__COHESIVE__", "{}"))
     open(out_path, "w").write(html)
@@ -663,7 +696,4 @@ def main(out_path):
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == "--base":
-        write_base(sys.argv[2])
-    else:
-        main(sys.argv[1])
+    main(sys.argv[1])

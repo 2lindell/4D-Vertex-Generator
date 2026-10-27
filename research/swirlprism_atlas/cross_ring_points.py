@@ -13,9 +13,20 @@ import json
 import numpy as np
 
 from cellframe import beta_from_seed
-from lines import ELEMENTS, PHI, POINTS
-from survey import C1, A
-import optimal_seeds as osd
+from four_d_vertex_generator.generation import group_elements
+from four_d_vertex_generator.library import _h4_swirlprism_ring_basis, h4_swirlprism_anchor_seed, named_symmetry
+
+PHI = (1 + 5 ** 0.5) / 2
+AT = lambda x: float(np.degrees(np.arctan(x)))  # noqa: E731
+POINTS = [  # (the exact angles along cross ring 1 where its shape changes, and the point there)
+    (0.0, "p600"), (AT(PHI**-3), "p120cell"), (AT(PHI**-2), "prss"), (AT(0.5), "psdr"),
+    (AT(PHI) / 2, "icosafold"), (AT(1 / PHI), "psdr"), (AT(2 * PHI**-2), "prss"), (45.0, "p120cell"),
+    (AT(PHI), "p600"), (AT(PHI**2), "bigyro"), (45 + AT(PHI) / 2, "icosafold"), (AT(2 * PHI**2), "bigyro"),
+]
+ELEMENTS = group_elements(named_symmetry("h4_swirlprism"))
+A = h4_swirlprism_anchor_seed()
+C1 = _h4_swirlprism_ring_basis()[0]
+import core as osd
 
 NAMES = {"p600": "A1", "p120cell": "C1", "prss": "C5", "psdr": "C6", "bigyro": "C4", "icosafold": "icosafold point"}
 

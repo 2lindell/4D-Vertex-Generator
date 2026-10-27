@@ -21,8 +21,8 @@ import json
 
 import numpy as np
 
-import optimal_seeds as osd
-from t2_pieces import extended
+import core as osd
+from core import extended
 
 FOLD = np.eye(4)[[1, 0, 3, 2]]
 # (known end points of a cut, as exact betas: the cut's surface must pass through them)

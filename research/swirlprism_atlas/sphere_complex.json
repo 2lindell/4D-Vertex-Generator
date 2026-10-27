@@ -1101,11 +1101,22 @@
    "plane (0, 0.707107, 0, -0.707107)",
    "plane (0.934172, -0.356822, 0, 0)"
   ],
-  "joins": [],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   }
+  ],
   "whole_piece": [
    [
     0,
     0
+   ],
+   [
+    1,
+    2327
    ]
   ],
   "stabiliser": [
@@ -1210,17 +1221,44 @@
    "plane (-0.356822, 0.934172, 0, 0)",
    "plane (0, 0.707107, 0, -0.707107)"
   ],
-  "joins": [],
+  "joins": [
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 1,
+    "by": 143,
+    "how": "across a face"
+   }
+  ],
   "whole_piece": [
    [
     0,
     0
+   ],
+   [
+    0,
+    279
+   ],
+   [
+    1,
+    1200
+   ],
+   [
+    1,
+    1479
    ]
   ],
   "stabiliser": [
-   0
+   0,
+   279
   ],
   "face_lines_not_edges": [
+   "E1",
    "X13"
   ]
  },
@@ -1414,7 +1452,9 @@
   "stabiliser": [
    0
   ],
-  "face_lines_not_edges": []
+  "face_lines_not_edges": [
+   "X2"
+  ]
  },
  "X94": {
   "patches": [

@@ -66,7 +66,7 @@ _E = None
 
 def qcopies(beta, tol: float = 1e-10) -> list[np.ndarray]:
     """Barycentric positions (normalised, displayed half beta3 >= beta4) of the Q-image of a seed."""
-    from cell_atlas import to_upper
+    from core import to_upper
     from cellframe import TINV
     global _E
     if _E is None:

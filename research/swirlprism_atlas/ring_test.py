@@ -12,10 +12,9 @@ from multiprocessing import Pool
 
 import numpy as np
 
-import optimal_seeds as osd
-import region_walls as rw
-from edge_relabel import lab_edge
-from probe import _one
+import core as osd
+from core import lab_edge
+from core import label as _one
 
 NEW = {}
 
@@ -46,7 +45,8 @@ def line_points(d, L):
 def full_home(b):
     """A point anywhere on the 3-sphere (betas, possibly negative: past a face of the cell) brought into the half-cell
     by the extended group."""
-    from edge_curves import group
+    from sphere_complex import GG
+    group = lambda: GG
     for g in group():
         y = g @ b
         s = y.sum()

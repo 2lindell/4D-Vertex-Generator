@@ -1,18 +1,16 @@
-"""The shape map (shape_map.html): every shape of the atlas as a node, linked to the shapes on its boundary and the
-shapes it bounds, from the current database. Run after cell_atlas2.py (it reads the page's data) and region_view.py
---defs (region_db.json).
+"""The shape map (shape_map.html): every shape as a node, linked to the shapes on its boundary and the shapes it bounds,
+from the working data alone (working_data.json).
 
-Links (all from working_data.json), each tagged with where it comes from:
-  - "column": a shape's boundary list in the page's key (its points, lines and walls);
+Links, each tagged with where it comes from:
+  - "edges": a wall's edges and the points at their ends;
   - "separates": a wall's two sides;
-  - "region walls": a region's walls (a wall bounding it only in part, as its piece shows, is marked as partial);
-  - "region boundary": the lines on a region's boundary (where two of its walls meet, an edge of a wall lying wholly on
-    it, or where one of its walls meets its own copy) and their end points;
-  - "ends on": a line's ends, solved exactly from its equations (line_ends.py): the points or lines it ends on;
-  - "faces": the measured sections of each wall between two regions (sections/, as region_build left them), with
-    their areas.
-Each node also carries its example seed's evenness (optimal_seeds.json). The nodes are laid out by the two main
-directions of their centres in the cell.
+  - "ends on it" / "crosses": a wall's cuts (the walls that end on it, or cross it);
+  - "region walls": a region's walls (a wall bounding it only in part, as its pieces show, is marked as partial);
+  - "region boundary": the lines on a region's boundary and their end points;
+  - "ends on": a line's ends, solved exactly from its equations (line_ends.py): the points or lines it ends on.
+A point has no boundary: its links are the lines, walls and regions that touch it. Each node carries its example seed and
+its evenness; the nodes are laid out by the two main directions of their centres in the cell (each shape's own geometry:
+its pieces, its exact line pieces or its exact point).
 
     python build_shape_map.py        (writes shape_map.html from shape_map_src.html)
 """
@@ -20,60 +18,41 @@ from __future__ import annotations
 
 import collections
 import json
-import os
 
 import numpy as np
 
-import region_walls as rw
+from core import CHART, home, seed_text
 
 
 def main():
-    d = rw.page_data()
-    T = {t["id"]: t for t in d["types"]}
-    pts = collections.defaultdict(list)
-    for k, v in d["samples"].items():
-        for p in v:
-            pts[k].append(p[:3])
+    work = json.load(open("working_data.json"))
+    shapes = work["shapes"]
+    WP = json.load(open("wall_parts.json"))
+    ex = json.load(open("exact_defs.json"))["lines"]
+    crp = json.load(open("cross_ring_points.json"))["points"]
+    # (each shape's own geometry, as betas: its pieces, its exact line pieces, its exact points)
     geo = collections.defaultdict(list)
-    for w in d["xwalls"]:
-        geo[w["id"]] += [v for v in w["verts"]]
-    for p in d["tpatches"]:
-        geo["T2"] += p["pts"][:-1]
-    for src in ("xlines", "rings", "segments", "main"):
-        for x in d.get(src, []):
-            if isinstance(x, dict) and not x.get("outline") and x.get("pts"):
-                geo[x["id"]] += x["pts"]
-    for src in ("uniform", "special"):
-        for x in d.get(src, []):
-            if isinstance(x, dict) and "q" in x:
-                geo[x["id"]].append(x["q"])
-    seeds = json.load(open("optimal_seeds.json")) if os.path.exists("optimal_seeds.json") else {}
-    # (each wall's edges, checked: wall_edges.py)
-    wall_edges = collections.defaultdict(list)
-    if os.path.exists("wall_edges.json"):
-        for t_ in json.load(open("wall_edges.json")):
-            if "stray" in t_:
-                continue
-            for e in t_["edges"]:
-                wall_edges[t_["wall"]].append({
-                    "piece": t_["piece"], "kind": e["kind"],
-                    "on": e.get("surface") or e.get("on"), "exact": e.get("exact", True),
-                    "off": e.get("max_off"), "beyond": e.get("beyond"), "across": e.get("across")})
-    # (the boundary lists as the database has them now (boundaries.json), over the page key's older copy)
-    B = json.load(open("boundaries.json")) if os.path.exists("boundaries.json") else {}
+    for w, v in WP.items():
+        for p in v["pieces"]:
+            T_ = np.array(p["tris"], float).reshape(-1, 4)
+            geo[w].append(T_)
+            for r in p.get("between") or ():
+                geo[r].append(T_)
+    for L_, v in ex.items():
+        geo[L_] += [np.asarray(P, float) for P in v["points"] if len(P)]
+    for c in crp:
+        geo[c["name"]].append(np.asarray([c["beta"]], float))
     nodes = []
-    for tid, t in T.items():
-        P = geo.get(tid) or pts.get(tid)
-        if not P:
+    for tid, t in shapes.items():
+        B_ = np.concatenate(geo[tid]) if geo.get(tid) else (np.asarray([t["seed"]], float) if t.get("seed") else None)
+        if B_ is None:
             continue
-        c = np.mean(np.array(P, float), axis=0)
-        n = {"id": tid, "dim": t["dim"], "name": t["name"], "c": np.round(c, 4).tolist(),
-             "bounds": B.get(tid) or t.get("bounds") or [], "sep": t.get("separates") or []}
-        if tid in seeds and np.isfinite(seeds[tid].get("ratio", np.inf)):
-            from cell_atlas import seed_text, to_upper
-            n["seed"] = seed_text(to_upper(np.array(seeds[tid]["beta"], float)))
-            n["even"] = round(float(seeds[tid]["ratio"]), 4)
-
+        c = (B_ / B_.sum(1, keepdims=True)).mean(0) @ CHART
+        n = {"id": tid, "dim": t["dim"], "name": t["name"], "c": np.round(c, 4).tolist(), "bounds": [], "sep": []}
+        if t.get("seed"):
+            n["seed"] = seed_text(home(t["seed"]))
+        if t.get("evenness"):
+            n["even"] = t["evenness"]
         nodes.append(n)
     ids = {n["id"] for n in nodes}
     N_DIM = {n["id"]: n["dim"] for n in nodes}
@@ -95,7 +74,6 @@ def main():
     # (its invisible cuts); a region its walls; a line or point its own boundary list (the points or lines at its
     # ends). A region's full boundary list and the old cut's measured faces name shapes past its edges, so they are
     # not used)
-    work = json.load(open("working_data.json"))
     W = work["walls"]
     for n in nodes:
         i_ = n["id"]

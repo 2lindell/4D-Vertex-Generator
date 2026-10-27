@@ -14,7 +14,7 @@ from __future__ import annotations
 import json
 
 import numpy as np
-from cell_atlas import P
+from core import CHART as P
 from cellframe import T
 
 from four_d_vertex_generator.generation import group_elements

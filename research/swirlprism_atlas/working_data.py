@@ -1,74 +1,26 @@
-"""The working data in one place (working_data.json): every wall with its edges, points, the regions beside it and
-the invisible cuts across it, and every region with its walls. Built from the corrected wall edges
-(wall_outline.json, by wall_edges_rule.py), the regions each wall separates (the page key; wall_sides.json where the
-key is out of date) and each region's walls (region_defs.json), with the fills listed in FILLS, each from the original
-boundary lists (boundaries.json). Then, treating the data as a closed set:
-  * a cut on a wall: another wall touching it (ending on it, or in either one's boundary list) that separates two of
-    its regions; it runs along the curve where the two meet (never a named line);
-  * a region is closed where every edge of each of its walls is met inside the region: by another of its walls that
-    has the same edge, passes through that line (goes on across it) or lists it, or is the wall that edge names.
-What is still open is printed, and kept in the file under "open".
+"""The working data in one place (working_data.json), from the verified base facts and what is computed from them.
+
+The base (working_base.json): each shape's kind, name and counts and its example seed; each wall's edges, the regions on
+its sides, its cuts and the lines it goes through; each region's walls. It is the source, edited directly; nothing here
+re-derives it from older files. Added to it, each from the pipeline's own outputs:
+  * each line's ends (line_ends.json), and the points at the ends of each wall's edges;
+  * the closed set round each line (ring_test.json, settled as a puzzle on the walls' known sides and contacts): the
+    lines of each wall's pieces, and each region's lines (full or partial) and points;
+  * each wall's pieces (wall_parts.json: built out to its edges and cuts, named from this data), so each region's walls
+    full or partial: full where every piece of the wall has the region on one side;
+  * each wall as a whole on the 3-sphere (sphere_complex.json);
+  * a region is closed where each line on the rim of one of its pieces is met by another of its pieces there (or the
+    wall meets its own copy along it).
+What is still open, or does not fit, is listed under "pieces_to_check" and "open".
 
     python working_data.py
 """
 from __future__ import annotations
 
 import json
-
-import numpy as np
 import os
 
-import region_walls as rw
-
-# (wall, region, add or drop, why): each a fill of the original data, or a stale entry taken out
-FILLS = [
-    ("F4", "X43", "drop", "X43's boundary list has no F4 (and F4 has X49, X58, X61 in wall_sides.json)"),
-    ("F4", "X60", "drop", "X60's boundary list has no F4"),
-    ("X41", "X49", "drop", "X49's boundary list has no X41 (wall_sides.json: X58, X62)"),
-    ("X79", "X72", "add", "tested: both sides of X79 are X72 and X73 on all its patches (they swap where X26 crosses it)"),
-    ("X96", "X58", "add", "X58's boundary list has T2: T2's former region B, the wall X96 (X41 ends on it there)"),
-    ("X17", "X46", "add", "X46's boundary list has X17 (X19 ends on X17 there)"),
-]
-
-
-# (lines a wall runs straight through, on into the next cell: no edge there, but the wall is at that line)
-THROUGH = {"X53": ["D1"], "X94": ["X78"]}
-# (lines where a wall meets its own image, closing a wedge region by itself: ring test, X32 between two sheets of X15
-# and X30 between two sheets of X83 around X78)
-SELF_MEET = {"X15": ["X78"], "X83": ["X78"], "X14": ["C2b"], "X25": ["C2b"], "X38": ["C2a"]}   # (X14, X25: a different copy of
-# the wall across C2b, X38 across C2a (on the face b4=0): their edge, not a line they go through)
-# (edges the traced data misses, found by the ring test: the wall is met once around the line, so it ends there)
-EDGE_FILLS = {"F5": ["E1", "X20"], "X27": ["X2"], "X38": ["C2a"]}
-# (named lines lying on a face of the half-cell along a wall's piece: a named shape there is always an edge, where the
-# wall meets a different copy of itself across the face (sphere_complex.py found them; X53 goes through D1, verified))
-FACE_EDGES = {"F1": ["D3"], "F4": ["D2"], "T2": ["D1"], "X3": ["C3", "D1"], "X9": ["C2b", "D2"], "X10": ["C3"],
-              "X19": ["C2b", "D2"], "X20": ["D1"], "X23": ["D2"], "X26": ["D2", "D3"], "X40": ["D1", "D3"],
-              "X42": ["D2", "D3"], "X87": ["C3", "D3"], "X88": ["D3"]}   # (F5 ends on X20, cutting it; X27 ends on X2: checked by hand)
-# (edges the rule keeps that are not edges: the wall meets its own image across a face of the cell there (ring test
-# with the neighbouring cell brought back by the group: the wall twice round the line), so it goes on through it)
-EDGE_DROPS = {"F5": ["X8"]}   # (F5: the sides labelled X8 classify as F5)
-# (cuts deduced in the closed set: the only wall separating the two regions that change on the wall; not yet traced)
-CUT_FILLS = [("X20", "F5", "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 "
-              "there); F5 is the only wall between X59 and X66")]
-# (walls with the same region on both sides: tested, X38 on its own quadric (its key sample and seed lie on it) has X68
-# on both sides at 217 of 225 points, down to 1e-7 off it: a wall inside X68, between X68 and its mirror image)
-SAME_BOTH_SIDES = {"X38": "X68"}
-# (walls found that are not in the atlas yet, under a provisional name: their regions, surface and what they cut)
-NEW_WALLS = {
-    "X100": {
-        "regions": ["X58", "X61"], "surface": "X7 (its own quadric; also X51's image 1127)",
-        "signature": "1200: cells 120+120+600+600+600+1200+1200+1200 | faces 240+600+1200+1200+1200+1200+1200+1200+1200"
-                     "+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200+1200 | val 3:1800,4:4200,6:1800,"
-                     "11:600",
-        "why": "tested: 25 points bisected between X58 and X61 off F4's face piece (b1 = 0.001 to 0.015) lie on X7's "
-               "quadric to 1e-7, and all classify as this shape; it ends on F4, where X58 changes to X61",
-        "edges": ["C2a", "E1", "F4"],
-        "edges_why": "ring test: met once around C2a and around E1, between X61 and X58; it ends on F4"},
-}
-# (walls crossing each other: each passes through the other along a curve, where the two regions beside both swap
-# sides; an invisible line on each, though no region is added)
-CROSSINGS = [("X26", "X79", "tested: X26 lies in b3 = b2 + b4 and runs through X79 along b2 = b4, b3 = 2 b2; "
-              "X72 and X73 swap sides on X79 there")]
+import numpy as np
 
 
 def settle_ring(r1, r2, sides, same=None, touch=None):
@@ -205,113 +157,18 @@ def key(x):
 
 
 def main():
-    d = rw.page_data()
-    T = {t["id"]: t for t in d["types"]}
-    dims = {k: t["dim"] for k, t in T.items()}
-    B = {k: set(v) for k, v in json.load(open("boundaries.json")).items()}
-    for k, v in json.load(open("boundaries_extra.json")).items():
-        if not k.startswith("_"):
-            B.setdefault(k, set(v))
-    outline = json.load(open("wall_outline.json"))
-    for w, es in list(EDGE_FILLS.items()) + list(FACE_EDGES.items()):
-        outline[w]["edges"] = sorted(set(outline[w]["edges"]) | set(es))
-    for w, es in EDGE_DROPS.items():
-        outline[w]["edges"] = sorted(set(outline[w]["edges"]) - set(es))
-        THROUGH.setdefault(w, [])
-        THROUGH[w] = sorted(set(THROUGH[w]) | set(es))
-    for nw, v in NEW_WALLS.items():                   # (new walls join the walls, as the page will list them)
-        outline[nw] = {"edges": v["edges"], "points": [], "goes_on_across": []}
-        dims[nw] = "wall"
-        T[nw] = {"id": nw, "dim": "wall", "separates": v["regions"]}
-    sides = json.load(open("wall_sides.json"))
-    walls = sorted((k for k, v in dims.items() if v == "wall"), key=key)
-    regions = sorted((k for k, v in dims.items() if v == "region"), key=key)
-    base = json.load(open("wall_regions_base.json"))      # (frozen: a page rebuild does not change them)
-    sep = {w: set(base.get(w) or T[w].get("separates") or []) for w in walls}
-    for w in ("F4", "X41"):                          # (the page key's lists for these are out of date)
-        sep[w] = set(sides[w])
-    deduced = []
-    rw_ = {r: set(v["walls"]) for r, v in json.load(open("region_defs.json")).items() if isinstance(v, dict)}
-    for w, r, act, _ in FILLS:
-        if act == "add":
-            sep[w].add(r)
-            rw_.setdefault(r, set()).add(w)
-        else:
-            sep[w].discard(r)
-            rw_.get(r, set()).discard(w)
-    # (a wall with two regions and no cut that ends on another wall: both its regions run along that wall)
-    E0 = {w: set(outline.get(w, {}).get("edges", [])) for w in walls}
-    for y in walls:
-        if len(sep[y]) == 2:
-            for w in E0[y] & set(walls):
-                for r in sep[y] - sep[w]:
-                    sep[w].add(r)
-                    deduced.append({"wall": w, "region": r, "action": "add",
-                                    "why": f"{y} ends on {w} with only {' and '.join(sorted(sep[y]))} beside it"})
-    for w in walls:                                   # (a region beside a wall lists it, and the other way round)
-        for r in sep[w]:
-            rw_.setdefault(r, set()).add(w)
-    for r, ws in rw_.items():
-        for w in ws:
-            sep.setdefault(w, set()).add(r)
-    E = {w: set(outline.get(w, {}).get("edges", [])) for w in walls}
-    across = {w: set(outline.get(w, {}).get("goes_on_across", [])) | set(THROUGH.get(w, [])) for w in walls}
-    # (the cuts)
-    cuts = {}
-    for w in walls:
-        cuts[w] = []
-        for y in walls:
-            if y == w:
-                continue
-            ends_on = w in E[y]
-            if not (ends_on or y in B.get(w, set()) or w in B.get(y, set())) or (y in E[w] and not ends_on):
-                continue
-            between = sorted(sep[y] & sep[w], key=key)
-            if len(between) >= 2:
-                cuts[w].append({"by": y, "between": between, "along": f"{w} meets {y}"})
-        for w_, y, why in CUT_FILLS:
-            if w == w_ and not any(c["by"] == y for c in cuts[w]):
-                cuts[w].append({"by": y, "between": sorted(sep[w] & sep[y], key=key), "along": f"{w} meets {y}",
-                                "deduced": why})
-        for a, b_, why in CROSSINGS:
-            if w in (a, b_):
-                y = b_ if w == a else a
-                cuts[w] = [c for c in cuts[w] if c["by"] != y]
-                cuts[w].append({"by": y, "between": sorted(sep[w] & sep[y], key=key), "along": f"{w} crosses {y}",
-                                "crossing": True})
-    # (which regions reach each line: beyond a wall's edge on it (edge_lines.json), or beside a wall with two
-    # regions and no cut that ends on it; a region of a wall with more regions may lie along its other edges only)
-    EL = json.load(open("edge_lines.json"))
-    reach = {}
-    for w, v in EL.items():
-        for past, on, *n in v:
-            p = str(past)[5:] if str(past).startswith("face:") else past
-            if dims.get(p) == "region" and dims.get(on) == "line":
-                reach.setdefault(on, set()).add(p)
-    for w in walls:
-        if len(sep[w]) == 2:
-            for e in E[w] | across[w]:
-                if dims.get(e) == "line":
-                    reach.setdefault(e, set()).update(sep[w])
-    # (closure of each region)
-    open_ = {}
-    for r in regions:
-        W = rw_.get(r, set())
-        miss = []
-        for w in W & set(walls):
-            for e in E[w]:
-                if dims.get(e) == "wall":
-                    if e not in W and len(sep[w]) == 2:      # (a wall with more regions: maybe another's edge)
-                        miss.append(f"{w} ends on {e}, not a wall of {r}")
-                elif r in reach.get(e, ()) and e not in SELF_MEET.get(w, []) + FACE_EDGES.get(w, []) and not any(
-                        e in E[v] or e in across[v] or e in B.get(v, set()) for v in W & set(walls) if v != w):
-                    miss.append(f"{w}'s edge {e} meets no other wall of {r}")
-        if miss:
-            open_[r] = sorted(miss)
-    # (each region's walls, full or partial, its lines and points: from the regions beside the walls' pieces,
-    # piece_regions.py, where they have been found)
-    PR = json.load(open("piece_regions.json")) if os.path.exists("piece_regions.json") else {}
-    to_check = {}
+    base = json.load(open("working_base.json"))
+    shapes = base["shapes"]
+    dims = {k: v["dim"] for k, v in shapes.items()}
+    walls = sorted(base["walls"], key=key)
+    regions = sorted(base["regions"], key=key)
+    SELF_MEET, FACE_EDGES, SAME_BOTH_SIDES = base["self_meet"], base["face_edges"], base["same_both_sides"]
+    E = {w: set(base["walls"][w]["edges"]) for w in walls}
+    sep = {w: set(base["walls"][w]["regions"]) for w in walls}
+    cuts = {w: base["walls"][w]["cuts"] for w in walls}
+    THROUGH = {w: base["walls"][w].get("through", []) for w in walls if base["walls"][w].get("through")}
+    rw_ = {r: set(base["regions"][r]["walls"]) for r in regions}
+    to_check, open_ = {}, {}
 
     LE = json.load(open("line_ends.json"))["lines"] if os.path.exists("line_ends.json") else {}
     line_pts = {L_: sorted({r["on"] for r in rs if r["type"] == "ends" and r["on"] not in LE
@@ -320,15 +177,15 @@ def main():
                 for L_, rs in LE.items()}
 
     # (the closed set around each line: the ring test, the walls and regions in their cyclic order round the line at
-    # points along it; a wall's piece between regions a and b has the line L where L's ring shows the wall between
-    # a and b; a region has L where it appears in L's ring, all along it (full) or along part of it (partial))
+    # points along it, settled as a puzzle on the walls' known sides and contacts; a wall's piece between regions a and
+    # b has the line L where L's ring shows the wall between a and b; a region has L where it appears in L's ring, all
+    # along it (full) or along part of it (partial))
     RT = json.load(open("ring_test.json"))["rings"] if os.path.exists("ring_test.json") else {}
     ring_lines, piece_lines, ring_unsure, ring_settled, contacts_found = {}, {}, {}, {}, {}
     sides_of = {w: set(sep[w]) for w in walls}
-    # (the walls known to touch each line: it is one of their edges, they pass through it, or meet their own image along it)
     touch = {}
     for w in walls:
-        for L_ in set(outline.get(w, {}).get("edges", [])) | set(THROUGH.get(w, [])) | set(SELF_MEET.get(w, [])):
+        for L_ in E[w] | set(THROUGH.get(w, [])) | set(SELF_MEET.get(w, [])):
             touch.setdefault(L_, set()).add(w)
     for L_, stretches in RT.items():
         if L_ not in line_pts:
@@ -360,57 +217,76 @@ def main():
                     piece_lines.setdefault(wall_, {}).setdefault("|".join(sorted((a_, b_), key=key)), set()).add(L_)
         for r, ln in have.items():
             ring_lines.setdefault(r, {})[L_] = "full" if ln >= 0.98 * total else "partial"
-    if ring_unsure:
-        to_check["ring_stretches_unsure"] = ring_unsure
-    if ring_settled:
-        to_check["ring_stretches_settled"] = ring_settled
-    if contacts_found:
-        to_check["contacts_found_by_rings"] = contacts_found
+    for k_, v_ in (("ring_stretches_unsure", ring_unsure), ("ring_stretches_settled", ring_settled),
+                   ("contacts_found_by_rings", contacts_found)):
+        if v_:
+            to_check[k_] = v_
 
-    def piece_data(r):
-        """A region's walls' extent (full or partial: from their pieces, piece_regions.py), and its lines and points
-        from the walls' own boundaries: a line is on the region's boundary where two of its walls meet along it, where
-        a wall lying wholly on it has it as an edge, or where one of its walls meets its own copy along it; the
-        points are those lines' ends."""
-        mine = rw_.get(r, set())
-        extent = {}
-        if r in PR.get("regions", {}):
-            pr = PR["regions"][r]
-            extent = {w: pr["walls"].get(w, "not found beside it in the pieces") for w in sorted(mine, key=key)}
-            extra = sorted((w for w in pr["walls"] if w not in mine), key=key)
-            if extra:
-                to_check.setdefault("region_walls", {})[r] = extra
+    # (each wall's pieces, named from this data: wall_parts.py; a region's walls are full where every piece of the wall
+    # has it on one side)
+    WP = json.load(open("wall_parts.json")) if os.path.exists("wall_parts.json") else {}
+    pieces_of = {w: [p.get("between") for p in v["pieces"]] for w, v in WP.items()}
+    notes = {w: v["notes"] for w, v in WP.items() if v.get("notes")}
+    if notes:
+        to_check["wall_pieces"] = notes
+
+    def extent(r, w):
+        ps = pieces_of.get(w)
+        if not ps:
+            return "no pieces built"
+        named = [p for p in ps if p]
+        mine = [p for p in named if r in p]
+        if not mine:
+            return "not found beside it in the pieces"
+        return "full" if len(mine) == len(ps) else "partial"
+
+    # (closure: each line on the rim of one of a region's pieces is met by another of its pieces there, or the wall
+    # meets its own copy along it, or lies along a face of the cell there)
+    lines_set = set(LE) | {k for k, v in dims.items() if v == "line"}
+    for r in regions:
+        rims = []
+        for w in rw_.get(r, set()):
+            for p in WP.get(w, {}).get("pieces", []):
+                if p.get("between") and r in p["between"]:
+                    rims.append((w, {n for (_, n), (_, m) in p["boundary"] if n == m and n in lines_set}))
+        miss = []
+        for w, Ls in rims:
+            for L_ in Ls:
+                if L_ in SELF_MEET.get(w, []) + FACE_EDGES.get(w, []):
+                    continue
+                if not any(L_ in Ls2 for w2, Ls2 in rims if (w2, Ls2) is not (w, Ls)):
+                    miss.append(f"{w}'s piece edge {L_} meets no other of its pieces")
+        if miss:
+            open_[r] = sorted(set(miss))
+
+    def region_data(r):
         lines_r = ring_lines.get(r, {})
-        pts = sorted({p for L_ in lines_r for p in line_pts[L_]}, key=key)
-        return {"wall_extent": extent, "lines": {L_: lines_r[L_] for L_ in sorted(lines_r, key=key)}, "points": pts}
+        pts = sorted({p for L_ in lines_r for p in line_pts.get(L_, [])}, key=key)
+        return {"walls": sorted(rw_.get(r, set()), key=key),
+                "wall_extent": {w: extent(r, w) for w in sorted(rw_.get(r, set()), key=key)},
+                "lines": {L_: lines_r[L_] for L_ in sorted(lines_r, key=key)}, "points": pts}
 
     out = {
         "_about": __doc__.strip().split("\n\n")[0],
-        "fills": [{"wall": w, "region": r, "action": a, "why": why} for w, r, a, why in FILLS] + deduced,
-        "through": THROUGH,
-        "self_meet": SELF_MEET,
-        "edge_fills": EDGE_FILLS,
-        "face_edges": FACE_EDGES,
-        "edge_drops": EDGE_DROPS,
-        "crossings": [{"walls": [a, b_], "why": why} for a, b_, why in CROSSINGS],
-        "same_both_sides": SAME_BOTH_SIDES,
-        "new_walls": NEW_WALLS,
+        "shapes": shapes,
+        "self_meet": SELF_MEET, "face_edges": FACE_EDGES, "same_both_sides": SAME_BOTH_SIDES,
+        "corrections": base["corrections"],
         "walls": {w: {"edges": sorted(E[w], key=key),
                       "boundary_points": sorted({p for L_ in E[w] if L_ in line_pts for p in line_pts[L_]}, key=key),
                       "pieces": [{"between": pair.split("|"), "lines": sorted(ls, key=key),
-                                  "points": sorted({p for L_ in ls for p in line_pts[L_]}, key=key)}
+                                  "points": sorted({p for L_ in ls for p in line_pts.get(L_, [])}, key=key)}
                                  for pair, ls in sorted(piece_lines.get(w, {}).items())], "through": THROUGH.get(w, []),
-                      **({"both_sides": SAME_BOTH_SIDES[w]} if w in SAME_BOTH_SIDES else {}), "points": outline.get(w, {}).get("points", []),
+                      **({"both_sides": SAME_BOTH_SIDES[w]} if w in SAME_BOTH_SIDES else {}),
+                      "points": sorted({p for L_ in E[w] if L_ in line_pts for p in line_pts[L_]}, key=key),
                       "regions": sorted(sep[w], key=key), "cuts_needed": max(len(sep[w]) - 2, 0), "cuts": cuts[w]}
                   for w in walls},
-        "regions": {r: {"walls": sorted(rw_.get(r, set()), key=key), **piece_data(r)} for r in regions},
+        "regions": {r: region_data(r) for r in regions},
         "pieces_to_check": to_check,
         "open": open_,
     }
     # (each line's ends, solved exactly from its equations: line_ends.py; a named point, another line, a new point not
     # yet named, or unresolved where the classifier cannot name the exact end)
-    if os.path.exists("line_ends.json"):
-        LE = json.load(open("line_ends.json"))["lines"]
+    if LE:
         lines_out = {}
         for L_, rs in LE.items():
             ends = []
@@ -451,19 +327,15 @@ def main():
                     "patch_images": len(v["whole_piece"]), "stabiliser": len(v["stabiliser"]),
                     "joins": sorted({j["how"] for j in v["joins"]}),
                     "meets_copies_along": sorted(set(FACE_EDGES.get(w, [])) | set(SELF_MEET.get(w, [])))}
-    for w, v in PR.get("walls", {}).items():                   # (sides the pieces show that the wall is not given)
-        extra = {p: f for p, f in v["sides"].items() if any(x not in sep.get(w, set()) for x in p.split("|"))}
+    for w, ps in pieces_of.items():                        # (sides the pieces show that the wall is not given)
+        extra = sorted({"|".join(p) for p in ps if p and any(x not in sep.get(w, set()) for x in p)})
         if extra:
             to_check.setdefault("wall_sides", {})[w] = extra
     json.dump(out, open("working_data.json", "w"), indent=1)
     print("walls with one side:", [w for w in walls if len(sep[w]) < 2 and w not in SAME_BOTH_SIDES])
-    print("walls short of cuts:", {w: (len(cuts[w]), max(len(sep[w]) - 2, 0)) for w in walls
-                                   if len([c for c in cuts[w] if not c.get("crossing")]) < len(sep[w]) - 2})
     print(f"closed regions: {len(regions) - len(open_)}/{len(regions)}")
     for k, v in to_check.items():
-        print(f"pieces to check ({k}):")
-        for x, y in v.items():
-            print(f"  {x}: {y}")
+        print(f"pieces to check ({k}): {len(v)}")
     for r, m in open_.items():
         print(f"  {r}: " + "; ".join(m))
 

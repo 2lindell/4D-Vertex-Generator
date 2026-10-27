@@ -27,10 +27,9 @@ from collections import Counter, deque
 import numpy as np
 from scipy.spatial import cKDTree
 
-import optimal_seeds as osd
-from probe import _one
-from t2_pieces import extended
-from xsurface import CUBE, TETS, U, C0
+import core as osd
+from core import C0, CUBE, TETS, U, extended
+from core import label as _one
 
 FOLD = np.eye(4)[[1, 0, 3, 2]]
 OUT = os.environ.get("PIECES_OUT", "pieces.json")
@@ -590,11 +589,7 @@ def main(only=None, h=0.008):
     work = json.load(open("working_data.json"))
     eq = json.load(open("wall_equations.json"))["walls"]
     ex = json.load(open("exact_defs.json"))
-    seeds = {k: v["beta"] for k, v in json.load(open("optimal_seeds.json")).items()}
-    for e in json.load(open("extra_samples.json")):            # (a wall's own example seed, where it has one)
-        k = e.get("kind", "").split(" ")[0]
-        if k.startswith(("X", "F", "T")) and k not in seeds:
-            seeds[k] = e["beta"]
+    seeds = {k: v["seed"] for k, v in json.load(open("working_base.json"))["shapes"].items() if v.get("seed")}
     planes, curved = osd.library()
     LIB = {s.name: s for s in list(planes) + list(curved)}
     G = extended()

@@ -20,9 +20,9 @@ from collections import deque
 import numpy as np
 from scipy.spatial import cKDTree
 
-import optimal_seeds as osd
+import core as osd
 from pieces import fval, grad, nrm
-from t2_pieces import FOLD, extended
+from core import FOLD, extended
 
 G = extended()
 GG = np.concatenate([G, G @ FOLD])

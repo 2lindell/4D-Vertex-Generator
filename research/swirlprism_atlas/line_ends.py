@@ -20,8 +20,8 @@ from multiprocessing import Pool
 
 import numpy as np
 
-import optimal_seeds as osd
-from edge_relabel import lab_edge
+import core as osd
+from core import lab_edge
 from pieces import fval, grad, in_half, nrm, project
 
 HALF = [("b1=0", np.eye(4)[0]), ("b2=0", np.eye(4)[1]), ("b3=0", np.eye(4)[2]), ("b4=0", np.eye(4)[3]),
@@ -40,8 +40,8 @@ def lib():
 def lab(x):
     """The classifier's name at x, its rounding residues cleared (a coordinate within 1e-10 of 0, or beta3 within
     1e-10 of beta4, made exact), retried at other hull tolerances where the hull fails."""
-    from classify import classify, signature
-    from probe import label_of_sig, seed_from_beta
+    from core import classify, signature
+    from core import label_of_sig, seed_from_beta
     x = nrm(x)
     x = np.where(np.abs(x) < 1e-10, 0.0, x)
     if abs(x[2] - x[3]) < 1e-10:
@@ -349,7 +349,7 @@ _G = {}
 
 def GROUP():
     if "GG" not in _G:
-        from t2_pieces import FOLD, extended
+        from core import FOLD, extended
         G = extended()
         _G["GG"] = np.concatenate([G, G @ FOLD])
         _G["GINV"] = np.linalg.inv(_G["GG"])
