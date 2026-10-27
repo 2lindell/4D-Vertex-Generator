@@ -219,7 +219,26 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000, cuts=()):
                 if n not in cells:
                     queue.append(n)
     # (the triangles: all corners reached kept; a mesh edge from a reached corner to one not reached cut exactly)
-    cross = {}
+    cross, surf_at = {}, {}
+    _k = lambda x: tuple(np.round(np.asarray(x, float), 11))
+
+    def corners(tl, sl):
+        """A triangle cut by two stretches is cut short of the corner where they meet: the corner solved exactly (onto
+        the wall's surface and both stretches' surfaces) and the triangle out to it added, so the piece fills to it."""
+        out = []
+        for (x1, n1), (x2, n2) in sl:
+            s1, s2 = surf_at.get(_k(x1)), surf_at.get(_k(x2))
+            if n1 == n2 or "?" in (n1, n2) or s1 is None or s2 is None or s1 is s2:
+                out.append([(x1, n1), (x2, n2)])
+                continue
+            c = nrm(project([S, s1, s2], (x1 + x2) / 2))
+            if (max(abs(fval(s_, c)) for s_ in (S, s1, s2)) > 1e-10 or not in_half(c, 1e-9)
+                    or max(np.linalg.norm(c - x1), np.linalg.norm(c - x2)) > 4 * h):
+                out.append([(x1, n1), (x2, n2)])
+                continue
+            tl.append([x1, x2, c])
+            out += [[(x1, n1), (c, n1)], [(c, n2), (x2, n2)]]
+        sl[:] = out
 
     def boundary(ki, ko):
         if (ki, ko) not in cross:
@@ -227,6 +246,7 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000, cuts=()):
             if bl:
                 s, x = bl
                 cross[(ki, ko)] = (x, s.name)
+                surf_at[_k(x)] = s.surf
             else:
                 a, b = verts[ki], verts[ko]
                 for name, n in HALF:
@@ -234,6 +254,7 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000, cuts=()):
                     if fa >= 0 > fb:
                         pl = osd.Plane(n, name)
                         cross[(ki, ko)] = (nrm(project([S, pl], a + fa / (fa - fb) * (b - a))), name)
+                        surf_at[_k(cross[(ki, ko)][0])] = pl
                         break
                 else:
                     cross[(ki, ko)] = ((a + b) / 2, "?")
@@ -263,6 +284,7 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000, cuts=()):
     # (zero-area slivers left by the cuts are dropped)
     area = lambda t: np.linalg.norm(np.cross(*(U @ (np.asarray(t[1:]) - t[0]).T).T))
     out_tris = [t for t in out_tris if area(t) > 1e-14]
+    corners(out_tris, segs)
     parts = []
     if cuts:
         # (the parts: the reached vertices grown again, now across no mesh edge a cut crosses)
@@ -289,6 +311,8 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000, cuts=()):
             if k not in ccache:
                 bl = blocker(u, v, cuts)
                 ccache[k] = (bl[1], f"cut by {bl[0].name}") if bl else ((verts[u] + verts[v]) / 2, "cut by ?")
+                if bl:
+                    surf_at[_k(bl[1])] = bl[0].surf
                 if bl:
                     links.add((min(part[u], part[v]), max(part[u], part[v]), bl[0].name))
             return ccache[k]
@@ -317,6 +341,9 @@ def build(w, S, stretches, ref, h=0.008, max_cells=120000, cuts=()):
                             ptris[pid].append(tt)
                     if len(ends) == 2:
                         psegs[pid].append(ends)
+        for i in range(len(parts)):
+            if ptris[i]:
+                corners(ptris[i], psegs[i])
         parts = [{"tris": ptris[i], "boundary": psegs[i]} for i in range(len(parts)) if ptris[i]]
         keep = [i for i in range(len(ptris)) if ptris[i]]
         renum = {i: n for n, i in enumerate(keep)}
@@ -342,10 +369,75 @@ class Image:
         return self.s.f(Y / Y.sum(1, keepdims=True))
 
 
-def cut_edge_stretches(w, Y, S, LIB, GG, h, tol=1e-7):
-    """The cut of the wall w by Y on its surface S: Y's own edge on w (the boundary segments of Y's patches labelled
-    w), carried by each group element that lays segments of it on S in the half-cell; one stretch per image, with the
-    image of Y's surface (its second surface, for the side test). Joined end to end and densified."""
+def chains_of(segs, tol=1e-9):
+    """Segments [(a, b)] joined end to end: lists of points."""
+    key = lambda x: tuple(np.round(x / tol).astype(np.int64))
+    nb = {}
+    for a, b in segs:
+        ka, kb = key(a), key(b)
+        if ka == kb:
+            continue
+        nb.setdefault(ka, []).append((kb, b))
+        nb.setdefault(kb, []).append((ka, a))
+    pt = {key(a): a for s in segs for a in s}
+    used, out = set(), []
+    for k0 in sorted(nb, key=lambda k: len(nb[k]) != 1):
+        if any((k0, k1) in used for k1, _ in nb[k0]):
+            continue
+        ch, k, prev = [pt[k0]], k0, None
+        while True:
+            nxt = [(k1, p) for k1, p in nb[k] if k1 != prev and (k, k1) not in used]
+            if not nxt:
+                break
+            k1, p = nxt[0]
+            used |= {(k, k1), (k1, k)}
+            ch.append(p)
+            prev, k = k, k1
+            if k == k0:
+                break
+        if len(ch) > 1:
+            out.append(np.array(ch))
+    return out
+
+
+def run_out(S, I, x, t, rim, h, max_len=0.6):
+    """The curve where S and I meet, from x along t, to where it reaches the rim (a stretch of the patch's edge: its
+    second surface changes sign there, at a point on it) or the half-cell's face: the points, the last one solved exactly
+    onto S, I and that stretch's surface (or the face)."""
+    step, pts, prev = h / 4, [], t
+    for _ in range(int(max_len / step)):
+        M = np.vstack([grad(S, x), grad(I, x), np.ones(4)])
+        tt = np.linalg.svd(M)[2][-1]
+        if tt @ prev < 0:
+            tt = -tt
+        prev = tt
+        y = nrm(project([S, I], x + step * tt / np.linalg.norm(tt)))
+        for s in rim:
+            if s.tree is not None and s.tree.query((x + y) / 2)[0] > 2.5 * h:
+                continue
+            fa, fb = fval(s.surf, x), fval(s.surf, y)
+            if fa == 0 or np.sign(fa) == np.sign(fb):
+                continue
+            z = nrm(project([S, I, s.surf], x + fa / (fa - fb) * (y - x)))
+            if s.tree is None or s.tree.query(z)[0] < 1.2 * h:
+                return pts + [z]
+        if not in_half(y, 1e-12):
+            for name, n in HALF:
+                fa, fb = x @ n, y @ n
+                if fa >= 0 > fb:
+                    return pts + [nrm(project([S, I, osd.Plane(n, name)], x + fa / (fa - fb) * (y - x)))]
+            return pts
+        pts.append(y)
+        x = y
+    return pts
+
+
+def cut_edge_stretches(w, Y, S, LIB, GG, h, rim=(), tol=1e-7):
+    """The cut of the wall w by Y on its surface S, exact on the 3-sphere: the image of Y's surface that meets this wall
+    along Y's own edge on w (the boundary segments of Y's patches labelled w, carried by each group element that lays
+    them on S in the half-cell), and the curve where S meets that image, traced exactly through those segments and on
+    past both their ends to where it meets the patch's rim (solved there onto S, the image and the rim's surface). One
+    stretch per image."""
     out = []
     for pt in PIECES_OLD.get(Y, {}).get("patches", []):
         segs = [(np.asarray(a, float), np.asarray(b, float)) for (a, na), (b, nb) in pt["boundary"] if na == w]
@@ -369,8 +461,15 @@ def cut_edge_stretches(w, Y, S, LIB, GG, h, tol=1e-7):
             key = tuple(np.round(np.sort(np.vstack([Ya[ok][on], Yb[ok][on]]), axis=0)[[0, -1]].ravel(), 6))
             if any(k == key for k, _ in out):
                 continue                                   # (the same curve from another element)
-            pts = np.vstack([dens(np.array([a, b]), h / 4) for a, b in zip(Ya[ok][on], Yb[ok][on])])
-            out.append((key, Stretch(Y, pts, Image(LIB[pt["surface"]], g), "cut")))
+            I = Image(LIB[pt["surface"]], g)
+            for ch in chains_of(list(zip(Ya[ok][on], Yb[ok][on]))):
+                ch = np.array([nrm(project([S, I], p)) for p in ch])
+                if len(ch) < 2:
+                    continue
+                head = run_out(S, I, ch[0], ch[0] - ch[1], rim, h)
+                tail = run_out(S, I, ch[-1], ch[-1] - ch[-2], rim, h)
+                pts = np.vstack([np.array(head[::-1]).reshape(-1, 4), ch, np.array(tail).reshape(-1, 4)])
+                out.append((key, Stretch(Y, dens(pts, h / 4), I, "cut")))
     return [s_ for _, s_ in out]
 
 
@@ -547,7 +646,7 @@ def patch(w, Sname, own, work, eq, ex, seeds, LIB, GG, h):
     if PIECES_OLD:
         for c in work["walls"][w].get("cuts", []):
             Y = c["by"]
-            got = cut_edge_stretches(w, Y, S, LIB, GG, h)
+            got = cut_edge_stretches(w, Y, S, LIB, GG, h, stretches)
             dividers += got if got else [s_ for s_ in cuts if s_.name == Y]
     # (the reference point: of the seed's images on the wall's own surface, the one farthest from every stretch)
     far = lambda y: min([s.tree.query(y)[0] for s in stretches if s.tree is not None]
