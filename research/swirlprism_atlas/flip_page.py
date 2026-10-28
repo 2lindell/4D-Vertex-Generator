@@ -45,7 +45,7 @@ def main(page):
     m = re.search(r'<script id="atlas-data" type="application/json">(.*?)</script>', html, re.S)
     d = json.loads(m.group(1))
     d = walk(d)
-    d["bounds"] = [round(float(view(CORNERS).min(0)[0]), 4), round(float(view(CORNERS).max(0)[0]), 4)]   # (as the builder writes it)
+    d["bounds"] = [view(CORNERS).min(0).round(4).tolist(), view(CORNERS).max(0).round(4).tolist()]   # (the corners' box)
     html = html.replace(m.group(0), '<script id="atlas-data" type="application/json">'
                         + json.dumps(d, separators=(",", ":"), ensure_ascii=False) + "</script>")
     anchor = "so the other half repeats this one, and seeds in the splitting face are also drawn at their copy there."

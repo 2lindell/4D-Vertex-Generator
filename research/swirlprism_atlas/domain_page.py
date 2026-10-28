@@ -559,7 +559,7 @@ def main(out_path):
             surf.setdefault(p["surface"], set()).add(w)
     DC["mirrorWalls"] = [{"name": f"the plane n · β = 0, n = {n[6:]}" if n.startswith("plane") else f"the surface {n}",
                           "ids": sorted(ws, key=order_key)} for n, ws in sorted(surf.items()) if len(ws) > 1]
-    seg_ids = {"T1": True, "E1": False, "E2": False}
+    seg_ids = {"T1": True, "E1": True, "E2": False}            # (True: drawn only while its row is selected)
     ring_ids = set(RINGS) | {"B1"}
 
     cell = {"xwalls": [], "xlines": [], "segments": [], "regionShells": {}, "regionEdges": {}}
@@ -687,9 +687,8 @@ def main(out_path):
     DC.update(cell)
     DC["regionShells"], DC["regionWallsIds"] = {}, sorted(cell_files)
     DC["tpatches"] = []
-    DC["camera"] = {"eye": {"x": 0.35, "y": -1.75, "z": 0.45}, "center": {"x": 0, "y": 0, "z": 0.05}, "up": {"x": 0, "y": 0, "z": 1}}
-    lo, hi = np.min([view(CORNERS).min(0)], 0)[0], np.max([view(CORNERS).max(0)], 0)[0]
-    DC["bounds"] = [lo.tolist(), hi.tolist()]
+    DC["camera"] = {"eye": {"x": 0.3, "y": -1.3, "z": 0.45}, "center": {"x": 0, "y": 0, "z": 0}, "up": {"x": 0, "y": 0, "z": 1}}
+    DC["bounds"] = [view(CORNERS).min(0).tolist(), view(CORNERS).max(0).tolist()]     # (the box round the four corners)
 
     template = open("cell_atlas2_template.html").read()
     dump = lambda o: json.dumps(rounded(o, 4), separators=(",", ":"))
