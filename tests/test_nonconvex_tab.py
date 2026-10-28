@@ -24,7 +24,7 @@ def _metrics(at: AppTest) -> dict[str, str]:
 def test_nonconvex_tab_builds_a_star_duoprism() -> None:
     at = _app()
     assert not at.exception
-    assert at.tabs[3].label == "Non-convex generator (beta)"
+    assert at.tabs[-1].label == "Non-convex generator (beta)"
     # the default group is the 5-5 duoprism, whose orbit of (1, 0, 1, 0) has 25 vertices
     at.multiselect(key="nc_orbits_duoprism_5_5_Mirror edges (Coxeter diagram)").set_value([0, 4]).run()
     at.radio(key="nc_face_rule").set_value("Chosen corner classes (allows star faces)").run()

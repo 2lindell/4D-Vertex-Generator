@@ -1,0 +1,54 @@
+X10  ok  3 edges, 0 seams, 2 cuts of the view
+X33  GAP 2 edges, 0 seams, 2 cuts of the view: 1 stray loop(s) (dropped)
+X51  ok  3 edges, 0 seams, 1 cuts of the view
+X48  ok  3 edges, 0 seams, 1 cuts of the view
+X38  ok  1 edges, 0 seams, 4 cuts of the view
+X83  ok  2 edges, 0 seams, 1 cuts of the view
+X15  ok  3 edges, 0 seams, 0 cuts of the view
+X14  ok  2 edges, 0 seams, 2 cuts of the view
+X47  GAP 8 edges, 0 seams, 0 cuts of the view: 3 stray loop(s) (dropped)
+X34  ok  2 edges, 0 seams, 1 cuts of the view
+X82  ok  1 edges, 0 seams, 2 cuts of the view
+X25  ok  1 edges, 0 seams, 2 cuts of the view
+X39  GAP 3 edges, 0 seams, 0 cuts of the view: 2 stray loop(s) (dropped)
+X52  ok  3 edges, 0 seams, 0 cuts of the view
+X7   ok  2 edges, 0 seams, 2 cuts of the view
+X35  ok  1 edges, 0 seams, 1 cuts of the view
+X40  ok  2 edges, 0 seams, 1 cuts of the view
+X22  ok  2 edges, 0 seams, 2 cuts of the view
+X41  ok  4 edges, 0 seams, 3 cuts of the view
+X28  ok  2 edges, 0 seams, 1 cuts of the view
+X84  GAP 1 edges, 0 seams, 1 cuts of the view: 1 stray loop(s) (dropped)
+X42  ok  2 edges, 0 seams, 1 cuts of the view
+X53  ok  3 edges, 0 seams, 1 cuts of the view
+X89  ok  1 edges, 0 seams, 2 cuts of the view
+X88  ok  2 edges, 0 seams, 1 cuts of the view
+X90  ok  1 edges, 0 seams, 2 cuts of the view
+X85  ok  1 edges, 0 seams, 2 cuts of the view
+X86  ok  1 edges, 0 seams, 2 cuts of the view
+X87  ok  3 edges, 0 seams, 0 cuts of the view
+X91  ok  1 edges, 0 seams, 2 cuts of the view
+X92  ok  1 edges, 0 seams, 2 cuts of the view
+X93  ok  2 edges, 0 seams, 1 cuts of the view
+X94  ok  3 edges, 0 seams, 1 cuts of the view
+X99  GAP 3 edges, 0 seams, 12 cuts of the view: 4 stray loop(s) (dropped)
+F1   ok  6 edges, 0 seams, 12 cuts of the view
+F4   ok  2 edges, 0 seams, 13 cuts of the view
+F5   ok  2 edges, 0 seams, 0 cuts of the view
+X3   ok  4 edges, 0 seams, 4 cuts of the view
+X9   ok  2 edges, 0 seams, 10 cuts of the view
+X23  ok  2 edges, 0 seams, 9 cuts of the view
+X31  GAP 4 edges, 0 seams, 1 cuts of the view: edge on X42:fold (beyond None): across it F1|X32, not the wall on one side only
+X44  ok  6 edges, 0 seams, 0 cuts of the view
+X79  ok  4 edges, 0 seams, 0 cuts of the view
+X26  ok  1 edges, 0 seams, 6 cuts of the view
+T2   GAP 9 edges, 2 seams, 9 cuts of the view: edge (beyond None) not exact: best plane (-0.707107, 0, -0, 0.707107) 1e-03
+X20  ok  5 edges, 0 seams, 5 cuts of the view
+X21  ok  5 edges, 0 seams, 1 cuts of the view
+X27  ok  2 edges, 0 seams, 0 cuts of the view
+X17  ok  3 edges, 0 seams, 0 cuts of the view
+X11  ok  2 edges, 0 seams, 5 cuts of the view
+X19  ok  3 edges, 0 seams, 11 cuts of the view
+X98  ok  6 edges, 0 seams, 0 cuts of the view
+X96  ok  1 edges, 0 seams, 2 cuts of the view
+53 walls, 7 with something to fix

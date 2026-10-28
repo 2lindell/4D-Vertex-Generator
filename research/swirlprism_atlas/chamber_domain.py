@@ -66,7 +66,7 @@ def _fixers():
     3600-element group (green girdle)."""
     global _FIXERS
     if _FIXERS is None:
-        from normalizer import halfturn
+        halfturn = lambda: np.load("normalizer_q.npy")      # (the half-turn Q normalizing the group)
         from supergroups import supergroup
         G = [g for g in V.E if not np.allclose(g, np.eye(4))]
         coset = list(V.E @ halfturn())

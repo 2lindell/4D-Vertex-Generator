@@ -370,3 +370,45 @@ Walking the purple 2400 axes and the green girdle and bisecting every change of 
 crossings, all on the 150-family purple axis through the middle of the cell: X1 (between F3 and X12), X7 (between
 X12 and X30) and a new class X78 (between X30 and X32), each with 2400 symmetries and marked ✕ in its colour. The
 crossing points are classified with a hull merge tolerance of 1e-8, since they lie within ~1e-15 of the walls.
+
+### Optimal example seeds (`optimal_seeds.py`)
+
+Each shape's example seed in the key is its most even-edged polychoron: the point of the shape's locus where the
+ratio of the longest to the shortest hull edge is lowest (shown under the seed as "most even edges"). The search is
+exact about where a shape lives:
+
+- **Locus.** A point is its own seed. A region is open, so the seed moves freely in the half-cell. A wall lies on one
+  exact surface and a line on two, taken from a library of exact surfaces: every plane of the half-cell (its four
+  faces, the splitting mirror β₃ = β₄, and each flat wall's plane) carried by the 4800 elements of the extended
+  group, and every curved wall's polynomial surface with the images the page copies it by
+  (`arrangement.surfaces`). The surfaces through a starting sample (to 1e-9) are the candidates; the defining ones
+  are those the shape stays on: a step of 1e-4 each way along the candidate surface (a wall) or along the curve two
+  candidates share (a line) keeps the sample's classification. A surface passing through a sample by chance is
+  never taken, and a locus may end on a face of the half-cell (a step that leaves the half-cell is allowed one way).
+  A curved wall whose samples sit where it meets other shapes falls back on its own surface; a line traced as a
+  conic edge of a flat patch is the patch's plane with that conic (`fexact_patches.json`), its samples put onto it.
+- **Search.** In the locus's own coordinates (3, 2 or 1 of them), from the shape's samples with the lowest ratios
+  (20 spread over its samples are scored, the best 2 whose locus is found are refined): each trial point is moved
+  back onto the constraint surfaces by Newton steps in the betas, classified (`probe._one`), and scored by its edge
+  ratio, infinite where it is not the shape. A Nelder–Mead simplex does the minimising.
+- **Settling.** The ratio usually keeps falling right up to the edge of a shape (where it meets the next one), so
+  the minimiser ends a hair from that edge. Each optimum is checked to hold its shape a step of 1e-4 each way along
+  its locus; where it does not, it is moved back toward its starting sample (bisection along the locus) to the last
+  point where it does (`python optimal_seeds.py --settle`; the edge optimum is kept as `optimum_at_edge`).
+- **Output.** `optimal_seeds.json`: per shape its dimension, the optimal beta (in the displayed half), the ratio,
+  the starting sample and its ratio, and the constraint surfaces. `cell_atlas2.py` uses it for each shape's example
+  seed and β text. Shapes whose locus could not be found keep their best sample.
+
+```bash
+python optimal_seeds.py            # all shapes not yet in optimal_seeds.json (resumes); PROCS=4 workers
+python optimal_seeds.py X7,X10     # just these, recomputed
+```
+
+Results (120 shapes: 5 points, 24 lines, 53 walls, 38 regions): the example seed's ratio improves on the best
+sample by a median factor of 1.06 on lines, 1.32 on walls and 1.23 on regions (at most 2.26, 17.3 and 3.18); no
+shape got worse. 83 optima sat at the edge of their shape and were settled just inside it, 61 of them within 1% of the
+way back. Lines whose shape holds all along (E1, E2, T1) keep the same ratio everywhere (2, φ², 1.902…). The line X81
+(a conic edge of X79's lens) had a single sample, where several walls meet, and no pair of library surfaces through
+it stays X81; its exact locus is the patch's plane β₂ = β₄ with the conic stored for that edge
+(`fexact_patches.json`), so conic edges are part of the library too, and X81 goes from 6.054 to 4.981.
+

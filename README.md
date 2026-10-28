@@ -126,7 +126,7 @@ same orbit drawn as circles and neighbours in other orbits as diamonds.
 
 ### Non-convex generator (beta)
 
-A fourth tab, **Non-convex generator (beta)**, wraps `four_d_vertex_generator.polychoron`
+A tab, **Non-convex generator (beta)**, wraps `four_d_vertex_generator.polychoron`
 (see [Building a polychoron from edge orbits](#building-a-polychoron-from-edge-orbits)) and
 leaves the Generate tab unchanged. Choose a symmetry and seed, pick edge orbits (mirror
 edges from the Coxeter diagram, rotation edges from the group's generators, or every orbit),

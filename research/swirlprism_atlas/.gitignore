@@ -1,0 +1,5 @@
+sections/
+edge_display_cache.npz
+pieces.json
+wall_parts.json
+piece_regions_cache.pkl

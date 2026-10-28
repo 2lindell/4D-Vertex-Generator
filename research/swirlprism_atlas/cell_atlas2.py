@@ -225,6 +225,22 @@ CANON_VALENCE = {"F2": "3:2400,4:3000,6:1200,8:600", "T2": "3:2400,4:3000,6:600"
                  "F5": "3:2400,4:3000,5:1200,6:1200,8:600,10:600"}
 
 
+def _indexed(tris, nd):
+    """Triangles as shared vertices (rounded to nd places) and index triples, for the page."""
+    at, verts, faces = {}, [], []
+    for t in tris:
+        f = []
+        for p in t:
+            key = tuple(round(float(c), nd) for c in p[:3])
+            if key not in at:
+                at[key] = len(verts)
+                verts.append(list(key))
+            f.append(at[key])
+        if len(set(f)) == 3:
+            faces.append(f)
+    return {"verts": verts, "faces": faces}
+
+
 def identify(sig, refs=None):
     """Return (canonical id or None, x-key, reference name or None)."""
     refs = refs if refs is not None else load_refs()[0]
@@ -1540,6 +1556,15 @@ def main(samples_path, out_path):
             if len(poly) >= 3:
                 mirrors.append(poly)
 
+    # the example seed of each shape: its most even-edged point (optimal_seeds.py), where one has been found
+    opt = json.load(open("optimal_seeds.json")) if os.path.exists("optimal_seeds.json") else {}
+    for t in types:
+        o = opt.get(t["id"])
+        if not o or not np.isfinite(o.get("ratio", np.inf)) or "seed" not in t:
+            continue
+        b = to_upper(np.array(o["beta"], float))
+        t.update({"example": f"{seed_text(b)}  β ∝ {beta_text(b)}", "seed": seed_text(b), "betatext": beta_text(b),
+                  "evenness": round(float(o["ratio"]), 6)})
     for t in types:
         t.pop("counts", None)
         t.setdefault("samples", 0)
@@ -1653,6 +1678,22 @@ def main(samples_path, out_path):
                     - {None, "ERR", tid}
                 tmap[tid]["bounds"] = sorted((i for i in ids if i in tmap),
                                              key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
+    if os.path.exists("region_defs.json"):   # regions whose walls are decided (region_defs.json): those walls, with the
+        # lines and points already recorded for them
+        rbounds = json.load(open("region_bounds.json")) if os.path.exists("region_bounds.json") else {}
+        for rid, dd in json.load(open("region_defs.json")).items():
+            if rid.startswith("_") or rid not in tmap:
+                continue
+            walls = set(dd.get("walls", [])) | set(dd.get("whole", [])) | set(dd.get("pieces", {}))
+            keep = {b for b in tmap[rid].get("bounds", []) if b in tmap and tmap[b].get("dim") != "wall"}
+            if rid in rbounds:     # (checked against its walls: only the lines and points on the part facing it)
+                keep = set(rbounds[rid]["lines"]) | set(rbounds[rid]["points"])
+            tmap[rid]["bounds"] = sorted((i for i in keep | walls if i in tmap),
+                                         key=lambda i: (i[0], int("".join(ch for ch in i[1:] if ch.isdigit()) or 0), i))
+            tmap[rid]["walls_decided"] = True
+            part = json.load(open("region_db.json")).get("partial", {}).get(rid) if os.path.exists("region_db.json") else None
+            if part:
+                tmap[rid]["partial"] = sorted(part)        # (walls it borders over part of them only)
     for t in types:             # lines traced from their samples (x_point_lines.json): their two ends
         ek = t.pop("ends_known", None)
         if ek:
@@ -2103,6 +2144,69 @@ def main(samples_path, out_path):
             lines_on = {lid for lid, Bs in line_pts.items()
                         if any(len(B) >= 2 and (on_surface(g, B) or (g.get("images") and on_image(poly_of(g), B))) for B in Bs)}
             mirror_walls.append({"name": g["name"], "ids": sorted(g["ids"] | lines_on, key=srt)})
+    # a wall's outline is drawn only along its own edges (working_data.json), in its colour, and white where it goes on
+    # across a line or wall that lies there (edge_display.py); nothing else. A curved wall's copies get their outline
+    # here too, from the same group elements as their mesh, so the page draws no edge of its own for them
+    if os.path.exists("working_data.json"):
+        import edge_display
+        from edge_curves import dens
+        cls = edge_display.Classifier()
+        own = set(cls.work["walls"])
+        to_beta = lambda p: (lambda b: b / b.sum())(M_INV @ np.array([p[0], p[1], p[2], 1.0]))   # (not flipped yet)
+        to_xyz = lambda b: _exact(xyz(b / b.sum())).tolist()
+        fold4 = np.eye(4)[[1, 0, 3, 2]]
+
+        def drawn(s, B, copy):
+            out = []
+            B = dens(np.asarray(B, float))
+            for kind, run in edge_display.runs(B, cls.kinds(s["id"], B)):
+                out.append({**{k: v for k, v in s.items() if k not in ("pts", "betas")}, "copy": copy,
+                            "pts": edge_display.thin([to_xyz(b) for b in run]), "kind": kind})
+            return out
+
+        def carried(B, Mg):
+            """An outline (betas) carried by a group element: the runs of it in the cell, the part below the
+            splitting mirror folded up."""
+            Y = np.asarray(B, float) @ Mg.T
+            s = Y.sum(1)
+            out, cur, side = [], [], None
+            for y, sy in zip(Y, s):
+                ok = abs(sy) > 1e-12 and (y / sy > -1e-9).all()
+                b = y / sy if ok else None
+                sd = None if b is None else (b[2] >= b[3] - 1e-12)
+                if b is not None and not sd:
+                    b = fold4 @ b
+                if b is None or sd != side or (cur and np.linalg.norm(b - cur[-1]) > 0.12):
+                    if len(cur) >= 2:
+                        out.append(cur)
+                    cur = []
+                side = sd
+                if b is not None:
+                    cur.append(b)
+            if len(cur) >= 2:
+                out.append(cur)
+            return out
+        base_outlines, new_lines = {}, []
+        for s in xlines:
+            if not s.get("outline") or s["id"] not in own:
+                new_lines.append(s)
+                continue
+            B = [to_beta(p) for p in s["pts"]]
+            if not s.get("copy"):
+                base_outlines.setdefault(s["id"], []).append(B)
+            new_lines += drawn(s, B, bool(s.get("copy")))
+        for w in xwalls:
+            if w.get("copy") or not w.get("copyOps") or w["id"] not in own:
+                continue
+            w["edgesGiven"] = True
+            proto = next((s for s in xlines if s["id"] == w["id"] and s.get("outline")), {"id": w["id"], "hover": w["hover"]})
+            for gi in w["copyOps"]:
+                for B in base_outlines.get(w["id"], []):
+                    for piece in carried(B, M_all[gi]):
+                        new_lines += drawn({**proto, "hover": proto.get("hover", "") + "<br>(copy)"}, piece, True)
+        xlines = new_lines
+        print(f"  outlines: {sum(1 for s in xlines if s.get('kind') == 'edge')} edge runs, "
+              f"{sum(1 for s in xlines if s.get('kind') == 'gap')} white runs", flush=True)
     data = {"copyMats": {str(g): M_all[g].tolist() for g in sorted(COPY_OPS)}, "cellP": P.tolist(), "cellInv": M_INV.tolist(),
             "types": types, "samples": samples_out, "uniform": uniform_out, "special": special,
             "rings": rings, "main": main_ring, "segments": segments, "tpatches": tpatches, "qaxes": qaxes, "regular": regular, "xlines": xlines, "xwalls": xwalls, "fdomain": fdomain,
@@ -2146,10 +2250,21 @@ def main(samples_path, out_path):
 
     view_src = {**data, "xwalls": [({**w, "tris": coarse(w["tris"])} if w.get("curved") else w)
                                    for w in data["xwalls"] if not (w.get("curved") and w.get("copy"))],
-                "xlines": [thin(x) for x in data["xlines"]]}
+                "xlines": [thin(x) for x in data["xlines"] if not (x.get("kind") and x.get("copy"))]}
+    # a region's coloured outer walls (region_walls.py) go through the views as a hidden wall of their own, so the
+    # views show the same exact pieces (their originals only: the views make every image themselves)
+    RW_ = json.load(open("region_walls.json")) if os.path.exists("region_walls.json") else {}
+    for rid, v in RW_.items():
+        keep = [np.array(t, float).reshape(3, 3) * [1, 1, -1] for t, k in zip(v["tris"], v.get("kinds", ["orig"] * len(v["tris"])))
+                if k in ("orig", "tpatch")]
+        view_src["xwalls"] = view_src["xwalls"] + [{"id": f"__region_{rid}", "tris": [t.tolist() for t in keep], "hover": ""}]
     dv.use_centre((1, 0, 0, 0))                    # the dodecahedron around the 600-cell vertex V1
     v1 = dodeca_view(view_src)
     chambers = chamber_domain.view(v1)             # one domain of 12 whole H4 chambers inside it
+    for view in (v1, chambers):
+        for w in [w for w in view["xwalls"] if w["id"].startswith("__region_")]:
+            view["xwalls"].remove(w)
+            view.setdefault("regionWalls", {})[w["id"][9:]] = _indexed(w["tris"], 4)
     dv.use_centre((0, 0, 1, 1))
     for view in (v1, chambers):
         dv.tidy_lines(view)
@@ -2207,7 +2322,7 @@ def main(samples_path, out_path):
         RW = json.load(open("region_walls.json"))
         g0 = next(iter(RW.values()))["grid"]
         data["regionGrid"] = {**{k: g0[k] for k in ("lo", "h", "shape")}, "runs": {r: v["grid"]["runs"] for r, v in RW.items()}}
-        data["regionWalls"] = {r: {"tris": v["tris"], "walls": v["walls"]} for r, v in RW.items()}
+        data["regionWalls"] = {r: {**_indexed([np.reshape(t, (3, 3)) for t in v["tris"]], 6), "walls": v["walls"]} for r, v in RW.items()}
         for r, v in RW.items():
             data.setdefault("regionCells", {})[r] = [1, v["pockets"]]
             print(f"  {r}: outer walls {', '.join(v['walls'])}; {len(v['tris'])} coloured triangles", flush=True)
@@ -2232,7 +2347,7 @@ def main(samples_path, out_path):
     index_walls(data, 6)
     index_walls(v1, 4)
     index_walls(chambers, 4)
-    if data.get("regionGrid"):                  # (the views' wall triangles around each checked region's cell)
+    if data.get("regionGrid") and not data.get("regionWalls"):     # (old voxel colouring of the views' own triangles)
         import region_paint
         Cv, Bv, _ = dv._frame((1, 0, 0, 0))
         for name, view in (("V1 dodecahedron", v1), ("chambers", chambers)):
@@ -2242,6 +2357,21 @@ def main(samples_path, out_path):
     template = open("cell_atlas2_template.html").read()
     def dump(o, n):                                # the only rounding: every view was computed at full precision
         return json.dumps(_rounded(o, n), separators=(",", ":"))
+    # each region's coloured outer walls go in a file of their own beside the page (<page>_regions/<view>/<id>.json),
+    # fetched when the region is selected, so the page does not grow with every region coloured
+    import shutil
+    from pathlib import Path
+    rdir = Path(out_path).with_name(Path(out_path).stem + "_regions")
+    shutil.rmtree(rdir, ignore_errors=True)
+    for vkey, obj, nd in (("cell", data, 6), ("v1", v1, 4), ("chambers", chambers, 4)):
+        rw = obj.pop("regionWalls", {}) or {}
+        (rdir / vkey).mkdir(parents=True, exist_ok=True)
+        for rid, m in rw.items():
+            (rdir / vkey / f"{rid}.json").write_text(dump(m, nd))
+        obj["regionWallsIds"] = sorted(rw)
+        if vkey == "cell":
+            obj["regionWallsInfo"] = {rid: m.get("walls", []) for rid, m in rw.items()}
+    print(f"  region colouring written to {rdir}/ ({sum(1 for _ in rdir.rglob('*.json'))} files)", flush=True)
     open(out_path, "w").write(template.replace("__TYPE_CSS__", type_css).replace("__DATA__", dump(data, 6))
                               .replace("__DODECA__", dump(dodeca, 5))
                               .replace("__PIECE__", dump(piece, 5))

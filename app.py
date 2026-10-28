@@ -920,27 +920,24 @@ def let_wheel_scroll_page() -> None:
 
 DOMAIN_TITLE = "H3●I2(10) Symmetry Domain"
 DOMAIN_PAGE = Path(__file__).parent / "assets" / "symmetry_domain.html"
+OCT_TITLE = "Octahedral Swirl Symmetry Domain"
+OCT_PAGE = Path(__file__).parent / "assets" / "tetraswirl_oct_domain.html"
+SITE = "https://2lindell.github.io/4D-Vertex-Generator/"
 
 
-def render_domain_tab() -> None:
-    st.caption(
-        "Every isogonal polychoron of the swirlprism group H3●I2(10), mapped over a fundamental "
-        "domain: hover a point for its shape and seed, and paste the seed into Generate's "
-        "Coordinates mode."
-    )
+def render_page_tab(page: Path, caption: str) -> None:
+    """A symmetry domain page (built in research/), shown in the tab at the page's own height."""
+    st.caption(caption)
     # the page grows its frame to its own height (it reaches the frame from the same origin),
     # so the app's scroll bar is the only one
     if sys.platform == "emscripten":
         # in the browser build (GitHub Pages) the page is served next to the app
-        st.markdown("[Open it in its own tab](symmetry_domain.html)")
-        components.iframe("symmetry_domain.html", height=1100)
-    elif DOMAIN_PAGE.exists():
-        components.html(DOMAIN_PAGE.read_text(encoding="utf-8"), height=1100)
+        st.markdown(f"[Open it in its own tab]({page.name})")
+        components.iframe(page.name, height=1100)
+    elif page.exists():
+        components.html(page.read_text(encoding="utf-8"), height=1100)
     else:
-        st.info(
-            "The page is not in this copy of the app; it is published at "
-            "https://2lindell.github.io/4D-Vertex-Generator/symmetry_domain.html"
-        )
+        st.info(f"The page is not in this copy of the app; it is published at {SITE}{page.name}")
 
 
 NONCONVEX_TITLE = "Non-convex generator (beta)"
@@ -1310,8 +1307,26 @@ def render_nonconvex_tab() -> None:
                     _nc_show_result(found[pick][1], f"{symmetry_name}_search_{pick}")
 
 
-generate_tab, analyze_tab, domain_tab, nonconvex_tab = st.tabs(
-    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, NONCONVEX_TITLE]
+def render_domain_tab() -> None:
+    render_page_tab(
+        DOMAIN_PAGE,
+        "Every isogonal polychoron of the swirlprism group H3●I2(10), mapped over a fundamental "
+        "domain: hover a point for its shape and seed, and paste the seed into Generate's "
+        "Coordinates mode.",
+    )
+
+
+def render_oct_tab() -> None:
+    render_page_tab(
+        OCT_PAGE,
+        "The octahedral swirl group (index 6, 48 rotations) mapped over a third of a 16-cell's "
+        "tetrahedron: its regions, the walls found so far with their exact equations, and the "
+        "lines and points fixed by its rotations. A work in progress.",
+    )
+
+
+generate_tab, analyze_tab, domain_tab, oct_tab, nonconvex_tab = st.tabs(
+    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, OCT_TITLE, NONCONVEX_TITLE]
 )
 with generate_tab:
     render_generate_tab()
@@ -1319,6 +1334,8 @@ with analyze_tab:
     render_analyze_tab()
 with domain_tab:
     render_domain_tab()
+with oct_tab:
+    render_oct_tab()
 with nonconvex_tab:
     render_nonconvex_tab()
 let_wheel_scroll_page()

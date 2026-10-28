@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>H3●I2(10) Symmetry Domain</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -5,7 +6,7 @@
 <style>
 /* Layout: plot with its controls first, then the key grouped in the wiki's order, then notes. */
 :root {
-  --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4; --faint: #aab1bc; --x: #9aa1ab; --xw: #80878f; --xl: #666d76; --xp: #4e545c;
+  --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4; --faint: #aab1bc; --x: #c2c7ce; --xw: #80878f; --xl: #666d76; --xp: #4e545c;
   --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948; --s9: #0f93b0; --qaxis: #a68ae6; --g3axis: #5fbf6a; --rprism: #c2185b; --ranti: #6d4c41; --rdec: #1d1d1b; --dom1: #d39a2c; --dom2: #2f9e8f; --domring: #7f8ea3;
   --mirror: #4a3aa7;
   --font-text: "Spline Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -13,13 +14,13 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e; --xw: #858c96; --xl: #a0a7b1; --xp: #bcc2cb;
+    --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #747c87; --xw: #858c96; --xl: #a0a7b1; --xp: #bcc2cb;
     --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2; --qaxis: #c3aef7; --g3axis: #7fd88a; --rprism: #f06292; --ranti: #c8a27a; --rdec: #f1f0ea; --dom1: #e2b04f; --dom2: #4cbfae; --domring: #98a6ba;
     --mirror: #9085e9; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #6b737e; --xw: #858c96; --xl: #a0a7b1; --xp: #bcc2cb;
+  --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d; --faint: #5d6570; --x: #747c87; --xw: #858c96; --xl: #a0a7b1; --xp: #bcc2cb;
   --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #2fb4d2; --qaxis: #c3aef7; --g3axis: #7fd88a; --rprism: #f06292; --ranti: #c8a27a; --rdec: #f1f0ea; --dom1: #e2b04f; --dom2: #4cbfae; --domring: #98a6ba;
   --mirror: #9085e9; color-scheme: dark;
 }
@@ -170,7 +171,7 @@ __TYPE_CSS__
         <li><b>Purple axes</b> are the axes of the half-turns in the coset of Q. A seed on one is its own copy, and its polychoron has 2400 symmetries. The one from the β₂ = β₃ cross ring to C2b is one of Bowers' 30 ghost girdles with skew 20-gonal symmetry.</li>
         <li><b>The green line</b> is an order-3 ghost girdle: the axis of an order-3 rotation of a 3600-element group containing the swirlprism group. Seeds on it give X12 polychora with 3600 symmetries; it is one of Bowers' 20 such girdles. A search of every fixed circle of H4, its Q-coset and this group finds no other line with more than 1200 symmetries.</li>
         <li><b>Transitional shapes</b> (T1, T2 and the X walls and lines): T1 and E2 are exactly traced lines; T2 is three exact patches in the mirrors β₁ = β₃, β₂ = β₃ and β₁ = β₂, each with a spidrox corner; select a transitional shape's row in the key to see its patches of wall or its segments of line. The named wall shapes F1, F4 and F5 are traced exactly: each patch is a polygon in its wall bounded by exact lines (F5 also by a conic, along which the shape is X24), with corners and edges in its hover text. F1 lies in the mirrors β₁ = β₂ and β₁ = β₃, F4 in the faces β₁ = 0 and β₂ = 0, and F5 in the mirror β₂ = β₄; their dashed copies lie on further walls, two of them tilted.</li>
-        <li>Throughout, <b>solid</b> lines are the loci themselves and <b>dashed</b> lines are their copies under Q, which give the same polychora elsewhere in the domain.</li>
+        <li>Throughout, <b>solid</b> lines are the loci themselves and <b>dashed</b> lines are their copies under Q, which give the same polychora elsewhere in the domain. A wall's outline is drawn only along its own edges; a <b>white</b> line on a wall marks where it goes on across a line or another wall lying there (into its copy, or past a wall that ends on it or crosses it).</li>
       </ul>
     </div>
     <div class="panel">
@@ -210,6 +211,22 @@ __TYPE_CSS__
     const DH = { ...DC, ...JSON.parse(document.getElementById("atlas-chambers").textContent) };
     const DQ = { ...DC, ...JSON.parse(document.getElementById("atlas-cohesive").textContent) };
     let D = DC;
+    // a region's coloured outer walls are fetched from beside the page when it is selected (written by cell_atlas2.py)
+    const RW_DIR = "symmetry_domain_regions";        // (the same name wherever the page is served)
+    const rwCache = {};
+    const viewKey = (Dv) => (Dv === DV ? "v1" : Dv === DH ? "chambers" : Dv === DC ? "cell" : null);
+    function regionWallsFor(Dv, id) {
+      if (Dv.regionWalls && Dv.regionWalls[id]) return Dv.regionWalls[id];          // (older pages carry them inline)
+      const vk = viewKey(Dv);
+      if (!vk || !(Dv.regionWallsIds || []).includes(id)) return null;
+      const key = vk + "/" + id;
+      if (!(key in rwCache)) {
+        rwCache[key] = null;
+        fetch(`${RW_DIR}/${key}.json`).then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+          .then((j) => { rwCache[key] = j; render(); }).catch(() => { rwCache[key] = false; });
+      }
+      return rwCache[key] || null;
+    }
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const byId = Object.fromEntries(D.types.map((t) => [t.id, t]));
     const color = (t) => css(t.color);
@@ -280,11 +297,25 @@ __TYPE_CSS__
       const H = 0.012, grid = new Set();
       const cellOf = (b) => [0, 1, 2].map((a) => Math.floor(b[a] / H));
       const addPt = (b) => grid.add(cellOf(b).join(","));
+      // (a polygon's points sampled across it at half the grid step, so a large triangle counts as drawn all over)
+      const addPoly = (pc) => {
+        let L = 0;
+        for (let a = 0; a < pc.length; a++) { const p = pc[a], q = pc[(a + 1) % pc.length]; L = Math.max(L, Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2], p[3] - q[3])); }
+        const n = Math.max(1, Math.ceil(L / (H / 2)));
+        for (let m = 1; m < pc.length - 1; m++)
+          for (let i = 0; i <= n; i++) for (let j = 0; i + j <= n; j++)
+            addPt([0, 1, 2, 3].map((a) => (pc[0][a] * (n - i - j) + pc[m][a] * i + pc[m + 1][a] * j) / n));
+      };
+      const area = (pc) => { let s = 0;
+        for (let m = 1; m < pc.length - 1; m++) {
+          const u = [0, 1, 2].map((a) => pc[m][a] - pc[0][a]), v = [0, 1, 2].map((a) => pc[m + 1][a] - pc[0][a]);
+          s += Math.hypot(u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]); }
+        return s; };
       const near = (b) => { const c = cellOf(b);
         for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++)
           if (grid.has([c[0] + dx, c[1] + dy, c[2] + dz].join(","))) return true;
         return false; };
-      B.forEach((b) => addPt(norm(b)));
+      for (const f of F) addPoly(f.map((k) => norm(B[k])));
       for (const g of w.copyOps) {
         const M = DC.copyMats[g];
         const V = B.map((b) => M.map((r) => r[0] * b[0] + r[1] * b[1] + r[2] * b[2] + r[3] * b[3]));
@@ -297,19 +328,23 @@ __TYPE_CSS__
           // (near the plane the map sends to infinity a small triangle is stretched across the cell: not a copy)
           const d = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2], p[3] - q[3]);
           if (Math.max(d(t[0], t[1]), d(t[1], t[2]), d(t[2], t[0])) > 0.12) continue;
-          for (const pc of intoHalf(t)) polys.push(pc);
+          // (a triangle with an edge on the splitting mirror leaves a flat sliver below it: not a piece)
+          for (const pc of intoHalf(t)) if (area(pc) > 1e-10) polys.push(pc);
         }
         if (!polys.length) continue;
         const cen = (pc) => [0, 1, 2, 3].map((a) => pc.reduce((s, b) => s + b[a], 0) / pc.length);
-        let on = 0;
-        for (const pc of polys) if (near(cen(pc))) on++;
-        if (on > 0.5 * polys.length) continue;
-        for (const pc of polys) {
+        const isOn = polys.map((pc) => near(cen(pc)));
+        // (an image lying mostly on what is drawn maps the wall onto itself or onto a copy: only its pieces off
+        // them are new, the part of the copy the earlier ones left out)
+        const most = isOn.filter((x) => x).length > 0.5 * polys.length;
+        for (let q = 0; q < polys.length; q++) {
+          const pc = polys[q];
+          if (most && isOn[q]) continue;
           const kk = key(pc);
           if (seen.has(kk)) continue;
           seen.add(kk);
           const idx = pc.map(push);
-          pc.forEach(addPt);
+          addPoly(pc);
           for (let m = 1; m < idx.length - 1; m++) { I.push(idx[0]); J.push(idx[m]); K.push(idx[m + 1]); }
         }
       }
@@ -365,6 +400,9 @@ __TYPE_CSS__
     };
     // the wall triangles that border a region's cell (region_cells.py): each triangle of every wall, and of every
     // copy, stepped off on both sides onto the cell's voxels (run-length coded); a hit keeps it
+    // a region's coloured outer walls (region_walls.py): shared vertices and index triples, as a mesh3d's arrays
+    const meshOf = (rw) => ({ x: rw.verts.map((v) => v[0]), y: rw.verts.map((v) => v[1]), z: rw.verts.map((v) => v[2]),
+      i: rw.faces.map((f) => f[0]), j: rw.faces.map((f) => f[1]), k: rw.faces.map((f) => f[2]) });
     const paintCache = {};
     function regionPaint(id) {
       if (paintCache[id]) return paintCache[id];
@@ -501,17 +539,23 @@ __TYPE_CSS__
         name: "Outline of the domain", hoverinfo: "skip" });
       // a region checked against the walls (region_cells.py): the wall triangles around its cell, in its colour
       for (const id of state.sel) if (D === DC && D.regionGrid && D.regionGrid.runs[id]) {
-        const rc = D.regionCells[id], rw = D.regionWalls && D.regionWalls[id];
+        const rc = D.regionCells[id], rw = regionWallsFor(D, id);
         // (the outer walls' coloured parts, cut where the walls meet: region_walls.py)
-        const m = rw ? { x: rw.tris.flatMap((t) => [t[0], t[3], t[6]]), y: rw.tris.flatMap((t) => [t[1], t[4], t[7]]),
-          z: rw.tris.flatMap((t) => [t[2], t[5], t[8]]), i: rw.tris.map((_, q) => 3 * q), j: rw.tris.map((_, q) => 3 * q + 1),
-          k: rw.tris.map((_, q) => 3 * q + 2) } : regionPaint(id);
-        const nm = `${id}: its outer walls${rw ? " (" + rw.walls.join(", ") + ")" : ""}, one cell on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
+        const m = rw ? meshOf(rw) : regionPaint(id);
+        const ws = rw ? rw.walls || (D.regionWallsInfo || {})[id] || [] : [];
+        const nm = `${id}: its outer walls${rw ? " (" + ws.join(", ") + ")" : ""}, one cell on the 3-sphere (${rc[1]} piece${rc[1] > 1 ? "s" : ""} in the half-cell)`;
         if (m.i.length) out.push({ type: "mesh3d", ...m, color: color(byId[id]), opacity: 0.4, flatshading: true,
           name: nm, hovertemplate: `${nm}<extra></extra>` });
       }
       // ... and in the dodecahedron views: their own wall triangles listed as bordering it (w.paint)
-      for (const id of state.sel) if (D !== DC && DC.regionGrid && DC.regionGrid.runs[id]) {
+      // (the half-cell view too, when it carries no voxel grid: its regions' wall pieces come from files as well)
+      for (const id of state.sel) if ((D !== DC || !DC.regionGrid) && regionWallsFor(D, id)) {
+        const rw = regionWallsFor(D, id), nm = `${id}: its outer walls`;
+        if (rw.faces.length) out.push({ type: "mesh3d", ...meshOf(rw),
+          color: color(byId[id]), opacity: 0.4, flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
+      }
+      for (const id of state.sel) if (D !== DC && !(D.regionWalls && D.regionWalls[id]) && !(D.regionWallsIds || []).includes(id)
+          && DC.regionGrid && DC.regionGrid.runs[id]) {
         const X = [], Y = [], Z = [], I = [], J = [], K = [];
         for (const w of D.xwalls || []) if (w.paint && w.paint[id]) for (const f of w.paint[id]) {
           const o = X.length;
@@ -625,7 +669,7 @@ __TYPE_CSS__
             out.push({ type: "mesh3d", x: c.x, y: c.y, z: c.z, i: c.i, j: c.j, k: c.k,
               color: color(byId[w.id]), opacity: 0.14, flatshading: true, name: hv, hovertemplate: hv + "<extra></extra>" });
             // the copies' edges: the wall's own outline taken through the same group elements, dashed
-            const e = copyEdges(w);
+            const e = w.edgesGiven ? [] : copyEdges(w);      // (given with the page's lines: edges only, white gaps)
             if (e.length) {
               const trace = lines(e, hv, { color: color(byId[w.id]), width: 3, dash: "dash" });
               trace.hovertemplate = hv + "<extra></extra>";
@@ -635,7 +679,10 @@ __TYPE_CSS__
         }
         for (const s of D.xlines || []) {
           if (!state.sel.has(s.id)) continue;
-          const trace = lines([s.pts], s.hover, { color: color(byId[s.id]), width: s.outline ? 3 : 5, dash: s.copy ? "dash" : "solid" });
+          // (a wall's outline: its own edges in its colour, and white where it goes on across a line or wall lying there)
+          const gap = s.kind === "gap";
+          const trace = lines([s.pts], gap ? s.hover + "<br>(white: the wall goes on across here)" : s.hover,
+            { color: gap ? "#ffffff" : color(byId[s.id]), width: s.outline ? 3 : 5, dash: s.copy ? "dash" : "solid" });
           trace.hovertemplate = s.hover + "<extra></extra>";
           out.push(trace);
         }
@@ -645,7 +692,21 @@ __TYPE_CSS__
           out.push({ type: "mesh3d", x: pts.map((q) => q[0]), y: pts.map((q) => q[1]), z: pts.map((q) => q[2]),
             i: tri.map((t) => t[0]), j: tri.map((t) => t[1]), k: tri.map((t) => t[2]),
             color: color(byId.T2), opacity: p.copy ? 0.1 : 0.16, name: p.hover, hovertemplate: p.hover + "<extra></extra>" });
-          out.push(lines([p.pts], p.hover, { color: color(byId.T2), width: 2, dash: p.copy ? "dash" : "solid" }));
+          // (an edge two copy patches share is inside the copy, where it was drawn in two parts: not drawn)
+          let runs = [p.pts];
+          if (p.copy) {
+            const ek = (u, v) => { const a = u.map((x) => x.toFixed(5)).join(","), b = v.map((x) => x.toFixed(5)).join(",");
+              return a < b ? a + "|" + b : b + "|" + a; };
+            const shared = new Set();
+            for (const q of D.tpatches) if (q !== p && q.copy)
+              for (let k = 1; k < q.pts.length; k++) shared.add(ek(q.pts[k - 1], q.pts[k]));
+            runs = [[p.pts[0]]];
+            for (let k = 1; k < p.pts.length; k++) {
+              if (shared.has(ek(p.pts[k - 1], p.pts[k]))) runs.push([p.pts[k]]); else runs[runs.length - 1].push(p.pts[k]);
+            }
+            runs = runs.filter((r) => r.length > 1);
+          }
+          out.push(lines(runs, p.hover, { color: color(byId.T2), width: 2, dash: p.copy ? "dash" : "solid" }));
         }
       }
       for (const t of D.types) {
@@ -707,14 +768,16 @@ __TYPE_CSS__
     const cam = (dflt) => cameras[el("quarter").value] || dflt;
     function layout() {
       const hidden = { visible: false, showbackground: false };
-      if (["piece", "chambers", "cohesive"].includes(el("quarter").value)) {
-        const [lo, hi] = { piece: DP, chambers: DH, cohesive: DQ }[el("quarter").value].bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
+      // (the half-cell view has bounds of its own when it is the projection centred on its four A1 corners)
+      const boxed = { piece: DP, chambers: DH, cohesive: DQ, all: DC.bounds ? DC : null }[el("quarter").value];
+      if (boxed) {
+        const [lo, hi] = boxed.bounds, pad = 0.02, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
         return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
           margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: el("quarter").value, hoverlabel: { font: { size: 11 }, namelength: 40 },
           scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
             xaxis: { ...hidden, range: [lo[0] - pad, hi[0] + pad] }, yaxis: { ...hidden, range: [lo[1] - pad, hi[1] + pad] },
             zaxis: { ...hidden, range: [lo[2] - pad, hi[2] + pad] },
-            camera: cam({ eye: { x: 1.3, y: -1.2, z: 0.7 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } }) } };
+            camera: cam(boxed.camera || { eye: { x: 1.3, y: -1.2, z: 0.7 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } }) } };
       }
       if (el("quarter").value === "dodeca" || el("quarter").value === "v1") {
         const r = 0.45;
@@ -820,7 +883,7 @@ __TYPE_CSS__
     const bounds = (t) => t.dim === "point" && !t.id.startsWith("X") ? `<span class="locus">none (a point)</span>`
       : !t.bounds || !t.bounds.length ? `<span class="locus">not traced yet</span>`
       : DIMS.map(([d, name]) => [name, t.bounds.filter((b) => (dimOf[b] || "point") === d)])
-          .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.join(", ")}`).join("<br>");
+          .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.map((b) => (t.partial || []).includes(b) ? `${b} <span class="locus">(part)</span>` : b).join(", ")}`).join("<br>");
     // a wall's own boundary first, then (apart, so they are not read as its edges) the regions on its two sides
     const boundsCell = (t) => bounds(t) + (t.separates && t.separates.length
       ? `<div class="separates"><span class="locus">separates:</span> ${t.separates.join(", ")}</div>` : "");
@@ -830,7 +893,8 @@ __TYPE_CSS__
       const rows = D.types.filter(test);
       if (byLocus) rows.sort((a, b) => (a.locus || "~").localeCompare(b.locus || "~"));
       for (const t of rows) {
-        let counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br>${seedLine(t.seed)}<br>β ∝ ${t.betatext}` : "";
+        let counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br>${seedLine(t.seed)}<br>β ∝ ${t.betatext}`
+          + (t.evenness ? `<br><span class="locus">most even edges: longest/shortest ${t.evenness.toFixed(4)}</span>` : "") : "";
         if (t.exact) counts += `<div class="exact"><span class="xmark" style="color:${color(t)}">✕</span> exact point ${t.exact.label ? "(" + t.exact.label + ")" : "at " + t.exact.angle + "°"}: cells ${t.exact.cells}<br>faces ${t.exact.faces}<br>edges ${t.exact.edges}</div>`;
         html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
           + `<td class="counts">${counts}</td><td class="where">${t.where || (t.samples ? "golden samples" : "not found yet")}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td><td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;
