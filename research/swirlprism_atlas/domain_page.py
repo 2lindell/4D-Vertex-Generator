@@ -559,7 +559,7 @@ def main(out_path):
             surf.setdefault(p["surface"], set()).add(w)
     DC["mirrorWalls"] = [{"name": f"the plane n · β = 0, n = {n[6:]}" if n.startswith("plane") else f"the surface {n}",
                           "ids": sorted(ws, key=order_key)} for n, ws in sorted(surf.items()) if len(ws) > 1]
-    seg_ids = {"T1": True, "E1": True, "E2": False}            # (True: drawn only while its row is selected)
+    seg_ids = {"T1": True, "E1": True, "E2": True}             # (True: drawn only while its row is selected)
     ring_ids = set(RINGS) | {"B1"}
 
     cell = {"xwalls": [], "xlines": [], "segments": [], "regionShells": {}, "regionEdges": {}}
