@@ -69,7 +69,7 @@ def _gnom(B):
 
 def turn():
     """The view turned so the splitting mirror b3 = b4 (the plane through the middle of the tetrahedron) is the top face,
-    level, with the corner V1 = b (1, 0, 0, 0) at the back (+y, away from the default camera)."""
+    level, with the corner V1 = b (1, 0, 0, 0) at the back (+y, away from the default camera); FLIP then mirrors it."""
     F = _gnom([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, .5, .5]])
     z = np.cross(F[1] - F[0], F[2] - F[0])
     z /= np.linalg.norm(z)
@@ -86,9 +86,24 @@ def turn():
 ROT, CEN = turn()
 
 
+def flip():
+    """The picture mirrored across the splitting mirror (the half-cell drawn as the half b4 >= b3, as on the earlier
+    page) and turned about the vertical so the corner M34 = b (0, 0, 1/2, 1/2) is at the back (+y); the top face stays
+    the level top."""
+    m = (_gnom([[0, 0, .5, .5]])[0] - CEN) @ ROT.T
+    m = np.array([-m[0], m[1]])                                   # (after the mirror x -> -x)
+    a = np.arctan2(m[0], m[1])                                    # (turn taking it to +y)
+    Rz = np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [0, 0, 1]])
+    return Rz @ np.diag([-1.0, 1, 1])
+
+
+FLIP = flip()
+
+
 def view(B):
-    """Betas (rows) to the half-cell view (centred on the corners' centroid, turned by ROT)."""
-    return (_gnom(B) - CEN) @ ROT.T
+    """Betas (rows) to the half-cell view (centred on the corners' centroid, turned by ROT, mirrored and turned by
+    FLIP)."""
+    return (_gnom(B) - CEN) @ ROT.T @ FLIP.T
 
 
 def chart(B):
@@ -672,7 +687,7 @@ def main(out_path):
     DC.update(cell)
     DC["regionShells"], DC["regionWallsIds"] = {}, sorted(cell_files)
     DC["tpatches"] = []
-    DC["camera"] = {"eye": {"x": 0.35, "y": -1.6, "z": 0.8}, "center": {"x": 0, "y": 0, "z": -0.1}, "up": {"x": 0, "y": 0, "z": 1}}
+    DC["camera"] = {"eye": {"x": 0.35, "y": -1.75, "z": 0.45}, "center": {"x": 0, "y": 0, "z": 0.05}, "up": {"x": 0, "y": 0, "z": 1}}
     lo, hi = np.min([view(CORNERS).min(0)], 0)[0], np.max([view(CORNERS).max(0)], 0)[0]
     DC["bounds"] = [lo.tolist(), hi.tolist()]
 
