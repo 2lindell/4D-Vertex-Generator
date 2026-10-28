@@ -18,9 +18,10 @@ is enough for the convex case it is checked against.
 from __future__ import annotations
 
 import itertools
+import time
 from collections import defaultdict
 from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 import numpy as np
 from scipy.spatial import ConvexHull, QhullError, cKDTree
@@ -46,6 +47,11 @@ class Polychoron:
     cells: list[list[int]]
     problems: list[str] = field(default_factory=list)
     cell_choices: int = 1
+    # how it was built, so a result can be rebuilt or described
+    orbit_indices: tuple[int, ...] = ()
+    face_corners: tuple[int, ...] | None = None
+    cell_choice: int = 0
+    cell_sets: list[list[list[int]]] = field(default_factory=list, repr=False)
 
     @property
     def euler(self) -> int:
@@ -73,6 +79,24 @@ def _coset_representatives(vertices: np.ndarray, elements: tuple[np.ndarray, ...
     if len(reps) != len(vertices):
         raise ValueError("The vertices are not a single orbit of the group.")
     return reps, tree
+
+
+class _Geom:
+    """Per-orbit data shared by every build: the coset representatives and the vertex lookup."""
+
+    def __init__(self, verts: np.ndarray, action: SymmetryAction, atol: float) -> None:
+        elements = group_elements(action)
+        if elements is None:
+            raise ValueError("The symmetry group is too large to enumerate.")
+        self.reps, self.tree = _coset_representatives(verts, elements, atol)
+        self.verts = verts
+        self._back: dict[int, np.ndarray] = {}
+
+    def back(self, vertex: int) -> np.ndarray:
+        """Vertex index map of the group element that carries ``vertex`` to vertex 0."""
+        if vertex not in self._back:
+            self._back[vertex] = self.tree.query(self.verts @ self.reps[vertex])[1]
+        return self._back[vertex]
 
 
 def edge_orbits(
@@ -464,6 +488,7 @@ def build_polychoron(
     convex: bool = True,
     face_corners: list[int] | None = None,
     cell_choice: int = 0,
+    _geom: _Geom | None = None,
 ) -> Polychoron:
     """Build faces and cells from the union of the chosen edge orbits.
 
@@ -483,6 +508,26 @@ def build_polychoron(
     first); by default only the shortest orbit is used. Anything that does not
     close up is reported in ``problems`` instead of raised.
     """
+    poly = _build(
+        vertices, action, orbit_indices, orbits, tol, convex, face_corners, cell_choice, _geom
+    )
+    poly.orbit_indices = tuple(orbit_indices if orbit_indices is not None else [0])
+    poly.face_corners = None if face_corners is None else tuple(face_corners)
+    poly.cell_choice = min(cell_choice, max(poly.cell_choices - 1, 0))
+    return poly
+
+
+def _build(
+    vertices: np.ndarray,
+    action: SymmetryAction,
+    orbit_indices: list[int] | None,
+    orbits: list[EdgeOrbit] | None,
+    tol: float,
+    convex: bool,
+    face_corners: list[int] | None,
+    cell_choice: int,
+    geom: _Geom | None,
+) -> Polychoron:
     verts = np.asarray(vertices, dtype=float)
     orbits = orbits if orbits is not None else edge_orbits(verts, action, tol=tol)
     chosen = orbit_indices if orbit_indices is not None else [0]
@@ -494,8 +539,8 @@ def build_polychoron(
         nbrs[a].append(b)
         nbrs[b].append(a)
 
-    elements = group_elements(action)
-    reps, tree = _coset_representatives(verts, elements, atol)
+    geom = geom or _Geom(verts, action, atol)
+    reps, tree = geom.reps, geom.tree
 
     problems: list[str] = []
     if len(nbrs[0]) < 4:
@@ -503,12 +548,9 @@ def build_polychoron(
     if face_corners is not None:
         classes = corner_classes(verts, action, edges, tol=tol)
         chosen_pairs = {pair for i in face_corners for pair in classes[i].pairs}
-        back_cache: dict[int, np.ndarray] = {}
 
         def allowed(prev: int, cur: int, nxt: int) -> bool:
-            if cur not in back_cache:
-                back_cache[cur] = tree.query(verts @ reps[cur])[1]
-            back = back_cache[cur]
+            back = geom.back(cur)
             return tuple(sorted((int(back[prev]), int(back[nxt])))) in chosen_pairs
 
         faces_at_zero = set()
@@ -522,16 +564,22 @@ def build_polychoron(
         except ValueError as err:
             return Polychoron(verts, edges, [], [], [str(err)])
 
-        local: dict[int, np.ndarray] = {}
 
         def corner(prev: int, cur: int, w: int) -> bool:
             # carry the corner back to vertex 0 and look it up in the vertex figure there
-            if cur not in local:
-                local[cur] = tree.query(verts @ reps[cur])[1]
-            back = local[cur]
+            back = geom.back(cur)
             return frozenset((int(back[prev]), int(back[w]))) in figure
 
         faces_at_zero = _faces_at_vertex_zero(verts, nbrs, atol, corner, figure)
+    # cheap screen: every edge of a polychoron lies on at least three faces
+    through_zero = {n: 0 for n in nbrs[0]}
+    for cycle in faces_at_zero:
+        m = len(cycle)
+        i = cycle.index(0)
+        for n in (cycle[(i - 1) % m], cycle[(i + 1) % m]):
+            through_zero[n] += 1
+    if min(through_zero.values()) < 3:
+        return Polychoron(verts, edges, [], [], ["some edge lies on fewer than 3 faces"])
     all_faces: dict[tuple[int, ...], None] = {}
     for rep in reps.values():
         images = tree.query(verts @ rep.T)[1]
@@ -556,7 +604,9 @@ def build_polychoron(
             problems.append("no closed cells found")
         return Polychoron(verts, edges, faces, candidates, problems)
     cells = choices[min(cell_choice, len(choices) - 1)]
-    result = Polychoron(verts, edges, faces, cells, problems, cell_choices=len(choices))
+    result = Polychoron(
+        verts, edges, faces, cells, problems, cell_choices=len(choices), cell_sets=choices
+    )
     # star polychora have other Euler characteristics (the Schläfli-Hess ones are +-480)
     if convex and not problems and result.euler != 0:
         problems.append(f"Euler characteristic is {result.euler}, not 0")
@@ -643,13 +693,17 @@ def find_closed_polychora(
     rotations_only: bool = False,
     star: bool = False,
     max_corner_classes: int = 8,
+    progress=None,
+    time_limit: float | None = None,
 ) -> list[tuple[tuple[int, ...], Polychoron]]:
     """Try unions of up to ``max_orbits`` edge orbits (shortest first) and keep those that close.
 
     ``reflections_only`` restricts the candidates to ``reflection_edge_orbit_indices``,
     which is how a Coxeter diagram picks its edges; ``rotations_only`` to
     ``rotation_edge_orbit_indices`` (powers of the generators), for groups without mirrors. ``star`` also tries every subset of
-    corner classes with ``convex=False``; the result is the combo of orbit indices, so
+    corner classes with ``convex=False``; candidates that cannot close are screened out cheaply
+    before any cells are built, results are de-duplicated, and every cell choice is returned;
+    ``progress(done, total)`` and ``time_limit`` (seconds) are optional; the result is the combo of orbit indices, so
     use ``build_polychoron`` with ``face_corners`` to reproduce a particular one.
     """
     verts = np.asarray(vertices, dtype=float)
@@ -660,29 +714,52 @@ def find_closed_polychora(
         candidates = rotation_edge_orbit_indices(verts, action, orbits, tol=tol)
     else:
         candidates = list(range(len(orbits)))
+    geom = _Geom(verts, action, tol * _scale(verts))
+    started = time.monotonic()
+    combos = [
+        c for k in range(1, max_orbits + 1) for c in itertools.combinations(candidates, k)
+    ]
     found: list[tuple[tuple[int, ...], Polychoron]] = []
-    for k in range(1, max_orbits + 1):
-        for combo in itertools.combinations(candidates, k):
-            if not star:
-                poly = build_polychoron(verts, action, list(combo), orbits=orbits, tol=tol)
-                if poly.is_closed:
-                    found.append((combo, poly))
+    seen: set[tuple] = set()
+
+    def keep(combo, poly):
+        if not poly.is_closed:
+            return
+        for choice in range(max(poly.cell_choices, 1)):
+            cells = poly.cell_sets[choice] if poly.cell_sets else poly.cells
+            key = (
+                frozenset(_canonical_cycle(f) for f in poly.faces),
+                frozenset(frozenset(c) for c in cells),
+            )
+            if key in seen:
                 continue
-            edges = sorted({e for i in combo for e in orbits[i].edges})
-            degree = np.bincount(np.asarray(edges).ravel(), minlength=len(verts))
-            if degree.min() != degree.max() or degree[0] < 4:
-                continue
-            n_classes = len(corner_classes(verts, action, edges, tol=tol))
-            if not 1 <= n_classes <= max_corner_classes:
-                continue
-            for r in range(1, n_classes + 1):
-                for subset in itertools.combinations(range(n_classes), r):
-                    poly = build_polychoron(
-                        verts, action, list(combo), orbits=orbits, tol=tol,
-                        convex=False, face_corners=list(subset),
-                    )
-                    if poly.is_closed:
-                        found.append((combo, poly))
+            seen.add(key)
+            found.append((combo, replace(poly, cells=cells, cell_choice=choice)))
+
+    for n, combo in enumerate(combos):
+        if progress is not None:
+            progress(n, len(combos))
+        if time_limit is not None and time.monotonic() - started > time_limit:
+            break
+        if not star:
+            keep(combo, build_polychoron(
+                verts, action, list(combo), orbits=orbits, tol=tol, _geom=geom))
+            continue
+        edges = sorted({e for i in combo for e in orbits[i].edges})
+        degree = np.bincount(np.asarray(edges).ravel(), minlength=len(verts))
+        if degree.min() != degree.max() or degree[0] < 4:
+            continue
+        n_classes = len(corner_classes(verts, action, edges, tol=tol))
+        if not 1 <= n_classes <= max_corner_classes:
+            continue
+        for r in range(1, n_classes + 1):
+            for subset in itertools.combinations(range(n_classes), r):
+                keep(combo, build_polychoron(
+                    verts, action, list(combo), orbits=orbits, tol=tol,
+                    convex=False, face_corners=list(subset), _geom=geom,
+                ))
+    if progress is not None:
+        progress(len(combos), len(combos))
     return found
 
 

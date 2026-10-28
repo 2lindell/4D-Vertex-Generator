@@ -133,7 +133,7 @@ edges from the Coxeter diagram, rotation edges from the group's generators, or e
 choose how faces are formed (convex vertex figure or chosen corner classes for star faces),
 and build. It reports the vertex, edge, face and cell counts and the Euler characteristic,
 checks that the result is closed, shows a rotatable projection, and downloads a 4OFF with
-explicit faces and cells. An automatic search lists the closed polychora it finds among small
+explicit faces and cells. An automatic search (the *Find closed polychora* button, with a progress bar and time limit) lists the closed polychora it finds among small
 orbits. The tab has a *How to use this tab* panel with worked examples.
 
 ## Command-line options

@@ -970,8 +970,11 @@ result is checked to be closed: each face lies on exactly two cells.
    corners are in the chosen classes. Several classes may be chosen.
 4. **Build.** If several sets of cells close up on the same faces (the same faces bound both the
    600-cell and the icosahedral 120-cell, say), choose which with *Cell set*.
-5. **Or search.** The search expander tries combinations of edge orbits for you and lists the
-   closed polychora it finds.
+5. **Or let it find them.** *Find closed polychora* (below the build step) screens the candidate
+   edge orbits and corner classes, discards combinations in which some edge lies on fewer than three
+   faces or the cells do not close, and lists the rest (with face sizes, Euler characteristic and
+   whether they differ from the convex hull). Pick one to view it; the caption tells you the
+   orbits, corner classes and cell set to enter by hand.
 
 **Examples to try**
 | Symmetry | Seed | Edge orbits | Faces | Result |
@@ -1112,7 +1115,7 @@ def _nc_show_result(poly: Polychoron, stem: str) -> None:
         st.download_button(
             "Download 4OFF",
             data=to_4off(poly.vertices, poly.faces, poly.cells if poly.is_closed else []),
-            file_name=f"{stem}.4off",
+            file_name=f"{stem}.off",
             mime="text/plain",
             key=f"nc_download_{stem}",
         )
@@ -1264,47 +1267,88 @@ def render_nonconvex_tab() -> None:
         poly, stem = st.session_state["nc_built"]
         _nc_show_result(poly, stem)
 
-    with st.expander("Search for closed polychora automatically"):
-        st.markdown(
-            "Tries every union of up to *k* of the candidate edge orbits above and every "
-            "choice of corner classes, and lists the ones that close up. Use *Mirror edges* "
-            "or *Rotation edges* to keep the search short; it can take minutes."
+    st.divider()
+    st.subheader("Not sure which edges to pick? Find polychora that close up")
+    st.markdown(
+        "Most edge choices do not close into a polychoron. This screens the candidate edge "
+        "orbits above (and, with star faces on, every choice of corner classes) and lists "
+        "only the combinations that form faces and cells with every face shared by exactly "
+        "two cells. Choose **Mirror edges** or **Rotation edges** in step 2 to keep it fast."
+    )
+    if len(vertices) > NC_MAX_SEARCH_VERTICES:
+        st.info(
+            f"The search is limited to orbits of at most {NC_MAX_SEARCH_VERTICES} vertices "
+            f"(this one has {len(vertices)}); choose the orbits by hand above."
         )
-        if len(vertices) > NC_MAX_SEARCH_VERTICES:
-            st.info(
-                f"The search is limited to orbits of at most {NC_MAX_SEARCH_VERTICES} vertices "
-                f"(this one has {len(vertices)}); choose the orbits by hand above."
+    elif source == NC_EDGES_ALL and len(orbits) > 30:
+        st.info("There are too many edge orbits to search them all; choose mirror or rotation edges.")
+    else:
+        cols = st.columns(4)
+        max_orbits = cols[0].slider("Orbits per shape", 1, 3, 2, key="nc_search_k")
+        allow_star = cols[1].checkbox("Include star faces", value=True, key="nc_search_star")
+        max_corners = cols[2].slider("Max corner classes", 1, 8, 6, key="nc_search_corners")
+        budget = cols[3].slider("Time limit (s)", 10, 600, 120, key="nc_search_time")
+        if st.button("Find closed polychora", type="primary", key="nc_search"):
+            bar = st.progress(0.0, text="Screening edge choices")
+            found = find_closed_polychora(
+                vertices,
+                named_symmetry(symmetry_name),
+                max_orbits=max_orbits,
+                reflections_only=source == NC_EDGES_REFLECTION,
+                rotations_only=source == NC_EDGES_ROTATION,
+                star=allow_star,
+                max_corner_classes=max_corners,
+                time_limit=float(budget),
+                progress=lambda done, total: bar.progress(
+                    done / max(total, 1), text=f"Screened {done} of {total} edge choices"
+                ),
             )
-        elif source == NC_EDGES_ALL and len(orbits) > 30:
-            st.info("There are too many edge orbits to search them all; choose mirror or rotation edges.")
-        else:
-            cols = st.columns(3)
-            max_orbits = cols[0].slider("Orbits per shape", 1, 3, 2, key="nc_search_k")
-            allow_star = cols[1].checkbox("Include star faces", value=True, key="nc_search_star")
-            max_corners = cols[2].slider("Max corner classes", 1, 8, 6, key="nc_search_corners")
-            if st.button("Search", key="nc_search"):
-                with st.spinner("Searching"):
-                    found = find_closed_polychora(
-                        vertices,
-                        named_symmetry(symmetry_name),
-                        max_orbits=max_orbits,
-                        reflections_only=source == NC_EDGES_REFLECTION,
-                        rotations_only=source == NC_EDGES_ROTATION,
-                        star=allow_star,
-                        max_corner_classes=max_corners,
+            bar.empty()
+            st.session_state["nc_found"] = [
+                (combo, poly, bool(compare_to_hull(poly))) for combo, poly in found
+            ]
+        found = st.session_state.get("nc_found")
+        if found is not None:
+            only_new = st.checkbox("Only shapes that differ from the convex hull", key="nc_only_new")
+            shown = [f for f in found if f[2] or not only_new]
+            st.write(f"{len(shown)} closed polychora found.")
+            if shown:
+                rows = []
+                for combo, poly, differs in shown:
+                    sizes = sorted({len(f) for f in poly.faces})
+                    rows.append({
+                        "orbits": ", ".join(str(i) for i in combo),
+                        "edge lengths": ", ".join(
+                            f"{orbits[i].length:.3f}" for i in combo if i < len(orbits)
+                        ),
+                        "face sizes": ", ".join(map(str, sizes)),
+                        "faces": len(poly.faces),
+                        "cells": len(poly.cells),
+                        "Euler": poly.euler,
+                        "cell set": poly.cell_choice,
+                        "not the hull": differs,
+                    })
+                st.dataframe(pd.DataFrame(rows), use_container_width=True)
+                pick = st.selectbox(
+                    "Show result",
+                    range(len(shown)),
+                    format_func=lambda k: (
+                        f"#{k}: orbits {list(shown[k][0])} · {len(shown[k][1].faces)} faces · "
+                        f"{len(shown[k][1].cells)} cells"
+                    ),
+                    key="nc_found_pick",
+                )
+                combo = shown[pick][0]
+                st.caption(
+                    f"To reproduce by hand: edge orbits {list(combo)}, cell set "
+                    f"{shown[pick][1].cell_choice}"
+                    + (
+                        f", corner classes {list(shown[pick][1].face_corners)}."
+                        if shown[pick][1].face_corners is not None
+                        else ", faces from the convex vertex figure."
                     )
-                st.session_state["nc_found"] = [(combo, poly) for combo, poly in found]
-            found = st.session_state.get("nc_found")
-            if found is not None:
-                st.write(f"{len(found)} closed polychora found.")
-                if found:
-                    def label(k: int) -> str:
-                        combo, poly = found[k]
-                        lengths = ", ".join(f"{orbits[i].length:.3f}" for i in combo if i < len(orbits))
-                        return f"orbits {list(combo)} (lengths {lengths}) · {len(poly.faces)} faces · {len(poly.cells)} cells"
-
-                    pick = st.selectbox("Result", range(len(found)), format_func=label, key="nc_found_pick")
-                    _nc_show_result(found[pick][1], f"{symmetry_name}_search_{pick}")
+                )
+                _nc_show_result(shown[pick][1], f"{symmetry_name}_search_{pick}")
 
 
 def render_domain_tab() -> None:
