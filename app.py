@@ -38,6 +38,16 @@ from four_d_vertex_generator.local_view import (
     nearest_neighbour_edges,
 )
 from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
+from four_d_vertex_generator.polychoron import (
+    Polychoron,
+    build_polychoron,
+    compare_to_hull,
+    corner_classes,
+    edge_orbits,
+    find_closed_polychora,
+    reflection_edge_orbit_indices,
+    rotation_edge_orbit_indices,
+)
 
 _ICON = Path(__file__).with_name("assets") / "favicon.svg"  # a tetrahedron, for the browser tab
 st.set_page_config(
@@ -933,11 +943,382 @@ def render_domain_tab() -> None:
         )
 
 
-generate_tab, analyze_tab, domain_tab = st.tabs(["Generate", "Analyze a 4OFF file", DOMAIN_TITLE])
+NONCONVEX_TITLE = "Non-convex generator (beta)"
+NC_MAX_VERTICES = 3000  # building faces and cells is much slower than generating the orbit
+NC_MAX_SEARCH_VERTICES = 400
+NC_EDGES_REFLECTION = "Mirror edges (Coxeter diagram)"
+NC_EDGES_ROTATION = "Rotation edges (generator powers)"
+NC_EDGES_ALL = "Every edge orbit"
+NC_FACES_VERTEX_FIGURE = "Convex vertex figure"
+NC_FACES_CORNERS = "Chosen corner classes (allows star faces)"
+
+NC_HELP = """
+**What this does.** The *Generate* tab always joins the orbit's points into their **convex hull**.
+This tab instead lets you choose **which pairs of vertices are edges**, then builds the faces and
+cells from those edges. Choosing longer chords gives **star polygons and non-convex or
+self-intersecting cells**, such as the pentagram prisms and the Schläfli–Hess polychora. Every
+result is checked to be closed: each face lies on exactly two cells.
+
+**How to use it**
+1. **Symmetry and seed.** Pick a group and a seed point, exactly as in *Generate*. A seed on a
+   mirror gives a more symmetric shape; a generic seed gives unequal edge lengths (non-uniform).
+2. **Edge orbits.** Every pair of vertices belongs to an *edge orbit*: the pairs the symmetry maps
+   onto each other. They are listed shortest first. Pick the orbits that are your edges.
+   *Mirror edges* are the pairs `v, r(v)` for a reflection `r`: the ringed nodes of a Coxeter
+   diagram, plus the longer chords from the group's other reflections. *Rotation edges* are
+   `v, g^k(v)` for powers of a generating rotation `g`, which also works for groups with no mirrors
+   (chiral groups, swirlprisms). *Every edge orbit* lists them all and gets long quickly.
+3. **Faces.** *Convex vertex figure* is right for convex shapes. For stars, choose **corner
+   classes**: a corner is two edges meeting at a vertex, and a face is a polygon all of whose
+   corners are in the chosen classes. Several classes may be chosen.
+4. **Build.** If several sets of cells close up on the same faces (the same faces bound both the
+   600-cell and the icosahedral 120-cell, say), choose which with *Cell set*.
+5. **Or search.** The search expander tries combinations of edge orbits for you and lists the
+   closed polychora it finds.
+
+**Examples to try**
+| Symmetry | Seed | Edge orbits | Faces | Result |
+| --- | --- | --- | --- | --- |
+| 5-5 duoprism, basic | `1, 0, 1, 0` | `#0` (1.176) and `#4` (1.902): pentagon edges in one plane, pentagram chords in the other | corner classes: all, and untick *convex cells* | pentagon × pentagram star duoprism |
+| Basic H4 `[5,3,3]` (Coxeter basis) | `1, 0, 0, 0` | `#0` (length 0.618) | only the 60° corner, untick *convex cells* | icosahedral 120-cell {3,5,5/2}; *Cell set* 1 gives the 600-cell |
+| Basic H4 `[5,3,3]` (Coxeter basis) | `1, 0, 0, 0` | `#4` (length 1.618) | only the 60° corner, untick *convex cells* | great icosahedral 120-cell {3,5/2,5}; *Cell set* 1 gives the grand 600-cell {3,3,5/2} |
+
+**Limits of the beta.** Building is slow above a few hundred vertices. Faces are simple polygons
+in one plane. Nothing is checked beyond closure, so a closed result is not necessarily a
+*uniform* polychoron; read the face and cell counts. The 4OFF export lists explicit faces and
+cells; not every viewer draws star polytopes correctly.
+"""
+
+
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
+def _nc_orbit_data(symmetry_name: str, vertices: np.ndarray):
+    """Edge orbits plus the mirror and rotation candidate lists for one vertex orbit."""
+    action = named_symmetry(symmetry_name)
+    orbits = edge_orbits(vertices, action)
+    return (
+        orbits,
+        reflection_edge_orbit_indices(vertices, action, orbits),
+        rotation_edge_orbit_indices(vertices, action, orbits),
+    )
+
+
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
+def _nc_corner_classes(symmetry_name: str, vertices: np.ndarray, edges: tuple[tuple[int, int], ...]):
+    return corner_classes(vertices, named_symmetry(symmetry_name), list(edges))
+
+
+def _nc_symmetry_picker() -> str:
+    left, right = st.columns(2)
+    families = {key: value for key, value in GROUP_OPTIONS.items() if key != "h4_tubical"}
+    keys = tuple(families)
+    family = left.selectbox(
+        "Symmetry family",
+        options=keys,
+        format_func=lambda key: families[key][0],
+        index=keys.index("duoprism"),
+        key="nc_family",
+    )
+    if family == "duoprism":
+        p, q = right.selectbox(
+            "Duoprism orders (p, q)",
+            options=[(p, q) for p in range(3, 7) for q in range(p, 7)],
+            index=[(p, q) for p in range(3, 7) for q in range(p, 7)].index((5, 5)),
+            format_func=lambda order: f"{order[0]}-{order[1]} duoprism",
+            key="nc_duoprism_orders",
+        )
+        choices = [(f"duoprism_{p}_{q}", f"Basic [{p},2,{q}]"), (f"duoprism_{p}_{q}+", f"Chiral [{p},2,{q}]+")]
+        if p == q:
+            choices += [
+                (f"duoprism_{p}_{q}_extended", f"Extended [[{p},2,{q}]]"),
+                (f"duoprism_{p}_{q}_chiral_extended", f"Chiral extended [[{p},2,{q}]]+"),
+            ]
+    else:
+        choices = list(families[family][1])
+    labels = dict(choices)
+    with left if family == "duoprism" else right:
+        name = st.selectbox(
+            "Subgroup",
+            options=list(labels),
+            format_func=labels.__getitem__,
+            key=f"nc_subgroup_{family}_{len(labels)}",
+        )
+    return name
+
+
+def _nc_figure(poly: Polychoron, xw: float, zw: float) -> go.Figure:
+    """Perspective view of the edges: rotate in the XW and ZW planes, then project away W."""
+    pts = np.asarray(poly.vertices, dtype=float).copy()
+    for axis, angle in ((0, xw), (2, zw)):
+        c, s_ = np.cos(np.radians(angle)), np.sin(np.radians(angle))
+        pts[:, [axis, 3]] = pts[:, [axis, 3]] @ np.array([[c, s_], [-s_, c]])
+    radius = float(np.max(np.linalg.norm(pts, axis=1))) or 1.0
+    xyz = pts[:, :3] / (2.5 * radius - pts[:, 3:4]) * 2.5 * radius
+    xs: list[float | None] = []
+    ys: list[float | None] = []
+    zs: list[float | None] = []
+    for i, j in poly.edges:
+        xs += [xyz[i, 0], xyz[j, 0], None]
+        ys += [xyz[i, 1], xyz[j, 1], None]
+        zs += [xyz[i, 2], xyz[j, 2], None]
+    fig = go.Figure()
+    fig.add_trace(go.Scatter3d(x=xs, y=ys, z=zs, mode="lines", line={"width": 2}, hoverinfo="skip", name="edges"))
+    fig.add_trace(
+        go.Scatter3d(
+            x=xyz[:, 0], y=xyz[:, 1], z=xyz[:, 2], mode="markers", marker={"size": 3},
+            text=[_format_vector(v) for v in poly.vertices], hoverinfo="text", name="vertices",
+        )
+    )
+    fig.update_layout(
+        height=560, margin={"l": 0, "r": 0, "t": 0, "b": 0}, showlegend=False,
+        scene={"aspectmode": "data", "xaxis_visible": False, "yaxis_visible": False, "zaxis_visible": False},
+    )
+    return fig
+
+
+def _nc_show_result(poly: Polychoron, stem: str) -> None:
+    cols = st.columns(5)
+    for col, (label, value) in zip(
+        cols,
+        [
+            ("Vertices", len(poly.vertices)),
+            ("Edges", len(poly.edges)),
+            ("Faces", len(poly.faces)),
+            ("Cells", len(poly.cells)),
+            ("Euler χ", poly.euler),
+        ],
+    ):
+        col.metric(label, value)
+    if poly.is_closed:
+        st.success("Closed: every face lies on exactly two cells.")
+        if poly.cell_choices > 1:
+            st.info(
+                f"{poly.cell_choices} different sets of cells close up on these faces. "
+                "Change *Cell set* above and build again to see the others."
+            )
+        hull_diffs = compare_to_hull(poly)
+        if hull_diffs:
+            st.caption("Differs from the convex hull of its vertices: " + "; ".join(hull_diffs) + ".")
+        else:
+            st.caption("Identical to the convex hull of its vertices.")
+        sizes = {}
+        for face in poly.faces:
+            sizes[len(face)] = sizes.get(len(face), 0) + 1
+        st.caption("Faces by number of sides: " + ", ".join(f"{n} × {k}-gon" for k, n in sorted(sizes.items())))
+    else:
+        st.error("Not a closed polychoron: " + "; ".join(poly.problems or ["no cells found"]))
+    if poly.edges:
+        view = st.columns(2)
+        xw = view[0].slider("Rotate in the XW plane (°)", -180, 180, 0, key=f"nc_xw_{stem}")
+        zw = view[1].slider("Rotate in the ZW plane (°)", -180, 180, 0, key=f"nc_zw_{stem}")
+        st.plotly_chart(_nc_figure(poly, xw, zw), width="stretch", key=f"nc_plot_{stem}")
+    if poly.faces:
+        st.download_button(
+            "Download 4OFF",
+            data=to_4off(poly.vertices, poly.faces, poly.cells if poly.is_closed else []),
+            file_name=f"{stem}.4off",
+            mime="text/plain",
+            key=f"nc_download_{stem}",
+        )
+
+
+def render_nonconvex_tab() -> None:
+    st.warning(
+        "Beta. This is a separate generator: it does not change the Generate tab. "
+        "Results are checked for closure only."
+    )
+    with st.expander("How to use this tab", expanded=False):
+        st.markdown(NC_HELP)
+
+    st.subheader("1. Symmetry and seed")
+    symmetry_name = _nc_symmetry_picker()
+    order = _group_order(symmetry_name)
+    st.caption(f"`{symmetry_name}` · group order {order if order is not None else 'unknown'}")
+    seed_text = st.text_input(
+        "Seed point (x, y, z, w)",
+        value="1, 0, 1, 0",
+        key="nc_seed",
+        help="Any point; the orbit is every image of it under the group. Pick a point on a "
+        "mirror (for example a zero coordinate) for a more symmetric shape.",
+    )
+    try:
+        seed = parse_seed(seed_text)
+    except ValueError as err:
+        st.error(str(err))
+        return
+    try:
+        vertices = _cached_generate(tuple(float(x) for x in seed), symmetry_name, 1e-8, NC_MAX_VERTICES)
+    except (RuntimeError, ValueError) as err:
+        st.error(f"Could not generate the orbit (limit {NC_MAX_VERTICES} vertices): {err}")
+        return
+    if len(vertices) < 5:
+        st.error("The orbit has fewer than 5 points; choose a seed with a larger orbit.")
+        return
+    st.caption(f"{len(vertices)} vertices in the orbit.")
+
+    st.subheader("2. Edge orbits")
+    with st.spinner("Classifying vertex pairs"):
+        try:
+            orbits, mirror_ids, rotation_ids = _nc_orbit_data(symmetry_name, vertices)
+        except ValueError as err:
+            st.error(str(err))
+            return
+    sources = {
+        NC_EDGES_REFLECTION: mirror_ids,
+        NC_EDGES_ROTATION: rotation_ids,
+        NC_EDGES_ALL: list(range(len(orbits))),
+    }
+    available = [name for name, ids in sources.items() if ids]
+    source = st.radio(
+        "Edge candidates",
+        available,
+        horizontal=True,
+        help="Mirror edges follow the Coxeter diagram. Rotation edges use powers of the group's "
+        "generating rotations and work without mirrors. Every orbit lists all vertex pairs.",
+        key=f"nc_source_{symmetry_name}",
+    )
+    if not mirror_ids:
+        st.caption("This group contains no reflections, so mirror edges are not available.")
+    candidates = sources[source]
+    st.caption(f"{len(candidates)} of {len(orbits)} edge orbits shown, shortest first.")
+    st.dataframe(
+        pd.DataFrame(
+            {
+                "orbit": candidates,
+                "edge length": [round(orbits[i].length, 4) for i in candidates],
+                "edges": [len(orbits[i].edges) for i in candidates],
+                "mirror": [i in mirror_ids for i in candidates],
+                "rotation": [i in rotation_ids for i in candidates],
+            }
+        ),
+        hide_index=True,
+        height=min(35 * len(candidates) + 38, 280),
+    )
+    chosen = st.multiselect(
+        "Edge orbits to use",
+        candidates,
+        format_func=lambda i: f"#{i} · length {orbits[i].length:.4f} · {len(orbits[i].edges)} edges",
+        key=f"nc_orbits_{symmetry_name}_{source}",
+        help="The polychoron's edges are the union of these orbits. Each vertex needs at "
+        "least 4 edges in total.",
+    )
+
+    st.subheader("3. Faces and cells")
+    face_rule = st.radio(
+        "Face rule",
+        [NC_FACES_VERTEX_FIGURE, NC_FACES_CORNERS],
+        horizontal=True,
+        help="A corner is two edges meeting at a vertex. Convex vertex figure: faces turn along "
+        "the faces of the convex vertex figure. Corner classes: you choose which corners faces "
+        "may use; faces can then be star polygons.",
+        key="nc_face_rule",
+    )
+    corner_ids: list[int] = []
+    classes = []
+    if chosen:
+        edges = tuple(sorted({e for i in chosen for e in orbits[i].edges}))
+        if face_rule == NC_FACES_CORNERS:
+            classes = _nc_corner_classes(symmetry_name, vertices, edges)
+            if not classes:
+                st.info("These edges form no corners at a vertex; choose different orbits.")
+            corner_ids = st.multiselect(
+                "Corner classes",
+                list(range(len(classes))),
+                default=list(range(len(classes))) if len(classes) <= 4 else [],
+                format_func=lambda i: f"{np.degrees(classes[i].angle):.1f}° · {len(classes[i].pairs)} edge pair(s) per vertex",
+                key=f"nc_corners_{symmetry_name}_{source}_{chosen}",
+                help="Faces are simple planar polygons whose corners all belong to these classes. "
+                "The smallest angle usually gives the triangles; larger angles give pentagons, "
+                "pentagrams and so on.",
+            )
+    convex_cells = st.checkbox(
+        "Only cells on a supporting hyperplane (convex cells)",
+        value=face_rule == NC_FACES_VERTEX_FIGURE,
+        key=f"nc_convex_cells_{face_rule}",
+        help="Untick to allow cells whose hyperplane cuts through the polychoron, which star "
+        "polychora need.",
+    )
+    cell_choice = st.number_input(
+        "Cell set",
+        min_value=0,
+        value=0,
+        step=1,
+        help="When several sets of cells close up on the same faces, this picks one (0 is the "
+        "set with the fewest symmetry classes of cells).",
+        key="nc_cell_choice",
+    )
+
+    st.subheader("4. Build")
+    ready = bool(chosen) and (face_rule == NC_FACES_VERTEX_FIGURE or bool(corner_ids))
+    if st.button("Build polychoron", type="primary", disabled=not ready, key="nc_build"):
+        with st.spinner("Building faces and cells"):
+            poly = build_polychoron(
+                vertices,
+                named_symmetry(symmetry_name),
+                list(chosen),
+                orbits=orbits,
+                convex=convex_cells,
+                face_corners=corner_ids if face_rule == NC_FACES_CORNERS else None,
+                cell_choice=int(cell_choice),
+            )
+        st.session_state["nc_built"] = (poly, f"{symmetry_name}_nonconvex")
+    if not ready:
+        st.caption("Choose at least one edge orbit (and, for star faces, at least one corner class).")
+    if "nc_built" in st.session_state:
+        poly, stem = st.session_state["nc_built"]
+        _nc_show_result(poly, stem)
+
+    with st.expander("Search for closed polychora automatically"):
+        st.markdown(
+            "Tries every union of up to *k* of the candidate edge orbits above and every "
+            "choice of corner classes, and lists the ones that close up. Use *Mirror edges* "
+            "or *Rotation edges* to keep the search short; it can take minutes."
+        )
+        if len(vertices) > NC_MAX_SEARCH_VERTICES:
+            st.info(
+                f"The search is limited to orbits of at most {NC_MAX_SEARCH_VERTICES} vertices "
+                f"(this one has {len(vertices)}); choose the orbits by hand above."
+            )
+        elif source == NC_EDGES_ALL and len(orbits) > 30:
+            st.info("There are too many edge orbits to search them all; choose mirror or rotation edges.")
+        else:
+            cols = st.columns(3)
+            max_orbits = cols[0].slider("Orbits per shape", 1, 3, 2, key="nc_search_k")
+            allow_star = cols[1].checkbox("Include star faces", value=True, key="nc_search_star")
+            max_corners = cols[2].slider("Max corner classes", 1, 8, 6, key="nc_search_corners")
+            if st.button("Search", key="nc_search"):
+                with st.spinner("Searching"):
+                    found = find_closed_polychora(
+                        vertices,
+                        named_symmetry(symmetry_name),
+                        max_orbits=max_orbits,
+                        reflections_only=source == NC_EDGES_REFLECTION,
+                        rotations_only=source == NC_EDGES_ROTATION,
+                        star=allow_star,
+                        max_corner_classes=max_corners,
+                    )
+                st.session_state["nc_found"] = [(combo, poly) for combo, poly in found]
+            found = st.session_state.get("nc_found")
+            if found is not None:
+                st.write(f"{len(found)} closed polychora found.")
+                if found:
+                    def label(k: int) -> str:
+                        combo, poly = found[k]
+                        lengths = ", ".join(f"{orbits[i].length:.3f}" for i in combo if i < len(orbits))
+                        return f"orbits {list(combo)} (lengths {lengths}) · {len(poly.faces)} faces · {len(poly.cells)} cells"
+
+                    pick = st.selectbox("Result", range(len(found)), format_func=label, key="nc_found_pick")
+                    _nc_show_result(found[pick][1], f"{symmetry_name}_search_{pick}")
+
+
+generate_tab, analyze_tab, domain_tab, nonconvex_tab = st.tabs(
+    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, NONCONVEX_TITLE]
+)
 with generate_tab:
     render_generate_tab()
 with analyze_tab:
     render_analyze_tab()
 with domain_tab:
     render_domain_tab()
+with nonconvex_tab:
+    render_nonconvex_tab()
 let_wheel_scroll_page()
