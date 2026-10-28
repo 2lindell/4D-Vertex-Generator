@@ -768,6 +768,14 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     // each view remembers where it was turned to, so ticking a box redraws without moving the camera
     const cameras = {};
     const cam = (dflt) => cameras[el("quarter").value] || dflt;
+    // each view's default camera (the half-cell view's comes with its data)
+    function defaultCamera() {
+      const boxed = { piece: DP, chambers: DH, cohesive: DQ, all: DC.bounds ? DC : null }[el("quarter").value];
+      if (boxed) return JSON.parse(JSON.stringify(boxed.camera || { eye: { x: 1.3, y: -1.2, z: 0.7 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } }));
+      if (el("quarter").value === "dodeca" || el("quarter").value === "v1")
+        return { eye: { x: 1.4, y: -1.1, z: 0.6 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } };
+      return { eye: { x: 1.2, y: -1.0, z: 0.12 }, center: { x: 0, y: 0, z: -0.05 }, up: { x: 0, y: 0, z: 1 } };
+    }
     function layout() {
       const hidden = { visible: false, showbackground: false };
       // (the half-cell view has bounds of its own when it is the projection centred on its four A1 corners)
@@ -798,7 +806,15 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     const plot = el("plot");
     // (surfaces drawn only for context, the mirrors and faces, are taken out of the 3D picking: hoverinfo "skip" alone
     // still lets them catch the cursor before whatever lies behind them)
-    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }).then(() => {
+    // the toolbar's home button goes back to this page's own default camera for the view shown (Plotly's own reset
+    // would go to the camera the plot was first drawn with, or Plotly's default)
+    const CONFIG = { displaylogo: false, responsive: true,
+      modeBarButtonsToRemove: ["resetCameraDefault3d", "resetCameraLastSave3d"],
+      modeBarButtonsToAdd: [{ name: "Reset view to the default camera", icon: Plotly.Icons.home, click: () => {
+        delete cameras[el("quarter").value];
+        Plotly.relayout(plot, { "scene.camera": defaultCamera() });
+      } }] };
+    const render = () => Plotly.react(plot, traces(), layout(), CONFIG).then(() => {
       const sc = plot._fullLayout.scene && plot._fullLayout.scene._scene;
       // (the pick slots are handed out when an object joins the scene: so it leaves and joins again)
       if (sc) for (const t of Object.values(sc.traces)) if (t.mesh && t.data && t.data.meta === "nopick" && t.mesh.pickSlots) {
