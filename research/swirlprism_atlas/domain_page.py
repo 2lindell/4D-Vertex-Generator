@@ -42,6 +42,7 @@ HALF = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 
 CORNERS = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]])
 G_CELL = 0.015          # (mesh coarsening in betas for the half-cell view; boundary vertices on a 4x finer grid)
 G_DODECA = 0.1          # (... for the dodecahedron views, which hold about 20 half-cells)
+G_DODECA_RIM = 0.012    # (... and for their rims, small at that scale; the edges are drawn from the exact lines)
 LINE_TOL = 1e-3         # (polylines kept where they turn by more than this, in view coordinates)
 
 
@@ -186,9 +187,9 @@ def clip_polyline(P, tol=1e-9):
 
 # ---------------------------------------------------------------- meshes
 
-def coarsen(T, G, tags):
-    """Vertex merging on a grid in betas (boundary vertices kept exactly, so edges stay in place):
-    (vertices, faces, tag per face)."""
+def coarsen(T, G, tags, GB=None):
+    """Vertex merging on a grid in betas (boundary vertices kept exactly, so edges stay in place; or, for the small
+    dodecahedron views, merged on the much finer grid GB): (vertices, faces, tag per face)."""
     Vu, inv = np.unique(T.reshape(-1, 4).round(12), axis=0, return_inverse=True)
     F = inv.ravel().reshape(-1, 3)
     E = np.sort(np.concatenate([F[:, [0, 1]], F[:, [1, 2]], F[:, [2, 0]]]), 1)
@@ -197,7 +198,8 @@ def coarsen(T, G, tags):
     bnd[e[c == 1].ravel()] = True
     # (a boundary vertex is kept exactly where it is, so the wall's edges stay on its lines)
     key = np.round(Vu[:, :3] / G).astype(np.int64)
-    key[bnd] = np.c_[np.flatnonzero(bnd), np.zeros((bnd.sum(), 2), np.int64)]
+    key[bnd] = (np.round(Vu[bnd, :3] / GB).astype(np.int64) if GB
+                else np.c_[np.flatnonzero(bnd), np.zeros((bnd.sum(), 2), np.int64)])
     key = np.c_[key, bnd]
     _, first, cl = np.unique(key, axis=0, return_index=True, return_inverse=True)
     V, I = Vu[first], cl.ravel()[F]
@@ -320,7 +322,7 @@ def wall_in_cell_chart(pieces, edges, G):
         T = np.array(pc["tris"], float)
         if not len(T):
             continue
-        V, F, _ = coarsen(T, G, [None] * len(T))
+        V, F, _ = coarsen(T, G, [None] * len(T), G_DODECA_RIM)
         solid, dashed, rim = piece_rims(pc, edges)
         out.append({"between": pc["between"], "tris": V[F], "solid": solid, "rim": rim, "dashed": dashed})
     return out

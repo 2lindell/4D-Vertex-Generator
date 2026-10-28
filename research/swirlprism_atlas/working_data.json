@@ -2185,6 +2185,13 @@
     "by": "F5",
     "why": "ring test round X8: X20's far side changes from X66 to X59 along X8 (X52 gives way to X39 there); F5 is the only wall between X59 and X66"
    }
+  ],
+  "not_touching": [
+   {
+    "wall": "X27",
+    "line": "X8",
+    "why": "X8 does not touch X27 (user)"
+   }
   ]
  },
  "walls": {
@@ -4072,9 +4079,11 @@
    "cuts_needed": 0,
    "cuts": [],
    "sphere": {
-    "patch_images": 1,
+    "patch_images": 2,
     "stabiliser": 1,
-    "joins": [],
+    "joins": [
+     "same part"
+    ],
     "meets_copies_along": []
    }
   },
@@ -4377,9 +4386,12 @@
     }
    ],
    "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
+    "patch_images": 4,
+    "stabiliser": 2,
+    "joins": [
+     "across a face",
+     "same part"
+    ],
     "meets_copies_along": []
    }
   },
@@ -5248,9 +5260,9 @@
    "wall_extent": {
     "T2": "partial",
     "X3": "partial",
-    "X9": "partial",
+    "X9": "full",
     "X10": "full",
-    "X11": "partial",
+    "X11": "full",
     "X14": "full",
     "X21": "full"
    },
@@ -5388,7 +5400,7 @@
    ],
    "wall_extent": {
     "T2": "partial",
-    "X11": "partial",
+    "X11": "not found beside it in the pieces",
     "X83": "full",
     "X94": "full"
    },
@@ -5411,7 +5423,7 @@
    ],
    "wall_extent": {
     "T2": "partial",
-    "X11": "partial",
+    "X11": "full",
     "X15": "full",
     "X94": "full"
    },
@@ -5462,7 +5474,7 @@
    "wall_extent": {
     "X14": "partial",
     "X25": "full",
-    "X27": "not found beside it in the pieces"
+    "X27": "full"
    },
    "lines": {
     "C2b": "full",
@@ -5587,7 +5599,7 @@
     "X90"
    ],
    "wall_extent": {
-    "X27": "not found beside it in the pieces",
+    "X27": "partial",
     "X34": "full",
     "X44": "full",
     "X90": "full"
@@ -5709,7 +5721,7 @@
     "X98"
    ],
    "wall_extent": {
-    "X21": "partial",
+    "X21": "full",
     "X23": "not found beside it in the pieces",
     "X34": "full",
     "X39": "full",
@@ -5830,7 +5842,7 @@
     "X47"
    ],
    "wall_extent": {
-    "X27": "not found beside it in the pieces",
+    "X27": "partial",
     "X42": "full",
     "X44": "full",
     "X47": "full"
@@ -5884,7 +5896,7 @@
     "X98"
    ],
    "wall_extent": {
-    "X21": "partial",
+    "X21": "not found beside it in the pieces",
     "X47": "full",
     "X52": "full",
     "X98": "full"
@@ -6123,7 +6135,7 @@
    ],
    "wall_extent": {
     "X3": "partial",
-    "X9": "partial",
+    "X9": "not found beside it in the pieces",
     "X10": "full",
     "X20": "full"
    },
@@ -7410,32 +7422,37 @@
    }
   },
   "wall_pieces": {
-   "X11": [
-    "a piece of 1636 triangles on plane (0, 0, 0.707107, -0.707107) not settled (could be F2|X36, F2|X37)",
-    "a piece of 1193 triangles on plane (0, 0, 0.707107, -0.707107) not settled (could be F2|X36, F2|X37)"
+   "T2": [
+    "the piece F2|X49 is bounded by X1 too, which the working data does not list for it"
+   ],
+   "X3": [
+    "the piece X12|X95 is bounded by X1 too, which the working data does not list for it"
    ],
    "X14": [
     "the piece F2|X45 is bounded by X97 too, which the working data does not list for it"
    ],
    "X17": [
-    "a piece of 495 triangles on plane (-0, -0.336068, 0.336068, 0.879839) not settled (could be X32|X43, X32|X54, X43|X46)"
+    "a piece of 543 triangles on plane (-0, -0.336068, 0.336068, 0.879839) not settled (could be X32|X54, X43|X46)"
    ],
    "X21": [
     "the piece F2|X60 is bounded by X97 too, which the working data does not list for it",
-    "the piece F2|X67 is bounded by X97 too, which the working data does not list for it",
-    "the piece F2|X67 is bounded by X97 too, which the working data does not list for it",
+    "the piece F2|X60 is bounded by X97 too, which the working data does not list for it",
+    "the piece F2|X60 is bounded by X97 too, which the working data does not list for it",
     "the piece F2|X60 is bounded by X97 too, which the working data does not list for it"
    ],
+   "X22": [
+    "the piece F3|X70 is bounded by X13 too, which the working data does not list for it"
+   ],
    "X23": [
-    "a piece of 9549 triangles on plane (0, 1, 0, 0) not settled (could be X59|X62, X60|X62)",
-    "a piece of 13662 triangles on plane (0.879839, 0, -0.336068, 0.336068) not settled (could be X59|X62, X60|X62)",
-    "a piece of 17220 triangles on plane (1, -0, -0, -0) not settled (could be X59|X62, X60|X62)"
+    "a piece of 9552 triangles on plane (0, 1, 0, 0) not settled (could be X59|X62, X60|X62)",
+    "a piece of 13708 triangles on plane (0.879839, 0, -0.336068, 0.336068) not settled (could be X59|X62, X60|X62)",
+    "a piece of 17257 triangles on plane (1, -0, -0, -0) not settled (could be X59|X62, X60|X62)"
    ],
    "X27": [
-    "a piece of 1289 triangles on plane (-0.295242, 0.477711, 0.295242, 0.772953) not settled (could be X45|X55, X45|X65)",
-    "a piece of 985 triangles on plane (-0.295242, 0.477711, 0.295242, 0.772953) not settled (could be X45|X55, X45|X65)",
-    "a piece of 265 triangles on plane (0, 0.707107, -0.707107, 0) not settled (could be X45|X55, X45|X65)",
-    "a piece of 320 triangles on plane (0, 0.707107, -0.707107, 0) not settled (could be X45|X55, X45|X65)"
+    "the piece X45|X65 is bounded by X97 too, which the working data does not list for it",
+    "the piece X45|X55 is bounded by X97 too, which the working data does not list for it",
+    "the piece X45|X55 is bounded by X97 too, which the working data does not list for it",
+    "the piece X45|X65 is bounded by X97 too, which the working data does not list for it"
    ],
    "X84": [
     "the piece X63|X74 is bounded by X18 too, which the working data does not list for it"
