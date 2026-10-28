@@ -27,7 +27,18 @@ from core import CHART, home, seed_text
 def main():
     work = json.load(open("working_data.json"))
     shapes = work["shapes"]
-    WP = json.load(open("wall_parts.json"))
+    import os
+    import re
+    WP = json.load(open("wall_parts.json")) if os.path.exists("wall_parts.json") else {}
+    # (without the wall pieces, a wall or region keeps the place it had on the map last built)
+    old_c = {}
+    if not WP and os.path.exists("shape_map.html"):
+        m = re.search(r'\{"nodes":.*?\}(?=\s*<|\s*;)', open("shape_map.html").read(), re.S)
+        if m:
+            try:
+                old_c = {n["id"]: n["c"] for n in json.loads(m.group(0).replace("<\\/", "</"))["nodes"]}
+            except ValueError:
+                old_c = {}
     ex = json.load(open("exact_defs.json"))["lines"]
     crp = json.load(open("cross_ring_points.json"))["points"]
     # (each shape's own geometry, as betas: its pieces, its exact line pieces, its exact points)
@@ -45,9 +56,9 @@ def main():
     nodes = []
     for tid, t in shapes.items():
         B_ = np.concatenate(geo[tid]) if geo.get(tid) else (np.asarray([t["seed"]], float) if t.get("seed") else None)
-        if B_ is None:
+        if B_ is None and tid not in old_c:
             continue
-        c = (B_ / B_.sum(1, keepdims=True)).mean(0) @ CHART
+        c = np.asarray(old_c[tid]) if (not geo.get(tid) and tid in old_c) else (B_ / B_.sum(1, keepdims=True)).mean(0) @ CHART
         n = {"id": tid, "dim": t["dim"], "name": t["name"], "c": np.round(c, 4).tolist(), "bounds": [], "sep": []}
         if t.get("seed"):
             n["seed"] = seed_text(home(t["seed"]))

@@ -2148,6 +2148,9 @@
   "edge_drops": {
    "F5": [
     "X8"
+   ],
+   "X84": [
+    "D2"
    ]
   },
   "crossings": [
@@ -2192,7 +2195,11 @@
     "line": "X8",
     "why": "X8 does not touch X27 (user)"
    }
-  ]
+  ],
+  "notes": {
+   "X84/D2": "D2 is not an edge of X84 (user)",
+   "C2b": "C2b is an edge of X14 the full stretch from C4 to the other C4, and of X25 part way, until it cuts into X14; in both it runs on into the next cell and is still an edge there (user)"
+  }
  },
  "walls": {
   "F1": {
@@ -4492,14 +4499,12 @@
   },
   "X84": {
    "edges": [
-    "D2",
     "D3",
     "X18"
    ],
    "boundary_points": [
     "A1",
-    "C1",
-    "C4"
+    "C1"
    ],
    "pieces": [
     {
@@ -4532,8 +4537,7 @@
    "through": [],
    "points": [
     "A1",
-    "C1",
-    "C4"
+    "C1"
    ],
    "regions": [
     "X63",
@@ -8003,7 +8007,6 @@
     "X41",
     "X42",
     "X82",
-    "X84",
     "X85",
     "X86",
     "X89",
