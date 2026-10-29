@@ -115,6 +115,32 @@ def loop(S, T, x0, max_steps=8000):
     return None
 
 
+def follow_to(S, T, x0, t0, targets, max_steps=4000):
+    """The curve of S and T on the sphere from x0, setting out along t0, to the first of the targets it reaches (the run
+    ends exactly on it): (run, index of the target), or (None, None) when it comes back round or runs too long."""
+    x, pts, prev = np.asarray(x0, float), [np.asarray(x0, float)], np.asarray(t0, float)
+    far = np.linalg.norm(targets - x0, axis=1) > 1e-9
+    for _ in range(max_steps):
+        M = np.vstack([gradient(S, x), gradient(T, x), x])
+        t = np.linalg.svd(M)[2][-1]
+        t = t if t @ prev > 0 else -t
+        prev = t
+        y = onto([S, T], x + H * t / np.linalg.norm(t))
+        d = y - x
+        s_ = np.clip(((targets - x) @ d) / max(d @ d, 1e-30), 0, 1)
+        e = np.linalg.norm(x + s_[:, None] * d - targets, axis=1)
+        e[~far] = 1
+        k = int(np.argmin(e))
+        if e[k] < H / 4:
+            pts.append(targets[k])
+            return np.array(pts), k
+        x = y
+        pts.append(x)
+        if len(pts) > 30 and np.linalg.norm(x - x0) < H:
+            return None, None
+    return None, None
+
+
 def cut_at(P, targets):
     """The closed curve P divided at the targets it passes (each put exactly into it): [(i, j, run)] between
     consecutive targets i and j."""
@@ -144,7 +170,8 @@ class Data:
     def __init__(self):
         self.ex = json.load(open("exact_defs.json"))
         self.work = json.load(open("working_data.json"))["walls"]
-        P = np.array([p["float"] for p in json.load(open("exact_points.json"))["points"] if p["exact"]])
+        self.points = [p for p in json.load(open("exact_points.json"))["points"] if p["exact"]]
+        P = np.array([p["float"] for p in self.points])
         V = unit(np.einsum("gij,nj->gni", GG, P).reshape(-1, 4))
         self.V = np.unique(V.round(12), axis=0)            # (every meeting point over the whole sphere)
         H_ = np.einsum("gij,nj->gni", GG, P).reshape(-1, 4)
@@ -165,6 +192,26 @@ class Data:
                     B.append(P[1:])
             self.segs[L] = (np.vstack(A), np.vstack(B)) if A else (np.zeros((0, 4)), np.zeros((0, 4)))
         return self.segs[L]
+
+    def named_corners(self, owner, e):
+        """The owner's corners by name (exact_points.json's sources: "end of L on M"), every image in the half-cell,
+        as unit vectors: L one of the owner's lines and M e itself or one of e's edges or points, so the corner lies
+        on e (for a wall with no lines for edges, the exact points named as its points)."""
+        w, y = self.work[owner], self.work.get(e, {})
+        lines_ = {x for x in w["edges"] if x in self.ex["lines"]}
+        ok_on = set(y.get("edges", [])) | set(y.get("points", [])) | {e}     # (a corner on e: ending on e's own edges)
+        pick = []
+        for p in self.points:
+            tags = [f[7:].split(" on ", 1) for f in p["from"] if f.startswith("end of ") and " on " in f]
+            if any(L in lines_ and M in ok_on for L, M in tags) or (not lines_ and p["name"] in w.get("points", [])):
+                pick.append(p["float"])
+        if not pick:
+            return np.zeros((0, 4))
+        Y = np.einsum("gij,nj->gni", GG, np.array(pick)).reshape(-1, 4)
+        sm = Y.sum(1)
+        Y = Y[np.abs(sm) > 1e-9] / sm[np.abs(sm) > 1e-9, None]
+        Y = Y[(Y > -1e-9).all(1) & (Y[:, 2] >= Y[:, 3] - 1e-9)]
+        return unit(np.unique(Y.round(12), axis=0))
 
     def line_ends(self, Ls):
         """The ends of the lines' verified pieces, every image in the half-cell (betas summing to 1)."""
@@ -215,60 +262,63 @@ def dist_images(T, v):
 
 
 def edge_runs(D, owner, e):
-    """The owner wall's edge along the wall e: on each of the owner's surfaces, between two of its corners on e (exact
-    points in the half-cell on that surface where its boundary turns, the ends of its edge lines, lying on e), the
-    curve where it meets
-    an image of e's surface through both, traced exactly on the sphere: the shorter way round between them that passes
-    no other meeting point of that curve. Returns [runs (unit vectors)]."""
+    """The owner wall's edge along the wall e (the same curve is e's cut by the owner, where the owner ends on it).
+
+    Its corners on e are named by the 3-sphere data: the ends of the owner's lines where they end on e or on one of
+    e's edges or points (exact points). Between two of them, on one of the owner's surfaces, the curve where it meets
+    e's surface, traced exactly on the sphere from one corner to the next meeting point it reaches. Which copy of e:
+    first the copies placed in the half-cell (the library's surfaces of e, as the walls lie there); only if none of
+    them joins two corners, every image of e's surfaces. Returns [runs (unit vectors)]."""
     edges = D.work[owner]["edges"]
+    bases = {n.split(":")[0] for n in D.ex["walls"].get(e, {}).get("surface", [])}
+    placed = [s_ for n, s_ in LIB.items() if n.split(":")[0] in bases]
     out = []
     for sn in D.ex["walls"][owner]["surface"]:
         S = LIB.get(sn)
         if S is None:
             continue
-        Vh = unit(D.VH[dist(S, unit(D.VH)) < 1e-9])         # (meeting points in the half-cell on this surface)
-        # (its corners on e: where its boundary turns, the ends of its edge lines' pieces, that lie on e)
-        lines_ = [x for x in edges if x in D.ex["lines"]]
-        if lines_:
-            ends = D.line_ends(lines_)
-            C = [v for v in Vh if np.linalg.norm(ends - v / v.sum(), axis=1).min() < 5e-6 and D.on_edge(v, e)]
-        else:                                               # (only walls for edges: where two of them meet)
-            C = [v for v in Vh if D.on_edge(v, e) and any(D.on_edge(v, x) for x in edges if x != e)]
+        C = [v for v in D.named_corners(owner, e) if dist(S, v[None])[0] < 1e-9 and D.on_edge(v, e)]
         if len(C) < 2:
             continue
         C = np.array(C)
-        for yn in D.ex["walls"].get(e, {}).get("surface", []):
-            if yn not in LIB:
-                continue
-            Dc = np.array([dist_images(LIB[yn], c) for c in C]) < 1e-9          # (corner, image)
-            for i in range(len(C)):
-                # (the distinct curves through this corner: images through it and another corner, by direction)
-                dirs = []
-                for gi in np.flatnonzero(Dc[i] & (Dc.sum(0) >= 2)):
-                    T = Img(LIB[yn], gi)
-                    if dist(T, Vh).max() < 1e-9:
-                        continue                            # (T is S itself)
-                    t = np.linalg.svd(np.vstack([gradient(S, C[i]), gradient(T, C[i]), C[i]]))[2][-1]
-                    if any(abs(t @ u) > 1 - 1e-9 for u, _ in dirs):
-                        continue
-                    dirs.append((t, T))
-                for t, T in dirs:
-                    if any(near(C[i], q) and near(onto([S, T], C[i] + H * t), q, 1e-5) for q in out):
-                        continue                            # (traced already, from another corner)
-                    P = loop(S, T, C[i])
-                    if P is None:
-                        continue
-                    Vt = D.V[(dist(S, D.V) < 1e-9) & (dist(T, D.V) < 1e-9)]
-                    isc = [np.linalg.norm(C - v, axis=1).min() < 1e-9 or np.linalg.norm(C + v, axis=1).min() < 1e-9
-                           for v in Vt]
-                    for a_, b_, r in cut_at(P, Vt):
-                        if a_ == b_ or not (isc[a_] and isc[b_]) or any(near(r[len(r) // 2], q) for q in out):
+        for everywhere in (False, True):
+            cands = []
+            if not everywhere:
+                cands = [T for T in placed if (dist(T, C) < 1e-9).sum() >= 2]
+            else:
+                for yn in D.ex["walls"].get(e, {}).get("surface", []):
+                    if yn in LIB:
+                        Dc = np.array([dist_images(LIB[yn], c) for c in C]) < 1e-9
+                        cands += [Img(LIB[yn], gi) for gi in np.flatnonzero(Dc.sum(0) >= 2)]
+            found = len(out)
+            for T in cands:
+                if same_surface(S, T):
+                    continue
+                Vt = D.V[(dist(S, D.V) < 1e-9) & (dist(T, D.V) < 1e-9)]      # (every meeting point on the curve)
+                for i in np.flatnonzero(dist(T, C) < 1e-9):
+                    t0 = np.linalg.svd(np.vstack([gradient(S, C[i]), gradient(T, C[i]), C[i]]))[2][-1]
+                    for sgn in (1, -1):
+                        run, k = follow_to(S, T, C[i], sgn * t0, Vt)
+                        if run is None:
                             continue
-                        m = r[len(r) // 2]
+                        end = Vt[k]
+                        if np.linalg.norm(C - end, axis=1).min() > 1e-9:
+                            continue                        # (not to another corner)
+                        m = run[len(run) // 2]
+                        if any(near(m, q) for q in out):
+                            continue
                         if any(D.on_edge(m, L, 1e-7) for L in edges if L in D.ex["lines"]):
-                            continue                        # (a stretch along one of its own lines: that line)
-                        out.append(r)
+                            continue                        # (along one of its own lines: that line)
+                        out.append(run)
+            if len(out) > found:
+                break
     return out
+
+
+def same_surface(S, T):
+    """T is S itself (the same zeros along a few points of S)."""
+    pts = [onto([S], x) for x in (np.array([.4, .3, .2, .1]), np.array([.1, .2, .3, .4]), np.array([.25, .3, .25, .2]))]
+    return all(dist(T, p[None])[0] < 1e-9 for p in pts)
 
 
 def near(p, Q, tol=1e-6):
@@ -295,7 +345,7 @@ def main(only=None):
         for w, r in pool.imap_unordered(one, walls):
             out[w] = r
             print(w, {y: len(v) for y, v in r.items()}, flush=True)
-    json.dump({**out}, open("exact_curves.json", "w"))
+            json.dump(out, open("exact_curves.json", "w"))           # (kept as each wall is done)
 
 
 if __name__ == "__main__":

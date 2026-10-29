@@ -67,6 +67,24 @@ def main(page):
         for c in wd.get("cuts", []):
             for run in curves.get(c["by"], {}).get(w, []):
                 dashed += [(w, c["by"], p) for p in in_cell(run)]
+    # (several exact curves can join the same two corners, A1 and C1 being so symmetric: of each, only the pieces lying
+    # on both walls as the page draws them are kept; the curves' places stay exact)
+    from scipy.spatial import cKDTree
+    cell0 = data["cell"][1]
+    trees = {}
+    for w_ in cell0["xwalls"]:
+        trees.setdefault(w_["id"], []).append(np.asarray(w_["verts"], float))
+    trees = {k: cKDTree(np.vstack(v)) for k, v in trees.items()}
+    # (region files hold the walls' pieces too, but each wall's own mesh is enough here)
+
+    def on_both(a, b, p, tol=0.012):
+        q = view(p)
+        m = q[[len(q) // 4, len(q) // 2, 3 * len(q) // 4]]
+        return all(k in trees and (trees[k].query(m)[0] < tol).all() for k in (a, b))
+    n0 = len(solid), len(dashed)
+    solid = [(w, Y, p) for w, Y, p in solid if on_both(w, Y, p)]
+    dashed = [(w, Y, p) for w, Y, p in dashed if on_both(w, Y, p)]
+    print(f"kept on both walls: solid {n0[0]} -> {len(solid)}, dashed {n0[1]} -> {len(dashed)}", flush=True)
     print(f"{len(solid)} solid and {len(dashed)} dashed exact pieces in the half-cell", flush=True)
     hover = lambda w, Y, copy: (f"{w} · edge of the wall, along {Y} (exact)" if not copy else
                                 f"{w} · invisible line: where {Y} meets it, between its pieces (exact)")
@@ -81,11 +99,19 @@ def main(page):
                 P += [view(q) for q in line_in_cell(ex[L]["points"])]
         line_pts[w] = np.vstack(P) if P else np.zeros((0, 3))
 
+    # (which walls have every edge along another wall exact, and which cuts are exact: there the mesh's curves go)
+    exact_edges = {w for w, wd in work.items()
+                   if all(curves.get(w, {}).get(Y) for Y in wd["edges"] if Y not in ex)}
+    exact_cuts = {(w, Y) for w, Y, _ in dashed}
+
     def keep_mesh(s):
         if not s.get("outline"):
             return True
-        if s.get("copy"):
-            return False                                   # (dashed cuts: all from the exact curves now)
+        if s.get("copy"):                                  # (a dashed cut: kept only where no exact one was found)
+            m_ = re.search(r"where (\S+) meets it", s.get("hover", ""))
+            return not (m_ and (s["id"], m_.group(1)) in exact_cuts)
+        if s["id"] not in exact_edges:
+            return True
         L = line_pts.get(s["id"], np.zeros((0, 3)))
         m = np.asarray(s["pts"][len(s["pts"]) // 2], float)
         return len(L) > 0 and np.linalg.norm(L - m, axis=1).min() < 2e-3

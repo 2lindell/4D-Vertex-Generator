@@ -30,6 +30,17 @@ Not yet right:
 - Dodecahedron views not mirrored like the half-cell view; hover β values read in the half β₃ ≥ β₄.
 - The cross ring along the bottom of the cell not re-checked since the rebuilds.
 
+## Progress
+
+- Step 1 (2026-10-29), largely done. Corners named from the 3-sphere data: the ends of a wall's lines where they end
+  on the other wall or one of its edges or points (`exact_points.json` records what each end lies on). Copies of the
+  other wall taken first as they lie in the half-cell, then any image. The curves are traced exactly on the sphere
+  between corners, about 6 s per pair. The page draws them (`exact_page.py`) for 14 walls' edges along other walls and
+  the matching cuts: X39 on X23 runs A1 to the X5 point, end to end. Where several exact curves join the same two
+  corners (A1 and C1), the page keeps only the pieces on both walls' meshes as drawn; step 2 replaces that check.
+- Still open in step 1: X28 along F1 (the trace runs on without reaching a corner); X94 and X11 along T2 and X11
+  (their edges are walls only, so no line ends name their corners); `exact_lines.py` to redo.
+
 ## Plan
 
 1. **Exact curves for every wall.** Lines put exactly on their surfaces again (`exact_lines.py`). A wall's corners
