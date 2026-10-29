@@ -100,8 +100,9 @@ def main(page):
         line_pts[w] = np.vstack(P) if P else np.zeros((0, 3))
 
     # (which walls have every edge along another wall exact, and which cuts are exact: there the mesh's curves go)
+    drawn = {(w, Y) for w, Y, _ in solid}
     exact_edges = {w for w, wd in work.items()
-                   if all(curves.get(w, {}).get(Y) for Y in wd["edges"] if Y not in ex)}
+                   if any(Y not in ex for Y in wd["edges"]) and all((w, Y) in drawn for Y in wd["edges"] if Y not in ex)}
     exact_cuts = {(w, Y) for w, Y, _ in dashed}
 
     def keep_mesh(s):

@@ -38,8 +38,13 @@ Not yet right:
   between corners, about 6 s per pair. The page draws them (`exact_page.py`) for 14 walls' edges along other walls and
   the matching cuts: X39 on X23 runs A1 to the X5 point, end to end. Where several exact curves join the same two
   corners (A1 and C1), the page keeps only the pieces on both walls' meshes as drawn; step 2 replaces that check.
-- Still open in step 1: X28 along F1 (the trace runs on without reaching a corner); X94 and X11 along T2 and X11
-  (their edges are walls only, so no line ends name their corners); `exact_lines.py` to redo.
+- Corners given by the user (working_base.json corrections, `edge_corners`): X28 along F1 from A1 to C5 (now drawn
+  exactly); X11 along T2 from C4 to X4 (traced, three copies, but none lies on both walls' meshes as drawn, so the mesh
+  outline stays); X94 along T2 and along X11 from C5 to the point where X94, X11 and T2 meet. X94 touches T2 at C5
+  (one tangent plane there), so its branches are started just off C5 and followed to the first copy of the other wall
+  not through C5; candidate meeting points in the half-cell: β ≈ (0.3063, 0.4021, 0.2233, 0.0683) and
+  (0.3944, 0.3944, 0.2113, 0), both on T2; to be confirmed.
+- Still open in step 1: X94's meeting point; X11 along T2 on the page; `exact_lines.py` to redo.
 
 ## Plan
 

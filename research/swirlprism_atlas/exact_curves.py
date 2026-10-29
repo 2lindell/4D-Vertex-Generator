@@ -141,6 +141,31 @@ def follow_to(S, T, x0, t0, targets, max_steps=4000):
     return None, None
 
 
+def follow_to_surface(S, T, x0, t0, Ws, max_steps=4000):
+    """The curve of S and T on the sphere from x0, setting out along t0, to where it first crosses one of the surfaces
+    Ws (away from x0): the run, its end solved exactly onto S, T and that surface; or None."""
+    x, pts, prev = np.asarray(x0, float), [np.asarray(x0, float)], np.asarray(t0, float)
+    for _ in range(max_steps):
+        M = np.vstack([gradient(S, x), gradient(T, x), x])
+        t = np.linalg.svd(M)[2][-1]
+        t = t if t @ prev > 0 else -t
+        prev = t
+        y = onto([S, T], x + H * t / np.linalg.norm(t))
+        if np.linalg.norm(x - x0) > 3 * H:
+            for W in Ws:
+                fa, fb = fv(W, x)[0], fv(W, y)[0]
+                if fa != 0 and np.sign(fa) != np.sign(fb):
+                    z = onto([S, T, W], x + fa / (fa - fb) * (y - x))
+                    if max(dist(s_, z[None])[0] for s_ in (S, T, W)) < 1e-10:
+                        pts.append(z)
+                        return np.array(pts)
+        x = y
+        pts.append(x)
+        if len(pts) > 30 and np.linalg.norm(x - x0) < H:
+            return None
+    return None
+
+
 def cut_at(P, targets):
     """The closed curve P divided at the targets it passes (each put exactly into it): [(i, j, run)] between
     consecutive targets i and j."""
@@ -171,6 +196,7 @@ class Data:
         self.ex = json.load(open("exact_defs.json"))
         self.work = json.load(open("working_data.json"))["walls"]
         self.points = [p for p in json.load(open("exact_points.json"))["points"] if p["exact"]]
+        self.edge_corners = json.load(open("working_base.json"))["corrections"].get("edge_corners", {})
         P = np.array([p["float"] for p in self.points])
         V = unit(np.einsum("gij,nj->gni", GG, P).reshape(-1, 4))
         self.V = np.unique(V.round(12), axis=0)            # (every meeting point over the whole sphere)
@@ -192,6 +218,18 @@ class Data:
                     B.append(P[1:])
             self.segs[L] = (np.vstack(A), np.vstack(B)) if A else (np.zeros((0, 4)), np.zeros((0, 4)))
         return self.segs[L]
+
+    def named_points(self, names):
+        """The exact points of these names (the classifier's names in exact_points.json), every image in the half-cell,
+        as unit vectors."""
+        pick = [p["float"] for p in self.points if p["name"] in names]
+        if not pick:
+            return np.zeros((0, 4))
+        Y = np.einsum("gij,nj->gni", GG, np.array(pick)).reshape(-1, 4)
+        sm = Y.sum(1)
+        Y = Y[np.abs(sm) > 1e-9] / sm[np.abs(sm) > 1e-9, None]
+        Y = Y[(Y > -1e-9).all(1) & (Y[:, 2] >= Y[:, 3] - 1e-9)]
+        return unit(np.unique(Y.round(12), axis=0))
 
     def named_corners(self, owner, e):
         """The owner's corners by name (exact_points.json's sources: "end of L on M"), every image in the half-cell,
@@ -277,10 +315,39 @@ def edge_runs(D, owner, e):
         S = LIB.get(sn)
         if S is None:
             continue
-        C = [v for v in D.named_corners(owner, e) if dist(S, v[None])[0] < 1e-9 and D.on_edge(v, e)]
-        if len(C) < 2:
+        spec = D.edge_corners.get(owner, {}).get(e)
+        meets = []
+        if spec:                                            # (corners given: named points, and "meets W")
+            names = [n for n in spec if not n.startswith("meets ")]
+            meets = [n[6:] for n in spec if n.startswith("meets ")]
+            C = [v for v in D.named_points(names) if dist(S, v[None])[0] < 1e-9 and D.on_edge(v, e)]
+            if meets and not C:
+                # (the copy of the wall in the half-cell does not reach the corner, where the walls touch: the edge is
+                # traced back to the corner from the point where the three walls meet)
+                out += from_triple_point(D, owner, e, S, names, meets, out)
+                continue
+        else:
+            C = [v for v in D.named_corners(owner, e) if dist(S, v[None])[0] < 1e-9 and D.on_edge(v, e)]
+        if len(C) < (1 if meets else 2):
             continue
         C = np.array(C)
+        if meets:
+            Ws = [s_ for n, s_ in LIB.items()
+                  if n.split(":")[0] in {m.split(":")[0] for W_ in meets for m in D.ex["walls"].get(W_, {}).get("surface", [])}]
+            for T in [T for T in placed if (dist(T, C) < 1e-9).any()]:
+                if same_surface(S, T):
+                    continue
+                for i in np.flatnonzero(dist(T, C) < 1e-9):
+                    t0 = np.linalg.svd(np.vstack([gradient(S, C[i]), gradient(T, C[i]), C[i]]))[2][-1]
+                    for sgn in (1, -1):
+                        run = follow_to_surface(S, T, C[i], sgn * t0, Ws)
+                        if run is None or any(near(run[len(run) // 2], q) for q in out):
+                            continue
+                        m = run[len(run) // 2]
+                        if any(D.on_edge(m, L, 1e-7) for L in edges if L in D.ex["lines"]):
+                            continue
+                        out.append(run)
+            continue
         for everywhere in (False, True):
             cands = []
             if not everywhere:
@@ -313,6 +380,183 @@ def edge_runs(D, owner, e):
             if len(out) > found:
                 break
     return out
+
+
+def surface_images_through(T0, pts, tol=1e-9):
+    """The images of the surface T0 holding all the points."""
+    ok = np.ones(len(GG), bool)
+    for p in pts:
+        ok &= dist_images(T0, p) < tol
+    return np.flatnonzero(ok)
+
+
+def branches(S, T, c, Wsets):
+    """Where S and T touch at c: the curve's branches leaving c, each started from points a few steps off c on both
+    surfaces and followed until it crosses an image of one of Wsets (end solved exactly there): runs from c."""
+    n = gradient(S, c)
+    B = np.linalg.svd(np.vstack([n, c]))[2][2:]           # (the tangent plane of S at c, on the sphere)
+    starts = []
+    for ang in np.linspace(0, 2 * np.pi, 24, endpoint=False):
+        p = onto([S, T], c + 3 * H * (np.cos(ang) * B[0] + np.sin(ang) * B[1]))
+        r_ = np.linalg.norm(p - c)
+        if H < r_ < 8 * H and max(dist(S, p[None])[0], dist(T, p[None])[0]) < 1e-10 \
+                and not any(np.linalg.norm(p - q) < H for q in starts):
+            starts.append(p)
+    runs = []
+    for p in starts:
+        run = follow_to_sets(S, T, p, p - c, Wsets, avoid=c)
+        if run is not None:
+            runs.append(np.vstack([c[None], run]))
+    return runs
+
+
+def from_triple_point(D, owner, e, S, names, meets, out):
+    """The owner's edge along e, from the named corner (where the owner touches e, so its branches are started just
+    off it) to the point where the owner, e and the wall in meets come together: each branch of the owner's surface
+    against an image of e's through the corner is followed until it crosses an image of that wall's surface, and the
+    owner's edge along that wall likewise until it crosses an image of e's; the point is the end both share (exact)."""
+    found = []
+    W = meets[0]
+    sets = {x: [ImgSet(LIB[m]) for m in D.ex["walls"].get(x, {}).get("surface", []) if m in LIB] for x in (e, W)}
+    for c in unit(np.vstack([D.named_points(names)])):
+        gs = np.flatnonzero(dist_images(S, c) < 1e-9)
+        if not len(gs):
+            continue
+        So = Img(S, gs[0])
+        fam = {}
+        for x, other in ((e, W), (W, e)):
+            fam[x] = []
+            normals = []
+            for yn in D.ex["walls"].get(x, {}).get("surface", []):
+                if yn not in LIB:
+                    continue
+                for gi in np.flatnonzero(dist_images(LIB[yn], c) < 1e-9):
+                    T = Img(LIB[yn], gi)
+                    m_ = gradient(T, c)
+                    m_ = m_ - (m_ @ c) * c
+                    m_ /= np.linalg.norm(m_)
+                    if any(abs(m_ @ q) > 1 - 1e-9 for q in normals):
+                        continue
+                    normals.append(m_)
+                    fam[x] += branches(So, T, c, sets[other])
+        ends_W = [r[-1] for r in fam[W]]
+        for r in fam[e]:
+            if any(np.linalg.norm(r[-1] - q) < 1e-7 for q in ends_W) and not any(near(r[len(r) // 2], q)
+                                                                                 for q in out + found):
+                found.append(r)
+    return found
+
+
+class ImgSet:
+    """Every image of a surface at once: f(x) for all g (the sign of each)."""
+
+    def __init__(self, s):
+        self.s = s
+
+    def values(self, x):
+        return fv(self.s, np.einsum("gij,j->gi", GINV, x))
+
+
+def given_from_image(D, owner, e, S, names, meets, edges, out):
+    """The owner's edge along e from given corners (names) to where it meets the walls in meets, on the image of the
+    owner's surface S through a corner, against each image of e's surfaces through it (one per direction there)."""
+    found = []
+    corners = unit(np.vstack([D.named_points(names)]))
+    # (the point where the three walls meet lies on the edge where e and the other wall meet: that edge, exact, carried
+    # over the whole sphere)
+    target = []
+    for W in meets:
+        for a, b in ((W, e), (e, W)):
+            if b in D.work.get(a, {}).get("edges", []):
+                for r in edge_runs(D, a, b):
+                    target.append((np.asarray(r, float), a, b))
+    if not target:
+        return []
+    pts, src = [], []
+    for k, (r, a, b) in enumerate(target):
+        Y = np.einsum("gij,nj->gni", GG, r)
+        Y = Y / np.linalg.norm(Y, axis=-1, keepdims=True)
+        pts.append(np.concatenate([Y, -Y]).reshape(-1, 4))
+    from scipy.spatial import cKDTree
+    tree = cKDTree(np.vstack(pts))
+    Wsurf = [LIB[m] for W in meets for m in D.ex["walls"].get(W, {}).get("surface", []) if m in LIB]
+    for c in corners:
+        for gs in np.flatnonzero(dist_images(S, c) < 1e-9)[:1]:
+            S2 = Img(S, gs)
+            for yn in D.ex["walls"].get(e, {}).get("surface", []):
+                if yn not in LIB:
+                    continue
+                dirs = []
+                for gi in np.flatnonzero(dist_images(LIB[yn], c) < 1e-9):
+                    T = Img(LIB[yn], gi)
+                    t = np.linalg.svd(np.vstack([gradient(S2, c), gradient(T, c), c]))[2][-1]
+                    if np.linalg.norm(gradient(T, c) - (gradient(T, c) @ gradient(S2, c)) / (gradient(S2, c) @ gradient(S2, c))
+                                      * gradient(S2, c)) < 1e-9 * np.linalg.norm(gradient(T, c)):
+                        continue                            # (T is S itself there)
+                    if any(abs(t @ u) > 1 - 1e-9 for u, _ in dirs):
+                        continue
+                    dirs.append((t, T))
+                for t, T in dirs:
+                    for sgn in (1, -1):
+                        run = follow_to_curve(S2, T, c, sgn * t, tree, Wsurf)
+                        if run is None or any(near(run[len(run) // 2], q) for q in out + found):
+                            continue
+                        found.append(run)
+    return found
+
+
+def follow_to_curve(S, T, x0, t0, tree, Wsurf, max_steps=4000):
+    """The curve of S and T on the sphere from x0, setting out along t0, to where it reaches the curve held in tree
+    (away from x0): the end solved exactly onto S, T and the image of one of Wsurf through it; or None."""
+    x, pts, prev = np.asarray(x0, float), [np.asarray(x0, float)], np.asarray(t0, float)
+    for _ in range(max_steps):
+        M = np.vstack([gradient(S, x), gradient(T, x), x])
+        t = np.linalg.svd(M)[2][-1]
+        t = t if t @ prev > 0 else -t
+        prev = t
+        y = onto([S, T], x + H * t / np.linalg.norm(t))
+        if np.linalg.norm(y - x0) > 3 * H and tree.query(y)[0] < H:
+            for W0 in Wsurf:
+                for gi in np.flatnonzero(dist_images(W0, y) < 5e-3):
+                    W = Img(W0, gi)
+                    z = onto([S, T, W], y)
+                    if max(dist(s_, z[None])[0] for s_ in (S, T, W)) < 1e-10 and np.linalg.norm(z - y) < 2 * H \
+                            and tree.query(z)[0] < H / 2:
+                        pts.append(z)
+                        return np.array(pts)
+        x = y
+        pts.append(x)
+        if len(pts) > 30 and np.linalg.norm(x - x0) < H:
+            return None
+    return None
+
+
+def follow_to_sets(S, T, x0, t0, Wsets, max_steps=4000, avoid=None):
+    """As follow_to_surface, the surfaces being every image of each of Wsets (the first one crossed, away from x0; the
+    images through the point avoid, the corner the curve leaves, left out)."""
+    x, pts, prev = np.asarray(x0, float), [np.asarray(x0, float)], np.asarray(t0, float)
+    skip = [np.abs(Ws.values(avoid)) < 1e-9 if avoid is not None else np.zeros(len(GG), bool) for Ws in Wsets]
+    for _ in range(max_steps):
+        M = np.vstack([gradient(S, x), gradient(T, x), x])
+        t = np.linalg.svd(M)[2][-1]
+        t = t if t @ prev > 0 else -t
+        prev = t
+        y = onto([S, T], x + H * t / np.linalg.norm(t))
+        if np.linalg.norm(x - x0) > 3 * H:
+            for Ws, sk in zip(Wsets, skip):
+                fa, fb = Ws.values(x), Ws.values(y)
+                hit = np.flatnonzero((fa != 0) & (np.sign(fa) != np.sign(fb)) & ~sk)
+                for gi in hit:
+                    W = Img(Ws.s, gi)
+                    z = onto([S, T, W], x + fa[gi] / (fa[gi] - fb[gi]) * (y - x))
+                    if max(dist(s_, z[None])[0] for s_ in (S, T, W)) < 1e-10:
+                        pts.append(z)
+                        return np.array(pts)
+        x = y
+        pts.append(x)
+        if len(pts) > 30 and np.linalg.norm(x - x0) < H:
+            return None
+    return None
 
 
 def same_surface(S, T):
