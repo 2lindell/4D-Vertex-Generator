@@ -76,6 +76,19 @@ edges missing or running past their corners. Instead, every wall's extent comes 
 
 The hand-given corners (`edge_corners`) are kept only as checks to compare against.
 
+### Progress on the new approach (2026-10-30)
+
+`arrangement.py` (extents) and `arrangement_draw.py` (exact edges, cuts and checks) run on all 54 walls and settle
+in 2-3 rounds. Fixed along the way (all in the method, none in the data): scaffold points lying on exact planes;
+one-step gaps at corners; lines tested through a second surface that can touch the wall's (now tested by their own
+exact points); lines lying in the half-cell's faces (B1, D2, D3, C2a, C2b, C3, D1) not stopping a wall from going on
+into the next cell; a wall going on past a face where a copy of the point lies off its surfaces; joins next to corners.
+Every listed edge found and no loose end: X25, X41 (and nearly X23, X7, X94, X93, X86, X34, X47). Open:
+  * seeds lying on a wall's own edge (X7, F1 and others: symmetric points), which do not tell the side;
+  * X39's lines X8 and X29 (partly in the faces) not found along its rim; X20, F1 lines (B1, D3, E2, X13) likewise;
+  * loose ends of drawn chains (F4, F5, T2, X15, X52, X83, X98);
+  * corners compared with the working data's listed points, which name only the A and C points.
+
 ## Plan
 
 1. **Exact curves for every wall.** Lines put exactly on their surfaces again (`exact_lines.py`). A wall's corners
