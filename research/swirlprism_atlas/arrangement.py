@@ -29,6 +29,7 @@ import time
 from multiprocessing import Pool
 
 import numpy as np
+from collections import Counter
 from scipy.sparse import coo_matrix
 from scipy.sparse.csgraph import connected_components
 from scipy.spatial import cKDTree
@@ -365,6 +366,7 @@ def grow(W, walls, D, seeds):
         n_comp += nc
         sh["lab"] = lab
     root = list(range(n_comp))
+    votes = Counter()
 
     def find(i):
         while root[i] != i:
@@ -406,7 +408,12 @@ def grow(W, walls, D, seeds):
                 d, j = trees[sn2].query(Q[on_])
                 for a, dd, jj in zip(ni[on_], d, j):
                     if dd < 1.5 * H:
-                        root[find(comp_of[sn][Eo[a, 0]])] = find(comp_of[sn2][idxs[sn2][jj]])
+                        votes[(int(comp_of[sn][Eo[a, 0]]), int(comp_of[sn2][idxs[sn2][jj]]))] += 1
+    # (two parts joined across a face only where three steps or more agree: a real continuation has many; a step
+    # landing next to where a curve meets the face can fall on the wrong side of it)
+    for (i1, i2), n_ in votes.items():
+        if n_ >= 3:
+            root[find(i1)] = find(i2)
     # (the seed)
     sd = np.asarray(seeds[W.w], float)
     Y = np.einsum("gij,j->gi", GG, sd)
