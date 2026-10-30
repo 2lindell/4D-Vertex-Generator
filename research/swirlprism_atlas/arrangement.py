@@ -1,396 +1,407 @@
-"""Walls as sections of exact surfaces, split along every line where another surface meets them.
+"""Every wall's extent from where the walls lie on the 3-sphere (arrangement.json).
 
-Every wall lies on an exact surface: a plane (fexact_*.json, through its three corners) or a curved surface
-(xsurface.surface: a polynomial in the betas), together with the surface's images under the group elements the page
-copies it by (copyOps), folded into the half-cell as the page folds them. Inside the half-cell these surfaces cut each
-other along curves: where two walls meet (a line of the atlas), or where one surface passes through another (an
-invisible line).
+No corner is named by hand and no point is classified. For each wall W and each of its surfaces as placed in the
+half-cell (exact_defs.json):
 
-A wall's surface is meshed whole over the half-cell, then cut along each other surface's zero set, exactly: every mesh
-triangle a surface's sign changes across is split along it, the new vertices put on both surfaces. So every line lies
-along mesh edges, and the mesh falls into sections: neighbouring triangles on the same side of every surface. Each
-section has one region on each side, the same over the whole section. A region is a cell of the arrangement (the
-points on given sides of every surface), named once, by one classification, and kept in a table by its sides; a
-section with the same region on both sides is not part of a wall and is dropped.
+  1. The surface is laid over the half-cell (and a little past its faces) as a scaffold of points, each solved exactly
+     onto it (marching tetrahedra; the scaffold only tells which points are next to which).
+  2. Every copy (image under the 4800 symmetries) of every surface of the walls W meets (its edges and the walls that
+     cut it, working_data.json) that crosses it is found, and so is every copy of each of W's lines (the copy of the
+     line's second surface along it). W's other planes cross it too (seams). At each scaffold point, the side of each
+     copy is exact (the sign of its polynomial).
+  3. W is grown from its seed (working_base.json) between neighbouring points, stopped only where a real edge lies
+     between them: a copy of an edge wall Y is real where Y itself is there (the crossing point, carried back into the
+     half-cell by the group onto Y's own surface, lies on Y as grown); a copy of a line is real where the line's
+     verified pieces run; a seam always stops it; a cut never does. Where W reaches a face of the half-cell, the point
+     just past it is carried back into the half-cell by the group, onto one of W's surfaces, and W goes on from there.
+  4. All walls are grown together, each from the others' extents, until nothing changes.
 
-    python arrangement.py X3,X7,X10,X83,T2,X11      (writes arr_pieces/<wall>.json.gz, as region_pieces/)
+    python arrangement.py [walls]        (meshes cached in $ARR_CACHE)
 """
 from __future__ import annotations
 
-import glob
-import gzip
+import hashlib
 import json
 import os
-import re
+import pickle
 import sys
-from collections import defaultdict
+import time
+from multiprocessing import Pool
 
 import numpy as np
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import connected_components
+from scipy.spatial import cKDTree
 
-import region_cells as rc
-import region_walls as rw
+import core as osd
+from core import FOLD, TETS, extended
+from domain_page import carry, images
 
-PHI = (1 + 5 ** 0.5) / 2
-OUT = "arr_pieces"
-H = 0.004                 # (mesh spacing in the cell's chart)
-STEP = 2e-5               # (off a section, along the surface's normal, to name the regions either side)
-FOLD = np.eye(4)[[1, 0, 3, 2]]
+E_ = extended()
+GG = np.concatenate([E_, E_ @ FOLD])
+GINV = np.linalg.inv(GG)
+planes_, curved_ = osd.library()
+LIB = {s.name: s for s in list(planes_) + list(curved_)}
+N = int(os.environ.get("ARR_N", 128))
+H = 1.0 / N
+CACHE = os.environ.get("ARR_CACHE", "/tmp/arr_cache")
+CELL = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, -1.0]])   # (the half-cell: CELL @ b >= 0)
+CUBE8 = np.array([[i, j, k] for i in (0, 1) for j in (0, 1) for k in (0, 1)])
 
-
-class Surface:
-    """f(B) = 0 for betas B (n, 4), homogeneous (no normalising, so the sign is continuous)."""
-
-    def __init__(self, name, f, walls, kind):
-        self.name, self.f, self.walls, self.kind = name, f, walls, kind
-
-    def at(self, X):
-        """Value at cell points X (n, 3)."""
-        return self.f(np.c_[X, np.ones(len(X))] @ rc.M_INV.T)
-
-    def grad(self, X, e=1e-7):
-        return np.stack([(self.at(X + e * np.eye(3)[k]) - self.at(X - e * np.eye(3)[k])) / (2 * e) for k in range(3)], 1)
-
-
-def _poly(mons, coeffs):
-    mons = [tuple(m) for m in mons]
-    coeffs = np.asarray(coeffs, float)
-    return lambda B: sum(c * np.prod(B[:, list(m)], axis=1) for c, m in zip(coeffs, mons))
-
-
-def surfaces():
-    """Every surface a wall lies on, and its images in the half-cell; the same surface found twice is kept once."""
-    import xsurface
-    d = rw.page_data()
-    out = []
-    # planes of the flat walls, each through its three corners
-    for fn in sorted(glob.glob("fexact_*.json")):
-        e = json.load(open(fn))
-        if not isinstance(e, dict) or "corners" not in e:
-            continue                          # (the grids beside them)
-        C = np.array(json.loads(e["corners"]) if isinstance(e["corners"], str) else e["corners"], float)
-        n = np.linalg.svd(C)[2][-1]
-        out.append(Surface(f"{e['target']}:{e['wall']}", (lambda n: lambda B: B @ n)(n), [e["target"]], "plane"))
-    # (and the planes written in the page's key for the flat walls: "wall: β1 = β2, β2 = β3 + (1+φ)·β4 (exact patches)")
-    import sympy as sp
-    b = sp.symbols("b1:5")
-    phi_ = (1 + sp.sqrt(5)) / 2
-    for t in d["types"]:
-        loc = str(t.get("locus") or "")
-        if t.get("dim") != "wall" or not loc.startswith("wall: ") or "(exact patches)" not in loc:
-            continue
-        for eq in loc[6:loc.index("(exact patches)")].split(","):
-            if "=" not in eq:
-                continue
-            txt = eq.replace("β", "b").replace("φ", "phi").replace("·", "*").replace("−", "-")
-            lhs, rhs = txt.split("=")
-            try:
-                e = sp.sympify(lhs, {"phi": phi_, **{f"b{k + 1}": b[k] for k in range(4)}}) - \
-                    sp.sympify(rhs, {"phi": phi_, **{f"b{k + 1}": b[k] for k in range(4)}})
-            except (sp.SympifyError, SyntaxError, TypeError):
-                continue
-            n = np.array([float(sp.diff(e, v)) for v in b])
-            out.append(Surface(f"{t['id']}:{eq.strip()}", (lambda n: lambda B: B @ n)(n), [t["id"]], "plane"))
-    # curved walls: the equation, and its images by the page's copy elements (each folded too)
-    eqs = set(json.load(open("xsurface_equations.json"))) | {"X10", "X38", "X83", "X48", "X51", "X33"}
-    ops = defaultdict(set)
-    for w in d["xwalls"]:
-        ops[w["id"]] |= set(map(str, w.get("copyOps", [])))
-    for tid in sorted(eqs):
-        s = xsurface.surface(tid)
-        f = _poly(s["mons"], s["coeffs"])
-        out.append(Surface(tid, f, [tid], "orig"))
-        out.append(Surface(f"{tid}:fold", (lambda f: lambda B: f(B @ FOLD.T))(f), [tid], "copy"))
-        for g in sorted(ops[tid]):
-            A = np.linalg.inv(np.asarray(d["copyMats"][g], float))
-            out.append(Surface(f"{tid}:{g}", (lambda f, A: lambda B: f(B @ A.T))(f, A), [tid], "copy"))
-            out.append(Surface(f"{tid}:{g}:fold", (lambda f, A: lambda B: f(B @ FOLD.T @ A.T))(f, A), [tid], "copy"))
-    # (one of each: compared by their values at random points, up to a factor; and only those passing through the
-    # half-cell, which change sign over it)
-    rng = np.random.default_rng(0)
-    P = rc.xyz(rng.dirichlet(np.ones(4), 64))
-    Bh = rng.dirichlet(np.ones(4), 200000)
-    Bh = Bh[Bh[:, 2] >= Bh[:, 3]]
-    Ph = rc.xyz(Bh)
-    keep, seen = [], []
-    for s in out:
-        v = s.at(P)
-        nv = np.linalg.norm(v)
-        if nv < 1e-14:
-            continue
-        vh = s.at(Ph)
-        if vh.min() > 0 or vh.max() < 0:
-            continue
-        v = v / nv
-        hit = next((k for k, u in seen if min(np.linalg.norm(v - u), np.linalg.norm(v + u)) < 1e-9), None)
-        if hit is None:
-            seen.append((len(keep), v))
-            keep.append(s)
-        else:
-            for w in s.walls:
-                if w not in keep[hit].walls:
-                    keep[hit].walls.append(w)
-    return keep
+# (marching tetrahedra: for each pattern of signs at a tetrahedron's four corners, its triangles as pairs of corners)
+TABLE = {}
+for bits in range(16):
+    pos = [i for i in range(4) if bits >> i & 1]
+    neg = [i for i in range(4) if not bits >> i & 1]
+    if len(pos) in (0, 4):
+        TABLE[bits] = []
+    elif len(pos) == 1 or len(neg) == 1:
+        a, rest = (pos[0], neg) if len(pos) == 1 else (neg[0], pos)
+        TABLE[bits] = [[(a, rest[0]), (a, rest[1]), (a, rest[2])]]
+    else:
+        (a, b), (c, d) = pos, neg
+        TABLE[bits] = [[(a, c), (a, d), (b, d)], [(a, c), (b, d), (b, c)]]
 
 
-# the half-cell: beta >= 0 and beta3 >= beta4
-DOMAIN = [Surface(f"b{k + 1}>=0", (lambda k: lambda B: B[:, k])(k), [], "domain") for k in range(4)] + \
-         [Surface("b3>=b4", lambda B: B[:, 2] - B[:, 3], [], "domain")]
+def fvals(s, X):
+    return np.ravel(s.f(np.atleast_2d(X)))
 
 
-def project(X, surfs, iters=30):
-    """Points moved onto the common zero set of the surfaces (least-norm Newton steps)."""
+class Img:
+    """The surface s carried by the symmetry gi: zero where s(g^-1 x) is."""
+
+    def __init__(self, s, gi):
+        self.s, self.gi, self.ginv = s, gi, GINV[gi]
+
+    def f(self, X):
+        return self.s.f(np.atleast_2d(X) @ self.ginv.T)
+
+
+def grads(s, X, e=1e-7):
+    """Gradients along the betas' sum-zero directions, at each point."""
+    G = np.stack([(fvals(s, X + e * u) - fvals(s, X - e * u)) / (2 * e) for u in np.eye(4)], 1)
+    return G - G.mean(1, keepdims=True)
+
+
+def onto(surfs, X, steps=8):
+    """Points moved onto all the surfaces (betas summing to 1 kept), by Newton steps (least change)."""
     X = np.array(X, float)
-    for _ in range(iters):
-        F = np.stack([s.at(X) for s in surfs], 1)
+    for _ in range(steps):
+        F = np.stack([fvals(s, X) for s in surfs], 1)
         if np.abs(F).max() < 1e-15:
             break
-        J = np.stack([s.grad(X) for s in surfs], 1)                    # (n, k, 3)
-        X = X - np.einsum("nik,nk->ni", np.linalg.pinv(J), F)
+        J = np.stack([grads(s, X) for s in surfs], 1)                       # (n, k, 4)
+        JJ = J @ J.transpose(0, 2, 1)
+        X = X - (J.transpose(0, 2, 1) @ np.linalg.pinv(JJ, rcond=1e-12) @ F[..., None])[..., 0]   # (tangent: least squares)
     return X
 
 
-class Mesh:
-    def __init__(self, V, T, surf):
-        self.V, self.T, self.surf = np.asarray(V, float), [tuple(t) for t in T], surf
-        self.on = defaultdict(set)          # vertex -> the cutting surfaces it lies on
-
-    def cut(self, s, si):
-        """Split every triangle the surface s changes sign across, along it; new vertices on both surfaces."""
-        g = s.at(self.V)
-        scale = np.abs(g).max()
-        if scale < 1e-14:
-            return 0
-        g[np.abs(g) < 1e-12 * scale] = 0.0
-        new_v, cache, out, n_cut = [], {}, [], 0
-
-        def mid(i, j):
-            k = (min(i, j), max(i, j))
-            if k not in cache:
-                t = g[i] / (g[i] - g[j])
-                cache[k] = len(self.V) + len(new_v)
-                new_v.append((1 - t) * self.V[i] + t * self.V[j])
-                self.on[cache[k]] |= (self.on[i] & self.on[j]) | {si}
-            return cache[k]
-        for tri in self.T:
-            sg = np.sign(g[list(tri)])
-            if not ((sg > 0).any() and (sg < 0).any()):
-                out.append(tri)
-                continue
-            n_cut += 1
-            a, b, c = tri
-            # (rotated so the vertex on the surface, if one is, else the one alone on its side, comes first)
-            zero = 0 in sg
-            for _ in range(3):
-                sa, sb, sc = np.sign(g[[a, b, c]])
-                if (sa == 0) if zero else (sa != sb and sa != sc):
-                    break
-                a, b, c = b, c, a
-            if zero:                         # (b and c on opposite sides)
-                p = mid(b, c)
-                self.on[a].add(si)
-                out += [(a, b, p), (a, p, c)]
-            else:                            # (a alone on its side)
-                p, q = mid(a, b), mid(a, c)
-                out += [(a, p, q), (p, b, c), (p, c, q)]
-        if new_v:
-            W = np.array(new_v)
-            # (each new vertex put on this mesh's surface and on the cutting surface)
-            W = project(W, [s] if self.surf is None else [self.surf, s])
-            self.V = np.vstack([self.V, W])
-        self.T = out
-        return n_cut
+def off(s, X):
+    X = np.atleast_2d(X)
+    return np.abs(fvals(s, X)) / (np.linalg.norm(grads(s, X), axis=1) + 1e-300)
 
 
-def carriers(surfs, path="arr_carriers.json"):
-    """The surfaces that hold the page's walls (most of a piece of a wall's mesh lies on it), with those walls: only
-    they cut the others, along the lines where they meet them and on past (invisible lines)."""
-    names = [s.name for s in surfs]
+def mesh(sn):
+    """The scaffold of the surface sn over the half-cell and a little past it: points (betas, on the surface), the pairs
+    of neighbouring points, and which points are in the half-cell."""
+    path = os.path.join(CACHE, hashlib.md5(sn.encode()).hexdigest()[:12] + f"_{N}.npz")
     if os.path.exists(path):
-        c = json.load(open(path))
-        if c.get("names") == names:
-            return c["carry"]
-    d = rw.page_data()
-    rng = np.random.default_rng(0)
-    carry = defaultdict(set)
-    for w, k, i, T in rw.pieces_of(d, {x["id"] for x in d["xwalls"]} | {"T2"}):
-        j = rng.integers(0, len(T), 400)
-        u, v = rng.random(400), rng.random(400)
-        fl = u + v > 1
-        u[fl], v[fl] = 1 - u[fl], 1 - v[fl]
-        V = T[j, 0] + u[:, None] * (T[j, 1] - T[j, 0]) + v[:, None] * (T[j, 2] - T[j, 0])
-        for s in surfs:
-            g = np.abs(s.at(V)) / (np.linalg.norm(s.grad(V), axis=1) + 1e-30)
-            if (g < 3e-4).mean() > 0.3:
-                carry[s.name].add(w)
-    carry = {k: sorted(v) for k, v in carry.items()}
-    json.dump({"names": names, "carry": carry}, open(path, "w"))
-    return carry
-
-
-def mesh_surface(s, h=H):
-    """The surface's zero set over the half-cell, marching cubes on the cell's chart, vertices put on it exactly."""
-    from skimage.measure import marching_cubes
-    corners = rc.xyz(np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0.5, 0.5]], float))
-    lo, hi = corners.min(0) - 2 * h, corners.max(0) + 2 * h
-    n = np.ceil((hi - lo) / h).astype(int) + 1
-    G = np.stack(np.meshgrid(*[lo[k] + h * np.arange(n[k]) for k in range(3)], indexing="ij"), -1)
-    vals = s.at(G.reshape(-1, 3)).reshape(G.shape[:3])
-    if vals.min() > 0 or vals.max() < 0:
-        return None
-    V, T, _, _ = marching_cubes(vals, 0.0, spacing=(h, h, h))
-    V = project(V + lo, [s])
-    m = Mesh(V, T, s)
-    # (cut to the half-cell, and the outside dropped)
-    for k, dom in enumerate(DOMAIN):
-        m.cut(dom, -1 - k)
-    B = lambda X: np.c_[X, np.ones(len(X))] @ rc.M_INV.T
-    C = np.array([m.V[list(t)].mean(0) for t in m.T])
-    Bc = B(C)
-    inside = (Bc >= -1e-12).all(1) & (Bc[:, 2] - Bc[:, 3] >= -1e-12)
-    m.T = [t for t, ok in zip(m.T, inside) if ok]
-    return m
-
-
-def sections(m, cutters):
-    """Sections of the mesh: neighbouring triangles on the same side of every cutting surface."""
-    C = np.array([m.V[list(t)].mean(0) for t in m.T])
-    C = project(C, [m.surf])
-    # (a triangle's side of a cutting surface: that of its corner furthest from it; the cuts leave every triangle on
-    # one side, with its other corners on the surface, so a sliver beside a line is not split off by rounding)
-    Ti = np.array(m.T)
-    S = np.zeros((len(m.T), len(cutters)), np.int8)
-    for k, s in enumerate(cutters):
-        g = s.at(m.V)[Ti]                                          # (triangles, 3)
-        S[:, k] = np.sign(g[np.arange(len(Ti)), np.abs(g).argmax(1)])
-    parent = list(range(len(m.T)))
-
-    def find(x):
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
-    by_edge = defaultdict(list)
-    for i, (a, b, c) in enumerate(m.T):
-        for e in ((a, b), (b, c), (c, a)):
-            by_edge[(min(e), max(e))].append(i)
-    for tris in by_edge.values():
-        for i in tris[1:]:
-            if (S[i] == S[tris[0]]).all():
-                parent[find(i)] = find(tris[0])
-    return np.array([find(i) for i in range(len(m.T))]), S, C
-
-
-def cell_key(surfs, X):
-    """A hash of the sides of every surface at points X: points with the same key lie in the same cell."""
-    rng = np.random.default_rng(12345)
-    W = rng.integers(1, 2 ** 62, size=len(surfs), dtype=np.int64)
-    h = np.zeros(len(X), np.int64)
-    with np.errstate(over="ignore"):
-        for w, s in zip(W, surfs):
-            h += w * (np.sign(s.at(X)).astype(np.int64) + 1)
-    return h
-
-
-def cell_table(surfs, path="arr_cells.npz"):
-    """The region database's voxels (region_grid.json) sorted into the arrangement's cells: for each cell, the
-    region most of its voxels belong to and how many. Kept on disk for the same list of surfaces."""
-    names = np.array([s.name for s in surfs])
-    if os.path.exists(path):
-        z = np.load(path, allow_pickle=True)
-        if list(z["names"]) == list(names):
-            return dict(zip(z["keys"].tolist(), zip(z["regions"].tolist(), z["counts"].tolist(), z["shares"].tolist())))
-    g = json.load(open("region_grid.json"))
-    sh, lo, h = tuple(g["shape"]), np.array(g["lo"]), g["h"]
-    regs = sorted(g["runs"])
-    idx, lab = [], []
-    for k, r in enumerate(regs):
-        ii = np.concatenate([np.arange(a, a + n) for a, n in g["runs"][r]]) if g["runs"][r] else np.zeros(0, int)
-        idx.append(ii)
-        lab.append(np.full(len(ii), k))
-    idx, lab = np.concatenate(idx), np.concatenate(lab)
-    X = lo + (np.array(np.unravel_index(idx, sh)).T + 0.5) * h
-    keys = np.concatenate([cell_key(surfs, X[i:i + 500000]) for i in range(0, len(X), 500000)])
-    order = np.lexsort((lab, keys))
-    keys, lab = keys[order], lab[order]
-    table = {}
-    starts = np.flatnonzero(np.r_[True, keys[1:] != keys[:-1]])
-    ends = np.r_[starts[1:], len(keys)]
-    for a, b in zip(starts, ends):
-        c = np.bincount(lab[a:b])
-        table[int(keys[a])] = (regs[int(c.argmax())], int(b - a), float(c.max() / (b - a)))
-    np.savez(path, names=names, keys=np.array(list(table)), regions=np.array([v[0] for v in table.values()]),
-             counts=np.array([v[1] for v in table.values()]), shares=np.array([v[2] for v in table.values()]))
-    return table
-
-
-def main(walls):
-    from region_db import Labels
-    labels = Labels()
-    surfs = surfaces()
-    carry = carriers(surfs)
-    for s in surfs:
-        s.walls = carry.get(s.name, s.walls)
-    surfs = [s for s in surfs if s.name in carry]          # (the arrangement: the surfaces walls lie on)
-    want = set(walls.split(","))
-    print(f"{len(surfs)} surfaces ({sum(s.kind == 'plane' for s in surfs)} planes)", flush=True)
-    os.makedirs(OUT, exist_ok=True)
-    table = cell_table(surfs)
-    print(f"{len(table)} cells of the arrangement hold the database's voxels", flush=True)
-    for s in surfs:
-        if not set(s.walls) & want:
-            continue
-        m = mesh_surface(s)
-        if m is None or not m.T:
-            continue
-        others = [c for c in surfs if c is not s]
-        n_cuts = sum(m.cut(c, i) > 0 for i, c in enumerate(others))
-        comp, S, C = sections(m, others)
-        A = np.array([0.5 * np.linalg.norm(np.cross(m.V[t[1]] - m.V[t[0]], m.V[t[2]] - m.V[t[0]])) for t in m.T])
-        # (each section: the middle of its biggest triangle, a short step either side along the surface's normal)
-        lead = {}
-        for i, c in enumerate(comp):
-            if c not in lead or A[i] > A[lead[c]]:
-                lead[c] = i
-        ids = sorted(lead)
-        P = np.array([C[lead[c]] for c in ids])
-        N = s.grad(P)
-        N /= np.linalg.norm(N, axis=1, keepdims=True)
-        # (each side's cell: named from the region database's voxels in it; the classifier only for a cell too thin
-        # to hold any)
-        Q = np.concatenate([P + STEP * N, P - STEP * N])
-        K = cell_key(surfs, Q)
-        name = {}
-        thin = [j for j, k in enumerate(K) if k not in table or table[k][1] < 3]
-        got = labels(rc.betas(Q[thin])) if thin else []
-        for j, l in zip(thin, got):
-            name[j] = l
-        for j, k in enumerate(K):
-            if j not in name:
-                name[j] = table[k][0]
-        sides = {c: (name[j], name[len(ids) + j]) for j, c in enumerate(ids)}
-        n_thin = len(thin)
-        faces = []
-        kept = 0.0
-        for c, p, n in zip(ids, P, N):
-            a, b = sides[c]
-            if a == b:
+        z = np.load(path)
+        return z["V"], z["E"], z["T"]
+    S = LIB[sn]
+    pad = 3
+    r = np.arange(-pad, N + pad + 1) * H
+    I, J, K = np.meshgrid(r, r, r, indexing="ij")
+    Q = np.stack([I, J, K], -1).reshape(-1, 3)
+    Bt = np.column_stack([Q, 1 - Q.sum(1)])
+    near = ((Bt @ CELL.T) / np.linalg.norm(CELL, axis=1) > -2.5 * H).all(1)
+    F = np.full(len(Bt), np.nan)
+    F[near] = fvals(S, Bt[near])
+    n = len(r)
+    F = F.reshape(n, n, n)
+    tris_keys = []
+    c0 = np.stack(np.meshgrid(np.arange(n - 1), np.arange(n - 1), np.arange(n - 1), indexing="ij"), -1).reshape(-1, 3)
+    corners = c0[:, None, :] + CUBE8[None]                                  # (cubes, 8, 3)
+    Fc = F[corners[..., 0], corners[..., 1], corners[..., 2]]
+    ok = np.isfinite(Fc).all(1) & ((Fc > 0).any(1) & (Fc <= 0).any(1))
+    corners, Fc = corners[ok], Fc[ok]
+    gid = (corners[..., 0] * n + corners[..., 1]) * n + corners[..., 2]     # (global point index)
+    for t in TETS:
+        g4, f4 = gid[:, t], Fc[:, t]
+        bits = ((f4 > 0) * (1 << np.arange(4))).sum(1)
+        for b, tl in TABLE.items():
+            if not tl:
                 continue
-            T = [m.T[i] for i in np.flatnonzero(comp == c)]
-            tris = np.array([m.V[list(t)] for t in T])
-            kept += A[comp == c].sum()
-            faces.append({"sides": [str(a), str(b)], "kind": s.kind, "mirror": False, "surface": s.name,
-                          "cut": [bool(~rc.inside(rc.betas((p + sg * 4e-4 * n)[None]))[0]) for sg in (1, -1)],
-                          "tris": tris.reshape(-1, 9).round(7).tolist()})
-        wid = next(w for w in s.walls if w in want)
-        fn = os.path.join(OUT, f"{wid}.json.gz")
-        old = json.load(gzip.open(fn, "rt")) if os.path.exists(fn) else []
-        old = [f for f in old if f.get("surface") != s.name] + faces
-        json.dump(old, gzip.open(fn, "wt"), separators=(",", ":"))
-        print(f"  {s.name:28s} {len(m.T):6d} triangles, cut by {n_cuts} surfaces, {len(ids)} sections, "
-              f"{len(faces)} of them wall ({kept / max(A.sum(), 1e-30):.0%} of the area); "
-              f"{2 * len(ids) - n_thin} sides named from the database, {n_thin} classified (cells too thin for voxels)",
-              flush=True)
+            sel = bits == b
+            if not sel.any():
+                continue
+            for tri in tl:
+                ks = [np.sort(np.stack([g4[sel, a], g4[sel, c]], 1), 1) for a, c in tri]
+                tris_keys.append(np.stack(ks, 1))                           # (m, 3, 2)
+    TK = np.concatenate(tris_keys)
+    keys, inv = np.unique(TK.reshape(-1, 2), axis=0, return_inverse=True)
+    T = inv.reshape(-1, 3)
+    Ff = F.reshape(-1)
+    fa, fb = Ff[keys[:, 0]], Ff[keys[:, 1]]
+    t_ = fa / (fa - fb)
+    V = Bt[keys[:, 0]] + t_[:, None] * (Bt[keys[:, 1]] - Bt[keys[:, 0]])
+    V = onto([S], V)
+    E = np.unique(np.sort(np.concatenate([T[:, [0, 1]], T[:, [1, 2]], T[:, [0, 2]]]), 1), axis=0)
+    os.makedirs(CACHE, exist_ok=True)
+    np.savez(path, V=V, E=E, T=T)
+    return V, E, T
+
+
+def inside(V, tol=1e-12):
+    return (V @ CELL.T >= -tol).all(1)
+
+
+def copies_crossing(base, V, ins, skip=None):
+    """The copies of the surface base (one per distinct surface) changing sign over the points V[ins]."""
+    X = V[ins]
+    if len(X) > 6000:
+        X = X[np.random.default_rng(0).choice(len(X), 6000, replace=False)]
+    out, seen = [], set()
+    for c in range(0, len(GG), 400):
+        Xg = np.einsum("gij,nj->gni", GINV[c:c + 400], X)
+        vals = fvals(base, Xg.reshape(-1, 4)).reshape(len(Xg), -1)
+        for k in range(len(vals)):
+            v = vals[k]
+            nv = np.linalg.norm(v)
+            if nv == 0 or not (v.min() < -1e-9 * nv and v.max() > 1e-9 * nv):
+                continue
+            u = v / nv
+            u = u * np.sign(u[np.argmax(np.abs(u))])
+            key = tuple(np.round(u[:: max(1, len(u) // 64)], 6))
+            if key in seen:
+                continue
+            if skip is not None and np.abs(u - skip).max() < 1e-6:
+                continue
+            seen.add(key)
+            out.append(c + k)
+    return out
+
+
+def line_copies(L, lines, S, V, ins):
+    """Each copy of the line L lying on S in the half-cell: (its second surface there, its points)."""
+    out = []
+    for P, pair in zip(lines[L]["points"], lines[L]["surfaces"]):
+        P = np.asarray(P, float)
+        if len(P) < 2 or len(pair) < 2 or not all(n in LIB for n in pair):
+            continue
+        for gi in images(P):
+            Y = carry(P.copy(), GG[gi])
+            Y = Y[np.isfinite(Y).all(1)]
+            if len(Y) < 2:
+                continue
+            k = [0, len(Y) // 2, len(Y) - 1]
+            if off(S, Y[k]).max() > 1e-7:
+                continue
+            A, Bs = Img(LIB[pair[0]], gi), Img(LIB[pair[1]], gi)
+            m = Y[len(Y) // 2]
+            # (the second surface: the one of the pair crossing S, the more steeply)
+            gs = grads(S, m[None])[0]
+            best = None
+            for T in (A, Bs):
+                gt = grads(T, m[None])[0]
+                sn_ = np.sqrt(max(0, 1 - (gs @ gt) ** 2 / ((gs @ gs) * (gt @ gt) + 1e-300)))
+                if best is None or sn_ > best[0]:
+                    best = (sn_, T)
+            if best[0] > 1e-3:
+                out.append((best[1], Y))
+    return out
+
+
+def setup(args):
+    """For one surface of one wall: the scaffold and every copy crossing it, with its side at each point."""
+    w, sn, D = args
+    work, ex, lines = D
+    S = LIB[sn]
+    V, E, T = mesh(sn)
+    ins = inside(V)
+    funcs = []                                             # (kind, source wall or line, surface, extra)
+    meet = [e for e in work[w]["edges"] if e not in lines] + [c["by"] for c in work[w].get("cuts", [])]
+    for Y in dict.fromkeys(meet):
+        kind = "edge" if Y in work[w]["edges"] else "cut"
+        for yn in ex["walls"].get(Y, {}).get("surface", []):
+            if yn not in LIB:
+                continue
+            for gi in copies_crossing(LIB[yn], V, ins):
+                funcs.append((kind, Y, Img(LIB[yn], gi), None))
+    for L in work[w]["edges"]:
+        if L in lines:
+            for T_, P in line_copies(L, lines, S, V, ins):
+                funcs.append(("line", L, T_, P))
+    for sn2 in ex["walls"][w]["surface"]:
+        if sn2 != sn and sn2 in LIB:
+            funcs.append(("seam", sn2, LIB[sn2], None))
+    sg = np.stack([fvals(f[2], V) > 0 for f in funcs], 1) if funcs else np.zeros((len(V), 0), bool)
+    return w, sn, V, E, T, ins, funcs, sg
+
+
+def crossing(V, E, f, S):
+    """For the neighbour pairs E (rows) changing side of f: the exact point on S and f between them."""
+    a, b = V[E[:, 0]], V[E[:, 1]]
+    fa, fb = fvals(f, a), fvals(f, b)
+    t = fa / (fa - fb)
+    return onto([S, f], a + t[:, None] * (b - a))
+
+
+class Wall:
+    def __init__(self, w, sheets):
+        self.w, self.sheets = w, sheets                    # sn -> dict
+        self.inwall = {sn: sh["ins"].copy() for sn, sh in sheets.items()}   # (to start: everywhere)
+        self.tree = {}
+
+    def present(self, X):
+        """For points X (betas): is this wall there? (carried by the group into the half-cell, onto its surfaces)"""
+        X = np.atleast_2d(X)
+        got = np.zeros(len(X), bool)
+        for sn, sh in self.sheets.items():
+            if sn not in self.tree:
+                pts = sh["V"][self.inwall[sn]]
+                self.tree[sn] = cKDTree(pts) if len(pts) else None
+        for ni, P in carried(X):
+            for sn in self.sheets:
+                if self.tree[sn] is None:
+                    continue
+                on_ = off(LIB[sn], P) < 1e-7
+                if not on_.any():
+                    continue
+                d, _ = self.tree[sn].query(P[on_])
+                got[ni[on_][d < 1.5 * H]] = True
+        return got
+
+
+def carried(X, strict=False, chunk=200):
+    """Every image of the points X in the half-cell: yields (index of the point, image), a chunk at a time."""
+    for c in range(0, len(X), chunk):
+        Y = np.einsum("gij,nj->gni", GG, X[c:c + chunk])
+        s_ = Y.sum(-1)
+        ok = np.abs(s_) > 1e-12
+        Y = Y / np.where(ok, s_, 1)[..., None]
+        cin = ok & ((Y @ CELL.T > 1e-12) if strict else (Y @ CELL.T >= -1e-9)).all(-1)
+        gi, ni = np.nonzero(cin)
+        yield ni + c, Y[gi, ni]
+
+
+def grow(W, walls, D, seeds):
+    """Grow wall W from its seed, stopped by its real edges, given the others as they now are."""
+    lines = D[2]
+    comp_of, n_comp, links, seed_comps = {}, 0, [], []
+    for sn, sh in W.sheets.items():
+        V, E, ins, funcs, sg = sh["V"], sh["E"], sh["ins"], sh["funcs"], sh["sg"]
+        S = LIB[sn]
+        Ei = E[ins[E[:, 0]] & ins[E[:, 1]]]
+        blocked = np.zeros(len(Ei), bool)
+        for k, (kind, src, f, P) in enumerate(funcs):
+            ch = sg[Ei[:, 0], k] != sg[Ei[:, 1], k]
+            if not ch.any() or kind == "cut":
+                continue
+            idx = np.flatnonzero(ch)
+            if kind == "seam":
+                blocked[idx] = True
+                continue
+            X = crossing(V, Ei[idx], f, S)
+            if kind == "line":
+                d, _ = cKDTree(P).query(X)
+                real = d < 1.5 * H
+            else:
+                real = walls[src].present(X) if src in walls else np.ones(len(X), bool)
+            blocked[idx[real]] = True
+        A = Ei[~blocked]
+        g = coo_matrix((np.ones(len(A)), (A[:, 0], A[:, 1])), shape=(len(V), len(V)))
+        nc, lab = connected_components(g, directed=False)
+        comp_of[sn] = lab + n_comp
+        n_comp += nc
+        sh["lab"] = lab
+    root = list(range(n_comp))
+
+    def find(i):
+        while root[i] != i:
+            root[i] = root[root[i]]
+            i = root[i]
+        return i
+    trees = {sn: cKDTree(sh["V"][sh["ins"]]) for sn, sh in W.sheets.items()}
+    idxs = {sn: np.flatnonzero(sh["ins"]) for sn, sh in W.sheets.items()}
+    for sn, sh in W.sheets.items():
+        V, E, ins, funcs, sg = sh["V"], sh["E"], sh["ins"], sh["funcs"], sh["sg"]
+        # (into the next cell: a point just past a face, not across a real edge, carried back)
+        Eo = E[ins[E[:, 0]] != ins[E[:, 1]]]
+        Eo = np.where(ins[Eo[:, 0]][:, None], Eo, Eo[:, ::-1])           # (inside, outside)
+        if not len(Eo):
+            continue
+        same = (sg[Eo[:, 0]] == sg[Eo[:, 1]]).all(1) if sg.shape[1] else np.ones(len(Eo), bool)
+        Eo = Eo[same]
+        for ni, Q in carried(V[Eo[:, 1]], strict=True):
+            for sn2 in W.sheets:
+                on_ = off(LIB[sn2], Q) < 1e-7
+                if not on_.any():
+                    continue
+                d, j = trees[sn2].query(Q[on_])
+                for a, dd, jj in zip(ni[on_], d, j):
+                    if dd < 1.5 * H:
+                        root[find(comp_of[sn][Eo[a, 0]])] = find(comp_of[sn2][idxs[sn2][jj]])
+    # (the seed)
+    sd = np.asarray(seeds[W.w], float)
+    Y = np.einsum("gij,j->gi", GG, sd)
+    s_ = Y.sum(1)
+    Y = Y[np.abs(s_) > 1e-12] / s_[np.abs(s_) > 1e-12, None]
+    Y = Y[(Y @ CELL.T >= -1e-12).all(1)]
+    for sn, sh in W.sheets.items():
+        for y in Y[off(LIB[sn], Y) < 1e-9]:
+            d, j = trees[sn].query(y)
+            seed_comps.append(find(comp_of[sn][idxs[sn][j]]))
+    seed_comps = set(seed_comps)
+    new = {}
+    for sn, sh in W.sheets.items():
+        r = np.array([find(c) for c in comp_of[sn]])
+        new[sn] = sh["ins"] & np.isin(r, list(seed_comps))
+    return new
+
+
+def main(only=None):
+    work = json.load(open("working_data.json"))["walls"]
+    ex = json.load(open("exact_defs.json"))
+    lines = json.load(open("exact_lines.json"))["lines"]
+    seeds = {k: v["seed"] for k, v in json.load(open("working_base.json"))["shapes"].items() if v.get("seed")}
+    D = (work, ex, lines)
+    names = list(work)
+    jobs = [(w, sn, D) for w in names for sn in ex["walls"][w]["surface"] if sn in LIB]
+    sp = os.path.join(CACHE, f"setup_{N}.pkl")
+    if os.path.exists(sp):
+        got = pickle.load(open(sp, "rb"))
+    else:
+        with Pool(4) as pool:
+            pool.map(mesh, sorted({sn for _, sn, _ in jobs}))
+            got = pool.map(setup, jobs)
+        pickle.dump(got, open(sp, "wb"))
+    walls = {}
+    for w, sn, V, E, T, ins, funcs, sg in got:
+        walls.setdefault(w, {})[sn] = {"V": V, "E": E, "T": T, "ins": ins, "funcs": funcs, "sg": sg}
+        print(f"{w} on {sn}: {len(V)} points, {len(funcs)} copies crossing "
+              f"({', '.join(sorted({f[1] for f in funcs}))})", flush=True)
+    walls = {w: Wall(w, sh) for w, sh in walls.items()}
+    for it in range(8):
+        new = {}
+        for w, W in walls.items():
+            t0 = time.time()
+            new[w] = grow(W, walls, D, seeds)
+            print(f"  {w}: {sum(int(v.sum()) for v in new[w].values())} points ({time.time() - t0:.0f} s)", flush=True)
+        changed = [w for w, W in walls.items() if any((new[w][sn] != W.inwall[sn]).any() for sn in W.sheets)]
+        for w, W in walls.items():
+            W.inwall, W.tree = new[w], {}
+        print(f"round {it}: changed {changed}", flush=True)
+        if not changed:
+            break
+    out = {}
+    for w, W in walls.items():
+        out[w] = {sn: {"points": int(W.inwall[sn].sum()), "of": int(sh["ins"].sum())} for sn, sh in W.sheets.items()}
+        print(w, out[w], flush=True)
+    np.savez_compressed(os.path.join(CACHE, "walls.npz"),
+                        **{f"{w}|{sn}": W.inwall[sn] for w, W in walls.items() for sn in W.sheets})
+    json.dump(out, open("arrangement.json", "w"), indent=1)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(set(sys.argv[1:]) or None)
