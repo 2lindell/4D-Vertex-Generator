@@ -42,9 +42,11 @@ Not yet right:
   exactly); X11 along T2 from C4 to X4 (traced, three copies, but none lies on both walls' meshes as drawn, so the mesh
   outline stays); X94 along T2 and along X11 from C5 to the point where X94, X11 and T2 meet. X94 touches T2 at C5
   (one tangent plane there), so its branches are started just off C5 and followed to the first copy of the other wall
-  not through C5; candidate meeting points in the half-cell: β ≈ (0.3063, 0.4021, 0.2233, 0.0683) and
-  (0.3944, 0.3944, 0.2113, 0), both on T2; to be confirmed.
-- Still open in step 1: X94's meeting point; X11 along T2 on the page; `exact_lines.py` to redo.
+  not through C5. The meeting point, X94·X11·T2 (added to exact_points.json, 40 digits), lies at β ≈ (0.3063, 0.4021,
+  0.2233, 0.0683) and (0.3944, 0.3944, 0.2113, 0), copies under the half-turn (user). These given edges are drawn
+  without the mesh check. They show where the old meshes are wrong: X94's mesh is 0.16 or more from C5 and from the
+  meeting point everywhere, and X11's mesh stops 0.14 short of the meeting point (T2's reaches it); step 3 fixes them.
+- Still open in step 1: `exact_lines.py` to redo.
 
 ## Plan
 

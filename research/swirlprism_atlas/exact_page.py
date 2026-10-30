@@ -82,8 +82,11 @@ def main(page):
         m = q[[len(q) // 4, len(q) // 2, 3 * len(q) // 4]]
         return all(k in trees and (trees[k].query(m)[0] < tol).all() for k in (a, b))
     n0 = len(solid), len(dashed)
-    solid = [(w, Y, p) for w, Y, p in solid if on_both(w, Y, p)]
-    dashed = [(w, Y, p) for w, Y, p in dashed if on_both(w, Y, p)]
+    # (an edge whose corners were given is drawn as found: its corners are confirmed)
+    given = json.load(open("working_base.json"))["corrections"].get("edge_corners", {})
+    sure = {(w, Y) for w, d_ in given.items() for Y in d_}
+    solid = [(w, Y, p) for w, Y, p in solid if (w, Y) in sure or on_both(w, Y, p)]
+    dashed = [(w, Y, p) for w, Y, p in dashed if (Y, w) in sure or on_both(w, Y, p)]
     print(f"kept on both walls: solid {n0[0]} -> {len(solid)}, dashed {n0[1]} -> {len(dashed)}", flush=True)
     print(f"{len(solid)} solid and {len(dashed)} dashed exact pieces in the half-cell", flush=True)
     hover = lambda w, Y, copy: (f"{w} · edge of the wall, along {Y} (exact)" if not copy else

@@ -318,13 +318,19 @@ def edge_runs(D, owner, e):
         spec = D.edge_corners.get(owner, {}).get(e)
         meets = []
         if spec:                                            # (corners given: named points, and "meets W")
-            names = [n for n in spec if not n.startswith("meets ")]
+            names = [n for n in spec if not n.startswith(("meets ", "ends at "))]
             meets = [n[6:] for n in spec if n.startswith("meets ")]
+            ends_at = [n[8:] for n in spec if n.startswith("ends at ")]
             C = [v for v in D.named_points(names) if dist(S, v[None])[0] < 1e-9 and D.on_edge(v, e)]
             if meets and not C:
                 # (the copy of the wall in the half-cell does not reach the corner, where the walls touch: the edge is
                 # traced back to the corner from the point where the three walls meet)
-                out += from_triple_point(D, owner, e, S, names, meets, out)
+                got = from_triple_point(D, owner, e, S, names, meets, out)
+                if ends_at:                                 # (only the stretches ending at the given point)
+                    E_ = unit(np.einsum("gij,nj->gni", GG, D.named_points(ends_at)).reshape(-1, 4))
+                    E_ = np.concatenate([E_, -E_])
+                    got = [r for r in got if np.linalg.norm(E_ - np.asarray(r)[-1], axis=1).min() < 1e-7]
+                out += got
                 continue
         else:
             C = [v for v in D.named_corners(owner, e) if dist(S, v[None])[0] < 1e-9 and D.on_edge(v, e)]
