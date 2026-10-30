@@ -82,7 +82,26 @@ def sheet_curves(W, sn, walls):
     S = LIB[sn]
     inw = W.inwall[sn]
     out = []
+    Ei = sh["E"][ins[sh["E"][:, 0]] & ins[sh["E"][:, 1]]]
     for k, (kind, src, f, P) in enumerate(funcs):
+        if kind == "seam":
+            continue                                       # (the wall goes on onto its next plane there)
+        if kind == "line":
+            # (the line's own exact points, each stretch kept where the steps it passes between have the wall on one
+            # side only)
+            keep = [bool(len(st) and (inw[Ei[st, 0]] != inw[Ei[st, 1]]).mean() > 0.5)
+                    for st in ar.line_steps(V, Ei, P, S, per=True)]
+            run = []
+            for i, kp in enumerate(keep):
+                if kp:
+                    run = run or [P[i]]
+                    run.append(P[i + 1])
+                elif run:
+                    out.append((kind, src, np.array(run), None))
+                    run = []
+            if run:
+                out.append((kind, src, np.array(run), None))
+            continue
         s = sg[:, k]
         tri_ch = (s[T] != s[T[:, [1, 2, 0]]])                              # (each triangle's edges 01, 12, 20)
         rows = np.flatnonzero(tri_ch.sum(1) == 2)
@@ -125,13 +144,13 @@ def finish_end(x, S, f, EP, names):
     near = np.flatnonzero(d < 2.5 * H)
     best = None
     for i in near:
-        if off(S, EP[i])[0] < 1e-9 and off(f, EP[i])[0] < 1e-9 and (best is None or d[i] < d[best]):
+        if off(S, EP[i])[0] < 1e-9 and (f is None or off(f, EP[i])[0] < 1e-9) and (best is None or d[i] < d[best]):
             best = i
     if best is not None:
         return EP[best], names[best]
     for nm, n in FACEN.items():
         if abs(x @ n) < 2.5 * H:
-            y = onto([S, f, osd.Plane(n, nm)], x[None])[0]
+            y = onto([S, osd.Plane(n, nm)] + ([f] if f is not None else []), x[None])[0]
             if abs(y @ n) < 1e-12 and np.linalg.norm(y - x) < 3 * H:
                 return y, "face " + nm
     return None, None

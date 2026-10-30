@@ -245,8 +245,8 @@ def crossing(V, E, f, S):
     """For the neighbour pairs E (rows) changing side of f: the exact point on S and f between them."""
     a, b = V[E[:, 0]], V[E[:, 1]]
     fa, fb = fvals(f, a), fvals(f, b)
-    t = fa / (fa - fb)
-    return onto([S, f], a + t[:, None] * (b - a))
+    t = np.nan_to_num(fa / np.where(fa == fb, 1, fa - fb), nan=0.5)
+    return onto([S, f], a + np.clip(t, 0, 1)[:, None] * (b - a))
 
 
 class Wall:
@@ -287,6 +287,39 @@ def carried(X, strict=False, chunk=200):
         yield ni + c, Y[gi, ni]
 
 
+def line_steps(V, Ei, P, S, per=False):
+    """Which steps Ei (pairs of neighbouring scaffold points) the line's points P (lying on the surface S) pass between:
+    for each stretch of the line, the steps near it whose ends lie on its two sides, in the surface's own tangent plane,
+    and whose crossing falls within the stretch (no second surface is needed: the line's own exact points decide)."""
+    out = np.zeros(len(Ei), bool)
+    segs = [np.zeros(0, int) for _ in range(max(0, len(P) - 1))]
+    if len(Ei) == 0 or len(P) < 2:
+        return segs if per else out
+    a_, b_ = V[Ei[:, 0]], V[Ei[:, 1]]
+    tree = cKDTree((a_ + b_) / 2)
+    G = grads(S, P)
+    for i in range(len(P) - 1):
+        a, b = P[i], P[i + 1]
+        L = np.linalg.norm(b - a)
+        if L < 1e-15:
+            continue
+        cand = tree.query_ball_point((a + b) / 2, L / 2 + 1.5 * H)
+        if not cand:
+            continue
+        cand = np.array(cand)
+        e1 = (b - a) / L
+        e2 = np.linalg.svd(np.vstack([np.ones(4), G[i], e1]))[2][-1]
+        yu, yv = (a_[cand] - a) @ e2, (b_[cand] - a) @ e2
+        xu, xv = (a_[cand] - a) @ e1, (b_[cand] - a) @ e1
+        cross = (yu > 0) != (yv > 0)
+        t = yu / np.where(cross, yu - yv, 1)
+        xc = xu + t * (xv - xu)
+        hit = cross & (xc >= -1e-12) & (xc <= L + 1e-12)
+        out[cand[hit]] = True
+        segs[i] = cand[hit]
+    return segs if per else out
+
+
 def real_at(kind, src, P, X, walls):
     """Which crossings X of a copy are real: a line where its verified pieces run, a wall where it is there; and a
     crossing within two scaffold steps of a real one on the same copy (at a corner the scaffold's steps can leave a gap
@@ -313,6 +346,9 @@ def grow(W, walls, D, seeds):
         Ei = E[ins[E[:, 0]] & ins[E[:, 1]]]
         blocked = np.zeros(len(Ei), bool)
         for k, (kind, src, f, P) in enumerate(funcs):
+            if kind == "line":
+                blocked |= line_steps(V, Ei, P, S)
+                continue
             ch = sg[Ei[:, 0], k] != sg[Ei[:, 1], k]
             if not ch.any() or kind == "cut":
                 continue
