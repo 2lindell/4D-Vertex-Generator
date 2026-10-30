@@ -117,7 +117,7 @@ def face_curves(S, n=160):
     return out
 
 
-def wall(w, work, curves, seeds):
+def wall(w, work, curves, seeds, dbg=None):
     wd = work["walls"][w]
     XL = work["exact"]["lines"]
     bases = [n for n in work["exact"]["wall_surfaces"][w] if n in ar.LIB]
@@ -167,11 +167,18 @@ def wall(w, work, curves, seeds):
         sh["ch"] = lambda X, c0=c0, U=U: (np.atleast_2d(X) - c0) @ U.T
         geo = [LineString(sh["ch"](st[i][1])) for i in sh["st"]] + [LineString(sh["ch"](R)) for R in sh["rim"]]
         allg = unary_union(geo)
-        sh["faces"] = list(polygonize(unary_union([shapely.snap(g, allg, 1e-9) for g in geo])))
+        sh["faces"] = list(polygonize(unary_union([shapely.snap(g, allg, 1e-6) for g in geo])))
 
     def face_at(sh, y):
         q = Point(sh["ch"](y)[0])
         return [j for j, f in enumerate(sh["faces"]) if f.buffer(1e-12).contains(q)]
+    # (and every copy holding an image of its seed, though none of its stretches lies on it)
+    for y in Y:
+        for n in bases:
+            v = dist(ar.LIB[n], np.einsum("gij,j->gi", ar.GINV, y))
+            for gg in np.flatnonzero(v < 1e-9)[:1]:
+                S2 = ar.Img(ar.LIB[n], int(gg))
+                sheets.setdefault(ar.sheet_key(S2), {"S": S2, "name": f"{n}@{gg}"})
     for k in list(sheets):
         build(k)
     # (its faces: those holding an image of its seed)
@@ -247,6 +254,8 @@ def wall(w, work, curves, seeds):
             side = [any(f.contains(Point(mid + s * 1e-5 * nrm)) for f in wf) for s in (1, -1)]
             if side[0] != side[1]:
                 drawn.add(i)
+    if dbg is not None:
+        dbg.update(st=st, sheets=sheets)
     # (checks)
     got = {st[i][0] for i in drawn}
     deg = {}
