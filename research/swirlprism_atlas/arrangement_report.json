@@ -1,0 +1,2564 @@
+{
+ "F1": {
+  "edges_listed": [
+   "B1",
+   "D3",
+   "E2",
+   "T2",
+   "X13"
+  ],
+  "edges_found": [
+   "E2",
+   "T2",
+   "X13"
+  ],
+  "missing_edges": [
+   "B1",
+   "D3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C1",
+   "C5",
+   "X2",
+   "X4"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C5"
+  ],
+  "corners_not_listed": [
+   "X2",
+   "X4"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "edge T2: end at [0.4068, 0.3767, 0.1176, 0.099] reaches no exact point",
+   "edge T2: end at [0.4087, 0.3745, 0.1193, 0.0975] reaches no exact point",
+   "edge T2: end at [0.4087, 0.3745, 0.1193, 0.0975] reaches no exact point",
+   "edge T2: end at [0.4078, 0.3756, 0.1184, 0.0982] reaches no exact point",
+   "edge T2: end at [0.4068, 0.3767, 0.1176, 0.099] reaches no exact point",
+   "edge T2: end at [0.4068, 0.3767, 0.1176, 0.099] reaches no exact point",
+   "edge T2: end at [0.4068, 0.3767, 0.1176, 0.099] reaches no exact point",
+   "edge T2: end at [0.5516, 0.2318, 0.2071, 0.0095] reaches no exact point",
+   "edge T2: end at [0.5504, 0.2331, 0.2063, 0.0102] reaches no exact point",
+   "edge T2: end at [0.5259, 0.2576, 0.1912, 0.0254] reaches no exact point"
+  ],
+  "n_loose": 271,
+  "share": {
+   "plane (-0, -0.336068, 0.336068, 0.879839)": [
+    6098,
+    23104
+   ],
+   "plane (-0.336068, -0, 0.879839, 0.336068)": [
+    1853,
+    4029
+   ],
+   "plane (-0.356822, 0.934172, 0, 0)": [
+    10486,
+    11838
+   ],
+   "plane (0.707107, -0, -0.707107, -0)": [
+    2712,
+    5504
+   ],
+   "plane (0.707107, -0.707107, -0, -0)": [
+    7596,
+    8192
+   ]
+  }
+ },
+ "F4": {
+  "edges_listed": [
+   "B1",
+   "D2",
+   "E1",
+   "T1"
+  ],
+  "edges_found": [
+   "E1",
+   "T1"
+  ],
+  "missing_edges": [
+   "B1",
+   "D2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line T1: end at [0.1418, 0.4458, 0.3918, 0.0206] reaches no exact point",
+   "line T1: end at [0.1412, 0.4466, 0.3909, 0.0213] reaches no exact point",
+   "line T1: end at [0.0195, 0.6167, 0.2075, 0.1563] reaches no exact point",
+   "line T1: end at [0.0186, 0.6179, 0.2061, 0.1573] reaches no exact point",
+   "line T1: end at [0.1418, 0.4458, 0.3918, 0.0206] reaches no exact point",
+   "line T1: end at [0.1412, 0.4466, 0.3909, 0.0213] reaches no exact point",
+   "line T1: end at [0.0195, 0.6167, 0.2075, 0.1563] reaches no exact point",
+   "line T1: end at [0.0186, 0.6179, 0.2061, 0.1573] reaches no exact point",
+   "line T1: end at [0.02, 0.616, 0.2082, 0.1557] reaches no exact point",
+   "line T1: end at [0.0182, 0.6186, 0.2054, 0.1578] reaches no exact point"
+  ],
+  "n_loose": 49,
+  "share": {
+   "plane (0, 1, 0, 0)": [
+    6347,
+    16256
+   ],
+   "plane (0.879839, 0, -0.336068, 0.336068)": [
+    2334,
+    11314
+   ],
+   "plane (0.934172, -0.356822, 0, 0)": [
+    6950,
+    11932
+   ],
+   "plane (1, -0, -0, -0)": [
+    10945,
+    16384
+   ]
+  }
+ },
+ "F5": {
+  "edges_listed": [
+   "E1",
+   "X20",
+   "X29"
+  ],
+  "edges_found": [
+   "E1",
+   "X20",
+   "X29"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "X29",
+   "X8"
+  ],
+  "points_listed": [
+   "A1",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X29",
+   "X8"
+  ],
+  "listed_not_corners": [
+   "C6"
+  ],
+  "loose_ends": [
+   "line X29: end at [0.7748, 0.0369, 0.1513, 0.0369] reaches no exact point",
+   "line X29: end at [0.7793, 0.0363, 0.1481, 0.0363] reaches no exact point",
+   "line X29: end at [0.9298, 0.0123, 0.0456, 0.0123] reaches no exact point",
+   "line X29: end at [0.9312, 0.012, 0.0447, 0.012] reaches no exact point",
+   "line X29: end at [0.7748, 0.0369, 0.1513, 0.0369] reaches no exact point",
+   "line X29: end at [0.7793, 0.0363, 0.1481, 0.0363] reaches no exact point",
+   "line X29: end at [0.9298, 0.0123, 0.0456, 0.0123] reaches no exact point",
+   "line X29: end at [0.9312, 0.012, 0.0447, 0.012] reaches no exact point",
+   "line X29: end at [0.5662, 0.0488, 0.3362, 0.0488] reaches no exact point",
+   "line X29: end at [0.5681, 0.0491, 0.3337, 0.0491] reaches no exact point"
+  ],
+  "n_loose": 74,
+  "share": {
+   "plane (0, 0.707107, 0, -0.707107)": [
+    3495,
+    43605
+   ],
+   "plane (0.934172, -0.356822, 0, 0)": [
+    482,
+    11932
+   ]
+  }
+ },
+ "T2": {
+  "edges_listed": [
+   "D1",
+   "E2",
+   "T1",
+   "X1",
+   "X4"
+  ],
+  "edges_found": [
+   "E2",
+   "T1",
+   "X1",
+   "X4"
+  ],
+  "missing_edges": [
+   "D1"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "C5",
+   "C6",
+   "X2",
+   "X4",
+   "X94\u00b7X11\u00b7T2"
+  ],
+  "points_listed": [
+   "C1",
+   "C4",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X2",
+   "X4",
+   "X94\u00b7X11\u00b7T2"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "cut F1: end at [0.3594, 0.3917, 0.1608, 0.0882] reaches no exact point",
+   "cut F1: end at [0.3666, 0.391, 0.1506, 0.0918] reaches no exact point",
+   "cut F1: end at [0.358, 0.3902, 0.1662, 0.0856] reaches no exact point",
+   "cut F1: end at [0.3837, 0.3847, 0.1371, 0.0946] reaches no exact point",
+   "cut F1: end at [0.3674, 0.3964, 0.1372, 0.099] reaches no exact point",
+   "cut F1: end at [0.372, 0.3965, 0.1295, 0.102] reaches no exact point",
+   "cut F1: end at [0.3731, 0.3976, 0.1252, 0.104] reaches no exact point",
+   "cut F1: end at [0.3651, 0.3661, 0.2086, 0.0602] reaches no exact point",
+   "cut F1: end at [0.3593, 0.3603, 0.231, 0.0494] reaches no exact point",
+   "cut F1: end at [0.364, 0.365, 0.2131, 0.058] reaches no exact point"
+  ],
+  "n_loose": 339,
+  "share": {
+   "plane (-0, -0.336068, 0.336068, 0.879839)": [
+    9999,
+    23104
+   ],
+   "plane (-0.336068, -0, 0.879839, 0.336068)": [
+    2108,
+    4029
+   ],
+   "plane (0.707107, -0, -0.707107, -0)": [
+    2726,
+    5504
+   ],
+   "plane (0.707107, -0.707107, -0, -0)": [
+    580,
+    8192
+   ]
+  }
+ },
+ "X3": {
+  "edges_listed": [
+   "C3",
+   "D1",
+   "E2",
+   "X1"
+  ],
+  "edges_found": [
+   "E2",
+   "X1"
+  ],
+  "missing_edges": [
+   "C3",
+   "D1"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C5"
+  ],
+  "points_listed": [
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [
+   "C6"
+  ],
+  "loose_ends": [
+   "line E2: end at [0.2597, 0.2597, 0.2597, 0.2209] reaches no exact point",
+   "line E2: end at [0.3241, 0.3241, 0.3241, 0.0276] reaches no exact point",
+   "line E2: end at [0.3235, 0.3235, 0.3235, 0.0296] reaches no exact point",
+   "line E2: end at [0.323, 0.323, 0.323, 0.0309] reaches no exact point",
+   "line E2: end at [0.2603, 0.2603, 0.2603, 0.2192] reaches no exact point",
+   "line E2: end at [0.26, 0.26, 0.26, 0.2201] reaches no exact point",
+   "line E2: end at [0.2595, 0.2595, 0.2595, 0.2214] reaches no exact point"
+  ],
+  "n_loose": 7,
+  "share": {
+   "plane (-0, -0.336068, 0.336068, 0.879839)": [
+    9381,
+    23104
+   ],
+   "plane (0.707107, -0.707107, -0, -0)": [
+    6826,
+    8192
+   ]
+  }
+ },
+ "X7": {
+  "edges_listed": [
+   "C3",
+   "E2"
+  ],
+  "edges_found": [
+   "E2"
+  ],
+  "missing_edges": [
+   "C3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C5"
+  ],
+  "points_listed": [
+   "C1",
+   "C5"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E2: end at [0.5447, 0.2388, 0.2028, 0.0138] reaches no exact point",
+   "line E2: end at [0.5453, 0.2382, 0.2032, 0.0134] reaches no exact point",
+   "line E2: end at [0.413, 0.3704, 0.1214, 0.0951] reaches no exact point",
+   "line E2: end at [0.4136, 0.3698, 0.1218, 0.0947] reaches no exact point"
+  ],
+  "n_loose": 4,
+  "share": {
+   "X100": [
+    13360,
+    26534
+   ]
+  }
+ },
+ "X9": {
+  "edges_listed": [
+   "C2b",
+   "D2",
+   "T1",
+   "X5"
+  ],
+  "edges_found": [
+   "T1",
+   "X5"
+  ],
+  "missing_edges": [
+   "C2b",
+   "D2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C4",
+   "C6",
+   "X5"
+  ],
+  "points_listed": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X5"
+  ],
+  "listed_not_corners": [
+   "A1"
+  ],
+  "loose_ends": [
+   "line T1: end at [0.1418, 0.4458, 0.3918, 0.0206] reaches no exact point",
+   "line T1: end at [0.1412, 0.4466, 0.3909, 0.0213] reaches no exact point",
+   "line T1: end at [0.0195, 0.6167, 0.2075, 0.1563] reaches no exact point",
+   "line T1: end at [0.0186, 0.6179, 0.2061, 0.1573] reaches no exact point",
+   "line T1: end at [0.1418, 0.4458, 0.3918, 0.0206] reaches no exact point",
+   "line T1: end at [0.1412, 0.4466, 0.3909, 0.0213] reaches no exact point",
+   "line T1: end at [0.0195, 0.6167, 0.2075, 0.1563] reaches no exact point",
+   "line T1: end at [0.0186, 0.6179, 0.2061, 0.1573] reaches no exact point",
+   "line T1: end at [0.02, 0.616, 0.2082, 0.1557] reaches no exact point",
+   "line T1: end at [0.0182, 0.6186, 0.2054, 0.1578] reaches no exact point"
+  ],
+  "n_loose": 15,
+  "share": {
+   "plane (0, 1, 0, 0)": [
+    2548,
+    16256
+   ],
+   "plane (0.879839, 0, -0.336068, 0.336068)": [
+    2044,
+    11314
+   ],
+   "plane (1, -0, -0, -0)": [
+    2548,
+    16384
+   ]
+  }
+ },
+ "X10": {
+  "edges_listed": [
+   "C3",
+   "D1",
+   "X3",
+   "X8",
+   "X9"
+  ],
+  "edges_found": [
+   "X3",
+   "X8",
+   "X9"
+  ],
+  "missing_edges": [
+   "C3",
+   "D1"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C5",
+   "C6",
+   "X5"
+  ],
+  "points_listed": [
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X5"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X8: end at [0.2394, 0.2606, 0.2606, 0.2394] reaches no exact point",
+   "line X8: end at [0.2387, 0.2613, 0.2613, 0.2387] reaches no exact point",
+   "line X8: end at [0.1196, 0.3804, 0.3804, 0.1196] reaches no exact point",
+   "line X8: end at [0.1188, 0.3812, 0.3812, 0.1188] reaches no exact point",
+   "line X8: end at [0.2395, 0.2605, 0.2605, 0.2395] reaches no exact point",
+   "line X8: end at [0.2387, 0.2613, 0.2613, 0.2387] reaches no exact point"
+  ],
+  "n_loose": 6,
+  "share": {
+   "X10": [
+    2426,
+    26485
+   ]
+  }
+ },
+ "X11": {
+  "edges_listed": [
+   "T2",
+   "X6"
+  ],
+  "edges_found": [
+   "T2",
+   "X6"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C5",
+   "X4",
+   "X94\u00b7X11\u00b7T2"
+  ],
+  "points_listed": [
+   "C1"
+  ],
+  "corners_not_listed": [
+   "C5",
+   "X4",
+   "X94\u00b7X11\u00b7T2"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X6: end at [0.3506, 0.1339, 0.3247, 0.1907] reaches no exact point",
+   "line X6: end at [0.3516, 0.1343, 0.3242, 0.1899] reaches no exact point",
+   "line X6: end at [0.3516, 0.1343, 0.3242, 0.1899] reaches no exact point",
+   "line X6: end at [0.3506, 0.1339, 0.3247, 0.1907] reaches no exact point"
+  ],
+  "n_loose": 4,
+  "share": {
+   "plane (0, 0, 0.707107, -0.707107)": [
+    6953,
+    61632
+   ],
+   "plane (0, 0.57735, -0.57735, 0.57735)": [
+    2347,
+    24512
+   ]
+  }
+ },
+ "X14": {
+  "edges_listed": [
+   "C2b",
+   "X4",
+   "X6",
+   "X97"
+  ],
+  "edges_found": [
+   "X4",
+   "X97"
+  ],
+  "missing_edges": [
+   "C2b",
+   "X6"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "X4"
+  ],
+  "points_listed": [
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X4"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X4: end at [0.0325, 0.6168, 0.1863, 0.1644] reaches no exact point",
+   "line X4: end at [0.0333, 0.6162, 0.1864, 0.1642] reaches no exact point"
+  ],
+  "n_loose": 2,
+  "share": {
+   "X14": [
+    7065,
+    22362
+   ]
+  }
+ },
+ "X15": {
+  "edges_listed": [
+   "X4",
+   "X6",
+   "X78"
+  ],
+  "edges_found": [
+   "X4",
+   "X6",
+   "X78"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "X4"
+  ],
+  "points_listed": [
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X4"
+  ],
+  "listed_not_corners": [
+   "C4"
+  ],
+  "loose_ends": [
+   "line X4: end at [0.2696, 0.2292, 0.2696, 0.2317] reaches no exact point",
+   "line X4: end at [0.2691, 0.2297, 0.2691, 0.2321] reaches no exact point",
+   "line X4: end at [0.2672, 0.2318, 0.2672, 0.2338] reaches no exact point",
+   "line X4: end at [0.2655, 0.2337, 0.2655, 0.2353] reaches no exact point",
+   "line X6: end at [0.5475, 0.2091, 0.2263, 0.0172] reaches no exact point",
+   "line X6: end at [0.5481, 0.2094, 0.2259, 0.0166] reaches no exact point",
+   "line X6: end at [0.3491, 0.1334, 0.3254, 0.1921] reaches no exact point",
+   "line X6: end at [0.3516, 0.1343, 0.3242, 0.1899] reaches no exact point",
+   "line X6: end at [0.5477, 0.2092, 0.2262, 0.017] reaches no exact point",
+   "line X6: end at [0.5487, 0.2096, 0.2257, 0.0161] reaches no exact point"
+  ],
+  "n_loose": 50,
+  "share": {
+   "X15": [
+    2774,
+    19703
+   ]
+  }
+ },
+ "X17": {
+  "edges_listed": [
+   "X2",
+   "X4"
+  ],
+  "edges_found": [
+   "X2",
+   "X4"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "C5",
+   "X2",
+   "X4"
+  ],
+  "points_listed": [
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "C5",
+   "X2",
+   "X4"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "cut X19: end at [0.3333, 0.1128, 0.3333, 0.2205] reaches no exact point",
+   "cut X19: end at [0.3333, 0.1128, 0.3333, 0.2205] reaches no exact point",
+   "cut X31: end at [0.1534, 0.566, 0.1534, 0.1273] reaches no exact point",
+   "cut X31: end at [0.1584, 0.5503, 0.1584, 0.1329] reaches no exact point",
+   "cut X31: end at [0.1584, 0.5503, 0.1584, 0.1329] reaches no exact point",
+   "line X4: end at [0.2601, 0.2396, 0.2601, 0.2402] reaches no exact point"
+  ],
+  "n_loose": 6,
+  "share": {
+   "plane (-0, -0.336068, 0.336068, 0.879839)": [
+    23103,
+    23104
+   ],
+   "plane (-0.336068, -0, 0.879839, 0.336068)": [
+    3157,
+    4029
+   ],
+   "plane (0.707107, -0, -0.707107, -0)": [
+    5492,
+    5504
+   ]
+  }
+ },
+ "X19": {
+  "edges_listed": [
+   "C2b",
+   "D2",
+   "X17",
+   "X2",
+   "X6"
+  ],
+  "edges_found": [
+   "X17",
+   "X2",
+   "X6"
+  ],
+  "missing_edges": [
+   "C2b",
+   "D2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C5",
+   "D3",
+   "X4"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "C5",
+   "D3",
+   "X4"
+  ],
+  "listed_not_corners": [
+   "A1",
+   "C4"
+  ],
+  "loose_ends": [
+   "line X6: end at [0.3506, 0.1339, 0.3247, 0.1907] reaches no exact point",
+   "line X6: end at [0.3516, 0.1343, 0.3242, 0.1899] reaches no exact point",
+   "line X6: end at [0.3516, 0.1343, 0.3242, 0.1899] reaches no exact point",
+   "line X6: end at [0.3506, 0.1339, 0.3247, 0.1907] reaches no exact point"
+  ],
+  "n_loose": 4,
+  "share": {
+   "plane (0, 0, 0.707107, -0.707107)": [
+    6953,
+    61632
+   ],
+   "plane (0, 0.57735, -0.57735, 0.57735)": [
+    2347,
+    24512
+   ]
+  }
+ },
+ "X20": {
+  "edges_listed": [
+   "D1",
+   "E2",
+   "X5",
+   "X8"
+  ],
+  "edges_found": [
+   "E2",
+   "X5",
+   "X8"
+  ],
+  "missing_edges": [
+   "D1"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "C5",
+   "C6",
+   "X5",
+   "X8"
+  ],
+  "points_listed": [
+   "C1",
+   "C4",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X5",
+   "X8"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "cut F5: end at [0.5644, 0.0576, 0.3203, 0.0576] reaches no exact point",
+   "cut F5: end at [0.5644, 0.0576, 0.3203, 0.0576] reaches no exact point",
+   "cut F5: end at [0.135, 0.3534, 0.3534, 0.1581] reaches no exact point",
+   "cut F5: end at [0.135, 0.3534, 0.3534, 0.1581] reaches no exact point",
+   "line E2: end at [0.2597, 0.2597, 0.2597, 0.2209] reaches no exact point",
+   "line E2: end at [0.259, 0.259, 0.259, 0.2229] reaches no exact point",
+   "line E2: end at [0.2581, 0.2581, 0.2581, 0.2258] reaches no exact point",
+   "line E2: end at [0.3266, 0.3266, 0.3266, 0.0203] reaches no exact point",
+   "line E2: end at [0.3241, 0.3241, 0.3241, 0.0276] reaches no exact point",
+   "line E2: end at [0.3235, 0.3235, 0.3235, 0.0296] reaches no exact point"
+  ],
+  "n_loose": 22,
+  "share": {
+   "plane (-0.295242, 0.477711, 0.295242, 0.772953)": [
+    6947,
+    6947
+   ],
+   "plane (0, 0.707107, -0.707107, 0)": [
+    1852,
+    5461
+   ],
+   "plane (0.371748, -0.371748, -0.601501, 0.601501)": [
+    3492,
+    20201
+   ]
+  }
+ },
+ "X21": {
+  "edges_listed": [
+   "X5",
+   "X8",
+   "X97"
+  ],
+  "edges_found": [
+   "X5",
+   "X8",
+   "X97"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "C6",
+   "X5",
+   "X8",
+   "X97"
+  ],
+  "points_listed": [
+   "C1",
+   "C4",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X5",
+   "X8",
+   "X97"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X5: end at [0.0997, 0.3871, 0.3871, 0.1261] reaches no exact point",
+   "line X5: end at [0.0997, 0.3871, 0.3871, 0.1261] reaches no exact point",
+   "line X5: end at [0.0228, 0.3456, 0.3456, 0.286] reaches no exact point",
+   "line X5: end at [0.0998, 0.3872, 0.3872, 0.1258] reaches no exact point",
+   "line X8: end at [0.2382, 0.2618, 0.2618, 0.2382] reaches no exact point",
+   "line X8: end at [0.1196, 0.3804, 0.3804, 0.1196] reaches no exact point",
+   "line X8: end at [0.2382, 0.2618, 0.2618, 0.2382] reaches no exact point",
+   "line X97: end at [0.2266, 0.2651, 0.2651, 0.2433] reaches no exact point",
+   "line X97: end at [0.2266, 0.2651, 0.2651, 0.2433] reaches no exact point",
+   "line X97: end at [0.2266, 0.2651, 0.2651, 0.2433] reaches no exact point"
+  ],
+  "n_loose": 10,
+  "share": {
+   "plane (-0.295242, 0.477711, 0.295242, 0.772953)": [
+    1930,
+    6947
+   ],
+   "plane (0, 0.707107, -0.707107, 0)": [
+    565,
+    5461
+   ]
+  }
+ },
+ "X22": {
+  "edges_listed": [
+   "D3",
+   "X13",
+   "X4"
+  ],
+  "edges_found": [
+   "X4"
+  ],
+  "missing_edges": [
+   "D3",
+   "X13"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C1",
+   "C4",
+   "X4"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X4"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X4: end at [0.3397, 0.0142, 0.3397, 0.3063] reaches no exact point",
+   "line X4: end at [0.3406, 0.0167, 0.3406, 0.3021] reaches no exact point",
+   "line X4: end at [0.3415, 0.0195, 0.3415, 0.2974] reaches no exact point",
+   "line X4: end at [0.3419, 0.0208, 0.3419, 0.2953] reaches no exact point",
+   "line X4: end at [0.2696, 0.2292, 0.2696, 0.2317] reaches no exact point",
+   "line X4: end at [0.2691, 0.2297, 0.2691, 0.2321] reaches no exact point",
+   "line X4: end at [0.2672, 0.2318, 0.2672, 0.2338] reaches no exact point",
+   "line X4: end at [0.2655, 0.2337, 0.2655, 0.2353] reaches no exact point"
+  ],
+  "n_loose": 8,
+  "share": {
+   "X15": [
+    14201,
+    19703
+   ]
+  }
+ },
+ "X23": {
+  "edges_listed": [
+   "D2",
+   "E1",
+   "X5"
+  ],
+  "edges_found": [
+   "E1",
+   "X5"
+  ],
+  "missing_edges": [
+   "D2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C4",
+   "C6",
+   "X5"
+  ],
+  "points_listed": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X5"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
+   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1399, 0.3662, 0.4301, 0.0638] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
+   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 36,
+  "share": {
+   "plane (0, 1, 0, 0)": [
+    0,
+    16256
+   ],
+   "plane (0.879839, 0, -0.336068, 0.336068)": [
+    4754,
+    11314
+   ],
+   "plane (1, -0, -0, -0)": [
+    2884,
+    16384
+   ]
+  }
+ },
+ "X25": {
+  "edges_listed": [
+   "C2b",
+   "X14",
+   "X2"
+  ],
+  "edges_found": [
+   "X14"
+  ],
+  "missing_edges": [
+   "C2b",
+   "X2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1"
+  ],
+  "points_listed": [
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [
+   "C4"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X25": [
+    1829,
+    10694
+   ]
+  }
+ },
+ "X26": {
+  "edges_listed": [
+   "D2",
+   "D3",
+   "X2"
+  ],
+  "edges_found": [
+   "X2"
+  ],
+  "missing_edges": [
+   "D2",
+   "D3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C1",
+   "C4",
+   "D3",
+   "X2",
+   "X4"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "D3",
+   "X2",
+   "X4"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "cut X79: end at [0.9742, 0.0065, 0.0129, 0.0065] reaches no exact point",
+   "cut X79: end at [0.9742, 0.0065, 0.0129, 0.0065] reaches no exact point",
+   "cut X79: end at [0.9742, 0.0065, 0.0129, 0.0065] reaches no exact point",
+   "line X2: end at [0.6376, 0.018, 0.1812, 0.1632] reaches no exact point"
+  ],
+  "n_loose": 4,
+  "share": {
+   "plane (0, 0, 0.707107, -0.707107)": [
+    51403,
+    61632
+   ],
+   "plane (0, 0.57735, -0.57735, 0.57735)": [
+    3733,
+    24512
+   ]
+  }
+ },
+ "X27": {
+  "edges_listed": [
+   "X2",
+   "X97"
+  ],
+  "edges_found": [
+   "X2",
+   "X97"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "C6",
+   "X2",
+   "X97"
+  ],
+  "points_listed": [
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "C6",
+   "X2",
+   "X97"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "cut X44: end at [0.476, 0.1818, 0.1818, 0.1603] reaches no exact point",
+   "cut X44: end at [0.476, 0.1818, 0.1818, 0.1603] reaches no exact point"
+  ],
+  "n_loose": 2,
+  "share": {
+   "plane (-0.295242, 0.477711, 0.295242, 0.772953)": [
+    3943,
+    6947
+   ],
+   "plane (0, 0.707107, -0.707107, 0)": [
+    4394,
+    5461
+   ]
+  }
+ },
+ "X28": {
+  "edges_listed": [
+   "E1",
+   "F1"
+  ],
+  "edges_found": [
+   "E1",
+   "F1"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C5",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "C5"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
+   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
+   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 36,
+  "share": {
+   "X28": [
+    4379,
+    34957
+   ]
+  }
+ },
+ "X31": {
+  "edges_listed": [
+   "X13",
+   "X17",
+   "X80"
+  ],
+  "edges_found": [
+   "X17",
+   "X80"
+  ],
+  "missing_edges": [
+   "X13"
+  ],
+  "extra": [],
+  "corners_found": [
+   "X2",
+   "X4"
+  ],
+  "points_listed": [
+   "A1"
+  ],
+  "corners_not_listed": [
+   "X2",
+   "X4"
+  ],
+  "listed_not_corners": [
+   "A1"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "plane (-0.356822, 0.934172, 0, 0)": [
+    1,
+    11838
+   ],
+   "plane (0, 0.707107, 0, -0.707107)": [
+    1600,
+    43605
+   ]
+  }
+ },
+ "X33": {
+  "edges_listed": [
+   "D1",
+   "D3",
+   "E1",
+   "E2"
+  ],
+  "edges_found": [
+   "E1"
+  ],
+  "missing_edges": [
+   "D1",
+   "D3",
+   "E2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [
+   "C1",
+   "C5"
+  ],
+  "loose_ends": [
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 16,
+  "share": {
+   "X33": [
+    3083,
+    24314
+   ]
+  }
+ },
+ "X34": {
+  "edges_listed": [
+   "D2",
+   "X24",
+   "X97"
+  ],
+  "edges_found": [
+   "X24",
+   "X97"
+  ],
+  "missing_edges": [
+   "D2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "X97"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X97"
+  ],
+  "listed_not_corners": [
+   "A1"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X14": [
+    10870,
+    22362
+   ]
+  }
+ },
+ "X35": {
+  "edges_listed": [
+   "D3",
+   "X18"
+  ],
+  "edges_found": [
+   "X18"
+  ],
+  "missing_edges": [
+   "D3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "D3"
+  ],
+  "points_listed": [
+   "A1",
+   "C1"
+  ],
+  "corners_not_listed": [
+   "D3"
+  ],
+  "listed_not_corners": [
+   "C1"
+  ],
+  "loose_ends": [
+   "line X18: end at [0.032, 0.0774, 0.4574, 0.4332] reaches no exact point",
+   "line X18: end at [0.0332, 0.08, 0.4559, 0.4309] reaches no exact point",
+   "line X18: end at [0.0344, 0.0826, 0.4544, 0.4286] reaches no exact point",
+   "line X18: end at [0.0356, 0.0853, 0.4529, 0.4262] reaches no exact point",
+   "line X18: end at [0.0417, 0.0983, 0.4454, 0.4146] reaches no exact point",
+   "line X18: end at [0.043, 0.1009, 0.4439, 0.4123] reaches no exact point",
+   "line X18: end at [0.0672, 0.1464, 0.4161, 0.3703] reaches no exact point",
+   "line X18: end at [0.0686, 0.1488, 0.4146, 0.368] reaches no exact point",
+   "line X18: end at [0.0823, 0.1704, 0.4002, 0.3471] reaches no exact point",
+   "line X18: end at [0.0839, 0.1728, 0.3985, 0.3448] reaches no exact point"
+  ],
+  "n_loose": 16,
+  "share": {
+   "X10": [
+    2043,
+    26485
+   ]
+  }
+ },
+ "X38": {
+  "edges_listed": [
+   "B1",
+   "C2a",
+   "E1"
+  ],
+  "edges_found": [
+   "E1"
+  ],
+  "missing_edges": [
+   "B1",
+   "C2a"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 26,
+  "share": {
+   "X38": [
+    12835,
+    20315
+   ]
+  }
+ },
+ "X39": {
+  "edges_listed": [
+   "X23",
+   "X29",
+   "X8"
+  ],
+  "edges_found": [
+   "X23"
+  ],
+  "missing_edges": [
+   "X29",
+   "X8"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C1"
+  ],
+  "corners_not_listed": [
+   "C6"
+  ],
+  "listed_not_corners": [
+   "C1"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X10": [
+    2650,
+    26485
+   ]
+  }
+ },
+ "X40": {
+  "edges_listed": [
+   "D1",
+   "D3",
+   "E1",
+   "E2"
+  ],
+  "edges_found": [
+   "E1"
+  ],
+  "missing_edges": [
+   "D1",
+   "D3",
+   "E2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [
+   "C1",
+   "C5"
+  ],
+  "loose_ends": [
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 26,
+  "share": {
+   "X40": [
+    4485,
+    24735
+   ]
+  }
+ },
+ "X41": {
+  "edges_listed": [
+   "C2a",
+   "D2",
+   "E1",
+   "X96"
+  ],
+  "edges_found": [
+   "E1",
+   "X96"
+  ],
+  "missing_edges": [
+   "C2a",
+   "D2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C4",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
+   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
+   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 36,
+  "share": {
+   "X28": [
+    6841,
+    34957
+   ]
+  }
+ },
+ "X42": {
+  "edges_listed": [
+   "D2",
+   "D3",
+   "X18",
+   "X2",
+   "X81"
+  ],
+  "edges_found": [
+   "X18",
+   "X2",
+   "X81"
+  ],
+  "missing_edges": [
+   "D2",
+   "D3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C4",
+   "X2",
+   "X81"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2",
+   "X81"
+  ],
+  "listed_not_corners": [
+   "A1",
+   "C1"
+  ],
+  "loose_ends": [
+   "line X18: end at [0.0494, 0.1137, 0.4363, 0.4006] reaches no exact point",
+   "line X18: end at [0.0533, 0.1214, 0.4317, 0.3936] reaches no exact point",
+   "line X18: end at [0.0547, 0.1239, 0.4301, 0.3913] reaches no exact point",
+   "line X18: end at [0.1064, 0.2018, 0.3766, 0.3152] reaches no exact point",
+   "line X18: end at [0.1082, 0.2039, 0.3749, 0.313] reaches no exact point",
+   "line X18: end at [0.118, 0.214, 0.3659, 0.302] reaches no exact point",
+   "line X81: end at [0.0846, 0.2215, 0.3553, 0.3387] reaches no exact point",
+   "line X81: end at [0.0835, 0.2186, 0.3573, 0.3405] reaches no exact point",
+   "line X81: end at [0.0745, 0.195, 0.3741, 0.3564] reaches no exact point",
+   "line X81: end at [0.0733, 0.1919, 0.3762, 0.3585] reaches no exact point"
+  ],
+  "n_loose": 10,
+  "share": {
+   "X42": [
+    511,
+    40529
+   ]
+  }
+ },
+ "X44": {
+  "edges_listed": [
+   "X24",
+   "X27",
+   "X81"
+  ],
+  "edges_found": [
+   "X24",
+   "X27",
+   "X81"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6",
+   "X2",
+   "X81",
+   "X97"
+  ],
+  "points_listed": [
+   "A1"
+  ],
+  "corners_not_listed": [
+   "C6",
+   "X2",
+   "X81",
+   "X97"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X24: end at [0.0336, 0.088, 0.4518, 0.4265] reaches no exact point",
+   "line X24: end at [0.0318, 0.0834, 0.4544, 0.4304] reaches no exact point",
+   "line X24: end at [0.0284, 0.0744, 0.4594, 0.4378] reaches no exact point",
+   "line X24: end at [0.0267, 0.07, 0.4618, 0.4414] reaches no exact point"
+  ],
+  "n_loose": 4,
+  "share": {
+   "plane (0, 0.707107, 0, -0.707107)": [
+    33421,
+    43605
+   ],
+   "plane (0.934172, -0.356822, 0, 0)": [
+    3057,
+    11932
+   ]
+  }
+ },
+ "X47": {
+  "edges_listed": [
+   "X18",
+   "X24",
+   "X97"
+  ],
+  "edges_found": [
+   "X18",
+   "X24",
+   "X97"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C4",
+   "X97"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X97"
+  ],
+  "listed_not_corners": [
+   "A1"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X14": [
+    10870,
+    22362
+   ]
+  }
+ },
+ "X48": {
+  "edges_listed": [
+   "D1",
+   "E1",
+   "E2",
+   "X18"
+  ],
+  "edges_found": [
+   "E1"
+  ],
+  "missing_edges": [
+   "D1",
+   "E2",
+   "X18"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [
+   "C1",
+   "C5"
+  ],
+  "loose_ends": [
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 26,
+  "share": {
+   "X38": [
+    12835,
+    20315
+   ]
+  }
+ },
+ "X51": {
+  "edges_listed": [
+   "D1",
+   "E1",
+   "E2",
+   "X84"
+  ],
+  "edges_found": [
+   "E1"
+  ],
+  "missing_edges": [
+   "D1",
+   "E2",
+   "X84"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [
+   "C1",
+   "C5"
+  ],
+  "loose_ends": [
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 24,
+  "share": {
+   "X51": [
+    6037,
+    18526
+   ]
+  }
+ },
+ "X52": {
+  "edges_listed": [
+   "X18",
+   "X29",
+   "X8"
+  ],
+  "edges_found": [
+   "X18",
+   "X29",
+   "X8"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C1",
+   "X5",
+   "X8"
+  ],
+  "points_listed": [
+   "A1",
+   "C1"
+  ],
+  "corners_not_listed": [
+   "X5",
+   "X8"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X8: end at [0.2394, 0.2606, 0.2606, 0.2394] reaches no exact point",
+   "line X8: end at [0.2387, 0.2613, 0.2613, 0.2387] reaches no exact point",
+   "line X8: end at [0.1201, 0.3799, 0.3799, 0.1201] reaches no exact point",
+   "line X8: end at [0.2395, 0.2605, 0.2605, 0.2395] reaches no exact point",
+   "line X8: end at [0.2387, 0.2613, 0.2613, 0.2387] reaches no exact point",
+   "line X18: end at [0.0238, 0.0589, 0.4678, 0.4495] reaches no exact point",
+   "line X18: end at [0.025, 0.0615, 0.4664, 0.4472] reaches no exact point",
+   "line X18: end at [0.0284, 0.0695, 0.4619, 0.4402] reaches no exact point",
+   "line X18: end at [0.0296, 0.0721, 0.4604, 0.4379] reaches no exact point",
+   "line X29: end at [0.1308, 0.3423, 0.3594, 0.1675] reaches no exact point"
+  ],
+  "n_loose": 45,
+  "share": {
+   "X10": [
+    23016,
+    26485
+   ]
+  }
+ },
+ "X53": {
+  "edges_listed": [
+   "E1",
+   "E2",
+   "X18"
+  ],
+  "edges_found": [
+   "E1"
+  ],
+  "missing_edges": [
+   "E2",
+   "X18"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C5",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [
+   "C1",
+   "C5"
+  ],
+  "loose_ends": [
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.1415, 0.3706, 0.4292, 0.0587] reaches no exact point",
+   "line E1: end at [0.1427, 0.3737, 0.4286, 0.055] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.1415, 0.3706, 0.4292, 0.0587] reaches no exact point",
+   "line E1: end at [0.1427, 0.3737, 0.4286, 0.055] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point"
+  ],
+  "n_loose": 16,
+  "share": {
+   "X53": [
+    7578,
+    42705
+   ]
+  }
+ },
+ "X79": {
+  "edges_listed": [
+   "X80",
+   "X81"
+  ],
+  "edges_found": [
+   "X80",
+   "X81"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C1",
+   "C6",
+   "X2"
+  ],
+  "points_listed": [
+   "A1"
+  ],
+  "corners_not_listed": [
+   "C1",
+   "C6",
+   "X2"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "cut X26: end at [0.0489, 0.0187, 0.4755, 0.4568] reaches no exact point",
+   "cut X26: end at [0.0236, 0.009, 0.4882, 0.4791] reaches no exact point",
+   "cut X26: end at [0.0281, 0.0107, 0.486, 0.4752] reaches no exact point",
+   "cut X26: end at [0.0295, 0.0113, 0.4853, 0.474] reaches no exact point",
+   "cut X26: end at [0.0315, 0.012, 0.4843, 0.4723] reaches no exact point",
+   "cut X26: end at [0.0181, 0.0069, 0.491, 0.4841] reaches no exact point",
+   "cut X26: end at [0.0192, 0.0073, 0.4904, 0.4831] reaches no exact point",
+   "cut X26: end at [0.0337, 0.0129, 0.4832, 0.4703] reaches no exact point",
+   "cut X26: end at [0.0458, 0.0175, 0.4771, 0.4596] reaches no exact point",
+   "cut X26: end at [0.0489, 0.0187, 0.4755, 0.4568] reaches no exact point"
+  ],
+  "n_loose": 20,
+  "share": {
+   "plane (-0.356822, 0.934172, 0, 0)": [
+    11819,
+    11838
+   ],
+   "plane (0, 0.707107, 0, -0.707107)": [
+    43603,
+    43605
+   ],
+   "plane (0.934172, -0.356822, 0, 0)": [
+    11926,
+    11932
+   ]
+  }
+ },
+ "X82": {
+  "edges_listed": [
+   "D2",
+   "X13",
+   "X4"
+  ],
+  "edges_found": [
+   "X4"
+  ],
+  "missing_edges": [
+   "D2",
+   "X13"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C4",
+   "X4"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X4"
+  ],
+  "listed_not_corners": [
+   "A1",
+   "C1"
+  ],
+  "loose_ends": [
+   "line X4: end at [0.0325, 0.6168, 0.1863, 0.1644] reaches no exact point",
+   "line X4: end at [0.0333, 0.6162, 0.1864, 0.1642] reaches no exact point"
+  ],
+  "n_loose": 2,
+  "share": {
+   "X14": [
+    3805,
+    22362
+   ]
+  }
+ },
+ "X83": {
+  "edges_listed": [
+   "C3",
+   "E2",
+   "X78"
+  ],
+  "edges_found": [
+   "E2",
+   "X78"
+  ],
+  "missing_edges": [
+   "C3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "C5"
+  ],
+  "points_listed": [
+   "C1",
+   "C5"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E2: end at [0.2597, 0.2597, 0.2597, 0.2209] reaches no exact point",
+   "line E2: end at [0.259, 0.259, 0.259, 0.2229] reaches no exact point",
+   "line E2: end at [0.2581, 0.2581, 0.2581, 0.2258] reaches no exact point",
+   "line E2: end at [0.3241, 0.3241, 0.3241, 0.0276] reaches no exact point",
+   "line E2: end at [0.3235, 0.3235, 0.3235, 0.0296] reaches no exact point",
+   "line E2: end at [0.323, 0.323, 0.323, 0.0309] reaches no exact point",
+   "line E2: end at [0.2603, 0.2603, 0.2603, 0.2192] reaches no exact point",
+   "line E2: end at [0.26, 0.26, 0.26, 0.2201] reaches no exact point",
+   "line E2: end at [0.2589, 0.2589, 0.2589, 0.2233] reaches no exact point",
+   "line X78: end at [0.2779, 0.2554, 0.2443, 0.2225] reaches no exact point"
+  ],
+  "n_loose": 41,
+  "share": {
+   "X38": [
+    1081,
+    20315
+   ]
+  }
+ },
+ "X84": {
+  "edges_listed": [
+   "D3",
+   "X18"
+  ],
+  "edges_found": [
+   "X18"
+  ],
+  "missing_edges": [
+   "D3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "D3"
+  ],
+  "points_listed": [
+   "A1",
+   "C1"
+  ],
+  "corners_not_listed": [
+   "D3"
+  ],
+  "listed_not_corners": [
+   "C1"
+  ],
+  "loose_ends": [
+   "line X18: end at [0.032, 0.0774, 0.4574, 0.4332] reaches no exact point",
+   "line X18: end at [0.0332, 0.08, 0.4559, 0.4309] reaches no exact point",
+   "line X18: end at [0.0344, 0.0826, 0.4544, 0.4286] reaches no exact point",
+   "line X18: end at [0.0356, 0.0853, 0.4529, 0.4262] reaches no exact point",
+   "line X18: end at [0.0417, 0.0983, 0.4454, 0.4146] reaches no exact point",
+   "line X18: end at [0.043, 0.1009, 0.4439, 0.4123] reaches no exact point",
+   "line X18: end at [0.0672, 0.1464, 0.4161, 0.3703] reaches no exact point",
+   "line X18: end at [0.0686, 0.1488, 0.4146, 0.368] reaches no exact point",
+   "line X18: end at [0.0823, 0.1704, 0.4002, 0.3471] reaches no exact point",
+   "line X18: end at [0.0839, 0.1728, 0.3985, 0.3448] reaches no exact point"
+  ],
+  "n_loose": 14,
+  "share": {
+   "X84": [
+    2041,
+    21582
+   ]
+  }
+ },
+ "X85": {
+  "edges_listed": [
+   "D2",
+   "X2",
+   "X80"
+  ],
+  "edges_found": [
+   "X80"
+  ],
+  "missing_edges": [
+   "D2",
+   "X2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [
+   "C1",
+   "C4"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X85": [
+    2952,
+    24780
+   ]
+  }
+ },
+ "X86": {
+  "edges_listed": [
+   "D2",
+   "X2",
+   "X80"
+  ],
+  "edges_found": [
+   "X2",
+   "X80"
+  ],
+  "missing_edges": [
+   "D2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C1",
+   "C4",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X2: end at [0.6376, 0.018, 0.1812, 0.1632] reaches no exact point"
+  ],
+  "n_loose": 1,
+  "share": {
+   "X25:fold": [
+    27107,
+    34113
+   ]
+  }
+ },
+ "X87": {
+  "edges_listed": [
+   "C3",
+   "D3",
+   "X2",
+   "X80"
+  ],
+  "edges_found": [
+   "X2",
+   "X80"
+  ],
+  "missing_edges": [
+   "C3",
+   "D3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C4",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4",
+   "C5"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [
+   "C1",
+   "C5"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X87": [
+    1999,
+    22821
+   ]
+  }
+ },
+ "X88": {
+  "edges_listed": [
+   "D3",
+   "X2",
+   "X80"
+  ],
+  "edges_found": [
+   "X2",
+   "X80"
+  ],
+  "missing_edges": [
+   "D3"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C4",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [
+   "A1",
+   "C1"
+  ],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X88": [
+    1249,
+    15246
+   ]
+  }
+ },
+ "X89": {
+  "edges_listed": [
+   "D2",
+   "X2",
+   "X81"
+  ],
+  "edges_found": [
+   "X81"
+  ],
+  "missing_edges": [
+   "D2",
+   "X2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [
+   "C1",
+   "C4"
+  ],
+  "loose_ends": [
+   "line X81: end at [0.0987, 0.2583, 0.3274, 0.3156] reaches no exact point",
+   "line X81: end at [0.0975, 0.2554, 0.3297, 0.3174] reaches no exact point",
+   "line X81: end at [0.0745, 0.195, 0.3741, 0.3564] reaches no exact point",
+   "line X81: end at [0.0733, 0.1919, 0.3762, 0.3585] reaches no exact point",
+   "line X81: end at [0.0212, 0.0556, 0.4654, 0.4578] reaches no exact point",
+   "line X81: end at [0.0219, 0.0573, 0.4643, 0.4565] reaches no exact point"
+  ],
+  "n_loose": 6,
+  "share": {
+   "X89": [
+    21683,
+    35774
+   ]
+  }
+ },
+ "X90": {
+  "edges_listed": [
+   "D2",
+   "X2",
+   "X81"
+  ],
+  "edges_found": [
+   "X81"
+  ],
+  "missing_edges": [
+   "D2",
+   "X2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [
+   "C1",
+   "C4"
+  ],
+  "loose_ends": [
+   "line X81: end at [0.0987, 0.2583, 0.3274, 0.3156] reaches no exact point",
+   "line X81: end at [0.0975, 0.2554, 0.3297, 0.3174] reaches no exact point",
+   "line X81: end at [0.0745, 0.195, 0.3741, 0.3564] reaches no exact point",
+   "line X81: end at [0.0733, 0.1919, 0.3762, 0.3585] reaches no exact point",
+   "line X81: end at [0.0212, 0.0556, 0.4654, 0.4578] reaches no exact point",
+   "line X81: end at [0.0219, 0.0573, 0.4643, 0.4565] reaches no exact point"
+  ],
+  "n_loose": 6,
+  "share": {
+   "X90": [
+    3056,
+    28592
+   ]
+  }
+ },
+ "X91": {
+  "edges_listed": [
+   "D3",
+   "X2",
+   "X81"
+  ],
+  "edges_found": [
+   "X81"
+  ],
+  "missing_edges": [
+   "D3",
+   "X2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [
+   "C1",
+   "C4"
+  ],
+  "loose_ends": [
+   "line X81: end at [0.0987, 0.2583, 0.3274, 0.3156] reaches no exact point",
+   "line X81: end at [0.0975, 0.2554, 0.3297, 0.3174] reaches no exact point",
+   "line X81: end at [0.0745, 0.195, 0.3741, 0.3564] reaches no exact point",
+   "line X81: end at [0.0733, 0.1919, 0.3762, 0.3585] reaches no exact point",
+   "line X81: end at [0.0212, 0.0556, 0.4654, 0.4578] reaches no exact point",
+   "line X81: end at [0.0219, 0.0573, 0.4643, 0.4565] reaches no exact point"
+  ],
+  "n_loose": 6,
+  "share": {
+   "X91": [
+    3035,
+    25597
+   ]
+  }
+ },
+ "X92": {
+  "edges_listed": [
+   "D3",
+   "X2",
+   "X81"
+  ],
+  "edges_found": [
+   "X81"
+  ],
+  "missing_edges": [
+   "D3",
+   "X2"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "X2"
+  ],
+  "points_listed": [
+   "A1",
+   "C1",
+   "C4"
+  ],
+  "corners_not_listed": [
+   "X2"
+  ],
+  "listed_not_corners": [
+   "C1",
+   "C4"
+  ],
+  "loose_ends": [
+   "line X81: end at [0.0987, 0.2583, 0.3274, 0.3156] reaches no exact point",
+   "line X81: end at [0.0975, 0.2554, 0.3297, 0.3174] reaches no exact point",
+   "line X81: end at [0.0745, 0.195, 0.3741, 0.3564] reaches no exact point",
+   "line X81: end at [0.0733, 0.1919, 0.3762, 0.3585] reaches no exact point",
+   "line X81: end at [0.0212, 0.0556, 0.4654, 0.4578] reaches no exact point",
+   "line X81: end at [0.0219, 0.0573, 0.4643, 0.4565] reaches no exact point"
+  ],
+  "n_loose": 6,
+  "share": {
+   "X92": [
+    3051,
+    26546
+   ]
+  }
+ },
+ "X93": {
+  "edges_listed": [
+   "X22",
+   "X80"
+  ],
+  "edges_found": [
+   "X22",
+   "X80"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C1",
+   "X2"
+  ],
+  "points_listed": [
+   "A1"
+  ],
+  "corners_not_listed": [
+   "C1",
+   "X2"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X25:fold": [
+    9088,
+    34113
+   ]
+  }
+ },
+ "X94": {
+  "edges_listed": [
+   "T2",
+   "X11"
+  ],
+  "edges_found": [
+   "T2",
+   "X11"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "C1",
+   "X94\u00b7X11\u00b7T2"
+  ],
+  "points_listed": [],
+  "corners_not_listed": [
+   "C1",
+   "X94\u00b7X11\u00b7T2"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [],
+  "n_loose": 0,
+  "share": {
+   "X94": [
+    3894,
+    16899
+   ]
+  }
+ },
+ "X96": {
+  "edges_listed": [
+   "C2a",
+   "T1",
+   "X5"
+  ],
+  "edges_found": [
+   "X5"
+  ],
+  "missing_edges": [
+   "C2a",
+   "T1"
+  ],
+  "extra": [],
+  "corners_found": [
+   "C4",
+   "C6",
+   "X5"
+  ],
+  "points_listed": [
+   "C4",
+   "C6"
+  ],
+  "corners_not_listed": [
+   "X5"
+  ],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line X5: end at [0.0997, 0.3871, 0.3871, 0.1261] reaches no exact point",
+   "line X5: end at [0.0997, 0.3871, 0.3871, 0.1261] reaches no exact point",
+   "line X5: end at [0.0228, 0.3456, 0.3456, 0.286] reaches no exact point",
+   "line X5: end at [0.0998, 0.3872, 0.3872, 0.1258] reaches no exact point"
+  ],
+  "n_loose": 4,
+  "share": {
+   "plane (0, 0.707107, -0.707107, 0)": [
+    889,
+    5461
+   ]
+  }
+ },
+ "X98": {
+  "edges_listed": [
+   "X21",
+   "X24",
+   "X29"
+  ],
+  "edges_found": [
+   "X21",
+   "X24",
+   "X29"
+  ],
+  "missing_edges": [],
+  "extra": [],
+  "corners_found": [
+   "X29",
+   "X8",
+   "X81",
+   "X97"
+  ],
+  "points_listed": [
+   "A1"
+  ],
+  "corners_not_listed": [
+   "X29",
+   "X8",
+   "X81",
+   "X97"
+  ],
+  "listed_not_corners": [
+   "A1"
+  ],
+  "loose_ends": [
+   "line X24: end at [0.9335, 0.012, 0.0424, 0.012] reaches no exact point",
+   "line X24: end at [0.9232, 0.0139, 0.049, 0.0139] reaches no exact point",
+   "line X24: end at [0.9178, 0.0149, 0.0524, 0.0149] reaches no exact point",
+   "line X24: end at [0.9066, 0.017, 0.0594, 0.017] reaches no exact point",
+   "line X24: end at [0.8823, 0.0216, 0.0746, 0.0216] reaches no exact point",
+   "line X24: end at [0.8778, 0.0224, 0.0773, 0.0224] reaches no exact point",
+   "line X24: end at [0.8841, 0.0212, 0.0735, 0.0212] reaches no exact point",
+   "line X24: end at [0.902, 0.0179, 0.0623, 0.0179] reaches no exact point",
+   "line X24: end at [0.9186, 0.0148, 0.0519, 0.0148] reaches no exact point",
+   "line X24: end at [0.9239, 0.0138, 0.0485, 0.0138] reaches no exact point"
+  ],
+  "n_loose": 67,
+  "share": {
+   "plane (0, 0.707107, 0, -0.707107)": [
+    37623,
+    43605
+   ],
+   "plane (0.934172, -0.356822, 0, 0)": [
+    11770,
+    11932
+   ]
+  }
+ },
+ "X99": {
+  "edges_listed": [
+   "B1",
+   "C2a",
+   "E1"
+  ],
+  "edges_found": [
+   "E1"
+  ],
+  "missing_edges": [
+   "B1",
+   "C2a"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0189, 0.0494, 0.4906, 0.4412] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3672, 0.4299, 0.0627] reaches no exact point"
+  ],
+  "n_loose": 10,
+  "share": {
+   "X99": [
+    12900,
+    27766
+   ]
+  }
+ },
+ "X100": {
+  "edges_listed": [
+   "C2a",
+   "E1",
+   "F4"
+  ],
+  "edges_found": [
+   "E1",
+   "F4"
+  ],
+  "missing_edges": [
+   "C2a"
+  ],
+  "extra": [],
+  "corners_found": [
+   "A1",
+   "C6"
+  ],
+  "points_listed": [
+   "A1",
+   "C6"
+  ],
+  "corners_not_listed": [],
+  "listed_not_corners": [],
+  "loose_ends": [
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
+   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
+   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
+   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
+   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
+  ],
+  "n_loose": 26,
+  "share": {
+   "X100": [
+    4691,
+    26534
+   ]
+  }
+ }
+}
