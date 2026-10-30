@@ -395,12 +395,11 @@ def grow(W, walls, D, seeds, dbg=None):
                 rim_src.append((src, np.unique(Ei[b])))
                 continue
             ch = sg[Ei[:, 0], k] != sg[Ei[:, 1], k]
-            if not ch.any() or kind == "cut":
+            # (a cut divides nothing; nor does a seam, where two copies of the wall in the half-cell meet: each goes on
+            # through it, and where one ends there, a listed line is its edge)
+            if not ch.any() or kind in ("cut", "seam"):
                 continue
             idx = np.flatnonzero(ch)
-            if kind == "seam":
-                blocked[idx] = True
-                continue
             X = crossing(V, Ei[idx], f, S)
             r_ = idx[real_at(kind, src, P, X, walls)]
             blocked[r_] = True
@@ -444,16 +443,27 @@ def grow(W, walls, D, seeds, dbg=None):
                 stop |= b
                 sh["rim_src"].append((src, np.unique(Eo[b, 0])))      # (a line in a face of the half-cell)
                 continue
-            if kind == "cut":
+            if kind in ("cut", "seam"):
                 continue
             ch = np.flatnonzero(sg[Eo[:, 0], k] != sg[Eo[:, 1], k])
             if not len(ch):
                 continue
-            if kind == "seam":
-                stop[ch] = True
-                continue
             X = crossing(V, Eo[ch], f, surface(sn))
             stop[ch[real_at(kind, src, P, X, walls)]] = True
+        # (a wall it ends on lying in the face itself, as X23 does in b2 = 0: no copy of it changes sign between
+        # points of the half-cell, so it is tested where the step crosses the face)
+        if len(Eo):
+            # (the exact point where the step crosses the face it leaves by)
+            fi = np.argmin(V[Eo[:, 1]] @ CELL.T, axis=1)
+            mid = (V[Eo[:, 0]] + V[Eo[:, 1]]) / 2
+            for f_ in np.unique(fi):
+                m_ = fi == f_
+                mid[m_] = onto([surface(sn), osd.Plane(CELL[f_], "face")], mid[m_])
+            for Y in {f[1] for f in funcs if f[0] == "edge"}:
+                if Y in walls:
+                    live = np.flatnonzero(~stop)
+                    if len(live):
+                        stop[live[walls[Y].present(mid[live])]] = True
         Eo = Eo[~stop]
         for ni, Q in carried(V[Eo[:, 1]], strict=True):
             # (the point past the face is the wall only if every copy of it in the half-cell lies on one of the wall's
@@ -521,7 +531,7 @@ def grow(W, walls, D, seeds, dbg=None):
                 step = np.array([[0, 1]])
                 ok = True
                 for k, (kind, src, f, P) in enumerate(sh["funcs"]):
-                    if kind == "cut":
+                    if kind in ("cut", "seam"):
                         continue
                     if kind == "line":
                         if line_steps(pair, step, P, S).any():
@@ -531,7 +541,7 @@ def grow(W, walls, D, seeds, dbg=None):
                     fy, fv = fvals(f, pair)
                     if (fy > 0) == (fv > 0):
                         continue
-                    if kind == "seam" or real_at(kind, src, P, crossing(pair, step, f, S), walls).any():
+                    if real_at(kind, src, P, crossing(pair, step, f, S), walls).any():
                         ok = False
                         break
                 if ok:
