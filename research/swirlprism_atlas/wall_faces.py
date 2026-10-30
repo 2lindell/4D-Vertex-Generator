@@ -147,29 +147,98 @@ def wall(w, work, curves, seeds):
     s_ = Y.sum(1)
     Y = Y[np.abs(s_) > 1e-12] / s_[np.abs(s_) > 1e-12, None]
     Y = Y[(Y @ ar.CELL.T >= -1e-12).all(1)]
-    drawn = set()
-    report = {"sheets": 0, "sheets_with_seed": 0, "no_seed_sheets": []}
-    for k, sh in sheets.items():
+    import shapely
+    from scipy.spatial import cKDTree
+
+    def build(k):
+        sh = sheets[k]
         S = sh["S"]
-        rim = face_curves(S)
-        pts = np.vstack([P for P in rim] + [st[i][1] for i in sh["st"]])
+        if "st" not in sh:
+            sh["st"] = [i for i, (L, P, a, b) in enumerate(st) if dist(S, inner(P)).max() < 1e-7]
+        sh["rim"] = face_curves(S)
+        sh["wall"] = set()
+        pts = [R for R in sh["rim"]] + [st[i][1] for i in sh["st"]]
+        if not pts:
+            sh["faces"] = []
+            return
+        pts = np.vstack(pts)
         c0 = pts.mean(0)
         U = np.linalg.svd(pts - c0, full_matrices=False)[2][:2]
-        ch = lambda X: (np.atleast_2d(X) - c0) @ U.T
-        geo = [LineString(ch(st[i][1])) for i in sh["st"]] + [LineString(ch(R)) for R in rim]
+        sh["ch"] = lambda X, c0=c0, U=U: (np.atleast_2d(X) - c0) @ U.T
+        geo = [LineString(sh["ch"](st[i][1])) for i in sh["st"]] + [LineString(sh["ch"](R)) for R in sh["rim"]]
         allg = unary_union(geo)
-        import shapely
-        geo2 = [shapely.snap(g, allg, 1e-9) for g in geo]
-        faces = list(polygonize(unary_union(geo2)))
-        seeds_here = [y for y in Y if dist(S, y[None])[0] < 1e-9]
-        wf = [f for f in faces if any(f.buffer(1e-12).contains(Point(ch(y)[0])) for y in seeds_here)]
-        report["sheets"] += 1
-        if wf:
-            report["sheets_with_seed"] += 1
-        else:
-            report["no_seed_sheets"].append(sh["name"])
+        sh["faces"] = list(polygonize(unary_union([shapely.snap(g, allg, 1e-9) for g in geo])))
+
+    def face_at(sh, y):
+        q = Point(sh["ch"](y)[0])
+        return [j for j, f in enumerate(sh["faces"]) if f.buffer(1e-12).contains(q)]
+    for k in list(sheets):
+        build(k)
+    # (its faces: those holding an image of its seed)
+    queue = []
+    for k, sh in sheets.items():
+        for y in Y:
+            if sh["faces"] and dist(sh["S"], y[None])[0] < 1e-9:
+                for j in face_at(sh, y):
+                    if j not in sh["wall"]:
+                        sh["wall"].add(j)
+                        queue.append((k, j))
+    # (and those it goes on to past a face of the half-cell where none of its edges is: the point just past the face
+    # carried back into the half-cell by the group, onto the copy of its surface it lands on)
+    # (strictly: no going on where the crossing lies on any copy of one of its edge lines, or of the surface of a wall
+    # it ends on)
+    line_pts = [np.asarray(c, float) for L in wd["edges"] if L in XL for c in line_in_cell(XL[L]["points"])]
+    allst = cKDTree(np.vstack(line_pts + [P for _, P, _, _ in st])) if line_pts or st else None
+    edge_walls = [n for Y in wd["edges"] if Y not in XL for n in work["exact"]["wall_surfaces"].get(Y, []) if n in ar.LIB]
+
+    def on_edge_wall(m):
+        X = np.einsum("gij,j->gi", ar.GINV, m)
+        return any((dist(ar.LIB[n], X) < 1e-7).any() for n in edge_walls)
+    while queue:
+        k, j = queue.pop()
+        sh = sheets[k]
+        S, f = sh["S"], sh["faces"][j]
+        for R in sh["rim"]:
+            C2 = sh["ch"](R)
+            mids3, mids2 = (R[:-1] + R[1:]) / 2, (C2[:-1] + C2[1:]) / 2
+            on = np.array([f.boundary.distance(Point(m)) < 1e-9 for m in mids2], bool)
+            for m in mids3[on][::4]:
+                if (allst is not None and allst.query(m)[0] < 1e-6) or on_edge_wall(m):
+                    continue                               # (an edge of it lies in the face there)
+                vals = m @ ar.CELL.T
+                nf = ar.CELL[int(np.argmin(np.abs(vals)))]
+                g = ar.grads(S, m[None])[0]
+                d = -(nf - nf.mean())
+                d = d - g * (d @ g) / (g @ g + 1e-300)
+                d = d - d.mean()
+                if np.linalg.norm(d) < 1e-12:
+                    continue
+                p = ar.onto([S], (m + 1e-5 * d / np.linalg.norm(d))[None])
+                for _, Q in ar.carried(p, strict=True):
+                    for q in Q:
+                        for n in bases:
+                            v = dist(ar.LIB[n], np.einsum("gij,j->gi", ar.GINV, q))
+                            for gg in np.flatnonzero(v < 1e-7)[:1]:
+                                S2 = ar.Img(ar.LIB[n], int(gg))
+                                k2 = ar.sheet_key(S2)
+                                if k2 not in sheets:
+                                    sheets[k2] = {"S": S2, "name": f"{n}@{gg}"}
+                                    build(k2)
+                                sh2 = sheets[k2]
+                                if not sh2["faces"]:
+                                    continue
+                                for j2 in face_at(sh2, q):
+                                    if j2 not in sh2["wall"]:
+                                        sh2["wall"].add(j2)
+                                        queue.append((k2, j2))
+    drawn = set()
+    report = {"sheets": len(sheets), "sheets_with_wall": sum(1 for sh in sheets.values() if sh["wall"])}
+    for k, sh in sheets.items():
+        wf = [sh["faces"][j] for j in sh["wall"]]
+        if not wf:
+            continue
         for i in sh["st"]:
-            P = ch(st[i][1])
+            P = sh["ch"](st[i][1])
             m = len(P) // 2
             a, b = P[max(0, m - 1)], P[min(len(P) - 1, m + 1)]
             t = b - a
@@ -208,7 +277,7 @@ def main(only=None):
             continue
         edges, rep = wall(w, work, curves, seeds)
         res[w] = {"edges": edges, "report": rep}
-        print(f"{w}: {len(edges)} edges drawn; sheets {rep['sheets']} ({rep['sheets_with_seed']} with its seed); "
+        print(f"{w}: {len(edges)} edges drawn; sheets {rep['sheets']} ({rep['sheets_with_wall']} with its faces); "
               f"not drawn {rep['edges_not_drawn']}; corners met once {len(rep['corners_met_once'])}", flush=True)
         json.dump(res, open(OUT, "w"))
 
