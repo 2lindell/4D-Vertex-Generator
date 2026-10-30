@@ -2,7 +2,8 @@
 
 From the built page: every wall's mesh is left out, and every outline or dashed cut that came from a mesh's rim. Kept and
 added, all from exact data:
-  * the named lines, from their exact points (as the page draws them);
+  * the named lines, from their exact points (as the page draws them), and each wall's own edge lines as its outline:
+    every copy of the line lying on one of the wall's surfaces as placed in the half-cell;
   * each wall's edge along another wall (solid) and each cut another wall makes on it (dashed: the cutting wall's own
     edge on it), the exact curves of exact_curves.py, every image of each in the half-cell, kept where it lies exactly
     on one of the wall's own surfaces as placed in the half-cell and on one of the other wall's (strictly: no mesh is
@@ -50,6 +51,15 @@ def main(src, dst):
             for run in curves.get(c["by"], {}).get(w, []):
                 dashed += [(w, c["by"], p) for p in in_cell(run)
                            if on_placed(surf.get(w, []), p) and on_placed(surf.get(c["by"], []), p)]
+    # (each wall's own edge lines: every copy of the line's exact pieces in the half-cell lying on one of its placed
+    # surfaces)
+    from domain_page import line_in_cell
+    XL = work["exact"]["lines"]
+    for w, wd in walls.items():
+        for L in wd["edges"]:
+            if L in XL:
+                solid += [(w, L, np.asarray(p, float)) for p in line_in_cell(XL[L]["points"])
+                          if len(p) >= 2 and on_placed(surf.get(w, []), np.asarray(p, float))]
     print(f"{len(solid)} solid and {len(dashed)} dashed exact pieces", flush=True)
     hover = lambda w, Y, copy: (f"{w} · edge of the wall, along {Y} (exact)" if not copy else
                                 f"{w} · invisible line: where {Y} meets it, between its pieces (exact)")
