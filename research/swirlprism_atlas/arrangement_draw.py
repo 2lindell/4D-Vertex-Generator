@@ -145,7 +145,7 @@ def finish_end(x, S, f, EP, names):
 
 def main():
     work = json.load(open("working_data.json"))["walls"]
-    got = pickle.load(open(os.path.join(CACHE, f"setup_{N}.pkl"), "rb"))
+    got = pickle.load(open(os.path.join(CACHE, f"setup_{N}s.pkl"), "rb"))
     z = np.load(os.path.join(CACHE, "walls.npz"))
     walls = {}
     for w, sn, V, E, T, ins, funcs, sg in got:

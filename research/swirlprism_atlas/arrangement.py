@@ -104,14 +104,16 @@ def off(s, X):
 def mesh(sn):
     """The scaffold of the surface sn over the half-cell and a little past it: points (betas, on the surface), the pairs
     of neighbouring points, and which points are in the half-cell."""
-    path = os.path.join(CACHE, hashlib.md5(sn.encode()).hexdigest()[:12] + f"_{N}.npz")
+    path = os.path.join(CACHE, hashlib.md5(sn.encode()).hexdigest()[:12] + f"_{N}s.npz")
     if os.path.exists(path):
         z = np.load(path)
         return z["V"], z["E"], z["T"]
     S = LIB[sn]
     pad = 3
+    # (the grid shifted by odd amounts on each axis, so no grid point lies on any of the exact planes, the half-cell's
+    # faces among them)
     r = np.arange(-pad, N + pad + 1) * H
-    I, J, K = np.meshgrid(r, r, r, indexing="ij")
+    I, J, K = np.meshgrid(r + 0.3127 * H, r + 0.4419 * H, r + 0.2733 * H, indexing="ij")
     Q = np.stack([I, J, K], -1).reshape(-1, 3)
     Bt = np.column_stack([Q, 1 - Q.sum(1)])
     near = ((Bt @ CELL.T) / np.linalg.norm(CELL, axis=1) > -2.5 * H).all(1)
@@ -368,7 +370,7 @@ def main(only=None):
     D = (work, ex, lines)
     names = list(work)
     jobs = [(w, sn, D) for w in names for sn in ex["walls"][w]["surface"] if sn in LIB]
-    sp = os.path.join(CACHE, f"setup_{N}.pkl")
+    sp = os.path.join(CACHE, f"setup_{N}s.pkl")
     if os.path.exists(sp):
         got = pickle.load(open(sp, "rb"))
     else:
@@ -382,18 +384,29 @@ def main(only=None):
         print(f"{w} on {sn}: {len(V)} points, {len(funcs)} copies crossing "
               f"({', '.join(sorted({f[1] for f in funcs}))})", flush=True)
     walls = {w: Wall(w, sh) for w, sh in walls.items()}
-    for it in range(8):
+    # (a wall is grown again only when a wall bounding it changed in the round before)
+    deps = {w: {f[1] for sh in W.sheets.values() for f in sh["funcs"] if f[0] == "edge"} for w, W in walls.items()}
+    changed, history = list(walls), []
+    for it in range(20):
         new = {}
         for w, W in walls.items():
+            if it and not deps[w] & set(changed):
+                continue
             t0 = time.time()
             new[w] = grow(W, walls, D, seeds)
             print(f"  {w}: {sum(int(v.sum()) for v in new[w].values())} points ({time.time() - t0:.0f} s)", flush=True)
-        changed = [w for w, W in walls.items() if any((new[w][sn] != W.inwall[sn]).any() for sn in W.sheets)]
-        for w, W in walls.items():
-            W.inwall, W.tree = new[w], {}
+        changed = [w for w in new if any((new[w][sn] != walls[w].inwall[sn]).any() for sn in walls[w].sheets)]
+        for w in new:
+            walls[w].inwall, walls[w].tree = new[w], {}
+        state = tuple(sorted((w, int(sum(v.sum() for v in walls[w].inwall.values()))) for w in walls))
         print(f"round {it}: changed {changed}", flush=True)
         if not changed:
             break
+        if state in history:
+            print(f"round {it}: back to the state of round {history.index(state)}: these walls do not settle: {changed}",
+                  flush=True)
+            break
+        history.append(state)
     out = {}
     for w, W in walls.items():
         out[w] = {sn: {"points": int(W.inwall[sn].sum()), "of": int(sh["ins"].sum())} for sn, sh in W.sheets.items()}
