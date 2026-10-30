@@ -132,7 +132,8 @@ def wall(w, work, curves, seeds, dbg=None):
                         st.append((L, P, a, b))
         else:
             for run in curves.get(w, {}).get(L, []):
-                st += [(L, P, "?", "?") for P in in_cell(run)]
+                # (cut at its own corners too, like a line: a traced curve runs on past where the wall ends)
+                st += [(L, Q, a, b) for P in in_cell(run) for Q, a, b in lp.split_at_points(P, corners)]
     # (the copies of its surfaces they lie on)
     sheets = {}
     on_sheet = []
@@ -198,9 +199,16 @@ def wall(w, work, curves, seeds, dbg=None):
     allst = cKDTree(np.vstack(line_pts + [P for _, P, _, _ in st])) if line_pts or st else None
     edge_walls = [n for Y in wd["edges"] if Y not in XL for n in work["exact"]["wall_surfaces"].get(Y, []) if n in ar.LIB]
 
-    def on_edge_wall(m):
+    def on_edge_wall(m, S):
+        """m on a copy of the surface of a wall it ends on, other than its own surface there (walls can share planes:
+        F1 lies on copies of T2's)."""
         X = np.einsum("gij,j->gi", ar.GINV, m)
-        return any((dist(ar.LIB[n], X) < 1e-7).any() for n in edge_walls)
+        own = ar.sheet_key(S)
+        for n in edge_walls:
+            for g in np.flatnonzero(dist(ar.LIB[n], X) < 1e-7):
+                if ar.sheet_key(ar.Img(ar.LIB[n], int(g))) != own:
+                    return True
+        return False
     while queue:
         k, j = queue.pop()
         sh = sheets[k]
@@ -210,7 +218,7 @@ def wall(w, work, curves, seeds, dbg=None):
             mids3, mids2 = (R[:-1] + R[1:]) / 2, (C2[:-1] + C2[1:]) / 2
             on = np.array([f.boundary.distance(Point(m)) < 1e-9 for m in mids2], bool)
             for m in mids3[on][::4]:
-                if (allst is not None and allst.query(m)[0] < 1e-6) or on_edge_wall(m):
+                if (allst is not None and allst.query(m)[0] < 1e-6) or on_edge_wall(m, S):
                     continue                               # (an edge of it lies in the face there)
                 vals = m @ ar.CELL.T
                 nf = ar.CELL[int(np.argmin(np.abs(vals)))]
