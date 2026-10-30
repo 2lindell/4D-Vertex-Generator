@@ -403,8 +403,14 @@ def grow(W, walls, D, seeds):
             stop[ch[real_at(kind, src, P, X, walls)]] = True
         Eo = Eo[~stop]
         for ni, Q in carried(V[Eo[:, 1]], strict=True):
+            # (the point past the face is the wall only if every copy of it in the half-cell lies on one of the wall's
+            # surfaces as placed there: one copy off them (the fold's, say, on a surface the wall does not use) means
+            # the wall stops at the face)
+            onW = {sn2: off(LIB[sn2], Q) < 1e-7 for sn2 in W.sheets}
+            anyW = np.any(list(onW.values()), axis=0)
+            bad = np.isin(ni, ni[~anyW])
             for sn2 in W.sheets:
-                on_ = off(LIB[sn2], Q) < 1e-7
+                on_ = onW[sn2] & ~bad
                 if not on_.any():
                     continue
                 d, j = trees[sn2].query(Q[on_])

@@ -863,26 +863,15 @@
    "X5"
   ],
   "listed_not_corners": [],
-  "loose_ends": [
-   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
-   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
-   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
-   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
-   "line E1: end at [0.1399, 0.3662, 0.4301, 0.0638] reaches no exact point",
-   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
-   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
-   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
-   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
-   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
-  ],
-  "n_loose": 36,
+  "loose_ends": [],
+  "n_loose": 0,
   "share": {
    "plane (0, 1, 0, 0)": [
     0,
     16256
    ],
    "plane (0.879839, 0, -0.336068, 0.336068)": [
-    4754,
+    0,
     11314
    ],
    "plane (1, -0, -0, -0)": [
@@ -1391,22 +1380,11 @@
   ],
   "corners_not_listed": [],
   "listed_not_corners": [],
-  "loose_ends": [
-   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
-   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
-   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
-   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point",
-   "line E1: end at [0.1397, 0.3656, 0.4302, 0.0646] reaches no exact point",
-   "line E1: end at [0.1402, 0.3671, 0.4299, 0.0627] reaches no exact point",
-   "line E1: end at [0.0165, 0.0432, 0.4918, 0.4486] reaches no exact point",
-   "line E1: end at [0.0176, 0.0461, 0.4912, 0.4451] reaches no exact point",
-   "line E1: end at [0.0184, 0.0481, 0.4908, 0.4428] reaches no exact point",
-   "line E1: end at [0.0192, 0.0502, 0.4904, 0.4402] reaches no exact point"
-  ],
-  "n_loose": 36,
+  "loose_ends": [],
+  "n_loose": 0,
   "share": {
    "X28": [
-    6841,
+    4397,
     34957
    ]
   }
