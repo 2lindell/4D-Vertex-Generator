@@ -9,7 +9,8 @@ For each wall, from the working data (working_data.json, its "exact" section) al
   * on each such copy, its stretches and the copy's own rim on the half-cell's faces laid out flat (a plane in its own
     coordinates, a curved surface along its mean normal), and the faces they enclose;
   * the wall's faces: those holding an image of its seed;
-  * its drawn edges: the stretches with one of its faces on one side only. A stretch with its faces on neither side
+  * its drawn edges: the stretches with one of its faces on one side only; its cuts (dashed): the stretches of the
+    edges other walls end along on it that run through its faces, the wall on both sides. A stretch with its faces on neither side
     is a copy of the line where the wall is not, and is not drawn.
 Checked: every listed edge drawn somewhere, and every corner inside the half-cell met by two drawn edges.
 
@@ -117,6 +118,46 @@ def face_curves(S, n=160):
     return out
 
 
+def crossing_curves(sn, S, names):
+    """Where every copy of the surfaces `names` crosses the surface S (named sn) in the half-cell: traced across S's
+    scaffold (arrangement.mesh) and every point solved exactly onto both surfaces."""
+    from arrangement_draw import chains
+    ar.SURF.setdefault(sn, S)
+    V, E, T = ar.mesh(sn)
+    ins = ar.inside(V)
+    own = ar.sheet_key(S)
+    out = []
+    for yn in names:
+        for g in ar.copies_crossing(ar.LIB[yn], V, ins):
+            f = ar.Img(ar.LIB[yn], g)
+            if ar.sheet_key(f) == own:
+                continue
+            sg = ar.fvals(f, V) > 0
+            ch = sg[T] != sg[T[:, [1, 2, 0]]]
+            rows = np.flatnonzero(ch.sum(1) == 2)
+            if not len(rows):
+                continue
+            segs = []
+            for r in rows:
+                e = [tuple(sorted((T[r, a], T[r, (a + 1) % 3]))) for a in range(3) if ch[r, a]]
+                segs.append((e[0], e[1]))
+            for c in chains(segs):
+                keys = np.array(c)
+                X = ar.crossing(V, keys, f, S)
+                inside = (X @ ar.CELL.T >= -1e-9).all(1)
+                cur = []
+                for x, k in zip(X, inside):
+                    if k:
+                        cur.append(x)
+                    elif cur:
+                        if len(cur) >= 2:
+                            out.append(np.array(cur))
+                        cur = []
+                if len(cur) >= 2:
+                    out.append(np.array(cur))
+    return out
+
+
 def wall(w, work, curves, seeds, dbg=None):
     wd = work["walls"][w]
     XL = work["exact"]["lines"]
@@ -130,10 +171,7 @@ def wall(w, work, curves, seeds, dbg=None):
                 for P, a, b in lp.split_at_points(np.asarray(c, float), corners):
                     if not a == b == "face" and {a, b} <= corners | {"face"}:
                         st.append((L, P, a, b))
-        else:
-            for run in curves.get(w, {}).get(L, []):
-                # (cut at its own corners too, like a line: a traced curve runs on past where the wall ends)
-                st += [(L, Q, a, b) for P in in_cell(run) for Q, a, b in lp.split_at_points(P, corners)]
+
     # (the copies of its surfaces they lie on)
     sheets = {}
     on_sheet = []
@@ -150,12 +188,22 @@ def wall(w, work, curves, seeds, dbg=None):
     Y = Y[(Y @ ar.CELL.T >= -1e-12).all(1)]
     import shapely
     from scipy.spatial import cKDTree
+    edge_walls_of = {Y: [n for n in work["exact"]["wall_surfaces"].get(Y, []) if n in ar.LIB]
+                     for Y in wd["edges"] if Y not in XL}
 
     def build(k):
         sh = sheets[k]
         S = sh["S"]
         if "st" not in sh:
-            sh["st"] = [i for i, (L, P, a, b) in enumerate(st) if dist(S, inner(P)).max() < 1e-7]
+            sh["st"] = [i for i, (L, P, a, b) in enumerate(st) if L in XL and dist(S, inner(P)).max() < 1e-7]
+        # (its edges along other walls on this copy: every copy of the other wall's surface crossing it, the crossing
+        # solved exactly, cut at its own corners, kept from corner to corner)
+        for Y, names in edge_walls_of.items():
+            for P in crossing_curves(sh["name"], S, names):
+                for Q, a, b in lp.split_at_points(P, corners, tol=3e-4):
+                    if not a == b == "face" and {a, b} <= corners | {"face"} and a != "?" and b != "?":
+                        st.append((Y, Q, a, b))
+                        sh["st"].append(len(st) - 1)
         sh["rim"] = face_curves(S)
         sh["wall"] = set()
         pts = [R for R in sh["rim"]] + [st[i][1] for i in sh["st"]]
@@ -202,11 +250,14 @@ def wall(w, work, curves, seeds, dbg=None):
     def on_edge_wall(m, S):
         """m on a copy of the surface of a wall it ends on, other than its own surface there (walls can share planes:
         F1 lies on copies of T2's)."""
+        # (only a copy lying in the face itself, as X23 does in b2 = 0: it crosses no copy of the surface, so it is
+        # not among the traced edges; the edges that cross are, corner to corner)
         X = np.einsum("gij,j->gi", ar.GINV, m)
-        own = ar.sheet_key(S)
+        nf = ar.CELL[int(np.argmin(np.abs(m @ ar.CELL.T)))]
+        face = ar.sheet_key(osd.Plane(nf, "face"))
         for n in edge_walls:
             for g in np.flatnonzero(dist(ar.LIB[n], X) < 1e-7):
-                if ar.sheet_key(ar.Img(ar.LIB[n], int(g))) != own:
+                if ar.sheet_key(ar.Img(ar.LIB[n], int(g))) == face:
                     return True
         return False
     while queue:
@@ -278,7 +329,31 @@ def wall(w, work, curves, seeds, dbg=None):
     report["corners_met_once"] = sorted({str(list(k)) for k, n in deg.items() if n < 2})
     out = [{"along": st[i][0], "from": st[i][2], "to": st[i][3], "points": np.round(st[i][1], 12).tolist()}
            for i in sorted(drawn)]
-    return out, report
+    # (its cuts: where a wall that ends on it does so, the stretches of that wall's edge on it that run through its
+    # faces, the wall on both sides)
+    cuts = []
+    for c in wd.get("cuts", []):
+        Yc = c["by"]
+        for run in curves.get(Yc, {}).get(w, []):
+            for P in in_cell(run):
+                for k, sh in sheets.items():
+                    if not sh["wall"] or dist(sh["S"], inner(P)).max() > 1e-7:
+                        continue
+                    wfu = unary_union([sh["faces"][j] for j in sh["wall"]])
+                    C2 = sh["ch"](P)
+                    keep = [wfu.contains(Point((C2[i] + C2[i + 1]) / 2)) for i in range(len(P) - 1)]
+                    cur = []
+                    for i, kp in enumerate(keep):
+                        if kp:
+                            cur = cur or [P[i]]
+                            cur.append(P[i + 1])
+                        elif cur:
+                            cuts.append({"by": Yc, "points": np.round(np.array(cur), 12).tolist()})
+                            cur = []
+                    if len(cur) >= 2:
+                        cuts.append({"by": Yc, "points": np.round(np.array(cur), 12).tolist()})
+    report["cuts_drawn"] = len(cuts)
+    return out, report, cuts
 
 
 def main(only=None):
@@ -292,8 +367,8 @@ def main(only=None):
     for w in work["walls"]:
         if only and w not in only:
             continue
-        edges, rep = wall(w, work, curves, seeds)
-        res[w] = {"edges": edges, "report": rep}
+        edges, rep, cuts = wall(w, work, curves, seeds)
+        res[w] = {"edges": edges, "report": rep, "cuts": cuts}
         print(f"{w}: {len(edges)} edges drawn; sheets {rep['sheets']} ({rep['sheets_with_wall']} with its faces); "
               f"not drawn {rep['edges_not_drawn']}; corners met once {len(rep['corners_met_once'])}", flush=True)
         json.dump(res, open(OUT, "w"))

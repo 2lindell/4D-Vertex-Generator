@@ -30,7 +30,7 @@ from exact_page import TAGS, in_cell
 _EP = []
 
 
-def split_at_points(P, only=None):
+def split_at_points(P, only=None, tol=1e-7):
     """A line's piece (betas) split at the exact points it passes through (only those named in `only`, a wall's
     corners, when given: the wall's edge runs straight through any other): [(stretch, name at start, name at end)], an
     end on a face of the half-cell named "face"."""
@@ -45,7 +45,7 @@ def split_at_points(P, only=None):
         t = np.clip(((x - a) * d).sum(1) / np.maximum((d * d).sum(1), 1e-300), 0, 1)
         dist = np.linalg.norm(a + t[:, None] * d - x, axis=1)
         i = int(dist.argmin())
-        if dist[i] < 1e-7 and (only is None or n in only or i + t[i] < 1e-9 or i + t[i] > len(P) - 1 - 1e-9):
+        if dist[i] < tol and (only is None or n in only or i + t[i] < 1e-9 or i + t[i] > len(P) - 1 - 1e-9):
             hits.append((i + t[i], n, x))
     hits.sort(key=lambda h: h[0])
     face = lambda x: "face" if min(x[0], x[1], x[3], x[2] - x[3]) < 1e-9 else None
@@ -113,11 +113,9 @@ def main(src, dst):
     open_ = {w: r["report"]["corners_met_once"] for w, r in WF.items() if r["report"]["corners_met_once"]}
     missing = {w: r["report"]["edges_not_drawn"] for w, r in WF.items() if r["report"]["edges_not_drawn"]}
     print("listed edges not drawn:", missing, flush=True)
-    for w, wd in walls.items():
-        for c in wd.get("cuts", []):
-            for run in curves.get(c["by"], {}).get(w, []):
-                dashed += [(w, c["by"], p) for p in in_cell(run)
-                           if on_placed(surf.get(w, []), p) and on_placed(surf.get(c["by"], []), p)]
+    # (each wall's cuts: wall_faces.py, only where they run through its faces)
+    for w, r in WF.items():
+        dashed += [(w, c["by"], np.asarray(c["points"], float)) for c in r.get("cuts", [])]
     print("walls whose drawn outline leaves a corner met by one edge only:", open_, flush=True)
     print(f"{len(solid)} solid and {len(dashed)} dashed exact pieces", flush=True)
     hover = lambda w, Y, copy: (f"{w} · edge of the wall, along {Y} (exact)" if not copy else
