@@ -43,6 +43,7 @@ GG = np.concatenate([E_, E_ @ FOLD])
 GINV = np.linalg.inv(GG)
 planes_, curved_ = osd.library()
 LIB = {s.name: s for s in list(planes_) + list(curved_)}
+SURF = dict(LIB)                                          # (the library's surfaces, and copies found as walls grow)
 N = int(os.environ.get("ARR_N", 128))
 H = 1.0 / N
 CACHE = os.environ.get("ARR_CACHE", "/tmp/arr_cache")
@@ -78,6 +79,14 @@ class Img:
         return self.s.f(np.atleast_2d(X) @ self.ginv.T)
 
 
+def surface(sn):
+    """A surface by name: one of the library's, or a copy of one, named "<library name>@<symmetry>"."""
+    if sn not in SURF:
+        base, gi = sn.rsplit("@", 1)
+        SURF[sn] = Img(LIB[base], int(gi))
+    return SURF[sn]
+
+
 def grads(s, X, e=1e-7):
     """Gradients along the betas' sum-zero directions, at each point."""
     G = np.stack([(fvals(s, X + e * u) - fvals(s, X - e * u)) / (2 * e) for u in np.eye(4)], 1)
@@ -109,7 +118,7 @@ def mesh(sn):
     if os.path.exists(path):
         z = np.load(path)
         return z["V"], z["E"], z["T"]
-    S = LIB[sn]
+    S = surface(sn)
     pad = 3
     # (the grid shifted by odd amounts on each axis, so no grid point lies on any of the exact planes, the half-cell's
     # faces among them)
@@ -219,7 +228,7 @@ def setup(args):
     """For one surface of one wall: the scaffold and every copy crossing it, with its side at each point."""
     w, sn, D = args
     work, ex, lines = D
-    S = LIB[sn]
+    S = surface(sn)
     V, E, T = mesh(sn)
     ins = inside(V)
     funcs = []                                             # (kind, source wall or line, surface, extra)
@@ -242,6 +251,16 @@ def setup(args):
     return w, sn, V, E, T, ins, funcs, sg
 
 
+def sheet_key(S):
+    """The same surface whatever its name: its values at fixed points, up to scale and sign."""
+    v = fvals(S, KEY_PTS)
+    v = v / (np.abs(v).max() + 1e-300)
+    return tuple(np.round(v * np.sign(v[np.argmax(np.abs(v) > 1e-6)]), 7))
+
+
+KEY_PTS = np.random.default_rng(1).dirichlet(np.ones(4), 24)
+
+
 def crossing(V, E, f, S):
     """For the neighbour pairs E (rows) changing side of f: the exact point on S and f between them."""
     a, b = V[E[:, 0]], V[E[:, 1]]
@@ -251,8 +270,9 @@ def crossing(V, E, f, S):
 
 
 class Wall:
-    def __init__(self, w, sheets):
-        self.w, self.sheets = w, sheets                    # sn -> dict
+    def __init__(self, w, sheets, bases=()):
+        self.w, self.sheets, self.bases = w, sheets, list(bases)   # sn -> dict; the library surfaces it is copies of
+        self.pending = Counter()
         self.inwall = {sn: sh["ins"].copy() for sn, sh in sheets.items()}   # (to start: everywhere)
         self.tree = {}
 
@@ -268,7 +288,7 @@ class Wall:
             for sn in self.sheets:
                 if self.tree[sn] is None:
                     continue
-                on_ = off(LIB[sn], P) < 1e-7
+                on_ = off(surface(sn), P) < 1e-7
                 if not on_.any():
                     continue
                 d, _ = self.tree[sn].query(P[on_])
@@ -343,7 +363,7 @@ def grow(W, walls, D, seeds, dbg=None):
     comp_of, n_comp, links, seed_comps = {}, 0, [], []
     for sn, sh in W.sheets.items():
         V, E, ins, funcs, sg = sh["V"], sh["E"], sh["ins"], sh["funcs"], sh["sg"]
-        S = LIB[sn]
+        S = surface(sn)
         Ei = E[ins[E[:, 0]] & ins[E[:, 1]]]
         blocked = np.zeros(len(Ei), bool)
         for k, (kind, src, f, P) in enumerate(funcs):
@@ -370,6 +390,8 @@ def grow(W, walls, D, seeds, dbg=None):
     root = list(range(n_comp))
     votes = Counter()
     cant, rim = Counter(), Counter()
+    inwall_now = W.inwall
+    W.pending = Counter()
 
     def find(i):
         while root[i] != i:
@@ -390,7 +412,7 @@ def grow(W, walls, D, seeds, dbg=None):
         stop = np.zeros(len(Eo), bool)
         for k, (kind, src, f, P) in enumerate(funcs):
             if kind == "line":
-                stop |= line_steps(V, Eo, P, LIB[sn])
+                stop |= line_steps(V, Eo, P, surface(sn))
                 continue
             if kind == "cut":
                 continue
@@ -400,14 +422,14 @@ def grow(W, walls, D, seeds, dbg=None):
             if kind == "seam":
                 stop[ch] = True
                 continue
-            X = crossing(V, Eo[ch], f, LIB[sn])
+            X = crossing(V, Eo[ch], f, surface(sn))
             stop[ch[real_at(kind, src, P, X, walls)]] = True
         Eo = Eo[~stop]
         for ni, Q in carried(V[Eo[:, 1]], strict=True):
             # (the point past the face is the wall only if every copy of it in the half-cell lies on one of the wall's
             # surfaces as placed there: one copy off them (the fold's, say, on a surface the wall does not use) means
             # the wall stops at the face)
-            onW = {sn2: off(LIB[sn2], Q) < 1e-7 for sn2 in W.sheets}
+            onW = {sn2: off(surface(sn2), Q) < 1e-7 for sn2 in W.sheets}
             anyW = np.any(list(onW.values()), axis=0)
             bad = np.isin(ni, ni[~anyW])
             # (a part whose rim on a face cannot go on: steps past the face, clear of the wall's edges, with a copy off
@@ -416,6 +438,17 @@ def grow(W, walls, D, seeds, dbg=None):
             for a in np.unique(ni[~anyW]):
                 if et0 is None or et0.query(V[Eo[a, 0]])[0] > 2 * H:
                     cant[int(comp_of[sn][Eo[a, 0]])] += 1
+                    # (the copy of one of the wall's own surfaces it lands on: a sheet of the wall the list lacked)
+                    if not inwall_now[sn][Eo[a, 0]]:
+                        continue
+                    q = Q[(ni == a) & ~anyW][0]
+                    for bn in W.bases:
+                        v = fvals(LIB[bn], np.einsum("gij,j->gi", GINV, q))
+                        gs = np.flatnonzero(np.abs(v) < 1e-9 * (np.abs(v).max() + 1e-300))
+                        gs = [g for g in gs if off(Img(LIB[bn], g), q[None])[0] < 1e-7]
+                        if gs:
+                            W.pending[f"{bn}@{min(gs)}"] += 1
+                            break
             for a in np.unique(ni):
                 if et0 is None or et0.query(V[Eo[a, 0]])[0] > 2 * H:
                     rim[int(comp_of[sn][Eo[a, 0]])] += 1
@@ -447,7 +480,7 @@ def grow(W, walls, D, seeds, dbg=None):
     # wall is on: only the images clear of them are used, unless none is)
     clear, near = [], []
     for sn, sh in W.sheets.items():
-        for y in Y[off(LIB[sn], Y) < 1e-9]:
+        for y in Y[off(surface(sn), Y) < 1e-9]:
             d, j = trees[sn].query(y)
             c = find(comp_of[sn][idxs[sn][j]])
             de = sh["edge_tree"].query(y)[0] if sh.get("edge_tree") is not None else np.inf
@@ -487,14 +520,15 @@ def main(only=None):
         walls.setdefault(w, {})[sn] = {"V": V, "E": E, "T": T, "ins": ins, "funcs": funcs, "sg": sg}
         print(f"{w} on {sn}: {len(V)} points, {len(funcs)} copies crossing "
               f"({', '.join(sorted({f[1] for f in funcs}))})", flush=True)
-    walls = {w: Wall(w, sh) for w, sh in walls.items()}
+    walls = {w: Wall(w, sh, [n for n in ex["walls"][w]["surface"] if n in LIB]) for w, sh in walls.items()}
+    extra = []                                             # (sheets found as the walls grew)
     # (a wall is grown again only when a wall bounding it changed in the round before)
     deps = {w: {f[1] for sh in W.sheets.values() for f in sh["funcs"] if f[0] == "edge"} for w, W in walls.items()}
     changed, history = list(walls), []
     for it in range(20):
         new = {}
         for w, W in walls.items():
-            if it and not deps[w] & set(changed):
+            if it and w not in changed and not deps[w] & set(changed):
                 continue
             t0 = time.time()
             new[w] = grow(W, walls, D, seeds)
@@ -502,6 +536,26 @@ def main(only=None):
         changed = [w for w in new if any((new[w][sn] != walls[w].inwall[sn]).any() for sn in walls[w].sheets)]
         for w in new:
             walls[w].inwall, walls[w].tree = new[w], {}
+        # (a wall going on into the next cell onto a copy of its surface it was not known to use: that sheet added,
+        # where three steps or more land on it)
+        for w in new:
+            W = walls[w]
+            keys = {sheet_key(surface(sn)) for sn in W.sheets}
+            for nm, n_ in W.pending.items():
+                if n_ < 3 or len(W.sheets) >= 16 or nm in W.sheets:
+                    continue
+                k = sheet_key(surface(nm))
+                if k in keys:
+                    continue
+                keys.add(k)
+                r = setup((w, nm, D))
+                W.sheets[nm] = {"V": r[2], "E": r[3], "T": r[4], "ins": r[5], "funcs": r[6], "sg": r[7]}
+                W.inwall[nm] = np.zeros(len(r[2]), bool)
+                extra.append(r)
+                print(f"  {w}: goes on onto {nm} ({n_} steps; {len(r[6])} copies crossing)", flush=True)
+                if w not in changed:
+                    changed.append(w)
+                deps[w] |= {f[1] for f in r[6] if f[0] == "edge"}
         state = tuple(sorted((w, int(sum(v.sum() for v in walls[w].inwall.values()))) for w in walls))
         print(f"round {it}: changed {changed}", flush=True)
         if not changed:
@@ -518,6 +572,7 @@ def main(only=None):
     np.savez_compressed(os.path.join(CACHE, "walls.npz"),
                         **{f"{w}|{sn}": W.inwall[sn] for w, W in walls.items() for sn in W.sheets})
     json.dump(out, open("arrangement.json", "w"), indent=1)
+    pickle.dump(extra, open(os.path.join(CACHE, f"extra_{N}s.pkl"), "wb"))
 
 
 if __name__ == "__main__":

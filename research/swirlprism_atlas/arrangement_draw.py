@@ -79,7 +79,7 @@ def sheet_curves(W, sn, walls):
     """The wall's edges and cuts on one of its surfaces: [(kind, source, points (betas))]."""
     sh = W.sheets[sn]
     V, T, ins, funcs, sg = sh["V"], sh["T"], sh["ins"], sh["funcs"], sh["sg"]
-    S = LIB[sn]
+    S = ar.surface(sn)
     inw = W.inwall[sn]
     out = []
     Ei = sh["E"][ins[sh["E"][:, 0]] & ins[sh["E"][:, 1]]]
@@ -161,6 +161,8 @@ def finish_end(x, S, f, EP, names):
 def main():
     work = json.load(open("working_data.json"))["walls"]
     got = pickle.load(open(os.path.join(CACHE, f"setup_{N}s.pkl"), "rb"))
+    ep = os.path.join(CACHE, f"extra_{N}s.pkl")
+    got += pickle.load(open(ep, "rb")) if os.path.exists(ep) else []      # (sheets found as the walls grew)
     z = np.load(os.path.join(CACHE, "walls.npz"))
     walls = {}
     for w, sn, V, E, T, ins, funcs, sg in got:
@@ -174,7 +176,7 @@ def main():
         rec = {"solid": [], "dashed": []}
         found_edges, corners, loose = set(), set(), []
         for sn in W.sheets:
-            S = LIB[sn]
+            S = ar.surface(sn)
             for kind, src, X, f in sheet_curves(W, sn, walls):
                 ends = []
                 for k in (0, -1):
