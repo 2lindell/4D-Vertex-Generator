@@ -9,6 +9,8 @@ For each wall, from the working data (working_data.json, its "exact" section) al
   * on each such copy, its stretches and the copy's own rim on the half-cell's faces laid out flat (a plane in its own
     coordinates, a curved surface along its mean normal), and the faces they enclose;
   * the wall's faces: those holding an image of its seed;
+  * its edges along another wall: where every copy of that wall's surface crosses each copy of its own, from corner to
+    corner, where that wall is there (in one of its own faces, computed first);
   * its drawn edges: the stretches with one of its faces on one side only; its cuts (dashed): the stretches of the
     edges other walls end along on it that run through its faces, the wall on both sides. A stretch with its faces on neither side
     is a copy of the line where the wall is not, and is not drawn.
@@ -195,7 +197,7 @@ def finish(P, S, f):
     return Q
 
 
-def wall(w, work, curves, seeds, dbg=None):
+def wall(w, work, curves, seeds, dbg=None, others=None):
     wd = work["walls"][w]
     XL = work["exact"]["lines"]
     bases = [n for n in work["exact"]["wall_surfaces"][w] if n in ar.LIB]
@@ -243,6 +245,34 @@ def wall(w, work, curves, seeds, dbg=None):
             face_cache[(Y, fi)] = ok
         return face_cache[(Y, fi)]
 
+    loaded = {}
+
+    def present(Y, Q):
+        """Is the wall Y there, along the stretch Q (points inside it)? Each point carried into the half-cell by the
+        group lands inside one of Y's own faces (as computed for Y); Y not computed yet: taken as there (strictly)."""
+        if others is None or Y not in others or "faces" not in others[Y]:
+            return True
+        if Y not in loaded:
+            from shapely.geometry import Polygon
+            loaded[Y] = [(ar.surface(e["name"]), np.array(e["c0"]), np.array(e["U"]),
+                          unary_union([Polygon(p_[0], p_[1:]) for p_ in e["polys"]]).buffer(1e-9))
+                         for e in others[Y]["faces"]]
+        for x in inner(Q):
+            hit = False
+            for _, Qi in ar.carried(x[None]):
+                for q in Qi:
+                    for S_, c0_, U_, poly in loaded[Y]:
+                        if dist(S_, q[None])[0] < 1e-7 and poly.contains(Point((q - c0_) @ U_.T)):
+                            hit = True
+                            break
+                    if hit:
+                        break
+                if hit:
+                    break
+            if not hit:
+                return False
+        return True
+
     def through_seed(Q):
         """A stretch passing through an image of the wall's own seed: the seed is a point of the wall's own shape, so
         the wall lies on both sides there; not an edge of it."""
@@ -272,7 +302,7 @@ def wall(w, work, curves, seeds, dbg=None):
                     face_end = "face" in (a, b)
                     other = Q[-1] if a == "face" else Q[0]
                     if not a == b == "face" and {a, b} <= corners | {"face"} and a != "?" and b != "?" \
-                            and (not face_end or inner_corner(other)) and not through_seed(Q):
+                            and (not face_end or inner_corner(other)) and not through_seed(Q) and present(Y, Q):
                         st.append((Y, Q, a, b))
                         sh["st"].append(len(st) - 1)
         sh["rim"] = face_curves(S)
@@ -288,7 +318,8 @@ def wall(w, work, curves, seeds, dbg=None):
                     inner_corner = lambda x: min(x[0], x[1], x[3], x[2] - x[3]) > 1e-9
                     other = Q[-1] if a == "face" else Q[0]
                     if a != "?" and b != "?" and {a, b} <= corners | {"face"} and not a == b == "face" \
-                            and ("face" not in (a, b) or inner_corner(other)) and not through_seed(Q):
+                            and ("face" not in (a, b) or inner_corner(other)) and not through_seed(Q) \
+                            and present(Y, Q):
                         st.append((Y, Q, a, b))
                         sh["st"].append(len(st) - 1)
         sh["wall"] = set()
@@ -300,6 +331,7 @@ def wall(w, work, curves, seeds, dbg=None):
         c0 = pts.mean(0)
         U = np.linalg.svd(pts - c0, full_matrices=False)[2][:2]
         sh["ch"] = lambda X, c0=c0, U=U: (np.atleast_2d(X) - c0) @ U.T
+        sh["c0"], sh["U"] = c0, U
         geo = [LineString(sh["ch"](st[i][1])) for i in sh["st"]] + [LineString(sh["ch"](R)) for R in sh["rim"]]
         allg = unary_union(geo)
         sh["faces"] = list(polygonize(unary_union([shapely.snap(g, allg, 1e-6) for g in geo])))
@@ -442,6 +474,10 @@ def wall(w, work, curves, seeds, dbg=None):
                     if len(cur) >= 2:
                         cuts.append({"by": Yc, "points": np.round(np.array(cur), 12).tolist()})
     report["cuts_drawn"] = len(cuts)
+    report["faces"] = [{"name": sh["name"], "c0": sh["c0"].tolist(), "U": sh["U"].tolist(),
+                        "polys": [[list(sh["faces"][j].exterior.coords)] + [list(r.coords) for r in sh["faces"][j].interiors]
+                                  for j in sorted(sh["wall"])]}
+                       for sh in sheets.values() if sh.get("wall")]
     return out, report, cuts
 
 
@@ -453,11 +489,19 @@ def main(only=None):
         res = json.load(open(OUT)) if only else {}
     except FileNotFoundError:
         res = {}
-    for w in work["walls"]:
-        if only and w not in only:
-            continue
-        edges, rep, cuts = wall(w, work, curves, seeds)
-        res[w] = {"edges": edges, "report": rep, "cuts": cuts}
+    # (a wall after the walls it ends on, so whether they are there is known from their own faces)
+    XL = work["exact"]["lines"]
+    todo = [w for w in work["walls"] if not only or w in only]
+    deps = {w: {e for e in work["walls"][w]["edges"] if e not in XL} for w in todo}
+    order = []
+    while todo:
+        ready = [w for w in todo if not (deps[w] & set(todo))] or todo[:1]
+        order += ready
+        todo = [w for w in todo if w not in ready]
+    for w in order:
+        edges, rep, cuts = wall(w, work, curves, seeds, others=res)
+        faces = rep.pop("faces")
+        res[w] = {"edges": edges, "report": rep, "cuts": cuts, "faces": faces}
         print(f"{w}: {len(edges)} edges drawn; sheets {rep['sheets']} ({rep['sheets_with_wall']} with its faces); "
               f"not drawn {rep['edges_not_drawn']}; corners met once {len(rep['corners_met_once'])}", flush=True)
         json.dump(res, open(OUT, "w"))
