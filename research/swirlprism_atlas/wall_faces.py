@@ -225,6 +225,17 @@ def wall(w, work, curves, seeds, dbg=None):
     Y = Y[(Y @ ar.CELL.T >= -1e-12).all(1)]
     import shapely
     from scipy.spatial import cKDTree
+
+    def through_seed(Q):
+        """A stretch passing through an image of the wall's own seed: the seed is a point of the wall's own shape, so
+        the wall lies on both sides there; not an edge of it."""
+        a, b = Q[:-1], Q[1:]
+        d = b - a
+        for y in Y:
+            t = np.clip(((y - a) * d).sum(1) / np.maximum((d * d).sum(1), 1e-300), 0, 1)
+            if np.linalg.norm(a + t[:, None] * d - y, axis=1).min() < 1e-9:
+                return True
+        return False
     edge_walls_of = {Y: [n for n in work["exact"]["wall_surfaces"].get(Y, []) if n in ar.LIB]
                      for Y in wd["edges"] if Y not in XL}
 
@@ -238,7 +249,8 @@ def wall(w, work, curves, seeds, dbg=None):
         for Y, names in edge_walls_of.items():
             for P in crossing_curves(sh["name"], S, names):
                 for Q, a, b in lp.split_at_points(P, corners, tol=3e-4):
-                    if not a == b == "face" and {a, b} <= corners | {"face"} and a != "?" and b != "?":
+                    if not a == b == "face" and {a, b} <= corners | {"face"} and a != "?" and b != "?" \
+                            and not through_seed(Q):
                         st.append((Y, Q, a, b))
                         sh["st"].append(len(st) - 1)
         sh["rim"] = face_curves(S)
