@@ -194,6 +194,9 @@ def cut_at(P, targets):
 class Data:
     def __init__(self):
         self.ex = json.load(open("exact_defs.json"))
+        # (the lines' points put exactly on their surfaces, exact_lines.py)
+        for L, v in json.load(open("exact_lines.json"))["lines"].items():
+            self.ex["lines"][L]["points"] = v["points"]
         self.work = json.load(open("working_data.json"))["walls"]
         self.points = [p for p in json.load(open("exact_points.json"))["points"] if p["exact"]]
         self.edge_corners = json.load(open("working_base.json"))["corrections"].get("edge_corners", {})

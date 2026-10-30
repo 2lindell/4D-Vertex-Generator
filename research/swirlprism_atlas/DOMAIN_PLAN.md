@@ -46,7 +46,13 @@ Not yet right:
   0.2233, 0.0683) and (0.3944, 0.3944, 0.2113, 0), copies under the half-turn (user). These given edges are drawn
   without the mesh check. They show where the old meshes are wrong: X94's mesh is 0.16 or more from C5 and from the
   meeting point everywhere, and X11's mesh stops 0.14 short of the meeting point (T2's reaches it); step 3 fixes them.
-- Still open in step 1: `exact_lines.py` to redo.
+- Lines put exactly on their surfaces again (`exact_lines.py`, `exact_lines.json`): each piece moved onto the two of
+  its surfaces crossing most cleanly, ends on the exact points or solved onto the cell's faces. The largest move was
+  1.7e-6; E1's β₄ is now 9e-20.
+- Closure with the traced curves (`closure_curves.py`): every wall's outline in the half-cell, from its lines and its
+  traced edges along other walls (every image lying on its own surface), has no loose end; 54/54 walls close.
+  `exact_curves.py` now reads the exact lines (its corners are the exact points, so the traced curves are unchanged).
+  Step 1 done.
 
 ## Plan
 
