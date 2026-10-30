@@ -251,6 +251,27 @@ def setup(args):
     return w, sn, V, E, T, ins, funcs, sg
 
 
+_EP = []
+
+
+def exact_points():
+    """Every image of every exact point in the half-cell, with its name."""
+    if not _EP:
+        X, names = [], []
+        for p in json.load(open("exact_points.json"))["points"]:
+            if not p["exact"]:
+                continue
+            Y = GG @ np.array(p["float"])
+            s_ = Y.sum(1)
+            ok = np.abs(s_) > 1e-12
+            Y = Y[ok] / s_[ok, None]
+            Y = np.unique(Y[(Y @ CELL.T >= -1e-9).all(1)].round(12), axis=0)
+            X.append(Y)
+            names += [p["name"]] * len(Y)
+        _EP.extend([np.vstack(X), names])
+    return _EP[0], _EP[1]
+
+
 def sheet_key(S):
     """The same surface whatever its name: its values at fixed points, up to scale and sign."""
     v = fvals(S, KEY_PTS)
@@ -366,9 +387,12 @@ def grow(W, walls, D, seeds, dbg=None):
         S = surface(sn)
         Ei = E[ins[E[:, 0]] & ins[E[:, 1]]]
         blocked = np.zeros(len(Ei), bool)
+        rim_src = []                                       # (the steps each edge stops, by its name)
         for k, (kind, src, f, P) in enumerate(funcs):
             if kind == "line":
-                blocked |= line_steps(V, Ei, P, S)
+                b = line_steps(V, Ei, P, S)
+                blocked |= b
+                rim_src.append((src, np.unique(Ei[b])))
                 continue
             ch = sg[Ei[:, 0], k] != sg[Ei[:, 1], k]
             if not ch.any() or kind == "cut":
@@ -378,10 +402,14 @@ def grow(W, walls, D, seeds, dbg=None):
                 blocked[idx] = True
                 continue
             X = crossing(V, Ei[idx], f, S)
-            blocked[idx[real_at(kind, src, P, X, walls)]] = True
+            r_ = idx[real_at(kind, src, P, X, walls)]
+            blocked[r_] = True
+            rim_src.append((src, np.unique(Ei[r_])))
+        sh["rim_src"] = rim_src
         A = Ei[~blocked]
         bm = (V[Ei[blocked, 0]] + V[Ei[blocked, 1]]) / 2
         sh["edge_tree"] = cKDTree(bm) if len(bm) else None
+        sh["rimv"] = np.unique(Ei[blocked])
         g = coo_matrix((np.ones(len(A)), (A[:, 0], A[:, 1])), shape=(len(V), len(V)))
         nc, lab = connected_components(g, directed=False)
         comp_of[sn] = lab + n_comp
@@ -412,7 +440,9 @@ def grow(W, walls, D, seeds, dbg=None):
         stop = np.zeros(len(Eo), bool)
         for k, (kind, src, f, P) in enumerate(funcs):
             if kind == "line":
-                stop |= line_steps(V, Eo, P, surface(sn))
+                b = line_steps(V, Eo, P, surface(sn))
+                stop |= b
+                sh["rim_src"].append((src, np.unique(Eo[b, 0])))      # (a line in a face of the half-cell)
                 continue
             if kind == "cut":
                 continue
@@ -476,20 +506,39 @@ def grow(W, walls, D, seeds, dbg=None):
     s_ = Y.sum(1)
     Y = Y[np.abs(s_) > 1e-12] / s_[np.abs(s_) > 1e-12, None]
     Y = Y[(Y @ CELL.T >= -1e-12).all(1)]
-    # (a seed image lying on one of the wall's real edges (a symmetric point often does) does not tell which side the
-    # wall is on: only the images clear of them are used, unless none is)
-    clear, near = [], []
+    # (each seed image starts the wall at the nearest scaffold point it reaches without crossing a real edge: the step
+    # from the seed to that point tested exactly as every other step is; the seed is often a symmetric point lying a
+    # small fraction of a step from one of the wall's edges)
+    seed_comps = set()
     for sn, sh in W.sheets.items():
-        for y in Y[off(surface(sn), Y) < 1e-9]:
-            d, j = trees[sn].query(y)
-            c = find(comp_of[sn][idxs[sn][j]])
-            de = sh["edge_tree"].query(y)[0] if sh.get("edge_tree") is not None else np.inf
-            (clear if de > 2 * H else near).append((de, c))
-    # (none clear: the image farthest from the wall's edges)
-    far = max((de for de, _ in near), default=0)
-    seed_comps = {c for _, c in clear} or {c for de, c in near if de >= far - 1e-12}
+        S = surface(sn)
+        Vs = sh["V"]
+        for y in Y[off(S, Y) < 1e-9]:
+            cand = [i for i in trees[sn].query_ball_point(y, 3 * H)]
+            cand = sorted((float(np.linalg.norm(Vs[idxs[sn][i]] - y)), int(idxs[sn][i])) for i in cand)
+            for _, v in cand:
+                pair = np.vstack([y, Vs[v]])
+                step = np.array([[0, 1]])
+                ok = True
+                for k, (kind, src, f, P) in enumerate(sh["funcs"]):
+                    if kind == "cut":
+                        continue
+                    if kind == "line":
+                        if line_steps(pair, step, P, S).any():
+                            ok = False
+                            break
+                        continue
+                    fy, fv = fvals(f, pair)
+                    if (fy > 0) == (fv > 0):
+                        continue
+                    if kind == "seam" or real_at(kind, src, P, crossing(pair, step, f, S), walls).any():
+                        ok = False
+                        break
+                if ok:
+                    seed_comps.add(find(comp_of[sn][v]))
+                    break
     if dbg is not None:
-        dbg.update(clear=clear, near=near, cant=cant, rim=rim, votes={k: v for k, v in votes.items()},
+        dbg.update(seed_comps=seed_comps, cant=cant, rim=rim, votes={k: v for k, v in votes.items()},
                    sizes={sn: np.bincount(comp_of[sn][sh["ins"]] - comp_of[sn].min()) for sn, sh in W.sheets.items()},
                    comp_of=comp_of, root=[find(i) for i in range(n_comp)])
     new = {}
@@ -548,7 +597,12 @@ def main(only=None):
                 if k in keys:
                     continue
                 keys.add(k)
-                r = setup((w, nm, D))
+                cp = os.path.join(CACHE, "sheet_" + hashlib.md5((w + "|" + nm).encode()).hexdigest()[:12] + f"_{N}.pkl")
+                if os.path.exists(cp):
+                    r = pickle.load(open(cp, "rb"))
+                else:
+                    r = setup((w, nm, D))
+                    pickle.dump(r, open(cp, "wb"))
                 W.sheets[nm] = {"V": r[2], "E": r[3], "T": r[4], "ins": r[5], "funcs": r[6], "sg": r[7]}
                 W.inwall[nm] = np.zeros(len(r[2]), bool)
                 extra.append(r)
