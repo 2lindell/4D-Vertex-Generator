@@ -43,8 +43,9 @@ Not yet right:
   that edge partway: the point X94·X11·T2, solved exactly on the placed X94, X11 and T2 (β ≈ (0.46695, 0.27492,
   0.12906, 0.12906) on the mirror, and its copy (⅓, 0.23283, ⅓, 0.10051)); it replaces the point solved before, which
   lay only on copies of X11 and X94 elsewhere. X94 along T2 runs from that point to C5, which it reaches outside the
-  half-cell (drawn exactly). X94 along X11: placed X94 and X11 meet from that point to C1 one way and to A1 the other,
-  not to C5; left to the user, the mesh outline stays there meanwhile. These given edges are drawn without the mesh
+  half-cell (drawn exactly). X94 along X11 runs from C1 to where it
+  meets T2's plane, that same point (user; drawn exactly). With both its edges exact, X94's mesh outlines (which ran
+  past its corners) are no longer drawn. These given edges are drawn without the mesh
   check.
 - Lines put exactly on their surfaces again (`exact_lines.py`, `exact_lines.json`): each piece moved onto the two of
   its surfaces crossing most cleanly, ends on the exact points or solved onto the cell's faces. The largest move was
