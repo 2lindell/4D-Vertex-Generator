@@ -226,6 +226,23 @@ def wall(w, work, curves, seeds, dbg=None):
     import shapely
     from scipy.spatial import cKDTree
 
+    face_cache = {}
+
+    def in_face(Y, names, fi):
+        """Does some copy of Y's surfaces coincide with the half-cell's face fi?"""
+        if (Y, fi) not in face_cache:
+            tri = {0: (E2_, E3_, M_), 1: (E1_, E3_, M_), 2: (E1_, E2_, E3_), 3: (E1_, E2_, M_)}[fi]
+            pts = np.array([(tri[0] + tri[1] + tri[2]) / 3, (2 * tri[0] + tri[1] + tri[2]) / 4,
+                            (tri[0] + 2 * tri[1] + tri[2]) / 4])
+            ok = False
+            for n in names:
+                good = np.ones(len(ar.GINV), bool)
+                for x in pts:
+                    good &= dist(ar.LIB[n], np.einsum("gij,j->gi", ar.GINV, x)) < 1e-9
+                ok |= bool(good.any())
+            face_cache[(Y, fi)] = ok
+        return face_cache[(Y, fi)]
+
     def through_seed(Q):
         """A stretch passing through an image of the wall's own seed: the seed is a point of the wall's own shape, so
         the wall lies on both sides there; not an edge of it."""
@@ -259,6 +276,21 @@ def wall(w, work, curves, seeds, dbg=None):
                         st.append((Y, Q, a, b))
                         sh["st"].append(len(st) - 1)
         sh["rim"] = face_curves(S)
+        # (a wall it ends on lying in a face of the half-cell, as X23 in b2 = 0: its edge there runs along this copy's
+        # rim on that face, kept from corner to corner like any other)
+        for R in sh["rim"]:
+            mid = R[len(R) // 2]
+            fi = int(np.argmin(np.abs(mid @ ar.CELL.T)))
+            for Y, names in edge_walls_of.items():
+                if not in_face(Y, names, fi):
+                    continue
+                for Q, a, b in lp.split_at_points(R, corners, tol=3e-4):
+                    inner_corner = lambda x: min(x[0], x[1], x[3], x[2] - x[3]) > 1e-9
+                    other = Q[-1] if a == "face" else Q[0]
+                    if a != "?" and b != "?" and {a, b} <= corners | {"face"} and not a == b == "face" \
+                            and ("face" not in (a, b) or inner_corner(other)) and not through_seed(Q):
+                        st.append((Y, Q, a, b))
+                        sh["st"].append(len(st) - 1)
         sh["wall"] = set()
         pts = [R for R in sh["rim"]] + [st[i][1] for i in sh["st"]]
         if not pts:
@@ -298,7 +330,7 @@ def wall(w, work, curves, seeds, dbg=None):
     # (strictly: no going on where the crossing lies on any copy of one of its edge lines, or of the surface of a wall
     # it ends on)
     line_pts = [np.asarray(c, float) for L in wd["edges"] if L in XL for c in line_in_cell(XL[L]["points"])]
-    allst = cKDTree(np.vstack(line_pts + [P for _, P, _, _ in st])) if line_pts or st else None
+    tree, tree_n = [None], [-1]
     edge_walls = [n for Y in wd["edges"] if Y not in XL for n in work["exact"]["wall_surfaces"].get(Y, []) if n in ar.LIB]
 
     def on_edge_wall(m, S):
@@ -323,7 +355,10 @@ def wall(w, work, curves, seeds, dbg=None):
             mids3, mids2 = (R[:-1] + R[1:]) / 2, (C2[:-1] + C2[1:]) / 2
             on = np.array([f.boundary.distance(Point(m)) < 1e-9 for m in mids2], bool)
             for m in mids3[on][::4]:
-                if (allst is not None and allst.query(m)[0] < 1e-6) or on_edge_wall(m, S):
+                if len(st) != tree_n[0]:
+                    tree_n[0] = len(st)
+                    tree[0] = cKDTree(np.vstack(line_pts + [P for _, P, _, _ in st]))
+                if tree[0].query(m)[0] < 1e-6:
                     continue                               # (an edge of it lies in the face there)
                 vals = m @ ar.CELL.T
                 nf = ar.CELL[int(np.argmin(np.abs(vals)))]
