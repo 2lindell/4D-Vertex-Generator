@@ -2209,7 +2209,8 @@
    "X14/X8": "X8 is not an edge of X14 (user; the ring round X8 met it, but it is not an edge)",
    "X48/X8": "X8 is not an edge of X48 (user; the ring round X8 met it, but it is not an edge)",
    "X53/X8": "X8 is not an edge of X53 (user; the ring round X8 met it, but it is not an edge)",
-   "X93/X2": "X2 is an edge of X93 (user; the ring round X2 met X93 once: it ends on it)"
+   "X93/X2": "X2 is an edge of X93 (user; the ring round X2 met X93 once: it ends on it)",
+   "X3/D1": "D1 is not an edge of X3 and does not touch it; C5 is its corner (user; confirmed by the exact faces: X3 is bounded by C3, E2 and X1)"
   },
   "edge_corners": {
    "X28": {
@@ -2573,14 +2574,12 @@
   "X3": {
    "edges": [
     "C3",
-    "D1",
     "E2",
     "X1"
    ],
    "boundary_points": [
     "C1",
-    "C5",
-    "C6"
+    "C5"
    ],
    "pieces": [
     {
@@ -2615,8 +2614,7 @@
    "through": [],
    "points": [
     "C1",
-    "C5",
-    "C6"
+    "C5"
    ],
    "regions": [
     "F2",
@@ -8301,7 +8299,6 @@
    ],
    "bounds_walls": [
     "T2",
-    "X3",
     "X10",
     "X20",
     "X28",
