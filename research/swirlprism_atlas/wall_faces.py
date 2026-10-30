@@ -249,8 +249,13 @@ def wall(w, work, curves, seeds, dbg=None):
         for Y, names in edge_walls_of.items():
             for P in crossing_curves(sh["name"], S, names):
                 for Q, a, b in lp.split_at_points(P, corners, tol=3e-4):
+                    # (corner to corner; or from a face of the half-cell to a corner inside it: a corner on the faces,
+                    # as A1, a vertex of the half-cell, is reached from the faces by every copy through it)
+                    inner_corner = lambda x: min(x[0], x[1], x[3], x[2] - x[3]) > 1e-9
+                    face_end = "face" in (a, b)
+                    other = Q[-1] if a == "face" else Q[0]
                     if not a == b == "face" and {a, b} <= corners | {"face"} and a != "?" and b != "?" \
-                            and not through_seed(Q):
+                            and (not face_end or inner_corner(other)) and not through_seed(Q):
                         st.append((Y, Q, a, b))
                         sh["st"].append(len(st) - 1)
         sh["rim"] = face_curves(S)
