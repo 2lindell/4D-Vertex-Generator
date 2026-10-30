@@ -287,6 +287,22 @@ def carried(X, strict=False, chunk=200):
         yield ni + c, Y[gi, ni]
 
 
+def real_at(kind, src, P, X, walls):
+    """Which crossings X of a copy are real: a line where its verified pieces run, a wall where it is there; and a
+    crossing within two scaffold steps of a real one on the same copy (at a corner the scaffold's steps can leave a gap
+    of a step or two between where one curve stops counting and the next begins; an opening in the data is far wider)."""
+    if kind == "line":
+        real = cKDTree(P).query(X)[0] < 1.5 * H
+    elif kind in ("edge", "cut"):
+        real = walls[src].present(X) if src in walls else np.ones(len(X), bool)
+    else:
+        return np.ones(len(X), bool)
+    if real.any() and (~real).any():
+        real = real.copy()
+        real[~real] = cKDTree(X[real]).query(X[~real])[0] < 2 * H
+    return real
+
+
 def grow(W, walls, D, seeds):
     """Grow wall W from its seed, stopped by its real edges, given the others as they now are."""
     lines = D[2]
@@ -305,12 +321,7 @@ def grow(W, walls, D, seeds):
                 blocked[idx] = True
                 continue
             X = crossing(V, Ei[idx], f, S)
-            if kind == "line":
-                d, _ = cKDTree(P).query(X)
-                real = d < 1.5 * H
-            else:
-                real = walls[src].present(X) if src in walls else np.ones(len(X), bool)
-            blocked[idx[real]] = True
+            blocked[idx[real_at(kind, src, P, X, walls)]] = True
         A = Ei[~blocked]
         g = coo_matrix((np.ones(len(A)), (A[:, 0], A[:, 1])), shape=(len(V), len(V)))
         nc, lab = connected_components(g, directed=False)

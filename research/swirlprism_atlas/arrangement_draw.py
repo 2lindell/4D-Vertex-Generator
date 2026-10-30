@@ -102,13 +102,7 @@ def sheet_curves(W, sn, walls):
             continue
         X = np.full((len(keys), 4), np.nan)
         X[want] = crossing(V, keys[want], f, S)
-        if kind == "line":
-            d, _ = cKDTree(P).query(X[want])
-            real = d < 1.5 * H
-        elif kind in ("edge", "cut"):
-            real = walls[src].present(X[want]) if src in walls else np.ones(want.sum(), bool)
-        else:
-            real = np.ones(want.sum(), bool)
+        real = ar.real_at(kind, src, P, X[want], walls)
         good = np.zeros(len(keys), bool)
         good[np.flatnonzero(want)[real]] = True
         # (each triangle's two crossing edges, in the order E was made: every 01 edge, then 12, then 20)
