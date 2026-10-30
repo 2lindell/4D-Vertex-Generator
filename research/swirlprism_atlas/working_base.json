@@ -2125,7 +2125,8 @@
   "X11": {
    "edges": [
     "T2",
-    "X6"
+    "X6",
+    "C3"
    ],
    "regions": [
     "F2",
@@ -3399,7 +3400,10 @@
    "X84/D2": "D2 is not an edge of X84 (user)",
    "C2b": "C2b is an edge of X14 the full stretch from C4 to the other C4, and of X25 part way, until it cuts into X14; in both it runs on into the next cell and is still an edge there (user)",
    "edge_corners": "a wall's edge along another wall runs between these corners (user): X28 along F1 from A1 to C5; X11 along T2 from C4 to X4; X94 along T2 and along X11 from C5 to the point where X94, X11 and T2 meet; the point where X94, X11 and T2 meet is X94\u00b7X11\u00b7T2 in exact_points.json: two places in the half-cell, one the other's copy under the half-turn (user)",
-   "X28/D1": "D1 is an edge of X28, with C5 a corner (user; the ring round D1 meets X28 twice)"
+   "X28/D1": "D1 is an edge of X28, with C5 a corner (user; the ring round D1 meets X28 twice)",
+   "X11/C3": "C3 is an edge of X11 (user; the ring round C3 met X11 twice)",
+   "X94/C3": "C3 is not an edge of X94 (user; the ring round C3 met X94 twice, but it is not an edge)",
+   "X39/X5": "X39 meets the line X5 only at the point X5, a corner (user; the ring round X5 met X39 once)"
   },
   "edge_corners": {
    "X28": {
