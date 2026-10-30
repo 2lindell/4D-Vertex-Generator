@@ -2773,7 +2773,8 @@
   "X93": {
    "edges": [
     "X22",
-    "X80"
+    "X80",
+    "X2"
    ],
    "regions": [
     "X54",
@@ -3403,7 +3404,13 @@
    "X28/D1": "D1 is an edge of X28, with C5 a corner (user; the ring round D1 meets X28 twice)",
    "X11/C3": "C3 is an edge of X11 (user; the ring round C3 met X11 twice)",
    "X94/C3": "C3 is not an edge of X94 (user; the ring round C3 met X94 twice, but it is not an edge)",
-   "X39/X5": "X39 meets the line X5 only at the point X5, a corner (user; the ring round X5 met X39 once)"
+   "X39/X5": "X39 meets the line X5 only at the point X5, a corner (user; the ring round X5 met X39 once)",
+   "X47/X8": "X8 is not an edge of X47 (user; the ring round X8 met it, but it is not an edge)",
+   "X27/X8": "X8 is not an edge of X27 (user; the ring round X8 met it, but it is not an edge)",
+   "X14/X8": "X8 is not an edge of X14 (user; the ring round X8 met it, but it is not an edge)",
+   "X48/X8": "X8 is not an edge of X48 (user; the ring round X8 met it, but it is not an edge)",
+   "X53/X8": "X8 is not an edge of X53 (user; the ring round X8 met it, but it is not an edge)",
+   "X93/X2": "X2 is an edge of X93 (user; the ring round X2 met X93 once: it ends on it)"
   },
   "edge_corners": {
    "X28": {

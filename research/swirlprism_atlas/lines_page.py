@@ -105,51 +105,19 @@ def main(src, dst):
         m = re.search(rf'<script id="{tag}" type="application/json">(.*?)</script>', html, re.S)
         data[k] = (m, json.loads(m.group(1)))
     solid, dashed = [], []
-    for w, r in curves.items():
-        for Y, runs in r.items():
-            for run in runs:
-                solid += [(w, Y, p) for p in in_cell(run) if on_placed(surf.get(w, []), p) and on_placed(surf.get(Y, []), p)]
+    # (each wall's edges: wall_faces.py, the stretches of its edge lines and its edges along other walls that have one
+    # of its faces on one side only)
+    WF = json.load(open("wall_faces.json"))
+    for w, r in WF.items():
+        solid += [(w, e["along"], np.asarray(e["points"], float)) for e in r["edges"]]
+    open_ = {w: r["report"]["corners_met_once"] for w, r in WF.items() if r["report"]["corners_met_once"]}
+    missing = {w: r["report"]["edges_not_drawn"] for w, r in WF.items() if r["report"]["edges_not_drawn"]}
+    print("listed edges not drawn:", missing, flush=True)
     for w, wd in walls.items():
         for c in wd.get("cuts", []):
             for run in curves.get(c["by"], {}).get(w, []):
                 dashed += [(w, c["by"], p) for p in in_cell(run)
                            if on_placed(surf.get(w, []), p) and on_placed(surf.get(c["by"], []), p)]
-    # (each wall's own edge lines: every copy of the line's exact pieces in the half-cell lying on one of its placed
-    # surfaces)
-    from domain_page import line_in_cell
-    XL = work["exact"]["lines"]
-    copies = {L: [np.asarray(p, float) for p in line_in_cell(v["points"]) if len(p) >= 2] for L, v in XL.items()}
-    open_ = {}
-    for w, wd in walls.items():
-        corners = set(wd["points"])
-        mine = []
-        for L in wd["edges"]:
-            cand = [st for c_ in copies.get(L, []) for st in split_at_points(c_, corners)
-                    if not st[1] == st[2] == "face" and {st[1], st[2]} <= corners | {"face"}]
-            got = [(L, P, a, b) for P, a, b in cand if on_placed(surf.get(w, []), P)]
-            if not got and L in XL:
-                # (none on its surfaces as listed: on any copy of them, corner to corner; the list lacks that copy)
-                got = [(L, P, a, b) for P, a, b in cand if on_copy(surf.get(w, []), P)]
-                if got:
-                    print(f"  {w}: its edge {L} lies on a copy of its surface the list lacks", flush=True)
-            mine += got
-        solid += [(w, L, P) for L, P, _, _ in mine]
-        # (closed: every corner met by two of its edges, counting its edges along other walls)
-        deg = {}
-        for L, P, a, b in mine:
-            for nm, x in ((a, P[0]), (b, P[-1])):
-                if nm != "face":
-                    k = (nm, tuple(np.round(x, 6)))
-                    deg[k] = deg.get(k, 0) + 1
-        for w2, Y, P in [t for t in solid if t[0] == w and t[1] not in XL]:
-            for x in (P[0], P[-1]):
-                d = [k for k in deg if np.linalg.norm(np.array(k[1]) - x) < 1e-6]
-                for k in d:
-                    deg[k] += 1
-        onface = lambda x: min(x[0], x[1], x[3], x[2] - x[3]) < 1e-9
-        bad = sorted({f"{k[0]} at {np.round(k[1], 3).tolist()}" for k, n in deg.items() if n < 2 and not onface(k[1])})
-        if bad:
-            open_[w] = bad
     print("walls whose drawn outline leaves a corner met by one edge only:", open_, flush=True)
     print(f"{len(solid)} solid and {len(dashed)} dashed exact pieces", flush=True)
     hover = lambda w, Y, copy: (f"{w} · edge of the wall, along {Y} (exact)" if not copy else

@@ -2203,7 +2203,13 @@
    "X28/D1": "D1 is an edge of X28, with C5 a corner (user; the ring round D1 meets X28 twice)",
    "X11/C3": "C3 is an edge of X11 (user; the ring round C3 met X11 twice)",
    "X94/C3": "C3 is not an edge of X94 (user; the ring round C3 met X94 twice, but it is not an edge)",
-   "X39/X5": "X39 meets the line X5 only at the point X5, a corner (user; the ring round X5 met X39 once)"
+   "X39/X5": "X39 meets the line X5 only at the point X5, a corner (user; the ring round X5 met X39 once)",
+   "X47/X8": "X8 is not an edge of X47 (user; the ring round X8 met it, but it is not an edge)",
+   "X27/X8": "X8 is not an edge of X27 (user; the ring round X8 met it, but it is not an edge)",
+   "X14/X8": "X8 is not an edge of X14 (user; the ring round X8 met it, but it is not an edge)",
+   "X48/X8": "X8 is not an edge of X48 (user; the ring round X8 met it, but it is not an edge)",
+   "X53/X8": "X8 is not an edge of X53 (user; the ring round X8 met it, but it is not an edge)",
+   "X93/X2": "X2 is an edge of X93 (user; the ring round X2 met X93 once: it ends on it)"
   },
   "edge_corners": {
    "X28": {
@@ -5091,11 +5097,14 @@
   },
   "X93": {
    "edges": [
+    "X2",
     "X22",
     "X80"
    ],
    "boundary_points": [
     "A1",
+    "C1",
+    "C4",
     "X2"
    ],
    "pieces": [
@@ -5119,6 +5128,8 @@
    "through": [],
    "points": [
     "A1",
+    "C1",
+    "C4",
     "X2"
    ],
    "regions": [
@@ -7381,7 +7392,6 @@
       "X54 [X93] X75: [X93] X70 [X87] X75",
       "X72 [X91] X56: [X91] X77 [X92] X56",
       "X75 [X88] X72: [X88] X73 [X26] X72",
-      "walls that must touch the line though nothing lists it: X93",
       "the two readings agree once settled"
      ]
     },
@@ -7588,9 +7598,6 @@
   "contacts_found_by_rings": {
    "C3": {
     "X94": "passes through it or meets its own image along it (met 2 times round it)"
-   },
-   "X2": {
-    "X93": "ends on it (met once round it)"
    },
    "X5": {
     "X39": "ends on it (met once round it)"
@@ -8877,7 +8884,8 @@
     "X89",
     "X90",
     "X91",
-    "X92"
+    "X92",
+    "X93"
    ]
   },
   "X8": {
