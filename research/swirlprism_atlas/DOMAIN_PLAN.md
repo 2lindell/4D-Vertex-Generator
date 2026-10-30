@@ -38,14 +38,14 @@ Not yet right:
   between corners, about 6 s per pair. The page draws them (`exact_page.py`) for 14 walls' edges along other walls and
   the matching cuts: X39 on X23 runs A1 to the X5 point, end to end. Where several exact curves join the same two
   corners (A1 and C1), the page keeps only the pieces on both walls' meshes as drawn; step 2 replaces that check.
-- Corners given by the user (working_base.json corrections, `edge_corners`): X28 along F1 from A1 to C5 (now drawn
-  exactly); X11 along T2 from C4 to X4 (traced, three copies, but none lies on both walls' meshes as drawn, so the mesh
-  outline stays); X94 along T2 and along X11 from C5 to the point where X94, X11 and T2 meet. X94 touches T2 at C5
-  (one tangent plane there), so its branches are started just off C5 and followed to the first copy of the other wall
-  not through C5. The meeting point, X94·X11·T2 (added to exact_points.json, 40 digits), lies at β ≈ (0.3063, 0.4021,
-  0.2233, 0.0683) and (0.3944, 0.3944, 0.2113, 0), copies under the half-turn (user). These given edges are drawn
-  without the mesh check. They show where the old meshes are wrong: X94's mesh is 0.16 or more from C5 and from the
-  meeting point everywhere, and X11's mesh stops 0.14 short of the meeting point (T2's reaches it); step 3 fixes them.
+- Corners given by the user (working_base.json corrections, `edge_corners`): X28 along F1 from A1 to C5 (drawn
+  exactly); X11 along T2 from C5 to X4 (corrected by the user from C4; three copies, drawn exactly). Placed X94 crosses
+  that edge partway: the point X94·X11·T2, solved exactly on the placed X94, X11 and T2 (β ≈ (0.46695, 0.27492,
+  0.12906, 0.12906) on the mirror, and its copy (⅓, 0.23283, ⅓, 0.10051)); it replaces the point solved before, which
+  lay only on copies of X11 and X94 elsewhere. X94 along T2 runs from that point to C5, which it reaches outside the
+  half-cell (drawn exactly). X94 along X11: placed X94 and X11 meet from that point to C1 one way and to A1 the other,
+  not to C5; left to the user, the mesh outline stays there meanwhile. These given edges are drawn without the mesh
+  check.
 - Lines put exactly on their surfaces again (`exact_lines.py`, `exact_lines.json`): each piece moved onto the two of
   its surfaces crossing most cleanly, ends on the exact points or solved onto the cell's faces. The largest move was
   1.7e-6; E1's β₄ is now 9e-20.

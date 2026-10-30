@@ -325,6 +325,24 @@ def edge_runs(D, owner, e):
             meets = [n[6:] for n in spec if n.startswith("meets ")]
             ends_at = [n[8:] for n in spec if n.startswith("ends at ")]
             C = [v for v in D.named_points(names) if dist(S, v[None])[0] < 1e-9 and D.on_edge(v, e)]
+            if ends_at and not meets:
+                # (one corner in the half-cell, the other reached on the sphere: from each copy of the corner, along
+                # each placed copy of e through it, to the first meeting point, kept where that is the given point)
+                E_ = unit(np.einsum("gij,nj->gni", GG, D.named_points(ends_at)).reshape(-1, 4))
+                E_ = np.concatenate([E_, -E_])
+                for c in C:
+                    for T in placed:
+                        if same_surface(S, T) or dist(T, c[None])[0] > 1e-9:
+                            continue
+                        Vt = D.V[(dist(S, D.V) < 1e-9) & (dist(T, D.V) < 1e-9)]
+                        t0 = np.linalg.svd(np.vstack([gradient(S, c), gradient(T, c), c]))[2][-1]
+                        for sgn in (1, -1):
+                            run, k = follow_to(S, T, c, sgn * t0, Vt)
+                            if run is None or np.linalg.norm(E_ - Vt[k], axis=1).min() > 1e-7:
+                                continue
+                            if not any(near(run[len(run) // 2], q) for q in out):
+                                out.append(run)
+                continue
             if meets and not C:
                 # (the copy of the wall in the half-cell does not reach the corner, where the walls touch: the edge is
                 # traced back to the corner from the point where the three walls meet)
