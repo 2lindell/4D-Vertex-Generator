@@ -126,7 +126,7 @@ def crossing_curves(sn, S, names):
     V, E, T = ar.mesh(sn)
     ins = ar.inside(V)
     own = ar.sheet_key(S)
-    out = []
+    out, n0 = [], 0
     for yn in names:
         for g in ar.copies_crossing(ar.LIB[yn], V, ins):
             f = ar.Img(ar.LIB[yn], g)
@@ -155,7 +155,44 @@ def crossing_curves(sn, S, names):
                         cur = []
                 if len(cur) >= 2:
                     out.append(np.array(cur))
-    return out
+                # (each end taken exactly to where the curve really ends: the exact point on both surfaces there, or the
+                # face of the half-cell; the scaffold's last point is a step short of it)
+            for i, P in enumerate(out[n0:], n0):
+                out[i] = finish(P, S, f)
+            n0 = len(out)
+    # (one of each: copies of different library surfaces can be the same surface)
+    uniq = []
+    for P in out:
+        m = P[len(P) // 2]
+        if not any(np.linalg.norm(Q - m, axis=1).min() < 1e-7 for Q in uniq):
+            uniq.append(P)
+    return uniq
+
+
+def finish(P, S, f):
+    EP, EN = ar.exact_points()
+    ends = []
+    for x in (P[0], P[-1]):
+        d = np.linalg.norm(EP - x, axis=1)
+        near = [i for i in np.argsort(d)[:8] if d[i] < 2.5 * ar.H
+                and dist(S, EP[i][None])[0] < 1e-9 and dist(f, EP[i][None])[0] < 1e-9]
+        if near:
+            ends.append(EP[near[0]])
+            continue
+        vals = x @ ar.CELL.T
+        k = int(np.argmin(vals))
+        if vals[k] < 2.5 * ar.H:
+            y = ar.onto([S, f, osd.Plane(ar.CELL[k], "face")], x[None])[0]
+            if np.linalg.norm(y - x) < 3 * ar.H and abs(y @ ar.CELL[k]) < 1e-12:
+                ends.append(y)
+                continue
+        ends.append(None)
+    Q = P
+    if ends[0] is not None and np.linalg.norm(ends[0] - P[0]) > 1e-15:
+        Q = np.vstack([ends[0][None], Q])
+    if ends[1] is not None and np.linalg.norm(ends[1] - P[-1]) > 1e-15:
+        Q = np.vstack([Q, ends[1][None]])
+    return Q
 
 
 def wall(w, work, curves, seeds, dbg=None):
