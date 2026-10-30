@@ -380,8 +380,24 @@ def grow(W, walls, D, seeds):
         Eo = np.where(ins[Eo[:, 0]][:, None], Eo, Eo[:, ::-1])           # (inside, outside)
         if not len(Eo):
             continue
-        same = (sg[Eo[:, 0]] == sg[Eo[:, 1]]).all(1) if sg.shape[1] else np.ones(len(Eo), bool)
-        Eo = Eo[same]
+        # (not across a real edge: a line, many of which lie in the half-cell's faces, or a copy of a wall that is
+        # there, or a seam)
+        stop = np.zeros(len(Eo), bool)
+        for k, (kind, src, f, P) in enumerate(funcs):
+            if kind == "line":
+                stop |= line_steps(V, Eo, P, LIB[sn])
+                continue
+            if kind == "cut":
+                continue
+            ch = np.flatnonzero(sg[Eo[:, 0], k] != sg[Eo[:, 1], k])
+            if not len(ch):
+                continue
+            if kind == "seam":
+                stop[ch] = True
+                continue
+            X = crossing(V, Eo[ch], f, LIB[sn])
+            stop[ch[real_at(kind, src, P, X, walls)]] = True
+        Eo = Eo[~stop]
         for ni, Q in carried(V[Eo[:, 1]], strict=True):
             for sn2 in W.sheets:
                 on_ = off(LIB[sn2], Q) < 1e-7

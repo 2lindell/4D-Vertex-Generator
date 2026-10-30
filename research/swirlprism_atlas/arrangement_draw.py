@@ -89,8 +89,10 @@ def sheet_curves(W, sn, walls):
         if kind == "line":
             # (the line's own exact points, each stretch kept where the steps it passes between have the wall on one
             # side only)
-            keep = [bool(len(st) and (inw[Ei[st, 0]] != inw[Ei[st, 1]]).mean() > 0.5)
-                    for st in ar.line_steps(V, Ei, P, S, per=True)]
+            # (steps with one end in the half-cell: a line lying in one of its faces is passed by the steps out of it)
+            Ea = sh["E"][ins[sh["E"][:, 0]] | ins[sh["E"][:, 1]]]
+            wa, wb = inw[Ea[:, 0]] & ins[Ea[:, 0]], inw[Ea[:, 1]] & ins[Ea[:, 1]]
+            keep = [bool(len(st) and (wa[st] != wb[st]).mean() > 0.5) for st in ar.line_steps(V, Ea, P, S, per=True)]
             run = []
             for i, kp in enumerate(keep):
                 if kp:
