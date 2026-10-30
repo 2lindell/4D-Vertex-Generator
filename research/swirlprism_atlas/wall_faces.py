@@ -120,6 +120,34 @@ def face_curves(S, n=160):
     return out
 
 
+def joined(pieces, tol=1e-9):
+    """A line's copies joined end to end where they meet (a line's verified pieces meet at points along it, which are
+    not ends of it)."""
+    P = [np.asarray(p, float) for p in pieces if len(p) >= 2]
+    changed = True
+    while changed:
+        changed = False
+        for i in range(len(P)):
+            for j in range(len(P)):
+                if i == j or P[i] is None or P[j] is None:
+                    continue
+                a, b = P[i], P[j]
+                cands = ((np.vstack([a, b[1:]]), a[-1], b[0], a[-1] - a[-2], b[1] - b[0]),
+                         (np.vstack([a, b[::-1][1:]]), a[-1], b[-1], a[-1] - a[-2], b[-2] - b[-1]),
+                         (np.vstack([b, a[1:]]), b[-1], a[0], b[-1] - b[-2], a[1] - a[0]),
+                         (np.vstack([b[::-1], a[1:]]), b[0], a[0], b[0] - b[1], a[1] - a[0]))
+                for merged, x, y, t1, t2 in cands:
+                    cos = t1 @ t2 / (np.linalg.norm(t1) * np.linalg.norm(t2) + 1e-300)
+                    if np.linalg.norm(x - y) < tol and cos > 0.95:
+                        new = lambda merged=merged: merged
+                        # (only where they go on through it, not where two copies just touch at an end and turn back)
+                        P[i], P[j] = new(), None
+                        changed = True
+                        break
+        P = [p for p in P if p is not None]
+    return P
+
+
 def crossing_curves(sn, S, names):
     """Where every copy of the surfaces `names` crosses the surface S (named sn) in the half-cell: traced across S's
     scaffold (arrangement.mesh) and every point solved exactly onto both surfaces."""
@@ -206,8 +234,8 @@ def wall(w, work, curves, seeds, dbg=None, others=None):
     st = []
     for L in wd["edges"]:
         if L in XL:
-            for c in line_in_cell(XL[L]["points"]):
-                for P, a, b in lp.split_at_points(np.asarray(c, float), corners):
+            for c in joined(line_in_cell(XL[L]["points"])):
+                for P, a, b in lp.split_at_points(c, corners):
                     if not a == b == "face" and {a, b} <= corners | {"face"}:
                         st.append((L, P, a, b))
 
