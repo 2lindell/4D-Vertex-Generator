@@ -55,6 +55,27 @@ Not yet right:
   `exact_curves.py` now reads the exact lines (its corners are the exact points, so the traced curves are unchanged).
   Step 1 done.
 
+## Approach change (2026-10-30)
+
+Tracing each edge between corners named one by one, and adding corners by hand where that failed, is dropped: it
+needed the user to say which way an edge runs, which the walls' positions on the 3-sphere already decide, and it left
+edges missing or running past their corners. Instead, every wall's extent comes out of one computation over the whole
+3-sphere, the same for every wall and every copy, and is checked by the symmetry:
+
+1. **The arrangement on each surface.** On each wall's surface, every copy (image under the 4800 elements) of every
+   surface of the walls it meets (its edges and cuts in the working data), and every copy of its lines, is laid down
+   in full where it crosses the surface. Each curve is solved exactly onto both surfaces; nothing is named by hand.
+2. **Which copies are real.** A curve stretch on wall W from a copy of wall Y bounds W only where Y itself is
+   there (that stretch lies on Y's own faces, carried back by the group). All walls are solved together until nothing
+   changes: each wall is the faces holding its seed and those reached across stretches that are not real edges.
+3. **Checks from the symmetry.** Each wall's faces map onto themselves under its stabiliser; W's edge along Y is the
+   same curve as Y's edge or cut on W; every corner found is an exact point, and the points the working data lists
+   for W are its corners; every outline closes. Where a check fails, the data is reported, not patched.
+4. **The viewer** draws from this alone: edges where the wall is on one side, cuts where it is on both, nothing where
+   it is on neither. The working data is not changed by the drawing step.
+
+The hand-given corners (`edge_corners`) are kept only as checks to compare against.
+
 ## Plan
 
 1. **Exact curves for every wall.** Lines put exactly on their surfaces again (`exact_lines.py`). A wall's corners
