@@ -337,7 +337,7 @@ def real_at(kind, src, P, X, walls):
     return real
 
 
-def grow(W, walls, D, seeds):
+def grow(W, walls, D, seeds, dbg=None):
     """Grow wall W from its seed, stopped by its real edges, given the others as they now are."""
     lines = D[2]
     comp_of, n_comp, links, seed_comps = {}, 0, [], []
@@ -369,6 +369,7 @@ def grow(W, walls, D, seeds):
         sh["lab"] = lab
     root = list(range(n_comp))
     votes = Counter()
+    cant, rim = Counter(), Counter()
 
     def find(i):
         while root[i] != i:
@@ -409,13 +410,27 @@ def grow(W, walls, D, seeds):
             onW = {sn2: off(LIB[sn2], Q) < 1e-7 for sn2 in W.sheets}
             anyW = np.any(list(onW.values()), axis=0)
             bad = np.isin(ni, ni[~anyW])
+            # (a part whose rim on a face cannot go on: steps past the face, clear of the wall's edges, with a copy off
+            # its surfaces)
+            et0 = sh.get("edge_tree")
+            for a in np.unique(ni[~anyW]):
+                if et0 is None or et0.query(V[Eo[a, 0]])[0] > 2 * H:
+                    cant[int(comp_of[sn][Eo[a, 0]])] += 1
+            for a in np.unique(ni):
+                if et0 is None or et0.query(V[Eo[a, 0]])[0] > 2 * H:
+                    rim[int(comp_of[sn][Eo[a, 0]])] += 1
             for sn2 in W.sheets:
                 on_ = onW[sn2] & ~bad
                 if not on_.any():
                     continue
                 d, j = trees[sn2].query(Q[on_])
-                for a, dd, jj in zip(ni[on_], d, j):
-                    if dd < 1.5 * H:
+                # (both ends clear of the wall's real edges: at a corner on a face, where the wall pinches to a point,
+                # a step out lands on the far side of an edge)
+                et1, et2 = sh.get("edge_tree"), W.sheets[sn2].get("edge_tree")
+                far1 = et1.query(V[Eo[ni[on_], 0]])[0] > 2 * H if et1 is not None else np.ones(on_.sum(), bool)
+                far2 = et2.query(Q[on_])[0] > 2 * H if et2 is not None else np.ones(on_.sum(), bool)
+                for a, dd, jj, ok_ in zip(ni[on_], d, j, far1 & far2):
+                    if dd < 1.5 * H and ok_:
                         votes[(int(comp_of[sn][Eo[a, 0]]), int(comp_of[sn2][idxs[sn2][jj]]))] += 1
     # (two parts joined across a face only where three steps or more agree: a real continuation has many; a step
     # landing next to where a curve meets the face can fall on the wrong side of it)
@@ -436,8 +451,14 @@ def grow(W, walls, D, seeds):
             d, j = trees[sn].query(y)
             c = find(comp_of[sn][idxs[sn][j]])
             de = sh["edge_tree"].query(y)[0] if sh.get("edge_tree") is not None else np.inf
-            (clear if de > 2 * H else near).append(c)
-    seed_comps = set(clear or near)
+            (clear if de > 2 * H else near).append((de, c))
+    # (none clear: the image farthest from the wall's edges)
+    far = max((de for de, _ in near), default=0)
+    seed_comps = {c for _, c in clear} or {c for de, c in near if de >= far - 1e-12}
+    if dbg is not None:
+        dbg.update(clear=clear, near=near, cant=cant, rim=rim, votes={k: v for k, v in votes.items()},
+                   sizes={sn: np.bincount(comp_of[sn][sh["ins"]] - comp_of[sn].min()) for sn, sh in W.sheets.items()},
+                   comp_of=comp_of, root=[find(i) for i in range(n_comp)])
     new = {}
     for sn, sh in W.sheets.items():
         r = np.array([find(c) for c in comp_of[sn]])
