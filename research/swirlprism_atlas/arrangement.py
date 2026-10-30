@@ -360,6 +360,8 @@ def grow(W, walls, D, seeds):
             X = crossing(V, Ei[idx], f, S)
             blocked[idx[real_at(kind, src, P, X, walls)]] = True
         A = Ei[~blocked]
+        bm = (V[Ei[blocked, 0]] + V[Ei[blocked, 1]]) / 2
+        sh["edge_tree"] = cKDTree(bm) if len(bm) else None
         g = coo_matrix((np.ones(len(A)), (A[:, 0], A[:, 1])), shape=(len(V), len(V)))
         nc, lab = connected_components(g, directed=False)
         comp_of[sn] = lab + n_comp
@@ -420,11 +422,16 @@ def grow(W, walls, D, seeds):
     s_ = Y.sum(1)
     Y = Y[np.abs(s_) > 1e-12] / s_[np.abs(s_) > 1e-12, None]
     Y = Y[(Y @ CELL.T >= -1e-12).all(1)]
+    # (a seed image lying on one of the wall's real edges (a symmetric point often does) does not tell which side the
+    # wall is on: only the images clear of them are used, unless none is)
+    clear, near = [], []
     for sn, sh in W.sheets.items():
         for y in Y[off(LIB[sn], Y) < 1e-9]:
             d, j = trees[sn].query(y)
-            seed_comps.append(find(comp_of[sn][idxs[sn][j]]))
-    seed_comps = set(seed_comps)
+            c = find(comp_of[sn][idxs[sn][j]])
+            de = sh["edge_tree"].query(y)[0] if sh.get("edge_tree") is not None else np.inf
+            (clear if de > 2 * H else near).append(c)
+    seed_comps = set(clear or near)
     new = {}
     for sn, sh in W.sheets.items():
         r = np.array([find(c) for c in comp_of[sn]])
