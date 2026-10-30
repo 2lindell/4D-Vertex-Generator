@@ -47,6 +47,7 @@ SURF = dict(LIB)                                          # (the library's surfa
 N = int(os.environ.get("ARR_N", 128))
 H = 1.0 / N
 CACHE = os.environ.get("ARR_CACHE", "/tmp/arr_cache")
+STRICT = os.environ.get("ARR_STRICT", "1") == "1"         # (every copy of a wall it ends on stops a wall: see Wall.present)
 CELL = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, -1.0]])   # (the half-cell: CELL @ b >= 0)
 CUBE8 = np.array([[i, j, k] for i in (0, 1) for j in (0, 1) for k in (0, 1)])
 
@@ -298,8 +299,18 @@ class Wall:
         self.tree = {}
 
     def present(self, X):
-        """For points X (betas): is this wall there? (carried by the group into the half-cell, onto its surfaces)"""
+        """For points X (betas): is this wall there? Strictly (STRICT, the default): wherever any copy of its surfaces
+        is, so every copy of a wall it ends on stops it (a looser test, where the wall as grown so far is, let walls
+        leak). Else carried by the group into the half-cell, onto its surfaces as grown."""
         X = np.atleast_2d(X)
+        if STRICT:
+            got = np.zeros(len(X), bool)
+            for b in self.bases:
+                for i, x in enumerate(X):
+                    if not got[i]:
+                        v = fvals(LIB[b], np.einsum("gij,j->gi", GINV, x))
+                        got[i] = (np.abs(v) < 1e-7 * (np.abs(v).max() + 1e-300)).any()
+            return got
         got = np.zeros(len(X), bool)
         for sn, sh in self.sheets.items():
             if sn not in self.tree:
@@ -526,12 +537,21 @@ def grow(W, walls, D, seeds, dbg=None):
         for y in Y[off(S, Y) < 1e-9]:
             cand = [i for i in trees[sn].query_ball_point(y, 3 * H)]
             cand = sorted((float(np.linalg.norm(Vs[idxs[sn][i]] - y)), int(idxs[sn][i])) for i in cand)
+            # (a copy passing through the seed itself does not divide the wall there: the seed is a point of the wall's
+            # own shape; the wall starts on every side of such copies, at the nearest point on each)
+            through = {k for k, (kind, src, f, P) in enumerate(sh["funcs"])
+                       if kind in ("edge", "line") and (cKDTree(P).query(y)[0] < 1e-9 if kind == "line"
+                                                        else off(f, y[None])[0] < 1e-9)}
+            sides_seen = set()
             for _, v in cand:
+                side = tuple(sh["sg"][v, sorted(through)]) if through else ()
+                if side in sides_seen:
+                    continue
                 pair = np.vstack([y, Vs[v]])
                 step = np.array([[0, 1]])
                 ok = True
                 for k, (kind, src, f, P) in enumerate(sh["funcs"]):
-                    if kind in ("cut", "seam"):
+                    if kind in ("cut", "seam") or k in through:
                         continue
                     if kind == "line":
                         if line_steps(pair, step, P, S).any():
@@ -546,7 +566,9 @@ def grow(W, walls, D, seeds, dbg=None):
                         break
                 if ok:
                     seed_comps.add(find(comp_of[sn][v]))
-                    break
+                    sides_seen.add(side)
+                    if not through:
+                        break
     if dbg is not None:
         dbg.update(seed_comps=seed_comps, cant=cant, rim=rim, votes={k: v for k, v in votes.items()},
                    sizes={sn: np.bincount(comp_of[sn][sh["ins"]] - comp_of[sn].min()) for sn, sh in W.sheets.items()},

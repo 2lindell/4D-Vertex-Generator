@@ -167,7 +167,8 @@ def main():
     walls = {}
     for w, sn, V, E, T, ins, funcs, sg in got:
         walls.setdefault(w, {})[sn] = {"V": V, "E": E, "T": T, "ins": ins, "funcs": funcs, "sg": sg}
-    walls = {w: Wall(w, sh) for w, sh in walls.items()}
+    ex = json.load(open("exact_defs.json"))
+    walls = {w: Wall(w, sh, [n for n in ex["walls"][w]["surface"] if n in LIB]) for w, sh in walls.items()}
     for w, W in walls.items():
         W.inwall = {sn: z[f"{w}|{sn}"] for sn in W.sheets}
     EP, names = exact_point_images()
