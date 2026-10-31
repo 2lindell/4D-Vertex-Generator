@@ -1,0 +1,1569 @@
+{
+ "F1": {
+  "patches": [
+   "plane (-0, -0.336068, 0.336068, 0.879839)",
+   "plane (-0.356822, 0.934172, 0, 0)",
+   "plane (0.707107, -0, -0.707107, -0)",
+   "plane (0.707107, -0.707107, -0, -0)"
+  ],
+  "joins": [
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 575,
+    "how": "across a face"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 3,
+    "by": 1775,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 3,
+    "by": 1127,
+    "how": "across a face"
+   },
+   {
+    "patch": 3,
+    "image_of": 2,
+    "by": 1127,
+    "how": "across a face"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    628
+   ],
+   [
+    2,
+    1852
+   ],
+   [
+    3,
+    1200
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "F4": {
+  "patches": [
+   "plane (0, 1, 0, 0)",
+   "plane (0.879839, 0, -0.336068, 0.336068)",
+   "plane (0.934172, -0.356822, 0, 0)",
+   "plane (1, -0, -0, -0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 0,
+    "image_of": 2,
+    "by": 1775,
+    "how": "same part"
+   },
+   {
+    "patch": 0,
+    "image_of": 3,
+    "by": 449,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 1127,
+    "how": "across a face"
+   },
+   {
+    "patch": 1,
+    "image_of": 3,
+    "by": 1977,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 0,
+    "by": 1775,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 1127,
+    "how": "across a face"
+   },
+   {
+    "patch": 2,
+    "image_of": 3,
+    "by": 1568,
+    "how": "same part"
+   },
+   {
+    "patch": 3,
+    "image_of": 0,
+    "by": 622,
+    "how": "same part"
+   },
+   {
+    "patch": 3,
+    "image_of": 1,
+    "by": 1977,
+    "how": "same part"
+   },
+   {
+    "patch": 3,
+    "image_of": 2,
+    "by": 1568,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ],
+   [
+    2,
+    1775
+   ],
+   [
+    3,
+    449
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "F5": {
+  "patches": [
+   "plane (0, 0.707107, 0, -0.707107)",
+   "plane (0.934172, -0.356822, 0, 0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "T2": {
+  "patches": [
+   "plane (-0, -0.336068, 0.336068, 0.879839)",
+   "plane (-0.336068, -0, 0.879839, 0.336068)",
+   "plane (0.707107, -0, -0.707107, -0)",
+   "plane (0.707107, -0.707107, -0, -0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 2,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 0,
+    "image_of": 3,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 0,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 3,
+    "by": 1127,
+    "how": "across a face"
+   },
+   {
+    "patch": 3,
+    "image_of": 0,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 3,
+    "image_of": 2,
+    "by": 1127,
+    "how": "across a face"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    652
+   ],
+   [
+    2,
+    1852
+   ],
+   [
+    3,
+    1200
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X3": {
+  "patches": [
+   "plane (-0, -0.336068, 0.336068, 0.879839)",
+   "plane (0.707107, -0.707107, -0, -0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1200,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    1200
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X7": {
+  "patches": [
+   "X100"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 0,
+    "by": 1200,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1200
+   ]
+  ],
+  "stabiliser": [
+   0,
+   1200
+  ],
+  "face_lines_not_edges": []
+ },
+ "X9": {
+  "patches": [
+   "plane (0, 1, 0, 0)",
+   "plane (0.879839, 0, -0.336068, 0.336068)",
+   "plane (1, -0, -0, -0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 0,
+    "image_of": 2,
+    "by": 449,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 0,
+    "how": "at a seam"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 172,
+    "how": "at a seam"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 1977,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 0,
+    "by": 622,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 0,
+    "how": "at a seam"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 172,
+    "how": "at a seam"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 1977,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    870
+   ],
+   [
+    0,
+    1200
+   ],
+   [
+    0,
+    2070
+   ],
+   [
+    1,
+    449
+   ],
+   [
+    1,
+    652
+   ],
+   [
+    1,
+    2032
+   ],
+   [
+    1,
+    2327
+   ],
+   [
+    2,
+    449
+   ],
+   [
+    2,
+    652
+   ],
+   [
+    2,
+    2032
+   ],
+   [
+    2,
+    2327
+   ]
+  ],
+  "stabiliser": [
+   0,
+   870,
+   1200,
+   2070
+  ],
+  "face_lines_not_edges": []
+ },
+ "X10": {
+  "patches": [
+   "X10"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X11": {
+  "patches": [
+   "plane (0, 0, 0.707107, -0.707107)",
+   "plane (0, 0.57735, -0.57735, 0.57735)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 2327,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    1852
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X14": {
+  "patches": [
+   "X14"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X15": {
+  "patches": [
+   "X15"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X17": {
+  "patches": [
+   "plane (-0, -0.336068, 0.336068, 0.879839)",
+   "plane (-0.336068, -0, 0.879839, 0.336068)",
+   "plane (0.707107, -0, -0.707107, -0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 652,
+    "how": "across a face"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 652,
+    "how": "across a face"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 0,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 1200,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    652
+   ],
+   [
+    2,
+    1852
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X19": {
+  "patches": [
+   "plane (0, 0, 0.707107, -0.707107)",
+   "plane (0, 0.57735, -0.57735, 0.57735)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 2327,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    1852
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X20": {
+  "patches": [
+   "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+   "plane (0, 0.707107, -0.707107, 0)",
+   "plane (0.371748, -0.371748, -0.601501, 0.601501)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 0,
+    "image_of": 2,
+    "by": 1127,
+    "how": "across a face"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 0,
+    "by": 1127,
+    "how": "across a face"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 1200,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ],
+   [
+    2,
+    1127
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X21": {
+  "patches": [
+   "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+   "plane (0, 0.707107, -0.707107, 0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X22": {
+  "patches": [
+   "X15"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X23": {
+  "patches": [
+   "plane (0, 1, 0, 0)",
+   "plane (0.879839, 0, -0.336068, 0.336068)",
+   "plane (1, -0, -0, -0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 0,
+    "image_of": 2,
+    "by": 449,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 2,
+    "by": 1977,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 0,
+    "by": 622,
+    "how": "same part"
+   },
+   {
+    "patch": 2,
+    "image_of": 1,
+    "by": 1977,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ],
+   [
+    2,
+    449
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X25": {
+  "patches": [
+   "X25"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X26": {
+  "patches": [
+   "plane (0, 0, 0.707107, -0.707107)",
+   "plane (0, 0.57735, -0.57735, 0.57735)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 1852,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 2327,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    1852
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X27": {
+  "patches": [
+   "plane (-0.295242, 0.477711, 0.295242, 0.772953)",
+   "plane (0, 0.707107, -0.707107, 0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X28": {
+  "patches": [
+   "X28"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X31": {
+  "patches": [
+   "plane (-0.356822, 0.934172, 0, 0)",
+   "plane (0, 0.707107, 0, -0.707107)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1200,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    1200
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X33": {
+  "patches": [
+   "X33"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X34": {
+  "patches": [
+   "X14"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X35": {
+  "patches": [
+   "X10"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X38": {
+  "patches": [
+   "X38"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 0,
+    "by": 1568,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1568
+   ]
+  ],
+  "stabiliser": [
+   0,
+   1568
+  ],
+  "face_lines_not_edges": []
+ },
+ "X39": {
+  "patches": [
+   "X10"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X40": {
+  "patches": [
+   "X40"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X41": {
+  "patches": [
+   "X28"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X42": {
+  "patches": [
+   "X42"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X44": {
+  "patches": [
+   "plane (0, 0.707107, 0, -0.707107)",
+   "plane (0.934172, -0.356822, 0, 0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X47": {
+  "patches": [
+   "X14"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X48": {
+  "patches": [
+   "X38"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X51": {
+  "patches": [
+   "X51"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X52": {
+  "patches": [
+   "X10"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X53": {
+  "patches": [
+   "X53"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 0,
+    "by": 1127,
+    "how": "across a face"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1127
+   ]
+  ],
+  "stabiliser": [
+   0,
+   1127
+  ],
+  "face_lines_not_edges": []
+ },
+ "X79": {
+  "patches": [
+   "plane (-0.356822, 0.934172, 0, 0)",
+   "plane (0, 0.707107, 0, -0.707107)"
+  ],
+  "joins": [
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1200,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 1,
+    "by": 143,
+    "how": "across a face"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    279
+   ],
+   [
+    1,
+    1200
+   ],
+   [
+    1,
+    1479
+   ]
+  ],
+  "stabiliser": [
+   0,
+   279
+  ],
+  "face_lines_not_edges": [
+   "E1",
+   "X13"
+  ]
+ },
+ "X82": {
+  "patches": [
+   "X14"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X83": {
+  "patches": [
+   "X38"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X84": {
+  "patches": [
+   "X84"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X85": {
+  "patches": [
+   "X85"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X86": {
+  "patches": [
+   "X25:fold"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X87": {
+  "patches": [
+   "X87"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X88": {
+  "patches": [
+   "X88"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X89": {
+  "patches": [
+   "X89"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X90": {
+  "patches": [
+   "X90"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X91": {
+  "patches": [
+   "X91"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X92": {
+  "patches": [
+   "X92"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X93": {
+  "patches": [
+   "X25:fold"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": [
+   "X2"
+  ]
+ },
+ "X94": {
+  "patches": [
+   "X94"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 0,
+    "by": 1200,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1200
+   ]
+  ],
+  "stabiliser": [
+   0,
+   1200
+  ],
+  "face_lines_not_edges": []
+ },
+ "X96": {
+  "patches": [
+   "plane (0, 0.707107, -0.707107, 0)"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X98": {
+  "patches": [
+   "plane (0, 0.707107, 0, -0.707107)",
+   "plane (0.934172, -0.356822, 0, 0)"
+  ],
+  "joins": [
+   {
+    "patch": 0,
+    "image_of": 1,
+    "by": 2327,
+    "how": "same part"
+   },
+   {
+    "patch": 1,
+    "image_of": 0,
+    "by": 1852,
+    "how": "same part"
+   }
+  ],
+  "whole_piece": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    2327
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X99": {
+  "patches": [
+   "X99"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ },
+ "X100": {
+  "patches": [
+   "X100"
+  ],
+  "joins": [],
+  "whole_piece": [
+   [
+    0,
+    0
+   ]
+  ],
+  "stabiliser": [
+   0
+  ],
+  "face_lines_not_edges": []
+ }
+}

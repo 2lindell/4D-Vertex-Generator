@@ -1,0 +1,31 @@
+{
+ "_note": "Boundaries checked by hand; applied last by boundaries.py. 'walls' replaces a region's walls (its lines and points are kept); 'separates' replaces a wall's two sides.",
+ "regions": {
+  "F2": {
+   "walls": [
+    "T2",
+    "X3",
+    "X9",
+    "X10",
+    "X11",
+    "X14",
+    "X21"
+   ]
+  }
+ },
+ "separates": {
+  "X10": [
+   "F2",
+   "X95"
+  ],
+  "X20": [
+   "X66",
+   "X95"
+  ],
+  "X11": [
+   "F2",
+   "X36",
+   "X37"
+  ]
+ }
+}

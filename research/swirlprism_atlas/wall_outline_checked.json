@@ -1,0 +1,71 @@
+{
+ "_about": "Walls whose edges were checked by hand, the test of wall_edges_rule.py. A line the wall goes on across (into itself, its copy or its mirror image) is never an edge: on the 3-sphere the wall carries on there. So T2 has no D1 (its copy across), X26 no D2 or D3, X10 no C3, X38 no C2a, F1 no D3. T2: E2, T1, X1, X4. X17: X2, X4 (it ends on X4 along its b1=b3 patch). X26: X2. X38: B1, E1. X10: D1, X3, X8, X9. X39: X8, X29, X23.",
+ "T2": {
+  "edges": [
+   "E2",
+   "T1",
+   "X1",
+   "X4"
+  ],
+  "points": [
+   "C1",
+   "C4",
+   "C5",
+   "C6"
+  ]
+ },
+ "X17": {
+  "edges": [
+   "X2",
+   "X4"
+  ],
+  "points": [
+   "C1",
+   "C4",
+   "C5"
+  ]
+ },
+ "X26": {
+  "edges": [
+   "X2"
+  ],
+  "points": [
+   "A1",
+   "C1",
+   "C4"
+  ]
+ },
+ "X38": {
+  "edges": [
+   "B1",
+   "E1"
+  ],
+  "points": [
+   "A1",
+   "C6"
+  ]
+ },
+ "X10": {
+  "edges": [
+   "D1",
+   "X3",
+   "X8",
+   "X9"
+  ],
+  "points": [
+   "C1",
+   "C5",
+   "C6"
+  ]
+ },
+ "X39": {
+  "edges": [
+   "X23",
+   "X29",
+   "X8"
+  ],
+  "points": [
+   "A1"
+  ]
+ }
+}

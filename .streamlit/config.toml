@@ -1,6 +1,6 @@
 [server]
 headless = true
-address = "0.0.0.0"
+address = "localhost"  # use --server.address 0.0.0.0 to share on your network
 port = 8502
 
 [browser]

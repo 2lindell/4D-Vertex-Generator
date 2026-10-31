@@ -1,0 +1,43 @@
+{
+ "T2 (tpatch)": {
+  "crossing X17 (not defined)": 0.8466,
+  "traced line F1": 0.334,
+  "traced line X94": 0.0536,
+  "edge of X94 ending on it": 0.0532
+ },
+ "X10 (copy)": {
+  "traced line X7": 0.0216,
+  "crossing X3 (not defined)": 0.0102
+ },
+ "X11 (orig)": {
+  "edge of X94 ending on it": 0.0825,
+  "traced line X94": 0.0736,
+  "traced line X3": 0.0513,
+  "traced line X10": 0.0454,
+  "traced line X7": 0.0115
+ },
+ "X17 (orig)": {
+  "crossing T2 (not defined)": 0.8466
+ },
+ "X3 (orig)": {
+  "edge of X10 ending on it": 0.1033,
+  "crossing X10 (not defined)": 0.0102
+ },
+ "X7 (copy)": {
+  "traced line E2": 0.0079
+ },
+ "X9 (orig)": {
+  "edge of X10 ending on it": 0.0348,
+  "traced line X10": 0.0345
+ },
+ "X94 (copy)": {
+  "traced line X15": 0.0589,
+  "traced line X78": 0.0446,
+  "traced line X83": 0.0234
+ },
+ "X94 (orig)": {
+  "traced line X15": 0.0523,
+  "traced line X78": 0.0441,
+  "traced line X83": 0.0327
+ }
+}
