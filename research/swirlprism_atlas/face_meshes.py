@@ -38,9 +38,32 @@ def lift(S, c0, U, uv, steps=30):
     return x
 
 
+def clean(rings):
+    """The polygon's rings with points closer than 1e-9 merged, and the polygon made valid (the outline's pieces were
+    joined within 1e-6, which can leave a pinch or a sliver): [outer, holes...], or [] where it has no area."""
+    from shapely.validation import make_valid
+    P = Polygon(rings[0], rings[1:])
+    if not P.is_valid:
+        P = make_valid(P)
+        P = max((g for g in getattr(P, "geoms", [P]) if g.geom_type == "Polygon"), key=lambda g: g.area, default=None)
+    if P is None or P.area < 1e-9:
+        return []
+    out = []
+    for R in [P.exterior] + list(P.interiors):
+        R = np.asarray(R.coords)[:-1]
+        keep = [0] + [i for i in range(1, len(R)) if np.linalg.norm(R[i] - R[i - 1]) > 1e-9]
+        R = R[keep]
+        if len(R) >= 3:
+            out.append(R)
+    return out
+
+
 def mesh_polygon(rings):
     """A polygon (outer ring, holes) triangulated inside its outline, no point added on it: (points, triangles)."""
     pts, segs, holes = [], [], []
+    rings = clean(rings)
+    if not rings:
+        return np.zeros((0, 2)), np.zeros((0, 3), int)
     for k, ring in enumerate(rings):
         R = np.asarray(ring, float)
         if np.linalg.norm(R[0] - R[-1]) < 1e-15:
@@ -53,7 +76,7 @@ def mesh_polygon(rings):
     A = {"vertices": np.array(pts), "segments": np.array(segs)}
     if holes:
         A["holes"] = np.array(holes)
-    T = triangle.triangulate(A, f"pYq25a{MAX_AREA}")
+    T = triangle.triangulate(A, f"pYq15a{MAX_AREA}")       # (a modest angle bound: slivers cannot meet a high one)
     return T["vertices"], T["triangles"]
 
 
@@ -75,6 +98,8 @@ def main(only=None):
                     uv, tri = mesh_polygon(rings)
                 except Exception as ex:                    # (reported, not hidden)
                     print(f"  {w} on {e['name']}: a face could not be triangulated ({ex})", flush=True)
+                    continue
+                if not len(tri):
                     continue
                 X = lift(S, c0, U, uv)
                 off = float(np.abs(ar.fvals(S, X)).max() / (np.linalg.norm(ar.grads(S, X), axis=1).min() + 1e-300))
