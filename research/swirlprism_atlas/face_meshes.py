@@ -23,6 +23,7 @@ import arrangement as ar
 OUT = os.environ.get("MESHES_OUT", "wall_meshes.json")
 MAX_AREA = float(os.environ.get("MAX_AREA", 6e-4))   # (in the layout's own units, about a 0.035 triangle side; 0: none)
 STEP = float(os.environ.get("STEP", 0.02))           # (the outline's points kept about this far apart)
+SPAN = float(os.environ.get("SPAN", 0.1))            # (a triangle longer than this was carried across a fold)
 
 
 def lift(S, c0, U, uv, steps=30):
@@ -126,7 +127,7 @@ def main(only=None):
                     offs = np.abs(ar.fvals(S, X)) / (np.linalg.norm(ar.grads(S, X), axis=1) + 1e-300)
                 ok = (offs < 1e-9) & np.isfinite(X).all(1)
                 span = np.linalg.norm(X[tri] - X[tri][:, [1, 2, 0]], axis=2).max(1)
-                keep = ok[tri].all(1) & (span < 0.1)
+                keep = ok[tri].all(1) & (span < SPAN)
                 dropped += int((~keep).sum())
                 tri = tri[keep]
                 worst = max(worst, float(offs[ok].max()) if ok.any() else 0.0)

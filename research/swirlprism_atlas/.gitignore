@@ -6,3 +6,4 @@ piece_regions_cache.pkl
 wall_faces.json
 wall_meshes.json
 wall_meshes_coarse.json
+wall_meshes_coarse2.json
