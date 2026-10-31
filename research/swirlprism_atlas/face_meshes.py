@@ -21,8 +21,8 @@ from shapely.geometry import Polygon
 import arrangement as ar
 
 OUT = os.environ.get("MESHES_OUT", "wall_meshes.json")
-MAX_AREA = 2e-4           # (in the layout's own units, about a 0.02 triangle side)
-STEP = 0.01               # (the outline's points kept about this far apart)
+MAX_AREA = float(os.environ.get("MAX_AREA", 6e-4))   # (in the layout's own units, about a 0.035 triangle side; 0: none)
+STEP = float(os.environ.get("STEP", 0.02))           # (the outline's points kept about this far apart)
 
 
 def lift(S, c0, U, uv, steps=30):
@@ -90,7 +90,7 @@ def mesh_polygon(rings):
     A = {"vertices": np.array(pts), "segments": np.array(segs)}
     if holes:
         A["holes"] = np.array(holes)
-    T = triangle.triangulate(A, f"pYa{MAX_AREA}")
+    T = triangle.triangulate(A, f"pYa{MAX_AREA}" if MAX_AREA else "pY")
     return T["vertices"], T["triangles"]
 
 

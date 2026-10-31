@@ -128,16 +128,23 @@ def main(src, dst):
     cell["xwalls"] = []
     # (with WITH_MESHES: each wall's meshes, filled exactly inside its faces (face_meshes.py))
     meshes = json.load(open("wall_meshes.json")) if os.environ.get("WITH_MESHES") else {}
+    # (the dodecahedron's view shows each triangle about 11 times: it takes the coarser meshes, wall_meshes_coarse.json,
+    # filled the same way from the same faces with fewer points, when there)
+    coarse = (json.load(open("wall_meshes_coarse.json")) if os.path.exists("wall_meshes_coarse.json") else meshes) \
+        if meshes else {}
     src_walls = []
-    for w, pcs in meshes.items():
-        for pc in pcs:
-            X = np.asarray(pc["verts"], float)
-            T = np.asarray(pc["tris"], int)
-            if not len(T):
-                continue
-            cell["xwalls"].append({"id": w, "hover": hov.get(w, w), "copy": False,
-                                   "verts": np.round(view(X), 4).tolist(), "faces": T.tolist()})
-            src_walls.append({"id": w, "hover": hov.get(w, w), "copy": False, "tris": chart(X)[T].tolist()})
+    for M, cell_view in ((meshes, True), (coarse, False)):
+        for w, pcs in M.items():
+            for pc in pcs:
+                X = np.asarray(pc["verts"], float)
+                T = np.asarray(pc["tris"], int)
+                if not len(T):
+                    continue
+                if cell_view:
+                    cell["xwalls"].append({"id": w, "hover": hov.get(w, w), "copy": False,
+                                           "verts": np.round(view(X), 4).tolist(), "faces": T.tolist()})
+                else:
+                    src_walls.append({"id": w, "hover": hov.get(w, w), "copy": False, "tris": chart(X)[T].tolist()})
     cell["xlines"] = [{"id": w, "outline": True, "copy": False, "pts": thin_line(view(p), LINE_TOL).tolist(),
                        "hover": hover(w, Y, False)} for w, Y, p in solid] + \
                      [{"id": w, "outline": True, "copy": True, "pts": thin_line(view(p), LINE_TOL).tolist(),
