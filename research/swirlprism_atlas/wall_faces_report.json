@@ -253,5 +253,174 @@
   ],
   "corners_met_once": [],
   "cuts_drawn": 0
+ },
+ "X90": {
+  "sheets": 658,
+  "sheets_with_wall": 294,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X91": {
+  "sheets": 44,
+  "sheets_with_wall": 1,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X92": {
+  "sheets": 284,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X96": {
+  "sheets": 20,
+  "sheets_with_wall": 17,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 68
+ },
+ "X99": {
+  "sheets": 512,
+  "sheets_with_wall": 206,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "F1": {
+  "sheets": 21,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [
+   "D3",
+   "E2"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 3
+ },
+ "F5": {
+  "sheets": 25,
+  "sheets_with_wall": 16,
+  "edges_not_drawn": [
+   "X20"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X10": {
+  "sheets": 22,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X11": {
+  "sheets": 19,
+  "sheets_with_wall": 18,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 6
+ },
+ "X19": {
+  "sheets": 20,
+  "sheets_with_wall": 13,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X25": {
+  "sheets": 25,
+  "sheets_with_wall": 11,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X31": {
+  "sheets": 8,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [
+   "X13",
+   "X80"
+  ],
+  "corners_met_once": [
+   "[np.float64(0.333333), np.float64(0.127322), np.float64(0.333333), np.float64(0.206011)]"
+  ],
+  "cuts_drawn": 0
+ },
+ "X39": {
+  "sheets": 4,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X41": {
+  "sheets": 23,
+  "sheets_with_wall": 1,
+  "edges_not_drawn": [
+   "C2a"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X44": {
+  "sheets": 11,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [
+   "X24",
+   "X81"
+  ],
+  "corners_met_once": [
+   "[np.float64(0.119528), np.float64(0.312929), np.float64(0.312929), np.float64(0.254614)]",
+   "[np.float64(0.594005), np.float64(0.084081), np.float64(0.237834), np.float64(0.084081)]",
+   "[np.float64(0.609225), np.float64(0.097694), np.float64(0.195388), np.float64(0.097694)]"
+  ],
+  "cuts_drawn": 0
+ },
+ "X51": {
+  "sheets": 186,
+  "sheets_with_wall": 144,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X93": {
+  "sheets": 21,
+  "sheets_with_wall": 7,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X98": {
+  "sheets": 2,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X100": {
+  "sheets": 33,
+  "sheets_with_wall": 1,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X28": {
+  "sheets": 44,
+  "sheets_with_wall": 19,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X94": {
+  "sheets": 1,
+  "sheets_with_wall": 0,
+  "edges_not_drawn": [
+   "T2",
+   "X11"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
  }
 }
