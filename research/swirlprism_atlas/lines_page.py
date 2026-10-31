@@ -15,6 +15,7 @@ The region shells (meshes too) are not published beside it.
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 
@@ -121,14 +122,29 @@ def main(src, dst):
     hover = lambda w, Y, copy: (f"{w} · edge of the wall, along {Y} (exact)" if not copy else
                                 f"{w} · invisible line: where {Y} meets it, between its pieces (exact)")
     cell = data["cell"][1]
+    hov = {}
+    for x in cell["xwalls"]:
+        hov.setdefault(x["id"], x["hover"].split("<br>this piece")[0])
     cell["xwalls"] = []
+    # (with WITH_MESHES: each wall's meshes, filled exactly inside its faces (face_meshes.py))
+    meshes = json.load(open("wall_meshes.json")) if os.environ.get("WITH_MESHES") else {}
+    src_walls = []
+    for w, pcs in meshes.items():
+        for pc in pcs:
+            X = np.asarray(pc["verts"], float)
+            T = np.asarray(pc["tris"], int)
+            if not len(T):
+                continue
+            cell["xwalls"].append({"id": w, "hover": hov.get(w, w), "copy": False,
+                                   "verts": np.round(view(X), 4).tolist(), "faces": T.tolist()})
+            src_walls.append({"id": w, "hover": hov.get(w, w), "copy": False, "tris": chart(X)[T].tolist()})
     cell["xlines"] = [{"id": w, "outline": True, "copy": False, "pts": thin_line(view(p), LINE_TOL).tolist(),
                        "hover": hover(w, Y, False)} for w, Y, p in solid] + \
                      [{"id": w, "outline": True, "copy": True, "pts": thin_line(view(p), LINE_TOL).tolist(),
                        "hover": hover(w, Y, True)} for w, Y, p in dashed]
     empty = {"samples": {}, "uniform": [], "special": [], "rings": [], "main": [], "segments": [], "qaxes": [],
              "regular": [], "tpatches": [], "mirrors": [], "fdomain": [], "fcentre": [0, 0, 0], "xwalls": []}
-    srcd = {**empty, "xlines": [{"id": w, "outline": True, "copy": c_, "pts": thin_line(chart(p), LINE_TOL / 3).tolist(),
+    srcd = {**empty, "xwalls": src_walls, "xlines": [{"id": w, "outline": True, "copy": c_, "pts": thin_line(chart(p), LINE_TOL / 3).tolist(),
                                  "hover": hover(w, Y, c_)} for c_, L_ in ((False, solid), (True, dashed)) for w, Y, p in L_]}
     dv.use_centre((1, 0, 0, 0))
     v1 = dv.view(srcd)
@@ -148,7 +164,7 @@ def main(src, dst):
                 if length(line) >= 0.015:
                     joined.append({"id": i_, "outline": True, "copy": c_, "hover": h_,
                                    "pts": thin_line(np.asarray(line), 2 * LINE_TOL).tolist()})
-        vw["xwalls"] = []
+        vw["xwalls"] = new["xwalls"]
         vw["xlines"] = joined
     for k, tag in TAGS.items():
         m, d = data[k]
