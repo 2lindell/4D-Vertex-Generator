@@ -120,6 +120,20 @@ def face_curves(S, n=160):
     return out
 
 
+def near_edge(m, tree, which, idx, polys, tol=5e-5):
+    """Is the point m on one of the polylines (to the segments next to its nearest points: a curve and its chords part
+    by about a step's square)?"""
+    for k in np.atleast_1d(tree.query(m, k=6)[1]):
+        P, i = polys[which[k]], idx[k]
+        for a, b in ((i - 1, i), (i, i + 1)):
+            if 0 <= a and b < len(P):
+                d = P[b] - P[a]
+                t = np.clip((m - P[a]) @ d / max(d @ d, 1e-300), 0, 1)
+                if np.linalg.norm(P[a] + t * d - m) < tol:
+                    return True
+    return False
+
+
 def joined(pieces, tol=1e-9):
     """A line's copies joined end to end where they meet (a line's verified pieces meet at points along it, which are
     not ends of it)."""
@@ -417,8 +431,10 @@ def wall(w, work, curves, seeds, dbg=None, others=None):
             for m in mids3[on][::4]:
                 if len(st) != tree_n[0]:
                     tree_n[0] = len(st)
-                    tree[0] = cKDTree(np.vstack(line_pts + [P for _, P, _, _ in st]))
-                if tree[0].query(m)[0] < 1e-6:
+                    polys = line_pts + [P for _, P, _, _ in st]
+                    tree[0] = (cKDTree(np.vstack(polys)), np.concatenate([np.full(len(P), i) for i, P in enumerate(polys)]),
+                               np.concatenate([np.arange(len(P)) for P in polys]), polys)
+                if near_edge(m, *tree[0]):
                     continue                               # (an edge of it lies in the face there)
                 vals = m @ ar.CELL.T
                 nf = ar.CELL[int(np.argmin(np.abs(vals)))]
