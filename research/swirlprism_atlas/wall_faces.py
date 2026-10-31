@@ -434,7 +434,8 @@ def wall(w, work, curves, seeds, dbg=None, others=None):
             for m in mids3[on][::4]:
                 if len(st) != tree_n[0]:
                     tree_n[0] = len(st)
-                    polys = line_pts + [P for _, P, _, _ in st]
+                    polys = [P for _, P, _, _ in st]           # (its own edges, corner to corner; not every copy
+                    #                                                  of its lines: some lie in the faces where it is not)
                     tree[0] = (cKDTree(np.vstack(polys)), np.concatenate([np.full(len(P), i) for i, P in enumerate(polys)]),
                                np.concatenate([np.arange(len(P)) for P in polys]), polys)
                 if near_edge(m, *tree[0]):
