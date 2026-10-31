@@ -405,6 +405,9 @@ def wall(w, work, curves, seeds, dbg=None, others=None):
     # it ends on)
     line_pts = [np.asarray(c, float) for L in wd["edges"] if L in XL for c in line_in_cell(XL[L]["points"])]
     tree, tree_n = [None], [-1]
+    EPa, ENa = ar.exact_points()
+    cp_ = EPa[[i for i, n in enumerate(ENa) if n in corners]]
+    cpts = cKDTree(cp_) if len(cp_) else None
     edge_walls = [n for Y in wd["edges"] if Y not in XL for n in work["exact"]["wall_surfaces"].get(Y, []) if n in ar.LIB]
 
     def on_edge_wall(m, S):
@@ -436,6 +439,8 @@ def wall(w, work, curves, seeds, dbg=None, others=None):
                                np.concatenate([np.arange(len(P)) for P in polys]), polys)
                 if near_edge(m, *tree[0]):
                     continue                               # (an edge of it lies in the face there)
+                if cpts is not None and cpts.query(m)[0] < 3 * ar.H:
+                    continue                               # (at one of its corners, where its edges pinch to a point)
                 vals = m @ ar.CELL.T
                 nf = ar.CELL[int(np.argmin(np.abs(vals)))]
                 g = ar.grads(S, m[None])[0]
@@ -462,6 +467,10 @@ def wall(w, work, curves, seeds, dbg=None, others=None):
                                     if j2 not in sh2["wall"]:
                                         sh2["wall"].add(j2)
                                         queue.append((k2, j2))
+                                        if dbg is not None:
+                                            dbg.setdefault("jumps", []).append(
+                                                (sh["name"], j, sh2["name"], j2, m.round(4).tolist(),
+                                                 round(sh2["faces"][j2].area, 4)))
     drawn = set()
     report = {"sheets": len(sheets), "sheets_with_wall": sum(1 for sh in sheets.values() if sh["wall"])}
     for k, sh in sheets.items():
