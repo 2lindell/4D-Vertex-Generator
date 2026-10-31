@@ -21,7 +21,7 @@ from shapely.geometry import Polygon
 import arrangement as ar
 
 OUT = os.environ.get("MESHES_OUT", "wall_meshes.json")
-MAX_AREA = 2e-5           # (in the layout's own units, about a 0.006 triangle side)
+MAX_AREA = 1e-4           # (in the layout's own units, about a 0.015 triangle side)
 
 
 def lift(S, c0, U, uv, steps=30):
@@ -89,7 +89,7 @@ def main(only=None):
     for w, r in WF.items():
         if only and w not in only:
             continue
-        pieces, worst = [], 0.0
+        pieces, worst, dropped = [], 0.0, 0
         for e in r.get("faces", []):
             S = ar.surface(e["name"])
             c0, U = np.array(e["c0"]), np.array(e["U"])
@@ -102,12 +102,24 @@ def main(only=None):
                 if not len(tri):
                     continue
                 X = lift(S, c0, U, uv)
-                off = float(np.abs(ar.fvals(S, X)).max() / (np.linalg.norm(ar.grads(S, X), axis=1).min() + 1e-300))
-                worst = max(worst, off)
+                offs = np.abs(ar.fvals(S, X)) / (np.linalg.norm(ar.grads(S, X), axis=1) + 1e-300)
+                bad = ~(offs < 1e-9) | ~np.isfinite(X).all(1)
+                if bad.any():
+                    # (where the layout folds, the exact inverse can fail: the point put on the surface by the least
+                    # change instead; a triangle with a point still off it, or carried far from its neighbours, dropped)
+                    Y = ar.onto([S], np.nan_to_num(c0[None] + uv[bad] @ U))
+                    X[bad] = Y
+                    offs = np.abs(ar.fvals(S, X)) / (np.linalg.norm(ar.grads(S, X), axis=1) + 1e-300)
+                ok = (offs < 1e-9) & np.isfinite(X).all(1)
+                span = np.linalg.norm(X[tri] - X[tri][:, [1, 2, 0]], axis=2).max(1)
+                keep = ok[tri].all(1) & (span < 0.1)
+                dropped += int((~keep).sum())
+                tri = tri[keep]
+                worst = max(worst, float(offs[ok].max()) if ok.any() else 0.0)
                 pieces.append({"surface": e["name"], "verts": X.round(12).tolist(), "tris": tri.tolist()})
         out[w] = pieces
         print(f"{w}: {len(pieces)} faces, {sum(len(p['tris']) for p in pieces)} triangles; "
-              f"farthest point off its surface {worst:.1e}", flush=True)
+              f"farthest point off its surface {worst:.1e}; triangles dropped (off it) {dropped}", flush=True)
         json.dump(out, open(OUT, "w"))
 
 
