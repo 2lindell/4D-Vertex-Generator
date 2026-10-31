@@ -21,7 +21,8 @@ from shapely.geometry import Polygon
 import arrangement as ar
 
 OUT = os.environ.get("MESHES_OUT", "wall_meshes.json")
-MAX_AREA = 1e-4           # (in the layout's own units, about a 0.015 triangle side)
+MAX_AREA = 2e-4           # (in the layout's own units, about a 0.02 triangle side)
+STEP = 0.01               # (the outline's points kept about this far apart)
 
 
 def lift(S, c0, U, uv, steps=30):
@@ -53,6 +54,19 @@ def clean(rings):
         R = np.asarray(R.coords)[:-1]
         keep = [0] + [i for i in range(1, len(R)) if np.linalg.norm(R[i] - R[i - 1]) > 1e-9]
         R = R[keep]
+        # (thinned to about one point per STEP along it, every corner kept: each kept point is still a point of the
+        # exact edge; the outline is traced far finer than the view needs)
+        if len(R) > 8:
+            d_in = R - np.roll(R, 1, 0)
+            d_out = np.roll(R, -1, 0) - R
+            cosang = (d_in * d_out).sum(1) / (np.linalg.norm(d_in, axis=1) * np.linalg.norm(d_out, axis=1) + 1e-300)
+            sel, run = [], STEP
+            for i in range(len(R)):
+                run += np.linalg.norm(d_in[i])
+                if cosang[i] < 0.995 or run >= STEP:
+                    sel.append(i)
+                    run = 0.0
+            R = R[sel]
         if len(R) >= 3:
             out.append(R)
     return out
@@ -76,7 +90,7 @@ def mesh_polygon(rings):
     A = {"vertices": np.array(pts), "segments": np.array(segs)}
     if holes:
         A["holes"] = np.array(holes)
-    T = triangle.triangulate(A, f"pYq15a{MAX_AREA}")       # (a modest angle bound: slivers cannot meet a high one)
+    T = triangle.triangulate(A, f"pYa{MAX_AREA}")
     return T["vertices"], T["triangles"]
 
 
