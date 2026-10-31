@@ -441,6 +441,9 @@ def wall(w, work, curves, seeds, dbg=None, others=None):
                     continue                               # (an edge of it lies in the face there)
                 if cpts is not None and cpts.query(m)[0] < 3 * ar.H:
                     continue                               # (at one of its corners, where its edges pinch to a point)
+                if np.sort(np.abs(m @ ar.CELL.T))[1] < 3 * ar.H:
+                    continue                               # (where two faces of the half-cell meet: past one is across
+                    #                                         the other)
                 vals = m @ ar.CELL.T
                 nf = ar.CELL[int(np.argmin(np.abs(vals)))]
                 g = ar.grads(S, m[None])[0]
