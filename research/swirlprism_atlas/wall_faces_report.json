@@ -1,0 +1,257 @@
+{
+ "F4": {
+  "sheets": 33,
+  "sheets_with_wall": 19,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 18
+ },
+ "T2": {
+  "sheets": 21,
+  "sheets_with_wall": 17,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 766
+ },
+ "X3": {
+  "sheets": 10,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 68
+ },
+ "X7": {
+  "sheets": 23,
+  "sheets_with_wall": 1,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X9": {
+  "sheets": 11,
+  "sheets_with_wall": 3,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 3
+ },
+ "X14": {
+  "sheets": 44,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 19
+ },
+ "X15": {
+  "sheets": 353,
+  "sheets_with_wall": 210,
+  "edges_not_drawn": [
+   "X78"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X17": {
+  "sheets": 18,
+  "sheets_with_wall": 17,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 16
+ },
+ "X20": {
+  "sheets": 15,
+  "sheets_with_wall": 3,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 6
+ },
+ "X21": {
+  "sheets": 19,
+  "sheets_with_wall": 16,
+  "edges_not_drawn": [
+   "X8"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 8
+ },
+ "X22": {
+  "sheets": 46,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X23": {
+  "sheets": 20,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 2
+ },
+ "X26": {
+  "sheets": 23,
+  "sheets_with_wall": 17,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X27": {
+  "sheets": 18,
+  "sheets_with_wall": 16,
+  "edges_not_drawn": [
+   "X97"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 10
+ },
+ "X33": {
+  "sheets": 541,
+  "sheets_with_wall": 278,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X34": {
+  "sheets": 32,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [
+   "X97"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X35": {
+  "sheets": 22,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X38": {
+  "sheets": 37,
+  "sheets_with_wall": 1,
+  "edges_not_drawn": [
+   "B1"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X40": {
+  "sheets": 36,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X42": {
+  "sheets": 642,
+  "sheets_with_wall": 258,
+  "edges_not_drawn": [
+   "X18"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X47": {
+  "sheets": 2,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X48": {
+  "sheets": 33,
+  "sheets_with_wall": 8,
+  "edges_not_drawn": [
+   "D1",
+   "E2",
+   "X18"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X52": {
+  "sheets": 4,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X53": {
+  "sheets": 576,
+  "sheets_with_wall": 320,
+  "edges_not_drawn": [
+   "X18"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X79": {
+  "sheets": 11,
+  "sheets_with_wall": 3,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X82": {
+  "sheets": 55,
+  "sheets_with_wall": 6,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X83": {
+  "sheets": 8,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X84": {
+  "sheets": 16,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 2
+ },
+ "X85": {
+  "sheets": 104,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X86": {
+  "sheets": 24,
+  "sheets_with_wall": 7,
+  "edges_not_drawn": [
+   "X80"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X87": {
+  "sheets": 106,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [
+   "C3"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X88": {
+  "sheets": 45,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ },
+ "X89": {
+  "sheets": 452,
+  "sheets_with_wall": 251,
+  "edges_not_drawn": [
+   "X81"
+  ],
+  "corners_met_once": [],
+  "cuts_drawn": 0
+ }
+}
