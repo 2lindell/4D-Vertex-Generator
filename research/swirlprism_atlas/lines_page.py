@@ -24,7 +24,7 @@ import numpy as np
 import chamber_domain
 import dodeca_view as dv
 from arrangement import LIB, off
-from domain_page import LINE_TOL, chains, chart, rounded, thin_line, view
+from domain_page import LINE_TOL, chains, chart, mesh, rounded, thin_line, view
 from exact_page import TAGS, in_cell
 
 
@@ -130,7 +130,8 @@ def main(src, dst):
     meshes = json.load(open("wall_meshes.json")) if os.environ.get("WITH_MESHES") else {}
     # (the dodecahedron's view shows each triangle about 11 times: it takes the coarser meshes, wall_meshes_coarse.json,
     # filled the same way from the same faces with fewer points, when there)
-    coarse = (json.load(open("wall_meshes_coarse.json")) if os.path.exists("wall_meshes_coarse.json") else meshes) \
+    cf = os.environ.get("COARSE", "wall_meshes_coarse.json")
+    coarse = (json.load(open(cf)) if os.path.exists(cf) else meshes) \
         if meshes else {}
     src_walls = []
     for M, cell_view in ((meshes, True), (coarse, False)):
@@ -171,7 +172,9 @@ def main(src, dst):
                 if length(line) >= 0.015:
                     joined.append({"id": i_, "outline": True, "copy": c_, "hover": h_,
                                    "pts": thin_line(np.asarray(line), 2 * LINE_TOL).tolist()})
-        vw["xwalls"] = new["xwalls"]
+        # (as shared points and index triples, the form the page draws)
+        vw["xwalls"] = [{**{a: b for a, b in w.items() if a != "tris"}, **dict(zip(("verts", "faces"), mesh(w["tris"], 3)))}
+                        for w in new["xwalls"]]
         vw["xlines"] = joined
     for k, tag in TAGS.items():
         m, d = data[k]
