@@ -42,8 +42,8 @@
   "cuts_drawn": 19
  },
  "X15": {
-  "sheets": 353,
-  "sheets_with_wall": 210,
+  "sheets": 332,
+  "sheets_with_wall": 205,
   "edges_not_drawn": [
    "X78"
   ],
@@ -104,9 +104,12 @@
   "cuts_drawn": 10
  },
  "X33": {
-  "sheets": 541,
-  "sheets_with_wall": 278,
-  "edges_not_drawn": [],
+  "sheets": 150,
+  "sheets_with_wall": 3,
+  "edges_not_drawn": [
+   "D1",
+   "E2"
+  ],
   "corners_met_once": [],
   "cuts_drawn": 0
  },
@@ -143,9 +146,10 @@
   "cuts_drawn": 0
  },
  "X42": {
-  "sheets": 642,
-  "sheets_with_wall": 258,
+  "sheets": 264,
+  "sheets_with_wall": 3,
   "edges_not_drawn": [
+   "D3",
    "X18"
   ],
   "corners_met_once": [],
@@ -159,13 +163,9 @@
   "cuts_drawn": 0
  },
  "X48": {
-  "sheets": 33,
-  "sheets_with_wall": 8,
-  "edges_not_drawn": [
-   "D1",
-   "E2",
-   "X18"
-  ],
+  "sheets": 21,
+  "sheets_with_wall": 3,
+  "edges_not_drawn": [],
   "corners_met_once": [],
   "cuts_drawn": 0
  },
@@ -177,8 +177,8 @@
   "cuts_drawn": 0
  },
  "X53": {
-  "sheets": 576,
-  "sheets_with_wall": 320,
+  "sheets": 39,
+  "sheets_with_wall": 3,
   "edges_not_drawn": [
    "X18"
   ],
@@ -255,8 +255,8 @@
   "cuts_drawn": 0
  },
  "X90": {
-  "sheets": 658,
-  "sheets_with_wall": 294,
+  "sheets": 441,
+  "sheets_with_wall": 169,
   "edges_not_drawn": [],
   "corners_met_once": [],
   "cuts_drawn": 0
@@ -283,8 +283,8 @@
   "cuts_drawn": 68
  },
  "X99": {
-  "sheets": 512,
-  "sheets_with_wall": 206,
+  "sheets": 259,
+  "sheets_with_wall": 2,
   "edges_not_drawn": [],
   "corners_met_once": [],
   "cuts_drawn": 0
@@ -300,11 +300,9 @@
   "cuts_drawn": 3
  },
  "F5": {
-  "sheets": 25,
-  "sheets_with_wall": 16,
-  "edges_not_drawn": [
-   "X20"
-  ],
+  "sheets": 15,
+  "sheets_with_wall": 2,
+  "edges_not_drawn": [],
   "corners_met_once": [],
   "cuts_drawn": 0
  },
@@ -379,8 +377,8 @@
   "cuts_drawn": 0
  },
  "X51": {
-  "sheets": 186,
-  "sheets_with_wall": 144,
+  "sheets": 48,
+  "sheets_with_wall": 3,
   "edges_not_drawn": [],
   "corners_met_once": [],
   "cuts_drawn": 0
