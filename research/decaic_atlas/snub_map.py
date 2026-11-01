@@ -5,7 +5,8 @@ quartics in the betas. So the plane arrangement is replaced by:
 
   1. surfaces: every mixed-sign factor (planes of arrangement_<sub>.json and the curved factors in its log), each
      exact (integer coefficients); plus the forms of every grid region found below (until no new surface);
-  2. regions: a grid in the betas (all betas > 0, b1 > b4) classified (group.label); grid neighbours of the same
+  2. regions: a grid in the betas (all betas > 0, b1 > b4; shifted off the lattice by small irrational amounts, since
+     lattice points lie exactly on rational walls) classified (group.label); grid neighbours of the same
      polytope joined (and joined across the fold, where the swap makes (a,b,c,a+) and (a+,c,b,a) the same seed);
   3. walls: between grid neighbours of different polytopes the change is bisected to ~1e-11, the surface vanishing there
      identified (|f| / |grad f| < 1e-7), the point put exactly on it (Newton) and its polychoron classified;
@@ -121,7 +122,9 @@ def bisect_job(item):
         if same(l, m, ka, pa):
             lo = m
         else:
-            hi, kb, pb = m, l, m                      # (whatever is on the far side: maybe a third polytope)
+            hi = m
+            if l[1] is not None:                      # (whatever is on the far side: maybe a third polytope; a hull
+                kb, pb = l, m                         #  too near the wall to classify keeps the last one classified)
     return (lo + hi) / 2, ka, kb, pa, pb
 
 
@@ -138,6 +141,19 @@ def grid(N, fold=False):
     return pts
 
 
+SHIFT = np.array([np.sqrt(2) - 1.4, np.sqrt(3) - 1.7, np.sqrt(5) - 2.2, np.sqrt(7) - 2.6]) * 0.37
+
+
+def generic(P, N, fold=False):
+    """The grid points shifted off the lattice by small irrational amounts (rational points lie exactly on the
+    rational walls), kept on the fold b1 = b4 for the fold grid."""
+    s = SHIFT.copy()
+    if fold:
+        s[3] = s[0]
+    X = np.array(P, float) + s
+    return X / X.sum(1, keepdims=True)
+
+
 class Types:
     """Polytope types: arrangement keys joined when their polytopes are the same (group.same_polytope)."""
     def __init__(self):
@@ -150,7 +166,7 @@ class Types:
             return self.key2t[key]
         nv = sg.split(":")[0]
         for t, (sg2, b2) in enumerate(self.reps):
-            if sg2.split(":")[0] == nv and sg2.count("x") == sg.count("x") and G.same_polytope(beta, b2):
+            if sg2.split(":")[0] == nv and G.same_polytope(beta, b2):
                 self.key2t[key] = t
                 return t
         self.reps.append((sg, list(map(float, beta))))
@@ -165,7 +181,7 @@ def main():
     T = Types()
     # (regions: the grid)
     P = grid(N)
-    Bp = np.array(P, float) / N
+    Bp = generic(P, N)
     R = pool.map(label_job, list(map(tuple, Bp)), chunksize=16)
     typ = np.array([T.of(sg, k, b) for (sg, k), b in zip(R, Bp)])
     print(f"grid N={N}: {len(P)} points, {len(T.reps)} types, {time.time() - t0:.0f}s", flush=True)
@@ -234,7 +250,7 @@ def main():
                       "wall_type": T.of(sg, k, y), "point": y.round(13).tolist()})
     # (the fold plane: a 2D grid on b1 = b4)
     F = grid(N, fold=True)
-    Bf = np.array(F, float) / N
+    Bf = generic(F, N, fold=True)
     Rf = pool.map(label_job, list(map(tuple, Bf)), chunksize=16)
     ftyp = [T.of(sg, k, b) for (sg, k), b in zip(Rf, Bf)]
     pool.close()
