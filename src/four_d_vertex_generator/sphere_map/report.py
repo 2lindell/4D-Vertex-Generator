@@ -169,22 +169,29 @@ def write_report(root: Path) -> None:
         add("")
         add("A face is one connected piece of one wall sheet between one region component and "
             "another. Faces with the same labels must be congruent: the test maps every orbit's "
-            "face onto the first orbit's (corners and perimeter) by an element of G or G.Q.")
+            "face onto the first orbit's by an element of G or G.Q and measures how much of each "
+            "lies on the other.")
         add("")
         n_orb = sum(len(v["orbits"]) for v in faces.values())
         bad = [(k, o["orbit"]) for k, v in faces.items() for o in v["orbits"]
                if o["congruent_to_first_orbit_by_map"] is None]
         add(f"- {len(faces)} face labels, {n_orb} orbits, "
             f"{sum(v['components_on_sphere'] for v in faces.values())} faces on the sphere.")
-        add(f"- Congruence: {n_orb - len(bad)} of {n_orb} orbits congruent to the first orbit "
-            f"with their labels.")
-        for k, o in bad:
-            add(f"  - not congruent: {k}, orbit {o}")
+        doc = _json.loads(fpath.read_text())
+        add(f"- Congruence, tested on the sphere (each face a dense cloud of exact points, carried "
+            f"onto the first orbit's face by G or G.Q): {doc.get('check')}.")
+        for k, v in sorted(faces.items()):
+            for o in v["orbits"]:
+                c = o.get("congruence_with_first_orbit") or {}
+                if c.get("status", "congruent") != "congruent":
+                    add(f"  - {k}, orbit {o['orbit']}: {c.get('status')} (share of the first "
+                        f"face matched {c.get('cover_a')}, of this one {c.get('cover_b')}; "
+                        f"{len(o['members'])} patch(es))")
         add(f"- Edges: {len(edges)}; corners: {len(corners)} "
             f"({sum(c['exact'] for c in corners)} solved exactly, "
             f"{sum(c['atlas_point'] is not None for c in corners)} are atlas points).")
         add("")
-        add("| face (wall \| regions) | orbits | faces on S^3 | corners | perimeter | congruent |")
+        add("| face (wall \\| regions) | orbits | faces on S^3 | corners | perimeter | congruent |")
         add("|---|---|---|---|---|---|")
         for k, v in sorted(faces.items()):
             o0 = v["orbits"][0]

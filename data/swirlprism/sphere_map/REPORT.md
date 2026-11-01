@@ -866,160 +866,99 @@ Orbit 1 (1200 components):
 
 ## Faces
 
-A face is one connected piece of one wall sheet between one region component and another. Faces with the same labels must be congruent: the test maps every orbit's face onto the first orbit's (corners and perimeter) by an element of G or G.Q.
+A face is one connected piece of one wall sheet between one region component and another. Faces with the same labels must be congruent: the test maps every orbit's face onto the first orbit's by an element of G or G.Q and measures how much of each lies on the other.
 
-- 74 face labels, 152 orbits, 182400 faces on the sphere.
-- Congruence: 80 of 152 orbits congruent to the first orbit with their labels.
-  - not congruent: X33 | X50 | X57, orbit 1
-  - not congruent: X28 | X49 | X50, orbit 1
-  - not congruent: T2 | F3 | X37, orbit 1
-  - not congruent: X15 | X32 | X37, orbit 1
-  - not congruent: X17 | X32 | X43, orbit 1
-  - not congruent: X82 | X43 | X49, orbit 1
-  - not congruent: F1 | F3 | X49, orbit 1
-  - not congruent: F4 | X49 | X61, orbit 1
-  - not congruent: F4 | X49 | X61, orbit 2
-  - not congruent: X99 | X61 | X68, orbit 1
-  - not congruent: X41 | X58 | X62, orbit 1
-  - not congruent: F4 | X49 | X58, orbit 1
-  - not congruent: F4 | X49 | X58, orbit 2
-  - not congruent: T2 | F2 | F3, orbit 1
-  - not congruent: X3 | F2 | X12, orbit 1
-  - not congruent: X83 | X30 | X36, orbit 1
-  - not congruent: X19 | X32 | X46, orbit 1
-  - not congruent: X14 | F2 | X46, orbit 1
-  - not congruent: X96 | X16 | X58, orbit 1
-  - not congruent: X100 | X58 | X61, orbit 1
-  - not congruent: X9 | F2 | X16, orbit 1
-  - not congruent: X9 | F2 | X16, orbit 2
-  - not congruent: X23 | X59 | X62, orbit 1
-  - not congruent: X23 | X59 | X62, orbit 2
-  - not congruent: F5 | X59 | X66, orbit 1
-  - not congruent: X48 | X66 | X69, orbit 1
-  - not congruent: X53 | X64 | X69, orbit 1
-  - not congruent: X51 | X63 | X64, orbit 1
-  - not congruent: X40 | X57 | X63, orbit 1
-  - not congruent: F1 | F3 | X50, orbit 1
-  - not congruent: X22 | F3 | X54, orbit 1
-  - not congruent: X31 | X43 | X54, orbit 1
-  - not congruent: X21 | F2 | X60, orbit 1
-  - not congruent: T2 | F2 | X49, orbit 1
-  - not congruent: X86 | X102 | X71, orbit 1
-  - not congruent: X89 | X103 | X76, orbit 1
-  - not congruent: X90 | X55 | X76, orbit 1
-  - not congruent: X44 | X55 | X65, orbit 1
-  - not congruent: X42 | X56 | X65, orbit 1
-  - not congruent: X35 | X56 | X74, orbit 1
-  - not congruent: X84 | X64 | X74, orbit 1
-  - not congruent: X17 | X32 | X54, orbit 1
-  - not congruent: X52 | X66 | X67, orbit 1
-  - not congruent: X47 | X65 | X67, orbit 1
-  - not congruent: X17 | X43 | X46, orbit 1
-  - not congruent: X14 | F2 | X45, orbit 1
-  - not congruent: X25 | X45 | X46, orbit 1
-  - not congruent: X10 | F2 | X95, orbit 1
-  - not congruent: X3 | X12 | X95, orbit 1
-  - not congruent: X91 | X72 | X77, orbit 1
-  - not congruent: X20 | X66 | X95, orbit 1
-  - not congruent: X93 | X54 | X70, orbit 1
-  - not congruent: X88 | X73 | X75, orbit 1
-  - not congruent: X98 | X60 | X67, orbit 1
-  - not congruent: X11 | F2 | X36, orbit 1
-  - not congruent: X26 | X102 | X103, orbit 1
-  - not congruent: X96 | X16 | X62, orbit 1
-  - not congruent: X11 | F2 | X37, orbit 1
-  - not congruent: X39 | X59 | X60, orbit 1
-  - not congruent: X23 | X60 | X62, orbit 1
-  - not congruent: X23 | X60 | X62, orbit 2
-  - not congruent: X34 | X55 | X60, orbit 1
-  - not congruent: X84 | X63 | X74, orbit 1
-  - not congruent: X26 | X72 | X73, orbit 1
-  - not congruent: T2 | F3 | X36, orbit 1
-  - not congruent: X27 | X45 | X65, orbit 1
-  - not congruent: X20 | X59 | X95, orbit 1
-  - not congruent: X22 | F3 | X70, orbit 1
-  - not congruent: X101 | X103 | X72, orbit 1
-  - not congruent: X9 | X16 | X95, orbit 1
-  - not congruent: X9 | X16 | X95, orbit 2
-  - not congruent: X79 | X102 | X73, orbit 1
+- 74 face labels, 150 orbits, 180000 faces on the sphere.
+- Congruence, tested on the sphere (each face a dense cloud of exact points, carried onto the first orbit's face by G or G.Q): {'congruent': 139, 'not congruent': 4, 'fragments merged into a face': 2, 'congruent where both are known': 7}.
+  - F4 | X49 | X58, orbit 1: congruent where both are known (share of the first face matched 1.0, of this one 0.9987; 178 patch(es))
+  - F4 | X49 | X61, orbit 2: not congruent (share of the first face matched 0.0, of this one 0.0; 6 patch(es))
+  - X23 | X59 | X62, orbit 2: not congruent (share of the first face matched 0.0, of this one 0.0; 2 patch(es))
+  - X23 | X60 | X62, orbit 1: congruent where both are known (share of the first face matched 1.0, of this one 0.9943; 53 patch(es))
+  - X23 | X60 | X62, orbit 2: not congruent (share of the first face matched 0.0, of this one 0.0; 3 patch(es))
+  - X40 | X57 | X63, orbit 1: congruent where both are known (share of the first face matched 0.9988, of this one 1.0; 17 patch(es))
+  - X53 | X64 | X69, orbit 1: congruent where both are known (share of the first face matched 0.9987, of this one 1.0; 20 patch(es))
+  - X79 | X102 | X73, orbit 1: congruent where both are known (share of the first face matched 1.0, of this one 0.9954; 3 patch(es))
+  - X89 | X103 | X76, orbit 1: congruent where both are known (share of the first face matched 0.9975, of this one 1.0; 10 patch(es))
+  - X9 | F2 | X16, orbit 1: congruent where both are known (share of the first face matched 1.0, of this one 0.9984; 235 patch(es))
+  - X9 | F2 | X16, orbit 2: not congruent (share of the first face matched 0.0, of this one 0.0; 1 patch(es))
 - Edges: 1789; corners: 398 (389 solved exactly, 97 are atlas points).
 
 | face (wall \| regions) | orbits | faces on S^3 | corners | perimeter | congruent |
 |---|---|---|---|---|---|
-| F1 | F3 | X49 | 2 | 2400 | 19 | 3.157520 | no |
-| F1 | F3 | X50 | 2 | 2400 | 8 | 1.714482 | no |
-| F4 | X49 | X58 | 3 | 3600 | 8 | 1.270008 | no |
-| F4 | X49 | X61 | 3 | 3600 | 16 | 3.785555 | no |
-| F5 | X59 | X66 | 2 | 2400 | 5 | 1.005373 | no |
-| T2 | F2 | F3 | 2 | 2400 | 8 | 0.512496 | no |
-| T2 | F2 | X49 | 2 | 2400 | 8 | 0.449630 | no |
-| T2 | F3 | X36 | 2 | 2400 | 3 | 0.629371 | no |
-| T2 | F3 | X37 | 2 | 2400 | 3 | 0.472704 | no |
-| X10 | F2 | X95 | 2 | 2400 | 8 | 1.001415 | no |
-| X100 | X58 | X61 | 2 | 2400 | 5 | 0.957351 | no |
-| X101 | X103 | X72 | 2 | 2400 | 4 | 1.786811 | no |
-| X11 | F2 | X36 | 2 | 2400 | 7 | 0.810854 | no |
-| X11 | F2 | X37 | 2 | 2400 | 6 | 0.568600 | no |
-| X14 | F2 | X45 | 2 | 2400 | 19 | 2.208397 | no |
-| X14 | F2 | X46 | 2 | 2400 | 11 | 1.762219 | no |
-| X15 | X32 | X37 | 2 | 2400 | 5 | 0.630193 | no |
-| X17 | X32 | X43 | 2 | 2400 | 3 | 0.621792 | no |
-| X17 | X32 | X54 | 2 | 2400 | 4 | 0.433105 | no |
-| X17 | X43 | X46 | 2 | 2400 | 2 | 0.173874 | no |
-| X19 | X32 | X46 | 2 | 2400 | 6 | 0.362628 | no |
-| X20 | X59 | X95 | 2 | 2400 | 3 | 0.193071 | no |
-| X20 | X66 | X95 | 2 | 2400 | 3 | 0.185110 | no |
-| X21 | F2 | X60 | 2 | 2400 | 4 | 0.379325 | no |
-| X21 | F2 | X67 | 2 | 2400 | 3 | 0.169394 | yes |
-| X22 | F3 | X54 | 2 | 2400 | 6 | 0.526882 | no |
-| X22 | F3 | X70 | 2 | 2400 | 4 | 0.467935 | no |
-| X23 | X59 | X62 | 3 | 3600 | 5 | 0.366951 | no |
-| X23 | X60 | X62 | 3 | 3600 | 5 | 0.677299 | no |
-| X25 | X45 | X46 | 2 | 2400 | 10 | 0.531108 | no |
-| X26 | X102 | X103 | 2 | 2400 | 3 | 0.390685 | no |
-| X26 | X72 | X73 | 2 | 2400 | 2 | 0.198176 | no |
+| F1 | F3 | X49 | 2 | 2400 | 19 | 0.993167 | yes |
+| F1 | F3 | X50 | 2 | 2400 | 8 | 0.841224 | yes |
+| F4 | X49 | X58 | 2 | 2400 | 8 | 0.362140 | yes |
+| F4 | X49 | X61 | 3 | 3600 | 16 | 1.585668 | no |
+| F5 | X59 | X66 | 2 | 2400 | 5 | 0.960874 | yes |
+| T2 | F2 | F3 | 2 | 2400 | 8 | 0.136672 | yes |
+| T2 | F2 | X49 | 2 | 2400 | 8 | 0.089569 | yes |
+| T2 | F3 | X36 | 2 | 2400 | 3 | 0.562893 | yes |
+| T2 | F3 | X37 | 2 | 2400 | 3 | 0.245456 | yes |
+| X10 | F2 | X95 | 2 | 2400 | 8 | 0.822955 | yes |
+| X100 | X58 | X61 | 2 | 2400 | 5 | 0.957351 | yes |
+| X101 | X103 | X72 | 2 | 2400 | 4 | 1.390427 | yes |
+| X11 | F2 | X36 | 2 | 2400 | 7 | 0.526091 | yes |
+| X11 | F2 | X37 | 2 | 2400 | 6 | 0.332235 | yes |
+| X14 | F2 | X45 | 2 | 2400 | 19 | 1.710365 | yes |
+| X14 | F2 | X46 | 2 | 2400 | 11 | 1.626210 | yes |
+| X15 | X32 | X37 | 2 | 2400 | 5 | 0.469246 | yes |
+| X17 | X32 | X43 | 2 | 2400 | 3 | 0.317405 | yes |
+| X17 | X32 | X54 | 2 | 2400 | 4 | 0.433105 | yes |
+| X17 | X43 | X46 | 2 | 2400 | 2 | 0.173874 | yes |
+| X19 | X32 | X46 | 2 | 2400 | 6 | 0.084305 | yes |
+| X20 | X59 | X95 | 2 | 2400 | 3 | 0.162085 | yes |
+| X20 | X66 | X95 | 2 | 2400 | 3 | 0.182839 | yes |
+| X21 | F2 | X60 | 2 | 2400 | 4 | 0.284027 | yes |
+| X21 | F2 | X67 | 2 | 2400 | 3 | 0.245530 | yes |
+| X22 | F3 | X54 | 2 | 2400 | 6 | 0.547025 | yes |
+| X22 | F3 | X70 | 2 | 2400 | 4 | 0.520827 | yes |
+| X23 | X59 | X62 | 3 | 3600 | 5 | 0.388377 | no |
+| X23 | X60 | X62 | 3 | 3600 | 5 | 0.393260 | no |
+| X25 | X45 | X46 | 2 | 2400 | 10 | 1.752283 | yes |
+| X26 | X102 | X103 | 2 | 2400 | 3 | 0.198176 | yes |
+| X26 | X72 | X73 | 2 | 2400 | 2 | 0.198176 | yes |
 | X27 | X45 | X55 | 2 | 2400 | 3 | 0.213260 | yes |
-| X27 | X45 | X65 | 2 | 2400 | 4 | 0.246390 | no |
-| X28 | X49 | X50 | 2 | 2400 | 11 | 2.175964 | no |
-| X3 | F2 | X12 | 2 | 2400 | 6 | 0.498556 | no |
-| X3 | X12 | X95 | 2 | 2400 | 9 | 1.243380 | no |
-| X31 | X43 | X54 | 2 | 2400 | 4 | 1.142039 | no |
-| X33 | X50 | X57 | 2 | 2400 | 7 | 1.239410 | no |
-| X34 | X55 | X60 | 2 | 2400 | 6 | 0.699102 | no |
-| X35 | X56 | X74 | 2 | 2400 | 4 | 1.255606 | no |
-| X38 | X68 | X68 | 1 | 1200 | 36 | 10.297579 | yes |
-| X39 | X59 | X60 | 2 | 2400 | 5 | 0.554399 | no |
-| X40 | X57 | X63 | 2 | 2400 | 12 | 1.143294 | no |
-| X41 | X58 | X62 | 2 | 2400 | 17 | 3.866692 | no |
-| X42 | X56 | X65 | 2 | 2400 | 2 | 0.022604 | no |
-| X44 | X55 | X65 | 2 | 2400 | 6 | 1.237606 | no |
-| X47 | X65 | X67 | 2 | 2400 | 7 | 1.145171 | no |
-| X48 | X66 | X69 | 2 | 2400 | 17 | 2.077144 | no |
-| X51 | X63 | X64 | 2 | 2400 | 2 | 0.240561 | no |
-| X52 | X66 | X67 | 2 | 2400 | 6 | 1.063510 | no |
-| X53 | X64 | X69 | 2 | 2400 | 0 | 0.000000 | no |
+| X27 | X45 | X65 | 2 | 2400 | 4 | 0.248002 | yes |
+| X28 | X49 | X50 | 2 | 2400 | 11 | 0.815606 | yes |
+| X3 | F2 | X12 | 2 | 2400 | 6 | 0.331791 | yes |
+| X3 | X12 | X95 | 2 | 2400 | 9 | 0.848720 | yes |
+| X31 | X43 | X54 | 2 | 2400 | 4 | 1.269553 | yes |
+| X33 | X50 | X57 | 2 | 2400 | 7 | 1.177617 | yes |
+| X34 | X55 | X60 | 2 | 2400 | 6 | 0.500173 | yes |
+| X35 | X56 | X74 | 2 | 2400 | 4 | 1.235687 | yes |
+| X38 | X68 | X68 | 1 | 1200 | 36 | 1.453663 | yes |
+| X39 | X59 | X60 | 2 | 2400 | 5 | 0.555131 | yes |
+| X40 | X57 | X63 | 2 | 2400 | 12 | 0.371346 | yes |
+| X41 | X58 | X62 | 2 | 2400 | 17 | 2.157714 | yes |
+| X42 | X56 | X65 | 2 | 2400 | 2 | 1.124860 | yes |
+| X44 | X55 | X65 | 2 | 2400 | 6 | 1.214954 | yes |
+| X47 | X65 | X67 | 2 | 2400 | 7 | 0.789123 | yes |
+| X48 | X66 | X69 | 2 | 2400 | 17 | 1.794860 | yes |
+| X51 | X63 | X64 | 2 | 2400 | 2 | 0.376021 | yes |
+| X52 | X66 | X67 | 2 | 2400 | 6 | 1.366216 | yes |
+| X53 | X64 | X69 | 2 | 2400 | 0 | 1.438053 | yes |
 | X7 | X12 | X30 | 1 | 1200 | 0 | 0.000000 | yes |
-| X79 | X102 | X73 | 2 | 2400 | 2 | 1.190399 | no |
-| X82 | X43 | X49 | 2 | 2400 | 6 | 0.556692 | no |
-| X83 | X30 | X36 | 2 | 2400 | 5 | 0.402317 | no |
-| X84 | X63 | X74 | 2 | 2400 | 2 | 0.477546 | no |
-| X84 | X64 | X74 | 2 | 2400 | 3 | 0.491527 | no |
-| X85 | X43 | X71 | 2 | 2400 | 0 | 0.000000 | yes |
-| X86 | X102 | X71 | 2 | 2400 | 6 | 1.243870 | no |
-| X87 | X70 | X75 | 2 | 2400 | 0 | 0.000000 | yes |
-| X88 | X73 | X75 | 2 | 2400 | 2 | 0.223957 | no |
-| X89 | X103 | X76 | 2 | 2400 | 2 | 0.251187 | no |
-| X9 | F2 | X16 | 3 | 3600 | 5 | 0.289426 | no |
-| X9 | X16 | X95 | 3 | 3600 | 2 | 0.118273 | no |
-| X90 | X55 | X76 | 2 | 2400 | 0 | 0.000000 | no |
-| X91 | X72 | X77 | 2 | 2400 | 4 | 0.273973 | no |
-| X92 | X56 | X77 | 2 | 2400 | 0 | 0.000000 | yes |
-| X93 | X54 | X70 | 2 | 2400 | 4 | 0.777991 | no |
-| X94 | X36 | X37 | 2 | 2400 | 2 | 0.090036 | yes |
-| X96 | X16 | X58 | 2 | 2400 | 16 | 2.680654 | no |
-| X96 | X16 | X62 | 2 | 2400 | 13 | 1.872017 | no |
-| X98 | X60 | X67 | 2 | 2400 | 6 | 0.584962 | no |
-| X99 | X61 | X68 | 2 | 2400 | 1 | 0.002054 | no |
+| X79 | X102 | X73 | 2 | 2400 | 2 | 0.992224 | yes |
+| X82 | X43 | X49 | 2 | 2400 | 6 | 0.317347 | yes |
+| X83 | X30 | X36 | 2 | 2400 | 5 | 0.404597 | yes |
+| X84 | X63 | X74 | 2 | 2400 | 2 | 0.240561 | yes |
+| X84 | X64 | X74 | 2 | 2400 | 3 | 0.742493 | yes |
+| X85 | X43 | X71 | 2 | 2400 | 0 | 1.063334 | yes |
+| X86 | X102 | X71 | 2 | 2400 | 6 | 1.088574 | yes |
+| X87 | X70 | X75 | 2 | 2400 | 0 | 0.650482 | yes |
+| X88 | X73 | X75 | 2 | 2400 | 2 | 0.422467 | yes |
+| X89 | X103 | X76 | 2 | 2400 | 2 | 0.484532 | yes |
+| X9 | F2 | X16 | 3 | 3600 | 5 | 0.241428 | no |
+| X9 | X16 | X95 | 2 | 2400 | 2 | 0.118273 | yes |
+| X90 | X55 | X76 | 2 | 2400 | 0 | 1.434544 | yes |
+| X91 | X72 | X77 | 2 | 2400 | 4 | 0.472682 | yes |
+| X92 | X56 | X77 | 2 | 2400 | 0 | 0.704505 | yes |
+| X93 | X54 | X70 | 2 | 2400 | 4 | 0.976503 | yes |
+| X94 | X36 | X37 | 2 | 2400 | 2 | 0.221057 | yes |
+| X96 | X16 | X58 | 2 | 2400 | 16 | 1.826668 | yes |
+| X96 | X16 | X62 | 2 | 2400 | 13 | 1.822184 | yes |
+| X98 | X60 | X67 | 2 | 2400 | 6 | 0.532438 | yes |
+| X99 | X61 | X68 | 2 | 2400 | 1 | 2.958598 | yes |
 
 ## Lines split by the walls round them
 
