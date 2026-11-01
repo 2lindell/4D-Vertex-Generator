@@ -1,0 +1,793 @@
+{
+ "_about": "Names of the decaic shapes (the accepted list of decaic isogonals), matched to shapes.json by vertex count and cells\n(each cell class by its vertex count and face sizes), with each shape's exact seeds and the planes it lies on\n(decaic_shapes.json, decaic_shapes.md).",
+ "all_match": true,
+ "missing": [],
+ "shapes": [
+  {
+   "name": "sabotid",
+   "degrees": 3,
+   "expected_degrees": 3,
+   "vertices": 240,
+   "cells": "10x24v(6x4+8x6) + 40x12v(6x4+2x6) + 90x8v(6x4)",
+   "n_cells": 140,
+   "faces_by_dim": {
+    "0": 13,
+    "1": 72,
+    "2": 115,
+    "3": 56
+   },
+   "seed_beta": [
+    17132,
+    1610,
+    455,
+    4827
+   ],
+   "seed_beta_exact": [
+    "4283/6006",
+    "115/1716",
+    "5/264",
+    "1609/8008"
+   ],
+   "lies_on": []
+  },
+  {
+   "name": "gabotid",
+   "degrees": 3,
+   "expected_degrees": 3,
+   "vertices": 240,
+   "cells": "10x24v(6x4+8x6) + 80x12v(6x4+2x6) + 30x8v(6x4)",
+   "n_cells": 120,
+   "faces_by_dim": {
+    "1": 4,
+    "2": 13,
+    "3": 10
+   },
+   "seed_beta": [
+    3879,
+    2905,
+    7347,
+    1885
+   ],
+   "seed_beta_exact": [
+    "3879/16016",
+    "415/2288",
+    "7347/16016",
+    "145/1232"
+   ],
+   "lies_on": []
+  },
+  {
+   "name": "gabipard",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 120,
+   "cells": "10x12v(4x3+4x6) + 20x12v(6x4+2x6) + 30x8v(6x4) + 60x6v(2x3+3x4) + 20x6v(8x3)",
+   "n_cells": 140,
+   "faces_by_dim": {
+    "1": 2,
+    "2": 3
+   },
+   "seed_beta": [
+    19,
+    0,
+    1,
+    4
+   ],
+   "seed_beta_exact": [
+    "19/24",
+    "0",
+    "1/24",
+    "1/6"
+   ],
+   "lies_on": [
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "mobcated",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 120,
+   "cells": "10x12v(4x3+4x6) + 20x12v(6x4+2x6) + 40x9v(4x3+3x4+1x6) + 30x4v(4x3)",
+   "n_cells": 100,
+   "faces_by_dim": {
+    "1": 1,
+    "2": 2
+   },
+   "seed_beta": [
+    2,
+    1,
+    3,
+    0
+   ],
+   "seed_beta_exact": [
+    "1/3",
+    "1/6",
+    "1/2",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0"
+   ]
+  },
+  {
+   "name": "sobcated",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 120,
+   "cells": "10x12v(4x3+4x6) + 20x12v(6x4+2x6) + 80x6v(2x3+3x4) + 30x4v(4x3)",
+   "n_cells": 140,
+   "faces_by_dim": {
+    "0": 9,
+    "1": 25,
+    "2": 17
+   },
+   "seed_beta": [
+    7,
+    8,
+    9,
+    0
+   ],
+   "seed_beta_exact": [
+    "7/24",
+    "1/3",
+    "3/8",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0"
+   ]
+  },
+  {
+   "name": "mabipard",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 120,
+   "cells": "10x12v(4x3+4x6) + 40x9v(4x3+3x4+1x6) + 30x8v(6x4) + 20x6v(2x3+3x4) + 20x6v(8x3)",
+   "n_cells": 120,
+   "faces_by_dim": {
+    "1": 1,
+    "2": 2
+   },
+   "seed_beta": [
+    3,
+    0,
+    2,
+    1
+   ],
+   "seed_beta_exact": [
+    "1/2",
+    "0",
+    "1/3",
+    "1/6"
+   ],
+   "lies_on": [
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "sabipard",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 120,
+   "cells": "10x12v(8x3+6x4) + 30x8v(6x4) + 80x6v(2x3+3x4) + 20x6v(8x3)",
+   "n_cells": 140,
+   "faces_by_dim": {
+    "0": 8,
+    "1": 21,
+    "2": 13
+   },
+   "seed_beta": [
+    3,
+    0,
+    7,
+    2
+   ],
+   "seed_beta_exact": [
+    "1/4",
+    "0",
+    "7/12",
+    "1/6"
+   ],
+   "lies_on": [
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "gobcated",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 120,
+   "cells": "10x24v(6x4+8x6) + 20x12v(6x4+2x6) + 60x6v(2x3+3x4) + 30x4v(4x3)",
+   "n_cells": 120,
+   "faces_by_dim": {
+    "2": 1
+   },
+   "seed_beta": [
+    1,
+    2,
+    9,
+    0
+   ],
+   "seed_beta_exact": [
+    "1/12",
+    "1/6",
+    "3/4",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0"
+   ]
+  },
+  {
+   "name": "petbotid",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 240,
+   "cells": "10x24v(6x4+8x6) + 20x24v(9x4+2x6+3x8) + 20x12v(6x4+2x6)",
+   "n_cells": 50,
+   "faces_by_dim": {
+    "0": 1,
+    "1": 6,
+    "2": 6
+   },
+   "seed_beta": [
+    7,
+    3,
+    5,
+    3
+   ],
+   "seed_beta_exact": [
+    "7/18",
+    "1/6",
+    "5/18",
+    "1/6"
+   ],
+   "lies_on": [
+    "b1 + 2*b2 = 2*b3 + b4"
+   ]
+  },
+  {
+   "name": "tetbotid",
+   "degrees": 2,
+   "expected_degrees": 2,
+   "vertices": 240,
+   "cells": "10x48v(18x4+4x6+4x12) + 20x12v(6x4+2x6) + 30x8v(6x4)",
+   "n_cells": 60,
+   "faces_by_dim": {
+    "0": 2,
+    "1": 8,
+    "2": 7
+   },
+   "seed_beta": [
+    3,
+    2,
+    5,
+    2
+   ],
+   "seed_beta_exact": [
+    "1/4",
+    "1/6",
+    "5/12",
+    "1/6"
+   ],
+   "lies_on": [
+    "3*b1 + b2 = b3 + 3*b4"
+   ]
+  },
+  {
+   "name": "bited",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 40,
+   "cells": "20x6v(8x3) + 100x4v(4x3)",
+   "n_cells": 120,
+   "faces_by_dim": {
+    "0": 2,
+    "1": 3
+   },
+   "seed_beta": [
+    1,
+    5,
+    0,
+    0
+   ],
+   "seed_beta_exact": [
+    "1/6",
+    "5/6",
+    "0",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b3 = 0"
+   ]
+  },
+  {
+   "name": "biped",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 40,
+   "cells": "30x8v(6x4) + 20x6v(2x3+3x4) + 10x4v(4x3)",
+   "n_cells": 60,
+   "faces_by_dim": {
+    "0": 1,
+    "1": 2
+   },
+   "seed_beta": [
+    13,
+    0,
+    0,
+    1
+   ],
+   "seed_beta_exact": [
+    "13/14",
+    "0",
+    "0",
+    "1/14"
+   ],
+   "lies_on": [
+    "b3 = 0",
+    "b2 = b3",
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "bimted",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 60,
+   "cells": "10x12v(4x3+4x6) + 20x12v(6x4+2x6)",
+   "n_cells": 30,
+   "faces_by_dim": {
+    "1": 2
+   },
+   "seed_beta": [
+    0,
+    1,
+    3,
+    0
+   ],
+   "seed_beta_exact": [
+    "0",
+    "1/4",
+    "3/4",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b1 = b4",
+    "b1 = 0"
+   ]
+  },
+  {
+   "name": "gabred",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 60,
+   "cells": "10x12v(8x3+6x4) + 20x6v(8x3) + 60x5v(4x3+1x4) + 30x4v(4x3)",
+   "n_cells": 120,
+   "faces_by_dim": {
+    "1": 1
+   },
+   "seed_beta": [
+    1,
+    0,
+    7,
+    0
+   ],
+   "seed_beta_exact": [
+    "1/8",
+    "0",
+    "7/8",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "mabred",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 60,
+   "cells": "20x6v(2x3+3x4) + 30x6v(8x3) + 60x5v(4x3+1x4) + 30x4v(4x3)",
+   "n_cells": 140,
+   "faces_by_dim": {
+    "0": 1,
+    "1": 2
+   },
+   "seed_beta": [
+    37,
+    0,
+    11,
+    0
+   ],
+   "seed_beta_exact": [
+    "37/48",
+    "0",
+    "11/48",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "sabred",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 60,
+   "cells": "70x6v(8x3) + 30x4v(4x3)",
+   "n_cells": 100,
+   "faces_by_dim": {
+    "1": 1
+   },
+   "seed_beta": [
+    11,
+    0,
+    13,
+    0
+   ],
+   "seed_beta_exact": [
+    "11/24",
+    "0",
+    "13/24",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "tabipard",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 120,
+   "cells": "10x24v(4x3+12x4+4x6) + 30x8v(6x4) + 20x6v(2x3+3x4)",
+   "n_cells": 60,
+   "faces_by_dim": {
+    "0": 1,
+    "1": 2
+   },
+   "seed_beta": [
+    13,
+    0,
+    3,
+    12
+   ],
+   "seed_beta_exact": [
+    "13/28",
+    "0",
+    "3/28",
+    "3/7"
+   ],
+   "lies_on": [
+    "b2 = 0",
+    "3*b1 = b3 + 3*b4",
+    "3*b1 + b2 = b3 + 3*b4"
+   ]
+  },
+  {
+   "name": "gippid",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 120,
+   "cells": "10x24v(6x4+8x6) + 20x12v(6x4+2x6)",
+   "n_cells": 30,
+   "faces_by_dim": {
+    "0": 3,
+    "1": 4
+   },
+   "seed_beta": [
+    1,
+    11,
+    11,
+    1
+   ],
+   "seed_beta_exact": [
+    "1/24",
+    "11/24",
+    "11/24",
+    "1/24"
+   ],
+   "lies_on": [
+    "b2 = b3",
+    "b1 = b4",
+    "b1 + 2*b2 = 2*b3 + b4",
+    "3*b1 + b2 = b3 + 3*b4"
+   ]
+  },
+  {
+   "name": "tadeca",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 120,
+   "cells": "10x36v(12x3+4x6+4x12) + 30x4v(4x3)",
+   "n_cells": 40,
+   "faces_by_dim": {
+    "1": 1
+   },
+   "seed_beta": [
+    1,
+    2,
+    5,
+    0
+   ],
+   "seed_beta_exact": [
+    "1/8",
+    "1/4",
+    "5/8",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "3*b1 + b2 = b3 + 3*b4",
+    "3*b1 + b2 = b3",
+    "3*b1 + b2 + 2*b4 = b3"
+   ]
+  },
+  {
+   "name": "tabcated",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 120,
+   "cells": "20x12v(2x3+9x4) + 10x12v(4x3+4x6) + 20x12v(6x4+2x6)",
+   "n_cells": 50,
+   "faces_by_dim": {
+    "0": 1,
+    "1": 2
+   },
+   "seed_beta": [
+    4,
+    23,
+    25,
+    0
+   ],
+   "seed_beta_exact": [
+    "1/13",
+    "23/52",
+    "25/52",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b1 + 2*b2 = 2*b3 + b4",
+    "b1 + 2*b2 = 2*b3"
+   ]
+  },
+  {
+   "name": "tispid",
+   "degrees": 1,
+   "expected_degrees": 1,
+   "vertices": 120,
+   "cells": "20x18v(6x3+2x6+3x8) + 10x12v(4x3+4x6) + 20x6v(8x3)",
+   "n_cells": 50,
+   "faces_by_dim": {
+    "1": 1
+   },
+   "seed_beta": [
+    7,
+    0,
+    2,
+    3
+   ],
+   "seed_beta_exact": [
+    "7/12",
+    "0",
+    "1/6",
+    "1/4"
+   ],
+   "lies_on": [
+    "b2 = 0",
+    "b1 = 3*b2 + 2*b3 + b4",
+    "b1 = 2*b3 + b4",
+    "b1 + 2*b2 = 2*b3 + b4"
+   ]
+  },
+  {
+   "name": "bideca",
+   "degrees": 0,
+   "expected_degrees": 0,
+   "vertices": 10,
+   "cells": "30x4v(4x3)",
+   "n_cells": 30,
+   "faces_by_dim": {
+    "0": 1
+   },
+   "seed_beta": [
+    1,
+    0,
+    0,
+    0
+   ],
+   "seed_beta_exact": [
+    "1",
+    "0",
+    "0",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b3 = 0",
+    "b2 = b3",
+    "b2 = 0"
+   ]
+  },
+  {
+   "name": "spid",
+   "degrees": 0,
+   "expected_degrees": 0,
+   "vertices": 20,
+   "cells": "20x6v(2x3+3x4) + 10x4v(4x3)",
+   "n_cells": 30,
+   "faces_by_dim": {
+    "0": 1
+   },
+   "seed_beta": [
+    1,
+    0,
+    0,
+    1
+   ],
+   "seed_beta_exact": [
+    "1/2",
+    "0",
+    "0",
+    "1/2"
+   ],
+   "lies_on": [
+    "b3 = 0",
+    "b2 = b3",
+    "b2 = 0",
+    "b1 = 3*b2 + 7*b3 + b4",
+    "b1 = 3*b2 + 2*b3 + b4",
+    "b1 = 7*b3 + b4",
+    "b1 = 2*b3 + b4",
+    "b1 = b4",
+    "b1 + 2*b2 = 2*b3 + b4",
+    "b1 + 2*b2 = b4",
+    "b1 + 2*b2 + 3*b3 = b4",
+    "b1 + 7*b2 + 3*b3 = b4",
+    "3*b1 = b3 + 3*b4",
+    "3*b1 + b2 = b3 + 3*b4",
+    "3*b1 + b2 = 3*b4"
+   ]
+  },
+  {
+   "name": "apid",
+   "degrees": 0,
+   "expected_degrees": 0,
+   "vertices": 20,
+   "cells": "20x6v(8x3) + 10x4v(4x3)",
+   "n_cells": 30,
+   "faces_by_dim": {
+    "0": 2
+   },
+   "seed_beta": [
+    0,
+    0,
+    1,
+    0
+   ],
+   "seed_beta_exact": [
+    "0",
+    "0",
+    "1",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b2 = 0",
+    "b1 = b4",
+    "b1 = 0",
+    "b1 + 2*b2 = b4",
+    "3*b1 + b2 = 3*b4"
+   ]
+  },
+  {
+   "name": "deca",
+   "degrees": 0,
+   "expected_degrees": 0,
+   "vertices": 30,
+   "cells": "10x12v(4x3+4x6)",
+   "n_cells": 10,
+   "faces_by_dim": {
+    "0": 1
+   },
+   "seed_beta": [
+    0,
+    1,
+    1,
+    0
+   ],
+   "seed_beta_exact": [
+    "0",
+    "1/2",
+    "1/2",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b2 = b3",
+    "b1 = b4",
+    "b1 = 0",
+    "b1 + 2*b2 = 2*b3 + b4",
+    "b1 + 2*b2 = 2*b3",
+    "2*b1 + b3 = b2",
+    "2*b1 + b3 + 3*b4 = b2",
+    "3*b1 + b2 = b3 + 3*b4",
+    "3*b1 + b2 = b3",
+    "3*b1 + b2 + 2*b4 = b3"
+   ]
+  },
+  {
+   "name": "redeca",
+   "degrees": 0,
+   "expected_degrees": 0,
+   "vertices": 60,
+   "cells": "10x18v(16x3+4x6) + 30x4v(4x3)",
+   "n_cells": 40,
+   "faces_by_dim": {
+    "0": 1
+   },
+   "seed_beta": [
+    1,
+    0,
+    3,
+    0
+   ],
+   "seed_beta_exact": [
+    "1/4",
+    "0",
+    "3/4",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b2 = 0",
+    "3*b1 = b3 + 3*b4",
+    "3*b1 = b3",
+    "3*b1 + 2*b4 = b3",
+    "3*b1 + b2 = b3 + 3*b4",
+    "3*b1 + b2 = b3",
+    "3*b1 + b2 + 2*b4 = b3"
+   ]
+  },
+  {
+   "name": "respid",
+   "degrees": 0,
+   "expected_degrees": 0,
+   "vertices": 60,
+   "cells": "20x9v(8x3+3x4) + 30x6v(8x3)",
+   "n_cells": 50,
+   "faces_by_dim": {
+    "0": 1
+   },
+   "seed_beta": [
+    2,
+    0,
+    1,
+    0
+   ],
+   "seed_beta_exact": [
+    "2/3",
+    "0",
+    "1/3",
+    "0"
+   ],
+   "lies_on": [
+    "b4 = 0",
+    "b2 = 0",
+    "b1 = 3*b2 + 2*b3 + b4",
+    "b1 = 2*b3 + b4",
+    "b1 = 2*b3",
+    "b1 + 2*b2 = 2*b3 + b4",
+    "b1 + 2*b2 = 2*b3"
+   ]
+  }
+ ]
+}

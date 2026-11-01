@@ -1,0 +1,6 @@
+{
+ "_about": "Is each face's polychoron the same all over the face? (face_check.json)",
+ "faces_checked": 406,
+ "points_checked": 2030,
+ "faces_not_constant": []
+}
