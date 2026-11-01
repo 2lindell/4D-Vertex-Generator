@@ -187,6 +187,8 @@ def write_all(result, out_dir: Path) -> None:
             "sample_beta": None if p["point"] is None else np.asarray(p["point"]).tolist(),
             "chord_hits": p["hits"],
             "verified_by_classification": p.get("verified"),
+            "regions_from_piece_labels": (list(p["regions_from_pieces"])
+                                          if "regions_from_pieces" in p else None),
             "signature": p.get("signature"),
         })
     with open(out_dir / "patches.json", "w", encoding="utf-8") as h:
@@ -312,6 +314,8 @@ def write_all(result, out_dir: Path) -> None:
             "shape_changes_on_no_atlas_surface": result.get("unexplained", []),
             "glue_label_mismatches_as_face_walls": len(result["mismatched"]),
             "patch_name_check": result.get("naming_check"),
+            "patch_sides_sampled": result.get("side_check"),
+            "mixed_pieces": result.get("mixed_pieces"),
             "surface_walks": result.get("march_stats"),
             "walks_across_faces": result.get("exit_stats"),
             "exploration": ex_stats,

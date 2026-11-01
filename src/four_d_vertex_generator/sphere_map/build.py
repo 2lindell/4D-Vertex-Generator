@@ -349,6 +349,76 @@ def name_patch(region_a, region_b, family, naming):
     return None, "ambiguous:" + ",".join(cands)
 
 
+def check_patch_sides(ex, patches, lib, workers: int, cache: dict):
+    """Classify a point just either side of every wall patch and use those for its regions.
+
+    A patch's regions first come from the labels of the pieces either side, but a piece can hold
+    a thin sliver of another region (a surface image missing from the library), so the side
+    actually touching the patch can differ. Where the sampled side differs, the patch takes the
+    sampled region and is renamed from the data; the piece is reported as mixed.
+    """
+    by_sig = region_signatures()
+    naming = wall_naming()
+    surfs = lib.surfaces()
+    pts, owners = [], []
+    for i, p in enumerate(patches):
+        x = p["point"]
+        if x is None:
+            continue
+        x = np.asarray(x, float)
+        if p["face"] is None:
+            surf = surfs[p["surface"]]
+            g = surf.grad(x[None])[0]
+            g = g - g.mean()
+            g /= np.linalg.norm(g)
+            plus = np.sign(surf.f((x + 1e-6 * g)[None])[0])
+            a_side = x + 1e-6 * g if plus == ex.signs[p["pieces"][0]][p["surface"]] else x - 1e-6 * g
+            b_side = 2 * x - a_side
+            pts += [a_side, b_side]
+        else:
+            n = FACE_N[FACE_NAMES.index(p["face"])]
+            n = n / np.linalg.norm(n)
+            inside = x + 1e-6 * n
+            k, beyond = locate(point_from_beta(x - 1e-6 * n)[None], tol=1e-13)
+            # the stored point belongs to whichever piece recorded it; sides compared as a set
+            pts += [inside, beyond[0]]
+        owners.append(i)
+    res = classify_points(pts, 1e-9, workers, cache,
+                          need_key=lambda sig: by_sig.get(sig) in splits())
+    stats, mixed = Counter(), []
+    for j, i in enumerate(owners):
+        p = patches[i]
+        names = []
+        for sig, key in res[2 * j: 2 * j + 2]:
+            name = by_sig.get(sig)
+            names.append(split_name(name, key) if name in splits() else name)
+        if None in names:
+            stats["side not classified"] += 1
+            continue
+        if p["face"] is None:
+            got = tuple(names)
+        else:
+            got = tuple(names) if names[0] in p["regions"] else tuple(reversed(names))
+        if sorted(got) == sorted(p["regions"]):
+            stats["sides confirmed"] += 1
+            continue
+        for side, (want, have) in enumerate(zip(p["regions"], got)):
+            if want != have:
+                mixed.append({"piece": int(p["pieces"][side]), "labelled": want,
+                              "touches_patch_as": have, "patch": i})
+        p["regions_from_pieces"] = p["regions"]
+        p["regions"] = got
+        stats["sides corrected"] += 1
+        if got[0] == got[1]:
+            p["wall"], p["naming"] = None, "not a wall: same region both sides when sampled"
+            p["drop"] = True
+            continue
+        fam = lib[p["surface"]].family if p["surface"] is not None else face_family(
+            FACE_NAMES.index(p["face"]), lib)
+        p["wall"], p["naming"] = name_patch(got[0], got[1], fam, naming)
+    return stats, mixed
+
+
 def verify_patch_names(patches, workers: int, cache: dict) -> Counter:
     """Classify a point on every patch and settle its wall from the recorded counts.
 
@@ -791,6 +861,10 @@ def finish(state, workers, cache, out_dir) -> dict:
         region_pieces[name].append(i)
     regions = describe_components(comp, region_pieces)
     patches = wall_patches(ex, labels, ex.adjacency, mismatched, lib)
+    side_stats, mixed = check_patch_sides(ex, patches, lib, workers, cache)
+    patches = [p for p in patches if not p.get("drop")]
+    log(f"patch sides sampled: {dict(side_stats)}; mixed pieces: "
+        f"{sorted({(m['piece'], m['labelled'], m['touches_patch_as']) for m in mixed})}")
     naming_check = verify_patch_names(patches, workers, cache)
     inside, inside_stats = walls_inside_regions(ex, labels, workers, cache, surfs)
     patches += inside
@@ -821,7 +895,8 @@ def finish(state, workers, cache, out_dir) -> dict:
                   region_pieces=region_pieces, patches=patches, inner=inner, across=across,
                   wcomp=wcomp, walls=walls, lines=lines, points=points, lib=lib,
                   unexplained=unexplained, march_stats=march_stats, exit_stats=exit_stats,
-                  naming_check=dict(naming_check))
+                  naming_check=dict(naming_check), side_check=dict(side_stats),
+                  mixed_pieces=mixed)
     from .export import write_all
     write_all(result, out_dir)
     log(f"written to {out_dir}")

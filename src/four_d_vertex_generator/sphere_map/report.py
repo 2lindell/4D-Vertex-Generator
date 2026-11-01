@@ -40,6 +40,13 @@ def write_report(root: Path) -> None:
     add(f"- Patch names checked by classifying a point on each patch: {ch.get('patch_name_check')}")
     add(f"- Surface walks: {ch.get('surface_walks')}")
     add(f"- Walks continued across domain faces: {ch.get('walks_across_faces')}")
+    add(f"- Patch sides sampled just off each patch: {ch.get('patch_sides_sampled')}")
+    mixed = ch.get("mixed_pieces") or []
+    if mixed:
+        seen = sorted({(x["piece"], x["labelled"], x["touches_patch_as"]) for x in mixed})
+        add("- Pieces holding a thin part of another region where they touch a wall (a surface "
+            "image the library still lacks; the patch uses the sampled region): "
+            + "; ".join(f"piece {a} ({b}) is {c} at the wall" for a, b, c in seen))
     add(f"- Shape changes on no atlas surface: {len(ch.get('shape_changes_on_no_atlas_surface', []))}")
     add(f"- Face gluing: {ch['face_glue']}")
     add(f"- Exploration: {ch['exploration']}")

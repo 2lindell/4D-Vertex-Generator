@@ -11,25 +11,25 @@ Built from `research/swirlprism_atlas` on `claude/laughing-noether-qydcwe` (comm
 | regions | 40 |
 | region components | 88800 |
 | walls | 55 |
-| wall components | 89840 |
+| wall components | 91040 |
 | lines | 24 |
 | points | 14 |
 
 ## Checks
 
 - Pieces whose sample points named different regions: 0
-- Patch naming: {'data': 3413, 'ambiguous+classified': 482, 'data said X26+classified': 14, 'no wall in data+classified': 1, 'inside region+classified (4/4 nearby agree)': 44, 'inside region+classified (2/2 nearby agree)': 15, 'inside region+classified (3/3 nearby agree)': 21, 'inside region+classified (1/1 nearby agree)': 11}
-- Patch names checked by classifying a point on each patch: {'data name confirmed': 3412, 'settled by classification': 483, 'data name corrected by classification': 14, 'data name contradicted': 1}
+- Patch naming: {'data': 3414, 'ambiguous+classified': 482, 'data said X26+classified': 14, 'inside region+classified (4/4 nearby agree)': 44, 'inside region+classified (2/2 nearby agree)': 15, 'inside region+classified (3/3 nearby agree)': 21, 'inside region+classified (1/1 nearby agree)': 11}
+- Patch names checked by classifying a point on each patch: {'data name confirmed': 3414, 'settled by classification': 482, 'data name corrected by classification': 14}
 - Surface walks: {'crossings': 701698, 'crossings at a meeting curve': 52108, 'left domain': 57741, 'unseen pieces': 1187, 'walks': 58380, 'still walking at the end': 639}
 - Walks continued across domain faces: {'glued': 24675, 'not on a library surface there': 32490, 'unseen pieces': 12, 'continues in a domain face': 527, 'face_patch_links': {'unresolved': 363, 'linked': 164}, 'face_walks': {'face crossings': 27743, 'left the face': 1534, 'into a face beyond the edge': 617, 'into a surface beyond the edge': 847}}
+- Patch sides sampled just off each patch: {'sides confirmed': 3891, 'side not classified': 3, 'sides corrected': 16}
+- Pieces holding a thin part of another region where they touch a wall (a surface image the library still lacks; the patch uses the sampled region): piece 694 (X61) is X49 at the wall; piece 695 (X58) is X49 at the wall; piece 733 (X49) is X61 at the wall; piece 1075 (X59) is X62 at the wall; piece 1313 (X68) is X49 at the wall; piece 1621 (X58) is X61 at the wall; piece 1624 (X61) is X58 at the wall; piece 1874 (X60) is X59 at the wall; piece 1876 (X60) is X59 at the wall; piece 1877 (X59) is X62 at the wall; piece 2017 (X58) is X49 at the wall; piece 4252 (X49) is X58 at the wall; piece 4295 (X49) is X61 at the wall; piece 5742 (F2) is X95 at the wall; piece 6700 (X58) is X61 at the wall; piece 6887 (X62) is X60 at the wall; piece 7423 (X58) is X61 at the wall; piece 7838 (X49) is X61 at the wall; piece 7843 (X62) is X60 at the wall; piece 8527 (X49) is X61 at the wall; piece 9424 (X62) is X60 at the wall; piece 9694 (X12) is F2 at the wall; piece 11547 (F2) is F3 at the wall
 - Shape changes on no atlas surface: 0
 - Face gluing: {'glued': 27830, 'unseen piece': 1}
 - Exploration: {'chords': 200000, 'rejected_chords': 3, 'coincident_crossings': 20, 'pieces_seen_once': 125}
 
 ## Findings against the working data
 
-- Wall F4: also borders X68.
-- Patch 3105 is named X3 from the data, but a point on it does not give X3's counts.
 
 Cross-check with the atlas's `bounds_walk.json` (walls found by walking out of a shape):
 
@@ -99,6 +99,7 @@ Orbit 0 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
+| T2 | F2 | 1 | 1/1 whole |
 | T2 | F3 | 82 | 82/282 |
 | T2 | X49 | 45 | 45/282 |
 | X10 | X95 | 18 | 18/1080 |
@@ -108,7 +109,7 @@ Orbit 0 (1200 components):
 | X14 | X46 | 10 | 10/27 |
 | X21 | X60 | 13 | 13/19 |
 | X21 | X67 | 6 | 6/19 |
-| X3 | X12 | 51 | 51/134 |
+| X3 | X12 | 50 | 50/132 |
 | X9 | X16 | 60 | 60/122 |
 
 Orbit 1 (1200 components):
@@ -179,16 +180,19 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| X3 | F2 | 93 | 51/134, 42/102 |
-| X3 | X95 | 25 | 16/134, 9/102 |
+| T2 | F3 | 1 | 1/1 whole |
+| X3 | F2 | 92 | 50/132, 42/102 |
+| X3 | X95 | 25 | 16/132, 9/102 |
 | X7 | X30 | 154 | 154/154 whole |
+
+Walls found here that the working data does not list for X12: T2
 
 ### X16: Not in the wiki list
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| X9 | F2 | 297 | 60/122, 237/482 |
-| X9 | X95 | 5 | 1/122, 4/482 |
+| X9 | F2 | 296 | 60/122, 236/482 |
+| X9 | X95 | 6 | 1/122, 5/482 |
 | X96 | X58 | 23 | 13/44, 10/38 |
 | X96 | X62 | 18 | 9/44, 9/38 |
 
@@ -317,9 +321,9 @@ Orbit 0 (1200 components):
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
 | F1 | F3 | 134 | 134/288 |
-| F4 | X58 | 183 | 182/768, 1/1 whole |
-| F4 | X61 | 202 | 202/768 |
-| F4 | X68 | 1 | 1/1 whole |
+| F4 | X49 | 5 | 4/768, 1/1 whole |
+| F4 | X58 | 178 | 177/768, 1/1 whole |
+| F4 | X61 | 203 | 203/768 |
 | T2 | F2 | 39 | 39/176 |
 | X28 | X50 | 18 | 18/36 |
 | X82 | X43 | 18 | 18/36 |
@@ -442,7 +446,8 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| F4 | X49 | 183 | 182/768, 1/1 whole |
+| F4 | X49 | 180 | 179/768, 1/1 whole |
+| F4 | X61 | 3 | 3/768 |
 | X100 | X61 | 8 | 8/8 whole |
 | X41 | X62 | 61 | 61/2440 |
 | X96 | X16 | 13 | 13/44 |
@@ -464,7 +469,8 @@ Orbit 1 (1200 components):
 |---|---|---|---|
 | F5 | X66 | 9 | 9/9 whole |
 | X20 | X95 | 5 | 5/66 |
-| X23 | X62 | 25 | 25/160 |
+| X23 | X60 | 3 | 3/160 |
+| X23 | X62 | 22 | 22/160 |
 | X39 | X60 | 7 | 7/7 whole |
 
 ### X60: Not in the wiki list
@@ -503,7 +509,8 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| F4 | X49 | 202 | 202/768 |
+| F4 | X49 | 201 | 201/768 |
+| F4 | X58 | 1 | 1/768 |
 | X100 | X58 | 8 | 8/8 whole |
 | X99 | X68 | 143 | 143/286 |
 
@@ -513,8 +520,9 @@ Orbit 0 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| X23 | X59 | 25 | 25/160 |
-| X23 | X60 | 55 | 55/160 |
+| X23 | X59 | 24 | 24/160 |
+| X23 | X60 | 53 | 53/160 |
+| X23 | X62 | 3 | 3/160 |
 | X41 | X58 | 28 | 28/1120 |
 | X96 | X16 | 9 | 9/38 |
 
@@ -627,7 +635,7 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| F4 | X49 | 1 | 1/1 whole |
+| F4 | X61 | 1 | 1/1 whole |
 | X38 | X68 | 182 | 182/182 whole |
 | X99 | X61 | 249 | 106/212, 143/286 |
 
@@ -804,7 +812,7 @@ Orbit 1 (1200 components):
 | X10 | F2 | 18 | 18/1080 |
 | X20 | X59 | 1 | 1/38 |
 | X20 | X66 | 18 | 18/38 |
-| X3 | X12 | 16 | 16/134 |
+| X3 | X12 | 16 | 16/132 |
 | X9 | X16 | 1 | 1/122 |
 
 ## Walls
@@ -812,9 +820,9 @@ Orbit 1 (1200 components):
 | wall | shape | regions found | sheets on S^3 | stabilizer | patches |
 |---|---|---|---|---|---|
 | F1 | Polychoron with 120+120+600+600+600+600+1200 cells | F3, X49, X50 | 600 + 600 | 2, 2 | 272 |
-| F4 | Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200×9 faces) | X49, X58, X61, X68 | 600 + 600 + 1200 + 1200 | 2, 2, 1, 1 | 519 |
+| F4 | Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200×9 faces) | X49, X58, X61 | 600 + 600 + 1200 + 1200 | 2, 2, 1, 1 | 519 |
 | F5 | Polychoron with 120+120+600+600+600+600+1200+1200+1200 cells | X59, X66 | 1200 + 1200 | 1, 1 | 18 |
-| T2 | Transitional polychoron with 120+120+600+600+1200 cells | F2, F3, X36, X37, X49 | 600 + 600 | 2, 2 | 229 |
+| T2 | Transitional polychoron with 120+120+600+600+1200 cells | F2, F3, X36, X37, X49 | 600 + 600 + 1200 | 2, 2, 1 | 230 |
 | X10 | Piece of the cantitruncated 600-cell | F2, X95 | 600 + 20 | 2, 60 | 53 |
 | X100 | Not in the wiki list | X58, X61 | 1200 + 600 | 1, 2 | 41 |
 | X101 | Not in the wiki list | X103, X72 | 1200 + 1200 | 1, 1 | 14 |
@@ -831,7 +839,7 @@ Orbit 1 (1200 components):
 | X26 | Piece of the cantitruncated 120-cell | X102, X103, X72, X73 | 120 + 120 | 10, 10 | 22 |
 | X27 | Not in the wiki list | X45, X55, X65 | 1200 + 1200 | 1, 1 | 27 |
 | X28 | Not in the wiki list | X49, X50 | 600 + 600 | 2, 2 | 43 |
-| X3 | Piece of the cantitruncated 120-cell | F2, X12, X95 | 600 + 600 | 2, 2 | 118 |
+| X3 | Piece of the cantitruncated 120-cell | F2, X12, X95 | 600 + 600 | 2, 2 | 117 |
 | X31 | Not in the wiki list | X43, X54 | 1200 + 1200 | 1, 1 | 18 |
 | X33 | Not in the wiki list | X50, X57 | 1200 + 600 | 1, 2 | 70 |
 | X34 | Not in the wiki list | X55, X60 | 600 + 600 | 2, 2 | 30 |
