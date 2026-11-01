@@ -3,7 +3,7 @@
  "symmetry": "h4_swirlprism (order 1200)",
  "source": {
   "branch": "claude/laughing-noether-qydcwe",
-  "commit": "8488da9c0cf86cef7fbb4f49c6ca797ccfe46b42",
+  "commit": "7a3a8a2abd287fd811f41935e34ea0af17bec9c9",
   "folder": "research/swirlprism_atlas",
   "copied_to": "data/swirlprism/source"
  },
@@ -28,8 +28,7 @@
   },
   "patch_naming": {
    "data": 3409,
-   "ambiguous+classified": 482,
-   "data said X26+classified": 14,
+   "ambiguous+classified": 496,
    "inside region+classified (4/4 nearby agree)": 44,
    "inside region+classified (2/2 nearby agree)": 15,
    "inside region+classified (3/3 nearby agree)": 21
@@ -39,8 +38,7 @@
   "glue_label_mismatches_as_face_walls": 1321,
   "patch_name_check": {
    "data name confirmed": 3407,
-   "settled by classification": 482,
-   "data name corrected by classification": 14,
+   "settled by classification": 496,
    "data name contradicted": 2
   },
   "patch_sides_sampled": {
