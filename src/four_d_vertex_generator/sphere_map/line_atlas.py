@@ -9,6 +9,7 @@ grouped into classes under the group and then into congruence types under G and 
 """
 from __future__ import annotations
 
+import re
 from collections import Counter, defaultdict
 
 import numpy as np
@@ -28,6 +29,26 @@ def densify(r4: np.ndarray, step: float = 2e-4) -> np.ndarray:
     return np.vstack(out)
 
 
+def _on_line(descriptions, line) -> bool:
+    """Whether the data's notes on a point put it on this line."""
+    pat = re.compile(rf"(\bon {re.escape(line)}\b|\bof (a piece of )?{re.escape(line)}\b)")
+    return any(pat.search(d) for d in descriptions)
+
+
+def _physical_length(members, subs, grp) -> float:
+    """Length of a piece on the sphere, each physical stretch counted once (a piece on the
+    domain's boundary is listed once per copy it belongs to)."""
+    seen, total = set(), 0.0
+    for k, s in members:
+        r4 = point_from_beta(subs[s]["polyline"]) @ grp.g[k].T
+        key = tuple(np.round(r4[len(r4) // 2], 6) + 0.0)
+        if key in seen:
+            continue
+        seen.add(key)
+        total += _arc(r4)
+    return total
+
+
 def _arc(pts):
     return float(np.sum(np.arccos(np.clip(np.sum(pts[1:] * pts[:-1], axis=1), -1, 1))))
 
@@ -40,7 +61,10 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
     lines = w["exact"]["lines"]
     ends_doc = load_json("line_ends.json")["lines"]
     named = [(p["name"], point_from_beta(np.asarray(p["float"], float))) for p in w["exact"]["points"]]
+    named_from = [p["from"] for p in w["exact"]["points"]]
     all_named = np.vstack([grp.g @ x for _, x in named])            # every copy of every point
+    from .frame import cell_vertices
+    cell_inv = np.linalg.inv(cell_vertices())
     named_of = [n for n, _ in named for _ in range(grp.n)]
     ntree = cKDTree(all_named)
 
@@ -52,11 +76,45 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             poly = poly / poly.sum(axis=1, keepdims=True)
             keep = np.r_[True, np.linalg.norm(np.diff(poly, axis=0), axis=1) > 1e-12]
             poly = poly[keep]                    # (repeated points in the record)
+            # named points the data puts on this line ('end of X8 on X5', 'end of X5 on C4'),
+            # wherever a copy of one falls along the polyline (between its samples too)
+            r4 = point_from_beta(poly)
+            mine = [j for j in range(len(named)) if _on_line(named_from[j], name)]
+            inserts, seen = [], set()
+            for a in range(len(r4) - 1):
+                xa, xb = r4[a], r4[a + 1]
+                span = np.linalg.norm(xb - xa)
+                for jj in ntree.query_ball_point((xa + xb) / 2, span / 2 + 2e-3):
+                    if jj // grp.n not in mine:
+                        continue
+                    x = all_named[jj]
+                    t = float(np.clip((x - xa) @ (xb - xa) / max(span ** 2, 1e-300), 0, 1))
+                    off = np.linalg.norm(xa + t * (xb - xa) - x)
+                    if off > max(2e-3, span ** 2):
+                        continue
+                    key = tuple(np.round(x, 7))
+                    if key not in seen:
+                        seen.add(key)
+                        bx = x @ cell_inv
+                        inserts.append((off, a, t, bx / bx.sum(), x))
+            # two meeting points never sit within 5e-3 of each other along a line: of candidates
+            # that close, keep the one lying closest to the line
+            kept = []
+            for off, a, t, bx, x in sorted(inserts, key=lambda z: z[0]):
+                if all(np.linalg.norm(x - y) > 5e-3 for *_, y in kept):
+                    kept.append((off, a, t, bx, x))
+            for _off, a, t, bx, _x in sorted(kept, key=lambda z: -(z[1] + z[2])):
+                if t <= 1e-9:
+                    poly[a] = bx
+                elif t >= 1 - 1e-9:
+                    poly[a + 1] = bx
+                else:
+                    poly = np.insert(poly, a + 1, bx, axis=0)
             r4 = point_from_beta(poly)
             cut_at = []
             for idx, x in enumerate(r4):
-                hit = ntree.query_ball_point(x, 1e-6)
-                if hit:
+                hit = [jj for jj in ntree.query_ball_point(x, 1e-6) if jj // grp.n in mine]
+                if hit and all(np.linalg.norm(x - r4[c]) > 5e-3 for c, _ in cut_at):
                     cut_at.append((idx, named_of[hit[0]]))
             # the piece's own ends on named points (line_ends 'on')
             ends = {e["side"]: e for e in ends_doc.get(name, []) if e["piece"] == pi}
@@ -144,7 +202,7 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
                           "equations": subs[s]["surfaces"]} for k, s in members],
             "end_points": ends,
             "closed": not any(subs[s]["start_point"] or subs[s]["end_point"] for _, s in members),
-            "length": sum(_arc(point_from_beta(subs[s]["polyline"])) for _, s in members),
+            "length": _physical_length(members, subs, grp),
             "stabilizer_order": stab, "copies_on_sphere": grp.n // stab,
             "_cloud": pts,
         })

@@ -252,6 +252,21 @@ def write_report(root: Path) -> None:
                 add(f"| {', '.join(c['walls_meeting']) or '(one wall)'} | "
                     f"{c['classifies_as_line'] or ''} | {len(c['edges'])} | "
                     f"{c['length_in_domain']} |")
+    aud = Path(root) / "audit.json"
+    if aud.exists():
+        a = _json.loads(aud.read_text())
+        add("")
+        add("## Audit: edges and walls against the working data, one for one")
+        add("")
+        add(f"Summary: {a['summary']}. 'wall Y' is the curve where the wall meets wall Y.")
+        add("")
+        add("| kind | name | in the data, not on the map | on the map, not in the data |")
+        add("|---|---|---|---|")
+        for kind in ("walls", "lines", "regions"):
+            for k, v in a[kind].items():
+                if not v["match"]:
+                    add(f"| {kind[:-1]} | {k} | {', '.join(v['missing_on_map'])} | "
+                        f"{', '.join(v['not_in_data'])} |")
     add("")
     add("## Lines and points")
     add("")

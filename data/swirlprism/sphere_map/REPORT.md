@@ -991,7 +991,7 @@ A face is one connected piece of one wall sheet between one region component and
 
 ## Atlas database (atlas.json)
 
-Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 134, 'line_pieces_bounding_a_face': 49, 'line_pieces': 59, 'line_pieces_with_two_end_points': 59, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 109, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
+Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 134, 'line_pieces_bounding_a_face': 58, 'line_pieces': 77, 'line_pieces_with_two_end_points': 77, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 109, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
 
 | wall | piece types | face classes | faces on S^3 | unplaced fragments |
 |---|---|---|---|---|
@@ -1055,30 +1055,30 @@ Line pieces are the atlas's own lines, cut only at its exact meeting points and 
 
 | line | piece types | classes | pieces on S^3 |
 |---|---|---|---|
-| B1 | 1 | 1 | 240 |
+| B1 | 2 | 2 | 480 |
 | C2a | 1 | 1 | 600 |
 | C2b | 1 | 2 | 1200 |
 | C3 | 1 | 2 | 1200 |
-| D1 | 1 | 3 | 1800 |
-| D2 | 1 | 4 | 2400 |
-| D3 | 2 | 2 | 1200 |
-| E1 | 3 | 3 | 3600 |
+| D1 | 2 | 4 | 2400 |
+| D2 | 3 | 6 | 3600 |
+| D3 | 3 | 3 | 1800 |
+| E1 | 2 | 3 | 3600 |
 | E2 | 1 | 2 | 2400 |
-| T1 | 2 | 2 | 2400 |
-| X1 | 1 | 1 | 1200 |
-| X13 | 2 | 2 | 2400 |
+| T1 | 1 | 2 | 2400 |
+| X1 | 2 | 2 | 2400 |
+| X13 | 2 | 3 | 3600 |
 | X18 | 1 | 1 | 1200 |
-| X2 | 2 | 2 | 2400 |
+| X2 | 2 | 5 | 6000 |
 | X24 | 1 | 3 | 3600 |
-| X29 | 1 | 4 | 4800 |
-| X4 | 1 | 2 | 2400 |
-| X5 | 4 | 8 | 9600 |
+| X29 | 3 | 6 | 7200 |
+| X4 | 3 | 4 | 4800 |
+| X5 | 3 | 8 | 9600 |
 | X6 | 1 | 3 | 3600 |
 | X78 | 1 | 1 | 1200 |
-| X8 | 1 | 2 | 2400 |
+| X8 | 2 | 4 | 4800 |
 | X80 | 1 | 2 | 2400 |
-| X81 | 2 | 3 | 3600 |
-| X97 | 1 | 3 | 3600 |
+| X81 | 3 | 4 | 4800 |
+| X97 | 2 | 4 | 4800 |
 
 Curves where walls meet (traced, exact) that lie on no atlas line, by the walls meeting there:
 
@@ -1114,6 +1114,57 @@ Curves where walls meet (traced, exact) that lie on no atlas line, by the walls 
 | F1 |  | 1 | 0.052892 |
 | X27, X44 |  | 2 | 0.045405 |
 | X38 |  | 1 | 0.02779 |
+
+## Audit: edges and walls against the working data, one for one
+
+Summary: {'walls_matching': 24, 'walls': 55, 'lines_matching': 11, 'lines': 24, 'regions_matching': 40, 'regions': 40}. 'wall Y' is the curve where the wall meets wall Y.
+
+| kind | name | in the data, not on the map | on the map, not in the data |
+|---|---|---|---|
+| wall | F1 |  | (unnamed curve), C3 |
+| wall | F4 |  | C2b |
+| wall | T2 | X1 |  |
+| wall | X10 | D1 |  |
+| wall | X101 |  | X80, X81, wall X79 |
+| wall | X11 |  | (unnamed curve), wall X19 |
+| wall | X14 |  | (unnamed curve) |
+| wall | X15 | X6 |  |
+| wall | X19 |  | wall X11, wall X26 |
+| wall | X20 | E2 |  |
+| wall | X22 | D3 | D2, wall F1 |
+| wall | X23 |  | C2b, wall X10, wall X41, wall X9 |
+| wall | X26 |  | B1, C2b, wall X19 |
+| wall | X28 |  | (unnamed curve) |
+| wall | X3 | X1 | (unnamed curve) |
+| wall | X31 |  | wall X101, wall X26, wall X79 |
+| wall | X33 |  | wall X28 |
+| wall | X35 |  | C3, wall X47, wall X48, wall X52, wall X84 |
+| wall | X38 | B1, C2a | (unnamed curve) |
+| wall | X40 | D3 |  |
+| wall | X42 | D2, D3 | wall X35, wall X47, wall X48, wall X52, wall X84 |
+| wall | X47 |  | (unnamed curve), X6, wall X35, wall X48, wall X52, wall X84 |
+| wall | X48 |  | wall X35, wall X47, wall X52, wall X84 |
+| wall | X51 | D1 |  |
+| wall | X52 |  | C3, wall X47, wall X84 |
+| wall | X53 |  | D1, wall X35, wall X47, wall X48, wall X52, wall X84 |
+| wall | X7 | C3, E2 |  |
+| wall | X79 | X81 | wall X101 |
+| wall | X84 |  | (unnamed curve), wall X35, wall X47, wall X48, wall X52 |
+| wall | X87 | C3 | D2 |
+| wall | X9 |  | D2, E1 |
+| line | B1 | X38 | X26 |
+| line | C2a | X38 |  |
+| line | C2b |  | F4, X23, X26 |
+| line | C3 | X7, X87 | F1, X35, X52 |
+| line | D1 | X10, X51 | X53 |
+| line | D2 | X42 | X22, X87, X9 |
+| line | D3 | X22, X40, X42 |  |
+| line | E1 |  | X9 |
+| line | E2 | X20, X7 |  |
+| line | X1 | T2, X3 |  |
+| line | X6 | X15 | X47 |
+| line | X80 |  | X101 |
+| line | X81 | X79 | X101 |
 
 ## Lines and points
 

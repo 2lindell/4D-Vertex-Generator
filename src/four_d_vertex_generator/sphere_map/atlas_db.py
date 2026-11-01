@@ -538,5 +538,81 @@ def _surface_functions(lib):
     return fs
 
 
+
+
+def audit(root=None) -> dict:
+    """Check every wall piece's edges and every line's walls against the working data, one for one.
+
+    Data side: each wall's ``edges`` (lines, or other walls it meets along an unnamed curve) and
+    ``cuts``; each line's ``bounds_walls``; each region's ``walls``. Map side: the faces' outlines
+    (atlas line pieces, and traced curves on no atlas line, named by the other walls meeting there)
+    and the regions' bounding faces.
+    """
+    root = root or data_dir() / "sphere_map"
+    db = json.loads((root / "atlas.json").read_text())
+    w = json.loads((root.parent / "source" / "working_data.json").read_text())
+    lines = db["line_pieces"]
+    traced = db["traced_edges"]
+    line_names = set(w["lines"])
+    per_face, found_edges, found_line_walls = [], defaultdict(set), defaultdict(set)
+    for f in db["faces"]:
+        edges_here = set()
+        for ref in f["outline"]:
+            ln = lines[ref["class"]]["line_shape"]
+            edges_here.add(ln)
+            found_line_walls[ln].add(f["wall"])
+        for ref in f.get("outline_curves_on_no_atlas_line", []):
+            others = set(traced[ref["class"]]["walls_round"]) - {f["wall"]}
+            edges_here |= {f"wall {o}" for o in others} or {"(unnamed curve)"}
+        per_face.append({"face": f["id"], "wall": f["wall"], "regions": f["regions"],
+                         "orbit": f["orbit"], "edges_found": sorted(edges_here)})
+        found_edges[f["wall"]] |= edges_here
+    walls_report = {}
+    for wall, info in sorted(w["walls"].items()):
+        data_edges = {e if e in line_names else f"wall {e}" for e in info["edges"]}
+        data_cuts = {f"wall {c['by']}" for c in info.get("cuts", [])}
+        found = found_edges.get(wall, set())
+        walls_report[wall] = {
+            "data_edges": sorted(data_edges), "data_cuts": sorted(data_cuts),
+            "found_edges": sorted(found),
+            "missing_on_map": sorted(data_edges - found),
+            "not_in_data": sorted(found - data_edges - data_cuts),
+            "match": data_edges <= found and not (found - data_edges - data_cuts),
+        }
+    lines_report = {}
+    for ln, info in sorted(w["lines"].items()):
+        data = set(info.get("bounds_walls", []))
+        found = found_line_walls.get(ln, set())
+        lines_report[ln] = {"data_walls": sorted(data), "found_walls": sorted(found),
+                            "missing_on_map": sorted(data - found),
+                            "not_in_data": sorted(found - data), "match": data == found}
+    regions_found = defaultdict(set)
+    for f in db["faces"]:
+        for r in f["regions"]:
+            regions_found[r].add(f["wall"])
+    regions_report = {}
+    for r, info in sorted(w["regions"].items()):
+        data = set(info["walls"])
+        found = regions_found.get(r, set())
+        regions_report[r] = {"data_walls": sorted(data), "found_walls": sorted(found),
+                             "missing_on_map": sorted(data - found),
+                             "not_in_data": sorted(found - data), "match": data == found}
+    out = {
+        "summary": {
+            "walls_matching": sum(v["match"] for v in walls_report.values()),
+            "walls": len(walls_report),
+            "lines_matching": sum(v["match"] for v in lines_report.values()),
+            "lines": len(lines_report),
+            "regions_matching": sum(v["match"] for v in regions_report.values()),
+            "regions": len(regions_report),
+        },
+        "walls": walls_report, "lines": lines_report, "regions": regions_report,
+        "faces": per_face,
+    }
+    (root / "audit.json").write_text(json.dumps(out, indent=1))
+    return out
+
+
 if __name__ == "__main__":
     build()
+    audit()
