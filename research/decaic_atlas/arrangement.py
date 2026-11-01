@@ -35,10 +35,14 @@ OUT = "arrangement.json"
 BOUNDARY = [(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1), (1, 0, 0, -1)]   # (beta_k >= 0, beta_1 >= beta_4)
 
 
+class NonLinear(ValueError):
+    pass
+
+
 def linear(text):
     p = sp.Poly(sp.sympify(text), *F.B)
     if p.total_degree() != 1:
-        raise ValueError(f"not linear: {text}")
+        raise NonLinear(text)
     c = [int(p.coeff_monomial(v)) for v in F.B]
     g = np.gcd.reduce([abs(x) for x in c if x])
     c = [int(x // g) for x in c]
@@ -47,11 +51,24 @@ def linear(text):
 
 
 def candidates(beta):
-    """The candidate planes of the seed's polychoron (mixed-sign linear factors of its forms), and every factor seen."""
+    """The candidate planes of the seed's polychoron: mixed-sign linear factors of its forms. On a mirror (some
+    beta_k = 0) vertices coincide and their labels are not unique, so a form means something only on that mirror: it
+    is restricted there (those beta_k set to 0) before factoring, and its factors are planes through the mirror's
+    span extended by 0 in the missing betas. A factor that is not linear is reported (NONLINEAR) and kept out."""
+    zero = [v for v, b in zip(F.B, beta) if abs(b) < 1e-12]
     out = set()
     for co in F.region_conditions(beta):
-        for t in F.factors(co):
-            c = linear(t)
+        f = sp.expand(F.poly(co).subs({v: 0 for v in zero}))
+        if f == 0:
+            continue
+        for fac, _ in sp.factor_list(f)[1]:
+            if not fac.free_symbols:
+                continue
+            try:
+                c = linear(str(fac))
+            except NonLinear:
+                print(f"  NONLINEAR at {np.round(beta, 6).tolist()}: {fac}", flush=True)
+                continue
             if any(x > 0 for x in c) and any(x < 0 for x in c):
                 out.add(c)
     return out
