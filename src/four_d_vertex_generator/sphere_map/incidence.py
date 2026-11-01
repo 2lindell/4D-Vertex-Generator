@@ -182,6 +182,13 @@ class Incidence:
             how = "patch" if wall else None
             if wall is None and a["region"] and b["region"] and a["region"] != b["region"]:
                 wall, how = self._name_by_data(a["region"], b["region"], s)
+            if wall is None and len(same) > 1 and a["region"] and b["region"]:
+                chain = self._cusp(a["region"], b["region"], same)
+                if chain:
+                    for (w1, r1, r2, t) in chain:
+                        walls.append({"surface": t, "copy": a["copy"], "between": [r1, r2],
+                                      "wall": w1, "named_by": "cusp: surfaces tangent along the line"})
+                    continue
             if a["region"] != b["region"] or wall:
                 walls.append({"surface": s, "copy": a["copy"], "between": [a["region"], b["region"]],
                               "wall": wall, "named_by": how})
@@ -231,6 +238,27 @@ class Incidence:
             if (dk @ FACE_N[act].T > 0).all():
                 return k
         return None
+
+    def _cusp(self, ra, rb, same):
+        """Surfaces tangent along the line (one cut direction): a region between them pinches to
+        zero angle there. ra | w1 | R | w2 | rb, with w1 and w2 lying on two of the tangent
+        surfaces and separating those regions in the data."""
+        found = []
+        for w1, v1 in self.naming.items():
+            if ra not in v1["regions"]:
+                continue
+            for t1 in same:
+                if t1 not in self.wall_surfaces.get(w1, ()):
+                    continue
+                for r in v1["regions"] - {ra}:
+                    for w2, v2 in self.naming.items():
+                        if w2 == w1 or r not in v2["regions"] or rb not in v2["regions"]:
+                            continue
+                        for t2 in same:
+                            if t2 != t1 and t2 in self.wall_surfaces.get(w2, ()):
+                                found.append([(w1, ra, r, t1), (w2, r, rb, t2)])
+        uniq = {tuple((c[0][0], c[0][2], c[1][0])) for c in found}
+        return found[0] if len(uniq) == 1 else None
 
     def _wall_surfaces(self):
         """Each wall's own surfaces (exact_defs), as library indices: a wall lies on these."""
