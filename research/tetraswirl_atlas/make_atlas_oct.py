@@ -499,6 +499,32 @@ def main():
             for p in ps:
                 points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p["beta"])], "beta": beta_text(p["beta"]),
                                "hover": f"{pid} · where {', '.join(wall_id.get(w, '?') for w in p['walls'])} meet"})
+    # (the points where extra-symmetry lines meet, symmetry_points_oct.py: a shape not listed yet gets a point row of its
+    # own; a seed of a listed shape with more symmetry than the lines through it is marked on that shape)
+    if os.path.exists(f"symmetry_points_{D.KEY}.json"):
+        known_sig = {t.get("sig"): t["id"] for t in types if t.get("sig")}
+        known_sig.update({sg: rid for sg, rid in ids.items()})
+        for p in json.load(open(f"symmetry_points_{D.KEY}.json"))["points"]:
+            b = np.array(p["beta"])
+            sg = label(b)
+            where = " and ".join(sorted(set(p["on"])))
+            text = f"β {p['exact']}: {p['vertices']} vertices, {p['symmetry']} symmetries; where {where} meet" \
+                if p["lines_through"] > 1 or p["kind"] == "meet" else None
+            if text is None:
+                continue
+            if sg in known_sig:
+                if p["vertices"] == 48 and p["symmetry"] > 144:
+                    points.append({"id": known_sig[sg], "q": [round(float(x), 5) for x in chart(b)], "beta": beta_text(b),
+                                   "hover": f"{known_sig[sg]} · {text}"})
+                continue
+            pid = f"P{len([t for t in types if t['dim'] == 'point']) + 1}"
+            types.append({"id": pid, "dim": "point", "name": "", "sig": sg, "bounds": [],
+                          "where": f"β {p['exact']}, where {where} meet",
+                          "locus": f"{p['vertices']} vertices, {p['symmetry']} symmetries",
+                          "seed": seed_text(b), "beta": beta_text(b)})
+            known_sig[sg] = pid
+            points.append({"id": pid, "q": [round(float(x), 5) for x in chart(b)], "beta": beta_text(b),
+                           "hover": f"{pid} · {text}"})
     # (the regular polytopes among them, recognised by their counts)
     regular = {"8: cells 16x[4v4f]": "16-cell", "16: cells 8x[8v6f]": "tesseract", "24: cells 8x[6v8f]+16x[6v8f]": "24-cell"}
     for t in types:
