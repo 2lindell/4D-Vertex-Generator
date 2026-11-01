@@ -341,6 +341,7 @@ def main():
         "walls": traced.get("walls", []), "lines": traced.get("lines", []), "points": traced.get("points", []),
         "girdles": traced.get("girdles", []),
         "symlines": traced.get("symlines", []),
+        "crossrings": traced.get("crossrings", []),
         "notes": notes,
     }
     template = open("atlas_template.html").read()
