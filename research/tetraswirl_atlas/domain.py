@@ -301,7 +301,45 @@ def classify(seed: np.ndarray, hull_tol: float = 1e-9) -> dict | None:
         "cells": describe(cell_classes, cell_sets, lambda s, i: (len(s), len(cells[i]))),
         "faces": describe(face_classes, face_sets, lambda s, i: len(s)),
         "edges": describe(edge_classes, edge_sets, lambda s, i: valence[s]),
+        "vfig": _arrangement_key(faces, cells, cell_sets, face_sets, edge_sets, valence,
+                                 cell_classes, face_classes, edge_classes),
     }
+
+
+def _arrangement_key(faces, cells, cell_sets, face_sets, edge_sets, valence, cell_classes, face_classes, edge_classes):
+    """How the cells, faces and edges fit together at vertex 0 (every vertex is like it): each labelled by its size and
+    its class's size, joined where one lies on another, refined over its neighbours and hashed. Two polytopes with the
+    same counts can differ here (the swirlprism atlas's X79 and X101)."""
+    import hashlib
+    size = {}
+    for kind, classes in (("c", cell_classes), ("f", face_classes), ("e", edge_classes)):
+        for cl in classes:
+            for i in cl:
+                size[(kind, i)] = len(cl)
+    lab, nbr = {}, {}
+    fat = [i for i, f in enumerate(faces) if 0 in f]
+    eix = {e: i for i, e in enumerate(edge_sets)}
+    for i in fat:
+        lab[("f", i)] = f"f{len(faces[i])}:{size[('f', i)]}"
+        f = faces[i]
+        k = f.index(0)
+        for w in (f[k - 1], f[(k + 1) % len(f)]):
+            e = ("e", eix[frozenset((0, w))])
+            lab[e] = f"e{valence[edge_sets[e[1]]]}:{size[e]}"
+            nbr.setdefault(("f", i), []).append(e)
+            nbr.setdefault(e, []).append(("f", i))
+    for j, c in enumerate(cells):
+        at = [f for f in c if 0 in faces[f]]
+        if not at:
+            continue
+        lab[("c", j)] = f"c{len(cell_sets[j])}.{len(c)}:{size[('c', j)]}"
+        for f in at:
+            nbr.setdefault(("c", j), []).append(("f", f))
+            nbr.setdefault(("f", f), []).append(("c", j))
+    for _ in range(4):
+        lab = {n: hashlib.sha1((lab[n] + "|" + ",".join(sorted(lab[m] for m in nbr.get(n, [])))).encode()).hexdigest()[:16]
+               for n in lab}
+    return hashlib.sha1(",".join(sorted(lab.values())).encode()).hexdigest()[:12]
 
 
 def signature(info: dict | None) -> str:

@@ -511,8 +511,17 @@ def main():
                 if p["lines_through"] > 1 or p["kind"] == "meet" else None
             if text is None:
                 continue
+            if sg not in known_sig:
+                # (the same polychoron as a listed shape, its cells only grouped differently by the group: that shape)
+                nv = int(str(sg).split(":")[0]) if str(sg)[:1].isdigit() else 0
+                for t in types:
+                    if t.get("seed") and t.get("sig") and str(t["sig"]).startswith(f"{nv}:"):
+                        tb = D.beta_from_seed(np.array([float(v) for v in t["seed"].split(",")]))
+                        if _same_polytope(b, tb):
+                            known_sig[sg] = t["id"]
+                            break
             if sg in known_sig:
-                if p["vertices"] == 48 and p["symmetry"] > 144:
+                if p["symmetry"] > {48: 144, 24: 48, 16: 48}.get(p["vertices"], 48):
                     points.append({"id": known_sig[sg], "q": [round(float(x), 5) for x in chart(b)], "beta": beta_text(b),
                                    "hover": f"{known_sig[sg]} · {text}"})
                 continue
