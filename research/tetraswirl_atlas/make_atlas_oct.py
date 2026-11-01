@@ -416,10 +416,6 @@ def main():
     # (normalizer_oct.py: the normalizer, of order 96, adds half-turns whose axes cross the domain; supergroup_lines_oct.py:
     # on the 6/3 gyrogon ghost girdle the polychoron has 144 symmetries)
     symlines = []
-    # (the group's own half-turn axes: its cross rings, drawn whole with the rotation axis)
-    crossrings = [{"pts": [[round(float(x), 5) for x in chart(np.array(a, float))], [round(float(x), 5) for x in chart(np.array(b, float))]],
-                   "name": f"{name}: axis of a half-turn of the group (seeds on it have {nv} vertices)"}
-                  for name, kind, nv, a, b in RINGS if name.startswith("cross ring")]
     if os.path.exists(f"normalizer_{D.KEY}.json"):
         for l in json.load(open(f"normalizer_{D.KEY}.json"))["loci"]:
             if l["dim"] == 1:
@@ -576,7 +572,7 @@ def main():
                     types.append(t)
                 regular_note = t.get("name", "").split(" (", 1)[1] if " (the regular" in t.get("name", "") else ""
                 t["name"] = hit[0][2] + (f" ({regular_note}" if regular_note else "")
-    json.dump({"types": types, "samples": samples, "lines": lines, "points": points, "girdles": girdles, "symlines": symlines, "crossrings": crossrings}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
+    json.dump({"types": types, "samples": samples, "lines": lines, "points": points, "girdles": girdles, "symlines": symlines}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
     from collections import Counter
     print(f"atlas_{D.KEY}.json: {dict(Counter(t['dim'] for t in types))}; {len(points)} points")
     for t in types[:6]:
