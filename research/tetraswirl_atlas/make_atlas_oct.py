@@ -100,6 +100,51 @@ def _closure_point(item):
     return label(b, 1e-7), b
 
 
+def add_symmetry_points(types, points, ids):
+    """The exact points of the extra-symmetry lines (symmetry_points_oct.py): where two meet and where one ends on an
+    edge of the domain. A shape not listed yet gets a point row of its own; a seed of a listed shape (the same
+    polychoron as one, by its incidences) is marked on that shape; a place already holding a point gets its symmetry
+    added to that point's text."""
+    if not os.path.exists(f"symmetry_points_{D.KEY}.json"):
+        return
+    known_sig = {t.get("sig"): t["id"] for t in types if t.get("sig")}
+    known_sig.update({sg: rid for sg, rid in ids.items()})
+    for p in json.load(open(f"symmetry_points_{D.KEY}.json"))["points"]:
+        b = np.array(p["beta"])
+        q = [round(float(x), 5) for x in chart(b)]
+        kinds = sorted({n for e in p["on"] for n in e.split(" and ")})
+        if p["kind"] == "meet" or p["lines_through"] > 1:
+            where = (f"two {kinds[0].replace('axis', 'axes')} meet" if len(kinds) == 1 else
+                     "a " + " and the ".join(kinds) + " meet")
+        else:
+            where = f"the {kinds[0]} ends"
+        text = f"β {p['exact']}: {p['vertices']} vertices, {p['symmetry']} symmetries; where {where}"
+        old = next((o for o in points if np.linalg.norm(np.array(o["q"]) - q) < 1e-4), None)
+        if old is not None:
+            if "symmetries" not in old["hover"]:
+                old["hover"] += f"<br>{text}"
+            continue
+        sg = label(b)
+        if sg not in known_sig:
+            # (the same polychoron as a listed shape, its cells only grouped differently by the group: that shape)
+            nv = int(str(sg).split(":")[0]) if str(sg)[:1].isdigit() else 0
+            for t in types:
+                if t.get("seed") and t.get("sig") and str(t["sig"]).startswith(f"{nv}:"):
+                    tb = D.beta_from_seed(np.array([float(v) for v in t["seed"].split(",")]))
+                    if _same_polytope(b, tb):
+                        known_sig[sg] = t["id"]
+                        break
+        if sg in known_sig:
+            points.append({"id": known_sig[sg], "q": q, "beta": beta_text(b), "hover": f"{known_sig[sg]} · {text}"})
+            continue
+        pid = f"P{len([t for t in types if t['dim'] == 'point']) + 1}"
+        types.append({"id": pid, "dim": "point", "name": "", "sig": sg, "bounds": [], "where": f"β {p['exact']}, {text}",
+                      "locus": f"{p['vertices']} vertices, {p['symmetry']} symmetries",
+                      "seed": seed_text(b), "beta": beta_text(b)})
+        known_sig[sg] = pid
+        points.append({"id": pid, "q": q, "beta": beta_text(b), "hover": f"{pid} · {text}"})
+
+
 def label_coarse(beta):
     """The shape with flatness judged 100 times more loosely: a shape that changes is a sliver of near-flat faces."""
     return label(beta, 1e-7)
@@ -498,41 +543,7 @@ def main():
             for p in ps:
                 points.append({"id": pid, "q": [round(float(x), 5) for x in chart(p["beta"])], "beta": beta_text(p["beta"]),
                                "hover": f"{pid} · where {', '.join(wall_id.get(w, '?') for w in p['walls'])} meet"})
-    # (the points where extra-symmetry lines meet, symmetry_points_oct.py: a shape not listed yet gets a point row of its
-    # own; a seed of a listed shape with more symmetry than the lines through it is marked on that shape)
-    if os.path.exists(f"symmetry_points_{D.KEY}.json"):
-        known_sig = {t.get("sig"): t["id"] for t in types if t.get("sig")}
-        known_sig.update({sg: rid for sg, rid in ids.items()})
-        for p in json.load(open(f"symmetry_points_{D.KEY}.json"))["points"]:
-            b = np.array(p["beta"])
-            sg = label(b)
-            where = " and ".join(sorted(set(p["on"])))
-            text = f"β {p['exact']}: {p['vertices']} vertices, {p['symmetry']} symmetries; where {where} meet" \
-                if p["lines_through"] > 1 or p["kind"] == "meet" else None
-            if text is None:
-                continue
-            if sg not in known_sig:
-                # (the same polychoron as a listed shape, its cells only grouped differently by the group: that shape)
-                nv = int(str(sg).split(":")[0]) if str(sg)[:1].isdigit() else 0
-                for t in types:
-                    if t.get("seed") and t.get("sig") and str(t["sig"]).startswith(f"{nv}:"):
-                        tb = D.beta_from_seed(np.array([float(v) for v in t["seed"].split(",")]))
-                        if _same_polytope(b, tb):
-                            known_sig[sg] = t["id"]
-                            break
-            if sg in known_sig:
-                if p["symmetry"] > {48: 144, 24: 48, 16: 48}.get(p["vertices"], 48):
-                    points.append({"id": known_sig[sg], "q": [round(float(x), 5) for x in chart(b)], "beta": beta_text(b),
-                                   "hover": f"{known_sig[sg]} · {text}"})
-                continue
-            pid = f"P{len([t for t in types if t['dim'] == 'point']) + 1}"
-            types.append({"id": pid, "dim": "point", "name": "", "sig": sg, "bounds": [],
-                          "where": f"β {p['exact']}, where {where} meet",
-                          "locus": f"{p['vertices']} vertices, {p['symmetry']} symmetries",
-                          "seed": seed_text(b), "beta": beta_text(b)})
-            known_sig[sg] = pid
-            points.append({"id": pid, "q": [round(float(x), 5) for x in chart(b)], "beta": beta_text(b),
-                           "hover": f"{pid} · {text}"})
+    add_symmetry_points(types, points, ids)
     # (the regular polytopes among them, recognised by their counts)
     regular = {"8: cells 16x[4v4f]": "16-cell", "16: cells 8x[8v6f]": "tesseract", "24: cells 8x[6v8f]+16x[6v8f]": "24-cell"}
     for t in types:
