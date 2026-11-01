@@ -2255,7 +2255,8 @@
    "X93/X2": "X2 is an edge of X93 (user; the ring round X2 met X93 once: it ends on it)",
    "X3/D1": "D1 is not an edge of X3 and does not touch it; C5 is its corner (user; confirmed by the exact faces: X3 is bounded by C3, E2 and X1)",
    "X9/D2": "D2 is not an edge of X9 (user)",
-   "X26 and X79": "tested (classify_fast key, how the cells fit together at a vertex): X26 does not cross X79. Along b2 = b4, b3 = 2 b2 (b1 from about 0.62), X79's plane holds two different polytopes with the same counts, one each side of X26: X79 (the side b3 < b2 + b4) and X101 (b3 > b2 + b4); both end on X26. The four regions round that curve are X72, X103, X73, X102 (X72 and X73 each split: X102 and X103 have their counts). X26 is the same on both sides of the curve. Not yet checked: which of X72/X102 X86 and X91 bound, which of X73/X103 X88 and X89 bound, and which of X79/X101 X80 and X81 are edges of (their recorded seeds sit at junctions)."
+   "X26 and X79": "tested (classify_fast key, how the cells fit together at a vertex): X26 does not cross X79. Along b2 = b4, b3 = 2 b2 (b1 from about 0.62), X79's plane holds two different polytopes with the same counts, one each side of X26: X79 (the side b3 < b2 + b4) and X101 (b3 > b2 + b4); both end on X26. The four regions round that curve are X72, X103, X73, X102 (X72 and X73 each split: X102 and X103 have their counts). X26 is the same on both sides of the curve. Not yet checked: which of X72/X102 X86 and X91 bound, which of X73/X103 X88 and X89 bound, and which of X79/X101 X80 and X81 are edges of (their recorded seeds sit at junctions).",
+   "X72, X73, X102, X103 walls": "walked out from inside each (bounds_walk.py: steps of 2e-4 near the start, bisected to 1e-12, the boundary classified as on a wall): X72 is bounded by X26, X91, X101; X73 by X26, X79, X88; X102 by X26, X79, X86; X103 by X26, X89, X101. So X86 lies between X71 and X102 (not X72) and X89 between X76 and X103 (not X73)."
   },
   "edge_corners": {
    "X28": {
@@ -3510,7 +3511,7 @@
    ],
    "regions": [
     "X71",
-    "X72"
+    "X102"
    ],
    "cuts_needed": 0,
    "cuts": []
@@ -3590,8 +3591,8 @@
     "X2"
    ],
    "regions": [
-    "X73",
-    "X76"
+    "X76",
+    "X103"
    ],
    "cuts_needed": 0,
    "cuts": []
@@ -4065,7 +4066,6 @@
   "X72": {
    "walls": [
     "X26",
-    "X86",
     "X91",
     "X101"
    ]
@@ -4074,8 +4074,7 @@
    "walls": [
     "X26",
     "X79",
-    "X88",
-    "X89"
+    "X88"
    ]
   },
   "X74": {
@@ -4113,12 +4112,14 @@
   "X102": {
    "walls": [
     "X26",
-    "X79"
+    "X79",
+    "X86"
    ]
   },
   "X103": {
    "walls": [
     "X26",
+    "X89",
     "X101"
    ]
   }
