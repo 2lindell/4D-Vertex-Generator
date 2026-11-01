@@ -56,6 +56,19 @@ A reference `{"class": c, "g": k}` is class `c`'s representative carried by grou
 (`group.npz` elements); a reference inside an element placed at `g` sits at
 `multiplication[g, k]`. That fixes the relative position of every element.
 
+## Exact checks of lines and wall meetings
+
+- `sphere_map/line_incidence.json` (`python -m four_d_vertex_generator.sphere_map.incidence`):
+  for each atlas line, the walls round it, read from the exact ring of sectors round the line at
+  points all along it. Where the line runs on the domain's boundary the ring goes through every
+  copy it touches, each copy read through its own surfaces; surfaces singular along the line are
+  read by their second-order cone, and surfaces tangent along it (a region pinched to a cusp) are
+  named as the chain of walls on them.
+- `sphere_map/wall_meets.json` (`python -m four_d_vertex_generator.sphere_map.wall_meets`): every
+  wall-wall meeting in `exact_defs.json`, as the exact curve where the wall's surface meets the
+  recorded surface, traced through the domain and checked on the map with the same ring; the
+  stretch where both walls are present, with its ends named by the nearest exact point.
+
 ## Reading it
 
 ```python
