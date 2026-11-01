@@ -10,7 +10,8 @@ The source of truth and the working data:
 
 - `working_base.json` — the verified base facts, every correction applied with its reason. Edited directly.
 - `working_data.json` — the base and everything computed from it (`working_data.py`). Rebuilt after the cleanup: the
-  same file, byte for byte.
+  same file, byte for byte; then rebuilt again without the ring test (below), which removed only what the ring test had
+  given it.
 - `exact_defs.json` — the exact line pieces and each wall's surfaces; `surfaces.json` — the exact equations of every
   surface a wall lies on.
 
@@ -24,7 +25,6 @@ Exact data (no meshes, no sampling to label):
 - `exact_curves.json` (`exact_curves.py`) — each wall's edge along another wall, traced exactly from corner to corner
   (Newton onto both surfaces). Not yet checked wall by wall.
 - `closure.json` (`closure.py`) — the check that every wall's edges close, from the exact data on the whole 3-sphere.
-- `ring_test.json` (`ring_test.py`) — the walls and regions round each line (classified rings).
 - `regular_lines.json` (`regular_cells.py`), `regular_decagons.json` — the regular cells' lines and decagons.
 - `sphere_complex.json` — frozen: read by `working_data.py` (its script built it from the half-cell meshes and is gone).
 
@@ -44,6 +44,11 @@ Pages and their data, as they are: `shape_map.html` (`build_shape_map.py`, from 
 - The face and mesh builders: `wall_faces.py`, `face_meshes.py`, `arrangement.py`, `arrangement_draw.py`, `pieces.py`,
   `wall_parts.py`, `sphere_complex.py`, `fill_corners.py`, `closure_curves.py`, and their outputs
   (`wall_faces_report.json`, `arrangement*.json`, `arr_*`, `pieces.json`, `closure_curves.json`).
+- The ring test (`ring_test.py`, `ring_test.json`): it labelled sampled points on small circles round each line, and was
+  not known to be accurate. Taken out of the working data with it: each region's lines and points, each wall's
+  `pieces` (the regions each piece lies between, with its lines), and the ring checks under `pieces_to_check`. Each
+  wall's edges, sides, cuts and corners, and each region's walls, are unchanged. The Shape Map was rebuilt from the
+  working data: a region now lists its walls only.
 - Everything the earlier purge list named (the old atlas, region, section and survey tools and their data, 339
   entries).
 

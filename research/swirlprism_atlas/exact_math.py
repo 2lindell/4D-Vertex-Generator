@@ -1,4 +1,4 @@
-"""Small exact helpers shared by the exact-data scripts (line_ends.py, exact_lines.py, ring_test.py): betas normalised,
+"""Small exact helpers shared by the exact-data scripts (line_ends.py, exact_lines.py): betas normalised,
 a surface's value and gradient, Newton steps onto surfaces, the half-cell test, and the extended group."""
 from __future__ import annotations
 
