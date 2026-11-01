@@ -216,6 +216,25 @@ def write_report(root: Path) -> None:
                 desc.append("+".join(ws))
             merged = [d for i, d in enumerate(desc) if i == 0 or d != desc[i - 1]]
             add(f"| {name} | {len(merged)} | {'; '.join(merged)} | {off} |")
+    apath = Path(root) / "atlas.json"
+    if apath.exists():
+        db = _json.loads(apath.read_text())
+        add("")
+        add("## Atlas database (atlas.json)")
+        add("")
+        add(f"Closure: {db['closure']}")
+        add("")
+        add("| wall | piece types | face classes | faces on S^3 | unplaced fragments |")
+        add("|---|---|---|---|---|")
+        for w, v in db["counts_per_wall"].items():
+            add(f"| {w} | {v['piece_types']} | {v['face_classes']} | {v['faces_on_sphere']} | "
+                f"{v['unplaced_fragments']} |")
+        add("")
+        add("| line | piece types | runs in the domain | share on traced edges |")
+        add("|---|---|---|---|")
+        for ln, v in db["counts_per_line_shape"].items():
+            add(f"| {ln} | {v['piece_types']} | {v['runs_in_domain']} | "
+                f"{v['share_of_line_on_traced_edges']} |")
     add("")
     add("## Lines and points")
     add("")

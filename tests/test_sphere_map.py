@@ -89,3 +89,17 @@ def test_vertex_key_splits_shapes_with_equal_counts() -> None:
     for name in ("X72", "X102"):
         _, key = key_of_beta(shapes[name]["seed"])
         assert split_name(name, key) == name
+
+
+@needs_map
+def test_atlas_database_is_closed_for_faces_and_regions() -> None:
+    path = MAP_DIR / "atlas.json"
+    if not path.exists():
+        pytest.skip("atlas.json not built")
+    db = json.loads(path.read_text())
+    c = db["closure"]
+    assert c["faces_with_two_region_sides"] == c["faces"]
+    assert c["regions_with_faces"] == c["regions"]
+    walls = {k for k, v in frame.load_json("working_data.json")["shapes"].items()
+             if v["dim"] == "wall"}
+    assert set(db["counts_per_wall"]) == walls
