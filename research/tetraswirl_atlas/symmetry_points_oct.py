@@ -1,7 +1,8 @@
 """Points where the octahedral swirl domain's extra-symmetry lines meet, and the symmetry there (symmetry_points_oct.json).
 
 The lines: the normalizer's half-turn axes (normalizer_oct.json, 96 symmetries) and the 6/3 gyrogon ghost girdle
-M01-M12 (144). Their ends and every crossing of two of them (straight segments in the betas: the seed is linear in
+M01-M12 (144). Their ends, every crossing of two of them, and every crossing of one with a ring of the group (its
+swirl ring and cross rings) (straight segments in the betas: the seed is linear in
 them) are found exactly, the crossings by solving the two lines' equations; at each point the polychoron's vertices
 are counted and its symmetry measured against every group found containing the group (its normalizer and the library's
 supergroups of it): the number of their maps that keep the seed's orbit.
@@ -46,6 +47,9 @@ def main():
     N = json.load(open("normalizer_oct.json"))
     segs = [("half-turn axis", np.array(l["from"]), np.array(l["to"])) for l in N["loci"] if l["dim"] == 1]
     segs.append(("6/3 gyrogon girdle", np.array([0.5, 0.5, 0, 0.0]), np.array([0, 0.5, 0.5, 0.0])))
+    # (the group's own rings too: where an extra-symmetry line crosses one, the point there has both symmetries)
+    from make_atlas_oct import RINGS
+    rings = [(name.split(" (")[0], np.array(a, float), np.array(b, float)) for name, kind, nv, a, b in RINGS]
     # (the groups to measure symmetry against: the normalizer and every library group containing G)
     groups = []
     for nm in [f"h4_tubical_octahedral_{f}_{n}" for f in ("dihedral", "dihedral_index2_2n", "dihedral_index6_6n")
@@ -83,7 +87,8 @@ def main():
         # (every map found that keeps the orbit: together the polychoron's symmetries within the groups tested)
         return len(keep)
     pts = []
-    for (n1, a1, b1), (n2, a2, b2) in itertools.combinations(segs, 2):
+    pairs = list(itertools.combinations(segs, 2)) + [(r, x) for r in rings for x in segs]
+    for (n1, a1, b1), (n2, a2, b2) in pairs:
         # (where the two segments meet: a1 + s (b1 - a1) = a2 + t (b2 - a2), as betas summing to 1)
         M = np.stack([b1 - a1, -(b2 - a2)], 1)
         st, res, *_ = np.linalg.lstsq(M, a2 - a1, rcond=None)

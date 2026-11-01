@@ -100,6 +100,19 @@ def _closure_point(item):
     return label(b, 1e-7), b
 
 
+def _edge_ratio(beta):
+    """Longest edge over shortest of the seed's polychoron (1 for a regular one)."""
+    from domain import compute_convex_hull
+    from four_d_vertex_generator.generation import generate_vertices_from_seed
+    from four_d_vertex_generator.local_view import hull_edges
+    x = np.asarray(beta, float) @ D.CELL
+    V = generate_vertices_from_seed(x / np.linalg.norm(x), D.ACTION, tol=1e-9)
+    faces, _ = compute_convex_hull(V, tol=1e-9)
+    E = np.array([tuple(e) for e in hull_edges(faces)])
+    L = np.linalg.norm(V[E[:, 0]] - V[E[:, 1]], axis=1)
+    return float(L.max() / L.min())
+
+
 def add_symmetry_points(types, points, ids):
     """The exact points of the extra-symmetry lines (symmetry_points_oct.py): where two meet and where one ends on an
     edge of the domain. A shape not listed yet gets a point row of its own; a seed of a listed shape (the same
@@ -109,19 +122,25 @@ def add_symmetry_points(types, points, ids):
         return
     known_sig = {t.get("sig"): t["id"] for t in types if t.get("sig")}
     known_sig.update({sg: rid for sg, rid in ids.items()})
+    # (a regular polytope reads the same wherever it is: its points' texts without the place's name, which the betas
+    # give; and a new place of it gets the same text)
+    regular = {}
+    for o in points:
+        m_ = re.match(r"^(\S+ · the regular [^,<]+)(, at [^<]*)?", o["hover"])
+        if m_:
+            regular[o["id"]] = m_.group(1)
+            o["hover"] = m_.group(1) + o["hover"][m_.end():]
     for p in json.load(open(f"symmetry_points_{D.KEY}.json"))["points"]:
         b = np.array(p["beta"])
         q = [round(float(x), 5) for x in chart(b)]
-        kinds = sorted({n for e in p["on"] for n in e.split(" and ")})
-        if p["kind"] == "meet" or p["lines_through"] > 1:
-            where = (f"two {kinds[0].replace('axis', 'axes')} meet" if len(kinds) == 1 else
-                     "a " + " and the ".join(kinds) + " meet")
-        else:
-            where = f"the {kinds[0]} ends"
-        text = f"β {p['exact']}: {p['vertices']} vertices, {p['symmetry']} symmetries; where {where}"
+        # (one text for every seed of a given symmetry: the same shape with the same symmetry reads the same wherever
+        # it is; its betas are on the point's own line)
+        on = {96: "on the normalizer's half-turn axes", 144: "on the 6/3 gyrogon girdle",
+              288: "on a half-turn axis and the 6/3 gyrogon girdle"}.get(p["symmetry"], "on the extra-symmetry lines")
+        text = f"{p['vertices']} vertices, {p['symmetry']} symmetries ({on})"
         old = next((o for o in points if np.linalg.norm(np.array(o["q"]) - q) < 1e-4), None)
         if old is not None:
-            if "symmetries" not in old["hover"]:
+            if "symmetries" not in old["hover"] and old["id"] not in regular:
                 old["hover"] += f"<br>{text}"
             continue
         sg = label(b)
@@ -135,10 +154,13 @@ def add_symmetry_points(types, points, ids):
                         known_sig[sg] = t["id"]
                         break
         if sg in known_sig:
-            points.append({"id": known_sig[sg], "q": q, "beta": beta_text(b), "hover": f"{known_sig[sg]} · {text}"})
+            pid = known_sig[sg]
+            # (a regular polytope: its name says its symmetry, more than the groups tested here count)
+            hover = regular[pid] if pid in regular and _edge_ratio(b) < 1 + 1e-9 else f"{pid} · {text}"
+            points.append({"id": pid, "q": q, "beta": beta_text(b), "hover": hover})
             continue
         pid = f"P{len([t for t in types if t['dim'] == 'point']) + 1}"
-        types.append({"id": pid, "dim": "point", "name": "", "sig": sg, "bounds": [], "where": f"β {p['exact']}, {text}",
+        types.append({"id": pid, "dim": "point", "name": "", "sig": sg, "bounds": [], "where": f"β {p['exact']}; {text}",
                       "locus": f"{p['vertices']} vertices, {p['symmetry']} symmetries",
                       "seed": seed_text(b), "beta": beta_text(b)})
         known_sig[sg] = pid

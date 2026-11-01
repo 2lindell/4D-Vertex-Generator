@@ -55122,7 +55122,7 @@
     0.57735
    ],
    "beta": "(0.5000, 0.5000, 0.0000, 0.0000)",
-   "hover": "S4 \u00b7 the regular 24-cell, at M\u2080\u2081 (the midpoint of VW\u2081)<br>\u03b2 (1/2, 1/2, 0, 0): 24 vertices, 144 symmetries; where the 6/3 gyrogon girdle ends"
+   "hover": "S4 \u00b7 the regular 24-cell"
   },
   {
    "id": "S4",
@@ -55132,7 +55132,7 @@
     -0.57735
    ],
    "beta": "(0.0000, 0.5000, 0.5000, 0.0000)",
-   "hover": "S4 \u00b7 the regular 24-cell, at M\u2081\u2082 (the midpoint of W\u2081W\u2082)<br>\u03b2 (0, 1/2, 1/2, 0): 24 vertices, 144 symmetries; where the 6/3 gyrogon girdle ends"
+   "hover": "S4 \u00b7 the regular 24-cell"
   },
   {
    "id": "S4",
@@ -55142,7 +55142,7 @@
     0.57735
    ],
    "beta": "(0.5000, 0.0000, 0.5000, 0.0000)",
-   "hover": "S4 \u00b7 the regular 24-cell, at M\u2080\u2082 (the midpoint of VW\u2082)"
+   "hover": "S4 \u00b7 the regular 24-cell"
   },
   {
    "id": "S2",
@@ -55152,7 +55152,7 @@
     0.26795
    ],
    "beta": "(0.3660, 0.2113, 0.2113, 0.2113)",
-   "hover": "S2 \u00b7 \u03b2 ((\u221a3\u22121)/2, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6): 16 vertices, 96 symmetries; where two half-turn axes meet"
+   "hover": "S2 \u00b7 16 vertices, 96 symmetries (on the normalizer's half-turn axes)"
   },
   {
    "id": "R3",
@@ -55162,7 +55162,7 @@
     0.26795
    ],
    "beta": "(0.3660, 0.5000, 0.1340, 0.0000)",
-   "hover": "R3 \u00b7 \u03b2 ((\u221a3\u22121)/2, 1/2, (2\u2212\u221a3)/2, 0): 48 vertices, 288 symmetries; where a 6/3 gyrogon girdle and the half-turn axis meet"
+   "hover": "R3 \u00b7 48 vertices, 288 symmetries (on a half-turn axis and the 6/3 gyrogon girdle)"
   },
   {
    "id": "S3",
@@ -55172,7 +55172,7 @@
     0.26795
    ],
    "beta": "(0.3660, 0.2679, 0.3660, 0.0000)",
-   "hover": "S3 \u00b7 \u03b2 ((\u221a3\u22121)/2, 2\u2212\u221a3, (\u221a3\u22121)/2, 0): 24 vertices, 96 symmetries; where two half-turn axes meet"
+   "hover": "S3 \u00b7 24 vertices, 96 symmetries (on the normalizer's half-turn axes)"
   },
   {
    "id": "R3",
@@ -55182,7 +55182,7 @@
     -0.26795
    ],
    "beta": "(0.1340, 0.5000, 0.3660, 0.0000)",
-   "hover": "R3 \u00b7 \u03b2 ((2\u2212\u221a3)/2, 1/2, (\u221a3\u22121)/2, 0): 48 vertices, 288 symmetries; where a 6/3 gyrogon girdle and the half-turn axis meet"
+   "hover": "R3 \u00b7 48 vertices, 288 symmetries (on a half-turn axis and the 6/3 gyrogon girdle)"
   },
   {
    "id": "S3",
@@ -55192,7 +55192,7 @@
     -0.57735
    ],
    "beta": "(0.0000, 0.5774, 0.2113, 0.2113)",
-   "hover": "S3 \u00b7 \u03b2 (0, 1/\u221a3, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6): 24 vertices, 96 symmetries; where the half-turn axis ends"
+   "hover": "S3 \u00b7 24 vertices, 96 symmetries (on the normalizer's half-turn axes)"
   },
   {
    "id": "S3",
@@ -55202,7 +55202,17 @@
     -0.57735
    ],
    "beta": "(0.0000, 0.2113, 0.5774, 0.2113)",
-   "hover": "S3 \u00b7 \u03b2 (0, (3\u2212\u221a3)/6, \u221a3/3, (3\u2212\u221a3)/6): 24 vertices, 96 symmetries; where the half-turn axis ends"
+   "hover": "S3 \u00b7 24 vertices, 96 symmetries (on the normalizer's half-turn axes)"
+  },
+  {
+   "id": "S4",
+   "q": [
+    0.61237,
+    0.35355,
+    0.0
+   ],
+   "beta": "(0.2500, 0.5000, 0.2500, 0.0000)",
+   "hover": "S4 \u00b7 the regular 24-cell"
   }
  ],
  "girdles": [

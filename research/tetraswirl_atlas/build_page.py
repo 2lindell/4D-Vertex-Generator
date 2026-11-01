@@ -180,8 +180,14 @@ def voronoi_views(P, sample_seeds):
         return out
 
     def carry_point(q):
+        """Every image of a point in the wedge (a point on its boundary has several, each a place of its own)."""
         Uq, ok = to_wedge_chart(D.seed_from_chart(np.asarray(q, float)[None]))
-        return [[round(float(x), 5) for x in Uq[g, 0]] for g in np.flatnonzero(ok[:, 0])][:1]
+        out = []
+        for g in np.flatnonzero(ok[:, 0]):
+            u = [round(float(x), 5) for x in Uq[g, 0]]
+            if not any(np.linalg.norm(np.array(u) - v) < 1e-4 for v in out):
+                out.append(u)
+        return out
 
     carry = {"poly": carry_poly, "point": carry_point}
     return Q, found, carry, [
