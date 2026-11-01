@@ -991,7 +991,7 @@ A face is one connected piece of one wall sheet between one region component and
 
 ## Atlas database (atlas.json)
 
-Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 134, 'line_pieces_bounding_a_face': 57, 'line_pieces': 143, 'line_pieces_with_two_end_points': 143, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 109, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
+Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 134, 'line_pieces_bounding_a_face': 49, 'line_pieces': 59, 'line_pieces_with_two_end_points': 59, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 109, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
 
 | wall | piece types | face classes | faces on S^3 | unplaced fragments |
 |---|---|---|---|---|
@@ -1055,30 +1055,30 @@ Line pieces are the atlas's own lines, cut only at its exact meeting points and 
 
 | line | piece types | classes | pieces on S^3 |
 |---|---|---|---|
-| B1 | 1 | 1 | 1200 |
-| C2a | 1 | 1 | 1200 |
-| C2b | 1 | 2 | 2400 |
-| C3 | 1 | 2 | 2400 |
-| D1 | 1 | 3 | 3600 |
-| D2 | 2 | 5 | 6000 |
-| D3 | 2 | 2 | 2400 |
-| E1 | 4 | 15 | 18000 |
-| E2 | 3 | 6 | 7200 |
-| T1 | 3 | 9 | 10800 |
-| X1 | 2 | 3 | 3600 |
-| X13 | 3 | 8 | 9600 |
-| X18 | 3 | 3 | 3600 |
-| X2 | 3 | 6 | 7200 |
-| X24 | 3 | 7 | 8400 |
-| X29 | 3 | 8 | 9600 |
-| X4 | 3 | 6 | 7200 |
-| X5 | 5 | 15 | 18000 |
-| X6 | 3 | 5 | 6000 |
-| X78 | 2 | 3 | 3600 |
-| X8 | 3 | 6 | 7200 |
-| X80 | 3 | 7 | 8400 |
-| X81 | 3 | 12 | 14400 |
-| X97 | 3 | 8 | 9600 |
+| B1 | 1 | 1 | 240 |
+| C2a | 1 | 1 | 600 |
+| C2b | 1 | 2 | 1200 |
+| C3 | 1 | 2 | 1200 |
+| D1 | 1 | 3 | 1800 |
+| D2 | 1 | 4 | 2400 |
+| D3 | 2 | 2 | 1200 |
+| E1 | 3 | 3 | 3600 |
+| E2 | 1 | 2 | 2400 |
+| T1 | 2 | 2 | 2400 |
+| X1 | 1 | 1 | 1200 |
+| X13 | 2 | 2 | 2400 |
+| X18 | 1 | 1 | 1200 |
+| X2 | 2 | 2 | 2400 |
+| X24 | 1 | 3 | 3600 |
+| X29 | 1 | 4 | 4800 |
+| X4 | 1 | 2 | 2400 |
+| X5 | 4 | 8 | 9600 |
+| X6 | 1 | 3 | 3600 |
+| X78 | 1 | 1 | 1200 |
+| X8 | 1 | 2 | 2400 |
+| X80 | 1 | 2 | 2400 |
+| X81 | 2 | 3 | 3600 |
+| X97 | 1 | 3 | 3600 |
 
 Curves where walls meet (traced, exact) that lie on no atlas line, by the walls meeting there:
 

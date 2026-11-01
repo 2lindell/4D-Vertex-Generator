@@ -103,3 +103,16 @@ def test_atlas_database_is_closed_for_faces_and_regions() -> None:
     walls = {k for k, v in frame.load_json("working_data.json")["shapes"].items()
              if v["dim"] == "wall"}
     assert set(db["counts_per_wall"]) == walls
+
+
+@needs_map
+def test_line_piece_copies_match_line_vertex_counts() -> None:
+    """Every point of a line has the line's symmetry, so each piece has as many copies on the
+    sphere as the line shape has vertices (240 for the main ring, 600 for cross rings)."""
+    path = MAP_DIR / "atlas.json"
+    if not path.exists():
+        pytest.skip("atlas.json not built")
+    db = json.loads(path.read_text())
+    shapes = frame.load_json("working_data.json")["shapes"]
+    for piece in db["line_pieces"]:
+        assert piece["copies_on_sphere"] == int(shapes[piece["line_shape"]]["vertices"])

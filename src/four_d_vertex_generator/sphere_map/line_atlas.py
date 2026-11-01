@@ -50,6 +50,8 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
         for pi, poly in enumerate(info["points"]):
             poly = np.asarray(poly, float)
             poly = poly / poly.sum(axis=1, keepdims=True)
+            keep = np.r_[True, np.linalg.norm(np.diff(poly, axis=0), axis=1) > 1e-12]
+            poly = poly[keep]                    # (repeated points in the record)
             r4 = point_from_beta(poly)
             cut_at = []
             for idx, x in enumerate(r4):
@@ -63,8 +65,8 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             bounds = [(0, start)] + [c for c in cut_at if 0 < c[0] < len(poly) - 1] + \
                 [(len(poly) - 1, stop)]
             for (a, na), (b, nb) in zip(bounds[:-1], bounds[1:]):
-                if b - a < 1:
-                    continue
+                if b - a < 1 or _arc(point_from_beta(poly[a:b + 1])) < 1e-6:
+                    continue                     # (no length: a cut at two coincident points)
                 subs.append({"line": name, "atlas_piece": pi, "from": a, "to": b,
                              "polyline": poly[a:b + 1], "start_point": na, "end_point": nb,
                              "surfaces": info["surfaces"][pi] if pi < len(info["surfaces"]) else
@@ -91,6 +93,29 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             if (k == 0 and i2 == i) or subs[s2]["line"] != subs[si]["line"]:
                 continue
             joins.append((si, int(k), s2))
+    # the same physical piece seen from several copies: a piece lying on the domain's boundary
+    # (or on a symmetry's fixed curve) is carried by some group elements onto itself or onto
+    # another piece of copy 0; those are one piece, not several
+    def probe(sp):
+        r4 = point_from_beta(sp["polyline"])
+        return np.vstack([r4[len(r4) // 3], r4[len(r4) // 2], r4[(2 * len(r4)) // 3]])
+
+    probes = np.array([probe(sp) for sp in subs])                 # (subs, 3, 4)
+    ptree = cKDTree(probes[:, 1])
+    same = 0
+    for si, pr in enumerate(probes):
+        imgs = np.einsum("gij,nj->gni", grp.g, pr)                # (copies, 3, 4)
+        for k in range(grp.n):
+            for s2 in ptree.query_ball_point(imgs[k, 1], 1e-7):
+                if subs[s2]["line"] != subs[si]["line"] or (k == 0 and s2 == si):
+                    continue
+                # all three probes of the carried piece lie on the other piece
+                other = densify(point_from_beta(subs[s2]["polyline"]), 1e-4)
+                if cKDTree(other).query(imgs[k])[0].max() < 1e-6:
+                    # G[k] carries piece si onto piece s2: (copy k, si) is (copy 0, s2)
+                    joins.append((s2, k, si))
+                    same += 1
+    log(f"atlas lines: {same} placements of a piece onto itself or another (shared by copies)")
     comp = _components(grp.n * len(subs), *sphere_edges([], joins, len(subs)))
     comp = comp.reshape(grp.n, len(subs))
 
