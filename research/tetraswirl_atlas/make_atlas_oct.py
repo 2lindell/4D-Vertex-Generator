@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import os
 import re
+from collections import Counter
 from multiprocessing import Pool
 
 import numpy as np
@@ -87,6 +88,17 @@ def label(beta, hull_tol=1e-9):
         return D.signature(D.classify(x / np.linalg.norm(x), hull_tol=hull_tol))
     except Exception:
         return "ERR"
+
+
+def _closure_point(item):
+    """A region's end on a surface (region_closure.py), put exactly on the surface: (its shape's signature, beta)."""
+    import atlas_model as am
+    surf, q = item
+    x, ok = am.project(np.array([q], float), [am.Surf(surf)])
+    if not ok[0]:
+        return None
+    b = x[0] / x[0].sum()
+    return label(b, 1e-7), b
 
 
 def label_coarse(beta):
@@ -325,6 +337,30 @@ def main():
                       "separates": sep, "bounds": [], "seed": seed_text(e["pts"][0]), "beta": beta_text(e["pts"][0]),
                       "surfaces": [f for f, _ in surf_list]})
         samples[wid] = [sample_row(p) for p in e["pts"]]
+    # (more points on the walls: where region_closure.py's walks out of each region piece ended between two shapes,
+    # each put exactly on its surface and classified; added to the wall shape found there, so every stretch of wall
+    # a region ends on is drawn)
+    if os.path.exists(f"region_closure_{D.KEY}.json"):
+        import atlas_model as am
+        wid_of = {t["sig"]: t["id"] for t in types if t["dim"] == "wall" and t.get("sig")}
+        todo = []
+        for p, v in json.load(open(f"region_closure_{D.KEY}.json"))["pieces"].items():
+            for e in v["ends"]:
+                if e["beyond_type"] and e["beyond_type"] != v["type"] and not e["surface"].startswith("none"):
+                    P = e.get("points", [])
+                    for q in P[:: max(1, len(P) // 40)][:40]:
+                        todo.append((e["surface"], q))
+        with Pool() as pool:
+            got = pool.map(_closure_point, todo, chunksize=8)
+        added = Counter()
+        for res in got:
+            if res and res[0] in wid_of:
+                samples[wid_of[res[0]]].append(sample_row(res[1]))
+                added[wid_of[res[0]]] += 1
+        for t in types:
+            if t["dim"] == "wall" and added.get(t["id"]):
+                t["locus"] += f", and {added[t['id']]} where regions end on it"
+        print("wall points added from the regions' ends:", dict(added), flush=True)
     # lines and points fixed by rotations of the group (seeds there have 24, 16 or 8 vertices): the rings of [3;3:1]
     # where they cross the domain, each scanned with the classifier and split exactly where its shape changes
     from four_d_vertex_generator.generation import generate_vertices_from_seed
@@ -376,7 +412,23 @@ def main():
     # the ghost girdles: circles a rotation turns along itself; seeds there keep all 48 images and no new shape
     # appears along them (6 or 8 of the images lie on one great circle): drawn for reference, not listed in the key
     girdles = [{"pts": [[round(float(x), 5) for x in chart(np.array(q, float))] for q in (a, b)], "hover": name}
-               for name, a, b in GIRDLES]
+               for name, a, b in GIRDLES if not name.startswith("6/3 gyrogon")]
+    # the lines of extra symmetry: where a seed's polychoron is symmetric under more than the group's 48 rotations
+    # (normalizer_oct.py: the normalizer, of order 96, adds half-turns whose axes cross the domain; supergroup_lines_oct.py:
+    # on the 6/3 gyrogon ghost girdle the polychoron has 144 symmetries)
+    symlines = []
+    if os.path.exists(f"normalizer_{D.KEY}.json"):
+        for l in json.load(open(f"normalizer_{D.KEY}.json"))["loci"]:
+            if l["dim"] == 1:
+                a, b = np.array(l["from"]), np.array(l["to"])
+                symlines.append({"pts": [[round(float(x), 5) for x in chart(q)] for q in (a, b)], "kind": "halfturn",
+                                 "hover": f"half-turn axis of the normalizer: seeds here have {l['symmetry']} symmetries, "
+                                          f"±1/6[O × D₁₂] (twice the group's 48), from β {beta_text(a)} to β {beta_text(b)}"})
+    for name, a, b in GIRDLES:
+        if name.startswith("6/3 gyrogon"):
+            symlines.append({"pts": [[round(float(x), 5) for x in chart(np.array(q, float))] for q in (a, b)], "kind": "girdle3",
+                             "hover": "6/3 gyrogon ghost girdle M₀₁–M₁₂ (β₃ = 0, β₁ = ½): seeds here have 144 symmetries, "
+                                      "±1/2[O × D₆] (three times the group's 48); 6 of the 48 images on one great circle"})
     n_sym_points = len([t for t in types if t["dim"] == "point"])
     # lines and points where walls meet (atlas_model.py), one row per shape found there, as for the walls
     if os.path.exists(f"lines_points_{D.KEY}.json"):
@@ -486,7 +538,7 @@ def main():
                     types.append(t)
                 regular_note = t.get("name", "").split(" (", 1)[1] if " (the regular" in t.get("name", "") else ""
                 t["name"] = hit[0][2] + (f" ({regular_note}" if regular_note else "")
-    json.dump({"types": types, "samples": samples, "lines": lines, "points": points, "girdles": girdles}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
+    json.dump({"types": types, "samples": samples, "lines": lines, "points": points, "girdles": girdles, "symlines": symlines}, open(f"atlas_{D.KEY}.json", "w"), indent=1)
     from collections import Counter
     print(f"atlas_{D.KEY}.json: {dict(Counter(t['dim'] for t in types))}; {len(points)} points")
     for t in types[:6]:

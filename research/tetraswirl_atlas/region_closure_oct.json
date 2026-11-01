@@ -1,0 +1,2491 @@
+{
+ "_about": "Is every region of the octahedral swirl domain closed off by recorded walls? (region_closure_oct.json)",
+ "pieces": {
+  "R1": {
+   "type": "R1",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 232,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b3 - 2*bV",
+     "beyond": "R2",
+     "beyond_type": "R2",
+     "walks": 42,
+     "at": [
+      0.03024749,
+      0.28824647,
+      0.45375455,
+      0.2277515
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R3",
+     "beyond_type": "R3",
+     "walks": 24,
+     "at": [
+      0.09386588,
+      0.03698612,
+      0.84925436,
+      0.01989364
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - bV",
+     "beyond": "R14",
+     "beyond_type": "R14",
+     "walks": 15,
+     "at": [
+      0.29878554,
+      0.25185727,
+      0.29878554,
+      0.15057166
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b3 - 2*bV",
+     "beyond": "R4.3",
+     "beyond_type": "R4",
+     "walks": 14,
+     "at": [
+      0.0171504,
+      0.32926615,
+      0.35861811,
+      0.29496535
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R6.2",
+     "beyond_type": "R6",
+     "walks": 14,
+     "at": [
+      0.10516973,
+      0.32981626,
+      0.32981626,
+      0.23519774
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R3.3",
+     "beyond_type": "R3",
+     "walks": 6,
+     "at": [
+      0.11450647,
+      0.36474248,
+      0.36474248,
+      0.15600857
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R3.5",
+     "beyond_type": "R3",
+     "walks": 6,
+     "at": [
+      0.24681421,
+      0.33484856,
+      0.33484856,
+      0.08348868
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - bV",
+     "beyond": "R11",
+     "beyond_type": "R11",
+     "walks": 4,
+     "at": [
+      0.33991625,
+      0.21331734,
+      0.33991625,
+      0.10685015
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R3.4",
+     "beyond_type": "R3",
+     "walks": 3,
+     "at": [
+      0.35121948,
+      0.13417434,
+      0.43173538,
+      0.0828708
+     ]
+    }
+   ]
+  },
+  "R1.2": {
+   "type": "R1",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 141,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 - b2 - b3",
+     "beyond": "R6",
+     "beyond_type": "R6",
+     "walks": 86,
+     "at": [
+      0.48231251,
+      0.1725625,
+      0.2334031,
+      0.1117219
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1**2 - b1*b3 - b1*bV + b2*b3 + b2*bV - b3**2",
+     "beyond": "R1.3",
+     "beyond_type": "R1",
+     "walks": 74,
+     "at": [
+      0.59799607,
+      0.18327828,
+      0.14216943,
+      0.07655622
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R14.2",
+     "beyond_type": "R14",
+     "walks": 29,
+     "at": [
+      0.4433502,
+      0.2123715,
+      0.24520639,
+      0.09907191
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R2.3",
+     "beyond_type": "R2",
+     "walks": 17,
+     "at": [
+      0.47046879,
+      0.21532903,
+      0.1765104,
+      0.13769177
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R11.2",
+     "beyond_type": "R11",
+     "walks": 9,
+     "at": [
+      0.43263602,
+      0.24889844,
+      0.20429507,
+      0.11417047
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R3.2",
+     "beyond_type": "R3",
+     "walks": 2,
+     "at": [
+      0.38069664,
+      0.38069664,
+      0.23244154,
+      0.00616518
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R3.6",
+     "beyond_type": "R3",
+     "walks": 2,
+     "at": [
+      0.33739776,
+      0.33739776,
+      0.31808763,
+      0.00711685
+     ]
+    }
+   ]
+  },
+  "R1.3": {
+   "type": "R1",
+   "starts": 5,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 113,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R4",
+     "beyond_type": "R4",
+     "walks": 86,
+     "at": [
+      0.74748513,
+      0.12038359,
+      0.08417162,
+      0.04795966
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1**2 - b1*b3 - b1*bV + b2*b3 + b2*bV - b3**2",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 72,
+     "at": [
+      0.76436709,
+      0.11832804,
+      0.10074954,
+      0.01655533
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R2.3",
+     "beyond_type": "R2",
+     "walks": 21,
+     "at": [
+      0.5,
+      0.33333333,
+      0.16666667,
+      0.0
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 8,
+     "at": [
+      0.5,
+      0.33333333,
+      0.16666667,
+      0.0
+     ]
+    }
+   ]
+  },
+  "R2": {
+   "type": "R2",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 192,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b3 - 2*bV",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 109,
+     "at": [
+      0.00193182,
+      0.17675344,
+      0.64842493,
+      0.17288981
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2 + 2*bV",
+     "beyond": "R4.3",
+     "beyond_type": "R4",
+     "walks": 59,
+     "at": [
+      0.05630108,
+      0.3768386,
+      0.48944076,
+      0.07741957
+     ]
+    }
+   ]
+  },
+  "R2.2": {
+   "type": "R2",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1**2 - b1*b3 - b1*bV + b2*b3 + b2*bV - b3**2",
+     "beyond": "R2.3",
+     "beyond_type": "R2",
+     "walks": 149,
+     "at": [
+      0.38604202,
+      0.38360546,
+      0.11583116,
+      0.11452136
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 113,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 + 2*b2 - bV",
+     "beyond": "R4",
+     "beyond_type": "R4",
+     "walks": 77,
+     "at": [
+      0.51009829,
+      0.286846,
+      0.11162614,
+      0.09142957
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R10",
+     "beyond_type": "R10",
+     "walks": 21,
+     "at": [
+      0.42368391,
+      0.29166568,
+      0.14561691,
+      0.1390335
+     ]
+    }
+   ]
+  },
+  "R2.3": {
+   "type": "R2",
+   "starts": 5,
+   "ends": [
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1**2 - b1*b3 - b1*bV + b2*b3 + b2*bV - b3**2",
+     "beyond": "R2.2",
+     "beyond_type": "R2",
+     "walks": 105,
+     "at": [
+      0.46692536,
+      0.36844565,
+      0.11228963,
+      0.05233936
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 75,
+     "at": [
+      0.41392069,
+      0.30674469,
+      0.19535977,
+      0.08397485
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R3.2",
+     "beyond_type": "R3",
+     "walks": 50,
+     "at": [
+      0.38398651,
+      0.38398651,
+      0.1340373,
+      0.09798968
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 42,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R10",
+     "beyond_type": "R10",
+     "walks": 28,
+     "at": [
+      0.37078582,
+      0.35230433,
+      0.18303387,
+      0.09387598
+     ]
+    }
+   ]
+  },
+  "R2.4": {
+   "type": "R2",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b3 - b1*bV + b2**2 - b2*b3 + b2*bV - b3**2",
+     "beyond": "R2.5",
+     "beyond_type": "R2",
+     "walks": 92,
+     "at": [
+      0.16035535,
+      0.53222703,
+      0.16365632,
+      0.14376131
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 73,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R8.2",
+     "beyond_type": "R8",
+     "walks": 44,
+     "at": [
+      0.04718283,
+      0.45119317,
+      0.27440342,
+      0.22722059
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R7",
+     "beyond_type": "R7",
+     "walks": 39,
+     "at": [
+      0.07190099,
+      0.40687716,
+      0.29656142,
+      0.22466043
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - bV",
+     "beyond": "R4.2",
+     "beyond_type": "R4",
+     "walks": 39,
+     "at": [
+      0.19489169,
+      0.43496736,
+      0.19489169,
+      0.17524926
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R3.6",
+     "beyond_type": "R3",
+     "walks": 23,
+     "at": [
+      0.34299128,
+      0.36348888,
+      0.24404841,
+      0.04947143
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2 - bV",
+     "beyond": "R4.2",
+     "beyond_type": "R4",
+     "walks": 16,
+     "at": [
+      0.12155324,
+      0.3911871,
+      0.26963386,
+      0.21762579
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R11.2",
+     "beyond_type": "R11",
+     "walks": 12,
+     "at": [
+      0.33858009,
+      0.33858009,
+      0.27454685,
+      0.04829297
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R10",
+     "beyond_type": "R10",
+     "walks": 12,
+     "at": [
+      0.26771773,
+      0.26771773,
+      0.2376238,
+      0.22694074
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R9.2",
+     "beyond_type": "R9",
+     "walks": 10,
+     "at": [
+      0.32113995,
+      0.32113995,
+      0.23845067,
+      0.11926944
+     ]
+    }
+   ]
+  },
+  "R2.5": {
+   "type": "R2",
+   "starts": 5,
+   "ends": [
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b3 - b1*bV + b2**2 - b2*b3 + b2*bV - b3**2",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 110,
+     "at": [
+      0.28842156,
+      0.37953922,
+      0.20848638,
+      0.12355284
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - bV",
+     "beyond": "R4.2",
+     "beyond_type": "R4",
+     "walks": 68,
+     "at": [
+      0.05623134,
+      0.83643707,
+      0.05623134,
+      0.05110024
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R7",
+     "beyond_type": "R7",
+     "walks": 61,
+     "at": [
+      0.03983659,
+      0.85241753,
+      0.07379123,
+      0.03395465
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 32,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R10",
+     "beyond_type": "R10",
+     "walks": 12,
+     "at": [
+      0.32689181,
+      0.32689181,
+      0.19597271,
+      0.15024368
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R3.2",
+     "beyond_type": "R3",
+     "walks": 9,
+     "at": [
+      0.34296288,
+      0.40915903,
+      0.15279331,
+      0.09508478
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2 - bV",
+     "beyond": "R4.2",
+     "beyond_type": "R4",
+     "walks": 8,
+     "at": [
+      0.2407155,
+      0.42733538,
+      0.18661989,
+      0.14532923
+     ]
+    }
+   ]
+  },
+  "R2.6": {
+   "type": "R2",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 115,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R4.4",
+     "beyond_type": "R4",
+     "walks": 115,
+     "at": [
+      0.47149351,
+      0.15583276,
+      0.27385396,
+      0.09881977
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - bV",
+     "beyond": "R3.4",
+     "beyond_type": "R3",
+     "walks": 68,
+     "at": [
+      0.38409796,
+      0.12504175,
+      0.38409796,
+      0.10676234
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R9",
+     "beyond_type": "R9",
+     "walks": 55,
+     "at": [
+      0.40751458,
+      0.14033193,
+      0.32530278,
+      0.12685072
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R11",
+     "beyond_type": "R11",
+     "walks": 7,
+     "at": [
+      0.39527587,
+      0.13995815,
+      0.34940642,
+      0.11535956
+     ]
+    }
+   ]
+  },
+  "R3": {
+   "type": "R3",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 232,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 84,
+     "at": [
+      0.27032391,
+      0.0961303,
+      0.55548247,
+      0.07806331
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1**2 + b1*b2 - b1*b3 - b2**2 + b2*bV - b3*bV",
+     "beyond": "R3.4",
+     "beyond_type": "R3",
+     "walks": 44,
+     "at": [
+      0.36978636,
+      0.1163166,
+      0.49043492,
+      0.02346212
+     ]
+    }
+   ]
+  },
+  "R3.2": {
+   "type": "R3",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 218,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R4.2",
+     "beyond_type": "R4",
+     "walks": 65,
+     "at": [
+      0.23491227,
+      0.58787353,
+      0.11951614,
+      0.05769806
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R2.3",
+     "beyond_type": "R2",
+     "walks": 36,
+     "at": [
+      0.36113654,
+      0.36113654,
+      0.19661483,
+      0.0811121
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b3 - b1*bV + b2**2 - b2*b3 + b2*bV - b3**2",
+     "beyond": "R3.6",
+     "beyond_type": "R3",
+     "walks": 22,
+     "at": [
+      0.3422443,
+      0.37949107,
+      0.22042115,
+      0.05784348
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R2.5",
+     "beyond_type": "R2",
+     "walks": 16,
+     "at": [
+      0.34184141,
+      0.38183577,
+      0.21080422,
+      0.06551859
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 3,
+     "at": [
+      0.3672042,
+      0.3672042,
+      0.21817701,
+      0.0474146
+     ]
+    }
+   ]
+  },
+  "R3.3": {
+   "type": "R3",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 125,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R5",
+     "beyond_type": "R5",
+     "walks": 81,
+     "at": [
+      0.12606679,
+      0.45802653,
+      0.29116784,
+      0.12473883
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R5.2",
+     "beyond_type": "R5",
+     "walks": 59,
+     "at": [
+      0.08755934,
+      0.48708771,
+      0.31251889,
+      0.11283407
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R6.2",
+     "beyond_type": "R6",
+     "walks": 35,
+     "at": [
+      0.1302726,
+      0.33780312,
+      0.33109844,
+      0.20082584
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 32,
+     "at": [
+      0.15027704,
+      0.38335684,
+      0.38335684,
+      0.08300928
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R4.3",
+     "beyond_type": "R4",
+     "walks": 24,
+     "at": [
+      0.00239778,
+      0.35328424,
+      0.35328424,
+      0.29103375
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b2 + b1*b3 - b2*bV + b3**2 - b3*bV - bV**2",
+     "beyond": "R3.5",
+     "beyond_type": "R3",
+     "walks": 4,
+     "at": [
+      0.24320788,
+      0.41226561,
+      0.31443993,
+      0.03008658
+     ]
+    }
+   ]
+  },
+  "R3.4": {
+   "type": "R3",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1**2 + b1*b2 - b1*b3 - b2**2 + b2*bV - b3*bV",
+     "beyond": "R3",
+     "beyond_type": "R3",
+     "walks": 149,
+     "at": [
+      0.37657995,
+      0.11085252,
+      0.49348576,
+      0.01908177
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - bV",
+     "beyond": "R2.6",
+     "beyond_type": "R2",
+     "walks": 92,
+     "at": [
+      0.41765522,
+      0.09275208,
+      0.41765522,
+      0.07193748
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 67,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 52,
+     "at": [
+      0.33490051,
+      0.14757652,
+      0.4777755,
+      0.03974747
+     ]
+    }
+   ]
+  },
+  "R3.5": {
+   "type": "R3",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 144,
+     "at": null
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R6.2",
+     "beyond_type": "R6",
+     "walks": 98,
+     "at": [
+      0.24129834,
+      0.37722195,
+      0.31138902,
+      0.07009068
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b2 + b1*b3 - b2*bV + b3**2 - b3*bV - bV**2",
+     "beyond": "R3.3",
+     "beyond_type": "R3",
+     "walks": 75,
+     "at": [
+      0.24010911,
+      0.39789714,
+      0.33888308,
+      0.02311068
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 43,
+     "at": [
+      0.24611886,
+      0.33854071,
+      0.33854071,
+      0.07679971
+     ]
+    }
+   ]
+  },
+  "R3.6": {
+   "type": "R3",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 131,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 111,
+     "at": [
+      0.31779934,
+      0.40821814,
+      0.23016571,
+      0.04381682
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b3 - b1*bV + b2**2 - b2*b3 + b2*bV - b3**2",
+     "beyond": "R3.2",
+     "beyond_type": "R3",
+     "walks": 68,
+     "at": [
+      0.33358365,
+      0.40262818,
+      0.22999204,
+      0.03379613
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 50,
+     "at": [
+      0.36413068,
+      0.36413068,
+      0.23414618,
+      0.03759245
+     ]
+    }
+   ]
+  },
+  "R4": {
+   "type": "R4",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 217,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R1.3",
+     "beyond_type": "R1",
+     "walks": 84,
+     "at": [
+      0.5641716,
+      0.24288935,
+      0.14527613,
+      0.04766292
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 + 2*b2 - bV",
+     "beyond": "R2.2",
+     "beyond_type": "R2",
+     "walks": 59,
+     "at": [
+      0.52906717,
+      0.31247448,
+      0.10829634,
+      0.05016201
+     ]
+    }
+   ]
+  },
+  "R4.2": {
+   "type": "R4",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2**2 + b2*bV - b3*bV",
+     "beyond": "R12.2",
+     "beyond_type": "R12",
+     "walks": 88,
+     "at": [
+      0.04656751,
+      0.33163284,
+      0.31832831,
+      0.30347134
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 79,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R3.2",
+     "beyond_type": "R3",
+     "walks": 61,
+     "at": [
+      0.22953677,
+      0.61682208,
+      0.07774553,
+      0.07589562
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - bV",
+     "beyond": "R2.5",
+     "beyond_type": "R2",
+     "walks": 53,
+     "at": [
+      0.16118175,
+      0.52176349,
+      0.16118175,
+      0.15587302
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 36,
+     "at": [
+      0.01409768,
+      0.33998897,
+      0.32589129,
+      0.32002207
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 35,
+     "at": [
+      0.18962727,
+      0.43950229,
+      0.18962727,
+      0.18124317
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2 - bV",
+     "beyond": "R2.5",
+     "beyond_type": "R2",
+     "walks": 8,
+     "at": [
+      0.22987492,
+      0.42831372,
+      0.19843879,
+      0.14337257
+     ]
+    }
+   ]
+  },
+  "R4.3": {
+   "type": "R4",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2 + 2*bV",
+     "beyond": "R2",
+     "beyond_type": "R2",
+     "walks": 113,
+     "at": [
+      0.0304388,
+      0.36531951,
+      0.42619711,
+      0.17804458
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R3.3",
+     "beyond_type": "R3",
+     "walks": 112,
+     "at": [
+      0.05726723,
+      0.42372868,
+      0.42372868,
+      0.09527541
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b3 - 2*bV",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 83,
+     "at": [
+      0.10287098,
+      0.33911232,
+      0.42464633,
+      0.13337037
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 52,
+     "at": null
+    }
+   ]
+  },
+  "R4.4": {
+   "type": "R4",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*bV - b3**2 + b3*bV",
+     "beyond": "R12",
+     "beyond_type": "R12",
+     "walks": 171,
+     "at": [
+      0.52547416,
+      0.08834972,
+      0.3559288,
+      0.03024732
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 158,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R2.6",
+     "beyond_type": "R2",
+     "walks": 31,
+     "at": [
+      0.49131703,
+      0.07192877,
+      0.38219137,
+      0.05456283
+     ]
+    }
+   ]
+  },
+  "R5": {
+   "type": "R5",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R7",
+     "beyond_type": "R7",
+     "walks": 129,
+     "at": [
+      0.05042113,
+      0.4924162,
+      0.28218557,
+      0.1749771
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R3.3",
+     "beyond_type": "R3",
+     "walks": 107,
+     "at": [
+      0.05702169,
+      0.84562416,
+      0.09450832,
+      0.00284583
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2*b3 - b2*bV - 2*b3*bV",
+     "beyond": "R7.2",
+     "beyond_type": "R7",
+     "walks": 67,
+     "at": [
+      0.03349227,
+      0.50151536,
+      0.2865832,
+      0.17840917
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R5.2",
+     "beyond_type": "R5",
+     "walks": 55,
+     "at": [
+      0.04162062,
+      0.48033079,
+      0.31945979,
+      0.1585888
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 2,
+     "at": null
+    }
+   ]
+  },
+  "R5.2": {
+   "type": "R5",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R3.3",
+     "beyond_type": "R3",
+     "walks": 153,
+     "at": [
+      0.01668778,
+      0.39564239,
+      0.36879626,
+      0.21887357
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2*b3 - b2*bV - 2*b3*bV",
+     "beyond": "R7.3",
+     "beyond_type": "R7",
+     "walks": 108,
+     "at": [
+      0.01717171,
+      0.44558207,
+      0.34198033,
+      0.19526589
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R5",
+     "beyond_type": "R5",
+     "walks": 98,
+     "at": [
+      0.04791676,
+      0.46333807,
+      0.31736108,
+      0.17138409
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 1,
+     "at": null
+    }
+   ]
+  },
+  "R6": {
+   "type": "R6",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R12",
+     "beyond_type": "R12",
+     "walks": 172,
+     "at": [
+      0.83036163,
+      0.02037262,
+      0.13390201,
+      0.01536375
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 99,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 - b2 - b3",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 89,
+     "at": [
+      0.7609576,
+      0.0796808,
+      0.10714975,
+      0.05221185
+     ]
+    }
+   ]
+  },
+  "R6.2": {
+   "type": "R6",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R12.2",
+     "beyond_type": "R12",
+     "walks": 169,
+     "at": [
+      0.2317386,
+      0.33512368,
+      0.29277636,
+      0.14036136
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 104,
+     "at": [
+      0.21983863,
+      0.30678857,
+      0.30678857,
+      0.16658423
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R3.3",
+     "beyond_type": "R3",
+     "walks": 53,
+     "at": [
+      0.18176444,
+      0.35144554,
+      0.32427723,
+      0.14251279
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R3.5",
+     "beyond_type": "R3",
+     "walks": 34,
+     "at": [
+      0.23427703,
+      0.3414831,
+      0.32925845,
+      0.09498142
+     ]
+    }
+   ]
+  },
+  "R7": {
+   "type": "R7",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R5",
+     "beyond_type": "R5",
+     "walks": 147,
+     "at": [
+      0.04243753,
+      0.37644905,
+      0.31754131,
+      0.26357211
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2**2 + b3*bV",
+     "beyond": "R8.2",
+     "beyond_type": "R8",
+     "walks": 109,
+     "at": [
+      0.04395539,
+      0.38570768,
+      0.30885862,
+      0.26147831
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 80,
+     "at": [
+      0.05285653,
+      0.38259479,
+      0.3087026,
+      0.25584607
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R2.5",
+     "beyond_type": "R2",
+     "walks": 24,
+     "at": [
+      0.04379821,
+      0.84116479,
+      0.0794176,
+      0.03561939
+     ]
+    }
+   ]
+  },
+  "R7.2": {
+   "type": "R7",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2*b3 - b2*bV - 2*b3*bV",
+     "beyond": "R5",
+     "beyond_type": "R5",
+     "walks": 150,
+     "at": [
+      0.03299031,
+      0.5221362,
+      0.28703202,
+      0.15784147
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2**2 + b3*bV",
+     "beyond": "R8",
+     "beyond_type": "R8",
+     "walks": 122,
+     "at": [
+      0.01241685,
+      0.56085301,
+      0.27889764,
+      0.14783251
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 57,
+     "at": null
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R7.3",
+     "beyond_type": "R7",
+     "walks": 31,
+     "at": [
+      0.01330943,
+      0.48737983,
+      0.32889686,
+      0.17041389
+     ]
+    }
+   ]
+  },
+  "R7.3": {
+   "type": "R7",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2*b3 - b2*bV - 2*b3*bV",
+     "beyond": "R5.2",
+     "beyond_type": "R5",
+     "walks": 159,
+     "at": [
+      0.0135987,
+      0.4048315,
+      0.33649861,
+      0.24507119
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 108,
+     "at": null
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R7.2",
+     "beyond_type": "R7",
+     "walks": 93,
+     "at": [
+      0.00911875,
+      0.41736062,
+      0.33029375,
+      0.24322688
+     ]
+    }
+   ]
+  },
+  "R8": {
+   "type": "R8",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b2**2 - b2*b3 - b2*bV - 3*b3*bV",
+     "beyond": "R16",
+     "beyond_type": "R16",
+     "walks": 141,
+     "at": [
+      0.01054007,
+      0.47411926,
+      0.27658778,
+      0.23875288
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2**2 + b3*bV",
+     "beyond": "R7.2",
+     "beyond_type": "R7",
+     "walks": 110,
+     "at": [
+      0.01309874,
+      0.43161493,
+      0.31683921,
+      0.23844712
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 109,
+     "at": null
+    }
+   ]
+  },
+  "R8.2": {
+   "type": "R8",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - b3 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 132,
+     "at": [
+      0.01784855,
+      0.40777185,
+      0.29611408,
+      0.27826553
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*b3 - 2*b1*bV - b2**2 + b2*b3 + 2*b3*bV",
+     "beyond": "R16",
+     "beyond_type": "R16",
+     "walks": 131,
+     "at": [
+      0.01417033,
+      0.41504625,
+      0.30444399,
+      0.26633943
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b1*bV - b2**2 + b3*bV",
+     "beyond": "R7",
+     "beyond_type": "R7",
+     "walks": 97,
+     "at": [
+      0.03053463,
+      0.40406966,
+      0.31241995,
+      0.25297575
+     ]
+    }
+   ]
+  },
+  "R9": {
+   "type": "R9",
+   "starts": 4,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 - b2 - b3",
+     "beyond": "R13.2",
+     "beyond_type": "R13",
+     "walks": 79,
+     "at": [
+      0.32794558,
+      0.22401814,
+      0.25148795,
+      0.19654834
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R2.6",
+     "beyond_type": "R2",
+     "walks": 77,
+     "at": [
+      0.45721544,
+      0.15329516,
+      0.23886427,
+      0.15062513
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 46,
+     "at": null
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R11",
+     "beyond_type": "R11",
+     "walks": 38,
+     "at": [
+      0.33677919,
+      0.2041256,
+      0.29295727,
+      0.16613794
+     ]
+    }
+   ]
+  },
+  "R9.2": {
+   "type": "R9",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R13",
+     "beyond_type": "R13",
+     "walks": 134,
+     "at": [
+      0.30186514,
+      0.25281163,
+      0.25281163,
+      0.1925116
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*bV + b2*b3 + b3**2",
+     "beyond": "R11.2",
+     "beyond_type": "R11",
+     "walks": 90,
+     "at": [
+      0.36469222,
+      0.29279135,
+      0.21194096,
+      0.13057547
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R10",
+     "beyond_type": "R10",
+     "walks": 82,
+     "at": [
+      0.30737008,
+      0.28382955,
+      0.23087664,
+      0.17792372
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 54,
+     "at": [
+      0.2977103,
+      0.2977103,
+      0.24554281,
+      0.15903658
+     ]
+    }
+   ]
+  },
+  "R10": {
+   "type": "R10",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 113,
+     "at": null
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R9.2",
+     "beyond_type": "R9",
+     "walks": 102,
+     "at": [
+      0.34257737,
+      0.22813863,
+      0.21914088,
+      0.21014312
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R2.5",
+     "beyond_type": "R2",
+     "walks": 40,
+     "at": [
+      0.3086948,
+      0.3086948,
+      0.19335227,
+      0.18925814
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R2.3",
+     "beyond_type": "R2",
+     "walks": 39,
+     "at": [
+      0.38096807,
+      0.36135177,
+      0.13439225,
+      0.12328791
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 30,
+     "at": [
+      0.3117508,
+      0.3117508,
+      0.22321697,
+      0.15328142
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R11.2",
+     "beyond_type": "R11",
+     "walks": 24,
+     "at": [
+      0.39996344,
+      0.25411163,
+      0.20001219,
+      0.14591274
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R2.2",
+     "beyond_type": "R2",
+     "walks": 12,
+     "at": [
+      0.42986188,
+      0.27632949,
+      0.15775538,
+      0.13605325
+     ]
+    }
+   ]
+  },
+  "R11": {
+   "type": "R11",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R9",
+     "beyond_type": "R9",
+     "walks": 121,
+     "at": [
+      0.32878491,
+      0.20956687,
+      0.28750456,
+      0.17414366
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 - bV",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 102,
+     "at": [
+      0.30012451,
+      0.20590503,
+      0.30012451,
+      0.19384595
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 65,
+     "at": null
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "2*b1 - b2 - b3",
+     "beyond": "R14",
+     "beyond_type": "R14",
+     "walks": 43,
+     "at": [
+      0.33235193,
+      0.22254936,
+      0.30067828,
+      0.14442043
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 + b3 - bV",
+     "beyond": "R2.6",
+     "beyond_type": "R2",
+     "walks": 29,
+     "at": [
+      0.39576313,
+      0.14369012,
+      0.35216387,
+      0.10838288
+     ]
+    }
+   ]
+  },
+  "R11.2": {
+   "type": "R11",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 126,
+     "at": [
+      0.37850281,
+      0.32540989,
+      0.21367177,
+      0.08241552
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*bV + b2*b3 + b3**2",
+     "beyond": "R9.2",
+     "beyond_type": "R9",
+     "walks": 101,
+     "at": [
+      0.34286364,
+      0.31997886,
+      0.23087209,
+      0.10628542
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b1 - 2*b2 + b3",
+     "beyond": "R10",
+     "beyond_type": "R10",
+     "walks": 58,
+     "at": [
+      0.33835899,
+      0.33658536,
+      0.220547,
+      0.10450865
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b1 - b2",
+     "beyond": "R14.2",
+     "beyond_type": "R14",
+     "walks": 54,
+     "at": [
+      0.39404295,
+      0.25619781,
+      0.25619781,
+      0.09356142
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - bV",
+     "beyond": "R2.4",
+     "beyond_type": "R2",
+     "walks": 21,
+     "at": [
+      0.3388509,
+      0.3388509,
+      0.23428073,
+      0.08801746
+     ]
+    }
+   ]
+  },
+  "R12": {
+   "type": "R12",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*bV - b3**2 + b3*bV",
+     "beyond": "R4.4",
+     "beyond_type": "R4",
+     "walks": 180,
+     "at": [
+      0.81330426,
+      0.00802076,
+      0.17230356,
+      0.00637142
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R6",
+     "beyond_type": "R6",
+     "walks": 180,
+     "at": [
+      0.74692272,
+      0.06051632,
+      0.14535907,
+      0.04720189
+     ]
+    }
+   ]
+  },
+  "R12.2": {
+   "type": "R12",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R6.2",
+     "beyond_type": "R6",
+     "walks": 181,
+     "at": [
+      0.22490091,
+      0.2801843,
+      0.27368435,
+      0.22123044
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2**2 + b2*bV - b3*bV",
+     "beyond": "R4.2",
+     "beyond_type": "R4",
+     "walks": 179,
+     "at": [
+      0.22758989,
+      0.28431558,
+      0.27247793,
+      0.21561661
+     ]
+    }
+   ]
+  },
+  "R13": {
+   "type": "R13",
+   "starts": 5,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1**3*b2 - b1**3*bV - b1**2*b2**2 - 2*b1**2*b2*b3 + b1**2*b2*bV + b1**2*b3**2 - b1**2*b3*bV + b1*b2**3 - b1*b2**2*b3 - b1*b2**2*bV + 4*b1*b2*b3*bV + b1*b3**3 + b2**3*b3 - b2**2*b3*bV - b2*b3**3 - b2*b3**2*bV",
+     "beyond": "R15",
+     "beyond_type": "R15",
+     "walks": 136,
+     "at": [
+      0.3156462,
+      0.23515562,
+      0.23730949,
+      0.21188868
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*bV + b2*b3 + b3**2",
+     "beyond": "R14.2",
+     "beyond_type": "R14",
+     "walks": 105,
+     "at": [
+      0.37405158,
+      0.26288845,
+      0.33421377,
+      0.0288462
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1 - b2",
+     "beyond": "R9.2",
+     "beyond_type": "R9",
+     "walks": 59,
+     "at": [
+      0.31213031,
+      0.23465673,
+      0.23465673,
+      0.21855622
+     ]
+    }
+   ]
+  },
+  "R13.2": {
+   "type": "R13",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1**3*b2 - b1**3*bV - b1**2*b2**2 - b1**2*b2*b3 - b1**2*b3**2 + b1**2*bV**2 + b1*b2**2*b3 + b1*b2*b3**2 + 4*b1*b2*b3*bV + b1*b3**3 - b1*b3**2*bV - 2*b1*b3*bV**2 - 2*b2**2*b3*bV - b2*b3**3 + b3**2*bV**2",
+     "beyond": "R15.2",
+     "beyond_type": "R15",
+     "walks": 164,
+     "at": [
+      0.2674196,
+      0.24550529,
+      0.24651,
+      0.24056511
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "2*b1 - b2 - b3",
+     "beyond": "R9",
+     "beyond_type": "R9",
+     "walks": 111,
+     "at": [
+      0.30174737,
+      0.23275088,
+      0.24487395,
+      0.2206278
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R14",
+     "beyond_type": "R14",
+     "walks": 85,
+     "at": [
+      0.28081587,
+      0.24182312,
+      0.26397984,
+      0.21338116
+     ]
+    }
+   ]
+  },
+  "R14": {
+   "type": "R14",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b3 - b2*b3 - b2*bV + bV**2",
+     "beyond": "R13.2",
+     "beyond_type": "R13",
+     "walks": 174,
+     "at": [
+      0.26359496,
+      0.25562281,
+      0.25996085,
+      0.22082139
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b2 - bV",
+     "beyond": "R1",
+     "beyond_type": "R1",
+     "walks": 128,
+     "at": [
+      0.26150747,
+      0.24774656,
+      0.26150747,
+      0.22923851
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "2*b1 - b2 - b3",
+     "beyond": "R11",
+     "beyond_type": "R11",
+     "walks": 58,
+     "at": [
+      0.26982485,
+      0.24339172,
+      0.25950383,
+      0.2272796
+     ]
+    }
+   ]
+  },
+  "R14.2": {
+   "type": "R14",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*bV + b2*b3 + b3**2",
+     "beyond": "R13",
+     "beyond_type": "R13",
+     "walks": 167,
+     "at": [
+      0.46560195,
+      0.18449083,
+      0.22087156,
+      0.12903567
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b2 + 2*b3 - bV",
+     "beyond": "R1.2",
+     "beyond_type": "R1",
+     "walks": 140,
+     "at": [
+      0.4709087,
+      0.18975231,
+      0.20776928,
+      0.13156971
+     ]
+    },
+    {
+     "kind": "wall surface, but not recorded between these two",
+     "surface": "b1 - b2",
+     "beyond": "R11.2",
+     "beyond_type": "R11",
+     "walks": 52,
+     "at": [
+      0.46225761,
+      0.19802697,
+      0.19802697,
+      0.14168844
+     ]
+    },
+    {
+     "kind": "domain edge",
+     "surface": "",
+     "beyond": "",
+     "beyond_type": "",
+     "walks": 1,
+     "at": null
+    }
+   ]
+  },
+  "R15": {
+   "type": "R15",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R15.2",
+     "beyond_type": "R15",
+     "walks": 183,
+     "at": [
+      0.4224775,
+      0.19895714,
+      0.23543253,
+      0.14313283
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1**3*b2 - b1**3*bV - b1**2*b2**2 - 2*b1**2*b2*b3 + b1**2*b2*bV + b1**2*b3**2 - b1**2*b3*bV + b1*b2**3 - b1*b2**2*b3 - b1*b2**2*bV + 4*b1*b2*b3*bV + b1*b3**3 + b2**3*b3 - b2**2*b3*bV - b2*b3**3 - b2*b3**2*bV",
+     "beyond": "R13",
+     "beyond_type": "R13",
+     "walks": 177,
+     "at": [
+      0.41239025,
+      0.20691528,
+      0.2241957,
+      0.15649877
+     ]
+    }
+   ]
+  },
+  "R15.2": {
+   "type": "R15",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b1**3*b2 - b1**3*bV - b1**2*b2**2 - b1**2*b2*b3 - b1**2*b3**2 + b1**2*bV**2 + b1*b2**2*b3 + b1*b2*b3**2 + 4*b1*b2*b3*bV + b1*b3**3 - b1*b3**2*bV - 2*b1*b3*bV**2 - 2*b2**2*b3*bV - b2*b3**3 + b3**2*bV**2",
+     "beyond": "R13.2",
+     "beyond_type": "R13",
+     "walks": 182,
+     "at": [
+      0.27098337,
+      0.24819194,
+      0.25175519,
+      0.2290695
+     ]
+    },
+    {
+     "kind": "same shape (relabelling)",
+     "surface": "b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+     "beyond": "R15",
+     "beyond_type": "R15",
+     "walks": 178,
+     "at": [
+      0.27042303,
+      0.24938327,
+      0.25023591,
+      0.22995779
+     ]
+    }
+   ]
+  },
+  "R16": {
+   "type": "R16",
+   "starts": 6,
+   "ends": [
+    {
+     "kind": "recorded wall",
+     "surface": "b2**2 - b2*b3 - b2*bV - 3*b3*bV",
+     "beyond": "R8",
+     "beyond_type": "R8",
+     "walks": 190,
+     "at": [
+      0.00577019,
+      0.52802926,
+      0.2438758,
+      0.22232475
+     ]
+    },
+    {
+     "kind": "recorded wall",
+     "surface": "b1*b2 - b1*b3 - 2*b1*bV - b2**2 + b2*b3 + 2*b3*bV",
+     "beyond": "R8.2",
+     "beyond_type": "R8",
+     "walks": 170,
+     "at": [
+      0.03376743,
+      0.53187029,
+      0.26223231,
+      0.17212997
+     ]
+    }
+   ]
+  }
+ }
+}

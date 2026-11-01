@@ -76,6 +76,7 @@ def main():
         starts = [s for s in starts if am.piece_at(s[None])[0] == pi]
         ends = Counter()
         where = {}
+        allpts = {}
         for s in starts:
             for d in D_:
                 R = s[None] + ts[:, None] * d[None]
@@ -118,9 +119,10 @@ def main():
                 key = (kind, surf, b)
                 ends[key] += 1
                 where.setdefault(key, x.round(8).tolist())
+                allpts.setdefault(key, []).append(x.round(10).tolist())
         res[p] = {"type": am.TYPE[p], "starts": len(starts),
                   "ends": [{"kind": k[0], "surface": k[1], "beyond": k[2], "beyond_type": am.TYPE.get(k[2], ""),
-                            "walks": n, "at": where.get(k)} for k, n in ends.most_common()]}
+                            "walks": n, "at": where.get(k), "points": allpts.get(k, [])} for k, n in ends.most_common()]}
         bad = [e for e in res[p]["ends"] if e["kind"] not in ("recorded wall", "domain edge", "same shape (relabelling)")]
         print(f"{p} ({am.TYPE[p]}): {len(starts)} starts; " +
               ("closed by recorded walls" if not bad else "OPEN: " + "; ".join(

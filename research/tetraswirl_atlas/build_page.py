@@ -297,6 +297,11 @@ def main():
                "girdles box: no new shape along them), "
                "and white space of 48 images with no symmetry. Seeds on a ring have fewer images; on a ghost girdle "
                "all 48, but 6 or 8 of them on one great circle.",
+               "Extra-symmetry lines (their box): the group's normalizer has order 96 (±1/6[O × D₁₂]; the group, "
+               "±1/6[O × D₆], has index 2 in it), and the axes of its extra half-turns cross the domain in four segments "
+               "(purple): a seed there makes a polychoron with 96 symmetries. On the 6/3 gyrogon ghost girdle M₀₁–M₁₂ "
+               "(green) the polychoron has 144 symmetries (±1/2[O × D₆]). The skew square ghost girdles gain none "
+               "(normalizer_oct.py, supergroup_lines_oct.py).",
                "The half-turns fold two faces of the domain onto themselves, so a shape there appears twice, mirrored "
                "(as A1 does in the swirlprism atlas): on β₃ = 0, β (a, b, c, 0) is β (c, b, a, 0) (V and W₂ swapped, "
                "about W₁–M₀₂); on β_V = 0, β (0, a, b, c) is β (0, b, a, c) (W₁ and W₂ swapped, about F–M₁₂). The "
@@ -335,6 +340,7 @@ def main():
         "types": types, "samples": samples, "totalSamples": len(pts),
         "walls": traced.get("walls", []), "lines": traced.get("lines", []), "points": traced.get("points", []),
         "girdles": traced.get("girdles", []),
+        "symlines": traced.get("symlines", []),
         "notes": notes,
     }
     template = open("atlas_template.html").read()
