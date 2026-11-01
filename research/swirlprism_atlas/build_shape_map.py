@@ -29,10 +29,9 @@ def main():
     shapes = work["shapes"]
     import os
     import re
-    WP = json.load(open("wall_parts.json")) if os.path.exists("wall_parts.json") else {}
-    # (without the wall pieces, a wall or region keeps the place it had on the map last built)
+    # (a wall or region keeps the place it had on the map last built)
     old_c = {}
-    if not WP and os.path.exists("shape_map.html"):
+    if os.path.exists("shape_map.html"):
         m = re.search(r'\{"nodes":.*?\}(?=\s*<|\s*;)', open("shape_map.html").read(), re.S)
         if m:
             try:
@@ -41,14 +40,8 @@ def main():
                 old_c = {}
     ex = json.load(open("exact_defs.json"))["lines"]
     crp = json.load(open("cross_ring_points.json"))["points"]
-    # (each shape's own geometry, as betas: its pieces, its exact line pieces, its exact points)
+    # (each shape's own geometry, as betas: its exact line pieces, its exact points)
     geo = collections.defaultdict(list)
-    for w, v in WP.items():
-        for p in v["pieces"]:
-            T_ = np.array(p["tris"], float).reshape(-1, 4)
-            geo[w].append(T_)
-            for r in p.get("between") or ():
-                geo[r].append(T_)
     for L_, v in ex.items():
         geo[L_] += [np.asarray(P, float) for P in v["points"] if len(P)]
     for c in crp:
@@ -89,12 +82,6 @@ def main():
     for n in nodes:
         i_ = n["id"]
         if n["dim"] == "wall" and i_ in W:
-            sp = W[i_].get("sphere")
-            if sp:
-                n["note"] = (f"on the 3-sphere: one whole piece of {sp['patch_images']} half-cell patch images, "
-                             f"carried onto itself by {sp['stabiliser']} symmetr{'y' if sp['stabiliser'] == 1 else 'ies'}"
-                             + (f"; meets copies of itself along {', '.join(sp['meets_copies_along'])}"
-                                if sp.get("meets_copies_along") else ""))
             n["bounds"] = W[i_]["edges"] + W[i_]["points"]
             n["sep"] = W[i_]["regions"]
             for b in n["bounds"]:
@@ -121,17 +108,9 @@ def main():
                     add(i_, b, "column")
         elif n["dim"] == "region":
             R = work["regions"].get(i_, {})
-            ext = R.get("wall_extent", {})
-            lines = R.get("lines", {})
-            if isinstance(lines, list):
-                lines = {L_: "full" for L_ in lines}
-            n["bounds"] = R.get("walls", []) + list(lines) + R.get("points", [])
+            n["bounds"] = R.get("walls", [])
             for w in R.get("walls", []):
-                add(i_, w, "region walls", part=i_ if ext.get(w) == "partial" else None)
-            for x, how in lines.items():
-                add(i_, x, "region boundary", part=i_ if how != "full" else None)
-            for x in R.get("points", []):
-                add(i_, x, "region boundary")
+                add(i_, w, "region walls")
     edges = list(E.values())
     C = np.array([n["c"] for n in nodes])
     C0 = C - C.mean(0)

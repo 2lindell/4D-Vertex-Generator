@@ -2275,18 +2275,7 @@
      ],
      "along": "F1 meets X28"
     }
-   ],
-   "sphere": {
-    "patch_images": 4,
-    "stabiliser": 1,
-    "joins": [
-     "across a face",
-     "same part"
-    ],
-    "meets_copies_along": [
-     "D3"
-    ]
-   }
+   ]
   },
   "F4": {
    "edges": [
@@ -2321,18 +2310,7 @@
      ],
      "along": "F4 meets X100"
     }
-   ],
-   "sphere": {
-    "patch_images": 4,
-    "stabiliser": 1,
-    "joins": [
-     "across a face",
-     "same part"
-    ],
-    "meets_copies_along": [
-     "D2"
-    ]
-   }
+   ]
   },
   "F5": {
    "edges": [
@@ -2358,15 +2336,7 @@
     "X66"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "T2": {
    "edges": [
@@ -2423,18 +2393,7 @@
      ],
      "along": "T2 meets X94"
     }
-   ],
-   "sphere": {
-    "patch_images": 4,
-    "stabiliser": 1,
-    "joins": [
-     "across a face",
-     "same part"
-    ],
-    "meets_copies_along": [
-     "D1"
-    ]
-   }
+   ]
   },
   "X3": {
    "edges": [
@@ -2466,18 +2425,7 @@
      ],
      "along": "X3 meets X10"
     }
-   ],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": [
-     "C3",
-     "D1"
-    ]
-   }
+   ]
   },
   "X7": {
    "edges": [
@@ -2498,15 +2446,7 @@
     "X30"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 2,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X9": {
    "edges": [
@@ -2538,19 +2478,7 @@
      ],
      "along": "X9 meets X10"
     }
-   ],
-   "sphere": {
-    "patch_images": 12,
-    "stabiliser": 4,
-    "joins": [
-     "at a seam",
-     "same part"
-    ],
-    "meets_copies_along": [
-     "C2b",
-     "D2"
-    ]
-   }
+   ]
   },
   "X10": {
    "edges": [
@@ -2578,15 +2506,7 @@
     "X95"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "C3"
-    ]
-   }
+   "cuts": []
   },
   "X11": {
    "edges": [
@@ -2620,15 +2540,7 @@
      ],
      "along": "X11 meets X94"
     }
-   ],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X14": {
    "edges": [
@@ -2663,15 +2575,7 @@
      ],
      "along": "X14 meets X25"
     }
-   ],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "C2b"
-    ]
-   }
+   ]
   },
   "X15": {
    "edges": [
@@ -2695,15 +2599,7 @@
     "X37"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "X78"
-    ]
-   }
+   "cuts": []
   },
   "X17": {
    "edges": [
@@ -2743,16 +2639,7 @@
      ],
      "along": "X17 meets X31"
     }
-   ],
-   "sphere": {
-    "patch_images": 3,
-    "stabiliser": 1,
-    "joins": [
-     "across a face",
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X19": {
    "edges": [
@@ -2780,18 +2667,7 @@
     "X46"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": [
-     "C2b",
-     "D2"
-    ]
-   }
+   "cuts": []
   },
   "X20": {
    "edges": [
@@ -2830,18 +2706,7 @@
      ],
      "along": "X20 meets F5"
     }
-   ],
-   "sphere": {
-    "patch_images": 3,
-    "stabiliser": 1,
-    "joins": [
-     "across a face",
-     "same part"
-    ],
-    "meets_copies_along": [
-     "D1"
-    ]
-   }
+   ]
   },
   "X21": {
    "edges": [
@@ -2877,15 +2742,7 @@
      ],
      "along": "X21 meets X98"
     }
-   ],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X22": {
    "edges": [
@@ -2921,13 +2778,7 @@
      ],
      "along": "X22 meets X93"
     }
-   ],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X23": {
    "edges": [
@@ -2961,17 +2812,7 @@
      ],
      "along": "X23 meets X39"
     }
-   ],
-   "sphere": {
-    "patch_images": 3,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": [
-     "D2"
-    ]
-   }
+   ]
   },
   "X25": {
    "edges": [
@@ -2993,15 +2834,7 @@
     "X46"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "C2b"
-    ]
-   }
+   "cuts": []
   },
   "X26": {
    "edges": [
@@ -3035,18 +2868,7 @@
      "along": "X26 crosses X79",
      "crossing": true
     }
-   ],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": [
-     "D2",
-     "D3"
-    ]
-   }
+   ]
   },
   "X27": {
    "edges": [
@@ -3077,15 +2899,7 @@
      ],
      "along": "X27 meets X44"
     }
-   ],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X28": {
    "edges": [
@@ -3109,13 +2923,7 @@
     "X50"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X31": {
    "edges": [
@@ -3139,15 +2947,7 @@
     "X54"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X33": {
    "edges": [
@@ -3174,13 +2974,7 @@
     "X57"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X34": {
    "edges": [
@@ -3206,13 +3000,7 @@
     "X60"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X35": {
    "edges": [
@@ -3233,13 +3021,7 @@
     "X74"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X38": {
    "edges": [
@@ -3261,17 +3043,7 @@
     "X68"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 2,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": [
-     "C2a"
-    ]
-   }
+   "cuts": []
   },
   "X39": {
    "edges": [
@@ -3297,13 +3069,7 @@
     "X60"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X40": {
    "edges": [
@@ -3330,16 +3096,7 @@
     "X63"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "D1",
-     "D3"
-    ]
-   }
+   "cuts": []
   },
   "X41": {
    "edges": [
@@ -3364,13 +3121,7 @@
     "X62"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X42": {
    "edges": [
@@ -3398,16 +3149,7 @@
     "X65"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "D2",
-     "D3"
-    ]
-   }
+   "cuts": []
   },
   "X44": {
    "edges": [
@@ -3431,15 +3173,7 @@
     "X65"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X47": {
    "edges": [
@@ -3465,13 +3199,7 @@
     "X67"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X48": {
    "edges": [
@@ -3498,13 +3226,7 @@
     "X69"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X51": {
    "edges": [
@@ -3531,13 +3253,7 @@
     "X64"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X52": {
    "edges": [
@@ -3563,13 +3279,7 @@
     "X67"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X53": {
    "edges": [
@@ -3597,15 +3307,7 @@
     "X69"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 2,
-    "joins": [
-     "across a face"
-    ],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X79": {
    "edges": [
@@ -3636,16 +3338,7 @@
      "along": "X79 crosses X26",
      "crossing": true
     }
-   ],
-   "sphere": {
-    "patch_images": 4,
-    "stabiliser": 2,
-    "joins": [
-     "across a face",
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X82": {
    "edges": [
@@ -3671,13 +3364,7 @@
     "X49"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X83": {
    "edges": [
@@ -3699,15 +3386,7 @@
     "X36"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "X78"
-    ]
-   }
+   "cuts": []
   },
   "X84": {
    "edges": [
@@ -3738,13 +3417,7 @@
      ],
      "along": "X84 meets X51"
     }
-   ],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X85": {
    "edges": [
@@ -3770,13 +3443,7 @@
     "X71"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X86": {
    "edges": [
@@ -3802,13 +3469,7 @@
     "X72"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X87": {
    "edges": [
@@ -3837,16 +3498,7 @@
     "X75"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "C3",
-     "D3"
-    ]
-   }
+   "cuts": []
   },
   "X88": {
    "edges": [
@@ -3872,15 +3524,7 @@
     "X75"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": [
-     "D3"
-    ]
-   }
+   "cuts": []
   },
   "X89": {
    "edges": [
@@ -3906,13 +3550,7 @@
     "X76"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X90": {
    "edges": [
@@ -3938,13 +3576,7 @@
     "X76"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X91": {
    "edges": [
@@ -3970,13 +3602,7 @@
     "X77"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X92": {
    "edges": [
@@ -4002,13 +3628,7 @@
     "X77"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X93": {
    "edges": [
@@ -4034,13 +3654,7 @@
     "X70"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X94": {
    "edges": [
@@ -4057,15 +3671,7 @@
     "X37"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 2,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X96": {
    "edges": [
@@ -4097,13 +3703,7 @@
      ],
      "along": "X96 meets X41"
     }
-   ],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   ]
   },
   "X98": {
    "edges": [
@@ -4127,15 +3727,7 @@
     "X67"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 2,
-    "stabiliser": 1,
-    "joins": [
-     "same part"
-    ],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X99": {
    "edges": [
@@ -4157,13 +3749,7 @@
     "X68"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   },
   "X100": {
    "edges": [
@@ -4185,13 +3771,7 @@
     "X61"
    ],
    "cuts_needed": 0,
-   "cuts": [],
-   "sphere": {
-    "patch_images": 1,
-    "stabiliser": 1,
-    "joins": [],
-    "meets_copies_along": []
-   }
+   "cuts": []
   }
  },
  "regions": {
@@ -4204,70 +3784,39 @@
     "X11",
     "X14",
     "X21"
-   ],
-   "wall_extent": {
-    "T2": "partial",
-    "X3": "partial",
-    "X9": "full",
-    "X10": "full",
-    "X11": "full",
-    "X14": "full",
-    "X21": "full"
-   }
+   ]
   },
   "F3": {
    "walls": [
     "F1",
     "T2",
     "X22"
-   ],
-   "wall_extent": {
-    "F1": "full",
-    "T2": "partial",
-    "X22": "full"
-   }
+   ]
   },
   "X12": {
    "walls": [
     "X3",
     "X7"
-   ],
-   "wall_extent": {
-    "X3": "full",
-    "X7": "full"
-   }
+   ]
   },
   "X16": {
    "walls": [
     "X9",
     "X96"
-   ],
-   "wall_extent": {
-    "X9": "full",
-    "X96": "full"
-   }
+   ]
   },
   "X30": {
    "walls": [
     "X7",
     "X83"
-   ],
-   "wall_extent": {
-    "X7": "full",
-    "X83": "full"
-   }
+   ]
   },
   "X32": {
    "walls": [
     "X15",
     "X17",
     "X19"
-   ],
-   "wall_extent": {
-    "X15": "full",
-    "X17": "partial",
-    "X19": "full"
-   }
+   ]
   },
   "X36": {
    "walls": [
@@ -4275,13 +3824,7 @@
     "X11",
     "X83",
     "X94"
-   ],
-   "wall_extent": {
-    "T2": "partial",
-    "X11": "not found beside it in the pieces",
-    "X83": "full",
-    "X94": "full"
-   }
+   ]
   },
   "X37": {
    "walls": [
@@ -4289,13 +3832,7 @@
     "X11",
     "X15",
     "X94"
-   ],
-   "wall_extent": {
-    "T2": "partial",
-    "X11": "full",
-    "X15": "full",
-    "X94": "full"
-   }
+   ]
   },
   "X43": {
    "walls": [
@@ -4303,25 +3840,14 @@
     "X31",
     "X82",
     "X85"
-   ],
-   "wall_extent": {
-    "X17": "partial",
-    "X31": "full",
-    "X82": "full",
-    "X85": "full"
-   }
+   ]
   },
   "X45": {
    "walls": [
     "X14",
     "X25",
     "X27"
-   ],
-   "wall_extent": {
-    "X14": "partial",
-    "X25": "full",
-    "X27": "full"
-   }
+   ]
   },
   "X46": {
    "walls": [
@@ -4329,13 +3855,7 @@
     "X17",
     "X19",
     "X25"
-   ],
-   "wall_extent": {
-    "X14": "partial",
-    "X17": "partial",
-    "X19": "full",
-    "X25": "full"
-   }
+   ]
   },
   "X49": {
    "walls": [
@@ -4344,26 +3864,14 @@
     "T2",
     "X28",
     "X82"
-   ],
-   "wall_extent": {
-    "F1": "partial",
-    "F4": "full",
-    "T2": "partial",
-    "X28": "full",
-    "X82": "full"
-   }
+   ]
   },
   "X50": {
    "walls": [
     "F1",
     "X28",
     "X33"
-   ],
-   "wall_extent": {
-    "F1": "partial",
-    "X28": "full",
-    "X33": "full"
-   }
+   ]
   },
   "X54": {
    "walls": [
@@ -4371,13 +3879,7 @@
     "X22",
     "X31",
     "X93"
-   ],
-   "wall_extent": {
-    "X17": "partial",
-    "X22": "partial",
-    "X31": "full",
-    "X93": "full"
-   }
+   ]
   },
   "X55": {
    "walls": [
@@ -4385,35 +3887,20 @@
     "X34",
     "X44",
     "X90"
-   ],
-   "wall_extent": {
-    "X27": "partial",
-    "X34": "full",
-    "X44": "full",
-    "X90": "full"
-   }
+   ]
   },
   "X56": {
    "walls": [
     "X35",
     "X42",
     "X92"
-   ],
-   "wall_extent": {
-    "X35": "full",
-    "X42": "full",
-    "X92": "full"
-   }
+   ]
   },
   "X57": {
    "walls": [
     "X33",
     "X40"
-   ],
-   "wall_extent": {
-    "X33": "full",
-    "X40": "full"
-   }
+   ]
   },
   "X58": {
    "walls": [
@@ -4421,13 +3908,7 @@
     "X41",
     "X96",
     "X100"
-   ],
-   "wall_extent": {
-    "F4": "partial",
-    "X41": "full",
-    "X96": "partial",
-    "X100": "full"
-   }
+   ]
   },
   "X59": {
    "walls": [
@@ -4435,13 +3916,7 @@
     "X20",
     "X23",
     "X39"
-   ],
-   "wall_extent": {
-    "F5": "full",
-    "X20": "partial",
-    "X23": "not found beside it in the pieces",
-    "X39": "full"
-   }
+   ]
   },
   "X60": {
    "walls": [
@@ -4450,62 +3925,35 @@
     "X34",
     "X39",
     "X98"
-   ],
-   "wall_extent": {
-    "X21": "full",
-    "X23": "not found beside it in the pieces",
-    "X34": "full",
-    "X39": "full",
-    "X98": "full"
-   }
+   ]
   },
   "X61": {
    "walls": [
     "F4",
     "X99",
     "X100"
-   ],
-   "wall_extent": {
-    "F4": "partial",
-    "X99": "full",
-    "X100": "full"
-   }
+   ]
   },
   "X62": {
    "walls": [
     "X23",
     "X41",
     "X96"
-   ],
-   "wall_extent": {
-    "X23": "not found beside it in the pieces",
-    "X41": "full",
-    "X96": "partial"
-   }
+   ]
   },
   "X63": {
    "walls": [
     "X40",
     "X51",
     "X84"
-   ],
-   "wall_extent": {
-    "X40": "full",
-    "X51": "full",
-    "X84": "partial"
-   }
+   ]
   },
   "X64": {
    "walls": [
     "X51",
     "X53",
     "X84"
-   ],
-   "wall_extent": {
-    "X51": "full",
-    "X53": "full",
-    "X84": "partial"
-   }
+   ]
   },
   "X65": {
    "walls": [
@@ -4513,13 +3961,7 @@
     "X42",
     "X44",
     "X47"
-   ],
-   "wall_extent": {
-    "X27": "partial",
-    "X42": "full",
-    "X44": "full",
-    "X47": "full"
-   }
+   ]
   },
   "X66": {
    "walls": [
@@ -4527,13 +3969,7 @@
     "X20",
     "X48",
     "X52"
-   ],
-   "wall_extent": {
-    "F5": "full",
-    "X20": "partial",
-    "X48": "full",
-    "X52": "full"
-   }
+   ]
   },
   "X67": {
    "walls": [
@@ -4541,55 +3977,32 @@
     "X47",
     "X52",
     "X98"
-   ],
-   "wall_extent": {
-    "X21": "not found beside it in the pieces",
-    "X47": "full",
-    "X52": "full",
-    "X98": "full"
-   }
+   ]
   },
   "X68": {
    "walls": [
     "X38",
     "X99"
-   ],
-   "wall_extent": {
-    "X38": "full",
-    "X99": "full"
-   }
+   ]
   },
   "X69": {
    "walls": [
     "X48",
     "X53"
-   ],
-   "wall_extent": {
-    "X48": "full",
-    "X53": "full"
-   }
+   ]
   },
   "X70": {
    "walls": [
     "X22",
     "X87",
     "X93"
-   ],
-   "wall_extent": {
-    "X22": "partial",
-    "X87": "full",
-    "X93": "full"
-   }
+   ]
   },
   "X71": {
    "walls": [
     "X85",
     "X86"
-   ],
-   "wall_extent": {
-    "X85": "full",
-    "X86": "full"
-   }
+   ]
   },
   "X72": {
    "walls": [
@@ -4597,13 +4010,7 @@
     "X79",
     "X86",
     "X91"
-   ],
-   "wall_extent": {
-    "X26": "full",
-    "X79": "full",
-    "X86": "full",
-    "X91": "full"
-   }
+   ]
   },
   "X73": {
    "walls": [
@@ -4611,53 +4018,31 @@
     "X79",
     "X88",
     "X89"
-   ],
-   "wall_extent": {
-    "X26": "full",
-    "X79": "full",
-    "X88": "full",
-    "X89": "full"
-   }
+   ]
   },
   "X74": {
    "walls": [
     "X35",
     "X84"
-   ],
-   "wall_extent": {
-    "X35": "full",
-    "X84": "full"
-   }
+   ]
   },
   "X75": {
    "walls": [
     "X87",
     "X88"
-   ],
-   "wall_extent": {
-    "X87": "full",
-    "X88": "full"
-   }
+   ]
   },
   "X76": {
    "walls": [
     "X89",
     "X90"
-   ],
-   "wall_extent": {
-    "X89": "full",
-    "X90": "full"
-   }
+   ]
   },
   "X77": {
    "walls": [
     "X91",
     "X92"
-   ],
-   "wall_extent": {
-    "X91": "full",
-    "X92": "full"
-   }
+   ]
   },
   "X95": {
    "walls": [
@@ -4665,55 +4050,9 @@
     "X9",
     "X10",
     "X20"
-   ],
-   "wall_extent": {
-    "X3": "partial",
-    "X9": "not found beside it in the pieces",
-    "X10": "full",
-    "X20": "full"
-   }
-  }
- },
- "pieces_to_check": {
-  "wall_pieces": {
-   "T2": [
-    "the piece F2|X49 is bounded by X1 too, which the working data does not list for it"
-   ],
-   "X3": [
-    "the piece X12|X95 is bounded by X1 too, which the working data does not list for it"
-   ],
-   "X14": [
-    "the piece F2|X45 is bounded by X97 too, which the working data does not list for it"
-   ],
-   "X17": [
-    "a piece of 543 triangles on plane (-0, -0.336068, 0.336068, 0.879839) not settled (could be X32|X54, X43|X46)"
-   ],
-   "X21": [
-    "the piece F2|X60 is bounded by X97 too, which the working data does not list for it",
-    "the piece F2|X60 is bounded by X97 too, which the working data does not list for it",
-    "the piece F2|X60 is bounded by X97 too, which the working data does not list for it",
-    "the piece F2|X60 is bounded by X97 too, which the working data does not list for it"
-   ],
-   "X22": [
-    "the piece F3|X70 is bounded by X13 too, which the working data does not list for it"
-   ],
-   "X23": [
-    "a piece of 9552 triangles on plane (0, 1, 0, 0) not settled (could be X59|X62, X60|X62)",
-    "a piece of 13708 triangles on plane (0.879839, 0, -0.336068, 0.336068) not settled (could be X59|X62, X60|X62)",
-    "a piece of 17257 triangles on plane (1, -0, -0, -0) not settled (could be X59|X62, X60|X62)"
-   ],
-   "X27": [
-    "the piece X45|X65 is bounded by X97 too, which the working data does not list for it",
-    "the piece X45|X55 is bounded by X97 too, which the working data does not list for it",
-    "the piece X45|X55 is bounded by X97 too, which the working data does not list for it",
-    "the piece X45|X65 is bounded by X97 too, which the working data does not list for it"
-   ],
-   "X84": [
-    "the piece X63|X74 is bounded by X18 too, which the working data does not list for it"
    ]
   }
  },
- "open": {},
  "lines": {
   "E1": {
    "ends": [
