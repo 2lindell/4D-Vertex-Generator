@@ -45,7 +45,7 @@ def line_points(d, L):
 def full_home(b):
     """A point anywhere on the 3-sphere (betas, possibly negative: past a face of the cell) brought into the half-cell
     by the extended group."""
-    from sphere_complex import GG
+    from exact_math import GG
     group = lambda: GG
     for g in group():
         y = g @ b

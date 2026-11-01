@@ -16,7 +16,7 @@ import json
 import numpy as np
 
 import core as osd
-from pieces import grad, nrm, project
+from exact_math import grad, nrm, project
 
 OUT = "exact_lines.json"
 

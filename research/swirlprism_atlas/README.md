@@ -1,5 +1,7 @@
 # Swirlprism seed atlas
 
+> Many scripts named below were removed in the cleanup; `PURGE.md` lists what is kept.
+
 Tools and data for mapping which convex isogonal polychora the
 `h4_swirlprism` symmetry (H3●I2(10), order 1200) produces, depending on where
 the seed point sits.

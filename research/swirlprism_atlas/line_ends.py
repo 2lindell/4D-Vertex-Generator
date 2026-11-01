@@ -22,7 +22,7 @@ import numpy as np
 
 import core as osd
 from core import lab_edge
-from pieces import fval, grad, in_half, nrm, project
+from exact_math import fval, grad, in_half, nrm, project
 
 HALF = [("b1=0", np.eye(4)[0]), ("b2=0", np.eye(4)[1]), ("b3=0", np.eye(4)[2]), ("b4=0", np.eye(4)[3]),
         ("b3=b4", np.array([0, 0, 1, -1.0]))]

@@ -1,5 +1,8 @@
 # Symmetry Domain viewer: status and plan
 
+> **Reset.** The meshing and drawing steps described below were removed to start over (see `PURGE.md`). The page
+> files are unchanged; the working data and the exact data are kept.
+
 The page is `assets/symmetry_domain.html` (with `assets/symmetry_domain_regions/`), copied into `docs/` by
 `tools/build_pages.py`; the public site builds from this branch, so a push publishes it.
 
