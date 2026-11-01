@@ -14,13 +14,12 @@ pieces: one piece per stretch with the same walls and regions round it.
 """
 from __future__ import annotations
 
-from collections import Counter, defaultdict
+from collections import defaultdict
 
 import numpy as np
 
 from .chords import FACE_N
 from .frame import multiplication_table, point_from_beta
-
 
 # ------------------------------------------------------------------------------------- geometry
 
@@ -292,7 +291,8 @@ def _enumerate_job(args):
     for p0 in x:
         if len(seen_pts) and np.min(np.linalg.norm(seen_pts - p0, axis=1)) < 4e-3:
             continue
-        line, ends = trace_edge(surfs, s, t, p0, step=2e-3, keys=keys, labels=labels)
+        line, ends = trace_edge(surfs, s, t, p0, step=2e-3, keys=keys, labels=labels,
+                                max_steps=1200)
         if line is None or len(line) < 2:
             continue
         seen_pts = np.vstack([seen_pts, line])
@@ -383,15 +383,25 @@ def build_faces(ex, lib, patches, comp, same_inner, same_across, march_links, la
             jobs.append((s_, t_, x1))
     log(f"edge curves from the walks: {len(jobs)} ({n_face_starts} where a wall meets a face)")
     # every curve where two wall-carrying surfaces (or one and a domain face) meet, enumerated
-    carrying = sorted({p["surface"] for p in patches if p["surface"] is not None}
-                      | set(face_surface.values()))
-    pairs = [(a, b, 400, 1000 + n) for n, (a, b) in enumerate(
-        (a, b) for i, a in enumerate(carrying) for b in carrying[i + 1:])]
+    # a face's edges lie where its wall meets a wall bounding one of the same regions, so only
+    # surfaces carrying walls with a region in common are paired (and every one with each face)
+    regions_on = defaultdict(set)
+    for p in patches:
+        if p["surface"] is not None:
+            regions_on[p["surface"]] |= set(p["regions"])
+    carrying = sorted(regions_on)
+    fplanes = sorted(set(face_surface.values()))
+    pair_set = {(min(a, b), max(a, b)) for i, a in enumerate(carrying) for b in carrying[i + 1:]
+                if regions_on[a] & regions_on[b]}
+    pair_set |= {(min(a, f), max(a, f)) for a in carrying for f in fplanes if a != f}
+    pairs = [(a, b, 150, 1000 + n) for n, (a, b) in enumerate(sorted(pair_set))]
     log(f"enumerating meeting curves of {len(pairs)} surface pairs")
     with Pool(workers, initializer=_init, initargs=(surfs, ex.keys, labels)) as pool:
         traced = pool.map(_trace_job, jobs, chunksize=4)
-        for chunk in pool.imap_unordered(_enumerate_job, pairs, chunksize=8):
+        for n, chunk in enumerate(pool.imap_unordered(_enumerate_job, pairs, chunksize=2)):
             traced.extend(chunk)
+            if (n + 1) % 50 == 0:
+                log(f"  {n + 1}/{len(pairs)} pairs, {len(traced)} curve pieces")
     log(f"curve pieces traced: {len(traced)}")
 
     def patch_between(qa, qb, on):
