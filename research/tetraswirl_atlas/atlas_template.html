@@ -202,7 +202,7 @@ __TYPE_CSS__
       const dom = view().domain || D.domain;              // (a view in another chart brings its own domain)
       for (const M of view().maps) {
         const map = (p) => [0, 1, 2].map((a) => M[a][0] * p[0] + M[a][1] * p[1] + M[a][2] * p[2] + (M[a][3] || 0));
-        out.push(lines(dom.edges.map(([a, b]) => [map(dom.verts[a]), map(dom.verts[b])]), "domain edges", { color: faint, width: 2 }));
+        if (!view().outline) out.push(lines(dom.edges.map(([a, b]) => [map(dom.verts[a]), map(dom.verts[b])]), "domain edges", { color: faint, width: 2 }));
         if (el("showFaces").checked) for (const f of dom.faces) {
           const P = f.loop.map((k) => map(dom.verts[k]));
           out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
@@ -210,25 +210,29 @@ __TYPE_CSS__
             color: css(f.kind === "cut" ? "--mirror" : "--domring"), opacity: 0.07, name: f.name, hoverinfo: "skip", meta: "nopick" });
         }
       }
+      // (a view of several domains draws the whole solid's outline, not each domain's edges: the cuts are inside it)
+      if (view().outline) out.push(lines(view().outline, "domain edges", { color: faint, width: 2 }));
+      // (what is traced, in this view's chart: a view in another chart brings its own copies, every image in it)
+      const T = view().chart ? (view().traced || { lines: [], points: [], symlines: [], girdles: [] }) : D;
       // the rotation axes: the order-3 axis (the swirl ring) and the group's half-turn axes (its cross rings), each
       // piece in the colour of the S shape on it; a view in another chart keeps its own axis line
-      const ringPieces = (D.lines || []).filter((s) => /^S\d/.test(s.id) && byId[s.id]);
+      const ringPieces = (T.lines || []).filter((s) => /^S\d/.test(s.id) && byId[s.id]);
       const ax = view().axis !== undefined ? view().axis : D.axis;
-      if (el("showAxis").checked && !view().chart && ringPieces.length) for (const s of ringPieces) {
+      if (el("showAxis").checked && ringPieces.length) for (const s of ringPieces) {
         const P = mapPts(s.pts), t = byId[s.id];
         out.push(lines([P], s.hover || label(t), { color: color(t), width: 4 }, { hoverinfo: "text", text: P.map(() => s.hover || label(t)) }));
       } else if (el("showAxis").checked && ax) out.push(lines([ax.pts], ax.name, { color: css("--g3axis"), width: 4 },
         { hoverinfo: "text", text: ax.pts.map(() => ax.name) }));
       const own = !view().chart;                          // (traced walls, lines and points are in the page's own chart)
       // ghost girdles: circles a rotation turns along itself (no new shape along them), for reference
-      if (own && el("showGirdles").checked) for (const g of D.girdles || []) {
+      if (el("showGirdles").checked) for (const g of T.girdles || []) {
         const tr = lines([mapPts(g.pts)], "ghost girdle", { color: faint, width: 3, dash: "dot" });
         tr.hovertemplate = g.hover + "<extra></extra>";
         out.push(tr);
       }
       // extra-symmetry lines: seeds there have more symmetries than the group's (purple: the normalizer's half-turns,
       // twice as many; green: the 6/3 gyrogon girdle, three times as many)
-      if (own && el("showSym").checked) for (const g of D.symlines || []) {
+      if (el("showSym").checked) for (const g of T.symlines || []) {
         const tr = lines([mapPts(g.pts)], "extra-symmetry line", { color: css(g.kind === "girdle3" ? "--g3axis" : "--qaxis"), width: 5 });
         tr.hovertemplate = g.hover + "<extra></extra>";
         out.push(tr);
@@ -245,14 +249,14 @@ __TYPE_CSS__
             hovertemplate: (w.hover || `${label(t)}`) + "<extra></extra>" });
         }
       }
-      for (const s of D.lines) {
+      for (const s of T.lines || []) {
         const t = byId[s.id];
-        if (!own || !t || !visibleFor(s.id) || !el("showLines").checked) continue;
+        if (!t || !visibleFor(s.id) || !el("showLines").checked) continue;
         const tr = lines([mapPts(s.pts)], `${label(t)}`, { color: color(t), width: 5, dash: s.copy ? "dash" : "solid" });
         tr.hovertemplate = (s.hover || `${label(t)}`) + "<extra></extra>";
         out.push(tr);
       }
-      const pts0 = own ? D.points.filter((p) => byId[p.id] && visibleFor(p.id) && el("showPoints").checked) : [];
+      const pts0 = (T.points || []).filter((p) => byId[p.id] && visibleFor(p.id) && el("showPoints").checked);
       if (pts0.length) {
         const P = mapPts(pts0.map((p) => p.q.concat([p.hover || p.id])));
         out.push({ type: "scatter3d", mode: "markers", name: "points", x: P.map((p) => p[0]), y: P.map((p) => p[1]), z: P.map((p) => p[2]),

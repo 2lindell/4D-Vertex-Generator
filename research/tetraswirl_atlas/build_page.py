@@ -133,7 +133,58 @@ def voronoi_views(P, sample_seeds):
     on = zs[inside(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs])]
     axis = {"pts": [[0, 0, float(on.min())], [0, 0, float(on.max())]],
             "name": f"axis of the order-{Mv} rotation fixing the Voronoi anchor"} if len(on) else None
-    return Q, found, [
+    def inside_w(Uq):
+        return (Uq @ H[:, :3].T + H[:, 3] <= 1e-9).all(-1)
+
+    def to_wedge_chart(X):
+        """Seeds (n, 4) -> for each group element, chart points in the Voronoi chart and whether in the wedge."""
+        Y = np.einsum("gij,nj->gni", D.ELEMENTS, X)
+        sY = Y @ Av
+        Uq = (Y / np.where(np.abs(sY) < 1e-12, 1e-12, sY)[..., None] - Av) @ Fv.T
+        return Uq, (sY > 0) & inside_w(Uq)
+
+    def carry_poly(pts, n=240):
+        """A polyline of the page's own chart (straight pieces: great circles) -> its pieces inside the wedge, every
+        image under the group, each piece's ends bisected onto the wedge's faces."""
+        pts = np.asarray(pts, float)
+        out = []
+        for a, b in zip(pts[:-1], pts[1:]):
+            ts = np.linspace(0, 1, n + 1)
+            X = D.seed_from_chart(a[None] + ts[:, None] * (b - a)[None])
+            Uq, ok = to_wedge_chart(X)
+            for g in np.flatnonzero(ok.any(1)):
+                run = None
+                for i in range(len(ts)):
+                    if ok[g, i] and run is None:
+                        run = i
+                    if (not ok[g, i] or i == len(ts) - 1) and run is not None:
+                        j = i if ok[g, i] else i - 1
+                        def edge(t_in, t_out):
+                            lo, hi = t_in, t_out
+                            for _ in range(40):
+                                m = (lo + hi) / 2
+                                x = D.seed_from_chart((a + m * (b - a))[None])
+                                y = D.ELEMENTS[g] @ x[0]
+                                if y @ Av > 0 and inside_w(((y / (y @ Av) - Av) @ Fv.T)[None])[0]:
+                                    lo = m
+                                else:
+                                    hi = m
+                            x = D.seed_from_chart((a + lo * (b - a))[None])[0]
+                            y = D.ELEMENTS[g] @ x
+                            return (y / (y @ Av) - Av) @ Fv.T
+                        p0 = edge(ts[run], ts[run - 1]) if run > 0 else Uq[g, run]
+                        p1 = edge(ts[j], ts[j + 1]) if j < len(ts) - 1 else Uq[g, j]
+                        if np.linalg.norm(p1 - p0) > 1e-6:
+                            out.append([[round(float(x), 5) for x in p0], [round(float(x), 5) for x in p1]])
+                        run = None
+        return out
+
+    def carry_point(q):
+        Uq, ok = to_wedge_chart(D.seed_from_chart(np.asarray(q, float)[None]))
+        return [[round(float(x), 5) for x in Uq[g, 0]] for g in np.flatnonzero(ok[:, 0])][:1]
+
+    carry = {"poly": carry_poly, "point": carry_point}
+    return Q, found, carry, [
         {"id": "vwedge", "name": f"Voronoi wedge (1/{Mv} of the anchor's Voronoi cell)", "maps": [ident.tolist()],
          "bounds": bnd([ident]), "domain": dom, "axis": axis, "chart": "voronoi"},
         {"id": "vcell", "name": f"whole Voronoi cell ({Mv} wedges)", "maps": [M.round(12).tolist() for M in cell],
@@ -256,7 +307,7 @@ def main():
                       "bounds": bounds(maps_cell)})
     if D.DOMAIN == "cell16":                # (the Voronoi views as well, the samples moved into the Voronoi wedge)
         allP = np.vstack([np.array([q[:3] for q in v]) for v in samples.values()])
-        Q, found, vv = voronoi_views(allP, None)
+        Q, found, carry, vv = voronoi_views(allP, None)
         k = 0
         for tid, v in samples.items():
             pts_ = []
@@ -266,7 +317,36 @@ def main():
                 k += 1
             for view_ in vv:
                 view_.setdefault("samples", {})[tid] = pts_
+        # (the traced lines and points too, every image of each in the Voronoi wedge, so these views show the same)
+        tr_ = {"lines": [], "points": [], "symlines": [], "girdles": []}
+        for key_ in ("lines", "symlines", "girdles"):
+            for it in traced.get(key_, []):
+                for piece in carry["poly"](it["pts"]):
+                    tr_[key_].append({**{k: v for k, v in it.items() if k != "pts"}, "pts": piece})
+        for it in traced.get("points", []):
+            for q in carry["point"](it["q"]):
+                tr_["points"].append({**it, "q": q})
+        for view_ in vv:
+            view_["traced"] = tr_
         views += vv
+    # (a view of several domains: its outline, the edges of the whole solid, so the cuts between domains are not drawn
+    # as edges)
+    for view_ in views:
+        if len(view_["maps"]) > 1:
+            from scipy.spatial import ConvexHull
+            dverts = np.array((view_.get("domain") or {"verts": V})["verts"], float)
+            Ms = [np.array(M, float) for M in view_["maps"]]
+            W_ = np.vstack([dverts @ M[:, :3].T + M[:, 3] for M in Ms])
+            hull = ConvexHull(W_)
+            nrm = hull.equations
+            segs = set()
+            for i, simp in enumerate(hull.simplices):
+                for k in range(3):
+                    a_, b_ = sorted((simp[k], simp[(k + 1) % 3]))
+                    nb = hull.neighbors[i][(k + 2) % 3]
+                    if np.abs(nrm[i] - nrm[nb]).max() > 1e-7:
+                        segs.add((a_, b_))
+            view_["outline"] = [[W_[a_].round(6).tolist(), W_[b_].round(6).tolist()] for a_, b_ in sorted(segs)]
     zs = np.linspace(V[:, 2].min() - 1, V[:, 2].max() + 1, 4001)
     on = zs[D.in_domain(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs], 1e-12)]
     axis = {"pts": [[0, 0, float(on.min())], [0, 0, float(on.max())]],
