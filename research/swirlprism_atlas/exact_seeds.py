@@ -271,3 +271,51 @@ def solve(name, key, start, locus=(), hull_tol=1e-9, rounds=6):
 
 if __name__ == "__main__":
     print("use from a script", file=sys.stderr)
+
+
+def corner_infimum(name, key, inner, corner, normals=(), hull_tol=1e-9, n_dir=400, radii=(1e-6, 1e-5, 1e-4)):
+    """The shape's lowest edge ratio where it is reached at a corner of the shape (a point it closes on, not in it).
+
+    The forms are the shape's own (its edge orbits at `inner`, a point of it); the ratio at the corner (exact
+    betas, 40 digits) is the limit of the shape's ratio there. It is the minimum over the shape's closure when the ratio
+    rises along every direction from the corner into the shape: checked to first order exactly (the derivative of
+    log max q - log min q, from the forms' exact gradients at the corner, the extremes taken over the orbits active
+    there) over evenly spread directions that enter the shape (classified a small step along each), and by the ratio
+    itself at those steps."""
+    import bounds_walk as bw
+    forms = edge_orbits(np.asarray(inner, float) / np.sum(inner), hull_tol)
+    x = mp.matrix([mp.mpf(t) for t in corner])
+    x = x / mp.fsum(x)
+    xf = np.array([float(t) for t in x])
+    vals = [qx(f["M_ex"], x) for f in forms]
+    hi, lo = max(vals), min(vals)
+    tiny = mp.mpf(10) ** -30
+    A = [i for i, v in enumerate(vals) if hi - v < tiny]
+    B = [i for i, v in enumerate(vals) if v - lo < tiny]
+    R = mp.sqrt(hi / lo)
+    gA = [np.array([float(t) for t in (2 * forms[i]["M_ex"] * x)]) / float(hi) for i in A]
+    gB = [np.array([float(t) for t in (2 * forms[i]["M_ex"] * x)]) / float(lo) for i in B]
+    Ub = np.linalg.svd(np.ones((1, 4)))[2][1:]
+    if normals:
+        N = np.array([np.asarray(v, float) for v in normals])
+        _, sv, vt = np.linalg.svd(N @ Ub.T)
+        Ub = vt[int((sv > 1e-9).sum()):] @ Ub
+    D = bw.directions(Ub, n_dir)
+    entering, rises, slope_min, lower = 0, 0, np.inf, 0
+    for d in D:
+        ins = [r for r in radii if shape_key(xf + r * d, hull_tol) == (name, key)]
+        if not ins:
+            continue
+        entering += 1
+        slope = max(g @ d for g in gA) - min(g @ d for g in gB)         # (d/dt of log(max q / min q) at the corner)
+        slope_min = min(slope_min, slope)
+        rises += slope > 0
+        for r in ins:
+            b = xf + r * d
+            vv = [qf(f["M"], b) for f in forms]
+            if np.sqrt(max(vv) / min(vv)) < float(R) * (1 - 1e-13):
+                lower += 1
+    return {"name": name, "key": key, "corner": [mp.nstr(t, 40) for t in x], "edge_ratio_at_corner": mp.nstr(R, 40),
+            "orbits": len(forms), "longest_there": A, "shortest_there": B,
+            "checks": {"directions_entering_the_shape": entering, "of_them_ratio_rising_first_order": rises,
+                       "smallest_first_order_slope": float(slope_min), "points_in_the_shape_with_a_lower_ratio": lower}}
