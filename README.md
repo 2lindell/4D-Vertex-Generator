@@ -214,3 +214,13 @@ ruff check .
 ```
 
 The repository is released under the MIT License.
+
+## Swirlprism 3-sphere map
+
+`data/swirlprism/sphere_map/` holds every region, wall, line and point of the `h4_swirlprism`
+atlas carried to all 1200 copies of its fundamental domain, so each shape can be seen whole and
+each region's boundary is listed wall by wall. See `data/swirlprism/README.md` for the format and
+`data/swirlprism/sphere_map/REPORT.md` for a summary. Read it with
+`four_d_vertex_generator.sphere_map.SphereMap`; rebuild with
+`python -m four_d_vertex_generator.sphere_map.build` (`--from-checkpoint` redoes only the naming
+and later steps, e.g. after the atlas's working data changes).

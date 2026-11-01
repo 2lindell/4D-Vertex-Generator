@@ -1,0 +1,171 @@
+"""A readable summary of the 3-sphere map (REPORT.md), written from the data files alone."""
+from __future__ import annotations
+
+from collections import defaultdict
+from pathlib import Path
+
+
+def _pct(x: float) -> str:
+    return f"{100 * x:.2f}%"
+
+
+def _qpairs(orbits) -> str:
+    return ", ".join(f"{o['orbit']}->{o.get('q_image_orbit')}" for o in orbits)
+
+
+def write_report(root: Path) -> None:
+    from .api import SphereMap
+
+    m = SphereMap.load(root)
+    c = m.manifest["counts"]
+    ch = m.manifest["checks"]
+    lines: list[str] = []
+    add = lines.append
+    add("# Swirlprism 3-sphere map")
+    add("")
+    add(f"Built from `{m.manifest['source']['folder']}` on `{m.manifest['source']['branch']}` "
+        f"(commit `{m.manifest['source']['commit'][:7]}`). Symmetry: {m.manifest['symmetry']}. "
+        f"Domain: {m.manifest['domain']}.")
+    add("")
+    add("| | count |")
+    add("|---|---|")
+    for k, v in c.items():
+        add(f"| {k.replace('_', ' ')} | {v} |")
+    add("")
+    add("## Checks")
+    add("")
+    add(f"- Pieces whose sample points named different regions: "
+        f"{len(ch['pieces_with_disagreeing_samples'])}")
+    add(f"- Patch naming: {ch['patch_naming']}")
+    add(f"- Patch names checked by classifying a point on each patch: {ch.get('patch_name_check')}")
+    add(f"- Surface walks: {ch.get('surface_walks')}")
+    add(f"- Walks continued across domain faces: {ch.get('walks_across_faces')}")
+    add(f"- Shape changes on no atlas surface: {len(ch.get('shape_changes_on_no_atlas_surface', []))}")
+    add(f"- Face gluing: {ch['face_glue']}")
+    add(f"- Exploration: {ch['exploration']}")
+    add("")
+    add("## Findings against the working data")
+    add("")
+    from .frame import load_json
+    w = load_json("working_data.json")
+    data_walls = set(w["walls"])
+    found = {k for k in m.walls if not k.startswith("unnamed")}
+    for k in sorted(data_walls - found):
+        add(f"- Wall {k} (working data: regions {', '.join(w['walls'][k]['regions'])}) was not found.")
+    for k in sorted(found):
+        wl = m.walls[k]
+        want = set(wl.get("regions_in_working_data") or [])
+        got = set(wl["regions_found"])
+        if want != got:
+            extra, missing = sorted(got - want), sorted(want - got)
+            add(f"- Wall {k}: " + "; ".join(x for x in (
+                f"also borders {', '.join(extra)}" if extra else "",
+                f"not found next to {', '.join(missing)}" if missing else "") if x) + ".")
+    for k in sorted(m.walls):
+        if k.startswith("unnamed"):
+            ps = [m.patches[i] for i in m.walls[k]["patches"]]
+            add(f"- {k}: {len(ps)} patch(es) the data names no wall for "
+                f"({', '.join(sorted({p['naming'] for p in ps}))}).")
+    bad = [p for p in m.patches if p.get("verified_by_classification") is False and p["wall"]]
+    for p in bad:
+        add(f"- Patch {p['id']} is named {p['wall']} from the data, but a point on it does not "
+            f"give {p['wall']}'s counts.")
+    try:
+        walked = load_json("bounds_walk.json")["shapes"]
+    except FileNotFoundError:
+        walked = {}
+    if walked:
+        add("")
+        add("Cross-check with the atlas's `bounds_walk.json` (walls found by walking out of a shape):")
+        add("")
+        add("| region | walls from bounds_walk | walls on this map's component(s) | agree |")
+        add("|---|---|---|---|")
+        for name, info in sorted(walked.items()):
+            if name not in m.regions:
+                continue
+            theirs = sorted({b["on"] for b in info["bounds"] if b["on"] != "ERR"})
+            ours = sorted({f["wall"] for o in m.regions[name]["orbits"] for f in o["boundary"]})
+            add(f"| {name} | {', '.join(theirs)} | {', '.join(ours)} | "
+                f"{'yes' if set(theirs) <= set(ours) else 'no'} |")
+    add("")
+    add("## Regions")
+    add("")
+    add("Volume share is of the whole 3-sphere. A component is one connected volume; its "
+        "stabilizer is the subgroup mapping it onto itself, so components = 1200 / stabilizer "
+        "for each orbit.")
+    add("")
+    add("The half-turn Q (outside the group, normalizing it) maps every shape to a congruent one; "
+        "'Q pairs' shows the orbit each orbit's Q image lies in (0<->1 means Q swaps them).")
+    add("")
+    add("| region | shape | volume | components | stabilizer | domain copies per component "
+        "| Q pairs |")
+    add("|---|---|---|---|---|---|---|")
+    for name, r in sorted(m.regions.items(), key=lambda kv: -kv[1]["volume_share"]):
+        orb = r["orbits"]
+        add(f"| {name} | {r['name']} | {_pct(r['volume_share'])} | "
+            f"{' + '.join(str(o['components']) for o in orb)} | "
+            f"{', '.join(str(o['stabilizer_order']) for o in orb)} | "
+            f"{', '.join(str(o['copies_spanned']) for o in orb)} | "
+            f"{_qpairs(orb)} |")
+    add("")
+    add("## How each region is bounded")
+    add("")
+    add("For one component of each region: each wall on its boundary, the region across it, how "
+        "many patches (exact pieces of wall, see `patches.json`) that face is made of, and "
+        "whether the face is the whole of a wall sheet or part of one.")
+    for name, r in sorted(m.regions.items()):
+        add("")
+        add(f"### {name}: {r['name']}")
+        listed = set(r["walls_in_working_data"])
+        for o in r["orbits"]:
+            if len(r["orbits"]) > 1:
+                add("")
+                add(f"Orbit {o['orbit']} ({o['components']} components):")
+            add("")
+            add("| wall | across | parts | wall sheets (parts here / in sheet) |")
+            add("|---|---|---|---|")
+            found = set()
+            for f in o["boundary"]:
+                found.add(f["wall"])
+                sheets = ", ".join(
+                    f"{w['parts_here']}/{w['parts_in_component']}" + (" whole" if w["whole"] else "")
+                    for w in f["wall_components"])
+                add(f"| {f['wall']} | {f['other_region']} | {len(f['parts'])} | {sheets} |")
+            missing = sorted(listed - found)
+            extra = sorted(w for w in found if w not in listed)
+            if missing or extra:
+                add("")
+                if missing:
+                    add(f"Walls the working data lists for {name} but not found on this "
+                        f"component: {', '.join(missing)}")
+                if extra:
+                    add(f"Walls found here that the working data does not list for {name}: "
+                        f"{', '.join(extra)}")
+    add("")
+    add("## Walls")
+    add("")
+    add("| wall | shape | regions found | sheets on S^3 | stabilizer | patches |")
+    add("|---|---|---|---|---|---|")
+    for name, wl in sorted(m.walls.items()):
+        orb = wl["orbits"]
+        add(f"| {name} | {wl['name'] or ''} | {', '.join(wl['regions_found'])} | "
+            f"{' + '.join(str(o['components']) for o in orb)} | "
+            f"{', '.join(str(o['stabilizer_order']) for o in orb)} | {len(wl['patches'])} |")
+    add("")
+    add("## Lines and points")
+    add("")
+    add("| line | shape | copies on S^3 | joined curves | stabilizer |")
+    add("|---|---|---|---|---|")
+    for name, ln in sorted(m.lines.items()):
+        add(f"| {name} | {ln['name']} | {ln['carried_copies']} | {ln['components']} | "
+            f"{ln['stabilizer_order']} |")
+    add("")
+    add("| point | copies on S^3 |")
+    add("|---|---|")
+    counts = defaultdict(set)
+    for name, items in m.points["points"].items():
+        for it in items:
+            counts[name].add(it["copies_on_sphere"])
+    for name, cs in sorted(counts.items()):
+        add(f"| {name} | {', '.join(map(str, sorted(cs)))} |")
+    (Path(root) / "REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

@@ -1,0 +1,90 @@
+{
+ "format_version": 1,
+ "symmetry": "h4_swirlprism (order 1200)",
+ "source": {
+  "branch": "claude/laughing-noether-qydcwe",
+  "commit": "8488da9c0cf86cef7fbb4f49c6ca797ccfe46b42",
+  "folder": "research/swirlprism_atlas",
+  "copied_to": "data/swirlprism/source"
+ },
+ "domain": "half of one 600-cell tetrahedron: beta >= 0, beta3 >= beta4 (barycentric on cell_vertices); 1200 copies tile S^3 once",
+ "counts": {
+  "surfaces": 182,
+  "surfaces_from_source": 162,
+  "pieces": 11683,
+  "patches": 4001,
+  "regions": 40,
+  "region_components": 88800,
+  "walls": 55,
+  "wall_components": 89840,
+  "lines": 24,
+  "points": 14
+ },
+ "checks": {
+  "pieces_with_disagreeing_samples": [],
+  "face_glue": {
+   "glued": 27830,
+   "unseen piece": 1
+  },
+  "patch_naming": {
+   "data": 3413,
+   "ambiguous+classified": 482,
+   "data said X26+classified": 14,
+   "no wall in data+classified": 1,
+   "inside region+classified (4/4 nearby agree)": 44,
+   "inside region+classified (2/2 nearby agree)": 15,
+   "inside region+classified (3/3 nearby agree)": 21,
+   "inside region+classified (1/1 nearby agree)": 11
+  },
+  "unnamed_patch_reasons": {},
+  "shape_changes_on_no_atlas_surface": [],
+  "glue_label_mismatches_as_face_walls": 1328,
+  "patch_name_check": {
+   "data name confirmed": 3412,
+   "settled by classification": 483,
+   "data name corrected by classification": 14,
+   "data name contradicted": 1
+  },
+  "surface_walks": {
+   "crossings": 701698,
+   "crossings at a meeting curve": 52108,
+   "left domain": 57741,
+   "unseen pieces": 1187,
+   "walks": 58380,
+   "still walking at the end": 639
+  },
+  "walks_across_faces": {
+   "glued": 24675,
+   "not on a library surface there": 32490,
+   "unseen pieces": 12,
+   "continues in a domain face": 527,
+   "face_patch_links": {
+    "unresolved": 363,
+    "linked": 164
+   },
+   "face_walks": {
+    "face crossings": 27743,
+    "left the face": 1534,
+    "into a face beyond the edge": 617,
+    "into a surface beyond the edge": 847
+   }
+  },
+  "exploration": {
+   "chords": 200000,
+   "rejected_chords": 3,
+   "coincident_crossings": 20,
+   "pieces_seen_once": 125
+  }
+ },
+ "files": {
+  "group.json / group.npz": "the 1200 elements, cell frame, multiplication and inverse tables, the 2400 beta maps (G and G.Q)",
+  "surface_library.json": "every surface (plane or polynomial in beta) crossing the domain",
+  "pieces.json": "arrangement pieces in the domain: sign vector, region, neighbours",
+  "patches.json": "wall patches in the domain",
+  "regions.json": "regions on the sphere: components, orbits, boundaries",
+  "walls.json": "walls on the sphere: patches, components",
+  "lines.json / points.json": "lines and points carried to every copy",
+  "components.npz": "region_component[copy, piece] and wall_component[copy, patch]",
+  "REPORT.md": "readable summary"
+ }
+}

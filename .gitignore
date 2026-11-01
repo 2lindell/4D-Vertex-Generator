@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# sphere map build cache
+data/swirlprism/sphere_map/.cache/
