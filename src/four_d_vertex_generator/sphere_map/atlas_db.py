@@ -293,6 +293,9 @@ def build(root=None) -> dict:
                 lines_out[i]["congruent_to"] = {"line_piece": hit[0], "map": hit[1]}
     _log(f"line piece types (congruence classes): {n_types}")
 
+    from .line_atlas import build_line_pieces
+    atlas_lines, place_atlas = build_line_pieces(grp, line_doc, _log, edges)
+
     def place_line(copy, edge):
         if edge not in bset:
             return None
@@ -334,11 +337,16 @@ def build(root=None) -> dict:
             fid = len(faces_out)
             k0, j0 = orb["members"][0]
             ca, cb = side_comps(k0, j0)
-            outline = []
+            outline, unlisted = [], []
             for k, e in orb.get("outline", []):
-                pl = place_line(k, e)
-                if pl is not None and pl not in outline:
-                    outline.append(pl)
+                pl = place_atlas(k, e)
+                if pl is not None:
+                    if pl not in outline:
+                        outline.append(pl)
+                    continue
+                pl = place_line(k, e)               # a curve on no atlas line
+                if pl is not None and pl not in unlisted:
+                    unlisted.append(pl)
             surfaces = sorted({(patches[j]["surface"], k) for k, j in orb["members"]
                                if patches[j]["surface"] is not None})
             cong = orb.get("congruence_with_first_orbit") or {}
@@ -348,7 +356,8 @@ def build(root=None) -> dict:
                 "surfaces": [{"surface": s, "copy": k, "equation": lib[s]["name"]}
                              for s, k in surfaces[:8]],
                 "lies_in_domain_face": any(patches[j]["face"] for _, j in orb["members"]),
-                "outline": outline, "perimeter": orb.get("perimeter"),
+                "outline": outline, "outline_curves_on_no_atlas_line": unlisted,
+                "perimeter": orb.get("perimeter"),
                 "members": orb["members"],
                 "components_on_sphere": orb["components"],
                 "stabilizer_order": orb["stabilizer_order"],
@@ -410,6 +419,18 @@ def build(root=None) -> dict:
             "types": [{"walls_round": list(w), "regions_round": list(r)} for w, r in types],
             "share_of_line_on_traced_edges": round(covered / max(total, 1), 3),
         }
+    for name in list(per_line):
+        per_line[name] = {"from_traced_edges": per_line[name]}
+    for c in atlas_lines:
+        e = per_line.setdefault(c["line_shape"], {})
+        e.setdefault("piece_types", set()).add(c["piece_type"])
+        e["classes"] = e.get("classes", 0) + 1
+        e["pieces_on_sphere"] = e.get("pieces_on_sphere", 0) + c["copies_on_sphere"]
+        e["closed_loops"] = e.get("closed_loops", 0) + int(c["closed"])
+    for e in per_line.values():
+        if "piece_types" in e:
+            e["piece_type_ids"] = sorted(e["piece_types"])
+            e["piece_types"] = len(e["piece_types"])
     traced = defaultdict(lambda: {"piece_types": set(), "classes": 0, "pieces_on_sphere": 0})
     for ln in lines_out:
         t = traced[ln["line_shape"] or "unnamed"]
@@ -417,21 +438,39 @@ def build(root=None) -> dict:
         t["classes"] += 1
         t["pieces_on_sphere"] += ln["copies_on_sphere"]
     for name, t in traced.items():
-        entry = per_line.setdefault(name, {})
+        entry = per_line.setdefault(name, {}).setdefault("from_traced_edges", {})
         entry["traced_piece_types"] = len(t["piece_types"])
         entry["traced_classes"] = t["classes"]
         entry["traced_pieces_on_sphere"] = t["pieces_on_sphere"]
+    # traced edges (where walls meet) that lie on no atlas line, by the walls meeting there
+    unlisted = defaultdict(lambda: {"edges": [], "length_in_domain": 0.0})
+    for e in boundary:
+        if place_atlas(0, e) is not None:
+            continue
+        ed = edges[e]
+        walls_meeting = tuple(sorted({w["wall"] for w in ed["walls_round"] if w["wall"]}))
+        shape = ed["line_shape"] if isinstance(ed["line_shape"], str) else None
+        u = unlisted[(walls_meeting, shape)]
+        u["edges"].append(e)
+        pts = point_from_beta(np.asarray(ed["polyline_beta"]))
+        u["length_in_domain"] += float(np.sum(np.arccos(np.clip(
+            np.sum(pts[1:] * pts[:-1], axis=1), -1, 1))))
+    curves_not_on_atlas_lines = sorted(
+        ({"walls_meeting": list(k[0]), "classifies_as_line": k[1], "edges": v["edges"],
+          "length_in_domain": round(v["length_in_domain"], 6)} for k, v in unlisted.items()),
+        key=lambda x: -x["length_in_domain"])
     faces_on_line = Counter(x["class"] for f in faces_out for x in f["outline"])
     closure = {
         "faces_with_two_region_sides": sum(len(f["sides"]) == 2 for f in faces_out),
         "faces": len(faces_out),
         "faces_with_an_outline": sum(bool(f["outline"]) for f in faces_out),
-        "line_pieces_bounding_a_face": sum(1 for ln in lines_out if faces_on_line[ln["id"]]),
-        "line_pieces": len(lines_out),
-        "line_pieces_with_two_end_points": sum(len(ln["ends"]) == 2 for ln in lines_out),
-        "closed_line_pieces (no ends)": sum(len(ln["ends"]) == 0 and ln["open_ends"] == 0
-                                           for ln in lines_out),
-        "line_pieces_with_open_ends": sum(ln["open_ends"] > 0 for ln in lines_out),
+        "line_pieces_bounding_a_face": sum(1 for ln in atlas_lines if faces_on_line[ln["id"]]),
+        "line_pieces": len(atlas_lines),
+        "line_pieces_with_two_end_points": sum(len(ln["end_points"]) >= 1 and not ln["closed"]
+                                               for ln in atlas_lines),
+        "closed_loop_line_pieces": sum(ln["closed"] for ln in atlas_lines),
+        "faces_with_outline_curves_on_no_atlas_line": sum(
+            bool(f["outline_curves_on_no_atlas_line"]) for f in faces_out),
         "regions_with_faces": sum(bool(r["faces"]) for r in region_classes),
         "regions": len(region_classes),
         "points": len(point_classes),
@@ -444,7 +483,9 @@ def build(root=None) -> dict:
         "counts_per_line_shape": per_line,
         "closure": closure,
         "points": point_classes,
-        "line_pieces": lines_out,
+        "line_pieces": atlas_lines,
+        "curves_not_on_atlas_lines": curves_not_on_atlas_lines,
+        "traced_edges": lines_out,
         "faces": faces_out,
         "regions": region_classes,
     }

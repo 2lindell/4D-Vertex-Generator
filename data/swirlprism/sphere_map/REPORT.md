@@ -991,7 +991,7 @@ A face is one connected piece of one wall sheet between one region component and
 
 ## Atlas database (atlas.json)
 
-Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 146, 'line_pieces_bounding_a_face': 415, 'line_pieces': 450, 'line_pieces_with_two_end_points': 144, 'closed_line_pieces (no ends)': 137, 'line_pieces_with_open_ends': 49, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
+Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 134, 'line_pieces_bounding_a_face': 57, 'line_pieces': 143, 'line_pieces_with_two_end_points': 143, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 109, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
 
 | wall | piece types | face classes | faces on S^3 | unplaced fragments |
 |---|---|---|---|---|
@@ -1051,33 +1051,69 @@ Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outli
 | X98 | 1 | 2 | 2400 | 0 |
 | X99 | 1 | 2 | 2400 | 0 |
 
-| line | piece types (atlas line split) | runs in the domain | share on traced edges | traced piece types | traced classes |
-|---|---|---|---|---|---|
-| B1 | 7 | 91 | 1.0 | 38 | 38 |
-| C2a | 9 | 33 | 1.0 | 4 | 4 |
-| C2b | 9 | 32 | 1.0 | 27 | 27 |
-| C3 | 10 | 25 | 1.0 | 30 | 38 |
-| D1 | 9 | 49 | 1.0 | 6 | 6 |
-| D2 | 11 | 64 | 1.0 | 13 | 13 |
-| D3 | 10 | 48 | 1.0 | 2 | 4 |
-| E1 | 22 | 194 | 0.991 | 81 | 81 |
-| E2 | 7 | 8 | 1.0 | 4 | 5 |
-| T1 | 9 | 10 | 0.782 | 1 | 4 |
-| X1 | 4 | 4 | 0.118 | 1 | 1 |
-| X13 | 7 | 9 | 1.0 | 10 | 10 |
-| X18 | 4 | 4 | 1.0 | 2 | 3 |
-| X2 | 10 | 16 | 1.0 | 25 | 38 |
-| X24 | 9 | 18 | 0.99 | 3 | 5 |
-| X29 | 7 | 16 | 1.0 | 2 | 3 |
-| X4 | 9 | 11 | 1.0 | 3 | 5 |
-| X5 | 12 | 22 | 1.0 | 2 | 6 |
-| X6 | 5 | 7 | 0.837 | 7 | 13 |
-| X78 | 4 | 4 | 0.991 | 2 | 2 |
-| X8 | 7 | 8 | 1.0 | 3 | 5 |
-| X80 | 5 | 8 | 1.0 | 2 | 2 |
-| X81 | 9 | 47 | 1.0 | 3 | 3 |
-| X97 | 7 | 12 | 1.0 | 10 | 32 |
-| unnamed |  |  |  | 81 | 102 |
+Line pieces are the atlas's own lines, cut only at its exact meeting points and joined where a line goes on into the next copy; piece types are congruence classes under G and G.Q.
+
+| line | piece types | classes | pieces on S^3 |
+|---|---|---|---|
+| B1 | 1 | 1 | 1200 |
+| C2a | 1 | 1 | 1200 |
+| C2b | 1 | 2 | 2400 |
+| C3 | 1 | 2 | 2400 |
+| D1 | 1 | 3 | 3600 |
+| D2 | 2 | 5 | 6000 |
+| D3 | 2 | 2 | 2400 |
+| E1 | 4 | 15 | 18000 |
+| E2 | 3 | 6 | 7200 |
+| T1 | 3 | 9 | 10800 |
+| X1 | 2 | 3 | 3600 |
+| X13 | 3 | 8 | 9600 |
+| X18 | 3 | 3 | 3600 |
+| X2 | 3 | 6 | 7200 |
+| X24 | 3 | 7 | 8400 |
+| X29 | 3 | 8 | 9600 |
+| X4 | 3 | 6 | 7200 |
+| X5 | 5 | 15 | 18000 |
+| X6 | 3 | 5 | 6000 |
+| X78 | 2 | 3 | 3600 |
+| X8 | 3 | 6 | 7200 |
+| X80 | 3 | 7 | 8400 |
+| X81 | 3 | 12 | 14400 |
+| X97 | 3 | 8 | 9600 |
+
+Curves where walls meet (traced, exact) that lie on no atlas line, by the walls meeting there:
+
+| walls meeting | classifies as line | edges | length in the domain |
+|---|---|---|---|
+| X41, X96 | X97 | 18 | 3.228796 |
+| X14 |  | 10 | 1.494474 |
+| X47 | X18 | 7 | 1.466336 |
+| X3 |  | 7 | 0.773879 |
+| X22, X93 |  | 4 | 0.701956 |
+| F1, X28 |  | 3 | 0.676964 |
+| F4, X100 |  | 2 | 0.658065 |
+| X101, X26, X79 |  | 3 | 0.594527 |
+| X23, X39 | X24 | 2 | 0.540208 |
+| X11 |  | 4 | 0.524082 |
+| X41 |  | 1 | 0.495481 |
+| X51, X84 |  | 2 | 0.481123 |
+| X35, X52 | X18 | 2 | 0.462444 |
+| T2, X11 | X97 | 6 | 0.410017 |
+| X28 |  | 1 | 0.402551 |
+| X14, X25 |  | 6 | 0.391983 |
+| X84 | X18 | 2 | 0.290453 |
+| X17, X19 |  | 3 | 0.252916 |
+| X48 | X18 | 1 | 0.250966 |
+| X11, X19 | X6 | 1 | 0.239502 |
+| T2, X94 | X97 | 2 | 0.180073 |
+| X19, X26 | X2 | 1 | 0.170301 |
+| F5, X20 |  | 2 | 0.150771 |
+| X21, X98 |  | 2 | 0.128422 |
+| X10, X9 |  | 2 | 0.118859 |
+| F1, T2 | X97 | 1 | 0.112748 |
+| X17, X31 |  | 2 | 0.099102 |
+| F1 |  | 1 | 0.052892 |
+| X27, X44 |  | 2 | 0.045405 |
+| X38 |  | 1 | 0.02779 |
 
 ## Lines and points
 

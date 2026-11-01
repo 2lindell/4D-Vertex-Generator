@@ -230,13 +230,28 @@ def write_report(root: Path) -> None:
             add(f"| {w} | {v['piece_types']} | {v['face_classes']} | {v['faces_on_sphere']} | "
                 f"{v['unplaced_fragments']} |")
         add("")
-        add("| line | piece types (atlas line split) | runs in the domain | share on traced edges "
-            "| traced piece types | traced classes |")
-        add("|---|---|---|---|---|---|")
+        add("Line pieces are the atlas's own lines, cut only at its exact meeting points and joined "
+            "where a line goes on into the next copy; piece types are congruence classes under G "
+            "and G.Q.")
+        add("")
+        add("| line | piece types | classes | pieces on S^3 |")
+        add("|---|---|---|---|")
         for ln, v in db["counts_per_line_shape"].items():
-            add(f"| {ln} | {v.get('piece_types', '')} | {v.get('runs_in_domain', '')} | "
-                f"{v.get('share_of_line_on_traced_edges', '')} | "
-                f"{v.get('traced_piece_types', '')} | {v.get('traced_classes', '')} |")
+            if "piece_types" not in v or not isinstance(v["piece_types"], int):
+                continue
+            add(f"| {ln} | {v['piece_types']} | {v.get('classes')} | {v.get('pieces_on_sphere')} |")
+        cn = db.get("curves_not_on_atlas_lines") or []
+        if cn:
+            add("")
+            add("Curves where walls meet (traced, exact) that lie on no atlas line, by the walls "
+                "meeting there:")
+            add("")
+            add("| walls meeting | classifies as line | edges | length in the domain |")
+            add("|---|---|---|---|")
+            for c in cn:
+                add(f"| {', '.join(c['walls_meeting']) or '(one wall)'} | "
+                    f"{c['classifies_as_line'] or ''} | {len(c['edges'])} | "
+                    f"{c['length_in_domain']} |")
     add("")
     add("## Lines and points")
     add("")

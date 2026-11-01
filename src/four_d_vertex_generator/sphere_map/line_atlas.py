@@ -1,0 +1,192 @@
+"""Line pieces from the atlas's own lines.
+
+The working data holds every line exactly (``exact.lines``: polylines in the domain, each on the
+surfaces it lies on) and how each of its domain pieces ends (``line_ends.json``): on a named point,
+on another line, or going on as the same line into the next copy. A line is split only at known
+points: the atlas's exact meeting points (``exact.points``), wherever a copy of one lies on it.
+Pieces are joined where the line just goes on into the next copy. The pieces that result are
+grouped into classes under the group and then into congruence types under G and G.Q.
+"""
+from __future__ import annotations
+
+from collections import Counter, defaultdict
+
+import numpy as np
+from scipy.spatial import cKDTree
+
+from .frame import load_json, point_from_beta
+
+
+def densify(r4: np.ndarray, step: float = 2e-4) -> np.ndarray:
+    """Points along a polyline on S^3 at about `step` apart (chords split and renormalised)."""
+    out = [r4[:1]]
+    for a, b in zip(r4[:-1], r4[1:]):
+        n = max(1, int(np.ceil(np.linalg.norm(b - a) / step)))
+        t = np.linspace(0, 1, n + 1)[1:, None]
+        seg = a * (1 - t) + b * t
+        out.append(seg / np.linalg.norm(seg, axis=1, keepdims=True))
+    return np.vstack(out)
+
+
+def _arc(pts):
+    return float(np.sum(np.arccos(np.clip(np.sum(pts[1:] * pts[:-1], axis=1), -1, 1))))
+
+
+def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
+    """Returns (pieces, place) — pieces: list of class records; place(line, sub, copy) -> ref."""
+    from .build import _components, sphere_edges
+
+    w = load_json("working_data.json")
+    lines = w["exact"]["lines"]
+    ends_doc = load_json("line_ends.json")["lines"]
+    named = [(p["name"], point_from_beta(np.asarray(p["float"], float))) for p in w["exact"]["points"]]
+    all_named = np.vstack([grp.g @ x for _, x in named])            # every copy of every point
+    named_of = [n for n, _ in named for _ in range(grp.n)]
+    ntree = cKDTree(all_named)
+
+    # 1. cut each domain piece of each line at every copy of a named point lying on it
+    subs = []                # (line, atlas piece, polyline beta, start name, end name)
+    for name, info in lines.items():
+        for pi, poly in enumerate(info["points"]):
+            poly = np.asarray(poly, float)
+            poly = poly / poly.sum(axis=1, keepdims=True)
+            r4 = point_from_beta(poly)
+            cut_at = []
+            for idx, x in enumerate(r4):
+                hit = ntree.query_ball_point(x, 1e-6)
+                if hit:
+                    cut_at.append((idx, named_of[hit[0]]))
+            # the piece's own ends on named points (line_ends 'on')
+            ends = {e["side"]: e for e in ends_doc.get(name, []) if e["piece"] == pi}
+            start = ends.get("start", {}).get("on")
+            stop = ends.get("end", {}).get("on")
+            bounds = [(0, start)] + [c for c in cut_at if 0 < c[0] < len(poly) - 1] + \
+                [(len(poly) - 1, stop)]
+            for (a, na), (b, nb) in zip(bounds[:-1], bounds[1:]):
+                if b - a < 1:
+                    continue
+                subs.append({"line": name, "atlas_piece": pi, "from": a, "to": b,
+                             "polyline": poly[a:b + 1], "start_point": na, "end_point": nb,
+                             "surfaces": info["surfaces"][pi] if pi < len(info["surfaces"]) else
+                             info["surfaces"][0]})
+    log(f"atlas lines: {len(subs)} pieces in the domain after cutting at named points")
+
+    # 2. join across ends that are not on a named point (the same line going on)
+    end_x, end_owner = [], []
+    for si, sp in enumerate(subs):
+        for side, idx, named_end in (("start", 0, sp["start_point"]), ("end", -1, sp["end_point"])):
+            if named_end:
+                continue
+            end_x.append(point_from_beta(sp["polyline"][idx]))
+            end_owner.append(si)
+    end_x = np.array(end_x)
+    all_x = np.einsum("gij,nj->gni", grp.g, end_x).reshape(-1, 4)
+    tree = cKDTree(all_x)
+    n_end = len(end_owner)
+    joins = []
+    for i, (si, x) in enumerate(zip(end_owner, end_x)):
+        for j in tree.query_ball_point(x, 1e-6):
+            k, i2 = divmod(j, n_end)
+            s2 = end_owner[i2]
+            if (k == 0 and i2 == i) or subs[s2]["line"] != subs[si]["line"]:
+                continue
+            joins.append((si, int(k), s2))
+    comp = _components(grp.n * len(subs), *sphere_edges([], joins, len(subs)))
+    comp = comp.reshape(grp.n, len(subs))
+
+    # 3. classes (orbits) of whole pieces
+    placed, classes = {}, []
+    for c in np.unique(comp):
+        c = int(c)
+        if c in placed:
+            continue
+        ks, js = np.nonzero(comp == c)
+        k0, s0 = int(ks[0]), int(js[0])
+        images = comp[grp.mult[:, k0], s0]
+        stab = int(np.sum(images == c))
+        for h in range(grp.n):
+            placed.setdefault(int(images[h]), (len(classes), h))
+        members = [[int(k), int(s)] for k, s in zip(ks, js)]
+        names = Counter(subs[s]["line"] for _, s in members)
+        pts = np.vstack([densify(point_from_beta(subs[s]["polyline"])) @ grp.g[k].T
+                         for k, s in members])
+        ends = sorted({subs[s][e] for _, s in members for e in ("start_point", "end_point")
+                       if subs[s][e]})
+        classes.append({
+            "id": len(classes), "line_shape": names.most_common(1)[0][0],
+            "segments": [{"copy": k, "line": subs[s]["line"], "atlas_piece": subs[s]["atlas_piece"],
+                          "points": [subs[s]["from"], subs[s]["to"]],
+                          "equations": subs[s]["surfaces"]} for k, s in members],
+            "end_points": ends,
+            "closed": not any(subs[s]["start_point"] or subs[s]["end_point"] for _, s in members),
+            "length": sum(_arc(point_from_beta(subs[s]["polyline"])) for _, s in members),
+            "stabilizer_order": stab, "copies_on_sphere": grp.n // stab,
+            "_cloud": pts,
+        })
+    log(f"atlas line pieces: {len(classes)} classes on the sphere")
+
+    # 4. congruence types under G and G.Q, within one line shape
+    from .frame import source_dir
+    maps = np.concatenate([grp.g, grp.g @ np.load(source_dir() / "normalizer_q.npy")])
+    by_shape = defaultdict(list)
+    for c in classes:
+        by_shape[c["line_shape"]].append(c["id"])
+    n_types = 0
+    for ids in by_shape.values():
+        reps = []
+        for i in ids:
+            ci = classes[i]
+            hit = None
+            for t in reps:
+                ct = classes[t]
+                if abs(ct["length"] - ci["length"]) > 1e-3 * max(ct["length"], 1e-3):
+                    continue
+                tb = cKDTree(ci["_cloud"])
+                sub = ct["_cloud"][:: max(1, len(ct["_cloud"]) // 120)]
+                for mi, m in enumerate(maps):
+                    d, _ = tb.query(sub @ m.T, distance_upper_bound=1e-3)
+                    if np.isfinite(d).all() and d.max() < 3e-4:
+                        mapped = ct["_cloud"] @ m.T
+                        if tb.query(mapped)[0].max() < 3e-4 and \
+                                cKDTree(mapped).query(ci["_cloud"])[0].max() < 3e-4:
+                            hit = (t, mi)
+                            break
+                if hit:
+                    break
+            if hit is None:
+                reps.append(i)
+                ci["piece_type"], ci["congruent_to"] = n_types, None
+                n_types += 1
+            else:
+                ci["piece_type"] = classes[hit[0]]["piece_type"]
+                ci["congruent_to"] = {"line_piece": hit[0], "map": hit[1]}
+    log(f"atlas line piece types: {n_types}")
+    for c in classes:
+        del c["_cloud"]
+
+    # which atlas sub-piece each traced edge lies on (for face outlines): most of the edge's points
+    # within 1e-4 of the sub-piece on the sphere (the edge in copy 0, sub-pieces in copy 0)
+    dense, owner = [], []
+    for si, sp in enumerate(subs):
+        d = densify(point_from_beta(sp["polyline"]), 5e-5)
+        dense.append(d)
+        owner += [si] * len(d)
+    stree = cKDTree(np.vstack(dense))
+    edge_sub = defaultdict(Counter)
+    for e in traced_edges:
+        pts = densify(point_from_beta(np.asarray(e["polyline_beta"], float)), 2e-4)
+        d, j = stree.query(pts)
+        close = d < 1e-4
+        if close.mean() > 0.8:
+            for jj in j[close]:
+                edge_sub[e["id"]][owner[jj]] += 1
+    del line_segs_doc
+
+    def place_edge(copy, edge):
+        if edge not in edge_sub:
+            return None
+        si = edge_sub[edge].most_common(1)[0][0]
+        cls, h = placed[int(comp[copy, si])]
+        return {"class": cls, "g": int(h)}
+
+    return classes, place_edge

@@ -43,11 +43,13 @@ One record per class of element under the symmetry (build with
 | key | each record |
 |---|---|
 | `points` | a corner: exact beta (copy 0), R^4 point, the surfaces through it (their equations by library name), atlas point name if it is one, copies on the sphere |
-| `line_pieces` | a line piece run corner to corner across domain cuts: its segments (copy, edge, the two surfaces and their equations), end points, walls and regions round it, line shape, length |
+| `line_pieces` | a piece of one of the atlas's lines, cut only at its exact meeting points and joined where the line goes on into the next copy: its segments (copy, atlas line piece, point range, the surfaces it lies on), end points (named), length, congruence type |
+| `curves_not_on_atlas_lines` | traced curves where walls meet that lie on no atlas line, grouped by the walls meeting there (atlas lines whose recorded pieces miss them, cuts, or meeting curves the atlas does not list) |
+| `traced_edges` | the traced edges themselves (exact curves between corners), for reference |
 | `faces` | a piece of one wall between two region components: wall, regions, its two sides as region references, the surfaces it lies on, its outline as line-piece references, congruence with the other faces of its labels |
 | `regions` | a region volume: shape, volume share, and every face bounding it |
 | `counts_per_wall` | a wall's piece types (one per pair of regions it separates; all faces of a type are congruent), classes and faces on the sphere, unplaced fragments |
-| `counts_per_line_shape` | an atlas line split where the walls and regions round it change: piece types and runs |
+| `counts_per_line_shape` | per atlas line: piece types (congruence classes), classes, pieces on the sphere |
 | `closure` | the checks: two sides per face, outlines, line-piece ends, regions bounded |
 
 A reference `{"class": c, "g": k}` is class `c`'s representative carried by group element `k`
