@@ -309,7 +309,7 @@ def corner_infimum(name, key, inner, corner, normals=(), hull_tol=1e-9, n_dir=40
         entering += 1
         slope = max(g @ d for g in gA) - min(g @ d for g in gB)         # (d/dt of log(max q / min q) at the corner)
         slope_min = min(slope_min, slope)
-        rises += slope > 0
+        rises += int(slope > 0)
         for r in ins:
             b = xf + r * d
             vv = [qf(f["M"], b) for f in forms]
