@@ -257,6 +257,8 @@ def main():
             types[-1]["beta"] = beta_text(rep)
     # traced data, when there
     traced = json.load(open(f"atlas_{KEY}.json")) if os.path.exists(f"atlas_{KEY}.json") else {}
+    for p_ in traced.get("points", []):        # (each exact point's seed, for the hover box and its copy button)
+        p_.setdefault("seed", seed_text(p_["q"]))
     by = {t["id"]: t for t in types}
     for t in traced.get("types", []):
         if t["id"] in by:

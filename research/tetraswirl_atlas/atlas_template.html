@@ -262,9 +262,11 @@ __TYPE_CSS__
       }
       const pts0 = (T.points || []).filter((p) => byId[p.id] && visibleFor(p.id) && el("showPoints").checked);
       if (pts0.length) {
-        const P = mapPts(pts0.map((p) => p.q.concat([p.hover || p.id])));
+        const P = mapPts(pts0.map((p) => p.q.concat([(p.hover || p.id) + (p.beta ? "<br>β " + p.beta : "")
+          + (p.seed ? "<br>seed " + p.seed : "")])));
         out.push({ type: "scatter3d", mode: "markers", name: "points", x: P.map((p) => p[0]), y: P.map((p) => p[1]), z: P.map((p) => p[2]),
-          customdata: P.map((p) => p[3]), marker: { size: 9, symbol: "cross", color: ink }, hovertemplate: "%{customdata}<extra></extra>" });
+          customdata: P.map((p) => `${p[3]}<br>chart (${p.slice(0, 3).map((x) => x.toFixed(4)).join(", ")})`),
+          marker: { size: 9, symbol: "cross", color: ink }, hovertemplate: "%{customdata}<extra></extra>" });
       }
       // samples, each coloured by its polychoron
       for (const t of D.types) {
