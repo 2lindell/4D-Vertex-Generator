@@ -126,13 +126,21 @@ def label_of_sig(sig):
     return cid or XIDS.get(xkey, "new:" + sig)
 
 
+SPLITS = {k: v for k, v in json.load(open("shape_splits.json")).items() if not k.startswith("_")}
+
+
+def split_name(name, key):
+    """The name a part goes by, where a name covers more than one polytope (shape_splits.json)."""
+    return SPLITS.get(name, {}).get(key, name)
+
+
 def _label(b, hull_tol=1e-9):
     try:
         info = classify(seed_from_beta(np.asarray(b, float) / np.sum(b)), hull_tol=hull_tol)
         sig = signature(info) + " | val " + ",".join(f"{k}:{v}" for k, v in info["valence"].items())
     except Exception as exc:  # degenerate hulls
         return "ERR", repr(exc)
-    return label_of_sig(sig), sig
+    return split_name(label_of_sig(sig), info["vfig"]), sig
 
 
 def label(b):
@@ -148,7 +156,7 @@ def shape_key(b, hull_tol=1e-9):
         sig = signature(info) + " | val " + ",".join(f"{k}:{v}" for k, v in info["valence"].items())
     except Exception:  # degenerate hulls
         return "ERR", None
-    return label_of_sig(sig), info["vfig"]
+    return split_name(label_of_sig(sig), info["vfig"]), info["vfig"]
 
 
 def lab_edge(b):

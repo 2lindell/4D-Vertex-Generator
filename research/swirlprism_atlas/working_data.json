@@ -1936,6 +1936,57 @@
     0.15101217320113153
    ],
    "signature": "1200: cells 120+120+600+600+600+1200+1200+1200 | faces 240+600+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200+1200 | val 3:1800,4:4200,6:1800,11:600"
+  },
+  "X101": {
+   "dim": "wall",
+   "name": "Not in the wiki list",
+   "listed": false,
+   "vertices": "1200",
+   "cells": "120+120+600+600+600+600+600+600+1200",
+   "faces": "240+600+1200+1200+1200+1200+1200+1200+1200+1200+1200",
+   "edges": "600+600+600+600+600+600+600+1200+1200+1200",
+   "seed": [
+    0.750452267017,
+    0.061143198949,
+    0.127261335084,
+    0.061143198949
+   ],
+   "split_from": "X79",
+   "seed_note": "a point well inside the shape (not yet the most even one); edge ratio there 8.0372"
+  },
+  "X102": {
+   "dim": "region",
+   "name": "Not in the wiki list",
+   "listed": false,
+   "vertices": "1200",
+   "cells": "120+120+600+600+600+600+600+600+1200+1200+1200",
+   "faces": "240+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200",
+   "edges": "600+600+600+600+600+600+600+600+1200+1200+1200+1200",
+   "seed": [
+    0.749547732983,
+    0.061735480707,
+    0.122738664916,
+    0.065978121394
+   ],
+   "split_from": "X72",
+   "seed_note": "a point well inside the shape (not yet the most even one); edge ratio there 8.4770"
+  },
+  "X103": {
+   "dim": "region",
+   "name": "Not in the wiki list",
+   "listed": false,
+   "vertices": "1200",
+   "cells": "120+120+600+600+600+600+600+600+1200+1200+1200",
+   "faces": "240+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200",
+   "edges": "600+600+600+600+600+600+600+600+1200+1200+1200+1200",
+   "seed": [
+    0.750452267017,
+    0.059021878606,
+    0.127261335084,
+    0.063264519293
+   ],
+   "split_from": "X73",
+   "seed_note": "a point well inside the shape (not yet the most even one); edge ratio there 8.4736"
   }
  },
  "self_meet": {
@@ -2153,15 +2204,7 @@
     "D2"
    ]
   },
-  "crossings": [
-   {
-    "walls": [
-     "X26",
-     "X79"
-    ],
-    "why": "tested: X26 lies in b3 = b2 + b4 and runs through X79 along b2 = b4, b3 = 2 b2; X72 and X73 swap sides on X79 there"
-   }
-  ],
+  "crossings": [],
   "same_both_sides": {
    "X38": "X68"
   },
@@ -2211,7 +2254,8 @@
    "X53/X8": "X8 is not an edge of X53 (user; the ring round X8 met it, but it is not an edge)",
    "X93/X2": "X2 is an edge of X93 (user; the ring round X2 met X93 once: it ends on it)",
    "X3/D1": "D1 is not an edge of X3 and does not touch it; C5 is its corner (user; confirmed by the exact faces: X3 is bounded by C3, E2 and X1)",
-   "X9/D2": "D2 is not an edge of X9 (user)"
+   "X9/D2": "D2 is not an edge of X9 (user)",
+   "X26 and X79": "tested (classify_fast key, how the cells fit together at a vertex): X26 does not cross X79. Along b2 = b4, b3 = 2 b2 (b1 from about 0.62), X79's plane holds two different polytopes with the same counts, one each side of X26: X79 (the side b3 < b2 + b4) and X101 (b3 > b2 + b4); both end on X26. The four regions round that curve are X72, X103, X73, X102 (X72 and X73 each split: X102 and X103 have their counts). X26 is the same on both sides of the curve. Not yet checked: which of X72/X102 X86 and X91 bound, which of X73/X103 X88 and X89 bound, and which of X79/X101 X80 and X81 are edges of (their recorded seeds sit at junctions)."
   },
   "edge_corners": {
    "X28": {
@@ -2855,18 +2899,27 @@
    ],
    "regions": [
     "X72",
-    "X73"
+    "X73",
+    "X102",
+    "X103"
    ],
-   "cuts_needed": 0,
+   "cuts_needed": 2,
    "cuts": [
+    {
+     "by": "X101",
+     "between": [
+      "X72",
+      "X103"
+     ],
+     "along": "X101 ends on X26"
+    },
     {
      "by": "X79",
      "between": [
-      "X72",
-      "X73"
+      "X73",
+      "X102"
      ],
-     "along": "X26 crosses X79",
-     "crossing": true
+     "along": "X79 ends on X26"
     }
    ]
   },
@@ -3311,6 +3364,7 @@
   },
   "X79": {
    "edges": [
+    "X26",
     "X80",
     "X81"
    ],
@@ -3324,21 +3378,11 @@
     "X2"
    ],
    "regions": [
-    "X72",
-    "X73"
+    "X73",
+    "X102"
    ],
    "cuts_needed": 0,
-   "cuts": [
-    {
-     "by": "X26",
-     "between": [
-      "X72",
-      "X73"
-     ],
-     "along": "X79 crosses X26",
-     "crossing": true
-    }
-   ]
+   "cuts": []
   },
   "X82": {
    "edges": [
@@ -3772,6 +3816,20 @@
    ],
    "cuts_needed": 0,
    "cuts": []
+  },
+  "X101": {
+   "edges": [
+    "X26"
+   ],
+   "boundary_points": [],
+   "through": [],
+   "points": [],
+   "regions": [
+    "X72",
+    "X103"
+   ],
+   "cuts_needed": 0,
+   "cuts": []
   }
  },
  "regions": {
@@ -4007,9 +4065,9 @@
   "X72": {
    "walls": [
     "X26",
-    "X79",
     "X86",
-    "X91"
+    "X91",
+    "X101"
    ]
   },
   "X73": {
@@ -4050,6 +4108,18 @@
     "X9",
     "X10",
     "X20"
+   ]
+  },
+  "X102": {
+   "walls": [
+    "X26",
+    "X79"
+   ]
+  },
+  "X103": {
+   "walls": [
+    "X26",
+    "X101"
    ]
   }
  },
@@ -33014,7 +33084,8 @@
    ],
    "X100": [
     "X100"
-   ]
+   ],
+   "X101": []
   }
  }
 }

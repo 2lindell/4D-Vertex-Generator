@@ -1,0 +1,6 @@
+{
+ "_about": "Names that cover more than one polytope (same counts, different arrangement of cells at a vertex: the key from classify_fast.py). For each name, the key of each part and the name it goes by; the part holding the name's recorded seed keeps the name.",
+ "X79": {"b9dc2698302e": "X79", "3b56c864badc": "X101"},
+ "X72": {"3bcb4deb5e04": "X72", "757e8768f1e8": "X102"},
+ "X73": {"f56743f8ee5d": "X73", "f7076c807a82": "X103"}
+}
