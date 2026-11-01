@@ -51,6 +51,10 @@ class Incidence:
             if p["face"] is None and p["wall"]:
                 a, b = p["pieces"]
                 self.patch_wall[(min(a, b), max(a, b), p["surface"])] = p["wall"]
+        lib = json.loads((self.root / "surface_library.json").read_text())["surfaces"]
+        self.family = [d["family"] for d in lib]
+        from .build import wall_naming
+        self.naming = wall_naming()
         self.planes = np.array([s.normal if s.kind == "plane" else np.zeros(4) for s in self.surfs])
         self.is_plane = np.array([s.kind == "plane" for s in self.surfs])
 
@@ -110,9 +114,24 @@ class Incidence:
             if a["piece"] is not None and b["piece"] is not None and a["copy"] == b["copy"] == 0:
                 wall = self.patch_wall.get((min(a["piece"], b["piece"]),
                                             max(a["piece"], b["piece"]), s))
+            how = "patch" if wall else None
+            if wall is None and a["region"] and b["region"] and a["region"] != b["region"]:
+                wall, how = self._name_by_data(a["region"], b["region"], s)
             if a["region"] != b["region"] or wall:
-                walls.append({"surface": s, "between": [a["region"], b["region"]], "wall": wall})
+                walls.append({"surface": s, "between": [a["region"], b["region"]], "wall": wall,
+                              "named_by": how})
         return {"point": x, "surfaces_through": on, "sectors": sectors, "walls": walls}
+
+    def _name_by_data(self, ra, rb, s):
+        """The wall between regions ra and rb across surface s, from the working data: the one
+        wall separating them, or of several, the one whose surfaces are in s's family."""
+        cands = [w for w, v in self.naming.items() if ra in v["regions"] and rb in v["regions"]]
+        if len(cands) == 1:
+            return cands[0], "data: the one wall between these regions"
+        fam = [w for w in cands if self.family[s] in self.naming[w]["families"]]
+        if len(fam) == 1:
+            return fam[0], "data: regions and surface family"
+        return None, None
 
     def _piece(self, x, d, sign):
         y = x + 1e-9 * d
