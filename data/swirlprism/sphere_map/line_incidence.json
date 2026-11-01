@@ -1,0 +1,583 @@
+{
+ "_about": "Walls round every atlas line from the exact incidence (incidence.py): at points all along each line, the sectors between the exact surfaces through it, each named by its piece, and the wall between neighbouring sectors (patch, or the working data by regions and surface family). Counts are the number of line points where the wall was found.",
+ "lines": {
+  "B1": {
+   "points_checked": 187,
+   "sectors_with_no_known_piece": 3290,
+   "data_walls": [
+    "F1",
+    "F4",
+    "X38",
+    "X99"
+   ],
+   "walls_found_with_points": {
+    "X99": 944,
+    "F4": 924
+   },
+   "missing": [
+    "F1",
+    "X38"
+   ],
+   "extra": []
+  },
+  "C2a": {
+   "points_checked": 44,
+   "sectors_with_no_known_piece": 51,
+   "data_walls": [
+    "X100",
+    "X38",
+    "X41",
+    "X96",
+    "X99"
+   ],
+   "walls_found_with_points": {
+    "X99": 176,
+    "X96": 176,
+    "X100": 132,
+    "X41": 52,
+    "X38": 37
+   },
+   "missing": [],
+   "extra": []
+  },
+  "C2b": {
+   "points_checked": 202,
+   "sectors_with_no_known_piece": 351,
+   "data_walls": [
+    "X14",
+    "X19",
+    "X25",
+    "X9"
+   ],
+   "walls_found_with_points": {
+    "X14": 808,
+    "X9": 808,
+    "X25": 264,
+    "X19": 43
+   },
+   "missing": [],
+   "extra": []
+  },
+  "C3": {
+   "points_checked": 145,
+   "sectors_with_no_known_piece": 876,
+   "data_walls": [
+    "X10",
+    "X11",
+    "X3",
+    "X7",
+    "X83",
+    "X87"
+   ],
+   "walls_found_with_points": {
+    "X83": 290,
+    "X3": 290,
+    "X7": 179,
+    "X10": 176,
+    "X11": 73
+   },
+   "missing": [
+    "X87"
+   ],
+   "extra": []
+  },
+  "D1": {
+   "points_checked": 119,
+   "sectors_with_no_known_piece": 355,
+   "data_walls": [
+    "T2",
+    "X10",
+    "X20",
+    "X28",
+    "X33",
+    "X40",
+    "X48",
+    "X51"
+   ],
+   "walls_found_with_points": {
+    "X28": 238,
+    "X40": 238,
+    "X53": 238,
+    "X20": 238,
+    "T2": 238,
+    "X33": 233,
+    "X51": 233,
+    "X48": 230,
+    "X10": 218
+   },
+   "missing": [],
+   "extra": [
+    "X53"
+   ]
+  },
+  "D2": {
+   "points_checked": 434,
+   "sectors_with_no_known_piece": 590,
+   "data_walls": [
+    "F4",
+    "X19",
+    "X23",
+    "X26",
+    "X34",
+    "X41",
+    "X42",
+    "X82",
+    "X85",
+    "X86",
+    "X89",
+    "X90"
+   ],
+   "walls_found_with_points": {
+    "X85": 868,
+    "X86": 868,
+    "X23": 868,
+    "X41": 868,
+    "F4": 868,
+    "X82": 868,
+    "X34": 858,
+    "X90": 688,
+    "X89": 668,
+    "X26": 489
+   },
+   "missing": [
+    "X19",
+    "X42"
+   ],
+   "extra": []
+  },
+  "D3": {
+   "points_checked": 315,
+   "sectors_with_no_known_piece": 1498,
+   "data_walls": [
+    "F1",
+    "X22",
+    "X26",
+    "X33",
+    "X35",
+    "X40",
+    "X42",
+    "X84",
+    "X87",
+    "X88",
+    "X91",
+    "X92"
+   ],
+   "walls_found_with_points": {
+    "X84": 630,
+    "X35": 630,
+    "X92": 630,
+    "X91": 630,
+    "X26": 630,
+    "X88": 630,
+    "X87": 630,
+    "F1": 630,
+    "X33": 630,
+    "X40": 630,
+    "X22": 490
+   },
+   "missing": [
+    "X42"
+   ],
+   "extra": []
+  },
+  "E1": {
+   "points_checked": 701,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "F4",
+    "F5",
+    "X100",
+    "X23",
+    "X28",
+    "X33",
+    "X38",
+    "X40",
+    "X41",
+    "X48",
+    "X51",
+    "X53",
+    "X99"
+   ],
+   "walls_found_with_points": {
+    "X99": 1378,
+    "F4": 762,
+    "X28": 701,
+    "X41": 701,
+    "X23": 701,
+    "X33": 698,
+    "X40": 621,
+    "X100": 616,
+    "X48": 583,
+    "X53": 579,
+    "X51": 549,
+    "X38": 141,
+    "F5": 37
+   },
+   "missing": [],
+   "extra": []
+  },
+  "E2": {
+   "points_checked": 41,
+   "sectors_with_no_known_piece": 51,
+   "data_walls": [
+    "F1",
+    "T2",
+    "X20",
+    "X3",
+    "X33",
+    "X40",
+    "X48",
+    "X51",
+    "X53",
+    "X7",
+    "X83"
+   ],
+   "walls_found_with_points": {
+    "X33": 41,
+    "X40": 41,
+    "X48": 41,
+    "X20": 41,
+    "X3": 41,
+    "X7": 41,
+    "X83": 41,
+    "T2": 41,
+    "F1": 41,
+    "X51": 25,
+    "X53": 25
+   },
+   "missing": [],
+   "extra": []
+  },
+  "T1": {
+   "points_checked": 88,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "F4",
+    "T2",
+    "X9",
+    "X96"
+   ],
+   "walls_found_with_points": {
+    "F4": 88,
+    "X96": 88,
+    "X9": 88,
+    "T2": 88
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X1": {
+   "points_checked": 22,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "T2",
+    "X3"
+   ],
+   "walls_found_with_points": {
+    "T2": 44,
+    "X3": 44
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X13": {
+   "points_checked": 84,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "F1",
+    "X22",
+    "X31",
+    "X82"
+   ],
+   "walls_found_with_points": {
+    "X22": 83,
+    "X82": 83,
+    "X31": 64,
+    "F1": 63,
+    "X14": 1,
+    "X15": 1
+   },
+   "missing": [],
+   "extra": [
+    "X14",
+    "X15"
+   ]
+  },
+  "X18": {
+   "points_checked": 126,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X35",
+    "X42",
+    "X47",
+    "X48",
+    "X52",
+    "X53",
+    "X84"
+   ],
+   "walls_found_with_points": {
+    "X52": 126,
+    "X47": 126,
+    "X42": 126,
+    "X35": 126,
+    "X84": 126,
+    "X53": 126,
+    "X48": 126
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X2": {
+   "points_checked": 35,
+   "sectors_with_no_known_piece": 1,
+   "data_walls": [
+    "X17",
+    "X19",
+    "X25",
+    "X26",
+    "X27",
+    "X42",
+    "X85",
+    "X86",
+    "X87",
+    "X88",
+    "X89",
+    "X90",
+    "X91",
+    "X92",
+    "X93"
+   ],
+   "walls_found_with_points": {
+    "X25": 31,
+    "X17": 31,
+    "X26": 31,
+    "X27": 31,
+    "X93": 21,
+    "X91": 21,
+    "X92": 21,
+    "X42": 21,
+    "X87": 14,
+    "X88": 14,
+    "X19": 13,
+    "X85": 10,
+    "X86": 10,
+    "X89": 10,
+    "X90": 10,
+    "X14": 4,
+    "X15": 4
+   },
+   "missing": [],
+   "extra": [
+    "X14",
+    "X15"
+   ]
+  },
+  "X24": {
+   "points_checked": 164,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X34",
+    "X44",
+    "X47",
+    "X98"
+   ],
+   "walls_found_with_points": {
+    "X34": 164,
+    "X44": 164,
+    "X47": 164,
+    "X98": 164
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X29": {
+   "points_checked": 293,
+   "sectors_with_no_known_piece": 2,
+   "data_walls": [
+    "F5",
+    "X39",
+    "X52",
+    "X98"
+   ],
+   "walls_found_with_points": {
+    "X39": 291,
+    "X98": 291,
+    "X52": 290,
+    "F5": 290,
+    "X34": 2
+   },
+   "missing": [],
+   "extra": [
+    "X34"
+   ]
+  },
+  "X4": {
+   "points_checked": 49,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "T2",
+    "X14",
+    "X15",
+    "X17",
+    "X22",
+    "X82"
+   ],
+   "walls_found_with_points": {
+    "X17": 49,
+    "T2": 49,
+    "X82": 26,
+    "X14": 26,
+    "X22": 23,
+    "X15": 23
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X5": {
+   "points_checked": 113,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X20",
+    "X21",
+    "X23",
+    "X9",
+    "X96"
+   ],
+   "walls_found_with_points": {
+    "X9": 113,
+    "X96": 113,
+    "X23": 113,
+    "X21": 86,
+    "X20": 27
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X6": {
+   "points_checked": 54,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X11",
+    "X14",
+    "X15",
+    "X19"
+   ],
+   "walls_found_with_points": {
+    "X15": 54,
+    "X14": 54,
+    "X11": 16,
+    "X19": 16
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X78": {
+   "points_checked": 96,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X15",
+    "X83"
+   ],
+   "walls_found_with_points": {
+    "X15": 192,
+    "X94": 192,
+    "X83": 192
+   },
+   "missing": [],
+   "extra": [
+    "X94"
+   ]
+  },
+  "X8": {
+   "points_checked": 21,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X10",
+    "X20",
+    "X21",
+    "X39",
+    "X52"
+   ],
+   "walls_found_with_points": {
+    "X21": 21,
+    "X10": 21,
+    "X20": 21,
+    "X52": 18,
+    "X39": 3
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X80": {
+   "points_checked": 114,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X31",
+    "X79",
+    "X85",
+    "X86",
+    "X87",
+    "X88",
+    "X93"
+   ],
+   "walls_found_with_points": {
+    "X86": 53,
+    "X85": 53,
+    "X31": 53,
+    "X93": 53,
+    "X87": 53,
+    "X88": 53,
+    "X79": 53,
+    "X25": 18
+   },
+   "missing": [],
+   "extra": [
+    "X25"
+   ]
+  },
+  "X81": {
+   "points_checked": 241,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X101",
+    "X42",
+    "X44",
+    "X89",
+    "X90",
+    "X91",
+    "X92"
+   ],
+   "walls_found_with_points": {
+    "X90": 241,
+    "X89": 241,
+    "X101": 241,
+    "X91": 241,
+    "X92": 241,
+    "X42": 241,
+    "X44": 241
+   },
+   "missing": [],
+   "extra": []
+  },
+  "X97": {
+   "points_checked": 69,
+   "sectors_with_no_known_piece": 0,
+   "data_walls": [
+    "X14",
+    "X21",
+    "X27",
+    "X34",
+    "X47"
+   ],
+   "walls_found_with_points": {
+    "X27": 69,
+    "X14": 69,
+    "X21": 69,
+    "X47": 39,
+    "X34": 30
+   },
+   "missing": [],
+   "extra": []
+  }
+ }
+}
