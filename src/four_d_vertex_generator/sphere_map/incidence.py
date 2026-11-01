@@ -342,6 +342,10 @@ def line_report(step=2.5e-2) -> dict:
 
 if __name__ == "__main__":
     rep = line_report()
+    (data_dir() / "sphere_map" / "line_incidence.json").write_text(json.dumps(
+        {"_about": "Walls round every atlas line, from the exact ring round it at points all along "
+                   "(incidence.line_report): counts are (point, sector boundary) pairs.",
+         "lines": rep}, indent=1))
     w = load_json("working_data.json")
     for name, r in sorted(rep.items()):
         data = set(w["lines"][name].get("bounds_walls", []))
