@@ -230,11 +230,13 @@ def write_report(root: Path) -> None:
             add(f"| {w} | {v['piece_types']} | {v['face_classes']} | {v['faces_on_sphere']} | "
                 f"{v['unplaced_fragments']} |")
         add("")
-        add("| line | piece types | runs in the domain | share on traced edges |")
-        add("|---|---|---|---|")
+        add("| line | piece types (atlas line split) | runs in the domain | share on traced edges "
+            "| traced piece types | traced classes |")
+        add("|---|---|---|---|---|---|")
         for ln, v in db["counts_per_line_shape"].items():
-            add(f"| {ln} | {v['piece_types']} | {v['runs_in_domain']} | "
-                f"{v['share_of_line_on_traced_edges']} |")
+            add(f"| {ln} | {v.get('piece_types', '')} | {v.get('runs_in_domain', '')} | "
+                f"{v.get('share_of_line_on_traced_edges', '')} | "
+                f"{v.get('traced_piece_types', '')} | {v.get('traced_classes', '')} |")
     add("")
     add("## Lines and points")
     add("")

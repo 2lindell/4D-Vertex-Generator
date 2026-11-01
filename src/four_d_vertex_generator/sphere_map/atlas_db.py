@@ -31,6 +31,7 @@ from collections import Counter, defaultdict
 import numpy as np
 from scipy.spatial import cKDTree
 
+from .chords import FACE_N
 from .frame import data_dir, locate, point_from_beta
 
 
@@ -103,43 +104,70 @@ def build(root=None) -> dict:
          f"exactly at the domain's edge) and are dropped")
     bset = set(boundary)
     col = {e: n for n, e in enumerate(boundary)}
-    from .chords import FACE_N
 
-    # every cut end (where the domain cuts a line piece), to match the two sides of each cut
-    end_pts, end_owner = [], []
+    # what surrounds each line piece: the cyclic order of regions met on a small circle round it
+    # (24 directions in its normal plane), the same whichever way round it is read
+    from .frame import surface_values
+    surfs_lib = _library_surfaces(root)
+    keys = _piece_keys(root)
+
+    def circle_signature(e):
+        line = np.asarray(edges[e]["polyline_beta"])
+        m = len(line) // 2
+        x = line[m] / line[m].sum()
+        t = line[min(m + 1, len(line) - 1)] - line[max(m - 1, 0)]
+        basis = np.linalg.svd(np.vstack([np.ones(4), t]))[2][2:]      # normal plane (2 vectors)
+        ang = np.linspace(0, 2 * np.pi, 24, endpoint=False)
+        pts = x + 2e-6 * (np.cos(ang)[:, None] * basis[0] + np.sin(ang)[:, None] * basis[1])
+        out = []
+        for y in pts:
+            if (y @ FACE_N.T < 0).any():
+                _, yb = locate(point_from_beta(y / y.sum())[None], tol=1e-13)
+                y = yb[0]
+            pc = keys.get(np.sign(surface_values(y, surfs_lib)[0]).astype(np.int8).tobytes())
+            out.append(region_of_piece[pc] if pc is not None else "?")
+        seq = [r for i, r in enumerate(out) if r != out[i - 1]] or out[:1]   # cyclic runs
+        rots = [tuple(seq[i:] + seq[:i]) for i in range(len(seq))]
+        rots += [tuple(r[::-1]) for r in rots]
+        return min(rots)
+
+    sig = {e: circle_signature(e) for e in boundary}
+    _log(f"surroundings read round {len(sig)} line pieces: {len(set(sig.values()))} kinds")
+
+    # joins on the sphere: every end of every edge in every copy is a point of S^3; two ends at
+    # the same point join when the curve goes on smoothly and what surrounds it is the same
+    # (where the domain cuts a line, or at a 'corner' where nothing round the line changes)
+    end_x, end_t, end_e = [], [], []
     for e in boundary:
-        for end in edges[e]["ends"]:
-            if end["kind"] == "domain":
-                x = np.asarray(end["point"], float)
-                end_pts.append(x / x.sum())
-                end_owner.append(e)
-    etree = cKDTree(np.array(end_pts)) if end_pts else None
+        line = np.asarray(edges[e]["polyline_beta"])
+        for seq in (line, line[::-1]):
+            p = seq[0]
+            q = next((y for y in seq[1:] if np.linalg.norm(y - p) > 1e-7), None)
+            if q is None:
+                continue
+            xp, xq = point_from_beta(p), point_from_beta(q)
+            tang = xp - xq
+            end_x.append(xp)
+            end_t.append(tang / np.linalg.norm(tang))
+            end_e.append(e)
+    end_x, end_t = np.array(end_x), np.array(end_t)
+    all_x = np.einsum("gij,nj->gni", grp.g, end_x).reshape(-1, 4)
+    all_t = np.einsum("gij,nj->gni", grp.g, end_t).reshape(-1, 4)
+    tree = cKDTree(all_x)
+    n_end = len(end_e)
     joins, open_ends = [], 0
-    for e, p in zip(end_owner, end_pts):
-        # across the face the cut lies on (perpendicular, so it surely leaves the domain)
-        f = int(np.argmin(np.abs(p @ FACE_N.T) / np.linalg.norm(FACE_N, axis=1)))
-        n = FACE_N[f] / np.linalg.norm(FACE_N[f])
-        y = p - 1e-7 * n
-        try:
-            k, _ = locate(point_from_beta(y / y.sum())[None], tol=1e-13)
-        except ValueError:
-            open_ends += 1
-            continue
-        k = int(k[0])
-        if k == 0:
-            open_ends += 1
-            continue
-        # the cut point as seen from copy k (it lies on that copy's face too)
-        pk = np.linalg.solve(grp.g[k], point_from_beta(p))          # G[k]^-1 p
-        bk = pk @ np.linalg.inv(np.asarray(_cell(root)))
-        bk = bk / bk.sum()
-        hits = etree.query_ball_point(bk, 1e-6)
-        cands = [end_owner[j] for j in hits]
-        if not cands:
-            open_ends += 1
-            continue
-        for e2 in set(cands):
-            joins.append((col[e], k, col[e2]))
+    for i, (e, x, tg) in enumerate(zip(end_e, end_x, end_t)):
+        found = False
+        for j in tree.query_ball_point(x, 1e-6):
+            k, i2 = divmod(j, n_end)
+            e2 = end_e[i2]
+            if (k == 0 and i2 == i) or sig[e2] != sig[e]:
+                continue
+            if float(all_t[j] @ tg) > -0.99:       # the other end must leave the other way
+                continue
+            joins.append((col[e], int(k), col[e2]))
+            found = True
+        open_ends += not found
     from .build import _components, sphere_edges
     lcomp = _components(grp.n * len(boundary), *sphere_edges([], joins, len(boundary)))
     lcomp = lcomp.reshape(grp.n, len(boundary))
@@ -218,10 +246,52 @@ def build(root=None) -> dict:
             "ends": [x for x in ends if x is not None],
             "open_ends": sum(1 for x in ends if x is None),
             "walls_round": sorted(walls), "regions_round": sorted(regs),
+            "surroundings": list(sig[boundary[segs[0][1]]]),
             "length": length, "stabilizer_order": len(orb["stabilizer"]),
             "copies_on_sphere": grp.n // len(orb["stabilizer"]),
         })
     _log(f"line piece classes: {len(lines_out)}")
+
+    # congruence types: classes with the same surroundings that some element of G or G.Q carries
+    # onto one another are one piece type
+    q = np.load(root.parent / "source" / "normalizer_q.npy")
+    maps = np.concatenate([grp.g, grp.g @ q])
+    clouds = []
+    for orb in lorbits:
+        pts = [point_from_beta(np.asarray(edges[boundary[ci]]["polyline_beta"])) @ grp.g[k].T
+               for k, ci in orb["members"]]
+        clouds.append(np.vstack(pts))
+    by_sig = defaultdict(list)
+    for ln in lines_out:
+        by_sig[(ln["line_shape"], tuple(ln["surroundings"]))].append(ln["id"])
+    n_types = 0
+    for _key, ids in by_sig.items():
+        types: list[int] = []
+        for i in ids:
+            hit = None
+            for t in types:
+                a, b = clouds[t], clouds[i]
+                if abs(lines_out[t]["length"] - lines_out[i]["length"]) > 2e-3 * max(
+                        lines_out[t]["length"], 1e-3):
+                    continue
+                tb = cKDTree(b)
+                sub = a[:: max(1, len(a) // 60)]
+                for mi, m in enumerate(maps):
+                    d, _ = tb.query(sub @ m.T, distance_upper_bound=1e-3)
+                    if np.isfinite(d).all() and d.max() < 5e-4:
+                        hit = (t, mi)
+                        break
+                if hit:
+                    break
+            if hit is None:
+                types.append(i)
+                lines_out[i]["piece_type"] = n_types
+                lines_out[i]["congruent_to"] = None
+                n_types += 1
+            else:
+                lines_out[i]["piece_type"] = lines_out[hit[0]]["piece_type"]
+                lines_out[i]["congruent_to"] = {"line_piece": hit[0], "map": hit[1]}
+    _log(f"line piece types (congruence classes): {n_types}")
 
     def place_line(copy, edge):
         if edge not in bset:
@@ -340,6 +410,17 @@ def build(root=None) -> dict:
             "types": [{"walls_round": list(w), "regions_round": list(r)} for w, r in types],
             "share_of_line_on_traced_edges": round(covered / max(total, 1), 3),
         }
+    traced = defaultdict(lambda: {"piece_types": set(), "classes": 0, "pieces_on_sphere": 0})
+    for ln in lines_out:
+        t = traced[ln["line_shape"] or "unnamed"]
+        t["piece_types"].add(ln["piece_type"])
+        t["classes"] += 1
+        t["pieces_on_sphere"] += ln["copies_on_sphere"]
+    for name, t in traced.items():
+        entry = per_line.setdefault(name, {})
+        entry["traced_piece_types"] = len(t["piece_types"])
+        entry["traced_classes"] = t["classes"]
+        entry["traced_pieces_on_sphere"] = t["pieces_on_sphere"]
     faces_on_line = Counter(x["class"] for f in faces_out for x in f["outline"])
     closure = {
         "faces_with_two_region_sides": sum(len(f["sides"]) == 2 for f in faces_out),
@@ -370,6 +451,29 @@ def build(root=None) -> dict:
     (root / "atlas.json").write_text(json.dumps(db))
     _log(f"atlas.json written: {closure}")
     return db
+
+
+def _library_surfaces(root):
+    from .frame import Surface
+    out = []
+    for d in json.loads((root / "surface_library.json").read_text())["surfaces"]:
+        if d["kind"] == "plane":
+            out.append(Surface(d["index"], d["name"], "plane", np.asarray(d["normal"], float)))
+        else:
+            out.append(Surface(d["index"], d["name"], "curved", None,
+                               tuple(tuple(m) for m in d["monomials"]),
+                               np.asarray(d["coefficients"], float), np.asarray(d["A"], float),
+                               degree=d["degree"]))
+    return tuple(out)
+
+
+def _piece_keys(root):
+    pcs = json.loads((root / "pieces.json").read_text())["pieces"]
+    out = {}
+    for p in pcs:
+        sg = np.array([1 if c == "+" else -1 if c == "-" else 0 for c in p["signs"]], np.int8)
+        out[sg.tobytes()] = p["id"]
+    return out
 
 
 def _cell(root):
