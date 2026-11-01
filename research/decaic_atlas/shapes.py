@@ -19,8 +19,9 @@ from multiprocessing import Pool
 import numpy as np
 
 import group as G
+from arrangement import Arrangement
 
-OUT = "shapes.json"
+OUT = G.fname("shapes")
 KIND = {3: "region", 2: "wall", 1: "line", 0: "point"}
 
 
@@ -61,9 +62,15 @@ def cells_text(d):
 
 
 def main():
+    global swapped
     t0 = time.time()
-    A = json.load(open("arrangement.json"))
+    A = json.load(open(G.fname("arrangement")))
     faces = A["faces"]
+    # (the swap reverses beta: on the fold b1 = b4 a face and its image are the same seeds)
+    arr = Arrangement([tuple(p) for p in A["planes"]])
+
+    def swapped(f):
+        return list(arr.signs(tuple(Fraction(v) for v in f["point"])[::-1]))
     with Pool(4) as pool:
         R = pool.map(job, [f["point"] for f in faces], chunksize=4)
     bykey = {}
@@ -89,11 +96,34 @@ def main():
     for t in types:
         dims = Counter(f["dim"] for f in t["faces"])
         top = max(dims)
+        # (its pieces: faces of the top dimension joined through a face of the same shape one dimension down)
+        tops = [f for f in t["faces"] if f["dim"] == top]
+        lows = [f for f in t["faces"] if f["dim"] == top - 1]
+        parent = list(range(len(tops)))
+
+        def find(i):
+            while parent[i] != i:
+                parent[i] = parent[parent[i]]
+                i = parent[i]
+            return i
+        def around(sg, faces_):
+            return [i for i, f in enumerate(faces_) if all(a == 0 or a == b for a, b in zip(sg, f["signs"]))]
+        for lo in lows:
+            hit = around(lo["signs"], tops)
+            if lo["signs"][4] == 0:             # (on the fold: the swap image is the same seed)
+                hit += around(swapped(lo), tops)
+            for i in hit[1:]:
+                parent[find(i)] = find(hit[0])
+        index = {tuple(f["signs"]): i for i, f in enumerate(tops)}
+        for i, f in enumerate(tops):
+            if f["signs"][4] == 0 and tuple(swapped(f)) in index:
+                parent[find(index[tuple(swapped(f))])] = find(i)
+        pieces = len({find(i) for i in range(len(tops))})
         best = next(f for f in t["faces"] if f["dim"] == top)
         out.append({"vertices": t["shape"]["vertices"], "degrees": top, "kind": KIND[top],
                     "cells": t["shape"]["cells"], "cells_text": cells_text(t["shape"]),
                     "n_cells": t["shape"]["n_cells"], "n_faces": t["shape"]["n_faces"], "n_edges": t["shape"]["n_edges"],
-                    "keys": t["keys"], "faces_by_dim": {str(k): v for k, v in sorted(dims.items())},
+                    "keys": t["keys"], "pieces": pieces, "faces_by_dim": {str(k): v for k, v in sorted(dims.items())},
                     "example": best["point"], "example_float": [round(float(Fraction(v)), 6) for v in best["point"]],
                     "example_signs": best["signs"],
                     "signature": t["shape"]["signature"]})
@@ -102,7 +132,7 @@ def main():
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "shapes": out, "unclassified": len(bad),
                "seconds": round(time.time() - t0, 1)}, open(OUT, "w"), indent=1)
     for r in out:
-        print(f"{r['kind']:6} {r['vertices']:4}v {r['n_cells']:3}c  {r['cells_text']}   faces {r['faces_by_dim']}  "
+        print(f"{r['kind']:6} {r['vertices']:4}v {r['n_cells']:3}c  {r['cells_text']}   faces {r['faces_by_dim']} pieces {r['pieces']}  "
               f"e.g. {r['example_float']}")
     print(f"{len(out)} shapes; {len(bad)} faces unclassified; {time.time() - t0:.0f}s")
 

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import hashlib
 import itertools
+import os
 
 import numpy as np
 from scipy.spatial import cKDTree
@@ -24,12 +25,46 @@ from four_d_vertex_generator.local_view import hull_edges
 from four_d_vertex_generator.off import compute_convex_hull
 
 NAME = "a4_extended"
-ORDER = 240
 W5 = np.array([[5 * (i < k) - k for i in range(5)] for k in range(1, 5)], float)        # (5 w_k: integer rows)
 # (an orthonormal basis of the sum-zero hyperplane: the 4D frame vertices are drawn and hulled in)
 BASIS = np.linalg.svd(np.ones((1, 5)))[2][1:]
 PERMS = np.array(list(itertools.permutations(range(5))))
-GENS = [np.eye(5)[[1, 0, 2, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]], -np.eye(5)]               # ((0 1), (0 1 2 3 4), -1)
+
+
+def _parity(p):
+    p = list(p)
+    s = 1
+    for i in range(len(p)):
+        while p[i] != i:
+            j = p[i]
+            p[i], p[j] = p[j], p[i]
+            s = -s
+    return s
+
+
+# (the group: DECAIC_SUB = full (decaic [[3,3,3]], order 240), ki (kidecaic [[3,3,3]]+: A5 x {+-1}, the rotations,
+# order 120) or io (iodecaic [[3,3,3]+]: even sigma and -sigma for odd sigma, order 120). Its elements are (sign, perm):
+# x -> sign * x[perm].)
+SUB = os.environ.get("DECAIC_SUB", "full")
+TAG = {"full": "", "ki": "_ki", "io": "_io"}[SUB]
+_PAR = np.array([_parity(p) for p in PERMS])
+if SUB == "full":
+    ELEM = [(s, p) for s in (1, -1) for p in PERMS]
+    GENS = [np.eye(5)[[1, 0, 2, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]], -np.eye(5)]           # ((0 1), (0 1 2 3 4), -1)
+elif SUB == "ki":
+    ELEM = [(s, p) for s in (1, -1) for p, e in zip(PERMS, _PAR) if e == 1]
+    GENS = [np.eye(5)[[1, 2, 0, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]], -np.eye(5)]           # ((0 1 2), (0 1 2 3 4), -1)
+else:
+    ELEM = [(e, p) for p, e in zip(PERMS, _PAR)]
+    GENS = [np.eye(5)[[1, 2, 0, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]], -np.eye(5)[[1, 0, 2, 3, 4]]]  # (.., -(0 1))
+ORDER = len(ELEM)
+_SGN = np.array([s for s, _ in ELEM], float)
+_PRM = np.array([p for _, p in ELEM])
+
+
+def fname(stem, ext="json"):
+    """A data file of this group (decaic files unsuffixed; kidecaic _ki, iodecaic _io)."""
+    return f"{stem}{TAG}.{ext}"
 
 
 def x5(beta):
@@ -40,7 +75,7 @@ def x5(beta):
 def vertices5(beta, tol=1e-9):
     """The distinct points +-sigma(x): the orbit of the seed."""
     x = x5(beta)
-    V = np.concatenate([x[PERMS], -x[PERMS]])
+    V = _SGN[:, None] * x[_PRM]
     keep = []
     tree = None
     out = []

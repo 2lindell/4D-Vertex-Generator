@@ -30,8 +30,9 @@ import numpy as np
 import sympy as sp
 
 import forms as F
+import group as G
 
-OUT = "arrangement.json"
+OUT = G.fname("arrangement")
 BOUNDARY = [(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1), (1, 0, 0, -1)]   # (beta_k >= 0, beta_1 >= beta_4)
 
 

@@ -30,7 +30,7 @@ def job(item):
 
 
 def main():
-    A = json.load(open("arrangement.json"))
+    A = json.load(open(G.fname("arrangement")))
     arr = Arrangement([tuple(p) for p in A["planes"]]).build()
     rng = np.random.default_rng(1)
     items, meta = [], []
@@ -51,7 +51,7 @@ def main():
         R = pool.map(job, items, chunksize=4)
     bad = [(m["dim"], m["point"], b) for m, b in zip(meta, R) if b]
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "faces_checked": len(items),
-               "points_checked": 5 * len(items), "faces_not_constant": bad}, open("face_check.json", "w"), indent=1)
+               "points_checked": 5 * len(items), "faces_not_constant": bad}, open(G.fname("face_check"), "w"), indent=1)
     print(f"{len(items)} faces, {5 * len(items)} points: {len(bad)} faces not constant")
     for b in bad[:10]:
         print(b)
