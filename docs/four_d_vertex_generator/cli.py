@@ -6,9 +6,14 @@ from pathlib import Path
 
 import numpy as np
 
+from .continuous import (
+    CONTINUOUS_SYMMETRIES,
+    DEFAULT_SAMPLES_PER_ANGLE,
+    generate_continuous_approximation,
+)
 from .generation import generate_vertices_from_seed, group_order
 from .isogonal import combined_matching_action, compute_orbits, detect_symmetries, split_by_orbits
-from .library import available_symmetries, named_symmetry
+from .library import PAGE_SYMMETRY_NAMES, available_symmetries, named_symmetry
 from .off import compute_convex_hull, parse_4off, to_4off
 
 
@@ -25,10 +30,17 @@ def parse_seed(seed_text: str) -> np.ndarray:
         raise ValueError(f"Seed values must be numbers, got '{seed_text}'") from err
 
 
-def _check_symmetry_name(parser: argparse.ArgumentParser, name: str) -> None:
-    if name in available_symmetries():
+def _check_symmetry_name(
+    parser: argparse.ArgumentParser, name: str, *, allow_continuous: bool = True
+) -> None:
+    if name in available_symmetries() or (
+        allow_continuous and name in CONTINUOUS_SYMMETRIES
+    ):
         return
-    close = difflib.get_close_matches(name, available_symmetries(), n=3)
+    choices = list(available_symmetries())
+    if allow_continuous:
+        choices.extend(CONTINUOUS_SYMMETRIES)
+    close = difflib.get_close_matches(name, choices, n=3)
     hint = f" Did you mean: {', '.join(close)}?" if close else ""
     parser.error(f"unknown symmetry '{name}'.{hint} Use --list-symmetries to see all names.")
 
@@ -37,6 +49,12 @@ def _print_symmetries() -> None:
     for name in available_symmetries(include_aliases=False):
         order = group_order(named_symmetry(name))
         print(f"{name}\t(order {order if order is not None else '?'})")
+    for name in PAGE_SYMMETRY_NAMES:
+        if name not in available_symmetries(include_aliases=False):
+            order = group_order(named_symmetry(name))
+            print(f"{name}\t(order {order if order is not None else '?'})")
+    for name in CONTINUOUS_SYMMETRIES:
+        print(f"{name}\t(continuous; sampled approximation)")
 
 
 def main() -> None:
@@ -64,7 +82,18 @@ def main() -> None:
         help="List the built-in symmetry names with their group orders and exit",
     )
     parser.add_argument("--tol", type=float, default=1e-8, help="Quantization tolerance")
-    parser.add_argument("--max-vertices", type=int, default=20000, help="Safety cap")
+    parser.add_argument(
+        "--max-vertices",
+        type=int,
+        default=None,
+        help="Safety cap (default: 20000 for finite groups; 2000000 for continuous samples)",
+    )
+    parser.add_argument(
+        "--samples-per-angle",
+        type=int,
+        default=DEFAULT_SAMPLES_PER_ANGLE,
+        help="Angular samples for continuous symmetries (default: 120)",
+    )
     parser.add_argument(
         "--hull",
         action="store_true",
@@ -93,26 +122,41 @@ def main() -> None:
     except ValueError as err:
         parser.error(str(err))
 
-    action = named_symmetry(args.symmetry)
-    try:
-        vertices = generate_vertices_from_seed(
-            seed,
-            action,
-            tol=args.tol,
-            max_vertices=args.max_vertices,
-        )
-    except (ValueError, RuntimeError) as err:
-        raise SystemExit(f"error: {err}") from err
-
-    partition = compute_orbits(vertices, action, tol=args.tol)
-
     faces: list[list[int]] | None = None
     cells: list[list[int]] | None = None
-    if args.hull:
+    is_continuous = args.symmetry in CONTINUOUS_SYMMETRIES
+    max_vertices = args.max_vertices
+    if max_vertices is None:
+        max_vertices = 2_000_000 if is_continuous else 20_000
+    if is_continuous:
+        if args.hull:
+            parser.error("--hull is available only for finite symmetry groups")
         try:
-            faces, cells = compute_convex_hull(vertices)
-        except ValueError as err:
-            raise SystemExit(f"error: could not compute convex hull: {err}") from err
+            vertices = generate_continuous_approximation(
+                seed,
+                args.symmetry,
+                samples_per_angle=args.samples_per_angle,
+                max_vertices=max_vertices,
+            )
+        except (ValueError, RuntimeError) as err:
+            raise SystemExit(f"error: {err}") from err
+    else:
+        action = named_symmetry(args.symmetry)
+        try:
+            vertices = generate_vertices_from_seed(
+                seed,
+                action,
+                tol=args.tol,
+                max_vertices=max_vertices,
+            )
+        except (ValueError, RuntimeError) as err:
+            raise SystemExit(f"error: {err}") from err
+        partition = compute_orbits(vertices, action, tol=args.tol)
+        if args.hull:
+            try:
+                faces, cells = compute_convex_hull(vertices)
+            except ValueError as err:
+                raise SystemExit(f"error: could not compute convex hull: {err}") from err
 
     output_path = args.out_off.with_name(
         f"{args.out_off.stem}_{len(vertices)}{args.out_off.suffix or '.off'}"
@@ -123,7 +167,11 @@ def main() -> None:
     print(f"symmetry={args.symmetry}")
     print(f"seed={seed.tolist()}")
     print(f"num_vertices={len(vertices)}")
-    print(f"num_orbits={partition.num_orbits}")
+    if is_continuous:
+        print(f"approximation_samples_per_angle={args.samples_per_angle}")
+        print("num_orbits=not applicable (continuous group approximation)")
+    else:
+        print(f"num_orbits={partition.num_orbits}")
     if faces is not None and cells is not None:
         print(f"num_faces={len(faces)}")
         print(f"num_cells={len(cells)}")
@@ -164,7 +212,7 @@ def analyze_main() -> None:
     if args.symmetry is not None and not (
         args.symmetry == "auto" or args.symmetry.startswith("auto:")
     ):
-        _check_symmetry_name(parser, args.symmetry)
+        _check_symmetry_name(parser, args.symmetry, allow_continuous=False)
 
     try:
         vertices = parse_4off(args.in_off.read_text())

@@ -58,6 +58,16 @@ def _h4_icosian_generators() -> list[np.ndarray]:
     return _h4_icosian_chiral_generators() + [np.diag([1.0, -1.0, -1.0, -1.0])]
 
 
+def _h4_polyhedral_product_generators(
+    left: tuple[tuple[float, float, float, float], ...],
+    right: tuple[tuple[float, float, float, float], ...],
+) -> list[np.ndarray]:
+    """Generate a quaternion-pair subgroup in the standard icosian basis."""
+    return [_quaternion_left_matrix(q) for q in left] + [
+        _quaternion_right_matrix(q) for q in right
+    ]
+
+
 # A genuine order-10 element of the binary icosahedral group 2I (a 5-fold
 # icosahedral rotation lifted to its double cover, so its quaternion order is
 # 10 rather than 5). Verified by BFS closure: 2I has exactly 24 such elements.
@@ -493,7 +503,51 @@ SYMMETRY_ALIASES: dict[str, str] = {
     # always identical to the prismatic groups.
     "h4_half": "h4_prismatic",
     "h4_half_chiral": "h4_prismatic_chiral",
+    "pennic": "a4",
+    "kipennic": "a4+",
+    "decaic": "a4_extended",
+    "kidecaic": "a4_chiral_extended",
+    "iodecaic": "a4_chiral_extended",
+    "tessic": "b4",
+    "kitessic": "b4+",
+    "demitessic": "d4",
+    "kidemitessic": "d4+",
+    "tessipyritic": "b4_ionic",
+    "icoic": "f4",
+    "kiicoic": "f4+",
+    "contic": "f4_extended",
+    "kicontic": "f4_chiral_extended",
+    "iocontic": "f4_chiral_extended",
+    "toxitic": "f4_double_diminished",
+    "oxitic": "f4_extended_double_diminished",
+    "hyic": "h4",
+    "kihyic": "h4+",
 }
+
+PAGE_SYMMETRY_NAMES = (
+    "pennic",
+    "kipennic",
+    "decaic",
+    "kidecaic",
+    "iodecaic",
+    "tessic",
+    "kitessic",
+    "demitessic",
+    "kidemitessic",
+    "tessipyritic",
+    "icoic",
+    "kiicoic",
+    "contic",
+    "kicontic",
+    "iocontic",
+    "icopyritic",
+    "toxitic",
+    "oxitic",
+    "hyic",
+    "kihyic",
+    "ixitic",
+    "ixoic",
+)
 
 
 def canonical_symmetry_name(name: str) -> str:
@@ -577,6 +631,22 @@ def named_symmetry(name: str) -> SymmetryAction:
         gens = _coxeter_rotation_generators(((0, 1, 5), (1, 2, 3), (2, 3, 2)))
     elif name == "h4_ionic":
         gens = _h4_ionic_generators()
+    elif name in ("icopyritic", "ixitic", "ixoic"):
+        i = (0.0, 1.0, 0.0, 0.0)
+        omega = (-0.5, 0.5, 0.5, 0.5)
+        inverse_sqrt_two = 1.0 / np.sqrt(2.0)
+        octahedral = (omega, (inverse_sqrt_two, inverse_sqrt_two, 0.0, 0.0))
+        tetrahedral = (i, omega)
+        icosahedral = (
+            (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
+            (0.809016994374947, -0.309016994374947, 0.0, -0.5),
+        )
+        factors = {
+            "icopyritic": (octahedral, tetrahedral),
+            "ixitic": (icosahedral, tetrahedral),
+            "ixoic": (icosahedral, octahedral),
+        }
+        gens = _h4_polyhedral_product_generators(*factors[name])
     elif name.startswith("duoprism_"):
         suffix = ""
         for candidate in ("_chiral_extended", "_extended", "_chiral"):
@@ -712,7 +782,12 @@ def available_symmetries(*, include_aliases: bool = True) -> list[str]:
         "b4_prismatic_octahedral_chiral",
         "b4_prismatic_tetrahedral",
         "b4_prismatic_tetrahedral_chiral",
+        "icopyritic",
+        "ixitic",
+        "ixoic",
     ]
+    symmetries.extend(PAGE_SYMMETRY_NAMES)
+    symmetries = list(dict.fromkeys(symmetries))
     for p, q in _duoprism_orders():
         symmetries.extend((f"duoprism_{p}_{q}", f"duoprism_{p}_{q}+"))
         if p == q:
