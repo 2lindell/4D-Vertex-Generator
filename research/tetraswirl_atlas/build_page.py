@@ -344,7 +344,7 @@ def main():
         "notes": notes,
     }
     template = open("atlas_template.html").read()
-    out = os.path.join("..", "..", "assets", f"tetraswirl_{KEY}_domain.html")
+    out = os.environ.get("PAGE_OUT") or os.path.join("..", "..", "assets", f"tetraswirl_{KEY}_domain.html")
     page = (template.replace("__TITLE__", GROUP["title"]).replace("__TYPE_CSS__", type_css)
             .replace("__DATA__", json.dumps(data, separators=(",", ":")).replace("</", "<\\/")))
     open(out, "w").write(page)
