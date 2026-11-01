@@ -1,8 +1,8 @@
 {
  "summary": {
-  "walls_matching": 24,
+  "walls_matching": 22,
   "walls": 55,
-  "lines_matching": 12,
+  "lines_matching": 11,
   "lines": 24,
   "regions_matching": 40,
   "regions": 40
@@ -22,17 +22,18 @@
    "found_edges": [
     "(unnamed curve)",
     "B1",
-    "C3",
     "D3",
     "E2",
     "X13",
-    "wall T2",
+    "X97",
     "wall X28"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "wall T2"
+   ],
    "not_in_data": [
     "(unnamed curve)",
-    "C3"
+    "X97"
    ],
    "match": false
   },
@@ -48,17 +49,14 @@
    ],
    "found_edges": [
     "B1",
-    "C2b",
     "D2",
     "E1",
     "T1",
     "wall X100"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "C2b"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "F5": {
    "data_edges": [
@@ -94,14 +92,14 @@
     "E2",
     "T1",
     "X4",
-    "wall F1",
-    "wall X11",
-    "wall X94"
+    "X97"
    ],
    "missing_on_map": [
     "X1"
    ],
-   "not_in_data": [],
+   "not_in_data": [
+    "X97"
+   ],
    "match": false
   },
   "X10": {
@@ -133,13 +131,14 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "C2a",
     "E1",
     "wall F4"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "C2a"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X101": {
    "data_edges": [
@@ -148,17 +147,12 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "X80",
     "X81",
-    "wall X26",
-    "wall X79"
+    "wall X26"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "X80",
-    "wall X79"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X11": {
    "data_edges": [
@@ -173,13 +167,14 @@
     "(unnamed curve)",
     "C3",
     "X6",
-    "wall T2",
-    "wall X19"
+    "X97"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "wall T2"
+   ],
    "not_in_data": [
     "(unnamed curve)",
-    "wall X19"
+    "X97"
    ],
    "match": false
   },
@@ -254,18 +249,14 @@
    "data_cuts": [],
    "found_edges": [
     "C2b",
-    "D2",
     "X2",
     "X6",
-    "wall X11",
-    "wall X17",
-    "wall X26"
+    "wall X17"
    ],
-   "missing_on_map": [],
-   "not_in_data": [
-    "wall X11",
-    "wall X26"
+   "missing_on_map": [
+    "D2"
    ],
+   "not_in_data": [],
    "match": false
   },
   "X20": {
@@ -279,12 +270,12 @@
     "wall F5"
    ],
    "found_edges": [
-    "D1",
     "X5",
     "X8",
     "wall F5"
    ],
    "missing_on_map": [
+    "D1",
     "E2"
    ],
    "not_in_data": [],
@@ -319,7 +310,6 @@
     "wall X93"
    ],
    "found_edges": [
-    "D2",
     "X13",
     "X4",
     "wall F1",
@@ -329,7 +319,6 @@
     "D3"
    ],
    "not_in_data": [
-    "D2",
     "wall F1"
    ],
    "match": false
@@ -344,21 +333,16 @@
     "wall X39"
    ],
    "found_edges": [
-    "C2b",
     "D2",
     "E1",
+    "X24",
     "X5",
-    "wall X10",
-    "wall X39",
-    "wall X41",
-    "wall X9"
+    "wall X41"
    ],
    "missing_on_map": [],
    "not_in_data": [
-    "C2b",
-    "wall X10",
-    "wall X41",
-    "wall X9"
+    "X24",
+    "wall X41"
    ],
    "match": false
   },
@@ -389,22 +373,15 @@
     "wall X79"
    ],
    "found_edges": [
-    "B1",
-    "C2b",
     "D2",
     "D3",
     "X2",
     "wall X101",
-    "wall X19",
     "wall X79"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "B1",
-    "C2b",
-    "wall X19"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X27": {
    "data_edges": [
@@ -474,18 +451,11 @@
    "found_edges": [
     "X13",
     "X80",
-    "wall X101",
-    "wall X17",
-    "wall X26",
-    "wall X79"
+    "wall X17"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "wall X101",
-    "wall X26",
-    "wall X79"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X33": {
    "data_edges": [
@@ -499,14 +469,11 @@
     "D1",
     "D3",
     "E1",
-    "E2",
-    "wall X28"
+    "E2"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "wall X28"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X34": {
    "data_edges": [
@@ -531,23 +498,12 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "C3",
     "D3",
-    "X18",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X18"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "C3",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X38": {
    "data_edges": [
@@ -577,13 +533,17 @@
    ],
    "data_cuts": [],
    "found_edges": [
+    "X24",
     "X29",
-    "X8",
+    "X8"
+   ],
+   "missing_on_map": [
     "wall X23"
    ],
-   "missing_on_map": [],
-   "not_in_data": [],
-   "match": true
+   "not_in_data": [
+    "X24"
+   ],
+   "match": false
   },
   "X40": {
    "data_edges": [
@@ -594,12 +554,12 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "D1",
-    "E1",
     "E2"
    ],
    "missing_on_map": [
-    "D3"
+    "D1",
+    "D3",
+    "E1"
    ],
    "not_in_data": [],
    "match": false
@@ -616,11 +576,15 @@
     "C2a",
     "D2",
     "E1",
+    "X97"
+   ],
+   "missing_on_map": [
     "wall X96"
    ],
-   "missing_on_map": [],
-   "not_in_data": [],
-   "match": true
+   "not_in_data": [
+    "X97"
+   ],
+   "match": false
   },
   "X42": {
    "data_edges": [
@@ -634,24 +598,13 @@
    "found_edges": [
     "X18",
     "X2",
-    "X81",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X81"
    ],
    "missing_on_map": [
     "D2",
     "D3"
    ],
-   "not_in_data": [
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
-   ],
+   "not_in_data": [],
    "match": false
   },
   "X44": {
@@ -678,26 +631,13 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "(unnamed curve)",
     "X18",
     "X24",
-    "X6",
-    "X97",
-    "wall X35",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X97"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "(unnamed curve)",
-    "X6",
-    "wall X35",
-    "wall X48",
-    "wall X52",
-    "wall X84"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X48": {
    "data_edges": [
@@ -708,22 +648,14 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "D1",
     "E1",
     "E2",
-    "X18",
-    "wall X35",
-    "wall X47",
-    "wall X52",
-    "wall X84"
+    "X18"
    ],
-   "missing_on_map": [],
-   "not_in_data": [
-    "wall X35",
-    "wall X47",
-    "wall X52",
-    "wall X84"
+   "missing_on_map": [
+    "D1"
    ],
+   "not_in_data": [],
    "match": false
   },
   "X51": {
@@ -736,11 +668,11 @@
    "data_cuts": [],
    "found_edges": [
     "E1",
-    "E2",
     "wall X84"
    ],
    "missing_on_map": [
-    "D1"
+    "D1",
+    "E2"
    ],
    "not_in_data": [],
    "match": false
@@ -753,20 +685,13 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "C3",
     "X18",
     "X29",
-    "X8",
-    "wall X47",
-    "wall X84"
+    "X8"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "C3",
-    "wall X47",
-    "wall X84"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X53": {
    "data_edges": [
@@ -776,25 +701,13 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "D1",
     "E1",
-    "E2",
-    "X18",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X18"
    ],
-   "missing_on_map": [],
-   "not_in_data": [
-    "D1",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+   "missing_on_map": [
+    "E2"
    ],
+   "not_in_data": [],
    "match": false
   },
   "X7": {
@@ -819,14 +732,11 @@
    "data_cuts": [],
    "found_edges": [
     "X80",
-    "wall X101",
     "wall X26"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "wall X101"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X82": {
    "data_edges": [
@@ -869,24 +779,13 @@
     "wall X51"
    ],
    "found_edges": [
-    "(unnamed curve)",
     "D3",
     "X18",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X51",
-    "wall X52"
+    "wall X51"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "(unnamed curve)",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X52"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X85": {
    "data_edges": [
@@ -897,12 +796,13 @@
    "data_cuts": [],
    "found_edges": [
     "D2",
-    "X2",
     "X80"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "X2"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X86": {
    "data_edges": [
@@ -913,12 +813,13 @@
    "data_cuts": [],
    "found_edges": [
     "D2",
-    "X2",
     "X80"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "X2"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X87": {
    "data_edges": [
@@ -929,17 +830,14 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "D2",
-    "D3",
-    "X2",
     "X80"
    ],
    "missing_on_map": [
-    "C3"
+    "C3",
+    "D3",
+    "X2"
    ],
-   "not_in_data": [
-    "D2"
-   ],
+   "not_in_data": [],
    "match": false
   },
   "X88": {
@@ -950,13 +848,14 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "D3",
-    "X2",
     "X80"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "D3",
+    "X2"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X89": {
    "data_edges": [
@@ -967,12 +866,13 @@
    "data_cuts": [],
    "found_edges": [
     "D2",
-    "X2",
     "X81"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "X2"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X9": {
    "data_edges": [
@@ -985,18 +885,13 @@
    ],
    "found_edges": [
     "C2b",
-    "D2",
-    "E1",
     "T1",
     "X5",
     "wall X10"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "D2",
-    "E1"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X90": {
    "data_edges": [
@@ -1007,12 +902,13 @@
    "data_cuts": [],
    "found_edges": [
     "D2",
-    "X2",
     "X81"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "X2"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X91": {
    "data_edges": [
@@ -1023,12 +919,13 @@
    "data_cuts": [],
    "found_edges": [
     "D3",
-    "X2",
     "X81"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "X2"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X92": {
    "data_edges": [
@@ -1039,12 +936,13 @@
    "data_cuts": [],
    "found_edges": [
     "D3",
-    "X2",
     "X81"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "X2"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X93": {
    "data_edges": [
@@ -1069,12 +967,16 @@
    ],
    "data_cuts": [],
    "found_edges": [
-    "wall T2",
+    "X97",
     "wall X11"
    ],
-   "missing_on_map": [],
-   "not_in_data": [],
-   "match": true
+   "missing_on_map": [
+    "wall T2"
+   ],
+   "not_in_data": [
+    "X97"
+   ],
+   "match": false
   },
   "X96": {
    "data_edges": [
@@ -1089,11 +991,13 @@
     "C2a",
     "T1",
     "X5",
-    "wall X41"
+    "X97"
    ],
    "missing_on_map": [],
-   "not_in_data": [],
-   "match": true
+   "not_in_data": [
+    "X97"
+   ],
+   "match": false
   },
   "X98": {
    "data_edges": [
@@ -1120,12 +1024,13 @@
    "data_cuts": [],
    "found_edges": [
     "B1",
-    "C2a",
     "E1"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "C2a"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   }
  },
  "lines": {
@@ -1139,15 +1044,12 @@
    "found_walls": [
     "F1",
     "F4",
-    "X26",
     "X99"
    ],
    "missing_on_map": [
     "X38"
    ],
-   "not_in_data": [
-    "X26"
-   ],
+   "not_in_data": [],
    "match": false
   },
   "C2a": {
@@ -1159,13 +1061,13 @@
     "X99"
    ],
    "found_walls": [
-    "X100",
     "X41",
-    "X96",
-    "X99"
+    "X96"
    ],
    "missing_on_map": [
-    "X38"
+    "X100",
+    "X38",
+    "X99"
    ],
    "not_in_data": [],
    "match": false
@@ -1178,21 +1080,14 @@
     "X9"
    ],
    "found_walls": [
-    "F4",
     "X14",
     "X19",
-    "X23",
     "X25",
-    "X26",
     "X9"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "F4",
-    "X23",
-    "X26"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "C3": {
    "data_walls": [
@@ -1204,23 +1099,16 @@
     "X87"
    ],
    "found_walls": [
-    "F1",
     "X10",
     "X11",
     "X3",
-    "X35",
-    "X52",
     "X83"
    ],
    "missing_on_map": [
     "X7",
     "X87"
    ],
-   "not_in_data": [
-    "F1",
-    "X35",
-    "X52"
-   ],
+   "not_in_data": [],
    "match": false
   },
   "D1": {
@@ -1236,20 +1124,17 @@
    ],
    "found_walls": [
     "T2",
-    "X20",
     "X28",
-    "X33",
-    "X40",
-    "X48",
-    "X53"
+    "X33"
    ],
    "missing_on_map": [
     "X10",
+    "X20",
+    "X40",
+    "X48",
     "X51"
    ],
-   "not_in_data": [
-    "X53"
-   ],
+   "not_in_data": [],
    "match": false
   },
   "D2": {
@@ -1269,8 +1154,6 @@
    ],
    "found_walls": [
     "F4",
-    "X19",
-    "X22",
     "X23",
     "X26",
     "X34",
@@ -1278,19 +1161,14 @@
     "X82",
     "X85",
     "X86",
-    "X87",
     "X89",
-    "X9",
     "X90"
    ],
    "missing_on_map": [
+    "X19",
     "X42"
    ],
-   "not_in_data": [
-    "X22",
-    "X87",
-    "X9"
-   ],
+   "not_in_data": [],
    "match": false
   },
   "D3": {
@@ -1314,15 +1192,15 @@
     "X33",
     "X35",
     "X84",
-    "X87",
-    "X88",
     "X91",
     "X92"
    ],
    "missing_on_map": [
     "X22",
     "X40",
-    "X42"
+    "X42",
+    "X87",
+    "X88"
    ],
    "not_in_data": [],
    "match": false
@@ -1351,18 +1229,16 @@
     "X28",
     "X33",
     "X38",
-    "X40",
     "X41",
     "X48",
     "X51",
     "X53",
-    "X9",
     "X99"
    ],
-   "missing_on_map": [],
-   "not_in_data": [
-    "X9"
+   "missing_on_map": [
+    "X40"
    ],
+   "not_in_data": [],
    "match": false
   },
   "E2": {
@@ -1386,12 +1262,12 @@
     "X33",
     "X40",
     "X48",
-    "X51",
-    "X53",
     "X83"
    ],
    "missing_on_map": [
     "X20",
+    "X51",
+    "X53",
     "X7"
    ],
    "not_in_data": [],
@@ -1492,6 +1368,9 @@
     "X26",
     "X27",
     "X42",
+    "X93"
+   ],
+   "missing_on_map": [
     "X85",
     "X86",
     "X87",
@@ -1499,12 +1378,10 @@
     "X89",
     "X90",
     "X91",
-    "X92",
-    "X93"
+    "X92"
    ],
-   "missing_on_map": [],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X24": {
    "data_walls": [
@@ -1514,14 +1391,19 @@
     "X98"
    ],
    "found_walls": [
+    "X23",
     "X34",
+    "X39",
     "X44",
     "X47",
     "X98"
    ],
    "missing_on_map": [],
-   "not_in_data": [],
-   "match": true
+   "not_in_data": [
+    "X23",
+    "X39"
+   ],
+   "match": false
   },
   "X29": {
    "data_walls": [
@@ -1590,15 +1472,12 @@
    "found_walls": [
     "X11",
     "X14",
-    "X19",
-    "X47"
+    "X19"
    ],
    "missing_on_map": [
     "X15"
    ],
-   "not_in_data": [
-    "X47"
-   ],
+   "not_in_data": [],
    "match": false
   },
   "X78": {
@@ -1644,7 +1523,6 @@
     "X93"
    ],
    "found_walls": [
-    "X101",
     "X31",
     "X79",
     "X85",
@@ -1654,10 +1532,8 @@
     "X93"
    ],
    "missing_on_map": [],
-   "not_in_data": [
-    "X101"
-   ],
-   "match": false
+   "not_in_data": [],
+   "match": true
   },
   "X81": {
    "data_walls": [
@@ -1691,15 +1567,28 @@
     "X47"
    ],
    "found_walls": [
+    "F1",
+    "T2",
+    "X11",
     "X14",
     "X21",
     "X27",
     "X34",
-    "X47"
+    "X41",
+    "X47",
+    "X94",
+    "X96"
    ],
    "missing_on_map": [],
-   "not_in_data": [],
-   "match": true
+   "not_in_data": [
+    "F1",
+    "T2",
+    "X11",
+    "X41",
+    "X94",
+    "X96"
+   ],
+   "match": false
   }
  },
  "regions": {
@@ -2334,7 +2223,7 @@
    "edges_found": [
     "B1",
     "X13",
-    "wall T2",
+    "X97",
     "wall X28"
    ]
   },
@@ -2361,7 +2250,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "C3",
     "D3",
     "E2",
     "wall X28"
@@ -2404,10 +2292,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "B1",
-    "C2b",
     "D2",
-    "E1",
     "T1",
     "wall X100"
    ]
@@ -2436,7 +2321,6 @@
    "orbit": 1,
    "edges_found": [
     "B1",
-    "D2",
     "E1",
     "wall X100"
    ]
@@ -2449,10 +2333,7 @@
     "X61"
    ],
    "orbit": 2,
-   "edges_found": [
-    "B1",
-    "D2"
-   ]
+   "edges_found": []
   },
   {
    "face": 9,
@@ -2490,7 +2371,7 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "wall X11"
+    "X97"
    ]
   },
   {
@@ -2502,8 +2383,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "wall F1",
-    "wall X11"
+    "X97"
    ]
   },
   {
@@ -2530,7 +2410,7 @@
     "D1",
     "T1",
     "X4",
-    "wall F1"
+    "X97"
    ]
   },
   {
@@ -2543,8 +2423,7 @@
    "orbit": 0,
    "edges_found": [
     "E2",
-    "wall X11",
-    "wall X94"
+    "X97"
    ]
   },
   {
@@ -2557,8 +2436,7 @@
    "orbit": 1,
    "edges_found": [
     "E2",
-    "wall X11",
-    "wall X94"
+    "X97"
    ]
   },
   {
@@ -2571,8 +2449,7 @@
    "orbit": 0,
    "edges_found": [
     "X4",
-    "wall X11",
-    "wall X94"
+    "X97"
    ]
   },
   {
@@ -2585,8 +2462,7 @@
    "orbit": 1,
    "edges_found": [
     "X4",
-    "wall X11",
-    "wall X94"
+    "X97"
    ]
   },
   {
@@ -2640,8 +2516,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "C2a",
-    "E1",
     "wall F4"
    ]
   },
@@ -2655,8 +2529,7 @@
    "orbit": 0,
    "edges_found": [
     "X81",
-    "wall X26",
-    "wall X79"
+    "wall X26"
    ]
   },
   {
@@ -2668,10 +2541,8 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "X80",
     "X81",
-    "wall X26",
-    "wall X79"
+    "wall X26"
    ]
   },
   {
@@ -2685,7 +2556,7 @@
    "edges_found": [
     "(unnamed curve)",
     "C3",
-    "wall T2"
+    "X97"
    ]
   },
   {
@@ -2700,7 +2571,7 @@
     "(unnamed curve)",
     "C3",
     "X6",
-    "wall T2"
+    "X97"
    ]
   },
   {
@@ -2713,7 +2584,7 @@
    "orbit": 0,
    "edges_found": [
     "(unnamed curve)",
-    "wall T2"
+    "X97"
    ]
   },
   {
@@ -2727,8 +2598,7 @@
    "edges_found": [
     "(unnamed curve)",
     "X6",
-    "wall T2",
-    "wall X19"
+    "X97"
    ]
   },
   {
@@ -2741,7 +2611,6 @@
    "orbit": 0,
    "edges_found": [
     "(unnamed curve)",
-    "C2b",
     "X97"
    ]
   },
@@ -2755,7 +2624,6 @@
    "orbit": 1,
    "edges_found": [
     "C2b",
-    "X6",
     "X97",
     "wall X25"
    ]
@@ -2784,7 +2652,6 @@
    "orbit": 1,
    "edges_found": [
     "(unnamed curve)",
-    "C2b",
     "X4",
     "X6",
     "wall X25"
@@ -2919,12 +2786,9 @@
    "orbit": 1,
    "edges_found": [
     "C2b",
-    "D2",
     "X2",
     "X6",
-    "wall X11",
-    "wall X17",
-    "wall X26"
+    "wall X17"
    ]
   },
   {
@@ -2964,7 +2828,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D1",
     "X8",
     "wall F5"
    ]
@@ -3049,7 +2912,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D2",
     "X13",
     "X4",
     "wall X93"
@@ -3091,7 +2953,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D2",
     "wall X93"
    ]
   },
@@ -3104,10 +2965,8 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "X5",
-    "wall X10",
-    "wall X39",
-    "wall X9"
+    "X24",
+    "X5"
    ]
   },
   {
@@ -3120,10 +2979,8 @@
    "orbit": 1,
    "edges_found": [
     "E1",
-    "X5",
-    "wall X10",
-    "wall X39",
-    "wall X9"
+    "X24",
+    "X5"
    ]
   },
   {
@@ -3145,8 +3002,8 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "X5",
-    "wall X39"
+    "X24",
+    "X5"
    ]
   },
   {
@@ -3158,10 +3015,9 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "C2b",
     "D2",
+    "X24",
     "X5",
-    "wall X39",
     "wall X41"
    ]
   },
@@ -3184,7 +3040,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "C2b",
     "X2",
     "wall X14"
    ]
@@ -3224,8 +3079,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "B1",
-    "C2b",
     "D2",
     "X2",
     "wall X101",
@@ -3254,12 +3107,9 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "B1",
-    "D2",
     "D3",
     "X2",
     "wall X101",
-    "wall X19",
     "wall X79"
    ]
   },
@@ -3330,7 +3180,6 @@
    "edges_found": [
     "(unnamed curve)",
     "D1",
-    "E1",
     "wall F1"
    ]
   },
@@ -3357,8 +3206,7 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "(unnamed curve)",
-    "C3"
+    "(unnamed curve)"
    ]
   },
   {
@@ -3370,8 +3218,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "(unnamed curve)",
-    "C3"
+    "(unnamed curve)"
    ]
   },
   {
@@ -3384,7 +3231,6 @@
    "orbit": 0,
    "edges_found": [
     "(unnamed curve)",
-    "C3",
     "E2"
    ]
   },
@@ -3413,10 +3259,7 @@
    "edges_found": [
     "X13",
     "X80",
-    "wall X101",
-    "wall X17",
-    "wall X26",
-    "wall X79"
+    "wall X17"
    ]
   },
   {
@@ -3430,10 +3273,7 @@
    "edges_found": [
     "X13",
     "X80",
-    "wall X101",
-    "wall X17",
-    "wall X26",
-    "wall X79"
+    "wall X17"
    ]
   },
   {
@@ -3447,9 +3287,7 @@
    "edges_found": [
     "D1",
     "D3",
-    "E1",
-    "E2",
-    "wall X28"
+    "E2"
    ]
   },
   {
@@ -3517,12 +3355,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "C3",
-    "D3",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X18"
    ]
   },
   {
@@ -3547,9 +3380,9 @@
    ],
    "orbit": 0,
    "edges_found": [
+    "X24",
     "X29",
-    "X8",
-    "wall X23"
+    "X8"
    ]
   },
   {
@@ -3561,9 +3394,9 @@
    ],
    "orbit": 1,
    "edges_found": [
+    "X24",
     "X29",
-    "X8",
-    "wall X23"
+    "X8"
    ]
   },
   {
@@ -3575,7 +3408,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D1",
     "E2"
    ]
   },
@@ -3587,10 +3419,7 @@
     "X63"
    ],
    "orbit": 1,
-   "edges_found": [
-    "E1",
-    "E2"
-   ]
+   "edges_found": []
   },
   {
    "face": 90,
@@ -3604,7 +3433,7 @@
     "C2a",
     "D2",
     "E1",
-    "wall X96"
+    "X97"
    ]
   },
   {
@@ -3617,9 +3446,8 @@
    "orbit": 1,
    "edges_found": [
     "C2a",
-    "D2",
     "E1",
-    "wall X96"
+    "X97"
    ]
   },
   {
@@ -3645,13 +3473,9 @@
    ],
    "orbit": 1,
    "edges_found": [
+    "X18",
     "X2",
-    "X81",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X81"
    ]
   },
   {
@@ -3692,7 +3516,6 @@
    "edges_found": [
     "X18",
     "X24",
-    "X6",
     "X97"
    ]
   },
@@ -3705,13 +3528,9 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "(unnamed curve)",
+    "X18",
     "X24",
-    "X97",
-    "wall X35",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X97"
    ]
   },
   {
@@ -3723,7 +3542,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D1",
     "E1",
     "E2",
     "X18"
@@ -3738,13 +3556,8 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D1",
-    "E1",
     "E2",
-    "wall X35",
-    "wall X47",
-    "wall X52",
-    "wall X84"
+    "X18"
    ]
   },
   {
@@ -3756,7 +3569,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "E2",
     "wall X84"
    ]
   },
@@ -3796,10 +3608,8 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "C3",
-    "X8",
-    "wall X47",
-    "wall X84"
+    "X18",
+    "X8"
    ]
   },
   {
@@ -3811,9 +3621,7 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D1",
     "E1",
-    "E2",
     "X18"
    ]
   },
@@ -3826,14 +3634,8 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D1",
     "E1",
-    "E2",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X52",
-    "wall X84"
+    "X18"
    ]
   },
   {
@@ -3856,7 +3658,6 @@
    "orbit": 0,
    "edges_found": [
     "X80",
-    "wall X101",
     "wall X26"
    ]
   },
@@ -3870,7 +3671,6 @@
    "orbit": 1,
    "edges_found": [
     "X80",
-    "wall X101",
     "wall X26"
    ]
   },
@@ -3883,7 +3683,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D2",
     "X13",
     "X4"
    ]
@@ -3976,12 +3775,8 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "(unnamed curve)",
-    "wall X35",
-    "wall X47",
-    "wall X48",
-    "wall X51",
-    "wall X52"
+    "X18",
+    "wall X51"
    ]
   },
   {
@@ -3994,7 +3789,6 @@
    "orbit": 0,
    "edges_found": [
     "D2",
-    "X2",
     "X80"
    ]
   },
@@ -4007,8 +3801,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D2",
-    "X2",
     "X80"
    ]
   },
@@ -4022,7 +3814,6 @@
    "orbit": 0,
    "edges_found": [
     "D2",
-    "X2",
     "X80"
    ]
   },
@@ -4035,8 +3826,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D2",
-    "X2",
     "X80"
    ]
   },
@@ -4049,9 +3838,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D2",
-    "D3",
-    "X2",
     "X80"
    ]
   },
@@ -4063,11 +3849,7 @@
     "X75"
    ],
    "orbit": 1,
-   "edges_found": [
-    "D3",
-    "X2",
-    "X80"
-   ]
+   "edges_found": []
   },
   {
    "face": 123,
@@ -4078,7 +3860,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "D3",
     "X80"
    ]
   },
@@ -4091,8 +3872,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D3",
-    "X2",
     "X80"
    ]
   },
@@ -4106,7 +3885,6 @@
    "orbit": 0,
    "edges_found": [
     "D2",
-    "X2",
     "X81"
    ]
   },
@@ -4118,10 +3896,7 @@
     "X76"
    ],
    "orbit": 1,
-   "edges_found": [
-    "X2",
-    "X81"
-   ]
+   "edges_found": []
   },
   {
    "face": 127,
@@ -4146,8 +3921,6 @@
    "orbit": 1,
    "edges_found": [
     "C2b",
-    "D2",
-    "E1",
     "T1",
     "X5",
     "wall X10"
@@ -4185,7 +3958,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "E1",
     "X5",
     "wall X10"
    ]
@@ -4200,7 +3972,6 @@
    "orbit": 0,
    "edges_found": [
     "D2",
-    "X2",
     "X81"
    ]
   },
@@ -4212,11 +3983,7 @@
     "X76"
    ],
    "orbit": 1,
-   "edges_found": [
-    "D2",
-    "X2",
-    "X81"
-   ]
+   "edges_found": []
   },
   {
    "face": 134,
@@ -4227,7 +3994,6 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "X2",
     "X81"
    ]
   },
@@ -4240,9 +4006,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D3",
-    "X2",
-    "X81"
+    "D3"
    ]
   },
   {
@@ -4255,7 +4019,6 @@
    "orbit": 0,
    "edges_found": [
     "D3",
-    "X2",
     "X81"
    ]
   },
@@ -4268,9 +4031,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "D3",
-    "X2",
-    "X81"
+    "D3"
    ]
   },
   {
@@ -4297,7 +4058,6 @@
    "orbit": 1,
    "edges_found": [
     "X2",
-    "X80",
     "wall X22"
    ]
   },
@@ -4310,7 +4070,7 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "wall T2",
+    "X97",
     "wall X11"
    ]
   },
@@ -4323,7 +4083,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "wall T2",
+    "X97",
     "wall X11"
    ]
   },
@@ -4338,7 +4098,7 @@
    "edges_found": [
     "C2a",
     "T1",
-    "wall X41"
+    "X97"
    ]
   },
   {
@@ -4350,7 +4110,7 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "wall X41"
+    "X97"
    ]
   },
   {
@@ -4364,7 +4124,7 @@
    "edges_found": [
     "C2a",
     "X5",
-    "wall X41"
+    "X97"
    ]
   },
   {
@@ -4378,7 +4138,7 @@
    "edges_found": [
     "C2a",
     "X5",
-    "wall X41"
+    "X97"
    ]
   },
   {
@@ -4418,7 +4178,6 @@
    "orbit": 0,
    "edges_found": [
     "B1",
-    "C2a",
     "E1"
    ]
   },
@@ -4432,7 +4191,6 @@
    "orbit": 1,
    "edges_found": [
     "B1",
-    "C2a",
     "E1"
    ]
   }

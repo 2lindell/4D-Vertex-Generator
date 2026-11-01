@@ -293,7 +293,7 @@ def build(root=None) -> dict:
                 lines_out[i]["congruent_to"] = {"line_piece": hit[0], "map": hit[1]}
     _log(f"line piece types (congruence classes): {n_types}")
 
-    from .line_atlas import build_line_pieces
+    from .line_atlas import MIN_PIECE, build_line_pieces
     atlas_lines, place_atlas = build_line_pieces(grp, line_doc, _log, edges)
 
     def place_line(copy, edge):
@@ -344,9 +344,16 @@ def build(root=None) -> dict:
                     if pl not in outline:
                         outline.append(pl)
                     continue
-                pl = place_line(k, e)               # a curve on no atlas line
-                if pl is not None and pl not in unlisted:
-                    unlisted.append(pl)
+                ed = edges[e]
+                pts = point_from_beta(np.asarray(ed["polyline_beta"]))
+                if float(np.sum(np.arccos(np.clip(np.sum(pts[1:] * pts[:-1], axis=1), -1, 1)))) \
+                        < MIN_PIECE:
+                    continue                        # (touches a corner only)
+                rec = {"edge": int(e), "copy": int(k),               # a curve on no atlas line
+                       "line_shape": ed["line_shape"] if isinstance(ed["line_shape"], str) else None,
+                       "walls_round": sorted({w["wall"] for w in ed["walls_round"] if w["wall"]})}
+                if rec not in unlisted:
+                    unlisted.append(rec)
             surfaces = sorted({(patches[j]["surface"], k) for k, j in orb["members"]
                                if patches[j]["surface"] is not None})
             cong = orb.get("congruence_with_first_orbit") or {}
@@ -552,7 +559,6 @@ def audit(root=None) -> dict:
     db = json.loads((root / "atlas.json").read_text())
     w = json.loads((root.parent / "source" / "working_data.json").read_text())
     lines = db["line_pieces"]
-    traced = db["traced_edges"]
     line_names = set(w["lines"])
     per_face, found_edges, found_line_walls = [], defaultdict(set), defaultdict(set)
     for f in db["faces"]:
@@ -561,9 +567,18 @@ def audit(root=None) -> dict:
             ln = lines[ref["class"]]["line_shape"]
             edges_here.add(ln)
             found_line_walls[ln].add(f["wall"])
-        for ref in f.get("outline_curves_on_no_atlas_line", []):
-            others = set(traced[ref["class"]]["walls_round"]) - {f["wall"]}
-            edges_here |= {f"wall {o}" for o in others} or {"(unnamed curve)"}
+        for tr in f.get("outline_curves_on_no_atlas_line", []):
+            if tr.get("line_shape") in line_names:
+                # on no recorded piece of the line, but the curve is that line (its points give the
+                # line's polytope): the line's record misses this stretch
+                edges_here.add(tr["line_shape"])
+                found_line_walls[tr["line_shape"]].add(f["wall"])
+                continue
+            others = set(tr["walls_round"]) - {f["wall"]}
+            listed = {e for e in w["walls"].get(f["wall"], {}).get("edges", []) if e in others}
+            # where several walls meet along one curve the data names it by one of them
+            edges_here |= ({f"wall {o}" for o in listed} if listed else
+                           {f"wall {o}" for o in others} or {"(unnamed curve)"})
         per_face.append({"face": f["id"], "wall": f["wall"], "regions": f["regions"],
                          "orbit": f["orbit"], "edges_found": sorted(edges_here)})
         found_edges[f["wall"]] |= edges_here

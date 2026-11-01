@@ -207,6 +207,29 @@ def edge_is_boundary(e, piece_region) -> bool:
     return across_s and across_t and not straight
 
 
+def _ring(e, surfs, keys, piece_region, n=36, radius=2e-6):
+    """Regions met on a small circle round an edge at its middle, in order (no repeats)."""
+    from .frame import surface_values
+    line = np.asarray(e["polyline_beta"], float)
+    if len(line) < 2 or np.max(np.linalg.norm(line - line[0], axis=1)) < 1e-9:
+        return []
+    m = len(line) // 2
+    x = line[m] / line[m].sum()
+    t = line[min(m + 1, len(line) - 1)] - line[max(m - 1, 0)]
+    basis = np.linalg.svd(np.vstack([np.ones(4), t]))[2][2:]
+    ang = np.linspace(0, 2 * np.pi, n, endpoint=False)
+    pts = x + radius * (np.cos(ang)[:, None] * basis[0] + np.sin(ang)[:, None] * basis[1])
+    out = []
+    for y in pts:
+        if (y @ FACE_N.T < 0).any():
+            _, yb = locate(point_from_beta(y / y.sum())[None], tol=1e-13)
+            y = yb[0]
+        pc = keys.get(np.sign(surface_values(y, surfs)[0]).astype(np.int8).tobytes())
+        if pc is not None:
+            out.append(piece_region[pc])
+    return [r for i, r in enumerate(out) if r != out[i - 1]] or out[:1]
+
+
 def _face_planes(surfs):
     from .march import _face_surfaces
     return list(_face_surfaces(surfs))
@@ -240,6 +263,8 @@ def run(root=None) -> dict:
     boundary = [edge_is_boundary(e, piece_region) for e in edges]
     _log(f"edges where walls change across both surfaces: {sum(boundary)} of {len(edges)}")
     edge_pts = [point_from_beta(np.asarray(e["polyline_beta"])) for e in edges]
+    rings = [_ring(e, surfs, ex.keys, piece_region) for e in edges]
+    _log("regions read round every edge")
     stats = defaultdict(int)
     mult = multiplication_table()
     inv = np.array([int(np.flatnonzero(mult[x] == 0)[0]) for x in range(len(mult))])
@@ -284,6 +309,15 @@ def run(root=None) -> dict:
             for k, own in surf_by_copy.items():
                 for eid, pts in enumerate(edge_pts):
                     if not boundary[eid] or tree is None or not (set(edges[eid]["surfaces"]) & own):
+                        continue
+                    # the face's two regions must meet along the edge: side by side on a small
+                    # circle round it (a wall inside one region: that region is round it)
+                    ra, rb = [r.strip() for r in label.split("|")[1:3]]
+                    ring = rings[eid]
+                    pairs = {frozenset((ring[i], ring[i - 1])) for i in range(len(ring))}
+                    if ra != rb and frozenset((ra, rb)) not in pairs:
+                        continue
+                    if ra == rb and ra not in ring:
                         continue
                     pk = pts @ g[k].T
                     d, _ = tree.query(pk)

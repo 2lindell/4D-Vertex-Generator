@@ -869,7 +869,7 @@ Orbit 1 (1200 components):
 A face is one connected piece of one wall sheet between one region component and another. Faces with the same labels must be congruent: the test maps every orbit's face onto the first orbit's by an element of G or G.Q and measures how much of each lies on the other.
 
 - 74 face labels, 150 orbits, 180000 faces on the sphere.
-- Congruence, tested on the sphere (each face a dense cloud of exact points, carried onto the first orbit's face by G or G.Q): {'congruent': 139, 'not congruent': 4, 'fragments merged into a face': 2, 'congruent where both are known': 7}.
+- Congruence, tested on the sphere (each face a dense cloud of exact points, carried onto the first orbit's face by G or G.Q): {'congruent': 139, 'not congruent': 4, 'congruent where both are known': 7}.
   - F4 | X49 | X58, orbit 1: congruent where both are known (share of the first face matched 1.0, of this one 0.9987; 178 patch(es))
   - F4 | X49 | X61, orbit 2: not congruent (share of the first face matched 0.0, of this one 0.0; 6 patch(es))
   - X23 | X59 | X62, orbit 2: not congruent (share of the first face matched 0.0, of this one 0.0; 2 patch(es))
@@ -894,7 +894,7 @@ A face is one connected piece of one wall sheet between one region component and
 | T2 | F2 | X49 | 2 | 2400 | 8 | 0.089569 | yes |
 | T2 | F3 | X36 | 2 | 2400 | 3 | 0.562893 | yes |
 | T2 | F3 | X37 | 2 | 2400 | 3 | 0.245456 | yes |
-| X10 | F2 | X95 | 2 | 2400 | 8 | 0.822955 | yes |
+| X10 | F2 | X95 | 2 | 2400 | 8 | 0.822954 | yes |
 | X100 | X58 | X61 | 2 | 2400 | 5 | 0.957351 | yes |
 | X101 | X103 | X72 | 2 | 2400 | 4 | 1.390427 | yes |
 | X11 | F2 | X36 | 2 | 2400 | 7 | 0.526091 | yes |
@@ -912,53 +912,53 @@ A face is one connected piece of one wall sheet between one region component and
 | X21 | F2 | X67 | 2 | 2400 | 3 | 0.245530 | yes |
 | X22 | F3 | X54 | 2 | 2400 | 6 | 0.547025 | yes |
 | X22 | F3 | X70 | 2 | 2400 | 4 | 0.520827 | yes |
-| X23 | X59 | X62 | 3 | 3600 | 5 | 0.388377 | no |
+| X23 | X59 | X62 | 3 | 3600 | 5 | 0.328947 | no |
 | X23 | X60 | X62 | 3 | 3600 | 5 | 0.393260 | no |
-| X25 | X45 | X46 | 2 | 2400 | 10 | 1.752283 | yes |
+| X25 | X45 | X46 | 2 | 2400 | 10 | 1.569652 | yes |
 | X26 | X102 | X103 | 2 | 2400 | 3 | 0.198176 | yes |
 | X26 | X72 | X73 | 2 | 2400 | 2 | 0.198176 | yes |
 | X27 | X45 | X55 | 2 | 2400 | 3 | 0.213260 | yes |
 | X27 | X45 | X65 | 2 | 2400 | 4 | 0.248002 | yes |
-| X28 | X49 | X50 | 2 | 2400 | 11 | 0.815606 | yes |
+| X28 | X49 | X50 | 2 | 2400 | 11 | 0.815602 | yes |
 | X3 | F2 | X12 | 2 | 2400 | 6 | 0.331791 | yes |
 | X3 | X12 | X95 | 2 | 2400 | 9 | 0.848720 | yes |
-| X31 | X43 | X54 | 2 | 2400 | 4 | 1.269553 | yes |
-| X33 | X50 | X57 | 2 | 2400 | 7 | 1.177617 | yes |
+| X31 | X43 | X54 | 2 | 2400 | 4 | 1.071378 | yes |
+| X33 | X50 | X57 | 2 | 2400 | 7 | 0.775060 | yes |
 | X34 | X55 | X60 | 2 | 2400 | 6 | 0.500173 | yes |
 | X35 | X56 | X74 | 2 | 2400 | 4 | 1.235687 | yes |
 | X38 | X68 | X68 | 1 | 1200 | 36 | 1.453663 | yes |
 | X39 | X59 | X60 | 2 | 2400 | 5 | 0.555131 | yes |
-| X40 | X57 | X63 | 2 | 2400 | 12 | 0.371346 | yes |
-| X41 | X58 | X62 | 2 | 2400 | 17 | 2.157714 | yes |
+| X40 | X57 | X63 | 2 | 2400 | 12 | 0.270926 | yes |
+| X41 | X58 | X62 | 2 | 2400 | 17 | 2.152046 | yes |
 | X42 | X56 | X65 | 2 | 2400 | 2 | 1.124860 | yes |
 | X44 | X55 | X65 | 2 | 2400 | 6 | 1.214954 | yes |
 | X47 | X65 | X67 | 2 | 2400 | 7 | 0.789123 | yes |
-| X48 | X66 | X69 | 2 | 2400 | 17 | 1.794860 | yes |
-| X51 | X63 | X64 | 2 | 2400 | 2 | 0.376021 | yes |
+| X48 | X66 | X69 | 2 | 2400 | 17 | 1.600113 | yes |
+| X51 | X63 | X64 | 2 | 2400 | 2 | 0.240561 | yes |
 | X52 | X66 | X67 | 2 | 2400 | 6 | 1.366216 | yes |
-| X53 | X64 | X69 | 2 | 2400 | 0 | 1.438053 | yes |
+| X53 | X64 | X69 | 2 | 2400 | 0 | 1.067101 | yes |
 | X7 | X12 | X30 | 1 | 1200 | 0 | 0.000000 | yes |
 | X79 | X102 | X73 | 2 | 2400 | 2 | 0.992224 | yes |
 | X82 | X43 | X49 | 2 | 2400 | 6 | 0.317347 | yes |
 | X83 | X30 | X36 | 2 | 2400 | 5 | 0.404597 | yes |
 | X84 | X63 | X74 | 2 | 2400 | 2 | 0.240561 | yes |
 | X84 | X64 | X74 | 2 | 2400 | 3 | 0.742493 | yes |
-| X85 | X43 | X71 | 2 | 2400 | 0 | 1.063334 | yes |
-| X86 | X102 | X71 | 2 | 2400 | 6 | 1.088574 | yes |
-| X87 | X70 | X75 | 2 | 2400 | 0 | 0.650482 | yes |
+| X85 | X43 | X71 | 2 | 2400 | 0 | 0.923242 | yes |
+| X86 | X102 | X71 | 2 | 2400 | 6 | 0.873492 | yes |
+| X87 | X70 | X75 | 2 | 2400 | 0 | 0.620979 | yes |
 | X88 | X73 | X75 | 2 | 2400 | 2 | 0.422467 | yes |
-| X89 | X103 | X76 | 2 | 2400 | 2 | 0.484532 | yes |
-| X9 | F2 | X16 | 3 | 3600 | 5 | 0.241428 | no |
+| X89 | X103 | X76 | 2 | 2400 | 2 | 0.423655 | yes |
+| X9 | F2 | X16 | 3 | 3600 | 5 | 0.182585 | no |
 | X9 | X16 | X95 | 2 | 2400 | 2 | 0.118273 | yes |
-| X90 | X55 | X76 | 2 | 2400 | 0 | 1.434544 | yes |
-| X91 | X72 | X77 | 2 | 2400 | 4 | 0.472682 | yes |
-| X92 | X56 | X77 | 2 | 2400 | 0 | 0.704505 | yes |
+| X90 | X55 | X76 | 2 | 2400 | 0 | 0.939412 | yes |
+| X91 | X72 | X77 | 2 | 2400 | 4 | 0.398100 | yes |
+| X92 | X56 | X77 | 2 | 2400 | 0 | 0.629923 | yes |
 | X93 | X54 | X70 | 2 | 2400 | 4 | 0.976503 | yes |
 | X94 | X36 | X37 | 2 | 2400 | 2 | 0.221057 | yes |
 | X96 | X16 | X58 | 2 | 2400 | 16 | 1.826668 | yes |
-| X96 | X16 | X62 | 2 | 2400 | 13 | 1.822184 | yes |
+| X96 | X16 | X62 | 2 | 2400 | 13 | 1.821202 | yes |
 | X98 | X60 | X67 | 2 | 2400 | 6 | 0.532438 | yes |
-| X99 | X61 | X68 | 2 | 2400 | 1 | 2.958598 | yes |
+| X99 | X61 | X68 | 2 | 2400 | 1 | 2.958597 | yes |
 
 ## Lines split by the walls round them
 
@@ -991,7 +991,7 @@ A face is one connected piece of one wall sheet between one region component and
 
 ## Atlas database (atlas.json)
 
-Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 134, 'line_pieces_bounding_a_face': 58, 'line_pieces': 77, 'line_pieces_with_two_end_points': 77, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 109, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
+Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 123, 'line_pieces_bounding_a_face': 57, 'line_pieces': 71, 'line_pieces_with_two_end_points': 71, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 108, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
 
 | wall | piece types | face classes | faces on S^3 | unplaced fragments |
 |---|---|---|---|---|
@@ -1055,30 +1055,30 @@ Line pieces are the atlas's own lines, cut only at its exact meeting points and 
 
 | line | piece types | classes | pieces on S^3 |
 |---|---|---|---|
-| B1 | 2 | 2 | 480 |
+| B1 | 1 | 1 | 240 |
 | C2a | 1 | 1 | 600 |
 | C2b | 1 | 2 | 1200 |
 | C3 | 1 | 2 | 1200 |
-| D1 | 2 | 4 | 2400 |
-| D2 | 3 | 6 | 3600 |
-| D3 | 3 | 3 | 1800 |
+| D1 | 1 | 3 | 1800 |
+| D2 | 1 | 4 | 2400 |
+| D3 | 2 | 2 | 1200 |
 | E1 | 2 | 3 | 3600 |
 | E2 | 1 | 2 | 2400 |
 | T1 | 1 | 2 | 2400 |
-| X1 | 2 | 2 | 2400 |
-| X13 | 2 | 3 | 3600 |
+| X1 | 1 | 1 | 1200 |
+| X13 | 1 | 2 | 2400 |
 | X18 | 1 | 1 | 1200 |
 | X2 | 2 | 5 | 6000 |
 | X24 | 1 | 3 | 3600 |
 | X29 | 3 | 6 | 7200 |
-| X4 | 3 | 4 | 4800 |
-| X5 | 3 | 8 | 9600 |
+| X4 | 3 | 3 | 3600 |
+| X5 | 2 | 9 | 10800 |
 | X6 | 1 | 3 | 3600 |
 | X78 | 1 | 1 | 1200 |
 | X8 | 2 | 4 | 4800 |
 | X80 | 1 | 2 | 2400 |
 | X81 | 3 | 4 | 4800 |
-| X97 | 2 | 4 | 4800 |
+| X97 | 2 | 5 | 6000 |
 
 Curves where walls meet (traced, exact) that lie on no atlas line, by the walls meeting there:
 
@@ -1113,58 +1113,83 @@ Curves where walls meet (traced, exact) that lie on no atlas line, by the walls 
 | X17, X31 |  | 2 | 0.099102 |
 | F1 |  | 1 | 0.052892 |
 | X27, X44 |  | 2 | 0.045405 |
+| F1, F4 | B1 | 23 | 0.04516 |
+| X23 | E1 | 14 | 0.029266 |
 | X38 |  | 1 | 0.02779 |
+| F4, F5 | E1 | 10 | 0.026964 |
+| X100 | E1 | 5 | 0.013836 |
+| X38, X48 | E1 | 8 | 0.013092 |
+| X86 |  | 2 | 0.008908 |
+| X11 | C3 | 5 | 0.008244 |
+| X83 | C3 | 3 | 0.005702 |
+| F1 | B1 | 3 | 0.00482 |
+| X34 |  | 2 | 0.00338 |
+| F4 |  | 3 | 0.003074 |
+| F4 | B1 | 2 | 0.002438 |
+| X88 |  | 1 | 0.002309 |
+| X20 |  | 1 | 0.002271 |
+| X99 | E1 | 1 | 0.002052 |
+| X9 | C2b | 3 | 0.001477 |
+| X3 | C3 | 3 | 0.001092 |
+| X96 |  | 1 | 0.000982 |
+| X17 | X2 | 1 | 0.000917 |
+| X25, X86 | X2 | 1 | 0.000915 |
+| X14, X15 | X6 | 1 | 0.000584 |
+| F1, X31 | X13 | 1 | 0.000569 |
+| X23 |  | 1 | 0.000561 |
 
 ## Audit: edges and walls against the working data, one for one
 
-Summary: {'walls_matching': 24, 'walls': 55, 'lines_matching': 11, 'lines': 24, 'regions_matching': 40, 'regions': 40}. 'wall Y' is the curve where the wall meets wall Y.
+Summary: {'walls_matching': 22, 'walls': 55, 'lines_matching': 11, 'lines': 24, 'regions_matching': 40, 'regions': 40}. 'wall Y' is the curve where the wall meets wall Y.
 
 | kind | name | in the data, not on the map | on the map, not in the data |
 |---|---|---|---|
-| wall | F1 |  | (unnamed curve), C3 |
-| wall | F4 |  | C2b |
-| wall | T2 | X1 |  |
+| wall | F1 | wall T2 | (unnamed curve), X97 |
+| wall | T2 | X1 | X97 |
 | wall | X10 | D1 |  |
-| wall | X101 |  | X80, X81, wall X79 |
-| wall | X11 |  | (unnamed curve), wall X19 |
+| wall | X100 | C2a |  |
+| wall | X11 | wall T2 | (unnamed curve), X97 |
 | wall | X14 |  | (unnamed curve) |
 | wall | X15 | X6 |  |
-| wall | X19 |  | wall X11, wall X26 |
-| wall | X20 | E2 |  |
-| wall | X22 | D3 | D2, wall F1 |
-| wall | X23 |  | C2b, wall X10, wall X41, wall X9 |
-| wall | X26 |  | B1, C2b, wall X19 |
+| wall | X19 | D2 |  |
+| wall | X20 | D1, E2 |  |
+| wall | X22 | D3 | wall F1 |
+| wall | X23 |  | X24, wall X41 |
 | wall | X28 |  | (unnamed curve) |
 | wall | X3 | X1 | (unnamed curve) |
-| wall | X31 |  | wall X101, wall X26, wall X79 |
-| wall | X33 |  | wall X28 |
-| wall | X35 |  | C3, wall X47, wall X48, wall X52, wall X84 |
 | wall | X38 | B1, C2a | (unnamed curve) |
-| wall | X40 | D3 |  |
-| wall | X42 | D2, D3 | wall X35, wall X47, wall X48, wall X52, wall X84 |
-| wall | X47 |  | (unnamed curve), X6, wall X35, wall X48, wall X52, wall X84 |
-| wall | X48 |  | wall X35, wall X47, wall X52, wall X84 |
-| wall | X51 | D1 |  |
-| wall | X52 |  | C3, wall X47, wall X84 |
-| wall | X53 |  | D1, wall X35, wall X47, wall X48, wall X52, wall X84 |
+| wall | X39 | wall X23 | X24 |
+| wall | X40 | D1, D3, E1 |  |
+| wall | X41 | wall X96 | X97 |
+| wall | X42 | D2, D3 |  |
+| wall | X48 | D1 |  |
+| wall | X51 | D1, E2 |  |
+| wall | X53 | E2 |  |
 | wall | X7 | C3, E2 |  |
-| wall | X79 | X81 | wall X101 |
-| wall | X84 |  | (unnamed curve), wall X35, wall X47, wall X48, wall X52 |
-| wall | X87 | C3 | D2 |
-| wall | X9 |  | D2, E1 |
-| line | B1 | X38 | X26 |
-| line | C2a | X38 |  |
-| line | C2b |  | F4, X23, X26 |
-| line | C3 | X7, X87 | F1, X35, X52 |
-| line | D1 | X10, X51 | X53 |
-| line | D2 | X42 | X22, X87, X9 |
-| line | D3 | X22, X40, X42 |  |
-| line | E1 |  | X9 |
-| line | E2 | X20, X7 |  |
+| wall | X85 | X2 |  |
+| wall | X86 | X2 |  |
+| wall | X87 | C3, D3, X2 |  |
+| wall | X88 | D3, X2 |  |
+| wall | X89 | X2 |  |
+| wall | X90 | X2 |  |
+| wall | X91 | X2 |  |
+| wall | X92 | X2 |  |
+| wall | X94 | wall T2 | X97 |
+| wall | X96 |  | X97 |
+| wall | X99 | C2a |  |
+| line | B1 | X38 |  |
+| line | C2a | X100, X38, X99 |  |
+| line | C3 | X7, X87 |  |
+| line | D1 | X10, X20, X40, X48, X51 |  |
+| line | D2 | X19, X42 |  |
+| line | D3 | X22, X40, X42, X87, X88 |  |
+| line | E1 | X40 |  |
+| line | E2 | X20, X51, X53, X7 |  |
 | line | X1 | T2, X3 |  |
-| line | X6 | X15 | X47 |
-| line | X80 |  | X101 |
-| line | X81 | X79 | X101 |
+| line | X2 | X85, X86, X87, X88, X89, X90, X91, X92 |  |
+| line | X24 |  | X23, X39 |
+| line | X6 | X15 |  |
+| line | X97 |  | F1, T2, X11, X41, X94, X96 |
 
 ## Lines and points
 
