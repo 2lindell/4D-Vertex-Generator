@@ -17,7 +17,6 @@ from scipy.spatial import cKDTree
 
 from .frame import load_json, point_from_beta
 
-
 MIN_PIECE = 5e-3     # line stretches shorter than this are rounding, not pieces
 
 
