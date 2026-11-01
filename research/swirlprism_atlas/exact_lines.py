@@ -16,9 +16,46 @@ import json
 import numpy as np
 
 import core as osd
-from exact_math import grad, nrm, project
+from exact_math import GG, grad, nrm, project
 
 OUT = "exact_lines.json"
+GINV = np.linalg.inv(GG)
+
+
+class Image:
+    """A library surface carried by a symmetry g of the extended group: f(x) = s(g^-1 x)."""
+
+    def __init__(self, s, gi):
+        self.s, self.gi, self.name = s, gi, f"{s.name}@{gi}"
+
+    def f(self, X):
+        return self.s.f(np.atleast_2d(X) @ GINV[self.gi].T)
+
+
+def second_surface(P, first, LIB):
+    """The image of a library surface that carries the whole piece P (to 1e-5) and crosses the surface `first` there
+    (not `first` itself): the one closest to every point of P. For a piece whose listed surfaces are all one plane."""
+    mid = P[len(P) // 2]
+    t = P[min(len(P) - 1, len(P) // 2 + 1)] - P[max(0, len(P) // 2 - 1)]
+    g = grad(first, mid)
+    side = np.cross(np.linalg.svd(np.ones((1, 4)))[2][1:] @ t, np.linalg.svd(np.ones((1, 4)))[2][1:] @ g) @ \
+        np.linalg.svd(np.ones((1, 4)))[2][1:]
+    off = mid + 0.02 * side / np.linalg.norm(side)        # (on `first`, off the piece: a copy of `first` vanishes here)
+    best = (np.inf, None)
+    for s in LIB.values():
+        X = np.einsum("gij,pj->gpi", GINV, P)
+        F = np.stack([np.ravel(s.f(X[k])) for k in range(len(GINV))])
+        e = 1e-7
+        Gr = (np.stack([np.stack([np.ravel(s.f(np.einsum("ij,pj->pi", GINV[k], P + e * u)))
+                                  for u in np.eye(4)], -1) for k in range(len(GINV))]) - F[..., None]) / e
+        Gr = Gr - Gr.mean(-1, keepdims=True)              # (within the betas' sum-zero space)
+        D = (np.abs(F) / (np.linalg.norm(Gr, axis=-1) + 1e-300)).max(1)
+        fo = np.abs(np.array([float(np.ravel(s.f((GINV[k] @ off)[None]))[0]) for k in range(len(GINV))]))
+        D[fo < 1e-9] = np.inf
+        k = int(D.argmin())
+        if D[k] < best[0]:
+            best = (D[k], Image(s, k))
+    return best[1] if best[0] < 1e-5 else None
 
 
 def main():
@@ -47,6 +84,13 @@ def main():
                     s = np.sqrt(max(0.0, 1 - (a @ b) ** 2 / ((a @ a) * (b @ b) + 1e-300)))   # (sine of their angle)
                     if s > best:
                         best, pair = s, (cand[i], cand[j])
+            if best < 1e-6:
+                # (the listed surfaces are all one plane (a pair of opposite normals): the second is an image of a
+                # library surface through the whole piece)
+                S2 = second_surface(P, pair[0], LIB)
+                if S2 is None:
+                    raise ValueError(f"{L}: no second surface for a piece")
+                pair = (pair[0], S2)
             Q = np.array([nrm(project(list(pair), p)) for p in P])
             for k in (0, -1):
                 d = [np.linalg.norm(Q[k] - u) for u in V]
