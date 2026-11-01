@@ -29,8 +29,8 @@ import numpy as np
 
 import domain as D
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "swirlprism_atlas"))
-from place_colors import DARK, LIGHT, _oklch_to_hex  # noqa: E402  (the Symmetry Domain page's colour rule)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from place_colors import DARK, LIGHT, _oklch_to_hex  # noqa: E402  (the Symmetry Domain page's colour rule, kept here)
 
 KEY = D.KEY
 GROUP = {

@@ -515,17 +515,6 @@
    "beta": "(0.3445, 0.2185, 0.3107, 0.1263)"
   },
   {
-   "id": "P4",
-   "dim": "point",
-   "name": "subsymmetrical tetrafold ambotetraswirlchoron",
-   "sig": "24: cells 8x[6v8f]+8x[6v8f]+48x[4v4f] | faces 16x3g+24x3g+24x3g+48x3g+48x3g | edges 24x3+24x3+24x4+48x5",
-   "bounds": [],
-   "where": "\u03b2 ((\u221a3\u22121)/2, 2\u2212\u221a3, (\u221a3\u22121)/2, 0), where half-turn axis and half-turn axis and half-turn axis meet",
-   "locus": "24 vertices, 96 symmetries",
-   "seed": "-0.701057384650, 0.092295955641, -0.092295955641, 0.701057384650",
-   "beta": "(0.3660, 0.2679, 0.3660, 0.0000)"
-  },
-  {
    "id": "R9",
    "dim": "region",
    "name": "1ast-48-2"
@@ -55126,6 +55115,16 @@
    "hover": "P3 \u00b7 \u03b2 (2/5, 1/5, 2/5, 0)"
   },
   {
+   "id": "S2",
+   "q": [
+    0.0,
+    -0.0,
+    0.26795
+   ],
+   "beta": "(0.3660, 0.2113, 0.2113, 0.2113)",
+   "hover": "S2 \u00b7 \u03b2 ((\u221a3\u22121)/2, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6): 16 vertices, 96 symmetries; where half-turn axis and half-turn axis and half-turn axis meet"
+  },
+  {
    "id": "R3",
    "q": [
     0.70711,
@@ -55136,14 +55135,14 @@
    "hover": "R3 \u00b7 \u03b2 ((\u221a3\u22121)/2, 1/2, (2\u2212\u221a3)/2, 0): 48 vertices, 288 symmetries; where half-turn axis and half-turn axis and 6/3 gyrogon girdle meet"
   },
   {
-   "id": "P4",
+   "id": "S3",
    "q": [
     0.1387,
     0.51764,
     0.26795
    ],
    "beta": "(0.3660, 0.2679, 0.3660, 0.0000)",
-   "hover": "P4 \u00b7 \u03b2 ((\u221a3\u22121)/2, 2\u2212\u221a3, (\u221a3\u22121)/2, 0): 24 vertices, 96 symmetries; where half-turn axis and half-turn axis and half-turn axis meet"
+   "hover": "S3 \u00b7 \u03b2 ((\u221a3\u22121)/2, 2\u2212\u221a3, (\u221a3\u22121)/2, 0): 24 vertices, 96 symmetries; where half-turn axis and half-turn axis and half-turn axis meet"
   },
   {
    "id": "R3",
