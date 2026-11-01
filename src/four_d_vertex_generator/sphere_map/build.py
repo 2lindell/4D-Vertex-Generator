@@ -54,7 +54,7 @@ from .march import glue_exits, march
 from .pieces import Exploration, explore
 from .surface_images import Library, images_through, source_families
 
-ATLAS_COMMIT = "8488da9c0cf86cef7fbb4f49c6ca797ccfe46b42"
+ATLAS_COMMIT = "7a3a8a2abd287fd811f41935e34ea0af17bec9c9"
 ATLAS_BRANCH = "claude/laughing-noether-qydcwe"
 
 

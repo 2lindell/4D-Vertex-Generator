@@ -30901,32 +30901,9 @@
       "sign": -1,
       "share": 1.0
      }
-    },
-    "X81": {
-     "status": "exact",
-     "surface": "X42",
-     "also": [
-      "X89",
-      "X90",
-      "X91",
-      "X92"
-     ],
-     "side": {
-      "sign": 1,
-      "share": 1.0
-     }
     }
    },
-   "cuts": {
-    "X26": {
-     "status": "unverified: the cutting wall's edge on it is not traced",
-     "between": [
-      "X72",
-      "X73"
-     ],
-     "crossing": true
-    }
-   },
+   "cuts": {},
    "through": {}
   },
   "X82": {
@@ -31750,6 +31727,30 @@
      "surface": "plane (1, -0, -0, -0)",
      "share_of_Y": 0.627,
      "curve_off": 0.0,
+     "side": {
+      "sign": 1,
+      "share": 1.0
+     }
+    }
+   },
+   "cuts": {},
+   "through": {}
+  },
+  "X101": {
+   "surface": [
+    "plane (0, 0.707107, 0, -0.707107)",
+    "plane (0.934172, -0.356822, 0, 0)"
+   ],
+   "edges": {
+    "X81": {
+     "status": "exact",
+     "surface": "X42",
+     "also": [
+      "X89",
+      "X90",
+      "X91",
+      "X92"
+     ],
      "side": {
       "sign": 1,
       "share": 1.0

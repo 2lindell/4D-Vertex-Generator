@@ -18,6 +18,9 @@ from scipy.spatial import cKDTree
 from .frame import load_json, point_from_beta
 
 
+MIN_PIECE = 5e-3     # line stretches shorter than this are rounding, not pieces
+
+
 def densify(r4: np.ndarray, step: float = 2e-4) -> np.ndarray:
     """Points along a polyline on S^3 at about `step` apart (chords split and renormalised)."""
     out = [r4[:1]]
@@ -123,8 +126,9 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             bounds = [(0, start)] + [c for c in cut_at if 0 < c[0] < len(poly) - 1] + \
                 [(len(poly) - 1, stop)]
             for (a, na), (b, nb) in zip(bounds[:-1], bounds[1:]):
-                if b - a < 1 or _arc(point_from_beta(poly[a:b + 1])) < 1e-6:
-                    continue                     # (no length: a cut at two coincident points)
+                if b - a < 1 or _arc(point_from_beta(poly[a:b + 1])) < MIN_PIECE:
+                    continue      # (rounding left between a cut and a known point: lines run
+                                  #  all the way to their known points, so it is not a piece)
                 subs.append({"line": name, "atlas_piece": pi, "from": a, "to": b,
                              "polyline": poly[a:b + 1], "start_point": na, "end_point": nb,
                              "surfaces": info["surfaces"][pi] if pi < len(info["surfaces"]) else

@@ -3,7 +3,7 @@
 Everything known about the shapes of the `h4_swirlprism` symmetry (order 1200), as plain data.
 
 - `source/`: the atlas's data, copied unchanged from `research/swirlprism_atlas` on
-  `claude/laughing-noether-qydcwe` (commit `8488da9`). It holds the named shapes with counts and
+  `claude/laughing-noether-qydcwe` (commit `7a3a8a2`). It holds the named shapes with counts and
   seeds (`working_data.json`, `working_base.json`), the exact surfaces (`surfaces.json`), points,
   lines and wall equations, the cell frame (`cell_vertices.npy`) and the half-turn `Q` that
   normalizes the group (`normalizer_q.npy`).
