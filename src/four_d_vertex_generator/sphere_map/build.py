@@ -212,8 +212,17 @@ def piece_volumes(ex: Exploration, surfs, n: int = 400_000, seed: int = 5) -> np
 # ------------------------------------------------------------------------------------------ gluing
 
 
+GLUE_CLEARANCE = 1e-5
+
+
 def glue_faces(ex: Exploration, surfs) -> tuple[list[tuple[int, int, int, int]], dict]:
-    """(piece, face, neighbour copy, neighbour piece) for every observed crossing of a domain face."""
+    """(piece, face, neighbour copy, neighbour piece) for every observed crossing of a domain face.
+
+    Only face points clear of every other surface count: near a line or corner the pieces that
+    meet there may touch only along the line."""
+    from .march import _face_surfaces
+
+    face_planes = list(_face_surfaces(surfs))
     out: set[tuple[int, int, int, int]] = set()
     stats = Counter()
     items = [(pid, face, beta) for (pid, face), pts in ex.face_points.items() for beta in pts]
@@ -224,12 +233,19 @@ def glue_faces(ex: Exploration, surfs) -> tuple[list[tuple[int, int, int, int]],
         copies, inner = locate(point_from_beta(outside), tol=1e-13)
         vals = surface_values(inner, surfs)
         dist = np.abs(vals) / (surface_scale(inner, surfs) + 1e-300)
-        for (pid, face, _), k, row, d in zip(chunk, copies, vals, dist):
+        dist[:, face_planes] = np.inf          # (the face itself)
+        inside_vals = surface_values(np.array([b for _, _, b in chunk]), surfs)
+        idist = np.abs(inside_vals) / (surface_scale(np.array([b for _, _, b in chunk]), surfs)
+                                       + 1e-300)
+        idist[:, face_planes] = np.inf
+        for (pid, face, _), k, row, d, di in zip(chunk, copies, vals, dist, idist):
             if k == 0:
                 stats["stayed"] += 1
                 continue
-            if d.min() < 1e-9:
-                stats["on a surface"] += 1
+            if min(d.min(), di.min()) < GLUE_CLEARANCE:
+                # at a line or corner where other surfaces meet the face: contact there may be
+                # only along that line, so it says nothing about which pieces share the face
+                stats["at a line or corner"] += 1
                 continue
             q = ex.keys.get(np.sign(row).astype(np.int8).tobytes())
             if q is None:
@@ -349,7 +365,128 @@ def name_patch(region_a, region_b, family, naming):
     return None, "ambiguous:" + ",".join(cands)
 
 
-def check_patch_sides(ex, patches, lib, workers: int, cache: dict):
+def on_surface(ex, surfs, a: int, b: int, s_index: int, x) -> np.ndarray | None:
+    """x moved exactly onto surface s_index (Newton), if it still lies between pieces a and b."""
+    from .march import _project, _signs
+
+    x = _project(surfs[s_index], np.asarray(x, float)[None], iters=6)
+    sign = _signs(surfs, x)[0]
+    sign[s_index] = 0
+    want = ex.signs[a].copy()
+    want[s_index] = 0
+    if not np.array_equal(sign, want) or (x @ FACE_N.T < 0).any():
+        return None
+    return x[0]
+
+
+def _sides(surf, x, sign_of_a, eps=1e-6):
+    """Points just on side a and side b of surface surf at x (x on the surface)."""
+    g = surf.grad(x[None])[0]
+    g = g - g.mean()
+    g /= np.linalg.norm(g)
+    plus = np.sign(surf.f((x + eps * g)[None])[0])
+    a_side = x + eps * g if plus == sign_of_a else x - eps * g
+    return a_side, 2 * x - a_side, (a_side - x) / eps
+
+
+def check_seam_sides(ex, labels, lib, workers: int, cache: dict) -> list[dict]:
+    """Sample both sides of every seam: a side that is not the region its piece is labelled
+    shows a sliver of another region inside that piece (a surface image the library lacks)."""
+    by_sig = region_signatures()
+    surfs = lib.surfaces()
+    pts, owners = [], []
+    for (a, b, sidx), (_, pt) in ex.adjacency.items():
+        if labels[a] != labels[b] or pt is None:
+            continue
+        x = on_surface(ex, surfs, a, b, sidx, pt)
+        if x is None:
+            continue
+        pa, pb, na = _sides(surfs[sidx], x, ex.signs[a][sidx])
+        pts += [pa, pb]
+        owners.append((a, b, sidx, pa, pb, na))
+    res = classify_points(pts, 1e-9, workers, cache,
+                          need_key=lambda sig: by_sig.get(sig) in splits())
+    mixed = []
+    for j, (a, b, sidx, pa, pb, na) in enumerate(owners):
+        for (sig, key), piece, point, inward in ((res[2 * j], a, pa, -na), (res[2 * j + 1], b, pb, na)):
+            name = by_sig.get(sig)
+            name = split_name(name, key) if name in splits() else name
+            if name is not None and name != labels[piece] and clear_of_surfaces(
+                    surfs, point, keep_out=1e-5):
+                mixed.append({"piece": int(piece), "labelled": labels[piece],
+                              "touches_patch_as": name, "seam": [int(a), int(b), int(sidx)],
+                              "point": point, "inward": inward})
+    return mixed
+
+
+_SURFS = None
+
+
+def _init_surfs(surfs):
+    global _SURFS
+    _SURFS = surfs
+
+
+def _mixed_job(args):
+    """Walk from a sliver point into its piece until the piece's own region shows, and bisect."""
+    from .march import _signs
+
+    piece, point, inward, piece_sign, samples, expected, found, families = args
+    by_sig = region_signatures()
+    point = np.asarray(point, float)
+    prev, target = point, None
+    if inward is not None:
+        for d in (1e-5, 3e-5, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2, 3e-2, 6e-2):
+            y = point + d * np.asarray(inward, float)
+            if (y @ FACE_N.T < 0).any() or not np.array_equal(_signs(_SURFS, y[None])[0], piece_sign):
+                break
+            if _name_at(y, by_sig) == expected:
+                target = y
+                break
+            prev = y
+    if target is None:          # fall back: towards the nearest sample labelled with the region
+        target = min(samples, key=lambda b: np.linalg.norm(np.asarray(b) - point))
+        prev = point
+        if _name_at(target, by_sig) != expected:
+            return piece, expected, found, None, []
+    x = _transition(target, prev, expected, by_sig)
+    hits = images_through(x, families, tol=1e-7) if families else []
+    if not hits:
+        hits = images_through(x, None, tol=1e-7)
+    return piece, expected, found, x, hits
+
+
+def refine_mixed(ex, mixed, lib: Library, workers: int) -> tuple[int, list]:
+    """Add the surface images that bound the slivers found by the side checks."""
+    naming = wall_naming()
+    jobs, seen = [], set()
+    for m in mixed:
+        key = (m["piece"], m["touches_patch_as"])
+        if key in seen or m.get("point") is None:
+            continue
+        seen.add(key)
+        fams = set()
+        for v in naming.values():
+            if m["labelled"] in v["regions"] and m["touches_patch_as"] in v["regions"]:
+                fams |= v["families"]
+        sign = ex.signs[m["piece"]]
+        samples = [np.asarray(b, float) for _, b in ex.samples[m["piece"]]]
+        jobs.append((m["piece"], m["point"], m.get("inward"), sign, samples, m["labelled"],
+                     m["touches_patch_as"], fams or None))
+    added, unexplained = 0, []
+    with Pool(workers, initializer=_init_surfs, initargs=(lib.surfaces(),)) as pool:
+        for piece, expected, found, x, hits in pool.map(_mixed_job, jobs, chunksize=1):
+            if x is None or not hits:
+                unexplained.append({"piece": piece, "regions": [expected, found],
+                                    "point": None if x is None else x.tolist()})
+                continue
+            best = min(hits, key=lambda h: h[2])
+            _, new = lib.add_image(best[0], best[1], x)
+            added += int(new)
+    return added, unexplained
+
+
+def check_patch_sides(ex, patches, lib, workers: int, cache: dict, labels_now=None):
     """Classify a point just either side of every wall patch and use those for its regions.
 
     A patch's regions first come from the labels of the pieces either side, but a piece can hold
@@ -361,51 +498,55 @@ def check_patch_sides(ex, patches, lib, workers: int, cache: dict):
     naming = wall_naming()
     surfs = lib.surfaces()
     pts, owners = [], []
+    inward_of = {}
     for i, p in enumerate(patches):
         x = p["point"]
         if x is None:
             continue
         x = np.asarray(x, float)
         if p["face"] is None:
-            surf = surfs[p["surface"]]
-            g = surf.grad(x[None])[0]
-            g = g - g.mean()
-            g /= np.linalg.norm(g)
-            plus = np.sign(surf.f((x + 1e-6 * g)[None])[0])
-            a_side = x + 1e-6 * g if plus == ex.signs[p["pieces"][0]][p["surface"]] else x - 1e-6 * g
-            b_side = 2 * x - a_side
-            pts += [a_side, b_side]
+            a, b = p["pieces"]
+            x = on_surface(ex, surfs, a, b, p["surface"], x)
+            if x is None:
+                continue
+            p["point"] = x
+            pa, pb, na = _sides(surfs[p["surface"]], x, ex.signs[a][p["surface"]])
+            pts += [pa, pb]
+            inward_of[i] = (-na, na)
         else:
             n = FACE_N[FACE_NAMES.index(p["face"])]
             n = n / np.linalg.norm(n)
             inside = x + 1e-6 * n
             k, beyond = locate(point_from_beta(x - 1e-6 * n)[None], tol=1e-13)
-            # the stored point belongs to whichever piece recorded it; sides compared as a set
             pts += [inside, beyond[0]]
+            inward_of[i] = (n, None)
         owners.append(i)
     res = classify_points(pts, 1e-9, workers, cache,
                           need_key=lambda sig: by_sig.get(sig) in splits())
     stats, mixed = Counter(), []
     for j, i in enumerate(owners):
         p = patches[i]
-        names = []
-        for sig, key in res[2 * j: 2 * j + 2]:
+        sides = []
+        for q, (sig, key) in zip(pts[2 * j: 2 * j + 2], res[2 * j: 2 * j + 2]):
             name = by_sig.get(sig)
-            names.append(split_name(name, key) if name in splits() else name)
-        if None in names:
+            name = split_name(name, key) if name in splits() else name
+            piece = ex.keys.get(np.sign(surface_values(q, surfs)[0]).astype(np.int8).tobytes())
+            sides.append((name, piece, q))
+        if any(n is None for n, _, _ in sides):
             stats["side not classified"] += 1
             continue
-        if p["face"] is None:
-            got = tuple(names)
-        else:
-            got = tuple(names) if names[0] in p["regions"] else tuple(reversed(names))
+        for name, piece, q in sides:
+            if piece is not None and name != labels_now[piece] and clear_of_surfaces(
+                    surfs, q, keep_out=1e-5):
+                mixed.append({"piece": int(piece), "labelled": labels_now[piece],
+                              "touches_patch_as": name, "patch": i, "point": q, "inward": None})
+        got = tuple(n for n, _, _ in sides)
         if sorted(got) == sorted(p["regions"]):
             stats["sides confirmed"] += 1
             continue
-        for side, (want, have) in enumerate(zip(p["regions"], got)):
-            if want != have:
-                mixed.append({"piece": int(p["pieces"][side]), "labelled": want,
-                              "touches_patch_as": have, "patch": i})
+        # orient as the pieces are: side a is the sampled point lying in piece a
+        if sides[1][1] == p["pieces"][0] or sides[0][1] == p["pieces"][1]:
+            got = got[::-1]
         p["regions_from_pieces"] = p["regions"]
         p["regions"] = got
         stats["sides corrected"] += 1
@@ -417,6 +558,16 @@ def check_patch_sides(ex, patches, lib, workers: int, cache: dict):
             FACE_NAMES.index(p["face"]), lib)
         p["wall"], p["naming"] = name_patch(got[0], got[1], fam, naming)
     return stats, mixed
+
+
+def clear_of_surfaces(surfs, x, keep_out: float, skip=()) -> bool:
+    """Whether x is at least keep_out from every surface except those within 2e-6 (the one it
+    was sampled beside) and those in skip."""
+    d = np.abs(surface_values(x, surfs)[0]) / (surface_scale(x, surfs)[0] + 1e-300)
+    d[list(skip)] = np.inf
+    near = np.sort(d)
+    # the sampled point sits ~1e-6 off its own surface (or face); anything else must be clear
+    return bool(near[1] > keep_out) if near[0] < 2e-6 else bool(near[0] > keep_out)
 
 
 def verify_patch_names(patches, workers: int, cache: dict) -> Counter:
@@ -659,7 +810,7 @@ def walls_inside_regions(ex, labels, workers: int, cache: dict, surfs):
     for c, (key, pt, sig, vkey, name) in enumerate(candidates):
         v = votes.get(c, [])
         agree = sum(1 for x in v if x == name)
-        if name is None or agree < max(1, (len(v) + 1) // 2):
+        if name is None or agree < max(2, (len(v) + 1) // 2):
             stats["single-point shape, not confirmed nearby"] += 1
             continue
         stats["wall inside a region"] += 1
@@ -775,7 +926,8 @@ def _load(path):
 
 
 def build(n_chords: int, workers: int, seed: int = 0, rounds: int = 6,
-          resume_library: bool = False, from_checkpoint: bool = False) -> dict:
+          resume_library: bool = False, from_checkpoint: bool = False,
+          fix_mixed: bool = False, fix_mixed_rounds: int = 3) -> dict:
     """Build the map. ``from_checkpoint`` reuses the saved pieces and surface walks (the slow
     part) and redoes the naming and everything after it, e.g. after the working data changes."""
     out_dir = data_dir() / "sphere_map"
@@ -793,7 +945,24 @@ def build(n_chords: int, workers: int, seed: int = 0, rounds: int = 6,
         _save(cache, cache_path)
         _save(state, checkpoint)
     try:
-        return finish(state, workers, cache, out_dir)
+        result = finish(state, workers, cache, out_dir, check_seams=fix_mixed)
+        for it in range(fix_mixed_rounds if fix_mixed else 0):
+            mixed = result["mixed_pieces"]
+            if not mixed:
+                break
+            lib = state["lib"]
+            added, unexplained = refine_mixed(state["ex"], mixed, lib, workers)
+            log(f"mixed pieces: {len({m['piece'] for m in mixed})}; added {added} surface images; "
+                f"{len(unexplained)} not resolved")
+            if not added:
+                break
+            lib.save(out_dir / "surface_library.json")
+            _save(cache, cache_path)
+            state = explore_and_walk(n_chords, workers, seed, rounds, True, out_dir, cache)
+            _save(cache, cache_path)
+            _save(state, checkpoint)
+            result = finish(state, workers, cache, out_dir, check_seams=True)
+        return result
     finally:
         _save(cache, cache_path)
 
@@ -832,14 +1001,14 @@ def explore_and_walk(n_chords, workers, seed, rounds, resume_library, out_dir, c
         if k not in ex.adjacency:
             ex.adjacency[k] = [0, pt]
             added_pairs += 1
-    exit_glues, face_cont, exit_stats = glue_exits(surfs, ex.keys, exits)
+    exit_glues, face_cont, exit_stats, ended = glue_exits(surfs, ex.keys, exits)
     log(f"surface walks: {march_stats}; {added_pairs} new piece pairs; exits {exit_stats}")
     return dict(ex=ex, lib=lib, unexplained=unexplained, march_links=march_links,
                 march_stats=march_stats, exit_glues=exit_glues, face_cont=face_cont,
-                exit_stats=exit_stats)
+                exit_stats=exit_stats, ended=ended)
 
 
-def finish(state, workers, cache, out_dir) -> dict:
+def finish(state, workers, cache, out_dir, check_seams: bool = False) -> dict:
     ex, lib = state["ex"], state["lib"]
     surfs = lib.surfaces()
     march_links, exit_glues, face_cont = (state["march_links"], state["exit_glues"],
@@ -861,8 +1030,12 @@ def finish(state, workers, cache, out_dir) -> dict:
         region_pieces[name].append(i)
     regions = describe_components(comp, region_pieces)
     patches = wall_patches(ex, labels, ex.adjacency, mismatched, lib)
-    side_stats, mixed = check_patch_sides(ex, patches, lib, workers, cache)
+    side_stats, mixed = check_patch_sides(ex, patches, lib, workers, cache, labels)
     patches = [p for p in patches if not p.get("drop")]
+    if check_seams:
+        seam_mixed = check_seam_sides(ex, labels, lib, workers, cache)
+        log(f"seam sides sampled: {len(seam_mixed)} sides in a sliver of another region")
+        mixed = mixed + seam_mixed
     log(f"patch sides sampled: {dict(side_stats)}; mixed pieces: "
         f"{sorted({(m['piece'], m['labelled'], m['touches_patch_as']) for m in mixed})}")
     naming_check = verify_patch_names(patches, workers, cache)
@@ -888,6 +1061,12 @@ def finish(state, workers, cache, out_dir) -> dict:
     wcomp = wcomp.reshape(1200, len(patches))
     walls = describe_components(wcomp, wall_nodes)
     log(f"wall components: {sum(v['components'] for v in walls.values())} over {len(walls)} walls")
+    from .faces import build_faces, split_atlas_lines
+    fx = build_faces(ex, lib, patches, comp, same_inner, same_across, march_links, labels, workers,
+                     ended=state.get("ended", []))
+    line_pieces = split_atlas_lines(fx["edges"], surfs)
+    log(f"atlas lines split: {sum(len(v) for v in line_pieces.values())} pieces over "
+        f"{len(line_pieces)} lines")
     lines, points = carried_curves()
     log("lines and points carried")
     result = dict(ex=ex, labels=labels, checks=checks, volumes=volumes, glued=glued,
@@ -896,6 +1075,7 @@ def finish(state, workers, cache, out_dir) -> dict:
                   wcomp=wcomp, walls=walls, lines=lines, points=points, lib=lib,
                   unexplained=unexplained, march_stats=march_stats, exit_stats=exit_stats,
                   naming_check=dict(naming_check), side_check=dict(side_stats),
+                  faces=fx, line_pieces=line_pieces,
                   mixed_pieces=mixed)
     from .export import write_all
     write_all(result, out_dir)
@@ -913,9 +1093,13 @@ def main() -> None:
                     help="start from the saved surface_library.json instead of surfaces.json")
     ap.add_argument("--from-checkpoint", action="store_true",
                     help="reuse the saved pieces and surface walks; redo naming and the rest")
+    ap.add_argument("--fix-mixed", action="store_true",
+                    help="sample both sides of every seam and patch, add the surface images that "
+                         "bound slivers of other regions, and rebuild until none are left")
     args = ap.parse_args()
     build(args.chords, args.workers, args.seed, rounds=args.rounds,
-          resume_library=args.resume_library, from_checkpoint=args.from_checkpoint)
+          resume_library=args.resume_library, from_checkpoint=args.from_checkpoint,
+          fix_mixed=args.fix_mixed)
 
 
 if __name__ == "__main__":

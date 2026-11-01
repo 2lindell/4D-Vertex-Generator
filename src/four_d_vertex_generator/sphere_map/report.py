@@ -158,6 +158,57 @@ def write_report(root: Path) -> None:
         add(f"| {name} | {wl['name'] or ''} | {', '.join(wl['regions_found'])} | "
             f"{' + '.join(str(o['components']) for o in orb)} | "
             f"{', '.join(str(o['stabilizer_order']) for o in orb)} | {len(wl['patches'])} |")
+    import json as _json
+    fpath = Path(root) / "faces.json"
+    if fpath.exists():
+        faces = _json.loads(fpath.read_text())["faces"]
+        epath = _json.loads((Path(root) / "edges.json").read_text())
+        edges, corners = epath["edges"], epath["corners"]
+        add("")
+        add("## Faces")
+        add("")
+        add("A face is one connected piece of one wall sheet between one region component and "
+            "another. Faces with the same labels must be congruent: the test maps every orbit's "
+            "face onto the first orbit's (corners and perimeter) by an element of G or G.Q.")
+        add("")
+        n_orb = sum(len(v["orbits"]) for v in faces.values())
+        bad = [(k, o["orbit"]) for k, v in faces.items() for o in v["orbits"]
+               if o["congruent_to_first_orbit_by_map"] is None]
+        add(f"- {len(faces)} face labels, {n_orb} orbits, "
+            f"{sum(v['components_on_sphere'] for v in faces.values())} faces on the sphere.")
+        add(f"- Congruence: {n_orb - len(bad)} of {n_orb} orbits congruent to the first orbit "
+            f"with their labels.")
+        for k, o in bad:
+            add(f"  - not congruent: {k}, orbit {o}")
+        add(f"- Edges: {len(edges)}; corners: {len(corners)} "
+            f"({sum(c['exact'] for c in corners)} solved exactly, "
+            f"{sum(c['atlas_point'] is not None for c in corners)} are atlas points).")
+        add("")
+        add("| face (wall \| regions) | orbits | faces on S^3 | corners | perimeter | congruent |")
+        add("|---|---|---|---|---|---|")
+        for k, v in sorted(faces.items()):
+            o0 = v["orbits"][0]
+            ok = all(o["congruent_to_first_orbit_by_map"] is not None for o in v["orbits"])
+            add(f"| {k} | {len(v['orbits'])} | {v['components_on_sphere']} | "
+                f"{len(o0['corners_R4'])} | {o0['perimeter']:.6f} | {'yes' if ok else 'no'} |")
+    lpath = Path(root) / "line_pieces.json"
+    if lpath.exists():
+        lp = _json.loads(lpath.read_text())["lines"]
+        add("")
+        add("## Lines split by the walls round them")
+        add("")
+        add("| line | pieces | walls round each piece (in order) | points on no edge |")
+        add("|---|---|---|---|")
+        for name, pieces in sorted(lp.items()):
+            desc, off = [], 0
+            for p in pieces:
+                if p["edge"] is None:
+                    off += p["to"] - p["from"] + 1
+                    continue
+                ws = sorted({w["wall"] or "|".join(w["between"]) for w in p["walls_round"]})
+                desc.append("+".join(ws))
+            merged = [d for i, d in enumerate(desc) if i == 0 or d != desc[i - 1]]
+            add(f"| {name} | {len(merged)} | {'; '.join(merged)} | {off} |")
     add("")
     add("## Lines and points")
     add("")

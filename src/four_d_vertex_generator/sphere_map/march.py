@@ -52,12 +52,13 @@ def march(surfs, keys: dict, starts: dict[int, list[np.ndarray]], step: float = 
     """Walk every surface from its start points.
 
     Returns (links, exits, observed, stats):
-      links:    (key1, key2) patch/seam keys (a, b, s) joined along a crossing inside the domain
+      links:    {(key1, key2): [(crossed surfaces, point near the crossing), ...]} for patch/seam
+                keys (a, b, s) joined along a crossing inside the domain (a few points each)
       exits:    (key, face index, x_next beta outside the domain) where a walk leaves
       observed: keys seen on the way (pairs of pieces across s), with a point near each
     """
     rng = rng or np.random.default_rng(0)
-    links: set[tuple[tuple, tuple]] = set()
+    links: dict[tuple[tuple, tuple], list] = {}
     exits: list[tuple[tuple, int, np.ndarray]] = []
     observed: dict[tuple, np.ndarray] = {}
     stats = defaultdict(int)
@@ -108,19 +109,24 @@ def march(surfs, keys: dict, starts: dict[int, list[np.ndarray]], step: float = 
                                    * (xn[j] - x[i])[None])
                     ss = _signs(surfs, sub)
                     ss[:, s] = 0
-                    seq = [r for r in ss if (r != sign[i]).any()]
+                    prev_pts = np.vstack([x[i][None], sub[:-1]])
+                    seq = [(r, (p0 + p1) / 2) for r, p0, p1 in zip(ss, prev_pts, sub)
+                           if (r != sign[i]).any()]
                 else:
-                    seq = [sn[j]]
-                for row in seq:
+                    seq = [(sn[j], (x[i] + xn[j]) / 2)]
+                for row, where in seq:
                     nflip = int((row != sign[i]).sum())
                     if nflip == 0:
                         continue
                     a, b = pair_at(keys, row, s)
                     k = key(a, b, s) if a is not None and b is not None else None
                     if k is not None and k not in observed:
-                        observed[k] = xn[j].copy() if len(seq) == 1 else sub[-1].copy()
+                        observed[k] = where.copy()
                     if k is not None and prev_key[i] is not None and k != prev_key[i]:
-                        links.add((min(prev_key[i], k), max(prev_key[i], k)))
+                        rec = links.setdefault((min(prev_key[i], k), max(prev_key[i], k)), [])
+                        if len(rec) < 4:
+                            rec.append((tuple(int(t) for t in np.flatnonzero(row != sign[i])),
+                                        where.copy()))
                         stats["crossings" if nflip == 1 else "crossings at a meeting curve"] += 1
                     elif k is None:
                         stats["unseen pieces"] += 1
@@ -149,7 +155,8 @@ def _face_surfaces(surfs) -> dict[int, int]:
 def glue_exits(surfs, keys: dict, exits):
     """Patches/seams in neighbouring copies that the walks continue into across a face.
 
-    Returns (glues, face_continuations, stats). A face continuation is a walk that continues, in
+    Returns (glues, face_continuations, stats, ended). ``ended`` are walks whose surface carries
+    no library surface in the next copy (the walk's patch ends at that face). A face continuation is a walk that continues, in
     the neighbouring copy, in a face of the domain (a wall lying in the face there):
     (key, copy, beta there, face index).
     """
@@ -157,6 +164,7 @@ def glue_exits(surfs, keys: dict, exits):
 
     faces = _face_surfaces(surfs)
     face_cont = []
+    ended = []           # walks whose surface carries nothing in the next copy: they end at the face
     out = set()
     stats: dict = defaultdict(int)
     for lo in range(0, len(exits), 4000):
@@ -165,13 +173,14 @@ def glue_exits(surfs, keys: dict, exits):
         copies, betas = locate(point_from_beta(xs), tol=1e-13)
         vals = surface_values(betas, surfs)
         dist = np.abs(vals) / (surface_scale(betas, surfs) + 1e-300)
-        for (k, _, _), copy, row, d, beta in zip(chunk, copies, vals, dist, betas):
+        for (k, f_exit, xn), copy, row, d, beta in zip(chunk, copies, vals, dist, betas):
             if copy == 0:
                 stats["stayed in copy 0"] += 1
                 continue
             s2 = int(np.argmin(d))
             if d[s2] > 1e-8:
                 stats["not on a library surface there"] += 1
+                ended.append((k, int(f_exit), xn.copy()))
                 continue
             if s2 in faces:
                 face_cont.append((k, int(copy), beta.copy(), faces[s2]))
@@ -185,7 +194,7 @@ def glue_exits(surfs, keys: dict, exits):
                 continue
             out.add((k, int(copy), (min(a, b), max(a, b), s2)))
             stats["glued"] += 1
-    return sorted(out), face_cont, dict(stats)
+    return sorted(out), face_cont, dict(stats), ended
 
 
 

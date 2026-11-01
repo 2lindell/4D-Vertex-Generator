@@ -12,194 +12,43 @@
   "surfaces": 182,
   "surfaces_from_source": 162,
   "pieces": 11683,
-  "patches": 4001,
+  "patches": 3985,
   "regions": 40,
   "region_components": 88800,
   "walls": 55,
-  "wall_components": 91040,
+  "wall_components": 88640,
   "lines": 24,
   "points": 14
  },
  "checks": {
   "pieces_with_disagreeing_samples": [],
   "face_glue": {
-   "glued": 27830,
-   "unseen piece": 1
+   "glued": 27527,
+   "at a line or corner": 304
   },
   "patch_naming": {
-   "data": 3414,
+   "data": 3409,
    "ambiguous+classified": 482,
    "data said X26+classified": 14,
    "inside region+classified (4/4 nearby agree)": 44,
    "inside region+classified (2/2 nearby agree)": 15,
-   "inside region+classified (3/3 nearby agree)": 21,
-   "inside region+classified (1/1 nearby agree)": 11
+   "inside region+classified (3/3 nearby agree)": 21
   },
   "unnamed_patch_reasons": {},
   "shape_changes_on_no_atlas_surface": [],
-  "glue_label_mismatches_as_face_walls": 1328,
+  "glue_label_mismatches_as_face_walls": 1321,
   "patch_name_check": {
-   "data name confirmed": 3414,
+   "data name confirmed": 3407,
    "settled by classification": 482,
-   "data name corrected by classification": 14
+   "data name corrected by classification": 14,
+   "data name contradicted": 2
   },
   "patch_sides_sampled": {
-   "sides confirmed": 3891,
-   "side not classified": 3,
-   "sides corrected": 16
+   "sides confirmed": 3867,
+   "side not classified": 4,
+   "sides corrected": 14
   },
-  "mixed_pieces": [
-   {
-    "piece": 9694,
-    "labelled": "X12",
-    "touches_patch_as": "F2",
-    "patch": 3105
-   },
-   {
-    "piece": 11547,
-    "labelled": "F2",
-    "touches_patch_as": "F3",
-    "patch": 3105
-   },
-   {
-    "piece": 1874,
-    "labelled": "X60",
-    "touches_patch_as": "X59",
-    "patch": 3136
-   },
-   {
-    "piece": 1876,
-    "labelled": "X60",
-    "touches_patch_as": "X59",
-    "patch": 3137
-   },
-   {
-    "piece": 1621,
-    "labelled": "X58",
-    "touches_patch_as": "X61",
-    "patch": 3146
-   },
-   {
-    "piece": 7423,
-    "labelled": "X58",
-    "touches_patch_as": "X61",
-    "patch": 3148
-   },
-   {
-    "piece": 1624,
-    "labelled": "X61",
-    "touches_patch_as": "X58",
-    "patch": 3151
-   },
-   {
-    "piece": 695,
-    "labelled": "X58",
-    "touches_patch_as": "X49",
-    "patch": 3287
-   },
-   {
-    "piece": 733,
-    "labelled": "X49",
-    "touches_patch_as": "X61",
-    "patch": 3287
-   },
-   {
-    "piece": 6700,
-    "labelled": "X58",
-    "touches_patch_as": "X61",
-    "patch": 3288
-   },
-   {
-    "piece": 694,
-    "labelled": "X61",
-    "touches_patch_as": "X49",
-    "patch": 3642
-   },
-   {
-    "piece": 4252,
-    "labelled": "X49",
-    "touches_patch_as": "X58",
-    "patch": 3642
-   },
-   {
-    "piece": 695,
-    "labelled": "X58",
-    "touches_patch_as": "X49",
-    "patch": 3649
-   },
-   {
-    "piece": 4295,
-    "labelled": "X49",
-    "touches_patch_as": "X61",
-    "patch": 3649
-   },
-   {
-    "piece": 5742,
-    "labelled": "F2",
-    "touches_patch_as": "X95",
-    "patch": 3704
-   },
-   {
-    "piece": 1075,
-    "labelled": "X59",
-    "touches_patch_as": "X62",
-    "patch": 3778
-   },
-   {
-    "piece": 6887,
-    "labelled": "X62",
-    "touches_patch_as": "X60",
-    "patch": 3778
-   },
-   {
-    "piece": 1313,
-    "labelled": "X68",
-    "touches_patch_as": "X49",
-    "patch": 3816
-   },
-   {
-    "piece": 7838,
-    "labelled": "X49",
-    "touches_patch_as": "X61",
-    "patch": 3816
-   },
-   {
-    "piece": 1877,
-    "labelled": "X59",
-    "touches_patch_as": "X62",
-    "patch": 3818
-   },
-   {
-    "piece": 7843,
-    "labelled": "X62",
-    "touches_patch_as": "X60",
-    "patch": 3818
-   },
-   {
-    "piece": 2017,
-    "labelled": "X58",
-    "touches_patch_as": "X49",
-    "patch": 3847
-   },
-   {
-    "piece": 8527,
-    "labelled": "X49",
-    "touches_patch_as": "X61",
-    "patch": 3847
-   },
-   {
-    "piece": 1075,
-    "labelled": "X59",
-    "touches_patch_as": "X62",
-    "patch": 3866
-   },
-   {
-    "piece": 9424,
-    "labelled": "X62",
-    "touches_patch_as": "X60",
-    "patch": 3866
-   }
-  ],
+  "mixed_pieces": [],
   "surface_walks": {
    "crossings": 701698,
    "crossings at a meeting curve": 52108,
@@ -218,10 +67,10 @@
     "linked": 164
    },
    "face_walks": {
-    "face crossings": 27743,
-    "left the face": 1534,
-    "into a face beyond the edge": 617,
-    "into a surface beyond the edge": 847
+    "face crossings": 28202,
+    "left the face": 1517,
+    "into a face beyond the edge": 622,
+    "into a surface beyond the edge": 825
    }
   },
   "exploration": {
@@ -239,7 +88,10 @@
   "regions.json": "regions on the sphere: components, orbits, boundaries",
   "walls.json": "walls on the sphere: patches, components",
   "lines.json / points.json": "lines and points carried to every copy",
-  "components.npz": "region_component[copy, piece] and wall_component[copy, patch]",
+  "components.npz": "region_component[copy, piece], wall_component[copy, patch], face_component[copy, patch]",
+  "faces.json": "faces: wall sheet pieces between region components, with outlines and the congruence test",
+  "edges.json": "edges (exact curves between corners) and corners",
+  "line_pieces.json": "atlas lines split into pieces by the edges they lie on",
   "REPORT.md": "readable summary"
  }
 }

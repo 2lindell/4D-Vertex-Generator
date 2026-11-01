@@ -278,10 +278,75 @@ def write_all(result, out_dir: Path) -> None:
                              "the sphere.", "points": result["points"],
                    "named_points": {k: v for k, v in shapes.items() if v["dim"] == "point"}}, h)
 
+    # faces, edges, corners -------------------------------------------------------------------
+    fx = result.get("faces")
+    if fx:
+        def tolist(x):
+            return np.asarray(x, float).tolist()
+
+        faces_out = {}
+        for label, info in fx["faces"].items():
+            wall, *regs = [x.strip() for x in label.split("|")]
+            faces_out[label] = {
+                "wall": wall, "regions": regs,
+                "components_on_sphere": info["components_on_sphere"],
+                "orbits": [{
+                    "orbit": o["orbit"], "components": o["components"],
+                    "stabilizer_order": o["stabilizer_order"], "stabilizer": o["stabilizer"],
+                    "copies_spanned": o["copies_spanned"], "domain_patches": o["domain_pieces"],
+                    "members": o["members"], "outline": [list(x) for x in o["outline"]],
+                    "corners_R4": tolist(o["corners"]), "perimeter": o["perimeter"],
+                    "congruent_to_first_orbit_by_map": o["congruent_to_first"],
+                } for o in info["orbits"]],
+            }
+        with open(out_dir / "faces.json", "w", encoding="utf-8") as h:
+            json.dump({"_about": "Faces: one connected piece of one wall sheet between one region "
+                                 "component and another. Each orbit lists its representative's "
+                                 "(copy, patch) members, its outline as (copy, edge) pairs, its "
+                                 "corners on S^3 and perimeter, and the map (index into G then "
+                                 "G.Q, as group.npz beta_maps order) carrying the first orbit's "
+                                 "face onto it (null: not congruent).", "faces": faces_out}, h)
+        edges_out = []
+        for e in fx["edges"]:
+            ends = []
+            for end in e["ends"]:
+                d = {k: (tolist(v) if isinstance(v, np.ndarray) else v) for k, v in end.items()}
+                if d.get("point") is not None:
+                    d["point"] = tolist(d["point"])
+                ends.append(d)
+            edges_out.append({
+                "id": e["id"], "surfaces": e["surfaces"],
+                "surface_names": [lib[i].surface.name for i in e["surfaces"]],
+                "equation": "both surfaces = 0 (surface_library.json), with every other surface "
+                            "keeping the signs of the pieces round it",
+                "pieces_round": e["pieces_round"], "regions_round": e["regions_round"],
+                "walls_round": e["walls_round"], "line_shape": e["line_shape"],
+                "polyline_beta": np.round(np.asarray(e["polyline"]), 12).tolist(),
+                "ends": ends,
+            })
+        with open(out_dir / "edges.json", "w", encoding="utf-8") as h:
+            json.dump({"_about": "Edges: where faces end, each an exact curve s = t = 0 traced "
+                                 "in the domain (Newton onto both surfaces at every step) between "
+                                 "corners (exact points on s = t = u = 0) or the domain's faces. "
+                                 "'walls_round' are the wall patches meeting along it, "
+                                 "'line_shape' the line shape its points make.",
+                       "edges": edges_out,
+                       "corners": [{"id": c["id"], "beta": tolist(c["beta"]), "exact": c["exact"],
+                                    "surfaces": c["surfaces"], "atlas_point": c["atlas_point"]}
+                                   for c in fx["corners"]]}, h)
+
+    if result.get("line_pieces"):
+        with open(out_dir / "line_pieces.json", "w", encoding="utf-8") as h:
+            json.dump({"_about": "Each atlas line (working data exact lines) cut into pieces by the "
+                                 "edge it lies on: 'from'/'to' index its points, 'edge' the edge "
+                                 "(edges.json), with the walls and regions round that stretch.",
+                       "lines": result["line_pieces"]}, h)
+
     # component tables ------------------------------------------------------------------------
+    extra = {"face_component": fx["fcomp"].astype(np.int32)} if fx else {}
     np.savez_compressed(out_dir / "components.npz",
                         region_component=result["comp"].astype(np.int32),
-                        wall_component=result["wcomp"].astype(np.int32))
+                        wall_component=result["wcomp"].astype(np.int32), **extra)
 
     # manifest --------------------------------------------------------------------------------
     from .build import ATLAS_BRANCH, ATLAS_COMMIT
@@ -315,7 +380,8 @@ def write_all(result, out_dir: Path) -> None:
             "glue_label_mismatches_as_face_walls": len(result["mismatched"]),
             "patch_name_check": result.get("naming_check"),
             "patch_sides_sampled": result.get("side_check"),
-            "mixed_pieces": result.get("mixed_pieces"),
+            "mixed_pieces": [{k: (np.asarray(v).tolist() if isinstance(v, np.ndarray) else v)
+                              for k, v in m.items()} for m in result.get("mixed_pieces") or []],
             "surface_walks": result.get("march_stats"),
             "walks_across_faces": result.get("exit_stats"),
             "exploration": ex_stats,
@@ -329,7 +395,12 @@ def write_all(result, out_dir: Path) -> None:
             "regions.json": "regions on the sphere: components, orbits, boundaries",
             "walls.json": "walls on the sphere: patches, components",
             "lines.json / points.json": "lines and points carried to every copy",
-            "components.npz": "region_component[copy, piece] and wall_component[copy, patch]",
+            "components.npz": "region_component[copy, piece], wall_component[copy, patch], "
+                              "face_component[copy, patch]",
+            "faces.json": "faces: wall sheet pieces between region components, with outlines "
+                          "and the congruence test",
+            "edges.json": "edges (exact curves between corners) and corners",
+            "line_pieces.json": "atlas lines split into pieces by the edges they lie on",
             "REPORT.md": "readable summary",
         },
     }

@@ -7,29 +7,30 @@ Built from `research/swirlprism_atlas` on `claude/laughing-noether-qydcwe` (comm
 | surfaces | 182 |
 | surfaces from source | 162 |
 | pieces | 11683 |
-| patches | 4001 |
+| patches | 3985 |
 | regions | 40 |
 | region components | 88800 |
 | walls | 55 |
-| wall components | 91040 |
+| wall components | 88640 |
 | lines | 24 |
 | points | 14 |
 
 ## Checks
 
 - Pieces whose sample points named different regions: 0
-- Patch naming: {'data': 3414, 'ambiguous+classified': 482, 'data said X26+classified': 14, 'inside region+classified (4/4 nearby agree)': 44, 'inside region+classified (2/2 nearby agree)': 15, 'inside region+classified (3/3 nearby agree)': 21, 'inside region+classified (1/1 nearby agree)': 11}
-- Patch names checked by classifying a point on each patch: {'data name confirmed': 3414, 'settled by classification': 482, 'data name corrected by classification': 14}
+- Patch naming: {'data': 3409, 'ambiguous+classified': 482, 'data said X26+classified': 14, 'inside region+classified (4/4 nearby agree)': 44, 'inside region+classified (2/2 nearby agree)': 15, 'inside region+classified (3/3 nearby agree)': 21}
+- Patch names checked by classifying a point on each patch: {'data name confirmed': 3407, 'settled by classification': 482, 'data name corrected by classification': 14, 'data name contradicted': 2}
 - Surface walks: {'crossings': 701698, 'crossings at a meeting curve': 52108, 'left domain': 57741, 'unseen pieces': 1187, 'walks': 58380, 'still walking at the end': 639}
-- Walks continued across domain faces: {'glued': 24675, 'not on a library surface there': 32490, 'unseen pieces': 12, 'continues in a domain face': 527, 'face_patch_links': {'unresolved': 363, 'linked': 164}, 'face_walks': {'face crossings': 27743, 'left the face': 1534, 'into a face beyond the edge': 617, 'into a surface beyond the edge': 847}}
-- Patch sides sampled just off each patch: {'sides confirmed': 3891, 'side not classified': 3, 'sides corrected': 16}
-- Pieces holding a thin part of another region where they touch a wall (a surface image the library still lacks; the patch uses the sampled region): piece 694 (X61) is X49 at the wall; piece 695 (X58) is X49 at the wall; piece 733 (X49) is X61 at the wall; piece 1075 (X59) is X62 at the wall; piece 1313 (X68) is X49 at the wall; piece 1621 (X58) is X61 at the wall; piece 1624 (X61) is X58 at the wall; piece 1874 (X60) is X59 at the wall; piece 1876 (X60) is X59 at the wall; piece 1877 (X59) is X62 at the wall; piece 2017 (X58) is X49 at the wall; piece 4252 (X49) is X58 at the wall; piece 4295 (X49) is X61 at the wall; piece 5742 (F2) is X95 at the wall; piece 6700 (X58) is X61 at the wall; piece 6887 (X62) is X60 at the wall; piece 7423 (X58) is X61 at the wall; piece 7838 (X49) is X61 at the wall; piece 7843 (X62) is X60 at the wall; piece 8527 (X49) is X61 at the wall; piece 9424 (X62) is X60 at the wall; piece 9694 (X12) is F2 at the wall; piece 11547 (F2) is F3 at the wall
+- Walks continued across domain faces: {'glued': 24675, 'not on a library surface there': 32490, 'unseen pieces': 12, 'continues in a domain face': 527, 'face_patch_links': {'unresolved': 363, 'linked': 164}, 'face_walks': {'face crossings': 28202, 'left the face': 1517, 'into a face beyond the edge': 622, 'into a surface beyond the edge': 825}}
+- Patch sides sampled just off each patch: {'sides confirmed': 3867, 'side not classified': 4, 'sides corrected': 14}
 - Shape changes on no atlas surface: 0
-- Face gluing: {'glued': 27830, 'unseen piece': 1}
+- Face gluing: {'glued': 27527, 'at a line or corner': 304}
 - Exploration: {'chords': 200000, 'rejected_chords': 3, 'coincident_crossings': 20, 'pieces_seen_once': 125}
 
 ## Findings against the working data
 
+- Patch 3088 is named X99 from the data, but a point on it does not give X99's counts.
+- Patch 3119 is named X17 from the data, but a point on it does not give X17's counts.
 
 Cross-check with the atlas's `bounds_walk.json` (walls found by walking out of a shape):
 
@@ -99,7 +100,6 @@ Orbit 0 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| T2 | F2 | 1 | 1/1 whole |
 | T2 | F3 | 82 | 82/282 |
 | T2 | X49 | 45 | 45/282 |
 | X10 | X95 | 18 | 18/1080 |
@@ -109,7 +109,7 @@ Orbit 0 (1200 components):
 | X14 | X46 | 10 | 10/27 |
 | X21 | X60 | 13 | 13/19 |
 | X21 | X67 | 6 | 6/19 |
-| X3 | X12 | 50 | 50/132 |
+| X3 | X12 | 51 | 51/134 |
 | X9 | X16 | 60 | 60/122 |
 
 Orbit 1 (1200 components):
@@ -126,7 +126,7 @@ Orbit 1 (1200 components):
 | X21 | X60 | 13 | 13/24 |
 | X21 | X67 | 11 | 11/24 |
 | X3 | X12 | 42 | 42/102 |
-| X9 | X16 | 237 | 237/482 |
+| X9 | X16 | 237 | 236/480, 1/1 whole |
 
 ### F3: Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+1200×9 faces)
 
@@ -146,7 +146,7 @@ Orbit 0 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| X26 | X103 | 3 | 3/140 |
+| X26 | X103 | 3 | 3/130 |
 | X79 | X73 | 7 | 7/7 whole |
 | X86 | X71 | 3 | 3/6 |
 
@@ -165,7 +165,7 @@ Orbit 0 (1200 components):
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
 | X101 | X72 | 10 | 10/10 whole |
-| X26 | X102 | 3 | 3/140 |
+| X26 | X102 | 3 | 3/130 |
 | X89 | X76 | 14 | 14/28 |
 
 Orbit 1 (1200 components):
@@ -180,19 +180,16 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| T2 | F3 | 1 | 1/1 whole |
-| X3 | F2 | 92 | 50/132, 42/102 |
-| X3 | X95 | 25 | 16/132, 9/102 |
+| X3 | F2 | 93 | 51/134, 42/102 |
+| X3 | X95 | 25 | 16/134, 9/102 |
 | X7 | X30 | 154 | 154/154 whole |
-
-Walls found here that the working data does not list for X12: T2
 
 ### X16: Not in the wiki list
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| X9 | F2 | 296 | 60/122, 236/482 |
-| X9 | X95 | 6 | 1/122, 5/482 |
+| X9 | F2 | 296 | 60/122, 235/480, 1/1 whole |
+| X9 | X95 | 6 | 1/122, 5/480 |
 | X96 | X58 | 23 | 13/44, 10/38 |
 | X96 | X62 | 18 | 9/44, 9/38 |
 
@@ -321,9 +318,8 @@ Orbit 0 (1200 components):
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
 | F1 | F3 | 134 | 134/288 |
-| F4 | X49 | 5 | 4/768, 1/1 whole |
-| F4 | X58 | 178 | 177/768, 1/1 whole |
-| F4 | X61 | 203 | 203/768 |
+| F4 | X58 | 178 | 178/764 |
+| F4 | X61 | 204 | 204/764 |
 | T2 | F2 | 39 | 39/176 |
 | X28 | X50 | 18 | 18/36 |
 | X82 | X43 | 18 | 18/36 |
@@ -446,8 +442,7 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| F4 | X49 | 180 | 179/768, 1/1 whole |
-| F4 | X61 | 3 | 3/768 |
+| F4 | X49 | 182 | 182/764 |
 | X100 | X61 | 8 | 8/8 whole |
 | X41 | X62 | 61 | 61/2440 |
 | X96 | X16 | 13 | 13/44 |
@@ -469,8 +464,7 @@ Orbit 1 (1200 components):
 |---|---|---|---|
 | F5 | X66 | 9 | 9/9 whole |
 | X20 | X95 | 5 | 5/66 |
-| X23 | X60 | 3 | 3/160 |
-| X23 | X62 | 22 | 22/160 |
+| X23 | X62 | 25 | 25/160 |
 | X39 | X60 | 7 | 7/7 whole |
 
 ### X60: Not in the wiki list
@@ -509,8 +503,7 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| F4 | X49 | 201 | 201/768 |
-| F4 | X58 | 1 | 1/768 |
+| F4 | X49 | 200 | 200/764 |
 | X100 | X58 | 8 | 8/8 whole |
 | X99 | X68 | 143 | 143/286 |
 
@@ -521,8 +514,7 @@ Orbit 0 (1200 components):
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
 | X23 | X59 | 24 | 24/160 |
-| X23 | X60 | 53 | 53/160 |
-| X23 | X62 | 3 | 3/160 |
+| X23 | X60 | 56 | 56/160 |
 | X41 | X58 | 28 | 28/1120 |
 | X96 | X16 | 9 | 9/38 |
 
@@ -635,11 +627,8 @@ Orbit 1 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| F4 | X61 | 1 | 1/1 whole |
-| X38 | X68 | 182 | 182/182 whole |
+| X38 | X68 | 160 | 160/160 whole |
 | X99 | X61 | 249 | 106/212, 143/286 |
-
-Walls found here that the working data does not list for X68: F4
 
 ### X69: Not in the wiki list
 
@@ -698,7 +687,7 @@ Orbit 0 (1200 components):
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
 | X101 | X103 | 10 | 10/10 whole |
-| X26 | X73 | 11 | 11/140 |
+| X26 | X73 | 10 | 10/130 |
 | X91 | X77 | 21 | 21/21 whole |
 
 Orbit 1 (1200 components):
@@ -715,7 +704,7 @@ Orbit 0 (1200 components):
 
 | wall | across | parts | wall sheets (parts here / in sheet) |
 |---|---|---|---|
-| X26 | X72 | 11 | 11/140 |
+| X26 | X72 | 10 | 10/130 |
 | X79 | X102 | 7 | 7/7 whole |
 | X88 | X75 | 28 | 28/56 |
 
@@ -803,7 +792,7 @@ Orbit 0 (1200 components):
 | X20 | X59 | 5 | 5/66 |
 | X20 | X66 | 28 | 28/66 |
 | X3 | X12 | 9 | 9/102 |
-| X9 | X16 | 4 | 4/482 |
+| X9 | X16 | 4 | 4/480 |
 
 Orbit 1 (1200 components):
 
@@ -812,7 +801,7 @@ Orbit 1 (1200 components):
 | X10 | F2 | 18 | 18/1080 |
 | X20 | X59 | 1 | 1/38 |
 | X20 | X66 | 18 | 18/38 |
-| X3 | X12 | 16 | 16/132 |
+| X3 | X12 | 16 | 16/134 |
 | X9 | X16 | 1 | 1/122 |
 
 ## Walls
@@ -820,9 +809,9 @@ Orbit 1 (1200 components):
 | wall | shape | regions found | sheets on S^3 | stabilizer | patches |
 |---|---|---|---|---|---|
 | F1 | Polychoron with 120+120+600+600+600+600+1200 cells | F3, X49, X50 | 600 + 600 | 2, 2 | 272 |
-| F4 | Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200×9 faces) | X49, X58, X61 | 600 + 600 + 1200 + 1200 | 2, 2, 1, 1 | 519 |
+| F4 | Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200×9 faces) | X49, X58, X61 | 600 + 600 | 2, 2 | 515 |
 | F5 | Polychoron with 120+120+600+600+600+600+1200+1200+1200 cells | X59, X66 | 1200 + 1200 | 1, 1 | 18 |
-| T2 | Transitional polychoron with 120+120+600+600+1200 cells | F2, F3, X36, X37, X49 | 600 + 600 + 1200 | 2, 2, 1 | 230 |
+| T2 | Transitional polychoron with 120+120+600+600+1200 cells | F2, F3, X36, X37, X49 | 600 + 600 | 2, 2 | 229 |
 | X10 | Piece of the cantitruncated 600-cell | F2, X95 | 600 + 20 | 2, 60 | 53 |
 | X100 | Not in the wiki list | X58, X61 | 1200 + 600 | 1, 2 | 41 |
 | X101 | Not in the wiki list | X103, X72 | 1200 + 1200 | 1, 1 | 14 |
@@ -836,15 +825,15 @@ Orbit 1 (1200 components):
 | X22 | Not in the wiki list | F3, X54, X70 | 1200 + 600 | 1, 2 | 45 |
 | X23 | Not in the wiki list | X59, X60, X62 | 600 + 600 | 2, 2 | 139 |
 | X25 | Not in the wiki list | X45, X46 | 600 + 600 | 2, 2 | 33 |
-| X26 | Piece of the cantitruncated 120-cell | X102, X103, X72, X73 | 120 + 120 | 10, 10 | 22 |
+| X26 | Piece of the cantitruncated 120-cell | X102, X103, X72, X73 | 120 + 120 | 10, 10 | 21 |
 | X27 | Not in the wiki list | X45, X55, X65 | 1200 + 1200 | 1, 1 | 27 |
 | X28 | Not in the wiki list | X49, X50 | 600 + 600 | 2, 2 | 43 |
-| X3 | Piece of the cantitruncated 120-cell | F2, X12, X95 | 600 + 600 | 2, 2 | 117 |
+| X3 | Piece of the cantitruncated 120-cell | F2, X12, X95 | 600 + 600 | 2, 2 | 118 |
 | X31 | Not in the wiki list | X43, X54 | 1200 + 1200 | 1, 1 | 18 |
 | X33 | Not in the wiki list | X50, X57 | 1200 + 600 | 1, 2 | 70 |
 | X34 | Not in the wiki list | X55, X60 | 600 + 600 | 2, 2 | 30 |
 | X35 | Not in the wiki list | X56, X74 | 600 + 600 | 2, 2 | 23 |
-| X38 | Not in the wiki list | X68 | 600 | 2 | 91 |
+| X38 | Not in the wiki list | X68 | 600 | 2 | 80 |
 | X39 | Not in the wiki list | X59, X60 | 1200 + 1200 | 1, 1 | 14 |
 | X40 | Not in the wiki list | X57, X63 | 600 + 600 | 2, 2 | 40 |
 | X41 | Piece of the omnitruncated 120-cell | X58, X62 | 30 + 30 | 40, 40 | 89 |
@@ -865,7 +854,7 @@ Orbit 1 (1200 components):
 | X87 | Not in the wiki list | X70, X75 | 1200 + 600 | 1, 2 | 46 |
 | X88 | Not in the wiki list | X73, X75 | 600 + 600 | 2, 2 | 40 |
 | X89 | Not in the wiki list | X103, X76 | 600 + 600 | 2, 2 | 24 |
-| X9 | Piece of the cantitruncated 600-cell | F2, X16, X95 | 600 + 600 | 2, 2 | 302 |
+| X9 | Piece of the cantitruncated 600-cell | F2, X16, X95 | 600 + 600 + 1200 | 2, 2, 1 | 302 |
 | X90 | Not in the wiki list | X55, X76 | 600 + 600 | 2, 2 | 29 |
 | X91 | Not in the wiki list | X72, X77 | 1200 + 600 | 1, 2 | 30 |
 | X92 | Not in the wiki list | X56, X77 | 1200 + 600 | 1, 2 | 35 |
@@ -874,6 +863,170 @@ Orbit 1 (1200 components):
 | X96 | Not in the wiki list | X16, X58, X62 | 600 + 600 | 2, 2 | 41 |
 | X98 | Not in the wiki list | X60, X67 | 1200 + 1200 | 1, 1 | 37 |
 | X99 | Not in the wiki list | X61, X68 | 600 + 600 | 2, 2 | 249 |
+
+## Faces
+
+A face is one connected piece of one wall sheet between one region component and another. Faces with the same labels must be congruent: the test maps every orbit's face onto the first orbit's (corners and perimeter) by an element of G or G.Q.
+
+- 74 face labels, 152 orbits, 182400 faces on the sphere.
+- Congruence: 102 of 152 orbits congruent to the first orbit with their labels.
+  - not congruent: X28 | X49 | X50, orbit 1
+  - not congruent: T2 | F3 | X37, orbit 1
+  - not congruent: X15 | X32 | X37, orbit 1
+  - not congruent: X17 | X32 | X43, orbit 1
+  - not congruent: F1 | F3 | X49, orbit 1
+  - not congruent: F4 | X49 | X61, orbit 1
+  - not congruent: F4 | X49 | X61, orbit 2
+  - not congruent: X41 | X58 | X62, orbit 1
+  - not congruent: F4 | X49 | X58, orbit 1
+  - not congruent: F4 | X49 | X58, orbit 2
+  - not congruent: T2 | F2 | F3, orbit 1
+  - not congruent: X3 | F2 | X12, orbit 1
+  - not congruent: X19 | X32 | X46, orbit 1
+  - not congruent: X14 | F2 | X46, orbit 1
+  - not congruent: X96 | X16 | X58, orbit 1
+  - not congruent: X9 | F2 | X16, orbit 1
+  - not congruent: X9 | F2 | X16, orbit 2
+  - not congruent: X23 | X59 | X62, orbit 1
+  - not congruent: X23 | X59 | X62, orbit 2
+  - not congruent: F5 | X59 | X66, orbit 1
+  - not congruent: F1 | F3 | X50, orbit 1
+  - not congruent: X22 | F3 | X54, orbit 1
+  - not congruent: X21 | F2 | X60, orbit 1
+  - not congruent: T2 | F2 | X49, orbit 1
+  - not congruent: X44 | X55 | X65, orbit 1
+  - not congruent: X35 | X56 | X74, orbit 1
+  - not congruent: X17 | X32 | X54, orbit 1
+  - not congruent: X52 | X66 | X67, orbit 1
+  - not congruent: X47 | X65 | X67, orbit 1
+  - not congruent: X17 | X43 | X46, orbit 1
+  - not congruent: X14 | F2 | X45, orbit 1
+  - not congruent: X25 | X45 | X46, orbit 1
+  - not congruent: X3 | X12 | X95, orbit 1
+  - not congruent: X93 | X54 | X70, orbit 1
+  - not congruent: X98 | X60 | X67, orbit 1
+  - not congruent: X11 | F2 | X36, orbit 1
+  - not congruent: X26 | X102 | X103, orbit 1
+  - not congruent: X96 | X16 | X62, orbit 1
+  - not congruent: X11 | F2 | X37, orbit 1
+  - not congruent: X23 | X60 | X62, orbit 1
+  - not congruent: X23 | X60 | X62, orbit 2
+  - not congruent: X34 | X55 | X60, orbit 1
+  - not congruent: X84 | X63 | X74, orbit 1
+  - not congruent: X26 | X72 | X73, orbit 1
+  - not congruent: T2 | F3 | X36, orbit 1
+  - not congruent: X20 | X59 | X95, orbit 1
+  - not congruent: X22 | F3 | X70, orbit 1
+  - not congruent: X9 | X16 | X95, orbit 1
+  - not congruent: X9 | X16 | X95, orbit 2
+  - not congruent: X79 | X102 | X73, orbit 1
+- Edges: 389; corners: 159 (150 solved exactly, 44 are atlas points).
+
+| face (wall \| regions) | orbits | faces on S^3 | corners | perimeter | congruent |
+|---|---|---|---|---|---|
+| F1 | F3 | X49 | 2 | 2400 | 5 | 0.451230 | no |
+| F1 | F3 | X50 | 2 | 2400 | 2 | 0.338482 | no |
+| F4 | X49 | X58 | 3 | 3600 | 2 | 0.329033 | no |
+| F4 | X49 | X61 | 3 | 3600 | 3 | 0.623819 | no |
+| F5 | X59 | X66 | 2 | 2400 | 3 | 0.332556 | no |
+| T2 | F2 | F3 | 2 | 2400 | 0 | 0.000000 | no |
+| T2 | F2 | X49 | 2 | 2400 | 2 | 0.089569 | no |
+| T2 | F3 | X36 | 2 | 2400 | 2 | 0.090036 | no |
+| T2 | F3 | X37 | 2 | 2400 | 3 | 0.253789 | no |
+| X10 | F2 | X95 | 2 | 2400 | 2 | 0.059430 | yes |
+| X100 | X58 | X61 | 2 | 2400 | 2 | 0.329033 | yes |
+| X101 | X103 | X72 | 2 | 2400 | 4 | 1.192251 | yes |
+| X11 | F2 | X36 | 2 | 2400 | 3 | 0.328519 | no |
+| X11 | F2 | X37 | 2 | 2400 | 3 | 0.332235 | no |
+| X14 | F2 | X45 | 2 | 2400 | 10 | 1.339484 | no |
+| X14 | F2 | X46 | 2 | 2400 | 8 | 0.881387 | no |
+| X15 | X32 | X37 | 2 | 2400 | 5 | 0.469246 | no |
+| X17 | X32 | X43 | 2 | 2400 | 3 | 0.133856 | no |
+| X17 | X32 | X54 | 2 | 2400 | 4 | 0.358523 | no |
+| X17 | X43 | X46 | 2 | 2400 | 2 | 0.173874 | no |
+| X19 | X32 | X46 | 2 | 2400 | 2 | 0.084305 | no |
+| X20 | X59 | X95 | 2 | 2400 | 2 | 0.075385 | no |
+| X20 | X66 | X95 | 2 | 2400 | 2 | 0.075385 | yes |
+| X21 | F2 | X60 | 2 | 2400 | 3 | 0.133014 | no |
+| X21 | F2 | X67 | 2 | 2400 | 2 | 0.064211 | yes |
+| X22 | F3 | X54 | 2 | 2400 | 3 | 0.319246 | no |
+| X22 | F3 | X70 | 2 | 2400 | 4 | 0.467935 | no |
+| X23 | X59 | X62 | 3 | 3600 | 3 | 0.328947 | no |
+| X23 | X60 | X62 | 3 | 3600 | 3 | 0.393260 | no |
+| X25 | X45 | X46 | 2 | 2400 | 0 | 0.000000 | no |
+| X26 | X102 | X103 | 2 | 2400 | 2 | 0.198176 | no |
+| X26 | X72 | X73 | 2 | 2400 | 2 | 0.198176 | no |
+| X27 | X45 | X55 | 2 | 2400 | 3 | 0.091505 | yes |
+| X27 | X45 | X65 | 2 | 2400 | 2 | 0.022702 | yes |
+| X28 | X49 | X50 | 2 | 2400 | 3 | 0.338482 | no |
+| X3 | F2 | X12 | 2 | 2400 | 3 | 0.220997 | no |
+| X3 | X12 | X95 | 2 | 2400 | 4 | 0.331853 | no |
+| X31 | X43 | X54 | 2 | 2400 | 3 | 0.843599 | yes |
+| X33 | X50 | X57 | 2 | 2400 | 0 | 0.000000 | yes |
+| X34 | X55 | X60 | 2 | 2400 | 2 | 0.211056 | no |
+| X35 | X56 | X74 | 2 | 2400 | 3 | 0.752897 | no |
+| X38 | X68 | X68 | 1 | 1200 | 26 | 8.292698 | yes |
+| X39 | X59 | X60 | 2 | 2400 | 3 | 0.527275 | yes |
+| X40 | X57 | X63 | 2 | 2400 | 0 | 0.000000 | yes |
+| X41 | X58 | X62 | 2 | 2400 | 9 | 1.435057 | no |
+| X42 | X56 | X65 | 2 | 2400 | 0 | 0.000000 | yes |
+| X44 | X55 | X65 | 2 | 2400 | 5 | 1.214954 | no |
+| X47 | X65 | X67 | 2 | 2400 | 3 | 0.327101 | no |
+| X48 | X66 | X69 | 2 | 2400 | 0 | 0.000000 | yes |
+| X51 | X63 | X64 | 2 | 2400 | 2 | 0.240561 | yes |
+| X52 | X66 | X67 | 2 | 2400 | 4 | 1.010068 | no |
+| X53 | X64 | X69 | 2 | 2400 | 0 | 0.000000 | yes |
+| X7 | X12 | X30 | 1 | 1200 | 0 | 0.000000 | yes |
+| X79 | X102 | X73 | 2 | 2400 | 2 | 0.794048 | no |
+| X82 | X43 | X49 | 2 | 2400 | 2 | 0.089569 | yes |
+| X83 | X30 | X36 | 2 | 2400 | 0 | 0.000000 | yes |
+| X84 | X63 | X74 | 2 | 2400 | 2 | 0.477546 | no |
+| X84 | X64 | X74 | 2 | 2400 | 2 | 0.240561 | yes |
+| X85 | X43 | X71 | 2 | 2400 | 0 | 0.000000 | yes |
+| X86 | X102 | X71 | 2 | 2400 | 0 | 0.000000 | yes |
+| X87 | X70 | X75 | 2 | 2400 | 0 | 0.000000 | yes |
+| X88 | X73 | X75 | 2 | 2400 | 0 | 0.000000 | yes |
+| X89 | X103 | X76 | 2 | 2400 | 0 | 0.000000 | yes |
+| X9 | F2 | X16 | 3 | 3600 | 3 | 0.182585 | no |
+| X9 | X16 | X95 | 3 | 3600 | 2 | 0.118273 | no |
+| X90 | X55 | X76 | 2 | 2400 | 0 | 0.000000 | yes |
+| X91 | X72 | X77 | 2 | 2400 | 0 | 0.000000 | yes |
+| X92 | X56 | X77 | 2 | 2400 | 0 | 0.000000 | yes |
+| X93 | X54 | X70 | 2 | 2400 | 2 | 0.234021 | no |
+| X94 | X36 | X37 | 2 | 2400 | 2 | 0.090036 | yes |
+| X96 | X16 | X58 | 2 | 2400 | 9 | 1.434981 | no |
+| X96 | X16 | X62 | 2 | 2400 | 11 | 1.616980 | no |
+| X98 | X60 | X67 | 2 | 2400 | 3 | 0.532438 | no |
+| X99 | X61 | X68 | 2 | 2400 | 0 | 0.000000 | yes |
+
+## Lines split by the walls round them
+
+| line | pieces | walls round each piece (in order) | points on no edge |
+|---|---|---|---|
+| B1 | 13 | X58|X63+X58|X68+X63|X50+X68|X50; F4+X49|X58+X58|X49; F3|X49; F1+X49|X61; F3|X49; F1+X49|X61; X49|F3; F1+X49|X61; F3|X49+X49|X68; ; F3|X49+X49|X68; F1+F3|X49; X50|X49+X58|X49+X59|X50+X59|X58 | 0 |
+| C2a | 4 | X58|X68+X68|X58; ; X58|X68+X68|X58; X20+X23+X9+X96 | 0 |
+| C2b | 9 | F2|X45+X21+X27+X60|X55; F2|X32+X32|F2; X14+X25; F2|X32+X32|F2; X58|X60+X60|X58; X17+X55|X32+X55|X43; X16|X46+X46|X16; X14+X45|X46; X16|X46+X46|X16 | 0 |
+| C3 | 10 | F1+X28; X36|X66+X36|X95+X95|X66; X30|F3+X69|F3+X95|X30+X95|X69; F2|X36+X11+X36|F2; ; X3+X95|F2; ; X38; X12|X36+X36|X12; F2|X46+X14+X45|X46 | 0 |
+| D1 | 10 | X58|X62+X62|X58; ; X66|X36+X95|X36+X95|X66; F1+X28; X20+X23+X9+X96; ; X3+X95|F2; X20+X23+X9+X96; ; X3+X95|F2 | 0 |
+| D2 | 26 | X58|X63+X58|X68+X63|X50+X68|X50; X49|X60+X60|X49; X103|X60+X60|X103; F2|X45+X21+X27+X60|X55; X58|X60+X60|X58; X49|X55+X55|X49; X31+X43|X102+X54|X73+X79; X47+X64|X65+X64|X67; X103|X60+X60|X103; X60|X76+X76|X60; X103|X60+X60|X103; X49|X71+X71|X49; X103|X60+X60|X103; X49|X71+X71|X49; X103|X60+X60|X103; X49|X71+X71|X49; X103|X60+X60|X103; X16|X46+X46|X16; X17+X55|X32+X55|X43; X16|X46+X46|X16; X43|X55+X55|X43; X55|X71+X71|X55; X43|X55+X55|X43; X72|X73+X73|X72; X43|X55+X55|X43; X58|X63+X58|X68+X63|X50+X68|X50 | 0 |
+| D3 | 17 | ; X35+X52+X66|X74+X67|X56; X72|X73+X73|X72; X63|X73+X73|X63; X72|X73+X73|X72; X63|X73+X73|X63; X72|X73+X73|X72; X63|X73+X73|X63; X72|X73+X73|X72; X63|X73+X73|X63; X72|X73+X73|X72; X63|X73+X73|X63; X61|X63+X61|X68+X68|X63; X58|X63+X58|X68+X63|X50+X68|X50; F3|X56+X56|F3; ; F2|X46+X14+X45|X46 | 0 |
+| E1 | 57 | X31+X43|X102+X54|X73+X79; X56|X63+X63|X56; F3|X63+X63|F3; ; X49|X58+X57|X49+X57|X59+X59|X58; X57|X49+X58|X49+X59|X57+X59|X58; X49|X58+X50|X49+X50|X59+X59|X58; X50|X61+X58|X61+X66|X50+X66|X58; X49|X58+X50|X49+X50|X59+X59|X58; X50|X61+X58|X61+X66|X50+X66|X58; X49|X59+X49|X62+X59|X62; ; X61|X68+X66|X61+X66|X68; X63|X66+X63|X68+X66|X61+X68|X61; X63|X61+X63|X68+X68|X61; X61|X58+X63|X58+X63|X61; X49|X55+X55|X49; X61|X58+X63|X58+X63|X61; X63|X66+X63|X68+X66|X61+X68|X61; X61|X68+X66|X61+X66|X68; ; X66|X61; ; X49|X59+X49|X62+X59|X62; X50|X61+X58|X61+X66|X50+X66|X58; X49|X58+X50|X49+X50|X59+X59|X58; X50|X61+X58|X61+X66|X50+X66|X58; X50|X49+X58|X49+X62|X50+X62|X58; X49|X58+X50|X49+X50|X59+X59|X58; X57|X49+X58|X49+X59|X57+X59|X58; X49|X58+X57|X49+X57|X59+X59|X58; X56|X63+X63|X56; F3|X63+X63|F3; X56|X63+X63|X56; X31+X43|X102+X54|X73+X79; X57|X61+X58|X61+X66|X57+X66|X58; X50|X49+X58|X49+X59|X50+X59|X58; X57|X61+X58|X61+X66|X57+X66|X58; X50|X49+X58|X49+X59|X50+X59|X58; X57|X61+X58|X61+X66|X57+X66|X58; X31+X43|X102+X54|X73+X79; X49|X55+X55|X49; X58|X68+X68|X58; F4+F5+X59|X61+X66|X49; F4+F5+X49|X66+X61|X59; X57|X58; F4+F5+X49|X66+X61|X59; X50|X49+X58|X49+X59|X50+X59|X58; F4+F5+X49|X66+X61|X59; X58|X68+X68|X58; X49|X55+X55|X49; X58|X63+X58|X68+X63|X50+X68|X50; X38; X58|X63+X58|X68+X63|X50+X68|X50; X66|X61; X58|X68+X68|X58; X20+X23+X9+X96 | 202 |
+| E2 | 6 | X3+X95|F2; ; F1+X28; X66|X36+X95|X36+X95|X66; X32|X54+X32|X65+X54|X56+X65|X56; F2|X46+X14+X45|X46 | 0 |
+| T1 | 7 | F5+X20; X16|X46+X46|X16; X58|X68+X68|X58; F2|X45+X21+X27+X60|X55; X20+X23+X9+X96; F2|X16+F2|X49+X16|X58+X49|X58; X58|X60+X60|X58 | 52 |
+| X1 | 3 | F1+X28; F2|F3+F2|X12+F3|F2+X12|F2; X3+X95|F2 | 0 |
+| X13 | 9 | X17+X19; F3|X49+F3|X54+X49|X43+X54|X43; X49|X54; X58|X63+X58|X68+X63|X50+X68|X50; X49|X55+X55|X49; F2|F3+F2|X49+X49|F3; X31+X43|X102+X54|X73+X79; X101+X103|X55+X44+X72|X65; T2+X15+X17+X22 | 3 |
+| X18 | 4 | X58|X63+X58|X68+X63|X50+X68|X50; X64|X56+X65|X56+X66|X64+X66|X65; X64|X56+X66|X56+X66|X64;  | 0 |
+| X2 | 9 | F2|X46+X14+X45|X46; X14+X45|X46; X32|X54+X32|X65+X54|X56+X65|X56; X17+X55|X32+X55|X43; F2|X45+X21+X27+X60|X55; X19+X26+X72|X46+X73|X32; ; X32|X73+X46|X32+X46|X72+X72|X73; X16|X46+X46|X16 | 2 |
+| X24 | 11 | X58|X63+X58|X68+X63|X50+X68|X50; X84; X60|X55+X65|X55+X67|X60+X67|X65; X14+X47+X65|X45+X67|F2; F2|X67+X14+X45|X65+X47; X34+X44+X47+X98; X47+X64|X65+X64|X67; X31+X43|X102+X54|X73+X79; X14+X47+X65|X45+X67|F2; X60|X55+X65|X55+X67|X60+X67|X65; X58|X63+X58|X68+X63|X50+X68|X50 | 0 |
+| X29 | 12 | X66|F2; F5+X39+X52+X98; X58|X63+X58|X68+X63|X50+X68|X50; F2|X66; F5+X39+X52+X98; X31+X43|X102+X54|X73+X79; X66|F2; F5+X39+X52+X98; X58|X63+X58|X68+X63|X50+X68|X50; F2|X66; F5+X39+X52+X98; X31+X43|X102+X54|X73+X79 | 0 |
+| X4 | 10 | X16|X46+X46|X16; T2+X14+X17+X82; T2+X15+X17+X22; ; T2+X15+X17+X22; X17+X56|X32+X56|X54; F2|X46+X14+X45|X46; X58|X60+X60|X58; T2+X14+X17+X82; F2|F3+F2|X49+X49|F3 | 0 |
+| X5 | 14 | X58|X68+X68|X58; X41+X96; X58|X60+X60|X58; F2|X45+X21+X27+X60|X55; X21+X23+X9+X96; ; X20+X23+X9+X96; F2|X45+X21+X27+X60|X55; X21+X23+X9+X96; X20+X23+X9+X96; X17+X55|X32+X55|X43; F5+X20; X17+X55|X32+X55|X43; F5+X20 | 49 |
+| X6 | 10 | X17+X19; F3|X49+F3|X54+X49|X43+X54|X43; F2|X32; F2|X37+F2|X46+X37|X32+X46|X32; X32|X54+X32|X65+X54|X56+X65|X56; F2|X46+X14+X45|X46; F2|F3+F2|X49+X49|F3; F2|X36+X11+X36|F2; ; T2+X15+X17+X22 | 27 |
+| X78 | 4 | ; X30|X36+X32|X36+X37|X30+X37|X32; X66|X36+X95|X36+X95|X66; F2|X46+X14+X45|X46 | 0 |
+| X8 | 9 | ; X66|F2; X59|F2; X21+X23+X9+X96; F2|X46+X14+X45|X46; X14+X45|X46; F2|X66; F2|X59; X23+X39 | 0 |
+| X80 | 10 | X32|X73+X46|X32+X46|X72+X72|X73; X102|X43+X31+X73|X54+X79; X31+X43|X102+X54|X73+X79; X102|X43+X31+X73|X54+X79; X58|X63+X58|X68+X63|X50+X68|X50; X27+X44; X32|X54+X32|X65+X54|X56+X65|X56; X31+X43|X102+X54|X73+X79; ; X31+X43|X102+X54|X73+X79 | 0 |
+| X81 | 64 | X101+X103|X55+X44+X72|X65; X27+X44; X101+X103|X55+X44+X72|X65; F3|X49; X58|X63+X58|X68+X63|X50+X68|X50; X31+X43|X102+X54|X73+X79; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X31+X43|X102+X54|X73+X79; X27+X44; X58|X63+X58|X68+X63|X50+X68|X50; F3|X49; X101+X103|X55+X44+X72|X65; X27+X44; X101+X103|X55+X44+X72|X65; X31+X43|X102+X54|X73+X79; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X101+X44+X55|X103+X65|X72; X101+X103|X55+X44+X72|X65; X31+X43|X102+X54|X73+X79; X27+X44 | 0 |
+| X97 | 10 | ; X14+X47+X65|X45+X67|F2; F2|X45+X21+X27+X60|X55; X14+X47+X65|X45+X67|F2; ; X17+X55|X32+X55|X43; F2|X45+X21+X27+X60|X55; F2|X67+X14+X45|X65+X47; X66|X36+X95|X36+X95|X66; F2|X46+X14+X45|X46 | 0 |
 
 ## Lines and points
 
