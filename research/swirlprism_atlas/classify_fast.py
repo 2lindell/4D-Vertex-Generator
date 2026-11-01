@@ -125,6 +125,7 @@ def classify(seed: np.ndarray, hull_tol: float = 1e-9) -> dict:
     edge_cells = defaultdict(set)
     cell_edge_uses = defaultdict(lambda: defaultdict(int))
     face_sets = []
+    face_edges = defaultdict(list)
     for (g, h), shared in faces.items():
         pts = verts[shared]
         mid = pts.mean(axis=0)
@@ -134,6 +135,7 @@ def classify(seed: np.ndarray, hull_tol: float = 1e-9) -> dict:
         k = ring.index(0)
         for w in (ring[k - 1], ring[(k + 1) % len(ring)]):
             e = frozenset((0, w))
+            face_edges[frozenset(shared)].append(e)
             edge_cells[e] |= {g, h}
             cell_edge_uses[g][e] += 1
             cell_edge_uses[h][e] += 1
@@ -196,12 +198,42 @@ def classify(seed: np.ndarray, hull_tol: float = 1e-9) -> dict:
     valence = defaultdict(int)
     for size, members in eo:
         valence[len(edge_cells[edge_list[members[0]]])] += size
+    # (how they fit together at vertex 0, which every vertex is like: the cells, faces and edges there joined where
+    # one lies on another, each labelled by its size and orbit, refined over its neighbours; two polytopes with the
+    # same counts can still differ here)
+    orbit_of = {}
+    for kind, items, orb in (("c", cell_list, co), ("f", face_sets, fo), ("e", edge_list, eo)):
+        for size, members in orb:
+            for i in members:
+                orbit_of[(kind, i)] = size
+    lab = {("c", i): f"c{len(x)}:{orbit_of[('c', i)]}" for i, x in enumerate(cell_list)}
+    lab.update({("f", i): f"f{len(x)}:{orbit_of[('f', i)]}" for i, x in enumerate(face_sets)})
+    lab.update({("e", i): f"e{len(edge_cells[x])}:{orbit_of[('e', i)]}" for i, x in enumerate(edge_list)})
+    nbr = defaultdict(list)
+    cell_ix = {g: i for i, g in enumerate(cells)}
+    face_ix = {x: i for i, x in enumerate(face_sets)}
+    edge_ix = {x: i for i, x in enumerate(edge_list)}
+    for (g, h), shared in faces.items():
+        f_ = ("f", face_ix[frozenset(shared)])
+        for c_ in (("c", cell_ix[g]), ("c", cell_ix[h])):
+            nbr[f_].append(c_)
+            nbr[c_].append(f_)
+        for e in face_edges[frozenset(shared)]:
+            e_ = ("e", edge_ix[e])
+            nbr[f_].append(e_)
+            nbr[e_].append(f_)
+    import hashlib
+    for _ in range(4):
+        lab = {n: hashlib.sha1((lab[n] + "|" + ",".join(sorted(lab[m] for m in nbr[n]))).encode()).hexdigest()[:16]
+               for n in lab}
+    vfig = hashlib.sha1(",".join(sorted(lab.values())).encode()).hexdigest()[:12]
     return {
         "vertices": len(verts),
         "cells": sorted(s for s, _ in co),
         "faces": sorted(s for s, _ in fo),
         "edges": sorted(s for s, _ in eo),
         "valence": dict(sorted(valence.items())),
+        "vfig": vfig,
     }
 
 

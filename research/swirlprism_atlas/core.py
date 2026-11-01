@@ -140,6 +140,17 @@ def label(b):
     return _label(b)
 
 
+def shape_key(b, hull_tol=1e-9):
+    """The shape a seed (betas) makes, with how its cells, faces and edges fit together at a vertex: (name, key). Two
+    seeds with one name but different keys make different polytopes with the same counts."""
+    try:
+        info = classify(seed_from_beta(np.asarray(b, float) / np.sum(b)), hull_tol=hull_tol)
+        sig = signature(info) + " | val " + ",".join(f"{k}:{v}" for k, v in info["valence"].items())
+    except Exception:  # degenerate hulls
+        return "ERR", None
+    return label_of_sig(sig), info["vfig"]
+
+
 def lab_edge(b):
     """The shape at a point on a wall or line, the hull tolerance relaxed (nearly coplanar faces kept together)."""
     return _label(b, 1e-7)[0]
