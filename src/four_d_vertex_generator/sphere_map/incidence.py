@@ -25,15 +25,19 @@ def _g0(s, x):
     return g - g.mean()
 
 
-def _solve_onto(surfs, idx, x, iters=20):
-    x = np.asarray(x, float).copy()
+def _solve_onto(surfs, idx, x, iters=20, max_move=1e-6):
+    """x moved onto every surface in idx (they meet along the line through x). Many surfaces can
+    pass through one curve, so the Jacobian is rank-deficient: small singular values are cut, and
+    a correction is kept only if it is tiny (x is already on the line to that accuracy)."""
+    x0 = np.asarray(x, float)
+    x = x0.copy()
     for _ in range(iters):
         f = np.array([float(surfs[i].f(x[None])[0]) for i in idx])
         if np.abs(f).max() < 1e-15:
             break
         J = np.array([_g0(surfs[i], x) for i in idx])
-        x = x + np.linalg.lstsq(np.vstack([J, np.ones(4)]), np.r_[-f, 0.0], rcond=None)[0]
-    return x
+        x = x + np.linalg.lstsq(np.vstack([J, np.ones(4)]), np.r_[-f, 0.0], rcond=1e-8)[0]
+    return x if np.linalg.norm(x - x0) < max_move else x0
 
 
 def _quad_roots(H):
