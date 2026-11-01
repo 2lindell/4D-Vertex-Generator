@@ -1,6 +1,6 @@
 {
  "summary": {
-  "walls_matching": 22,
+  "walls_matching": 24,
   "walls": 55,
   "lines_matching": 11,
   "lines": 24,
@@ -241,7 +241,6 @@
   "X19": {
    "data_edges": [
     "C2b",
-    "D2",
     "X2",
     "X6",
     "wall X17"
@@ -253,11 +252,9 @@
     "X6",
     "wall X17"
    ],
-   "missing_on_map": [
-    "D2"
-   ],
+   "missing_on_map": [],
    "not_in_data": [],
-   "match": false
+   "match": true
   },
   "X20": {
    "data_edges": [
@@ -588,8 +585,6 @@
   },
   "X42": {
    "data_edges": [
-    "D2",
-    "D3",
     "X18",
     "X2",
     "X81"
@@ -600,12 +595,9 @@
     "X2",
     "X81"
    ],
-   "missing_on_map": [
-    "D2",
-    "D3"
-   ],
+   "missing_on_map": [],
    "not_in_data": [],
-   "match": false
+   "match": true
   },
   "X44": {
    "data_edges": [
@@ -695,6 +687,7 @@
   },
   "X53": {
    "data_edges": [
+    "D1",
     "E1",
     "E2",
     "X18"
@@ -705,6 +698,7 @@
     "X18"
    ],
    "missing_on_map": [
+    "D1",
     "E2"
    ],
    "not_in_data": [],
@@ -823,7 +817,6 @@
   },
   "X87": {
    "data_edges": [
-    "C3",
     "D3",
     "X2",
     "X80"
@@ -833,7 +826,6 @@
     "X80"
    ],
    "missing_on_map": [
-    "C3",
     "D3",
     "X2"
    ],
@@ -962,6 +954,7 @@
   },
   "X94": {
    "data_edges": [
+    "X78",
     "wall T2",
     "wall X11"
    ],
@@ -971,6 +964,7 @@
     "wall X11"
    ],
    "missing_on_map": [
+    "X78",
     "wall T2"
    ],
    "not_in_data": [
@@ -1095,8 +1089,7 @@
     "X11",
     "X3",
     "X7",
-    "X83",
-    "X87"
+    "X83"
    ],
    "found_walls": [
     "X10",
@@ -1105,8 +1098,7 @@
     "X83"
    ],
    "missing_on_map": [
-    "X7",
-    "X87"
+    "X7"
    ],
    "not_in_data": [],
    "match": false
@@ -1120,7 +1112,8 @@
     "X33",
     "X40",
     "X48",
-    "X51"
+    "X51",
+    "X53"
    ],
    "found_walls": [
     "T2",
@@ -1132,7 +1125,8 @@
     "X20",
     "X40",
     "X48",
-    "X51"
+    "X51",
+    "X53"
    ],
    "not_in_data": [],
    "match": false
@@ -1140,12 +1134,10 @@
   "D2": {
    "data_walls": [
     "F4",
-    "X19",
     "X23",
     "X26",
     "X34",
     "X41",
-    "X42",
     "X82",
     "X85",
     "X86",
@@ -1164,12 +1156,9 @@
     "X89",
     "X90"
    ],
-   "missing_on_map": [
-    "X19",
-    "X42"
-   ],
+   "missing_on_map": [],
    "not_in_data": [],
-   "match": false
+   "match": true
   },
   "D3": {
    "data_walls": [
@@ -1179,7 +1168,6 @@
     "X33",
     "X35",
     "X40",
-    "X42",
     "X84",
     "X87",
     "X88",
@@ -1198,7 +1186,6 @@
    "missing_on_map": [
     "X22",
     "X40",
-    "X42",
     "X87",
     "X88"
    ],
@@ -1483,15 +1470,18 @@
   "X78": {
    "data_walls": [
     "X15",
-    "X83"
+    "X83",
+    "X94"
    ],
    "found_walls": [
     "X15",
     "X83"
    ],
-   "missing_on_map": [],
+   "missing_on_map": [
+    "X94"
+   ],
    "not_in_data": [],
-   "match": true
+   "match": false
   },
   "X8": {
    "data_walls": [

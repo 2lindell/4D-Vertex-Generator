@@ -1140,7 +1140,7 @@ Curves where walls meet (traced, exact) that lie on no atlas line, by the walls 
 
 ## Audit: edges and walls against the working data, one for one
 
-Summary: {'walls_matching': 22, 'walls': 55, 'lines_matching': 11, 'lines': 24, 'regions_matching': 40, 'regions': 40}. 'wall Y' is the curve where the wall meets wall Y.
+Summary: {'walls_matching': 24, 'walls': 55, 'lines_matching': 11, 'lines': 24, 'regions_matching': 40, 'regions': 40}. 'wall Y' is the curve where the wall meets wall Y.
 
 | kind | name | in the data, not on the map | on the map, not in the data |
 |---|---|---|---|
@@ -1151,7 +1151,6 @@ Summary: {'walls_matching': 22, 'walls': 55, 'lines_matching': 11, 'lines': 24, 
 | wall | X11 | wall T2 | (unnamed curve), X97 |
 | wall | X14 |  | (unnamed curve) |
 | wall | X15 | X6 |  |
-| wall | X19 | D2 |  |
 | wall | X20 | D1, E2 |  |
 | wall | X22 | D3 | wall F1 |
 | wall | X23 |  | X24, wall X41 |
@@ -1161,34 +1160,33 @@ Summary: {'walls_matching': 22, 'walls': 55, 'lines_matching': 11, 'lines': 24, 
 | wall | X39 | wall X23 | X24 |
 | wall | X40 | D1, D3, E1 |  |
 | wall | X41 | wall X96 | X97 |
-| wall | X42 | D2, D3 |  |
 | wall | X48 | D1 |  |
 | wall | X51 | D1, E2 |  |
-| wall | X53 | E2 |  |
+| wall | X53 | D1, E2 |  |
 | wall | X7 | C3, E2 |  |
 | wall | X85 | X2 |  |
 | wall | X86 | X2 |  |
-| wall | X87 | C3, D3, X2 |  |
+| wall | X87 | D3, X2 |  |
 | wall | X88 | D3, X2 |  |
 | wall | X89 | X2 |  |
 | wall | X90 | X2 |  |
 | wall | X91 | X2 |  |
 | wall | X92 | X2 |  |
-| wall | X94 | wall T2 | X97 |
+| wall | X94 | X78, wall T2 | X97 |
 | wall | X96 |  | X97 |
 | wall | X99 | C2a |  |
 | line | B1 | X38 |  |
 | line | C2a | X100, X38, X99 |  |
-| line | C3 | X7, X87 |  |
-| line | D1 | X10, X20, X40, X48, X51 |  |
-| line | D2 | X19, X42 |  |
-| line | D3 | X22, X40, X42, X87, X88 |  |
+| line | C3 | X7 |  |
+| line | D1 | X10, X20, X40, X48, X51, X53 |  |
+| line | D3 | X22, X40, X87, X88 |  |
 | line | E1 | X40 |  |
 | line | E2 | X20, X51, X53, X7 |  |
 | line | X1 | T2, X3 |  |
 | line | X2 | X85, X86, X87, X88, X89, X90, X91, X92 |  |
 | line | X24 |  | X23, X39 |
 | line | X6 | X15 |  |
+| line | X78 | X94 |  |
 | line | X97 |  | F1, T2, X11, X41, X94, X96 |
 
 ## Lines and points

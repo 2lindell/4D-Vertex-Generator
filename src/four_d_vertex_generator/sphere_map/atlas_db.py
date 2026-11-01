@@ -547,6 +547,25 @@ def _surface_functions(lib):
 
 
 
+def _apply_corrections(w, path) -> None:
+    """User-confirmed corrections (corrections.json) applied on top of the working data."""
+    if not path.exists():
+        return
+    c = json.loads(path.read_text())
+    for e in c.get("add_edges", []):
+        if e["line"] not in w["walls"][e["wall"]]["edges"]:
+            w["walls"][e["wall"]]["edges"].append(e["line"])
+        bw = w["lines"][e["line"]].setdefault("bounds_walls", [])
+        if e["wall"] not in bw:
+            bw.append(e["wall"])
+    for e in c.get("remove_edges", []):
+        if e["line"] in w["walls"][e["wall"]]["edges"]:
+            w["walls"][e["wall"]]["edges"].remove(e["line"])
+        bw = w["lines"][e["line"]].get("bounds_walls", [])
+        if e["wall"] in bw:
+            bw.remove(e["wall"])
+
+
 def audit(root=None) -> dict:
     """Check every wall piece's edges and every line's walls against the working data, one for one.
 
@@ -558,6 +577,7 @@ def audit(root=None) -> dict:
     root = root or data_dir() / "sphere_map"
     db = json.loads((root / "atlas.json").read_text())
     w = json.loads((root.parent / "source" / "working_data.json").read_text())
+    _apply_corrections(w, root.parent / "corrections.json")
     lines = db["line_pieces"]
     line_names = set(w["lines"])
     per_face, found_edges, found_line_walls = [], defaultdict(set), defaultdict(set)

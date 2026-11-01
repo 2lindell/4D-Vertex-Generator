@@ -1,0 +1,18 @@
+{
+  "_about": "Corrections to the atlas's working data confirmed by the user after the exact line incidence check (sphere_map/line_incidence.json). Applied on top of source/working_data.json wherever the map is compared with the data.",
+  "add_edges": [
+    {"wall": "X94", "line": "X78", "note": "X78 has X94 on both sides"},
+    {"wall": "X53", "line": "D1", "note": "X53 has D1 as an edge"}
+  ],
+  "remove_edges": [
+    {"wall": "X87", "line": "C3", "note": "X87 does not reach C3; it stops at C1"},
+    {"wall": "X19", "line": "D2", "note": "D2 and D3 do not touch X19 or X42"},
+    {"wall": "X42", "line": "D2", "note": "D2 and D3 do not touch X19 or X42"},
+    {"wall": "X42", "line": "D3", "note": "D2 and D3 do not touch X19 or X42"}
+  ],
+  "confirmed_as_in_data": [
+    {"wall": "F1", "line": "B1", "note": "B1 runs along F1 its whole length (the map cannot name it: F1 and T2 both separate F3|X49)"},
+    {"wall": "X38", "line": "B1", "note": "B1 runs along X38 its whole length (X38 has X68 on both sides)"},
+    {"wall": "X80", "line": "X2", "note": "X80 reaches X2 (a corner) and does not reach X25"}
+  ]
+}
