@@ -189,6 +189,9 @@ __TYPE_CSS__
       }
       return out;
     };
+    // (a polyline in each copy of the domain, kept apart: one per map, so the copies are not joined end to end)
+    const mapLines = (pts) => view().maps.map((M) => pts.map((p) =>
+      [0, 1, 2].map((a) => M[a][0] * p[0] + M[a][1] * p[1] + M[a][2] * p[2] + (M[a][3] || 0)).concat(p.slice(3))));
     const lines = (segs, name, line, extra = {}) => {
       const x = [], y = [], z = [];
       for (const s of segs) { for (const p of s) { x.push(p[0]); y.push(p[1]); z.push(p[2]); } x.push(null); y.push(null); z.push(null); }
@@ -219,21 +222,22 @@ __TYPE_CSS__
       const ringPieces = (T.lines || []).filter((s) => /^S\d/.test(s.id) && byId[s.id]);
       const ax = view().axis !== undefined ? view().axis : D.axis;
       if (el("showAxis").checked && ringPieces.length) for (const s of ringPieces) {
-        const P = mapPts(s.pts), t = byId[s.id];
-        out.push(lines([P], s.hover || label(t), { color: color(t), width: 4 }, { hoverinfo: "text", text: P.map(() => s.hover || label(t)) }));
+        const t = byId[s.id], tr = lines(mapLines(s.pts), s.hover || label(t), { color: color(t), width: 4 });
+        tr.hovertemplate = (s.hover || label(t)) + "<extra></extra>";
+        out.push(tr);
       } else if (el("showAxis").checked && ax) out.push(lines([ax.pts], ax.name, { color: css("--g3axis"), width: 4 },
         { hoverinfo: "text", text: ax.pts.map(() => ax.name) }));
       const own = !view().chart;                          // (traced walls, lines and points are in the page's own chart)
       // ghost girdles: circles a rotation turns along itself (no new shape along them), for reference
       if (el("showGirdles").checked) for (const g of T.girdles || []) {
-        const tr = lines([mapPts(g.pts)], "ghost girdle", { color: faint, width: 3, dash: "dot" });
+        const tr = lines(mapLines(g.pts), "ghost girdle", { color: faint, width: 3, dash: "dot" });
         tr.hovertemplate = g.hover + "<extra></extra>";
         out.push(tr);
       }
       // extra-symmetry lines: seeds there have more symmetries than the group's (purple: the normalizer's half-turns,
       // twice as many; green: the 6/3 gyrogon girdle, three times as many)
       if (el("showSym").checked) for (const g of T.symlines || []) {
-        const tr = lines([mapPts(g.pts)], "extra-symmetry line", { color: css(g.kind === "girdle3" ? "--g3axis" : "--qaxis"), width: 5 });
+        const tr = lines(mapLines(g.pts), "extra-symmetry line", { color: css(g.kind === "girdle3" ? "--g3axis" : "--qaxis"), width: 5 });
         tr.hovertemplate = g.hover + "<extra></extra>";
         out.push(tr);
       }
@@ -252,7 +256,7 @@ __TYPE_CSS__
       for (const s of T.lines || []) {
         const t = byId[s.id];
         if (!t || !visibleFor(s.id) || !el("showLines").checked) continue;
-        const tr = lines([mapPts(s.pts)], `${label(t)}`, { color: color(t), width: 5, dash: s.copy ? "dash" : "solid" });
+        const tr = lines(mapLines(s.pts), `${label(t)}`, { color: color(t), width: 5, dash: s.copy ? "dash" : "solid" });
         tr.hovertemplate = (s.hover || `${label(t)}`) + "<extra></extra>";
         out.push(tr);
       }
