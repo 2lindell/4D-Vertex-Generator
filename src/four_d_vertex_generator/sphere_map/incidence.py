@@ -55,6 +55,9 @@ class Incidence:
         self.family = [d["family"] for d in lib]
         from .build import wall_naming
         self.naming = wall_naming()
+        self.wall_surfaces = self._wall_surfaces()
+        self.wall_edges = {k: set(v["edges"]) for k, v in load_json("working_data.json")["walls"].items()}
+        self.line = None                     # the atlas line being checked, if any
         self.planes = np.array([s.normal if s.kind == "plane" else np.zeros(4) for s in self.surfs])
         self.is_plane = np.array([s.kind == "plane" for s in self.surfs])
 
@@ -122,12 +125,43 @@ class Incidence:
                               "named_by": how})
         return {"point": x, "surfaces_through": on, "sectors": sectors, "walls": walls}
 
+    def _wall_surfaces(self):
+        """Each wall's own surfaces (exact_defs), as library indices: a wall lies on these."""
+        defs = load_json("exact_defs.json")["walls"]
+        idx = {s.name: i for i, s in enumerate(self.surfs)}
+        lib = json.loads((self.root / "surface_library.json").read_text())["surfaces"]
+        for i, d in enumerate(lib):
+            for a in d.get("aliases", []):
+                idx[a] = i
+        out = {}
+        for w, v in defs.items():
+            got = set()
+            for n in v["surface"]:
+                if n in idx:
+                    got.add(idx[n])
+                elif n.startswith("plane"):
+                    nv = np.array([float(t) for t in n[7:-1].split(",")])
+                    nv /= np.linalg.norm(nv)
+                    got |= {i for i, s in enumerate(self.surfs)
+                            if s.kind == "plane" and abs(abs(s.normal @ nv) - 1) < 1e-5}
+            out[w] = got
+        return out
+
     def _name_by_data(self, ra, rb, s):
         """The wall between regions ra and rb across surface s, from the working data: the one
-        wall separating them, or of several, the one whose surfaces are in s's family."""
+        wall separating them; of several, the ones whose own exact surfaces include s (a wall
+        lies on its surfaces); of those, the one with the line being checked as an edge; then by
+        surface family."""
         cands = [w for w, v in self.naming.items() if ra in v["regions"] and rb in v["regions"]]
         if len(cands) == 1:
             return cands[0], "data: the one wall between these regions"
+        on = [w for w in cands if s in self.wall_surfaces.get(w, ())]
+        if len(on) == 1:
+            return on[0], "data: regions, and the wall lies on this surface"
+        if self.line and on:
+            edge = [w for w in on if self.line in self.wall_edges.get(w, ())]
+            if len(edge) == 1:
+                return edge[0], "data: regions, surface, and the line is its edge"
         fam = [w for w in cands if self.family[s] in self.naming[w]["families"]]
         if len(fam) == 1:
             return fam[0], "data: regions and surface family"
@@ -155,6 +189,7 @@ def line_report(step=2.5e-2) -> dict:
     out = {}
     for name, info in w["exact"]["lines"].items():
         walls, unknown, n_pts = Counter(), 0, 0
+        inc.line = name
         for pi, poly in enumerate(info["points"]):
             poly = np.asarray(poly, float)
             poly = poly / poly.sum(axis=1, keepdims=True)

@@ -33,6 +33,10 @@ def resolve(name: str):
     m = re.fullmatch(r"(.+?):(\d+)(:fold)?", name)
     if m:
         base = m.group(1) + (m.group(3) or "")
+        if base not in by:              # a wall's name for its own (single) surface
+            own = load_json("exact_defs.json")["walls"].get(m.group(1), {}).get("surface", [])
+            if len(own) == 1:
+                base = own[0] + (m.group(3) or "")
         if base in by:
             return image_of(surfaces()[by[base]], int(m.group(2)), name)
     raise KeyError(name)
