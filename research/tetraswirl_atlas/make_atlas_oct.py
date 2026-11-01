@@ -13,7 +13,6 @@ from __future__ import annotations
 import json
 import os
 import re
-from collections import Counter
 from multiprocessing import Pool
 
 import numpy as np
@@ -352,11 +351,11 @@ def main():
                         todo.append((e["surface"], q))
         with Pool() as pool:
             got = pool.map(_closure_point, todo, chunksize=8)
-        added = Counter()
+        added = {}
         for res in got:
             if res and res[0] in wid_of:
                 samples[wid_of[res[0]]].append(sample_row(res[1]))
-                added[wid_of[res[0]]] += 1
+                added[wid_of[res[0]]] = added.get(wid_of[res[0]], 0) + 1
         for t in types:
             if t["dim"] == "wall" and added.get(t["id"]):
                 t["locus"] += f", and {added[t['id']]} where regions end on it"
