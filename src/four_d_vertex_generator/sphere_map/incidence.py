@@ -187,11 +187,14 @@ class Incidence:
                 if chain:
                     for (w1, r1, r2, t) in chain:
                         walls.append({"surface": t, "copy": a["copy"], "between": [r1, r2],
-                                      "wall": w1, "named_by": "cusp: surfaces tangent along the line"})
+                                      "wall": w1, "named_by": "cusp: surfaces tangent along the line",
+                                      "sides": None, "surfaces_here": [i for _, i in here]})
                     continue
             if a["region"] != b["region"] or wall:
                 walls.append({"surface": s, "copy": a["copy"], "between": [a["region"], b["region"]],
-                              "wall": wall, "named_by": how})
+                              "wall": wall, "named_by": how,
+                              "sides": [(a["copy"], a["piece"]), (b["copy"], b["piece"])],
+                              "surfaces_here": [(k, i) for k, i in here]})
         return {"point": x, "surfaces_through": on0, "sectors": sectors, "walls": walls}
 
     def _local_form(self, i, M, xk, basis, h=1e-5):
