@@ -103,6 +103,25 @@ def snub_shapes():
             locus = []
         out.append({"name": name, "kind": kind, "degrees": 3 if kind == "region" else 2, "seed": t["seed_beta"],
                     "locus": locus, "hull_tol": 1e-9 if kind == "region" else 1e-7})
+    # (regions the dense edge survey added, told apart by their arrangement keys)
+    seen = {G.label(np.asarray(o["seed"]) / np.sum(o["seed"]))[1] for o in out if o["kind"] == "region"}
+    try:
+        zones = json.load(open(G.fname("edge_survey")))["zones"]
+    except FileNotFoundError:
+        zones = {}
+    for z in zones.values():
+        for t in z["types"]:
+            if t["known_region"] is not None:
+                continue
+            kk = G.label(t["example"])[1]
+            if kk in seen:
+                continue
+            seen.add(kk)
+            sg = t["signature"]
+            nc = sum(int(a) for a in re.findall(r"(\d+)x\[", sg.split("|")[0]))
+            k["region"] += 1
+            out.append({"name": f"new_region_{k['region']:02d}_{sg.split(':')[0]}v_{nc}c", "kind": "region", "degrees": 3,
+                        "seed": t["example"], "locus": [], "hull_tol": 1e-9})
     g = np.array([1, 11, 11, 1]) / 24
     out.append({"name": "snad" if G.SUB == "ki" else "gippid", "kind": "line", "degrees": 1, "seed": g.tolist(),
                 "locus": ["b1 - b4", "b2 - b3"], "hull_tol": 1e-9})

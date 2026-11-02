@@ -43,7 +43,7 @@ def listed(sub, t):
 
 
 def load_group(path, sub=None):
-    for m in ("group", "forms", "qsqrt2"):
+    for m in ("group", "forms", "qsqrt2", "margin"):
         sys.modules.pop(m, None)
     if sub:
         os.environ["DECAIC_SUB"] = sub
@@ -69,32 +69,68 @@ def cell_text(faces, cells):
     return " + ".join(f"{n}x{v}v({p})" for (v, p), n in sorted(c.items(), key=lambda r: (-r[0][0], r[0][1])))
 
 
+def hull(G, b, tol):
+    """(vertices, faces, cells) of the seed's polychoron, for either atlas's group module."""
+    P = G.polytope(b, tol)
+    return (P[1], P[2], P[3]) if len(P) == 4 else (P[1], P[3], P[4])
+
+
+def seed_vector(G, b):
+    x = G.x5(b) if hasattr(G, "x5") else G.x4(b)
+    return [round(float(v), 15) for v in x / np.abs(x).max()]
+
+
+def snub_rows(G, path, sub, title, out_dir, skip_listed):
+    """A snub group's own shapes: the map's regions and walls (wall_shapes), the regions the dense edge survey added
+    (told apart by their arrangement keys), and the line shape on b1 = b4, b2 = b3 (snad-like or gippid-like). With
+    skip_listed, the accepted list's shapes are left out."""
+    W = json.load(open(os.path.join(path, f"wall_shapes_{sub}.json")))["shapes"]
+    items = [(t["kind"], np.array(t["seed_beta"]), t["vertices"], t["cells"], t["edges_by_valence"],
+              max(t["surfaces"], key=t["surfaces"].get) if t["surfaces"] else ("b1 = b4 (fold)" if t["kind"] == "wall (fold)" else ""))
+             for t in W]
+    seen = {G.label(it[1] / it[1].sum())[1] for it in items if it[0] == "region"}
+    try:
+        zones = json.load(open(os.path.join(path, f"edge_survey_{sub}.json")))["zones"]
+    except FileNotFoundError:
+        zones = {}
+    for z in zones.values():
+        for t in z["types"]:
+            if t["known_region"] is None:
+                k = G.label(t["example"])[1]
+                if k not in seen:
+                    seen.add(k)
+                    sg = t["signature"]
+                    items.append(("region", np.array(t["example"]), int(sg.split(":")[0]),
+                                  sum(int(a) for a in re.findall(r"(\d+)x\[", sg.split("|")[0])), edges(sg), ""))
+    if not skip_listed:
+        items.append(("line", np.array([1, 11, 11, 1]) / 24, None, None, None, "b1 = b4, b2 = b3"))
+    rows, k = [], 0
+    for kind, b, nv, nc, ed, surf in items:
+        if skip_listed and ed and listed(sub, {"edges_by_valence": ed}):
+            continue
+        region = kind == "region"
+        V, faces, cells = hull(G, b, 1e-9 if kind in ("region", "line") else 1e-7)
+        if nv is not None and (len(V) != nv or len(cells) != nc):
+            raise RuntimeError(f"{title} {kind} {nc}: rebuilt with {len(cells)} cells")
+        k += 1
+        kk = "region" if region else ("line" if kind == "line" else "wall")
+        name = f"{title}_{kk}_{k:02d}_{len(V)}v_{len(cells)}c"
+        open(os.path.join(out_dir, name + ".off"), "w").write(to_4off(V, faces, cells))
+        rows.append({"name": name, "group": title, "kind": kk, "degrees": {"region": 3, "wall": 2, "line": 1}[kk],
+                     "vertices": len(V), "cells": len(cells), "cell_types": cell_text(faces, cells),
+                     "edges_by_valence": ed, "surface": surf, "beta": [round(float(v), 15) for v in b],
+                     "seed_vector": seed_vector(G, b)})
+    return rows
+
+
 def main():
     rows = []
     out_dir = os.path.join(HERE, "off")
     os.makedirs(out_dir, exist_ok=True)
     dec = os.path.join(ROOT, "decaic_atlas")
-    for sub, title in (("ki", "kidecaic"), ("io", "iodecaic")):
-        G = load_group(dec, sub)
-        d = json.load(open(os.path.join(dec, f"wall_shapes_{sub}.json")))["shapes"]
-        k = 0
-        for t in d:
-            if t["edges_by_valence"] and listed(sub, t):
-                continue
-            region = t["kind"] == "region"
-            b = np.array(t["seed_beta"])
-            _, V, faces, cells = G.polytope(b, 1e-9 if region else 1e-7)
-            if len(V) != t["vertices"] or len(cells) != t["cells"]:
-                raise RuntimeError(f"{sub} {t['kind']} {t['cells']}: rebuilt with {len(cells)} cells")
-            k += 1
-            name = f"{title}_{'region' if region else 'wall'}_{k:02d}_{len(V)}v_{len(cells)}c"
-            open(os.path.join(out_dir, name + ".off"), "w").write(to_4off(V, faces, cells))
-            x = G.x5(b)
-            rows.append({"name": name, "group": title, "kind": "region" if region else "wall",
-                         "degrees": 3 if region else 2, "vertices": len(V), "cells": len(cells),
-                         "cell_types": cell_text(faces, cells), "edges_by_valence": t["edges_by_valence"],
-                         "surface": next(iter(t["surfaces"]), "") if not region else "",
-                         "beta": [round(float(v), 15) for v in b], "seed_vector": [round(float(v), 15) for v in x / np.abs(x).max()]})
+    for path, sub, title, env in ((dec, "ki", "kidecaic", "DECAIC_SUB"), (dec, "io", "iodecaic", "DECAIC_SUB")):
+        G = load_group(path, sub)
+        rows += snub_rows(G, path, sub, title, out_dir, skip_listed=True)
     C = load_group(os.path.join(ROOT, "contic_atlas"))
     cs = json.load(open(os.path.join(ROOT, "contic_atlas", "contic_shapes.json")))["shapes"]
     exact = json.load(open(os.path.join(ROOT, "contic_atlas", "shapes.json")))["shapes"]
@@ -113,6 +149,10 @@ def main():
                      "beta": [round(float(v), 15) for v in b], "beta_exact": s["seed_beta"],
                      "seed_vector": [round(float(v), 15) for v in x / np.abs(x).max()],
                      "decaic_counterpart": s["decaic_counterpart"]})
+    for sub, title in (("ki", "kicontic"), ("io", "iocontic")):
+        os.environ["CONTIC_SUB"] = sub
+        G = load_group(os.path.join(ROOT, "contic_atlas"))
+        rows += snub_rows(G, os.path.join(ROOT, "contic_atlas"), sub, title, out_dir, skip_listed=False)
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "shapes": rows}, open(os.path.join(HERE, "new_shapes.json"), "w"), indent=1)
     tot = Counter((r["group"], r["kind"]) for r in rows)
     L = ["# New shapes, with seeds and .off files", "",
@@ -123,9 +163,11 @@ def main():
          "mirrors), any positive multiple is the same shape.",
          "* **seed vector**: decaic family, x in R^5 (summing to 0), the vertices are sign * x[perm] for the group "
          "(kidecaic: every even perm with both signs; iodecaic: even perms with +, odd perms with -). Contic: x in R^4 in "
-         "the standard F4 frame (roots e_i +- e_j, e_i, (+-1/2)^4), the orbit under F4 and the 24-cell/dual swap.", "",
+         "the standard F4 frame (roots e_i +- e_j, e_i, (+-1/2)^4), the orbit under F4 and the 24-cell/dual swap; kicontic: "
+         "its rotations (determinant +1); iocontic: F4's rotations and F4's reflections times the swap. Kicontic and "
+         "iocontic have no accepted list: all their own shapes are listed (shapes on the mirrors are the contic ones).", "",
          "Totals: " + "; ".join(f"{g} {k}s: {n}" for (g, k), n in sorted(tot.items())) + f"; **{len(rows)} in all**.", ""]
-    for g in ("kidecaic", "iodecaic", "contic"):
+    for g in ("kidecaic", "iodecaic", "contic", "kicontic", "iocontic"):
         L += [f"## {g}", "", "| file | kind (degrees) | vertices | cells | beta | seed vector |", "|---|---|---|---|---|---|"]
         for r in rows:
             if r["group"] == g:
