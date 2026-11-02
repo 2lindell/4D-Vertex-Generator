@@ -25,6 +25,13 @@ from .frame import data_dir, group, multiplication_table, point_from_beta
 from .incidence import Incidence
 
 ROOT = None
+RANK = {"side": 0, "boundary": 0, "round": 1, "end": 1, "corner": 1, "touches": 2, "meets": 2,
+        "across a line": 3}
+# what each kind of shape shows round it
+SHOWN = {"region": {"boundary", "corner"},
+         "face": {"side", "boundary", "corner", "meets", "across a line"},
+         "line": {"round", "end"},
+         "point": {"boundary", "touches", "across a line"}}
 
 
 def _log(*a):
@@ -153,7 +160,7 @@ def build() -> dict:
     _log("reading rings round the wall-wall meeting curves")
     mc = json.loads((root / "merged_counts.json").read_text())
     meetings = []
-    for e in ([] if cached else mc["wall_meeting_curves"]):
+    for e in mc["wall_meeting_curves"]:
         if not e.get("found") or e["on_atlas_line"]:
             continue
         for poly in e["domain_polylines"]:
@@ -166,12 +173,13 @@ def build() -> dict:
             if len({x["class"] for x in faces}) < 2:
                 continue
             meetings.append({"walls": e["walls"], "round": rr,
+                             "ends_r4": point_from_beta(P[[0, -1]]),
                              "polyline": point_from_beta(P[:: max(1, len(P) // 24)]).round(6).tolist()})
 
     if cached:
-        line_round, meetings = cached
+        line_round = cached[0]
     else:
-        cache.write_bytes(pickle.dumps((line_round, meetings)))
+        cache.write_bytes(pickle.dumps((line_round, [])))
     # ---- named points at the ends of named line pieces: (point class, g) by position
     from scipy.spatial import cKDTree
     pimg = np.einsum("gij,nj->gni", g, np.array([point_pos[i] for i in named_points]))
@@ -204,7 +212,7 @@ def build() -> dict:
         h = int(inv[fg])                       # carry focus to identity
         key = (ok, oc, int(mult[h, og]))
         cur = nb[(fk, fc)].get(key)
-        if cur is None or rel < cur:
+        if cur is None or RANK[rel] < RANK[cur]:
             nb[(fk, fc)][key] = rel
     for li, (round_, ends) in enumerate(zip(line_round, line_ends)):
         me = ("line", li, 0)
@@ -213,6 +221,14 @@ def build() -> dict:
         for m in members:
             add(me, m, "round" if m[0] != "point" else "end")
             add(m, me, "boundary")
+        # the line's end points are corners of every shape round it
+        for m in members:
+            if m[0] == "point":
+                continue
+            for e in members:
+                if e[0] == "point":
+                    add(m, e, "corner")
+                    add(e, m, "touches")
         # shapes round one line are neighbours of each other along it
         for a in members:
             for b in members:
@@ -224,42 +240,72 @@ def build() -> dict:
             for b in members:
                 if a != b:
                     add(a, b, "meets")
+        # a named point at an end of the meeting curve is a corner of the shapes round it
+        for x in mt["ends_r4"]:
+            at = point_at(x)
+            if not at:
+                continue
+            e = ("point", at[0], at[1])
+            for m in members:
+                add(m, e, "corner")
+                add(e, m, "touches")
     for f in atlas["faces"]:
         for sd in f["sides"]:
             add(("face", f["id"], 0), ("region", sd["class"], sd["g"]), "side")
             add(("region", sd["class"], sd["g"]), ("face", f["id"], 0), "boundary")
-    order = {"side": 0, "boundary": 0, "round": 1, "end": 1, "meets": 2, "across a line": 3}
+    face_sides = {f["id"]: f["sides"] for f in atlas["faces"]}
 
-    # pieces of one named wall that touch (round one line or one meeting curve) and pieces of one
-    # named line that share an end are one node: their relative placement, (class a, class b,
-    # g_a^-1 g_b), for every pair seen together
-    wall_name = {f["id"]: f["wall"] for f in atlas["faces"]}
+    # one node is one connected sheet of a named wall (the build's wall components on S^3) or
+    # one connected stretch of a named line (its pieces joined end to end over the sphere)
+    wcomp = comps["wall_component"]
+    sheet_rep = {f["id"]: f["members"][0] for f in atlas["faces"]}
+
+    def sheet(c, gg):
+        k0, p0 = sheet_rep[c]
+        return int(wcomp[mult[gg, k0], p0])
     line_name = {lp["id"]: lp["line_shape"] for lp in atlas["line_pieces"]}
-    touch = set()
-    for rr in line_round + [m["round"] for m in meetings]:
-        fs = [(x["class"], x["g"]) for x in rr if x["kind"] == "face"]
-        for ca, ga in fs:
-            for cb, gb in fs:
-                if (ca, ga) != (cb, gb) and wall_name[ca] == wall_name[cb]:
-                    touch.add(("face", ca, cb, int(mult[inv[ga], gb])))
-    end_pos = {}
+    ends_img, owner = [], []
     for li, geo in enumerate(line_geo):
-        end_pos[li] = [geo[0][0], geo[-1][-1]]
+        for P in (geo[0][0], geo[-1][-1]):
+            ends_img.append(np.einsum("gij,j->gi", g, P))
+            owner += [(li, gg) for gg in range(len(g))]
+    ends_img = np.concatenate(ends_img)
+    nl = len(line_geo) * len(g)
+    lparent = list(range(nl))
+
+    def lfind(i):
+        while lparent[i] != i:
+            lparent[i] = lparent[lparent[i]]
+            i = lparent[i]
+        return i
+    for i, j in cKDTree(ends_img).query_pairs(1e-6):
+        (la, ga), (lb, gb) = owner[i], owner[j]
+        if line_name[la] == line_name[lb]:
+            lparent[lfind(lb * len(g) + gb)] = lfind(la * len(g) + ga)
 
     def touching(a, b):
         (ka, ca, ga), (kb, cb, gb) = a, b
         if ka != kb:
             return False
         if ka == "face":
-            return wall_name[ca] == wall_name[cb] and ("face", ca, cb, int(mult[inv[ga], gb])) in touch
-        if ka == "line" and line_name[ca] == line_name[cb]:
-            ea = [g[ga] @ x for x in end_pos[ca]]
-            eb = [g[gb] @ x for x in end_pos[cb]]
-            return any(np.linalg.norm(x - y) < 1e-6 for x in ea for y in eb)
+            return sheet(ca, ga) == sheet(cb, gb)
+        if ka == "line":
+            return lfind(ca * len(g) + ga) == lfind(cb * len(g) + gb)
         return False
 
     def pack(focus):
-        items = sorted(nb[focus].items(), key=lambda kv: (order.get(kv[1], 9), kv[0]))
+        items = sorted(((k, r) for k, r in nb[focus].items() if r in SHOWN[focus[0]]),
+                       key=lambda kv: (RANK.get(kv[1], 9), kv[0]))
+        if focus[0] == "face":
+            # walls across a shared line, and only the regions on the sides of walls shown
+            shown_faces = {(k[1], k[2]) for k, _ in items if k[0] == "face"} | {(focus[1], 0)}
+            sides_ok = set()
+            for fc, fg in shown_faces:
+                for sd in face_sides[fc]:
+                    sides_ok.add((sd["class"], int(mult[fg, sd["g"]])))
+            items = [(k, r) for k, r in items
+                     if not (k[0] == "region" and r in ("meets", "across a line") and (k[1], k[2]) not in sides_ok)
+                     and not (k[0] == "point" and r == "across a line")]
         mem = [k for k, _ in items]
         rel = dict(items)
         # the focus's own placement joins its group too (a wall's other pieces round it)
@@ -288,7 +334,7 @@ def build() -> dict:
                                   "members": [[m[1], m[2]] for m in others], "rel": "same shape"})
                 continue
             nodes.append({"kind": ms[0][0], "members": [[m[1], m[2]] for m in ms],
-                          "rel": min((rel[m] for m in ms), key=lambda r: order.get(r, 9))})
+                          "rel": min((rel[m] for m in ms), key=lambda r: RANK.get(r, 9))})
         return nodes
 
     data = {
@@ -327,7 +373,12 @@ def write_html() -> str:
     data = (root / "shape_map3d.json").read_text()
     tpl = (Path(__file__).with_name("shape_map3d_template.html")).read_text()
     out = root / "shape_map3d.html"
-    out.write_text(tpl.replace("__DATA__", data.replace("</", "<\\/")))
+    page = tpl.replace("__DATA__", data.replace("</", "<\\/"))
+    out.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+                   '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+                   '<style>body{margin:0;font-size:14px}[hidden]{display:none!important}</style>\n</head>\n<body>\n'
+                   + page + "\n</body>\n</html>\n")
+    (root / ".cache" / "shape_map3d_page.html").write_text(page)      # (the page alone)
     return str(out)
 
 

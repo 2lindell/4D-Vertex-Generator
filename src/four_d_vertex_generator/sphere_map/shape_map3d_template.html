@@ -206,10 +206,13 @@ function select(kind, id, push = true) {
   if (kind === "face") x.sides.forEach((s, i) => (sideOf[`${s.class}|${s.g}`] = x.side[i]));
   const F = new THREE.Vector3(...proj(fc));
   for (const n of nodes) {
-    let p4 = nodePos(n);
-    if (n.kind === "region" && n.members.length === 1 && sideOf[`${n.members[0][0]}|${n.members[0][1]}`])
-      p4 = norm(sideOf[`${n.members[0][0]}|${n.members[0][1]}`]);
-    const v = new THREE.Vector3(...proj(p4));
+    const p4 = nodePos(n);
+    let v = new THREE.Vector3(...proj(p4));
+    const sd = n.kind === "region" && n.members.length === 1 && sideOf[`${n.members[0][0]}|${n.members[0][1]}`];
+    if (sd) {                                      // a region on one side of the wall: off that side
+      const dir = new THREE.Vector3(...proj(norm(sd))).sub(F);
+      if (dir.length() > 1e-9) v = F.clone().add(dir.normalize().multiplyScalar(1.6));
+    }
     const ex = idx[n.kind][n.members[0][0]];
     const sym = ex.stab || 1;
     const sz = { region: 0.62, face: 0.48, line: 0.38, point: 0.3 }[n.kind] * (n === focusNode ? 1.35 : 1);
@@ -225,7 +228,7 @@ function select(kind, id, push = true) {
     }
     const el = document.createElement("div");
     el.className = n === focusNode ? "f" : "";
-    el.textContent = (n.kind === "face" ? ex.name : n.kind === "region" ? ex.name : ex.name) + (n.members.length > 1 ? ` ×${n.members.length}` : "");
+    el.textContent = ex.name;
     labels.appendChild(el); labelEls.push([el, spr]);
   }
   controls.target.set(0, 0, 0); camera.position.set(0, 0, 9); controls.update();
@@ -249,14 +252,22 @@ function renderDetail(kind, x, nodes, extra) {
   for (const k of order) {
     if (!groups[k].length) continue;
     h += `<div class="grp"><h3>${head[k]}</h3><div class="chips">`;
+    // one chip per named shape, relation and piece count; nodes that differ only in place are counted
+    const chips = new Map();
     for (const n of groups[k]) {
       const ex = idx[k][n.members[0][0]];
+      const key = `${ex.id}|${n.rel}|${n.members.length}`;
+      const c = chips.get(key) || { ex, n, count: 0 }; c.count++; chips.set(key, c);
+    }
+    for (const { ex, n, count } of chips.values()) {
       const nm = k === "face" ? `${ex.name} <small>${ex.regions.join("|")}</small>` : ex.name;
-      h += `<button class="chip" style="color:var(--d${KIND[k]})" data-k="${k}" data-id="${ex.id}" title="${relName[n.rel] || n.rel}">${nm}${n.members.length > 1 ? ` <small>×${n.members.length}</small>` : ""} <small>${relName[n.rel] || n.rel}</small></button>`;
+      const pieces = n.members.length > 1 ? ` <small>${n.members.length} pieces</small>` : "";
+      const times = count > 1 ? ` <small>×${count}</small>` : "";
+      h += `<button class="chip" style="color:var(--d${KIND[k]})" data-k="${k}" data-id="${ex.id}" title="${relName[n.rel] || n.rel}">${nm}${pieces} <small>${relName[n.rel] || n.rel}</small>${times}</button>`;
     }
     h += `</div></div>`;
   }
-  h += `<p class="note">Positions are true places on the 3-sphere, projected from the point opposite this shape. Curves and corners where walls only meet have no node; the walls meeting there are linked with a dashed line.</p>`;
+  h += `<p class="note">Positions are true places on the 3-sphere, projected from the point opposite this shape; a wall's two regions sit off its two sides. "Pieces" counts the touching pieces of one wall sheet or one line joined in a node; ×n counts separate nodes of the same shape. Curves and corners where walls only meet have no node; the walls meeting there are linked with a dashed line.</p>`;
   d.innerHTML = h;
   d.querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => select(b.dataset.k, +b.dataset.id)));
 }
