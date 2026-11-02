@@ -1396,28 +1396,14 @@
     ]
    },
    "X14/X25": {
-    "classes": 3,
-    "pieces_on_sphere": 3000,
+    "classes": 1,
+    "pieces_on_sphere": 600,
     "classes_detail": [
      {
       "ends": [
-       "unnamed [0.1335, 0.3651, 0.2773, 0.2241]"
-      ],
-      "on_sphere": 600
-     },
-     {
-      "ends": [
-       "unnamed [0.1335, 0.3651, 0.2773, 0.2241]",
-       "unnamed [0.1382, 0.3618, 0.2764, 0.2236]"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "ends": [
-       "unnamed [0.1382, 0.3618, 0.2764, 0.2236]",
        "C1"
       ],
-      "on_sphere": 1200
+      "on_sphere": 600
      }
     ]
    },
@@ -1489,6 +1475,7 @@
     "classes_detail": [
      {
       "ends": [
+       "A1",
        "C1"
       ],
       "on_sphere": 1200
@@ -1568,6 +1555,7 @@
     "classes_detail": [
      {
       "ends": [
+       "A1",
        "C1"
       ],
       "on_sphere": 1200
@@ -27792,7 +27780,7 @@
    ],
    "domain_pieces": 1,
    "ends": [
-    "unnamed [0.1335, 0.3651, 0.2773, 0.2241]"
+    "C1"
    ],
    "pieces_on_sphere": 600,
    "domain_polylines": [
@@ -28306,57 +28294,6 @@
       0.365128134,
       0.277284829,
       0.224091586
-     ]
-    ]
-   ]
-  },
-  {
-   "walls": "X14/X25",
-   "found": true,
-   "on_atlas_line": null,
-   "surroundings": [
-    [
-     "None",
-     [
-      "F2",
-      "None"
-     ]
-    ],
-    [
-     "None",
-     [
-      "None",
-      "X46"
-     ]
-    ],
-    [
-     "X14",
-     [
-      "F2",
-      "X45"
-     ]
-    ],
-    [
-     "X25",
-     [
-      "X45",
-      "X46"
-     ]
-    ]
-   ],
-   "domain_pieces": 1,
-   "ends": [
-    "unnamed [0.1335, 0.3651, 0.2773, 0.2241]",
-    "unnamed [0.1382, 0.3618, 0.2764, 0.2236]"
-   ],
-   "pieces_on_sphere": 1200,
-   "domain_polylines": [
-    [
-     [
-      0.133495451,
-      0.365128134,
-      0.277284829,
-      0.224091586
      ],
      [
       0.133873289,
@@ -28376,50 +28313,6 @@
       0.276607001,
       0.223709859
      ],
-     [
-      0.138196601,
-      0.361803399,
-      0.276393202,
-      0.223606798
-     ]
-    ]
-   ]
-  },
-  {
-   "walls": "X14/X25",
-   "found": true,
-   "on_atlas_line": null,
-   "surroundings": [
-    [
-     "X14",
-     [
-      "F2",
-      "X45"
-     ]
-    ],
-    [
-     "X14",
-     [
-      "F2",
-      "X46"
-     ]
-    ],
-    [
-     "X25",
-     [
-      "X45",
-      "X46"
-     ]
-    ]
-   ],
-   "domain_pieces": 1,
-   "ends": [
-    "unnamed [0.1382, 0.3618, 0.2764, 0.2236]",
-    "C1"
-   ],
-   "pieces_on_sphere": 1200,
-   "domain_polylines": [
-    [
      [
       0.138196601,
       0.361803399,
@@ -34624,11 +34517,18 @@
    ],
    "domain_pieces": 1,
    "ends": [
+    "A1",
     "C1"
    ],
    "pieces_on_sphere": 1200,
    "domain_polylines": [
     [
+     [
+      0.0,
+      0.0,
+      0.5,
+      0.5
+     ],
      [
       0.000213092,
       0.000157815,
@@ -43804,11 +43704,18 @@
    ],
    "domain_pieces": 1,
    "ends": [
+    "A1",
     "C1"
    ],
    "pieces_on_sphere": 1200,
    "domain_polylines": [
     [
+     [
+      0.0,
+      0.0,
+      0.5,
+      0.5
+     ],
      [
       0.00014521,
       0.000379842,
@@ -45385,10 +45292,30 @@
    ]
   }
  ],
+ "map_gaps_bridged": [
+  {
+   "walls": "X14/X25",
+   "at": [
+    0.13548,
+    0.36373,
+    0.27691,
+    0.22387
+   ]
+  },
+  {
+   "walls": "X17/X31",
+   "at": [
+    0.62888,
+    0.08091,
+    0.20931,
+    0.08091
+   ]
+  }
+ ],
  "totals": {
   "wall_pieces_on_sphere": 175200,
   "atlas_line_pieces_on_sphere": 75840,
-  "meeting_edge_pieces_on_sphere": 37800,
+  "meeting_edge_pieces_on_sphere": 35400,
   "points_on_sphere": 317976
  }
 }

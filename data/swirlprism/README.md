@@ -69,6 +69,14 @@ A reference `{"class": c, "g": k}` is class `c`'s representative carried by grou
   recorded surface, traced through the domain and checked on the map with the same ring; the
   stretch where both walls are present, with its ends named by the nearest exact point.
 
+- `sphere_map/merged_counts.json` (`python -m four_d_vertex_generator.sphere_map.merged_counts`):
+  merged piece counts on the whole sphere. Walls: faces per wall and per pair of regions. Edges:
+  the atlas's line pieces, and every wall-wall meeting curve that lies on no atlas line, traced
+  exactly over all pairs of the two walls' surfaces, cut where any surface crosses it (in every copy
+  it borders), kept where both walls are round it, and joined across copies wherever what surrounds
+  it carries on; pieces stop at the atlas's exact meeting points. Each class keeps its domain
+  polylines; `map_gaps_bridged` lists slivers of the arrangement the exploration never met.
+
 ## Reading it
 
 ```python
