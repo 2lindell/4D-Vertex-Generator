@@ -80,9 +80,13 @@ def build() -> dict:
         pts = []
         for seg in lp["segments"]:
             poly = np.asarray(exact_lines[seg["line"]]["points"][seg["atlas_piece"]], float)
-            i0, i1 = seg["points"]
+            i0, i1 = sorted(seg["points"])
             poly = poly[i0:i1 + 1]
+            if len(poly) < 2:
+                continue
             R = point_from_beta(poly / poly.sum(axis=1, keepdims=True)) @ g[seg["copy"]].T
+            if seg["points"][0] > seg["points"][1]:
+                R = R[::-1]
             pts.append(R)
         line_geo.append(pts)
     point_pos = [np.asarray(p["R4"], float) for p in atlas["points"]]
@@ -137,14 +141,17 @@ def build() -> dict:
                 out.append({"kind": "face", "class": at[0], "g": at[1]})
         return out
 
+    import pickle
+    cache = root / ".cache" / "shape_map3d_rings.pkl"
+    cached = pickle.loads(cache.read_bytes()) if cache.exists() else None
     # ---- incidences round every named line piece (representative), at a few points along it
     _log("reading rings round the named line pieces")
     line_round = []
-    for lp in atlas["line_pieces"]:
+    for lp in ([] if cached else atlas["line_pieces"]):
         seen = {}
         for seg in lp["segments"]:
             poly = np.asarray(exact_lines[seg["line"]]["points"][seg["atlas_piece"]], float)
-            i0, i1 = seg["points"]
+            i0, i1 = sorted(seg["points"])
             poly = poly[i0:i1 + 1]
             poly = poly / poly.sum(axis=1, keepdims=True)
             if len(poly) < 3:
@@ -157,7 +164,7 @@ def build() -> dict:
     _log("reading rings round the wall-wall meeting curves")
     mc = json.loads((root / "merged_counts.json").read_text())
     meetings = []
-    for e in mc["wall_meeting_curves"]:
+    for e in ([] if cached else mc["wall_meeting_curves"]):
         if not e.get("found") or e["on_atlas_line"]:
             continue
         for poly in e["domain_polylines"]:
@@ -172,6 +179,10 @@ def build() -> dict:
             meetings.append({"walls": e["walls"], "round": rr,
                              "polyline": point_from_beta(P[:: max(1, len(P) // 24)]).round(6).tolist()})
 
+    if cached:
+        line_round, meetings = cached
+    else:
+        cache.write_bytes(pickle.dumps((line_round, meetings)))
     # ---- named points at the ends of named line pieces: (point class, g) by position
     from scipy.spatial import cKDTree
     pimg = np.einsum("gij,nj->gni", g, np.array([point_pos[i] for i in named_points]))
