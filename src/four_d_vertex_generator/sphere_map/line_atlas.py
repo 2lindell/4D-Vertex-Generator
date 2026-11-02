@@ -214,17 +214,24 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
         return np.vstack([r4[len(r4) // 3], r4[len(r4) // 2], r4[(2 * len(r4)) // 3]])
 
     probes = np.array([probe(sp) for sp in subs])                 # (subs, 3, 4)
-    ptree = cKDTree(probes[:, 1])
+    # (matched against the other pieces' whole curves, not their sample points: one piece can be
+    # recorded with different samples, or the other way round)
+    dense = [densify(point_from_beta(sp["polyline"]), 1e-4) for sp in subs]
+    owner = np.concatenate([[i] * len(d) for i, d in enumerate(dense)])
+    dtree = cKDTree(np.vstack(dense))
+    trees = [cKDTree(d) for d in dense]
+    lengths = [_arc(point_from_beta(sp["polyline"])) for sp in subs]
     same = 0
     for si, pr in enumerate(probes):
         imgs = np.einsum("gij,nj->gni", grp.g, pr)                # (copies, 3, 4)
         for k in range(grp.n):
-            for s2 in ptree.query_ball_point(imgs[k, 1], 1e-7):
+            for s2 in {int(owner[j]) for j in dtree.query_ball_point(imgs[k, 1], 2e-6)}:
                 if subs[s2]["line"] != subs[si]["line"] or (k == 0 and s2 == si):
                     continue
+                if abs(lengths[s2] - lengths[si]) > 1e-6 * max(1.0, lengths[si]):
+                    continue                     # (part of a longer piece, not the same piece)
                 # all three probes of the carried piece lie on the other piece
-                other = densify(point_from_beta(subs[s2]["polyline"]), 1e-4)
-                if cKDTree(other).query(imgs[k])[0].max() < 1e-6:
+                if trees[s2].query(imgs[k])[0].max() < 2e-6:
                     # G[k] carries piece si onto piece s2: (copy k, si) is (copy 0, s2)
                     joins.append((s2, k, si))
                     same += 1
