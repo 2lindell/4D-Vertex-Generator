@@ -1,0 +1,88 @@
+{
+ "_about": "The wall shapes of the kidecaic / iodecaic maps, reclassified cleanly (wall_shapes_<sub>.json).",
+ "shapes": [
+  {
+   "kind": "region",
+   "map_type": 0,
+   "vertices": 1152,
+   "cells": 3552,
+   "edges_by_valence": {
+    "3": 1152,
+    "4": 2880,
+    "5": 2304
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "wall_points": 0,
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[4v4f] | faces 288x4g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+576x4+1152x3+1152x4+1152x5+1152x5"
+  },
+  {
+   "kind": "region",
+   "map_type": 1,
+   "vertices": 1152,
+   "cells": 3360,
+   "edges_by_valence": {
+    "3": 3456,
+    "4": 576,
+    "5": 2304,
+    "6": 576
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.06257167770625723,
+    0.4060192861759185,
+    0.4996770306461539,
+    0.03173200547167041
+   ],
+   "wall_points": 0,
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+384x[6v8f]+1152x[4v4f]+1152x[4v4f] | faces 288x4g+384x3g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x6+1152x3+1152x3+1152x3+1152x5+1152x5"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 1152,
+   "cells": 1680,
+   "edges_by_valence": {
+    "3": 2304,
+    "4": 2304
+   },
+   "surfaces": {
+    "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4": 8
+   },
+   "seed_beta": [
+    0.0882115041785,
+    0.3436117097908,
+    0.5364447806781,
+    0.0317320053526
+   ],
+   "wall_points": 8,
+   "signature": "1152: cells 48x[48v62f]+192x[6v8f]+288x[4v4f]+1152x[4v4f] | faces 144x8g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+1152x3+1152x3+1152x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 1152,
+   "cells": 1536,
+   "edges_by_valence": {
+    "3": 3456,
+    "4": 1728
+   },
+   "surfaces": {
+    "b1 + 2*b2 - 2*b3 - b4": 4
+   },
+   "seed_beta": [
+    0.3747618525395,
+    0.1563889797691,
+    0.2186906443864,
+    0.250158523305
+   ],
+   "wall_points": 4,
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[12v17f]+1152x[4v4f] | faces 288x4g+288x4g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+1152x3+1152x3+1152x3+1152x4"
+  }
+ ]
+}
