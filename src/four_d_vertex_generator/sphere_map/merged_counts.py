@@ -60,10 +60,13 @@ def _atlas_line_points():
 
 def corner_points(atlas, g):
     """Every image on S^3 of every exact meeting point of the atlas (exact_points.json), as a
-    KD-tree: the vertices where edge pieces stop."""
+    KD-tree (the vertices where edge pieces stop), with the name of each image."""
     from scipy.spatial import cKDTree
-    P = np.array([point_from_beta(x) for _, x in _named_points()])
-    return cKDTree(np.einsum("gij,nj->gni", g, P).reshape(-1, 4))
+    named = _named_points()
+    P = np.array([point_from_beta(x) for _, x in named])
+    tree = cKDTree(np.einsum("gij,nj->gni", g, P).reshape(-1, 4))
+    tree.names = [n for _ in range(len(g)) for n, _ in named]
+    return tree
 
 
 def _signature(r, keep):
@@ -233,7 +236,6 @@ def _glue(pieces, g, corners, tol=1e-7):
 
 def build() -> dict:
     g = group()
-    named = _named_points()
     lines = _atlas_line_points()
     atlas = json.loads((data_dir() / "sphere_map" / "atlas.json").read_text())
     meets = json.loads((data_dir() / "sphere_map" / "wall_meets.json").read_text())["meetings"]
@@ -245,10 +247,11 @@ def build() -> dict:
     pairs = sorted({tuple(sorted((m["wall"], m["other"]))) for m in meets if m["found"]})
     corner_tree = corner_points(atlas, g)
     meeting_edges = []
-    line_pts = np.vstack([L for _, L in lines])
-    line_name = np.concatenate([[n] * len(L) for n, L in lines])
     from scipy.spatial import cKDTree
-    line_tree = cKDTree(line_pts)
+    by_line = {}
+    for name, L in lines:
+        by_line.setdefault(name, []).append(L)
+    line_trees = {n: cKDTree(np.vstack(v)) for n, v in by_line.items()}
     for w1, w2 in pairs:
         pcs = meeting_pieces(w1, w2, inc, wall_surfs)
         if not pcs:
@@ -257,22 +260,25 @@ def build() -> dict:
         per_class, cf = _glue(pcs, g, corner_tree)
         for c, n in sorted(per_class.items()):
             members = [i for i in range(len(pcs)) if cf(i) == c]
-            R = point_from_beta(np.vstack([pcs[i]["seg"] for i in members]))
-            dist, idx = line_tree.query(R)
-            on = dist.max() < 5e-4
-            corners = []
+            on = None
+            for name, tree in line_trees.items():
+                if all(tree.query(point_from_beta(pcs[i]["seg"]))[0].max() < 5e-4 for i in members):
+                    on = name
+                    break
+            ends = []
             for i in members:
                 for side, p in ((0, pcs[i]["seg"][0]), (1, pcs[i]["seg"][-1])):
-                    if pcs[i]["ends"][side] == "corner":
-                        q = point_from_beta(p)
-                        dist, nm = min((float(np.linalg.norm(point_from_beta(x) - q)), n2)
-                                       for n2, x in named)
-                        corners.append(nm if dist < 1e-6 else f"unnamed {np.round(p, 4).tolist()}")
+                    dist, k = corner_tree.query(point_from_beta(p))
+                    if dist < 1e-7:
+                        ends.append(corner_tree.names[k])
+                    elif pcs[i]["ends"][side] == "corner":
+                        ends.append(f"unnamed {np.round(p, 4).tolist()}")
             meeting_edges.append({
-                "walls": f"{w1}/{w2}", "found": True,
-                "on_atlas_line": str(line_name[int(idx[0])]) if on else None,
+                "walls": f"{w1}/{w2}", "found": True, "on_atlas_line": on,
                 "surroundings": [list(t) for t in pcs[members[0]]["sig"]],
-                "domain_pieces": len(members), "corners": corners, "pieces_on_sphere": n})
+                "domain_pieces": len(members), "ends": ends, "pieces_on_sphere": n,
+                "domain_polylines": [[[round(float(t), 9) for t in x] for x in pcs[i]["seg"]]
+                                     for i in members]})
 
     # ---- atlas line pieces ---------------------------------------------------------------------
     per_line = {}
@@ -292,7 +298,7 @@ def build() -> dict:
         d = new_edges.setdefault(e["walls"], {"classes": 0, "pieces_on_sphere": 0, "classes_detail": []})
         d["classes"] += 1
         d["pieces_on_sphere"] += e["pieces_on_sphere"]
-        d["classes_detail"].append({"corners": e["corners"], "on_sphere": e["pieces_on_sphere"]})
+        d["classes_detail"].append({"ends": e["ends"], "on_sphere": e["pieces_on_sphere"]})
 
     # ---- walls -----------------------------------------------------------------------------------
     walls = {w: {"face_types": v["piece_types"], "classes": v["face_classes"],
@@ -322,5 +328,5 @@ if __name__ == "__main__":
             print(e["walls"], "NOT FOUND")
             continue
         print(f"{e['walls']:9s} on line {str(e['on_atlas_line']):5s} x{e['pieces_on_sphere']:5d} "
-              f"domain pieces {e['domain_pieces']} corners {e['corners']}")
+              f"domain pieces {e['domain_pieces']} ends {e['ends']}")
     print(json.dumps(r["totals"], indent=1))

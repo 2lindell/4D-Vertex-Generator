@@ -1,0 +1,3498 @@
+{
+ "_about": "Merged piece counts on the whole 3-sphere: wall pieces (faces) and edges.\n\nEdges are the atlas's line pieces (`atlas.json: line_pieces`, cut at their exact meeting points\nand joined across copies) together with every wall-wall meeting curve (`wall_meets.json`) that\nlies on no atlas line. A meeting curve is rebuilt exactly (traced on its two surfaces) between\nthe exact meeting points at its ends, and identified with the other records of the same curve by\nits images under the group: two stretches are one edge class when some element carries one onto\nthe other. The number of pieces on the sphere is the number of distinct images of a class's\nrepresentative under all 1200 elements.\n\nWall pieces are the faces of `atlas.json` (a piece of one wall between two region volumes, joined\nacross copies), counted per wall and per pair of regions it separates.\n",
+ "walls": {
+  "F1": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F3|X49": 2400,
+    "F3|X50": 2400
+   }
+  },
+  "F4": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 1,
+   "by_regions": {
+    "X49|X61": 2400,
+    "X49|X58": 2400
+   }
+  },
+  "F5": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X59|X66": 2400
+   }
+  },
+  "T2": {
+   "face_types": 4,
+   "classes": 8,
+   "faces_on_sphere": 9600,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F3|X37": 2400,
+    "F2|F3": 2400,
+    "F2|X49": 2400,
+    "F3|X36": 2400
+   }
+  },
+  "X10": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F2|X95": 2400
+   }
+  },
+  "X100": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X58|X61": 2400
+   }
+  },
+  "X101": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X103|X72": 2400
+   }
+  },
+  "X11": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F2|X36": 2400,
+    "F2|X37": 2400
+   }
+  },
+  "X14": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F2|X46": 2400,
+    "F2|X45": 2400
+   }
+  },
+  "X15": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X32|X37": 2400
+   }
+  },
+  "X17": {
+   "face_types": 3,
+   "classes": 6,
+   "faces_on_sphere": 7200,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X32|X43": 2400,
+    "X32|X54": 2400,
+    "X43|X46": 2400
+   }
+  },
+  "X19": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X32|X46": 2400
+   }
+  },
+  "X20": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X66|X95": 2400,
+    "X59|X95": 2400
+   }
+  },
+  "X21": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F2|X60": 2400,
+    "F2|X67": 2400
+   }
+  },
+  "X22": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F3|X54": 2400,
+    "F3|X70": 2400
+   }
+  },
+  "X23": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 2,
+   "by_regions": {
+    "X59|X62": 2400,
+    "X60|X62": 2400
+   }
+  },
+  "X25": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X45|X46": 2400
+   }
+  },
+  "X26": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X102|X103": 2400,
+    "X72|X73": 2400
+   }
+  },
+  "X27": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X45|X55": 2400,
+    "X45|X65": 2400
+   }
+  },
+  "X28": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X49|X50": 2400
+   }
+  },
+  "X3": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "F2|X12": 2400,
+    "X12|X95": 2400
+   }
+  },
+  "X31": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X43|X54": 2400
+   }
+  },
+  "X33": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X50|X57": 2400
+   }
+  },
+  "X34": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X55|X60": 2400
+   }
+  },
+  "X35": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X56|X74": 2400
+   }
+  },
+  "X38": {
+   "face_types": 1,
+   "classes": 1,
+   "faces_on_sphere": 1200,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X68|X68": 1200
+   }
+  },
+  "X39": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X59|X60": 2400
+   }
+  },
+  "X40": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X57|X63": 2400
+   }
+  },
+  "X41": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X58|X62": 2400
+   }
+  },
+  "X42": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X56|X65": 2400
+   }
+  },
+  "X44": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X55|X65": 2400
+   }
+  },
+  "X47": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X65|X67": 2400
+   }
+  },
+  "X48": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X66|X69": 2400
+   }
+  },
+  "X51": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X63|X64": 2400
+   }
+  },
+  "X52": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X66|X67": 2400
+   }
+  },
+  "X53": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X64|X69": 2400
+   }
+  },
+  "X7": {
+   "face_types": 1,
+   "classes": 1,
+   "faces_on_sphere": 1200,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X12|X30": 1200
+   }
+  },
+  "X79": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X102|X73": 2400
+   }
+  },
+  "X82": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X43|X49": 2400
+   }
+  },
+  "X83": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X30|X36": 2400
+   }
+  },
+  "X84": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X64|X74": 2400,
+    "X63|X74": 2400
+   }
+  },
+  "X85": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X43|X71": 2400
+   }
+  },
+  "X86": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X102|X71": 2400
+   }
+  },
+  "X87": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X70|X75": 2400
+   }
+  },
+  "X88": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X73|X75": 2400
+   }
+  },
+  "X89": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X103|X76": 2400
+   }
+  },
+  "X9": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 1,
+   "by_regions": {
+    "F2|X16": 2400,
+    "X16|X95": 2400
+   }
+  },
+  "X90": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X55|X76": 2400
+   }
+  },
+  "X91": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X72|X77": 2400
+   }
+  },
+  "X92": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X56|X77": 2400
+   }
+  },
+  "X93": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X54|X70": 2400
+   }
+  },
+  "X94": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X36|X37": 2400
+   }
+  },
+  "X96": {
+   "face_types": 2,
+   "classes": 4,
+   "faces_on_sphere": 4800,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X16|X58": 2400,
+    "X16|X62": 2400
+   }
+  },
+  "X98": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X60|X67": 2400
+   }
+  },
+  "X99": {
+   "face_types": 1,
+   "classes": 2,
+   "faces_on_sphere": 2400,
+   "unplaced_fragments": 0,
+   "by_regions": {
+    "X61|X68": 2400
+   }
+  }
+ },
+ "edges": {
+  "atlas_lines": {
+   "E1": {
+    "classes": 3,
+    "pieces_on_sphere": 3600,
+    "classes_detail": [
+     {
+      "id": 0,
+      "ends": [
+       "A1"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 1,
+      "ends": [
+       "A1"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 2,
+      "ends": [
+       "A1",
+       "C6"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X78": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "id": 3,
+      "ends": [
+       "C1"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X18": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "id": 4,
+      "ends": [
+       "A1",
+       "C1"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X29": {
+    "classes": 6,
+    "pieces_on_sphere": 7200,
+    "classes_detail": [
+     {
+      "id": 5,
+      "ends": [
+       "A1",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 6,
+      "ends": [
+       "X29",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 7,
+      "ends": [
+       "A1",
+       "X29"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 8,
+      "ends": [
+       "A1",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 9,
+      "ends": [
+       "X29",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 10,
+      "ends": [
+       "A1",
+       "X29"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X13": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "id": 11,
+      "ends": [
+       "A1",
+       "X4"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 12,
+      "ends": [
+       "A1",
+       "X4"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X1": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "id": 13,
+      "ends": [
+       "C5"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X5": {
+    "classes": 9,
+    "pieces_on_sphere": 10800,
+    "classes_detail": [
+     {
+      "id": 14,
+      "ends": [
+       "C6",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 15,
+      "ends": [
+       "C4",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 16,
+      "ends": [
+       "C4",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 17,
+      "ends": [
+       "C6",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 18,
+      "ends": [
+       "C6",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 19,
+      "ends": [
+       "C4",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 20,
+      "ends": [
+       "C6",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 21,
+      "ends": [
+       "C4",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 22,
+      "ends": [
+       "C6",
+       "X5"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X80": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "id": 23,
+      "ends": [
+       "A1",
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 24,
+      "ends": [
+       "A1",
+       "X2"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X81": {
+    "classes": 4,
+    "pieces_on_sphere": 4800,
+    "classes_detail": [
+     {
+      "id": 25,
+      "ends": [
+       "A1",
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 26,
+      "ends": [
+       "A1",
+       "X81"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 27,
+      "ends": [
+       "X2",
+       "X81"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 28,
+      "ends": [
+       "A1",
+       "X2"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X24": {
+    "classes": 3,
+    "pieces_on_sphere": 3600,
+    "classes_detail": [
+     {
+      "id": 29,
+      "ends": [
+       "A1",
+       "X97"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 30,
+      "ends": [
+       "A1",
+       "X97"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 31,
+      "ends": [
+       "A1",
+       "X97"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X2": {
+    "classes": 5,
+    "pieces_on_sphere": 6000,
+    "classes_detail": [
+     {
+      "id": 32,
+      "ends": [
+       "C1",
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 33,
+      "ends": [
+       "C4",
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 34,
+      "ends": [
+       "C4",
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 35,
+      "ends": [
+       "C1",
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 36,
+      "ends": [
+       "C1",
+       "X2"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X4": {
+    "classes": 3,
+    "pieces_on_sphere": 3600,
+    "classes_detail": [
+     {
+      "id": 37,
+      "ends": [
+       "C4",
+       "X4"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 38,
+      "ends": [
+       "C1",
+       "X4"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 39,
+      "ends": [
+       "C1",
+       "C4"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X8": {
+    "classes": 4,
+    "pieces_on_sphere": 4800,
+    "classes_detail": [
+     {
+      "id": 40,
+      "ends": [
+       "C1",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 41,
+      "ends": [
+       "X5",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 42,
+      "ends": [
+       "C1",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 43,
+      "ends": [
+       "X5",
+       "X8"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X97": {
+    "classes": 5,
+    "pieces_on_sphere": 6000,
+    "classes_detail": [
+     {
+      "id": 44,
+      "ends": [
+       "C1",
+       "X97"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 45,
+      "ends": [
+       "C4",
+       "X97"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 46,
+      "ends": [
+       "C1",
+       "X97"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 47,
+      "ends": [
+       "C4",
+       "X97"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 48,
+      "ends": [
+       "C1",
+       "X97"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X6": {
+    "classes": 3,
+    "pieces_on_sphere": 3600,
+    "classes_detail": [
+     {
+      "id": 49,
+      "ends": [
+       "C1",
+       "X4"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 50,
+      "ends": [
+       "C1",
+       "X4"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 51,
+      "ends": [
+       "C1",
+       "X4"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "D2": {
+    "classes": 4,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "id": 52,
+      "ends": [
+       "A1",
+       "C4"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 53,
+      "ends": [
+       "A1",
+       "C4"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 54,
+      "ends": [
+       "A1",
+       "C4"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 55,
+      "ends": [
+       "A1",
+       "C4"
+      ],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "C2b": {
+    "classes": 2,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "id": 56,
+      "ends": [
+       "C4"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 57,
+      "ends": [
+       "C4"
+      ],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "D1": {
+    "classes": 3,
+    "pieces_on_sphere": 1800,
+    "classes_detail": [
+     {
+      "id": 58,
+      "ends": [
+       "C5",
+       "C6"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 59,
+      "ends": [
+       "C5",
+       "C6"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 60,
+      "ends": [
+       "C5",
+       "C6"
+      ],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "C3": {
+    "classes": 2,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "id": 61,
+      "ends": [
+       "C1",
+       "C5"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 62,
+      "ends": [
+       "C1",
+       "C5"
+      ],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "D3": {
+    "classes": 2,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "id": 63,
+      "ends": [
+       "A1",
+       "C1"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "id": 64,
+      "ends": [
+       "C1"
+      ],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "C2a": {
+    "classes": 1,
+    "pieces_on_sphere": 600,
+    "classes_detail": [
+     {
+      "id": 65,
+      "ends": [
+       "C6"
+      ],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "T1": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "id": 66,
+      "ends": [
+       "C4",
+       "C6"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 67,
+      "ends": [
+       "C4",
+       "C6"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "E2": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "id": 68,
+      "ends": [
+       "C1",
+       "C5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 69,
+      "ends": [
+       "C1",
+       "C5"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "B1": {
+    "classes": 1,
+    "pieces_on_sphere": 240,
+    "classes_detail": [
+     {
+      "id": 70,
+      "ends": [
+       "A1"
+      ],
+      "on_sphere": 240
+     }
+    ]
+   }
+  },
+  "wall_meetings_off_atlas_lines": {
+   "F1/T2": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X4"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "F1/X28": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "F4/X100": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "F5/X20": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X8"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "T2/X11": {
+    "classes": 6,
+    "pieces_on_sphere": 7200,
+    "classes_detail": [
+     {
+      "corners": [
+       "X4",
+       "unnamed [0.2736, 0.4678, 0.1293, 0.1293]"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "unnamed [0.2736, 0.4678, 0.1293, 0.1293]",
+       "C5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "C5",
+       "X94\u00b7X11\u00b7T2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X94\u00b7X11\u00b7T2",
+       "X4"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X4",
+       "X94\u00b7X11\u00b7T2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X94\u00b7X11\u00b7T2"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "T2/X94": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X94\u00b7X11\u00b7T2"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X10/X3": {
+    "classes": 1,
+    "pieces_on_sphere": 600,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "X10/X9": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "corners": [
+       "X5"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X11/X94": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [
+       "C1",
+       "X94\u00b7X11\u00b7T2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X94\u00b7X11\u00b7T2"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X14/X25": {
+    "classes": 3,
+    "pieces_on_sphere": 3000,
+    "classes_detail": [
+     {
+      "corners": [
+       "unnamed [0.1335, 0.3651, 0.2773, 0.2241]"
+      ],
+      "on_sphere": 600
+     },
+     {
+      "corners": [
+       "unnamed [0.1335, 0.3651, 0.2773, 0.2241]",
+       "unnamed [0.1382, 0.3618, 0.2764, 0.2236]"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "unnamed [0.1382, 0.3618, 0.2764, 0.2236]"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X17/X19": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [
+       "X4",
+       "X4"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X4"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X17/X31": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X4"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X21/X98": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [
+       "X97",
+       "X8"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X97",
+       "X8"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X22/X93": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X23/X39": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "corners": [
+       "X5"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X26/X79": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [
+       "X2",
+       "X2"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X2"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X27/X44": {
+    "classes": 2,
+    "pieces_on_sphere": 2400,
+    "classes_detail": [
+     {
+      "corners": [
+       "X2",
+       "X97"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "corners": [
+       "X97"
+      ],
+      "on_sphere": 1200
+     }
+    ]
+   },
+   "X41/X96": {
+    "classes": 1,
+    "pieces_on_sphere": 600,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 600
+     }
+    ]
+   },
+   "X51/X84": {
+    "classes": 1,
+    "pieces_on_sphere": 1200,
+    "classes_detail": [
+     {
+      "corners": [],
+      "on_sphere": 1200
+     }
+    ]
+   }
+  }
+ },
+ "wall_meeting_curves": [
+  {
+   "walls": "F1/T2",
+   "found": true,
+   "on_atlas_line": "E2",
+   "surroundings": [
+    [
+     "F1",
+     [
+      "F3",
+      "X50"
+     ]
+    ],
+    [
+     "None",
+     [
+      "X63",
+      "X69"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X36"
+     ]
+    ],
+    [
+     "X20",
+     [
+      "X66",
+      "X95"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "X12",
+      "X95"
+     ]
+    ],
+    [
+     "X33",
+     [
+      "X50",
+      "X57"
+     ]
+    ],
+    [
+     "X40",
+     [
+      "X57",
+      "X63"
+     ]
+    ],
+    [
+     "X48",
+     [
+      "X66",
+      "X69"
+     ]
+    ],
+    [
+     "X7",
+     [
+      "X12",
+      "X30"
+     ]
+    ],
+    [
+     "X83",
+     [
+      "X30",
+      "X36"
+     ]
+    ]
+   ],
+   "domain_pieces": 2,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F1/T2",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "F1",
+     [
+      "F3",
+      "X49"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F2",
+      "X49"
+     ]
+    ]
+   ],
+   "domain_pieces": 2,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F1/T2",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "F1",
+     [
+      "F3",
+      "X49"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F2",
+      "X49"
+     ]
+    ]
+   ],
+   "domain_pieces": 3,
+   "corners": [
+    "X4"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F1/T2",
+   "found": true,
+   "on_atlas_line": "X97",
+   "surroundings": [
+    [
+     "F1",
+     [
+      "F3",
+      "X50"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X36"
+     ]
+    ],
+    [
+     "X20",
+     [
+      "X66",
+      "X95"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "X12",
+      "X95"
+     ]
+    ],
+    [
+     "X33",
+     [
+      "X50",
+      "X57"
+     ]
+    ],
+    [
+     "X40",
+     [
+      "X57",
+      "X63"
+     ]
+    ],
+    [
+     "X48",
+     [
+      "X66",
+      "X69"
+     ]
+    ],
+    [
+     "X51",
+     [
+      "X63",
+      "X64"
+     ]
+    ],
+    [
+     "X53",
+     [
+      "X64",
+      "X69"
+     ]
+    ],
+    [
+     "X7",
+     [
+      "X12",
+      "X30"
+     ]
+    ],
+    [
+     "X83",
+     [
+      "X30",
+      "X36"
+     ]
+    ]
+   ],
+   "domain_pieces": 2,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F1/X28",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "F1",
+     [
+      "F3",
+      "X49"
+     ]
+    ],
+    [
+     "F1",
+     [
+      "F3",
+      "X50"
+     ]
+    ],
+    [
+     "X28",
+     [
+      "X49",
+      "X50"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F4/X100",
+   "found": true,
+   "on_atlas_line": "X29",
+   "surroundings": [
+    [
+     "F4",
+     [
+      "X49",
+      "X61"
+     ]
+    ],
+    [
+     "F5",
+     [
+      "X59",
+      "X66"
+     ]
+    ],
+    [
+     "X100",
+     [
+      "X58",
+      "X61"
+     ]
+    ],
+    [
+     "X23",
+     [
+      "X59",
+      "X62"
+     ]
+    ],
+    [
+     "X28",
+     [
+      "X49",
+      "X50"
+     ]
+    ],
+    [
+     "X33",
+     [
+      "X50",
+      "X57"
+     ]
+    ],
+    [
+     "X38",
+     [
+      "X68",
+      "X68"
+     ]
+    ],
+    [
+     "X40",
+     [
+      "X57",
+      "X63"
+     ]
+    ],
+    [
+     "X41",
+     [
+      "X58",
+      "X62"
+     ]
+    ],
+    [
+     "X48",
+     [
+      "X66",
+      "X69"
+     ]
+    ],
+    [
+     "X51",
+     [
+      "X63",
+      "X64"
+     ]
+    ],
+    [
+     "X53",
+     [
+      "X64",
+      "X69"
+     ]
+    ],
+    [
+     "X99",
+     [
+      "X61",
+      "X68"
+     ]
+    ],
+    [
+     "X99",
+     [
+      "X61",
+      "X68"
+     ]
+    ]
+   ],
+   "domain_pieces": 2,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F4/X100",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "F4",
+     [
+      "X49",
+      "X58"
+     ]
+    ],
+    [
+     "F4",
+     [
+      "X49",
+      "X61"
+     ]
+    ],
+    [
+     "X100",
+     [
+      "X58",
+      "X61"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F5/X20",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "F5",
+     [
+      "X59",
+      "X66"
+     ]
+    ],
+    [
+     "X20",
+     [
+      "X59",
+      "X95"
+     ]
+    ],
+    [
+     "X20",
+     [
+      "X66",
+      "X95"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X8"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "F5/X20",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "F5",
+     [
+      "X59",
+      "X66"
+     ]
+    ],
+    [
+     "X20",
+     [
+      "X59",
+      "X95"
+     ]
+    ],
+    [
+     "X20",
+     [
+      "X66",
+      "X95"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X8"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X11",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X37"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X37"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X4",
+    "unnamed [0.2736, 0.4678, 0.1293, 0.1293]"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X11",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X36"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "unnamed [0.2736, 0.4678, 0.1293, 0.1293]",
+    "C5"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X11",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X36"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "C5",
+    "X94\u00b7X11\u00b7T2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X11",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X37"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X37"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X94\u00b7X11\u00b7T2",
+    "X4"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X11",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X37"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X37"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X4",
+    "X94\u00b7X11\u00b7T2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X11",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F2",
+      "F3"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X36"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X94\u00b7X11\u00b7T2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X94",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F3",
+      "X36"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X37"
+     ]
+    ],
+    [
+     "X94",
+     [
+      "X36",
+      "X37"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "T2/X94",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "T2",
+     [
+      "F3",
+      "X36"
+     ]
+    ],
+    [
+     "T2",
+     [
+      "F3",
+      "X37"
+     ]
+    ],
+    [
+     "X94",
+     [
+      "X36",
+      "X37"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X94\u00b7X11\u00b7T2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X10/X3",
+   "found": true,
+   "on_atlas_line": "C3",
+   "surroundings": [
+    [
+     "X10",
+     [
+      "F2",
+      "X95"
+     ]
+    ],
+    [
+     "X10",
+     [
+      "F2",
+      "X95"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "X12",
+      "X95"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "X12",
+      "X95"
+     ]
+    ],
+    [
+     "X7",
+     [
+      "X12",
+      "X30"
+     ]
+    ],
+    [
+     "X7",
+     [
+      "X12",
+      "X30"
+     ]
+    ],
+    [
+     "X83",
+     [
+      "X30",
+      "X36"
+     ]
+    ],
+    [
+     "X83",
+     [
+      "X30",
+      "X36"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "unnamed [0.4172, 0.2914, 0.2914, 0.0]",
+    "C1"
+   ],
+   "pieces_on_sphere": 600
+  },
+  {
+   "walls": "X10/X3",
+   "found": true,
+   "on_atlas_line": "X97",
+   "surroundings": [
+    [
+     "X10",
+     [
+      "F2",
+      "X95"
+     ]
+    ],
+    [
+     "X10",
+     [
+      "F2",
+      "X95"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "X12",
+      "X95"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "X12",
+      "X95"
+     ]
+    ],
+    [
+     "X7",
+     [
+      "X12",
+      "X30"
+     ]
+    ],
+    [
+     "X7",
+     [
+      "X12",
+      "X30"
+     ]
+    ],
+    [
+     "X83",
+     [
+      "X30",
+      "X36"
+     ]
+    ],
+    [
+     "X83",
+     [
+      "X30",
+      "X36"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "C1",
+    "unnamed [0.3403, 0.3403, 0.1597, 0.1597]"
+   ],
+   "pieces_on_sphere": 600
+  },
+  {
+   "walls": "X10/X3",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X10",
+     [
+      "F2",
+      "X95"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "F2",
+      "X12"
+     ]
+    ],
+    [
+     "X3",
+     [
+      "X12",
+      "X95"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [],
+   "pieces_on_sphere": 600
+  },
+  {
+   "walls": "X10/X9",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X10",
+     [
+      "F2",
+      "X95"
+     ]
+    ],
+    [
+     "X9",
+     [
+      "F2",
+      "X16"
+     ]
+    ],
+    [
+     "X9",
+     [
+      "X16",
+      "X95"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X5"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X11/X94",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X37"
+     ]
+    ],
+    [
+     "X94",
+     [
+      "X36",
+      "X37"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "C1",
+    "X94\u00b7X11\u00b7T2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X11/X94",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X11",
+     [
+      "F2",
+      "X36"
+     ]
+    ],
+    [
+     "X11",
+     [
+      "F2",
+      "X37"
+     ]
+    ],
+    [
+     "X94",
+     [
+      "X36",
+      "X37"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X94\u00b7X11\u00b7T2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X14/X25",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X14",
+     [
+      "F2",
+      "X45"
+     ]
+    ],
+    [
+     "X14",
+     [
+      "F2",
+      "X46"
+     ]
+    ],
+    [
+     "X25",
+     [
+      "X45",
+      "X46"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "unnamed [0.1335, 0.3651, 0.2773, 0.2241]"
+   ],
+   "pieces_on_sphere": 600
+  },
+  {
+   "walls": "X14/X25",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "None",
+     [
+      "F2",
+      "None"
+     ]
+    ],
+    [
+     "None",
+     [
+      "None",
+      "X46"
+     ]
+    ],
+    [
+     "X14",
+     [
+      "F2",
+      "X45"
+     ]
+    ],
+    [
+     "X25",
+     [
+      "X45",
+      "X46"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "unnamed [0.1335, 0.3651, 0.2773, 0.2241]",
+    "unnamed [0.1382, 0.3618, 0.2764, 0.2236]"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X14/X25",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X14",
+     [
+      "F2",
+      "X45"
+     ]
+    ],
+    [
+     "X14",
+     [
+      "F2",
+      "X46"
+     ]
+    ],
+    [
+     "X25",
+     [
+      "X45",
+      "X46"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "unnamed [0.1382, 0.3618, 0.2764, 0.2236]"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X19",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X43"
+     ]
+    ],
+    [
+     "X17",
+     [
+      "X43",
+      "X46"
+     ]
+    ],
+    [
+     "X19",
+     [
+      "X32",
+      "X46"
+     ]
+    ]
+   ],
+   "domain_pieces": 2,
+   "corners": [
+    "X4",
+    "X4"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X19",
+   "found": true,
+   "on_atlas_line": "X5",
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X43"
+     ]
+    ],
+    [
+     "X19",
+     [
+      "X32",
+      "X46"
+     ]
+    ],
+    [
+     "X25",
+     [
+      "X45",
+      "X46"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X102",
+      "X103"
+     ]
+    ],
+    [
+     "X27",
+     [
+      "X45",
+      "X55"
+     ]
+    ],
+    [
+     "X85",
+     [
+      "X43",
+      "X71"
+     ]
+    ],
+    [
+     "X86",
+     [
+      "X102",
+      "X71"
+     ]
+    ],
+    [
+     "X89",
+     [
+      "X103",
+      "X76"
+     ]
+    ],
+    [
+     "X90",
+     [
+      "X55",
+      "X76"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X19",
+   "found": true,
+   "on_atlas_line": "X81",
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X54"
+     ]
+    ],
+    [
+     "X19",
+     [
+      "X32",
+      "X46"
+     ]
+    ],
+    [
+     "X25",
+     [
+      "X45",
+      "X46"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X72",
+      "X73"
+     ]
+    ],
+    [
+     "X27",
+     [
+      "X45",
+      "X65"
+     ]
+    ],
+    [
+     "X42",
+     [
+      "X56",
+      "X65"
+     ]
+    ],
+    [
+     "X87",
+     [
+      "X70",
+      "X75"
+     ]
+    ],
+    [
+     "X88",
+     [
+      "X73",
+      "X75"
+     ]
+    ],
+    [
+     "X91",
+     [
+      "X72",
+      "X77"
+     ]
+    ],
+    [
+     "X92",
+     [
+      "X56",
+      "X77"
+     ]
+    ],
+    [
+     "X93",
+     [
+      "X54",
+      "X70"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X19",
+   "found": true,
+   "on_atlas_line": "T1",
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X43"
+     ]
+    ],
+    [
+     "X19",
+     [
+      "X32",
+      "X46"
+     ]
+    ],
+    [
+     "X25",
+     [
+      "X45",
+      "X46"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X102",
+      "X103"
+     ]
+    ],
+    [
+     "X27",
+     [
+      "X45",
+      "X55"
+     ]
+    ],
+    [
+     "X85",
+     [
+      "X43",
+      "X71"
+     ]
+    ],
+    [
+     "X86",
+     [
+      "X102",
+      "X71"
+     ]
+    ],
+    [
+     "X89",
+     [
+      "X103",
+      "X76"
+     ]
+    ],
+    [
+     "X90",
+     [
+      "X55",
+      "X76"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X19",
+   "found": true,
+   "on_atlas_line": "X80",
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X54"
+     ]
+    ],
+    [
+     "X19",
+     [
+      "X32",
+      "X46"
+     ]
+    ],
+    [
+     "X25",
+     [
+      "X45",
+      "X46"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X72",
+      "X73"
+     ]
+    ],
+    [
+     "X27",
+     [
+      "X45",
+      "X65"
+     ]
+    ],
+    [
+     "X42",
+     [
+      "X56",
+      "X65"
+     ]
+    ],
+    [
+     "X87",
+     [
+      "X70",
+      "X75"
+     ]
+    ],
+    [
+     "X88",
+     [
+      "X73",
+      "X75"
+     ]
+    ],
+    [
+     "X91",
+     [
+      "X72",
+      "X77"
+     ]
+    ],
+    [
+     "X92",
+     [
+      "X56",
+      "X77"
+     ]
+    ],
+    [
+     "X93",
+     [
+      "X54",
+      "X70"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X2",
+    "C1"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X19",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X43"
+     ]
+    ],
+    [
+     "X17",
+     [
+      "X43",
+      "X46"
+     ]
+    ],
+    [
+     "X19",
+     [
+      "X32",
+      "X46"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X4"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X31",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X43"
+     ]
+    ],
+    [
+     "X17",
+     [
+      "X32",
+      "X54"
+     ]
+    ],
+    [
+     "X31",
+     [
+      "X43",
+      "X54"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X17/X31",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X17",
+     [
+      "X32",
+      "X43"
+     ]
+    ],
+    [
+     "X17",
+     [
+      "X32",
+      "X54"
+     ]
+    ],
+    [
+     "X31",
+     [
+      "X43",
+      "X54"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X4"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X21/X98",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X21",
+     [
+      "F2",
+      "X60"
+     ]
+    ],
+    [
+     "X21",
+     [
+      "F2",
+      "X67"
+     ]
+    ],
+    [
+     "X98",
+     [
+      "X60",
+      "X67"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X97",
+    "X8"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X21/X98",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X21",
+     [
+      "F2",
+      "X60"
+     ]
+    ],
+    [
+     "X21",
+     [
+      "F2",
+      "X67"
+     ]
+    ],
+    [
+     "X98",
+     [
+      "X60",
+      "X67"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X97",
+    "X8"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X22/X93",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X22",
+     [
+      "F3",
+      "X54"
+     ]
+    ],
+    [
+     "X22",
+     [
+      "F3",
+      "X70"
+     ]
+    ],
+    [
+     "X93",
+     [
+      "X54",
+      "X70"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X23/X39",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X23",
+     [
+      "X59",
+      "X62"
+     ]
+    ],
+    [
+     "X23",
+     [
+      "X60",
+      "X62"
+     ]
+    ],
+    [
+     "X39",
+     [
+      "X59",
+      "X60"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X5"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X26/X79",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X101",
+     [
+      "X103",
+      "X72"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X102",
+      "X103"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X72",
+      "X73"
+     ]
+    ],
+    [
+     "X79",
+     [
+      "X102",
+      "X73"
+     ]
+    ]
+   ],
+   "domain_pieces": 2,
+   "corners": [
+    "X2",
+    "X2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X26/X79",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X101",
+     [
+      "X103",
+      "X72"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X102",
+      "X103"
+     ]
+    ],
+    [
+     "X26",
+     [
+      "X72",
+      "X73"
+     ]
+    ],
+    [
+     "X79",
+     [
+      "X102",
+      "X73"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X2"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X27/X44",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X27",
+     [
+      "X45",
+      "X55"
+     ]
+    ],
+    [
+     "X27",
+     [
+      "X45",
+      "X65"
+     ]
+    ],
+    [
+     "X44",
+     [
+      "X55",
+      "X65"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X2",
+    "X97"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X27/X44",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X27",
+     [
+      "X45",
+      "X55"
+     ]
+    ],
+    [
+     "X27",
+     [
+      "X45",
+      "X65"
+     ]
+    ],
+    [
+     "X44",
+     [
+      "X55",
+      "X65"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [
+    "X97"
+   ],
+   "pieces_on_sphere": 1200
+  },
+  {
+   "walls": "X41/X96",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X41",
+     [
+      "X58",
+      "X62"
+     ]
+    ],
+    [
+     "X96",
+     [
+      "X16",
+      "X58"
+     ]
+    ],
+    [
+     "X96",
+     [
+      "X16",
+      "X62"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [],
+   "pieces_on_sphere": 600
+  },
+  {
+   "walls": "X51/X84",
+   "found": true,
+   "on_atlas_line": null,
+   "surroundings": [
+    [
+     "X51",
+     [
+      "X63",
+      "X64"
+     ]
+    ],
+    [
+     "X84",
+     [
+      "X63",
+      "X74"
+     ]
+    ],
+    [
+     "X84",
+     [
+      "X64",
+      "X74"
+     ]
+    ]
+   ],
+   "domain_pieces": 1,
+   "corners": [],
+   "pieces_on_sphere": 1200
+  }
+ ],
+ "totals": {
+  "wall_pieces_on_sphere": 175200,
+  "atlas_line_pieces_on_sphere": 75840,
+  "meeting_edge_pieces_on_sphere": 40200,
+  "points_on_sphere": 317976
+ }
+}
