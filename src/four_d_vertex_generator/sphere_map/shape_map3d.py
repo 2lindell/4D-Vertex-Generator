@@ -21,15 +21,15 @@ from collections import defaultdict
 
 import numpy as np
 
-from .frame import data_dir, group, multiplication_table, point_from_beta
+from .frame import data_dir, group, load_json, multiplication_table, point_from_beta
 from .incidence import Incidence
 
 ROOT = None
 RANK = {"side": 0, "boundary": 0, "round": 1, "end": 1, "corner": 1, "touches": 2, "meets": 2,
-        "across a line": 3}
+        "crosses": 2, "across a line": 3}
 # what each kind of shape shows round it
 SHOWN = {"region": {"boundary", "corner"},
-         "face": {"side", "boundary", "corner", "meets", "across a line"},
+         "face": {"side", "boundary", "corner", "meets", "crosses", "across a line"},
          "line": {"round", "end"},
          "point": {"boundary", "touches", "across a line"}}
 
@@ -88,7 +88,10 @@ def build() -> dict:
             pts.append(point_from_beta(poly / poly.sum(axis=1, keepdims=True)) @ g[seg["copy"]].T)
         line_geo.append(pts)
     point_pos = [np.asarray(p["R4"], float) for p in atlas["points"]]
-    named_points = [p["id"] for p in atlas["points"] if p.get("atlas_point")]
+    # named: a shape of its own in the atlas (working data 'shapes'); other exact points only mark
+    # where lines meet
+    point_shapes = {k for k, v in load_json("working_data.json")["shapes"].items() if v["dim"] == "point"}
+    named_points = [p["id"] for p in atlas["points"] if p.get("atlas_point") in point_shapes]
 
     # ---- patch lookup for walls read off a ring
     inner = {(min(p["pieces"]), max(p["pieces"]), p["surface"]): p["id"]
@@ -203,6 +206,10 @@ def build() -> dict:
 
     # ---- neighbourhoods: every incidence seen from each shape (its placement carried to identity)
     _log("collecting neighbourhoods")
+    wall_name = {f["id"]: f["wall"] for f in atlas["faces"]}
+    wcomp = comps["wall_component"]
+    S0 = np.array([[int(wcomp[mult[gg, f["members"][0][0]], f["members"][0][1]]) for gg in range(len(g))]
+                   for f in atlas["faces"]])
     nb = defaultdict(dict)                     # (kind, class) -> {(kind, class, g): relation}
 
     def add(focus, other, rel):
@@ -229,10 +236,18 @@ def build() -> dict:
                 if e[0] == "point":
                     add(m, e, "corner")
                     add(e, m, "touches")
-        # shapes round one line are neighbours of each other along it
+        # shapes round one line are neighbours of each other along it; two walls cross there when
+        # one of them carries on through the line (its sheet is on both sides of it)
+        sheets_here = [S0[m[1], m[2]] for m in members if m[0] == "face"]
+        through = {x for x in sheets_here if sheets_here.count(x) > 1}
         for a in members:
             for b in members:
-                if a != b:
+                if a == b:
+                    continue
+                if a[0] == b[0] == "face" and (S0[a[1], a[2]] in through or S0[b[1], b[2]] in through) \
+                        and S0[a[1], a[2]] != S0[b[1], b[2]]:
+                    add(a, b, "crosses")
+                else:
                     add(a, b, "across a line")
     for mt in meetings:
         members = [(x["kind"], x["class"], x["g"]) for x in mt["round"]]
@@ -257,19 +272,22 @@ def build() -> dict:
 
     # one node is one connected sheet of a named wall (the build's wall components on S^3) or
     # one connected stretch of a named line (its pieces joined end to end over the sphere)
-    wcomp = comps["wall_component"]
     sheet_rep = {f["id"]: f["members"][0] for f in atlas["faces"]}
 
     def sheet(c, gg):
         k0, p0 = sheet_rep[c]
         return int(wcomp[mult[gg, k0], p0])
     line_name = {lp["id"]: lp["line_shape"] for lp in atlas["line_pieces"]}
-    ends_img, owner = [], []
+    ends_img, ends_dir, owner = [], [], []
     for li, geo in enumerate(line_geo):
-        for P in (geo[0][0], geo[-1][-1]):
+        first, last = np.vstack(geo[0]), np.vstack(geo[-1])
+        for P, Q in ((first[0], first[min(3, len(first) - 1)]), (last[-1], last[max(-4, -len(last))])):
+            t = Q - P - (Q - P) @ P * P                      # direction leaving the end, along S^3
+            t = t / np.linalg.norm(t)
             ends_img.append(np.einsum("gij,j->gi", g, P))
+            ends_dir.append(np.einsum("gij,j->gi", g, t))
             owner += [(li, gg) for gg in range(len(g))]
-    ends_img = np.concatenate(ends_img)
+    ends_img, ends_dir = np.concatenate(ends_img), np.concatenate(ends_dir)
     nl = len(line_geo) * len(g)
     lparent = list(range(nl))
 
@@ -280,7 +298,10 @@ def build() -> dict:
         return i
     for i, j in cKDTree(ends_img).query_pairs(1e-6):
         (la, ga), (lb, gb) = owner[i], owner[j]
-        if line_name[la] == line_name[lb]:
+        # one line carrying on through a point that is not a shape of its own: the two ends leave
+        # it in opposite directions
+        if line_name[la] == line_name[lb] and ends_dir[i] @ ends_dir[j] < -0.999 \
+                and point_at(ends_img[i]) is None:
             lparent[lfind(lb * len(g) + gb)] = lfind(la * len(g) + ga)
 
     def touching(a, b):
@@ -293,11 +314,13 @@ def build() -> dict:
             return lfind(ca * len(g) + ga) == lfind(cb * len(g) + gb)
         return False
 
-    def pack(focus):
-        items = sorted(((k, r) for k, r in nb[focus].items() if r in SHOWN[focus[0]]),
-                       key=lambda kv: (RANK.get(kv[1], 9), kv[0]))
+    def filtered(focus):
+        """The piece-level neighbours a shape of this kind shows: [((kind, class, g), relation)]."""
+        items = [(k, r) for k, r in nb[focus].items() if r in SHOWN[focus[0]]]
         if focus[0] == "face":
             # walls across a shared line, and only the regions on the sides of walls shown
+            # walls that only share a line with it (both ending there) are not shown
+            items = [(k, r) for k, r in items if not (k[0] == "face" and r == "across a line")]
             shown_faces = {(k[1], k[2]) for k, _ in items if k[0] == "face"} | {(focus[1], 0)}
             sides_ok = set()
             for fc, fg in shown_faces:
@@ -306,62 +329,146 @@ def build() -> dict:
             items = [(k, r) for k, r in items
                      if not (k[0] == "region" and r in ("meets", "across a line") and (k[1], k[2]) not in sides_ok)
                      and not (k[0] == "point" and r == "across a line")]
-        mem = [k for k, _ in items]
-        rel = dict(items)
-        # the focus's own placement joins its group too (a wall's other pieces round it)
-        me = (focus[0], focus[1], 0)
-        allm = [me] + mem
-        parent = list(range(len(allm)))
+        return items
 
-        def find(i):
-            while parent[i] != i:
-                parent[i] = parent[parent[i]]
-                i = parent[i]
-            return i
-        for i in range(len(allm)):
-            for j in range(i + 1, len(allm)):
-                if touching(allm[i], allm[j]):
-                    parent[find(j)] = find(i)
-        groups = defaultdict(list)
-        for i, m in enumerate(allm):
-            groups[find(i)].append(m)
-        nodes = []
-        for root_, ms in groups.items():
-            if me in ms:
-                others = [m for m in ms if m != me]
-                if others:
-                    nodes.append({"kind": me[0], "focus": True,
-                                  "members": [[m[1], m[2]] for m in others], "rel": "same shape"})
+    # ---- nodes: a node is a whole named shape on S^3. A wall node is one whole sheet of the wall
+    # (the build's wall components: its pieces joined across every curve where other walls meet
+    # it); a line node one whole connected line; a region its volume; a point itself.
+    n_g = len(g)
+    # a wall node: one wall's pieces joined across the unnamed curves where other walls meet it
+    # (the same sheet on both sides of such a curve); named lines bound it, since across a named
+    # line lies another copy under the symmetry
+    nf = len(atlas["faces"])
+    fparent = np.arange(nf * n_g)
+
+    def ffind(i):
+        r = i
+        while fparent[r] != r:
+            r = fparent[r]
+        while fparent[i] != r:
+            fparent[i], i = r, fparent[i]
+        return r
+    for mt in meetings:
+        fs = [(x["class"], x["g"]) for x in mt["round"] if x["kind"] == "face"]
+        for i, (c1, g1) in enumerate(fs):
+            for c2, g2 in fs[i + 1:]:
+                if wall_name[c1] != wall_name[c2] or S0[c1, g1] != S0[c2, g2]:
+                    continue
+                for h in range(n_g):
+                    u, v = ffind(c1 * n_g + int(mult[h, g1])), ffind(c2 * n_g + int(mult[h, g2]))
+                    if u != v:
+                        fparent[v] = u
+    S = np.array([[ffind(c * n_g + gg) for gg in range(n_g)] for c in range(nf)])
+    # a line node: one named line piece, from named point to named point; placements that are the
+    # same piece (its stabiliser) share its middle point
+    quart = []
+    for geo in line_geo:
+        P = np.vstack(geo)
+        quart.append((P[len(P) // 4], P[(3 * len(P)) // 4]))
+    key_of = {}
+
+    def piece_key(li, gg):
+        a, b = (tuple(np.round(g[gg] @ x, 6)) for x in quart[li])
+        return (li,) + tuple(sorted((a, b)))
+    # (placements that are the same piece, under its stabiliser, are one)
+    for li in range(len(line_geo)):
+        for gg in range(n_g):
+            k0 = key_of.setdefault(piece_key(li, gg), li * n_g + gg)
+            if k0 != li * n_g + gg:
+                lparent[lfind(li * n_g + gg)] = lfind(k0)
+    L = np.array([[lfind(li * n_g + gg) for gg in range(n_g)] for li in range(len(line_geo))])
+
+    def whole_classes(T, kind_names):
+        """Classes of whole shapes from a (piece class x g) -> component table: each class's
+        representative component, its pieces (class, g), the classes of pieces it holds, and its
+        stabiliser order."""
+        out, of_piece = [], {}
+        for c in range(len(T)):
+            if c in of_piece:
                 continue
-            nodes.append({"kind": ms[0][0], "members": [[m[1], m[2]] for m in ms],
-                          "rel": min((rel[m] for m in ms), key=lambda r: RANK.get(r, 9))})
-        return nodes
+            s0 = T[c, 0]
+            mem = [(int(x), int(y)) for x, y in np.argwhere(T == s0)]
+            c1, g1 = mem[0]
+            stab = int(sum(T[c1, mult[h, g1]] == s0 for h in range(n_g)))
+            cid = len(out)
+            for pc in {x for x, _ in mem}:
+                of_piece[pc] = cid
+            out.append({"id": cid, "name": kind_names[c], "members": mem, "stab": stab, "rep": int(s0)})
+        return out, of_piece
+    sheets, sheet_of = whole_classes(S, [f["wall"] for f in atlas["faces"]])
+    lines_w, line_of = whole_classes(L, [lp["line_shape"] for lp in atlas["line_pieces"]])
+    # (a component's own class and the element carrying the class representative onto it)
+    sheet_at, line_at = {}, {}
+    for cl, T, at in ((sheets, S, sheet_at), (lines_w, L, line_at)):
+        for w_ in cl:
+            c1, g1 = w_["members"][0]
+            for h in range(n_g):
+                at.setdefault(int(T[c1, mult[h, g1]]), (w_["id"], h))
 
+    def whole_key(kind, c, gg):
+        """The whole shape a placed piece belongs to: a key, its node class and placement."""
+        if kind == "face":
+            comp = int(S[c, gg])
+            return ("wall", comp), ("wall",) + sheet_at[comp]
+        if kind == "line":
+            comp = int(L[c, gg])
+            return ("line", comp), ("line",) + line_at[comp]
+        if kind == "point":
+            x = g[gg] @ point_pos[c]
+            k = (c, tuple(np.round(x, 6)))
+            return ("point", k), ("point", c, gg)
+        return ("region", c, gg), ("region", c, gg)
+
+    def node_nb(kind, members, own):
+        """Every shape round a whole shape (its pieces at (class, g) in the node's frame), as whole
+        shapes: where they touch it (their pieces' placements) and the closest relation."""
+        out = {}
+        for pc, pg in members:
+            for (k2, c2, g2), rel in filtered((kind, pc)):
+                G2 = int(mult[pg, g2])
+                key, node = whole_key(k2, c2, G2)
+                if key == own:
+                    continue
+                e = out.setdefault(key, {"kind": node[0], "node": node[1], "at": node[2], "touch": [],
+                                         "rel": rel})
+                if [c2, G2] not in e["touch"]:
+                    e["touch"].append([c2, G2])
+                if RANK[rel] < RANK[e["rel"]]:
+                    e["rel"] = rel
+        return sorted(out.values(), key=lambda e: (RANK[e["rel"]], e["kind"], e["node"]))
+
+    face_regions = {f["id"]: f["regions"] for f in atlas["faces"]}
     data = {
         "_about": __doc__,
         "group": np.round(g.reshape(len(g), 16), 9).tolist(),
+        # pieces: geometry of each class's representative (carried by g where placed)
+        "face_geo": [{"c": face_geo[i]["c"].round(6).tolist(),
+                      "cloud": face_geo[i]["cloud"][:: max(1, len(face_geo[i]["cloud"]) // 40)].round(5).tolist(),
+                      "side": [x.round(6).tolist() for x in face_geo[i]["side"]],
+                      "regions": face_regions[f["id"]]}
+                     for i, f in enumerate(atlas["faces"])],
+        "line_geo": [[P[:: max(1, len(P) // 30)].round(5).tolist() + [P[-1].round(5).tolist()]
+                      for P in line_geo[i]] for i in range(len(line_geo))],
+        # nodes: whole named shapes
+        "walls": [{"id": w_["id"], "name": w_["name"], "stab": w_["stab"], "members": w_["members"],
+                   "regions": sorted({r for c, _ in w_["members"] for r in face_regions[c]}),
+                   "nb": node_nb("face", w_["members"], ("wall", w_["rep"]))} for w_ in sheets],
+        "lines": [{"id": w_["id"], "name": w_["name"], "stab": w_["stab"], "members": w_["members"],
+                   "nb": node_nb("line", w_["members"], ("line", w_["rep"]))} for w_ in lines_w],
         "regions": [{"id": r["id"], "name": r["region"], "stab": r["stabilizer_order"],
-                     "c": region_pos[i].round(6).tolist(), "nb": pack(("region", r["id"]))}
+                     "c": region_pos[i].round(6).tolist(),
+                     "nb": node_nb("region", [(r["id"], 0)], ("region", r["id"], 0))}
                     for i, r in enumerate(atlas["regions"])],
-        "faces": [{"id": f["id"], "name": f["wall"], "regions": f["regions"], "stab": f["stabilizer_order"],
-                   "c": face_geo[i]["c"].round(6).tolist(),
-                   "cloud": face_geo[i]["cloud"][:: max(1, len(face_geo[i]["cloud"]) // 60)].round(5).tolist(),
-                   "side": [s.round(6).tolist() for s in face_geo[i]["side"]],
-                   "sides": f["sides"], "nb": pack(("face", f["id"]))}
-                  for i, f in enumerate(atlas["faces"])],
-        "lines": [{"id": lp["id"], "name": lp["line_shape"], "stab": lp["stabilizer_order"],
-                   "poly": [P[:: max(1, len(P) // 40)].round(5).tolist() + [P[-1].round(5).tolist()]
-                            for P in line_geo[i]],
-                   "nb": pack(("line", lp["id"]))}
-                  for i, lp in enumerate(atlas["line_pieces"])],
         "points": [{"id": p["id"], "name": p["atlas_point"], "stab": p["stabilizer_order"],
-                    "c": np.round(p["R4"], 6).tolist(), "nb": pack(("point", p["id"]))}
-                   for p in atlas["points"] if p.get("atlas_point")],
+                    "c": np.round(p["R4"], 6).tolist(),
+                    "nb": node_nb("point", [(p["id"], 0)],
+                                  ("point", (p["id"], tuple(np.round(point_pos[p["id"]], 6)))))}
+                   for p in atlas["points"] if p["id"] in set(named_points)],
         "meetings": len(meetings),
     }
     (root / "shape_map3d.json").write_text(json.dumps(data, separators=(",", ":")))
-    _log(f"shape map data: {len(data['regions'])} regions, {len(data['faces'])} wall pieces, "
-         f"{len(data['lines'])} line pieces, {len(data['points'])} named points, "
+    _log(f"shape map data: {len(data['regions'])} regions, {len(data['walls'])} whole wall sheets, "
+         f"{len(data['lines'])} whole lines, {len(data['points'])} named points, "
          f"{len(meetings)} meeting-curve rings")
     return data
 

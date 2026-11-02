@@ -57,12 +57,12 @@ h1 { font-size: 1.3rem; font-weight: 700; margin: 0; text-wrap: balance; }
 <div class="wrap">
   <header>
     <h1>Swirlprism shape map</h1>
-    <p class="sub">Each named shape of the h4 swirlprism symmetry with everything that touches it, placed where it lies on the 3-sphere (projected from the point opposite the selected shape). Each node's glyph has the rotational symmetry of its piece on the sphere: one petal for a piece with no symmetry, five for a piece that five copies of the group leave in place. Pieces of one wall or line that touch are one node. Drag to turn, scroll to zoom, select a node or a chip to move to it.</p>
+    <p class="sub">Each named shape of the h4 swirlprism symmetry with everything that touches it, placed where it lies on the 3-sphere (projected from the point opposite the selected shape). A wall is a tile in its own plane, a line a rod along it, a region a solid, a point a small solid; each carries the symmetry of the shape on the sphere (a cut corner or an arrowhead for none, n fins or n sides for n-fold). A node is a whole named shape: a wall up to the named lines that bound it, a line from named point to named point. Drag to turn, scroll to zoom, select a node or a chip to move to it.</p>
   </header>
   <div class="bar">
     <label for="find">Find <input id="find" list="ids" placeholder="T2, F2, B1, C5…" autocomplete="off"></label>
     <datalist id="ids"></datalist>
-    <div class="key" aria-label="Colour by kind"><span><i style="background:var(--d3)"></i>region</span><span><i style="background:var(--d2)"></i>wall piece</span><span><i style="background:var(--d1)"></i>line piece</span><span><i style="background:var(--d0)"></i>named point</span></div>
+    <div class="key" aria-label="Colour by kind"><span><i style="background:var(--d3)"></i>region</span><span><i style="background:var(--d2)"></i>wall</span><span><i style="background:var(--d1)"></i>line</span><span><i style="background:var(--d0)"></i>named point</span></div>
     <div class="crumbs" id="crumbs"></div>
   </div>
   <div class="main">
@@ -75,228 +75,211 @@ h1 { font-size: 1.3rem; font-weight: 700; margin: 0; text-wrap: balance; }
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 const D = JSON.parse(document.getElementById("data").textContent);
-const KIND = { region: 3, face: 2, line: 1, point: 0 };
-const KNAME = { region: "region", face: "wall piece", line: "line piece", point: "named point" };
+const KIND = { region: 3, wall: 2, line: 1, point: 0 };
+const KNAME = { region: "region", wall: "wall", line: "line", point: "named point" };
 const G = D.group.map((m) => [m.slice(0, 4), m.slice(4, 8), m.slice(8, 12), m.slice(12, 16)]);
-const by = { region: D.regions, face: D.faces, line: D.lines, point: D.points };
+const by = { region: D.regions, wall: D.walls, line: D.lines, point: D.points };
 const idx = {}; for (const k in by) { idx[k] = {}; by[k].forEach((x) => (idx[k][x.id] = x)); }
 const apply = (g, v) => { const M = G[g]; return [0, 1, 2, 3].map((i) => M[i][0] * v[0] + M[i][1] * v[1] + M[i][2] * v[2] + M[i][3] * v[3]); };
 const norm = (v) => { const n = Math.hypot(...v); return v.map((x) => x / n); };
 const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const colOf = (k) => css(`--d${KIND[k]}`);
-const label = (k, x) => k === "face" ? `${x.name} · ${x.regions.join("|")}` : k === "region" ? `${x.name}` : x.name;
-const ident = (k, x) => k === "face" ? `${x.name} (${x.regions.join("|")}) #${x.id}` : k === "region" ? `${x.name} #${x.id}` : k === "line" ? `${x.name} piece #${x.id}` : `${x.name}`;
+const ident = (k, x) => k === "wall" ? `${x.name} (${x.regions.join("|")}) #${x.id}` : k === "region" ? `${x.name} #${x.id}` : k === "line" ? `${x.name} #${x.id}` : `${x.name} #${x.id}`;
 
-// geometry of a placed piece (class carried by group element g), as points of S^3
-function centre(k, c, g) {
-  const x = idx[k][c];
-  if (k === "line") { const P = x.poly.flat(); return norm(apply(g, P[Math.floor(P.length / 2)])); }
-  return norm(apply(g, x.c));
-}
-function shapePoints(k, c, g) {
-  const x = idx[k][c];
-  if (k === "line") return x.poly.map((P) => P.map((p) => apply(g, p)));
-  if (k === "face") return [x.cloud.map((p) => apply(g, p))];
-  return [];
-}
+// pieces carried by group element g (geometry on S^3, as R^4 points)
+const piece = {
+  wall: (c, g) => { const f = D.face_geo[c]; return { c: apply(g, f.c), cloud: f.cloud.map((p) => apply(g, p)), side: apply(g, f.side[0]) }; },
+  line: (c, g) => { const P = D.line_geo[c].map((Q) => Q.map((p) => apply(g, p))); const all = P.flat(); return { c: all[Math.floor(all.length / 2)], polys: P, all }; },
+  region: (c, g) => ({ c: apply(g, idx.region[c].c) }),
+  point: (c, g) => ({ c: apply(g, idx.point[c].c) }),
+};
+const mean4 = (P) => norm([0, 1, 2, 3].map((i) => P.reduce((s, p) => s + p[i], 0)));
 
-// three.js stage
+// stage
 const cv = document.getElementById("cv"), stage = document.getElementById("stage"), labels = document.getElementById("labels");
-const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: false });
+const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true });
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 1000);
-camera.position.set(0, 0, 9);
 const controls = new THREE.OrbitControls(camera, cv);
 controls.enableDamping = true; controls.dampingFactor = 0.12;
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+const sun = new THREE.DirectionalLight(0xffffff, 0.75); sun.position.set(3, 5, 6); scene.add(sun);
 const world = new THREE.Group(); scene.add(world);
 function resize() { const r = stage.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
 new ResizeObserver(resize).observe(stage);
 
-// node glyphs: k-fold petals (k = stabiliser order on S^3); one petal = no symmetry
-const glyphCache = {};
-function glyph(k, sym, focus) {
-  const key = `${k}|${sym}|${focus}|${css("--panel")}`;
-  if (glyphCache[key]) return glyphCache[key];
-  const s = 128, c = document.createElement("canvas"); c.width = c.height = s;
-  const x = c.getContext("2d"), col = colOf(k);
-  x.translate(s / 2, s / 2);
-  const R = 50, n = Math.max(1, sym);
-  x.beginPath();
-  if (n === 1) {                                   // a single petal: points one way, no symmetry
-    x.moveTo(0, -R); x.bezierCurveTo(R * 0.85, -R * 0.2, R * 0.55, R * 0.75, 0, R * 0.62);
-    x.bezierCurveTo(-R * 0.35, R * 0.5, -R * 0.4, -R * 0.1, 0, -R);
-  } else {                                         // n petals round the centre
-    for (let i = 0; i < n; i++) {
-      const a = (2 * Math.PI * i) / n - Math.PI / 2, w = Math.PI / n * 0.92;
-      const tip = [Math.cos(a) * R, Math.sin(a) * R];
-      const l = [Math.cos(a - w) * R * 0.42, Math.sin(a - w) * R * 0.42], r = [Math.cos(a + w) * R * 0.42, Math.sin(a + w) * R * 0.42];
-      if (i === 0) x.moveTo(l[0], l[1]); else x.lineTo(l[0], l[1]);
-      x.quadraticCurveTo(tip[0] * 1.05, tip[1] * 1.05, r[0], r[1]);
-    }
-    x.closePath();
-  }
-  x.fillStyle = col; x.globalAlpha = focus ? 0.9 : 0.32; x.fill();
-  x.globalAlpha = 1; x.lineWidth = focus ? 6 : 4; x.strokeStyle = col; x.stroke();
-  const t = new THREE.CanvasTexture(c); t.anisotropy = 4;
-  return (glyphCache[key] = t);
-}
-
-let current = null, history = [], projCentre = null, projBasis = null, scale = 1;
+let projCentre = null, projBasis = null, scale = 1;
 function setProjection(c) {
   projCentre = c;
-  // an orthonormal basis of the tangent space at c
-  const E = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
   const B = [];
-  for (const e of E) {
-    let v = e.map((t, i) => t - c[i] * (e[0] * c[0] + e[1] * c[1] + e[2] * c[2] + e[3] * c[3]));
+  for (const e of [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+    const d0 = e.reduce((s, t, i) => s + t * c[i], 0);
+    let v = e.map((t, i) => t - c[i] * d0);
     for (const b of B) { const d = v.reduce((s, t, i) => s + t * b[i], 0); v = v.map((t, i) => t - d * b[i]); }
     const n = Math.hypot(...v); if (n > 1e-6 && B.length < 3) B.push(v.map((t) => t / n));
   }
   projBasis = B;
 }
-function proj(p) {                                 // stereographic from the point opposite the focus
-  const d = 1 + p.reduce((s, t, i) => s + t * projCentre[i], 0);
-  return projBasis.map((b) => b.reduce((s, t, i) => s + t * p[i], 0) / Math.max(d, 1e-6) * scale);
-}
+const proj = (p) => { const d = 1 + p.reduce((s, t, i) => s + t * projCentre[i], 0); return new THREE.Vector3(...projBasis.map((b) => b.reduce((s, t, i) => s + t * p[i], 0) / Math.max(d, 1e-6) * scale)); };
 
-let pickables = [], labelEls = [];
-function clear() { while (world.children.length) { const o = world.children.pop(); o.geometry?.dispose?.(); o.material?.dispose?.(); } labels.innerHTML = ""; pickables = []; labelEls = []; }
-
-function nodePos(n) { // a node: one or more placed pieces of one named shape
-  const P = n.members.map(([c, g]) => centre(n.kind, c, g));
-  return norm([0, 1, 2, 3].map((i) => P.reduce((s, p) => s + p[i], 0)));
+// glyphs: the shape's dimension, with the symmetry of the whole shape on S^3
+function mat(kind, strong) {
+  return new THREE.MeshStandardMaterial({ color: new THREE.Color(colOf(kind)), roughness: 0.55, metalness: 0.05,
+    transparent: !strong, opacity: strong ? 1 : 0.82, side: THREE.DoubleSide });
 }
+function wallGlyph(sym, m) {                    // a tile: notched rectangle (1), rectangle (2), regular n-gon tile
+  const sh = new THREE.Shape(), w = 0.34, h = 0.24;
+  if (sym === 1) { sh.moveTo(-w, -h); sh.lineTo(w, -h); sh.lineTo(w, h * 0.25); sh.lineTo(w * 0.45, h); sh.lineTo(-w, h); sh.closePath(); }
+  else if (sym === 2) { sh.moveTo(-w, -h); sh.lineTo(w, -h); sh.lineTo(w, h); sh.lineTo(-w, h); sh.closePath(); }
+  else { for (let i = 0; i < sym; i++) { const a = (2 * Math.PI * i) / sym; const x = Math.cos(a) * w, y = Math.sin(a) * w; i ? sh.lineTo(x, y) : sh.moveTo(x, y); } sh.closePath(); }
+  const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.035, bevelEnabled: false }); geo.translate(0, 0, -0.0175);
+  return new THREE.Mesh(geo, m);                 // tile in its x-y plane, normal +z
+}
+function lineGlyph(sym, m) {                     // a rod along +y: arrowhead (1), capped ends (2), n fins
+  const g = new THREE.Group(), L = 0.62, r = 0.035;
+  g.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r, L, 12), m));
+  if (sym === 1) { const c = new THREE.Mesh(new THREE.ConeGeometry(r * 2.6, 0.16, 14), m); c.position.y = L / 2 + 0.06; g.add(c); }
+  else if (sym === 2) for (const y of [-1, 1]) { const d = new THREE.Mesh(new THREE.CylinderGeometry(r * 2.4, r * 2.4, 0.03, 16), m); d.position.y = (y * L) / 2; g.add(d); }
+  else for (let i = 0; i < sym; i++) { const f = new THREE.Mesh(new THREE.BoxGeometry(0.11, L * 0.55, 0.012), m); const a = (2 * Math.PI * i) / sym; f.position.set(Math.cos(a) * 0.07, 0, Math.sin(a) * 0.07); f.rotation.y = -a; g.add(f); }
+  return g;
+}
+function solidGlyph(sym, m, size) {               // a solid: lopsided (1), n-gonal bipyramid (n >= 2)
+  let geo;
+  if (sym === 1) {
+    geo = new THREE.BufferGeometry();
+    const v = [[0, 1.1, 0], [0.95, -0.35, 0.25], [-0.6, -0.45, 0.75], [-0.35, -0.3, -0.95], [0.15, -1.0, 0.05]];
+    const f = [[0, 1, 2], [0, 2, 3], [0, 3, 1], [4, 2, 1], [4, 3, 2], [4, 1, 3]];
+    const pos = []; for (const t of f) for (const i of t) pos.push(...v[i].map((x) => x * size));
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo.computeVertexNormals();
+  } else {
+    const n = Math.max(2, sym) === 2 ? 4 : sym, pos = [];
+    const ring = [...Array(n)].map((_, i) => [Math.cos((2 * Math.PI * i) / n) * (sym === 2 ? (i % 2 ? 0.55 : 1) : 1), 0, Math.sin((2 * Math.PI * i) / n)]);
+    for (let i = 0; i < n; i++) { const a = ring[i], b = ring[(i + 1) % n]; pos.push(0, 1, 0, ...b, ...a, 0, -1, 0, ...a, ...b); }
+    geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.Float32BufferAttribute(pos.map((x) => x * size), 3)); geo.computeVertexNormals();
+  }
+  return new THREE.Mesh(geo, m);
+}
+function orientTo(obj, from, to) { const q = new THREE.Quaternion().setFromUnitVectors(from, to.clone().normalize()); obj.quaternion.copy(q); }
+
+let current = null, history = [], pickables = [], labelEls = [];
+function clear() { while (world.children.length) world.remove(world.children[0]); labels.innerHTML = ""; pickables = []; labelEls = []; }
 
 function select(kind, id, push = true) {
   const x = idx[kind][id]; if (!x) return;
   if (push && current) history.push(current);
   current = { kind, id };
-  const focusNode = { kind, members: [[id, 0]], focus: true };
-  const extra = x.nb.find((n) => n.focus);       // other pieces of the same shape that touch it
-  if (extra) focusNode.members.push(...extra.members);
-  const nodes = [focusNode, ...x.nb.filter((n) => !n.focus)];
-  const fc = centre(kind, id, 0);
-  setProjection(fc);
-  scale = 1;
-  // scale so the neighbourhood fills the view
+  const members = x.members || [[id, 0]];
+  const fpieces = members.map(([c, g]) => piece[kind](c, g));
+  const fc = mean4(fpieces.map((p) => p.c));
+  setProjection(fc); scale = 1;
+  const contact = x.nb.map((e) => ({ e, pcs: e.touch.map(([c, g]) => piece[e.kind](c, g)) }));
   let rmax = 1e-6;
-  for (const n of nodes) { const v = proj(nodePos(n)); rmax = Math.max(rmax, Math.hypot(...v)); }
-  scale = 3.2 / rmax;
+  for (const { pcs } of contact) for (const p of pcs) rmax = Math.max(rmax, proj(p.c).length());
+  for (const p of fpieces) { rmax = Math.max(rmax, proj(p.c).length()); for (const q of p.cloud || p.all || []) rmax = Math.max(rmax, proj(q).length()); }
+  scale = 3.3 / rmax;
   clear();
-  const fcolor = (k) => new THREE.Color(colOf(k));
-  // the shapes themselves: line pieces as lines, wall pieces as point clouds (focus stronger)
-  for (const n of nodes) {
-    const strong = n === focusNode;
-    for (const [c, g] of n.members) {
-      for (const P of shapePoints(n.kind, c, g)) {
-        const pts = P.map((p) => new THREE.Vector3(...proj(p)));
-        if (n.kind === "line") {
-          const geo = new THREE.BufferGeometry().setFromPoints(pts);
-          world.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color: fcolor("line"), transparent: true, opacity: strong ? 1 : 0.75 })));
-        } else if (n.kind === "face") {
-          const geo = new THREE.BufferGeometry().setFromPoints(pts);
-          world.add(new THREE.Points(geo, new THREE.PointsMaterial({ color: fcolor("face"), size: strong ? 0.07 : 0.045, transparent: true, opacity: strong ? 0.85 : 0.4 })));
-        }
+  const F = proj(fc);
+  // the focus shape itself, whole
+  drawPieces(kind, fpieces, true);
+  addGlyph(kind, x.stab, fpieces, true, x.name, null);
+  // every shape round it, where it touches
+  for (const { e, pcs } of contact) {
+    drawPieces(e.kind, pcs, false);
+    const ex = idx[e.kind][e.node];
+    const spr = addGlyph(e.kind, ex.stab, pcs, false, ex.name, e);
+    const dashed = e.rel === "meets" || e.rel === "crosses" || e.rel === "across a line";
+    const geo = new THREE.BufferGeometry().setFromPoints([F, spr.position]);
+    const m = dashed ? new THREE.LineDashedMaterial({ color: new THREE.Color(colOf(e.kind)), dashSize: 0.08, gapSize: 0.06, transparent: true, opacity: 0.4 })
+                     : new THREE.LineBasicMaterial({ color: new THREE.Color(colOf(e.kind)), transparent: true, opacity: 0.22 });
+    const ln = new THREE.Line(geo, m); if (dashed) ln.computeLineDistances(); world.add(ln);
+  }
+  controls.target.set(0, 0, 0); camera.position.set(0, 0, 9.5); controls.update();
+  renderDetail(kind, x); renderCrumbs();
+}
+
+function drawPieces(kind, pcs, strong) {
+  const col = new THREE.Color(colOf(kind));
+  for (const p of pcs) {
+    if (kind === "wall") {
+      const geo = new THREE.BufferGeometry().setFromPoints(p.cloud.map(proj));
+      world.add(new THREE.Points(geo, new THREE.PointsMaterial({ color: col, size: strong ? 0.06 : 0.035, transparent: true, opacity: strong ? 0.8 : 0.35 })));
+    } else if (kind === "line") {
+      for (const P of p.polys) {
+        const geo = new THREE.BufferGeometry().setFromPoints(P.map(proj));
+        world.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: strong ? 1 : 0.6 })));
       }
     }
   }
-  // the regions on either side of a wall piece: placed off its two sides
-  const sideOf = {};
-  if (kind === "face") x.sides.forEach((s, i) => (sideOf[`${s.class}|${s.g}`] = x.side[i]));
-  const F = new THREE.Vector3(...proj(fc));
-  for (const n of nodes) {
-    const p4 = nodePos(n);
-    let v = new THREE.Vector3(...proj(p4));
-    const sd = n.kind === "region" && n.members.length === 1 && sideOf[`${n.members[0][0]}|${n.members[0][1]}`];
-    if (sd) {                                      // a region on one side of the wall: off that side
-      const dir = new THREE.Vector3(...proj(norm(sd))).sub(F);
-      if (dir.length() > 1e-9) v = F.clone().add(dir.normalize().multiplyScalar(1.6));
-    }
-    const ex = idx[n.kind][n.members[0][0]];
-    const sym = ex.stab || 1;
-    const sz = { region: 0.62, face: 0.48, line: 0.38, point: 0.3 }[n.kind] * (n === focusNode ? 1.35 : 1);
-    const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: glyph(n.kind, sym, n === focusNode), transparent: true, depthWrite: false }));
-    spr.position.copy(v); spr.scale.set(sz, sz, 1);
-    spr.userData = n; world.add(spr); pickables.push(spr);
-    if (n !== focusNode) {
-      const dashed = n.rel === "meets" || n.rel === "across a line";
-      const geo = new THREE.BufferGeometry().setFromPoints([F, v]);
-      const mat = dashed ? new THREE.LineDashedMaterial({ color: fcolor(n.kind), dashSize: 0.08, gapSize: 0.06, transparent: true, opacity: 0.45 })
-                         : new THREE.LineBasicMaterial({ color: fcolor(n.kind), transparent: true, opacity: 0.35 });
-      const ln = new THREE.Line(geo, mat); if (dashed) ln.computeLineDistances(); world.add(ln);
-    }
-    const el = document.createElement("div");
-    el.className = n === focusNode ? "f" : "";
-    el.textContent = ex.name;
-    labels.appendChild(el); labelEls.push([el, spr]);
-  }
-  controls.target.set(0, 0, 0); camera.position.set(0, 0, 9); controls.update();
-  renderDetail(kind, x, nodes.slice(1), extra);
-  renderCrumbs();
 }
 
-function renderDetail(kind, x, nodes, extra) {
+function addGlyph(kind, sym, pcs, strong, name, e) {
+  const pos = proj(mean4(pcs.map((p) => p.c)));
+  const m = mat(kind, strong);
+  let obj;
+  const s = strong ? 1.35 : 1;
+  if (kind === "wall") {
+    obj = wallGlyph(sym, m);
+    const p0 = pcs[0], n3 = proj(p0.side).sub(proj(p0.c));          // the wall's normal: towards one side
+    if (n3.length() > 1e-9) orientTo(obj, new THREE.Vector3(0, 0, 1), n3);
+  } else if (kind === "line") {
+    obj = lineGlyph(sym, m);
+    const A = pcs[0].all, j = Math.floor(A.length / 2);
+    const t3 = proj(A[Math.min(j + 1, A.length - 1)]).sub(proj(A[Math.max(j - 1, 0)]));
+    if (t3.length() > 1e-9) orientTo(obj, new THREE.Vector3(0, 1, 0), t3);
+  } else obj = solidGlyph(sym, m, kind === "region" ? 0.26 : 0.1);
+  obj.position.copy(pos); obj.scale.multiplyScalar(s);
+  obj.userData = { kind, e, focus: strong };
+  obj.traverse((o) => { o.userData = obj.userData; });
+  world.add(obj); pickables.push(obj);
+  const el = document.createElement("div"); el.className = strong ? "f" : ""; el.textContent = name;
+  labels.appendChild(el); labelEls.push([el, obj]);
+  return obj;
+}
+
+const relName = { side: "on a side", boundary: "on its boundary", round: "round it", end: "an end", corner: "a corner", touches: "touches it", meets: "meets it", crosses: "crosses it", "across a line": "across a line" };
+function renderDetail(kind, x) {
   const d = document.getElementById("detail");
-  const copies = 1200 / (x.stab || 1);
-  const groups = { region: [], face: [], line: [], point: [] };
-  for (const n of nodes) groups[n.kind].push(n);
-  const relName = { side: "on a side", boundary: "on its boundary", round: "round it", end: "an end", meets: "meets it", "across a line": "across a line" };
   let h = `<h2>${ident(kind, x)}</h2><div class="kind">${KNAME[kind]}</div><dl class="facts">`;
-  h += `<dt>symmetry on S³</dt><dd>${x.stab || 1}-fold (stabiliser order)</dd><dt>copies on S³</dt><dd>${copies}</dd>`;
-  if (kind === "face") h += `<dt>separates</dt><dd>${x.regions.join(" | ")}</dd>`;
-  if (extra) h += `<dt>joined pieces</dt><dd>${extra.members.length + 1} touching pieces of ${x.name}</dd>`;
+  h += `<dt>symmetry on S³</dt><dd>${x.stab}-fold (stabiliser order)</dd><dt>copies on S³</dt><dd>${1200 / x.stab}</dd>`;
+  if (kind === "wall") h += `<dt>separates</dt><dd>${x.regions.join(", ")}</dd><dt>made of</dt><dd>${x.members.length} piece${x.members.length > 1 ? "s" : ""} (joined across curves where walls meet it)</dd>`;
   h += `</dl>`;
-  const order = ["region", "face", "line", "point"];
-  const head = { region: "Regions", face: "Walls", line: "Lines", point: "Points" };
-  for (const k of order) {
+  const groups = { region: [], wall: [], line: [], point: [] };
+  for (const e of x.nb) groups[e.kind].push(e);
+  for (const k of ["region", "wall", "line", "point"]) {
     if (!groups[k].length) continue;
-    h += `<div class="grp"><h3>${head[k]}</h3><div class="chips">`;
-    // one chip per named shape, relation and piece count; nodes that differ only in place are counted
+    h += `<div class="grp"><h3>${{ region: "Regions", wall: "Walls", line: "Lines", point: "Points" }[k]}</h3><div class="chips">`;
     const chips = new Map();
-    for (const n of groups[k]) {
-      const ex = idx[k][n.members[0][0]];
-      const key = `${ex.id}|${n.rel}|${n.members.length}`;
-      const c = chips.get(key) || { ex, n, count: 0 }; c.count++; chips.set(key, c);
-    }
-    for (const { ex, n, count } of chips.values()) {
-      const nm = k === "face" ? `${ex.name} <small>${ex.regions.join("|")}</small>` : ex.name;
-      const pieces = n.members.length > 1 ? ` <small>${n.members.length} pieces</small>` : "";
-      const times = count > 1 ? ` <small>×${count}</small>` : "";
-      h += `<button class="chip" style="color:var(--d${KIND[k]})" data-k="${k}" data-id="${ex.id}" title="${relName[n.rel] || n.rel}">${nm}${pieces} <small>${relName[n.rel] || n.rel}</small>${times}</button>`;
+    for (const e of groups[k]) { const key = `${e.node}|${e.rel}`; const c = chips.get(key) || { e, n: 0 }; c.n++; chips.set(key, c); }
+    for (const { e, n } of chips.values()) {
+      const ex = idx[k][e.node];
+      const nm = k === "wall" ? `${ex.name} <small>${ex.regions.join("|")}</small>` : ex.name;
+      h += `<button class="chip" style="color:var(--d${KIND[k]})" data-k="${k}" data-id="${ex.id}">${nm} <small>${relName[e.rel] || e.rel}</small>${n > 1 ? ` <small>×${n}</small>` : ""}</button>`;
     }
     h += `</div></div>`;
   }
-  h += `<p class="note">Positions are true places on the 3-sphere, projected from the point opposite this shape; a wall's two regions sit off its two sides. "Pieces" counts the touching pieces of one wall sheet or one line joined in a node; ×n counts separate nodes of the same shape. Curves and corners where walls only meet have no node; the walls meeting there are linked with a dashed line.</p>`;
+  h += `<p class="note">Positions are true places on the 3-sphere, projected from the point opposite this shape; each neighbour sits where it touches. ×n counts separate copies of the same shape round it. Curves and corners where walls only meet have no node; walls meeting or crossing are linked with a dashed line.</p>`;
   d.innerHTML = h;
   d.querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => select(b.dataset.k, +b.dataset.id)));
 }
 function renderCrumbs() {
   const c = document.getElementById("crumbs"); c.innerHTML = "";
-  if (history.length) {
-    const b = document.createElement("button"); b.textContent = "← back";
-    b.onclick = () => { const h = history.pop(); select(h.kind, h.id, false); };
-    c.appendChild(b);
-  }
+  if (history.length) { const b = document.createElement("button"); b.textContent = "← back"; b.onclick = () => { const h = history.pop(); select(h.kind, h.id, false); }; c.appendChild(b); }
 }
 
-// picking
-const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
-let down = null;
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(); let down = null;
 cv.addEventListener("pointerdown", (e) => (down = [e.clientX, e.clientY]));
 cv.addEventListener("pointerup", (e) => {
   if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
   const r = cv.getBoundingClientRect();
   mouse.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
   ray.setFromCamera(mouse, camera);
-  const hit = ray.intersectObjects(pickables)[0];
-  if (hit && !hit.object.userData.focus) { const n = hit.object.userData; select(n.kind, n.members[0][0]); }
+  const hit = ray.intersectObjects(pickables, true)[0];
+  if (hit && hit.object.userData.e) { const ev = hit.object.userData.e; select(ev.kind, ev.node); }
 });
 
-// search
-const list = document.getElementById("ids"), find = document.getElementById("find");
-const entries = [];
-for (const k of ["region", "face", "line", "point"]) for (const x of by[k]) entries.push([ident(k, x), k, x.id]);
+const list = document.getElementById("ids"), find = document.getElementById("find"), entries = [];
+for (const k of ["wall", "region", "line", "point"]) for (const x of by[k]) entries.push([ident(k, x), k, x.id]);
 entries.forEach(([t]) => { const o = document.createElement("option"); o.value = t; list.appendChild(o); });
 find.addEventListener("change", () => {
   const v = find.value.trim().toLowerCase();
@@ -309,19 +292,18 @@ function frame() {
   renderer.setClearColor(new THREE.Color(css("--panel")));
   renderer.render(scene, camera);
   const r = stage.getBoundingClientRect();
-  for (const [el, spr] of labelEls) {
-    const v = spr.position.clone().applyMatrix4(world.matrixWorld).project(camera);
+  for (const [el, o] of labelEls) {
+    const v = o.position.clone().project(camera);
     if (v.z > 1) { el.hidden = true; continue; }
-    el.hidden = false;
-    el.style.left = `${(v.x * 0.5 + 0.5) * r.width}px`;
-    el.style.top = `${(-v.y * 0.5 + 0.5) * r.height + 12}px`;
+    el.hidden = false; el.style.left = `${(v.x * 0.5 + 0.5) * r.width}px`; el.style.top = `${(-v.y * 0.5 + 0.5) * r.height + 14}px`;
   }
   requestAnimationFrame(frame);
 }
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => current && select(current.kind, current.id, false));
-new MutationObserver(() => current && select(current.kind, current.id, false)).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+const redraw = () => current && select(current.kind, current.id, false);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redraw);
+new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 resize();
-const start = D.faces.find((f) => f.name === "T2") || D.faces[0];
-select("face", start.id, false);
+const start = D.walls.find((w) => w.name === "T2") || D.walls[0];
+select("wall", start.id, false);
 frame();
 </script>
