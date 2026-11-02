@@ -1,0 +1,137 @@
+{
+ "_about": "A dense survey of the domain's edge zones, where the small snub regions live (edge_survey_<sub>.json).",
+ "zones": {
+  "b1, b4 small": {
+   "points": 3000,
+   "types": [
+    {
+     "known_region": 0,
+     "how": "key",
+     "count": 2435,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+120x3+120x4+120x5+120x5",
+     "example": [
+      0.12617002273675315,
+      0.5817644177151302,
+      0.3521911952139105,
+      0.0317419050579866
+     ],
+     "margin": null
+    },
+    {
+     "known_region": 1,
+     "how": "key",
+     "count": 282,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x6+60x6+60x6+120x3+120x3+120x4+120x5+120x5",
+     "example": [
+      0.06185752273675316,
+      0.19577953617242394,
+      0.7519892667805338,
+      0.0030888438334968045
+     ],
+     "margin": null
+    },
+    {
+     "known_region": 2,
+     "how": "key",
+     "count": 283,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+40x[6v8f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+120x3+120x3+120x3+120x5+120x5",
+     "example": [
+      0.12961533523675314,
+      0.3033773697572933,
+      0.597999685941942,
+      0.011957648498219835
+     ],
+     "margin": null
+    }
+   ]
+  },
+  "b2, b3 small": {
+   "points": 3000,
+   "types": [
+    {
+     "known_region": 0,
+     "how": "key",
+     "count": 2205,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+120x3+120x4+120x5+120x5",
+     "example": [
+      0.5275328083415628,
+      0.05642535873285988,
+      0.045403116838654674,
+      0.42435657777430397
+     ],
+     "margin": null
+    },
+    {
+     "known_region": 1,
+     "how": "key",
+     "count": 521,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x6+60x6+60x6+120x3+120x3+120x4+120x5+120x5",
+     "example": [
+      0.9136741669131045,
+      0.012450050090884542,
+      0.030350316838654672,
+      0.08263105575527817
+     ],
+     "margin": null
+    },
+    {
+     "known_region": 2,
+     "how": "key",
+     "count": 274,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+40x[6v8f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+120x3+120x3+120x3+120x5+120x5",
+     "example": [
+      0.4840990042689008,
+      0.06263112004973231,
+      0.12596382083865468,
+      0.4186046779369325
+     ],
+     "margin": null
+    }
+   ]
+  },
+  "whole domain": {
+   "points": 3000,
+   "types": [
+    {
+     "known_region": 0,
+     "how": "key",
+     "count": 2329,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+120x3+120x4+120x5+120x5",
+     "example": [
+      0.1778597170736271,
+      0.6652382480995395,
+      0.02156821160788311,
+      0.1353338232189502
+     ],
+     "margin": null
+    },
+    {
+     "known_region": 2,
+     "how": "key",
+     "count": 603,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+40x[6v8f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+120x3+120x3+120x3+120x5+120x5",
+     "example": [
+      0.4387053226435853,
+      0.12754349328823633,
+      0.34715383583753084,
+      0.08659734823064753
+     ],
+     "margin": null
+    },
+    {
+     "known_region": 1,
+     "how": "key",
+     "count": 68,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x6+60x6+60x6+120x3+120x3+120x4+120x5+120x5",
+     "example": [
+      0.5928368629245421,
+      0.0017741474457996064,
+      0.13064671048738102,
+      0.27474227914227733
+     ],
+     "margin": null
+    }
+   ]
+  }
+ }
+}
