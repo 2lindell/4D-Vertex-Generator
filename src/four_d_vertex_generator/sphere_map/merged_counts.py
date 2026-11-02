@@ -17,7 +17,7 @@ import json
 
 import numpy as np
 
-from .chords import FACE_N
+from .chords import FACE_N, FACE_NAMES
 from .frame import data_dir, group, load_json, point_from_beta, source_dir
 from .wall_meets import resolve, trace
 
@@ -98,7 +98,9 @@ def meeting_pieces(w1, w2, inc, wall_surfs, log=print, gaps=None):
     lib = inc.surfs
     for an in wall_surfs[w1]:
         for bn in wall_surfs[w2]:
-            a, b = resolve(an), resolve(bn)
+            a = lib[an] if isinstance(an, int) else resolve(an)
+            b = lib[bn] if isinstance(bn, int) else resolve(bn)
+            an, bn = a.name, b.name
             if a.kind == b.kind == "plane" and abs(abs(a.normal @ b.normal) - 1) < 1e-9:
                 continue
             for arc in trace(a, b):
@@ -282,7 +284,24 @@ def build() -> dict:
     # ---- meeting curves ------------------------------------------------------------------------
     from .incidence import Incidence
     inc = Incidence()
-    wall_surfs = {w: v["surface"] for w, v in load_json("exact_defs.json")["walls"].items()}
+    # every library surface a wall's patches lie on (inside the half-cell a wall lies on images of
+    # its atlas surface too, and in the domain's own faces), so every meeting curve is traced
+    patches = json.loads((data_dir() / "sphere_map" / "patches.json").read_text())["patches"]
+    face_plane = {}
+    for i, sf in enumerate(inc.surfs):
+        if sf.kind == "plane":
+            for fi, fname in enumerate(FACE_NAMES):
+                nf = FACE_N[fi] / np.linalg.norm(FACE_N[fi])
+                if abs(abs(sf.normal @ nf) - 1) < 1e-9:
+                    face_plane[fname] = i
+    wall_surfs = {}
+    for pt in patches:
+        if not pt["wall"]:
+            continue
+        sid = pt["surface"] if pt["surface"] is not None else face_plane.get(pt["face"])
+        if sid is not None:
+            wall_surfs.setdefault(pt["wall"], set()).add(int(sid))
+    wall_surfs = {w: sorted(v) for w, v in wall_surfs.items()}
     pairs = sorted({tuple(sorted((m["wall"], m["other"]))) for m in meets if m["found"]})
     corner_tree = corner_points(atlas, g)
     meeting_edges = []
