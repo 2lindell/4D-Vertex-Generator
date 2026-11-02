@@ -20,6 +20,14 @@ from .frame import load_json, point_from_beta
 MIN_PIECE = 5e-3     # line stretches shorter than this are rounding, not pieces
 
 
+def _thin(poly, n=48):
+    """The segment's exact polyline (beta), at most n points, ends kept."""
+    poly = np.asarray(poly, float)
+    if len(poly) > n:
+        poly = poly[np.unique(np.r_[np.linspace(0, len(poly) - 1, n).round().astype(int)])]
+    return np.round(poly, 10).tolist()
+
+
 def densify(r4: np.ndarray, step: float = 2e-4) -> np.ndarray:
     """Points along a polyline on S^3 at about `step` apart (chords split and renormalised)."""
     out = [r4[:1]]
@@ -246,7 +254,8 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             "id": len(classes), "line_shape": names.most_common(1)[0][0],
             "segments": [{"copy": k, "line": subs[s]["line"], "atlas_piece": subs[s]["atlas_piece"],
                           "points": [subs[s]["from"], subs[s]["to"]],
-                          "equations": subs[s]["surfaces"]} for k, s in members],
+                          "equations": subs[s]["surfaces"],
+                          "polyline_beta": _thin(subs[s]["polyline"])} for k, s in members],
             "end_points": ends,
             "closed": not any(subs[s]["start_point"] or subs[s]["end_point"] for _, s in members),
             "length": _physical_length(members, subs, grp),

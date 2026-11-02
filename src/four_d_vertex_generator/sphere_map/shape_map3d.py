@@ -21,7 +21,7 @@ from collections import defaultdict
 
 import numpy as np
 
-from .frame import data_dir, group, load_json, multiplication_table, point_from_beta
+from .frame import data_dir, group, multiplication_table, point_from_beta
 from .incidence import Incidence
 
 ROOT = None
@@ -41,8 +41,6 @@ def build() -> dict:
     g = group()
     mult = multiplication_table()
     inv = np.array([int(np.flatnonzero(mult[k] == 0)[0]) for k in range(len(mult))])
-    w = load_json("working_data.json")
-    exact_lines = w["exact"]["lines"]
 
     # ---- placements of region and face classes: component id -> (class, g)
     region_at, face_at = {}, {}
@@ -79,15 +77,8 @@ def build() -> dict:
     for lp in atlas["line_pieces"]:
         pts = []
         for seg in lp["segments"]:
-            poly = np.asarray(exact_lines[seg["line"]]["points"][seg["atlas_piece"]], float)
-            i0, i1 = sorted(seg["points"])
-            poly = poly[i0:i1 + 1]
-            if len(poly) < 2:
-                continue
-            R = point_from_beta(poly / poly.sum(axis=1, keepdims=True)) @ g[seg["copy"]].T
-            if seg["points"][0] > seg["points"][1]:
-                R = R[::-1]
-            pts.append(R)
+            poly = np.asarray(seg["polyline_beta"], float)
+            pts.append(point_from_beta(poly / poly.sum(axis=1, keepdims=True)) @ g[seg["copy"]].T)
         line_geo.append(pts)
     point_pos = [np.asarray(p["R4"], float) for p in atlas["points"]]
     named_points = [p["id"] for p in atlas["points"] if p.get("atlas_point")]
@@ -150,9 +141,7 @@ def build() -> dict:
     for lp in ([] if cached else atlas["line_pieces"]):
         seen = {}
         for seg in lp["segments"]:
-            poly = np.asarray(exact_lines[seg["line"]]["points"][seg["atlas_piece"]], float)
-            i0, i1 = sorted(seg["points"])
-            poly = poly[i0:i1 + 1]
+            poly = np.asarray(seg["polyline_beta"], float)
             poly = poly / poly.sum(axis=1, keepdims=True)
             if len(poly) < 3:
                 continue
