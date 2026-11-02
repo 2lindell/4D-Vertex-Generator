@@ -399,6 +399,24 @@
      "margin": null
     }
    ]
+  },
+  "closure check (corner of fe385dfcef1d, 8750c409745c, apbosid)": {
+   "points": 400,
+   "types": [
+    {
+     "known_region": null,
+     "how": "found by the closure check",
+     "count": 3,
+     "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x4+60x4+60x7+60x8+120x3+120x3+120x4",
+     "example": [
+      0.6001613,
+      0.0335292,
+      0.2990123,
+      0.0672982
+     ],
+     "margin": 0.00022
+    }
+   ]
   }
  }
 }

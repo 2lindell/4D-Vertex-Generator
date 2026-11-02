@@ -102,6 +102,14 @@ def snub_rows(G, path, sub, title, out_dir, skip_listed):
                     sg = t["signature"]
                     items.append(("region", np.array(t["example"]), int(sg.split(":")[0]),
                                   sum(int(a) for a in re.findall(r"(\d+)x\[", sg.split("|")[0])), edges(sg), ""))
+    try:
+        nw = json.load(open(os.path.join(path, f"snub_closure_{sub}.json")))["new_wall_shapes"]
+    except FileNotFoundError:
+        nw = {}
+    for w in nw.values():
+        sg = w["signature"]
+        items.append(("wall", np.array(w["seed"]), int(sg.split(":")[0]),
+                      sum(int(a) for a in re.findall(r"(\d+)x\[", sg.split("|")[0])), edges(sg), w["surface"]))
     if not skip_listed:
         items.append(("line", np.array([1, 11, 11, 1]) / 24, None, None, None, "b1 = b4, b2 = b3"))
     rows, k = [], 0

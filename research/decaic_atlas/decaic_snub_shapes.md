@@ -1,6 +1,6 @@
 # Kidecaic and iodecaic shapes (the snub subgroups of [[3,3,3]])
 
-Final results: the curved-wall map (snub_map.py), with every wall shape reclassified on points exactly on its surface (wall_shapes.py). This replaces the earlier plane-only kidecaic table (decaic_shapes_ki.md, superseded) and the first version of this file, which counted shapes registered at points ~1e-11 off a wall (not sound to classify).
+Results: the curved-wall map (snub_map.py), with every wall shape reclassified on points exactly on its surface (wall_shapes.py), with regions added by the dense edge survey (edge_survey.py) and the region closure check (snub_closure.py: every region walked out to its walls). This replaces the earlier plane-only kidecaic table (decaic_shapes_ki.md, superseded) and the first version of this file, which counted shapes registered at points ~1e-11 off a wall (not sound to classify).
 
 | | kidecaic | iodecaic |
 |---|---|---|
@@ -9,9 +9,9 @@ Final results: the curved-wall map (snub_map.py), with every wall shape reclassi
 | on the list, own regions | 4 (sabosid, apbosid, mebosid, gabosid) | 2 (sosbid, gosbid) |
 | on the list, own walls | 4 (sigwebosid, gigwebosid, tetbosid, petbosid) | 2 (tetosbid, petosbid) |
 | **total on the list** | **31** (all found) | **27** (all found) |
-| new regions | 9 | 1 |
-| new walls | 11 | 1 |
-| **total found** | **51** | **29** |
+| new regions | 11 (9 on the map; 1 from the dense edge survey; 1 from the closure check) | 1 |
+| new walls | 12 (11 on the map; 1 from the closure check, a quartic between region 10 and a 560-cell region) | 1 |
+| **total found** | **54** | **29** |
 
 Shared with decaic: bideca, apid, spid, deca, respid, redeca (points); bited, biped, bimted, mabred, sabred, gabred, tispid, tabipard, tadeca, tabcated (lines); sabipard, mabipard, gabipard, sobcated, mobcated, gobcated (walls).
 
@@ -61,3 +61,7 @@ Seeds and .off files for the new ones: ../new_shapes/new_shapes.md; optimized se
 | tetosbid | wall | 120 | 180 | {3: 240, 4: 240} | 3*b1 + b2 - b3 - 3*b4 | [0.062785, 0.399823, 0.511999, 0.025393] |
 | petosbid | wall | 120 | 170 | {3: 360, 4: 180} | b1 + 2*b2 - 2*b3 - b4 | [0.199895, 0.343731, 0.430982, 0.025393] |
 
+
+## Region closure (kidecaic)
+
+snub_closure.py walks out of every region (4 spread starting points, 24 directions) to where the polytope changes and checks the change: the domain's edge (a mirror or the fold), or a known region beyond across a known wall shape. Result: every region is closed by the domain's edges and recorded walls, once the quartic wall found by the check is recorded; the remaining unexplained ends were mirror hits within 1e-7 of the mirror (domain edges). The check also found one more tiny region (380 cells, with 120 square pyramids) in the corner where the gabosid-like region, a 560-cell region and apbosid meet; its own walls are not yet mapped. Region counts here are what dense sampling finds, not an exact enumeration.

@@ -122,6 +122,16 @@ def snub_shapes():
             k["region"] += 1
             out.append({"name": f"new_region_{k['region']:02d}_{sg.split(':')[0]}v_{nc}c", "kind": "region", "degrees": 3,
                         "seed": t["example"], "locus": [], "hull_tol": 1e-9})
+    # (wall shapes the closure check found)
+    try:
+        nw = json.load(open(G.fname("snub_closure")))["new_wall_shapes"]
+    except FileNotFoundError:
+        nw = {}
+    for w in nw.values():
+        k["wall"] += 1
+        nc = sum(int(a) for a in re.findall(r"(\d+)x\[", w["signature"].split("|")[0]))
+        out.append({"name": f"new_wall_{k['wall']:02d}_120v_{nc}c",
+                    "kind": "wall", "degrees": 2, "seed": w["seed"], "locus": [w["surface"]], "hull_tol": 1e-7})
     g = np.array([1, 11, 11, 1]) / 24
     out.append({"name": "snad" if G.SUB == "ki" else "gippid", "kind": "line", "degrees": 1, "seed": g.tolist(),
                 "locus": ["b1 - b4", "b2 - b3"], "hull_tol": 1e-9})

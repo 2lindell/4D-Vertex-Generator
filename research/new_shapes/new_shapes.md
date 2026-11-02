@@ -6,7 +6,7 @@ Seeds:
 * **beta** = the map's coordinates (decaic family: beta_k = x_k - x_{k+1}; contic: distances to the four F4 mirrors), any positive multiple is the same shape.
 * **seed vector**: decaic family, x in R^5 (summing to 0), the vertices are sign * x[perm] for the group (kidecaic: every even perm with both signs; iodecaic: even perms with +, odd perms with -). Contic: x in R^4 in the standard F4 frame (roots e_i +- e_j, e_i, (+-1/2)^4), the orbit under F4 and the 24-cell/dual swap; kicontic: its rotations (determinant +1); iocontic: F4's rotations and F4's reflections times the swap. Kicontic and iocontic have no accepted list: all their own shapes are listed (shapes on the mirrors are the contic ones).
 
-Totals: contic lines: 11; contic points: 6; contic regions: 2; contic walls: 8; iocontic lines: 1; iocontic regions: 3; iocontic walls: 2; iodecaic regions: 1; iodecaic walls: 1; kicontic lines: 1; kicontic regions: 14; kicontic walls: 8; kidecaic regions: 10; kidecaic walls: 11; **79 in all**.
+Totals: contic lines: 11; contic points: 6; contic regions: 2; contic walls: 8; iocontic lines: 1; iocontic regions: 3; iocontic walls: 2; iodecaic regions: 1; iodecaic walls: 1; kicontic lines: 1; kicontic regions: 14; kicontic walls: 8; kidecaic regions: 11; kidecaic walls: 12; **81 in all**.
 
 ## kidecaic
 
@@ -33,6 +33,8 @@ Totals: contic lines: 11; contic points: 6; contic regions: 2; contic walls: 8; 
 | kidecaic_wall_19_120v_500c.off | wall (2) | 120 | 500: 10x12v(20x3) + 40x6v(8x3) + 120x5v(4x3+1x4) + 330x4v(4x3) | [0.6152497074526, 0.0252665349858, 0.0502740652931, 0.3092096922685] | [1.0, -0.04401486627143, -0.08688955247577, -0.172199420839975, -0.696896160412824] |
 | kidecaic_wall_20_120v_500c.off | wall (2) | 120 | 500: 10x12v(20x3) + 40x6v(8x3) + 120x5v(4x3+1x4) + 330x4v(4x3) | [0.6243917123843, 0.0252665350149, 0.0953723726792, 0.2549693799216] | [1.0, -0.034075931177798, -0.075920682164961, -0.23387004813313, -0.656133338524112] |
 | kidecaic_region_21_120v_680c.off | region (3) | 120 | 680: 10x12v(20x3) + 40x6v(8x3) + 630x4v(4x3) | [0.087840921174253, 0.310413592598572, 0.61931052571845, 0.014069268656487] | [0.966608428972368, 0.799156944831497, 0.207414325522923, -0.973179699326787, -1.0] |
+| kidecaic_region_22_120v_380c.off | region (3) | 120 | 380: 10x12v(20x3) + 40x6v(8x3) + 120x5v(4x3+1x4) + 210x4v(4x3) | [0.6001613, 0.0335292, 0.2990123, 0.0672982] | [1.0, 0.052343656937525, -0.000599042063244, -0.472740286006663, -0.579004328867619] |
+| kidecaic_wall_23_120v_440c.off | wall (2) | 120 | 440: 10x12v(20x3) + 40x6v(8x3) + 120x5v(6x3) + 270x4v(4x3) | [0.049104513737801, 0.349322226616082, 0.575526378183455, 0.026046881462663] | [0.93910013455995, 0.843881565363479, 0.166510788727454, -0.949492488650883, -1.0] |
 
 ## iodecaic
 

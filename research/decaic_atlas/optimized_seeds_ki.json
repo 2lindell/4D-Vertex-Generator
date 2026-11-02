@@ -53,7 +53,7 @@
     0.27883328002275903
    ],
    "off_R": 1.8750865328380906,
-   "seconds": 48.3,
+   "seconds": 24.5,
    "off": "optimized_off/kidecaic/mebosid_120v_560c_opt.off",
    "vertices": 120,
    "cells": 560,
@@ -117,7 +117,7 @@
     0.023170152080469908
    ],
    "off_R": 9.032302052137746,
-   "seconds": 60.7,
+   "seconds": 33.7,
    "off": "optimized_off/kidecaic/new_region_01_120v_560c_120v_560c_opt.off",
    "vertices": 120,
    "cells": 560,
@@ -181,7 +181,7 @@
     0.021263435415473403
    ],
    "off_R": 6.329774642545816,
-   "seconds": 54.1,
+   "seconds": 30.4,
    "off": "optimized_off/kidecaic/new_region_02_120v_680c_120v_680c_opt.off",
    "vertices": 120,
    "cells": 680,
@@ -245,7 +245,7 @@
     0.0115723198083273
    ],
    "off_R": 6.863798161709259,
-   "seconds": 80.3,
+   "seconds": 45.2,
    "off": "optimized_off/kidecaic/new_region_03_120v_680c_120v_680c_opt.off",
    "vertices": 120,
    "cells": 680,
@@ -297,7 +297,7 @@
     0.05241258933278074
    ],
    "off_R": 6.860303218368946,
-   "seconds": 80.3,
+   "seconds": 43.0,
    "off": "optimized_off/kidecaic/new_region_04_120v_560c_120v_560c_opt.off",
    "vertices": 120,
    "cells": 560,
@@ -361,7 +361,7 @@
     0.21579747473078228
    ],
    "off_R": 2.2690709348102827,
-   "seconds": 43.8,
+   "seconds": 22.3,
    "off": "optimized_off/kidecaic/apbosid_120v_420c_opt.off",
    "vertices": 120,
    "cells": 420,
@@ -428,7 +428,7 @@
     0.14458867259044195
    ],
    "off_R": 1.6652318804587354,
-   "seconds": 22.3,
+   "seconds": 11.8,
    "off": "optimized_off/kidecaic/sabosid_120v_440c_opt.off",
    "vertices": 120,
    "cells": 440,
@@ -492,7 +492,7 @@
     0.09350778837951525
    ],
    "off_R": 1.9010026093259966,
-   "seconds": 50.2,
+   "seconds": 26.6,
    "off": "optimized_off/kidecaic/gabosid_120v_560c_opt.off",
    "vertices": 120,
    "cells": 560,
@@ -556,7 +556,7 @@
     0.2036862566067557
    ],
    "off_R": 2.5172930127442736,
-   "seconds": 51.2,
+   "seconds": 25.7,
    "off": "optimized_off/kidecaic/new_region_05_120v_560c_120v_560c_opt.off",
    "vertices": 120,
    "cells": 560,
@@ -620,7 +620,7 @@
     0.36818003531026017
    ],
    "off_R": 12.869397005924514,
-   "seconds": 71.5,
+   "seconds": 37.2,
    "off": "optimized_off/kidecaic/new_region_06_120v_560c_120v_560c_opt.off",
    "vertices": 120,
    "cells": 560,
@@ -684,7 +684,7 @@
     0.3457945154319418
    ],
    "off_R": 9.57856262702819,
-   "seconds": 92.7,
+   "seconds": 45.8,
    "off": "optimized_off/kidecaic/new_region_07_120v_680c_120v_680c_opt.off",
    "vertices": 120,
    "cells": 680,
@@ -748,7 +748,7 @@
     0.2901517761929716
    ],
    "off_R": 9.846168493591728,
-   "seconds": 95.9,
+   "seconds": 44.2,
    "off": "optimized_off/kidecaic/new_region_08_120v_680c_120v_680c_opt.off",
    "vertices": 120,
    "cells": 680,
@@ -800,7 +800,7 @@
     0.20004933071869366
    ],
    "off_R": 3.163868865748576,
-   "seconds": 56.6,
+   "seconds": 27.8,
    "off": "optimized_off/kidecaic/new_region_09_120v_680c_120v_680c_opt.off",
    "vertices": 120,
    "cells": 680,
@@ -866,7 +866,7 @@
     0.2789856632958342
    ],
    "off_R": 1.8735202659155727,
-   "seconds": 40.6,
+   "seconds": 17.0,
    "off": "optimized_off/kidecaic/sigwebosid_120v_290c_opt.off",
    "vertices": 120,
    "cells": 290,
@@ -932,7 +932,7 @@
     0.02127985058576561
    ],
    "off_R": 6.3296604461948425,
-   "seconds": 47.7,
+   "seconds": 19.3,
    "off": "optimized_off/kidecaic/new_wall_01_120v_380c_120v_380c_opt.off",
    "vertices": 120,
    "cells": 380,
@@ -998,7 +998,7 @@
     0.021271703109900484
    ],
    "off_R": 6.3290063543130515,
-   "seconds": 120.3,
+   "seconds": 47.1,
    "off": "optimized_off/kidecaic/new_wall_02_120v_440c_120v_440c_opt.off",
    "vertices": 120,
    "cells": 440,
@@ -1064,7 +1064,7 @@
     0.02127228379643907
    ],
    "off_R": 6.32851140284922,
-   "seconds": 121.3,
+   "seconds": 56.0,
    "off": "optimized_off/kidecaic/new_wall_03_120v_500c_120v_500c_opt.off",
    "vertices": 120,
    "cells": 500,
@@ -1130,7 +1130,7 @@
     1.5774929015384778e-05
    ],
    "off_R": 4.585668054758047,
-   "seconds": 100.0,
+   "seconds": 46.6,
    "off": "optimized_off/kidecaic/new_wall_04_120v_500c_120v_500c_opt.off",
    "vertices": 120,
    "cells": 500,
@@ -1199,7 +1199,7 @@
     0.18091236068070116
    ],
    "off_R": 1.9139484183782605,
-   "seconds": 18.1,
+   "seconds": 7.4,
    "off": "optimized_off/kidecaic/tetbosid_120v_240c_opt.off",
    "vertices": 120,
    "cells": 240,
@@ -1268,7 +1268,7 @@
     0.12847023871243093
    ],
    "off_R": 1.98340082754382,
-   "seconds": 15.0,
+   "seconds": 7.3,
    "off": "optimized_off/kidecaic/petbosid_120v_230c_opt.off",
    "vertices": 120,
    "cells": 230,
@@ -1337,7 +1337,7 @@
     0.03251598064042916
    ],
    "off_R": 1.7207592200561266,
-   "seconds": 16.5,
+   "seconds": 8.9,
    "off": "optimized_off/kidecaic/gigwebosid_120v_320c_opt.off",
    "vertices": 120,
    "cells": 320,
@@ -1403,7 +1403,7 @@
     0.06247976421555435
    ],
    "off_R": 3.4231222727303345,
-   "seconds": 36.9,
+   "seconds": 20.0,
    "off": "optimized_off/kidecaic/new_wall_05_120v_380c_120v_380c_opt.off",
    "vertices": 120,
    "cells": 380,
@@ -1472,7 +1472,7 @@
     0.2035397737769878
    ],
    "off_R": 2.515511146957211,
-   "seconds": 18.3,
+   "seconds": 8.7,
    "off": "optimized_off/kidecaic/new_wall_06_120v_380c_120v_380c_opt.off",
    "vertices": 120,
    "cells": 380,
@@ -1538,7 +1538,7 @@
     0.13231522232404389
    ],
    "off_R": 5.485675336279913,
-   "seconds": 119.0,
+   "seconds": 48.0,
    "off": "optimized_off/kidecaic/new_wall_07_120v_380c_120v_380c_opt.off",
    "vertices": 120,
    "cells": 380,
@@ -1604,7 +1604,7 @@
     0.20015971868880816
    ],
    "off_R": 3.164639529802022,
-   "seconds": 52.5,
+   "seconds": 23.2,
    "off": "optimized_off/kidecaic/new_wall_08_120v_440c_120v_440c_opt.off",
    "vertices": 120,
    "cells": 440,
@@ -1670,7 +1670,7 @@
     0.13252197594682408
    ],
    "off_R": 5.486725648337313,
-   "seconds": 116.2,
+   "seconds": 50.4,
    "off": "optimized_off/kidecaic/new_wall_09_120v_440c_120v_440c_opt.off",
    "vertices": 120,
    "cells": 440,
@@ -1736,7 +1736,7 @@
     0.13247135117435785
    ],
    "off_R": 5.4868813003721115,
-   "seconds": 52.1,
+   "seconds": 21.4,
    "off": "optimized_off/kidecaic/new_wall_10_120v_500c_120v_500c_opt.off",
    "vertices": 120,
    "cells": 500,
@@ -1802,7 +1802,7 @@
     0.20005560258684896
    ],
    "off_R": 3.163977548544697,
-   "seconds": 49.9,
+   "seconds": 24.7,
    "off": "optimized_off/kidecaic/new_wall_11_120v_500c_120v_500c_opt.off",
    "vertices": 120,
    "cells": 500,
@@ -1854,7 +1854,7 @@
     0.011827858123225246
    ],
    "off_R": 8.166714590790928,
-   "seconds": 59.2,
+   "seconds": 34.7,
    "off": "optimized_off/kidecaic/new_region_10_120v_680c_120v_680c_opt.off",
    "vertices": 120,
    "cells": 680,
@@ -1863,6 +1863,124 @@
     0.7818226107207122,
     0.22388972950409944,
     -0.9766875844469513,
+    -1.0
+   ]
+  },
+  {
+   "name": "new_region_11_120v_380c",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.6001606998393001,
+    0.033529166470833524,
+    0.29901200098799896,
+    0.0672981327018673
+   ],
+   "start_R": 8.917945258785975,
+   "numeric": {
+    "best": [
+     0.42624416248608143,
+     0.24008814709332998,
+     0.2400881470933213,
+     0.09357954332726727
+    ],
+    "R": 1.8985107881525736,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 2
+   },
+   "exact_digits": 40,
+   "best_40_digits": [
+    "0.4262441624860800238287836048722000183278",
+    "0.2400881470933261305632293738382214043132",
+    "0.2400881470933261305632293738382214043132",
+    "0.09357954332726771504475764745135717304574"
+   ],
+   "equations": [
+    "-20*b1**2 + 20*b1*b2 - 20*b1*b3 - 60*b1*b4 + 70*b2**2 + 60*b2*b3 - 20*b2*b4 - 30*b3**2 + 20*b3*b4 + 30*b4**2",
+    "30*b1**2 + 20*b1*b2 - 20*b1*b3 - 60*b1*b4 - 30*b2**2 - 40*b2*b3 - 20*b2*b4 + 20*b3**2 + 20*b3*b4 - 20*b4**2",
+    "-3*b1*b2**2*b4 + 3*b1*b2*b3*b4 + b1*b2*b4**2 - b1*b3*b4**2 - b2**3*b4 + 2*b2**2*b3*b4 - b2*b3**2*b4 - 2*b2*b3*b4**2 - b2*b4**3 + 2*b3**2*b4**2 + b3*b4**3"
+   ],
+   "best": [
+    0.42624416248608005,
+    0.24008814709332613,
+    0.24008814709332613,
+    0.09357954332726771
+   ],
+   "R": 1.898510788152586,
+   "orbits": 9,
+   "status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.6001603745412514,
+    0.033529552824163644,
+    0.2990118907752786,
+    0.06729818185930643
+   ],
+   "off_R": 8.917915079006757,
+   "seconds": 25.1,
+   "off": "optimized_off/kidecaic/new_region_11_120v_380c_120v_380c_opt.off",
+   "vertices": 120,
+   "cells": 380,
+   "seed_vector": [
+    1.0,
+    0.052344076793097036,
+    -0.0005992375011615502,
+    -0.47274035414699545,
+    -0.5790044851449401
+   ]
+  },
+  {
+   "name": "new_wall_12_120v_440c",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2"
+   ],
+   "start": [
+    0.049104513737801087,
+    0.3493222266160815,
+    0.5755263781834544,
+    0.026046881462663134
+   ],
+   "start_R": 14.552279758795148,
+   "numeric": {
+    "best": [
+     0.049104513737801087,
+     0.3493222266160815,
+     0.5755263781834544,
+     0.026046881462663138
+    ],
+    "R": 14.552279758795148,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "best": [
+    0.049104513737801087,
+    0.3493222266160815,
+    0.5755263781834544,
+    0.026046881462663138
+   ],
+   "R": 14.552279758795148,
+   "orbits": 10,
+   "status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.049104513737801087,
+    0.3493222266160815,
+    0.5755263781834544,
+    0.026046881462663138
+   ],
+   "off_R": 14.552279758795148,
+   "seconds": 14.9,
+   "off": "optimized_off/kidecaic/new_wall_12_120v_440c_120v_440c_opt.off",
+   "vertices": 120,
+   "cells": 440,
+   "seed_vector": [
+    0.9391001345599501,
+    0.843881565363479,
+    0.1665107887274541,
+    -0.9494924886508829,
     -1.0
    ]
   },
@@ -1912,7 +2030,7 @@
     0.29290091389653544
    ],
    "off_R": 1.2130618278913663,
-   "seconds": 6.9,
+   "seconds": 3.1,
    "off": "optimized_off/kidecaic/snad_60v_90c_opt.off",
    "vertices": 60,
    "cells": 90,

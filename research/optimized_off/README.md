@@ -74,6 +74,8 @@ Folders: decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm
 | new_wall_10_120v_500c | wall (2) | 10.338378 | 5.4848991540 | infimum on the shape's edge (a sign condition is active): not attained | [0.7238222469, 0.0222340399, 0.1216464783, 0.1322972348] | [0.7237054183, 0.0222529486, 0.1215702819, 0.1324713512] (5.486881) | new_wall_10_120v_500c_120v_500c_opt.off |
 | new_wall_11_120v_500c | wall (2) | 6.120185 | 3.1622776602 | infimum on the shape's edge (a sign condition is active): not attained | [0.6, -0.0, 0.2, 0.2] | [0.6000268786, 2.27109e-05, 0.199894808, 0.2000556026] (3.163978) | new_wall_11_120v_500c_120v_500c_opt.off |
 | new_region_10_120v_680c | region (3) | 9.215822 | 4.5827142798 | infimum on the shape's edge (a sign condition is active): not attained | [0.1666620648, 0.1666620648, 0.66667178, 4.0905e-06] | [0.095969056, 0.2830745251, 0.6091285608, 0.0118278581] (8.166715) | new_region_10_120v_680c_120v_680c_opt.off |
+| new_region_11_120v_380c | region (3) | 8.917945 | 1.8985107882 | infimum on the shape's edge (a sign condition is active): not attained | [0.4262441625, 0.2400881471, 0.2400881471, 0.0935795433] | [0.6001603745, 0.0335295528, 0.2990118908, 0.0672981819] (8.917915) | new_region_11_120v_380c_120v_380c_opt.off |
+| new_wall_12_120v_440c | wall (2) | 14.552280 | 14.5522797588 | no progress: the optimiser found no feasible step from the seed (seed kept) | [0.0491045137, 0.3493222266, 0.5755263782, 0.0260468815] | same | new_wall_12_120v_440c_120v_440c_opt.off |
 | snad | line (1) | 13.472194 | 1.2130618279 | minimum inside the shape | [0.2929009139, 0.2070990861, 0.2070990861, 0.2929009139] | same | snad_60v_90c_opt.off |
 
 ## Iodecaic
