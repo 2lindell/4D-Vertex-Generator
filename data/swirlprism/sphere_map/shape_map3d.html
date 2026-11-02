@@ -229,10 +229,9 @@ function select(kind, id, push = true) {
   for (const p of fpieces) { rmax = Math.max(rmax, proj(p.c).length()); for (const q of p.cloud || p.all || []) rmax = Math.max(rmax, proj(q).length()); }
   scale = 3.3 / rmax;
   clear();
-  const F = proj(fc);
-  // the focus shape itself, whole
+  // the focus shape itself, whole; links leave from its glyph (on the shape)
   drawPieces(kind, fpieces, true);
-  addGlyph(kind, x.stab, fpieces, true, x.name, null);
+  const F = addGlyph(kind, x.stab, fpieces, true, x.name, null).position.clone();
   // every shape round it, where it touches
   for (const { e, pcs } of contact) {
     drawPieces(e.kind, pcs, false);
