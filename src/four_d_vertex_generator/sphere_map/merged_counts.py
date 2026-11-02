@@ -96,10 +96,10 @@ def meeting_pieces(w1, w2, inc, wall_surfs, log=print, gaps=None):
     out = []
     gaps = [] if gaps is None else gaps
     lib = inc.surfs
-    for an in wall_surfs[w1]:
-        for bn in wall_surfs[w2]:
-            a = lib[an] if isinstance(an, int) else resolve(an)
-            b = lib[bn] if isinstance(bn, int) else resolve(bn)
+    for sa in wall_surfs[w1]:
+        for sb in wall_surfs[w2]:
+            a = lib[sa] if isinstance(sa, int) else resolve(sa)
+            b = lib[sb] if isinstance(sb, int) else resolve(sb)
             an, bn = a.name, b.name
             if a.kind == b.kind == "plane" and abs(abs(a.normal @ b.normal) - 1) < 1e-9:
                 continue
