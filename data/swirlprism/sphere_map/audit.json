@@ -2317,16 +2317,6 @@
   },
   {
    "face": 8,
-   "wall": "F4",
-   "regions": [
-    "X49",
-    "X61"
-   ],
-   "orbit": 2,
-   "edges_found": []
-  },
-  {
-   "face": 9,
    "wall": "F5",
    "regions": [
     "X59",
@@ -2340,7 +2330,7 @@
    ]
   },
   {
-   "face": 10,
+   "face": 9,
    "wall": "F5",
    "regions": [
     "X59",
@@ -2353,7 +2343,7 @@
    ]
   },
   {
-   "face": 11,
+   "face": 10,
    "wall": "T2",
    "regions": [
     "F2",
@@ -2365,7 +2355,7 @@
    ]
   },
   {
-   "face": 12,
+   "face": 11,
    "wall": "T2",
    "regions": [
     "F2",
@@ -2377,7 +2367,7 @@
    ]
   },
   {
-   "face": 13,
+   "face": 12,
    "wall": "T2",
    "regions": [
     "F2",
@@ -2389,7 +2379,7 @@
    ]
   },
   {
-   "face": 14,
+   "face": 13,
    "wall": "T2",
    "regions": [
     "F2",
@@ -2404,13 +2394,26 @@
    ]
   },
   {
-   "face": 15,
+   "face": 14,
    "wall": "T2",
    "regions": [
     "F3",
     "X36"
    ],
    "orbit": 0,
+   "edges_found": [
+    "E2",
+    "X97"
+   ]
+  },
+  {
+   "face": 15,
+   "wall": "T2",
+   "regions": [
+    "F3",
+    "X36"
+   ],
+   "orbit": 1,
    "edges_found": [
     "E2",
     "X97"
@@ -2421,11 +2424,11 @@
    "wall": "T2",
    "regions": [
     "F3",
-    "X36"
+    "X37"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
-    "E2",
+    "X4",
     "X97"
    ]
   },
@@ -2436,19 +2439,6 @@
     "F3",
     "X37"
    ],
-   "orbit": 0,
-   "edges_found": [
-    "X4",
-    "X97"
-   ]
-  },
-  {
-   "face": 18,
-   "wall": "T2",
-   "regions": [
-    "F3",
-    "X37"
-   ],
    "orbit": 1,
    "edges_found": [
     "X4",
@@ -2456,7 +2446,7 @@
    ]
   },
   {
-   "face": 19,
+   "face": 18,
    "wall": "X10",
    "regions": [
     "F2",
@@ -2471,7 +2461,7 @@
    ]
   },
   {
-   "face": 20,
+   "face": 19,
    "wall": "X10",
    "regions": [
     "F2",
@@ -2485,7 +2475,7 @@
    ]
   },
   {
-   "face": 21,
+   "face": 20,
    "wall": "X100",
    "regions": [
     "X58",
@@ -2498,7 +2488,7 @@
    ]
   },
   {
-   "face": 22,
+   "face": 21,
    "wall": "X100",
    "regions": [
     "X58",
@@ -2510,7 +2500,7 @@
    ]
   },
   {
-   "face": 23,
+   "face": 22,
    "wall": "X101",
    "regions": [
     "X103",
@@ -2523,7 +2513,7 @@
    ]
   },
   {
-   "face": 24,
+   "face": 23,
    "wall": "X101",
    "regions": [
     "X103",
@@ -2536,7 +2526,7 @@
    ]
   },
   {
-   "face": 25,
+   "face": 24,
    "wall": "X11",
    "regions": [
     "F2",
@@ -2550,7 +2540,7 @@
    ]
   },
   {
-   "face": 26,
+   "face": 25,
    "wall": "X11",
    "regions": [
     "F2",
@@ -2561,6 +2551,19 @@
     "(unnamed curve)",
     "C3",
     "X6",
+    "X97"
+   ]
+  },
+  {
+   "face": 26,
+   "wall": "X11",
+   "regions": [
+    "F2",
+    "X37"
+   ],
+   "orbit": 0,
+   "edges_found": [
+    "(unnamed curve)",
     "X97"
    ]
   },
@@ -2571,19 +2574,6 @@
     "F2",
     "X37"
    ],
-   "orbit": 0,
-   "edges_found": [
-    "(unnamed curve)",
-    "X97"
-   ]
-  },
-  {
-   "face": 28,
-   "wall": "X11",
-   "regions": [
-    "F2",
-    "X37"
-   ],
    "orbit": 1,
    "edges_found": [
     "(unnamed curve)",
@@ -2592,7 +2582,7 @@
    ]
   },
   {
-   "face": 29,
+   "face": 28,
    "wall": "X14",
    "regions": [
     "F2",
@@ -2605,7 +2595,7 @@
    ]
   },
   {
-   "face": 30,
+   "face": 29,
    "wall": "X14",
    "regions": [
     "F2",
@@ -2619,7 +2609,7 @@
    ]
   },
   {
-   "face": 31,
+   "face": 30,
    "wall": "X14",
    "regions": [
     "F2",
@@ -2633,7 +2623,7 @@
    ]
   },
   {
-   "face": 32,
+   "face": 31,
    "wall": "X14",
    "regions": [
     "F2",
@@ -2648,7 +2638,7 @@
    ]
   },
   {
-   "face": 33,
+   "face": 32,
    "wall": "X15",
    "regions": [
     "X32",
@@ -2661,7 +2651,7 @@
    ]
   },
   {
-   "face": 34,
+   "face": 33,
    "wall": "X15",
    "regions": [
     "X32",
@@ -2673,13 +2663,27 @@
    ]
   },
   {
-   "face": 35,
+   "face": 34,
    "wall": "X17",
    "regions": [
     "X32",
     "X43"
    ],
    "orbit": 0,
+   "edges_found": [
+    "X2",
+    "wall X19",
+    "wall X31"
+   ]
+  },
+  {
+   "face": 35,
+   "wall": "X17",
+   "regions": [
+    "X32",
+    "X43"
+   ],
+   "orbit": 1,
    "edges_found": [
     "X2",
     "wall X19",
@@ -2691,12 +2695,12 @@
    "wall": "X17",
    "regions": [
     "X32",
-    "X43"
+    "X54"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
     "X2",
-    "wall X19",
+    "X4",
     "wall X31"
    ]
   },
@@ -2707,7 +2711,7 @@
     "X32",
     "X54"
    ],
-   "orbit": 0,
+   "orbit": 1,
    "edges_found": [
     "X2",
     "X4",
@@ -2718,20 +2722,6 @@
    "face": 38,
    "wall": "X17",
    "regions": [
-    "X32",
-    "X54"
-   ],
-   "orbit": 1,
-   "edges_found": [
-    "X2",
-    "X4",
-    "wall X31"
-   ]
-  },
-  {
-   "face": 39,
-   "wall": "X17",
-   "regions": [
     "X43",
     "X46"
    ],
@@ -2742,7 +2732,7 @@
    ]
   },
   {
-   "face": 40,
+   "face": 39,
    "wall": "X17",
    "regions": [
     "X43",
@@ -2755,7 +2745,7 @@
    ]
   },
   {
-   "face": 41,
+   "face": 40,
    "wall": "X19",
    "regions": [
     "X32",
@@ -2767,7 +2757,7 @@
    ]
   },
   {
-   "face": 42,
+   "face": 41,
    "wall": "X19",
    "regions": [
     "X32",
@@ -2782,7 +2772,7 @@
    ]
   },
   {
-   "face": 43,
+   "face": 42,
    "wall": "X20",
    "regions": [
     "X59",
@@ -2796,7 +2786,7 @@
    ]
   },
   {
-   "face": 44,
+   "face": 43,
    "wall": "X20",
    "regions": [
     "X59",
@@ -2805,6 +2795,19 @@
    "orbit": 1,
    "edges_found": [
     "X5",
+    "X8",
+    "wall F5"
+   ]
+  },
+  {
+   "face": 44,
+   "wall": "X20",
+   "regions": [
+    "X66",
+    "X95"
+   ],
+   "orbit": 0,
+   "edges_found": [
     "X8",
     "wall F5"
    ]
@@ -2816,7 +2819,7 @@
     "X66",
     "X95"
    ],
-   "orbit": 0,
+   "orbit": 1,
    "edges_found": [
     "X8",
     "wall F5"
@@ -2824,15 +2827,17 @@
   },
   {
    "face": 46,
-   "wall": "X20",
+   "wall": "X21",
    "regions": [
-    "X66",
-    "X95"
+    "F2",
+    "X60"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
+    "X5",
     "X8",
-    "wall F5"
+    "X97",
+    "wall X98"
    ]
   },
   {
@@ -2842,7 +2847,7 @@
     "F2",
     "X60"
    ],
-   "orbit": 0,
+   "orbit": 1,
    "edges_found": [
     "X5",
     "X8",
@@ -2855,11 +2860,10 @@
    "wall": "X21",
    "regions": [
     "F2",
-    "X60"
+    "X67"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
-    "X5",
     "X8",
     "X97",
     "wall X98"
@@ -2872,7 +2876,7 @@
     "F2",
     "X67"
    ],
-   "orbit": 0,
+   "orbit": 1,
    "edges_found": [
     "X8",
     "X97",
@@ -2881,16 +2885,16 @@
   },
   {
    "face": 50,
-   "wall": "X21",
+   "wall": "X22",
    "regions": [
-    "F2",
-    "X67"
+    "F3",
+    "X54"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
-    "X8",
-    "X97",
-    "wall X98"
+    "X13",
+    "X4",
+    "wall X93"
    ]
   },
   {
@@ -2900,20 +2904,6 @@
     "F3",
     "X54"
    ],
-   "orbit": 0,
-   "edges_found": [
-    "X13",
-    "X4",
-    "wall X93"
-   ]
-  },
-  {
-   "face": 52,
-   "wall": "X22",
-   "regions": [
-    "F3",
-    "X54"
-   ],
    "orbit": 1,
    "edges_found": [
     "X13",
@@ -2922,7 +2912,7 @@
    ]
   },
   {
-   "face": 53,
+   "face": 52,
    "wall": "X22",
    "regions": [
     "F3",
@@ -2935,7 +2925,7 @@
    ]
   },
   {
-   "face": 54,
+   "face": 53,
    "wall": "X22",
    "regions": [
     "F3",
@@ -2947,7 +2937,7 @@
    ]
   },
   {
-   "face": 55,
+   "face": 54,
    "wall": "X23",
    "regions": [
     "X59",
@@ -2960,7 +2950,7 @@
    ]
   },
   {
-   "face": 56,
+   "face": 55,
    "wall": "X23",
    "regions": [
     "X59",
@@ -2974,17 +2964,7 @@
    ]
   },
   {
-   "face": 57,
-   "wall": "X23",
-   "regions": [
-    "X59",
-    "X62"
-   ],
-   "orbit": 2,
-   "edges_found": []
-  },
-  {
-   "face": 58,
+   "face": 56,
    "wall": "X23",
    "regions": [
     "X60",
@@ -2997,7 +2977,7 @@
    ]
   },
   {
-   "face": 59,
+   "face": 57,
    "wall": "X23",
    "regions": [
     "X60",
@@ -3012,17 +2992,7 @@
    ]
   },
   {
-   "face": 60,
-   "wall": "X23",
-   "regions": [
-    "X60",
-    "X62"
-   ],
-   "orbit": 2,
-   "edges_found": []
-  },
-  {
-   "face": 61,
+   "face": 58,
    "wall": "X25",
    "regions": [
     "X45",
@@ -3035,7 +3005,7 @@
    ]
   },
   {
-   "face": 62,
+   "face": 59,
    "wall": "X25",
    "regions": [
     "X45",
@@ -3048,7 +3018,7 @@
    ]
   },
   {
-   "face": 63,
+   "face": 60,
    "wall": "X26",
    "regions": [
     "X102",
@@ -3061,7 +3031,7 @@
    ]
   },
   {
-   "face": 64,
+   "face": 61,
    "wall": "X26",
    "regions": [
     "X102",
@@ -3076,7 +3046,7 @@
    ]
   },
   {
-   "face": 65,
+   "face": 62,
    "wall": "X26",
    "regions": [
     "X72",
@@ -3089,7 +3059,7 @@
    ]
   },
   {
-   "face": 66,
+   "face": 63,
    "wall": "X26",
    "regions": [
     "X72",
@@ -3104,13 +3074,55 @@
    ]
   },
   {
-   "face": 67,
+   "face": 64,
    "wall": "X27",
    "regions": [
     "X45",
     "X55"
    ],
    "orbit": 0,
+   "edges_found": [
+    "X2",
+    "X97",
+    "wall X44"
+   ]
+  },
+  {
+   "face": 65,
+   "wall": "X27",
+   "regions": [
+    "X45",
+    "X55"
+   ],
+   "orbit": 1,
+   "edges_found": [
+    "X2",
+    "X97",
+    "wall X44"
+   ]
+  },
+  {
+   "face": 66,
+   "wall": "X27",
+   "regions": [
+    "X45",
+    "X65"
+   ],
+   "orbit": 0,
+   "edges_found": [
+    "X2",
+    "X97",
+    "wall X44"
+   ]
+  },
+  {
+   "face": 67,
+   "wall": "X27",
+   "regions": [
+    "X45",
+    "X65"
+   ],
+   "orbit": 1,
    "edges_found": [
     "X2",
     "X97",
@@ -3119,48 +3131,6 @@
   },
   {
    "face": 68,
-   "wall": "X27",
-   "regions": [
-    "X45",
-    "X55"
-   ],
-   "orbit": 1,
-   "edges_found": [
-    "X2",
-    "X97",
-    "wall X44"
-   ]
-  },
-  {
-   "face": 69,
-   "wall": "X27",
-   "regions": [
-    "X45",
-    "X65"
-   ],
-   "orbit": 0,
-   "edges_found": [
-    "X2",
-    "X97",
-    "wall X44"
-   ]
-  },
-  {
-   "face": 70,
-   "wall": "X27",
-   "regions": [
-    "X45",
-    "X65"
-   ],
-   "orbit": 1,
-   "edges_found": [
-    "X2",
-    "X97",
-    "wall X44"
-   ]
-  },
-  {
-   "face": 71,
    "wall": "X28",
    "regions": [
     "X49",
@@ -3174,7 +3144,7 @@
    ]
   },
   {
-   "face": 72,
+   "face": 69,
    "wall": "X28",
    "regions": [
     "X49",
@@ -3188,7 +3158,7 @@
    ]
   },
   {
-   "face": 73,
+   "face": 70,
    "wall": "X3",
    "regions": [
     "F2",
@@ -3200,7 +3170,7 @@
    ]
   },
   {
-   "face": 74,
+   "face": 71,
    "wall": "X3",
    "regions": [
     "F2",
@@ -3212,7 +3182,7 @@
    ]
   },
   {
-   "face": 75,
+   "face": 72,
    "wall": "X3",
    "regions": [
     "X12",
@@ -3225,7 +3195,7 @@
    ]
   },
   {
-   "face": 76,
+   "face": 73,
    "wall": "X3",
    "regions": [
     "X12",
@@ -3239,7 +3209,7 @@
    ]
   },
   {
-   "face": 77,
+   "face": 74,
    "wall": "X31",
    "regions": [
     "X43",
@@ -3253,7 +3223,7 @@
    ]
   },
   {
-   "face": 78,
+   "face": 75,
    "wall": "X31",
    "regions": [
     "X43",
@@ -3267,7 +3237,7 @@
    ]
   },
   {
-   "face": 79,
+   "face": 76,
    "wall": "X33",
    "regions": [
     "X50",
@@ -3281,7 +3251,7 @@
    ]
   },
   {
-   "face": 80,
+   "face": 77,
    "wall": "X33",
    "regions": [
     "X50",
@@ -3296,7 +3266,7 @@
    ]
   },
   {
-   "face": 81,
+   "face": 78,
    "wall": "X34",
    "regions": [
     "X55",
@@ -3310,7 +3280,7 @@
    ]
   },
   {
-   "face": 82,
+   "face": 79,
    "wall": "X34",
    "regions": [
     "X55",
@@ -3324,7 +3294,7 @@
    ]
   },
   {
-   "face": 83,
+   "face": 80,
    "wall": "X35",
    "regions": [
     "X56",
@@ -3337,7 +3307,7 @@
    ]
   },
   {
-   "face": 84,
+   "face": 81,
    "wall": "X35",
    "regions": [
     "X56",
@@ -3349,7 +3319,7 @@
    ]
   },
   {
-   "face": 85,
+   "face": 82,
    "wall": "X38",
    "regions": [
     "X68",
@@ -3362,7 +3332,7 @@
    ]
   },
   {
-   "face": 86,
+   "face": 83,
    "wall": "X39",
    "regions": [
     "X59",
@@ -3376,7 +3346,7 @@
    ]
   },
   {
-   "face": 87,
+   "face": 84,
    "wall": "X39",
    "regions": [
     "X59",
@@ -3390,7 +3360,7 @@
    ]
   },
   {
-   "face": 88,
+   "face": 85,
    "wall": "X40",
    "regions": [
     "X57",
@@ -3402,7 +3372,7 @@
    ]
   },
   {
-   "face": 89,
+   "face": 86,
    "wall": "X40",
    "regions": [
     "X57",
@@ -3412,7 +3382,7 @@
    "edges_found": []
   },
   {
-   "face": 90,
+   "face": 87,
    "wall": "X41",
    "regions": [
     "X58",
@@ -3427,7 +3397,7 @@
    ]
   },
   {
-   "face": 91,
+   "face": 88,
    "wall": "X41",
    "regions": [
     "X58",
@@ -3441,7 +3411,7 @@
    ]
   },
   {
-   "face": 92,
+   "face": 89,
    "wall": "X42",
    "regions": [
     "X56",
@@ -3452,131 +3422,131 @@
     "X18",
     "X2",
     "X81"
+   ]
+  },
+  {
+   "face": 90,
+   "wall": "X42",
+   "regions": [
+    "X56",
+    "X65"
+   ],
+   "orbit": 1,
+   "edges_found": [
+    "X18",
+    "X2",
+    "X81"
+   ]
+  },
+  {
+   "face": 91,
+   "wall": "X44",
+   "regions": [
+    "X55",
+    "X65"
+   ],
+   "orbit": 0,
+   "edges_found": [
+    "X81",
+    "wall X27"
+   ]
+  },
+  {
+   "face": 92,
+   "wall": "X44",
+   "regions": [
+    "X55",
+    "X65"
+   ],
+   "orbit": 1,
+   "edges_found": [
+    "X24",
+    "X81",
+    "wall X27"
    ]
   },
   {
    "face": 93,
-   "wall": "X42",
+   "wall": "X47",
    "regions": [
-    "X56",
-    "X65"
+    "X65",
+    "X67"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
     "X18",
-    "X2",
-    "X81"
+    "X24",
+    "X97"
    ]
   },
   {
    "face": 94,
-   "wall": "X44",
+   "wall": "X47",
    "regions": [
-    "X55",
-    "X65"
+    "X65",
+    "X67"
    ],
-   "orbit": 0,
+   "orbit": 1,
    "edges_found": [
-    "X81",
-    "wall X27"
+    "X18",
+    "X24",
+    "X97"
    ]
   },
   {
    "face": 95,
-   "wall": "X44",
+   "wall": "X48",
    "regions": [
-    "X55",
-    "X65"
+    "X66",
+    "X69"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
-    "X24",
-    "X81",
-    "wall X27"
+    "E1",
+    "E2",
+    "X18"
    ]
   },
   {
    "face": 96,
-   "wall": "X47",
+   "wall": "X48",
    "regions": [
-    "X65",
-    "X67"
+    "X66",
+    "X69"
    ],
-   "orbit": 0,
+   "orbit": 1,
    "edges_found": [
-    "X18",
-    "X24",
-    "X97"
+    "E2",
+    "X18"
    ]
   },
   {
    "face": 97,
-   "wall": "X47",
+   "wall": "X51",
    "regions": [
-    "X65",
-    "X67"
+    "X63",
+    "X64"
    ],
-   "orbit": 1,
+   "orbit": 0,
    "edges_found": [
-    "X18",
-    "X24",
-    "X97"
+    "wall X84"
    ]
   },
   {
    "face": 98,
-   "wall": "X48",
+   "wall": "X51",
    "regions": [
-    "X66",
-    "X69"
+    "X63",
+    "X64"
    ],
-   "orbit": 0,
+   "orbit": 1,
    "edges_found": [
     "E1",
-    "E2",
-    "X18"
+    "wall X84"
    ]
   },
   {
    "face": 99,
-   "wall": "X48",
-   "regions": [
-    "X66",
-    "X69"
-   ],
-   "orbit": 1,
-   "edges_found": [
-    "E2",
-    "X18"
-   ]
-  },
-  {
-   "face": 100,
-   "wall": "X51",
-   "regions": [
-    "X63",
-    "X64"
-   ],
-   "orbit": 0,
-   "edges_found": [
-    "wall X84"
-   ]
-  },
-  {
-   "face": 101,
-   "wall": "X51",
-   "regions": [
-    "X63",
-    "X64"
-   ],
-   "orbit": 1,
-   "edges_found": [
-    "E1",
-    "wall X84"
-   ]
-  },
-  {
-   "face": 102,
    "wall": "X52",
    "regions": [
     "X66",
@@ -3590,7 +3560,7 @@
    ]
   },
   {
-   "face": 103,
+   "face": 100,
    "wall": "X52",
    "regions": [
     "X66",
@@ -3603,7 +3573,7 @@
    ]
   },
   {
-   "face": 104,
+   "face": 101,
    "wall": "X53",
    "regions": [
     "X64",
@@ -3616,7 +3586,7 @@
    ]
   },
   {
-   "face": 105,
+   "face": 102,
    "wall": "X53",
    "regions": [
     "X64",
@@ -3629,7 +3599,7 @@
    ]
   },
   {
-   "face": 106,
+   "face": 103,
    "wall": "X7",
    "regions": [
     "X12",
@@ -3639,7 +3609,7 @@
    "edges_found": []
   },
   {
-   "face": 107,
+   "face": 104,
    "wall": "X79",
    "regions": [
     "X102",
@@ -3652,7 +3622,7 @@
    ]
   },
   {
-   "face": 108,
+   "face": 105,
    "wall": "X79",
    "regions": [
     "X102",
@@ -3665,7 +3635,7 @@
    ]
   },
   {
-   "face": 109,
+   "face": 106,
    "wall": "X82",
    "regions": [
     "X43",
@@ -3678,7 +3648,7 @@
    ]
   },
   {
-   "face": 110,
+   "face": 107,
    "wall": "X82",
    "regions": [
     "X43",
@@ -3692,7 +3662,7 @@
    ]
   },
   {
-   "face": 111,
+   "face": 108,
    "wall": "X83",
    "regions": [
     "X30",
@@ -3705,7 +3675,7 @@
    ]
   },
   {
-   "face": 112,
+   "face": 109,
    "wall": "X83",
    "regions": [
     "X30",
@@ -3719,7 +3689,7 @@
    ]
   },
   {
-   "face": 113,
+   "face": 110,
    "wall": "X84",
    "regions": [
     "X63",
@@ -3731,7 +3701,7 @@
    ]
   },
   {
-   "face": 114,
+   "face": 111,
    "wall": "X84",
    "regions": [
     "X63",
@@ -3744,7 +3714,7 @@
    ]
   },
   {
-   "face": 115,
+   "face": 112,
    "wall": "X84",
    "regions": [
     "X64",
@@ -3757,7 +3727,7 @@
    ]
   },
   {
-   "face": 116,
+   "face": 113,
    "wall": "X84",
    "regions": [
     "X64",
@@ -3770,7 +3740,7 @@
    ]
   },
   {
-   "face": 117,
+   "face": 114,
    "wall": "X85",
    "regions": [
     "X43",
@@ -3779,48 +3749,48 @@
    "orbit": 0,
    "edges_found": [
     "D2",
+    "X80"
+   ]
+  },
+  {
+   "face": 115,
+   "wall": "X85",
+   "regions": [
+    "X43",
+    "X71"
+   ],
+   "orbit": 1,
+   "edges_found": [
+    "X80"
+   ]
+  },
+  {
+   "face": 116,
+   "wall": "X86",
+   "regions": [
+    "X102",
+    "X71"
+   ],
+   "orbit": 0,
+   "edges_found": [
+    "D2",
+    "X80"
+   ]
+  },
+  {
+   "face": 117,
+   "wall": "X86",
+   "regions": [
+    "X102",
+    "X71"
+   ],
+   "orbit": 1,
+   "edges_found": [
     "X80"
    ]
   },
   {
    "face": 118,
-   "wall": "X85",
-   "regions": [
-    "X43",
-    "X71"
-   ],
-   "orbit": 1,
-   "edges_found": [
-    "X80"
-   ]
-  },
-  {
-   "face": 119,
-   "wall": "X86",
-   "regions": [
-    "X102",
-    "X71"
-   ],
-   "orbit": 0,
-   "edges_found": [
-    "D2",
-    "X80"
-   ]
-  },
-  {
-   "face": 120,
-   "wall": "X86",
-   "regions": [
-    "X102",
-    "X71"
-   ],
-   "orbit": 1,
-   "edges_found": [
-    "X80"
-   ]
-  },
-  {
-   "face": 121,
    "wall": "X87",
    "regions": [
     "X70",
@@ -3832,7 +3802,7 @@
    ]
   },
   {
-   "face": 122,
+   "face": 119,
    "wall": "X87",
    "regions": [
     "X70",
@@ -3842,7 +3812,7 @@
    "edges_found": []
   },
   {
-   "face": 123,
+   "face": 120,
    "wall": "X88",
    "regions": [
     "X73",
@@ -3854,7 +3824,7 @@
    ]
   },
   {
-   "face": 124,
+   "face": 121,
    "wall": "X88",
    "regions": [
     "X73",
@@ -3866,7 +3836,7 @@
    ]
   },
   {
-   "face": 125,
+   "face": 122,
    "wall": "X89",
    "regions": [
     "X103",
@@ -3879,7 +3849,7 @@
    ]
   },
   {
-   "face": 126,
+   "face": 123,
    "wall": "X89",
    "regions": [
     "X103",
@@ -3889,7 +3859,7 @@
    "edges_found": []
   },
   {
-   "face": 127,
+   "face": 124,
    "wall": "X9",
    "regions": [
     "F2",
@@ -3902,7 +3872,7 @@
    ]
   },
   {
-   "face": 128,
+   "face": 125,
    "wall": "X9",
    "regions": [
     "F2",
@@ -3917,17 +3887,7 @@
    ]
   },
   {
-   "face": 129,
-   "wall": "X9",
-   "regions": [
-    "F2",
-    "X16"
-   ],
-   "orbit": 2,
-   "edges_found": []
-  },
-  {
-   "face": 130,
+   "face": 126,
    "wall": "X9",
    "regions": [
     "X16",
@@ -3940,7 +3900,7 @@
    ]
   },
   {
-   "face": 131,
+   "face": 127,
    "wall": "X9",
    "regions": [
     "X16",
@@ -3953,7 +3913,7 @@
    ]
   },
   {
-   "face": 132,
+   "face": 128,
    "wall": "X90",
    "regions": [
     "X55",
@@ -3966,7 +3926,7 @@
    ]
   },
   {
-   "face": 133,
+   "face": 129,
    "wall": "X90",
    "regions": [
     "X55",
@@ -3976,7 +3936,7 @@
    "edges_found": []
   },
   {
-   "face": 134,
+   "face": 130,
    "wall": "X91",
    "regions": [
     "X72",
@@ -3988,7 +3948,7 @@
    ]
   },
   {
-   "face": 135,
+   "face": 131,
    "wall": "X91",
    "regions": [
     "X72",
@@ -4000,7 +3960,7 @@
    ]
   },
   {
-   "face": 136,
+   "face": 132,
    "wall": "X92",
    "regions": [
     "X56",
@@ -4013,7 +3973,7 @@
    ]
   },
   {
-   "face": 137,
+   "face": 133,
    "wall": "X92",
    "regions": [
     "X56",
@@ -4025,7 +3985,7 @@
    ]
   },
   {
-   "face": 138,
+   "face": 134,
    "wall": "X93",
    "regions": [
     "X54",
@@ -4039,7 +3999,7 @@
    ]
   },
   {
-   "face": 139,
+   "face": 135,
    "wall": "X93",
    "regions": [
     "X54",
@@ -4052,7 +4012,7 @@
    ]
   },
   {
-   "face": 140,
+   "face": 136,
    "wall": "X94",
    "regions": [
     "X36",
@@ -4065,7 +4025,7 @@
    ]
   },
   {
-   "face": 141,
+   "face": 137,
    "wall": "X94",
    "regions": [
     "X36",
@@ -4078,7 +4038,7 @@
    ]
   },
   {
-   "face": 142,
+   "face": 138,
    "wall": "X96",
    "regions": [
     "X16",
@@ -4092,7 +4052,7 @@
    ]
   },
   {
-   "face": 143,
+   "face": 139,
    "wall": "X96",
    "regions": [
     "X16",
@@ -4104,7 +4064,7 @@
    ]
   },
   {
-   "face": 144,
+   "face": 140,
    "wall": "X96",
    "regions": [
     "X16",
@@ -4118,7 +4078,7 @@
    ]
   },
   {
-   "face": 145,
+   "face": 141,
    "wall": "X96",
    "regions": [
     "X16",
@@ -4132,7 +4092,7 @@
    ]
   },
   {
-   "face": 146,
+   "face": 142,
    "wall": "X98",
    "regions": [
     "X60",
@@ -4146,7 +4106,7 @@
    ]
   },
   {
-   "face": 147,
+   "face": 143,
    "wall": "X98",
    "regions": [
     "X60",
@@ -4159,7 +4119,7 @@
    ]
   },
   {
-   "face": 148,
+   "face": 144,
    "wall": "X99",
    "regions": [
     "X61",
@@ -4172,7 +4132,7 @@
    ]
   },
   {
-   "face": 149,
+   "face": 145,
    "wall": "X99",
    "regions": [
     "X61",

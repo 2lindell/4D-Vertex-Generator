@@ -5,7 +5,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F3|X49": 2400,
     "F3|X50": 2400
@@ -15,7 +15,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 1,
+   "removed_fragments": 1,
    "by_regions": {
     "X49|X61": 2400,
     "X49|X58": 2400
@@ -25,7 +25,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X59|X66": 2400
    }
@@ -34,7 +34,7 @@
    "face_types": 4,
    "classes": 8,
    "faces_on_sphere": 9600,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F3|X37": 2400,
     "F2|F3": 2400,
@@ -46,7 +46,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F2|X95": 2400
    }
@@ -55,7 +55,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X58|X61": 2400
    }
@@ -64,7 +64,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X103|X72": 2400
    }
@@ -73,7 +73,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F2|X36": 2400,
     "F2|X37": 2400
@@ -83,7 +83,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F2|X46": 2400,
     "F2|X45": 2400
@@ -93,7 +93,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X32|X37": 2400
    }
@@ -102,7 +102,7 @@
    "face_types": 3,
    "classes": 6,
    "faces_on_sphere": 7200,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X32|X43": 2400,
     "X32|X54": 2400,
@@ -113,7 +113,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X32|X46": 2400
    }
@@ -122,7 +122,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X66|X95": 2400,
     "X59|X95": 2400
@@ -132,7 +132,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F2|X60": 2400,
     "F2|X67": 2400
@@ -142,7 +142,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F3|X54": 2400,
     "F3|X70": 2400
@@ -152,7 +152,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 2,
+   "removed_fragments": 2,
    "by_regions": {
     "X59|X62": 2400,
     "X60|X62": 2400
@@ -162,7 +162,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X45|X46": 2400
    }
@@ -171,7 +171,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X102|X103": 2400,
     "X72|X73": 2400
@@ -181,7 +181,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X45|X55": 2400,
     "X45|X65": 2400
@@ -191,7 +191,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X49|X50": 2400
    }
@@ -200,7 +200,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "F2|X12": 2400,
     "X12|X95": 2400
@@ -210,7 +210,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X43|X54": 2400
    }
@@ -219,7 +219,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X50|X57": 2400
    }
@@ -228,7 +228,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X55|X60": 2400
    }
@@ -237,7 +237,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X56|X74": 2400
    }
@@ -246,7 +246,7 @@
    "face_types": 1,
    "classes": 1,
    "faces_on_sphere": 1200,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X68|X68": 1200
    }
@@ -255,7 +255,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X59|X60": 2400
    }
@@ -264,7 +264,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X57|X63": 2400
    }
@@ -273,7 +273,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X58|X62": 2400
    }
@@ -282,7 +282,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X56|X65": 2400
    }
@@ -291,7 +291,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X55|X65": 2400
    }
@@ -300,7 +300,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X65|X67": 2400
    }
@@ -309,7 +309,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X66|X69": 2400
    }
@@ -318,7 +318,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X63|X64": 2400
    }
@@ -327,7 +327,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X66|X67": 2400
    }
@@ -336,7 +336,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X64|X69": 2400
    }
@@ -345,7 +345,7 @@
    "face_types": 1,
    "classes": 1,
    "faces_on_sphere": 1200,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X12|X30": 1200
    }
@@ -354,7 +354,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X102|X73": 2400
    }
@@ -363,7 +363,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X43|X49": 2400
    }
@@ -372,7 +372,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X30|X36": 2400
    }
@@ -381,7 +381,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X64|X74": 2400,
     "X63|X74": 2400
@@ -391,7 +391,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X43|X71": 2400
    }
@@ -400,7 +400,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X102|X71": 2400
    }
@@ -409,7 +409,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X70|X75": 2400
    }
@@ -418,7 +418,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X73|X75": 2400
    }
@@ -427,7 +427,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X103|X76": 2400
    }
@@ -436,7 +436,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 1,
+   "removed_fragments": 1,
    "by_regions": {
     "F2|X16": 2400,
     "X16|X95": 2400
@@ -446,7 +446,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X55|X76": 2400
    }
@@ -455,7 +455,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X72|X77": 2400
    }
@@ -464,7 +464,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X56|X77": 2400
    }
@@ -473,7 +473,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X54|X70": 2400
    }
@@ -482,7 +482,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X36|X37": 2400
    }
@@ -491,7 +491,7 @@
    "face_types": 2,
    "classes": 4,
    "faces_on_sphere": 4800,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X16|X58": 2400,
     "X16|X62": 2400
@@ -501,7 +501,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X60|X67": 2400
    }
@@ -510,7 +510,7 @@
    "face_types": 1,
    "classes": 2,
    "faces_on_sphere": 2400,
-   "unplaced_fragments": 0,
+   "removed_fragments": 0,
    "by_regions": {
     "X61|X68": 2400
    }
@@ -45317,5 +45317,31 @@
   "atlas_line_pieces_on_sphere": 75840,
   "meeting_edge_pieces_on_sphere": 35400,
   "points_on_sphere": 317976
- }
+ },
+ "removed_fragments": [
+  {
+   "label": "F4 | X49 | X61",
+   "orbit": 2,
+   "patches": 6,
+   "perimeter": 0.015296175683787043
+  },
+  {
+   "label": "X23 | X59 | X62",
+   "orbit": 2,
+   "patches": 2,
+   "perimeter": 0.0
+  },
+  {
+   "label": "X23 | X60 | X62",
+   "orbit": 2,
+   "patches": 3,
+   "perimeter": 0.0
+  },
+  {
+   "label": "X9 | F2 | X16",
+   "orbit": 2,
+   "patches": 1,
+   "perimeter": 0.0
+  }
+ ]
 }

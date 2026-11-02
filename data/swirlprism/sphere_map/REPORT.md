@@ -991,9 +991,9 @@ A face is one connected piece of one wall sheet between one region component and
 
 ## Atlas database (atlas.json)
 
-Closure: {'faces_with_two_region_sides': 150, 'faces': 150, 'faces_with_an_outline': 123, 'line_pieces_bounding_a_face': 57, 'line_pieces': 71, 'line_pieces_with_two_end_points': 71, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 108, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
+Closure: {'faces_with_two_region_sides': 146, 'faces': 146, 'faces_with_an_outline': 123, 'line_pieces_bounding_a_face': 57, 'line_pieces': 71, 'line_pieces_with_two_end_points': 71, 'closed_loop_line_pieces': 0, 'faces_with_outline_curves_on_no_atlas_line': 108, 'regions_with_faces': 74, 'regions': 74, 'points': 331, 'atlas_points_found': ['A1', 'C1', 'C4', 'C5', 'C6', 'X2', 'X4', 'X5', 'X8', 'X94·X11·T2', 'X97']}
 
-| wall | piece types | face classes | faces on S^3 | unplaced fragments |
+| wall | piece types | face classes | faces on S^3 | fragments removed |
 |---|---|---|---|---|
 | F1 | 2 | 4 | 4800 | 0 |
 | F4 | 2 | 4 | 4800 | 1 |
