@@ -49,12 +49,29 @@ def job(b):
     return sg, k
 
 
+def profile(sg):
+    """(vertices, cells, edges by valence) from a signature."""
+    import re
+    from collections import Counter
+    e = Counter()
+    for n, k in re.findall(r"(\d+)x(\d+)", sg.split("edges")[1]):
+        e[int(k)] += int(n)
+    cells = sum(int(a) for a in re.findall(r"(\d+)x\[", sg.split("|")[0]))
+    return (int(sg.split(":")[0]), cells, tuple(sorted(e.items())))
+
+
+def iso_job(item):
+    a, b = item
+    return G.same_polytope(a, b)
+
+
 def main():
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 600
     W = json.load(open(G.fname("wall_shapes")))["shapes"]
     reps = [(w["signature"], w["seed_beta"]) for w in W if w["kind"] == "region"]
     out = {}
     with Pool(4) as pool:
+        known_keys = dict(zip([k for _, k in pool.map(job, [tuple(b) for _, b in reps])], range(len(reps))))
         for zi, (zname, zone) in enumerate(ZONES.items()):
             P = points(zone, n, zi)
             R = pool.map(job, list(map(tuple, P)), chunksize=8)
@@ -66,16 +83,29 @@ def main():
             found = []
             for k, t in types.items():
                 b = t["points"][len(t["points"]) // 2]
-                known = next((i for i, (sg, rb) in enumerate(reps) if sg.split(":")[0] == t["signature"].split(":")[0]
-                              and G.same_polytope(b, rb)), None)
-                found.append({"known_region": known, "count": len(t["points"]), "signature": t["signature"],
+                known, how = known_keys.get(k), "key"
+                if known is None:
+                    same = [i for i, (sg, _) in enumerate(reps) if profile(sg) == profile(t["signature"])]
+                    how = "counts differ from every region: new"
+                    for i in same:
+                        # (same counts, different key: compare incidences, at most 10 minutes)
+                        r = pool.apply_async(iso_job, ((b, reps[i][1]),))
+                        try:
+                            if r.get(timeout=600):
+                                known, how = i, "incidences"
+                                break
+                            how = "same counts as a region, different incidences: new"
+                        except Exception:
+                            how = "same counts as a region; incidence check timed out: undecided"
+                found.append({"known_region": known, "how": how, "count": len(t["points"]), "signature": t["signature"],
                               "example": b, "margin": float(margin(b)) if known is None else None})
             out[zname] = {"points": len(P), "types": found}
             print(f"{zname}: {len(P)} points, {len(types)} polytopes, "
                   f"{sum(1 for f in found if f['known_region'] is None)} not among the map's regions", flush=True)
             for f in found:
                 if f["known_region"] is None:
-                    print(f"   NEW {f['count']:4} pts margin {f['margin']:.1e}  {f['signature'][:110]}  e.g. {np.round(f['example'], 5).tolist()}", flush=True)
+                    print(f"   NEW {f['count']:4} pts margin {f['margin']:.1e} ({f['how']})  {profile(f['signature'])}  "
+                          f"e.g. {np.round(f['example'], 5).tolist()}", flush=True)
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "zones": out}, open(G.fname("edge_survey"), "w"), indent=1)
 
 
