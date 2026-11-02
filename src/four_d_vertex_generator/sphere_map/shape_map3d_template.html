@@ -162,8 +162,50 @@ function solidGlyph(sym, m, size) {               // a solid: lopsided (1), n-go
 }
 function orientTo(obj, from, to) { const q = new THREE.Quaternion().setFromUnitVectors(from, to.clone().normalize()); obj.quaternion.copy(q); }
 
-let current = null, history = [], pickables = [], labelEls = [];
-function clear() { while (world.children.length) world.remove(world.children[0]); labels.innerHTML = ""; pickables = []; labelEls = []; }
+let current = null, history = [], pickables = [], labelEls = [], drawnLines = [], wallTiles = [];
+function clear() { while (world.children.length) world.remove(world.children[0]); labels.innerHTML = ""; pickables = []; labelEls = []; drawnLines = []; wallTiles = []; }
+
+// the plane of a wall where its tile sits: the least-spread direction of its drawn points nearby
+function sym3eig(C) {                              // Jacobi: eigenvectors of a symmetric 3x3
+  const a = C.map((r) => r.slice()), v = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  for (let sweep = 0; sweep < 30; sweep++) {
+    for (const [p, q] of [[0, 1], [0, 2], [1, 2]]) {
+      if (Math.abs(a[p][q]) < 1e-12) continue;
+      const th = 0.5 * Math.atan2(2 * a[p][q], a[q][q] - a[p][p]), c = Math.cos(th), sn = Math.sin(th);
+      for (let k = 0; k < 3; k++) { const x = a[k][p], y = a[k][q]; a[k][p] = c * x - sn * y; a[k][q] = sn * x + c * y; }
+      for (let k = 0; k < 3; k++) { const x = a[p][k], y = a[q][k]; a[p][k] = c * x - sn * y; a[q][k] = sn * x + c * y; }
+      for (let k = 0; k < 3; k++) { const x = v[k][p], y = v[k][q]; v[k][p] = c * x - sn * y; v[k][q] = sn * x + c * y; }
+    }
+  }
+  return [0, 1, 2].map((i) => ({ val: a[i][i], vec: new THREE.Vector3(v[0][i], v[1][i], v[2][i]) })).sort((x, y) => x.val - y.val);
+}
+function orientWalls() {
+  for (const t of wallTiles) {
+    // normal: fitted to the wall's own points round the tile (fall back to the side direction)
+    const near = t.pts.map((p) => [p.distanceToSquared(t.pos), p]).sort((x, y) => x[0] - y[0]).slice(0, 28).map((x) => x[1]);
+    let n = t.side.clone();
+    if (near.length >= 6) {
+      const c = near.reduce((a, p) => a.add(p), new THREE.Vector3()).multiplyScalar(1 / near.length);
+      const C = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+      for (const p of near) { const d = [p.x - c.x, p.y - c.y, p.z - c.z]; for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) C[i][j] += d[i] * d[j]; }
+      const e = sym3eig(C);
+      if (e[1].val > 4 * Math.max(e[0].val, 1e-12)) n = e[0].vec;   // a clear plane
+    }
+    if (n.length() < 1e-9) continue;
+    n.normalize();
+    // the tile's long edge: along the nearest drawn bounding line, in the wall's plane
+    let best = null, bd = Infinity;
+    for (const L of drawnLines) for (let i = 0; i < L.length; i++) {
+      const d = L[i].distanceToSquared(t.pos);
+      if (d < bd) { bd = d; best = L[Math.min(i + 1, L.length - 1)].clone().sub(L[Math.max(i - 1, 0)]); }
+    }
+    let a = best ? best.sub(n.clone().multiplyScalar(best.dot(n))) : null;
+    if (!a || a.length() < 1e-9) a = Math.abs(n.x) < 0.9 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0);
+    a.sub(n.clone().multiplyScalar(a.dot(n))).normalize();
+    const b = new THREE.Vector3().crossVectors(n, a);
+    t.obj.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(a, b, n));
+  }
+}
 
 function select(kind, id, push = true) {
   const x = idx[kind][id]; if (!x) return;
@@ -194,6 +236,7 @@ function select(kind, id, push = true) {
                      : new THREE.LineBasicMaterial({ color: new THREE.Color(colOf(e.kind)), transparent: true, opacity: 0.22 });
     const ln = new THREE.Line(geo, m); if (dashed) ln.computeLineDistances(); world.add(ln);
   }
+  orientWalls();
   controls.target.set(0, 0, 0); camera.position.set(0, 0, 9.5); controls.update();
   renderDetail(kind, x); renderCrumbs();
 }
@@ -206,6 +249,7 @@ function drawPieces(kind, pcs, strong) {
       world.add(new THREE.Points(geo, new THREE.PointsMaterial({ color: col, size: strong ? 0.06 : 0.035, transparent: true, opacity: strong ? 0.8 : 0.35 })));
     } else if (kind === "line") {
       for (const P of p.polys) {
+        drawnLines.push(P.map(proj));
         const geo = new THREE.BufferGeometry().setFromPoints(P.map(proj));
         world.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: strong ? 1 : 0.6 })));
       }
@@ -229,8 +273,8 @@ function addGlyph(kind, sym, pcs, strong, name, e) {
     const pts = [], own = [];
     pcs.forEach((p, k) => p.cloud.forEach((q) => { pts.push(proj(q)); own.push(k); }));
     const i = onShape(pts); pos = pts[i];
-    const p0 = pcs[own[i]], n3 = proj(p0.side).sub(proj(p0.c));        // the wall's normal: towards one side
-    if (n3.length() > 1e-9) orientTo(obj, new THREE.Vector3(0, 0, 1), n3);
+    const p0 = pcs[own[i]];
+    wallTiles.push({ obj, pos, pts, side: proj(p0.side).sub(proj(p0.c)) });
   } else if (kind === "line") {
     obj = lineGlyph(sym, m);
     const pts = [], prev = [], next = [];
