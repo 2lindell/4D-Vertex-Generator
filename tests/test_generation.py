@@ -1,6 +1,11 @@
 import numpy as np
 import pytest
 
+from four_d_vertex_generator.continuous import (
+    DEFAULT_SAMPLES_PER_ANGLE,
+    continuous_approximation_vertex_count,
+    generate_continuous_approximation,
+)
 from four_d_vertex_generator.generation import (
     generate_vertices_from_seed,
     group_order,
@@ -8,6 +13,7 @@ from four_d_vertex_generator.generation import (
 )
 from four_d_vertex_generator.isogonal import compute_orbits, detect_symmetries, matches_symmetry
 from four_d_vertex_generator.library import (
+    PAGE_SYMMETRY_NAMES,
     SYMMETRY_ALIASES,
     available_symmetries,
     fundamental_chamber_roots,
@@ -69,6 +75,66 @@ def test_four_dimensional_coxeter_symmetries_are_available() -> None:
         action = named_symmetry(name)
         assert name in available_symmetries()
         assert len(action.generators) == 4
+
+
+def test_symmetries_from_the_four_dimensional_reference_page_are_available() -> None:
+    expected_orders = {
+        "pennic": 120,
+        "kipennic": 60,
+        "decaic": 240,
+        "kidecaic": 120,
+        "iodecaic": 120,
+        "tessic": 384,
+        "kitessic": 192,
+        "demitessic": 192,
+        "kidemitessic": 96,
+        "tessipyritic": 192,
+        "icoic": 1152,
+        "kiicoic": 576,
+        "contic": 2304,
+        "kicontic": 1152,
+        "iocontic": 1152,
+        "icopyritic": 576,
+        "toxitic": 288,
+        "oxitic": 576,
+        "hyic": 14400,
+        "kihyic": 7200,
+        "ixitic": 1440,
+        "ixoic": 2880,
+    }
+    assert set(PAGE_SYMMETRY_NAMES) == set(expected_orders)
+    for name, expected_order in expected_orders.items():
+        assert name in available_symmetries()
+        assert group_order(named_symmetry(name)) == expected_order
+
+
+def test_continuous_orbits_are_generated_as_labeled_finite_approximations() -> None:
+    seed = np.array([1.0, 0.0, 1.0, 0.0])
+    glome = generate_continuous_approximation(seed, "glomic", samples_per_angle=8)
+    hopf = generate_continuous_approximation(seed, "hopfic", samples_per_angle=8)
+
+    assert len(glome) == (8 - 2) * 8**2 + 2 * 8
+    assert np.allclose(np.linalg.norm(glome, axis=1), np.sqrt(2.0))
+    assert len(hopf) == 8**2
+    assert np.allclose(np.linalg.norm(hopf[:, :2], axis=1), 1.0)
+    assert np.allclose(np.linalg.norm(hopf[:, 2:], axis=1), 1.0)
+    assert continuous_approximation_vertex_count("glomic") == 1_699_440
+    assert continuous_approximation_vertex_count("hopfic") == 14_400
+    assert DEFAULT_SAMPLES_PER_ANGLE == 120
+
+
+def test_continuous_approximation_handles_axis_seeds_and_vertex_cap() -> None:
+    points = generate_continuous_approximation(
+        np.array([1.0, 0.0, 0.0, 0.0]), "hopfic", samples_per_angle=8
+    )
+    assert len(points) == 8
+    assert np.allclose(np.linalg.norm(points[:, :2], axis=1), 1.0)
+    assert np.allclose(points[:, 2:], 0.0)
+
+    with pytest.raises(RuntimeError, match="exceeding max_vertices"):
+        generate_continuous_approximation(
+            np.ones(4), "glomic", samples_per_angle=8, max_vertices=10
+        )
 
 
 def test_chiral_coxeter_symmetries_are_orientation_preserving() -> None:
@@ -460,3 +526,19 @@ def test_orbit_size_does_not_depend_on_tolerance(tol: float) -> None:
     seed = np.array([-0.58259112426549198, 0.0, -0.61237243569579458, 0.53440395014171649])
     verts = generate_vertices_from_seed(seed, named_symmetry("h4_swirlprism"), tol=tol)
     assert len(verts) == 600
+
+
+def test_polytwister_symmetries_sample_hopf_rings() -> None:
+    seed = np.array([0.3, 0.5, 0.2, 0.7])
+    for name, rings in {
+        "tetteric": 24,
+        "kitetteric": 12,
+        "cubiteric": 48,
+        "kicubiteric": 24,
+        "doteric": 120,
+        "kidoteric": 60,
+    }.items():
+        points = generate_continuous_approximation(seed, name, samples_per_angle=10)
+        assert continuous_approximation_vertex_count(name, 10) == rings * 10
+        assert points.shape == (rings * 10, 4)
+        assert np.allclose(np.linalg.norm(points, axis=1), np.linalg.norm(seed))

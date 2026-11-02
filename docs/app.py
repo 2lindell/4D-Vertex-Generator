@@ -13,6 +13,12 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from four_d_vertex_generator.cli import parse_seed
+from four_d_vertex_generator.continuous import (
+    CONTINUOUS_SYMMETRIES,
+    DEFAULT_SAMPLES_PER_ANGLE,
+    continuous_approximation_vertex_count,
+    generate_continuous_approximation,
+)
 from four_d_vertex_generator.generation import (
     generate_vertices_from_seed,
     group_order,
@@ -38,6 +44,7 @@ from four_d_vertex_generator.local_view import (
     nearest_neighbour_edges,
 )
 from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
+from four_d_vertex_generator.polytwister import hard_polytwister
 from four_d_vertex_generator.polychoron import (
     Polychoron,
     build_polychoron,
@@ -57,12 +64,12 @@ st.set_page_config(
 )
 st.title("4D Vertex Generator")
 st.caption(
-    "Choose a symmetry, place a seed point, generate every vertex in its orbit, "
-    "and export the result as a 4OFF file."
+    "Choose a symmetry and seed point to generate its finite orbit or a sampled "
+    "continuous orbit, then export the result as a 4OFF file."
 )
 
-# Each family lists (symmetry name, label) pairs. Alias names that resolve to
-# the same group are accepted by the library but intentionally not listed.
+# Each family lists (symmetry name, label) pairs. The reference-page names are
+# accepted names; page names that match an existing group are aliases and not listed.
 GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
     "elementary": (
         "Elementary coordinate groups",
@@ -74,6 +81,21 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
             ("global_inversion", "Central inversion Ci"),
         ),
     ),
+    "round": (
+        "Round / continuous (sampled)",
+        (
+            ("glomic", "Glomic [O,O,O] (3-sphere sample)"),
+            ("kiglomic", "Kiglomic [O,O,O]+ (3-sphere sample)"),
+            ("hopfic", "Hopfic [O,O:O] (Hopf-orbit sample)"),
+            ("kihopfic", "Kihopfic [O,O:O]+ (Hopf-orbit sample)"),
+            ("tetteric", "Tetteric (tetrahedral polytwister rings)"),
+            ("kitetteric", "Kitetteric (chiral tetrahedral rings)"),
+            ("cubiteric", "Cubiteric (octahedral polytwister rings)"),
+            ("kicubiteric", "Kicubiteric (chiral octahedral rings)"),
+            ("doteric", "Doteric (icosahedral polytwister rings)"),
+            ("kidoteric", "Kidoteric (chiral icosahedral rings)"),
+        ),
+    ),
     "a4": (
         "Pentachoric (A4, [3,3,3])",
         (
@@ -81,6 +103,7 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
             ("a4+", "Chiral [3,3,3]+"),
             ("a4_extended", "Extended [[3,3,3]]"),
             ("a4_chiral_extended", "Chiral extended [[3,3,3]]+ = [[3,3,3]+]"),
+            ("iodecaic", "Iodecaic [[3,3,3]+]"),
         ),
     ),
     "b4": (
@@ -116,6 +139,7 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
             ("f4_chiral_extended", "Chiral extended [[3,4,3]]+"),
             ("f4_double_diminished", "Double diminished [3+,4,3+]"),
             ("f4_extended_double_diminished", "Extended double diminished [[3+,4,3+]]"),
+            ("icopyritic", "Icopyritic [3,4,3+]"),
         ),
     ),
     "h4": (
@@ -132,6 +156,8 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
             ("h4_prismatic", "Prismatic [5,3,2]"),
             ("h4_prismatic_chiral", "Chiral prismatic [5,3,2]+"),
             ("h4_ionic", "Ionic diminished [(5,3)+,2]"),
+            ("ixitic", "Ixitic 5[3+,4,3+]"),
+            ("ixoic", "Ixoic 5[[3+,4,3+]]"),
         ),
     ),
     "h4_tubical": ("Tubical groups (swirl)", ()),
@@ -189,6 +215,20 @@ def _symmetry_labels() -> dict[str, str]:
             kind = "Chiral " if "+" in name or "chiral" in name else ""
             ext = "extended " if "extended" in name else ""
             labels[name] = f"{kind}{ext}{p}-{q} duoprism".capitalize()
+    labels.update(
+        {
+            "glomic": "Glomic [O,O,O] (sampled)",
+            "kiglomic": "Kiglomic [O,O,O]+ (sampled)",
+            "hopfic": "Hopfic [O,O:O] (sampled)",
+            "kihopfic": "Kihopfic [O,O:O]+ (sampled)",
+            "tetteric": "Tetteric (sampled rings)",
+            "kitetteric": "Kitetteric (sampled rings)",
+            "cubiteric": "Cubiteric (sampled rings)",
+            "kicubiteric": "Kicubiteric (sampled rings)",
+            "doteric": "Doteric (sampled rings)",
+            "kidoteric": "Kidoteric (sampled rings)",
+        }
+    )
     return labels
 
 
@@ -208,6 +248,8 @@ def _describe(name: str) -> str:
 
 @st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _group_order(name: str) -> int | None:
+    if name in CONTINUOUS_SYMMETRIES:
+        return None
     return group_order(named_symmetry(name))
 
 
@@ -448,7 +490,7 @@ def render_generate_tab() -> None:
             "Symmetry family",
             options=tuple(GROUP_OPTIONS),
             format_func=lambda key: GROUP_OPTIONS[key][0],
-            index=1,
+            index=tuple(GROUP_OPTIONS).index("a4"),
         )
     if group_key == "duoprism":
         with right:
@@ -507,12 +549,22 @@ def render_generate_tab() -> None:
                 options=list(choice_labels),
                 format_func=choice_labels.__getitem__,
             )
+    is_continuous = symmetry_name in CONTINUOUS_SYMMETRIES
     order = _group_order(symmetry_name)
-    st.caption(
-        f"`{symmetry_name}` · group order {order if order is not None else 'unknown'}"
-    )
+    if is_continuous:
+        estimated_count = continuous_approximation_vertex_count(
+            symmetry_name, DEFAULT_SAMPLES_PER_ANGLE
+        )
+        st.caption(
+            f"`{symmetry_name}` · continuous group; sampled approximation at "
+            f"{DEFAULT_SAMPLES_PER_ANGLE} samples per angle (up to {estimated_count:,} points)"
+        )
+    else:
+        st.caption(f"`{symmetry_name}` · group order {order if order is not None else 'unknown'}")
 
-    chamber_name = _compatible_chamber(symmetry_name, chamber_candidates)
+    chamber_name = (
+        None if is_continuous else _compatible_chamber(symmetry_name, chamber_candidates)
+    )
     seed_modes = []
     if chamber_name is not None:
         seed_modes.append(SEED_MODE_CHAMBER)
@@ -554,10 +606,17 @@ def render_generate_tab() -> None:
         max_vertices = adv[2].number_input(
             "Max vertices",
             min_value=1,
-            max_value=500_000,
-            value=20_000,
+            max_value=2_000_000,
+            value=(
+                continuous_approximation_vertex_count(
+                    symmetry_name, DEFAULT_SAMPLES_PER_ANGLE
+                )
+                if is_continuous
+                else 20_000
+            ),
             step=1_000,
-            help="Safety cap for groups that turn out to be very large.",
+            key=f"max_vertices_{'continuous' if is_continuous else 'finite'}",
+            help="Safety cap for large groups or continuous-orbit approximations.",
         )
 
     with seed_area:
@@ -632,7 +691,16 @@ def render_generate_tab() -> None:
             st.caption(f"Seed used: {_format_vector(seed)}")
 
     compute_hull = st.checkbox(
-        "Compute 4D convex hull (adds faces and cells to the export)", value=True
+        "Compute 4D convex hull (adds faces and cells to the export)",
+        value=not is_continuous,
+        disabled=is_continuous,
+        key=f"compute_hull_{'continuous' if is_continuous else 'finite'}",
+        help=(
+            "A continuous orbit sample is not a finite polychoron, so a convex hull is "
+            "not computed."
+            if is_continuous
+            else None
+        ),
     )
     if st.button("Generate vertices", type="primary", disabled=seed is None):
         orbit_tol = float(tol)
@@ -643,9 +711,17 @@ def render_generate_tab() -> None:
         started = time.perf_counter()
         status = st.status("Generating vertices...", expanded=True)
         try:
-            vertices = _cached_generate(
-                tuple(float(x) for x in seed), symmetry_name, orbit_tol, int(max_vertices)
-            )
+            if is_continuous:
+                vertices = generate_continuous_approximation(
+                    seed,
+                    symmetry_name,
+                    samples_per_angle=DEFAULT_SAMPLES_PER_ANGLE,
+                    max_vertices=int(max_vertices),
+                )
+            else:
+                vertices = _cached_generate(
+                    tuple(float(x) for x in seed), symmetry_name, orbit_tol, int(max_vertices)
+                )
             status.write(
                 f"✅ {len(vertices):,} vertices ({time.perf_counter() - started:.1f} s)"
             )
@@ -672,6 +748,9 @@ def render_generate_tab() -> None:
                 "faces": faces,
                 "cells": cells,
                 "hull_error": hull_error,
+                "approximation_samples_per_angle": (
+                    DEFAULT_SAMPLES_PER_ANGLE if is_continuous else None
+                ),
             }
             status.update(
                 label=f"Done in {time.perf_counter() - started:.1f} s",
@@ -692,9 +771,14 @@ def render_generate_tab() -> None:
     vertices = result["vertices"]
     st.subheader(f"Result: {_describe(result['symmetry'])}")
     st.caption(f"Seed {_format_vector(result['seed'])}")
+    if result["approximation_samples_per_angle"] is not None:
+        st.warning(
+            "This is a finite angular sample of a continuous orbit, not an exact finite "
+            "symmetry orbit. Convex-hull and local vertex views are disabled."
+        )
     metrics = st.columns(4)
     metrics[0].metric("Vertices", len(vertices))
-    if result["order"]:
+    if result["order"] and result["approximation_samples_per_angle"] is None:
         metrics[1].metric(
             "Seed stabilizer order",
             result["order"] // len(vertices),
@@ -706,22 +790,51 @@ def render_generate_tab() -> None:
     if result["hull_error"]:
         st.warning(f"Convex hull not computed: {result['hull_error']}")
 
-    st.download_button(
-        "Download 4OFF",
-        data=to_4off(vertices, faces=result["faces"], cells=result["cells"]),
-        file_name=f"{result['symmetry']}_vertices_{len(vertices)}.off",
-        mime="text/plain",
-        type="primary",
-    )
-    st.subheader("Around one vertex")
-    st.caption(
-        "Every vertex is equivalent under the symmetry, so one vertex's neighbourhood "
-        "shows what the whole shape looks like locally."
-    )
-    render_local_view(vertices, 0, result["faces"])
+    if len(vertices) <= 500_000:
+        st.download_button(
+            "Download 4OFF",
+            data=to_4off(vertices, faces=result["faces"], cells=result["cells"]),
+            file_name=f"{result['symmetry']}_vertices_{len(vertices)}.off",
+            mime="text/plain",
+            type="primary",
+        )
+    elif result["approximation_samples_per_angle"] is not None:
+        st.info(
+            "This sample is too large for a browser download. Use the CLI to write the full "
+            "4OFF file locally."
+        )
 
-    with st.expander("All vertex coordinates"):
-        st.dataframe(_vertices_frame(vertices), height=280, width="stretch")
+    if result["approximation_samples_per_angle"] is not None:
+        st.subheader("Sampled 3D projection")
+        stride = max(1, len(vertices) // 10_000)
+        preview = vertices[::stride]
+        figure = go.Figure(
+            data=[
+                go.Scatter3d(
+                    x=preview[:, 0],
+                    y=preview[:, 1],
+                    z=preview[:, 2],
+                    mode="markers",
+                    marker={"size": 1.5},
+                )
+            ]
+        )
+        figure.update_layout(
+            scene={"aspectmode": "data"},
+            margin={"l": 0, "r": 0, "t": 0, "b": 0},
+            height=600,
+        )
+        st.plotly_chart(figure, width="stretch", config={"scrollZoom": False})
+    else:
+        st.subheader("Around one vertex")
+        st.caption(
+            "Every vertex is equivalent under the symmetry, so one vertex's neighbourhood "
+            "shows what the whole shape looks like locally."
+        )
+        render_local_view(vertices, 0, result["faces"])
+
+        with st.expander("All vertex coordinates"):
+            st.dataframe(_vertices_frame(vertices), height=280, width="stretch")
 
 
 def _render_split_local_view(vertices: np.ndarray, orbit_ids: list[int]) -> None:
@@ -941,6 +1054,7 @@ def render_page_tab(page: Path, caption: str) -> None:
 
 
 NONCONVEX_TITLE = "Non-convex generator (beta)"
+POLYTWISTER_TITLE = "Hard polytwisters (beta)"
 NC_MAX_VERTICES = 3000  # building faces and cells is much slower than generating the orbit
 NC_MAX_SEARCH_VERTICES = 400
 NC_EDGES_REFLECTION = "Mirror edges (Coxeter diagram)"
@@ -1009,7 +1123,9 @@ def _nc_corner_classes(symmetry_name: str, vertices: np.ndarray, edges: tuple[tu
 
 def _nc_symmetry_picker() -> str:
     left, right = st.columns(2)
-    families = {key: value for key, value in GROUP_OPTIONS.items() if key != "h4_tubical"}
+    families = {
+        key: value for key, value in GROUP_OPTIONS.items() if key not in ("round",)
+    }
     keys = tuple(families)
     family = left.selectbox(
         "Symmetry family",
@@ -1032,6 +1148,38 @@ def _nc_symmetry_picker() -> str:
                 (f"duoprism_{p}_{q}_extended", f"Extended [[{p},2,{q}]]"),
                 (f"duoprism_{p}_{q}_chiral_extended", f"Chiral extended [[{p},2,{q}]]+"),
             ]
+    elif family == "h4_tubical":
+        st.caption(
+            "Polytwister approximations: the tubical (swirl) groups with a large n. "
+            "Tetrahedral ~ tetteric, octahedral ~ cubiteric, icosahedral ~ doteric; "
+            "cyclic is the chiral (ki) form."
+        )
+        factor = left.selectbox(
+            "Polyhedral factor",
+            options=tuple(TUBICAL_FAMILIES),
+            format_func=lambda value: value.capitalize(),
+            key="nc_tubical_factor",
+        )
+        family_options = TUBICAL_FAMILIES[factor]
+        tubical_family = right.selectbox(
+            "Tubical subgroup",
+            options=tuple(family_options),
+            format_func=lambda value: family_options[value][0],
+            key="nc_tubical_family",
+        )
+        n = st.number_input(
+            "Family parameter n",
+            min_value=family_options[tubical_family][1],
+            max_value=120,
+            value=max(family_options[tubical_family][1], 5),
+            step=1,
+            key="nc_tubical_n",
+        )
+        if factor == "icosahedral" and n == 5:
+            name = "h4_swirlprism+" if tubical_family == "cyclic" else "h4_swirlprism"
+        else:
+            name = f"h4_tubical_{factor}_{tubical_family}_{int(n)}"
+        return name
     else:
         choices = list(families[family][1])
     labels = dict(choices)
@@ -1369,8 +1517,83 @@ def render_oct_tab() -> None:
     )
 
 
-generate_tab, analyze_tab, domain_tab, oct_tab, nonconvex_tab = st.tabs(
-    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, OCT_TITLE, NONCONVEX_TITLE]
+def _project_4d(points: np.ndarray, xw: float, zw: float, distance: float) -> np.ndarray:
+    pts = np.asarray(points, dtype=float).copy()
+    for axis, angle in ((0, xw), (2, zw)):
+        c, s_ = np.cos(np.radians(angle)), np.sin(np.radians(angle))
+        pts[..., [axis, 3]] = pts[..., [axis, 3]] @ np.array([[c, s_], [-s_, c]])
+    return pts[..., :3] / (distance - pts[..., 3:4]) * distance
+
+
+def render_polytwister_tab() -> None:
+    st.warning(
+        "Beta. Hard polytwisters are built directly as intersections of cycloplanes, "
+        "not from an edge-orbit search."
+    )
+    st.markdown(
+        "A **hard** polytwister is the intersection of cylinders `|<y, q>| <= 1`, one per "
+        "direction of the base polyhedron (the dual of the ring convex hull, so it is isohedral). "
+        "Its **rings** are circles where three cylinders meet, its **strips** are the twisted "
+        "surfaces where two meet, and its **twisters** are the curved facets. Here the tetrahedron "
+        "gives the tetter {3,3}: 4 rings, 6 strips, 4 twisters."
+    )
+    left, right = st.columns(2)
+    ring_samples = int(left.number_input("Points per ring", 12, 720, 120, 12, key="pt_ring_samples"))
+    strip_lines = int(right.number_input("Lines across each strip", 4, 240, 24, 4, key="pt_strip_lines"))
+    xw = left.slider("Rotate in XW (degrees)", -180, 180, 20, key="pt_xw")
+    zw = right.slider("Rotate in ZW (degrees)", -180, 180, 30, key="pt_zw")
+
+    shape = hard_polytwister()
+    rings = shape.ring_points(ring_samples)
+    lines = shape.strip_lines(strip_lines)
+    distance = 2.5 * float(np.max(np.linalg.norm(rings, axis=-1)))
+    cols = st.columns(4)
+    for col, (label, value) in zip(
+        cols,
+        [
+            ("Rings", len(rings)),
+            ("Ring points", rings.shape[0] * rings.shape[1]),
+            ("Strips", len(shape.strip_curves)),
+            ("Strip lines", len(lines)),
+        ],
+    ):
+        col.metric(label, value)
+
+    fig = go.Figure()
+    xs: list[float | None] = []
+    ys: list[float | None] = []
+    zs: list[float | None] = []
+    for line in lines:
+        xyz = _project_4d(line, xw, zw, distance)
+        xs += [*xyz[:, 0], None]
+        ys += [*xyz[:, 1], None]
+        zs += [*xyz[:, 2], None]
+    fig.add_trace(
+        go.Scatter3d(x=xs, y=ys, z=zs, mode="lines", line={"width": 1, "color": "#8888cc"}, hoverinfo="skip", name="strips")
+    )
+    colors = ("#d62728", "#2ca02c", "#1f77b4", "#ff7f0e")
+    for index, ring in enumerate(rings):
+        xyz = _project_4d(np.vstack([ring, ring[:1]]), xw, zw, distance)
+        fig.add_trace(
+            go.Scatter3d(
+                x=xyz[:, 0], y=xyz[:, 1], z=xyz[:, 2], mode="lines+markers",
+                line={"width": 4, "color": colors[index % 4]}, marker={"size": 2},
+                hoverinfo="skip", name=f"ring {index + 1}",
+            )
+        )
+    fig.update_layout(
+        height=620, margin={"l": 0, "r": 0, "t": 0, "b": 0}, showlegend=True,
+        scene={"aspectmode": "data", "xaxis_visible": False, "yaxis_visible": False, "zaxis_visible": False},
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.caption(
+        "Perspective view of the rings (thick) and the strip lines. Each strip line runs from one "
+        "ring to another along the strip at a fixed phase; together they show the full twist."
+    )
+
+
+generate_tab, analyze_tab, domain_tab, oct_tab, nonconvex_tab, polytwister_tab = st.tabs(
+    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, OCT_TITLE, NONCONVEX_TITLE, POLYTWISTER_TITLE]
 )
 with generate_tab:
     render_generate_tab()
@@ -1382,4 +1605,6 @@ with oct_tab:
     render_oct_tab()
 with nonconvex_tab:
     render_nonconvex_tab()
+with polytwister_tab:
+    render_polytwister_tab()
 let_wheel_scroll_page()

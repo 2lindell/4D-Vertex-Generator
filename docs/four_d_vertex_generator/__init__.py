@@ -1,5 +1,11 @@
 """Top-level package for 4D vertex isogonality enumeration."""
 
+from .continuous import (
+    CONTINUOUS_SYMMETRIES,
+    DEFAULT_SAMPLES_PER_ANGLE,
+    continuous_approximation_vertex_count,
+    generate_continuous_approximation,
+)
 from .generation import generate_vertices_from_seed
 from .isogonal import OrbitPartition, compute_orbits, detect_symmetries, split_by_orbits
 from .off import compute_convex_hull, parse_4off, to_4off
@@ -20,6 +26,10 @@ from .symmetry import SymmetryAction
 
 __all__ = [
     "SymmetryAction",
+    "CONTINUOUS_SYMMETRIES",
+    "DEFAULT_SAMPLES_PER_ANGLE",
+    "continuous_approximation_vertex_count",
+    "generate_continuous_approximation",
     "generate_vertices_from_seed",
     "OrbitPartition",
     "compute_orbits",

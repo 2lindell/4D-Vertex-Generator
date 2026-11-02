@@ -145,8 +145,13 @@ orbits. The tab has a *How to use this tab* panel with worked examples.
 | `--out-off PATH` | Yes | Requested output path; the vertex count is added to its filename. |
 | `--hull` | No | Compute 4D convex hull to include faces and cells in output 4OFF. |
 | `--tol FLOAT` | No | Coordinate quantization tolerance; default `1e-8`. |
-| `--max-vertices INT` | No | Generation safety cap; default `20000`. |
+| `--max-vertices INT` | No | Safety cap; default `20000` for finite groups and `2000000` for continuous samples. |
+| `--samples-per-angle INT` | No | Continuous sample resolution; default `120`. |
 | `--list-symmetries` | No | Print every symmetry name with its group order and exit. |
+
+Continuous groups produce sampled 4OFF vertices, not exact group orbits; `--hull`
+is not available for them. The 120-step glomic output is large, so `--max-vertices`
+may be set explicitly to a lower cap if desired.
 
 Use `--help` to see the argument parser's built-in help. With `--hull`, the
 face and cell counts are printed as well.
@@ -177,7 +182,8 @@ command reports so instead of writing any files.
 
 ## Built-in symmetry families
 
-The exact names accepted by the CLI are defined by `available_symmetries()`.
+Finite names accepted by the CLI are defined by `available_symmetries()`;
+continuous names are listed in `CONTINUOUS_SYMMETRIES`.
 The main families are:
 
 - **Elementary coordinate groups:** `identity`, coordinate permutations,
@@ -185,6 +191,25 @@ The main families are:
 - **Coxeter groups:** `a4`, `b4`/`hyperoctahedral`, `d4`, `f4`, and `h4`.
   A trailing `+` selects the orientation-preserving chiral generators where
   available.
+- **Fully 4D families from the symmetry reference:** `pennic`, `kipennic`,
+  `decaic`, `kidecaic`, `iodecaic`, `tessic`, `kitessic`, `demitessic`,
+  `kidemitessic`, `tessipyritic`, `icoic`, `kiicoic`, `contic`, `kicontic`,
+  `iocontic`, `icopyritic`, `toxitic`, `oxitic`, `hyic`, `kihyic`, `ixitic`,
+  and `ixoic`. Names matching an existing group are aliases of it; only
+  `icopyritic`, `ixitic`, and `ixoic` are new groups.
+- **Round / continuous groups:** `glomic`, `kiglomic`, `hopfic`, and
+  `kihopfic`. These are sampled approximations, not finite-group closures.
+- **Polytwister groups:** `tetteric`, `cubiteric`, and `doteric` (continuous
+  forms of the tetrahedral, octahedral, and icosahedral swirlprism symmetries)
+  and their chiral `ki` forms `kitetteric`, `kicubiteric`, and `kidoteric`.
+  The seed's Hopf image is mapped by the polyhedral point group and each image
+  becomes a ring of `--samples-per-angle` points (rings only; no strips or
+  twisters). For the non-convex generator tab, use the finite tubical groups
+  with a large `n` instead (`h4_tubical_tetrahedral_*`, `_octahedral_*`,
+  `_icosahedral_*`; cyclic is the chiral `ki` form): they are the finite
+  swirlprism groups these continuous symmetries are the limit of.
+  The default is 120 samples per angle: a generic glome orbit has 1,699,440
+  points, and a generic Hopf orbit has 14,400.
 - **Subgroups and extensions:** ionic, half, prismatic, diminished, and
   extended variants exposed by the UI and symmetry library.
 - **Duoprisms:** `duoprism_p_q` and `duoprism_p_q+` for every
@@ -198,11 +223,18 @@ The main families are:
 
 Some names are aliases for the same group (for example `a4_basic` → `a4`,
 `h4_half` → `h4_prismatic`). They are listed in `SYMMETRY_ALIASES`, still
-accepted everywhere a name is taken, and hidden from the UI pickers,
-`--list-symmetries`, and symmetry detection so the same group is not reported
-twice. Note that `b4` and `hyperoctahedral` are the same abstract group in
-different coordinate bases (Coxeter roots vs. signed permutations), as are `h4`
-and `h4_icosian`.
+accepted everywhere a name is taken, and hidden from symmetry detection so the
+same group is not reported twice. The named families above are visible in the
+UI and `--list-symmetries`. Note that `b4` and `hyperoctahedral` are the same
+abstract group in different coordinate bases (Coxeter roots vs.
+signed permutations), as are `h4` and `h4_icosian`.
+
+Continuous groups use a separate angular sampler. Glomic and kiglomic samples
+cover the 3-sphere using two circle angles and a latitude-like angle; hopfic and
+kihopfic samples use the two circle angles of a Hopf orbit. Continuous samples
+cannot be convex-hulled as exact polychora or used for finite-group isogonal
+detection. The browser app skips 4OFF downloads above 500,000 points; use the
+CLI for those large samples.
 
 ### Fundamental chambers
 
@@ -222,6 +254,7 @@ import numpy as np
 from four_d_vertex_generator import (
     compute_convex_hull,
     compute_orbits,
+    generate_continuous_approximation,
     generate_vertices_from_seed,
     to_4off,
 )
@@ -239,6 +272,11 @@ faces, cells = compute_convex_hull(vertices)
 print(len(vertices), len(faces), len(cells))
 text = to_4off(vertices, faces=faces, cells=cells)
 # Or compute hull automatically: text = to_4off(vertices, compute_hull=True)
+
+# Approximate a continuous glome orbit with 120 samples per angle
+sample = generate_continuous_approximation(
+    seed, "glomic", samples_per_angle=120, max_vertices=2_000_000
+)
 ```
 
 `generate_vertices_from_seed` performs a breadth-first closure over the action's
