@@ -1,3 +1,5 @@
+> **Superseded.** This was the first kidecaic attempt, a plane-only arrangement. Kidecaic walls are curved, so it merged and split regions wrongly (it missed mebosid/gabosid and counted 5 shapes that were artifacts). Final results: decaic_snub_shapes.md.
+
 # Kidecaic ([[3,3,3]]+, order 120) shapes
 
 34 shapes found; on the list: 31; missing: ['gabosid', 'mebosid']; not on the list: 5; all names and degrees match: **False**.

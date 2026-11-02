@@ -1,58 +1,63 @@
 # Kidecaic and iodecaic shapes (the snub subgroups of [[3,3,3]])
 
-Domain: the decaic domain beta >= 0, b1 >= b4 (seeds differing by a decaic element give congruent polytopes). On the mirrors the orbits are the decaic ones, so every decaic shape on a mirror (bideca, apid, spid, deca, respid, redeca, bited, biped, bimted, mabred, sabred, gabred, tispid, tabipard, tadeca, tabcated, sabipard, mabipard, gabipard, sobcated, mobcated, gobcated) is also kidecaic and iodecaic. On the gippid line b1 = b4, b2 = b3: kidecaic gives snad (60 vertices: 10 snits, 20 traps, 60 tets), iodecaic keeps gippid.
+Final results: the curved-wall map (snub_map.py), with every wall shape reclassified on points exactly on its surface (wall_shapes.py). This replaces the earlier plane-only kidecaic table (decaic_shapes_ki.md, superseded) and the first version of this file, which counted shapes registered at points ~1e-11 off a wall (not sound to classify).
 
-Inside, the walls are curved (quadrics and quartics as well as planes), so the map is a grid (N = 40, 4389 points shifted off the lattice) classified exactly, its changes bisected and put on the exact surface (snub_map.py). Every region type's margin (the least distance of a vertex from the 3-flat of a cell it is not on) is far above the hull tolerance (margin.py). Matched to the list by edge valences (edges.py).
+| | kidecaic | iodecaic |
+|---|---|---|
+| shared with decaic (on the mirrors: same orbits) | 22 | 22 |
+| on the gippid line | snad | gippid |
+| on the list, own regions | 4 (sabosid, apbosid, mebosid, gabosid) | 2 (sosbid, gosbid) |
+| on the list, own walls | 4 (sigwebosid, gigwebosid, tetbosid, petbosid) | 2 (tetosbid, petosbid) |
+| **total on the list** | **31** (all found) | **27** (all found) |
+| new regions | 9 | 1 |
+| new walls | 11 | 1 |
+| **total found** | **51** | **29** |
 
-## Kidecaic
+Shared with decaic: bideca, apid, spid, deca, respid, redeca (points); bited, biped, bimted, mabred, sabred, gabred, tispid, tabipard, tadeca, tabcated (lines); sabipard, mabipard, gabipard, sobcated, mobcated, gobcated (walls).
 
-| list name | kind | vertices | cells | edges by valence | grid points | surface | example seed |
-|---|---|---|---|---|---|---|---|
-| mebosid / gabosid (560, nearer gabred) | region | 120 | 560 | {3: 360, 4: 180, 5: 120, 6: 60, 8: 60, 10: 60} | 456 |  | [0.0501, 0.0253, 0.8993, 0.0254] |
-| **not on the list** | region | 120 | 560 | {3: 240, 4: 360, 6: 120, 8: 120} | 6 |  | [0.0501, 0.0752, 0.8493, 0.0254] |
-| **not on the list** | region | 120 | 680 | {3: 360, 4: 360, 6: 60, 8: 60, 10: 120} | 14 |  | [0.0501, 0.1501, 0.7744, 0.0254] |
-| **not on the list** | region | 120 | 680 | {3: 360, 4: 300, 6: 180, 10: 120} | 4 |  | [0.0501, 0.3249, 0.5996, 0.0254] |
-| **not on the list** | region | 120 | 560 | {3: 120, 4: 600, 8: 60, 10: 60} | 45 |  | [0.0501, 0.3499, 0.5747, 0.0254] |
-| apbosid | region | 120 | 420 | {3: 360, 4: 300, 8: 120} | 936 |  | [0.0501, 0.4498, 0.4748, 0.0254] |
-| sabosid | region | 120 | 440 | {3: 120, 4: 420, 5: 120, 8: 60} | 2109 |  | [0.0501, 0.4747, 0.4498, 0.0254] |
-| mebosid / gabosid (560, along the gippid/snad line) | region | 120 | 560 | {3: 360, 4: 180, 5: 120, 6: 60, 8: 60, 10: 60} | 711 |  | [0.075, 0.4498, 0.4498, 0.0254] |
-| **not on the list** | region | 120 | 560 | {3: 240, 4: 420, 6: 60, 8: 60, 10: 60} | 72 |  | [0.4246, 0.1002, 0.1252, 0.35] |
-| **not on the list** | region | 120 | 560 | {3: 120, 4: 540, 6: 60, 8: 120} | 19 |  | [0.5745, 0.0253, 0.0253, 0.375] |
-| **not on the list** | region | 120 | 680 | {3: 360, 4: 300, 6: 180, 10: 120} | 7 |  | [0.5745, 0.0253, 0.0503, 0.35] |
-| **not on the list** | region | 120 | 680 | {3: 360, 4: 240, 5: 120, 6: 120, 10: 120} | 9 |  | [0.6244, 0.0253, 0.0503, 0.3001] |
-| **not on the list** | region | 120 | 680 | {3: 360, 4: 300, 6: 120, 8: 120, 10: 60} | 1 |  | [0.6244, 0.0253, 0.1002, 0.2501] |
-| **not on the list** | wall | 120 | 380 | {3: 300, 4: 240, 5: 60, 6: 60, 8: 60} |  | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2 | [0.0501, 0.067, 0.8575, 0.0254] |
-| **not on the list** | wall | 120 | 440 | {3: 480, 4: 180, 6: 60, 8: 120} |  |  | [0.0622, 0.1251, 0.7873, 0.0254] |
-| **not on the list** | wall | 120 | 500 | {3: 360, 4: 240, 5: 60, 6: 60, 8: 60, 9: 60} |  | b1*b2 - b3*b4 | [0.0668, 0.25, 0.6578, 0.0254] |
-| **not on the list** | wall | 120 | 500 | {3: 420, 4: 120, 5: 60, 6: 120, 8: 120} |  | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2 | [0.0648, 0.3101, 0.5996, 0.0254] |
-| **not on the list** | wall | 120 | 680 | {3: 360, 4: 180, 5: 120, 6: 180, 8: 60, 10: 60} |  |  | [0.0501, 0.3455, 0.579, 0.0254] |
-| tetbosid | wall | 120 | 240 | {3: 300, 4: 120, 5: 60, 6: 60} |  | 3*b1 + b2 - b3 - 3*b4 | [0.0503, 0.4248, 0.4995, 0.0254] |
-| **not on the list** | wall | 120 | 380 | {3: 300, 4: 300, 7: 60, 8: 60} |  | b1*b2 - b3*b4 | [0.1252, 0.3499, 0.4246, 0.1003] |
-| petbosid | wall | 120 | 230 | {3: 420, 4: 60, 5: 60, 6: 60} |  | b1 + 2*b2 - 2*b3 - b4 | [0.0585, 0.4498, 0.4663, 0.0254] |
-| **not on the list** | wall | 120 | 280 | {3: 420, 4: 120, 6: 60, 7: 60} |  |  | [0.2498, 0.2938, 0.381, 0.0753] |
-| **not on the list** | wall | 120 | 320 | {3: 240, 4: 300, 6: 120} |  |  | [0.3124, 0.25, 0.3749, 0.0627] |
-| **not on the list** | wall | 120 | 380 | {3: 300, 4: 300, 7: 60, 8: 60} |  | b1*b2 - b3*b4 | [0.4492, 0.1005, 0.2001, 0.2501] |
-| gigwebosid | wall | 120 | 320 | {3: 240, 4: 360, 8: 60} |  | b2 - b3 | [0.1749, 0.3499, 0.3499, 0.1253] |
-| **not on the list** | wall | 120 | 320 | {3: 240, 4: 300, 6: 120} |  |  | [0.2998, 0.0879, 0.4248, 0.1875] |
-| **not on the list** | wall | 120 | 300 | {3: 360, 4: 180, 6: 60, 8: 60} |  |  | [0.3247, 0.038, 0.4498, 0.1875] |
-| **not on the list** | wall | 120 | 380 | {3: 300, 4: 240, 5: 60, 6: 60, 8: 60} |  | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2 | [0.5529, 0.0253, 0.0253, 0.3966] |
-| **not on the list** | wall | 120 | 440 | {3: 480, 4: 180, 6: 60, 8: 120} |  | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2* | [0.569, 0.0253, 0.0557, 0.35] |
-| **not on the list** | wall | 120 | 440 | {3: 360, 4: 360, 8: 120} |  | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2* | [0.5745, 0.0253, 0.0381, 0.3622] |
-| **not on the list** | wall | 120 | 500 | {3: 360, 4: 240, 5: 60, 6: 60, 8: 60, 9: 60} |  | b1*b2 - b3*b4 | [0.6152, 0.0253, 0.0503, 0.3092] |
-| **not on the list** | wall | 120 | 500 | {3: 420, 4: 120, 5: 60, 6: 120, 8: 120} |  |  | [0.6244, 0.0253, 0.0954, 0.255] |
-| sigwebosid | wall (fold b1 = b4) | 120 | 290 | {3: 300, 4: 300, 7: 60} | 361 |  | [0.0251, 0.0253, 0.9245, 0.0251] |
+Seeds and .off files for the new ones: ../new_shapes/new_shapes.md; optimized seeds for all: ../optimized_off/README.md.
 
-## Iodecaic
+## Kidecaic: own shapes
 
-| list name | kind | vertices | cells | edges by valence | grid points | surface | example seed |
-|---|---|---|---|---|---|---|---|
-| sosbid | region | 120 | 380 | {3: 120, 4: 300, 5: 240} | 3445 |  | [0.0501, 0.0253, 0.8993, 0.0254] |
-| **not on the list** | region | 120 | 500 | {3: 240, 4: 120, 5: 240, 6: 180} | 8 |  | [0.0501, 0.2001, 0.7245, 0.0254] |
-| gosbid | region | 120 | 360 | {3: 360, 4: 60, 5: 240, 6: 60} | 936 |  | [0.0501, 0.4498, 0.4748, 0.0254] |
-| **not on the list** | wall | 120 | 260 | {3: 240, 4: 420} |  | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2* | [0.0517, 0.1751, 0.7478, 0.0254] |
-| tetosbid | wall | 120 | 180 | {3: 240, 4: 240} |  | 3*b1 + b2 - b3 - 3*b4 | [0.1085, 0.3499, 0.4748, 0.0669] |
-| **not on the list** | wall | 120 | 260 | {3: 120, 4: 480} |  |  | [0.1999, 0.3437, 0.431, 0.0254] |
-| **not on the list** | wall | 120 | 260 | {3: 120, 4: 480} |  |  | [0.2666, 0.0502, 0.5996, 0.0835] |
-| **not on the list** | wall | 120 | 240 | {3: 240, 4: 300, 6: 60} |  |  | [0.2748, 0.038, 0.5996, 0.0876] |
-| petosbid | wall | 120 | 170 | {3: 360, 4: 180} |  | b1 + 2*b2 - 2*b3 - b4 | [0.4246, 0.1086, 0.1751, 0.2916] |
+| name | kind | vertices | cells | edges by valence | surface | seed beta |
+|---|---|---|---|---|---|---|
+| mebosid | region | 120 | 560 | {3: 360, 4: 180, 5: 120, 6: 60, 8: 60, 10: 60} |  | [0.050072, 0.025267, 0.899268, 0.025393] |
+| **new region 1** | region | 120 | 560 | {3: 240, 4: 360, 6: 120, 8: 120} |  | [0.050072, 0.075207, 0.849327, 0.025393] |
+| **new region 2** | region | 120 | 680 | {3: 360, 4: 360, 6: 60, 8: 60, 10: 120} |  | [0.050072, 0.150119, 0.774416, 0.025393] |
+| **new region 3** | region | 120 | 680 | {3: 360, 4: 300, 6: 180, 10: 120} |  | [0.050072, 0.324912, 0.599623, 0.025393] |
+| **new region 4** | region | 120 | 560 | {3: 120, 4: 600, 8: 60, 10: 60} |  | [0.050072, 0.349882, 0.574653, 0.025393] |
+| apbosid | region | 120 | 420 | {3: 360, 4: 300, 8: 120} |  | [0.050072, 0.449764, 0.474771, 0.025393] |
+| sabosid | region | 120 | 440 | {3: 120, 4: 420, 5: 120, 8: 60} |  | [0.050072, 0.474734, 0.449801, 0.025393] |
+| gabosid | region | 120 | 560 | {3: 360, 4: 180, 5: 120, 6: 60, 8: 60, 10: 60} |  | [0.075043, 0.449764, 0.449801, 0.025393] |
+| **new region 5** | region | 120 | 560 | {3: 240, 4: 420, 6: 60, 8: 60, 10: 60} |  | [0.424628, 0.100178, 0.125185, 0.350009] |
+| **new region 6** | region | 120 | 560 | {3: 120, 4: 540, 6: 60, 8: 120} |  | [0.574451, 0.025267, 0.025304, 0.374979] |
+| **new region 7** | region | 120 | 680 | {3: 360, 4: 300, 6: 180, 10: 120} |  | [0.574451, 0.025267, 0.050274, 0.350009] |
+| **new region 8** | region | 120 | 680 | {3: 360, 4: 240, 5: 120, 6: 120, 10: 120} |  | [0.624392, 0.025267, 0.050274, 0.300068] |
+| **new region 9** | region | 120 | 680 | {3: 360, 4: 300, 6: 120, 8: 120, 10: 60} |  | [0.624392, 0.025267, 0.100215, 0.250127] |
+| sigwebosid | wall | 120 | 290 | {3: 300, 4: 300, 7: 60} | b1 = b4 (fold) | [0.025109, 0.025274, 0.924508, 0.025109] |
+| **new wall 1** | wall | 120 | 380 | {3: 300, 4: 240, 5: 60, 6: 60, 8: 60} | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2 | [0.050072, 0.067041, 0.857494, 0.025393] |
+| **new wall 2** | wall | 120 | 440 | {3: 480, 4: 180, 6: 60, 8: 120} | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*b1*b2**2*b4 - b1*b2*b3**2 - 5* | [0.062209, 0.125148, 0.78725, 0.025393] |
+| **new wall 3** | wall | 120 | 500 | {3: 360, 4: 240, 5: 60, 6: 60, 8: 60, 9: 60} | b1*b2 - b3*b4 | [0.066814, 0.25, 0.657793, 0.025393] |
+| **new wall 4** | wall | 120 | 500 | {3: 420, 4: 120, 5: 60, 6: 120, 8: 120} | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2 | [0.06484, 0.310143, 0.599623, 0.025393] |
+| tetbosid | wall | 120 | 240 | {3: 300, 4: 120, 5: 60, 6: 60} | 3*b1 + b2 - b3 - 3*b4 | [0.062785, 0.399823, 0.511999, 0.025393] |
+| petbosid | wall | 120 | 230 | {3: 420, 4: 60, 5: 60, 6: 60} | b1 + 2*b2 - 2*b3 - b4 | [0.058517, 0.449764, 0.466326, 0.025393] |
+| gigwebosid | wall | 120 | 320 | {3: 240, 4: 360, 8: 60} | b2 - b3 | [0.075005, 0.449801, 0.449801, 0.025393] |
+| **new wall 5** | wall | 120 | 380 | {3: 300, 4: 300, 7: 60, 8: 60} | b1*b2 - b3*b4 | [0.075043, 0.268147, 0.624594, 0.032217] |
+| **new wall 6** | wall | 120 | 380 | {3: 300, 4: 300, 7: 60, 8: 60} | b1*b2 - b3*b4 | [0.420642, 0.104164, 0.125185, 0.350009] |
+| **new wall 7** | wall | 120 | 380 | {3: 300, 4: 240, 5: 60, 6: 60, 8: 60} | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2 | [0.722849, 0.026691, 0.100215, 0.150245] |
+| **new wall 8** | wall | 120 | 440 | {3: 480, 4: 180, 6: 60, 8: 120} | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*b1*b2**2*b4 - b1*b2*b3**2 - 5* | [0.565896, 0.025267, 0.050274, 0.358563] |
+| **new wall 9** | wall | 120 | 440 | {3: 360, 4: 360, 8: 120} | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5* | [0.574451, 0.025267, 0.038065, 0.362217] |
+| **new wall 10** | wall | 120 | 500 | {3: 360, 4: 240, 5: 60, 6: 60, 8: 60, 9: 60} | b1*b2 - b3*b4 | [0.61525, 0.025267, 0.050274, 0.30921] |
+| **new wall 11** | wall | 120 | 500 | {3: 420, 4: 120, 5: 60, 6: 120, 8: 120} | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2 | [0.624392, 0.025267, 0.095372, 0.254969] |
+
+## Iodecaic: own shapes
+
+| name | kind | vertices | cells | edges by valence | surface | seed beta |
+|---|---|---|---|---|---|---|
+| sosbid | region | 120 | 380 | {3: 120, 4: 300, 5: 240} |  | [0.050072, 0.025267, 0.899268, 0.025393] |
+| **new region 1** | region | 120 | 500 | {3: 240, 4: 120, 5: 240, 6: 180} |  | [0.050072, 0.200059, 0.724475, 0.025393] |
+| gosbid | region | 120 | 360 | {3: 360, 4: 60, 5: 240, 6: 60} |  | [0.050072, 0.449764, 0.474771, 0.025393] |
+| **new wall 1** | wall | 120 | 260 | {3: 240, 4: 420} | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5* | [0.057401, 0.150119, 0.767087, 0.025393] |
+| tetosbid | wall | 120 | 180 | {3: 240, 4: 240} | 3*b1 + b2 - b3 - 3*b4 | [0.062785, 0.399823, 0.511999, 0.025393] |
+| petosbid | wall | 120 | 170 | {3: 360, 4: 180} | b1 + 2*b2 - 2*b3 - b4 | [0.199895, 0.343731, 0.430982, 0.025393] |
 
