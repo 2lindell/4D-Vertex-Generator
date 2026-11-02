@@ -17,6 +17,7 @@ import json
 
 import numpy as np
 
+from .chords import FACE_N
 from .frame import data_dir, group, load_json, point_from_beta, source_dir
 from .wall_meets import resolve, trace
 
@@ -64,7 +65,9 @@ def corner_points(atlas, g):
     from scipy.spatial import cKDTree
     named = _named_points()
     P = np.array([point_from_beta(x) for _, x in named])
-    tree = cKDTree(np.einsum("gij,nj->gni", g, P).reshape(-1, 4))
+    class _Tree(cKDTree):
+        pass
+    tree = _Tree(np.einsum("gij,nj->gni", g, P).reshape(-1, 4))
     tree.names = [n for _ in range(len(g)) for n, _ in named]
     return tree
 
@@ -74,6 +77,12 @@ def _signature(r, keep):
     so the same in every copy)."""
     return tuple(sorted((str(w["wall"]), tuple(sorted(map(str, w["between"]))))
                         for w in r["walls"])) if r else ()
+
+
+def _pulled(surf, M):
+    """Surface surf of copy k, in copy 0's coordinates (beta_k = beta . M): value, gradient."""
+    return lambda x: (float(surf.f((x @ M)[None])[0]),
+                      (lambda gr: gr - gr.mean())(M @ surf.grad((x @ M)[None])[0]))
 
 
 def meeting_pieces(w1, w2, inc, wall_surfs, log=print):
@@ -99,25 +108,35 @@ def meeting_pieces(w1, w2, inc, wall_surfs, log=print):
                     P = P[2:]
                 if len(P) < 3:
                     continue
-                V = np.stack([s.f(P) for s in lib], axis=1)                 # (n, S)
-                G = np.stack([np.linalg.norm(s.grad(P), axis=1) for s in lib], axis=1) + 1e-300
-                rel = np.abs(V) / G
-                on = rel.max(axis=0) < 1e-9                                 # through the whole arc
+                # the surfaces that can cut the arc: copy 0's, and where the arc lies in the
+                # domain's boundary, those of every copy on the other side, pulled back (M_k)
+                frames = [np.eye(4)]
+                if (np.abs(P @ FACE_N.T) < 1e-12).all(axis=0).any():
+                    m = len(P) // 2
+                    basis = np.linalg.svd(np.vstack([np.ones(4), P[m + 1] - P[m - 1]]))[2][2:]
+                    frames += [M for k, (M, _, _) in inc._frames_round(P[m], basis).items() if k]
                 cuts = []                                                   # (index, exact point)
-                sg = np.sign(V)
-                for si in np.flatnonzero(~on):
-                    real = rel[:, si] > 1e-11                # a value at zero has no sign
-                    for i in np.flatnonzero((sg[:-1, si] * sg[1:, si] < 0) & real[:-1] & real[1:]):
-                        t = V[i, si] / (V[i, si] - V[i + 1, si])
-                        x, ok = _solve([_sf(a), _sf(b), _sf(lib[si])], P[i] + t * (P[i + 1] - P[i]))
-                        step = np.linalg.norm(P[i + 1] - P[i])
-                        if not ok or (np.linalg.norm(x - P[i]) + np.linalg.norm(x - P[i + 1])
-                                      > 1.01 * step + 1e-9):
-                            continue                  # solved onto some other crossing
-                        if min(np.linalg.norm(x - P[0]), np.linalg.norm(x - P[-1])) < 1e-6:
-                            continue                  # at the arc's own end
-                        cuts.append((int(i), x))
-                cuts.sort(key=lambda c: c[0])
+                for M in frames:
+                    Q = P @ M
+                    V = np.stack([s.f(Q) for s in lib], axis=1)             # (n, S)
+                    G = np.stack([np.linalg.norm(s.grad(Q), axis=1) for s in lib], axis=1) + 1e-300
+                    rel = np.abs(V) / G
+                    on = rel.max(axis=0) < 1e-9                             # through the whole arc
+                    sg = np.sign(V)
+                    for si in np.flatnonzero(~on):
+                        real = rel[:, si] > 1e-11            # a value at zero has no sign
+                        for i in np.flatnonzero((sg[:-1, si] * sg[1:, si] < 0) & real[:-1] & real[1:]):
+                            t = V[i, si] / (V[i, si] - V[i + 1, si])
+                            x, ok = _solve([_sf(a), _sf(b), _pulled(lib[si], M)],
+                                           P[i] + t * (P[i + 1] - P[i]))
+                            step = np.linalg.norm(P[i + 1] - P[i])
+                            if not ok or (np.linalg.norm(x - P[i]) + np.linalg.norm(x - P[i + 1])
+                                          > 1.01 * step + 1e-9):
+                                continue              # solved onto some other crossing
+                            if min(np.linalg.norm(x - P[0]), np.linalg.norm(x - P[-1])) < 1e-6:
+                                continue              # at the arc's own end
+                            cuts.append((int(i), x))
+                cuts.sort(key=lambda c: (c[0], np.linalg.norm(c[1] - P[c[0]])))   # along the arc
                 # sub-arcs between consecutive cut points (and the arc's own ends)
                 knots = [(0, P[0], "face" if not arc["closed"] else "corner")]
                 for i, x in cuts:                    # several surfaces crossing at one corner: one cut
@@ -194,17 +213,16 @@ def _glue(pieces, g, corners, tol=1e-7):
                          np.linalg.norm(a0 - b1) + np.linalg.norm(a1 - b0)) < 1e-6)
         if same_ends and pieces[pa]["sig"] == pieces[pb]["sig"]:
             union(i, j)
-    # joins: an end on the domain's boundary that is not a corner is where the curve goes on into
-    # the next copy; the image ends meeting there (after equal images are merged) are joined when
-    # what surrounds them is the same. A corner is any image of a known corner point.
+    # joins: at an end that is not one of the atlas's exact meeting points, the image ends meeting
+    # there (after equal images are merged) are joined when what surrounds them is the same (the
+    # curve goes on into the next copy, or nothing round it changes). Where what surrounds it
+    # changes the signatures differ and nothing is joined.
     root = [find(i) for i in range(n)]
     pts, owner = [], []
     for ii, (pi, a, _, b) in enumerate(imgs):
         if root[ii] != ii:
             continue
         for side, p in ((0, a), (1, b)):
-            if pieces[pi]["ends"][side] != "face":
-                continue
             if corners is not None and corners.query(p)[0] < 1e-7:
                 continue
             pts.append(p)
