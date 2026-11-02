@@ -151,7 +151,9 @@ def main():
     for i, e in ch:
         x = np.asarray(e[0])
         d = np.array([s.dist(x) for s in surfs])
-        if d.min() < 1e-7:
+        if x.min() < 1e-8 or abs(x[0] - x[3]) < 1e-8:
+            continue                                    # (the domain's edge)
+        if d.min() < 1e-6:
             sid[i] = surfs[int(d.argmin())].text
         else:
             nosurf.append(i)
@@ -163,13 +165,14 @@ def main():
         for i in nosurf:
             x = np.asarray(E[i][0])
             d = np.array([s.dist(x) for s in surfs])
-            if d.min() < 1e-7:
+            if d.min() < 1e-6:
                 sid[i] = surfs[int(d.argmin())].text
         print(f"{len(nosurf)} changes on no map surface: {len(new)} surfaces added from their forms", flush=True)
     WK = pool.map(wall_key, [(sid[i], E[i][0]) for i, _ in ch if i in sid], chunksize=4)
     wk = dict(zip([i for i, _ in ch if i in sid], WK))
     pool.close()
     res = defaultdict(Counter)
+    newwalls = {}
     detail = defaultdict(list)
     for i, e in enumerate(E):
         k0 = items[i][2]
@@ -182,6 +185,11 @@ def main():
             res[k0][("not ended", "")] += 1
             continue
         kb = e[2]
+        x = np.asarray(e[0])
+        if x.min() < 1e-8 or abs(x[0] - x[3]) < 1e-8:
+            edge = "fold b1 = b4" if abs(x[0] - x[3]) < 1e-8 else f"mirror b{int(np.argmin(x)) + 1} = 0"
+            res[k0][("domain edge", edge)] += 1
+            continue
         if i not in sid:
             verdict = "surface missing"
         elif kb not in reg:
@@ -194,10 +202,14 @@ def main():
                 verdict = "change with no wall shape of its own"
             else:
                 verdict = "wall shape missing"
+                newwalls.setdefault(kw, {"surface": sid[i], "sides": sorted({k0, kb}), "seed": y,
+                                         "signature": G.label(y, 1e-7)[0]})
         res[k0][(verdict, sid.get(i, "")[:60])] += 1
         if verdict not in ("recorded wall", "change with no wall shape of its own"):
             detail[k0].append({"verdict": verdict, "at": e[0], "surface": sid.get(i), "beyond_key": kb})
-    out = {"_about": __doc__.strip().split("\n\n")[0], "regions": {}}
+    out = {"_about": __doc__.strip().split("\n\n")[0], "regions": {}, "new_wall_shapes": newwalls,
+           "ends": [{"region": items[i][2], "end": list(e[:2]), "beyond": e[2] if len(e) > 2 else None,
+                     "surface": sid.get(i), "wall": wk[i][1] if i in wk else None} for i, e in enumerate(E)]}
     for k, v in reg.items():
         bad = {f"{a} | {b}": n for (a, b), n in res[k].items() if a not in ("recorded wall", "domain edge",
                                                                            "change with no wall shape of its own")}
@@ -205,6 +217,8 @@ def main():
                              "open": bad, "examples_open": detail[k][:5]}
         cells = v["signature"].split("|")[0]
         print(f"{k} {cells[:60]:60} " + ("CLOSED" if not bad else f"OPEN {bad}"), flush=True)
+    for kw, w in newwalls.items():
+        print(f"NEW WALL SHAPE {kw} between {w['sides']} on {w['surface'][:70]}  {w['signature'][:90]}", flush=True)
     json.dump(out, open(G.fname("snub_closure"), "w"), indent=1)
 
 

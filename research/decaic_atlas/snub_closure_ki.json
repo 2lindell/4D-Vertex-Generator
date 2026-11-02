@@ -1,0 +1,626 @@
+{
+ "_about": "Is every kidecaic / iodecaic region closed off by recorded walls? (snub_closure_<sub>.json)",
+ "regions": {
+  "2fc31f6bffcc": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x10+120x3+120x3+120x3+120x5",
+   "ends": {
+    "recorded wall | b1 - b4": 34,
+    "surface missing | ": 17,
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 10,
+    "recorded wall | b1*b2 - b3*b4": 13,
+    "recorded wall | 3*b1 + b2 - b3 - 3*b4": 22
+   },
+   "open": {
+    "surface missing | ": 17
+   },
+   "examples_open": [
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.058337175362402724,
+      6.240717078695487e-10,
+      0.8989793244990166,
+      0.04268349951450866
+     ],
+     "surface": null,
+     "beyond_key": "2fc31f6bffcc"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.04582936905482872,
+      3.9068956738175816e-10,
+      0.922834647604531,
+      0.031335982949950394
+     ],
+     "surface": null,
+     "beyond_key": "2fc31f6bffcc"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.08119870194711765,
+      4.2911261844282093e-10,
+      0.8811291517384061,
+      0.03767214588536323
+     ],
+     "surface": null,
+     "beyond_key": "2fc31f6bffcc"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.06473661019472494,
+      3.42954027523629e-10,
+      0.9115979854509048,
+      0.02366540401141614
+     ],
+     "surface": null,
+     "beyond_key": "2fc31f6bffcc"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.09336902390539516,
+      5.607196162192298e-10,
+      0.9003414385962553,
+      0.006289536937630129
+     ],
+     "surface": null,
+     "beyond_key": "2fc31f6bffcc"
+    }
+   ]
+  },
+  "724d6ccc1d56": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x6+60x6+60x8+60x8+120x3+120x3+120x4+120x4",
+   "ends": {
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 25,
+    "recorded wall | b1 - b4": 31,
+    "recorded wall | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*": 39,
+    "surface missing | ": 1
+   },
+   "open": {
+    "surface missing | ": 1
+   },
+   "examples_open": [
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.04965571008698297,
+      0.23941276818538812,
+      0.6614990189255885,
+      0.04943250280204067
+     ],
+     "surface": null,
+     "beyond_key": "2fc31f6bffcc"
+    }
+   ]
+  },
+  "87443d848412": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x6+60x8+60x10+60x10+120x3+120x3+120x3+120x4+120x4",
+   "ends": {
+    "recorded wall | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*": 52,
+    "recorded wall | b1*b2 - b3*b4": 44
+   },
+   "open": {},
+   "examples_open": []
+  },
+  "f9bcb11c2ef2": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+60x6+60x6+60x10+60x10+120x3+120x3+120x3+120x4+120x4",
+   "ends": {
+    "recorded wall | b1*b2 - b3*b4": 39,
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 15,
+    "surface missing | ": 42
+   },
+   "open": {
+    "surface missing | ": 42
+   },
+   "examples_open": [
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.022261215610549764,
+      0.3620511776888197,
+      0.6156876064021726,
+      2.984580404573411e-10
+     ],
+     "surface": null,
+     "beyond_key": "f9bcb11c2ef2"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.05007212600368624,
+      0.3051867119449406,
+      0.6447411618247538,
+      2.2661919815396246e-10
+     ],
+     "surface": null,
+     "beyond_key": "f9bcb11c2ef2"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.05283102939472071,
+      0.36316546185694615,
+      0.5840035086239218,
+      1.2441128368830426e-10
+     ],
+     "surface": null,
+     "beyond_key": "f9bcb11c2ef2"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.04582684780659936,
+      0.33504775180646634,
+      0.6191254001733539,
+      2.1358013068007544e-10
+     ],
+     "surface": null,
+     "beyond_key": "f9bcb11c2ef2"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.07704465222736595,
+      0.3401342658358999,
+      0.5828210818123344,
+      1.2439960263327688e-10
+     ],
+     "surface": null,
+     "beyond_key": "f9bcb11c2ef2"
+    }
+   ]
+  },
+  "9e8a8d2c97cc": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x4+60x8+60x10+120x3+120x4+120x4+120x4",
+   "ends": {
+    "recorded wall | b1*b2 - b3*b4": 42,
+    "wall shape missing | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*": 25,
+    "recorded wall | 3*b1 + b2 - b3 - 3*b4": 29
+   },
+   "open": {
+    "wall shape missing | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*": 25
+   },
+   "examples_open": [
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.04910451379176162,
+      0.34932222654501954,
+      0.5755263779993955,
+      0.026046881663823535
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "74feaf2e976b"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.04973842790477235,
+      0.3500133392895005,
+      0.5748176669901577,
+      0.025430565815569628
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "74feaf2e976b"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.04994370611317103,
+      0.3491170248515644,
+      0.5753662412630794,
+      0.025573027772185123
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "74feaf2e976b"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.04954826546237101,
+      0.3506964294007481,
+      0.5744119227695204,
+      0.02534338236736053
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "74feaf2e976b"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.049940033282350076,
+      0.34987483740825404,
+      0.5748460699577466,
+      0.025339059351649318
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "74feaf2e976b"
+    }
+   ]
+  },
+  "64e947e55c2f": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+40x[6v8f]+60x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x8+60x8+120x3+120x3+120x3+120x4",
+   "ends": {
+    "recorded wall | 3*b1 + b2 - b3 - 3*b4": 27,
+    "recorded wall | b1 + 2*b2 - 2*b3 - b4": 30,
+    "surface missing | ": 39
+   },
+   "open": {
+    "surface missing | ": 39
+   },
+   "examples_open": [
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.26560379266711565,
+      0.07840740770280125,
+      0.6559887995618043,
+      6.827900179013429e-11
+     ],
+     "surface": null,
+     "beyond_key": "64e947e55c2f"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.050072126003686324,
+      0.4300387905302647,
+      0.5198890831596437,
+      3.06405135834327e-10
+     ],
+     "surface": null,
+     "beyond_key": "64e947e55c2f"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.10762379479179712,
+      0.41617848387836576,
+      0.4761977176806663,
+      3.649170992135127e-09
+     ],
+     "surface": null,
+     "beyond_key": "64e947e55c2f"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.04582684799350237,
+      0.45989982988355865,
+      0.4942733207914061,
+      1.3315329745464713e-09
+     ],
+     "surface": null,
+     "beyond_key": "64e947e55c2f"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.06814131759517328,
+      0.4413635276057725,
+      0.4904951534581378,
+      1.340916394188652e-09
+     ],
+     "surface": null,
+     "beyond_key": "64e947e55c2f"
+    }
+   ]
+  },
+  "4d9c541a5feb": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x4+60x4+60x8+120x3+120x4+120x5",
+   "ends": {
+    "recorded wall | b1 - b4": 32,
+    "recorded wall | b2 - b3": 19,
+    "surface missing | ": 43,
+    "change with no wall shape of its own | 3*b1**2*b2*b3 + 4*b1*b2**2*b3 - b1*b2*b3**2 + b1*b2*b4**2 - ": 1,
+    "change with no wall shape of its own | b2**2*b3 + b2*b3**2 - b2*b4**2 + b3**3 + b3**2*b4": 1
+   },
+   "open": {
+    "surface missing | ": 43
+   },
+   "examples_open": [
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.1377205101705513,
+      0.7441008848118347,
+      0.11817860476124159,
+      2.5637258234229935e-10
+     ],
+     "surface": null,
+     "beyond_key": "4d9c541a5feb"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.022261216445392196,
+      0.5118736708019611,
+      0.46586511169192574,
+      1.0607211173915762e-09
+     ],
+     "surface": null,
+     "beyond_key": "4d9c541a5feb"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.21949304246603216,
+      0.46572640520260783,
+      0.3147805509873792,
+      1.3439807622555576e-09
+     ],
+     "surface": null,
+     "beyond_key": "4d9c541a5feb"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.05283102928078013,
+      0.5129879545050913,
+      0.4341810150409918,
+      1.173136732993206e-09
+     ],
+     "surface": null,
+     "beyond_key": "4d9c541a5feb"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.04582684843499721,
+      0.4848702445341005,
+      0.4693029030585855,
+      3.972316898273377e-09
+     ],
+     "surface": null,
+     "beyond_key": "4d9c541a5feb"
+    }
+   ]
+  },
+  "fe385dfcef1d": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x10+120x3+120x3+120x3+120x5",
+   "ends": {
+    "recorded wall | b2 - b3": 32,
+    "recorded wall | b1 + 2*b2 - 2*b3 - b4": 18,
+    "recorded wall | b1*b2 - b3*b4": 14,
+    "surface missing | ": 24,
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 8
+   },
+   "open": {
+    "surface missing | ": 24
+   },
+   "examples_open": [
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.13259420985874282,
+      0.41617848425051895,
+      0.4512273019601887,
+      3.9305494597238705e-09
+     ],
+     "surface": null,
+     "beyond_key": "fe385dfcef1d"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.07079726495358855,
+      0.45989982688608405,
+      0.46930289931957014,
+      8.840757323164912e-09
+     ],
+     "surface": null,
+     "beyond_key": "fe385dfcef1d"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.09311173131412098,
+      0.44136352852890376,
+      0.46552473602546734,
+      4.131507819392375e-09
+     ],
+     "surface": null,
+     "beyond_key": "fe385dfcef1d"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.9665388593272786,
+      0.006271672696590707,
+      0.027189467767042556,
+      2.0908830283594512e-10
+     ],
+     "surface": null,
+     "beyond_key": "fe385dfcef1d"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.9695539454719921,
+      0.009834487888396692,
+      0.02061156648289321,
+      1.5671814331907026e-10
+     ],
+     "surface": null,
+     "beyond_key": "fe385dfcef1d"
+    }
+   ]
+  },
+  "8750c409745c": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x10+120x3+120x3+120x4+120x4",
+   "ends": {
+    "recorded wall | b1 + 2*b2 - 2*b3 - b4": 34,
+    "recorded wall | b1*b2 - b3*b4": 39,
+    "recorded wall | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*": 23
+   },
+   "open": {},
+   "examples_open": []
+  },
+  "31dd1d0d8561": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x8+120x3+120x4+120x4+120x4",
+   "ends": {
+    "recorded wall | b2 - b3": 37,
+    "recorded wall | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*": 39,
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 20
+   },
+   "open": {},
+   "examples_open": []
+  },
+  "46594439d835": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+60x6+60x6+60x10+60x10+120x3+120x3+120x3+120x4+120x4",
+   "ends": {
+    "recorded wall | b1*b2 - b3*b4": 26,
+    "surface missing | ": 46,
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 24
+   },
+   "open": {
+    "surface missing | ": 46
+   },
+   "examples_open": [
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.5592197630541698,
+      2.808617465848378e-10,
+      0.05515848555551443,
+      0.38562175110945435
+     ],
+     "surface": null,
+     "beyond_key": "46594439d835"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.5846791555949478,
+      6.954276079774006e-10,
+      0.006477468406910577,
+      0.4088433753027147
+     ],
+     "surface": null,
+     "beyond_key": "46594439d835"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.5827159052371537,
+      3.8963095061350975e-10,
+      0.049985190537569335,
+      0.36729890383564623
+     ],
+     "surface": null,
+     "beyond_key": "46594439d835"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.5702080988257294,
+      2.2893718757761446e-10,
+      0.07384051379663287,
+      0.35595138714870095
+     ],
+     "surface": null,
+     "beyond_key": "46594439d835"
+    },
+    {
+     "verdict": "surface missing",
+     "at": [
+      0.6055774316429936,
+      5.120607669125723e-10,
+      0.03213501783918847,
+      0.3622875500057573
+     ],
+     "surface": null,
+     "beyond_key": "46594439d835"
+    }
+   ]
+  },
+  "4b54051129a7": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x6+60x6+60x10+60x10+120x3+120x3+120x3+120x4+120x5",
+   "ends": {
+    "recorded wall | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*": 53,
+    "recorded wall | b1*b2 - b3*b4": 43
+   },
+   "open": {},
+   "examples_open": []
+  },
+  "c91f9797515a": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+60x6+60x8+60x8+60x10+120x3+120x3+120x3+120x4+120x4",
+   "ends": {
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 49,
+    "recorded wall | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*": 47
+   },
+   "open": {},
+   "examples_open": []
+  },
+  "74feaf2e976b": {
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+60x6+60x6+60x8+60x10+120x3+120x3+120x3+120x4+120x5",
+   "ends": {
+    "wall shape missing | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*": 26,
+    "recorded wall | 3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 22
+   },
+   "open": {
+    "wall shape missing | 3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*": 26
+   },
+   "examples_open": [
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.084618417206752,
+      0.300856311559099,
+      0.5997895218804585,
+      0.014735749353690653
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "9e8a8d2c97cc"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.08434770484140719,
+      0.2995684859385893,
+      0.6005762572021579,
+      0.015507552017845616
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "9e8a8d2c97cc"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.06674889682303661,
+      0.30869678406866086,
+      0.5982434555615787,
+      0.026310863546723746
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "9e8a8d2c97cc"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.08525360039830433,
+      0.3006325061769494,
+      0.5998648420270342,
+      0.014249051397711916
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "9e8a8d2c97cc"
+    },
+    {
+     "verdict": "wall shape missing",
+     "at": [
+      0.08448080420143109,
+      0.30192440122410835,
+      0.5991785022979315,
+      0.014416292276529043
+     ],
+     "surface": "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+     "beyond_key": "9e8a8d2c97cc"
+    }
+   ]
+  }
+ }
+}
