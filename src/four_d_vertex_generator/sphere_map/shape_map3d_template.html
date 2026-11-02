@@ -237,7 +237,7 @@ function addGlyph(kind, sym, pcs, strong, name, e) {
   return obj;
 }
 
-const relName = { side: "on a side", boundary: "on its boundary", round: "round it", end: "an end", corner: "a corner", touches: "touches it", meets: "meets it", crosses: "crosses it", "across a line": "across a line" };
+const relName = { side: "on a side", boundary: "on its boundary", round: "round it", end: "an end", corner: "a corner", touches: "touches it", meets: "meets it", crosses: "crosses it", "ends on": "this ends on it", "ends on it": "ends on it", "across a line": "across a line" };
 function renderDetail(kind, x) {
   const d = document.getElementById("detail");
   let h = `<h2>${ident(kind, x)}</h2><div class="kind">${KNAME[kind]}</div><dl class="facts">`;

@@ -26,11 +26,11 @@ from .incidence import Incidence
 
 ROOT = None
 RANK = {"side": 0, "boundary": 0, "round": 1, "end": 1, "corner": 1, "touches": 2, "meets": 2,
-        "crosses": 2, "across a line": 3}
+        "crosses": 2, "ends on": 1, "ends on it": 1, "across a line": 3}
 # what each kind of shape shows round it
 SHOWN = {"region": {"boundary", "corner"},
          "face": {"side", "boundary", "corner", "meets", "crosses", "across a line"},
-         "line": {"round", "end"},
+         "line": {"round", "end", "ends on", "ends on it"},
          "point": {"boundary", "touches", "across a line"}}
 
 
@@ -437,6 +437,34 @@ def build() -> dict:
                     e["rel"] = rel
         return sorted(out.values(), key=lambda e: (RANK[e["rel"]], e["kind"], e["node"]))
 
+    # a line that stops where it runs into another line: that line is its neighbour there (the
+    # end is not a shape of its own, so it is shown as the line it lies on)
+    etree = cKDTree(ends_img)
+
+    def line_end_links(members, own):
+        out = {}
+        for li, gg in members:
+            for side in (0, 1):
+                i = li * 2 * n_g + side * n_g + gg
+                x = ends_img[i]
+                if point_at(x) is not None:
+                    continue
+                near = [owner[j] for j in etree.query_ball_point(x, 1e-6)]
+                # the line carries on through x (another of its own pieces starts there): the other
+                # lines there end on it; otherwise it ends on them
+                carries_on = sum(int(L[lj, gj]) == own for lj, gj in near) > 1
+                rel = "ends on it" if carries_on else "ends on"
+                for lj, gj in near:
+                    comp = int(L[lj, gj])
+                    if comp == own:
+                        continue
+                    key = ("line", comp, rel)
+                    e = out.setdefault(key, {"kind": "line", "node": line_at[comp][0], "at": line_at[comp][1],
+                                             "touch": [], "rel": rel})
+                    if [lj, gj] not in e["touch"]:
+                        e["touch"].append([lj, gj])
+        return list(out.values())
+
     face_regions = {f["id"]: f["regions"] for f in atlas["faces"]}
     data = {
         "_about": __doc__,
@@ -454,7 +482,8 @@ def build() -> dict:
                    "regions": sorted({r for c, _ in w_["members"] for r in face_regions[c]}),
                    "nb": node_nb("face", w_["members"], ("wall", w_["rep"]))} for w_ in sheets],
         "lines": [{"id": w_["id"], "name": w_["name"], "stab": w_["stab"], "members": w_["members"],
-                   "nb": node_nb("line", w_["members"], ("line", w_["rep"]))} for w_ in lines_w],
+                   "nb": node_nb("line", w_["members"], ("line", w_["rep"]))
+                   + line_end_links(w_["members"], w_["rep"])} for w_ in lines_w],
         "regions": [{"id": r["id"], "name": r["region"], "stab": r["stabilizer_order"],
                      "c": region_pos[i].round(6).tolist(),
                      "nb": node_nb("region", [(r["id"], 0)], ("region", r["id"], 0))}
