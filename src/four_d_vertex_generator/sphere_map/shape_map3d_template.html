@@ -214,20 +214,37 @@ function drawPieces(kind, pcs, strong) {
 }
 
 function addGlyph(kind, sym, pcs, strong, name, e) {
-  const pos = proj(mean4(pcs.map((p) => p.c)));
   const m = mat(kind, strong);
-  let obj;
+  let obj, pos;
   const s = strong ? 1.35 : 1;
+  // on the drawn shape itself: the drawn point nearest the middle of all its drawn points
+  const onShape = (pts) => {
+    const c = pts.reduce((a, p) => a.add(p), new THREE.Vector3()).multiplyScalar(1 / pts.length);
+    let best = 0, bd = Infinity;
+    pts.forEach((p, i) => { const d = p.distanceToSquared(c); if (d < bd) { bd = d; best = i; } });
+    return best;
+  };
   if (kind === "wall") {
     obj = wallGlyph(sym, m);
-    const p0 = pcs[0], n3 = proj(p0.side).sub(proj(p0.c));          // the wall's normal: towards one side
+    const pts = [], own = [];
+    pcs.forEach((p, k) => p.cloud.forEach((q) => { pts.push(proj(q)); own.push(k); }));
+    const i = onShape(pts); pos = pts[i];
+    const p0 = pcs[own[i]], n3 = proj(p0.side).sub(proj(p0.c));        // the wall's normal: towards one side
     if (n3.length() > 1e-9) orientTo(obj, new THREE.Vector3(0, 0, 1), n3);
   } else if (kind === "line") {
     obj = lineGlyph(sym, m);
-    const A = pcs[0].all, j = Math.floor(A.length / 2);
-    const t3 = proj(A[Math.min(j + 1, A.length - 1)]).sub(proj(A[Math.max(j - 1, 0)]));
+    const pts = [], prev = [], next = [];
+    for (const p of pcs) for (const P of p.polys) {
+      const Q = P.map(proj);
+      Q.forEach((q, j) => { pts.push(q); prev.push(Q[Math.max(j - 1, 0)]); next.push(Q[Math.min(j + 1, Q.length - 1)]); });
+    }
+    const i = onShape(pts); pos = pts[i];
+    const t3 = next[i].clone().sub(prev[i]);                            // along the curve there
     if (t3.length() > 1e-9) orientTo(obj, new THREE.Vector3(0, 1, 0), t3);
-  } else obj = solidGlyph(sym, m, kind === "region" ? 0.26 : 0.1);
+  } else {
+    obj = solidGlyph(sym, m, kind === "region" ? 0.26 : 0.1);
+    pos = proj(mean4(pcs.map((p) => p.c)));
+  }
   obj.position.copy(pos); obj.scale.multiplyScalar(s);
   obj.userData = { kind, e, focus: strong };
   obj.traverse((o) => { o.userData = obj.userData; });
