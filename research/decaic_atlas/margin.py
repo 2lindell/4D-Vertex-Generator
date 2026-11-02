@@ -13,7 +13,8 @@ def margin(b):
         others = np.setdiff1d(np.arange(len(V)), vs)
         m = min(m, -d[others].max())
     return m
-d = json.load(open(G.fname('snub_map')))
-for t in d['types']:
-    if t['grid_regions']:
-        print(t['type'], t['grid_regions'], 'margin %.2e' % margin(t['example']))
+if __name__ == '__main__':
+    d = json.load(open(G.fname('snub_map')))
+    for t in d['types']:
+        if t['grid_regions']:
+            print(t['type'], t['grid_regions'], 'margin %.2e' % margin(t['example']))
