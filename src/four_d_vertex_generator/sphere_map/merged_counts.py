@@ -85,14 +85,16 @@ def _pulled(surf, M):
                       (lambda gr: gr - gr.mean())(M @ surf.grad((x @ M)[None])[0]))
 
 
-def meeting_pieces(w1, w2, inc, wall_surfs, log=print):
+def meeting_pieces(w1, w2, inc, wall_surfs, log=print, gaps=None):
     """Pieces (in the domain) of the curve where walls w1 and w2 meet: every pair of their own
     surfaces traced, each arc cut exactly where another library surface crosses it, and the
     stretches where both walls are named round the curve kept, joined where what surrounds them
     is the same. Each piece: beta polyline, its signature, and its two ends ('face' where the
     arc leaves the domain, else 'corner')."""
     from .wall_meets import _sf, _solve
+    named_beta = [(n, x / x.sum()) for n, x in _named_points()]
     out = []
+    gaps = [] if gaps is None else gaps
     lib = inc.surfs
     for an in wall_surfs[w1]:
         for bn in wall_surfs[w2]:
@@ -108,6 +110,15 @@ def meeting_pieces(w1, w2, inc, wall_surfs, log=print):
                     P = P[2:]
                 if len(P) < 3:
                     continue
+                # the march stops short of a point where many surfaces meet (its step fails there):
+                # an end inside the domain next to an exact meeting point is that point
+                if not arc["closed"]:
+                    for side in (0, -1):
+                        if (P[side] @ FACE_N.T).min() > 1e-9:
+                            d, x = min(((np.linalg.norm(x - P[side]), x) for _, x in named_beta),
+                                       key=lambda t: t[0])
+                            if d < 2e-3:
+                                P = np.vstack([P, x]) if side == -1 else np.vstack([x, P])
                 # the surfaces that can cut the arc: copy 0's, and where the arc lies in the
                 # domain's boundary, those of every copy on the other side, pulled back (M_k)
                 frames = [np.eye(4)]
@@ -160,8 +171,18 @@ def meeting_pieces(w1, w2, inc, wall_surfs, log=print):
                         mid, tan = seg[m], seg[min(m + 1, len(seg) - 1)] - seg[max(m - 1, 0)]
                     r = inc.round_line(mid, tan)
                     names = {w["wall"] for w in r["walls"]} if r else set()
+                    gap = bool(r) and any(sc["piece"] is None for sc in r["sectors"])
                     pieces.append({"seg": seg, "ends": [k0, k1], "present": w1 in names and w2 in names,
-                                   "sig": _signature(r, None), "surfaces": [an, bn]})
+                                   "sig": _signature(r, None), "surfaces": [an, bn], "gap": gap})
+                # a stretch with a sector the exploration never met (a sliver of the arrangement
+                # missing from the map) carries no information: it takes the surroundings of the
+                # stretches on either side when they agree
+                for j, pc in enumerate(pieces):
+                    if pc["gap"] and 0 < j < len(pieces) - 1:
+                        a_, b_ = pieces[j - 1], pieces[j + 1]
+                        if not a_["gap"] and a_["sig"] == b_["sig"]:
+                            pc.update(sig=a_["sig"], present=a_["present"])
+                            gaps.append({"walls": f"{w1}/{w2}", "at": np.round(pc["seg"][len(pc["seg"]) // 2], 5).tolist()})
                 # join neighbours with the same surroundings
                 run = None
                 for pc in pieces:
@@ -265,13 +286,14 @@ def build() -> dict:
     pairs = sorted({tuple(sorted((m["wall"], m["other"]))) for m in meets if m["found"]})
     corner_tree = corner_points(atlas, g)
     meeting_edges = []
+    map_gaps = []
     from scipy.spatial import cKDTree
     by_line = {}
     for name, L in lines:
         by_line.setdefault(name, []).append(L)
     line_trees = {n: cKDTree(np.vstack(v)) for n, v in by_line.items()}
     for w1, w2 in pairs:
-        pcs = meeting_pieces(w1, w2, inc, wall_surfs)
+        pcs = meeting_pieces(w1, w2, inc, wall_surfs, gaps=map_gaps)
         if not pcs:
             meeting_edges.append({"walls": f"{w1}/{w2}", "found": False})
             continue
@@ -329,6 +351,7 @@ def build() -> dict:
            "walls": walls,
            "edges": {"atlas_lines": per_line, "wall_meetings_off_atlas_lines": new_edges},
            "wall_meeting_curves": meeting_edges,
+           "map_gaps_bridged": map_gaps,
            "totals": {
                "wall_pieces_on_sphere": sum(v["faces_on_sphere"] for v in walls.values()),
                "atlas_line_pieces_on_sphere": sum(v["pieces_on_sphere"] for v in per_line.values()),
