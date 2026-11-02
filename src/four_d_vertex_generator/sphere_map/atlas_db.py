@@ -331,9 +331,17 @@ def build(root=None) -> dict:
 
     # ------------------------------------------------------------------ faces
     faces_out = []
+    removed_fragments = []
     for label, info in sorted(faces_doc.items()):
         wall, *regs = [x.strip() for x in label.split("|")]
-        for orb in info["orbits"]:
+        # a fragment (an orbit not congruent to its label's face: a few patches in a domain face
+        # that the patch links left apart from their face) is not a piece of wall: dropped
+        orbits = [o for o in info["orbits"]
+                  if (o.get("congruence_with_first_orbit") or {}).get("status") != "not congruent"]
+        removed_fragments += [{"label": label, "orbit": o["orbit"], "patches": len(o["members"]),
+                               "perimeter": o.get("perimeter")}
+                              for o in info["orbits"] if o not in orbits]
+        for orb in orbits:
             fid = len(faces_out)
             k0, j0 = orb["members"][0]
             ca, cb = side_comps(k0, j0)
@@ -368,12 +376,12 @@ def build(root=None) -> dict:
                 "members": orb["members"],
                 "components_on_sphere": orb["components"],
                 "stabilizer_order": orb["stabilizer_order"],
-                "congruent_to": None if orb["orbit"] == info["orbits"][0]["orbit"] else {
+                "congruent_to": None if orb["orbit"] == orbits[0]["orbit"] else {
                     "face": fid - orb["orbit"] if False else None, "map": cong.get("map"),
                     "status": cong.get("status")},
             })
         # (congruence: every orbit of a label is compared with its first orbit)
-        first = len(faces_out) - len(info["orbits"])
+        first = len(faces_out) - len(orbits)
         for f in faces_out[first + 1:]:
             if f["congruent_to"] is not None:
                 f["congruent_to"]["face"] = first
@@ -388,7 +396,7 @@ def build(root=None) -> dict:
 
     # ------------------------------------------------------------------ counts and closure
     per_wall = defaultdict(lambda: {"piece_types": 0, "face_classes": 0, "faces_on_sphere": 0,
-                                    "unplaced_fragments": 0, "pieces": []})
+                                    "removed_fragments": 0, "pieces": []})
     for label, info in faces_doc.items():
         wall = label.split("|")[0].strip()
         whole = [o for o in info["orbits"]
@@ -398,7 +406,7 @@ def build(root=None) -> dict:
         w["piece_types"] += 1                  # every orbit of a label is congruent to the first
         w["face_classes"] += len(whole)
         w["faces_on_sphere"] += sum(o["components"] for o in whole)
-        w["unplaced_fragments"] += frags
+        w["removed_fragments"] += frags
         w["pieces"].append({"between": [x.strip() for x in label.split("|")[1:]],
                             "classes": len(whole), "on_sphere": sum(o["components"] for o in whole)})
     # line pieces per line shape, from the atlas's own lines split where what surrounds them
@@ -489,6 +497,7 @@ def build(root=None) -> dict:
         "counts_per_wall": dict(sorted(per_wall.items())),
         "counts_per_line_shape": per_line,
         "closure": closure,
+        "removed_fragments": removed_fragments,
         "points": point_classes,
         "line_pieces": atlas_lines,
         "curves_not_on_atlas_lines": curves_not_on_atlas_lines,

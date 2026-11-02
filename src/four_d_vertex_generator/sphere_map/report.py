@@ -224,11 +224,11 @@ def write_report(root: Path) -> None:
         add("")
         add(f"Closure: {db['closure']}")
         add("")
-        add("| wall | piece types | face classes | faces on S^3 | unplaced fragments |")
+        add("| wall | piece types | face classes | faces on S^3 | fragments removed |")
         add("|---|---|---|---|---|")
         for w, v in db["counts_per_wall"].items():
             add(f"| {w} | {v['piece_types']} | {v['face_classes']} | {v['faces_on_sphere']} | "
-                f"{v['unplaced_fragments']} |")
+                f"{v['removed_fragments']} |")
         add("")
         add("Line pieces are the atlas's own lines, cut only at its exact meeting points and joined "
             "where a line goes on into the next copy; piece types are congruence classes under G "

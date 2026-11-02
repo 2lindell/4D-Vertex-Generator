@@ -343,7 +343,7 @@ def build() -> dict:
     # ---- walls -----------------------------------------------------------------------------------
     walls = {w: {"face_types": v["piece_types"], "classes": v["face_classes"],
                  "faces_on_sphere": v["faces_on_sphere"],
-                 "unplaced_fragments": v["unplaced_fragments"],
+                 "removed_fragments": v["removed_fragments"],
                  "by_regions": {"|".join(p["between"]): p["on_sphere"] for p in v["pieces"]}}
              for w, v in atlas["counts_per_wall"].items()}
 

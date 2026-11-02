@@ -350,7 +350,6 @@ def face_cuts(log=print) -> dict:
              for p in patches if p["face"] is None}
     mult = multiplication_table()
     inner = defaultdict(list)                    # patch -> [(other patch, cut?)]
-    cut_cache = {}
     for (ka, kb), recs in march_links.items():
         a, b = index.get(ka), index.get(kb)
         if a is None or b is None or patches[a]["wall"] != patches[b]["wall"] or not patches[a]["wall"]:
