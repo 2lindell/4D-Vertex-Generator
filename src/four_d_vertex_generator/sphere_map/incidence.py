@@ -218,6 +218,8 @@ class Incidence:
     def _frames_round(self, x, basis, n=720):
         """The copies the ring round the line passes through: {k: (M_k, beta_k of x, surfaces
         through it)}."""
+        if (x @ FACE_N.T).min() > 1e-6:          # strictly inside the domain: copy 0 only
+            return {0: (np.eye(4), x, self.through(x, 1e-6))}
         ang = np.linspace(0, 2 * np.pi, n, endpoint=False)
         y = x + 1e-7 * (np.cos(ang)[:, None] * basis[0] + np.sin(ang)[:, None] * basis[1])
         ks, _ = locate(point_from_beta(y / y.sum(axis=1, keepdims=True)), tol=1e-13)

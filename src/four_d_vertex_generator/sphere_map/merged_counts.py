@@ -58,35 +58,177 @@ def _atlas_line_points():
     return out
 
 
-def _stretch(rec, named):
-    """The exact stretch of a meeting record between the named points at its ends (domain betas)."""
-    a, b = resolve(rec["surfaces"][0]), resolve(rec["surfaces"][1])
-    want = [rec["from"]["nearest_point"], rec["to"]["nearest_point"]]
-    f0, t0 = np.asarray(rec["from"]["beta"]), np.asarray(rec["to"]["beta"])
-    for arc in trace(a, b):
-        P = arc["points"]
-        P = P / P.sum(axis=1, keepdims=True)
-        i0 = int(np.argmin(np.linalg.norm(P - f0, axis=1)))
-        i1 = int(np.argmin(np.linalg.norm(P - t0, axis=1)))
-        if np.linalg.norm(P[i0] - f0) > 1e-2 or np.linalg.norm(P[i1] - t0) > 1e-2:
-            continue
-        if i0 > i1:
-            i0, i1, want = i1, i0, want[::-1]
-        ends = []
-        for i, nm, step in ((i0, want[0], -1), (i1, want[1], 1)):
-            # walk outward from the checked stretch to the named point on the arc
-            cands = [(np.linalg.norm(P - x, axis=1).min(), x) for n2, x in named if n2 == nm]
-            cands = [c for c in cands if c[0] < 1e-6]
-            if not cands:
-                ends.append(None)
+def corner_points(atlas, g):
+    """Every image on S^3 of every exact meeting point of the atlas (exact_points.json), as a
+    KD-tree: the vertices where edge pieces stop."""
+    from scipy.spatial import cKDTree
+    P = np.array([point_from_beta(x) for _, x in _named_points()])
+    return cKDTree(np.einsum("gij,nj->gni", g, P).reshape(-1, 4))
+
+
+def _signature(r, keep):
+    """What surrounds a curve point, as the walls named round it with their regions (names only,
+    so the same in every copy)."""
+    return tuple(sorted((str(w["wall"]), tuple(sorted(map(str, w["between"]))))
+                        for w in r["walls"])) if r else ()
+
+
+def meeting_pieces(w1, w2, inc, wall_surfs, log=print):
+    """Pieces (in the domain) of the curve where walls w1 and w2 meet: every pair of their own
+    surfaces traced, each arc cut exactly where another library surface crosses it, and the
+    stretches where both walls are named round the curve kept, joined where what surrounds them
+    is the same. Each piece: beta polyline, its signature, and its two ends ('face' where the
+    arc leaves the domain, else 'corner')."""
+    from .wall_meets import _sf, _solve
+    out = []
+    lib = inc.surfs
+    for an in wall_surfs[w1]:
+        for bn in wall_surfs[w2]:
+            a, b = resolve(an), resolve(bn)
+            if a.kind == b.kind == "plane" and abs(abs(a.normal @ b.normal) - 1) < 1e-9:
                 continue
-            x = min(cands, key=lambda c: c[0])[1]
-            ends.append(int(np.argmin(np.linalg.norm(P - x, axis=1))))
-        if None in ends:
-            return None, want
-        j0, j1 = sorted(ends)
-        return P[j0:j1 + 1], want
-    return None, want
+            for arc in trace(a, b):
+                P = arc["points"] / arc["points"].sum(axis=1, keepdims=True)
+                # the march can step back and forth on its last step at a face: drop that
+                while len(P) > 3 and np.linalg.norm(P[-1] - P[-3]) < 1e-9:
+                    P = P[:-2]
+                while len(P) > 3 and np.linalg.norm(P[0] - P[2]) < 1e-9:
+                    P = P[2:]
+                if len(P) < 3:
+                    continue
+                V = np.stack([s.f(P) for s in lib], axis=1)                 # (n, S)
+                G = np.stack([np.linalg.norm(s.grad(P), axis=1) for s in lib], axis=1) + 1e-300
+                rel = np.abs(V) / G
+                on = rel.max(axis=0) < 1e-9                                 # through the whole arc
+                cuts = []                                                   # (index, exact point)
+                sg = np.sign(V)
+                for si in np.flatnonzero(~on):
+                    real = rel[:, si] > 1e-11                # a value at zero has no sign
+                    for i in np.flatnonzero((sg[:-1, si] * sg[1:, si] < 0) & real[:-1] & real[1:]):
+                        t = V[i, si] / (V[i, si] - V[i + 1, si])
+                        x, ok = _solve([_sf(a), _sf(b), _sf(lib[si])], P[i] + t * (P[i + 1] - P[i]))
+                        step = np.linalg.norm(P[i + 1] - P[i])
+                        if not ok or (np.linalg.norm(x - P[i]) + np.linalg.norm(x - P[i + 1])
+                                      > 1.01 * step + 1e-9):
+                            continue                  # solved onto some other crossing
+                        if min(np.linalg.norm(x - P[0]), np.linalg.norm(x - P[-1])) < 1e-6:
+                            continue                  # at the arc's own end
+                        cuts.append((int(i), x))
+                cuts.sort(key=lambda c: c[0])
+                # sub-arcs between consecutive cut points (and the arc's own ends)
+                knots = [(0, P[0], "face" if not arc["closed"] else "corner")]
+                for i, x in cuts:                    # several surfaces crossing at one corner: one cut
+                    if np.linalg.norm(x - knots[-1][1]) > 1e-6:
+                        knots.append((i, x, "corner"))
+                end = (len(P) - 1, P[-1], "face" if not arc["closed"] else "corner")
+                if np.linalg.norm(end[1] - knots[-1][1]) <= 1e-6 and len(knots) > 1:
+                    knots[-1] = (knots[-1][0], end[1], end[2] if end[2] == "face" else knots[-1][2])
+                else:
+                    knots.append(end)
+                pieces = []
+                for (i0, x0, k0), (i1, x1, k1) in zip(knots[:-1], knots[1:]):
+                    seg = np.vstack([x0, P[i0 + 1:i1 + 1], x1]) if i1 > i0 else np.vstack([x0, x1])
+                    if np.linalg.norm(np.diff(seg, axis=0), axis=1).sum() < 1e-6:
+                        continue
+                    m = len(seg) // 2
+                    if len(seg) < 3:
+                        mid, _ = _solve([_sf(a), _sf(b)], (x0 + x1) / 2)
+                        tan = x1 - x0
+                    else:
+                        mid, tan = seg[m], seg[min(m + 1, len(seg) - 1)] - seg[max(m - 1, 0)]
+                    r = inc.round_line(mid, tan)
+                    names = {w["wall"] for w in r["walls"]} if r else set()
+                    pieces.append({"seg": seg, "ends": [k0, k1], "present": w1 in names and w2 in names,
+                                   "sig": _signature(r, None), "surfaces": [an, bn]})
+                # join neighbours with the same surroundings
+                run = None
+                for pc in pieces:
+                    if pc["present"] and run and run["sig"] == pc["sig"]:
+                        run["seg"] = np.vstack([run["seg"], pc["seg"][1:]])
+                        run["ends"][1] = pc["ends"][1]
+                        continue
+                    if run:
+                        out.append(run)
+                    run = dict(pc) if pc["present"] else None
+                    if run:
+                        run["ends"] = list(run["ends"])
+                if run:
+                    out.append(run)
+    log(f"  {w1}/{w2}: {len(out)} domain pieces")
+    return out
+
+
+def _glue(pieces, g, corners, tol=1e-7):
+    """Whole pieces on S^3: every domain piece carried to all copies (equal images merged), joined
+    end to end where two images with the same surroundings meet at a point of the domain's
+    boundary. Points are matched by distance (tol), not by rounding."""
+    from scipy.spatial import cKDTree
+    imgs = []                                         # (piece, start, mid, end) in R^4
+    for pi, pc in enumerate(pieces):
+        R = point_from_beta(pc["seg"])
+        d = np.r_[0, np.cumsum(np.linalg.norm(np.diff(R, axis=0), axis=1))]
+        j = min(max(int(np.searchsorted(d, d[-1] / 2)), 1), len(R) - 1)
+        t = (d[-1] / 2 - d[j - 1]) / max(d[j] - d[j - 1], 1e-300)
+        mid = R[j - 1] + t * (R[j] - R[j - 1])
+        for k in range(len(g)):
+            imgs.append((pi, g[k] @ R[0], g[k] @ mid, g[k] @ R[-1]))
+    n = len(imgs)
+    # equal images: same piece class, same middle point, same ends (either way round)
+    mids = np.array([m for _, _, m, _ in imgs])
+    parent = list(range(n))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    def union(i, j):
+        parent[find(j)] = find(i)
+    for i, j in cKDTree(mids).query_pairs(1e-4):
+        (pa, a0, _, a1), (pb, b0, _, b1) = imgs[i], imgs[j]
+        same_ends = (min(np.linalg.norm(a0 - b0) + np.linalg.norm(a1 - b1),
+                         np.linalg.norm(a0 - b1) + np.linalg.norm(a1 - b0)) < 1e-6)
+        if same_ends and pieces[pa]["sig"] == pieces[pb]["sig"]:
+            union(i, j)
+    # joins: an end on the domain's boundary that is not a corner is where the curve goes on into
+    # the next copy; the image ends meeting there (after equal images are merged) are joined when
+    # what surrounds them is the same. A corner is any image of a known corner point.
+    root = [find(i) for i in range(n)]
+    pts, owner = [], []
+    for ii, (pi, a, _, b) in enumerate(imgs):
+        if root[ii] != ii:
+            continue
+        for side, p in ((0, a), (1, b)):
+            if pieces[pi]["ends"][side] != "face":
+                continue
+            if corners is not None and corners.query(p)[0] < 1e-7:
+                continue
+            pts.append(p)
+            owner.append(ii)
+    if pts:
+        for i, j in cKDTree(np.array(pts)).query_pairs(tol):
+            a, b = owner[i], owner[j]
+            if a != b and pieces[imgs[a][0]]["sig"] == pieces[imgs[b][0]]["sig"]:
+                union(a, b)
+    comps = {}
+    for ii in range(n):
+        comps.setdefault(find(ii), set()).add(imgs[ii][0])
+    cls = list(range(len(pieces)))
+
+    def cf(i):
+        while cls[i] != i:
+            i = cls[i]
+        return i
+    for members in comps.values():
+        ms = sorted(members)
+        for m in ms[1:]:
+            cls[cf(m)] = cf(ms[0])
+    per_class = {}
+    for members in comps.values():
+        c = cf(next(iter(members)))
+        per_class[c] = per_class.get(c, 0) + 1
+    return per_class, cf
 
 
 def build() -> dict:
@@ -97,41 +239,40 @@ def build() -> dict:
     meets = json.loads((data_dir() / "sphere_map" / "wall_meets.json").read_text())["meetings"]
 
     # ---- meeting curves ------------------------------------------------------------------------
-    classes = []            # {walls, ends, on_atlas_line, keys, rep, records}
-    unresolved = []
-    for m in meets:
-        pair = tuple(sorted((m["wall"], m["other"])))
-        for rec in m["found"]:
-            P, ends = _stretch(rec, named)
-            if P is None or len(P) < 3:
-                unresolved.append({"walls": pair, "record": f"{m['wall']} {m['kind']} {m['other']}",
-                                   "ends": ends})
-                continue
-            R = point_from_beta(P)
-            on = None
-            for name, L in lines:
-                d = np.min(np.linalg.norm(R[:, None] - L[None], axis=2), axis=1)
-                if d.max() < 5e-4:
-                    on = name
-                    break
-            k = _key(R)
-            for c in classes:
-                if k in c["keys"]:
-                    c["walls"].add(pair)
-                    c["records"].add(f"{m['wall']} {m['kind']} {m['other']}")
-                    break
-            else:
-                classes.append({"walls": {pair}, "ends": ends, "on_atlas_line": on,
-                                "keys": _orbit_keys(R, g), "rep_beta": P,
-                                "records": {f"{m['wall']} {m['kind']} {m['other']}"}})
+    from .incidence import Incidence
+    inc = Incidence()
+    wall_surfs = {w: v["surface"] for w, v in load_json("exact_defs.json")["walls"].items()}
+    pairs = sorted({tuple(sorted((m["wall"], m["other"]))) for m in meets if m["found"]})
+    corner_tree = corner_points(atlas, g)
     meeting_edges = []
-    for c in classes:
-        meeting_edges.append({
-            "walls": sorted("/".join(p) for p in c["walls"]), "ends": c["ends"],
-            "on_atlas_line": c["on_atlas_line"], "pieces_on_sphere": len(c["keys"]),
-            "records": sorted(c["records"]),
-            "representative_beta": [[round(float(t), 9) for t in x]
-                                    for x in c["rep_beta"][:: max(1, len(c["rep_beta"]) // 20)]]})
+    line_pts = np.vstack([L for _, L in lines])
+    line_name = np.concatenate([[n] * len(L) for n, L in lines])
+    from scipy.spatial import cKDTree
+    line_tree = cKDTree(line_pts)
+    for w1, w2 in pairs:
+        pcs = meeting_pieces(w1, w2, inc, wall_surfs)
+        if not pcs:
+            meeting_edges.append({"walls": f"{w1}/{w2}", "found": False})
+            continue
+        per_class, cf = _glue(pcs, g, corner_tree)
+        for c, n in sorted(per_class.items()):
+            members = [i for i in range(len(pcs)) if cf(i) == c]
+            R = point_from_beta(np.vstack([pcs[i]["seg"] for i in members]))
+            dist, idx = line_tree.query(R)
+            on = dist.max() < 5e-4
+            corners = []
+            for i in members:
+                for side, p in ((0, pcs[i]["seg"][0]), (1, pcs[i]["seg"][-1])):
+                    if pcs[i]["ends"][side] == "corner":
+                        q = point_from_beta(p)
+                        dist, nm = min((float(np.linalg.norm(point_from_beta(x) - q)), n2)
+                                       for n2, x in named)
+                        corners.append(nm if dist < 1e-6 else f"unnamed {np.round(p, 4).tolist()}")
+            meeting_edges.append({
+                "walls": f"{w1}/{w2}", "found": True,
+                "on_atlas_line": str(line_name[int(idx[0])]) if on else None,
+                "surroundings": [list(t) for t in pcs[members[0]]["sig"]],
+                "domain_pieces": len(members), "corners": corners, "pieces_on_sphere": n})
 
     # ---- atlas line pieces ---------------------------------------------------------------------
     per_line = {}
@@ -146,13 +287,12 @@ def build() -> dict:
     # ---- new edges: meeting curves on no atlas line, per meeting ------------------------------
     new_edges = {}
     for e in meeting_edges:
-        if e["on_atlas_line"]:
+        if not e["found"] or e["on_atlas_line"]:
             continue
-        for wp in e["walls"]:
-            d = new_edges.setdefault(wp, {"classes": 0, "pieces_on_sphere": 0, "classes_detail": []})
-            d["classes"] += 1
-            d["pieces_on_sphere"] += e["pieces_on_sphere"]
-            d["classes_detail"].append({"ends": e["ends"], "on_sphere": e["pieces_on_sphere"]})
+        d = new_edges.setdefault(e["walls"], {"classes": 0, "pieces_on_sphere": 0, "classes_detail": []})
+        d["classes"] += 1
+        d["pieces_on_sphere"] += e["pieces_on_sphere"]
+        d["classes_detail"].append({"corners": e["corners"], "on_sphere": e["pieces_on_sphere"]})
 
     # ---- walls -----------------------------------------------------------------------------------
     walls = {w: {"face_types": v["piece_types"], "classes": v["face_classes"],
@@ -165,12 +305,11 @@ def build() -> dict:
            "walls": walls,
            "edges": {"atlas_lines": per_line, "wall_meetings_off_atlas_lines": new_edges},
            "wall_meeting_curves": meeting_edges,
-           "unresolved_meeting_records": unresolved,
            "totals": {
                "wall_pieces_on_sphere": sum(v["faces_on_sphere"] for v in walls.values()),
                "atlas_line_pieces_on_sphere": sum(v["pieces_on_sphere"] for v in per_line.values()),
                "meeting_edge_pieces_on_sphere": sum(e["pieces_on_sphere"] for e in meeting_edges
-                                                    if not e["on_atlas_line"]),
+                                                    if e["found"] and not e["on_atlas_line"]),
                "points_on_sphere": sum(p["copies_on_sphere"] for p in atlas["points"])}}
     (data_dir() / "sphere_map" / "merged_counts.json").write_text(json.dumps(out, indent=1))
     return out
@@ -179,7 +318,9 @@ def build() -> dict:
 if __name__ == "__main__":
     r = build()
     for e in r["wall_meeting_curves"]:
-        print(f"{','.join(e['walls']):18s} {e['ends'][0]:>11s} -> {e['ends'][1]:11s} "
-              f"on line {str(e['on_atlas_line']):5s} x{e['pieces_on_sphere']}  {e['records']}")
-    print("unresolved:", r["unresolved_meeting_records"])
+        if not e["found"]:
+            print(e["walls"], "NOT FOUND")
+            continue
+        print(f"{e['walls']:9s} on line {str(e['on_atlas_line']):5s} x{e['pieces_on_sphere']:5d} "
+              f"domain pieces {e['domain_pieces']} corners {e['corners']}")
     print(json.dumps(r["totals"], indent=1))
