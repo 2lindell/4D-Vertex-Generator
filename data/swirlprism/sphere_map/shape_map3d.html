@@ -244,7 +244,7 @@ function select(kind, id, push = true) {
     const ln = new THREE.Line(geo, m); if (dashed) ln.computeLineDistances(); world.add(ln);
   }
   orientWalls();
-  controls.target.set(0, 0, 0); camera.position.set(0, 0, 9.5); controls.update();
+  controls.target.copy(F); camera.position.copy(F).add(new THREE.Vector3(0, 0, 9.5)); controls.update();   // turn round the focus glyph
   renderDetail(kind, x); renderCrumbs();
 }
 
