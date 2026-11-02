@@ -1,0 +1,651 @@
+{
+ "_about": "Wall pieces on the whole 3-sphere, cut only where they should be.\n\nA wall piece is a connected part of one wall, cut only by the curves where another wall meets it\nand by the atlas's named lines (every crease of a wall lies on a named line). It is built from\nthe map's wall patches (`patches.json`) over all 1200 copies:\n\n* two patches of the wall are next to each other when the pieces on their two sides are the same\n  or neighbours (across one surface), or continue into each other across a domain face;\n* the curve they share is solved exactly (the wall's surface met by the crossing surface, by the\n  wall's other surface at a crease, or by the domain face), and checked against the sign of\n  every other surface on both patches;\n* they are joined unless that curve lies on a named line or on a wall-wall meeting curve\n  (`merged_counts.json`), read in whichever copy it lies in.\n\nEach class of pieces is reported with its count on the sphere, the regions it separates, and any\ninconsistency (a piece whose regions change without a cut, or a count other than 1200 / its\nstabiliser).\n",
+ "walls": {
+  "F5": {
+   "classes": [
+    {
+     "count_on_sphere": 1200,
+     "patches": 9,
+     "regions": [
+      "X59|X66"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      43,
+      98,
+      246,
+      273,
+      368,
+      477,
+      728,
+      877,
+      2044
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 8,
+     "regions": [
+      "X59|X66"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      179,
+      410,
+      566,
+      1129,
+      1699,
+      2294,
+      2622,
+      2644
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "X59|X66"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      2238
+     ]
+    }
+   ],
+   "links": {
+    "joined": 18,
+    "cut": 0,
+    "unsolved": 3
+   }
+  },
+  "T2": {
+   "classes": [
+    {
+     "count_on_sphere": 1200,
+     "patches": 48,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      16,
+      137,
+      165,
+      615,
+      693,
+      737,
+      764,
+      775,
+      1168,
+      1273,
+      1295,
+      1399,
+      1434,
+      1469,
+      1512,
+      1664,
+      1682,
+      1793,
+      1813,
+      1856,
+      1857,
+      1862,
+      1895,
+      1976,
+      1983,
+      2098,
+      2140,
+      2145,
+      2174,
+      2178,
+      2208,
+      2210,
+      2276,
+      2388,
+      2414,
+      2420,
+      2430,
+      2533,
+      2607,
+      2651,
+      2729,
+      2772,
+      2907,
+      2958,
+      3023,
+      3061,
+      3077,
+      3117
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 34,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      53,
+      216,
+      345,
+      472,
+      708,
+      743,
+      812,
+      820,
+      932,
+      936,
+      940,
+      1128,
+      1247,
+      1309,
+      1346,
+      1358,
+      1580,
+      1596,
+      1623,
+      1637,
+      1644,
+      1670,
+      1684,
+      1777,
+      1779,
+      1797,
+      1899,
+      2168,
+      2172,
+      2296,
+      2627,
+      2638,
+      2662,
+      2876
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 31,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      122,
+      135,
+      136,
+      176,
+      221,
+      358,
+      469,
+      473,
+      638,
+      688,
+      783,
+      1013,
+      1148,
+      1151,
+      1227,
+      1235,
+      1569,
+      1624,
+      1642,
+      1768,
+      1835,
+      1871,
+      1880,
+      2026,
+      2133,
+      2171,
+      2412,
+      2521,
+      3027,
+      3044,
+      3090
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 26,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      210,
+      229,
+      858,
+      942,
+      1036,
+      1072,
+      1160,
+      1176,
+      1252,
+      1338,
+      1350,
+      1460,
+      1511,
+      1552,
+      2244,
+      2395,
+      2491,
+      2518,
+      2525,
+      2537,
+      2553,
+      2735,
+      2755,
+      2796,
+      2847,
+      2918
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 23,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      90,
+      180,
+      554,
+      652,
+      769,
+      825,
+      869,
+      906,
+      1086,
+      1106,
+      1213,
+      1390,
+      1553,
+      1663,
+      1694,
+      2118,
+      2338,
+      2419,
+      2711,
+      2753,
+      2781,
+      2846,
+      2978
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 15,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      818,
+      941,
+      1044,
+      1073,
+      1343,
+      1518,
+      1812,
+      1915,
+      1968,
+      2302,
+      2394,
+      2477,
+      2512,
+      2857,
+      2859
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 9,
+     "regions": [
+      "F3|X36",
+      "F3|X37"
+     ],
+     "consistent": false,
+     "patch_ids": [
+      279,
+      323,
+      560,
+      988,
+      1200,
+      2273,
+      2293,
+      2577,
+      2655
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 8,
+     "regions": [
+      "F3|X36",
+      "F3|X37"
+     ],
+     "consistent": false,
+     "patch_ids": [
+      240,
+      337,
+      399,
+      1326,
+      1416,
+      1704,
+      2020,
+      2233
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 7,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      263,
+      837,
+      1452,
+      1712,
+      1792,
+      2326,
+      2402
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 4,
+     "regions": [
+      "F3|X37"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      2,
+      903,
+      1118,
+      2713
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 3,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      789,
+      1808,
+      3070
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 3,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      190,
+      302,
+      1325
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 3,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      196,
+      803,
+      2435
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 3,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      754,
+      842,
+      1002
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 2,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      125,
+      534
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 2,
+     "regions": [
+      "F3|X37"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      261,
+      1099
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      282
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      2375
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      2768
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      2998
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      3003
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F2|F3"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      3120
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F2|X49"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      3121
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "F3|X36"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      1259
+     ]
+    }
+   ],
+   "links": {
+    "joined": 273,
+    "cut": 23,
+    "unsolved": 58
+   }
+  },
+  "X17": {
+   "classes": [
+    {
+     "count_on_sphere": 1200,
+     "patches": 8,
+     "regions": [
+      "X32|X54"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      830,
+      851,
+      879,
+      1135,
+      1296,
+      1600,
+      2366,
+      2814
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 7,
+     "regions": [
+      "X32|X54"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      74,
+      87,
+      467,
+      588,
+      1041,
+      2463,
+      2706
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 6,
+     "regions": [
+      "X43|X46"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      115,
+      1355,
+      1673,
+      1703,
+      1930,
+      2199
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 3,
+     "regions": [
+      "X32|X43"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      4,
+      2045,
+      2137
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 3,
+     "regions": [
+      "X43|X46"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      1115,
+      1245,
+      2832
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 2,
+     "regions": [
+      "X32|X43"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      1276,
+      1622
+     ]
+    },
+    {
+     "count_on_sphere": 1200,
+     "patches": 1,
+     "regions": [
+      "X43|X46"
+     ],
+     "consistent": true,
+     "patch_ids": [
+      3119
+     ]
+    }
+   ],
+   "links": {
+    "joined": 24,
+    "cut": 10,
+    "unsolved": 4
+   }
+  }
+ }
+}
