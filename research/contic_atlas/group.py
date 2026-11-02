@@ -55,6 +55,30 @@ def _elements():
 ELEMENTS = _elements()
 assert len(ELEMENTS) == ORDER, len(ELEMENTS)
 
+# (the subgroup: CONTIC_SUB = full ([[3,4,3]], 2304), ki (kicontic [[3,4,3]]+: the rotations, 1152) or io (iocontic
+# [[3,4,3]+]: F4's rotations, and F4's reflections times the swap, 1152). An element is in F4 (no swap) when it sends
+# the long root e1 + e2 to a long root (integer coordinates).)
+import os  # noqa: E402
+
+SUB = os.environ.get("CONTIC_SUB", "full")
+TAG = {"full": "", "ki": "_ki", "io": "_io"}[SUB]
+_IN_F4 = np.array([np.abs(g @ np.array([1, 1, 0, 0.0]) - np.round(g @ np.array([1, 1, 0, 0.0]))).max() < 1e-9 for g in ELEMENTS])
+_DET = np.array([np.sign(np.linalg.det(g)) for g in ELEMENTS])
+if SUB == "ki":
+    _KEEP = _DET > 0
+    GENS = [REFL[i] @ REFL[j] for i in range(4) for j in range(i + 1, 4)] + [PHI]
+elif SUB == "io":
+    _KEEP = (_IN_F4 & (_DET > 0)) | (~_IN_F4 & (_DET < 0))
+    GENS = [REFL[i] @ REFL[j] for i in range(4) for j in range(i + 1, 4)] + [REFL[0] @ PHI]
+else:
+    _KEEP = np.ones(len(ELEMENTS), bool)
+ELEMENTS = ELEMENTS[_KEEP]
+ORDER = len(ELEMENTS)
+
+
+def fname(stem, ext="json"):
+    return f"{stem}{TAG}.{ext}"
+
 
 def exact(M):
     """A float matrix with entries a + b sqrt2 (a, b dyadic, denominators up to 16) as a sympy matrix."""
