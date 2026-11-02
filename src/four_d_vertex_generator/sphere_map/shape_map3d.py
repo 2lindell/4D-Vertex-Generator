@@ -29,9 +29,9 @@ RANK = {"side": 0, "boundary": 0, "round": 1, "end": 1, "corner": 1, "touches": 
         "crosses": 2, "ends on": 1, "ends on it": 1, "across a line": 3}
 # what each kind of shape shows round it
 SHOWN = {"region": {"boundary", "corner"},
-         "face": {"side", "boundary", "corner", "meets", "crosses", "across a line"},
+         "face": {"side", "boundary", "corner", "meets"},
          "line": {"round", "end", "ends on", "ends on it"},
-         "point": {"boundary", "touches", "across a line"}}
+         "point": {"boundary", "touches"}}
 
 
 def _log(*a):
