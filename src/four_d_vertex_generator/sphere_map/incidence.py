@@ -305,15 +305,21 @@ class Incidence:
         return None, None
 
 
+def _resolve_or_none(name):
+    from .wall_meets import resolve
+    try:
+        return resolve(name)
+    except KeyError:
+        return None
+
+
 def line_report(step=2.5e-2) -> dict:
     """Walls round every atlas line, at points all along each of its domain pieces."""
-    from .frame import surface_by_name, surfaces
     from .line_atlas import _exact_resample
 
     inc = Incidence()
     w = load_json("working_data.json")
     named = np.array([point_from_beta(np.asarray(p["float"], float)) for p in w["exact"]["points"]])
-    lib_by_name = {n: surfaces()[i] for n, i in surface_by_name().items()}
     out = {}
     for name, info in w["exact"]["lines"].items():
         walls, unknown, n_pts = Counter(), 0, 0
@@ -322,7 +328,7 @@ def line_report(step=2.5e-2) -> dict:
             poly = np.asarray(poly, float)
             poly = poly / poly.sum(axis=1, keepdims=True)
             sn = info["surfaces"][pi] if pi < len(info["surfaces"]) else info["surfaces"][0]
-            pair = [lib_by_name.get(n) for n in sn]
+            pair = [_resolve_or_none(n) for n in sn]
             if len(pair) == 2 and all(pair):
                 poly = _exact_resample(poly, pair, step=step)
             for i in range(1, len(poly) - 1):

@@ -10,6 +10,7 @@ its ends compared with the atlas's exact meeting points (`exact_points.json`).
 """
 from __future__ import annotations
 
+import dataclasses
 import json
 import re
 
@@ -21,24 +22,35 @@ from .incidence import Incidence
 from .surface_images import image_of
 
 STEP = 2e-3
-CHECK_EVERY = 10          # incidence checked every CHECK_EVERY steps (~2e-2)
+CHECK_EVERY = 3           # incidence checked every CHECK_EVERY steps (~6e-3)
 NEAR_POINT = 1e-2         # (R^4) points this close to a named point are not checked: corners there
 
 
+FOLD = np.eye(4)[[1, 0, 3, 2]]     # the atlas's fold: beta1 <-> beta2, beta3 <-> beta4 (X42:fold = X42 . FOLD)
+
+
+def _fold(s):
+    if s.kind == "plane":
+        return dataclasses.replace(s, normal=FOLD @ s.normal)
+    return dataclasses.replace(s, a=s.a @ FOLD)
+
+
 def resolve(name: str):
-    """A surface by its atlas name: a library name, or 'BASE:map[:fold]' (BASE's image under map)."""
+    """A surface by its atlas name: a library name, or 'BASE:map' (BASE's image under that map),
+    or 'BASE:map:fold' (that image, folded). BASE may be a wall's name for its one surface."""
     by = surface_by_name()
     if name in by:
         return surfaces()[by[name]]
     m = re.fullmatch(r"(.+?):(\d+)(:fold)?", name)
     if m:
-        base = m.group(1) + (m.group(3) or "")
+        base = m.group(1)
         if base not in by:              # a wall's name for its own (single) surface
-            own = load_json("exact_defs.json")["walls"].get(m.group(1), {}).get("surface", [])
+            own = load_json("exact_defs.json")["walls"].get(base, {}).get("surface", [])
             if len(own) == 1:
-                base = own[0] + (m.group(3) or "")
+                base = own[0]
         if base in by:
-            return image_of(surfaces()[by[base]], int(m.group(2)), name)
+            img = image_of(surfaces()[by[base]], int(m.group(2)), name)
+            return _fold(img) if m.group(3) else img
     raise KeyError(name)
 
 
