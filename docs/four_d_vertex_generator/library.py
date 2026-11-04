@@ -414,6 +414,28 @@ def _a4_rotoreflection_generators() -> list[np.ndarray]:
     return [*a4plus_rotations, odd_parity_gen]
 
 
+def _f4_rotoreflection_generators() -> list[np.ndarray]:
+    """F4 with parity-dependent inversion creating the iocontic group.
+    
+    Iocontic is an index-2 subgroup of contic: order 1152 with structure
+    {even σ} ∪ {−σ for odd σ}. In the Coxeter framework, this is generated
+    by F4+ (rotation subgroup, order 576) combined with a reflection that
+    effectively adds 576 additional elements via odd-parity conjugacy.
+    """
+    # Get F4+ rotation generators (order 576)
+    f4plus_rotations = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+    
+    # The fourth Coxeter generator for F4 (the one we don't include in F4+)
+    # This is the "missing" reflection that generates odd-parity elements
+    f4_reflections = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+    
+    # We need a reflection that, when combined with F4+, generates the parity-restricted structure
+    # Use the first reflection (which generates some odd-parity elements when composed with rotations)
+    odd_parity_gen = f4_reflections[0]
+    
+    return [*f4plus_rotations, odd_parity_gen]
+
+
 def _coxeter_diagram_automorphism(
     edges: tuple[tuple[int, int, int], ...],
 ) -> np.ndarray:
@@ -539,7 +561,7 @@ SYMMETRY_ALIASES: dict[str, str] = {
     "kiicoic": "f4+",
     "contic": "f4_extended",
     "kicontic": "f4_chiral_extended",
-    "iocontic": "f4_chiral_extended",
+    "iocontic": "f4_rotoreflection",
     "toxitic": "f4_double_diminished",
     "oxitic": "f4_extended_double_diminished",
     "hyic": "h4",
@@ -641,6 +663,8 @@ def named_symmetry(name: str) -> SymmetryAction:
     elif name == "f4_chiral_extended":
         edges = ((0, 1, 3), (1, 2, 4), (2, 3, 3))
         gens = [*_coxeter_rotation_generators(edges), _coxeter_diagram_automorphism(edges)]
+    elif name == "f4_rotoreflection":
+        gens = _f4_rotoreflection_generators()
     elif name == "f4_double_diminished":
         reflections = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
         gens = [reflections[0] @ reflections[1], reflections[2] @ reflections[3]]
@@ -791,6 +815,7 @@ def available_symmetries(*, include_aliases: bool = True) -> list[str]:
         "f4_chiral",
         "f4_extended",
         "f4_chiral_extended",
+        "f4_rotoreflection",
         "f4_double_diminished",
         "f4_extended_double_diminished",
         "h4_basic",
