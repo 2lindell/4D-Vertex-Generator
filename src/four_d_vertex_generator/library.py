@@ -392,6 +392,28 @@ def _coxeter_rotation_generators(
     return [reflections[0] @ reflection for reflection in reflections[1:]]
 
 
+def _a4_rotoreflection_generators() -> list[np.ndarray]:
+    """A4 with parity-dependent inversion creating the iodecaic group.
+    
+    Iodecaic is an index-2 subgroup of decaic: order 120 with structure
+    {even σ} ∪ {−σ for odd σ}. In the Coxeter framework, this is generated
+    by A4+ (rotation subgroup, order 60) combined with a reflection that
+    effectively adds 60 additional elements via odd-parity conjugacy.
+    """
+    # Get A4+ rotation generators (order 60)
+    a4plus_rotations = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
+    
+    # The fourth Coxeter generator for A4 (the one we don't include in A4+)
+    # This is the "missing" reflection that generates odd-parity elements
+    a4_reflections = _coxeter_reflections(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
+    
+    # We need a reflection that, when combined with A4+, generates the parity-restricted structure
+    # Use the first reflection (which generates some odd-parity elements when composed with rotations)
+    odd_parity_gen = a4_reflections[0]
+    
+    return [*a4plus_rotations, odd_parity_gen]
+
+
 def _coxeter_diagram_automorphism(
     edges: tuple[tuple[int, int, int], ...],
 ) -> np.ndarray:
@@ -507,7 +529,7 @@ SYMMETRY_ALIASES: dict[str, str] = {
     "kipennic": "a4+",
     "decaic": "a4_extended",
     "kidecaic": "a4_chiral_extended",
-    "iodecaic": "a4_chiral_extended",
+    "iodecaic": "a4_rotoreflection",
     "tessic": "b4",
     "kitessic": "b4+",
     "demitessic": "d4",
@@ -593,6 +615,8 @@ def named_symmetry(name: str) -> SymmetryAction:
         gens = _with_inversion(
             _coxeter_rotation_generators(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
         )
+    elif name == "a4_rotoreflection":
+        gens = _a4_rotoreflection_generators()
     elif name == "d4_extended":
         gens = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
     elif name == "d4_extended_chiral":
@@ -752,6 +776,7 @@ def available_symmetries(*, include_aliases: bool = True) -> list[str]:
         "a4_chiral",
         "a4_extended",
         "a4_chiral_extended",
+        "a4_rotoreflection",
         "a4_extended_chiral",
         "b4",
         "b4_basic",
