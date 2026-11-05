@@ -1,0 +1,147 @@
+{
+ "_about": "The toxitic / oxitic shapes on the domain's faces, edges and special lines (strata_<sub>.json).",
+ "group": "tox",
+ "order": 288,
+ "N": 8,
+ "strata": [
+  {
+   "stratum": "face b2 = 0",
+   "points": 9,
+   "types": {
+    "50cdad1380f5": 9
+   },
+   "changes": []
+  },
+  {
+   "stratum": "face b3 = 0",
+   "points": 9,
+   "types": {
+    "50cdad1380f5": 9
+   },
+   "changes": []
+  },
+  {
+   "stratum": "face b4 = 0",
+   "points": 21,
+   "types": {
+    "6b0cb2276095": 21
+   },
+   "changes": []
+  },
+  {
+   "stratum": "fold b1 = b4",
+   "points": 9,
+   "types": {
+    "a5f41b7684fb": 9
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b2 = b3 = 0",
+   "points": 3,
+   "types": {
+    "cc9050ff3c4e": 3
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b2 = b4 = 0",
+   "points": 7,
+   "types": {
+    "6b0cb2276095": 7
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b3 = b4 = 0",
+   "points": 7,
+   "types": {
+    "3d29aef5b8e0": 7
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b4 = 0",
+   "points": 7,
+   "types": {
+    "095e2d12fe7f": 7
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b4, b2 = 0",
+   "points": 3,
+   "types": {
+    "50cdad1380f5": 3
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b4, b3 = 0",
+   "points": 3,
+   "types": {
+    "50cdad1380f5": 3
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b4, b2 = b3",
+   "points": 3,
+   "types": {
+    "a5f41b7684fb": 3
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (1,0,0,0)",
+   "points": 1,
+   "types": {
+    "58cb82973b86": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (0,1,0,0)",
+   "points": 1,
+   "types": {
+    "8de8fd73a969": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (0,0,1,0)",
+   "points": 1,
+   "types": {
+    "8de8fd73a969": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (1,0,0,1)",
+   "points": 1,
+   "types": {
+    "cc9050ff3c4e": 1
+   },
+   "changes": []
+  }
+ ],
+ "types": [
+  {
+   "key": "50cdad1380f5",
+   "signature": "288: cells 24x[12v8f]+24x[12v20f]+96x[6v5f]+96x[9v8f] | faces 96x3g+96x3g+96x3g+96x6g+288x3g+288x4g | edges 144x4+288x3+288x3+288x4",
+   "vertices": 288,
+   "example": [
+    0.24954900054360618,
+    0.0,
+    0.6238970929449865,
+    0.12655390651140744
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b1 = b4, b2 = 0",
+    "line b1 = b4, b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 
