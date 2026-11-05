@@ -326,9 +326,13 @@ def build() -> dict:
             # on a named line: some copy of one of its pieces carries the whole stretch (tested on
             # the sphere, not in the domain's coordinates: a stretch on the domain's boundary is
             # a copy of the line's recorded points, not those points)
+            # (each point on some copy: a stretch can run along two pieces of the line)
             X = np.vstack([point_from_beta(pcs[i]["seg"]) for i in members])[::3]
             for name, tree in line_trees.items():
-                if any(tree.query(X @ g[h])[0].max() < 5e-4 for h in range(len(g))):
+                best = np.full(len(X), np.inf)
+                for h in range(len(g)):
+                    best = np.minimum(best, tree.query(X @ g[h], distance_upper_bound=1e-3)[0])
+                if best.max() < 5e-4:
                     on = name
                     break
             ends = []
