@@ -567,8 +567,8 @@
     ]
    },
    "X29": {
-    "classes": 6,
-    "pieces_on_sphere": 7200,
+    "classes": 3,
+    "pieces_on_sphere": 3600,
     "classes_detail": [
      {
       "id": 4,
@@ -593,30 +593,6 @@
        "X29"
       ],
       "on_sphere": 1200
-     },
-     {
-      "id": 7,
-      "ends": [
-       "A1",
-       "X8"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 8,
-      "ends": [
-       "X29",
-       "X8"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 9,
-      "ends": [
-       "A1",
-       "X29"
-      ],
-      "on_sphere": 1200
      }
     ]
    },
@@ -625,7 +601,7 @@
     "pieces_on_sphere": 2400,
     "classes_detail": [
      {
-      "id": 10,
+      "id": 7,
       "ends": [
        "A1",
        "X4"
@@ -633,7 +609,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 11,
+      "id": 8,
       "ends": [
        "A1",
        "X4"
@@ -647,7 +623,7 @@
     "pieces_on_sphere": 1200,
     "classes_detail": [
      {
-      "id": 12,
+      "id": 9,
       "ends": [
        "C5"
       ],
@@ -656,75 +632,35 @@
     ]
    },
    "X5": {
-    "classes": 9,
-    "pieces_on_sphere": 10800,
+    "classes": 4,
+    "pieces_on_sphere": 4800,
     "classes_detail": [
      {
+      "id": 10,
+      "ends": [
+       "C6",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 11,
+      "ends": [
+       "C4",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
+      "id": 12,
+      "ends": [
+       "C4",
+       "X5"
+      ],
+      "on_sphere": 1200
+     },
+     {
       "id": 13,
-      "ends": [
-       "C6",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 14,
-      "ends": [
-       "C4",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 15,
-      "ends": [
-       "C4",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 16,
-      "ends": [
-       "C6",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 17,
-      "ends": [
-       "C6",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 18,
-      "ends": [
-       "C4",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 19,
-      "ends": [
-       "C6",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 20,
-      "ends": [
-       "C4",
-       "X5"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 21,
       "ends": [
        "C6",
        "X5"
@@ -738,7 +674,7 @@
     "pieces_on_sphere": 2400,
     "classes_detail": [
      {
-      "id": 22,
+      "id": 14,
       "ends": [
        "A1",
        "X2"
@@ -746,7 +682,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 23,
+      "id": 15,
       "ends": [
        "A1",
        "X2"
@@ -756,11 +692,11 @@
     ]
    },
    "X81": {
-    "classes": 4,
-    "pieces_on_sphere": 4800,
+    "classes": 3,
+    "pieces_on_sphere": 3600,
     "classes_detail": [
      {
-      "id": 24,
+      "id": 16,
       "ends": [
        "A1",
        "X2"
@@ -768,7 +704,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 25,
+      "id": 17,
       "ends": [
        "A1",
        "X81"
@@ -776,29 +712,21 @@
       "on_sphere": 1200
      },
      {
-      "id": 26,
+      "id": 18,
       "ends": [
        "X2",
        "X81"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 27,
-      "ends": [
-       "A1",
-       "X2"
       ],
       "on_sphere": 1200
      }
     ]
    },
    "X24": {
-    "classes": 3,
-    "pieces_on_sphere": 3600,
+    "classes": 2,
+    "pieces_on_sphere": 2400,
     "classes_detail": [
      {
-      "id": 28,
+      "id": 19,
       "ends": [
        "A1",
        "X97"
@@ -806,15 +734,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 29,
-      "ends": [
-       "A1",
-       "X97"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "id": 30,
+      "id": 20,
       "ends": [
        "A1",
        "X97"
@@ -828,7 +748,7 @@
     "pieces_on_sphere": 4800,
     "classes_detail": [
      {
-      "id": 31,
+      "id": 21,
       "ends": [
        "C1",
        "X2"
@@ -836,7 +756,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 32,
+      "id": 22,
       "ends": [
        "C4",
        "X2"
@@ -844,7 +764,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 33,
+      "id": 23,
       "ends": [
        "C4",
        "X2"
@@ -852,7 +772,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 34,
+      "id": 24,
       "ends": [
        "C1",
        "X2"
@@ -866,7 +786,7 @@
     "pieces_on_sphere": 3600,
     "classes_detail": [
      {
-      "id": 35,
+      "id": 25,
       "ends": [
        "C4",
        "X4"
@@ -874,7 +794,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 36,
+      "id": 26,
       "ends": [
        "C1",
        "X4"
@@ -882,7 +802,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 37,
+      "id": 27,
       "ends": [
        "C1",
        "C4"
@@ -896,7 +816,7 @@
     "pieces_on_sphere": 4800,
     "classes_detail": [
      {
-      "id": 38,
+      "id": 28,
       "ends": [
        "C1",
        "X8"
@@ -904,7 +824,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 39,
+      "id": 29,
       "ends": [
        "X5",
        "X8"
@@ -912,7 +832,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 40,
+      "id": 30,
       "ends": [
        "C1",
        "X8"
@@ -920,7 +840,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 41,
+      "id": 31,
       "ends": [
        "X5",
        "X8"
@@ -934,7 +854,7 @@
     "pieces_on_sphere": 4800,
     "classes_detail": [
      {
-      "id": 42,
+      "id": 32,
       "ends": [
        "C1",
        "X97"
@@ -942,7 +862,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 43,
+      "id": 33,
       "ends": [
        "C4",
        "X97"
@@ -950,7 +870,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 44,
+      "id": 34,
       "ends": [
        "C4",
        "X97"
@@ -958,7 +878,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 45,
+      "id": 35,
       "ends": [
        "C1",
        "X97"
@@ -972,7 +892,7 @@
     "pieces_on_sphere": 2400,
     "classes_detail": [
      {
-      "id": 46,
+      "id": 36,
       "ends": [
        "C1",
        "X4"
@@ -980,7 +900,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 47,
+      "id": 37,
       "ends": [
        "C1",
        "X4"
@@ -990,11 +910,11 @@
     ]
    },
    "D2": {
-    "classes": 4,
-    "pieces_on_sphere": 2400,
+    "classes": 2,
+    "pieces_on_sphere": 1200,
     "classes_detail": [
      {
-      "id": 48,
+      "id": 38,
       "ends": [
        "A1",
        "C4"
@@ -1002,23 +922,7 @@
       "on_sphere": 600
      },
      {
-      "id": 49,
-      "ends": [
-       "A1",
-       "C4"
-      ],
-      "on_sphere": 600
-     },
-     {
-      "id": 50,
-      "ends": [
-       "A1",
-       "C4"
-      ],
-      "on_sphere": 600
-     },
-     {
-      "id": 51,
+      "id": 39,
       "ends": [
        "A1",
        "C4"
@@ -1028,18 +932,11 @@
     ]
    },
    "C2b": {
-    "classes": 2,
-    "pieces_on_sphere": 1200,
+    "classes": 1,
+    "pieces_on_sphere": 600,
     "classes_detail": [
      {
-      "id": 52,
-      "ends": [
-       "C4"
-      ],
-      "on_sphere": 600
-     },
-     {
-      "id": 53,
+      "id": 40,
       "ends": [
        "C4"
       ],
@@ -1048,11 +945,11 @@
     ]
    },
    "D1": {
-    "classes": 3,
-    "pieces_on_sphere": 1800,
+    "classes": 2,
+    "pieces_on_sphere": 1200,
     "classes_detail": [
      {
-      "id": 54,
+      "id": 41,
       "ends": [
        "C5",
        "C6"
@@ -1060,15 +957,7 @@
       "on_sphere": 600
      },
      {
-      "id": 55,
-      "ends": [
-       "C5",
-       "C6"
-      ],
-      "on_sphere": 600
-     },
-     {
-      "id": 56,
+      "id": 42,
       "ends": [
        "C5",
        "C6"
@@ -1082,7 +971,7 @@
     "pieces_on_sphere": 1200,
     "classes_detail": [
      {
-      "id": 57,
+      "id": 43,
       "ends": [
        "C1",
        "C5"
@@ -1090,7 +979,7 @@
       "on_sphere": 600
      },
      {
-      "id": 58,
+      "id": 44,
       "ends": [
        "C1",
        "C5"
@@ -1104,7 +993,7 @@
     "pieces_on_sphere": 1200,
     "classes_detail": [
      {
-      "id": 59,
+      "id": 45,
       "ends": [
        "A1",
        "C1"
@@ -1112,7 +1001,7 @@
       "on_sphere": 600
      },
      {
-      "id": 60,
+      "id": 46,
       "ends": [
        "C1"
       ],
@@ -1125,7 +1014,7 @@
     "pieces_on_sphere": 600,
     "classes_detail": [
      {
-      "id": 61,
+      "id": 47,
       "ends": [
        "C6"
       ],
@@ -1138,7 +1027,7 @@
     "pieces_on_sphere": 2400,
     "classes_detail": [
      {
-      "id": 62,
+      "id": 48,
       "ends": [
        "C4",
        "C6"
@@ -1146,7 +1035,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 63,
+      "id": 49,
       "ends": [
        "C4",
        "C6"
@@ -1160,7 +1049,7 @@
     "pieces_on_sphere": 2400,
     "classes_detail": [
      {
-      "id": 64,
+      "id": 50,
       "ends": [
        "C1",
        "C5"
@@ -1168,7 +1057,7 @@
       "on_sphere": 1200
      },
      {
-      "id": 65,
+      "id": 51,
       "ends": [
        "C1",
        "C5"
@@ -1182,7 +1071,7 @@
     "pieces_on_sphere": 240,
     "classes_detail": [
      {
-      "id": 66,
+      "id": 52,
       "ends": [
        "A1"
       ],
@@ -63217,7 +63106,7 @@
  ],
  "totals": {
   "wall_pieces_on_sphere": 175200,
-  "atlas_line_pieces_on_sphere": 70440,
+  "atlas_line_pieces_on_sphere": 56040,
   "meeting_edge_pieces_on_sphere": 43800,
   "points_on_sphere": 317976
  }

@@ -253,6 +253,17 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
         for h in range(grp.n):
             placed.setdefault(int(images[h]), (len(classes), h))
         members = [[int(k), int(s)] for k, s in zip(ks, js)]
+        # each physical stretch once: a member lying on a stretch already kept (the same piece
+        # listed twice by the atlas, or seen from two copies) is not a second stretch
+        kept, kept_trees = [], []
+        for k, s in members:
+            r4 = point_from_beta(subs[s]["polyline"]) @ grp.g[k].T
+            mid = r4[len(r4) // 2]
+            if any(t.query(mid)[0] < 1e-4 for t in kept_trees):
+                continue
+            kept.append([k, s])
+            kept_trees.append(cKDTree(densify(r4, 1e-4)))
+        members = kept
         names = Counter(subs[s]["line"] for _, s in members)
         pts = np.vstack([densify(point_from_beta(subs[s]["polyline"])) @ grp.g[k].T
                          for k, s in members])
