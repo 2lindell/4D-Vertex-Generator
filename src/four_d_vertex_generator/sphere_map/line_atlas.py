@@ -98,12 +98,17 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
     named = [(p["name"], point_from_beta(np.asarray(p["float"], float))) for p in w["exact"]["points"]]
     point_shapes = {k for k, v in w["shapes"].items() if v["dim"] == "point"}
     named_from = [p["from"] for p in w["exact"]["points"]]
-    all_named = np.vstack([grp.g @ x for _, x in named])            # every copy of every point
+    # every copy of every point, under G and under its mirror G.Q (the atlas lists a point once;
+    # its mirror position is a copy of it too, so lines are cut alike in both mirror halves)
+    from .frame import source_dir as _sd
+    _gq = np.concatenate([grp.g, grp.g @ np.load(_sd() / "normalizer_q.npy")])
+    n_per = len(_gq)
+    all_named = np.vstack([_gq @ x for _, x in named])
     from .frame import cell_vertices, surface_by_name, surfaces
     cell_inv = np.linalg.inv(cell_vertices())
     lib_by_name = {n: surfaces()[i] for n, i in surface_by_name().items()}
     exact_pieces = 0
-    named_of = [n for n, _ in named for _ in range(grp.n)]
+    named_of = [n for n, _ in named for _ in range(n_per)]
     ntree = cKDTree(all_named)
 
     # 1. cut each domain piece of each line at every copy of a named point lying on it
@@ -132,7 +137,7 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
                 xa, xb = r4[a], r4[a + 1]
                 span = np.linalg.norm(xb - xa)
                 for jj in ntree.query_ball_point((xa + xb) / 2, span / 2 + 1e-5):
-                    if jj // grp.n not in mine:
+                    if jj // n_per not in mine:
                         continue
                     x = all_named[jj]
                     t = float(np.clip((x - xa) @ (xb - xa) / max(span ** 2, 1e-300), 0, 1))
@@ -147,7 +152,7 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
                     key = tuple(np.round(x, 9))
                     if key not in seen:
                         seen.add(key)
-                        inserts.append((off, a, t, bx, x, jj // grp.n))
+                        inserts.append((off, a, t, bx, x, jj // n_per))
             kept = []
             for off, a, t, bx, x, pi_ in sorted(inserts, key=lambda z: (z[0], z[5])):
                 if all(np.linalg.norm(x - y[4]) > 1e-7 for y in kept):
@@ -170,7 +175,7 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             r4 = point_from_beta(poly)
             cut_at = []
             for idx, x in enumerate(r4):
-                hit = [jj for jj in ntree.query_ball_point(x, 1e-6) if jj // grp.n in mine]
+                hit = [jj for jj in ntree.query_ball_point(x, 1e-6) if jj // n_per in mine]
                 if hit and all(np.linalg.norm(x - r4[c]) > 5e-3 for c, _ in cut_at):
                     cut_at.append((idx, named_of[hit[0]]))
             # the piece's own ends on named points (line_ends 'on')
