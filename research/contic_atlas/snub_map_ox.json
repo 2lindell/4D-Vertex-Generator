@@ -1,0 +1,7173 @@
+{
+ "_about": "The kicontic / iocontic domain mapped over curved walls (snub_map_ki.json / snub_map_io.json); as\ndecaic_atlas/snub_map.py, over Q(sqrt2).",
+ "N": 32,
+ "types": [
+  {
+   "type": 0,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x8+576x3+576x4+576x4+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    105
+   ],
+   "grid_points": 105,
+   "fold_points": 66,
+   "wall_of": []
+  },
+  {
+   "type": 1,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x8+288x8+288x10+576x3+576x3+576x3+576x4+576x5+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.34361170975596106,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    1,
+    1
+   ],
+   "grid_points": 2,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 2,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x8+288x12+576x3+576x3+576x4+576x4+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.37481549796593977,
+    0.5308808188561326,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    1,
+    3,
+    5,
+    2,
+    1
+   ],
+   "grid_points": 12,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 3,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+576x3+576x3+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.4060192861759185,
+    0.4996770306461539,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    713
+   ],
+   "grid_points": 713,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 4,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.46842686259587596,
+    0.43726945422619645,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    86
+   ],
+   "grid_points": 86,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 5,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x8+288x10+576x3+576x3+576x4+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.49963065080585467,
+    0.40606566601621774,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    415
+   ],
+   "grid_points": 415,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 6,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+288x12+576x3+576x4+576x4+576x4+576x5+576x7",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.6244458036457695,
+    0.28125051317630284,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    181
+   ],
+   "grid_points": 181,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 7,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.09377546591623595,
+    0.31240792154598235,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    1,
+    1,
+    84,
+    1,
+    1,
+    1,
+    1
+   ],
+   "grid_points": 90,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 8,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x10+576x3+576x3+576x3+576x4+576x5+576x6+576x7",
+   "vertices": 576,
+   "example": [
+    0.09377546591623595,
+    0.5932420154357908,
+    0.25004672496632413,
+    0.06293579368164913
+   ],
+   "grid_regions": [
+    2,
+    60,
+    1,
+    2
+   ],
+   "grid_points": 65,
+   "fold_points": 4,
+   "wall_of": []
+  },
+  {
+   "type": 9,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x12+576x3+576x3+576x4+576x4+576x4+576x6+576x6",
+   "vertices": 576,
+   "example": [
+    0.12497925412621468,
+    0.5308344390158334,
+    0.25004672496632413,
+    0.09413958189162785
+   ],
+   "grid_regions": [
+    1,
+    1,
+    49,
+    3,
+    1
+   ],
+   "grid_points": 55,
+   "fold_points": 31,
+   "wall_of": []
+  },
+  {
+   "type": 10,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.1561830423361934,
+    0.12518519228610997,
+    0.59328839527609,
+    0.1253433701016066
+   ],
+   "grid_regions": [
+    1,
+    191
+   ],
+   "grid_points": 192,
+   "fold_points": 124,
+   "wall_of": []
+  },
+  {
+   "type": 11,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+288x12+576x3+576x3+576x3+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.21859061875615085,
+    0.34361170975596106,
+    0.25004672496632413,
+    0.18775094652156404
+   ],
+   "grid_regions": [
+    1,
+    2,
+    3
+   ],
+   "grid_points": 6,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 12,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x4+576x4+576x5+576x5",
+   "vertices": 576,
+   "example": [
+    0.40581334801602315,
+    0.12518519228610997,
+    0.12523157212640923,
+    0.34376988757145766
+   ],
+   "grid_regions": [
+    210
+   ],
+   "grid_points": 210,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 13,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x8+288x8+576x3+576x3+576x4+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.7178512301158104,
+    0.06277761586615252,
+    0.031620207496473034,
+    0.18775094652156404
+   ],
+   "grid_regions": [
+    3
+   ],
+   "grid_points": 3,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 14,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x8+576x3+576x3+576x3+576x4+576x5+576x5",
+   "vertices": 576,
+   "example": [
+    0.08521582387503386,
+    0.2812041333360036,
+    0.6018480373172921,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+     [
+      0,
+      1
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 15,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x3+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.16021310839751934,
+    0.05874754980482662,
+    0.6556959716960475,
+    0.1253433701016066
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+     [
+      0,
+      8
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 16,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x6+288x7+288x10+576x3+576x3+576x4+576x4+576x5+576x5",
+   "vertices": 576,
+   "example": [
+    0.06304530608311967,
+    0.3431380813790986,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+     [
+      1,
+      2
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 17,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v5f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x6+288x6+288x10+576x3+576x4+576x4+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.06746125738713796,
+    0.369925918285059,
+    0.5308808188561326,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 18,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v14f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x3+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.3830393692871953,
+    0.5226569475348771,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+     [
+      2,
+      7
+     ]
+    ],
+    [
+     "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+     [
+      2,
+      17
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 19,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x5+288x6+576x3+576x3+576x4+576x4",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.4528481650478454,
+    0.452848151774227,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 20,
+   "signature": "576: cells 48x[12v20f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[6v7f] | faces 144x4g+192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x5+576x3+576x3+576x3+576x4",
+   "vertices": 576,
+   "example": [
+    0.12497925412621468,
+    0.42164436939830385,
+    0.42164437100381114,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b2 - b3",
+     [
+      3,
+      4
+     ]
+    ],
+    [
+     "b2 - b3",
+     [
+      3,
+      19
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 21,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x5+288x7+576x3+576x3+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.4807942293657905,
+    0.4249020874562819,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+     [
+      4,
+      5
+     ]
+    ],
+    [
+     "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+     [
+      4,
+      38
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 22,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v6f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x10+576x3+576x3+576x3+576x4+576x6",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.6009408768068907,
+    0.30475544001518173,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b3 - b2*b4",
+     [
+      5,
+      6
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 23,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x6+288x10+576x3+576x3+576x3+576x4+576x5+576x6+576x8",
+   "vertices": 576,
+   "example": [
+    0.06257167770625723,
+    0.6973141493857502,
+    0.208382167436322,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 24,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v8f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x4+576x6",
+   "vertices": 576,
+   "example": [
+    0.08007135965629462,
+    0.7317612745356472,
+    0.15643536033638794,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+     [
+      0,
+      23
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 25,
+   "signature": "576: cells 48x[24v38f]+192x[6v8f]+288x[4v4f]+288x[4v4f] | faces 144x4g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x3+288x4+576x3+576x3+576x4",
+   "vertices": 576,
+   "example": [
+    0.12497925412621468,
+    0.28977804143642494,
+    0.5308808188561326,
+    0.054361885581227745
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+     [
+      3,
+      7
+     ]
+    ],
+    [
+     "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+     [
+      3,
+      28
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 26,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v8f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x10+576x3+576x3+576x4+576x4+576x4+576x6",
+   "vertices": 576,
+   "example": [
+    0.12497925412621468,
+    0.6653462529751475,
+    0.15643536033638794,
+    0.05323913256225021
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+     [
+      6,
+      8
+     ]
+    ],
+    [
+     "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+     [
+      6,
+      9
+     ]
+    ],
+    [
+     "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+     [
+      6,
+      27
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 27,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x5+288x5+288x10+576x3+576x3+576x4+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.31764731933545465,
+    0.46842686259587596,
+    0.09402778391643048,
+    0.11989803415223896
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+     [
+      8,
+      9
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 28,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v5f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x8+576x3+576x4+576x4+576x4",
+   "vertices": 576,
+   "example": [
+    0.16259466590602276,
+    0.0875697805063019,
+    0.6244921834860688,
+    0.1253433701016066
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+     [
+      7,
+      10
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 29,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x12+576x3+576x3+576x3+576x3+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.1561830423361934,
+    0.1042183467083214,
+    0.6142552408538786,
+    0.1253433701016066
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 30,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v14f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x3+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.22135291774709653,
+    0.49963065080585467,
+    0.12523157212640923,
+    0.15378485932063957
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+     [
+      9,
+      10
+     ]
+    ],
+    [
+     "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+     [
+      9,
+      29
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 31,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v5f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x6+288x12+576x3+576x3+576x3+576x4+576x5+576x5",
+   "vertices": 576,
+   "example": [
+    0.1561830423361934,
+    0.09398140407613124,
+    0.6288420438061261,
+    0.12099350978154941
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 32,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x4+288x5+576x3+576x4+576x4",
+   "vertices": 576,
+   "example": [
+    0.43701713622600186,
+    0.16897454476211055,
+    0.1750535842803448,
+    0.21895473473154276
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+     [
+      3,
+      12
+     ]
+    ],
+    [
+     "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+     [
+      3,
+      35
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 33,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v14f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+288x10+576x3+576x3+576x3+576x4+576x6",
+   "vertices": 576,
+   "example": [
+    0.2720318489730438,
+    0.34361170975596106,
+    0.18763914854636665,
+    0.1967172927246285
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+     [
+      6,
+      11
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 34,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[6v8f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x8+576x3+576x3+576x3+576x3+576x5",
+   "vertices": 576,
+   "example": [
+    0.21859061875615085,
+    0.3459451700256821,
+    0.2477132646966032,
+    0.18775094652156404
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+     [
+      10,
+      11
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 35,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v5f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x6+576x4+576x4+576x5+576x5",
+   "vertices": 576,
+   "example": [
+    0.530628500855938,
+    0.09398140407613124,
+    0.1828801197092538,
+    0.1925099753586769
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 36,
+   "signature": "576: cells 48x[12v20f]+192x[6v8f]+288x[4v4f]+288x[6v7f]+576x[4v4f]+576x[4v4f] | faces 144x4g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x6+288x7+576x3+576x4+576x4+576x4+576x4",
+   "vertices": 576,
+   "example": [
+    0.4057669679213405,
+    0.15643536059077143,
+    0.15643536033638794,
+    0.2813623111515002
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b2 - b3",
+     [
+      5,
+      12
+     ]
+    ],
+    [
+     "b2 - b3",
+     [
+      5,
+      37
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 37,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x7+288x8+576x3+576x4+576x4+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.6242398654858743,
+    0.09402778603070466,
+    0.09402778391643048,
+    0.18770456456699058
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+     [
+      5,
+      13
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 38,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v5f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x6+288x8+576x3+576x4+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.527904847139177,
+    0.2215202106328073,
+    0.2188429367563454,
+    0.03173200547167041
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  }
+ ],
+ "walls": [
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "crossings": 33
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "crossings": 29
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "crossings": 23
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "crossings": 22
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "crossings": 21
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "crossings": 20
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "crossings": 18
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "crossings": 16
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "crossings": 14
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "crossings": 13
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "crossings": 13
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "crossings": 12
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "crossings": 12
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "crossings": 11
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "crossings": 11
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "crossings": 10
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "crossings": 10
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "crossings": 10
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "crossings": 8
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "crossings": 7
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "crossings": 7
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "crossings": 7
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    9
+   ],
+   "wall_type": 27,
+   "crossings": 6
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    10
+   ],
+   "wall_type": 30,
+   "crossings": 6
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    11
+   ],
+   "wall_type": 34,
+   "crossings": 6
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    1
+   ],
+   "wall_type": 14,
+   "crossings": 5
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    8
+   ],
+   "wall_type": 15,
+   "crossings": 5
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 25,
+   "crossings": 5
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    36
+   ],
+   "wall_type": 36,
+   "crossings": 5
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    10,
+    30
+   ],
+   "wall_type": 30,
+   "crossings": 4
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    12
+   ],
+   "wall_type": 36,
+   "crossings": 4
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    13
+   ],
+   "wall_type": 37,
+   "crossings": 4
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 37,
+   "crossings": 4
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "crossings": 3
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 21,
+   "crossings": 3
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    10
+   ],
+   "wall_type": 28,
+   "crossings": 3
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 25,
+   "crossings": 3
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    12
+   ],
+   "wall_type": 32,
+   "crossings": 3
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 36,
+   "crossings": 3
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    9,
+    26
+   ],
+   "wall_type": 26,
+   "crossings": 3
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    0,
+    24
+   ],
+   "wall_type": 24,
+   "crossings": 2
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    35
+   ],
+   "wall_type": 32,
+   "crossings": 2
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 16,
+   "crossings": 1
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 18,
+   "crossings": 1
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    19
+   ],
+   "wall_type": 20,
+   "crossings": 1
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    0,
+    23
+   ],
+   "wall_type": 24,
+   "crossings": 1
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    8
+   ],
+   "wall_type": 26,
+   "crossings": 1
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    27
+   ],
+   "wall_type": 26,
+   "crossings": 1
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    9,
+    29
+   ],
+   "wall_type": 30,
+   "crossings": 1
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    2,
+    31
+   ],
+   "wall_type": 31,
+   "crossings": 1
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    38
+   ],
+   "wall_type": 21,
+   "crossings": 1
+  }
+ ],
+ "wall_points": [
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.085215824161,
+    0.2812041333449,
+    0.6018480371034,
+    0.0317320053907
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1193718551433,
+    0.1875927687348,
+    0.6300995826331,
+    0.0629357934889
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1055316687813,
+    0.2187965569471,
+    0.612735980799,
+    0.0629357934727
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1142585455397,
+    0.2187965569236,
+    0.6352128921477,
+    0.031732005389
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    1
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0937754663531,
+    0.2627959858727,
+    0.6116965423832,
+    0.031732005391
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1511744622121,
+    0.0989899849123,
+    0.6556959712076,
+    0.094139581668
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1475275316844,
+    0.1251851923055,
+    0.6643514824883,
+    0.0629357935218
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1249792547765,
+    0.164756131098,
+    0.6244921830678,
+    0.0857724310578
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1249792547101,
+    0.1751001513279,
+    0.6369848004614,
+    0.0629357935006
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1249792545986,
+    0.1957312148035,
+    0.6475575252094,
+    0.0317320053885
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1561830430545,
+    0.0872161066507,
+    0.6624612686223,
+    0.0941395816725
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    1
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1861832733521,
+    0.0627776158688,
+    0.7193071054116,
+    0.0317320053674
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    1
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0707900013166,
+    0.3124079215574,
+    0.5850700717496,
+    0.0317320053764
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1401272972424,
+    0.1251851923062,
+    0.6405479288086,
+    0.0941395816429
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1272809692229,
+    0.1563889805201,
+    0.6221904686483,
+    0.0941395816087
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1334155290642,
+    0.1563889805202,
+    0.647259696907,
+    0.0629357935086
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1432076163103,
+    0.1563889805028,
+    0.6686713978083,
+    0.0317320053786
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1287566356978,
+    0.187592768713,
+    0.6519185902021,
+    0.031732005387
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    1
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1770070451396,
+    0.0315738276479,
+    0.6868997593392,
+    0.1045193678733
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1602131080918,
+    0.0587475506103,
+    0.655695971266,
+    0.1253433700319
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1599164811102,
+    0.0627776158403,
+    0.6556959712799,
+    0.1216099317696
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1666210496731,
+    0.0627776158721,
+    0.6764617527591,
+    0.0941395816957
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1756765619415,
+    0.0627776158754,
+    0.6986100286483,
+    0.0629357935349
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1616304811585,
+    0.0939814040909,
+    0.6814523212225,
+    0.0629357935281
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0625716781168,
+    0.3304296542719,
+    0.5752666622498,
+    0.0317320053615
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    1
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0937754664655,
+    0.2461176705401,
+    0.5971710695537,
+    0.0629357934408
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0937754664339,
+    0.2500003451545,
+    0.6037971905191,
+    0.0524269978925
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.063045306148,
+    0.3431380814572,
+    0.5620846069657,
+    0.0317320054291
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.0963770348528,
+    0.2500003451303,
+    0.5906868263877,
+    0.0629357936292
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.0972359428937,
+    0.2500003451301,
+    0.5932883951557,
+    0.0594753168205
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.0628345778854,
+    0.3436117097614,
+    0.561821706924,
+    0.0317320054292
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.0625716778547,
+    0.3442025888023,
+    0.5614937279173,
+    0.0317320054256
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.0983741977242,
+    0.2454016134876,
+    0.5932883951558,
+    0.0629357936324
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 16,
+   "point": [
+    0.0937754660846,
+    0.255988376716,
+    0.5873003635684,
+    0.0629357936309
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.0937754660517,
+    0.2639323240228,
+    0.5932883951769,
+    0.0490038147487
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 18,
+   "point": [
+    0.0674612573696,
+    0.3699259188011,
+    0.5308808187021,
+    0.0317320051272
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.0656341712792,
+    0.3748154980305,
+    0.5278183255555,
+    0.0317320051347
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.0625716781013,
+    0.3830393679407,
+    0.522656948811,
+    0.031732005147
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1040234438174,
+    0.2812041333645,
+    0.5620846068708,
+    0.0526878159473
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1013245388119,
+    0.2812041333923,
+    0.5857393226803,
+    0.0317320051155
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.0962024135047,
+    0.3124079215655,
+    0.528453871486,
+    0.0629357934439
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.0956866626021,
+    0.3124079215678,
+    0.5308808187329,
+    0.0610245970972
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.0937754662657,
+    0.3166093106361,
+    0.5308808187333,
+    0.0587344043649
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.125863304431,
+    0.2187965569215,
+    0.5932883950491,
+    0.0620517435983
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1258126683804,
+    0.2187965569548,
+    0.6236587695065,
+    0.0317320051583
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1583692122728,
+    0.1251851922687,
+    0.6556959713744,
+    0.0607496240841
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1887668395502,
+    0.0627776158531,
+    0.7167235392716,
+    0.0317320053251
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    19
+   ],
+   "wall_type": 20,
+   "point": [
+    0.0625716777063,
+    0.452848158411,
+    0.452848158411,
+    0.0317320054717
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.1249792541262,
+    0.4216443702011,
+    0.4216443702011,
+    0.0317320054717
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.1874332089117,
+    0.3436117104933,
+    0.3436117104933,
+    0.1253433701016
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2497480298502,
+    0.3124543000241,
+    0.3124543000241,
+    0.1253433701016
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2809518174208,
+    0.2812505121338,
+    0.2812505121338,
+    0.1565471583116
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2809981951761,
+    0.2500467245922,
+    0.2500467245922,
+    0.2189083556395
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2809981951761,
+    0.3280330055711,
+    0.3280330055711,
+    0.0629357936816
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3122019833861,
+    0.2968292173611,
+    0.2968292173611,
+    0.0941395818916
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3434057715961,
+    0.2500235350462,
+    0.2500235350462,
+    0.1565471583116
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.374609559806,
+    0.2188429356412,
+    0.2188429356412,
+    0.1877045689116
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.374609559806,
+    0.2968292173611,
+    0.2968292173611,
+    0.0317320054717
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.405813348016,
+    0.2812273232562,
+    0.2812273232562,
+    0.0317320054717
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0625716776374,
+    0.4807942293029,
+    0.4249020875135,
+    0.0317320055462
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1249792539626,
+    0.4684268627211,
+    0.3594456695756,
+    0.0471482137406
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1892627058526,
+    0.3729396226806,
+    0.3124543011966,
+    0.1253433702703
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 21,
+   "point": [
+    0.2284511361918,
+    0.3337511923949,
+    0.2812505129275,
+    0.1565471584858
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.2185906185158,
+    0.4372230747118,
+    0.2848186232037,
+    0.0593676835686
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.2805887383043,
+    0.3748154984329,
+    0.250456180893,
+    0.0941395823699
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.280998195015,
+    0.3436117102002,
+    0.2495984626329,
+    0.1257916321518
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.3123809451278,
+    0.2500003454923,
+    0.2188429362969,
+    0.218775773083
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.3122019832835,
+    0.4060192867455,
+    0.2343614485004,
+    0.0474172814707
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 21,
+   "point": [
+    0.3580152138956,
+    0.3290022682045,
+    0.2188429354391,
+    0.0941395824608
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 21,
+   "point": [
+    0.3746095599641,
+    0.3124079222495,
+    0.2138902069575,
+    0.099092310829
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.4058133483809,
+    0.3124079222758,
+    0.2091377261192,
+    0.0726410032241
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0625716775783,
+    0.6009408749787,
+    0.304755441787,
+    0.031732005656
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.157565164745,
+    0.468426862619,
+    0.2798683905833,
+    0.0941395820526
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.198087741484,
+    0.5932420154265,
+    0.1564353602135,
+    0.052234882876
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2604781187575,
+    0.3641317861331,
+    0.218842936621,
+    0.1565471584883
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2809981950601,
+    0.4680551184754,
+    0.1568071043031,
+    0.0941395821614
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3122019833028,
+    0.4996306508258,
+    0.1158048833248,
+    0.0723624825466
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3986413605952,
+    0.1875927688607,
+    0.1324035592869,
+    0.2813623112573
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4058133479322,
+    0.2778755996211,
+    0.128560105703,
+    0.1877509467437
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4370171361611,
+    0.3400949317554,
+    0.0975445616927,
+    0.1253433703908
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4682209244128,
+    0.4132908935941,
+    0.0555523880859,
+    0.0629357939072
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5615294774832,
+    0.1875927689295,
+    0.0628239952606,
+    0.1880537583267
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5930360772924,
+    0.1563889807154,
+    0.0522896310342,
+    0.198285310958
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    0,
+    23
+   ],
+   "wall_type": 24,
+   "point": [
+    0.0625716779222,
+    0.697314158551,
+    0.2083821583714,
+    0.0317320051554
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    0,
+    24
+   ],
+   "wall_type": 24,
+   "point": [
+    0.0800713589104,
+    0.7317612755136,
+    0.1564353604425,
+    0.0317320051335
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.0937754662379,
+    0.6556495917956,
+    0.1946776180136,
+    0.055897323953
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.0937754661622,
+    0.6868533800414,
+    0.1730917024964,
+    0.0462794513
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    0,
+    24
+   ],
+   "wall_type": 24,
+   "point": [
+    0.0937754660974,
+    0.7443664860397,
+    0.1301260427332,
+    0.0317320051297
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1010691077602,
+    0.7492609564937,
+    0.1179379305071,
+    0.031732005239
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1249792549516,
+    0.6244458030558,
+    0.1571287379492,
+    0.0934462040434
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    8
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1249792544431,
+    0.6868533799955,
+    0.131986745456,
+    0.0561806201054
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1249792543382,
+    0.7180571682537,
+    0.1126135608673,
+    0.0443500165408
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1589522304571,
+    0.6868533799455,
+    0.0940277842307,
+    0.0601666053667
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1762586333841,
+    0.7180571682357,
+    0.0628239959609,
+    0.0428602024192
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1873868307193,
+    0.6997468112204,
+    0.0628239960418,
+    0.0500423620185
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1112826395582,
+    0.2636969601232,
+    0.5620846068923,
+    0.0629357934264
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1061359238187,
+    0.26884367607,
+    0.593288394991,
+    0.0317320051203
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.0937754662309,
+    0.3205405105697,
+    0.5227482297475,
+    0.0629357934519
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1361582593795,
+    0.1875927686818,
+    0.5821093902472,
+    0.0941395816915
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1363763914486,
+    0.1875927687034,
+    0.6130950463959,
+    0.0629357934521
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1279082932089,
+    0.2187965568972,
+    0.5591555682266,
+    0.0941395816672
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1249792544664,
+    0.2268045400331,
+    0.5620846069251,
+    0.0861315985753
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.124979254599,
+    0.221545144958,
+    0.5905398070137,
+    0.0629357934294
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1249792547247,
+    0.2209012857577,
+    0.6223874543547,
+    0.0317320051629
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.164858646238,
+    0.093981404028,
+    0.6556959713562,
+    0.0854639783778
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.159050170425,
+    0.1223180647055,
+    0.6556959713757,
+    0.0629357934938
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1561830428936,
+    0.1339545819083,
+    0.6556959713566,
+    0.0541664038416
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.10945223231,
+    0.2967311549898,
+    0.5620846071029,
+    0.0317320055973
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.124979254013,
+    0.2897780415922,
+    0.5308808188893,
+    0.0543618855056
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.1618289018478,
+    0.2187965568684,
+    0.5564387474396,
+    0.0629357938442
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.2074225060184,
+    0.0939814040004,
+    0.6556959717718,
+    0.0429001182094
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.2020687823473,
+    0.1875927686615,
+    0.4996770306907,
+    0.1106614183005
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.2477656721987,
+    0.0315738275726,
+    0.6556959717796,
+    0.0649645284491
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.2383743480287,
+    0.1251851922363,
+    0.5110970894634,
+    0.1253433702715
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.224133192587,
+    0.1875927686693,
+    0.437269454263,
+    0.1510045844808
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.2497944067469,
+    0.0796332966293,
+    0.5620846071303,
+    0.1084876894935
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.255336980797,
+    0.1563889804593,
+    0.406065666053,
+    0.1822083726907
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.2809981949743,
+    0.0627776158071,
+    0.5046463501345,
+    0.1515778390841
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3249911080399,
+    0.0315738275921,
+    0.4372694542903,
+    0.2061656100777
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    8
+   ],
+   "wall_type": 26,
+   "point": [
+    0.0937754657416,
+    0.5783542149931,
+    0.2649345253605,
+    0.0629357939047
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.1249792539555,
+    0.6653462531527,
+    0.1564353602216,
+    0.0532391326703
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.1561830422612,
+    0.7412743051259,
+    0.0708106469281,
+    0.0317320056847
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.1873868304449,
+    0.6652986710829,
+    0.0940277837626,
+    0.0532867147096
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.2407843891169,
+    0.6868533800649,
+    0.0406302251772,
+    0.0317320056411
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.2809981950616,
+    0.5328624439773,
+    0.0919997787224,
+    0.0941395822387
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.3239980948752,
+    0.56203822726,
+    0.0510278839385,
+    0.0629357939263
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.3609315918788,
+    0.5620382272518,
+    0.0316202073076,
+    0.0454099735617
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4058133479827,
+    0.4055038514362,
+    0.0633394302006,
+    0.1253433703805
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4370171362148,
+    0.3829556510998,
+    0.0546838423397,
+    0.1253433703457
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.514143502974,
+    0.250000345274,
+    0.0481052050247,
+    0.1877509467273
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.5306285008787,
+    0.2500003452574,
+    0.0428010775586,
+    0.1765700763054
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1102442130301,
+    0.5932420154262,
+    0.2500467248922,
+    0.0464670466516
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0937754657761,
+    0.5932420154253,
+    0.2702615076407,
+    0.0427210111579
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0937754657849,
+    0.6244458036281,
+    0.2449879352787,
+    0.0367907953083
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1249792540158,
+    0.655649591832,
+    0.1842496705632,
+    0.035121483589
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1561830422398,
+    0.6556495918325,
+    0.151967106875,
+    0.0362002590527
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.249794406909,
+    0.6244458036309,
+    0.0898267682579,
+    0.0359330212023
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2809981951238,
+    0.5932420154267,
+    0.0853380913533,
+    0.0404216980962
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3434057715366,
+    0.4996306508212,
+    0.0930254166638,
+    0.0639381609784
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3746095597763,
+    0.5308344390172,
+    0.055435324463,
+    0.0391206767436
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4682209244115,
+    0.4060192862197,
+    0.0584060299375,
+    0.0673537594313
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5306285008468,
+    0.3124079216407,
+    0.0581667217642,
+    0.0987968557482
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5618322890655,
+    0.187592768924,
+    0.0627228122326,
+    0.1878521297779
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.0937754662964,
+    0.6363819359571,
+    0.2069068044302,
+    0.0629357933163
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1257785185146,
+    0.6244458030315,
+    0.1556360970215,
+    0.0941395814323
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1249792545043,
+    0.6712941306032,
+    0.1407908216661,
+    0.0629357932264
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    8
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1561830427387,
+    0.6264976603001,
+    0.0919759262413,
+    0.1253433707199
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    8
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1561830428889,
+    0.6556495915185,
+    0.1092595080418,
+    0.0789078575508
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1611724816399,
+    0.7492609564815,
+    0.0578345566708,
+    0.0317320052078
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1873868309373,
+    0.6244458021205,
+    0.0708311792507,
+    0.1173361876915
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1873868308127,
+    0.6775667631982,
+    0.0721106128487,
+    0.0629357931404
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.2277360398566,
+    0.6244458029035,
+    0.053678575853,
+    0.0941395813868
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    8
+   ],
+   "wall_type": 15,
+   "point": [
+    0.243129401206,
+    0.6868533800086,
+    0.0316202077962,
+    0.0383970109891
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.2497944069915,
+    0.6124414359217,
+    0.0436245756141,
+    0.0941395814728
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.2497944069985,
+    0.6772540291561,
+    0.0316202078312,
+    0.0413313560141
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.0983712463121,
+    0.6556495917838,
+    0.1876391486443,
+    0.0583400132597
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.1249792539778,
+    0.5010841638223,
+    0.2797970001291,
+    0.0941395820708
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.1794354573425,
+    0.530834439039,
+    0.1876391484257,
+    0.1020909551928
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.2185906185654,
+    0.437223074436,
+    0.1983473934141,
+    0.1458389135845
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.2767330756714,
+    0.4684268626752,
+    0.125231571838,
+    0.1296084898154
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.2809981949901,
+    0.437223074474,
+    0.1355594638278,
+    0.1462192667081
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    27
+   ],
+   "wall_type": 26,
+   "point": [
+    0.317647322954,
+    0.4684268626797,
+    0.0940277835875,
+    0.1198980307788
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.3746095597047,
+    0.3582493024628,
+    0.0940277835596,
+    0.1731133542729
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4628788519179,
+    0.1251851924378,
+    0.0681660679673,
+    0.343769887677
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4416161110263,
+    0.3390127350542,
+    0.0628239953598,
+    0.1565471585597
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4682209243969,
+    0.2130072908517,
+    0.0686132615841,
+    0.2501585231674
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4682209244377,
+    0.3436117098622,
+    0.0505381700702,
+    0.13762919563
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.5306285008604,
+    0.1251851924332,
+    0.0438964056666,
+    0.3002899010398
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1489545782539,
+    0.5308344390239,
+    0.2500467248843,
+    0.0701642578379
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1249792539936,
+    0.5308344390229,
+    0.2785942823892,
+    0.0655920245943
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1835482005827,
+    0.4684268626219,
+    0.2500467248793,
+    0.0979782119161
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4682209244062,
+    0.1251851924625,
+    0.0857752086926,
+    0.3208186744387
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4682209244032,
+    0.1314572337879,
+    0.0877557423599,
+    0.3125660994491
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4682209243912,
+    0.1563889807187,
+    0.0939896627183,
+    0.2814004321718
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4682209243917,
+    0.1564207459492,
+    0.0939960183756,
+    0.2813623112834
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5306285008485,
+    0.0939814042858,
+    0.0564827550452,
+    0.3189073398205
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.538947356544,
+    0.0939814043002,
+    0.0545051397065,
+    0.3125660994492
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5306285008476,
+    0.0986787796561,
+    0.058126620048,
+    0.3125660994482
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5618322890701,
+    0.0939814043125,
+    0.0493236307314,
+    0.294862675886
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5618322890693,
+    0.1044816185924,
+    0.0523237810713,
+    0.2813623112669
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.1249792536297,
+    0.5589324495878,
+    0.2219487133979,
+    0.0941395833846
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.1561830419934,
+    0.5729274731335,
+    0.1564353603355,
+    0.1144541245376
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    9
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2098966495549,
+    0.5620382265127,
+    0.1027217526939,
+    0.1253433712385
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    9
+   ],
+   "wall_type": 27,
+   "point": [
+    0.1873868300958,
+    0.5620382263928,
+    0.1327666221161,
+    0.1178083213953
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2185906179071,
+    0.5406575260403,
+    0.1252315721046,
+    0.115520283948
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2610386099594,
+    0.530834438088,
+    0.0827835802509,
+    0.1253433717017
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2809981944034,
+    0.5167666962499,
+    0.0768917373979,
+    0.1253433719488
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    9
+   ],
+   "wall_type": 27,
+   "point": [
+    0.3122019823119,
+    0.49196178522,
+    0.0704928600037,
+    0.1253433724643
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    9
+   ],
+   "wall_type": 27,
+   "point": [
+    0.3746095571222,
+    0.4343501592828,
+    0.0628239957015,
+    0.1282162878935
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.4058133361976,
+    0.3998781665322,
+    0.0628239960383,
+    0.1314845012319
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    9
+   ],
+   "wall_type": 27,
+   "point": [
+    0.4450660948636,
+    0.3748154973634,
+    0.0316202075561,
+    0.1484982002169
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.4686206238697,
+    0.3436117091859,
+    0.0316202076241,
+    0.1561474593203
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1561830428853,
+    0.068056899312,
+    0.6504166877594,
+    0.1253433700433
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    8
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1873868306764,
+    0.6231343193527,
+    0.0628239963686,
+    0.1266548536022
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.197124630105,
+    0.6244458027809,
+    0.0316202077799,
+    0.1468093593342
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1873868303358,
+    0.6306043577429,
+    0.0316202076898,
+    0.1503886042314
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.1873868304625,
+    0.6244458024949,
+    0.0514994441006,
+    0.1366679229421
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+   "sides": [
+    0,
+    15
+   ],
+   "wall_type": 15,
+   "point": [
+    0.218590618457,
+    0.6113719361512,
+    0.0316202080688,
+    0.1384172373229
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.1625946716686,
+    0.0875697727199,
+    0.6244921834454,
+    0.125343372166
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.1615972202133,
+    0.0939814037986,
+    0.6190780039701,
+    0.125343372018
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.159085960033,
+    0.0939814041791,
+    0.6244921838732,
+    0.1224404519147
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    2,
+    7
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1561830416353,
+    0.1121245793312,
+    0.6244921838611,
+    0.1072001951724
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+   "sides": [
+    9,
+    29
+   ],
+   "wall_type": 30,
+   "point": [
+    0.1561830474094,
+    0.1042183374856,
+    0.6142552467624,
+    0.1253433683426
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    10
+   ],
+   "wall_type": 30,
+   "point": [
+    0.1873868303411,
+    0.5620382270005,
+    0.0974552073371,
+    0.1531197353213
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.2213529179604,
+    0.499630650682,
+    0.1252315719775,
+    0.1537848593801
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.2497944067354,
+    0.4372230743385,
+    0.14903653315,
+    0.1639459857761
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.2809981949128,
+    0.465213488163,
+    0.0940277836376,
+    0.1597605332866
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    10
+   ],
+   "wall_type": 30,
+   "point": [
+    0.3122019830926,
+    0.4372230743086,
+    0.0859105810534,
+    0.1646643615454
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.3434057712859,
+    0.4372230742925,
+    0.0574519993317,
+    0.1619191550899
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.3746095594718,
+    0.4358115602181,
+    0.0316202068926,
+    0.1579586734176
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4058133476359,
+    0.3748154980149,
+    0.0445431047178,
+    0.1748280496314
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4370171358541,
+    0.281204133613,
+    0.0625741203003,
+    0.2192046102327
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.495319629504,
+    0.0668826991029,
+    0.0316202073229,
+    0.4061774640702
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    10
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4924549302431,
+    0.2187965573523,
+    0.0385899887101,
+    0.2501585236946
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    2,
+    31
+   ],
+   "wall_type": 31,
+   "point": [
+    0.1561830397634,
+    0.0939814036429,
+    0.6288420508784,
+    0.1209935057153
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    10
+   ],
+   "wall_type": 28,
+   "point": [
+    0.156994720628,
+    0.1243735126154,
+    0.5932883952624,
+    0.1253433714942
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.1873868268616,
+    0.0486945461252,
+    0.6244921833798,
+    0.1394264436335
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.1998357454116,
+    0.0939814036226,
+    0.5496356900329,
+    0.1565471609329
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.1873868290748,
+    0.1251851920165,
+    0.5361490735617,
+    0.151278905347
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    10
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2185906144648,
+    0.0547909629883,
+    0.5620846070283,
+    0.1645338155186
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2269925277352,
+    0.0939814034516,
+    0.4996770307001,
+    0.1793490381131
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2214759674175,
+    0.1535036302424,
+    0.4372694542961,
+    0.187750948044
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2520939719105,
+    0.0315738248655,
+    0.5308808188361,
+    0.1854513843878
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    10
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2603592984452,
+    0.0939814032544,
+    0.4372694543774,
+    0.2083898439231
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2497944058167,
+    0.163768576268,
+    0.3674822818825,
+    0.2189547360327
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2809981917714,
+    0.0878716101548,
+    0.4060656662612,
+    0.2250645318126
+   ]
+  },
+  {
+   "surface": "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+   "sides": [
+    7,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.2809981920606,
+    0.093981403081,
+    0.3978881534256,
+    0.2271322514328
+   ]
+  },
+  {
+   "surface": "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+   "sides": [
+    0,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1576002966432,
+    0.1251851922919,
+    0.6854825056895,
+    0.0317320053754
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1561830422612,
+    0.3760744467699,
+    0.3423991407845,
+    0.1253433701845
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1867176421944,
+    0.4060192863783,
+    0.3124543011167,
+    0.0948087703106
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1561830422076,
+    0.4060192862954,
+    0.339556376055,
+    0.098241295442
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.2809981950734,
+    0.2812041336346,
+    0.2413204562676,
+    0.1964772150244
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.1873868305462,
+    0.3280330055711,
+    0.3280330055711,
+    0.1565471583116
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2497480280193,
+    0.2812505127295,
+    0.2812505127295,
+    0.1877509465216
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2497944069661,
+    0.2812041337828,
+    0.2812041337828,
+    0.1877973254683
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3122019833861,
+    0.2344216409412,
+    0.2344216409412,
+    0.2189547347315
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3434057715961,
+    0.187639148274,
+    0.187639148274,
+    0.281315931856
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3434057715961,
+    0.2188197468362,
+    0.2188197468362,
+    0.2189547347315
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3746559384913,
+    0.1875927692836,
+    0.1875927692836,
+    0.2501585229415
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.374609559806,
+    0.2187965580312,
+    0.2187965580312,
+    0.1877973241315
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.405813348016,
+    0.1875927695887,
+    0.1875927695887,
+    0.2190011128065
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.4369707588194,
+    0.1876391473295,
+    0.1876391473295,
+    0.1877509465216
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4370171366234,
+    0.1689745448514,
+    0.1750535837277,
+    0.2189547347975
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.437017136226,
+    0.2032178527312,
+    0.2032178527312,
+    0.1565471583116
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.1873868304285,
+    0.3910528929668,
+    0.2650131181573,
+    0.1565471584474
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "point": [
+    0.240404598877,
+    0.353001517725,
+    0.2188429366661,
+    0.1877509467319
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.2720318492636,
+    0.3436117098071,
+    0.1876391484023,
+    0.196717292527
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3040448080716,
+    0.2581575204017,
+    0.18763914843,
+    0.2501585230967
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.3086970215669,
+    0.406019286284,
+    0.125231571826,
+    0.1600521203232
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.312201983119,
+    0.3436117098344,
+    0.145545247602,
+    0.1986410594446
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3712127165817,
+    0.2533971883038,
+    0.1252315717877,
+    0.2501585233268
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.3670641347366,
+    0.3748154980961,
+    0.0940277835546,
+    0.1640925836128
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.3931721436449,
+    0.3124079216953,
+    0.0940277835725,
+    0.2003921510874
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.4200638317591,
+    0.2045460732163,
+    0.0940277834914,
+    0.2813623115332
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4058133479412,
+    0.3124079216896,
+    0.086631033711,
+    0.1951476966582
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4370171361581,
+    0.2305740696544,
+    0.0822502710126,
+    0.2501585231749
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2128502777475,
+    0.4060192862207,
+    0.2500467248743,
+    0.1310837111575
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1873868304495,
+    0.4060192862123,
+    0.2781989495153,
+    0.1283949338229
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.249794406927,
+    0.2831013036008,
+    0.2481495546964,
+    0.2189547347758
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2756530984496,
+    0.3124079216281,
+    0.2188429366362,
+    0.193096043286
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2497944068963,
+    0.3124079216,
+    0.2432780045604,
+    0.1945196669433
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3989290853617,
+    0.1563889806096,
+    0.125231571994,
+    0.3194503620347
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4013849328567,
+    0.1608173957408,
+    0.1252315719715,
+    0.312566099431
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3746095597545,
+    0.1875927688207,
+    0.146082065462,
+    0.2917156059627
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.405813347972,
+    0.1563889806306,
+    0.1217830806971,
+    0.3160145907004
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4058133479749,
+    0.15908776305,
+    0.1225327895479,
+    0.3125660994272
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2164277121176,
+    0.5620382265369,
+    0.0940277838938,
+    0.1275062774517
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.1873868302753,
+    0.5858985815103,
+    0.0940277838997,
+    0.1326868043147
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2185906183474,
+    0.5602256652181,
+    0.0940277838933,
+    0.1271559325411
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    9
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2399387992855,
+    0.5620382266579,
+    0.0628239956767,
+    0.1351989783798
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2185906184726,
+    0.5799675111736,
+    0.06282399568,
+    0.1386178746738
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2185906183707,
+    0.5620382265583,
+    0.0911509985305,
+    0.1282201565405
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2756380441961,
+    0.5308344383028,
+    0.0628239956704,
+    0.1307035218307
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2497944065792,
+    0.5535821734401,
+    0.0628239956746,
+    0.1337994243061
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2635698567714,
+    0.5620382267485,
+    0.0316202074604,
+    0.1427717090197
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.24979440669,
+    0.5738925437459,
+    0.0316202074622,
+    0.144692842102
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.2497944066474,
+    0.5620382267132,
+    0.0497897546429,
+    0.1383776119966
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+   "sides": [
+    8,
+    27
+   ],
+   "wall_type": 27,
+   "point": [
+    0.3095206523831,
+    0.4996306498933,
+    0.062823995667,
+    0.1280247020566
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.2443047756771,
+    0.1563889804554,
+    0.4372694542669,
+    0.1620367896006
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3048195249475,
+    0.0627776158138,
+    0.4372694542786,
+    0.1951334049602
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3360233131621,
+    0.0315738275881,
+    0.4060656660843,
+    0.2263371931656
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3378418100112,
+    0.0939814040451,
+    0.2868144746863,
+    0.2813623112574
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3196373843665,
+    0.125185192261,
+    0.2812505132014,
+    0.2739269101711
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3661175495802,
+    0.0315738276006,
+    0.3209463114779,
+    0.2813623113413
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3434057714902,
+    0.0884174425661,
+    0.2812505132073,
+    0.2869262727364
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3434057714482,
+    0.0713515241703,
+    0.3124543014296,
+    0.2727884029519
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3434057715312,
+    0.1193674511415,
+    0.2246606779009,
+    0.3125660994264
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3746095596829,
+    0.0572136543801,
+    0.2500467250024,
+    0.3181300609346
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3746095596426,
+    0.0315738276083,
+    0.2969272798598,
+    0.2968893328894
+   ]
+  },
+  {
+   "surface": "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+   "sides": [
+    3,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.3746095597075,
+    0.0742795727999,
+    0.2188429367852,
+    0.3322679307074
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.218590618713,
+    0.319357347699,
+    0.2743010870174,
+    0.1877509465706
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2411022858981,
+    0.3211000425938,
+    0.2500467248967,
+    0.1877509466113
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2351920091724,
+    0.3436117098064,
+    0.2500467248917,
+    0.1711495561295
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2185906186816,
+    0.3436117098003,
+    0.2675769893432,
+    0.1702206821749
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.2809981950793,
+    0.3124079216309,
+    0.2140577025572,
+    0.1925361807325
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3576904594228,
+    0.1875927687948,
+    0.1564353602345,
+    0.2982814115479
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3613142711105,
+    0.2008880574578,
+    0.1564353601975,
+    0.2813623112341
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3643003145363,
+    0.2187965570441,
+    0.156435360169,
+    0.2604677682506
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3434057715306,
+    0.2187965570258,
+    0.1703810502381,
+    0.2674166212054
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3746095597499,
+    0.1964660858969,
+    0.1475620431163,
+    0.2813623112368
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.3746095597295,
+    0.2187965570655,
+    0.1499164556133,
+    0.2566774275917
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "point": [
+    0.2244127054955,
+    0.343611709782,
+    0.2442246380646,
+    0.1877509466579
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.2185906186537,
+    0.3465205002867,
+    0.2500467249176,
+    0.184842156142
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "point": [
+    0.2809981950198,
+    0.3027883517623,
+    0.1972587182774,
+    0.2189547349404
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.2894337251277,
+    0.3039723915014,
+    0.1876391484002,
+    0.2189547349706
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.286078920665,
+    0.3124079216191,
+    0.1876391484028,
+    0.2138740093131
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.2809981949845,
+    0.3243571974061,
+    0.1876391483924,
+    0.207005459217
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3393748128561,
+    0.2187965570292,
+    0.160466318815,
+    0.2813623112997
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3122019831685,
+    0.3054165472019,
+    0.1634267345706,
+    0.2189547350589
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3192198510205,
+    0.3053900537931,
+    0.1564353600995,
+    0.2189547350869
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3162367121477,
+    0.3124079216514,
+    0.1564353600988,
+    0.2149200061021
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    33
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3122019831485,
+    0.3214416225227,
+    0.1564353601005,
+    0.2099210342284
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    6,
+    11
+   ],
+   "wall_type": 33,
+   "point": [
+    0.3122019831509,
+    0.3124079216508,
+    0.1604704135061,
+    0.2149196816922
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.2185906188994,
+    0.345945170404,
+    0.2477132643388,
+    0.1877509463579
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.2733386299962,
+    0.3124079214498,
+    0.1952987140784,
+    0.2189547344756
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.2798269352159,
+    0.3135791816133,
+    0.1876391487192,
+    0.2189547344516
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.2809981953913,
+    0.3102009184061,
+    0.1876391487196,
+    0.221161737483
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.3110326704838,
+    0.312407921397,
+    0.1564353606039,
+    0.2201240475154
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    11
+   ],
+   "wall_type": 34,
+   "point": [
+    0.2809981953853,
+    0.3124079214402,
+    0.1868066010856,
+    0.219787282089
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.2809981953927,
+    0.3137471094872,
+    0.1862999606728,
+    0.2189547344474
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.3104159215033,
+    0.3141939835062,
+    0.1564353605945,
+    0.218954734396
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.3344748334223,
+    0.2277274951217,
+    0.1564353605224,
+    0.2813623109335
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    11
+   ],
+   "wall_type": 34,
+   "point": [
+    0.3122019836078,
+    0.3089844276427,
+    0.1564353605958,
+    0.2223782281537
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    11
+   ],
+   "wall_type": 34,
+   "point": [
+    0.312201983603,
+    0.312407921403,
+    0.1553437421311,
+    0.2200463528628
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    11
+   ],
+   "wall_type": 34,
+   "point": [
+    0.3235594290878,
+    0.3124079213903,
+    0.1450779151396,
+    0.2189547343823
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2809981951761,
+    0.2344216409412,
+    0.2344216409412,
+    0.2501585229415
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3121556041778,
+    0.2188429364404,
+    0.2188429364404,
+    0.2501585229415
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2809981951761,
+    0.2500003455001,
+    0.2500003455001,
+    0.2190011138236
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2809981951761,
+    0.2500235350462,
+    0.2500235350462,
+    0.2189547347315
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3122019833861,
+    0.2032178527312,
+    0.2032178527312,
+    0.2813623111515
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3433593922715,
+    0.1876391482885,
+    0.1876391482885,
+    0.2813623111515
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3122019833861,
+    0.218796557232,
+    0.218796557232,
+    0.2502049021499
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3122019833861,
+    0.2188197468362,
+    0.2188197468362,
+    0.2501585229415
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4370171363782,
+    0.1002789006301,
+    0.1189340754959,
+    0.3437698874959
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    12
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4682209246333,
+    0.0637511630167,
+    0.0930542366953,
+    0.3749736756547
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3434057715961,
+    0.1720140645212,
+    0.1720140645212,
+    0.3125660993615
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3745631804234,
+    0.1564353601076,
+    0.1564353601076,
+    0.3125660993615
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3434057715961,
+    0.1875927689639,
+    0.1875927689639,
+    0.2814086904761
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    3,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.3434057715961,
+    0.1876159586262,
+    0.1876159586262,
+    0.2813623111515
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.3999281950579,
+    0.1251851925366,
+    0.1311167248568,
+    0.3437698875487
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    12
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4640342946514,
+    0.0669642461932,
+    0.0940277834878,
+    0.3749736756676
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4814953089221,
+    0.0315738278398,
+    0.0495496111135,
+    0.4373812521245
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4682209249457,
+    0.120716817487,
+    0.156435359181,
+    0.2546268983863
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4994247129583,
+    0.0384016536337,
+    0.0871999578246,
+    0.3749736755833
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    12
+   ],
+   "wall_type": 32,
+   "point": [
+    0.4994247133609,
+    0.0941905008823,
+    0.1562262629999,
+    0.2501585227569
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.5299870160587,
+    0.2187965574507,
+    0.2194844206477,
+    0.031732005843
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    35
+   ],
+   "wall_type": 32,
+   "point": [
+    0.5306285019913,
+    0.0939814048378,
+    0.1828801264305,
+    0.1925099667404
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.5306285022419,
+    0.1633155577003,
+    0.211916358053,
+    0.0941395820048
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.5727941684973,
+    0.0627776164818,
+    0.207881057033,
+    0.156547157988
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.5618322907931,
+    0.1745431446771,
+    0.2318925588604,
+    0.0317320056693
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    3,
+    35
+   ],
+   "wall_type": 32,
+   "point": [
+    0.6005275625464,
+    0.086489921131,
+    0.2500467228153,
+    0.0629357935074
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    11
+   ],
+   "wall_type": 34,
+   "point": [
+    0.376756334021,
+    0.154242206262,
+    0.1252315722443,
+    0.3437698874728
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    11
+   ],
+   "wall_type": 34,
+   "point": [
+    0.413591895056,
+    0.1174066451932,
+    0.0940277840471,
+    0.3749736757038
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.4058133480894,
+    0.1251851921614,
+    0.1005600612829,
+    0.3684413984663
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    10,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.4058133481203,
+    0.1476064502132,
+    0.102810314245,
+    0.3437698874215
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    10,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4490793143053,
+    0.0819192259154,
+    0.0628239958617,
+    0.4061774639176
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    10,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.437017136297,
+    0.0939814039273,
+    0.0738757048177,
+    0.395125754958
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    10,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4370171363307,
+    0.1101425543145,
+    0.0778666337007,
+    0.3749736756541
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    10
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4829954860684,
+    0.048003054136,
+    0.0316202076566,
+    0.4373812521391
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    10
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4682209244948,
+    0.0627776157153,
+    0.0452358355877,
+    0.4237656242022
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    9,
+    10
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4682209245168,
+    0.0759483415589,
+    0.0496532700312,
+    0.4061774638931
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+   "sides": [
+    10,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.4994247128034,
+    0.0904047751558,
+    0.0351968364885,
+    0.3749736755523
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.4057669671512,
+    0.1564353608486,
+    0.1564353608486,
+    0.2813623111515
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.468220924436,
+    0.1252083822063,
+    0.1252083822063,
+    0.2813623111515
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.499424712646,
+    0.1252315730019,
+    0.1252315730019,
+    0.2501121413502
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.5617859072712,
+    0.0940277848937,
+    0.0940277848937,
+    0.2501585229415
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.5618322890659,
+    0.0628239964367,
+    0.0628239964367,
+    0.3125197180608
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    12
+   ],
+   "wall_type": 36,
+   "point": [
+    0.5618322890659,
+    0.1875927605654,
+    0.1875927605654,
+    0.0629821898034
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    12
+   ],
+   "wall_type": 36,
+   "point": [
+    0.6241934800876,
+    0.1252315749054,
+    0.1252315749054,
+    0.1253433701016
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 36,
+   "point": [
+    0.6242398654859,
+    0.0940277855911,
+    0.0940277855911,
+    0.1877045633319
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 36,
+   "point": [
+    0.6554436536959,
+    0.0628239976136,
+    0.0628239976136,
+    0.2189083510769
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 36,
+   "point": [
+    0.6866474419058,
+    0.0627776134795,
+    0.0627776134795,
+    0.1877973311352
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    12
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7178512301158,
+    0.0939814009484,
+    0.0939814009484,
+    0.0941859679874
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    5,
+    12
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7802588065358,
+    0.0628239988487,
+    0.0628239988487,
+    0.0940931957668
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4312550079806,
+    0.1251851921732,
+    0.0997899123189,
+    0.3437698875272
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4533032481191,
+    0.0939814039751,
+    0.0777416721526,
+    0.3749736757531
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4414555940811,
+    0.1207467343261,
+    0.0940277840723,
+    0.3437698875205
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4370171362658,
+    0.1459963511507,
+    0.1044204133013,
+    0.3125660992822
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4815262557423,
+    0.0806760726414,
+    0.0628239958719,
+    0.3749736757444
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4972792199376,
+    0.0939814038889,
+    0.0649694886645,
+    0.343769887509
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4994247126615,
+    0.0903039063406,
+    0.0628239959366,
+    0.3474473850613
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5017172225986,
+    0.0916888939478,
+    0.0628239959452,
+    0.3437698875084
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.4994247126695,
+    0.1156373118385,
+    0.0723718762283,
+    0.3125660992636
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.530628500858,
+    0.0553114566324,
+    0.0390863667714,
+    0.3749736757383
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    6,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5306285008592,
+    0.0627776156524,
+    0.0430143772267,
+    0.3635795062617
+   ]
+  },
+  {
+   "surface": "b1*b3 - b2*b4",
+   "sides": [
+    5,
+    6
+   ],
+   "wall_type": 22,
+   "point": [
+    0.5306285008694,
+    0.1228622691011,
+    0.0651469190113,
+    0.2813623110183
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4889718217179,
+    0.0627776156626,
+    0.0420730987036,
+    0.406177463916
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    9,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4682209244955,
+    0.1225917023226,
+    0.0654174857795,
+    0.3437698874025
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4994247126596,
+    0.0452657860712,
+    0.0316202077225,
+    0.4236892935467
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4994247126651,
+    0.0574404832029,
+    0.0369573402215,
+    0.4061774639106
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    9,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.5109002728866,
+    0.0513020553928,
+    0.0316202078097,
+    0.4061774639109
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.4994247126659,
+    0.0627776156369,
+    0.0390105126413,
+    0.398787159056
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    9,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.5306285008507,
+    0.0876814341147,
+    0.0379201776081,
+    0.3437698874266
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+   "sides": [
+    6,
+    9
+   ],
+   "wall_type": 26,
+   "point": [
+    0.5618322888556,
+    0.0936036034716,
+    0.0319980093082,
+    0.3125660983646
+   ]
+  },
+  {
+   "surface": "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+   "sides": [
+    4,
+    38
+   ],
+   "wall_type": 21,
+   "point": [
+    0.5279048034185,
+    0.221520256324,
+    0.2188429344012,
+    0.0317320058563
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    13
+   ],
+   "wall_type": 37,
+   "point": [
+    0.6952891151917,
+    0.062777615307,
+    0.0316202050555,
+    0.2103130644458
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 37,
+   "point": [
+    0.7131834655215,
+    0.0674453816029,
+    0.0316202051455,
+    0.1877509477302
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    13
+   ],
+   "wall_type": 37,
+   "point": [
+    0.7178512316402,
+    0.0684257169795,
+    0.031620205164,
+    0.1821028462164
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 37,
+   "point": [
+    0.7402505780095,
+    0.0715820572511,
+    0.0316202052074,
+    0.156547159532
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    13
+   ],
+   "wall_type": 37,
+   "point": [
+    0.749055019605,
+    0.0720604500127,
+    0.0316202052084,
+    0.1472643251739
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 37,
+   "point": [
+    0.771934566612,
+    0.0711018567958,
+    0.0316202051862,
+    0.125343371406
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    13
+   ],
+   "wall_type": 37,
+   "point": [
+    0.8083553625738,
+    0.0627776158342,
+    0.031620204916,
+    0.097246816676
+   ]
+  },
+  {
+   "surface": "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+   "sides": [
+    5,
+    37
+   ],
+   "wall_type": 37,
+   "point": [
+    0.7802588076387,
+    0.069935105213,
+    0.0316202051556,
+    0.1181858819927
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.6866938207945,
+    0.062777616342,
+    0.062777616342,
+    0.1877509465216
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7178512301158,
+    0.0316202072531,
+    0.0316202072531,
+    0.2189083553779
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7178512301158,
+    0.0471989116813,
+    0.0471989116813,
+    0.1877509465216
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7490086390012,
+    0.0316202072386,
+    0.0316202072386,
+    0.1877509465216
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7178512301158,
+    0.062777616371,
+    0.062777616371,
+    0.1565935371421
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7178976089463,
+    0.062777616371,
+    0.062777616371,
+    0.1565471583116
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7490550183258,
+    0.0316202072386,
+    0.0316202072386,
+    0.187704567197
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7490550183258,
+    0.0471989116813,
+    0.0471989116813,
+    0.1565471583116
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7802124272403,
+    0.0316202072241,
+    0.0316202072241,
+    0.1565471583116
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7490550183258,
+    0.0627776164146,
+    0.0627776164146,
+    0.125389748845
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7491013970691,
+    0.0627776164146,
+    0.0627776164146,
+    0.1253433701016
+   ]
+  },
+  {
+   "surface": "b2 - b3",
+   "sides": [
+    12,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.7802588065358,
+    0.0316202072241,
+    0.0316202072241,
+    0.1565007790161
+   ]
+  }
+ ],
+ "surfaces": [
+  "b1 + 2*b2 + b3 + 2*sqrt(2)*b3 - b4",
+  "b1 + 2*b2 - 2*b3",
+  "b1 + 2*b2 - 2*b3 - b4",
+  "b1 + 2*b2 - b4",
+  "b1 + 3*sqrt(2)*b2 + 6*b2 + b3 + 2*sqrt(2)*b3 - b4",
+  "b1 - 2*b3",
+  "b1 - 2*b3 - b4",
+  "b1 - 2*sqrt(2)*b2 - b2 - 2*b3 - b4",
+  "b1 - 2*sqrt(2)*b2 - b2 - 6*b3 - 3*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - 2*sqrt(2)*b2 - b2 - 6*b3 - 3*sqrt(2)*b3 - b4",
+  "b1 - 3*b3/2 + sqrt(2)*b3/2 - b4",
+  "b1 - 4*sqrt(2)*b2 - 4*b2 - 10*b3 - 6*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - 4*sqrt(2)*b2 - 4*b2 - 6*b3 - 3*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - 6*b3 - 3*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - b3",
+  "b1 - b3 + sqrt(2)*b3 - b4",
+  "b1 - b3 + sqrt(2)*b3/2",
+  "b1 - b3 + sqrt(2)*b3/2 - b4",
+  "b1 - sqrt(2)*b2 + 2*b2 - 2*b3 + sqrt(2)*b3",
+  "b1 - sqrt(2)*b2 + b2 - b3 + sqrt(2)*b3",
+  "b1 - sqrt(2)*b2 + b2 - b3 + sqrt(2)*b3 + sqrt(2)*b4",
+  "b1 - sqrt(2)*b2 + b2 - b3 + sqrt(2)*b3 - b4",
+  "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2",
+  "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 + sqrt(2)*b4/2",
+  "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+  "b1 - sqrt(2)*b2/2 + b2 - b4",
+  "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+  "b1**2 - sqrt(2)*b1*b2 + b1*b2 + sqrt(2)*b1*b3 + b2**2 - sqrt(2)*b2*b4 - b3**2 - b3*b4 + sqrt(2)*b3*b4 - b4**2",
+  "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+  "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+  "b1**2*b2*b3 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + 2*b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + 3*sqrt(2)*b1*b2*b3**2/2 - 3*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b3/2 + b2**3*b3 - sqrt(2)*b2**3*b4 + b2**3*b4/2 - 3*b2**2*b3**2/2 + sqrt(2)*b2**2*b3**2 - 3*b2**2*b3*b4 + 3*sqrt(2)*b2**2*b3*b4/2 - b2**2*b4**2/2 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**3/2 + b2*b3**3/2 - sqrt(2)*b2*b3**2*b4 + 3*b2*b3**2*b4/2 - sqrt(2)*b2*b3*b4**2/2 + b2*b3*b4**2/2",
+  "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 + sqrt(2)*b1**2*b3**2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + 2*b1*b2**2*b3 - 2*sqrt(2)*b1*b2**2*b4 + 2*b1*b2**2*b4 - 2*b1*b2*b3**2 + 5*sqrt(2)*b1*b2*b3**2/2 - 4*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3 + b1*b3**3 - sqrt(2)*b1*b3**2*b4 + b1*b3**2*b4 - sqrt(2)*b1*b3*b4**2/2 - sqrt(2)*b2**3*b3/2 + b2**3*b3 - 3*sqrt(2)*b2**3*b4/2 + b2**3*b4 - 2*b2**2*b3**2 + 3*sqrt(2)*b2**2*b3**2/2 - 4*b2**2*b3*b4 + 2*sqrt(2)*b2**2*b3*b4 - b2**2*b4**2 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**3 + b2*b3**3 - 3*sqrt(2)*b2*b3**2*b4/2 + 2*b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2 + b2*b3*b4**2",
+  "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+  "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+  "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+  "b1*b2 + sqrt(2)*b1*b3/2 + b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - sqrt(2)*b2*b4/2 - b2*b4/2 - sqrt(2)*b3**2/2 + b3**2/2 - b3*b4/2 - b4**2/2",
+  "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+  "b1*b2 + sqrt(2)*b1*b3/2 - b2*b4 - sqrt(2)*b2*b4/2",
+  "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2**2 + 2*b2**2 - b2*b3 + sqrt(2)*b2*b3 - b2*b4 + sqrt(2)*b2*b4/2",
+  "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2",
+  "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+  "b1*b3 - b2*b4",
+  "b1*b3 - b2*b4 - sqrt(2)*b3*b4",
+  "b1*b3 - sqrt(2)*b1*b4 + b1*b4 - sqrt(2)*b2*b3 + b2*b3 - 2*sqrt(2)*b2*b4 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2 - 3*b3*b4 + 2*sqrt(2)*b3*b4 - b4**2 + sqrt(2)*b4**2",
+  "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+  "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2",
+  "b1*b3 - sqrt(2)*b2*b3 - sqrt(2)*b2*b4 - b2*b4 - 2*b3**2 - 2*b3*b4 - sqrt(2)*b3*b4",
+  "b1*b3 - sqrt(2)*b2*b3 - sqrt(2)*b2*b4 - b2*b4 - b3**2 - b3*b4 - b4**2",
+  "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4",
+  "b2 - b3"
+ ],
+ "seconds": 3423.1
+}
