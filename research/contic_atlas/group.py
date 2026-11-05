@@ -62,7 +62,7 @@ assert len(ELEMENTS) == ORDER, len(ELEMENTS)
 import os  # noqa: E402
 
 SUB = os.environ.get("CONTIC_SUB", "full")
-TAG = {"full": "", "ki": "_ki", "io": "_io"}[SUB]
+TAG = {"full": "", "ki": "_ki", "io": "_io", "tox": "_tox", "ox": "_ox", "oxb": "_oxb"}[SUB]
 _IN_F4 = np.array([np.abs(g @ np.array([1, 1, 0, 0.0]) - np.round(g @ np.array([1, 1, 0, 0.0]))).max() < 1e-9 for g in ELEMENTS])
 _DET = np.array([np.sign(np.linalg.det(g)) for g in ELEMENTS])
 if SUB == "ki":
@@ -71,6 +71,24 @@ if SUB == "ki":
 elif SUB == "io":
     _KEEP = (_IN_F4 & (_DET > 0)) | (~_IN_F4 & (_DET < 0))
     GENS = [REFL[i] @ REFL[j] for i in range(4) for j in range(i + 1, 4)] + [REFL[0] @ PHI]
+elif SUB in ("tox", "ox", "oxb"):
+    # (toxitic [3+,4,3+] = <r1 r2, r3 r4> (288: an even number of long and of short reflections); oxitic [[3+,4,3+]]
+    #  adds the swap phi (576). Oxitic's mirror image (oxb: phi r1 r4 in place of phi) is another subgroup: the F4
+    #  reflections do not normalise oxitic (its normaliser is kicontic), so a seed x in the chamber and its mirror image
+    #  r x give oxitic polychora that are not congruent; the oxitic shapes are the oxitic orbits of the chamber's seeds
+    #  and the oxb orbits of them (mirror images of the oxitic orbits of the reflected seeds).)
+    GENS = [REFL[0] @ REFL[1], REFL[2] @ REFL[3]] + {"tox": [], "ox": [PHI], "oxb": [PHI @ REFL[0] @ REFL[3]]}[SUB]
+    _sub = {tuple(np.eye(4).round(8).ravel())}
+    _q = [np.eye(4)]
+    while _q:
+        _g = _q.pop()
+        for _s in GENS:
+            _h = _s @ _g
+            _k = tuple(_h.round(8).ravel())
+            if _k not in _sub:
+                _sub.add(_k)
+                _q.append(_h)
+    _KEEP = np.array([tuple(g.round(8).ravel()) in _sub for g in ELEMENTS])
 else:
     _KEEP = np.ones(len(ELEMENTS), bool)
 ELEMENTS = ELEMENTS[_KEEP]

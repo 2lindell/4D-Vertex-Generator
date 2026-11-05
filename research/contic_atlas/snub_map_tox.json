@@ -1,0 +1,55 @@
+{
+ "_about": "The kicontic / iocontic domain mapped over curved walls (snub_map_ki.json / snub_map_io.json); as\ndecaic_atlas/snub_map.py, over Q(sqrt2).",
+ "N": 32,
+ "types": [
+  {
+   "type": 0,
+   "signature": "288: cells 24x[12v20f]+24x[12v20f]+96x[6v8f]+96x[6v8f]+288x[4v4f] | faces 96x3g+96x3g+96x3g+96x3g+288x3g+288x3g+288x3g+288x3g+288x3g | edges 144x4+288x3+288x3+288x3+288x4+288x4",
+   "vertices": 288,
+   "example": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "grid_regions": [
+    2135
+   ],
+   "grid_points": 2135,
+   "fold_points": 225,
+   "wall_of": []
+  }
+ ],
+ "walls": [],
+ "wall_points": [],
+ "surfaces": [
+  "b1 + 2*b2 + b3 + 2*sqrt(2)*b3 - b4",
+  "b1 + 2*b2 - 2*b3",
+  "b1 + 2*b2 - 2*b3 - b4",
+  "b1 + 2*b2 - b4",
+  "b1 + 3*sqrt(2)*b2 + 6*b2 + b3 + 2*sqrt(2)*b3 - b4",
+  "b1 - 2*b3",
+  "b1 - 2*b3 - b4",
+  "b1 - 2*sqrt(2)*b2 - b2 - 2*b3 - b4",
+  "b1 - 2*sqrt(2)*b2 - b2 - 6*b3 - 3*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - 2*sqrt(2)*b2 - b2 - 6*b3 - 3*sqrt(2)*b3 - b4",
+  "b1 - 3*b3/2 + sqrt(2)*b3/2 - b4",
+  "b1 - 4*sqrt(2)*b2 - 4*b2 - 10*b3 - 6*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - 4*sqrt(2)*b2 - 4*b2 - 6*b3 - 3*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - 6*b3 - 3*sqrt(2)*b3 - 5*b4 - 3*sqrt(2)*b4",
+  "b1 - b3",
+  "b1 - b3 + sqrt(2)*b3 - b4",
+  "b1 - b3 + sqrt(2)*b3/2",
+  "b1 - b3 + sqrt(2)*b3/2 - b4",
+  "b1 - sqrt(2)*b2 + 2*b2 - 2*b3 + sqrt(2)*b3",
+  "b1 - sqrt(2)*b2 + b2 - b3 + sqrt(2)*b3",
+  "b1 - sqrt(2)*b2 + b2 - b3 + sqrt(2)*b3 + sqrt(2)*b4",
+  "b1 - sqrt(2)*b2 + b2 - b3 + sqrt(2)*b3 - b4",
+  "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2",
+  "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 + sqrt(2)*b4/2",
+  "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+  "b1 - sqrt(2)*b2/2 + b2 - b4",
+  "b2 - b3"
+ ],
+ "seconds": 100.6
+}

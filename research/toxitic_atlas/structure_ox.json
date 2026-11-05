@@ -1,0 +1,43 @@
+{
+ "group": "ox",
+ "order": 576,
+ "rings": [
+  {
+   "stabilizer": "C3",
+   "order": 3,
+   "rings": 32,
+   "generic_orbit": 192,
+   "chamber": "b1 = b2 = 0"
+  },
+  {
+   "stabilizer": "C2",
+   "order": 2,
+   "rings": 36,
+   "generic_orbit": 288,
+   "chamber": "b1 = b4, b2 = b3"
+  },
+  {
+   "stabilizer": "C2",
+   "order": 2,
+   "rings": 18,
+   "generic_orbit": 288,
+   "chamber": "b2 = b3 = 0"
+  }
+ ],
+ "points": [
+  {
+   "stabilizer": "T",
+   "order": 12,
+   "points": 48,
+   "rings_through": 7,
+   "chamber": "b1 = b2 = b3 = 0"
+  },
+  {
+   "stabilizer": "D2",
+   "order": 4,
+   "points": 144,
+   "rings_through": 3,
+   "chamber": "b2 = b3 = 0, b1 = b4"
+  }
+ ]
+}
