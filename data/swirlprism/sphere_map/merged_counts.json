@@ -1173,8 +1173,8 @@
     ]
    },
    "F4/X100": {
-    "classes": 3,
-    "pieces_on_sphere": 3000,
+    "classes": 2,
+    "pieces_on_sphere": 2400,
     "classes_detail": [
      {
       "ends": [
@@ -1189,13 +1189,6 @@
        "C6"
       ],
       "on_sphere": 1200
-     },
-     {
-      "ends": [
-       "A1",
-       "A1"
-      ],
-      "on_sphere": 600
      }
     ]
    },
@@ -22696,7 +22689,7 @@
   {
    "walls": "F4/X100",
    "found": true,
-   "on_atlas_line": null,
+   "on_atlas_line": "E1",
    "surroundings": [
     [
      "F4",
@@ -63164,7 +63157,7 @@
  "totals": {
   "wall_pieces_on_sphere": 175200,
   "atlas_line_pieces_on_sphere": 62640,
-  "meeting_edge_pieces_on_sphere": 45000,
+  "meeting_edge_pieces_on_sphere": 44400,
   "points_on_sphere": 317976
  }
 }
