@@ -18,7 +18,7 @@ import json
 import numpy as np
 
 from .chords import FACE_N, FACE_NAMES
-from .frame import data_dir, group, load_json, point_from_beta, source_dir
+from .frame import data_dir, group, point_from_beta, source_dir
 from .wall_meets import resolve, trace
 
 ON_LINE = 1e-7          # (R^4) a meeting stretch lies on an atlas line if every point is this close
@@ -44,18 +44,19 @@ def _named_points():
 
 
 def _atlas_line_points():
-    """Every atlas line's domain pieces, densely, in R^4."""
-    w = load_json("working_data.json")
+    """Every named line's pieces in the domain (the central database's line pieces, mirror twins
+    included), densely, in R^4."""
+    atlas = json.loads((data_dir() / "sphere_map" / "atlas.json").read_text())
     out = []
-    for name, info in w["exact"]["lines"].items():
-        for poly in info["points"]:
-            poly = np.asarray(poly, float)
+    for lp in atlas["line_pieces"]:
+        for seg in lp["segments"]:
+            poly = np.asarray(seg["polyline_beta"], float)
             poly = poly / poly.sum(axis=1, keepdims=True)
             fine = [poly[0]]
             for a, b in zip(poly[:-1], poly[1:]):
                 n = max(1, int(np.ceil(np.linalg.norm(b - a) / 1e-3)))
                 fine += [a + (b - a) * t for t in np.linspace(0, 1, n + 1)[1:]]
-            out.append((name, point_from_beta(np.array(fine))))
+            out.append((lp["line_shape"], point_from_beta(np.array(fine))))
     return out
 
 
@@ -116,11 +117,12 @@ def meeting_pieces(w1, w2, inc, wall_surfs, log=print, gaps=None):
                 # an end inside the domain next to an exact meeting point is that point
                 if not arc["closed"]:
                     for side in (0, -1):
-                        if (P[side] @ FACE_N.T).min() > 1e-9:
-                            d, x = min(((np.linalg.norm(x - P[side]), x) for _, x in named_beta),
-                                       key=lambda t: t[0])
-                            if d < 2e-3:
-                                P = np.vstack([P, x]) if side == -1 else np.vstack([x, P])
+                        d, x = min(((np.linalg.norm(x - P[side]), x) for _, x in named_beta),
+                                   key=lambda t: t[0])
+                        if d < 1e-4:
+                            P[side] = x               # (an end at an exact point: exactly on it)
+                        elif (P[side] @ FACE_N.T).min() > 1e-9 and d < 2e-3:
+                            P = np.vstack([P, x]) if side == -1 else np.vstack([x, P])
                 # the surfaces that can cut the arc: copy 0's, and where the arc lies in the
                 # domain's boundary, those of every copy on the other side, pulled back (M_k)
                 frames = [np.eye(4)]

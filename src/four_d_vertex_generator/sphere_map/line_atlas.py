@@ -287,6 +287,57 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
         })
     log(f"atlas line pieces: {len(classes)} classes on the sphere")
 
+    # 3b. mirror twins: every line is carried by G.Q onto lines of the same shape. A class whose
+    # mirror image (under Q) is no copy of any class of its shape under G is half of its line; its
+    # other half is that mirror image, computed exactly (Q applied to its exact points) and placed
+    # in the copies of the domain it runs through
+    from .frame import locate, source_dir, surface_values, surfaces
+    q = np.load(source_dir() / "normalizer_q.npy")
+    src = surfaces()
+    n_twins = 0
+    for c in list(classes):
+        mirror = c["_cloud"] @ q.T
+        sub = mirror[:: max(1, len(mirror) // 120)]
+        found = False
+        for d in classes:
+            if d["line_shape"] != c["line_shape"] or abs(d["length"] - c["length"]) > 1e-3 * max(c["length"], 1e-3):
+                continue
+            tb = cKDTree(d["_cloud"])
+            for gk in grp.g:
+                dd, _ = tb.query(sub @ gk.T, distance_upper_bound=1e-3)
+                if np.isfinite(dd).all() and dd.max() < 3e-4:
+                    found = True
+                    break
+            if found:
+                break
+        if found:
+            continue
+        segs = []
+        for seg in c["segments"]:
+            B = np.asarray(seg["polyline_beta"], float)
+            R = (point_from_beta(B / B.sum(axis=1, keepdims=True)) @ grp.g[seg["copy"]].T) @ q.T
+            ks, betas = locate(R, tol=1e-9)
+            run = [0]
+            for i in range(1, len(ks) + 1):
+                if i == len(ks) or ks[i] != ks[run[0]]:
+                    if len(run) >= 2:
+                        bb = betas[run]
+                        rel = np.abs(surface_values(bb, src)) / \
+                            (np.stack([np.linalg.norm(sf.grad(bb / bb.sum(1, keepdims=True)), axis=1)
+                                       for sf in src], axis=1) + 1e-300)
+                        eq = [src[j].name for j in np.flatnonzero(rel.max(axis=0) < 1e-8)][:2]
+                        segs.append({"copy": int(ks[run[0]]), "line": seg["line"], "atlas_piece": None,
+                                     "points": None, "equations": eq, "polyline_beta": _thin(bb),
+                                     "mirror_of": c["id"]})
+                    run = [i]
+                else:
+                    run.append(i)
+        twin = dict(c, id=len(classes), segments=segs, _cloud=mirror, mirror_of=c["id"])
+        classes.append(twin)
+        n_twins += 1
+    log(f"atlas line pieces: {n_twins} mirror twins computed (Q image of a class with no copy "
+        f"of it under G); {len(classes)} classes")
+
     # 4. congruence types under G and G.Q, within one line shape
     from .frame import source_dir
     maps = np.concatenate([grp.g, grp.g @ np.load(source_dir() / "normalizer_q.npy")])
