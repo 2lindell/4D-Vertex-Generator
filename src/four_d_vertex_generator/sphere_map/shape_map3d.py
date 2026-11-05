@@ -155,7 +155,9 @@ def build() -> dict:
             poly = poly / poly.sum(axis=1, keepdims=True)
             if len(poly) < 3:
                 continue
-            for j in sorted({len(poly) // 4, len(poly) // 2, 3 * len(poly) // 4} - {0, len(poly) - 1}):
+            # (at nine points along it: a shape touching only part of the line is still met)
+            for j in sorted({int(round(t * (len(poly) - 1))) for t in np.linspace(0.06, 0.94, 9)}
+                            - {0, len(poly) - 1}):
                 for e in ring(poly[j], poly[j + 1] - poly[j - 1], seg["copy"]):
                     seen[(e["kind"], e["class"], e["g"])] = e
         line_round.append(list(seen.values()))
@@ -170,8 +172,12 @@ def build() -> dict:
             P = np.asarray(poly, float)
             if len(P) < 3:
                 continue
-            j = len(P) // 2
-            rr = ring(P[j], P[j + 1] - P[j - 1], 0)
+            rr, seen = [], set()
+            for j in sorted({len(P) // 4, len(P) // 2, (3 * len(P)) // 4} - {0, len(P) - 1}):
+                for x in ring(P[j], P[j + 1] - P[j - 1], 0):
+                    if (x["kind"], x["class"], x["g"]) not in seen:
+                        seen.add((x["kind"], x["class"], x["g"]))
+                        rr.append(x)
             faces = [x for x in rr if x["kind"] == "face"]
             if len({x["class"] for x in faces}) < 2:
                 continue

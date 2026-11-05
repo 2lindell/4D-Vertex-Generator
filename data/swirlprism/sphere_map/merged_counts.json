@@ -520,14 +520,15 @@
   "atlas_lines": {
    "E1": {
     "classes": 2,
-    "pieces_on_sphere": 1800,
+    "pieces_on_sphere": 2400,
     "classes_detail": [
      {
       "id": 0,
       "ends": [
-       "A1"
+       "A1",
+       "C6"
       ],
-      "on_sphere": 600
+      "on_sphere": 1200
      },
      {
       "id": 1,
@@ -63106,7 +63107,7 @@
  ],
  "totals": {
   "wall_pieces_on_sphere": 175200,
-  "atlas_line_pieces_on_sphere": 56040,
+  "atlas_line_pieces_on_sphere": 56640,
   "meeting_edge_pieces_on_sphere": 43800,
   "points_on_sphere": 317976
  }
