@@ -96,6 +96,7 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
     lines = w["exact"]["lines"]
     ends_doc = load_json("line_ends.json")["lines"]
     named = [(p["name"], point_from_beta(np.asarray(p["float"], float))) for p in w["exact"]["points"]]
+    point_shapes = {k for k, v in w["shapes"].items() if v["dim"] == "point"}
     named_from = [p["from"] for p in w["exact"]["points"]]
     all_named = np.vstack([grp.g @ x for _, x in named])            # every copy of every point
     from .frame import cell_vertices, surface_by_name, surfaces
@@ -122,7 +123,10 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             # wherever a copy of one lies on the curve: within 1e-5 of the (exactly resampled)
             # polyline, and on both of its surfaces where those are known exactly
             r4 = point_from_beta(poly)
-            mine = [j for j in range(len(named)) if _on_line(named_from[j], name)]
+            # named points the data puts on this line, and every point shape (a shape of its own:
+            # a line always stops at one lying on it)
+            mine = [j for j in range(len(named)) if _on_line(named_from[j], name)
+                    or named[j][0] in point_shapes]
             inserts, seen = [], set()
             for a in range(len(r4) - 1):
                 xa, xb = r4[a], r4[a + 1]
