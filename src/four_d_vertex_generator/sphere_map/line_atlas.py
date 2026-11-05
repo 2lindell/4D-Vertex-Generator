@@ -182,6 +182,15 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             ends = {e["side"]: e for e in ends_doc.get(name, []) if e["piece"] == pi}
             start = ends.get("start", {}).get("on")
             stop = ends.get("end", {}).get("on")
+            # a piece end lying on a copy of one of the line's named points (or of a point shape)
+            # is that point, whether or not the atlas notes name it: the line stops there
+            for side, x in ((0, r4[0]), (1, r4[-1])):
+                hit = [jj for jj in ntree.query_ball_point(x, 1e-6) if jj // n_per in mine]
+                if hit:
+                    if side == 0 and not start:
+                        start = named_of[hit[0]]
+                    if side == 1 and not stop:
+                        stop = named_of[hit[0]]
             bounds = [(0, start)] + [c for c in cut_at if 0 < c[0] < len(poly) - 1] + \
                 [(len(poly) - 1, stop)]
             for (a, na), (b, nb) in zip(bounds[:-1], bounds[1:]):
