@@ -11,7 +11,7 @@ An end is closed when the polytope beyond is a known region and the one on the s
 region on one side: a change with no shape of its own). Otherwise: a region missing (unknown beyond), or a wall shape
 missing (unknown on the surface), or a surface missing (none through the point).
 
-    DECAIC_SUB=ki python snub_closure.py
+    TESSIC_SUB=ki python snub_closure.py
 """
 from __future__ import annotations
 
@@ -130,7 +130,7 @@ def main():
     X = qmc.Halton(4, seed=7).random(12000)
     X = -np.log(1 - X * 0.999999)
     X = X / X.sum(1, keepdims=True)
-    X = X[X[:, 0] > X[:, 3]][:5000]
+    X = (X[X[:, 0] > X[:, 3]] if G.FOLD else X)[:5000]
     K = pool.map(label, list(map(tuple, X)), chunksize=32)
     starts = defaultdict(list)
     for k, v in reg.items():
@@ -157,7 +157,7 @@ def main():
     for i, e in ch:
         x = np.asarray(e[0])
         d = np.array([s.dist(x) for s in surfs])
-        if x.min() < 1e-6 or abs(x[0] - x[3]) < 1e-6:
+        if x.min() < 1e-6 or (G.FOLD and abs(x[0] - x[3]) < 1e-6):
             continue                                    # (the domain's edge)
         if d.min() < 1e-6:
             sid[i] = surfs[int(d.argmin())].text
@@ -184,7 +184,7 @@ def main():
         k0 = items[i][2]
         if e[1] == "domain":
             x = np.asarray(e[0])
-            edge = "fold b1 = b4" if abs(x[0] - x[3]) < 1e-9 else f"mirror b{int(np.argmin(x)) + 1} = 0"
+            edge = "fold b1 = b4" if G.FOLD and abs(x[0] - x[3]) < 1e-9 else f"mirror b{int(np.argmin(x)) + 1} = 0"
             res[k0][("domain edge", edge)] += 1
             continue
         if e[1] == "not ended":
@@ -192,8 +192,8 @@ def main():
             continue
         kb = e[2]
         x = np.asarray(e[0])
-        if x.min() < 1e-6 or abs(x[0] - x[3]) < 1e-6:
-            edge = "fold b1 = b4" if abs(x[0] - x[3]) < 1e-6 else f"mirror b{int(np.argmin(x)) + 1} = 0"
+        if x.min() < 1e-6 or (G.FOLD and abs(x[0] - x[3]) < 1e-6):
+            edge = "fold b1 = b4" if G.FOLD and abs(x[0] - x[3]) < 1e-6 else f"mirror b{int(np.argmin(x)) + 1} = 0"
             res[k0][("domain edge", edge)] += 1
             continue
         if i not in sid:

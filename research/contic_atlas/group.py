@@ -22,6 +22,7 @@ from four_d_vertex_generator.local_view import hull_edges
 from four_d_vertex_generator.off import compute_convex_hull
 
 NAME = "f4_extended"
+FOLD = True                                               # (the swap halves the chamber: b1 >= b4)
 ORDER = 2304
 S2 = np.sqrt(2.0)
 ROOTS = np.array([[0, 1, -1, 0], [0, 0, 1, -1], [0, 0, 0, 1], [0.5, -0.5, -0.5, -0.5]])

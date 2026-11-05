@@ -267,7 +267,7 @@ def optimise(shape):
     nf = len(free)
     cons = [{"type": "ineq", "fun": lambda z: z[nf] - q(full(z))},
             {"type": "ineq", "fun": lambda z: q(full(z)) - 1.0},
-            {"type": "ineq", "fun": lambda z: np.concatenate([z[:nf], [full(z)[0] - full(z)[3]] if 0 in free else []])}]
+            {"type": "ineq", "fun": lambda z: np.concatenate([z[:nf], [full(z)[0] - full(z)[3]] if (0 in free and getattr(G, "FOLD", True)) else []])}]
     condf = None
     if conds:
         C = np.array([c[0] for c in conds])

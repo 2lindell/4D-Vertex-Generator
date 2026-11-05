@@ -88,7 +88,7 @@ def centre(shape):
             out.append(sg * float(f(*b)) / (np.linalg.norm(gt) + 1e-300))
         for k in free:                                  # (the mirrors the shape is not on)
             out.append(b[k] / (np.linalg.norm(tangent(np.eye(4)[k][None], b)) + 1e-300))
-        if G.SUB not in ("pen", "kipen") and 0 in free and 3 in free and \
+        if getattr(G, "FOLD", True) and 0 in free and 3 in free and \
                 not any(sp.expand(e - (O.B[0] - O.B[3])) == 0 for e in loc):
             out.append((b[0] - b[3]) / (np.linalg.norm(tangent(np.array([[1, 0, 0, -1.0]]), b)) + 1e-300))
         return np.array(out, float)

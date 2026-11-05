@@ -5,7 +5,7 @@ or b2 and b3 small. The kicontic / iocontic grids (N = 32) are coarser, so those
 points (a Halton sequence in each zone, off any lattice), each classified and compared (by incidences) with the
 region types of the map; any polytope not among them is new, with its margin.
 
-    CONTIC_SUB=ki python edge_survey.py [n per zone]
+    TESSIC_SUB=ki python edge_survey.py [n per zone]
 """
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ def points(zone, n, seed):
         X = qmc.Halton(4, seed=seed).random(n * 3)
         X = -np.log(1 - X * 0.999999)                       # (uniform on the simplex: normalised exponentials)
         X = X / X.sum(1, keepdims=True)
-        return X[X[:, 0] > X[:, 3]][:n]
+        return (X[X[:, 0] > X[:, 3]] if G.FOLD else X)[:n]
     lo = np.array([a for a, _ in zone]); hi = np.array([b for _, b in zone])
     X = qmc.Halton(4, seed=seed).random(n * 4)
     X = lo + X * (hi - lo)
@@ -40,7 +40,7 @@ def points(zone, n, seed):
     rest = 1 - X[:, small].sum(1)
     X[:, free[0]] = t * rest
     X[:, free[1]] = (1 - t) * rest
-    X = X[(X.min(1) > 0) & (X[:, 0] > X[:, 3])]
+    X = X[(X.min(1) > 0) & ((X[:, 0] > X[:, 3]) | (not G.FOLD))]
     return X[:n]
 
 

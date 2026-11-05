@@ -65,6 +65,7 @@ else:
     ELEM = [(e, p) for p, e in zip(PERMS, _PAR)]
     GENS = [np.eye(5)[[1, 2, 0, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]], -np.eye(5)[[1, 0, 2, 3, 4]]]  # (.., -(0 1))
 ORDER = len(ELEM)
+FOLD = SUB not in ("pen", "kipen")              # (the decaic swap halves the chamber; pennic groups have no swap)
 _SGN = np.array([s for s, _ in ELEM], float)
 _PRM = np.array([p for _, p in ELEM])
 

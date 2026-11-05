@@ -1,5 +1,5 @@
-"""The kicontic / iocontic domain mapped over curved walls (snub_map_ki.json / snub_map_io.json); as
-decaic_atlas/snub_map.py, over Q(sqrt2).
+"""A tessic subgroup's domain (the B4 chamber) mapped over curved walls (snub_map<tag>.json); as
+decaic_atlas/snub_map.py and contic_atlas/snub_map.py, over Q(sqrt2), with no fold.
 
 Under the snub subgroups the forms (forms.py) may no longer all factor into planes: many walls are quadrics, cubics or
 quartics in the betas. So the plane arrangement is replaced by:
@@ -15,7 +15,7 @@ quartics in the betas. So the plane arrangement is replaced by:
 
 On the mirrors (some beta_k = 0) the subgroup's orbit is the contic one: those shapes are the contic atlas's.
 
-    CONTIC_SUB=ki python snub_map.py [N]
+    TESSIC_SUB=ki python snub_map.py [N] [CAP]
 """
 from __future__ import annotations
 
@@ -73,13 +73,27 @@ def mixed(text):
 
 
 def surfaces_from_files():
-    """The contic (full group) planes: the subgroup's walls include the full group's."""
+    """This group's arrangement planes (arrangement<tag>.json) and the curved factors its log records (over Q(sqrt2))."""
     from fractions import Fraction
-    A = json.load(open("arrangement.json"))
     out = set()
-    for p in A["planes"]:
-        t = " + ".join(f"({Fraction(a)} + {Fraction(b)}*sqrt(2))*{v}" for (a, b), v in zip(p, ["b1", "b2", "b3", "b4"]))
-        out.add(str(sp.expand(sp.sympify(t))))
+    try:
+        A = json.load(open(G.fname("arrangement")))
+        for p in A["planes"]:
+            t = " + ".join(f"({Fraction(a)} + {Fraction(b)}*sqrt(2))*{v}" for (a, b), v in zip(p, ["b1", "b2", "b3", "b4"]))
+            out.add(str(sp.expand(sp.sympify(t))))
+    except FileNotFoundError:
+        pass
+    try:
+        text = open(G.fname("arrangement", "log")).read()
+        for seg in re.split(r"\s*NONLINEAR at \[[^\]]*\]: ", text)[1:]:
+            f = re.split(r"\s{2,}|\n", seg)[0].strip()
+            try:
+                if mixed(f):
+                    out.add(str(sp.expand(sp.sympify(f))))
+            except (sp.SympifyError, sp.PolynomialError):
+                pass
+    except FileNotFoundError:
+        pass
     return sorted(out)
 
 
@@ -135,7 +149,7 @@ def grid(N, fold=False):
                 l = N - i - j - k
                 if l < 1:
                     continue
-                if (i > l and not fold) or (i == l and fold):
+                if (not G.FOLD and not fold) or (i > l and not fold) or (i == l and fold):
                     pts.append((i, j, k, l))
     return pts
 
@@ -208,7 +222,7 @@ def main():
                 pairs.append((i, j))
     # (across the fold: (i,j,k,l) with i = l+1 next to its swap image (l+1... ) -- the swap of (i,j,k,l) is (l,k,j,i);
     #  a point just inside (i = l + 1) and the swap image of its neighbour (i-1, j, k, l+1)... are the same seed region)
-    for i, p in enumerate(P):
+    for i, p in enumerate(P if G.FOLD else []):
         if p[0] == p[3] + 1:
             j = index.get((p[0], p[2], p[1], p[3]))         # (the point whose swap image is p's mirror neighbour)
             if j is not None and typ[i] == typ[j]:
@@ -258,9 +272,9 @@ def main():
         walls.append({"surface": surfs[si].text if si >= 0 else f"none (nearest {d:.0e})", "sides": sorted([ta, tb]),
                       "wall_type": T.of(sg, k, y), "point": y.round(13).tolist()})
     # (the fold plane: a 2D grid on b1 = b4)
-    F = grid(N, fold=True)
-    Bf = generic(F, N, fold=True)
-    Rf = pool.map(label_job, list(map(tuple, Bf)), chunksize=16)
+    F = grid(N, fold=True) if G.FOLD else []
+    Bf = generic(F, N, fold=True) if F else np.zeros((0, 4))
+    Rf = pool.map(label_job, list(map(tuple, Bf)), chunksize=16) if len(Bf) else []
     ftyp = [T.of(sg, k, b) for (sg, k), b in zip(Rf, Bf)]
     pool.close()
     # (summary)
