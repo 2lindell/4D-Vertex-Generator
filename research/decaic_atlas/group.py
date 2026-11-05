@@ -43,10 +43,11 @@ def _parity(p):
 
 
 # (the group: DECAIC_SUB = full (decaic [[3,3,3]], order 240), ki (kidecaic [[3,3,3]]+: A5 x {+-1}, the rotations,
-# order 120) or io (iodecaic [[3,3,3]+]: even sigma and -sigma for odd sigma, order 120). Its elements are (sign, perm):
+# order 120), io (iodecaic [[3,3,3]+]: even sigma and -sigma for odd sigma, order 120), pen (pennic [3,3,3] = S5,
+# 120) or kipen (kipennic [3,3,3]+ = A5, 60). Its elements are (sign, perm):
 # x -> sign * x[perm].)
 SUB = os.environ.get("DECAIC_SUB", "full")
-TAG = {"full": "", "ki": "_ki", "io": "_io"}[SUB]
+TAG = {"full": "", "ki": "_ki", "io": "_io", "pen": "_pen", "kipen": "_kipen"}[SUB]
 _PAR = np.array([_parity(p) for p in PERMS])
 if SUB == "full":
     ELEM = [(s, p) for s in (1, -1) for p in PERMS]
@@ -54,6 +55,12 @@ if SUB == "full":
 elif SUB == "ki":
     ELEM = [(s, p) for s in (1, -1) for p, e in zip(PERMS, _PAR) if e == 1]
     GENS = [np.eye(5)[[1, 2, 0, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]], -np.eye(5)]           # ((0 1 2), (0 1 2 3 4), -1)
+elif SUB == "pen":                          # (pennic [3,3,3] = S5: the permutations, order 120)
+    ELEM = [(1, p) for p in PERMS]
+    GENS = [np.eye(5)[[1, 0, 2, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]]]
+elif SUB == "kipen":                        # (kipennic [3,3,3]+ = A5: the even permutations, order 60)
+    ELEM = [(1, p) for p, e in zip(PERMS, _PAR) if e == 1]
+    GENS = [np.eye(5)[[1, 2, 0, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]]]
 else:
     ELEM = [(e, p) for p, e in zip(PERMS, _PAR)]
     GENS = [np.eye(5)[[1, 2, 0, 3, 4]], np.eye(5)[[1, 2, 3, 4, 0]], -np.eye(5)[[1, 0, 2, 3, 4]]]  # (.., -(0 1))
@@ -86,7 +93,11 @@ def vertices5(beta, tol=1e-9):
 
 
 def in_domain(B, eps=0.0):
+    """The fundamental domain: the chamber beta >= 0, halved by the fold b1 >= b4 where the group has the swap
+    (decaic and its subgroups); the whole chamber for pennic and kipennic (no swap)."""
     B = np.atleast_2d(B)
+    if SUB in ("pen", "kipen"):
+        return B.min(1) >= -eps
     return (B.min(1) >= -eps) & (B[:, 0] >= B[:, 3] - eps)
 
 

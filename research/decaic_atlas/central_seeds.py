@@ -4,8 +4,10 @@ Where the optimized seed makes the edges as even as possible (and often sits on 
 central seed keeps as far as possible from every place the shape changes, so its cells are clearly formed. A shape is
 the set of seeds on its locus (its mirror / wall / line equations) where every sign condition of its polychoron
 (forms.region_conditions / region_forms: where a vertex reaches a cell's 3-flat) keeps its sign, inside the domain
-(beta >= 0, b1 >= b4). The depth of a seed is its least distance to any of those boundaries, each measured to first
-order (f / |grad f| along the locus, beta summing to 1). The central seed maximises the depth (SLSQP from the start
+(beta >= 0, b1 >= b4). The depth of a seed is its least distance to any of those boundaries: each sign condition is
+factored, and every irreducible factor that changes sign on the chamber is a boundary, its distance measured as
+f / |grad f| along the locus, beta summing to 1 (exact for a plane; a product's own f / |grad f| would not be a
+distance). The central seed maximises the depth (SLSQP from the start
 seed, the optimized seed and their midpoint), and is kept only if it is still the shape: the same arrangement key, and
 the polychoron rebuilt with the shape's vertex and cell counts. A point has no freedom: its seed is its centre.
 
@@ -44,10 +46,27 @@ def centre(shape):
     loc = [e for e in loc if sp.expand(e.subs({O.B[i]: 0 for i in zero})) != 0]
     loc_f = [sp.lambdify(O.B, e, "numpy") for e in loc]
     loc_g = [[sp.lambdify(O.B, sp.diff(e, v), "numpy") for v in O.B] for e in loc]
-    conds = O.sign_conditions(seed)
-    Mx = np.array(F.MONS, float)
-    C = np.array([c[0] for c in conds]) if conds else np.zeros((0, len(Mx)))
-    Sg = np.array([c[1] for c in conds], float)
+    # (the boundaries: every irreducible factor of the seed's sign conditions that changes sign on the chamber -- a
+    #  product's own f / |grad f| is not its distance to the wall, its factors' are -- restricted to the seed's
+    #  mirrors, with its sign at the seed)
+    facs = {}
+    for c in O.sign_conditions(seed):
+        expr = sp.expand(F.poly(c[2]).subs({O.B[i]: 0 for i in zero}))
+        if expr == 0:
+            continue
+        parts = F._factor(str(expr)) if hasattr(F, "_factor") else \
+            [f for f, _ in sp.factor_list(expr)[1] if f.free_symbols]
+        for f in parts:
+            f = sp.expand(f)
+            co = [float(v) for v in sp.Poly(f, *O.B).coeffs()]
+            if not (min(co) < 0 < max(co)):
+                continue                                # (one-signed: vanishes nowhere inside the chamber)
+            v = float(f.subs(dict(zip(O.B, seed))))
+            if abs(v) < 1e-12:
+                continue
+            facs.setdefault(str(f), (sp.lambdify(O.B, f, "numpy"),
+                                     [sp.lambdify(O.B, sp.diff(f, x), "numpy") for x in O.B], np.sign(v)))
+    facs = list(facs.values())
 
     def full(z):
         b = np.zeros(4)
@@ -64,26 +83,15 @@ def centre(shape):
 
     def depths(b):
         out = []
-        if len(C):
-            with np.errstate(divide="ignore", invalid="ignore"):
-                mono = np.prod(b[None, :] ** Mx, axis=1)
-                val = Sg * (C @ mono)
-                dm = np.zeros((len(Mx), 4))
-                for j in range(4):
-                    e = Mx.copy()
-                    e[:, j] -= 1
-                    dm[:, j] = np.where(Mx[:, j] > 0, Mx[:, j] * np.prod(b[None, :] ** np.maximum(e, 0), axis=1)
-                                        * np.where(e[:, j] < 0, 0, 1), 0)
-            g = C @ dm
-            gt = tangent(g, b)
-            out.append(val / (np.linalg.norm(gt, axis=1) + 1e-300))
-        dom = []
+        for f, g, sg in facs:
+            gt = tangent(np.array([[float(gi(*b)) for gi in g]]), b)
+            out.append(sg * float(f(*b)) / (np.linalg.norm(gt) + 1e-300))
         for k in free:                                  # (the mirrors the shape is not on)
-            dom.append(b[k] / (np.linalg.norm(tangent(np.eye(4)[k][None], b)) + 1e-300))
-        if 0 in free and 3 in free and not any(sp.expand(e - (O.B[0] - O.B[3])) == 0 for e in loc):
-            dom.append((b[0] - b[3]) / (np.linalg.norm(tangent(np.array([[1, 0, 0, -1.0]]), b)) + 1e-300))
-        out.append(np.array(dom, float))
-        return np.concatenate(out)
+            out.append(b[k] / (np.linalg.norm(tangent(np.eye(4)[k][None], b)) + 1e-300))
+        if G.SUB not in ("pen", "kipen") and 0 in free and 3 in free and \
+                not any(sp.expand(e - (O.B[0] - O.B[3])) == 0 for e in loc):
+            out.append((b[0] - b[3]) / (np.linalg.norm(tangent(np.array([[1, 0, 0, -1.0]]), b)) + 1e-300))
+        return np.array(out, float)
 
     nf = len(free)
     cons = [{"type": "ineq", "fun": lambda z: depths(full(z)) - z[nf]},
@@ -117,6 +125,20 @@ def centre(shape):
     return res
 
 
+def centre_best(shape):
+    """centre on every piece of the shape; the deepest is the shape's centre."""
+    pieces = shape.get("pieces") or [{"seed": shape["seed"], "locus": shape["locus"]}]
+    res = []
+    for i, pc in enumerate(pieces):
+        r = centre({**shape, "seed": pc["seed"], "locus": pc["locus"]})
+        r["piece"] = i
+        res.append(r)
+    best = max(res, key=lambda r: -1 if r["depth"] is None else r["depth"])
+    if len(res) > 1:
+        best["pieces"] = [{"piece": r["piece"], "locus": r["locus"], "depth": r["depth"], "centre": r["centre"]} for r in res]
+    return best
+
+
 def run(shapes, out_dir, x_vector, hull, json_path):
     """Find every shape's centre, write its .off (checked: same vertex and cell counts as the shape's seed)."""
     os.makedirs(out_dir, exist_ok=True)
@@ -124,7 +146,7 @@ def run(shapes, out_dir, x_vector, hull, json_path):
         if f.endswith(".off"):
             os.remove(os.path.join(out_dir, f))
     with Pool(4) as pool:
-        R = pool.map(centre, shapes, chunksize=1)
+        R = pool.map(centre_best, shapes, chunksize=1)
     for s, r in zip(shapes, R):
         V0, _, cells0 = hull(np.asarray(r["start"]), s["hull_tol"])
         b = np.asarray(r["centre"], float)
@@ -155,7 +177,7 @@ def main():
     except FileNotFoundError:
         OPT = {}
     shapes = OS.decaic_shapes() if G.SUB == "full" else OS.snub_shapes()
-    out = os.path.join(OS.ROOT, "central_off", {"full": "decaic", "ki": "kidecaic", "io": "iodecaic"}[G.SUB])
+    out = os.path.join(OS.ROOT, "central_off", {"full": "decaic", "ki": "kidecaic", "io": "iodecaic", "pen": "pennic", "kipen": "kipennic"}[G.SUB])
 
     def hull(b, tol):
         _, V, faces, cells = G.polytope(b, tol)

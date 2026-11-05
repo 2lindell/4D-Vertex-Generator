@@ -118,6 +118,12 @@ def main():
     reg = {}
     for (b, sg), k in zip(regions, rkeys):
         reg.setdefault(k, {"signature": sg, "example": b})
+    # (wall shapes found by an earlier run of this check count as recorded)
+    try:
+        prev = json.load(open(G.fname("snub_closure")))["new_wall_shapes"]
+    except (FileNotFoundError, KeyError):
+        prev = {}
+    walls += [(w["seed"], w["signature"]) for w in prev.values()]
     wkeys = set(pool.map(label, [(tuple(b), 1e-7) for b, _ in walls], chunksize=1)) if walls else set()
     print(f"{len(reg)} region types, {len(wkeys)} wall shapes known", flush=True)
     # (starting points: a Halton survey, labelled; up to 3 spread points per region, plus its example)
@@ -151,7 +157,7 @@ def main():
     for i, e in ch:
         x = np.asarray(e[0])
         d = np.array([s.dist(x) for s in surfs])
-        if x.min() < 1e-8 or abs(x[0] - x[3]) < 1e-8:
+        if x.min() < 1e-6 or abs(x[0] - x[3]) < 1e-6:
             continue                                    # (the domain's edge)
         if d.min() < 1e-6:
             sid[i] = surfs[int(d.argmin())].text
@@ -186,8 +192,8 @@ def main():
             continue
         kb = e[2]
         x = np.asarray(e[0])
-        if x.min() < 1e-8 or abs(x[0] - x[3]) < 1e-8:
-            edge = "fold b1 = b4" if abs(x[0] - x[3]) < 1e-8 else f"mirror b{int(np.argmin(x)) + 1} = 0"
+        if x.min() < 1e-6 or abs(x[0] - x[3]) < 1e-6:
+            edge = "fold b1 = b4" if abs(x[0] - x[3]) < 1e-6 else f"mirror b{int(np.argmin(x)) + 1} = 0"
             res[k0][("domain edge", edge)] += 1
             continue
         if i not in sid:

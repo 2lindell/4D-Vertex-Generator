@@ -49,7 +49,7 @@ from four_d_vertex_generator.off import to_4off  # noqa: E402
 
 mp.mp.dps = 40
 B = sp.symbols("b1 b2 b3 b4")
-OFF_DIR = os.path.join(ROOT, "optimized_off", {"full": "decaic", "ki": "kidecaic", "io": "iodecaic"}[G.SUB])
+OFF_DIR = os.path.join(ROOT, "optimized_off", {"full": "decaic", "ki": "kidecaic", "io": "iodecaic", "pen": "pennic", "kipen": "kipennic"}[G.SUB])
 W5I = G.W5.astype(int)
 
 
@@ -71,7 +71,50 @@ def decaic_shapes():
         out.append({"name": s["name"], "kind": {3: "region", 2: "wall", 1: "line", 0: "point"}[s["degrees"]],
                     "degrees": s["degrees"], "seed": seed, "locus": independent([plane_text(c) for c in zero], seed),
                     "hull_tol": 1e-9})
+    add_pieces(out, [(f["dim"], [float(Fraction(v)) for v in f["point"]],
+                      [plane_text(planes[i]) for i, v in enumerate(f["signs"]) if v == 0]) for f in A["faces"]],
+               {k: n["name"] for s_, n in zip(json.load(open("shapes.json"))["shapes"], S) for k in s_["keys"]})
     return out
+
+
+def _face_key(item):
+    return G.label(item)[1]
+
+
+def add_pieces(shapes, faces, key_to_name):
+    """A shape can lie on more than one face of the domain with different loci (sabipard: on b2 = 0 and on b3 = 0).
+    Every face of the shape's own dimension is classified, and each distinct locus becomes a piece (a seed on it and
+    its equations): optimise_best / centre_best try every piece and keep the best."""
+    with Pool(4) as pool:
+        K = pool.map(_face_key, [f[1] for f in faces], chunksize=4)
+    by = {s["name"]: s for s in shapes}
+    for s in shapes:
+        s["pieces"] = [{"seed": s["seed"], "locus": s["locus"]}]
+    seen = {s["name"]: {tuple(sorted(s["locus"]))} for s in shapes}
+    for (dim, point, zeros), k in zip(faces, K):
+        n = key_to_name.get(k)
+        if n is None or n not in by or dim != by[n]["degrees"] or dim in (0, 3):
+            continue
+        loc = independent(zeros, point)
+        sig = tuple(sorted(loc))
+        if sig not in seen[n]:
+            seen[n].add(sig)
+            by[n]["pieces"].append({"seed": point, "locus": loc})
+
+
+def optimise_best(shape):
+    """optimise on every piece of the shape; the best (least R) is the shape's, the others are recorded."""
+    pieces = shape.get("pieces") or [{"seed": shape["seed"], "locus": shape["locus"]}]
+    res = []
+    for i, pc in enumerate(pieces):
+        r = optimise({**shape, "seed": pc["seed"], "locus": pc["locus"]})
+        r["piece"] = i
+        res.append(r)
+    best = min(res, key=lambda r: r["R"])
+    if len(res) > 1:
+        best["pieces"] = [{"piece": r["piece"], "locus": r["locus"], "R": r["R"], "best": r["best"], "status": r["status"]}
+                          for r in res]
+    return best
 
 
 EDGE_NAMES = {"ki": [("sabosid", {3: 120, 4: 420, 5: 120, 8: 60}), ("apbosid", {3: 360, 4: 300, 8: 120}),
@@ -405,7 +448,7 @@ def main():
     os.makedirs(OFF_DIR, exist_ok=True)
     shapes = decaic_shapes() if G.SUB == "full" else snub_shapes()
     with Pool(4) as pool:
-        R = pool.map(optimise, shapes, chunksize=1)
+        R = pool.map(optimise_best, shapes, chunksize=1)
     for s, r in zip(shapes, R):
         b = np.asarray(r["off_seed"], float)
         _, V, faces, cells = G.polytope(b, s["hull_tol"])

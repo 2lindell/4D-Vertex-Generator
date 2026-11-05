@@ -1,0 +1,463 @@
+{
+ "_about": "The six pennic shapes (no decaic versions): their optimized and central seeds, and kipennic-only (chiral) examples.",
+ "pennic": [
+  {
+   "name": "pen",
+   "kind": "point",
+   "degrees": 0,
+   "start": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "optimized": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "optimized_status": "point (no freedom)",
+   "central": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "point (no freedom): the seed itself",
+   "same": true,
+   "uniform": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "optimized_is_uniform": true,
+   "central_is_uniform": true,
+   "opt_counts": [
+    5,
+    5
+   ],
+   "central_counts": [
+    5,
+    5
+   ],
+   "seed_vector": [
+    1.0,
+    -0.25,
+    -0.25,
+    -0.25,
+    -0.25
+   ]
+  },
+  {
+   "name": "rap",
+   "kind": "point",
+   "degrees": 0,
+   "start": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "optimized": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "optimized_status": "point (no freedom)",
+   "central": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "point (no freedom): the seed itself",
+   "same": true,
+   "uniform": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "optimized_is_uniform": true,
+   "central_is_uniform": true,
+   "opt_counts": [
+    10,
+    10
+   ],
+   "central_counts": [
+    10,
+    10
+   ],
+   "seed_vector": [
+    1.0,
+    1.0,
+    -0.6666666666666666,
+    -0.6666666666666666,
+    -0.6666666666666666
+   ]
+  },
+  {
+   "name": "tip",
+   "kind": "line",
+   "degrees": 1,
+   "start": [
+    0.8,
+    0.2,
+    0.0,
+    0.0
+   ],
+   "optimized": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "depth": 0.7071067811865475,
+   "central_status": "deepest point of the shape",
+   "same": true,
+   "uniform": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "optimized_is_uniform": true,
+   "central_is_uniform": true,
+   "opt_counts": [
+    20,
+    10
+   ],
+   "central_counts": [
+    20,
+    10
+   ],
+   "seed_vector": [
+    1.0,
+    0.2857142857142857,
+    -0.42857142857142855,
+    -0.42857142857142855,
+    -0.42857142857142855
+   ]
+  },
+  {
+   "name": "srip",
+   "kind": "line",
+   "degrees": 1,
+   "start": [
+    0.75,
+    0.0,
+    0.25,
+    0.0
+   ],
+   "optimized": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "depth": 0.7071067811865475,
+   "central_status": "deepest point of the shape",
+   "same": true,
+   "uniform": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "optimized_is_uniform": true,
+   "central_is_uniform": true,
+   "opt_counts": [
+    30,
+    20
+   ],
+   "central_counts": [
+    30,
+    20
+   ],
+   "seed_vector": [
+    1.0,
+    0.16666666666666666,
+    0.16666666666666666,
+    -0.6666666666666666,
+    -0.6666666666666666
+   ]
+  },
+  {
+   "name": "grip",
+   "kind": "wall",
+   "degrees": 2,
+   "start": [
+    0.55,
+    0.3,
+    0.15,
+    0.0
+   ],
+   "optimized": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "depth": 0.408248290463863,
+   "central_status": "deepest point of the shape",
+   "same": true,
+   "uniform": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "optimized_is_uniform": true,
+   "central_is_uniform": true,
+   "opt_counts": [
+    60,
+    20
+   ],
+   "central_counts": [
+    60,
+    20
+   ],
+   "seed_vector": [
+    1.0,
+    0.4444444444444446,
+    -0.11111111111111115,
+    -0.6666666666666667,
+    -0.6666666666666667
+   ]
+  },
+  {
+   "name": "prip",
+   "kind": "wall",
+   "degrees": 2,
+   "start": [
+    0.55,
+    0.3,
+    0.0,
+    0.15
+   ],
+   "optimized": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "depth": 0.408248290463863,
+   "central_status": "deepest point of the shape",
+   "same": true,
+   "uniform": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "optimized_is_uniform": true,
+   "central_is_uniform": true,
+   "opt_counts": [
+    60,
+    30
+   ],
+   "central_counts": [
+    60,
+    30
+   ],
+   "seed_vector": [
+    1.0,
+    0.375,
+    -0.25000000000000006,
+    -0.25000000000000006,
+    -0.8749999999999999
+   ]
+  }
+ ],
+ "kipennic_chiral": [
+  {
+   "name": "pen_chiral",
+   "from": "pen",
+   "seed": [
+    0.769230769230769,
+    0.04615384615384614,
+    0.07692307692307691,
+    0.10769230769230768
+   ],
+   "seed_vector": [
+    1.0,
+    -0.10619469026548671,
+    -0.17256637168141592,
+    -0.28318584070796465,
+    -0.4380530973451328
+   ],
+   "vertices": 60,
+   "cells": 90,
+   "symmetry_order": 60,
+   "key": "0e0d9a991e7f",
+   "edge_ratio": 7.366498905344996,
+   "margin": 0.05287330801512391,
+   "signature": "60: cells 5x[12v20f]+5x[12v20f]+10x[6v8f]+10x[6v8f]+60x[4v4f] | faces 20x3g+20x3g+20x3g+60x3g+60x3g+60x3g+60x3g | edges 30x4+30x4+30x4+60x3+60x3+60x3",
+   "off": "optimized_off/kipennic/pen_chiral_60v_90c.off"
+  },
+  {
+   "name": "rap_chiral",
+   "from": "rap",
+   "seed": [
+    0.04615384615384614,
+    0.769230769230769,
+    0.07692307692307691,
+    0.10769230769230768
+   ],
+   "seed_vector": [
+    1.0,
+    0.9162011173184359,
+    -0.4804469273743017,
+    -0.6201117318435755,
+    -0.8156424581005588
+   ],
+   "vertices": 60,
+   "cells": 90,
+   "symmetry_order": 60,
+   "key": "0e0d9a991e7f",
+   "edge_ratio": 9.034248560828047,
+   "margin": 0.05304096533059077,
+   "signature": "60: cells 5x[12v20f]+5x[12v20f]+10x[6v8f]+10x[6v8f]+60x[4v4f] | faces 20x3g+20x3g+20x3g+60x3g+60x3g+60x3g+60x3g | edges 30x4+30x4+30x4+60x3+60x3+60x3",
+   "off": "optimized_off/kipennic/rap_chiral_60v_90c.off"
+  },
+  {
+   "name": "tip_chiral",
+   "from": "tip",
+   "seed": [
+    0.43103448275862066,
+    0.43103448275862066,
+    0.051724137931034475,
+    0.08620689655172413
+   ],
+   "seed_vector": [
+    1.0,
+    0.3279569892473118,
+    -0.3440860215053763,
+    -0.42473118279569894,
+    -0.5591397849462366
+   ],
+   "vertices": 60,
+   "cells": 90,
+   "symmetry_order": 60,
+   "key": "0e0d9a991e7f",
+   "edge_ratio": 6.185895741317424,
+   "margin": 0.05615024645145886,
+   "signature": "60: cells 5x[12v20f]+5x[12v20f]+10x[6v8f]+10x[6v8f]+60x[4v4f] | faces 20x3g+20x3g+20x3g+60x3g+60x3g+60x3g+60x3g | edges 30x4+30x4+30x4+60x3+60x3+60x3",
+   "off": "optimized_off/kipennic/tip_chiral_60v_90c.off"
+  },
+  {
+   "name": "srip_chiral",
+   "from": "srip",
+   "seed": [
+    0.43103448275862066,
+    0.051724137931034475,
+    0.43103448275862066,
+    0.08620689655172413
+   ],
+   "seed_vector": [
+    1.0,
+    0.23780487804878045,
+    0.14634146341463414,
+    -0.6158536585365854,
+    -0.7682926829268292
+   ],
+   "vertices": 60,
+   "cells": 90,
+   "symmetry_order": 60,
+   "key": "0e0d9a991e7f",
+   "edge_ratio": 6.0633906259083306,
+   "margin": 0.05835030060985261,
+   "signature": "60: cells 5x[12v20f]+5x[12v20f]+10x[6v8f]+10x[6v8f]+60x[4v4f] | faces 20x3g+20x3g+20x3g+60x3g+60x3g+60x3g+60x3g | edges 30x4+30x4+30x4+60x3+60x3+60x3",
+   "off": "optimized_off/kipennic/srip_chiral_60v_90c.off"
+  },
+  {
+   "name": "grip_chiral",
+   "from": "grip",
+   "seed": [
+    0.31446540880503143,
+    0.31446540880503143,
+    0.31446540880503143,
+    0.056603773584905655
+   ],
+   "seed_vector": [
+    1.0,
+    0.45533769063180835,
+    -0.08932461873638346,
+    -0.6339869281045751,
+    -0.7320261437908496
+   ],
+   "vertices": 60,
+   "cells": 90,
+   "symmetry_order": 60,
+   "key": "0e0d9a991e7f",
+   "edge_ratio": 1.704655521084462,
+   "margin": 0.0747001412730404,
+   "signature": "60: cells 5x[12v20f]+5x[12v20f]+10x[6v8f]+10x[6v8f]+60x[4v4f] | faces 20x3g+20x3g+20x3g+60x3g+60x3g+60x3g+60x3g | edges 30x4+30x4+30x4+60x3+60x3+60x3",
+   "off": "optimized_off/kipennic/grip_chiral_60v_90c.off"
+  },
+  {
+   "name": "prip_chiral",
+   "from": "prip",
+   "seed": [
+    0.3144654088050315,
+    0.3144654088050315,
+    0.05660377358490567,
+    0.3144654088050315
+   ],
+   "seed_vector": [
+    1.0,
+    0.40191387559808617,
+    -0.19617224880382778,
+    -0.3038277511961723,
+    -0.9019138755980861
+   ],
+   "vertices": 60,
+   "cells": 90,
+   "symmetry_order": 60,
+   "key": "0e0d9a991e7f",
+   "edge_ratio": 1.7046555210844614,
+   "margin": 0.06772348375928128,
+   "signature": "60: cells 5x[12v20f]+5x[12v20f]+10x[6v8f]+10x[6v8f]+60x[4v4f] | faces 20x3g+20x3g+20x3g+60x3g+60x3g+60x3g+60x3g | edges 30x4+30x4+30x4+60x3+60x3+60x3",
+   "off": "optimized_off/kipennic/prip_chiral_60v_90c.off"
+  }
+ ]
+}

@@ -107,6 +107,9 @@ def contic_shapes():
         zero = [ktext(planes[i]) for i, v in enumerate(s["example_signs"]) if v == 0]
         out.append({"name": n["decaic_counterpart"] + "-like", "kind": s["kind"], "degrees": s["degrees"], "seed": seed,
                     "locus": O.independent(zero, seed), "hull_tol": 1e-9})
+    O.add_pieces(out, [(f["dim"], f["point_float"], [ktext(planes[i]) for i, v in enumerate(f["signs"]) if v == 0])
+                       for f in A["faces"]],
+                 {k: n["decaic_counterpart"] + "-like" for s, n in zip(S, N) for k in s["keys"]})
     return out
 
 
@@ -154,7 +157,7 @@ def main():
     os.makedirs(OFF_DIR, exist_ok=True)
     shapes = contic_shapes() if G.SUB == "full" else snub_shapes()
     with Pool(4) as pool:
-        R = pool.map(O.optimise, shapes, chunksize=1)
+        R = pool.map(O.optimise_best, shapes, chunksize=1)
     for s, r in zip(shapes, R):
         if "exact_digits" in r:
             r["exact_digits"] = "double precision (the edge forms are used in floating point)"
