@@ -56,7 +56,8 @@
     0.17321227391189142
    ],
    "off_R": 1.88663146501002,
-   "seconds": 30.1,
+   "seconds": 18.7,
+   "piece": 0,
    "off": "optimized_off/contic/sabotid-like_2304v_1248c_opt.off",
    "vertices": 2304,
    "cells": 1248,
@@ -122,7 +123,8 @@
     0.15121441971956923
    ],
    "off_R": 2.3065629648763792,
-   "seconds": 28.1,
+   "seconds": 18.5,
+   "piece": 0,
    "off": "optimized_off/contic/gabotid-like_2304v_1056c_opt.off",
    "vertices": 2304,
    "cells": 1056,
@@ -187,7 +189,8 @@
     0.1999666663388819
    ],
    "off_R": 3.003828066355264,
-   "seconds": 100.5,
+   "seconds": 61.2,
+   "piece": 0,
    "off": "optimized_off/contic/gabipard-like_1152v_1248c_opt.off",
    "vertices": 1152,
    "cells": 1248,
@@ -255,7 +258,8 @@
     0.21684533543747478
    ],
    "off_R": 1.805790894654361,
-   "seconds": 21.3,
+   "seconds": 13.8,
+   "piece": 0,
    "off": "optimized_off/contic/mabipard-like_1152v_1056c_opt.off",
    "vertices": 1152,
    "cells": 1056,
@@ -271,33 +275,45 @@
    "kind": "wall",
    "degrees": 2,
    "locus": [
-    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
    ],
    "start": [
-    0.3140807663080263,
+    0.5000000000000001,
+    0.33333333333333337,
     0.0,
-    0.5192525670253072,
     0.16666666666666669
    ],
-   "start_R": 3.1155154021518427,
+   "start_R": 3.0000000000000004,
    "numeric": {
     "best": [
-     0.33333264631616855,
+     0.3697947714790551,
+     0.36979477147905526,
      0.0,
-     0.3333347073676617,
-     0.3333326463161697
+     0.26041045704188975
     ],
-    "R": 1.7071067811865501,
+    "R": 1.4200457834132594,
     "slsqp": "Positive directional derivative for linesearch",
     "active_sign_conditions": 0
    },
-   "best": [
-    0.33333264631616855,
-    0.0,
-    0.3333347073676617,
-    0.3333326463161697
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3697947714790548748068876649425056935263",
+    "0.3697947714790548748068876649425056935263",
+    "0.0",
+    "0.2604104570418902503862246701149886129475"
    ],
-   "R": 1.7071067811865501,
+   "equations": [
+    "-5.65685424949238*b2*b3 - 4.0*b3**2",
+    "4.0*b1**2 - 4.0*b2**2 - 5.65685424949238*b2*b3 - 4.0*b3**2",
+    "-2.34314575050762*b1**2 - 1.37258300203048*b1*b2 + 1.37258300203048*b1*b3 + 4.68629150101524*b1*b4 - 1.37258300203048*b2**2 + 2.74516600406096*b2*b3 + 1.37258300203048*b2*b4 + 2.62741699796952*b3**2 + 2.62741699796952*b3*b4 + 1.65685424949238*b4**2"
+   ],
+   "best": [
+    0.3697947714790549,
+    0.3697947714790549,
+    0.0,
+    0.26041045704189025
+   ],
+   "R": 1.4200457834132594,
    "orbits": 7,
    "status": "minimum inside the shape",
    "ring_check_rises": {
@@ -305,21 +321,52 @@
     "flat_directions": false
    },
    "off_seed": [
-    0.33333264631616855,
+    0.3697947714790549,
+    0.3697947714790549,
     0.0,
-    0.3333347073676617,
-    0.3333326463161697
+    0.26041045704189025
    ],
-   "off_R": 1.7071067811865501,
-   "seconds": 24.5,
+   "off_R": 1.4200457834132594,
+   "seconds": 14.2,
+   "piece": 1,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [
+      "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+     ],
+     "R": 1.7071067811865501,
+     "best": [
+      0.33333264631616855,
+      0.0,
+      0.3333347073676617,
+      0.3333326463161697
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+     ],
+     "R": 1.4200457834132594,
+     "best": [
+      0.3697947714790549,
+      0.3697947714790549,
+      0.0,
+      0.26041045704189025
+     ],
+     "status": "minimum inside the shape"
+    }
+   ],
    "off": "optimized_off/contic/sabipard-like_1152v_1248c_opt.off",
    "vertices": 1152,
    "cells": 1248,
    "seed_vector": [
     1.0,
-    0.3763848428669792,
-    0.15590427127136475,
-    0.15590427127136475
+    0.5005139108534156,
+    0.2502569554267078,
+    0.0
    ]
   },
   {
@@ -376,7 +423,8 @@
     0.0
    ],
    "off_R": 1.7083389204146462,
-   "seconds": 73.2,
+   "seconds": 47.3,
+   "piece": 0,
    "off": "optimized_off/contic/mobcated-like_1152v_864c_opt.off",
    "vertices": 1152,
    "cells": 864,
@@ -444,7 +492,8 @@
     -2.2705375298707223e-16
    ],
    "off_R": 1.2293022135827096,
-   "seconds": 17.4,
+   "seconds": 11.2,
+   "piece": 0,
    "off": "optimized_off/contic/sobcated-like_1152v_1248c_opt.off",
    "vertices": 1152,
    "cells": 1248,
@@ -509,7 +558,8 @@
     0.0
    ],
    "off_R": 4.414439392979832,
-   "seconds": 86.3,
+   "seconds": 58.3,
+   "piece": 0,
    "off": "optimized_off/contic/gobcated-like_1152v_1056c_opt.off",
    "vertices": 1152,
    "cells": 1056,
@@ -565,7 +615,8 @@
     0.16990576295560547
    ],
    "off_R": 1.707106781186548,
-   "seconds": 20.6,
+   "seconds": 14.9,
+   "piece": 0,
    "off": "optimized_off/contic/petbotid-like_2304v_384c_opt.off",
    "vertices": 2304,
    "cells": 384,
@@ -621,7 +672,8 @@
     0.14753808636475677
    ],
    "off_R": 1.5411961001461998,
-   "seconds": 39.8,
+   "seconds": 34.1,
+   "piece": 0,
    "off": "optimized_off/contic/tetbotid-like_2304v_528c_opt.off",
    "vertices": 2304,
    "cells": 528,
@@ -690,7 +742,8 @@
     0.3024288394391388
    ],
    "off_R": 2.306562964876376,
-   "seconds": 8.0,
+   "seconds": 6.5,
+   "piece": 0,
    "off": "optimized_off/contic/biped-like_288v_528c_opt.off",
    "vertices": 288,
    "cells": 528,
@@ -759,7 +812,8 @@
     -1.2952601953960188e-16
    ],
    "off_R": 1.1278643263452157,
-   "seconds": 13.3,
+   "seconds": 11.0,
+   "piece": 0,
    "off": "optimized_off/contic/bited-like_384v_1056c_opt.off",
    "vertices": 384,
    "cells": 1056,
@@ -825,7 +879,8 @@
     0.0
    ],
    "off_R": 2.00110017173077,
-   "seconds": 65.6,
+   "seconds": 49.2,
+   "piece": 0,
    "off": "optimized_off/contic/mabred-like_576v_1248c_opt.off",
    "vertices": 576,
    "cells": 1248,
@@ -894,7 +949,8 @@
     0.0
    ],
    "off_R": 1.3065629648763775,
-   "seconds": 15.6,
+   "seconds": 11.1,
+   "piece": 0,
    "off": "optimized_off/contic/sabred-like_576v_864c_opt.off",
    "vertices": 576,
    "cells": 864,
@@ -960,7 +1016,8 @@
     0.0
    ],
    "off_R": 3.4164217849166025,
-   "seconds": 58.5,
+   "seconds": 35.9,
+   "piece": 0,
    "off": "optimized_off/contic/gabred-like_576v_1056c_opt.off",
    "vertices": 576,
    "cells": 1056,
@@ -1029,7 +1086,8 @@
     -2.994850405333621e-17
    ],
    "off_R": 2.7071067811865532,
-   "seconds": 5.5,
+   "seconds": 4.3,
+   "piece": 0,
    "off": "optimized_off/contic/bimted-like_576v_192c_opt.off",
    "vertices": 576,
    "cells": 192,
@@ -1086,7 +1144,8 @@
     0.2426403666180949
    ],
    "off_R": 1.4142135623730967,
-   "seconds": 18.5,
+   "seconds": 12.8,
+   "piece": 0,
    "off": "optimized_off/contic/tispid-like_1152v_384c_opt.off",
    "vertices": 1152,
    "cells": 384,
@@ -1155,7 +1214,8 @@
     -2.6938527755069906e-17
    ],
    "off_R": 1.7071067811865475,
-   "seconds": 10.6,
+   "seconds": 7.3,
+   "piece": 0,
    "off": "optimized_off/contic/tabcated-like_1152v_384c_opt.off",
    "vertices": 1152,
    "cells": 384,
@@ -1224,7 +1284,8 @@
     0.25
    ],
    "off_R": 1.0,
-   "seconds": 7.0,
+   "seconds": 5.4,
+   "piece": 0,
    "off": "optimized_off/contic/gippid-like_1152v_240c_opt.off",
    "vertices": 1152,
    "cells": 240,
@@ -1293,7 +1354,8 @@
     0.22784466060079817
    ],
    "off_R": 1.5411961001461985,
-   "seconds": 14.2,
+   "seconds": 8.5,
+   "piece": 0,
    "off": "optimized_off/contic/tabipard-like_1152v_528c_opt.off",
    "vertices": 1152,
    "cells": 528,
@@ -1350,7 +1412,8 @@
     0.0
    ],
    "off_R": 1.8477590650225564,
-   "seconds": 16.6,
+   "seconds": 11.0,
+   "piece": 0,
    "off": "optimized_off/contic/tadeca-like_1152v_336c_opt.off",
    "vertices": 1152,
    "cells": 336,
@@ -1391,6 +1454,7 @@
     0.0,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/contic/bideca-like_48v_288c_opt.off",
    "vertices": 48,
    "cells": 288,
@@ -1431,6 +1495,7 @@
     0.0,
     0.5
    ],
+   "piece": 0,
    "off": "optimized_off/contic/spid-like_144v_240c_opt.off",
    "vertices": 144,
    "cells": 240,
@@ -1471,6 +1536,7 @@
     1.0,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/contic/apid-like_192v_192c_opt.off",
    "vertices": 192,
    "cells": 192,
@@ -1511,6 +1577,7 @@
     0.5,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/contic/deca-like_288v_48c_opt.off",
    "vertices": 288,
    "cells": 48,
@@ -1551,6 +1618,7 @@
     0.3333333333333333,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/contic/respid-like_576v_384c_opt.off",
    "vertices": 576,
    "cells": 384,
@@ -1591,6 +1659,7 @@
     0.7734590803390136,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/contic/redeca-like_576v_336c_opt.off",
    "vertices": 576,
    "cells": 336,
