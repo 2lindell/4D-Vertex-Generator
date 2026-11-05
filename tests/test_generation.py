@@ -542,3 +542,25 @@ def test_polytwister_symmetries_sample_hopf_rings() -> None:
         assert continuous_approximation_vertex_count(name, 10) == rings * 10
         assert points.shape == (rings * 10, 4)
         assert np.allclose(np.linalg.norm(points, axis=1), np.linalg.norm(seed))
+
+
+def test_reference_page_subgroups_have_the_right_reflections() -> None:
+    """Order alone does not tell index-2 subgroups apart: iodecaic (order 120) has the same order as pennic, iocontic
+    (1152) the same as icoic. Their reflections and the central inversion do."""
+    import numpy as np
+    from four_d_vertex_generator.generation import group_elements
+
+    expected = {  # name: (reflections, contains -1)
+        "pennic": (10, False), "kipennic": (0, False),
+        "decaic": (10, True), "kidecaic": (0, True), "iodecaic": (0, False),
+        "tessic": (16, True), "kitessic": (0, True), "demitessic": (12, True), "kidemitessic": (0, True),
+        "tessipyritic": (4, True),
+        "icoic": (24, True), "kiicoic": (0, True), "contic": (24, True), "kicontic": (0, True), "iocontic": (0, True),
+        "icopyritic": (12, True), "toxitic": (0, True),
+    }
+    for name, (reflections, minus_one) in expected.items():
+        elements = group_elements(named_symmetry(name), 5000)
+        count = sum(1 for g in elements if np.linalg.det(g) < 0
+                    and np.sum(np.abs(np.linalg.eigvals(g) - 1) < 1e-6) == 3)
+        assert count == reflections, (name, count)
+        assert any(np.allclose(g, -np.eye(4)) for g in elements) == minus_one, name

@@ -393,47 +393,31 @@ def _coxeter_rotation_generators(
 
 
 def _a4_rotoreflection_generators() -> list[np.ndarray]:
-    """A4 with parity-dependent inversion creating the iodecaic group.
-    
-    Iodecaic is an index-2 subgroup of decaic: order 120 with structure
-    {even σ} ∪ {−σ for odd σ}. In the Coxeter framework, this is generated
-    by A4+ (rotation subgroup, order 60) combined with a reflection that
-    effectively adds 60 additional elements via odd-parity conjugacy.
+    """The iodecaic group [[3,3,3]+]: order 120, {even sigma} U {-sigma for odd sigma}.
+
+    A4's rotations (the even permutations) with one odd permutation times the central inversion, -r0: a rotoreflection,
+    not a reflection. (A4's rotations with a reflection would generate all of A4, the pennic group.) The group has no
+    reflections and does not contain -1.
     """
-    # Get A4+ rotation generators (order 60)
-    a4plus_rotations = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
-    
-    # The fourth Coxeter generator for A4 (the one we don't include in A4+)
-    # This is the "missing" reflection that generates odd-parity elements
-    a4_reflections = _coxeter_reflections(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
-    
-    # We need a reflection that, when combined with A4+, generates the parity-restricted structure
-    # Use the first reflection (which generates some odd-parity elements when composed with rotations)
-    odd_parity_gen = a4_reflections[0]
-    
-    return [*a4plus_rotations, odd_parity_gen]
+    edges = ((0, 1, 3), (1, 2, 3), (2, 3, 3))
+    return [*_coxeter_rotation_generators(edges), -_coxeter_reflections(edges)[0]]
 
 
 def _f4_rotoreflection_generators() -> list[np.ndarray]:
-    """F4 with parity-dependent inversion creating the iocontic group.
-    
-    Iocontic is an index-2 subgroup of contic: order 1152 with structure
-    {even σ} ∪ {−σ for odd σ}. In the Coxeter framework, this is generated
-    by F4+ (rotation subgroup, order 576) combined with a reflection that
-    effectively adds 576 additional elements via odd-parity conjugacy.
+    """The iocontic group [[3,4,3]+]: order 1152, F4's rotations and F4's reflections times the 24-cell/dual swap.
+
+    F4's rotations with r0 composed with the diagram automorphism (the swap of the 24-cell and its dual). (F4's rotations
+    with a reflection alone would generate all of F4, the icoic group.) The group has no reflections.
     """
-    # Get F4+ rotation generators (order 576)
-    f4plus_rotations = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
-    
-    # The fourth Coxeter generator for F4 (the one we don't include in F4+)
-    # This is the "missing" reflection that generates odd-parity elements
-    f4_reflections = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
-    
-    # We need a reflection that, when combined with F4+, generates the parity-restricted structure
-    # Use the first reflection (which generates some odd-parity elements when composed with rotations)
-    odd_parity_gen = f4_reflections[0]
-    
-    return [*f4plus_rotations, odd_parity_gen]
+    edges = ((0, 1, 3), (1, 2, 4), (2, 3, 3))
+    return [*_coxeter_rotation_generators(edges), _coxeter_reflections(edges)[0] @ _coxeter_diagram_automorphism(edges)]
+
+
+def _f4_icopyritic_generators() -> list[np.ndarray]:
+    """The icopyritic group [3,4,3+]: order 576, keeping one class of F4's reflections (12 mirrors) and the rotations
+    r2 r3 of the other end of the diagram."""
+    r = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+    return [r[0], r[1], r[2] @ r[3]]
 
 
 def _coxeter_diagram_automorphism(
@@ -679,7 +663,9 @@ def named_symmetry(name: str) -> SymmetryAction:
         gens = _coxeter_rotation_generators(((0, 1, 5), (1, 2, 3), (2, 3, 2)))
     elif name == "h4_ionic":
         gens = _h4_ionic_generators()
-    elif name in ("icopyritic", "ixitic", "ixoic"):
+    elif name == "icopyritic":
+        gens = _f4_icopyritic_generators()
+    elif name in ("ixitic", "ixoic"):
         i = (0.0, 1.0, 0.0, 0.0)
         omega = (-0.5, 0.5, 0.5, 0.5)
         inverse_sqrt_two = 1.0 / np.sqrt(2.0)
@@ -690,7 +676,6 @@ def named_symmetry(name: str) -> SymmetryAction:
             (0.809016994374947, -0.309016994374947, 0.0, -0.5),
         )
         factors = {
-            "icopyritic": (octahedral, tetrahedral),
             "ixitic": (icosahedral, tetrahedral),
             "ixoic": (icosahedral, octahedral),
         }
