@@ -62,6 +62,11 @@ Seeds and .off files for the new ones: ../new_shapes/new_shapes.md; optimized se
 | petosbid | wall | 120 | 170 | {3: 360, 4: 180} | b1 + 2*b2 - 2*b3 - b4 | [0.199895, 0.343731, 0.430982, 0.025393] |
 
 
-## Region closure (kidecaic)
+## Region closure
 
-snub_closure.py walks out of every region (4 spread starting points, 24 directions) to where the polytope changes and checks the change: the domain's edge (a mirror or the fold), or a known region beyond across a known wall shape. Result: every region is closed by the domain's edges and recorded walls, once the quartic wall found by the check is recorded; the remaining unexplained ends were mirror hits within 1e-7 of the mirror (domain edges). The check also found one more tiny region (380 cells, with 120 square pyramids) in the corner where the gabosid-like region, a 560-cell region and apbosid meet; its own walls are not yet mapped. Region counts here are what dense sampling finds, not an exact enumeration.
+snub_closure.py walks out of every region (up to 4 spread starting points, 24 directions) to where the polytope changes, and checks the change: the domain's edge (a mirror or the fold), or a known region beyond across a known wall shape. Ends within 1e-6 of a mirror or the fold are the domain's edge.
+
+* **Kidecaic** (final run: 15 regions, 16 wall shapes, 1320 walks): every region closed -- 1011 ends on recorded walls, 309 on the domain's edge, none open. Earlier runs found the two shapes that were missing: the quartic wall between region 10 and a 560-cell region, and a tiny region (380 cells, with 120 square pyramids) in the corner where the gabosid-like region, a 560-cell region and apbosid meet; with them recorded, nothing is open. The tiny region's walks (24, from one start) all end on the recorded quadric wall b1 b2 = b3 b4.
+* **Iodecaic** (3 regions, 288 walks): every region closed by recorded walls and the domain's edge.
+
+Region counts are what dense sampling and these walks find, not an exact enumeration: a region thinner than the sampling could still be missing.
