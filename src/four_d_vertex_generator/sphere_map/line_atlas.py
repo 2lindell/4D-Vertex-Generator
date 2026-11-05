@@ -212,11 +212,10 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
                 continue
             end_x.append(point_from_beta(sp["polyline"][idx]))
             end_owner.append(si)
-    end_x = np.array(end_x)
-    all_x = np.einsum("gij,nj->gni", grp.g, end_x).reshape(-1, 4)
-    tree = cKDTree(all_x)
+    end_x = np.array(end_x).reshape(-1, 4)
     n_end = len(end_owner)
     joins = []
+    tree = cKDTree(np.einsum("gij,nj->gni", grp.g, end_x).reshape(-1, 4)) if n_end else None
     for i, (si, x) in enumerate(zip(end_owner, end_x)):
         for j in tree.query_ball_point(x, 1e-6):
             k, i2 = divmod(j, n_end)
