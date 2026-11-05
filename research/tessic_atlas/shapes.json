@@ -1,0 +1,908 @@
+{
+ "_about": "The shapes of the contic domain: each face of the exact arrangement classified (shapes.json); as\ndecaic_atlas/shapes.py. A shape's degrees of freedom are the largest dimension of the faces it fills.",
+ "shapes": [
+  {
+   "vertices": 384,
+   "degrees": 3,
+   "kind": "region",
+   "cells": [
+    [
+     8,
+     48,
+     "12x4+8x6+6x8"
+    ],
+    [
+     16,
+     24,
+     "6x4+8x6"
+    ],
+    [
+     24,
+     16,
+     "8x4+2x8"
+    ],
+    [
+     32,
+     12,
+     "6x4+2x6"
+    ]
+   ],
+   "cells_text": "8x48v(12x4+8x6+6x8) + 16x24v(6x4+8x6) + 24x16v(8x4+2x8) + 32x12v(6x4+2x6)",
+   "n_cells": 80,
+   "n_faces": 464,
+   "n_edges": 768,
+   "keys": [
+    "7c81e7411cc8"
+   ],
+   "faces_by_dim": {
+    "3": 1
+   },
+   "example": [
+    [
+     "1/4",
+     "0"
+    ],
+    [
+     "1/4",
+     "0"
+    ],
+    [
+     "1/4",
+     "0"
+    ],
+    [
+     "1/4",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "example_signs": [
+    1,
+    1,
+    1,
+    1
+   ],
+   "signature": "384: cells 8x[48v26f]+16x[24v14f]+24x[16v10f]+32x[12v8f] | faces 48x8g+64x6g+64x6g+96x4g+96x4g+96x4g | edges 192x3+192x3+192x3+192x3"
+  },
+  {
+   "vertices": 192,
+   "degrees": 2,
+   "kind": "wall",
+   "cells": [
+    [
+     24,
+     24,
+     "6x4+8x6"
+    ],
+    [
+     24,
+     8,
+     "6x4"
+    ]
+   ],
+   "cells_text": "24x24v(6x4+8x6) + 24x8v(6x4)",
+   "n_cells": 48,
+   "n_faces": 240,
+   "n_edges": 384,
+   "keys": [
+    "f41b603f3ae8"
+   ],
+   "faces_by_dim": {
+    "2": 1
+   },
+   "example": [
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.333333,
+    0.333333,
+    0.333333,
+    0.0
+   ],
+   "example_signs": [
+    1,
+    1,
+    1,
+    0
+   ],
+   "signature": "192: cells 8x[24v14f]+16x[24v14f]+24x[8v6f] | faces 32x6g+48x4g+64x6g+96x4g | edges 96x3+96x3+192x3"
+  },
+  {
+   "vertices": 192,
+   "degrees": 2,
+   "kind": "wall",
+   "cells": [
+    [
+     8,
+     24,
+     "8x3+18x4"
+    ],
+    [
+     16,
+     12,
+     "4x3+4x6"
+    ],
+    [
+     32,
+     12,
+     "6x4+2x6"
+    ],
+    [
+     24,
+     8,
+     "6x4"
+    ]
+   ],
+   "cells_text": "8x24v(8x3+18x4) + 16x12v(4x3+4x6) + 32x12v(6x4+2x6) + 24x8v(6x4)",
+   "n_cells": 80,
+   "n_faces": 368,
+   "n_edges": 480,
+   "keys": [
+    "9b0b42917616"
+   ],
+   "faces_by_dim": {
+    "2": 1
+   },
+   "example": [
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.333333,
+    0.333333,
+    0.0,
+    0.333333
+   ],
+   "example_signs": [
+    1,
+    1,
+    0,
+    1
+   ],
+   "signature": "192: cells 8x[24v26f]+16x[12v8f]+24x[8v6f]+32x[12v8f] | faces 48x4g+64x3g+64x6g+96x4g+96x4g | edges 96x4+192x3+192x3"
+  },
+  {
+   "vertices": 192,
+   "degrees": 2,
+   "kind": "wall",
+   "cells": [
+    [
+     8,
+     24,
+     "8x3+6x8"
+    ],
+    [
+     24,
+     16,
+     "8x4+2x8"
+    ],
+    [
+     16,
+     12,
+     "8x3+6x4"
+    ],
+    [
+     32,
+     6,
+     "2x3+3x4"
+    ]
+   ],
+   "cells_text": "8x24v(8x3+6x8) + 24x16v(8x4+2x8) + 16x12v(8x3+6x4) + 32x6v(2x3+3x4)",
+   "n_cells": 80,
+   "n_faces": 368,
+   "n_edges": 480,
+   "keys": [
+    "7e71850afb06"
+   ],
+   "faces_by_dim": {
+    "2": 1
+   },
+   "example": [
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.333333,
+    0.0,
+    0.333333,
+    0.333333
+   ],
+   "example_signs": [
+    1,
+    0,
+    1,
+    1
+   ],
+   "signature": "192: cells 8x[24v14f]+16x[12v14f]+24x[16v10f]+32x[6v5f] | faces 48x8g+64x3g+64x3g+96x4g+96x4g | edges 96x4+192x3+192x3"
+  },
+  {
+   "vertices": 192,
+   "degrees": 2,
+   "kind": "wall",
+   "cells": [
+    [
+     8,
+     48,
+     "12x4+8x6+6x8"
+    ],
+    [
+     16,
+     12,
+     "4x3+4x6"
+    ],
+    [
+     32,
+     6,
+     "2x3+3x4"
+    ]
+   ],
+   "cells_text": "8x48v(12x4+8x6+6x8) + 16x12v(4x3+4x6) + 32x6v(2x3+3x4)",
+   "n_cells": 56,
+   "n_faces": 248,
+   "n_edges": 384,
+   "keys": [
+    "bb9cce39aef5"
+   ],
+   "faces_by_dim": {
+    "2": 1
+   },
+   "example": [
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ],
+    [
+     "1/3",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.0,
+    0.333333,
+    0.333333,
+    0.333333
+   ],
+   "example_signs": [
+    0,
+    1,
+    1,
+    1
+   ],
+   "signature": "192: cells 8x[48v26f]+16x[12v8f]+32x[6v5f] | faces 24x8g+64x3g+64x6g+96x4g | edges 96x3+96x3+192x3"
+  },
+  {
+   "vertices": 48,
+   "degrees": 1,
+   "kind": "line",
+   "cells": [
+    [
+     16,
+     12,
+     "4x3+4x6"
+    ],
+    [
+     8,
+     6,
+     "8x3"
+    ]
+   ],
+   "cells_text": "16x12v(4x3+4x6) + 8x6v(8x3)",
+   "n_cells": 24,
+   "n_faces": 96,
+   "n_edges": 120,
+   "keys": [
+    "0f921e745935"
+   ],
+   "faces_by_dim": {
+    "1": 1
+   },
+   "example": [
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "example_signs": [
+    1,
+    1,
+    0,
+    0
+   ],
+   "signature": "48: cells 8x[6v8f]+16x[12v8f] | faces 32x6g+64x3g | edges 24x4+96x3"
+  },
+  {
+   "vertices": 64,
+   "degrees": 1,
+   "kind": "line",
+   "cells": [
+    [
+     32,
+     8,
+     "6x4"
+    ],
+    [
+     32,
+     6,
+     "2x3+3x4"
+    ],
+    [
+     16,
+     4,
+     "4x3"
+    ]
+   ],
+   "cells_text": "32x8v(6x4) + 32x6v(2x3+3x4) + 16x4v(4x3)",
+   "n_cells": 80,
+   "n_faces": 208,
+   "n_edges": 192,
+   "keys": [
+    "56e6d64ebd22"
+   ],
+   "faces_by_dim": {
+    "1": 1
+   },
+   "example": [
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "example_signs": [
+    1,
+    0,
+    0,
+    1
+   ],
+   "signature": "64: cells 8x[8v6f]+16x[4v4f]+24x[8v6f]+32x[6v5f] | faces 48x4g+64x3g+96x4g | edges 96x4+96x4"
+  },
+  {
+   "vertices": 64,
+   "degrees": 1,
+   "kind": "line",
+   "cells": [
+    [
+     8,
+     24,
+     "8x3+6x8"
+    ],
+    [
+     16,
+     4,
+     "4x3"
+    ]
+   ],
+   "cells_text": "8x24v(8x3+6x8) + 16x4v(4x3)",
+   "n_cells": 24,
+   "n_faces": 88,
+   "n_edges": 128,
+   "keys": [
+    "6592820a0f8b"
+   ],
+   "faces_by_dim": {
+    "1": 1
+   },
+   "example": [
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "example_signs": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "signature": "64: cells 8x[24v14f]+16x[4v4f] | faces 24x8g+64x3g | edges 32x3+96x3"
+  },
+  {
+   "vertices": 96,
+   "degrees": 1,
+   "kind": "line",
+   "cells": [
+    [
+     24,
+     12,
+     "8x3+6x4"
+    ],
+    [
+     24,
+     8,
+     "6x4"
+    ]
+   ],
+   "cells_text": "24x12v(8x3+6x4) + 24x8v(6x4)",
+   "n_cells": 48,
+   "n_faces": 240,
+   "n_edges": 288,
+   "keys": [
+    "8a329989ec0f"
+   ],
+   "faces_by_dim": {
+    "1": 1
+   },
+   "example": [
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "example_signs": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "signature": "96: cells 8x[12v14f]+16x[12v14f]+24x[8v6f] | faces 32x3g+48x4g+64x3g+96x4g | edges 96x3+192x3"
+  },
+  {
+   "vertices": 96,
+   "degrees": 1,
+   "kind": "line",
+   "cells": [
+    [
+     8,
+     24,
+     "6x4+8x6"
+    ],
+    [
+     16,
+     12,
+     "4x3+4x6"
+    ]
+   ],
+   "cells_text": "8x24v(6x4+8x6) + 16x12v(4x3+4x6)",
+   "n_cells": 24,
+   "n_faces": 120,
+   "n_edges": 192,
+   "keys": [
+    "145a39473f46"
+   ],
+   "faces_by_dim": {
+    "1": 1
+   },
+   "example": [
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "example_signs": [
+    0,
+    1,
+    1,
+    0
+   ],
+   "signature": "96: cells 8x[24v14f]+16x[12v8f] | faces 24x4g+32x3g+64x6g | edges 96x3+96x3"
+  },
+  {
+   "vertices": 96,
+   "degrees": 1,
+   "kind": "line",
+   "cells": [
+    [
+     8,
+     24,
+     "8x3+18x4"
+    ],
+    [
+     32,
+     6,
+     "2x3+3x4"
+    ],
+    [
+     16,
+     6,
+     "8x3"
+    ]
+   ],
+   "cells_text": "8x24v(8x3+18x4) + 32x6v(2x3+3x4) + 16x6v(8x3)",
+   "n_cells": 56,
+   "n_faces": 248,
+   "n_edges": 288,
+   "keys": [
+    "1feb2d4817f3"
+   ],
+   "faces_by_dim": {
+    "1": 1
+   },
+   "example": [
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1/2",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "example_signs": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "signature": "96: cells 8x[24v26f]+16x[6v8f]+32x[6v5f] | faces 24x4g+64x3g+64x3g+96x4g | edges 96x3+192x3"
+  },
+  {
+   "vertices": 8,
+   "degrees": 0,
+   "kind": "point",
+   "cells": [
+    [
+     16,
+     4,
+     "4x3"
+    ]
+   ],
+   "cells_text": "16x4v(4x3)",
+   "n_cells": 16,
+   "n_faces": 32,
+   "n_edges": 24,
+   "keys": [
+    "d16a6bae86be"
+   ],
+   "faces_by_dim": {
+    "0": 1
+   },
+   "example": [
+    [
+     "1",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ]
+   ],
+   "example_float": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "example_signs": [
+    1,
+    0,
+    0,
+    0
+   ],
+   "signature": "8: cells 16x[4v4f] | faces 32x3g | edges 24x4"
+  },
+  {
+   "vertices": 16,
+   "degrees": 0,
+   "kind": "point",
+   "cells": [
+    [
+     8,
+     8,
+     "6x4"
+    ]
+   ],
+   "cells_text": "8x8v(6x4)",
+   "n_cells": 8,
+   "n_faces": 24,
+   "n_edges": 32,
+   "keys": [
+    "7c7a9037c303"
+   ],
+   "faces_by_dim": {
+    "0": 1
+   },
+   "example": [
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "example_signs": [
+    0,
+    0,
+    0,
+    1
+   ],
+   "signature": "16: cells 8x[8v6f] | faces 24x4g | edges 32x3"
+  },
+  {
+   "vertices": 24,
+   "degrees": 0,
+   "kind": "point",
+   "cells": [
+    [
+     24,
+     6,
+     "8x3"
+    ]
+   ],
+   "cells_text": "24x6v(8x3)",
+   "n_cells": 24,
+   "n_faces": 96,
+   "n_edges": 96,
+   "keys": [
+    "f5e85a98ecc7"
+   ],
+   "faces_by_dim": {
+    "0": 1
+   },
+   "example": [
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "example_signs": [
+    0,
+    1,
+    0,
+    0
+   ],
+   "signature": "24: cells 8x[6v8f]+16x[6v8f] | faces 32x3g+64x3g | edges 96x3"
+  },
+  {
+   "vertices": 32,
+   "degrees": 0,
+   "kind": "point",
+   "cells": [
+    [
+     8,
+     12,
+     "8x3+6x4"
+    ],
+    [
+     16,
+     4,
+     "4x3"
+    ]
+   ],
+   "cells_text": "8x12v(8x3+6x4) + 16x4v(4x3)",
+   "n_cells": 24,
+   "n_faces": 88,
+   "n_edges": 96,
+   "keys": [
+    "4b431bb0bf78"
+   ],
+   "faces_by_dim": {
+    "0": 1
+   },
+   "example": [
+    [
+     "0",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ],
+    [
+     "1",
+     "0"
+    ],
+    [
+     "0",
+     "0"
+    ]
+   ],
+   "example_float": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "example_signs": [
+    0,
+    0,
+    1,
+    0
+   ],
+   "signature": "32: cells 8x[12v14f]+16x[4v4f] | faces 24x4g+64x3g | edges 96x3"
+  }
+ ],
+ "unclassified": 0,
+ "unclassified_points": [],
+ "seconds": 2.4
+}
