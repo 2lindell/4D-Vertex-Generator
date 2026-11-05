@@ -225,14 +225,14 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
     for si, pr in enumerate(probes):
         imgs = np.einsum("gij,nj->gni", grp.g, pr)                # (copies, 3, 4)
         for k in range(grp.n):
-            for s2 in {int(owner[j]) for j in dtree.query_ball_point(imgs[k, 1], 2e-5)}:
+            for s2 in {int(owner[j]) for j in dtree.query_ball_point(imgs[k, 1], 1e-4)}:
                 if subs[s2]["line"] != subs[si]["line"] or (k == 0 and s2 == si):
                     continue
                 if abs(lengths[s2] - lengths[si]) > 1e-4 * max(1.0, lengths[si]):
                     continue                     # (part of a longer piece, not the same piece)
                 # all three probes of the carried piece lie on the other piece
-                # (one record of a piece may be its raw polyline, ~1e-5 off the exact curve)
-                if trees[s2].query(imgs[k])[0].max() < 2e-5:
+                # (the atlas can list one piece twice, sampled differently: up to ~5e-5 apart)
+                if trees[s2].query(imgs[k])[0].max() < 1e-4:
                     # G[k] carries piece si onto piece s2: (copy k, si) is (copy 0, s2)
                     joins.append((s2, k, si))
                     same += 1
