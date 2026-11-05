@@ -56,7 +56,8 @@
     0.17573739601957356
    ],
    "off_R": 1.8451542547285167,
-   "seconds": 7.6,
+   "seconds": 7.7,
+   "piece": 0,
    "off": "optimized_off/decaic/sabotid_240v_140c_opt.off",
    "vertices": 240,
    "cells": 140,
@@ -123,7 +124,8 @@
     0.15192976098518451
    ],
    "off_R": 2.290994448735806,
-   "seconds": 7.1,
+   "seconds": 7.7,
+   "piece": 0,
    "off": "optimized_off/decaic/gabotid_240v_120c_opt.off",
    "vertices": 240,
    "cells": 120,
@@ -189,7 +191,8 @@
     0.19996666654180295
    ],
    "off_R": 3.003335986819166,
-   "seconds": 16.4,
+   "seconds": 19.4,
+   "piece": 0,
    "off": "optimized_off/decaic/gabipard_120v_140c_opt.off",
    "vertices": 120,
    "cells": 140,
@@ -255,7 +258,8 @@
     0.0
    ],
    "off_R": 1.707995133030719,
-   "seconds": 12.3,
+   "seconds": 18.7,
+   "piece": 0,
    "off": "optimized_off/decaic/mobcated_120v_100c_opt.off",
    "vertices": 120,
    "cells": 100,
@@ -324,7 +328,8 @@
     0.0
    ],
    "off_R": 1.2110322250073802,
-   "seconds": 5.9,
+   "seconds": 5.5,
+   "piece": 0,
    "off": "optimized_off/decaic/sobcated_120v_140c_opt.off",
    "vertices": 120,
    "cells": 140,
@@ -393,7 +398,8 @@
     0.22514822655441377
    ],
    "off_R": 1.7207592200561266,
-   "seconds": 5.6,
+   "seconds": 6.1,
+   "piece": 0,
    "off": "optimized_off/decaic/mabipard_120v_120c_opt.off",
    "vertices": 120,
    "cells": 120,
@@ -410,33 +416,45 @@
    "kind": "wall",
    "degrees": 2,
    "locus": [
-    "(1)*b2"
+    "(1)*b3"
    ],
    "start": [
-    0.25,
+    0.5000000000000001,
+    0.33333333333333337,
     0.0,
-    0.5833333333333334,
-    0.16666666666666666
+    0.16666666666666669
    ],
-   "start_R": 3.5000000000000004,
+   "start_R": 3.0000000000000004,
    "numeric": {
     "best": [
-     0.3071033604465567,
+     0.3651483716701107,
+     0.3651483716701107,
      0.0,
-     0.3857932791068809,
-     0.30710336044656256
+     0.2697032566597786
     ],
-    "R": 1.5811388300841775,
-    "slsqp": "Positive directional derivative for linesearch",
+    "R": 1.3538893678645234,
+    "slsqp": "Optimization terminated successfully",
     "active_sign_conditions": 0
    },
-   "best": [
-    0.3071033604465567,
-    0.0,
-    0.3857932791068809,
-    0.30710336044656256
+   "exact_digits": 40,
+   "best_40_digits": [
+    "0.3651483716701107423046465218672014226352",
+    "0.3651483716701107423046465218672014226352",
+    "0.0",
+    "0.2697032566597785153907069562655971547297"
    ],
-   "R": 1.5811388300841775,
+   "equations": [
+    "-50*b2*b3 - 50*b3**2",
+    "50*b1**2 - 50*b2**2 - 50*b2*b3 - 50*b3**2",
+    "-30*b1**2 - 20*b1*b2 + 20*b1*b3 + 60*b1*b4 - 20*b2**2 - 60*b2*b3 + 20*b2*b4 - 20*b3**2 + 30*b3*b4 + 20*b4**2"
+   ],
+   "best": [
+    0.3651483716701107,
+    0.3651483716701107,
+    0.0,
+    0.2697032566597785
+   ],
+   "R": 1.3538893678645232,
    "orbits": 7,
    "status": "minimum inside the shape",
    "ring_check_rises": {
@@ -444,22 +462,53 @@
     "flat_directions": false
    },
    "off_seed": [
-    0.3071033604465567,
+    0.3651483716701107,
+    0.3651483716701107,
     0.0,
-    0.3857932791068809,
-    0.30710336044656256
+    0.2697032566597785
    ],
-   "off_R": 1.5811388300841775,
-   "seconds": 15.9,
+   "off_R": 1.3538893678645232,
+   "seconds": 6.3,
+   "piece": 1,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [
+      "(1)*b2"
+     ],
+     "R": 1.5811388300841775,
+     "best": [
+      0.3071033604465567,
+      0.0,
+      0.3857932791068809,
+      0.30710336044656256
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "(1)*b3"
+     ],
+     "R": 1.3538893678645232,
+     "best": [
+      0.3651483716701107,
+      0.3651483716701107,
+      0.0,
+      0.2697032566597785
+     ],
+     "status": "minimum inside the shape"
+    }
+   ],
    "off": "optimized_off/decaic/sabipard_120v_140c_opt.off",
    "vertices": 120,
    "cells": 140,
    "seed_vector": [
-    0.8567366925858422,
-    0.2865266148283048,
-    0.2865266148283048,
-    -0.42978992224245177,
-    -1.0
+    1.0,
+    0.353889367864523,
+    -0.2922212642709539,
+    -0.2922212642709539,
+    -0.769446839322615
    ]
   },
   {
@@ -516,7 +565,8 @@
     0.0
    ],
    "off_R": 4.002501259660396,
-   "seconds": 13.6,
+   "seconds": 16.8,
+   "piece": 0,
    "off": "optimized_off/decaic/gobcated_120v_120c_opt.off",
    "vertices": 120,
    "cells": 120,
@@ -584,7 +634,8 @@
     0.1694851867978912
    ],
    "off_R": 1.7071067811865475,
-   "seconds": 6.0,
+   "seconds": 9.2,
+   "piece": 0,
    "off": "optimized_off/decaic/petbotid_240v_50c_opt.off",
    "vertices": 240,
    "cells": 50,
@@ -652,7 +703,8 @@
     0.15065051205492477
    ],
    "off_R": 1.5773502691896257,
-   "seconds": 8.4,
+   "seconds": 9.4,
+   "piece": 0,
    "off": "optimized_off/decaic/tetbotid_240v_60c_opt.off",
    "vertices": 240,
    "cells": 60,
@@ -722,7 +774,8 @@
     0.0
    ],
    "off_R": 1.1832159566199232,
-   "seconds": 2.5,
+   "seconds": 3.6,
+   "piece": 0,
    "off": "optimized_off/decaic/bited_40v_120c_opt.off",
    "vertices": 40,
    "cells": 120,
@@ -792,7 +845,8 @@
     0.30385952197036903
    ],
    "off_R": 2.290994448735806,
-   "seconds": 1.7,
+   "seconds": 2.3,
+   "piece": 0,
    "off": "optimized_off/decaic/biped_40v_60c_opt.off",
    "vertices": 40,
    "cells": 60,
@@ -862,7 +916,8 @@
     0.0
    ],
    "off_R": 2.58113883008419,
-   "seconds": 1.5,
+   "seconds": 1.3,
+   "piece": 0,
    "off": "optimized_off/decaic/bimted_60v_30c_opt.off",
    "vertices": 60,
    "cells": 30,
@@ -929,7 +984,8 @@
     0.0
    ],
    "off_R": 3.0020010088668507,
-   "seconds": 9.0,
+   "seconds": 10.6,
+   "piece": 0,
    "off": "optimized_off/decaic/gabred_60v_120c_opt.off",
    "vertices": 60,
    "cells": 120,
@@ -996,7 +1052,8 @@
     0.0
    ],
    "off_R": 2.0009378032118557,
-   "seconds": 8.2,
+   "seconds": 10.6,
+   "piece": 0,
    "off": "optimized_off/decaic/mabred_60v_140c_opt.off",
    "vertices": 60,
    "cells": 140,
@@ -1066,7 +1123,8 @@
     0.0
    ],
    "off_R": 1.2909944487358056,
-   "seconds": 3.3,
+   "seconds": 5.3,
+   "piece": 0,
    "off": "optimized_off/decaic/sabred_60v_100c_opt.off",
    "vertices": 60,
    "cells": 100,
@@ -1136,7 +1194,8 @@
     0.2320508075688773
    ],
    "off_R": 1.5773502691896257,
-   "seconds": 3.4,
+   "seconds": 4.4,
+   "piece": 0,
    "off": "optimized_off/decaic/tabipard_120v_60c_opt.off",
    "vertices": 120,
    "cells": 60,
@@ -1206,7 +1265,8 @@
     0.25
    ],
    "off_R": 1.0,
-   "seconds": 2.1,
+   "seconds": 1.4,
+   "piece": 0,
    "off": "optimized_off/decaic/gippid_120v_30c_opt.off",
    "vertices": 120,
    "cells": 30,
@@ -1275,7 +1335,8 @@
     0.0
    ],
    "off_R": 1.7320508075688776,
-   "seconds": 5.0,
+   "seconds": 5.2,
+   "piece": 0,
    "off": "optimized_off/decaic/tadeca_120v_40c_opt.off",
    "vertices": 120,
    "cells": 40,
@@ -1345,7 +1406,8 @@
     0.0
    ],
    "off_R": 1.7071067811865477,
-   "seconds": 3.4,
+   "seconds": 2.6,
+   "piece": 0,
    "off": "optimized_off/decaic/tabcated_120v_50c_opt.off",
    "vertices": 120,
    "cells": 50,
@@ -1414,7 +1476,8 @@
     0.2426392853869513
    ],
    "off_R": 1.4142135623730951,
-   "seconds": 4.4,
+   "seconds": 3.4,
+   "piece": 0,
    "off": "optimized_off/decaic/tispid_120v_50c_opt.off",
    "vertices": 120,
    "cells": 50,
@@ -1456,6 +1519,7 @@
     0.0,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/decaic/bideca_10v_30c_opt.off",
    "vertices": 10,
    "cells": 30,
@@ -1497,6 +1561,7 @@
     0.0,
     0.5
    ],
+   "piece": 0,
    "off": "optimized_off/decaic/spid_20v_30c_opt.off",
    "vertices": 20,
    "cells": 30,
@@ -1538,6 +1603,7 @@
     1.0,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/decaic/apid_20v_30c_opt.off",
    "vertices": 20,
    "cells": 30,
@@ -1579,6 +1645,7 @@
     0.5,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/decaic/deca_30v_10c_opt.off",
    "vertices": 30,
    "cells": 10,
@@ -1620,6 +1687,7 @@
     0.75,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/decaic/redeca_60v_40c_opt.off",
    "vertices": 60,
    "cells": 40,
@@ -1661,6 +1729,7 @@
     0.3333333333333333,
     0.0
    ],
+   "piece": 0,
    "off": "optimized_off/decaic/respid_60v_50c_opt.off",
    "vertices": 60,
    "cells": 50,
