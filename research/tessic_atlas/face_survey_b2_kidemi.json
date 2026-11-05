@@ -1,0 +1,23 @@
+{
+ "face": "b2 = 0",
+ "N": 30,
+ "types": [
+  {
+   "key": "033d9bb4dedf",
+   "vertices": 96,
+   "cells": 48,
+   "edges_by_valence": {
+    "3": 288
+   },
+   "points": 406,
+   "pieces": 1,
+   "example": [
+    0.033474642703001524,
+    0.0,
+    0.03369441223267379,
+    0.9328309450643247
+   ],
+   "signature": "96: cells 8x[12v14f]+8x[12v14f]+8x[12v14f]+24x[8v6f] | faces 32x3g+32x3g+32x3g+48x4g+48x4g+48x4g | edges 96x3+96x3+96x3"
+  }
+ ]
+}
