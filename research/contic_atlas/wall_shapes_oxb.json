@@ -1,0 +1,116 @@
+{
+ "_about": "The wall shapes of the kidecaic / iodecaic maps, reclassified cleanly (wall_shapes_<sub>.json).",
+ "shapes": [
+  {
+   "kind": "region",
+   "map_type": 0,
+   "vertices": 576,
+   "cells": 3264,
+   "edges_by_valence": {
+    "3": 1152,
+    "4": 1152,
+    "5": 576,
+    "6": 1152,
+    "7": 576
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "wall_points": 0,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x6+576x3+576x3+576x4+576x5+576x6+576x7"
+  },
+  {
+   "kind": "region",
+   "map_type": 1,
+   "vertices": 576,
+   "cells": 2688,
+   "edges_by_valence": {
+    "3": 576,
+    "4": 2016,
+    "5": 576,
+    "6": 288,
+    "7": 576
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.06257167770625723,
+    0.2812041333360036,
+    0.6244921834860688,
+    0.03173200547167041
+   ],
+   "wall_points": 0,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+576x3+576x4+576x4+576x5+576x7"
+  },
+  {
+   "kind": "region",
+   "map_type": 2,
+   "vertices": 576,
+   "cells": 1728,
+   "edges_by_valence": {
+    "3": 1152,
+    "4": 1440,
+    "5": 576,
+    "6": 288
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.06257167770625723,
+    0.34361170975596106,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "wall_points": 0,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+576x3+576x3+576x4+576x5"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 576,
+   "cells": 2112,
+   "edges_by_valence": {
+    "3": 1152,
+    "4": 1728,
+    "5": 576,
+    "6": 576
+   },
+   "surfaces": {
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 3*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2": 24
+   },
+   "seed_beta": [
+    0.0781782082261,
+    0.2500003450489,
+    0.6400894408778,
+    0.0317320058472
+   ],
+   "wall_points": 24,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+576x3+576x3+576x4+576x5+576x6"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 576,
+   "cells": 1248,
+   "edges_by_valence": {
+    "3": 864,
+    "4": 1728,
+    "5": 288
+   },
+   "surfaces": {
+    "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - sqrt(2)*b2*b4 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2": 2,
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4": 10
+   },
+   "seed_beta": [
+    0.0816944842731,
+    0.2812041333124,
+    0.6053693769128,
+    0.0317320055017
+   ],
+   "wall_points": 12,
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x4+288x5+576x3+576x4+576x4"
+  }
+ ]
+}
