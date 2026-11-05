@@ -1354,27 +1354,13 @@
     ]
    },
    "X17/X19": {
-    "classes": 4,
-    "pieces_on_sphere": 4800,
+    "classes": 2,
+    "pieces_on_sphere": 2400,
     "classes_detail": [
      {
       "ends": [
        "C4",
        "X4"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "ends": [
-       "C4",
-       "X2"
-      ],
-      "on_sphere": 1200
-     },
-     {
-      "ends": [
-       "X2",
-       "C1"
       ],
       "on_sphere": 1200
      },
@@ -41987,7 +41973,7 @@
   {
    "walls": "X17/X19",
    "found": true,
-   "on_atlas_line": null,
+   "on_atlas_line": "X2",
    "surroundings": [
     [
      "X17",
@@ -42469,7 +42455,7 @@
   {
    "walls": "X17/X19",
    "found": true,
-   "on_atlas_line": null,
+   "on_atlas_line": "X2",
    "surroundings": [
     [
      "X17",
@@ -63178,7 +63164,7 @@
  "totals": {
   "wall_pieces_on_sphere": 175200,
   "atlas_line_pieces_on_sphere": 62640,
-  "meeting_edge_pieces_on_sphere": 47400,
+  "meeting_edge_pieces_on_sphere": 45000,
   "points_on_sphere": 317976
  }
 }
