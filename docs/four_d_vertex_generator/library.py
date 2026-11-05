@@ -420,6 +420,72 @@ def _f4_icopyritic_generators() -> list[np.ndarray]:
     return [r[0], r[1], r[2] @ r[3]]
 
 
+def _d4_triality_generators(*, chiral: bool) -> list[np.ndarray]:
+    """D4 = [3^1,1,1] extended by its diagram's triality (the permutations of its three legs), in D4's own Coxeter
+    basis: the group [3,4,3] (order 1152), here keeping D4's mirrors and chamber; chiral: its rotations [3,4,3]+ (576).
+
+    The leg swap (legs 0 and 2) is a determinant -1 isometry, the leg 3-cycle a rotation; the chiral group takes D4's
+    rotations, the 3-cycle, and the swap composed with a reflection.
+    """
+    edges = ((0, 1, 3), (1, 2, 3), (1, 3, 3))
+    roots = _coxeter_roots(edges)
+
+    def automorphism(perm: list[int]) -> np.ndarray:
+        return roots[perm].T @ np.linalg.inv(roots.T)
+
+    swap = automorphism([2, 1, 0, 3])
+    cycle = automorphism([2, 1, 3, 0])
+    reflections = _coxeter_reflections(edges)
+    if chiral:
+        return [*_coxeter_rotation_generators(edges), cycle, swap @ reflections[0]]
+    return [*reflections, swap, cycle]
+
+
+def _reflection_chamber_roots(name: str) -> np.ndarray:
+    """The simple roots (unit, as rows) of a finite reflection group given by its elements, ordered along its Coxeter
+    diagram (a path, from the end whose bond is largest): a chamber in the group's own coordinates."""
+    from .generation import group_elements
+
+    normals = []
+    for g in group_elements(named_symmetry(name), 20000):
+        if np.linalg.det(g) < 0:
+            w, v = np.linalg.eig(g)
+            if np.sum(np.abs(w - 1) < 1e-6) == 3:
+                n = np.real(v[:, np.argmin(np.abs(w + 1))])
+                normals.append(n / np.linalg.norm(n))
+    generic = np.array([1.0, np.sqrt(2.0), np.sqrt(3.0), np.pi])
+    positive = []
+    for n in normals:
+        n = n if n @ generic > 0 else -n
+        if not any(np.allclose(n, m, atol=1e-8) for m in positive):
+            positive.append(n)
+    positive = np.array(positive)
+    # (simple roots: the positive roots that are not positive combinations of the others)
+    from scipy.optimize import nnls
+
+    simple = []
+    for i, n in enumerate(positive):
+        others = np.delete(positive, i, axis=0)
+        _, residual = nnls(others.T, n)
+        if residual > 1e-7:
+            simple.append(n)
+    simple = np.array(simple)
+    if len(simple) != 4:
+        raise ValueError(f"{name}: found {len(simple)} simple roots")
+    gram = simple @ simple.T
+    bonded = [[j for j in range(4) if j != i and gram[i, j] < -1e-8] for i in range(4)]
+    ends = [i for i in range(4) if len(bonded[i]) == 1]
+    start = min(ends, key=lambda i: gram[i, bonded[i][0]])          # (the end with the largest bond, e.g. the 5)
+    order, prev = [start], None
+    while len(order) < 4:
+        nxt = [j for j in bonded[order[-1]] if j != prev and j not in order]
+        if not nxt:
+            raise ValueError(f"{name}: Coxeter diagram is not a path")
+        prev = order[-1]
+        order.append(nxt[0])
+    return simple[order]
+
+
 def _coxeter_diagram_automorphism(
     edges: tuple[tuple[int, int, int], ...],
 ) -> np.ndarray:
@@ -498,6 +564,8 @@ def fundamental_chamber_roots(name: str) -> np.ndarray | None:
     normalized_name = name.strip().lower()
     if normalized_name == "hyperoctahedral":
         return _hyperoctahedral_chamber_roots()
+    if normalized_name == "h4_icosian":
+        return _reflection_chamber_roots("h4_icosian")
     if normalized_name.startswith("duoprism_"):
         parts = normalized_name.removeprefix("duoprism_").split("_")
         if len(parts) == 2 and all(part.isdigit() for part in parts):
@@ -624,9 +692,9 @@ def named_symmetry(name: str) -> SymmetryAction:
     elif name == "a4_rotoreflection":
         gens = _a4_rotoreflection_generators()
     elif name == "d4_extended":
-        gens = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+        gens = _d4_triality_generators(chiral=False)
     elif name == "d4_extended_chiral":
-        gens = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+        gens = _d4_triality_generators(chiral=True)
     elif name == "b4_ionic":
         gens = _b4_ionic_generators()
     elif name == "b4_prismatic_octahedral":

@@ -22,6 +22,7 @@ from four_d_vertex_generator.continuous import (
 from four_d_vertex_generator.generation import (
     generate_vertices_from_seed,
     group_order,
+    group_elements,
     is_subgroup,
 )
 from four_d_vertex_generator.isogonal import (
@@ -69,9 +70,10 @@ st.caption(
 )
 
 # Each family lists (symmetry name, label) pairs, each group once; a label starts with the reference page's name for the
-# group where it has one. The same group is listed twice only in different coordinates (B4: signed permutations and the
-# Coxeter basis; H4: the Coxeter and icosian bases). Demitessic and kidemitessic are the B4 list's half groups (the D4
-# reflection group in the B4 Coxeter basis); D4 extended by triality is F4.
+# group where it has one. A group is listed twice only to show it in another basis or another chamber: B4 (signed
+# permutations and the Coxeter basis), H4 (Coxeter and icosian bases), demitessic and kidemitessic (the B4 list's half
+# groups in the B4 chamber, the D4 list in D4's own chamber), and icoic / kiicoic (the F4 list, and the D4 list's
+# triality extensions in D4's basis and chamber).
 GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
     "elementary": (
         "Elementary coordinate groups",
@@ -123,6 +125,15 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
             ("b4_prismatic_tetrahedral_chiral", "Chiral prismatic tetrahedral [3,3,2]+"),
         ),
     ),
+    "d4": (
+        "Demitesseractic (D4, [3^1,1,1])",
+        (
+            ("d4", "Demitessic [3^1,1,1]"),
+            ("d4+", "Kidemitessic [3^1,1,1]+"),
+            ("d4_extended", "Icoic [3,4,3] = D4 with triality (D4 basis)"),
+            ("d4_extended_chiral", "Kiicoic [3,4,3]+ = D4+ with triality (D4 basis)"),
+        ),
+    ),
     "f4": (
         "Icositetrachoric (F4, [3,4,3])",
         (
@@ -158,9 +169,11 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
     "duoprism": ("Duoprismatic ([p,2,q])", ()),
 }
 
-# Reflection groups whose fundamental chamber can be used to place a seed,
-# tried in order for each family. A chamber is offered for a subgroup only
-# when the two groups act in the same coordinate basis (one contains the other).
+# Reflection groups whose fundamental chamber can be used to place a seed, tried in order for each family. A chamber is
+# offered for a symmetry when the symmetry maps the reflection group's mirrors to themselves (it lies in the
+# reflection group's normalizer, in the same coordinates): then the chamber's sliders -- the seed's distances to those
+# mirrors -- mean the same for it. Every group of the A4, D4 and F4 lists keeps its family's mirrors; the B4 list has two
+# bases (signed permutations and the Coxeter basis), the H4 list two (Coxeter and icosian), each with its chamber.
 CHAMBER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "a4": ("a4",),
     "b4": (
@@ -170,8 +183,9 @@ CHAMBER_CANDIDATES: dict[str, tuple[str, ...]] = {
         "b4_prismatic_octahedral",
         "b4_prismatic_tetrahedral",
     ),
+    "d4": ("d4",),
     "f4": ("f4",),
-    "h4": ("h4", "h4_prismatic"),
+    "h4": ("h4", "h4_icosian", "h4_prismatic"),
 }
 
 SWIRL_SYMMETRIES = ("h4_swirlprism", "h4_swirlprism+")
@@ -248,12 +262,53 @@ def _group_order(name: str) -> int | None:
 
 @st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
 def _compatible_chamber(symmetry_name: str, candidates: tuple[str, ...]) -> str | None:
+    """The first candidate reflection group whose mirrors the symmetry maps to themselves."""
     action = named_symmetry(symmetry_name)
     for candidate in candidates:
-        parent = named_symmetry(candidate)
-        if is_subgroup(action, parent) or is_subgroup(parent, action):
+        normals = _mirror_normals(candidate)
+        if normals is not None and all(_keeps(normals, generator) for generator in action.generators):
             return candidate
     return None
+
+
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
+def _mirror_normals(name: str) -> np.ndarray | None:
+    """The unit normals of a finite reflection group's mirrors (each up to sign)."""
+    elements = group_elements(named_symmetry(name), 20000)
+    if elements is None:
+        return None
+    normals = []
+    for g in elements:
+        if np.linalg.det(g) < 0:
+            w, v = np.linalg.eig(g)
+            if np.sum(np.abs(w - 1) < 1e-6) == 3:
+                n = np.real(v[:, np.argmin(np.abs(w + 1))])
+                normals.append(n / np.linalg.norm(n))
+    return np.array(normals) if normals else None
+
+
+@st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
+def _chamber_covers(symmetry_name: str, chamber_name: str) -> bool:
+    """Does the chamber reach every shape of the symmetry? It does when the chamber's reflection group maps the
+    symmetry to itself (conjugates it into itself): then seeds the reflection group carries into each other give
+    congruent polytopes, and the one chamber stands for all of them."""
+    elements = group_elements(named_symmetry(symmetry_name), 20000)
+    if elements is None:
+        return False
+    keys = {tuple(np.round(g, 6).ravel()) for g in elements}
+    for w in named_symmetry(chamber_name).generators:
+        for h in named_symmetry(symmetry_name).generators:
+            if tuple(np.round(w @ h @ w.T, 6).ravel()) not in keys:
+                return False
+    return True
+
+
+def _keeps(normals: np.ndarray, g: np.ndarray) -> bool:
+    """Does g map the set of mirror normals to itself (each up to sign)?"""
+    images = normals @ g.T
+    gaps = np.minimum(np.linalg.norm(images[:, None] - normals[None], axis=2),
+                      np.linalg.norm(images[:, None] + normals[None], axis=2)).min(axis=1)
+    return bool(gaps.max() < 1e-6)
 
 
 @st.cache_data(show_spinner=False, max_entries=_CACHE_MAX_ENTRIES, ttl=_CACHE_TTL_SECONDS)
@@ -617,6 +672,11 @@ def render_generate_tab() -> None:
         seed_error: str | None = None
         if seed_mode == SEED_MODE_CHAMBER:
             roots = fundamental_chamber_roots(chamber_name)
+            if not _chamber_covers(symmetry_name, chamber_name):
+                st.caption(
+                    f"The `{chamber_name}` chamber gives valid seeds for this symmetry, but it is only part of its "
+                    "domain: some of its shapes need seeds outside the chamber (enter coordinates for those)."
+                )
             st.caption(
                 "Each slider is the seed's distance from one mirror of the chamber "
                 "(one node of the Coxeter diagram). Set a node to 0 to put the seed on that "
