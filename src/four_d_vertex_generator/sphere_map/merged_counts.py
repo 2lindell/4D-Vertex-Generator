@@ -47,6 +47,7 @@ def _atlas_line_points():
     """Every named line's pieces in the domain (the central database's line pieces, mirror twins
     included), densely, in R^4."""
     atlas = json.loads((data_dir() / "sphere_map" / "atlas.json").read_text())
+    g_all = group()
     out = []
     for lp in atlas["line_pieces"]:
         for seg in lp["segments"]:
@@ -56,7 +57,7 @@ def _atlas_line_points():
             for a, b in zip(poly[:-1], poly[1:]):
                 n = max(1, int(np.ceil(np.linalg.norm(b - a) / 1e-3)))
                 fine += [a + (b - a) * t for t in np.linspace(0, 1, n + 1)[1:]]
-            out.append((lp["line_shape"], point_from_beta(np.array(fine))))
+            out.append((lp["line_shape"], point_from_beta(np.array(fine)) @ g_all[seg["copy"]].T))
     return out
 
 
@@ -322,8 +323,12 @@ def build() -> dict:
         for c, n in sorted(per_class.items()):
             members = [i for i in range(len(pcs)) if cf(i) == c]
             on = None
+            # on a named line: some copy of one of its pieces carries the whole stretch (tested on
+            # the sphere, not in the domain's coordinates: a stretch on the domain's boundary is
+            # a copy of the line's recorded points, not those points)
+            X = np.vstack([point_from_beta(pcs[i]["seg"]) for i in members])[::3]
             for name, tree in line_trees.items():
-                if all(tree.query(point_from_beta(pcs[i]["seg"]))[0].max() < 5e-4 for i in members):
+                if any(tree.query(X @ g[h])[0].max() < 5e-4 for h in range(len(g))):
                     on = name
                     break
             ends = []
