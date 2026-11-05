@@ -1,0 +1,24 @@
+{
+ "_about": "The wall shapes of the kidecaic / iodecaic maps, reclassified cleanly (wall_shapes_<sub>.json).",
+ "shapes": [
+  {
+   "kind": "region",
+   "map_type": 0,
+   "vertices": 96,
+   "cells": 144,
+   "edges_by_valence": {
+    "3": 288,
+    "4": 144
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.031367889496278493,
+    0.031573827656173795,
+    0.031620207496473034,
+    0.9054380753510746
+   ],
+   "wall_points": 0,
+   "signature": "96: cells 8x[12v20f]+8x[12v20f]+8x[12v20f]+24x[4v4f]+96x[4v4f] | faces 32x3g+32x3g+32x3g+96x3g+96x3g+96x3g+96x3g | edges 48x4+48x4+48x4+96x3+96x3+96x3"
+  }
+ ]
+}
