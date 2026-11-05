@@ -7,6 +7,8 @@ The most even seed of each shape: the one that minimises R = longest edge / shor
 * **no progress**: no feasible step from the seed was found; the seed is kept.
 * Snub-group shapes on the mirrors are the full group's shapes (same orbits): their files are in the full group's folder.
 
+A shape that lies on more than one face of the domain (sabipard: on b2 = 0 and on b3 = 0) is optimized on every face, the best kept (sabipard: R = (4 + sqrt30)/7 = 1.3538894 on b3 = 0; 1.5811388 = sqrt(5/2) on b2 = 0).
+
 Folders: decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm]); contic, kicontic, iocontic (seed vectors in R^4, the standard F4 frame). Kicontic / iocontic shape names are by map order (no accepted list); their decaic counterparts are in contic_atlas/contic_snub_shapes.md.
 
 ## Decaic
@@ -19,7 +21,7 @@ Folders: decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm
 | mobcated | wall (2) | 3.000000 | 1.7071067812 | infimum on the shape's edge (a sign condition is active): not attained | [0.3431457505, 0.2426406871, 0.4142135624, 0.0] | [0.3431359381, 0.2425647129, 0.4142993491, 0.0] (1.707995) | mobcated_120v_100c_opt.off |
 | sobcated | wall (2) | 1.732051 | 1.2110322250 | minimum inside the shape | [0.3538893679, 0.3538893679, 0.2922212643, 0.0] | same | sobcated_120v_140c_opt.off |
 | mabipard | wall (2) | 3.000000 | 1.7207592201 | minimum inside the shape | [0.3874258867, 0.0, 0.3874258867, 0.2251482266] | same | mabipard_120v_120c_opt.off |
-| sabipard | wall (2) | 3.500000 | 1.5811388301 | minimum inside the shape | [0.3071033604, 0.0, 0.3857932791, 0.3071033604] | same | sabipard_120v_140c_opt.off |
+| sabipard | wall (2) | 3.000000 | 1.3538893679 | minimum inside the shape | [0.3651483717, 0.3651483717, 0.0, 0.2697032567] | same | sabipard_120v_140c_opt.off |
 | gobcated | wall (2) | 9.000000 | 4.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.1666666667, 0.1666666667, 0.6666666667, 0.0] | [0.166583333, 0.1666666667, 0.6667500003, 0.0] (4.002501) | gobcated_120v_120c_opt.off |
 | petbotid | wall (2) | 1.767767 | 1.7071067812 | minimum inside the shape | [0.3963146941, 0.1603926828, 0.2738074364, 0.1694851868] | same | petbotid_240v_50c_opt.off |
 | tetbotid | wall (2) | 1.732051 | 1.5773502692 | minimum inside the shape | [0.2376286257, 0.1753932606, 0.4363276016, 0.1506505121] | same | tetbotid_240v_60c_opt.off |
@@ -98,7 +100,7 @@ Folders: decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm
 | gabotid-like | region (3) | 3.866437 | 2.3065629649 | minimum inside the shape | [0.3487855803, 0.1512144197, 0.3487855803, 0.1512144197] | same | gabotid-like_2304v_1056c_opt.off |
 | gabipard-like | wall (2) | 47.713203 | 3.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.6, 0.0, 0.2, 0.2] | [0.6002162285, 0.0, 0.1998171051, 0.1999666663] (3.003828) | gabipard-like_1152v_1248c_opt.off |
 | mabipard-like | wall (2) | 3.000000 | 1.8057908947 | minimum inside the shape | [0.3915773323, 0.0, 0.3915773323, 0.2168453354] | same | mabipard-like_1152v_1056c_opt.off |
-| sabipard-like | wall (2) | 3.115515 | 1.7071067812 | minimum inside the shape | [0.3333326463, 0.0, 0.3333347074, 0.3333326463] | same | sabipard-like_1152v_1248c_opt.off |
+| sabipard-like | wall (2) | 3.000000 | 1.4200457834 | minimum inside the shape | [0.3697947715, 0.3697947715, 0.0, 0.260410457] | same | sabipard-like_1152v_1248c_opt.off |
 | mobcated-like | wall (2) | 3.919689 | 1.7071067812 | infimum on the shape's edge (a sign condition is active): not attained | [0.3431457505, 0.2426406871, 0.4142135624, -0.0] | [0.3429692678, 0.2427313816, 0.4142993506, 0.0] (1.708339) | mobcated-like_1152v_864c_opt.off |
 | sobcated-like | wall (2) | 1.470127 | 1.2293022136 | minimum inside the shape | [0.3554330191, 0.3554330191, 0.2891339617, -0.0] | same | sobcated-like_1152v_1248c_opt.off |
 | gobcated-like | wall (2) | 4.653010 | 4.4142135624 | infimum on the shape's edge (a sign condition is active): not attained | [0.1559037582, 0.1559037582, 0.6881924837, -0.0] | [0.1558952675, 0.1559145223, 0.6881902102, 0.0] (4.414439) | gobcated-like_1152v_1056c_opt.off |
@@ -161,3 +163,28 @@ Folders: decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm
 | region_03_1152v_4704c | region (3) | 8.691921 | 5.1699054209 | infimum on the shape's edge (a sign condition is active): not attained | [0.1559037582, 0.1559037582, 0.6881924837, 0.0] | [0.1558882608, 0.1558420756, 0.6882590947, 1.05689e-05] (5.172060) | region_03_1152v_4704c_1152v_4704c_opt.off |
 | gippid-like | line (1) | 11.000000 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | same | gippid-like_1152v_240c_opt.off |
 
+## Pennic
+
+Pennic [3,3,3] = S5 (order 120; domain: the whole chamber). The optimized seed of each is its uniform seed (R = 1), reached from an uneven start; the central seed (central_off/pennic) is the same point (decaic_atlas/pennic_shapes.py).
+
+| shape | kind | optimized = central beta | vertices, cells |
+|---|---|---|---|
+| pen | point (0) | [1.0, 0.0, 0.0, 0.0] (same: True) | [5, 5] |
+| rap | point (0) | [0.0, 1.0, 0.0, 0.0] (same: True) | [10, 10] |
+| tip | line (1) | [0.5, 0.5, 0.0, 0.0] (same: True) | [20, 10] |
+| srip | line (1) | [0.5, 0.0, 0.5, 0.0] (same: True) | [30, 20] |
+| grip | wall (2) | [0.333333, 0.333333, 0.333333, 0.0] (same: True) | [60, 20] |
+| prip | wall (2) | [0.333333, 0.333333, 0.0, 0.333333] (same: True) | [60, 30] |
+
+## Kipennic (chiral examples)
+
+Kipennic [3,3,3]+ = A5 (order 60). Every seed inside the chamber gives the same polytope combinatorially (6000 points, one arrangement key): the kipennic snad family (60 vertices: 5+5 snits, 10+10 gyro-traps, 60 tets; three degrees of freedom). So the six pennic shapes have no chiral versions of their own: each example is the parent's uniform seed pushed off its mirrors (the zero betas raised to 0.06, 0.1, 0.14), a snad of this family that still resembles the parent, with symmetry exactly 60 (only the rotations). Not optimized: the most even member is snad itself, on b1 = b4, b2 = b3, where it gains the swap.
+
+| example | seed beta | vertices, cells | symmetry | edge ratio | margin | file |
+|---|---|---|---|---|---|---|
+| pen_chiral | [0.769231, 0.046154, 0.076923, 0.107692] | 60, 90 | 60 | 7.366 | 5.3e-02 | pen_chiral_60v_90c.off |
+| rap_chiral | [0.046154, 0.769231, 0.076923, 0.107692] | 60, 90 | 60 | 9.034 | 5.3e-02 | rap_chiral_60v_90c.off |
+| tip_chiral | [0.431034, 0.431034, 0.051724, 0.086207] | 60, 90 | 60 | 6.186 | 5.6e-02 | tip_chiral_60v_90c.off |
+| srip_chiral | [0.431034, 0.051724, 0.431034, 0.086207] | 60, 90 | 60 | 6.063 | 5.8e-02 | srip_chiral_60v_90c.off |
+| grip_chiral | [0.314465, 0.314465, 0.314465, 0.056604] | 60, 90 | 60 | 1.705 | 7.5e-02 | grip_chiral_60v_90c.off |
+| prip_chiral | [0.314465, 0.314465, 0.056604, 0.314465] | 60, 90 | 60 | 1.705 | 6.8e-02 | prip_chiral_60v_90c.off |
