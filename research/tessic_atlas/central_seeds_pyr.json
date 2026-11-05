@@ -1,0 +1,69 @@
+{
+ "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
+ "shapes": [
+  {
+   "name": "pysnet",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.0313678894962785,
+    0.0315738276561738,
+    0.03162020749647304,
+    0.9054380753510747
+   ],
+   "centre": [
+    0.24999999999999992,
+    0.2500000000000005,
+    0.2500000000000005,
+    0.24999999999999908
+   ],
+   "depth": 0.28867513459481187,
+   "start_depth": 0.03622051888917366,
+   "status": "deepest point of the shape",
+   "boundaries": 4,
+   "piece": 0,
+   "off": "central_off/tessipyritic/pysnet_192v_176c_central.off",
+   "vertices": 192,
+   "cells": 176,
+   "seed_vector": [
+    1.0,
+    0.7302478566101822,
+    0.4604957132203638,
+    0.1907435698305454
+   ]
+  },
+  {
+   "name": "sadi",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.025112350533336127,
+    0.02527721949144995,
+    0.9496104299752139,
+    0.0
+   ],
+   "centre": [
+    0.33333333333333404,
+    0.3333333333333321,
+    0.333333333333334,
+    0.0
+   ],
+   "depth": 0.4082482904638615,
+   "start_depth": 0.03075622252429126,
+   "status": "deepest point of the shape",
+   "boundaries": 3,
+   "piece": 0,
+   "off": "central_off/tessipyritic/sadi_96v_144c_central.off",
+   "vertices": 96,
+   "cells": 144,
+   "seed_vector": [
+    1.0,
+    0.666666666666666,
+    0.3333333333333339,
+    0.0
+   ]
+  }
+ ]
+}

@@ -1,0 +1,949 @@
+{
+ "_about": "Does each shape of the octahedral swirl atlas stand for one polytope? (split_survey_oct.json)",
+ "signatures": {
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+48x4+48x4+48x4": {
+   "keys": {
+    "4078172c9128": {
+     "count": 86,
+     "sources": [
+      "region R1",
+      "region R1.2",
+      "region R1.3"
+     ],
+     "example": [
+      0.0166666667,
+      0.0166666667,
+      0.9666666667,
+      0.0
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "4078172c9128"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[12v20f]+24x[4v4f]+24x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+48x3+48x4+48x4": {
+   "keys": {
+    "5f8cc7b974ed": {
+     "count": 154,
+     "sources": [
+      "region R1.3",
+      "wall b2 + 2*b3 - bV",
+      "wall b2 - bV"
+     ],
+     "example": [
+      0.3833333333,
+      0.2833333333,
+      0.2833333333,
+      0.05
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "5f8cc7b974ed"
+    ]
+   ]
+  },
+  "48: cells 8x[6v5f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[6v7f] | faces 16x3g+16x3g+24x4g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+48x3+48x3+48x4": {
+   "keys": {
+    "7f9de7039265": {
+     "count": 205,
+     "sources": [
+      "region R1.3",
+      "wall b1 - 2*b2 + b3",
+      "wall b1 - b3 - 2*bV"
+     ],
+     "example": [
+      0.5,
+      0.2833333333,
+      0.1666666667,
+      0.05
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "7f9de7039265"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x6+24x8+48x3+48x3+48x4+48x4": {
+   "keys": {
+    "6411a93ea28f": {
+     "count": 178,
+     "sources": [
+      "region R2",
+      "region R2.2",
+      "region R2.3",
+      "region R2.4",
+      "region R2.5",
+      "region R2.6"
+     ],
+     "example": [
+      0.0166666667,
+      0.0666666667,
+      0.9,
+      0.0166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "6411a93ea28f"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+16x[9v11f]+24x[4v4f]+24x[4v4f]+48x[4v4f] | faces 8x6g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x5+24x7+48x3+48x3+48x4": {
+   "keys": {
+    "db67533442f5": {
+     "count": 155,
+     "sources": [
+      "region R2.4",
+      "region R2.5",
+      "region R7",
+      "region R8.2",
+      "wall b2 - b3 - bV"
+     ],
+     "example": [
+      0.0166666667,
+      0.8333333333,
+      0.0833333333,
+      0.0666666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "db67533442f5"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+16x[6v8f]+24x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x6+48x3+48x3+48x3+48x4": {
+   "keys": {
+    "aa38bc1e1aec": {
+     "count": 180,
+     "sources": [
+      "region R3",
+      "region R3.2",
+      "region R3.3",
+      "region R3.4",
+      "region R3.5",
+      "region R3.6"
+     ],
+     "example": [
+      0.0666666667,
+      0.0166666667,
+      0.9,
+      0.0166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "aa38bc1e1aec"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x8+48x3+48x3+48x4+48x5": {
+   "keys": {
+    "5c9f5692820e": {
+     "count": 120,
+     "sources": [
+      "region R4",
+      "region R4.2",
+      "region R4.3",
+      "region R4.4"
+     ],
+     "example": [
+      0.5166666667,
+      0.2,
+      0.15,
+      0.1333333333
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "5c9f5692820e"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x8+24x8+48x3+48x4+48x4+48x4+48x4": {
+   "keys": {
+    "9d8de7a98bf6": {
+     "count": 60,
+     "sources": [
+      "region R5",
+      "region R5.2"
+     ],
+     "example": [
+      0.0166666667,
+      0.6166666667,
+      0.3166666667,
+      0.05
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "9d8de7a98bf6"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+16x[6v8f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x8+48x3+48x3+48x3+48x4+48x5": {
+   "keys": {
+    "7f83624ce024": {
+     "count": 60,
+     "sources": [
+      "region R6",
+      "region R6.2"
+     ],
+     "example": [
+      0.4333333333,
+      0.1666666667,
+      0.3833333333,
+      0.0166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "7f83624ce024"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x10+48x3+48x3+48x4+48x5+48x5": {
+   "keys": {
+    "65c05f48c385": {
+     "count": 70,
+     "sources": [
+      "region R7",
+      "region R7.2",
+      "region R7.3"
+     ],
+     "example": [
+      0.0333333333,
+      0.3833333333,
+      0.3166666667,
+      0.2666666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "65c05f48c385"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v5f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[5v5f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x4g | edges 24x4+24x4+24x6+24x8+48x3+48x3+48x5+48x5": {
+   "keys": {
+    "d9f5cc987cfc": {
+     "count": 102,
+     "sources": [
+      "region R7",
+      "region R7.2",
+      "wall b1*b3 - b1*bV - b2**2 + b3*bV"
+     ],
+     "example": [
+      0.05,
+      0.6166666667,
+      0.2166666667,
+      0.1166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "d9f5cc987cfc"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x8+24x8+48x3+48x3+48x3+48x5+48x5": {
+   "keys": {
+    "7103127bea88": {
+     "count": 58,
+     "sources": [
+      "region R8",
+      "region R8.2"
+     ],
+     "example": [
+      0.0166666667,
+      0.4166666667,
+      0.3166666667,
+      0.25
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "7103127bea88"
+    ]
+   ]
+  },
+  "48: cells 8x[6v5f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[6v7f]+48x[4v4f]+48x[4v4f] | faces 16x3g+24x4g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x8+48x3+48x4+48x5+48x6": {
+   "keys": {
+    "eb6d8763c6bf": {
+     "count": 106,
+     "sources": [
+      "region R13",
+      "region R9",
+      "region R9.2",
+      "wall 2*b1 - b2 - b3",
+      "wall b1 - b2"
+     ],
+     "example": [
+      0.3,
+      0.2333333333,
+      0.25,
+      0.2166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "eb6d8763c6bf"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x4+24x8+48x3+48x5+48x6+48x6": {
+   "keys": {
+    "0f9795f89900": {
+     "count": 57,
+     "sources": [
+      "region R9",
+      "region R9.2"
+     ],
+     "example": [
+      0.3166666667,
+      0.2166666667,
+      0.2666666667,
+      0.2
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "0f9795f89900"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x6+24x6+48x4+48x5+48x5": {
+   "keys": {
+    "6d92abaf7f68": {
+     "count": 30,
+     "sources": [
+      "region R10"
+     ],
+     "example": [
+      0.2833333333,
+      0.2666666667,
+      0.2333333333,
+      0.2166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "6d92abaf7f68"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x6+24x6+24x8+48x3+48x4+48x5+48x6": {
+   "keys": {
+    "9e76dce5c15d": {
+     "count": 59,
+     "sources": [
+      "region R11",
+      "region R11.2"
+     ],
+     "example": [
+      0.2833333333,
+      0.2333333333,
+      0.2666666667,
+      0.2166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "9e76dce5c15d"
+    ]
+   ]
+  },
+  "48: cells 8x[6v5f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[6v7f]+48x[4v4f] | faces 16x3g+24x4g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x6+48x4+48x4+48x5": {
+   "keys": {
+    "7d3caca6b048": {
+     "count": 100,
+     "sources": [
+      "region R11",
+      "wall b1 - 2*b2 + b3"
+     ],
+     "example": [
+      0.35,
+      0.1666666667,
+      0.3166666667,
+      0.1666666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "7d3caca6b048"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x10+48x3+48x3+48x3+48x4+48x6": {
+   "keys": {
+    "19b61faeb0a6": {
+     "count": 50,
+     "sources": [
+      "region R12",
+      "region R12.2"
+     ],
+     "example": [
+      0.4666666667,
+      0.1166666667,
+      0.4,
+      0.0166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "19b61faeb0a6"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x6+24x12+48x3+48x3+48x5+48x5+48x7": {
+   "keys": {
+    "f0e23f4dce22": {
+     "count": 57,
+     "sources": [
+      "region R13",
+      "region R13.2"
+     ],
+     "example": [
+      0.3333333333,
+      0.2666666667,
+      0.2833333333,
+      0.1166666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "f0e23f4dce22"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x6+24x8+24x12+48x3+48x3+48x4+48x5+48x6": {
+   "keys": {
+    "d67a900c4cec": {
+     "count": 21,
+     "sources": [
+      "region R14",
+      "region R14.2"
+     ],
+     "example": [
+      0.3,
+      0.25,
+      0.2833333333,
+      0.1666666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "d67a900c4cec"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x6+24x14+48x3+48x4+48x4+48x4+48x4+48x9": {
+   "keys": {
+    "f64644e8844d": {
+     "count": 42,
+     "sources": [
+      "region R15",
+      "region R15.2"
+     ],
+     "example": [
+      0.3333333333,
+      0.25,
+      0.2666666667,
+      0.15
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "f64644e8844d"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x6+24x8+48x3+48x3+48x4+48x5": {
+   "keys": {
+    "94c25ecd0097": {
+     "count": 13,
+     "sources": [
+      "region R16"
+     ],
+     "example": [
+      0.0166666667,
+      0.4333333333,
+      0.3,
+      0.25
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "94c25ecd0097"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[6v8f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x6+48x3+48x3+48x3+48x4": {
+   "keys": {
+    "bfce1b5dc27d": {
+     "count": 101,
+     "sources": [
+      "region R16",
+      "wall b1*b2 - b1*b3 - 2*b1*bV - b2**2 + b2*b3 + 2*b3*bV",
+      "wall b2**2 - b2*b3 - b2*bV - 3*b3*bV"
+     ],
+     "example": [
+      0.0166666667,
+      0.7333333333,
+      0.15,
+      0.1
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "bfce1b5dc27d"
+    ]
+   ]
+  },
+  "48: cells 8x[6v5f]+8x[12v17f]+16x[6v8f]+24x[4v4f] | faces 16x3g+16x3g+24x4g+48x3g+48x3g+48x3g | edges 24x4+24x4+48x3+48x3+48x3": {
+   "keys": {
+    "e45a3527f840": {
+     "count": 532,
+     "sources": [
+      "wall 2*b1 + b3 - bV",
+      "wall 2*b1 - b2 - b3",
+      "wall b1 - b2",
+      "wall b1 - bV",
+      "wall b2 + 2*b3 - bV",
+      "wall b2 - bV"
+     ],
+     "example": [
+      0.0938658815,
+      0.0369861196,
+      0.8492543566,
+      0.0198936423
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "e45a3527f840"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+48x[5v5f] | faces 16x3g+16x3g+24x4g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x3+24x4+24x5+24x6+48x3+48x3+48x4": {
+   "keys": {
+    "ea2786d6b6b5": {
+     "count": 307,
+     "sources": [
+      "wall b1 + 2*b2 - bV",
+      "wall b1 - b2 + 2*bV",
+      "wall b1 - b2 - bV",
+      "wall b2 + 2*b3 - bV",
+      "wall b2 - bV"
+     ],
+     "example": [
+      0.0563010781,
+      0.3768385998,
+      0.4894407559,
+      0.0774195663
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "ea2786d6b6b5"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[12v20f]+24x[4v4f]+24x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x6+48x3+48x3+48x4": {
+   "keys": {
+    "8927e087f682": {
+     "count": 307,
+     "sources": [
+      "wall 2*b1 + b3 - bV",
+      "wall b1 - bV",
+      "wall b2 + 2*b3 - bV"
+     ],
+     "example": [
+      0.4236839078,
+      0.2916656825,
+      0.1456169116,
+      0.1390334981
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "8927e087f682"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[9v11f]+48x[4v4f] | faces 16x3g+16x3g+24x4g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x5+24x5+48x3+48x3+48x3": {
+   "keys": {
+    "8b1a2323a010": {
+     "count": 100,
+     "sources": [
+      "wall b1*b3 - b2*b3 - b2*bV + bV**2"
+     ],
+     "example": [
+      0.1260667949,
+      0.4580265337,
+      0.2911678373,
+      0.1247388341
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "8b1a2323a010"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+16x[6v8f]+16x[9v11f]+24x[4v4f] | faces 8x6g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g | edges 24x3+24x4+24x5+48x3+48x3+48x3": {
+   "keys": {
+    "0d602f6de6ce": {
+     "count": 100,
+     "sources": [
+      "wall b2 - b3 - bV"
+     ],
+     "example": [
+      0.1302726012,
+      0.3378031245,
+      0.3310984377,
+      0.2008258365
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "0d602f6de6ce"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[9v11f]+24x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+24x4g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x3+24x4+24x4+24x7+48x3+48x3+48x4": {
+   "keys": {
+    "34824aaa9c3e": {
+     "count": 100,
+     "sources": [
+      "wall b1*b2 - b1*bV - b3**2 + b3*bV",
+      "wall b1*b3 - b2**2 + b2*bV - b3*bV"
+     ],
+     "example": [
+      0.0465675137,
+      0.3316328401,
+      0.3183283106,
+      0.3034713356
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "34824aaa9c3e"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[6v6f]+48x[5v5f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x4g | edges 24x4+24x4+24x8+48x3+48x3+48x3+48x4": {
+   "keys": {
+    "9debd06d9487": {
+     "count": 150,
+     "sources": [
+      "wall b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV",
+      "wall b1*b3 - b1*bV - b2*b3 - b2*bV - 2*b3*bV"
+     ],
+     "example": [
+      0.0504211346,
+      0.4924161969,
+      0.2821855676,
+      0.1749771009
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "9debd06d9487"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+16x[6v5f]+16x[6v8f]+24x[6v6f]+48x[4v4f] | faces 16x3g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x4g | edges 24x4+24x4+24x8+48x3+48x3+48x3+48x5": {
+   "keys": {
+    "975bb6e8302b": {
+     "count": 100,
+     "sources": [
+      "wall b1*b2 - 2*b1*b3 - b1*bV + b2*b3 + b3*bV"
+     ],
+     "example": [
+      0.8303616257,
+      0.0203726173,
+      0.1339020076,
+      0.0153637494
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "975bb6e8302b"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[5v5f] | faces 16x3g+24x4g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x3+24x4+24x4+24x4+24x4+24x7+48x4+48x5+48x5": {
+   "keys": {
+    "2bde9fea7f3d": {
+     "count": 100,
+     "sources": [
+      "wall b1*b2 - b1*bV + b2*b3 + b3**2",
+      "wall b1*b3 - b2*b3 - b2*bV + bV**2"
+     ],
+     "example": [
+      0.3367791909,
+      0.2041256005,
+      0.2929572714,
+      0.1661379372
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "2bde9fea7f3d"
+    ]
+   ]
+  },
+  "48: cells 8x[6v5f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[6v7f]+48x[4v4f]+48x[4v4f] | faces 16x3g+24x4g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x6+24x8+48x3+48x3+48x5+48x5": {
+   "keys": {
+    "e5de5cf47de2": {
+     "count": 100,
+     "sources": [
+      "wall 2*b1 - b2 - b3",
+      "wall b1 - b2"
+     ],
+     "example": [
+      0.3323519277,
+      0.2225493574,
+      0.3006782823,
+      0.1444204325
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "e5de5cf47de2"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[5v6f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x4+24x12+48x3+48x3+48x4+48x4+48x7": {
+   "keys": {
+    "0477289a7f2e": {
+     "count": 100,
+     "sources": [
+      "wall b1**3*b2 - b1**3*bV - b1**2*b2**2 - 2*b1**2*b2*b3 + b1**2*b2*bV + b1**2*b3**2 - b1**2*b3*bV + b1*b2**3 - b1*b2**2*b3 - b1*b2**2*bV + 4*b1*b2*b3*bV + b1*b3**3 + b2**3*b3 - b2**2*b3*bV - b2*b3**3 - b2*b3**2*bV",
+      "wall b1**3*b2 - b1**3*bV - b1**2*b2**2 - b1**2*b2*b3 - b1**2*b3**2 + b1**2*bV**2 + b1*b2**2*b3 + b1*b2*b3**2 + 4*b1*b2*b3*bV + b1*b3**3 - b1*b3**2*bV - 2*b1*b3*bV**2 - 2*b2**2*b3*bV - b2*b3**3 + b3**2*bV**2"
+     ],
+     "example": [
+      0.3156462,
+      0.2351556235,
+      0.2373094931,
+      0.2118886834
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "0477289a7f2e"
+    ]
+   ]
+  },
+  "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[5v5f] | faces 16x3g+24x4g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x3+24x4+24x4+24x4+24x6+24x11+48x3+48x4+48x4+48x6": {
+   "keys": {
+    "3ce1f7717202": {
+     "count": 100,
+     "sources": [
+      "wall b1*b2 - b1*bV + b2*b3 + b3**2",
+      "wall b1*b3 - b2*b3 - b2*bV + bV**2"
+     ],
+     "example": [
+      0.3740515796,
+      0.2628884516,
+      0.3342137697,
+      0.0288461991
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "3ce1f7717202"
+    ]
+   ]
+  },
+  "16: cells 8x[6v8f]+16x[4v4f]+24x[4v4f] | faces 16x3g+48x3g+48x3g | edges 8x6+24x6+48x3": {
+   "keys": {
+    "85017060d29f": {
+     "count": 36,
+     "sources": [
+      "ring swirl ring V\u2013F (\u03b2\u2081 = \u03b2\u2082 = \u03b2\u2083)"
+     ],
+     "example": [
+      0.98,
+      0.0066666667,
+      0.0066666667,
+      0.0066666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "85017060d29f"
+    ]
+   ]
+  },
+  "16: cells 8x[8v6f] | faces 24x4g | edges 8x3+24x3": {
+   "keys": {
+    "c1badb0ae8be": {
+     "count": 1,
+     "sources": [
+      "ring swirl ring V\u2013F (\u03b2\u2081 = \u03b2\u2082 = \u03b2\u2083)"
+     ],
+     "example": [
+      0.5,
+      0.1666666667,
+      0.1666666667,
+      0.1666666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "c1badb0ae8be"
+    ]
+   ]
+  },
+  "16: cells 24x[4v4f]+24x[4v4f]+24x[4v4f] | faces 48x3g+48x3g+48x3g | edges 8x6+8x6+24x8+48x3": {
+   "keys": {
+    "87e2911a3581": {
+     "count": 12,
+     "sources": [
+      "ring swirl ring V\u2013F (\u03b2\u2081 = \u03b2\u2082 = \u03b2\u2083)"
+     ],
+     "example": [
+      0.48,
+      0.1733333333,
+      0.1733333333,
+      0.1733333333
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "87e2911a3581"
+    ]
+   ]
+  },
+  "24: cells 16x[6v8f]+24x[4v4f]+24x[4v4f] | faces 8x3g+8x3g+48x3g+48x3g+48x3g | edges 24x4+24x5+24x5+48x3": {
+   "keys": {
+    "6d7f3b5298fc": {
+     "count": 98,
+     "sources": [
+      "ring cross ring F\u2013W\u2081 (\u03b2_V = 0, \u03b2\u2082 = \u03b2\u2083)",
+      "ring cross ring F\u2013W\u2082 (\u03b2_V = 0, \u03b2\u2081 = \u03b2\u2083)"
+     ],
+     "example": [
+      0.0,
+      0.3466666667,
+      0.3266666667,
+      0.3266666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "6d7f3b5298fc"
+    ]
+   ]
+  },
+  "24: cells 8x[6v8f]+16x[6v8f] | faces 8x3g+16x3g+24x3g+48x3g | edges 24x3+24x3+48x3": {
+   "keys": {
+    "a20d5b4d903c": {
+     "count": 91,
+     "sources": [
+      "ring cross ring F\u2013M\u2081\u2082 (\u03b2_V = 0, \u03b2\u2081 = \u03b2\u2082)",
+      "ring cross ring W\u2081\u2013M\u2080\u2082 (\u03b2\u2083 = 0, \u03b2_V = \u03b2\u2082)"
+     ],
+     "example": [
+      0.0,
+      0.3366666667,
+      0.3366666667,
+      0.3266666667
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "a20d5b4d903c"
+    ]
+   ]
+  },
+  "24: cells 8x[6v8f]+8x[6v8f]+48x[4v4f] | faces 16x3g+24x3g+24x3g+48x3g+48x3g | edges 24x3+24x3+24x4+48x5": {
+   "keys": {
+    "f98f1656641f": {
+     "count": 6,
+     "sources": [
+      "ring cross ring W\u2081\u2013M\u2080\u2082 (\u03b2\u2083 = 0, \u03b2_V = \u03b2\u2082)"
+     ],
+     "example": [
+      0.34,
+      0.32,
+      0.34,
+      0.0
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "f98f1656641f"
+    ]
+   ]
+  },
+  "24: cells 8x[6v5f]+8x[9v11f] | faces 16x3g+24x3g+24x4g | edges 24x3+48x3": {
+   "keys": {
+    "47bcc4786915": {
+     "count": 1,
+     "sources": [
+      "ring cross ring W\u2081\u2013M\u2080\u2082 (\u03b2\u2083 = 0, \u03b2_V = \u03b2\u2082)"
+     ],
+     "example": [
+      0.4,
+      0.2,
+      0.4,
+      0.0
+     ]
+    }
+   },
+   "polytopes": [
+    [
+     "47bcc4786915"
+    ]
+   ]
+  }
+ }
+}

@@ -1,0 +1,204 @@
+{
+ "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
+ "shapes": [
+  {
+   "name": "region_01_1152v_3552c",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "centre": [
+    0.15773163696587092,
+    0.058248490785599676,
+    0.7214076224239421,
+    0.06261224982458738
+   ],
+   "depth": 0.06725956366991008,
+   "start_depth": 0.02180694136664682,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "piece": 0,
+   "off": "central_off/iocontic/region_01_1152v_3552c_1152v_3552c_central.off",
+   "vertices": 1152,
+   "cells": 3552,
+   "seed_vector": [
+    1.0,
+    0.38354424092495715,
+    0.300225554251018,
+    0.2694569155279867
+   ]
+  },
+  {
+   "name": "region_02_1152v_3360c",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.06257167770625723,
+    0.4060192861759185,
+    0.4996770306461539,
+    0.03173200547167041
+   ],
+   "centre": [
+    0.3710653383189724,
+    0.10250310976499548,
+    0.42392844215103676,
+    0.10250310976499534
+   ],
+   "depth": 0.11836039603118721,
+   "start_depth": 0.002312631935828966,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "piece": 0,
+   "off": "central_off/iocontic/region_02_1152v_3360c_1152v_3360c_central.off",
+   "vertices": 1152,
+   "cells": 3360,
+   "seed_vector": [
+    1.0,
+    0.47727035828454256,
+    0.24826303993255502,
+    0.18500204553096383
+   ]
+  },
+  {
+   "name": "wall_01_1152v_1680c",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4"
+   ],
+   "start": [
+    0.0882115041785,
+    0.3436117097908,
+    0.5364447806781,
+    0.0317320053526
+   ],
+   "centre": [
+    0.22361007210179756,
+    0.17612661426663104,
+    0.459714090159102,
+    0.1405492234724694
+   ],
+   "depth": 0.20895090459015234,
+   "start_depth": 0.03146264129812564,
+   "status": "deepest point of the shape",
+   "boundaries": 13,
+   "piece": 0,
+   "off": "central_off/iocontic/wall_01_1152v_1680c_1152v_1680c_central.off",
+   "vertices": 1152,
+   "cells": 1680,
+   "seed_vector": [
+    1.0,
+    0.41421356237309503,
+    0.28642402072496537,
+    0.1857705076805108
+   ]
+  },
+  {
+   "name": "wall_02_1152v_1536c",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "b1 + 2*b2 - 2*b3 - b4"
+   ],
+   "start": [
+    0.3747618525395,
+    0.1563889797691,
+    0.2186906443864,
+    0.250158523305
+   ],
+   "centre": [
+    0.44132149771649265,
+    0.12606087349969441,
+    0.26082561593206854,
+    0.17179201285174442
+   ],
+   "depth": 0.21308176718612007,
+   "start_depth": 0.09850758110520266,
+   "status": "deepest point of the shape",
+   "boundaries": 12,
+   "piece": 0,
+   "off": "central_off/iocontic/wall_02_1152v_1536c_1152v_1536c_central.off",
+   "vertices": 1152,
+   "cells": 1536,
+   "seed_vector": [
+    1.0,
+    0.5046786094116914,
+    0.20842775529752633,
+    0.12380545242332272
+   ]
+  },
+  {
+   "name": "region_03_1152v_4704c",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.14040717848712106,
+    0.09422416555549948,
+    0.7548002699745446,
+    0.010568385982834686
+   ],
+   "centre": [
+    0.06878350300540813,
+    0.19263328224354817,
+    0.7260112294789125,
+    0.01257198527213116
+   ],
+   "depth": 0.014516878162225872,
+   "start_depth": 0.0016795285570798736,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "piece": 0,
+   "off": "central_off/iocontic/region_03_1152v_4704c_1152v_4704c_central.off",
+   "vertices": 1152,
+   "cells": 4704,
+   "seed_vector": [
+    1.0,
+    0.3850946630729844,
+    0.3509068747244085,
+    0.2551614474856111
+   ]
+  },
+  {
+   "name": "gippid-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "b1 - b4",
+    "b2 - b3"
+   ],
+   "start": [
+    0.04166666666666667,
+    0.45833333333333337,
+    0.45833333333333337,
+    0.04166666666666667
+   ],
+   "centre": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "depth": 0.4999999999999998,
+   "start_depth": 0.043650793650793634,
+   "status": "deepest point of the shape",
+   "boundaries": 10,
+   "piece": 0,
+   "off": "central_off/iocontic/gippid-like_1152v_240c_central.off",
+   "vertices": 1152,
+   "cells": 240,
+   "seed_vector": [
+    1.0,
+    0.4142135623730951,
+    0.2612038749637415,
+    0.10819418755438785
+   ]
+  }
+ ]
+}

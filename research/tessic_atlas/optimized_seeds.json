@@ -1,0 +1,857 @@
+{
+ "_about": "The most even seed of every tessic-family shape (optimized_seeds<tag>.json, optimized .off files).",
+ "shapes": [
+  {
+   "name": "gidpith",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.25,
+     0.25,
+     0.25,
+     0.25
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.2499999999999999930611060960927722001313",
+    "0.2499999999999999930611060960927722001313",
+    "0.2499999999999999930611060960927722001313",
+    "0.2500000000000000208166817117216833996061"
+   ],
+   "equations": [
+    "4.0*b3**2 - 4.0*b4**2",
+    "4.0*b2**2 - 4.0*b4**2",
+    "4.0*b1**2 - 4.0*b4**2"
+   ],
+   "best": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "R": 1.0,
+   "orbits": 4,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "off_R": 1.0,
+   "seconds": 1.1,
+   "piece": 0,
+   "off": "optimized_off/tessic/gidpith_384v_80c_opt.off",
+   "vertices": 384,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.730247856610182,
+    0.46049571322036403,
+    0.19074356983054616
+   ]
+  },
+  {
+   "name": "tico",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.33333333333333337,
+     0.33333333333333337,
+     0.33333333333333337,
+     0.0
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3333333333333333333333333333333333333334",
+    "0.3333333333333333333333333333333333333334",
+    "0.3333333333333333333333333333333333333334",
+    "0.0"
+   ],
+   "equations": [
+    "-5.65685424949238*b3*b4 - 4.0*b4**2",
+    "4.0*b2**2 - 4.0*b3**2 - 5.65685424949238*b3*b4 - 4.0*b4**2",
+    "4.0*b1**2 - 4.0*b3**2 - 5.65685424949238*b3*b4 - 4.0*b4**2"
+   ],
+   "best": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "R": 1.0,
+   "orbits": 4,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "off_R": 1.0,
+   "seconds": 1.0,
+   "piece": 0,
+   "off": "optimized_off/tessic/tico_192v_48c_opt.off",
+   "vertices": 192,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.6666666666666667,
+    0.33333333333333337,
+    0.0
+   ]
+  },
+  {
+   "name": "proh",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.3333333333333333,
+     0.3333333333333333,
+     0.0,
+     0.3333333333333333
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3333333333333333209975219486093729143626",
+    "0.3333333333333333209975219486093729143626",
+    "0.0",
+    "0.3333333333333333580049561027812541712748"
+   ],
+   "equations": [
+    "-4.0*b3**2 - 5.65685424949238*b3*b4",
+    "4.0*b2**2 + 4.0*b2*b3 - 5.65685424949238*b3*b4 - 4.0*b4**2",
+    "4.0*b1**2 - 4.0*b3**2 - 5.65685424949238*b3*b4 - 4.0*b4**2"
+   ],
+   "best": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.33333333333333337
+   ],
+   "R": 1.0,
+   "orbits": 5,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.33333333333333337
+   ],
+   "off_R": 1.0,
+   "seconds": 1.0,
+   "piece": 0,
+   "off": "optimized_off/tessic/proh_192v_80c_opt.off",
+   "vertices": 192,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.6306019374818708,
+    0.2612038749637415,
+    0.2612038749637415
+   ]
+  },
+  {
+   "name": "prit",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.3333333333333333,
+     0.0,
+     0.3333333333333333,
+     0.3333333333333333
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3333333333333333209975219486093729143626",
+    "0.0",
+    "0.3333333333333333209975219486093729143626",
+    "0.3333333333333333580049561027812541712748"
+   ],
+   "equations": [
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b2**2 + 4.0*b4**2",
+    "-4.0*b1**2 - 4.0*b1*b2 + 4.0*b2*b3 + 4.0*b3**2",
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b2**2 + 4.0*b3**2"
+   ],
+   "best": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.33333333333333337
+   ],
+   "R": 1.0,
+   "orbits": 5,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.33333333333333337
+   ],
+   "off_R": 1.0,
+   "seconds": 1.0,
+   "piece": 0,
+   "off": "optimized_off/tessic/prit_192v_80c_opt.off",
+   "vertices": 192,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.6306019374818708,
+    0.6306019374818708,
+    0.2612038749637415
+   ]
+  },
+  {
+   "name": "grit",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.0,
+     0.3333333333333333,
+     0.3333333333333333,
+     0.3333333333333333
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.0",
+    "0.3333333333333333209975219486093729143626",
+    "0.3333333333333333209975219486093729143626",
+    "0.3333333333333333580049561027812541712748"
+   ],
+   "equations": [
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b2**2 + 4.0*b4**2",
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b2**2 + 4.0*b3**2",
+    "-4.0*b1**2 - 4.0*b1*b2"
+   ],
+   "best": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.33333333333333337
+   ],
+   "R": 1.0,
+   "orbits": 4,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.33333333333333337
+   ],
+   "off_R": 1.0,
+   "seconds": 0.5,
+   "piece": 0,
+   "off": "optimized_off/tessic/grit_192v_56c_opt.off",
+   "vertices": 192,
+   "cells": 56,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.6306019374818708,
+    0.2612038749637415
+   ]
+  },
+  {
+   "name": "thex",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.5,
+     0.5,
+     0.0,
+     0.0
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.5",
+    "0.5",
+    "0.0",
+    "0.0"
+   ],
+   "equations": [
+    "4.0*b2*b3 + 5.65685424949238*b2*b4 + 4.0*b3**2 + 11.3137084989848*b3*b4 + 4.0*b4**2",
+    "5.65685424949238*b2*b4 + 5.65685424949238*b3*b4 + 4.0*b4**2",
+    "4.0*b1**2 - 4.0*b2**2 - 4.0*b2*b3 - 4.0*b3**2"
+   ],
+   "best": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "orbits": 5,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "off_R": 1.0,
+   "seconds": 0.4,
+   "piece": 0,
+   "off": "optimized_off/tessic/thex_48v_24c_opt.off",
+   "vertices": 48,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    0.5,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "sidpith",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.5,
+     0.0,
+     0.0,
+     0.5
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.4999999999999999722444243843710895708973",
+    "0.0",
+    "0.0",
+    "0.5000000000000000277555756156289104291027"
+   ],
+   "equations": [
+    "4.0*b2**2 + 4.0*b2*b3 + 5.65685424949238*b2*b4",
+    "-4.0*b3**2 - 5.65685424949238*b3*b4",
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b1*b3 + 4.0*b2**2 + 4.0*b2*b3 - 5.65685424949238*b3*b4 - 4.0*b4**2"
+   ],
+   "best": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "R": 1.0,
+   "orbits": 6,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "off_R": 1.0,
+   "seconds": 0.5,
+   "piece": 0,
+   "off": "optimized_off/tessic/sidpith_64v_80c_opt.off",
+   "vertices": 64,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.4142135623730951,
+    0.4142135623730951,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "tat",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.0,
+     0.0,
+     0.5,
+     0.5
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "-8.90209476164981132575613898793963654804e-67",
+    "0.0",
+    "0.4999999999999999722444243843710895708973",
+    "0.5000000000000000277555756156289104291027"
+   ],
+   "equations": [
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b1*b3 + 4.0*b2**2 + 4.0*b2*b3 + 4.0*b3**2 - 4.0*b4**2",
+    "4.0*b3**2 - 4.0*b4**2",
+    "4.0*b2**2 + 4.0*b2*b3 + 4.0*b3**2 - 4.0*b4**2"
+   ],
+   "best": [
+    -8.902094761649811e-67,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "R": 1.0,
+   "orbits": 4,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    -8.902094761649811e-67,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "off_R": 1.0,
+   "seconds": 0.3,
+   "piece": 0,
+   "off": "optimized_off/tessic/tat_64v_24c_opt.off",
+   "vertices": 64,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "rico",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.5,
+     0.0,
+     0.5,
+     0.0
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.5",
+    "0.0",
+    "0.5",
+    "0.0"
+   ],
+   "equations": [
+    "-4.0*b2**2 - 4.0*b2*b3",
+    "5.65685424949238*b3*b4 + 4.0*b4**2",
+    "4.0*b1**2 - 4.0*b2**2 - 4.0*b2*b3 - 4.0*b3**2"
+   ],
+   "best": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "R": 1.0,
+   "orbits": 6,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "off_R": 1.0,
+   "seconds": 0.6,
+   "piece": 0,
+   "off": "optimized_off/tessic/rico_96v_48c_opt.off",
+   "vertices": 96,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.5,
+    0.5,
+    0.0
+   ]
+  },
+  {
+   "name": "tah",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.0,
+     0.5,
+     0.5,
+     0.0
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.0",
+    "0.5",
+    "0.5",
+    "0.0"
+   ],
+   "equations": [
+    "5.65685424949238*b3*b4 + 4.0*b4**2",
+    "4.0*b2**2 - 4.0*b3**2",
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b2**2 - 4.0*b3**2"
+   ],
+   "best": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "R": 1.0,
+   "orbits": 4,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "off_R": 1.0,
+   "seconds": 0.3,
+   "piece": 0,
+   "off": "optimized_off/tessic/tah_96v_24c_opt.off",
+   "vertices": 96,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.5,
+    0.0
+   ]
+  },
+  {
+   "name": "srit",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "start_R": 1.0,
+   "numeric": {
+    "best": [
+     0.0,
+     0.5,
+     0.0,
+     0.5
+    ],
+    "R": 1.0,
+    "slsqp": "start",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.0",
+    "0.4999999999999999722444243843710895708973",
+    "0.0",
+    "0.5000000000000000277555756156289104291027"
+   ],
+   "equations": [
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b2**2 - 4.0*b2*b3 - 4.0*b3**2 + 4.0*b4**2",
+    "-4.0*b1**2 - 4.0*b1*b2",
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b2**2 - 4.0*b2*b3 + 5.65685424949238*b3*b4 + 4.0*b4**2"
+   ],
+   "best": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "R": 1.0,
+   "orbits": 6,
+   "status": "uniform: every edge the same length (R = 1), the seed kept",
+   "ring_check_rises": null,
+   "off_seed": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "off_R": 1.0,
+   "seconds": 0.7,
+   "piece": 0,
+   "off": "optimized_off/tessic/srit_96v_56c_opt.off",
+   "vertices": 96,
+   "cells": 56,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.4142135623730951,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "hex",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "start_R": 1.0,
+   "status": "point (no freedom)",
+   "best": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "off_seed": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "piece": 0,
+   "off": "optimized_off/tessic/hex_8v_16c_opt.off",
+   "vertices": 8,
+   "cells": 16,
+   "seed_vector": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "tes",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "start_R": 1.0,
+   "status": "point (no freedom)",
+   "best": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "R": 1.0,
+   "off_seed": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "piece": 0,
+   "off": "optimized_off/tessic/tes_16v_8c_opt.off",
+   "vertices": 16,
+   "cells": 8,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "ico",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "start_R": 1.0,
+   "status": "point (no freedom)",
+   "best": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "off_seed": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "piece": 0,
+   "off": "optimized_off/tessic/ico_24v_24c_opt.off",
+   "vertices": 24,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "rit",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "start_R": 1.0,
+   "status": "point (no freedom)",
+   "best": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "R": 1.0,
+   "off_seed": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "piece": 0,
+   "off": "optimized_off/tessic/rit_32v_24c_opt.off",
+   "vertices": 32,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    0.0
+   ]
+  }
+ ]
+}

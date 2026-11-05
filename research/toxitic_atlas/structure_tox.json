@@ -1,0 +1,43 @@
+{
+ "group": "tox",
+ "order": 288,
+ "rings": [
+  {
+   "stabilizer": "C3",
+   "order": 3,
+   "rings": 16,
+   "generic_orbit": 96,
+   "chamber": "b1 = b2 = 0"
+  },
+  {
+   "stabilizer": "C3",
+   "order": 3,
+   "rings": 16,
+   "generic_orbit": 96,
+   "chamber": "b3 = b4 = 0"
+  },
+  {
+   "stabilizer": "C2",
+   "order": 2,
+   "rings": 18,
+   "generic_orbit": 144,
+   "chamber": "b2 = b3 = 0"
+  }
+ ],
+ "points": [
+  {
+   "stabilizer": "T",
+   "order": 12,
+   "points": 24,
+   "rings_through": 7,
+   "chamber": "b1 = b2 = b3 = 0"
+  },
+  {
+   "stabilizer": "T",
+   "order": 12,
+   "points": 24,
+   "rings_through": 7,
+   "chamber": "b2 = b3 = b4 = 0"
+  }
+ ]
+}

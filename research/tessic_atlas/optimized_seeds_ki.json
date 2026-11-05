@@ -1,0 +1,72 @@
+{
+ "_about": "The most even seed of every tessic-family shape (optimized_seeds<tag>.json, optimized .off files).",
+ "shapes": [
+  {
+   "name": "snet",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.0313678894962785,
+    0.0315738276561738,
+    0.03162020749647304,
+    0.9054380753510747
+   ],
+   "start_R": 20.836848490309325,
+   "numeric": {
+    "best": [
+     0.2994085643010434,
+     0.21639170000798788,
+     0.19788245363793705,
+     0.2863172820530317
+    ],
+    "R": 1.250017915823088,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.2994085643010434347288746528099527636275",
+    "0.2163917000079879062887950717143323175843",
+    "0.1978824536379369510926746838521495588028",
+    "0.2863172820530317078896555916235653599853"
+   ],
+   "equations": [
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b2**2 - 4.0*b3**2 - 5.65685424949238*b3*b4 - 4.0*b4**2",
+    "4.0*b1**2 - 4.0*b2**2 - 4.0*b2*b3",
+    "-4.0*b2*b3 - 4.0*b3**2 + 4.0*b4**2"
+   ],
+   "best": [
+    0.29940856430104346,
+    0.2163917000079879,
+    0.19788245363793694,
+    0.2863172820530317
+   ],
+   "R": 1.250017915823088,
+   "orbits": 6,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    0.29940856430104346,
+    0.2163917000079879,
+    0.19788245363793694,
+    0.2863172820530317
+   ],
+   "off_R": 1.250017915823088,
+   "seconds": 1.5,
+   "piece": 0,
+   "off": "optimized_off/kitessic/snet_192v_272c_opt.off",
+   "vertices": 192,
+   "cells": 272,
+   "seed_vector": [
+    1.0,
+    0.6731845658185707,
+    0.4369850851642302,
+    0.22098912608556873
+   ]
+  }
+ ]
+}

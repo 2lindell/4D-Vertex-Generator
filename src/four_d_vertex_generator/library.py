@@ -28,6 +28,15 @@ def _quaternion_right_matrix(quaternion: tuple[float, float, float, float]) -> n
     )
 
 
+def _quaternion_pair_matrix(
+    left: tuple[float, float, float, float],
+    right: tuple[float, float, float, float],
+) -> np.ndarray:
+    """Matrix for the quaternion action [left, right]: x -> conjugate(left) x right."""
+    conjugate_left = (left[0], -left[1], -left[2], -left[3])
+    return _quaternion_right_matrix(right) @ _quaternion_left_matrix(conjugate_left)
+
+
 def _h4_icosian_chiral_generators() -> list[np.ndarray]:
     """Rotation subgroup (order 7200) of H4 on standard 600-cell icosian coordinates."""
     binary_icosahedral = (
@@ -49,10 +58,106 @@ def _h4_icosian_generators() -> list[np.ndarray]:
     return _h4_icosian_chiral_generators() + [np.diag([1.0, -1.0, -1.0, -1.0])]
 
 
+def _h4_polyhedral_product_generators(
+    left: tuple[tuple[float, float, float, float], ...],
+    right: tuple[tuple[float, float, float, float], ...],
+) -> list[np.ndarray]:
+    """Generate a quaternion-pair subgroup in the standard icosian basis."""
+    return [_quaternion_left_matrix(q) for q in left] + [
+        _quaternion_right_matrix(q) for q in right
+    ]
+
+
 # A genuine order-10 element of the binary icosahedral group 2I (a 5-fold
 # icosahedral rotation lifted to its double cover, so its quaternion order is
 # 10 rather than 5). Verified by BFS closure: 2I has exactly 24 such elements.
 _ICOSIAN_ORDER_TEN = (0.809016994374947, -0.309016994374947, 0.0, -0.5)
+
+
+def _h4_icosahedral_tubical_generators(n: int, *, dihedral: bool) -> list[np.ndarray]:
+    """Return the icosahedral cyclic/dihedral tubical group generators."""
+    if n < 1 or (dihedral and n < 2):
+        raise ValueError("Cyclic tubical groups require n >= 1; dihedral groups require n >= 2")
+
+    binary_icosahedral = (
+        (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
+        (0.809016994374947, -0.309016994374947, 0.0, -0.5),
+    )
+    axis = np.asarray(_ICOSIAN_ORDER_TEN[1:], dtype=float)
+    axis /= np.linalg.norm(axis)
+    angle = np.pi / n
+    step = (float(np.cos(angle)), *(np.sin(angle) * axis))
+    generators = [_quaternion_left_matrix(q) for q in binary_icosahedral]
+    generators.append(_quaternion_right_matrix(step))
+    if dihedral:
+        generators.append(_quaternion_right_matrix((0.0, 0.0, 1.0, 0.0)))
+    return generators
+
+
+def _h4_polyhedral_tubical_generators(family: str, n: int) -> list[np.ndarray]:
+    """Return tetrahedral or octahedral tubical group generators from Table 2."""
+    minimum_n = {
+        "tetrahedral_cyclic": 1,
+        "tetrahedral_cyclic_index3": 1,
+        "tetrahedral_dihedral": 2,
+        "octahedral_cyclic": 1,
+        "octahedral_cyclic_index2": 1,
+        "octahedral_dihedral": 2,
+        "octahedral_dihedral_index2_4n": 2,
+        "octahedral_dihedral_index2_2n": 2,
+        "octahedral_dihedral_index6_6n": 1,
+    }
+    if family not in minimum_n:
+        raise ValueError(f"Unknown tetrahedral/octahedral tubical family '{family}'")
+    if n < minimum_n[family]:
+        raise ValueError(f"{family} requires n >= {minimum_n[family]}")
+
+    one = (1.0, 0.0, 0.0, 0.0)
+    i = (0.0, 1.0, 0.0, 0.0)
+    j = (0.0, 0.0, 1.0, 0.0)
+    omega = (-0.5, 0.5, 0.5, 0.5)
+    inverse_sqrt_two = 1.0 / np.sqrt(2.0)
+    i_octahedral = (0.0, 0.0, inverse_sqrt_two, inverse_sqrt_two)
+
+    def e(order: int) -> tuple[float, float, float, float]:
+        angle = np.pi / order
+        return (float(np.cos(angle)), float(np.sin(angle)), 0.0, 0.0)
+
+    def pair(
+        left: tuple[float, float, float, float],
+        right: tuple[float, float, float, float] = one,
+    ) -> np.ndarray:
+        return _quaternion_pair_matrix(left, right)
+
+    if family == "tetrahedral_cyclic":
+        return [pair(i), pair(omega), pair(one, e(n))]
+    if family == "tetrahedral_cyclic_index3":
+        return [pair(i), pair(one, e(n)), pair(omega, e(3 * n))]
+    if family == "tetrahedral_dihedral":
+        return [pair(i), pair(omega), pair(one, e(n)), pair(one, j)]
+    if family == "octahedral_cyclic":
+        return [pair(i_octahedral), pair(omega), pair(one, e(n))]
+    if family == "octahedral_cyclic_index2":
+        return [pair(i), pair(omega), pair(one, e(n)), pair(i_octahedral, e(2 * n))]
+    if family == "octahedral_dihedral":
+        return [pair(i_octahedral), pair(omega), pair(one, e(n)), pair(one, j)]
+    if family == "octahedral_dihedral_index2_4n":
+        return [
+            pair(i),
+            pair(omega),
+            pair(one, e(n)),
+            pair(one, j),
+            pair(i_octahedral, e(2 * n)),
+        ]
+    if family == "octahedral_dihedral_index2_2n":
+        return [pair(i), pair(omega), pair(one, e(n)), pair(i_octahedral, j)]
+    return [
+        pair(i),
+        pair(j),
+        pair(one, e(n)),
+        pair(i_octahedral, j),
+        pair(omega, e(3 * n)),
+    ]
 
 
 def _pentagonal_swirl_generators() -> list[np.ndarray]:
@@ -87,20 +192,12 @@ def _h4_swirlprism_chiral_generators() -> list[np.ndarray]:
     shares the 600-cell's vertices, matching the "small swirlprism" [5,3:5]
     construction.
     """
-    binary_icosahedral = (
-        (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
-        (0.809016994374947, -0.309016994374947, 0.0, -0.5),
-    )
-    return [_quaternion_left_matrix(q) for q in binary_icosahedral] + [
-        _quaternion_right_matrix(_ICOSIAN_ORDER_TEN)
-    ]
+    return _h4_icosahedral_tubical_generators(5, dihedral=False)
 
 
 def _h4_swirlprism_generators() -> list[np.ndarray]:
     """Full order-1200 "small swirlprism" subgroup of H4 (icosian basis)."""
-    return _h4_swirlprism_chiral_generators() + [
-        _quaternion_right_matrix((0.0, 0.0, 1.0, 0.0))
-    ]
+    return _h4_icosahedral_tubical_generators(5, dihedral=True)
 
 
 def h4_swirlprism_anchor_seed() -> np.ndarray:
@@ -115,55 +212,55 @@ def h4_swirlprism_anchor_seed() -> np.ndarray:
 
 @lru_cache(maxsize=1)
 def _h4_swirlprism_ring_basis() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Return (cross_ring_one, cross_ring_two, main_ring) at the anchor seed.
+    """Return (cross_ring_one, cross_ring_two, main_ring) directions at the anchor seed.
 
-    Derived from the eigenstructure of a non-trivial stabilizer of the anchor
-    seed under h4_swirlprism+ (a verified order-5 rotation fixing the seed):
-    its real fixed axis (orthogonal to the seed) is the main ring direction,
-    and its complex-eigenvalue rotating plane gives the two cross-ring
-    directions -- together with the seed, an orthonormal basis of R^4.
+    The main ring is the pentagonal-swirl ring through the anchor (its Z10
+    Hopf fibre), so points on it have the order-5 stabilizer and give 240
+    vertices under h4_swirlprism, returning to a 600-cell every 18 degrees.
+
+    The cross rings are the great circles fixed pointwise by the five
+    half-turns in the anchor's stabilizer. They lie perpendicular to the main
+    ring, 36 degrees apart around it, so every point on them has a stabilizer
+    of order 2 and gives 600 vertices under h4_swirlprism. The two returned
+    are adjacent, ordered so that (anchor, main_ring, cross_ring_one,
+    cross_ring_two) is positively oriented; with that orientation, moving
+    forward on one is the symmetry image of moving backward on the other.
     """
     seed = h4_swirlprism_anchor_seed()
-    action = SymmetryAction.from_iterable(_h4_swirlprism_chiral_generators())
-    generator_data = tuple(generator.tobytes() for generator in action.generators)
+    fibre_step = _quaternion_right_matrix(_ICOSIAN_ORDER_TEN) @ seed
+    main_ring = fibre_step - np.dot(fibre_step, seed) * seed
+    main_ring /= np.linalg.norm(main_ring)
+
+    generator_data = tuple(g.tobytes() for g in _h4_swirlprism_generators())
     elements = _finite_group_elements(generator_data, 5000)
     if elements is None:
-        raise RuntimeError("h4_swirlprism+ closure did not converge")
+        raise RuntimeError("h4_swirlprism closure did not converge")
 
-    stabilizer = next(
-        element
-        for element in elements
-        if np.allclose(element @ seed, seed, atol=1e-6)
-        and not np.allclose(element, np.eye(4), atol=1e-6)
+    axes: list[np.ndarray] = []
+    for element in elements:
+        if (
+            np.allclose(element @ seed, seed, atol=1e-8)
+            and not np.allclose(element, np.eye(4), atol=1e-8)
+            and np.allclose(element @ element, np.eye(4), atol=1e-8)
+        ):
+            eigvals, eigvecs = np.linalg.eigh((element + element.T) / 2.0)
+            fixed = eigvecs[:, np.isclose(eigvals, 1.0)].T
+            fixed = fixed - np.outer(fixed @ seed, seed)
+            axis = fixed[np.argmax(np.linalg.norm(fixed, axis=1))]
+            axes.append(axis / np.linalg.norm(axis))
+    if len(axes) != 5:
+        raise RuntimeError(f"Expected 5 half-turn cross rings at the anchor, found {len(axes)}")
+
+    cross_one = max(axes, key=lambda axis: abs(axis[2]))
+    cross_one = cross_one * np.sign(cross_one[2])
+    cos_step = np.cos(np.deg2rad(36.0))
+    cross_two = next(
+        sign * axis
+        for axis in axes
+        for sign in (1.0, -1.0)
+        if np.isclose(np.dot(cross_one, sign * axis), cos_step)
+        and np.linalg.det(np.array([seed, main_ring, cross_one, sign * axis])) > 0
     )
-    eigvals, eigvecs = np.linalg.eig(stabilizer)
-
-    main_ring: np.ndarray | None = None
-    cross_vec: np.ndarray | None = None
-    for eigval, eigvec in zip(eigvals, eigvecs.T):
-        if abs(eigval.imag) < 1e-6 and abs(eigval.real - 1.0) < 1e-6:
-            candidate = np.real(eigvec)
-            candidate = candidate - np.dot(candidate, seed) * seed
-            if np.linalg.norm(candidate) > 1e-6:
-                main_ring = candidate / np.linalg.norm(candidate)
-        elif eigval.imag > 1e-6:
-            cross_vec = eigvec
-    if main_ring is None or cross_vec is None:
-        raise RuntimeError("Could not find pentagonal-swirl ring basis at anchor seed")
-
-    cross_one = np.real(cross_vec)
-    cross_one = cross_one - np.dot(cross_one, seed) * seed - np.dot(cross_one, main_ring) * main_ring
-    cross_one = cross_one / np.linalg.norm(cross_one)
-
-    cross_two = np.imag(cross_vec)
-    cross_two = (
-        cross_two
-        - np.dot(cross_two, seed) * seed
-        - np.dot(cross_two, main_ring) * main_ring
-        - np.dot(cross_two, cross_one) * cross_one
-    )
-    cross_two = cross_two / np.linalg.norm(cross_two)
-
     return cross_one, cross_two, main_ring
 
 
@@ -172,7 +269,11 @@ def h4_swirlprism_predefined_seed(
     cross_ring_two_degrees: float,
     main_ring_degrees: float,
 ) -> np.ndarray:
-    """Move the verified 120-point anchor seed around its cross rings and main ring."""
+    """Move the verified 120-point anchor seed along its cross rings and main ring.
+
+    Each angle rotates the seed within the plane of the anchor and one ring
+    direction, applied in the order cross ring 1, cross ring 2, main ring.
+    """
     anchor = h4_swirlprism_anchor_seed()
     cross_ring_one, cross_ring_two, main_ring = _h4_swirlprism_ring_basis()
     seed = anchor.copy()
@@ -192,7 +293,10 @@ def h4_swirlprism_predefined_seed(
             + sine * (seed_component * direction - direction_component * anchor)
         )
 
-    return seed / np.linalg.norm(seed)
+    seed = seed / np.linalg.norm(seed)
+    # Rotations by multiples of 90 degrees leave ~1e-16 floating-point residue.
+    seed[np.abs(seed) < 1e-12] = 0.0
+    return seed
 
 
 def _swap(i: int, j: int) -> np.ndarray:
@@ -288,6 +392,100 @@ def _coxeter_rotation_generators(
     return [reflections[0] @ reflection for reflection in reflections[1:]]
 
 
+def _a4_rotoreflection_generators() -> list[np.ndarray]:
+    """The iodecaic group [[3,3,3]+]: order 120, {even sigma} U {-sigma for odd sigma}.
+
+    A4's rotations (the even permutations) with one odd permutation times the central inversion, -r0: a rotoreflection,
+    not a reflection. (A4's rotations with a reflection would generate all of A4, the pennic group.) The group has no
+    reflections and does not contain -1.
+    """
+    edges = ((0, 1, 3), (1, 2, 3), (2, 3, 3))
+    return [*_coxeter_rotation_generators(edges), -_coxeter_reflections(edges)[0]]
+
+
+def _f4_rotoreflection_generators() -> list[np.ndarray]:
+    """The iocontic group [[3,4,3]+]: order 1152, F4's rotations and F4's reflections times the 24-cell/dual swap.
+
+    F4's rotations with r0 composed with the diagram automorphism (the swap of the 24-cell and its dual). (F4's rotations
+    with a reflection alone would generate all of F4, the icoic group.) The group has no reflections.
+    """
+    edges = ((0, 1, 3), (1, 2, 4), (2, 3, 3))
+    return [*_coxeter_rotation_generators(edges), _coxeter_reflections(edges)[0] @ _coxeter_diagram_automorphism(edges)]
+
+
+def _f4_icopyritic_generators() -> list[np.ndarray]:
+    """The icopyritic group [3,4,3+]: order 576, keeping one class of F4's reflections (12 mirrors) and the rotations
+    r2 r3 of the other end of the diagram."""
+    r = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+    return [r[0], r[1], r[2] @ r[3]]
+
+
+def _d4_triality_generators(*, chiral: bool) -> list[np.ndarray]:
+    """D4 = [3^1,1,1] extended by its diagram's triality (the permutations of its three legs), in D4's own Coxeter
+    basis: the group [3,4,3] (order 1152), here keeping D4's mirrors and chamber; chiral: its rotations [3,4,3]+ (576).
+
+    The leg swap (legs 0 and 2) is a determinant -1 isometry, the leg 3-cycle a rotation; the chiral group takes D4's
+    rotations, the 3-cycle, and the swap composed with a reflection.
+    """
+    edges = ((0, 1, 3), (1, 2, 3), (1, 3, 3))
+    roots = _coxeter_roots(edges)
+
+    def automorphism(perm: list[int]) -> np.ndarray:
+        return roots[perm].T @ np.linalg.inv(roots.T)
+
+    swap = automorphism([2, 1, 0, 3])
+    cycle = automorphism([2, 1, 3, 0])
+    reflections = _coxeter_reflections(edges)
+    if chiral:
+        return [*_coxeter_rotation_generators(edges), cycle, swap @ reflections[0]]
+    return [*reflections, swap, cycle]
+
+
+def _reflection_chamber_roots(name: str) -> np.ndarray:
+    """The simple roots (unit, as rows) of a finite reflection group given by its elements, ordered along its Coxeter
+    diagram (a path, from the end whose bond is largest): a chamber in the group's own coordinates."""
+    from .generation import group_elements
+
+    normals = []
+    for g in group_elements(named_symmetry(name), 20000):
+        if np.linalg.det(g) < 0:
+            w, v = np.linalg.eig(g)
+            if np.sum(np.abs(w - 1) < 1e-6) == 3:
+                n = np.real(v[:, np.argmin(np.abs(w + 1))])
+                normals.append(n / np.linalg.norm(n))
+    generic = np.array([1.0, np.sqrt(2.0), np.sqrt(3.0), np.pi])
+    positive = []
+    for n in normals:
+        n = n if n @ generic > 0 else -n
+        if not any(np.allclose(n, m, atol=1e-8) for m in positive):
+            positive.append(n)
+    positive = np.array(positive)
+    # (simple roots: the positive roots that are not positive combinations of the others)
+    from scipy.optimize import nnls
+
+    simple = []
+    for i, n in enumerate(positive):
+        others = np.delete(positive, i, axis=0)
+        _, residual = nnls(others.T, n)
+        if residual > 1e-7:
+            simple.append(n)
+    simple = np.array(simple)
+    if len(simple) != 4:
+        raise ValueError(f"{name}: found {len(simple)} simple roots")
+    gram = simple @ simple.T
+    bonded = [[j for j in range(4) if j != i and gram[i, j] < -1e-8] for i in range(4)]
+    ends = [i for i in range(4) if len(bonded[i]) == 1]
+    start = min(ends, key=lambda i: gram[i, bonded[i][0]])          # (the end with the largest bond, e.g. the 5)
+    order, prev = [start], None
+    while len(order) < 4:
+        nxt = [j for j in bonded[order[-1]] if j != prev and j not in order]
+        if not nxt:
+            raise ValueError(f"{name}: Coxeter diagram is not a path")
+        prev = order[-1]
+        order.append(nxt[0])
+    return simple[order]
+
+
 def _coxeter_diagram_automorphism(
     edges: tuple[tuple[int, int, int], ...],
 ) -> np.ndarray:
@@ -304,52 +502,168 @@ def _b4_ionic_generators() -> list[np.ndarray]:
 
 
 def _h4_ionic_generators() -> list[np.ndarray]:
-    return _coxeter_rotation_generators(((0, 1, 5), (1, 2, 3), (2, 3, 2)))
+    """[(5,3)+,2]: chiral icosahedral rotations times the prism reflection (order 120)."""
+    reflections = _coxeter_reflections(((0, 1, 5), (1, 2, 3), (2, 3, 2)))
+    return [
+        reflections[0] @ reflections[1],
+        reflections[1] @ reflections[2],
+        reflections[3],
+    ]
+
+
+def _dihedral_chamber_roots(order: int) -> tuple[np.ndarray, np.ndarray]:
+    """Simple roots of the dihedral group generated by a 2pi/order rotation and a y-flip.
+
+    The mirrors of that group lie at angles k*pi/order, so its chamber is the
+    wedge between angle 0 and pi/order.
+    """
+    angle = np.pi / order
+    return np.array([0.0, 1.0]), np.array([np.sin(angle), -np.cos(angle)])
+
+
+def _duoprism_chamber_roots(p: int, q: int) -> np.ndarray:
+    """Simple roots matching the mirrors produced by `_duoprism_generators`."""
+    p0, p1 = _dihedral_chamber_roots(p)
+    q0, q1 = _dihedral_chamber_roots(q)
+    roots = np.zeros((4, 4))
+    roots[0, :2], roots[1, :2] = p0, p1
+    roots[2, 2:], roots[3, 2:] = q0, q1
+    return roots
+
+
+def _hyperoctahedral_chamber_roots() -> np.ndarray:
+    """Simple roots of the signed-permutation B4 in standard coordinates ([3,3,4] order)."""
+    s = 1.0 / np.sqrt(2.0)
+    return np.array(
+        [
+            [s, -s, 0.0, 0.0],
+            [0.0, s, -s, 0.0],
+            [0.0, 0.0, s, -s],
+            [0.0, 0.0, 0.0, 1.0],
+        ]
+    )
 
 
 def fundamental_chamber_roots(name: str) -> np.ndarray | None:
-    """Return simple roots for a built-in spherical Coxeter chamber."""
+    """Return simple roots (as rows) for a built-in spherical Coxeter chamber.
+
+    The roots are expressed in the same coordinate basis as the generators of
+    `named_symmetry(name)`, so `np.linalg.solve(roots, coords)` gives a seed
+    whose distances to the group's mirrors are proportional to `coords`.
+    """
     edges_by_name = {
         "a4": ((0, 1, 3), (1, 2, 3), (2, 3, 3)),
         "b4": ((0, 1, 3), (1, 2, 3), (2, 3, 4)),
-        "hyperoctahedral": ((0, 1, 3), (1, 2, 3), (2, 3, 4)),
         "d4": ((0, 1, 3), (1, 2, 3), (1, 3, 3)),
         "f4": ((0, 1, 3), (1, 2, 4), (2, 3, 3)),
         "h4": ((0, 1, 5), (1, 2, 3), (2, 3, 3)),
+        "b4_prismatic_octahedral": ((0, 1, 4), (1, 2, 3), (2, 3, 2)),
+        "b4_prismatic_tetrahedral": ((0, 1, 3), (1, 2, 3), (2, 3, 2)),
+        "h4_prismatic": ((0, 1, 5), (1, 2, 3), (2, 3, 2)),
     }
     normalized_name = name.strip().lower()
+    if normalized_name == "hyperoctahedral":
+        return _hyperoctahedral_chamber_roots()
+    if normalized_name == "h4_icosian":
+        return _reflection_chamber_roots("h4_icosian")
     if normalized_name.startswith("duoprism_"):
         parts = normalized_name.removeprefix("duoprism_").split("_")
         if len(parts) == 2 and all(part.isdigit() for part in parts):
             p, q = (int(part) for part in parts)
             if (p, q) in _duoprism_orders():
-                edges_by_name[normalized_name] = ((0, 1, p), (1, 2, 2), (2, 3, q))
+                return _duoprism_chamber_roots(p, q)
+        return None
     edges = edges_by_name.get(normalized_name)
     return None if edges is None else _coxeter_roots(edges)
 
 
+# Alternative names that resolve to another built-in symmetry. They remain
+# accepted everywhere a name is taken, but are hidden from pickers and
+# symmetry detection so the same group is not listed several times.
+SYMMETRY_ALIASES: dict[str, str] = {
+    "a4_basic": "a4",
+    "a4_chiral": "a4+",
+    # [[3,3,3]+] and [[3,3,3]]+ are the same order-120 chiral group.
+    "a4_extended_chiral": "a4_chiral_extended",
+    "b4_basic": "b4",
+    "b4_chiral": "b4+",
+    "b4_extended": "hyperoctahedral",
+    "b4_chiral_extended": "b4+",
+    "d4_basic": "d4",
+    "d4_chiral": "d4+",
+    "f4_basic": "f4",
+    "f4_chiral": "f4+",
+    "h4_basic": "h4",
+    "h4_chiral": "h4+",
+    # H4 has no index-2 reflection subgroup; these historical names were
+    # always identical to the prismatic groups.
+    "h4_half": "h4_prismatic",
+    "h4_half_chiral": "h4_prismatic_chiral",
+    "pennic": "a4",
+    "kipennic": "a4+",
+    "decaic": "a4_extended",
+    "kidecaic": "a4_chiral_extended",
+    "iodecaic": "a4_rotoreflection",
+    "tessic": "b4",
+    "kitessic": "b4+",
+    "demitessic": "d4",
+    "kidemitessic": "d4+",
+    "tessipyritic": "b4_ionic",
+    "icoic": "f4",
+    "kiicoic": "f4+",
+    "contic": "f4_extended",
+    "kicontic": "f4_chiral_extended",
+    "iocontic": "f4_rotoreflection",
+    "toxitic": "f4_double_diminished",
+    "oxitic": "f4_extended_double_diminished",
+    "hyic": "h4",
+    "kihyic": "h4+",
+}
+
+PAGE_SYMMETRY_NAMES = (
+    "pennic",
+    "kipennic",
+    "decaic",
+    "kidecaic",
+    "iodecaic",
+    "tessic",
+    "kitessic",
+    "demitessic",
+    "kidemitessic",
+    "tessipyritic",
+    "icoic",
+    "kiicoic",
+    "contic",
+    "kicontic",
+    "iocontic",
+    "icopyritic",
+    "toxitic",
+    "oxitic",
+    "hyic",
+    "kihyic",
+    "ixitic",
+    "ixoic",
+)
+
+
+def canonical_symmetry_name(name: str) -> str:
+    """Resolve an alias to the symmetry name it stands for."""
+    normalized = name.strip().lower()
+    return SYMMETRY_ALIASES.get(normalized, normalized)
+
+
+def is_symmetry_alias(name: str) -> bool:
+    """Return True if `name` is an alternative spelling of another built-in symmetry."""
+    normalized = name.strip().lower()
+    if normalized in SYMMETRY_ALIASES:
+        return True
+    # duoprism_p_q_chiral is the same group as duoprism_p_q+.
+    return normalized.startswith("duoprism_") and normalized.endswith("_chiral")
+
+
 def named_symmetry(name: str) -> SymmetryAction:
     """Return built-in symmetry action by name."""
-    name = name.strip().lower()
-
-    aliases = {
-        "a4_basic": "a4",
-        "a4_chiral": "a4+",
-        "a4_extended": "a4_extended",
-        "a4_chiral_extended": "a4_chiral_extended",
-        "a4_extended_chiral": "a4_extended_chiral",
-        "b4_basic": "b4",
-        "b4_chiral": "b4+",
-        "b4_extended": "hyperoctahedral",
-        "b4_chiral_extended": "b4+",
-        "d4_basic": "d4",
-        "d4_chiral": "d4+",
-        "f4_basic": "f4",
-        "f4_chiral": "f4+",
-        "h4_basic": "h4",
-        "h4_chiral": "h4+",
-    }
-    name = aliases.get(name, name)
+    name = canonical_symmetry_name(name)
 
     if name == "identity":
         gens = [_identity()]
@@ -375,12 +689,12 @@ def named_symmetry(name: str) -> SymmetryAction:
         gens = _with_inversion(
             _coxeter_rotation_generators(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
         )
-    elif name == "a4_extended_chiral":
-        gens = _coxeter_reflections(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
+    elif name == "a4_rotoreflection":
+        gens = _a4_rotoreflection_generators()
     elif name == "d4_extended":
-        gens = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+        gens = _d4_triality_generators(chiral=False)
     elif name == "d4_extended_chiral":
-        gens = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
+        gens = _d4_triality_generators(chiral=True)
     elif name == "b4_ionic":
         gens = _b4_ionic_generators()
     elif name == "b4_prismatic_octahedral":
@@ -401,6 +715,8 @@ def named_symmetry(name: str) -> SymmetryAction:
     elif name == "f4_chiral_extended":
         edges = ((0, 1, 3), (1, 2, 4), (2, 3, 3))
         gens = [*_coxeter_rotation_generators(edges), _coxeter_diagram_automorphism(edges)]
+    elif name == "f4_rotoreflection":
+        gens = _f4_rotoreflection_generators()
     elif name == "f4_double_diminished":
         reflections = _coxeter_reflections(((0, 1, 3), (1, 2, 4), (2, 3, 3)))
         gens = [reflections[0] @ reflections[1], reflections[2] @ reflections[3]]
@@ -415,10 +731,23 @@ def named_symmetry(name: str) -> SymmetryAction:
         gens = _coxeter_rotation_generators(((0, 1, 5), (1, 2, 3), (2, 3, 2)))
     elif name == "h4_ionic":
         gens = _h4_ionic_generators()
-    elif name == "h4_half":
-        gens = _coxeter_reflections(((0, 1, 5), (1, 2, 3), (2, 3, 2)))
-    elif name == "h4_half_chiral":
-        gens = _coxeter_rotation_generators(((0, 1, 5), (1, 2, 3), (2, 3, 2)))
+    elif name == "icopyritic":
+        gens = _f4_icopyritic_generators()
+    elif name in ("ixitic", "ixoic"):
+        i = (0.0, 1.0, 0.0, 0.0)
+        omega = (-0.5, 0.5, 0.5, 0.5)
+        inverse_sqrt_two = 1.0 / np.sqrt(2.0)
+        octahedral = (omega, (inverse_sqrt_two, inverse_sqrt_two, 0.0, 0.0))
+        tetrahedral = (i, omega)
+        icosahedral = (
+            (-0.809016994374947, -0.309016994374947, 0.0, 0.5),
+            (0.809016994374947, -0.309016994374947, 0.0, -0.5),
+        )
+        factors = {
+            "ixitic": (icosahedral, tetrahedral),
+            "ixoic": (icosahedral, octahedral),
+        }
+        gens = _h4_polyhedral_product_generators(*factors[name])
     elif name.startswith("duoprism_"):
         suffix = ""
         for candidate in ("_chiral_extended", "_extended", "_chiral"):
@@ -463,6 +792,20 @@ def named_symmetry(name: str) -> SymmetryAction:
         gens = _h4_swirlprism_generators()
     elif name == "h4_swirlprism+":
         gens = _h4_swirlprism_chiral_generators()
+    elif name.startswith("h4_tubical_icosahedral_"):
+        parts = name.removeprefix("h4_tubical_icosahedral_").rsplit("_", 1)
+        if len(parts) != 2 or parts[0] not in ("cyclic", "dihedral") or not parts[1].isdigit():
+            raise ValueError(f"Invalid icosahedral tubical symmetry '{name}'")
+        family, order = parts[0], int(parts[1])
+        gens = _h4_icosahedral_tubical_generators(order, dihedral=family == "dihedral")
+    elif name.startswith("h4_tubical_tetrahedral_") or name.startswith(
+        "h4_tubical_octahedral_"
+    ):
+        parts = name.removeprefix("h4_tubical_").rsplit("_", 1)
+        if len(parts) != 2 or not parts[1].isdigit():
+            raise ValueError(f"Invalid tetrahedral/octahedral tubical symmetry '{name}'")
+        family, order = parts[0], int(parts[1])
+        gens = _h4_polyhedral_tubical_generators(family, order)
     elif name == "a4+":
         gens = _coxeter_rotation_generators(((0, 1, 3), (1, 2, 3), (2, 3, 3)))
     elif name == "b4+":
@@ -482,7 +825,8 @@ def named_symmetry(name: str) -> SymmetryAction:
     return SymmetryAction.from_iterable(gens)
 
 
-def available_symmetries() -> list[str]:
+def available_symmetries(*, include_aliases: bool = True) -> list[str]:
+    """Return every built-in symmetry name accepted by `named_symmetry`."""
     symmetries = [
         "identity",
         "coordinate_permutations",
@@ -500,13 +844,16 @@ def available_symmetries() -> list[str]:
         "f4+",
         "h4+",
         "h4_icosian",
-        "h4_icosian+",        "h4_pentagonal_swirl",
+        "h4_icosian+",
+        "h4_pentagonal_swirl",
         "h4_pentagonal_swirl_ring",
         "h4_swirlprism",
-        "h4_swirlprism+",        "a4_basic",
+        "h4_swirlprism+",
+        "a4_basic",
         "a4_chiral",
         "a4_extended",
         "a4_chiral_extended",
+        "a4_rotoreflection",
         "a4_extended_chiral",
         "b4",
         "b4_basic",
@@ -521,6 +868,7 @@ def available_symmetries() -> list[str]:
         "f4_chiral",
         "f4_extended",
         "f4_chiral_extended",
+        "f4_rotoreflection",
         "f4_double_diminished",
         "f4_extended_double_diminished",
         "h4_basic",
@@ -537,7 +885,12 @@ def available_symmetries() -> list[str]:
         "b4_prismatic_octahedral_chiral",
         "b4_prismatic_tetrahedral",
         "b4_prismatic_tetrahedral_chiral",
+        "icopyritic",
+        "ixitic",
+        "ixoic",
     ]
+    symmetries.extend(PAGE_SYMMETRY_NAMES)
+    symmetries = list(dict.fromkeys(symmetries))
     for p, q in _duoprism_orders():
         symmetries.extend((f"duoprism_{p}_{q}", f"duoprism_{p}_{q}+"))
         if p == q:
@@ -548,4 +901,6 @@ def available_symmetries() -> list[str]:
                     f"duoprism_{p}_{q}_chiral_extended",
                 )
             )
+    if not include_aliases:
+        symmetries = [name for name in symmetries if not is_symmetry_alias(name)]
     return symmetries

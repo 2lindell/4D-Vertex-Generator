@@ -1,0 +1,27 @@
+{
+ "_about": "A tessic subgroup's domain (the B4 chamber) mapped over curved walls (snub_map<tag>.json); as\ndecaic_atlas/snub_map.py and contic_atlas/snub_map.py, over Q(sqrt2), with no fold.",
+ "N": 32,
+ "types": [
+  {
+   "type": 0,
+   "signature": "192: cells 8x[24v38f]+16x[12v20f]+24x[8v10f]+32x[6v8f]+192x[4v4f] | faces 48x4g+64x3g+64x3g+192x3g+192x3g+192x3g+192x3g | edges 96x4+96x4+96x4+192x3+192x3+192x3",
+   "vertices": 192,
+   "example": [
+    0.031367889496278493,
+    0.031573827656173795,
+    0.031620207496473034,
+    0.9054380753510746
+   ],
+   "grid_regions": [
+    4495
+   ],
+   "grid_points": 4495,
+   "fold_points": 0,
+   "wall_of": []
+  }
+ ],
+ "walls": [],
+ "wall_points": [],
+ "surfaces": [],
+ "seconds": 86.9
+}

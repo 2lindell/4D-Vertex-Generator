@@ -1,0 +1,238 @@
+{
+ "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
+ "shapes": [
+  {
+   "name": "sosbid",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.05007215127694641,
+    0.02526653484047576,
+    0.899268199353071,
+    0.02539311452950672
+   ],
+   "centre": [
+    0.17154189583787308,
+    0.06298355400373325,
+    0.6967843673179698,
+    0.06869018284042384
+   ],
+   "depth": 0.07272714371714892,
+   "start_depth": 0.0174507142372666,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "off": "central_off/iodecaic/sosbid_120v_380c_central.off",
+   "vertices": 120,
+   "cells": 380,
+   "seed_vector": [
+    0.8778476358789566,
+    0.5557180923256125,
+    0.4374445743404474,
+    -0.8710103025450169,
+    -1.0
+   ]
+  },
+  {
+   "name": "new_region_01_120v_500c",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.05007215127694641,
+    0.20005944477316315,
+    0.7244752894203838,
+    0.02539311452950672
+   ],
+   "centre": [
+    0.07503348898174456,
+    0.19963575255869873,
+    0.7115793482178369,
+    0.013751410241719903
+   ],
+   "depth": 0.015878760809586962,
+   "start_depth": 5.944231550973224e-05,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "off": "central_off/iodecaic/new_region_01_120v_500c_120v_500c_central.off",
+   "vertices": 120,
+   "cells": 500,
+   "seed_vector": [
+    0.8768425810170986,
+    0.736016533893883,
+    0.3613316527983241,
+    -0.9741907677093056,
+    -1.0
+   ]
+  },
+  {
+   "name": "gosbid",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.05007215127694641,
+    0.44976360181985936,
+    0.4747711323736875,
+    0.02539311452950672
+   ],
+   "centre": [
+    0.3788472437840397,
+    0.0998046458760636,
+    0.4215434644638337,
+    0.09980464587606304
+   ],
+   "depth": 0.11524447832584019,
+   "start_depth": 0.008011954383179481,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "off": "central_off/iodecaic/gosbid_120v_360c_central.off",
+   "vertices": 120,
+   "cells": 360,
+   "seed_vector": [
+    1.0,
+    0.31310874810114914,
+    0.13215207156212097,
+    -0.6321520715621215,
+    -0.8131087481011486
+   ]
+  },
+  {
+   "name": "new_wall_01_120v_260c",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 + 3*b2*b3*b4**2"
+   ],
+   "start": [
+    0.0574008745921,
+    0.1501186133904,
+    0.7670873975708,
+    0.0253931144467
+   ],
+   "centre": [
+    0.07692995015151895,
+    0.1710209344189958,
+    0.7250702399614031,
+    0.02697887546808221
+   ],
+   "depth": 0.05861180521942283,
+   "start_depth": 0.0446529742189417,
+   "status": "deepest point of the shape",
+   "boundaries": 28,
+   "off": "central_off/iodecaic/new_wall_01_120v_260c_120v_260c_central.off",
+   "vertices": 120,
+   "cells": 260,
+   "seed_vector": [
+    0.8504139837278079,
+    0.7080617281999539,
+    0.39160219964084786,
+    -0.9500779115686095,
+    -1.0
+   ]
+  },
+  {
+   "name": "tetosbid",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "3*b1 + b2 - b3 - 3*b4"
+   ],
+   "start": [
+    0.0627851720179,
+    0.3998227704313,
+    0.5119989430838,
+    0.025393114467
+   ],
+   "centre": [
+    0.2289844761999865,
+    0.17661228600867304,
+    0.45982199938269447,
+    0.13458123840864603
+   ],
+   "depth": 0.2110920569975142,
+   "start_depth": 0.0363002856185771,
+   "status": "deepest point of the shape",
+   "boundaries": 51,
+   "off": "central_off/iodecaic/tetosbid_120v_180c_central.off",
+   "vertices": 120,
+   "cells": 180,
+   "seed_vector": [
+    1.0,
+    0.542031047600027,
+    0.18880647558268096,
+    -0.730837523182708,
+    -1.0
+   ]
+  },
+  {
+   "name": "petosbid",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "b1 + 2*b2 - 2*b3 - b4"
+   ],
+   "start": [
+    0.19989464491260003,
+    0.34373073753510003,
+    0.43098150243050004,
+    0.025393115121800005
+   ],
+   "centre": [
+    0.4344297831972888,
+    0.1319003391063666,
+    0.26456058371367724,
+    0.16910929398266739
+   ],
+   "depth": 0.20975426395708568,
+   "start_depth": 0.0314962829452568,
+   "status": "deepest point of the shape",
+   "boundaries": 23,
+   "off": "central_off/iodecaic/petosbid_120v_170c_central.off",
+   "vertices": 120,
+   "cells": 170,
+   "seed_vector": [
+    1.0,
+    0.23290362619215255,
+    -3.920762752682529e-17,
+    -0.4671490589932368,
+    -0.7657545671989159
+   ]
+  },
+  {
+   "name": "gippid",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "b1 - b4",
+    "b2 - b3"
+   ],
+   "start": [
+    0.04166666666666667,
+    0.45833333333333337,
+    0.45833333333333337,
+    0.04166666666666667
+   ],
+   "centre": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "depth": 0.5,
+   "start_depth": 0.08333333333333334,
+   "status": "deepest point of the shape",
+   "boundaries": 4,
+   "off": "central_off/iodecaic/gippid_120v_30c_central.off",
+   "vertices": 120,
+   "cells": 30,
+   "seed_vector": [
+    1.0,
+    0.5,
+    0.0,
+    -0.5,
+    -1.0
+   ]
+  }
+ ]
+}

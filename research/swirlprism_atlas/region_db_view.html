@@ -1,0 +1,119 @@
+<title>Region Boundary Database</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: header, then the region graph beside a details panel, then the wall-by-wall table */
+:root { --bg: #f6f6f3; --panel: #fff; --fg: #1f2326; --muted: #5d6468; --line: #c9ccc9; --f2: #c0603f; --f2soft: #fbd9cb; --side: #2f6f9a;
+  --font-text: "Spline Sans", system-ui, sans-serif; --font-data: "Spline Sans Mono", ui-monospace, monospace; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #15181a; --panel: #1d2124; --fg: #e6e8e6; --muted: #9aa2a6; --line: #3a4044; --f2: #fba587; --f2soft: #4a2a1f; --side: #79b6e0; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #15181a; --panel: #1d2124; --fg: #e6e8e6; --muted: #9aa2a6; --line: #3a4044; --f2: #fba587; --f2soft: #4a2a1f; --side: #79b6e0; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-text); }
+.wrap { padding-inline: 16px; padding-block: 20px 40px; max-width: 1300px; margin: 0 auto; display: grid; gap: 18px; }
+h1 { font-size: 1.4rem; font-weight: 600; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); margin: 4px 0 0; max-width: 78ch; line-height: 1.45; }
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; }
+@media (max-width: 900px) { .main { grid-template-columns: 1fr; } }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.graph { overflow-x: auto; }
+svg { display: block; width: 100%; min-width: 640px; height: auto; font-family: var(--font-data); }
+.edge { stroke: var(--line); stroke-width: 1.5; fill: none; }
+.edge.hi { stroke: var(--fg); stroke-width: 2.4; }
+.elab { font-size: 10px; fill: var(--muted); paint-order: stroke; stroke: var(--panel); stroke-width: 3px; }
+.elab.hi { fill: var(--fg); font-weight: 600; }
+.node { cursor: pointer; }
+.node:focus-visible circle { stroke-width: 3; }
+.dimmed { opacity: .25; }
+.detail { padding: 14px; font-size: 13px; line-height: 1.45; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); min-width: 0; }
+.detail h2 { margin: 0 0 2px; font-size: 1.1rem; font-family: var(--font-data); }
+.detail .kind { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-text); font-weight: 600; color: var(--muted); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+td { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.tablebox { overflow-x: auto; padding: 4px 8px 8px; }
+.note { color: var(--muted); font-size: 12px; }
+</style>
+<div class="wrap">
+  <header>
+    <h1>Region boundary database: first slice</h1>
+    <p class="sub">F2's seven walls, each split into faces wherever any other wall meets it, with the shape on each side of every face. Regions are the nodes; a link is a wall face between two of them, labelled with the wall and the area of the face (cell units). "Cell face" and "mirror" mark a wall lying on the edge of the drawn half-cell. Click a region or a wall.</p>
+  </header>
+  <div class="main">
+    <div class="box graph"><svg id="g" viewBox="0 0 900 700" role="img" aria-label="Regions bordering F2's seven walls, linked by the wall faces between them"></svg></div>
+    <aside class="box detail" id="detail" aria-live="polite"></aside>
+  </div>
+  <section class="box tablebox" aria-label="Walls and their faces">
+    <table id="tbl"><thead><tr><th>Wall</th><th>Shape</th><th>Faces: the shapes on their two sides (area)</th><th>Set aside</th></tr></thead><tbody></tbody></table>
+    <p class="note">Set aside: slivers at junctions, and strips of curved walls next to a face of the cell where the side test steps out of the cell; not yet resolved.</p>
+  </section>
+</div>
+<script id="db" type="application/json">{"nodes": [{"id": "F2", "name": "Polychoron with 120+120+240+600+600+1200+1200 cells", "dim": "region"}, {"id": "F3", "name": "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+1200×9 faces)", "dim": "region"}, {"id": "X12", "name": "Not in the wiki list", "dim": "region"}, {"id": "X16", "name": "Not in the wiki list", "dim": "region"}, {"id": "X30", "name": "Not in the wiki list", "dim": "region"}, {"id": "X32", "name": "Not in the wiki list", "dim": "region"}, {"id": "X36", "name": "Not in the wiki list", "dim": "region"}, {"id": "X37", "name": "Not in the wiki list", "dim": "region"}, {"id": "X45", "name": "Not in the wiki list", "dim": "region"}, {"id": "X46", "name": "Piece of the omnitruncated 120-cell", "dim": "region"}, {"id": "X49", "name": "Piece of the cantitruncated 600-cell, omnitruncated 120-cell", "dim": "region"}, {"id": "X59", "name": "Not in the wiki list", "dim": "region"}, {"id": "X60", "name": "Not in the wiki list", "dim": "region"}, {"id": "X66", "name": "Not in the wiki list", "dim": "region"}, {"id": "X67", "name": "Not in the wiki list", "dim": "region"}, {"id": "X95", "name": "Not in the wiki list", "dim": "region"}, {"id": "mirror", "name": "past the splitting mirror", "dim": "side"}, {"id": "outside", "name": "past a face of the cell", "dim": "side"}], "edges": [{"wall": "X9", "a": "F2", "b": "X16", "area": 0.015388}, {"wall": "X9", "a": "F2", "b": "outside", "area": 0.015548}, {"wall": "X9", "a": "X16", "b": "outside", "area": 0.01555}, {"wall": "X14", "a": "F2", "b": "X46", "area": 0.021901}, {"wall": "X14", "a": "F2", "b": "X45", "area": 0.005193}, {"wall": "X14", "a": "F2", "b": "X32", "area": 0.00223}, {"wall": "X10", "a": "F2", "b": "X12", "area": 0.001147}, {"wall": "X10", "a": "F2", "b": "X66", "area": 0.00359}, {"wall": "X10", "a": "F2", "b": "X95", "area": 0.018164}, {"wall": "X10", "a": "F2", "b": "X59", "area": 0.000943}, {"wall": "X21", "a": "F2", "b": "X67", "area": 0.004291}, {"wall": "X21", "a": "F2", "b": "X60", "area": 0.007062}, {"wall": "T2", "a": "F2", "b": "X49", "area": 0.028653}, {"wall": "T2", "a": "F2", "b": "F3", "area": 0.017708}, {"wall": "T2", "a": "F3", "b": "X36", "area": 0.010327}, {"wall": "X3", "a": "F2", "b": "X12", "area": 0.006375}, {"wall": "X3", "a": "X30", "b": "X95", "area": 0.009143}, {"wall": "X11", "a": "F2", "b": "X36", "area": 0.009219}, {"wall": "X11", "a": "X37", "b": "mirror", "area": 0.009162}, {"wall": "X11", "a": "F2", "b": "mirror", "area": 0.009164}], "walls": {"X9": {"name": "Piece of the cantitruncated 600-cell", "total": 0.04649, "minor": 4e-06}, "X14": {"name": "Not in the wiki list", "total": 0.03639, "minor": 0.007066}, "X10": {"name": "Piece of the cantitruncated 600-cell", "total": 0.029408, "minor": 0.005564}, "X21": {"name": "Piece of the cantitruncated 120-cell", "total": 0.01136, "minor": 7e-06}, "T2": {"name": "Transitional polychoron with 120+120+600+600+1200 cells", "total": 0.057228, "minor": 0.00054}, "X3": {"name": "Piece of the cantitruncated 120-cell", "total": 0.015534, "minor": 1.6e-05}, "X11": {"name": "Not in the wiki list", "total": 0.027555, "minor": 1e-05}}}</script>
+<script>
+const DB = JSON.parse(document.getElementById("db").textContent);
+const nice = (r) => (r === "outside" ? "cell face" : r);
+DB.edges.forEach((e) => { e.A = nice(e.a); e.B = nice(e.b); });
+const svg = document.getElementById("g"), NS = "http://www.w3.org/2000/svg";
+const el = (t, a, p = svg) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+const N = Object.fromEntries(DB.nodes.map((n) => [n.id, n]));
+const pos = {}, W = 900, H = 700, cx = 450, cy = 330;
+pos.F2 = [cx, cy];
+const sides = DB.nodes.filter((n) => n.dim === "side"), ring = DB.nodes.filter((n) => n.id !== "F2" && n.dim !== "side");
+// ring order: group neighbours by the wall they share with F2, so each wall's regions sit together
+const wallOf = (r) => (DB.edges.find((e) => (e.a === "F2" && e.b === r) || (e.b === "F2" && e.a === r)) || DB.edges.find((e) => e.a === r || e.b === r)).wall;
+ring.sort((p, q) => wallOf(p.id).localeCompare(wallOf(q.id)) || p.id.localeCompare(q.id));
+ring.forEach((n, i) => { const t = -Math.PI / 2 + (2 * Math.PI * i) / ring.length; pos[n.id] = [cx + 270 * Math.cos(t), cy + 250 * Math.sin(t)]; });
+sides.forEach((n, i) => { pos[n.id] = [cx - 120 + 240 * i, H - 30]; });
+const gE = el("g", {}), gN = el("g", {});
+const amax = Math.max(...DB.edges.map((e) => e.area));
+const edgeEls = DB.edges.map((e, k) => {
+  const [x1, y1] = pos[e.a], [x2, y2] = pos[e.b];
+  // (two faces between the same pair bend apart)
+  const twins = DB.edges.filter((f) => (f.a === e.a && f.b === e.b) || (f.a === e.b && f.b === e.a));
+  const off = (twins.indexOf(e) - (twins.length - 1) / 2) * 34;
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  const qx = mx - (dy / L) * off, qy = my + (dx / L) * off;
+  const path = el("path", { d: `M${x1},${y1} Q${qx},${qy} ${x2},${y2}`, class: "edge", "stroke-width": 1 + 4 * Math.sqrt(e.area / amax) }, gE);
+  const lab = el("text", { x: (x1 + 2 * qx + x2) / 4, y: (y1 + 2 * qy + y2) / 4 - 3, "text-anchor": "middle", class: "elab" }, gE);
+  lab.textContent = `${e.wall} ${e.area.toFixed(4)}`;
+  return { e, path, lab };
+});
+const nodeEls = {};
+for (const n of DB.nodes) {
+  const [x, y] = pos[n.id], g = el("g", { class: "node", tabindex: 0, role: "button", "aria-label": n.id, transform: `translate(${x},${y})` }, gN);
+  const f2 = n.id === "F2", side = n.dim === "side";
+  el("circle", { r: f2 ? 30 : 22, fill: f2 ? "var(--f2soft)" : "var(--panel)", stroke: f2 ? "var(--f2)" : side ? "var(--side)" : "currentColor", "stroke-width": f2 ? 2 : 1.4 }, g);
+  const t = el("text", { "text-anchor": "middle", dy: "0.35em", "font-size": f2 ? 14 : 11.5, fill: "var(--fg)", "font-weight": f2 ? 600 : 500 }, g);
+  t.textContent = side ? (n.id === "outside" ? "cell face" : "mirror") : n.id;
+  g.addEventListener("click", () => pickRegion(n.id));
+  g.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); pickRegion(n.id); } });
+  nodeEls[n.id] = g;
+}
+edgeEls.forEach(({ e, path, lab }) => { for (const t of [path, lab]) { t.style.cursor = "pointer"; t.addEventListener("click", () => pickWall(e.wall)); } });
+const detail = document.getElementById("detail");
+const highlight = (keepEdge) => {
+  const on = new Set();
+  edgeEls.forEach(({ e, path, lab }) => { const k = keepEdge(e); path.classList.toggle("hi", k); lab.classList.toggle("hi", k); path.classList.toggle("dimmed", !k); lab.classList.toggle("dimmed", !k); if (k) { on.add(e.a); on.add(e.b); } });
+  for (const [id, g] of Object.entries(nodeEls)) g.classList.toggle("dimmed", !on.has(id));
+};
+function pickRegion(id) {
+  const es = DB.edges.filter((e) => e.a === id || e.b === id);
+  highlight((e) => e.a === id || e.b === id);
+  const n = N[id], rows = es.sort((p, q) => q.area - p.area).map((e) => `<tr><td>${e.wall}</td><td>${e.a === id ? e.B : e.A}</td><td>${e.area.toFixed(4)}</td></tr>`).join("");
+  detail.innerHTML = `<h2>${n.dim === "side" ? (id === "outside" ? "cell face" : "mirror") : id}</h2><div class="kind">${n.name}</div>
+    <table><thead><tr><th>Wall</th><th>Across</th><th>Area</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="note">Only the walls in this slice are listed${id === "F2" ? "" : "; this region's other walls are not in the database yet"}.</p>`;
+}
+function pickWall(w) {
+  highlight((e) => e.wall === w);
+  const wv = DB.walls[w], rows = DB.edges.filter((e) => e.wall === w).sort((p, q) => q.area - p.area)
+    .map((e) => `<tr><td>${e.A} | ${e.B}</td><td>${e.area.toFixed(4)}</td></tr>`).join("");
+  detail.innerHTML = `<h2>${w}</h2><div class="kind">${wv.name}</div><table><thead><tr><th>Sides</th><th>Area</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="note">Total drawn area ${wv.total.toFixed(4)}; set aside ${wv.minor.toFixed(4)}.</p>`;
+}
+svg.addEventListener("click", (ev) => { if (ev.target === svg) { highlight(() => true); pickRegion("F2"); } });
+pickRegion("F2"); highlight(() => true);
+const tb = document.querySelector("#tbl tbody");
+for (const [w, wv] of Object.entries(DB.walls)) {
+  const fs = DB.edges.filter((e) => e.wall === w).sort((p, q) => q.area - p.area).map((e) => `${e.A} | ${e.B} (${e.area.toFixed(4)})`).join("<br>");
+  const tr = document.createElement("tr"); tr.innerHTML = `<td>${w}</td><td style="font-family:var(--font-text)">${wv.name}</td><td>${fs}</td><td>${wv.minor.toFixed(4)}</td>`; tb.appendChild(tr);
+}
+</script>

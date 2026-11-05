@@ -1,0 +1,14 @@
+{
+ "120: cells 600 | faces 600+600 | edges 120+600 | val 5:720": "Hexacosichoron (600-cell)",
+ "600: cells 120 | faces 120+600 | edges 600+600 | val 3:1200": "Hecatonicosachoron (120-cell)",
+ "600: cells 120+120 | faces 240+600+600 | edges 600+1200 | val 3:1800": "Partially-rectified small swirlprism",
+ "600: cells 120+120+600 | faces 240+600+600+1200 | edges 600+600+1200 | val 3:600,4:1800": "Swirlprismatodiminished rectified hexacosichoron",
+ "600: cells 120+120+1200 | faces 240+600+600+1200+1200 | edges 600+600+600+1200 | val 3:1200,4:600,5:1200": "Cross ring: antiprisms split 120+120 (not in the wiki list)",
+ "600: cells 120+600+600 | faces 120+1200+1200+1200 | edges 600+600+600+1200 | val 3:1200,4:1200,5:600": "Bigyroprismatic transitional didecafold icosidodecaswirlchoron",
+ "600: cells 120+600+600+600+1200 | faces 120+600+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+1200 | val 3:1200,4:1200,5:600,7:600,8:600": "Cross ring: 120+600+600+600+1200 cells (1200 3-valent edges)",
+ "600: cells 120+240 | faces 120+240+600+1200 | edges 600+600+1200 | val 3:2400": "Cross ring: Pentagonal-gyroprismatic triacosihexecontachoron",
+ "600: cells 120+120+1200 | faces 240+600+600+1200+1200 | edges 600+600+600+1200 | val 3:600,4:1800,5:600": "Cross ring: 120+120+1200 cells (600+1200 4-valent edges)",
+ "600: cells 120+600+600+600+1200 | faces 120+600+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+1200 | val 3:600,4:2400,7:600,8:600": "Cross ring: 120+600+600+600+1200 cells (600 3-valent edges)",
+ "600: cells 240+600+600 | faces 120+120+1200+1200+1200 | edges 600+600+600+1200 | val 3:1200,4:600,5:1200": "Cross ring: tetrahedra split 600+600 (not in the wiki list)",
+ "240: cells 600+600+600 | faces 1200+1200+1200 | edges 120+120+600+1200 | val 3:1200,8:600,10:240": "Icosafold icosaswirlchoron (main ring, 240)"
+}

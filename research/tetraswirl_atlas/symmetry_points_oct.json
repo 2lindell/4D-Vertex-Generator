@@ -1,0 +1,158 @@
+{
+ "_about": "Points where the octahedral swirl domain's extra-symmetry lines meet, and the symmetry there (symmetry_points_oct.json).",
+ "points": [
+  {
+   "beta": [
+    0.3660254037844386,
+    0.21132486540518713,
+    0.2113248654051871,
+    0.21132486540518708
+   ],
+   "exact": "((\u221a3\u22121)/2, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6)",
+   "on": [
+    "half-turn axis and half-turn axis",
+    "swirl ring V\u2013F and half-turn axis",
+    "half-turn axis"
+   ],
+   "kind": "meet",
+   "vertices": 16,
+   "symmetry": 96,
+   "lines_through": 3
+  },
+  {
+   "beta": [
+    0.3660254037844387,
+    0.5000000000000001,
+    0.13397459621556132,
+    0.0
+   ],
+   "exact": "((\u221a3\u22121)/2, 1/2, (2\u2212\u221a3)/2, 0)",
+   "on": [
+    "half-turn axis and 6/3 gyrogon girdle",
+    "half-turn axis"
+   ],
+   "kind": "meet",
+   "vertices": 48,
+   "symmetry": 288,
+   "lines_through": 2
+  },
+  {
+   "beta": [
+    0.3660254037844387,
+    0.2679491924311227,
+    0.36602540378443865,
+    0.0
+   ],
+   "exact": "((\u221a3\u22121)/2, 2\u2212\u221a3, (\u221a3\u22121)/2, 0)",
+   "on": [
+    "half-turn axis and half-turn axis",
+    "cross ring W\u2081\u2013M\u2080\u2082 and half-turn axis",
+    "half-turn axis"
+   ],
+   "kind": "meet",
+   "vertices": 24,
+   "symmetry": 96,
+   "lines_through": 3
+  },
+  {
+   "beta": [
+    0.1339745962155612,
+    0.5000000000000002,
+    0.36602540378443865,
+    0.0
+   ],
+   "exact": "((2\u2212\u221a3)/2, 1/2, (\u221a3\u22121)/2, 0)",
+   "on": [
+    "half-turn axis and 6/3 gyrogon girdle",
+    "half-turn axis"
+   ],
+   "kind": "meet",
+   "vertices": 48,
+   "symmetry": 288,
+   "lines_through": 2
+  },
+  {
+   "beta": [
+    0.0,
+    0.577350269189626,
+    0.21132486540518702,
+    0.21132486540518702
+   ],
+   "exact": "(0, 1/\u221a3, (3\u2212\u221a3)/6, (3\u2212\u221a3)/6)",
+   "on": [
+    "cross ring F\u2013W\u2081 and half-turn axis",
+    "half-turn axis"
+   ],
+   "kind": "meet",
+   "vertices": 24,
+   "symmetry": 96,
+   "lines_through": 2
+  },
+  {
+   "beta": [
+    0.0,
+    0.21132486540518708,
+    0.5773502691896258,
+    0.21132486540518708
+   ],
+   "exact": "(0, (3\u2212\u221a3)/6, 1/\u221a3, (3\u2212\u221a3)/6)",
+   "on": [
+    "cross ring F\u2013W\u2082 and half-turn axis",
+    "half-turn axis"
+   ],
+   "kind": "meet",
+   "vertices": 24,
+   "symmetry": 96,
+   "lines_through": 2
+  },
+  {
+   "beta": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "exact": "(0, 1/2, 1/2, 0)",
+   "on": [
+    "cross ring F\u2013M\u2081\u2082 and 6/3 gyrogon girdle",
+    "6/3 gyrogon girdle"
+   ],
+   "kind": "meet",
+   "vertices": 24,
+   "symmetry": 144,
+   "lines_through": 2
+  },
+  {
+   "beta": [
+    0.2500000000000001,
+    0.4999999999999998,
+    0.2500000000000001,
+    0.0
+   ],
+   "exact": "(1/4, 1/2, 1/4, 0)",
+   "on": [
+    "cross ring W\u2081\u2013M\u2080\u2082 and 6/3 gyrogon girdle"
+   ],
+   "kind": "meet",
+   "vertices": 24,
+   "symmetry": 144,
+   "lines_through": 1
+  },
+  {
+   "beta": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "exact": "(1/2, 1/2, 0, 0)",
+   "on": [
+    "6/3 gyrogon girdle"
+   ],
+   "kind": "end",
+   "vertices": 24,
+   "symmetry": 144,
+   "lines_through": 1
+  }
+ ]
+}

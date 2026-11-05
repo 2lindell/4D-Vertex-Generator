@@ -1,0 +1,572 @@
+{
+ "_about": "The most even seed of every tessic-family shape (optimized_seeds<tag>.json, optimized .off files).",
+ "shapes": [
+  {
+   "name": "tico",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "start_R": 2.414213562373095,
+   "numeric": {
+    "best": [
+     0.33333333333333326,
+     0.3333333333333334,
+     0.3333333333333335,
+     -8.176878108145275e-17
+    ],
+    "R": 1.0000000000000007,
+    "slsqp": "Inequality constraints incompatible",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3333333333333333333333333333333333333333",
+    "0.3333333333333333333333333333333333333333",
+    "0.3333333333333333333333333333333333333333",
+    "-2.19658173278881300001013232882924629414e-55"
+   ],
+   "equations": [
+    "4.0*b2**2 - 4.0*b3**2",
+    "11.3137084989848*b3*b4 + 8.0*b4**2",
+    "4.0*b1**2 - 4.0*b3**2"
+   ],
+   "best": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    -2.196581732788813e-55
+   ],
+   "R": 1.0,
+   "orbits": 4,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    -2.196581732788813e-55
+   ],
+   "off_R": 1.0,
+   "seconds": 1.1,
+   "piece": 0,
+   "off": "optimized_off/demitessic/tico_192v_48c_opt.off",
+   "vertices": 192,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.6666666666666667,
+    0.33333333333333337,
+    -1.5532178386854669e-55
+   ]
+  },
+  {
+   "name": "rico",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "start_R": 2.414213562373095,
+   "numeric": {
+    "best": [
+     0.5,
+     0.0,
+     0.4999999999999999,
+     1.1793654089652174e-16
+    ],
+    "R": 1.0000000000000004,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.5",
+    "-1.317774731335742341176512234465634745239e-81",
+    "0.5",
+    "-4.312480498206836081680276971058519802194e-56"
+   ],
+   "equations": [
+    "5.65685424949238*b2*b4 + 11.3137084989848*b3*b4 + 8.0*b4**2",
+    "-4.0*b2**2 - 4.0*b2*b3 + 11.3137084989848*b3*b4 + 8.0*b4**2",
+    "4.0*b1**2 - 4.0*b2**2 - 4.0*b2*b3 - 4.0*b3**2"
+   ],
+   "best": [
+    0.5,
+    -1.3177747313357424e-81,
+    0.5,
+    -4.312480498206836e-56
+   ],
+   "R": 1.0,
+   "orbits": 6,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    0.5,
+    -1.3177747313357424e-81,
+    0.5,
+    -4.312480498206836e-56
+   ],
+   "off_R": 1.0,
+   "seconds": 0.9,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "R": 1.0,
+     "best": [
+      0.5,
+      -1.3177747313357424e-81,
+      0.5,
+      -4.312480498206836e-56
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b2"
+     ],
+     "R": 1.0,
+     "best": [
+      0.5,
+      -1.3177747313357424e-81,
+      0.5,
+      -4.312480498206836e-56
+     ],
+     "status": "minimum inside the shape"
+    }
+   ],
+   "off": "optimized_off/demitessic/rico_96v_48c_opt.off",
+   "vertices": 96,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.5,
+    0.5,
+    -3.0493842040167945e-56
+   ]
+  },
+  {
+   "name": "tah",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "start_R": 2.414213562373095,
+   "numeric": {
+    "best": [
+     0.0,
+     0.5000000000000001,
+     0.4999999999999999,
+     -5.4322438052548555e-17
+    ],
+    "R": 1.0000000000000004,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "-4.154310888769912479129428689231324939847e-66",
+    "0.5",
+    "0.5",
+    "1.074358414043877079576150060987482368591e-55"
+   ],
+   "equations": [
+    "-11.3137084989848*b3*b4 - 8.0*b4**2",
+    "4.0*b2**2 - 4.0*b3**2 - 11.3137084989848*b3*b4 - 8.0*b4**2",
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b2**2 - 4.0*b3**2 - 11.3137084989848*b3*b4 - 8.0*b4**2"
+   ],
+   "best": [
+    -4.1543108887699125e-66,
+    0.5,
+    0.5,
+    1.074358414043877e-55
+   ],
+   "R": 1.0,
+   "orbits": 4,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    -4.1543108887699125e-66,
+    0.5,
+    0.5,
+    1.074358414043877e-55
+   ],
+   "off_R": 1.0,
+   "seconds": 0.7,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "R": 1.0,
+     "best": [
+      -4.1543108887699125e-66,
+      0.5,
+      0.5,
+      1.074358414043877e-55
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b1"
+     ],
+     "R": 1.0,
+     "best": [
+      -4.1543108887699125e-66,
+      0.5,
+      0.5,
+      1.074358414043877e-55
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 2,
+     "locus": [
+      "b3"
+     ],
+     "R": 1.0,
+     "best": [
+      0.3693980625181293,
+      0.3693980625181293,
+      0.0,
+      0.2612038749637415
+     ],
+     "status": "minimum inside the shape"
+    }
+   ],
+   "off": "optimized_off/demitessic/tah_96v_24c_opt.off",
+   "vertices": 96,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.5,
+    7.5968611999525e-56
+   ]
+  },
+  {
+   "name": "rit",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "start_R": 2.414213562373095,
+   "numeric": {
+    "best": [
+     0.0,
+     0.0,
+     0.9999999999999999,
+     6.211912694921672e-17
+    ],
+    "R": 1.0,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.0",
+    "0.0",
+    "1.0",
+    "-1.379086964283970290106779123866553946185e-56"
+   ],
+   "equations": [
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b1*b3 - 5.65685424949238*b1*b4 - 5.65685424949238*b2*b4 - 11.3137084989848*b3*b4 - 8.0*b4**2",
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b1*b3 - 5.65685424949238*b1*b4 - 4.0*b2**2 - 4.0*b2*b3 - 5.65685424949238*b2*b4",
+    "-4.0*b1**2 - 4.0*b1*b2 - 4.0*b1*b3 - 5.65685424949238*b1*b4"
+   ],
+   "best": [
+    0.0,
+    0.0,
+    1.0,
+    -1.3790869642839704e-56
+   ],
+   "R": 1.0,
+   "orbits": 6,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    0.0,
+    0.0,
+    1.0,
+    -1.3790869642839704e-56
+   ],
+   "off_R": 1.0,
+   "seconds": 0.7,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "R": 1.0,
+     "best": [
+      0.0,
+      0.0,
+      1.0,
+      -1.3790869642839704e-56
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b1",
+      "b2"
+     ],
+     "R": 1.0,
+     "best": [
+      0.0,
+      0.0,
+      1.0,
+      -1.3790869642839704e-56
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 2,
+     "locus": [
+      "b2",
+      "b3"
+     ],
+     "R": 1.0,
+     "best": [
+      0.585786437626905,
+      0.0,
+      0.0,
+      0.4142135623730951
+     ],
+     "status": "minimum inside the shape"
+    }
+   ],
+   "off": "optimized_off/demitessic/rit_32v_24c_opt.off",
+   "vertices": 32,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    -9.751617442911654e-57
+   ]
+  },
+  {
+   "name": "thex",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "start_R": 1.414213562373095,
+   "numeric": {
+    "best": [
+     0.0,
+     0.5857864376269049,
+     0.0,
+     0.4142135623730951
+    ],
+    "R": 1.0,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "5.93472984109987487605814466221390771617e-67",
+    "0.5857864376269049242597835207204030070775",
+    "2.532804389062938948938487387422664208214e-67",
+    "0.4142135623730950757402164792795969929225"
+   ],
+   "equations": [
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b2**2 - 4.0*b3**2 - 11.3137084989848*b3*b4 - 8.0*b4**2",
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b2**2 + 4.0*b2*b3 - 11.3137084989848*b3*b4 - 8.0*b4**2",
+    "4.0*b2**2 - 4.0*b3**2 - 11.3137084989848*b3*b4 - 8.0*b4**2"
+   ],
+   "best": [
+    5.934729841099874e-67,
+    0.585786437626905,
+    2.5328043890629388e-67,
+    0.4142135623730951
+   ],
+   "R": 1.0,
+   "orbits": 5,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    5.934729841099874e-67,
+    0.585786437626905,
+    2.5328043890629388e-67,
+    0.4142135623730951
+   ],
+   "off_R": 1.0,
+   "seconds": 0.5,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "R": 1.0,
+     "best": [
+      5.934729841099874e-67,
+      0.585786437626905,
+      2.5328043890629388e-67,
+      0.4142135623730951
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b1",
+      "b3"
+     ],
+     "R": 1.0,
+     "best": [
+      5.934729841099874e-67,
+      0.585786437626905,
+      2.5328043890629388e-67,
+      0.4142135623730951
+     ],
+     "status": "minimum inside the shape"
+    },
+    {
+     "piece": 2,
+     "locus": [
+      "b3",
+      "b4"
+     ],
+     "R": 1.0,
+     "best": [
+      0.5,
+      0.5,
+      0.0,
+      0.0
+     ],
+     "status": "no progress: the optimiser found no feasible step from the seed (seed kept)"
+    }
+   ],
+   "off": "optimized_off/demitessic/thex_48v_24c_opt.off",
+   "vertices": 48,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.33333333333333337,
+    0.33333333333333337
+   ]
+  },
+  {
+   "name": "hex",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "start_R": 1.0,
+   "status": "point (no freedom)",
+   "best": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "R": 1.0,
+   "off_seed": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "piece": 0,
+   "off": "optimized_off/demitessic/hex_8v_16c_opt.off",
+   "vertices": 8,
+   "cells": 16,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "ico",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "start_R": 1.0,
+   "status": "point (no freedom)",
+   "best": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "off_seed": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "piece": 0,
+   "off": "optimized_off/demitessic/ico_24v_24c_opt.off",
+   "vertices": 24,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+   ]
+  }
+ ]
+}

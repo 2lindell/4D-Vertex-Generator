@@ -1,0 +1,215 @@
+{
+ "all_match": true,
+ "shapes": [
+  {
+   "name": "gidpith",
+   "degrees": 3,
+   "list_degrees": 3,
+   "vertices": 384,
+   "cells": "8x48v(12x4+8x6+6x8) + 16x24v(6x4+8x6) + 24x16v(8x4+2x8) + 32x12v(6x4+2x6)",
+   "n_cells": 80,
+   "seed": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ]
+  },
+  {
+   "name": "tico",
+   "degrees": 2,
+   "list_degrees": 2,
+   "vertices": 192,
+   "cells": "24x24v(6x4+8x6) + 24x8v(6x4)",
+   "n_cells": 48,
+   "seed": [
+    0.333333,
+    0.333333,
+    0.333333,
+    0.0
+   ]
+  },
+  {
+   "name": "proh",
+   "degrees": 2,
+   "list_degrees": 2,
+   "vertices": 192,
+   "cells": "8x24v(8x3+18x4) + 16x12v(4x3+4x6) + 32x12v(6x4+2x6) + 24x8v(6x4)",
+   "n_cells": 80,
+   "seed": [
+    0.333333,
+    0.333333,
+    0.0,
+    0.333333
+   ]
+  },
+  {
+   "name": "prit",
+   "degrees": 2,
+   "list_degrees": 2,
+   "vertices": 192,
+   "cells": "8x24v(8x3+6x8) + 24x16v(8x4+2x8) + 16x12v(8x3+6x4) + 32x6v(2x3+3x4)",
+   "n_cells": 80,
+   "seed": [
+    0.333333,
+    0.0,
+    0.333333,
+    0.333333
+   ]
+  },
+  {
+   "name": "grit",
+   "degrees": 2,
+   "list_degrees": 2,
+   "vertices": 192,
+   "cells": "8x48v(12x4+8x6+6x8) + 16x12v(4x3+4x6) + 32x6v(2x3+3x4)",
+   "n_cells": 56,
+   "seed": [
+    0.0,
+    0.333333,
+    0.333333,
+    0.333333
+   ]
+  },
+  {
+   "name": "thex",
+   "degrees": 1,
+   "list_degrees": 1,
+   "vertices": 48,
+   "cells": "16x12v(4x3+4x6) + 8x6v(8x3)",
+   "n_cells": 24,
+   "seed": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "sidpith",
+   "degrees": 1,
+   "list_degrees": 1,
+   "vertices": 64,
+   "cells": "32x8v(6x4) + 32x6v(2x3+3x4) + 16x4v(4x3)",
+   "n_cells": 80,
+   "seed": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ]
+  },
+  {
+   "name": "tat",
+   "degrees": 1,
+   "list_degrees": 1,
+   "vertices": 64,
+   "cells": "8x24v(8x3+6x8) + 16x4v(4x3)",
+   "n_cells": 24,
+   "seed": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "name": "rico",
+   "degrees": 1,
+   "list_degrees": 1,
+   "vertices": 96,
+   "cells": "24x12v(8x3+6x4) + 24x8v(6x4)",
+   "n_cells": 48,
+   "seed": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ]
+  },
+  {
+   "name": "tah",
+   "degrees": 1,
+   "list_degrees": 1,
+   "vertices": 96,
+   "cells": "8x24v(6x4+8x6) + 16x12v(4x3+4x6)",
+   "n_cells": 24,
+   "seed": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ]
+  },
+  {
+   "name": "srit",
+   "degrees": 1,
+   "list_degrees": 1,
+   "vertices": 96,
+   "cells": "8x24v(8x3+18x4) + 32x6v(2x3+3x4) + 16x6v(8x3)",
+   "n_cells": 56,
+   "seed": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ]
+  },
+  {
+   "name": "hex",
+   "degrees": 0,
+   "list_degrees": 0,
+   "vertices": 8,
+   "cells": "16x4v(4x3)",
+   "n_cells": 16,
+   "seed": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "tes",
+   "degrees": 0,
+   "list_degrees": 0,
+   "vertices": 16,
+   "cells": "8x8v(6x4)",
+   "n_cells": 8,
+   "seed": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "name": "ico",
+   "degrees": 0,
+   "list_degrees": 0,
+   "vertices": 24,
+   "cells": "24x6v(8x3)",
+   "n_cells": 24,
+   "seed": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "rit",
+   "degrees": 0,
+   "list_degrees": 0,
+   "vertices": 32,
+   "cells": "8x12v(8x3+6x4) + 16x4v(4x3)",
+   "n_cells": 24,
+   "seed": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  }
+ ]
+}

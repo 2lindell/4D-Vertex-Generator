@@ -1,0 +1,96 @@
+{
+ "_about": "Shapes whose lowest edge ratio is reached only at a corner they close on (exact_seeds.corner_infimum): the ratio there, exact from the shape's own edge-length forms (quadratic forms in the betas, Q(sqrt 5)), and the checks that it rises along every direction from the corner into the shape.",
+ "corners": {
+  "X101": {
+   "name": "X101",
+   "key": "3b56c864badc",
+   "corner": [
+    "0.6092249476271043861972321131343238125722",
+    "0.09769376309322390345069197171641904685694",
+    "0.1953875261864478069013839434328380937139",
+    "0.09769376309322390345069197171641904685694"
+   ],
+   "edge_ratio_at_corner": "4.979796569765560546803169242795674110818",
+   "orbits": 10,
+   "longest_there": [
+    3,
+    8
+   ],
+   "shortest_there": [
+    0,
+    5
+   ],
+   "checks": {
+    "directions_entering_the_shape": 4,
+    "of_them_ratio_rising_first_order": 4,
+    "smallest_first_order_slope": 4.730957201717183,
+    "points_in_the_shape_with_a_lower_ratio": 0
+   },
+   "dense_check": {
+    "points_in_the_shape_near_the_corner": 1572,
+    "smallest_first_order_slope": 4.7167,
+    "points_with_a_lower_ratio": 0
+   }
+  },
+  "X102": {
+   "name": "X102",
+   "key": "757e8768f1e8",
+   "corner": [
+    "0.6092249476271043861972321131343238125722",
+    "0.09769376309322390345069197171641904685694",
+    "0.1953875261864478069013839434328380937139",
+    "0.09769376309322390345069197171641904685694"
+   ],
+   "edge_ratio_at_corner": "5.330704256005836437313603610688390606161",
+   "orbits": 12,
+   "longest_there": [
+    0
+   ],
+   "shortest_there": [
+    1,
+    7
+   ],
+   "checks": {
+    "directions_entering_the_shape": 3,
+    "of_them_ratio_rising_first_order": 3,
+    "smallest_first_order_slope": 5.689048908539698,
+    "points_in_the_shape_with_a_lower_ratio": 0
+   },
+   "dense_check": {
+    "points_in_the_shape_near_the_corner": 3255,
+    "smallest_first_order_slope": 3.8804,
+    "points_with_a_lower_ratio": 0
+   }
+  },
+  "X103": {
+   "name": "X103",
+   "key": "f7076c807a82",
+   "corner": [
+    "0.6092249476271043861972321131343238125722",
+    "0.09769376309322390345069197171641904685694",
+    "0.1953875261864478069013839434328380937139",
+    "0.09769376309322390345069197171641904685694"
+   ],
+   "edge_ratio_at_corner": "5.330704256005836437313603610688390606161",
+   "orbits": 12,
+   "longest_there": [
+    8
+   ],
+   "shortest_there": [
+    0,
+    5
+   ],
+   "checks": {
+    "directions_entering_the_shape": 2,
+    "of_them_ratio_rising_first_order": 2,
+    "smallest_first_order_slope": 4.844221140704071,
+    "points_in_the_shape_with_a_lower_ratio": 0
+   },
+   "dense_check": {
+    "points_in_the_shape_near_the_corner": 3325,
+    "smallest_first_order_slope": 3.8054,
+    "points_with_a_lower_ratio": 0
+   }
+  }
+ }
+}

@@ -1,0 +1,477 @@
+{
+ "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
+ "shapes": [
+  {
+   "name": "gidpith",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "centre": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "depth": 0.2886751345948129,
+   "start_depth": 0.2886751345948129,
+   "status": "deepest point of the shape",
+   "boundaries": 4,
+   "piece": 0,
+   "off": "central_off/tessic/gidpith_384v_80c_central.off",
+   "vertices": 384,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.730247856610182,
+    0.46049571322036403,
+    0.19074356983054616
+   ]
+  },
+  {
+   "name": "tico",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "centre": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "depth": 0.408248290463863,
+   "start_depth": 0.408248290463863,
+   "status": "deepest point of the shape",
+   "boundaries": 3,
+   "piece": 0,
+   "off": "central_off/tessic/tico_192v_48c_central.off",
+   "vertices": 192,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.6666666666666667,
+    0.33333333333333337,
+    0.0
+   ]
+  },
+  {
+   "name": "proh",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "centre": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "depth": 0.408248290463863,
+   "start_depth": 0.408248290463863,
+   "status": "deepest point of the shape",
+   "boundaries": 3,
+   "piece": 0,
+   "off": "central_off/tessic/proh_192v_80c_central.off",
+   "vertices": 192,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.6306019374818708,
+    0.2612038749637414,
+    0.2612038749637414
+   ]
+  },
+  {
+   "name": "prit",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "centre": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "depth": 0.408248290463863,
+   "start_depth": 0.408248290463863,
+   "status": "deepest point of the shape",
+   "boundaries": 3,
+   "piece": 0,
+   "off": "central_off/tessic/prit_192v_80c_central.off",
+   "vertices": 192,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.6306019374818708,
+    0.6306019374818708,
+    0.2612038749637414
+   ]
+  },
+  {
+   "name": "grit",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "centre": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "depth": 0.408248290463863,
+   "start_depth": 0.408248290463863,
+   "status": "deepest point of the shape",
+   "boundaries": 3,
+   "piece": 0,
+   "off": "central_off/tessic/grit_192v_56c_central.off",
+   "vertices": 192,
+   "cells": 56,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.6306019374818708,
+    0.2612038749637414
+   ]
+  },
+  {
+   "name": "thex",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "off": "central_off/tessic/thex_48v_24c_central.off",
+   "vertices": 48,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    0.5,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "sidpith",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "centre": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "off": "central_off/tessic/sidpith_64v_80c_central.off",
+   "vertices": 64,
+   "cells": 80,
+   "seed_vector": [
+    1.0,
+    0.4142135623730951,
+    0.4142135623730951,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "tat",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "off": "central_off/tessic/tat_64v_24c_central.off",
+   "vertices": 64,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "rico",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "centre": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "off": "central_off/tessic/rico_96v_48c_central.off",
+   "vertices": 96,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.5,
+    0.5,
+    0.0
+   ]
+  },
+  {
+   "name": "tah",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "off": "central_off/tessic/tah_96v_24c_central.off",
+   "vertices": 96,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.5,
+    0.0
+   ]
+  },
+  {
+   "name": "srit",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "centre": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "off": "central_off/tessic/srit_96v_56c_central.off",
+   "vertices": 96,
+   "cells": 56,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.4142135623730951,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "hex",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "piece": 0,
+   "off": "central_off/tessic/hex_8v_16c_central.off",
+   "vertices": 8,
+   "cells": 16,
+   "seed_vector": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "tes",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "piece": 0,
+   "off": "central_off/tessic/tes_16v_8c_central.off",
+   "vertices": 16,
+   "cells": 8,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "ico",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "piece": 0,
+   "off": "central_off/tessic/ico_24v_24c_central.off",
+   "vertices": 24,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "rit",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "piece": 0,
+   "off": "central_off/tessic/rit_32v_24c_central.off",
+   "vertices": 32,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    0.0
+   ]
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+48x4+48x4+48x4": "R1",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x6+24x8+48x3+48x3+48x4+48x4": "R2",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+16x[6v8f]+24x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x6+48x3+48x3+48x3+48x4": "R3",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x8+48x3+48x3+48x4+48x5": "R4",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x8+24x8+48x3+48x4+48x4+48x4+48x4": "R5",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+16x[6v8f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x8+48x3+48x3+48x3+48x4+48x5": "R6",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x10+48x3+48x3+48x4+48x5+48x5": "R7",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x6+24x8+24x8+48x3+48x3+48x3+48x5+48x5": "R8",
+ "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x4+24x8+48x3+48x5+48x6+48x6": "R9",
+ "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x6+24x6+48x4+48x5+48x5": "R10",
+ "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x6+24x6+24x8+48x3+48x4+48x5+48x6": "R11",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x10+48x3+48x3+48x3+48x4+48x6": "R12",
+ "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x6+24x12+48x3+48x3+48x5+48x5+48x7": "R13",
+ "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x6+24x8+24x12+48x3+48x3+48x4+48x5+48x6": "R14",
+ "48: cells 8x[6v8f]+8x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x4+24x4+24x6+24x14+48x3+48x4+48x4+48x4+48x4+48x9": "R15",
+ "48: cells 8x[6v8f]+8x[6v8f]+16x[6v8f]+24x[4v4f]+24x[4v4f]+24x[4v4f]+48x[4v4f]+48x[4v4f] | faces 16x3g+16x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g+48x3g | edges 24x4+24x4+24x6+24x6+24x8+48x3+48x3+48x4+48x5": "R16"
+}

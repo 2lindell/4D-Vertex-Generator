@@ -1,0 +1,633 @@
+{
+ "_about": "The wall shapes of the kidecaic / iodecaic maps, reclassified cleanly (wall_shapes_<sub>.json).",
+ "shapes": [
+  {
+   "kind": "region",
+   "map_type": 0,
+   "vertices": 120,
+   "cells": 560,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 180,
+    "5": 120,
+    "6": 60,
+    "8": 60,
+    "10": 60
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.05007215127694641,
+    0.02526653484047576,
+    0.899268199353071,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x10+120x3+120x3+120x3+120x5"
+  },
+  {
+   "kind": "region",
+   "map_type": 1,
+   "vertices": 120,
+   "cells": 560,
+   "edges_by_valence": {
+    "3": 240,
+    "4": 360,
+    "6": 120,
+    "8": 120
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.05007215127694641,
+    0.075207366249815,
+    0.8493273679437318,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x6+60x6+60x8+60x8+120x3+120x3+120x4+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 2,
+   "vertices": 120,
+   "cells": 680,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 360,
+    "6": 60,
+    "8": 60,
+    "10": 120
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.05007215127694641,
+    0.15011861336382387,
+    0.774416120829723,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x6+60x8+60x10+60x10+120x3+120x3+120x3+120x4+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 3,
+   "vertices": 120,
+   "cells": 680,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 300,
+    "6": 180,
+    "10": 120
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.05007215127694641,
+    0.32491152329651124,
+    0.5996232108970356,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+60x6+60x6+60x10+60x10+120x3+120x3+120x3+120x4+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 4,
+   "vertices": 120,
+   "cells": 560,
+   "edges_by_valence": {
+    "3": 120,
+    "4": 600,
+    "8": 60,
+    "10": 60
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.05007215127694641,
+    0.34988193900118086,
+    0.574652795192366,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x4+60x8+60x10+120x3+120x4+120x4+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 5,
+   "vertices": 120,
+   "cells": 420,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 300,
+    "8": 120
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.05007215127694641,
+    0.44976360181985936,
+    0.4747711323736875,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+40x[6v8f]+60x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x8+60x8+120x3+120x3+120x3+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 6,
+   "vertices": 120,
+   "cells": 440,
+   "edges_by_valence": {
+    "3": 120,
+    "4": 420,
+    "5": 120,
+    "8": 60
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.05007215127694641,
+    0.474734017524529,
+    0.4498007166690179,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x4+60x4+60x8+120x3+120x4+120x5"
+  },
+  {
+   "kind": "region",
+   "map_type": 7,
+   "vertices": 120,
+   "cells": 560,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 180,
+    "5": 120,
+    "6": 60,
+    "8": 60,
+    "10": 60
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.07504256698161603,
+    0.44976360181985936,
+    0.4498007166690179,
+    0.02539311452950672
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x10+120x3+120x3+120x3+120x5"
+  },
+  {
+   "kind": "region",
+   "map_type": 8,
+   "vertices": 120,
+   "cells": 560,
+   "edges_by_valence": {
+    "3": 240,
+    "4": 420,
+    "6": 60,
+    "8": 60,
+    "10": 60
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.4246283868469908,
+    0.10017778195448462,
+    0.1251853125083128,
+    0.3500085186902118
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x10+120x3+120x3+120x4+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 9,
+   "vertices": 120,
+   "cells": 560,
+   "edges_by_valence": {
+    "3": 120,
+    "4": 540,
+    "6": 60,
+    "8": 120
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.5744508810750085,
+    0.02526653484047576,
+    0.025303649689634295,
+    0.37497893439488145
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x8+120x3+120x4+120x4+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 10,
+   "vertices": 120,
+   "cells": 680,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 300,
+    "6": 180,
+    "10": 120
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.5744508810750085,
+    0.02526653484047576,
+    0.050274065394303916,
+    0.3500085186902118
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+60x6+60x6+60x10+60x10+120x3+120x3+120x3+120x4+120x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 11,
+   "vertices": 120,
+   "cells": 680,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 240,
+    "5": 120,
+    "6": 120,
+    "10": 120
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.6243917124843478,
+    0.02526653484047576,
+    0.050274065394303916,
+    0.3000676872808726
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x6+60x6+60x10+60x10+120x3+120x3+120x3+120x4+120x5"
+  },
+  {
+   "kind": "region",
+   "map_type": 12,
+   "vertices": 120,
+   "cells": 680,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 300,
+    "6": 120,
+    "8": 120,
+    "10": 60
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.6243917124843478,
+    0.02526653484047576,
+    0.10021489680364318,
+    0.2501268558715333
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f]+120x[4v4f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x6+60x6+60x8+60x8+60x10+120x3+120x3+120x3+120x4+120x4"
+  },
+  {
+   "kind": "wall (fold)",
+   "map_type": 32,
+   "vertices": 120,
+   "cells": 290,
+   "edges_by_valence": {
+    "3": 300,
+    "4": 300,
+    "7": 60
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.0251090518216136,
+    0.02527389912284731,
+    0.9245079972339255,
+    0.0251090518216136
+   ],
+   "wall_points": 0,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+60x[4v4f]+60x[6v7f]+120x[4v4f] | faces 30x4g+40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x4+60x4+60x7+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 380,
+   "edges_by_valence": {
+    "3": 300,
+    "4": 240,
+    "5": 60,
+    "6": 60,
+    "8": 60
+   },
+   "surfaces": {
+    "3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 39
+   },
+   "seed_beta": [
+    0.050072151296,
+    0.0670412061641,
+    0.8574935281869,
+    0.0253931143531
+   ],
+   "wall_points": 39,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x4+60x5+60x6+60x8+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 440,
+   "edges_by_valence": {
+    "3": 480,
+    "4": 180,
+    "6": 60,
+    "8": 120
+   },
+   "surfaces": {
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 + 3*b2*b3*b4**2": 8
+   },
+   "seed_beta": [
+    0.0622085161369,
+    0.1251481976923,
+    0.7872501717307,
+    0.02539311444
+   ],
+   "wall_points": 8,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v6f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x8+120x3+120x3+120x3+120x3"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 500,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 240,
+    "5": 60,
+    "6": 60,
+    "8": 60,
+    "9": 60
+   },
+   "surfaces": {
+    "b1*b2 - b3*b4": 13
+   },
+   "seed_beta": [
+    0.0668135801252,
+    0.2500002762854,
+    0.6577930294278,
+    0.0253931141615
+   ],
+   "wall_points": 13,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x5+60x6+60x8+60x9+120x3+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 500,
+   "edges_by_valence": {
+    "3": 420,
+    "4": 120,
+    "5": 60,
+    "6": 120,
+    "8": 120
+   },
+   "surfaces": {
+    "3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 11
+   },
+   "seed_beta": [
+    0.0648402563418,
+    0.3101434182542,
+    0.5996232107187,
+    0.0253931146854
+   ],
+   "wall_points": 11,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x5+60x6+60x6+60x8+60x8+120x3+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 240,
+   "edges_by_valence": {
+    "3": 300,
+    "4": 120,
+    "5": 60,
+    "6": 60
+   },
+   "surfaces": {
+    "3*b1 + b2 - b3 - 3*b4": 77
+   },
+   "seed_beta": [
+    0.0627851720277,
+    0.3998227704264,
+    0.511998943064,
+    0.0253931144819
+   ],
+   "wall_points": 77,
+   "signature": "120: cells 10x[24v32f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f] | faces 20x6g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x4+60x5+60x6+120x3+120x3"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 230,
+   "edges_by_valence": {
+    "3": 420,
+    "4": 60,
+    "5": 60,
+    "6": 60
+   },
+   "surfaces": {
+    "b1 + 2*b2 - 2*b3 - b4": 98
+   },
+   "seed_beta": [
+    0.0585174926238,
+    0.4497636019112,
+    0.4663257909812,
+    0.0253931144838
+   ],
+   "wall_points": 98,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[12v17f]+60x[4v4f]+120x[4v4f] | faces 30x4g+40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x5+60x6+120x3+120x3+120x3"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 320,
+   "edges_by_valence": {
+    "3": 240,
+    "4": 360,
+    "8": 60
+   },
+   "surfaces": {
+    "b2 - b3": 82
+   },
+   "seed_beta": [
+    0.0750054498802,
+    0.4498007177951,
+    0.4498007177951,
+    0.0253931145295
+   ],
+   "wall_points": 82,
+   "signature": "120: cells 10x[12v20f]+20x[6v5f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[6v7f]+120x[4v4f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x4+60x8+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 380,
+   "edges_by_valence": {
+    "3": 300,
+    "4": 300,
+    "7": 60,
+    "8": 60
+   },
+   "surfaces": {
+    "b1*b2 - b3*b4": 45
+   },
+   "seed_beta": [
+    0.0750425671518,
+    0.2681469608132,
+    0.6245936266244,
+    0.0322168454106
+   ],
+   "wall_points": 45,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x4+60x4+60x7+60x8+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 380,
+   "edges_by_valence": {
+    "3": 300,
+    "4": 300,
+    "7": 60,
+    "8": 60
+   },
+   "surfaces": {
+    "b1*b2 - b3*b4": 57
+   },
+   "seed_beta": [
+    0.4206416788836,
+    0.1041644897397,
+    0.1251853126375,
+    0.3500085187392
+   ],
+   "wall_points": 57,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x4+60x4+60x7+60x8+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 380,
+   "edges_by_valence": {
+    "3": 300,
+    "4": 240,
+    "5": 60,
+    "6": 60,
+    "8": 60
+   },
+   "surfaces": {
+    "3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 57
+   },
+   "seed_beta": [
+    0.722849325777,
+    0.0266905841647,
+    0.1002148968545,
+    0.1502451932038
+   ],
+   "wall_points": 57,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x4+60x4+60x5+60x6+60x8+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 440,
+   "edges_by_valence": {
+    "3": 480,
+    "4": 180,
+    "6": 60,
+    "8": 120
+   },
+   "surfaces": {
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 + 3*b2*b3*b4**2": 17
+   },
+   "seed_beta": [
+    0.5658960795641,
+    0.0252665344413,
+    0.0502740654307,
+    0.358563320564
+   ],
+   "wall_points": 17,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v6f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x6+60x8+60x8+120x3+120x3+120x3+120x3"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 440,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 360,
+    "8": 120
+   },
+   "surfaces": {
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2": 19
+   },
+   "seed_beta": [
+    0.5744508811088,
+    0.0252665346584,
+    0.0380653148401,
+    0.3622172693926
+   ],
+   "wall_points": 19,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v6f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x4+60x8+60x8+120x3+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 500,
+   "edges_by_valence": {
+    "3": 360,
+    "4": 240,
+    "5": 60,
+    "6": 60,
+    "8": 60,
+    "9": 60
+   },
+   "surfaces": {
+    "b1*b2 - b3*b4": 11
+   },
+   "seed_beta": [
+    0.6152497074526,
+    0.0252665349858,
+    0.0502740652931,
+    0.3092096922685
+   ],
+   "wall_points": 11,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x5+60x6+60x8+60x9+120x3+120x3+120x3+120x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 120,
+   "cells": 500,
+   "edges_by_valence": {
+    "3": 420,
+    "4": 120,
+    "5": 60,
+    "6": 120,
+    "8": 120
+   },
+   "surfaces": {
+    "3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2": 3
+   },
+   "seed_beta": [
+    0.6243917123843,
+    0.0252665350149,
+    0.0953723726792,
+    0.2549693799216
+   ],
+   "wall_points": 3,
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+120x[4v4f]+120x[4v4f]+120x[5v5f] | faces 40x3g+40x3g+60x4g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x5+60x6+60x6+60x8+60x8+120x3+120x3+120x3+120x4"
+  }
+ ]
+}

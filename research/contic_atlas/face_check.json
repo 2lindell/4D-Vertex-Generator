@@ -1,0 +1,6 @@
+{
+ "_about": "Is each face's polychoron the same all over the face? (face_check.json; as decaic_atlas/face_check.py)",
+ "faces_checked": 680,
+ "points_checked": 3400,
+ "faces_not_constant": []
+}
