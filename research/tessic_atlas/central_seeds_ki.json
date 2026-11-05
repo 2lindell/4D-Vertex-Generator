@@ -1,0 +1,37 @@
+{
+ "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
+ "shapes": [
+  {
+   "name": "snet",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.0313678894962785,
+    0.0315738276561738,
+    0.03162020749647304,
+    0.9054380753510747
+   ],
+   "centre": [
+    0.2499999999999999,
+    0.24999999999999986,
+    0.25000000000000044,
+    0.2499999999999998
+   ],
+   "depth": 0.2886751345948127,
+   "start_depth": 0.03622051888917366,
+   "status": "deepest point of the shape",
+   "boundaries": 4,
+   "piece": 0,
+   "off": "central_off/kitessic/snet_192v_272c_central.off",
+   "vertices": 192,
+   "cells": 272,
+   "seed_vector": [
+    1.0,
+    0.7302478566101822,
+    0.46049571322036437,
+    0.19074356983054602
+   ]
+  }
+ ]
+}

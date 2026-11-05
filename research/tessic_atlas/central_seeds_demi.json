@@ -1,0 +1,372 @@
+{
+ "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
+ "shapes": [
+  {
+   "name": "tico",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "centre": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "depth": 0.2886751345948129,
+   "start_depth": 0.2886751345948129,
+   "status": "deepest point of the shape",
+   "boundaries": 4,
+   "piece": 0,
+   "off": "central_off/demitessic/tico_192v_48c_central.off",
+   "vertices": 192,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.730247856610182,
+    0.46049571322036403,
+    0.19074356983054616
+   ]
+  },
+  {
+   "name": "rico",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "centre": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "depth": 0.408248290463863,
+   "start_depth": 0.408248290463863,
+   "status": "deepest point of the shape",
+   "boundaries": 3,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "depth": 0.408248290463863,
+     "centre": [
+      0.3333333333333333,
+      0.0,
+      0.3333333333333333,
+      0.3333333333333333
+     ]
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b2"
+     ],
+     "depth": 0.408248290463863,
+     "centre": [
+      0.3333333333333333,
+      0.0,
+      0.3333333333333333,
+      0.3333333333333333
+     ]
+    }
+   ],
+   "off": "central_off/demitessic/rico_96v_48c_central.off",
+   "vertices": 96,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.6306019374818708,
+    0.6306019374818708,
+    0.2612038749637414
+   ]
+  },
+  {
+   "name": "tah",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "centre": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "depth": 0.408248290463863,
+   "start_depth": 0.408248290463863,
+   "status": "deepest point of the shape",
+   "boundaries": 3,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "depth": 0.408248290463863,
+     "centre": [
+      0.0,
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+     ]
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b1"
+     ],
+     "depth": 0.408248290463863,
+     "centre": [
+      0.0,
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+     ]
+    },
+    {
+     "piece": 2,
+     "locus": [
+      "b3"
+     ],
+     "depth": 0.408248290463863,
+     "centre": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.0,
+      0.3333333333333333
+     ]
+    }
+   ],
+   "off": "central_off/demitessic/tah_96v_24c_central.off",
+   "vertices": 96,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.6306019374818708,
+    0.2612038749637414
+   ]
+  },
+  {
+   "name": "rit",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "depth": 0.7071067811865475,
+     "centre": [
+      0.0,
+      0.0,
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b1",
+      "b2"
+     ],
+     "depth": 0.7071067811865475,
+     "centre": [
+      0.0,
+      0.0,
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "piece": 2,
+     "locus": [
+      "b2",
+      "b3"
+     ],
+     "depth": 0.7071067811865475,
+     "centre": [
+      0.5,
+      0.0,
+      0.0,
+      0.5
+     ]
+    }
+   ],
+   "off": "central_off/demitessic/rit_32v_24c_central.off",
+   "vertices": 32,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "thex",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [],
+   "start": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "centre": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "depth": 0.7071067811865475,
+   "start_depth": 0.7071067811865475,
+   "status": "deepest point of the shape",
+   "boundaries": 2,
+   "piece": 0,
+   "pieces": [
+    {
+     "piece": 0,
+     "locus": [],
+     "depth": 0.7071067811865475,
+     "centre": [
+      0.0,
+      0.5,
+      0.0,
+      0.5
+     ]
+    },
+    {
+     "piece": 1,
+     "locus": [
+      "b1",
+      "b3"
+     ],
+     "depth": 0.7071067811865475,
+     "centre": [
+      0.0,
+      0.5,
+      0.0,
+      0.5
+     ]
+    },
+    {
+     "piece": 2,
+     "locus": [
+      "b3",
+      "b4"
+     ],
+     "depth": 0.7071067811865475,
+     "centre": [
+      0.5,
+      0.5,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "off": "central_off/demitessic/thex_48v_24c_central.off",
+   "vertices": 48,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.4142135623730951,
+    0.4142135623730951
+   ]
+  },
+  {
+   "name": "hex",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "piece": 0,
+   "off": "central_off/demitessic/hex_8v_16c_central.off",
+   "vertices": 8,
+   "cells": 16,
+   "seed_vector": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "ico",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [],
+   "start": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "piece": 0,
+   "off": "central_off/demitessic/ico_24v_24c_central.off",
+   "vertices": 24,
+   "cells": 24,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+   ]
+  }
+ ]
+}

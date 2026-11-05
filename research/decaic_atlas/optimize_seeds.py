@@ -49,7 +49,7 @@ from four_d_vertex_generator.off import to_4off  # noqa: E402
 
 mp.mp.dps = 40
 B = sp.symbols("b1 b2 b3 b4")
-OFF_DIR = os.path.join(ROOT, "optimized_off", {"full": "decaic", "ki": "kidecaic", "io": "iodecaic", "pen": "pennic", "kipen": "kipennic"}[G.SUB])
+OFF_DIR = os.path.join(ROOT, "optimized_off", {"full": "decaic", "ki": "kidecaic", "io": "iodecaic", "pen": "pennic", "kipen": "kipennic"}.get(G.SUB, G.SUB))
 W5I = G.W5.astype(int)
 
 
@@ -346,7 +346,10 @@ def optimise(shape):
                 hi = m
         off = project((1 - lo * 0.999) * seed + lo * 0.999 * b, loc_f, loc_g, zero)
     ring = ring_check(b, q, loc_f, loc_g, zero, R) if inside and not on_edge else None
-    if R >= R0 - 1e-12:
+    if R0 < 1 + 1e-12:
+        inside, on_edge, ring = True, False, None
+        status = "uniform: every edge the same length (R = 1), the seed kept"
+    elif R >= R0 - 1e-12:
         inside, on_edge, ring = True, False, None
         status = "no progress: the optimiser found no feasible step from the seed (seed kept)"
     else:

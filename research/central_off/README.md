@@ -11,19 +11,24 @@ How (decaic_atlas/central_seeds.py; contic_atlas/central_seeds.py runs it on the
 
 This replaces an earlier version of this folder that interpolated 35% of the way from the map's seed to the optimized seed: that did not check the result was still the shape (several decaic files were other polytopes, e.g. bimted with 33 cells, biped 79, gabipard 144) and its contic-family files had no hull (0 cells).
 
-Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+] (120 each); contic [[3,4,3]] (the 24-cell / 48-cell family, order 2304), kicontic [[3,4,3]]+ and iocontic [[3,4,3]+] (1152 each). Seed vectors: R^5 (decaic family, vertices sign * x[perm]) or R^4 (contic family, the standard F4 frame).
+Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+] (120 each); contic [[3,4,3]] (the 24-cell / 48-cell family, order 2304), kicontic [[3,4,3]]+ and iocontic [[3,4,3]+] (1152 each); tessic [4,3,3] (384), kitessic, tessipyritic and demitessic (192 each), kidemitessic (96); pennic [3,3,3] (120). Seed vectors: R^5 (decaic and pennic families, vertices sign * x[perm]) or R^4 (contic family, the standard F4 frame; tessic family, the B4 frame).
 
 | group | files | moved deeper | kept the seed |
 |---|---|---|---|
-| decaic | 27 | 21 | - |
-| kidecaic | 32 | 31 | new_region_11_120v_380c |
-| iodecaic | 7 | 7 | - |
-| contic | 27 | 21 | - |
-| kicontic | 23 | 23 | - |
-| iocontic | 6 | 6 | - |
-| pennic | 6 | the uniform seeds (= the optimized seeds) | - |
+| Decaic | 27 | 21 | - |
+| Kidecaic | 32 | 31 | new_region_11_120v_380c |
+| Iodecaic | 7 | 7 | - |
+| Contic | 27 | 21 | - |
+| Kicontic | 23 | 23 | - |
+| Iocontic | 6 | 6 | - |
+| Tessic | 15 | 11 | - |
+| Kitessic | 1 | 1 | - |
+| Tessipyritic | 2 | 2 | - |
+| Demitessic | 7 | 5 | - |
+| Kidemitessic | 1 | 1 | - |
+| Pennic | 6 | the uniform seeds (= the optimized seeds) | - |
 
-## decaic
+## Decaic
 
 | shape | kind | depth (seed -> centre) | central beta | file |
 |---|---|---|---|---|
@@ -55,7 +60,7 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | redeca | point (0) | - | [0.25, 0.0, 0.75, 0.0] | redeca_60v_40c_central.off |
 | respid | point (0) | - | [0.6666666667, 0.0, 0.3333333333, 0.0] | respid_60v_50c_central.off |
 
-## kidecaic
+## Kidecaic
 
 | shape | kind | depth (seed -> centre) | central beta | file |
 |---|---|---|---|---|
@@ -92,7 +97,7 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | new_wall_12_120v_440c | wall (2) | 3.74e-03 -> 2.95e-02 | [0.1688669709, 0.071006978, 0.7506255834, 0.0095004677] | new_wall_12_120v_440c_120v_440c_central.off |
 | snad | line (1) | 8.33e-02 -> 5.00e-01 | [0.25, 0.25, 0.25, 0.25] | snad_60v_90c_central.off |
 
-## iodecaic
+## Iodecaic
 
 | shape | kind | depth (seed -> centre) | central beta | file |
 |---|---|---|---|---|
@@ -104,7 +109,7 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | petosbid | wall (2) | 3.15e-02 -> 2.10e-01 | [0.4344297832, 0.1319003391, 0.2645605837, 0.169109294] | petosbid_120v_170c_central.off |
 | gippid | line (1) | 8.33e-02 -> 5.00e-01 | [0.25, 0.25, 0.25, 0.25] | gippid_120v_30c_central.off |
 
-## contic
+## Contic
 
 | shape | kind | depth (seed -> centre) | central beta | file |
 |---|---|---|---|---|
@@ -136,7 +141,7 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | respid-like | point (0) | - | [0.6666666667, 0.0, 0.3333333333, 0.0] | respid-like_576v_384c_central.off |
 | redeca-like | point (0) | - | [0.2265409197, 0.0, 0.7734590803, 0.0] | redeca-like_576v_336c_central.off |
 
-## kicontic
+## Kicontic
 
 | shape | kind | depth (seed -> centre) | central beta | file |
 |---|---|---|---|---|
@@ -164,7 +169,7 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | region_14_1152v_6432c | region (3) | 3.17e-03 -> 6.07e-03 | [0.808425594, 0.0128424457, 0.042575361, 0.1361565993] | region_14_1152v_6432c_1152v_6432c_central.off |
 | snad-like | line (1) | 8.33e-02 -> 5.00e-01 | [0.25, 0.25, 0.25, 0.25] | snad-like_576v_816c_central.off |
 
-## iocontic
+## Iocontic
 
 | shape | kind | depth (seed -> centre) | central beta | file |
 |---|---|---|---|---|
@@ -174,6 +179,57 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | wall_02_1152v_1536c | wall (2) | 9.85e-02 -> 2.13e-01 | [0.4413214977, 0.1260608735, 0.2608256159, 0.1717920129] | wall_02_1152v_1536c_1152v_1536c_central.off |
 | region_03_1152v_4704c | region (3) | 1.68e-03 -> 1.45e-02 | [0.068783503, 0.1926332822, 0.7260112295, 0.0125719853] | region_03_1152v_4704c_1152v_4704c_central.off |
 | gippid-like | line (1) | 4.37e-02 -> 5.00e-01 | [0.25, 0.25, 0.25, 0.25] | gippid-like_1152v_240c_central.off |
+
+## Tessic
+
+| shape | kind | depth (seed -> centre) | central beta | file |
+|---|---|---|---|---|
+| gidpith | region (3) | 2.89e-01 -> 2.89e-01 | [0.25, 0.25, 0.25, 0.25] | gidpith_384v_80c_central.off |
+| tico | wall (2) | 4.08e-01 -> 4.08e-01 | [0.3333333333, 0.3333333333, 0.3333333333, 0.0] | tico_192v_48c_central.off |
+| proh | wall (2) | 4.08e-01 -> 4.08e-01 | [0.3333333333, 0.3333333333, 0.0, 0.3333333333] | proh_192v_80c_central.off |
+| prit | wall (2) | 4.08e-01 -> 4.08e-01 | [0.3333333333, 0.0, 0.3333333333, 0.3333333333] | prit_192v_80c_central.off |
+| grit | wall (2) | 4.08e-01 -> 4.08e-01 | [0.0, 0.3333333333, 0.3333333333, 0.3333333333] | grit_192v_56c_central.off |
+| thex | line (1) | 7.07e-01 -> 7.07e-01 | [0.5, 0.5, 0.0, 0.0] | thex_48v_24c_central.off |
+| sidpith | line (1) | 7.07e-01 -> 7.07e-01 | [0.5, 0.0, 0.0, 0.5] | sidpith_64v_80c_central.off |
+| tat | line (1) | 7.07e-01 -> 7.07e-01 | [0.0, 0.0, 0.5, 0.5] | tat_64v_24c_central.off |
+| rico | line (1) | 7.07e-01 -> 7.07e-01 | [0.5, 0.0, 0.5, 0.0] | rico_96v_48c_central.off |
+| tah | line (1) | 7.07e-01 -> 7.07e-01 | [0.0, 0.5, 0.5, 0.0] | tah_96v_24c_central.off |
+| srit | line (1) | 7.07e-01 -> 7.07e-01 | [0.0, 0.5, 0.0, 0.5] | srit_96v_56c_central.off |
+| hex | point (0) | - | [1.0, 0.0, 0.0, 0.0] | hex_8v_16c_central.off |
+| tes | point (0) | - | [0.0, 0.0, 0.0, 1.0] | tes_16v_8c_central.off |
+| ico | point (0) | - | [0.0, 1.0, 0.0, 0.0] | ico_24v_24c_central.off |
+| rit | point (0) | - | [0.0, 0.0, 1.0, 0.0] | rit_32v_24c_central.off |
+
+## Kitessic
+
+| shape | kind | depth (seed -> centre) | central beta | file |
+|---|---|---|---|---|
+| snet | region (3) | 3.62e-02 -> 2.89e-01 | [0.25, 0.25, 0.25, 0.25] | snet_192v_272c_central.off |
+
+## Tessipyritic
+
+| shape | kind | depth (seed -> centre) | central beta | file |
+|---|---|---|---|---|
+| pysnet | region (3) | 3.62e-02 -> 2.89e-01 | [0.25, 0.25, 0.25, 0.25] | pysnet_192v_176c_central.off |
+| sadi | wall (2) | 3.08e-02 -> 4.08e-01 | [0.3333333333, 0.3333333333, 0.3333333333, 0.0] | sadi_96v_144c_central.off |
+
+## Demitessic
+
+| shape | kind | depth (seed -> centre) | central beta | file |
+|---|---|---|---|---|
+| tico | region (3) | 2.89e-01 -> 2.89e-01 | [0.25, 0.25, 0.25, 0.25] | tico_192v_48c_central.off |
+| rico | wall (2) | 4.08e-01 -> 4.08e-01 | [0.3333333333, 0.0, 0.3333333333, 0.3333333333] | rico_96v_48c_central.off |
+| tah | wall (2) | 4.08e-01 -> 4.08e-01 | [0.0, 0.3333333333, 0.3333333333, 0.3333333333] | tah_96v_24c_central.off |
+| rit | line (1) | 7.07e-01 -> 7.07e-01 | [0.0, 0.0, 0.5, 0.5] | rit_32v_24c_central.off |
+| thex | line (1) | 7.07e-01 -> 7.07e-01 | [0.0, 0.5, 0.0, 0.5] | thex_48v_24c_central.off |
+| hex | point (0) | - | [0.0, 0.0, 0.0, 1.0] | hex_8v_16c_central.off |
+| ico | point (0) | - | [0.0, 1.0, 0.0, 0.0] | ico_24v_24c_central.off |
+
+## Kidemitessic
+
+| shape | kind | depth (seed -> centre) | central beta | file |
+|---|---|---|---|---|
+| sadi | region (3) | 3.62e-02 -> 2.89e-01 | [0.25, 0.25, 0.25, 0.25] | sadi_96v_144c_central.off |
 
 ## pennic
 

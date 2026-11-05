@@ -68,8 +68,10 @@ st.caption(
     "continuous orbit, then export the result as a 4OFF file."
 )
 
-# Each family lists (symmetry name, label) pairs. The reference-page names are
-# accepted names; page names that match an existing group are aliases and not listed.
+# Each family lists (symmetry name, label) pairs, each group once; a label starts with the reference page's name for the
+# group where it has one. The same group is listed twice only in different coordinates (B4: signed permutations and the
+# Coxeter basis; H4: the Coxeter and icosian bases). Demitessic and kidemitessic are the B4 list's half groups (the D4
+# reflection group in the B4 Coxeter basis); D4 extended by triality is F4.
 GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
     "elementary": (
         "Elementary coordinate groups",
@@ -99,56 +101,48 @@ GROUP_OPTIONS: dict[str, tuple[str, tuple[tuple[str, str], ...]]] = {
     "a4": (
         "Pentachoric (A4, [3,3,3])",
         (
-            ("a4", "Basic [3,3,3]"),
-            ("a4+", "Chiral [3,3,3]+"),
-            ("a4_extended", "Extended [[3,3,3]]"),
-            ("a4_chiral_extended", "Chiral extended [[3,3,3]]+ = [[3,3,3]+]"),
+            ("a4", "Pennic [3,3,3]"),
+            ("a4+", "Kipennic [3,3,3]+"),
+            ("a4_extended", "Decaic [[3,3,3]]"),
+            ("a4_chiral_extended", "Kidecaic [[3,3,3]]+"),
             ("iodecaic", "Iodecaic [[3,3,3]+]"),
         ),
     ),
     "b4": (
         "Hexadecachoric (B4, [4,3,3])",
         (
-            ("hyperoctahedral", "Basic [4,3,3] (signed permutations)"),
-            ("b4", "Basic [4,3,3] (Coxeter basis)"),
-            ("b4+", "Chiral [4,3,3]+ (Coxeter basis)"),
-            ("b4_ionic", "Ionic diminished [4,(3,3)+]"),
-            ("b4_half", "Half [1+,4,3,3]"),
-            ("b4_half_chiral", "Chiral half [1+,4,(3,3)+]"),
+            ("hyperoctahedral", "Tessic [4,3,3] (signed permutations)"),
+            ("b4", "Tessic [4,3,3] (Coxeter basis)"),
+            ("b4+", "Kitessic [4,3,3]+ (Coxeter basis)"),
+            ("b4_ionic", "Tessipyritic [4,(3,3)+] (signed permutations)"),
+            ("b4_half", "Demitessic [1+,4,3,3] = [3^1,1,1] (Coxeter basis)"),
+            ("b4_half_chiral", "Kidemitessic [1+,4,3,3]+ (Coxeter basis)"),
             ("b4_prismatic_octahedral", "Prismatic octahedral [4,3,2]"),
             ("b4_prismatic_octahedral_chiral", "Chiral prismatic octahedral [4,3,2]+"),
             ("b4_prismatic_tetrahedral", "Prismatic tetrahedral [3,3,2]"),
             ("b4_prismatic_tetrahedral_chiral", "Chiral prismatic tetrahedral [3,3,2]+"),
         ),
     ),
-    "d4": (
-        "Demitesseractic (D4, [3,3,1,1])",
-        (
-            ("d4", "Basic [3,3,1,1]"),
-            ("d4+", "Chiral [3,3,1,1]+"),
-            ("d4_extended", "Extended [3,4,3]"),
-            ("d4_extended_chiral", "Extended chiral [3,4,3]+"),
-        ),
-    ),
     "f4": (
         "Icositetrachoric (F4, [3,4,3])",
         (
-            ("f4", "Basic [3,4,3]"),
-            ("f4+", "Chiral [3,4,3]+"),
-            ("f4_extended", "Extended [[3,4,3]]"),
-            ("f4_chiral_extended", "Chiral extended [[3,4,3]]+"),
-            ("f4_double_diminished", "Double diminished [3+,4,3+]"),
-            ("f4_extended_double_diminished", "Extended double diminished [[3+,4,3+]]"),
+            ("f4", "Icoic [3,4,3]"),
+            ("f4+", "Kiicoic [3,4,3]+"),
+            ("f4_extended", "Contic [[3,4,3]]"),
+            ("f4_chiral_extended", "Kicontic [[3,4,3]]+"),
+            ("iocontic", "Iocontic [[3,4,3]+]"),
+            ("f4_double_diminished", "Toxitic [3+,4,3+]"),
+            ("f4_extended_double_diminished", "Oxitic [[3+,4,3+]]"),
             ("icopyritic", "Icopyritic [3,4,3+]"),
         ),
     ),
     "h4": (
         "Hexacosichoric (H4, [5,3,3])",
         (
-            ("h4", "Basic [5,3,3] (Coxeter basis)"),
-            ("h4+", "Chiral [5,3,3]+ (Coxeter basis)"),
-            ("h4_icosian", "Basic [5,3,3] (icosian/600-cell basis)"),
-            ("h4_icosian+", "Chiral [5,3,3]+ (icosian/600-cell basis)"),
+            ("h4", "Hyic [5,3,3] (Coxeter basis)"),
+            ("h4+", "Kihyic [5,3,3]+ (Coxeter basis)"),
+            ("h4_icosian", "Hyic [5,3,3] (icosian/600-cell basis)"),
+            ("h4_icosian+", "Kihyic [5,3,3]+ (icosian/600-cell basis)"),
             ("h4_swirlprism", "Small swirlprism [5,3:5] (icosian basis)"),
             ("h4_swirlprism+", "Chiral small swirlprism [5,3:5]+ (icosian basis)"),
             ("h4_pentagonal_swirl", "Pentagonal swirl Z10xZ10 (icosian basis)"),
@@ -176,7 +170,6 @@ CHAMBER_CANDIDATES: dict[str, tuple[str, ...]] = {
         "b4_prismatic_octahedral",
         "b4_prismatic_tetrahedral",
     ),
-    "d4": ("d4", "f4"),
     "f4": ("f4",),
     "h4": ("h4", "h4_prismatic"),
 }

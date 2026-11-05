@@ -1,10 +1,10 @@
-"""The central seed of every contic, kicontic and iocontic shape (central_seeds<tag>.json, central .off files).
+"""The central seed of every tessic-family shape (central_seeds<tag>.json, central .off files).
 
-decaic_atlas/central_seeds.py run on the contic groups, with this atlas's shapes, loci and sign conditions (as patched
+decaic_atlas/central_seeds.py run on the tessic groups, with this atlas's shapes, loci and sign conditions (as patched
 for Q(sqrt2) by optimize_seeds.py): the point of each shape's locus deepest inside it, kept only if it rebuilds as the
 same polytope with the same vertex and cell counts.
 
-    CONTIC_SUB=full|ki|io python central_seeds.py
+    TESSIC_SUB=full|ki|pyr|demi|kidemi python central_seeds.py
 """
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import optimize_seeds as C  # noqa: E402  (contic group, forms and the patched optimiser)
+import optimize_seeds as C  # noqa: E402  (this atlas's group, forms and the patched optimiser)
 
 ROOT = os.path.dirname(HERE)
 spec = importlib.util.spec_from_file_location("decaic_central", os.path.join(ROOT, "decaic_atlas", "central_seeds.py"))
@@ -31,8 +31,8 @@ def main():
         CS.OPT = {r["name"]: r for r in json.load(open(os.path.join(HERE, G.fname("optimized_seeds"))))["shapes"]}
     except FileNotFoundError:
         CS.OPT = {}
-    shapes = C.contic_shapes() if G.SUB == "full" else C.snub_shapes()
-    out = os.path.join(ROOT, "central_off", {"full": "contic", "ki": "kicontic", "io": "iocontic"}[G.SUB])
+    shapes = C.tessic_shapes()
+    out = os.path.join(ROOT, "central_off", C.GROUP[G.SUB])
 
     def hull(b, tol):
         V, Vn, idx, faces, cells = G.polytope(b, tol)

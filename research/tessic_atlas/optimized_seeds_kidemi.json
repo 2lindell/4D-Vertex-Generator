@@ -1,0 +1,72 @@
+{
+ "_about": "The most even seed of every tessic-family shape (optimized_seeds<tag>.json, optimized .off files).",
+ "shapes": [
+  {
+   "name": "sadi",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.0313678894962785,
+    0.0315738276561738,
+    0.03162020749647304,
+    0.9054380753510747
+   ],
+   "start_R": 29.819967020989196,
+   "numeric": {
+    "best": [
+     0.38196601125010504,
+     0.23606797749979003,
+     0.3819660112501052,
+     -2.459223168776428e-16
+    ],
+    "R": 1.0000000000000009,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3819660112501051517954131656343618822797",
+    "0.2360679774997896964091736687312762354406",
+    "0.3819660112501051517954131656343618822797",
+    "-1.567205759478505320876942609061703407623e-55"
+   ],
+   "equations": [
+    "5.65685424949238*b2*b4 + 11.3137084989848*b3*b4 + 8.0*b4**2",
+    "4.0*b1**2 - 4.0*b2**2 - 4.0*b2*b3 + 11.3137084989848*b3*b4 + 8.0*b4**2",
+    "-4.0*b2**2 - 4.0*b2*b3 + 4.0*b3**2 + 11.3137084989848*b3*b4 + 8.0*b4**2"
+   ],
+   "best": [
+    0.38196601125010515,
+    0.2360679774997897,
+    0.38196601125010515,
+    -1.5672057594785053e-55
+   ],
+   "R": 1.0,
+   "orbits": 6,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    0.38196601125010515,
+    0.2360679774997897,
+    0.38196601125010515,
+    -1.5672057594785053e-55
+   ],
+   "off_R": 1.0,
+   "seconds": 1.0,
+   "piece": 0,
+   "off": "optimized_off/kidemitessic/sadi_96v_144c_opt.off",
+   "vertices": 96,
+   "cells": 144,
+   "seed_vector": [
+    1.0,
+    0.6180339887498948,
+    0.38196601125010515,
+    -1.1081818200418645e-55
+   ]
+  }
+ ]
+}

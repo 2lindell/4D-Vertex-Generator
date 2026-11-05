@@ -1,0 +1,139 @@
+{
+ "_about": "The most even seed of every tessic-family shape (optimized_seeds<tag>.json, optimized .off files).",
+ "shapes": [
+  {
+   "name": "pysnet",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.0313678894962785,
+    0.0315738276561738,
+    0.03162020749647304,
+    0.9054380753510747
+   ],
+   "start_R": 21.33279943861489,
+   "numeric": {
+    "best": [
+     0.3060083210628552,
+     0.25463450371326596,
+     0.11311256588714129,
+     0.32624460933673766
+    ],
+    "R": 1.4903232733182288,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3060083210628552932378701838342425666732",
+    "0.2546345037132658396981636982508821100917",
+    "0.1131125658871413922638139440720124200437",
+    "0.3262446093367374748001521738428629031914"
+   ],
+   "equations": [
+    "4.0*b1**2 + 4.0*b1*b2 + 4.0*b2**2 - 8.0*b3**2 - 11.3137084989848*b3*b4 - 4.0*b4**2",
+    "4.0*b1**2 - 4.0*b2**2 - 4.0*b2*b3",
+    "-4.0*b2**2 - 4.0*b2*b3 - 4.0*b3**2 + 4.0*b4**2"
+   ],
+   "best": [
+    0.3060083210628553,
+    0.25463450371326585,
+    0.11311256588714139,
+    0.3262446093367375
+   ],
+   "R": 1.4903232733182283,
+   "orbits": 5,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    0.3060083210628553,
+    0.25463450371326585,
+    0.11311256588714139,
+    0.3262446093367375
+   ],
+   "off_R": 1.4903232733182283,
+   "seconds": 1.2,
+   "piece": 0,
+   "off": "optimized_off/tessipyritic/pysnet_192v_176c_opt.off",
+   "vertices": 192,
+   "cells": 176,
+   "seed_vector": [
+    1.0,
+    0.6616618314946122,
+    0.38012513561199057,
+    0.2550622018843174
+   ]
+  },
+  {
+   "name": "sadi",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [],
+   "start": [
+    0.025112350533336127,
+    0.02527721949144995,
+    0.9496104299752139,
+    0.0
+   ],
+   "start_R": 30.774316411867165,
+   "numeric": {
+    "best": [
+     0.38196601125010515,
+     0.23606797749978967,
+     0.38196601125010515,
+     0.0
+    ],
+    "R": 1.0,
+    "slsqp": "Optimization terminated successfully",
+    "active_sign_conditions": 0
+   },
+   "exact_digits": "double precision (the edge forms are used in floating point)",
+   "best_40_digits": [
+    "0.3819660112501051517954131656343618822797",
+    "0.2360679774997896964091736687312762354406",
+    "0.3819660112501051517954131656343618822797",
+    "0.0"
+   ],
+   "equations": [
+    "-4.0*b2**2 - 4.0*b2*b3 + 4.0*b3**2 + 11.3137084989848*b3*b4 + 4.0*b4**2",
+    "5.65685424949238*b3*b4 + 4.0*b4**2",
+    "4.0*b1**2 + 4.0*b1*b2 - 4.0*b2*b3 - 4.0*b3**2"
+   ],
+   "best": [
+    0.38196601125010515,
+    0.2360679774997897,
+    0.38196601125010515,
+    0.0
+   ],
+   "R": 1.0,
+   "orbits": 7,
+   "status": "minimum inside the shape",
+   "ring_check_rises": {
+    "rises": true,
+    "flat_directions": false
+   },
+   "off_seed": [
+    0.38196601125010515,
+    0.2360679774997897,
+    0.38196601125010515,
+    0.0
+   ],
+   "off_R": 1.0,
+   "seconds": 1.1,
+   "piece": 0,
+   "off": "optimized_off/tessipyritic/sadi_96v_144c_opt.off",
+   "vertices": 96,
+   "cells": 144,
+   "seed_vector": [
+    1.0,
+    0.6180339887498948,
+    0.38196601125010515,
+    0.0
+   ]
+  }
+ ]
+}

@@ -9,7 +9,7 @@ The most even seed of each shape: the one that minimises R = longest edge / shor
 
 A shape that lies on more than one face of the domain (sabipard: on b2 = 0 and on b3 = 0) is optimized on every face, the best kept (sabipard: R = (4 + sqrt30)/7 = 1.3538894 on b3 = 0; 1.5811388 = sqrt(5/2) on b2 = 0).
 
-Folders: decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm]); contic, kicontic, iocontic (seed vectors in R^4, the standard F4 frame). Kicontic / iocontic shape names are by map order (no accepted list); their decaic counterparts are in contic_atlas/contic_snub_shapes.md.
+Folders (tessic family: seed vectors in R^4, the B4 frame, vertices the signed permutations of the group): decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm]); contic, kicontic, iocontic (seed vectors in R^4, the standard F4 frame). Kicontic / iocontic shape names are by map order (no accepted list); their decaic counterparts are in contic_atlas/contic_snub_shapes.md.
 
 ## Decaic
 
@@ -162,6 +162,57 @@ Folders: decaic, kidecaic, iodecaic (seed vectors in R^5: vertices sign * x[perm
 | wall_02_1152v_1536c | wall (2) | 1.983591 | 1.5742779762 | minimum inside the shape | [0.3887840056, 0.1610396079, 0.260686835, 0.1894895514] | same | wall_02_1152v_1536c_1152v_1536c_opt.off |
 | region_03_1152v_4704c | region (3) | 8.691921 | 5.1699054209 | infimum on the shape's edge (a sign condition is active): not attained | [0.1559037582, 0.1559037582, 0.6881924837, 0.0] | [0.1558882608, 0.1558420756, 0.6882590947, 1.05689e-05] (5.172060) | region_03_1152v_4704c_1152v_4704c_opt.off |
 | gippid-like | line (1) | 11.000000 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | same | gippid-like_1152v_240c_opt.off |
+
+## Tessic
+
+| shape | kind | R start | R best | status | best beta | off seed (R) | file |
+|---|---|---|---|---|---|---|---|
+| gidpith | region (3) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.25, 0.25, 0.25, 0.25] | same | gidpith_384v_80c_opt.off |
+| tico | wall (2) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.3333333333, 0.3333333333, 0.3333333333, 0.0] | same | tico_192v_48c_opt.off |
+| proh | wall (2) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.3333333333, 0.3333333333, 0.0, 0.3333333333] | same | proh_192v_80c_opt.off |
+| prit | wall (2) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.3333333333, 0.0, 0.3333333333, 0.3333333333] | same | prit_192v_80c_opt.off |
+| grit | wall (2) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.0, 0.3333333333, 0.3333333333, 0.3333333333] | same | grit_192v_56c_opt.off |
+| thex | line (1) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.5, 0.5, 0.0, 0.0] | same | thex_48v_24c_opt.off |
+| sidpith | line (1) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.5, 0.0, 0.0, 0.5] | same | sidpith_64v_80c_opt.off |
+| tat | line (1) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [-0.0, 0.0, 0.5, 0.5] | same | tat_64v_24c_opt.off |
+| rico | line (1) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.5, 0.0, 0.5, 0.0] | same | rico_96v_48c_opt.off |
+| tah | line (1) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.0, 0.5, 0.5, 0.0] | same | tah_96v_24c_opt.off |
+| srit | line (1) | 1.000000 | 1.0000000000 | uniform: every edge the same length (R = 1), the seed kept | [0.0, 0.5, 0.0, 0.5] | same | srit_96v_56c_opt.off |
+| hex | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [1.0, 0.0, 0.0, 0.0] | same | hex_8v_16c_opt.off |
+| tes | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 0.0, 0.0, 1.0] | same | tes_16v_8c_opt.off |
+| ico | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 1.0, 0.0, 0.0] | same | ico_24v_24c_opt.off |
+| rit | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 0.0, 1.0, 0.0] | same | rit_32v_24c_opt.off |
+
+## Kitessic
+
+| shape | kind | R start | R best | status | best beta | off seed (R) | file |
+|---|---|---|---|---|---|---|---|
+| snet | region (3) | 20.836848 | 1.2500179158 | minimum inside the shape | [0.2994085643, 0.2163917, 0.1978824536, 0.2863172821] | same | snet_192v_272c_opt.off |
+
+## Tessipyritic
+
+| shape | kind | R start | R best | status | best beta | off seed (R) | file |
+|---|---|---|---|---|---|---|---|
+| pysnet | region (3) | 21.332799 | 1.4903232733 | minimum inside the shape | [0.3060083211, 0.2546345037, 0.1131125659, 0.3262446093] | same | pysnet_192v_176c_opt.off |
+| sadi | wall (2) | 30.774316 | 1.0000000000 | minimum inside the shape | [0.3819660113, 0.2360679775, 0.3819660113, 0.0] | same | sadi_96v_144c_opt.off |
+
+## Demitessic
+
+| shape | kind | R start | R best | status | best beta | off seed (R) | file |
+|---|---|---|---|---|---|---|---|
+| tico | region (3) | 2.414214 | 1.0000000000 | minimum inside the shape | [0.3333333333, 0.3333333333, 0.3333333333, -0.0] | same | tico_192v_48c_opt.off |
+| rico | wall (2) | 2.414214 | 1.0000000000 | minimum inside the shape | [0.5, -0.0, 0.5, -0.0] | same | rico_96v_48c_opt.off |
+| tah | wall (2) | 2.414214 | 1.0000000000 | minimum inside the shape | [-0.0, 0.5, 0.5, 0.0] | same | tah_96v_24c_opt.off |
+| rit | line (1) | 2.414214 | 1.0000000000 | minimum inside the shape | [0.0, 0.0, 1.0, -0.0] | same | rit_32v_24c_opt.off |
+| thex | line (1) | 1.414214 | 1.0000000000 | minimum inside the shape | [0.0, 0.5857864376, 0.0, 0.4142135624] | same | thex_48v_24c_opt.off |
+| hex | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 0.0, 0.0, 1.0] | same | hex_8v_16c_opt.off |
+| ico | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 1.0, 0.0, 0.0] | same | ico_24v_24c_opt.off |
+
+## Kidemitessic
+
+| shape | kind | R start | R best | status | best beta | off seed (R) | file |
+|---|---|---|---|---|---|---|---|
+| sadi | region (3) | 29.819967 | 1.0000000000 | minimum inside the shape | [0.3819660113, 0.2360679775, 0.3819660113, -0.0] | same | sadi_96v_144c_opt.off |
 
 ## Pennic
 
