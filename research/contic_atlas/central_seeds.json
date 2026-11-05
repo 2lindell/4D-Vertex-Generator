@@ -1,0 +1,903 @@
+{
+ "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
+ "shapes": [
+  {
+   "name": "sabotid-like",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.9127134998624554,
+    0.04316890612105192,
+    0.019709825782038337,
+    0.02440776823445437
+   ],
+   "centre": [
+    0.3684393660349367,
+    0.32675700866066276,
+    0.147815629968366,
+    0.15698799533603455
+   ],
+   "depth": 0.14951869811238414,
+   "start_depth": 0.01888693642396101,
+   "status": "deepest point of the shape",
+   "boundaries": 19,
+   "off": "central_off/contic/sabotid-like_2304v_1248c_central.off",
+   "vertices": 2304,
+   "cells": 1248,
+   "seed_vector": [
+    1.0,
+    0.5134518498400319,
+    0.2768985657780727,
+    0.06710707601198622
+   ]
+  },
+  {
+   "name": "gabotid-like",
+   "kind": "region",
+   "degrees": 3,
+   "locus": [],
+   "start": [
+    0.29752627394100495,
+    0.24076167167529053,
+    0.3668352383939181,
+    0.09487681598978653
+   ],
+   "centre": [
+    0.36535794801194005,
+    0.11059587952597849,
+    0.4222048641676157,
+    0.1018413082944658
+   ],
+   "depth": 0.07127668512078841,
+   "start_depth": 0.014660502734621429,
+   "status": "deepest point of the shape",
+   "boundaries": 19,
+   "off": "central_off/contic/gabotid-like_2304v_1056c_central.off",
+   "vertices": 2304,
+   "cells": 1056,
+   "seed_vector": [
+    1.0,
+    0.47626029719043345,
+    0.25159149099714184,
+    0.18358299588104088
+   ]
+  },
+  {
+   "name": "gabipard-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.8162264039063849,
+    0.0,
+    0.017106929426948508,
+    0.16666666666666669
+   ],
+   "centre": [
+    0.705128701098075,
+    0.0,
+    0.20381219333515838,
+    0.09105910556676663
+   ],
+   "depth": 0.11152417253640273,
+   "start_depth": 0.010275117494387996,
+   "status": "deepest point of the shape",
+   "boundaries": 16,
+   "off": "central_off/contic/gabipard-like_1152v_1248c_central.off",
+   "vertices": 1152,
+   "cells": 1248,
+   "seed_vector": [
+    1.0,
+    0.6706742019658464,
+    0.1138134051519147,
+    0.1138134051519147
+   ]
+  },
+  {
+   "name": "mabipard-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.5000000000000001,
+    0.0,
+    0.33333333333333337,
+    0.16666666666666669
+   ],
+   "centre": [
+    0.4694413496410205,
+    0.0,
+    0.32542188351467155,
+    0.20513676684430796
+   ],
+   "depth": 0.11027829815584675,
+   "start_depth": 0.088159064907635,
+   "status": "deepest point of the shape",
+   "boundaries": 16,
+   "off": "central_off/contic/mabipard-like_1152v_1056c_central.off",
+   "vertices": 1152,
+   "cells": 1056,
+   "seed_vector": [
+    1.0,
+    0.48249023106259015,
+    0.15870913011304946,
+    0.15870913011304946
+   ]
+  },
+  {
+   "name": "sabipard-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.3140807663080263,
+    0.0,
+    0.5192525670253072,
+    0.16666666666666669
+   ],
+   "centre": [
+    0.19204913770842363,
+    0.0,
+    0.7376559991153973,
+    0.07029486317617908
+   ],
+   "depth": 0.08609327316019867,
+   "start_depth": 0.003277305876224429,
+   "status": "deepest point of the shape",
+   "boundaries": 16,
+   "off": "central_off/contic/sabipard-like_1152v_1248c_central.off",
+   "vertices": 1152,
+   "cells": 1248,
+   "seed_vector": [
+    1.0,
+    0.38445502292136946,
+    0.2809950866192271,
+    0.2809950866192271
+   ]
+  },
+  {
+   "name": "mobcated-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.16666666666666666,
+    0.3333333333333333,
+    0.5,
+    0.0
+   ],
+   "centre": [
+    0.32509454500593404,
+    0.12151532539135156,
+    0.5533901296027144,
+    0.0
+   ],
+   "depth": 0.1410069034983175,
+   "start_depth": 0.05309942440535916,
+   "status": "deepest point of the shape",
+   "boundaries": 13,
+   "off": "central_off/contic/mobcated-like_1152v_864c_central.off",
+   "vertices": 1152,
+   "cells": 864,
+   "seed_vector": [
+    1.0,
+    0.48099605729478667,
+    0.29437921889493257,
+    0.22462472381028076
+   ]
+  },
+  {
+   "name": "sobcated-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.31622640390638485,
+    0.3333333333333333,
+    0.35044026276028184,
+    0.0
+   ],
+   "centre": [
+    0.40849626066986827,
+    0.4004277593368479,
+    0.19107597999328396,
+    0.0
+   ],
+   "depth": 0.1531986545979643,
+   "start_depth": 0.07173088823695593,
+   "status": "deepest point of the shape",
+   "boundaries": 13,
+   "off": "central_off/contic/sobcated-like_1152v_1248c_central.off",
+   "vertices": 1152,
+   "cells": 1248,
+   "seed_vector": [
+    1.0,
+    0.5846558664090423,
+    0.33166768324903173,
+    0.08367645034192595
+   ]
+  },
+  {
+   "name": "gobcated-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.14741409964135957,
+    0.16666666666666666,
+    0.6859192336919737,
+    0.0
+   ],
+   "centre": [
+    0.12655002830467396,
+    0.09439257946325234,
+    0.7790573922320737,
+    0.0
+   ],
+   "depth": 0.10543514515912862,
+   "start_depth": 0.00518242795454114,
+   "status": "deepest point of the shape",
+   "boundaries": 13,
+   "off": "central_off/contic/gobcated-like_1152v_1056c_central.off",
+   "vertices": 1152,
+   "cells": 1056,
+   "seed_vector": [
+    1.0,
+    0.3921915194855277,
+    0.3278865154338812,
+    0.27992196508059114
+   ]
+  },
+  {
+   "name": "petbotid-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(1 + 0*sqrt(2))*b1 + (2 + 0*sqrt(2))*b2 + (-2 + 0*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.3888888888888889,
+    0.16666666666666666,
+    0.2777777777777778,
+    0.16666666666666666
+   ],
+   "centre": [
+    0.42375558151771275,
+    0.14934091437190425,
+    0.29553390615113817,
+    0.1313695979592449
+   ],
+   "depth": 0.1629439321596594,
+   "start_depth": 0.13438042428360122,
+   "status": "deepest point of the shape",
+   "boundaries": 15,
+   "off": "central_off/contic/petbotid-like_2304v_384c_central.off",
+   "vertices": 2304,
+   "cells": 384,
+   "seed_vector": [
+    1.0,
+    0.5094443525099562,
+    0.23340800930565028,
+    0.13612664785109982
+   ]
+  },
+  {
+   "name": "tetbotid-like",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "(1 + 0*sqrt(2))*b1 + (1 + -1/2*sqrt(2))*b2 + (-1 + 1/2*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.24218030655366216,
+    0.16666666666666666,
+    0.42448636011300456,
+    0.16666666666666666
+   ],
+   "centre": [
+    0.2340736492834226,
+    0.17117371173895804,
+    0.43917464596453976,
+    0.15557799301307962
+   ],
+   "depth": 0.18066633678938537,
+   "start_depth": 0.17844156893408106,
+   "status": "deepest point of the shape",
+   "boundaries": 15,
+   "off": "central_off/contic/tetbotid-like_2304v_528c_central.off",
+   "vertices": 2304,
+   "cells": 528,
+   "seed_vector": [
+    1.0,
+    0.4142135623730951,
+    0.27875989430165543,
+    0.17970514292991618
+   ]
+  },
+  {
+   "name": "biped-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.9511844635310913,
+    0.0,
+    0.0,
+    0.04881553646890874
+   ],
+   "centre": [
+    0.6449489742783179,
+    0.0,
+    0.0,
+    0.3550510257216821
+   ],
+   "depth": 0.2049888052764659,
+   "start_depth": 0.023412378482703673,
+   "status": "deepest point of the shape",
+   "boundaries": 9,
+   "off": "central_off/contic/biped-like_288v_528c_central.off",
+   "vertices": 288,
+   "cells": 528,
+   "seed_vector": [
+    1.0,
+    0.562259224862497,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "bited-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.1464466094067262,
+    0.8535533905932737,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    0.3595388412275897,
+    0.6404611587724103,
+    0.0,
+    0.0
+   ],
+   "depth": 0.41696037674870284,
+   "start_depth": 0.11838606664256125,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "off": "central_off/contic/bited-like_384v_1056c_central.off",
+   "vertices": 384,
+   "cells": 1056,
+   "seed_vector": [
+    1.0,
+    0.6095846857772115,
+    0.39041531422278847,
+    0.0
+   ]
+  },
+  {
+   "name": "mabred-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.7888597960288057,
+    0.0,
+    0.2111402039711943,
+    0.0
+   ],
+   "centre": [
+    0.75,
+    0.0,
+    0.25,
+    0.0
+   ],
+   "depth": 0.13258252147247768,
+   "start_depth": 0.10928233952388612,
+   "status": "deepest point of the shape",
+   "boundaries": 12,
+   "off": "central_off/contic/mabred-like_576v_1248c_central.off",
+   "vertices": 576,
+   "cells": 1248,
+   "seed_vector": [
+    1.0,
+    0.7238576250846033,
+    0.13807118745769834,
+    0.13807118745769834
+   ]
+  },
+  {
+   "name": "sabred-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.29796949108955784,
+    0.0,
+    0.7020305089104422,
+    0.0
+   ],
+   "centre": [
+    0.4661873523306529,
+    0.0,
+    0.5338126476693471,
+    0.0
+   ],
+   "depth": 0.5500119464997165,
+   "start_depth": 0.09748377081893084,
+   "status": "deepest point of the shape",
+   "boundaries": 12,
+   "off": "central_off/contic/sabred-like_576v_864c_central.off",
+   "vertices": 576,
+   "cells": 864,
+   "seed_vector": [
+    1.0,
+    0.5277512191509182,
+    0.23612439042454098,
+    0.23612439042454098
+   ]
+  },
+  {
+   "name": "gabred-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.11327045983049319,
+    0.0,
+    0.8867295401695068,
+    0.0
+   ],
+   "centre": [
+    0.1335409488034284,
+    0.0,
+    0.8664590511965716,
+    0.0
+   ],
+   "depth": 0.11163286068253214,
+   "start_depth": 0.09182385042376696,
+   "status": "deepest point of the shape",
+   "boundaries": 12,
+   "off": "central_off/contic/gabred-like_576v_1056c_central.off",
+   "vertices": 576,
+   "cells": 1056,
+   "seed_vector": [
+    1.0,
+    0.3784886819595175,
+    0.31075565902024127,
+    0.31075565902024127
+   ]
+  },
+  {
+   "name": "bimted-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(1 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.0,
+    0.25,
+    0.75,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.28923241729568655,
+    0.7107675827043134,
+    0.0
+   ],
+   "depth": 0.3448464591491708,
+   "start_depth": 0.26516504294495535,
+   "status": "deepest point of the shape",
+   "boundaries": 8,
+   "off": "central_off/contic/bimted-like_576v_192c_central.off",
+   "vertices": 576,
+   "cells": 192,
+   "seed_vector": [
+    1.0,
+    0.37954625307252604,
+    0.37954625307252604,
+    0.24090749385494792
+   ]
+  },
+  {
+   "name": "tispid-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(1 + 0*sqrt(2))*b1 + (-1 + -2*sqrt(2))*b2 + (-2 + 0*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.5833333333333334,
+    0.0,
+    0.16666666666666666,
+    0.25
+   ],
+   "centre": [
+    0.6270083225302222,
+    0.0,
+    0.2540166450604443,
+    0.11897503240933353
+   ],
+   "depth": 0.14838793628535066,
+   "start_depth": 0.09921061252809692,
+   "status": "deepest point of the shape",
+   "boundaries": 12,
+   "off": "central_off/contic/tispid-like_1152v_384c_central.off",
+   "vertices": 1152,
+   "cells": 384,
+   "seed_vector": [
+    1.0,
+    0.6046144088613541,
+    0.13463372969550674,
+    0.13463372969550674
+   ]
+  },
+  {
+   "name": "tabcated-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4",
+    "(1 + 0*sqrt(2))*b1 + (2 + 0*sqrt(2))*b2 + (-2 + 0*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.06822746429607389,
+    0.4488294017779446,
+    0.48294313392598154,
+    0.0
+   ],
+   "centre": [
+    0.33333333333333354,
+    0.2499999999999999,
+    0.41666666666666663,
+    0.0
+   ],
+   "depth": 0.4249182927993986,
+   "start_depth": 0.04699550972705007,
+   "status": "deepest point of the shape",
+   "boundaries": 11,
+   "off": "central_off/contic/tabcated-like_1152v_384c_central.off",
+   "vertices": 1152,
+   "cells": 384,
+   "seed_vector": [
+    1.0,
+    0.5112698372208092,
+    0.3171572875253809,
+    0.17157287525380988
+   ]
+  },
+  {
+   "name": "gippid-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(1 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (-1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.056635229915246596,
+    0.4433647700847534,
+    0.4433647700847534,
+    0.056635229915246596
+   ],
+   "centre": [
+    0.23328139673120643,
+    0.26671860326879354,
+    0.26671860326879354,
+    0.23328139673120643
+   ],
+   "depth": 0.41458793247997955,
+   "start_depth": 0.06049930804218902,
+   "status": "deepest point of the shape",
+   "boundaries": 12,
+   "off": "central_off/contic/gippid-like_1152v_240c_central.off",
+   "vertices": 1152,
+   "cells": 240,
+   "seed_vector": [
+    1.0,
+    0.41421356237309503,
+    0.2738875033720432,
+    0.11344791846120711
+   ]
+  },
+  {
+   "name": "tabipard-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(1 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (-1 + 1/2*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.46244472379441626,
+    0.0,
+    0.10622236189720814,
+    0.4313329143083756
+   ],
+   "centre": [
+    0.3560330591184407,
+    0.0,
+    0.40720000065613365,
+    0.23676694022542577
+   ],
+   "depth": 0.4549423167997557,
+   "start_depth": 0.06905564504110238,
+   "status": "deepest point of the shape",
+   "boundaries": 12,
+   "off": "central_off/contic/tabipard-like_1152v_528c_central.off",
+   "vertices": 1152,
+   "cells": 528,
+   "seed_vector": [
+    1.0,
+    0.41421356237309503,
+    0.18520534412798492,
+    0.18520534412798492
+   ]
+  },
+  {
+   "name": "tadeca-like",
+   "kind": "line",
+   "degrees": 1,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4",
+    "(1 + 0*sqrt(2))*b1 + (1 + -1/2*sqrt(2))*b2 + (-1 + 1/2*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.11327045983049319,
+    0.25,
+    0.6367295401695068,
+    0.0
+   ],
+   "centre": [
+    0.16442862861718857,
+    0.13708845875779863,
+    0.6984829126250128,
+    0.0
+   ],
+   "depth": 0.16814460427969746,
+   "start_depth": 0.11025885406469979,
+   "status": "deepest point of the shape",
+   "boundaries": 9,
+   "off": "central_off/contic/tadeca-like_1152v_336c_central.off",
+   "vertices": 1152,
+   "cells": 336,
+   "seed_vector": [
+    1.0,
+    0.414213562373095,
+    0.32858754616474695,
+    0.25719889146215796
+   ]
+  },
+  {
+   "name": "bideca-like",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "off": "central_off/contic/bideca-like_48v_288c_central.off",
+   "vertices": 48,
+   "cells": 288,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "spid-like",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(1 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "centre": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "off": "central_off/contic/spid-like_144v_240c_central.off",
+   "vertices": 144,
+   "cells": 240,
+   "seed_vector": [
+    1.0,
+    0.4142135623730951,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "apid-like",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [
+    "(1 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "off": "central_off/contic/apid-like_192v_192c_central.off",
+   "vertices": 192,
+   "cells": 192,
+   "seed_vector": [
+    1.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ]
+  },
+  {
+   "name": "deca-like",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [
+    "(1 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (-1 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "off": "central_off/contic/deca-like_288v_48c_central.off",
+   "vertices": 288,
+   "cells": 48,
+   "seed_vector": [
+    1.0,
+    0.41421356237309503,
+    0.41421356237309503,
+    0.1715728752538099
+   ]
+  },
+  {
+   "name": "respid-like",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4",
+    "(1 + 0*sqrt(2))*b1 + (-1 + -2*sqrt(2))*b2 + (-2 + 0*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.6666666666666666,
+    0.0,
+    0.3333333333333333,
+    0.0
+   ],
+   "centre": [
+    0.6666666666666666,
+    0.0,
+    0.3333333333333333,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "off": "central_off/contic/respid-like_576v_384c_central.off",
+   "vertices": 576,
+   "cells": 384,
+   "seed_vector": [
+    1.0,
+    0.6568542494923801,
+    0.1715728752538099,
+    0.1715728752538099
+   ]
+  },
+  {
+   "name": "redeca-like",
+   "kind": "point",
+   "degrees": 0,
+   "locus": [
+    "(0 + 0*sqrt(2))*b1 + (1 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (0 + 0*sqrt(2))*b4",
+    "(0 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (0 + 0*sqrt(2))*b3 + (1 + 0*sqrt(2))*b4",
+    "(1 + 0*sqrt(2))*b1 + (0 + 0*sqrt(2))*b2 + (-1 + 1/2*sqrt(2))*b3 + (-1 + 0*sqrt(2))*b4"
+   ],
+   "start": [
+    0.22654091966098638,
+    0.0,
+    0.7734590803390136,
+    0.0
+   ],
+   "centre": [
+    0.22654091966098638,
+    0.0,
+    0.7734590803390136,
+    0.0
+   ],
+   "depth": null,
+   "status": "point (no freedom): the seed itself",
+   "off": "central_off/contic/redeca-like_576v_336c_central.off",
+   "vertices": 576,
+   "cells": 336,
+   "seed_vector": [
+    1.0,
+    0.41421356237309503,
+    0.2928932188134525,
+    0.2928932188134525
+   ]
+  }
+ ]
+}
