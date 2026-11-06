@@ -1,0 +1,136 @@
+{
+ "_about": "A dense survey of the toxitic / oxitic domain for small regions the grid missed (survey_<sub>.json).",
+ "group": "oxb",
+ "known_regions": [
+  "22386f50729d",
+  "4546bbe66243",
+  "fdec102036a1"
+ ],
+ "zones": {
+  "whole domain": {
+   "points": 300,
+   "types": {
+    "22386f50729d": 84,
+    "fdec102036a1": 198,
+    "4546bbe66243": 18
+   },
+   "new": {}
+  },
+  "b1, b2 small": {
+   "points": 26,
+   "types": {
+    "4546bbe66243": 26
+   },
+   "new": {}
+  },
+  "b1, b3 small": {
+   "points": 24,
+   "types": {
+    "4546bbe66243": 23,
+    "22386f50729d": 1
+   },
+   "new": {}
+  },
+  "b1, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "4546bbe66243": 189,
+    "22386f50729d": 80,
+    "fdec102036a1": 31
+   },
+   "new": {}
+  },
+  "b2, b3 small": {
+   "points": 300,
+   "types": {
+    "22386f50729d": 224,
+    "4546bbe66243": 49,
+    "fdec102036a1": 27
+   },
+   "new": {}
+  },
+  "b2, b4 small": {
+   "points": 300,
+   "types": {
+    "22386f50729d": 92,
+    "fdec102036a1": 142,
+    "4546bbe66243": 66
+   },
+   "new": {}
+  },
+  "b2, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "4546bbe66243": 91,
+    "fdec102036a1": 203,
+    "22386f50729d": 6
+   },
+   "new": {}
+  },
+  "b3, b4 small": {
+   "points": 300,
+   "types": {
+    "22386f50729d": 221,
+    "4546bbe66243": 79
+   },
+   "new": {}
+  },
+  "b3, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "fdec102036a1": 200,
+    "4546bbe66243": 95,
+    "22386f50729d": 5
+   },
+   "new": {}
+  },
+  "b4, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "fdec102036a1": 45,
+    "4546bbe66243": 170,
+    "22386f50729d": 85
+   },
+   "new": {}
+  },
+  "b1, b4 small": {
+   "points": 300,
+   "types": {
+    "4546bbe66243": 179,
+    "22386f50729d": 88,
+    "fdec102036a1": 33
+   },
+   "new": {}
+  },
+  "b2 b3 b4 small": {
+   "points": 42,
+   "types": {
+    "4546bbe66243": 4,
+    "22386f50729d": 38
+   },
+   "new": {}
+  },
+  "b1 b3 b4 small": {
+   "points": 22,
+   "types": {
+    "4546bbe66243": 22
+   },
+   "new": {}
+  },
+  "b1 b2 b4 small": {
+   "points": 24,
+   "types": {
+    "4546bbe66243": 24
+   },
+   "new": {}
+  },
+  "b2 b3 b1-b4 small": {
+   "points": 21,
+   "types": {
+    "fdec102036a1": 21
+   },
+   "new": {}
+  }
+ },
+ "new": {}
+}

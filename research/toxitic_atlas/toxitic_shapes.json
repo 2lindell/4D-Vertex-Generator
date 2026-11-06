@@ -1,0 +1,1783 @@
+{
+ "_about": "The toxitic and oxitic shapes, gathered and merged (toxitic_shapes.json, toxitic_shapes.md).",
+ "toxitic": [
+  {
+   "key": "a5f41b7684fb",
+   "signature": "288: cells 24x[12v20f]+24x[12v20f]+96x[6v8f]+96x[6v8f]+288x[4v4f] | faces 96x3g+96x3g+96x3g+96x3g+288x3g+288x3g+288x3g+288x3g+288x3g | edges 144x4+288x3+288x3+288x3+288x4+288x4",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "sheet": "tox",
+   "symmetry": 288,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: fold b1 = b4, line b1 = b4, b2 = b3"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 288,
+   "cells": 528,
+   "edges": {
+    "3": 864,
+    "4": 720
+   }
+  },
+  {
+   "key": "6b0cb2276095",
+   "signature": "288: cells 24x[12v14f]+24x[24v26f]+96x[6v5f] | faces 96x3g+96x3g+96x3g+144x4g+288x4g | edges 288x3+288x3+288x3",
+   "kind": "wall",
+   "seed": [
+    0.025112350533336124,
+    0.025277219491449947,
+    0.9496104299752138,
+    0.0
+   ],
+   "sheet": "tox",
+   "symmetry": 576,
+   "improper": 288,
+   "sources": [
+    "strata: face b4 = 0, line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 288,
+   "cells": 144,
+   "edges": {
+    "3": 864
+   }
+  },
+  {
+   "key": "50cdad1380f5",
+   "signature": "288: cells 24x[12v8f]+24x[12v20f]+96x[6v5f]+96x[9v8f] | faces 96x3g+96x3g+96x3g+96x6g+288x3g+288x4g | edges 144x4+288x3+288x3+288x4",
+   "kind": "wall",
+   "seed": [
+    0.05008698299106487,
+    0.0,
+    0.9245123808650045,
+    0.02540063614393059
+   ],
+   "sheet": "tox",
+   "symmetry": 576,
+   "improper": 288,
+   "sources": [
+    "strata: face b2 = 0, face b3 = 0, line b1 = b4, b2 = 0, line b1 = b4, b3 = 0"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 288,
+   "cells": 240,
+   "edges": {
+    "3": 576,
+    "4": 432
+   }
+  },
+  {
+   "key": "3d29aef5b8e0",
+   "signature": "96: cells 24x[4v4f]+24x[12v20f]+96x[4v4f] | faces 96x3g+96x3g+288x3g | edges 144x4+288x3",
+   "kind": "line",
+   "seed": [
+    0.02512072515262567,
+    0.9748792748473744,
+    0.0,
+    0.0
+   ],
+   "sheet": "tox",
+   "symmetry": 576,
+   "improper": 288,
+   "sources": [
+    "strata: line b3 = b4 = 0"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 96,
+   "cells": 144,
+   "edges": {
+    "3": 288,
+    "4": 144
+   }
+  },
+  {
+   "key": "cc9050ff3c4e",
+   "signature": "144: cells 24x[6v8f]+24x[6v8f]+96x[6v5f]+96x[6v5f] | faces 96x3g+96x3g+96x3g+96x3g+288x4g | edges 288x4+288x4",
+   "kind": "line",
+   "seed": [
+    0.5248403595838799,
+    0.0,
+    0.0,
+    0.47515964041612013
+   ],
+   "sheet": "tox",
+   "symmetry": 1152,
+   "improper": 576,
+   "sources": [
+    "strata: line b2 = b3 = 0, point (1,0,0,1)"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 144,
+   "cells": 240,
+   "edges": {
+    "4": 576
+   }
+  },
+  {
+   "key": "095e2d12fe7f",
+   "signature": "288: cells 24x[24v14f]+24x[24v14f] | faces 96x3g+96x3g+144x8g | edges 288x3+288x3",
+   "kind": "line",
+   "seed": [
+    0.0,
+    0.02528054073259672,
+    0.9747194592674033,
+    0.0
+   ],
+   "sheet": "tox",
+   "symmetry": 1152,
+   "improper": 576,
+   "sources": [
+    "strata: line b1 = b4 = 0"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 288,
+   "cells": 48,
+   "edges": {
+    "3": 576
+   }
+  },
+  {
+   "key": "58cb82973b86",
+   "signature": "24: cells 24x[6v8f] | faces 96x3g | edges 96x3",
+   "kind": "point",
+   "seed": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sheet": "tox",
+   "symmetry": 1152,
+   "improper": 576,
+   "sources": [
+    "strata: point (1,0,0,0)"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 24,
+   "cells": 24,
+   "edges": {
+    "3": 96
+   }
+  },
+  {
+   "key": "8de8fd73a969",
+   "signature": "96: cells 24x[8v6f]+24x[12v14f] | faces 96x3g+144x4g | edges 288x3",
+   "kind": "point",
+   "seed": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "sheet": "tox",
+   "symmetry": 1152,
+   "improper": 576,
+   "sources": [
+    "strata: point (0,0,1,0), point (0,1,0,0)"
+   ],
+   "sheets": [
+    "tox"
+   ],
+   "vertices": 96,
+   "cells": 48,
+   "edges": {
+    "3": 288
+   }
+  }
+ ],
+ "oxitic": [
+  {
+   "key": "fdec102036a1",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+576x3+576x3+576x4+576x5",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.4060192861759185,
+    0.4996770306461539,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: face b2 = 0",
+    "strata: face b2 = 0, fold b1 = b4"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 1728,
+   "edges": {
+    "3": 1152,
+    "4": 1440,
+    "5": 576,
+    "6": 288
+   }
+  },
+  {
+   "key": "51ee8ceff001",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x5",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.46842686259587596,
+    0.43726945422619645,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2304,
+   "edges": {
+    "3": 1152,
+    "4": 1728,
+    "5": 576,
+    "6": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "e910898ef869",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x5",
+   "kind": "region",
+   "seed": [
+    0.09377546591623595,
+    0.31240792154598235,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2304,
+   "edges": {
+    "3": 1152,
+    "4": 1728,
+    "5": 576,
+    "6": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "64745339a7a1",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x5",
+   "kind": "region",
+   "seed": [
+    0.1561830423361934,
+    0.12518519228610997,
+    0.59328839527609,
+    0.1253433701016066
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2304,
+   "edges": {
+    "3": 1152,
+    "4": 1728,
+    "5": 576,
+    "6": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "9e2bb739cd87",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x4+576x4+576x5+576x5",
+   "kind": "region",
+   "seed": [
+    0.40581334801602315,
+    0.12518519228610997,
+    0.12523157212640923,
+    0.34376988757145766
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 576,
+    "4": 1728,
+    "5": 1152,
+    "6": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "22386f50729d",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+576x3+576x4+576x4+576x5+576x7",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.2812041333360036,
+    0.6244921834860688,
+    0.03173200547167041
+   ],
+   "sheet": "oxb",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 576,
+    "4": 2016,
+    "5": 576,
+    "6": 288,
+    "7": 576
+   }
+  },
+  {
+   "key": "a54766660444",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+288x12+576x3+576x3+576x3+576x4+576x5+576x6",
+   "kind": "region",
+   "seed": [
+    0.21859061875615085,
+    0.34361170975596106,
+    0.25004672496632413,
+    0.18775094652156404
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3168,
+   "edges": {
+    "3": 1728,
+    "4": 1440,
+    "5": 576,
+    "6": 864,
+    "12": 288
+   }
+  },
+  {
+   "key": "0e9339f3a320",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x8+576x3+576x4+576x4+576x4+576x5+576x6",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3264,
+   "edges": {
+    "3": 576,
+    "4": 2016,
+    "5": 576,
+    "6": 1152,
+    "8": 288
+   }
+  },
+  {
+   "key": "b577195e5701",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x8+288x10+576x3+576x3+576x4+576x4+576x5+576x6",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.49963065080585467,
+    0.40606566601621774,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3264,
+   "edges": {
+    "3": 1152,
+    "4": 1728,
+    "5": 576,
+    "6": 576,
+    "8": 288,
+    "10": 288
+   }
+  },
+  {
+   "key": "25be69714f79",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x8+288x8+576x3+576x3+576x4+576x4+576x5+576x6",
+   "kind": "region",
+   "seed": [
+    0.7178512301158104,
+    0.06277761586615252,
+    0.031620207496473034,
+    0.18775094652156404
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3264,
+   "edges": {
+    "3": 1152,
+    "4": 1440,
+    "5": 576,
+    "6": 864,
+    "8": 576
+   }
+  },
+  {
+   "key": "4546bbe66243",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x6+576x3+576x3+576x4+576x5+576x6+576x7",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "sheet": "oxb",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 3264,
+   "edges": {
+    "3": 1152,
+    "4": 1152,
+    "5": 576,
+    "6": 1152,
+    "7": 576
+   }
+  },
+  {
+   "key": "a2f01eef519b",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+288x12+576x3+576x4+576x4+576x4+576x5+576x7",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.6244458036457695,
+    0.28125051317630284,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3552,
+   "edges": {
+    "3": 576,
+    "4": 2880,
+    "5": 576,
+    "7": 576,
+    "12": 288
+   }
+  },
+  {
+   "key": "2a7c00d22f50",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x8+288x8+288x10+576x3+576x3+576x3+576x4+576x5+576x5+576x6",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.34361170975596106,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3840,
+   "edges": {
+    "3": 1728,
+    "4": 864,
+    "5": 1152,
+    "6": 576,
+    "8": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "dfc58323d987",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x8+288x12+576x3+576x3+576x4+576x4+576x4+576x5+576x6",
+   "kind": "region",
+   "seed": [
+    0.06257167770625723,
+    0.37481549796593977,
+    0.5308808188561326,
+    0.03173200547167041
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3840,
+   "edges": {
+    "3": 1152,
+    "4": 2016,
+    "5": 576,
+    "6": 864,
+    "8": 288,
+    "12": 288
+   }
+  },
+  {
+   "key": "63f47ecab99a",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x10+576x3+576x3+576x3+576x4+576x5+576x6+576x7",
+   "kind": "region",
+   "seed": [
+    0.09377546591623595,
+    0.5932420154357908,
+    0.25004672496632413,
+    0.06293579368164913
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3840,
+   "edges": {
+    "3": 1728,
+    "4": 864,
+    "5": 576,
+    "6": 1152,
+    "7": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "17848f9c0c98",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x12+576x3+576x3+576x4+576x4+576x4+576x6+576x6",
+   "kind": "region",
+   "seed": [
+    0.12497925412621468,
+    0.5308344390158334,
+    0.25004672496632413,
+    0.09413958189162785
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3840,
+   "edges": {
+    "3": 1152,
+    "4": 2016,
+    "6": 1728,
+    "12": 288
+   }
+  },
+  {
+   "key": "58e2526402eb",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x8+288x10+576x3+576x3+576x4+576x4+576x4+576x5+576x7",
+   "kind": "region",
+   "seed": [
+    0.7044479893663808,
+    0.030901221575063503,
+    0.01225553980277662,
+    0.25239524925577916
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "survey"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 3840,
+   "edges": {
+    "3": 1152,
+    "4": 2016,
+    "5": 576,
+    "6": 288,
+    "7": 576,
+    "8": 288,
+    "10": 288
+   }
+  },
+  {
+   "key": "a4b56b4de6ce",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x6+288x10+576x3+576x3+576x3+576x4+576x5+576x6+576x8",
+   "kind": "region",
+   "seed": [
+    0.022254101786114835,
+    0.7599505378956335,
+    0.20819858968526414,
+    0.009596770632987667
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "survey"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 4128,
+   "edges": {
+    "3": 1728,
+    "4": 1152,
+    "5": 576,
+    "6": 1152,
+    "8": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "1f09ced335b9",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x6+288x12+576x3+576x3+576x4+576x4+576x4+576x5+576x8",
+   "kind": "region",
+   "seed": [
+    0.6518353191073764,
+    0.03444707980687774,
+    0.011428858615943633,
+    0.3022887424698023
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "survey"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 4128,
+   "edges": {
+    "3": 1152,
+    "4": 2304,
+    "5": 576,
+    "6": 576,
+    "8": 576,
+    "12": 288
+   }
+  },
+  {
+   "key": "223f1e4ac3a9",
+   "signature": "576: cells 48x[36v38f]+288x[4v4f] | faces 144x8g+192x3g+576x3g+576x3g | edges 288x3+288x3+576x3+576x3",
+   "kind": "wall",
+   "seed": [
+    0.1390292809133281,
+    0.1931475305029705,
+    0.6678231885837014,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b4 = 0, line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 336,
+   "edges": {
+    "3": 1728
+   }
+  },
+  {
+   "key": "6f4a50387244",
+   "signature": "576: cells 48x[12v14f]+144x[8v10f]+192x[9v11f] | faces 192x3g+192x3g+288x4g+288x4g+576x3g+576x3g | edges 288x3+288x3+576x3+576x3+576x3",
+   "kind": "wall",
+   "seed": [
+    0.054558389985981004,
+    0.5248967221614868,
+    0.4205448878525324,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b4 = 0, line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 384,
+   "edges": {
+    "3": 2304
+   }
+  },
+  {
+   "key": "6fc49066ae8b",
+   "signature": "576: cells 48x[12v8f]+144x[4v4f]+192x[12v14f]+288x[4v4f] | faces 192x3g+192x6g+288x4g+576x3g+576x3g+576x3g | edges 288x3+288x3+288x4+288x4+576x3+576x4",
+   "kind": "wall",
+   "seed": [
+    0.19924120165668613,
+    0.0,
+    0.7246898839625502,
+    0.0760689143807636
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b2 = 0, face b3 = 0, line b1 = b4, b2 = 0, line b1 = b4, b3 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 672,
+   "edges": {
+    "3": 1152,
+    "4": 1152
+   }
+  },
+  {
+   "key": "c41b4cd39c7a",
+   "signature": "576: cells 48x[24v38f]+192x[6v8f]+288x[4v4f]+288x[4v4f] | faces 144x4g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x3+288x4+576x3+576x3+576x4",
+   "kind": "wall",
+   "seed": [
+    0.10945223231,
+    0.2967311549898,
+    0.5620846071029,
+    0.0317320055973
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+    "strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 816,
+   "edges": {
+    "3": 1728,
+    "4": 864
+   }
+  },
+  {
+   "key": "8da3f28a95bc",
+   "signature": "576: cells 48x[12v14f]+144x[8v10f]+192x[6v8f]+192x[6v8f]+288x[4v4f] | faces 192x3g+192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+576x3+576x3+576x3+576x4",
+   "kind": "wall",
+   "seed": [
+    0.025112350533336124,
+    0.44995379676098124,
+    0.5249338527056827,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b4 = 0, line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 864,
+   "edges": {
+    "3": 1728,
+    "4": 1152
+   }
+  },
+  {
+   "key": "b86bc69f7dea",
+   "signature": "576: cells 48x[12v20f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[6v7f] | faces 144x4g+192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x5+576x3+576x3+576x3+576x4",
+   "kind": "wall",
+   "seed": [
+    0.0625716777063,
+    0.452848158411,
+    0.452848158411,
+    0.0317320054717
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b2 - b3"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 1008,
+   "edges": {
+    "3": 2016,
+    "4": 864,
+    "5": 288
+   }
+  },
+  {
+   "key": "89590d9cc67a",
+   "signature": "576: cells 48x[24v26f]+144x[8v10f]+288x[4v4f]+576x[5v5f] | faces 192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+576x3+576x3+576x4+576x5",
+   "kind": "wall",
+   "seed": [
+    0.025112350533336124,
+    0.025277219491449947,
+    0.9496104299752138,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b4 = 0, line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 1056,
+   "edges": {
+    "3": 1152,
+    "4": 1152,
+    "5": 576
+   }
+  },
+  {
+   "key": "e39f8da091ec",
+   "signature": "576: cells 48x[12v8f]+144x[4v4f]+192x[6v8f]+192x[9v11f]+288x[4v4f]+288x[4v4f] | faces 192x3g+192x3g+192x6g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+576x3+576x4+576x4",
+   "kind": "wall",
+   "seed": [
+    0.1999538556679056,
+    0.0,
+    0.624778635511323,
+    0.17526750882077136
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b2 = 0, face b3 = 0, line b1 = b4, b2 = 0, line b1 = b4, b3 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 1152,
+   "edges": {
+    "3": 576,
+    "4": 2304
+   }
+  },
+  {
+   "key": "b900c8edde78",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x4+288x5+576x3+576x4+576x4",
+   "kind": "wall",
+   "seed": [
+    0.4370171366234,
+    0.1689745448514,
+    0.1750535837277,
+    0.2189547347975
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4",
+    "map walls: b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - sqrt(2)*b2*b4 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2, b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+    "strata: face b2 = 0",
+    "strata: face b2 = 0, fold b1 = b4"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 1248,
+   "edges": {
+    "3": 864,
+    "4": 1728,
+    "5": 288
+   }
+  },
+  {
+   "key": "7443559f1ee3",
+   "signature": "576: cells 48x[12v14f]+144x[8v10f]+192x[6v5f]+288x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+576x4+576x4+576x4+576x4",
+   "kind": "wall",
+   "seed": [
+    0.025112350533336124,
+    0.5248967221614868,
+    0.44999092730517715,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b4 = 0, line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 1248,
+   "edges": {
+    "4": 2880
+   }
+  },
+  {
+   "key": "d43bc476feec",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v5f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x8+576x3+576x4+576x4+576x4",
+   "kind": "wall",
+   "seed": [
+    0.1625946716686,
+    0.0875697727199,
+    0.6244921834454,
+    0.125343372166
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 1728,
+   "edges": {
+    "3": 576,
+    "4": 2592,
+    "8": 288
+   }
+  },
+  {
+   "key": "0f38128f0793",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[6v8f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x8+576x3+576x3+576x3+576x3+576x5",
+   "kind": "wall",
+   "seed": [
+    0.2185906188994,
+    0.345945170404,
+    0.2477132643388,
+    0.1877509463579
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 1728,
+   "edges": {
+    "3": 2304,
+    "4": 864,
+    "5": 576,
+    "8": 288
+   }
+  },
+  {
+   "key": "15028d583027",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x5+288x7+576x3+576x3+576x4+576x5",
+   "kind": "wall",
+   "seed": [
+    0.0625716776374,
+    0.4807942293029,
+    0.4249020875135,
+    0.0317320055462
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 1824,
+   "edges": {
+    "3": 1152,
+    "4": 1152,
+    "5": 864,
+    "7": 288
+   }
+  },
+  {
+   "key": "74748c41c6c4",
+   "signature": "576: cells 48x[12v20f]+192x[6v8f]+288x[4v4f]+288x[6v7f]+576x[4v4f]+576x[4v4f] | faces 144x4g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x6+288x7+576x3+576x4+576x4+576x4+576x4",
+   "kind": "wall",
+   "seed": [
+    0.4057669671512,
+    0.1564353608486,
+    0.1564353608486,
+    0.2813623111515
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b2 - b3"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 1968,
+   "edges": {
+    "3": 864,
+    "4": 2304,
+    "6": 288,
+    "7": 288
+   }
+  },
+  {
+   "key": "ead1cb7bdff5",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v14f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x3+576x4+576x5",
+   "kind": "wall",
+   "seed": [
+    0.0674612573696,
+    0.3699259188011,
+    0.5308808187021,
+    0.0317320051272
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2112,
+   "edges": {
+    "3": 1728,
+    "4": 1152,
+    "5": 576,
+    "6": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "e695c863ed63",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v6f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x10+576x3+576x3+576x3+576x4+576x6",
+   "kind": "wall",
+   "seed": [
+    0.0625716775783,
+    0.6009408749787,
+    0.304755441787,
+    0.031732005656
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b3 - b2*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2112,
+   "edges": {
+    "3": 1728,
+    "4": 1440,
+    "6": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "49bf2e589e5d",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v14f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x3+576x4+576x5",
+   "kind": "wall",
+   "seed": [
+    0.1561830474094,
+    0.1042183374856,
+    0.6142552467624,
+    0.1253433683426
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2, b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2112,
+   "edges": {
+    "3": 1728,
+    "4": 1152,
+    "5": 576,
+    "6": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "44f48f6922fc",
+   "signature": "576: cells 48x[12v8f]+144x[4v4f]+192x[9v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x6g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x6+288x6+576x3+576x4+576x5+576x6",
+   "kind": "wall",
+   "seed": [
+    0.05008698299106487,
+    0.0,
+    0.9245123808650045,
+    0.02540063614393059
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b2 = 0, face b3 = 0, line b1 = b4, b2 = 0, line b1 = b4, b3 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 2112,
+   "edges": {
+    "3": 576,
+    "4": 1152,
+    "5": 576,
+    "6": 1152
+   }
+  },
+  {
+   "key": "d5ec887138b0",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v5f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x6+576x4+576x4+576x5+576x5",
+   "kind": "wall",
+   "seed": [
+    0.5246654131343941,
+    0.0,
+    0.02531114480395991,
+    0.45002344206164613
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 2112,
+   "edges": {
+    "4": 2016,
+    "5": 1152,
+    "6": 288
+   }
+  },
+  {
+   "key": "64e209745c78",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+576x3+576x3+576x4+576x5+576x6",
+   "kind": "wall",
+   "seed": [
+    0.0781782082261,
+    0.2500003450489,
+    0.6400894408778,
+    0.0317320058472
+   ],
+   "sheet": "oxb",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 3*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 2112,
+   "edges": {
+    "3": 1152,
+    "4": 1728,
+    "5": 576,
+    "6": 576
+   }
+  },
+  {
+   "key": "e86435745437",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v14f]+288x[4v4f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+288x10+576x3+576x3+576x3+576x4+576x6",
+   "kind": "wall",
+   "seed": [
+    0.240404598877,
+    0.353001517725,
+    0.2188429366661,
+    0.1877509467319
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2400,
+   "edges": {
+    "3": 1728,
+    "4": 1728,
+    "6": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "bc46a0e6bdb1",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x7+288x8+576x3+576x4+576x4+576x4+576x5",
+   "kind": "wall",
+   "seed": [
+    0.6952891151917,
+    0.062777615307,
+    0.0316202050555,
+    0.2103130644458
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2400,
+   "edges": {
+    "3": 864,
+    "4": 2016,
+    "5": 576,
+    "7": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "dc7e7a842ea3",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x8+576x3+576x3+576x3+576x4+576x5+576x5",
+   "kind": "wall",
+   "seed": [
+    0.085215824161,
+    0.2812041333449,
+    0.6018480371034,
+    0.0317320053907
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 1728,
+    "4": 864,
+    "5": 1152,
+    "6": 576,
+    "8": 288
+   }
+  },
+  {
+   "key": "c3f24045ca31",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x3+576x4+576x5+576x6",
+   "kind": "wall",
+   "seed": [
+    0.1602131080918,
+    0.0587475506103,
+    0.655695971266,
+    0.1253433700319
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2, b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 1728,
+    "4": 1152,
+    "5": 576,
+    "6": 864,
+    "8": 288
+   }
+  },
+  {
+   "key": "9d5f2acc9092",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v8f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x8+576x3+576x3+576x4+576x4+576x4+576x6",
+   "kind": "wall",
+   "seed": [
+    0.0625716779222,
+    0.697314158551,
+    0.2083821583714,
+    0.0317320051554
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 1152,
+    "4": 2304,
+    "6": 864,
+    "8": 288
+   }
+  },
+  {
+   "key": "444e8e32e97b",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v8f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x10+576x3+576x3+576x4+576x4+576x4+576x6",
+   "kind": "wall",
+   "seed": [
+    0.0937754657416,
+    0.5783542149931,
+    0.2649345253605,
+    0.0629357939047
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 1152,
+    "4": 2592,
+    "6": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "b723efbea090",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v5f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x6+288x12+576x3+576x3+576x3+576x4+576x5+576x5",
+   "kind": "wall",
+   "seed": [
+    0.1561830397634,
+    0.0939814036429,
+    0.6288420508784,
+    0.1209935057153
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 1728,
+    "4": 1152,
+    "5": 1152,
+    "6": 288,
+    "12": 288
+   }
+  },
+  {
+   "key": "bb055ef6e972",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x6+288x7+288x10+576x3+576x3+576x4+576x4+576x5+576x5",
+   "kind": "wall",
+   "seed": [
+    0.063045306148,
+    0.3431380814572,
+    0.5620846069657,
+    0.0317320054291
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2976,
+   "edges": {
+    "3": 1440,
+    "4": 1152,
+    "5": 1152,
+    "6": 288,
+    "7": 288,
+    "10": 288
+   }
+  },
+  {
+   "key": "0eb4d05eb752",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x5+288x5+288x10+576x3+576x3+576x4+576x4+576x5+576x6",
+   "kind": "wall",
+   "seed": [
+    0.1249792536297,
+    0.5589324495878,
+    0.2219487133979,
+    0.0941395833846
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "map walls: b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4",
+    "strata: fold b1 = b4"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 576,
+   "cells": 2976,
+   "edges": {
+    "3": 1152,
+    "4": 1440,
+    "5": 1152,
+    "6": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "80b2343fd8f0",
+   "signature": "192: cells 48x[4v4f]+144x[4v4f]+192x[4v4f]+288x[4v4f]+576x[4v4f] | faces 192x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x8+576x4",
+   "kind": "line",
+   "seed": [
+    0.02512072515262567,
+    0.9748792748473744,
+    0.0,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: line b3 = b4 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 192,
+   "cells": 1248,
+   "edges": {
+    "4": 864,
+    "6": 288,
+    "8": 288
+   }
+  },
+  {
+   "key": "414533b9acc6",
+   "signature": "288: cells 48x[6v8f]+192x[6v5f]+288x[8v6f] | faces 192x3g+192x3g+576x4g+576x4g | edges 144x8+576x3+576x5",
+   "kind": "line",
+   "seed": [
+    0.5248403595838799,
+    0.0,
+    0.0,
+    0.47515964041612013
+   ],
+   "sheet": "ox",
+   "symmetry": 2304,
+   "improper": 1152,
+   "sources": [
+    "strata: line b2 = b3 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 288,
+   "cells": 528,
+   "edges": {
+    "3": 576,
+    "5": 576,
+    "8": 144
+   }
+  },
+  {
+   "key": "a8da4ec5c0e2",
+   "signature": "288: cells 48x[12v20f]+192x[6v8f]+288x[4v4f] | faces 192x3g+192x3g+288x3g+576x3g+576x3g | edges 144x4+288x3+576x3+576x4",
+   "kind": "line",
+   "seed": [
+    0.02510998404651458,
+    0.47489001595348546,
+    0.47489001595348546,
+    0.02510998404651458
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "strata: line b1 = b4, b2 = b3"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "vertices": 288,
+   "cells": 528,
+   "edges": {
+    "3": 864,
+    "4": 720
+   }
+  },
+  {
+   "key": "a6ddde77b471",
+   "signature": "576: cells 48x[24v14f]+144x[16v10f] | faces 192x3g+288x8g+576x4g | edges 288x4+576x3+576x4",
+   "kind": "line",
+   "seed": [
+    0.0,
+    0.02528054073259672,
+    0.9747194592674033,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 2304,
+   "improper": 1152,
+   "sources": [
+    "strata: line b1 = b4 = 0"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 576,
+   "cells": 192,
+   "edges": {
+    "3": 576,
+    "4": 864
+   }
+  },
+  {
+   "key": "31553874949a",
+   "signature": "48: cells 288x[4v4f] | faces 576x3g | edges 144x8+192x3",
+   "kind": "point",
+   "seed": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 2304,
+   "improper": 1152,
+   "sources": [
+    "strata: point (1,0,0,0)"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 48,
+   "cells": 288,
+   "edges": {
+    "3": 192,
+    "8": 144
+   }
+  },
+  {
+   "key": "e0a6a58eb3b3",
+   "signature": "144: cells 48x[6v8f]+192x[6v5f] | faces 192x3g+192x3g+288x4g | edges 576x4",
+   "kind": "point",
+   "seed": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "sheet": "ox",
+   "symmetry": 2304,
+   "improper": 1152,
+   "sources": [
+    "strata: point (1,0,0,1)"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 144,
+   "cells": 240,
+   "edges": {
+    "4": 576
+   }
+  },
+  {
+   "key": "9f29b1b7c1be",
+   "signature": "192: cells 48x[8v6f]+144x[8v10f] | faces 288x4g+576x3g | edges 288x4+576x3",
+   "kind": "point",
+   "seed": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 2304,
+   "improper": 1152,
+   "sources": [
+    "strata: point (0,0,1,0), point (0,1,0,0)"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "vertices": 192,
+   "cells": 192,
+   "edges": {
+    "3": 576,
+    "4": 288
+   }
+  }
+ ]
+}

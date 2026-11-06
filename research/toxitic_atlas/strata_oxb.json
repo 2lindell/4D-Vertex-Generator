@@ -1,0 +1,636 @@
+{
+ "_about": "The toxitic / oxitic shapes on the domain's faces, edges and special lines (strata_<sub>.json).",
+ "group": "oxb",
+ "order": 576,
+ "N": 40,
+ "strata": [
+  {
+   "stratum": "face b2 = 0",
+   "points": 361,
+   "types": {
+    "44f48f6922fc": 23,
+    "e39f8da091ec": 53,
+    "fdec102036a1": 171,
+    "d5ec887138b0": 114
+   },
+   "changes": [
+    {
+     "sides": [
+      "d5ec887138b0",
+      "fdec102036a1"
+     ],
+     "at": "b900c8edde78",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "e39f8da091ec",
+      "fdec102036a1"
+     ],
+     "at": "c41b4cd39c7a",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "44f48f6922fc",
+      "e39f8da091ec"
+     ],
+     "at": "6fc49066ae8b",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "44f48f6922fc",
+      "fdec102036a1"
+     ],
+     "at": "6fc49066ae8b",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "face b3 = 0",
+   "points": 361,
+   "types": {
+    "44f48f6922fc": 249,
+    "e39f8da091ec": 112
+   },
+   "changes": [
+    {
+     "sides": [
+      "44f48f6922fc",
+      "e39f8da091ec"
+     ],
+     "at": "6fc49066ae8b",
+     "crossings": 6
+    }
+   ]
+  },
+  {
+   "stratum": "face b4 = 0",
+   "points": 741,
+   "types": {
+    "89590d9cc67a": 76,
+    "8da3f28a95bc": 314,
+    "7443559f1ee3": 351
+   },
+   "changes": [
+    {
+     "sides": [
+      "7443559f1ee3",
+      "8da3f28a95bc"
+     ],
+     "at": "6f4a50387244",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "89590d9cc67a",
+      "8da3f28a95bc"
+     ],
+     "at": "223f1e4ac3a9",
+     "crossings": 6
+    }
+   ]
+  },
+  {
+   "stratum": "fold b1 = b4",
+   "points": 361,
+   "types": {
+    "4546bbe66243": 66,
+    "22386f50729d": 36,
+    "fdec102036a1": 259
+   },
+   "changes": [
+    {
+     "sides": [
+      "22386f50729d",
+      "fdec102036a1"
+     ],
+     "at": "b900c8edde78",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "22386f50729d",
+      "4546bbe66243"
+     ],
+     "at": "64e209745c78",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "4546bbe66243",
+      "fdec102036a1"
+     ],
+     "at": "64e209745c78",
+     "crossings": 2
+    }
+   ]
+  },
+  {
+   "stratum": "line b2 = b3 = 0",
+   "points": 19,
+   "types": {
+    "414533b9acc6": 19
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b2 = b4 = 0",
+   "points": 39,
+   "types": {
+    "89590d9cc67a": 9,
+    "8da3f28a95bc": 17,
+    "7443559f1ee3": 13
+   },
+   "changes": [
+    {
+     "sides": [
+      "89590d9cc67a",
+      "8da3f28a95bc"
+     ],
+     "at": "223f1e4ac3a9",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "7443559f1ee3",
+      "8da3f28a95bc"
+     ],
+     "at": "6f4a50387244",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b3 = b4 = 0",
+   "points": 39,
+   "types": {
+    "80b2343fd8f0": 39
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b4 = 0",
+   "points": 39,
+   "types": {
+    "a6ddde77b471": 39
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b4, b2 = 0",
+   "points": 19,
+   "types": {
+    "44f48f6922fc": 6,
+    "e39f8da091ec": 13
+   },
+   "changes": [
+    {
+     "sides": [
+      "44f48f6922fc",
+      "e39f8da091ec"
+     ],
+     "at": "6fc49066ae8b",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b1 = b4, b3 = 0",
+   "points": 19,
+   "types": {
+    "44f48f6922fc": 6,
+    "e39f8da091ec": 13
+   },
+   "changes": [
+    {
+     "sides": [
+      "44f48f6922fc",
+      "e39f8da091ec"
+     ],
+     "at": "6fc49066ae8b",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b1 = b4, b2 = b3",
+   "points": 19,
+   "types": {
+    "c41b4cd39c7a": 19
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (1,0,0,0)",
+   "points": 1,
+   "types": {
+    "31553874949a": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (0,1,0,0)",
+   "points": 1,
+   "types": {
+    "9f29b1b7c1be": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (0,0,1,0)",
+   "points": 1,
+   "types": {
+    "9f29b1b7c1be": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point (1,0,0,1)",
+   "points": 1,
+   "types": {
+    "e0a6a58eb3b3": 1
+   },
+   "changes": []
+  }
+ ],
+ "types": [
+  {
+   "key": "b900c8edde78",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x4+288x5+576x3+576x4+576x4",
+   "vertices": 576,
+   "example": [
+    0.525623541914836,
+    0.0,
+    0.05124708569720888,
+    0.4231293723879549
+   ],
+   "strata": [
+    "face b2 = 0",
+    "fold b1 = b4"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "c41b4cd39c7a",
+   "signature": "576: cells 48x[24v38f]+192x[6v8f]+288x[4v4f]+288x[4v4f] | faces 144x4g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x3+288x4+576x3+576x3+576x4",
+   "vertices": 576,
+   "example": [
+    0.39977635257036,
+    0.0,
+    0.2834752819632924,
+    0.31674836546634755
+   ],
+   "strata": [
+    "face b2 = 0",
+    "line b1 = b4, b2 = b3"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "6fc49066ae8b",
+   "signature": "576: cells 48x[12v8f]+144x[4v4f]+192x[12v14f]+288x[4v4f] | faces 192x3g+192x6g+288x4g+576x3g+576x3g+576x3g | edges 288x3+288x3+288x4+288x4+576x3+576x4",
+   "vertices": 576,
+   "example": [
+    0.19924120165668613,
+    0.0,
+    0.7246898839625502,
+    0.0760689143807636
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b1 = b4, b2 = 0",
+    "line b1 = b4, b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "44f48f6922fc",
+   "signature": "576: cells 48x[12v8f]+144x[4v4f]+192x[9v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x6g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x6+288x6+576x3+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.05008698299106487,
+    0.0,
+    0.9245123808650045,
+    0.02540063614393059
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b1 = b4, b2 = 0",
+    "line b1 = b4, b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "e39f8da091ec",
+   "signature": "576: cells 48x[12v8f]+144x[4v4f]+192x[6v8f]+192x[9v11f]+288x[4v4f]+288x[4v4f] | faces 192x3g+192x3g+192x6g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+576x3+576x4+576x4",
+   "vertices": 576,
+   "example": [
+    0.1999538556679056,
+    0.0,
+    0.624778635511323,
+    0.17526750882077136
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b1 = b4, b2 = 0",
+    "line b1 = b4, b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "fdec102036a1",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+576x3+576x3+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.2499094798935192,
+    0.0,
+    0.7246898839625502,
+    0.025400636143930587
+   ],
+   "strata": [
+    "face b2 = 0",
+    "fold b1 = b4"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "d5ec887138b0",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v5f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x6+576x4+576x4+576x5+576x5",
+   "vertices": 576,
+   "example": [
+    0.5246654131343941,
+    0.0,
+    0.02531114480395991,
+    0.45002344206164613
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "6f4a50387244",
+   "signature": "576: cells 48x[12v14f]+144x[8v10f]+192x[9v11f] | faces 192x3g+192x3g+288x4g+288x4g+576x3g+576x3g | edges 288x3+288x3+576x3+576x3+576x3",
+   "vertices": 576,
+   "example": [
+    0.054558389985981004,
+    0.5248967221614868,
+    0.4205448878525324,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "223f1e4ac3a9",
+   "signature": "576: cells 48x[36v38f]+288x[4v4f] | faces 144x8g+192x3g+576x3g+576x3g | edges 288x3+288x3+576x3+576x3",
+   "vertices": 576,
+   "example": [
+    0.1390292809133281,
+    0.1931475305029705,
+    0.6678231885837014,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "89590d9cc67a",
+   "signature": "576: cells 48x[24v26f]+144x[8v10f]+288x[4v4f]+576x[5v5f] | faces 192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+576x3+576x3+576x4+576x5",
+   "vertices": 576,
+   "example": [
+    0.025112350533336124,
+    0.025277219491449947,
+    0.9496104299752138,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "8da3f28a95bc",
+   "signature": "576: cells 48x[12v14f]+144x[8v10f]+192x[6v8f]+192x[6v8f]+288x[4v4f] | faces 192x3g+192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+576x3+576x3+576x3+576x4",
+   "vertices": 576,
+   "example": [
+    0.025112350533336124,
+    0.44995379676098124,
+    0.5249338527056827,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "7443559f1ee3",
+   "signature": "576: cells 48x[12v14f]+144x[8v10f]+192x[6v5f]+288x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+576x4+576x4+576x4+576x4",
+   "vertices": 576,
+   "example": [
+    0.025112350533336124,
+    0.5248967221614868,
+    0.44999092730517715,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "64e209745c78",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x4+576x3+576x3+576x4+576x5+576x6",
+   "vertices": 576,
+   "example": [
+    0.02770849675420941,
+    0.2948296397267417,
+    0.6497533667648395,
+    0.02770849675420941
+   ],
+   "strata": [
+    "fold b1 = b4"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "4546bbe66243",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x6+288x6+576x3+576x3+576x4+576x5+576x6+576x7",
+   "vertices": 576,
+   "example": [
+    0.0251090518216136,
+    0.02527389912284731,
+    0.9245079972339255,
+    0.0251090518216136
+   ],
+   "strata": [
+    "fold b1 = b4"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "22386f50729d",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[4v4f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x4+288x4+288x6+576x3+576x4+576x4+576x5+576x7",
+   "vertices": 576,
+   "example": [
+    0.0251090518216136,
+    0.3250062232709412,
+    0.6247756730858317,
+    0.0251090518216136
+   ],
+   "strata": [
+    "fold b1 = b4"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "414533b9acc6",
+   "signature": "288: cells 48x[6v8f]+192x[6v5f]+288x[8v6f] | faces 192x3g+192x3g+576x4g+576x4g | edges 144x8+576x3+576x5",
+   "vertices": 288,
+   "example": [
+    0.5248403595838799,
+    0.0,
+    0.0,
+    0.47515964041612013
+   ],
+   "strata": [
+    "line b2 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 2304,
+   "improper": 1152
+  },
+  {
+   "key": "80b2343fd8f0",
+   "signature": "192: cells 48x[4v4f]+144x[4v4f]+192x[4v4f]+288x[4v4f]+576x[4v4f] | faces 192x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x8+576x4",
+   "vertices": 192,
+   "example": [
+    0.02512072515262567,
+    0.9748792748473744,
+    0.0,
+    0.0
+   ],
+   "strata": [
+    "line b3 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 576,
+   "improper": 0
+  },
+  {
+   "key": "a6ddde77b471",
+   "signature": "576: cells 48x[24v14f]+144x[16v10f] | faces 192x3g+288x8g+576x4g | edges 288x4+576x3+576x4",
+   "vertices": 576,
+   "example": [
+    0.0,
+    0.02528054073259672,
+    0.9747194592674033,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 2304,
+   "improper": 1152
+  },
+  {
+   "key": "31553874949a",
+   "signature": "48: cells 288x[4v4f] | faces 576x3g | edges 144x8+192x3",
+   "vertices": 48,
+   "example": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "strata": [
+    "point (1,0,0,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 2304,
+   "improper": 1152
+  },
+  {
+   "key": "9f29b1b7c1be",
+   "signature": "192: cells 48x[8v6f]+144x[8v10f] | faces 288x4g+576x3g | edges 288x4+576x3",
+   "vertices": 192,
+   "example": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "strata": [
+    "point (0,0,1,0)",
+    "point (0,1,0,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 2304,
+   "improper": 1152
+  },
+  {
+   "key": "e0a6a58eb3b3",
+   "signature": "144: cells 48x[6v8f]+192x[6v5f] | faces 192x3g+192x3g+288x4g | edges 576x4",
+   "vertices": 144,
+   "example": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "strata": [
+    "point (1,0,0,1)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 2304,
+   "improper": 1152
+  }
+ ]
+}
