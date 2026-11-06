@@ -1576,6 +1576,43 @@
    "opt_R": 2.288252593957215,
    "central_off": "central_off/ixitic/sabtedy_720v_1680c_central.off",
    "central_R": 2.3278341811935017
+  },
+  {
+   "name": "gastethi",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "2f7458953f46",
+   "locus": [],
+   "sheet": "ix8",
+   "seed": [
+    0.43271670143120844,
+    0.2670597441217336,
+    0.30022355444705784,
+    0.0
+   ],
+   "start_R": 3.594193726535893,
+   "R": 3.2360679774997014,
+   "optimized": [
+    0.38201702950729904,
+    0.23609913266072435,
+    0.3818838378319766,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.49809857349886827,
+    0.19739538719650251,
+    0.3045060393046292,
+    0.0
+   ],
+   "depth": 0.13689059371583404,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_gastethi_1440v_3120c_seed.off",
+   "seed_R": 3.594193726537052,
+   "opt_off": "optimized_off/ixitic/gastethi_1440v_3120c_opt.off",
+   "opt_R": 3.2364105834830723,
+   "central_off": "central_off/ixitic/gastethi_1440v_3120c_central.off",
+   "central_R": 3.9393463438242504
   }
  ]
 }
