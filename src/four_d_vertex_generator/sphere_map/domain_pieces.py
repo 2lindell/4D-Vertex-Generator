@@ -1419,11 +1419,23 @@ def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8):
                 continue
             u, v = tuple(e)
             m = (X[u] + X[v]) / 2
-            nn = normal(m)
-            if np.linalg.norm(nn) < 1e-12:
+            # (moved onto the surface across the two triangles' own mean normal, no further than half
+            # the edge; kept only if the four new triangles all face the way the surface does)
+            tn = _tri_normals(np.array(X), np.array([F[t1], F[t2]])).sum(0)
+            if np.linalg.norm(tn) < 1e-14:
                 continue
-            y = _lift(s, m, nn / np.linalg.norm(nn))
-            if y is None:
+            y = _lift(s, m, tn / np.linalg.norm(tn))
+            if y is None or np.linalg.norm(y - m) > 0.5 * np.linalg.norm(X[u] - X[v]):
+                continue
+            newt = []
+            for t_ in (F[t1], F[t2]):
+                k_ = next(k for k in range(3) if frozenset((t_[k], t_[(k + 1) % 3])) == e)
+                a_, b_, c_ = t_[k_], t_[(k_ + 1) % 3], t_[(k_ + 2) % 3]
+                newt += [[a_, -1, c_], [-1, b_, c_]]
+            Xt = np.array(X + [y])
+            Ft = np.array([[len(X) if q == -1 else q for q in t_] for t_ in newt])
+            sn = np.array([normal(x) for x in Xt[Ft].mean(1)])
+            if _turned(_tri_normals(Xt, Ft), sn):
                 continue
             X.append(y)
             split_at[e] = len(X) - 1
