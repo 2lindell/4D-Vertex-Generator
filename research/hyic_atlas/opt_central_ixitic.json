@@ -1463,6 +1463,119 @@
    "opt_R": 3.2362823214836838,
    "central_off": "central_off/ixitic/sartethi_1440v_1680c_central.off",
    "central_R": 6.472135955001255
+  },
+  {
+   "name": "sestuthi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "a783fa88caa2",
+   "locus": [],
+   "sheet": "ix7",
+   "seed": [
+    0.0,
+    0.1346886951642749,
+    0.08324219236913113,
+    0.7820691124665942
+   ],
+   "start_R": 4.934525755103571,
+   "R": 1.9512130120947166,
+   "optimized": [
+    0.0,
+    0.22995189042749364,
+    0.30513081323843033,
+    0.464917296334076
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.0,
+    0.33333333333333265,
+    0.3333333333333326,
+    0.33333333333333487
+   ],
+   "depth": 0.40824829046386213,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_sestuthi_1440v_1920c_seed.off",
+   "seed_R": 4.934525755105268,
+   "opt_off": "optimized_off/ixitic/sestuthi_1440v_1920c_opt.off",
+   "opt_R": 1.9512130120951814,
+   "central_off": "central_off/ixitic/sestuthi_1440v_1920c_central.off",
+   "central_R": 3.618033988750718
+  },
+  {
+   "name": "matethi",
+   "kind": "line",
+   "degrees": 1,
+   "key": "9aa686e5af71",
+   "locus": [],
+   "sheet": "ix7",
+   "seed": [
+    0.0,
+    0.6180339863193349,
+    0.3819660136806651,
+    0.0
+   ],
+   "start_R": 2.2882456076306528,
+   "R": 2.2882456076306528,
+   "optimized": [
+    0.0,
+    0.6180339863193349,
+    0.3819660136806651,
+    0.0
+   ],
+   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "central": [
+    0.0,
+    0.6180339863193349,
+    0.3819660136806651,
+    0.0
+   ],
+   "depth": 0.5401815169127837,
+   "central_status": "no deeper point found: the seed itself",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_matethi_720v_716c_seed.off",
+   "seed_R": 2.288245607630895,
+   "opt_note": "moved to another polytope: the seed is written instead",
+   "opt_off": "optimized_off/ixitic/matethi_720v_716c_opt.off",
+   "opt_R": 2.288245607630895,
+   "central_note": "moved to another polytope: the seed is written instead",
+   "central_off": "central_off/ixitic/matethi_720v_716c_central.off",
+   "central_R": 2.288245607630895
+  },
+  {
+   "name": "sabtedy",
+   "kind": "line",
+   "degrees": 1,
+   "key": "3745ab4a85c6",
+   "locus": [],
+   "sheet": "ix7",
+   "seed": [
+    0.0,
+    0.6331211092749606,
+    0.36687889072503954,
+    0.0
+   ],
+   "start_R": 2.294909441195669,
+   "R": 2.2882456112707916,
+   "optimized": [
+    0.0,
+    0.618049077111209,
+    0.38195092288879096,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.0,
+    0.8090169943749475,
+    0.19098300562505263,
+    0.0
+   ],
+   "depth": 0.2700907567377264,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_sabtedy_720v_1680c_seed.off",
+   "seed_R": 2.29490944119593,
+   "opt_off": "optimized_off/ixitic/sabtedy_720v_1680c_opt.off",
+   "opt_R": 2.288252593957215,
+   "central_off": "central_off/ixitic/sabtedy_720v_1680c_central.off",
+   "central_R": 2.3278341811935017
   }
  ]
 }
