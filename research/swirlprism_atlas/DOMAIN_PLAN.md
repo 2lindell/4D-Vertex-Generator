@@ -109,3 +109,20 @@ Every listed edge found and no loose end: X25, X41 (and nearly X23, X7, X94, X93
    the exact outlines and cuts, and the dodecahedron views mirrored to match; the bottom cross ring checked.
 5. **Verify and publish.** Closure on the final curves, piece names against the working data, a screenshot of every
    wall in each view, the size limit; push (the site builds from this branch) and republish the previews.
+
+## Done (in part): the page from the 3-sphere map's exact wall pieces
+
+`domain_view.py` redraws the Symmetry Domain page's walls, lines and regions from the 3-sphere map
+(branch `claude/sharp-rubin-c0puiw`: `data/swirlprism/sphere_map/domain_pieces.json/npz`, built by
+`sphere_map.domain_pieces`). On every wall surface the edges are the database's own curves only: the named
+line pieces (cut and snapped at the exact named points), the wall-meeting curves (snapped at their exact ends),
+their images across the glued faces of the half-cell, and the surface's own exact boundary in the half-cell.
+The curves are split where they cross (solved exactly); each face of that graph is one wall piece, named from the
+map's pieces, and triangulated inside its exact loop: the loop points the only rim vertices, every inner point on
+the exact surface (a face too curved to lie flat is cut along an exact curve first). The page's charts are read
+off the page itself (the half-cell fitted to its seed points; the dodecahedron round V1 matched to its samples).
+
+Not drawn yet (the build reports it on the page): X42 (its surface folds too much for the flattening used), and one
+piece each of X22, X33, X48, X51, X53, X82.
+
+    PYTHONPATH=../../src python domain_view.py <4D-Vertex-Generator>/data/swirlprism/sphere_map ../../assets/symmetry_domain.html
