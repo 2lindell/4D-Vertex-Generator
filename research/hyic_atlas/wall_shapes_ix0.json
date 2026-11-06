@@ -1,0 +1,111 @@
+{
+ "_about": "The wall shapes of the kidecaic / iodecaic maps, reclassified cleanly (wall_shapes_<sub>.json).",
+ "shapes": [
+  {
+   "kind": "region",
+   "map_type": 0,
+   "vertices": 1440,
+   "cells": 3600,
+   "edges_by_valence": {
+    "3": 1440,
+    "4": 6480
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8737928060571701
+   ],
+   "wall_points": 0,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+1440x3+1440x4+1440x4+1440x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 1,
+   "vertices": 1440,
+   "cells": 5040,
+   "edges_by_valence": {
+    "3": 2880,
+    "4": 5040,
+    "6": 720,
+    "8": 720
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.08389814722572204,
+    0.8321958091163913
+   ],
+   "wall_points": 0,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x4+1440x4+1440x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 2,
+   "vertices": 1440,
+   "cells": 5040,
+   "edges_by_valence": {
+    "3": 4320,
+    "4": 2160,
+    "5": 1440,
+    "6": 720,
+    "8": 720
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.04181575629968276,
+    0.04209028735820388,
+    0.6662561043966253,
+    0.2498378519454881
+   ],
+   "wall_points": 0,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x3+1440x4+1440x5"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 1440,
+   "cells": 2160,
+   "edges_by_valence": {
+    "3": 4320,
+    "4": 2880
+   },
+   "surfaces": {
+    "b2 - sqrt(5)*b3/2 + b3/2": 24
+   },
+   "seed_beta": [
+    0.0418157563566,
+    0.0420902868195,
+    0.0681035146702,
+    0.8479904421537
+   ],
+   "wall_points": 24,
+   "signature": "1440: cells 120x[12v14f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[6v7f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3+1440x3+1440x4"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 1440,
+   "cells": 2880,
+   "edges_by_valence": {
+    "3": 5040,
+    "4": 1440,
+    "5": 720,
+    "6": 720
+   },
+   "surfaces": {
+    "b1*b2 - sqrt(5)*b1*b4/5 + 2*sqrt(5)*b2**2/5 - b2*b3/2 + 3*sqrt(5)*b2*b3/10 - b2*b4/2 + sqrt(5)*b2*b4/10": 12
+   },
+   "seed_beta": [
+    0.041815750967,
+    0.0777404285911,
+    0.4998681167813,
+    0.3805757036606
+   ],
+   "wall_points": 12,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+1440x[5v5f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x3+720x5+720x6+1440x3+1440x3+1440x3+1440x4"
+  }
+ ]
+}

@@ -1,0 +1,104 @@
+{
+ "_about": "A dense survey of the toxitic / oxitic domain for small regions the grid missed (survey_<sub>.json).",
+ "group": "ix0",
+ "known_regions": [
+  "270d63cd9ba9",
+  "85edaf59db32",
+  "a0f7c29fa0bd"
+ ],
+ "zones": {
+  "whole domain": {
+   "points": 200,
+   "types": {
+    "270d63cd9ba9": 37,
+    "85edaf59db32": 123,
+    "a0f7c29fa0bd": 40
+   },
+   "new": {}
+  },
+  "b1, b2 small": {
+   "points": 200,
+   "types": {
+    "270d63cd9ba9": 149,
+    "a0f7c29fa0bd": 43,
+    "85edaf59db32": 8
+   },
+   "new": {}
+  },
+  "b1, b3 small": {
+   "points": 200,
+   "types": {
+    "85edaf59db32": 198,
+    "270d63cd9ba9": 2
+   },
+   "new": {}
+  },
+  "b1, b4 small": {
+   "points": 200,
+   "types": {
+    "a0f7c29fa0bd": 80,
+    "85edaf59db32": 120
+   },
+   "new": {}
+  },
+  "b2, b3 small": {
+   "points": 200,
+   "types": {
+    "85edaf59db32": 140,
+    "270d63cd9ba9": 58,
+    "a0f7c29fa0bd": 2
+   },
+   "new": {}
+  },
+  "b2, b4 small": {
+   "points": 200,
+   "types": {
+    "a0f7c29fa0bd": 166,
+    "270d63cd9ba9": 28,
+    "85edaf59db32": 6
+   },
+   "new": {}
+  },
+  "b3, b4 small": {
+   "points": 200,
+   "types": {
+    "85edaf59db32": 198,
+    "270d63cd9ba9": 2
+   },
+   "new": {}
+  },
+  "b1 b2 b3 small": {
+   "points": 26,
+   "types": {
+    "270d63cd9ba9": 6,
+    "85edaf59db32": 20
+   },
+   "new": {}
+  },
+  "b1 b2 b4 small": {
+   "points": 24,
+   "types": {
+    "a0f7c29fa0bd": 23,
+    "270d63cd9ba9": 1
+   },
+   "new": {}
+  },
+  "b1 b3 b4 small": {
+   "points": 29,
+   "types": {
+    "85edaf59db32": 29
+   },
+   "new": {}
+  },
+  "b2 b3 b4 small": {
+   "points": 32,
+   "types": {
+    "85edaf59db32": 23,
+    "270d63cd9ba9": 6,
+    "a0f7c29fa0bd": 3
+   },
+   "new": {}
+  }
+ },
+ "new": {}
+}
