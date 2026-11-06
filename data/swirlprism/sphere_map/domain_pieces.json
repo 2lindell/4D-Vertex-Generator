@@ -4729,11 +4729,11 @@
    },
    "coarse_verts": [
     8666,
-    13623
+    8783
    ],
    "coarse_tris": [
     11041,
-    17600
+    11139
    ]
   },
   {
@@ -4768,12 +4768,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    13623,
-    13679
+    8783,
+    8839
    ],
    "coarse_tris": [
-    17600,
-    17663
+    11139,
+    11202
    ]
   },
   {
@@ -4808,12 +4808,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    13679,
-    13744
+    8839,
+    8904
    ],
    "coarse_tris": [
-    17663,
-    17736
+    11202,
+    11275
    ]
   },
   {
@@ -4851,12 +4851,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    13744,
-    13803
+    8904,
+    8963
    ],
    "coarse_tris": [
-    17736,
-    17793
+    11275,
+    11332
    ]
   },
   {
@@ -4890,12 +4890,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    13803,
-    13869
+    8963,
+    9029
    ],
    "coarse_tris": [
-    17793,
-    17866
+    11332,
+    11405
    ]
   },
   {
@@ -4929,12 +4929,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    13869,
-    13950
+    9029,
+    9110
    ],
    "coarse_tris": [
-    17866,
-    17953
+    11405,
+    11492
    ]
   },
   {
@@ -4968,12 +4968,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    13950,
-    14043
+    9110,
+    9203
    ],
    "coarse_tris": [
-    17953,
-    18060
+    11492,
+    11599
    ]
   },
   {
@@ -5006,12 +5006,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14043,
-    14095
+    9203,
+    9255
    ],
    "coarse_tris": [
-    18060,
-    18112
+    11599,
+    11651
    ]
   },
   {
@@ -5044,12 +5044,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14095,
-    14147
+    9255,
+    9307
    ],
    "coarse_tris": [
-    18112,
-    18162
+    11651,
+    11701
    ]
   },
   {
@@ -5083,12 +5083,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14147,
-    14210
+    9307,
+    9370
    ],
    "coarse_tris": [
-    18162,
-    18233
+    11701,
+    11772
    ]
   },
   {
@@ -5123,12 +5123,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14210,
-    14276
+    9370,
+    9436
    ],
    "coarse_tris": [
-    18233,
-    18308
+    11772,
+    11847
    ]
   },
   {
@@ -5163,12 +5163,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14276,
-    14332
+    9436,
+    9492
    ],
    "coarse_tris": [
-    18308,
-    18371
+    11847,
+    11910
    ]
   },
   {
@@ -5202,12 +5202,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14332,
-    14400
+    9492,
+    9560
    ],
    "coarse_tris": [
-    18371,
-    18442
+    11910,
+    11981
    ]
   },
   {
@@ -5241,12 +5241,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14400,
-    14455
+    9560,
+    9615
    ],
    "coarse_tris": [
-    18442,
-    18503
+    11981,
+    12042
    ]
   },
   {
@@ -5280,12 +5280,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14455,
-    14488
+    9615,
+    9648
    ],
    "coarse_tris": [
-    18503,
-    18536
+    12042,
+    12075
    ]
   },
   {
@@ -5319,12 +5319,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14488,
-    14521
+    9648,
+    9681
    ],
    "coarse_tris": [
-    18536,
-    18570
+    12075,
+    12109
    ]
   },
   {
@@ -5358,12 +5358,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14521,
-    14551
+    9681,
+    9711
    ],
    "coarse_tris": [
-    18570,
-    18600
+    12109,
+    12139
    ]
   },
   {
@@ -5397,12 +5397,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14551,
-    14591
+    9711,
+    9751
    ],
    "coarse_tris": [
-    18600,
-    18644
+    12139,
+    12183
    ]
   },
   {
@@ -5436,12 +5436,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14591,
-    14711
+    9751,
+    9871
    ],
    "coarse_tris": [
-    18644,
-    18810
+    12183,
+    12349
    ]
   },
   {
@@ -5475,12 +5475,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14711,
-    14925
+    9871,
+    10085
    ],
    "coarse_tris": [
-    18810,
-    19130
+    12349,
+    12669
    ]
   },
   {
@@ -5514,12 +5514,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14925,
-    14979
+    10085,
+    10139
    ],
    "coarse_tris": [
-    19130,
-    19193
+    12669,
+    12732
    ]
   },
   {
@@ -5553,12 +5553,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    14979,
-    15032
+    10139,
+    10192
    ],
    "coarse_tris": [
-    19193,
-    19248
+    12732,
+    12787
    ]
   },
   {
@@ -5594,12 +5594,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15032,
-    15274
+    10192,
+    10434
    ],
    "coarse_tris": [
-    19248,
-    19627
+    12787,
+    13166
    ]
   },
   {
@@ -5632,12 +5632,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15274,
-    15316
+    10434,
+    10476
    ],
    "coarse_tris": [
-    19627,
-    19667
+    13166,
+    13206
    ]
   },
   {
@@ -5670,12 +5670,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15316,
-    15358
+    10476,
+    10518
    ],
    "coarse_tris": [
-    19667,
-    19707
+    13206,
+    13246
    ]
   },
   {
@@ -5709,12 +5709,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15358,
-    15384
+    10518,
+    10544
    ],
    "coarse_tris": [
-    19707,
-    19734
+    13246,
+    13273
    ]
   },
   {
@@ -5748,12 +5748,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15384,
-    15407
+    10544,
+    10567
    ],
    "coarse_tris": [
-    19734,
-    19756
+    13273,
+    13295
    ]
   },
   {
@@ -5787,12 +5787,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15407,
-    15435
+    10567,
+    10595
    ],
    "coarse_tris": [
-    19756,
-    19784
+    13295,
+    13323
    ]
   },
   {
@@ -5826,12 +5826,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15435,
-    15467
+    10595,
+    10627
    ],
    "coarse_tris": [
-    19784,
-    19816
+    13323,
+    13355
    ]
   },
   {
@@ -5865,12 +5865,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15467,
-    15508
+    10627,
+    10668
    ],
    "coarse_tris": [
-    19816,
-    19859
+    13355,
+    13398
    ]
   },
   {
@@ -5904,12 +5904,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15508,
-    15585
+    10668,
+    10745
    ],
    "coarse_tris": [
-    19859,
-    19939
+    13398,
+    13478
    ]
   },
   {
@@ -5942,12 +5942,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15585,
-    15597
+    10745,
+    10757
    ],
    "coarse_tris": [
-    19939,
-    19949
+    13478,
+    13488
    ]
   },
   {
@@ -5981,12 +5981,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15597,
-    15667
+    10757,
+    10827
    ],
    "coarse_tris": [
-    19949,
-    20028
+    13488,
+    13567
    ]
   },
   {
@@ -6021,12 +6021,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15667,
-    15757
+    10827,
+    10917
    ],
    "coarse_tris": [
-    20028,
-    20149
+    13567,
+    13688
    ]
   },
   {
@@ -6060,12 +6060,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15757,
-    15829
+    10917,
+    10989
    ],
    "coarse_tris": [
-    20149,
-    20229
+    13688,
+    13768
    ]
   },
   {
@@ -6099,12 +6099,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15829,
-    15945
+    10989,
+    11105
    ],
    "coarse_tris": [
-    20229,
-    20387
+    13768,
+    13926
    ]
   },
   {
@@ -6138,12 +6138,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    15945,
-    16142
+    11105,
+    11302
    ],
    "coarse_tris": [
-    20387,
-    20688
+    13926,
+    14227
    ]
   },
   {
@@ -6178,12 +6178,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16142,
-    16227
+    11302,
+    11387
    ],
    "coarse_tris": [
-    20688,
-    20799
+    14227,
+    14338
    ]
   },
   {
@@ -6217,12 +6217,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16227,
-    16343
+    11387,
+    11503
    ],
    "coarse_tris": [
-    20799,
-    20957
+    14338,
+    14496
    ]
   },
   {
@@ -6256,12 +6256,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16343,
-    16537
+    11503,
+    11697
    ],
    "coarse_tris": [
-    20957,
-    21252
+    14496,
+    14791
    ]
   },
   {
@@ -6294,12 +6294,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16537,
-    16549
+    11697,
+    11709
    ],
    "coarse_tris": [
-    21252,
-    21262
+    14791,
+    14801
    ]
   },
   {
@@ -6333,12 +6333,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16549,
-    16618
+    11709,
+    11778
    ],
    "coarse_tris": [
-    21262,
-    21339
+    14801,
+    14878
    ]
   },
   {
@@ -6372,12 +6372,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16618,
-    16692
+    11778,
+    11852
    ],
    "coarse_tris": [
-    21339,
-    21423
+    14878,
+    14962
    ]
   },
   {
@@ -6411,12 +6411,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16692,
-    16745
+    11852,
+    11905
    ],
    "coarse_tris": [
-    21423,
-    21481
+    14962,
+    15020
    ]
   },
   {
@@ -6452,12 +6452,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16745,
-    16838
+    11905,
+    11998
    ],
    "coarse_tris": [
-    21481,
-    21608
+    15020,
+    15147
    ]
   },
   {
@@ -6491,12 +6491,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16838,
-    16901
+    11998,
+    12061
    ],
    "coarse_tris": [
-    21608,
-    21679
+    15147,
+    15218
    ]
   },
   {
@@ -6530,12 +6530,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16901,
-    16945
+    12061,
+    12105
    ],
    "coarse_tris": [
-    21679,
-    21728
+    15218,
+    15267
    ]
   },
   {
@@ -6569,12 +6569,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16945,
-    16983
+    12105,
+    12143
    ],
    "coarse_tris": [
-    21728,
-    21768
+    15267,
+    15307
    ]
   },
   {
@@ -6608,12 +6608,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    16983,
-    17020
+    12143,
+    12180
    ],
    "coarse_tris": [
-    21768,
-    21806
+    15307,
+    15345
    ]
   },
   {
@@ -6647,12 +6647,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    17020,
-    17084
+    12180,
+    12244
    ],
    "coarse_tris": [
-    21806,
-    21879
+    15345,
+    15418
    ]
   },
   {
@@ -6686,12 +6686,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    17084,
-    17128
+    12244,
+    12288
    ],
    "coarse_tris": [
-    21879,
-    21928
+    15418,
+    15467
    ]
   },
   {
@@ -6727,12 +6727,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    17128,
-    17222
+    12288,
+    12382
    ],
    "coarse_tris": [
-    21928,
-    22057
+    15467,
+    15596
    ]
   },
   {
@@ -6766,12 +6766,12 @@
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    17222,
-    17275
+    12382,
+    12435
    ],
    "coarse_tris": [
-    22057,
-    22115
+    15596,
+    15654
    ]
   }
  ],

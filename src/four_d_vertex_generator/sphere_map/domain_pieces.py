@@ -1813,7 +1813,15 @@ def export(log=print, workers=4):
             nv += len(f["verts"])
             # (a coarser mesh of the same face, for views holding many images of the half-cell:
             # its loops' own points, every few of them, and bigger triangles inside)
-            cr = coarse(D, key, f["rings"]) if share >= 0.95 else (f["verts"], tris_f)
+            cr = coarse(D, key, f["rings"])
+            if share < 0.95 and cr is not None:
+                # (the coarse mesh trimmed the same way: each triangle kept as the fine triangle
+                # nearest its middle is)
+                from scipy.spatial import cKDTree
+                cf = f["verts"][f["tris"]].mean(1)
+                cc = cr[0][cr[1]].mean(1)
+                _, near = cKDTree(cf).query(cc)
+                cr = (cr[0], cr[1][keep[near]])
             if cr is None:
                 stats["coarse mesh: the fine one used"] += 1
                 cr = (f["verts"], f["tris"])
