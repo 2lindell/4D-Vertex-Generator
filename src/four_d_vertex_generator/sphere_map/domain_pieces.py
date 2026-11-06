@@ -1082,7 +1082,7 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             tri_names = name_points(D, key, cen, Nn)
             # (a triangle at the rim where no patch is found, its sides the same, is not a change)
             kinds = {x for x in tri_names if x is not None and x[0] is not None}
-        out.append({"sheet": key, "what": named[0] if named else None, "agree": len(kinds) <= 1,
+        out.append({"sheet": key, "rings": rings, "what": named[0] if named else None, "agree": len(kinds) <= 1,
                     "tri_names": tri_names, "centres": cen, "F": F,
                     "samples": [(y, nm) for y, nm in zip(at, names) if nm],
                     "names": named, "edges": edges, "verts": X, "tris": F, "flips": flips,
@@ -1287,6 +1287,40 @@ def _inside_poly(Q, q):
 
 # ------------------------------------------------------------------------------- output
 
+def coarse(D, key, rings, gap=0.02, max_area=1.2e-3):
+    """A coarser triangulation of a face: its loops' points kept every gap or so (their ends and
+    sharp turns always), larger triangles inside, inner points on the surface."""
+    import triangle as tr
+    s = D.face_planes[FACE_NAMES.index(key[5:])] if isinstance(key, str) else D.lib[key]
+    if isinstance(key, str):
+        k = FACE_NAMES.index(key[5:])
+        normal = lambda x: FACE_N[k] - FACE_N[k].mean()
+    else:
+        normal = lambda x: (lambda g: g - g.mean())(s.grad(x[None])[0])
+    thin = []
+    for R in rings:
+        keep = [0]
+        for i in range(1, len(R)):
+            if np.linalg.norm(R[i] - R[keep[-1]]) >= gap:
+                keep.append(i)
+            elif i + 1 < len(R):
+                a, b = R[i] - R[i - 1], R[i + 1] - R[i]
+                if a @ b < 0.9 * np.linalg.norm(a) * np.linalg.norm(b):
+                    keep.append(i)
+        if len(keep) < 3:
+            keep = list(range(len(R)))
+        thin.append(R[keep])
+    parts = triangulate_face(s, thin, normal, max_area, tr)
+    if parts is None:
+        return None
+    Xs, Fs, off = [], [], 0
+    for X, F in parts:
+        Xs.append(X)
+        Fs.append(F + off)
+        off += len(X)
+    return np.vstack(Xs), np.vstack(Fs)
+
+
 def _sheet_job(key):
     import pickle
     cache = data_dir() / "sphere_map" / ".cache" / "domain_sheets" / f"{key}.pkl"
@@ -1330,6 +1364,7 @@ def export(log=print, workers=4):
                 f"of walls ({len(results)}/{len(keys)})")
     results.sort(key=lambda r: str(r[0]))
     faces, edges, V, T, E = [], [], [], [], []
+    CV, CT, cv_n, ct_n = [], [], 0, 0
     nv = 0
     stats = Counter()
     for key, G, F in results:
@@ -1363,11 +1398,25 @@ def export(log=print, workers=4):
             V.append(f["verts"])
             T.append(f["tris"] + 0)
             nv += len(f["verts"])
+            # (a coarser mesh of the same face, for views holding many images of the half-cell:
+            # its loops' own points, every few of them, and bigger triangles inside)
+            cr = coarse(D, key, f["rings"])
+            if cr is None:
+                stats["coarse mesh: the fine one used"] += 1
+                cr = (f["verts"], f["tris"])
+            faces[-1]["coarse_verts"] = [cv_n, cv_n + len(cr[0])]
+            faces[-1]["coarse_tris"] = [ct_n, ct_n + len(cr[1])]
+            CV.append(cr[0])
+            CT.append(cr[1])
+            cv_n += len(cr[0])
+            ct_n += len(cr[1])
     lens = np.array([len(x) for x in E])
     np.savez_compressed(D.root / "domain_pieces.npz", verts=np.concatenate(V), tris=np.concatenate(T).astype(np.int32),
-                        edge_pts=np.concatenate(E), edge_len=lens.astype(np.int32))
+                        edge_pts=np.concatenate(E), edge_len=lens.astype(np.int32),
+                        coarse_verts=np.concatenate(CV), coarse_tris=np.concatenate(CT).astype(np.int32))
     doc = {"_about": __doc__ + "\nnpz: verts (betas), tris (indices into each face's own verts range), "
-           "edge_pts / edge_len (each edge's exact points, edges in order).",
+           "edge_pts / edge_len (each edge's exact points, edges in order); coarse_verts / coarse_tris "
+           "(each face's coarser mesh: its loop points every 0.02 or so, larger triangles).",
            "faces": faces, "edges": edges, "stats": dict(stats), "sheets_failed": [str(k) for k in failed]}
     (D.root / "domain_pieces.json").write_text(json.dumps(doc, indent=1))
     log(f"{len(faces)} wall faces, {sum(f['tris'][1] - f['tris'][0] for f in faces)} triangles, "
