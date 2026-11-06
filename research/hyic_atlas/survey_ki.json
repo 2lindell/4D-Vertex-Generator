@@ -1,0 +1,87 @@
+{
+ "_about": "A dense survey of the toxitic / oxitic domain for small regions the grid missed (survey_<sub>.json).",
+ "group": "ki",
+ "known_regions": [
+  "bfbd524fa0f7"
+ ],
+ "zones": {
+  "whole domain": {
+   "points": 200,
+   "types": {
+    "bfbd524fa0f7": 200
+   },
+   "new": {}
+  },
+  "b1, b2 small": {
+   "points": 200,
+   "types": {
+    "bfbd524fa0f7": 200
+   },
+   "new": {}
+  },
+  "b1, b3 small": {
+   "points": 200,
+   "types": {
+    "bfbd524fa0f7": 200
+   },
+   "new": {}
+  },
+  "b1, b4 small": {
+   "points": 200,
+   "types": {
+    "bfbd524fa0f7": 200
+   },
+   "new": {}
+  },
+  "b2, b3 small": {
+   "points": 200,
+   "types": {
+    "bfbd524fa0f7": 200
+   },
+   "new": {}
+  },
+  "b2, b4 small": {
+   "points": 200,
+   "types": {
+    "bfbd524fa0f7": 200
+   },
+   "new": {}
+  },
+  "b3, b4 small": {
+   "points": 200,
+   "types": {
+    "bfbd524fa0f7": 200
+   },
+   "new": {}
+  },
+  "b1 b2 b3 small": {
+   "points": 26,
+   "types": {
+    "bfbd524fa0f7": 26
+   },
+   "new": {}
+  },
+  "b1 b2 b4 small": {
+   "points": 24,
+   "types": {
+    "bfbd524fa0f7": 24
+   },
+   "new": {}
+  },
+  "b1 b3 b4 small": {
+   "points": 29,
+   "types": {
+    "bfbd524fa0f7": 29
+   },
+   "new": {}
+  },
+  "b2 b3 b4 small": {
+   "points": 32,
+   "types": {
+    "bfbd524fa0f7": 32
+   },
+   "new": {}
+  }
+ },
+ "new": {}
+}
