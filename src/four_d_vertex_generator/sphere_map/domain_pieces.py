@@ -768,6 +768,40 @@ class Graph:
             g = self.normal(x)
             if np.linalg.norm(g) > 1e-7:
                 continue
+            # sheets of the surface through the point (two smooth sheets crossing there, or a plane
+            # the surface contains): the edges grouped by the surface's normal a short way along
+            ends_n = []
+            for ei, e in enumerate(self.E):
+                for P, k in ((e["pts"], "a"), (e["pts"][::-1], "b")):
+                    if e[k] != v:
+                        continue
+                    cum = np.r_[0, np.cumsum(np.linalg.norm(np.diff(P, axis=0), axis=1))]
+                    y = P[min(int(np.searchsorted(cum, min(2e-3, cum[-1] / 3))), len(P) - 1)]
+                    m = self.normal(y)
+                    if np.linalg.norm(m) > 1e-12:
+                        ends_n.append((ei, k, m / np.linalg.norm(m)))
+            groups = []
+            for ei, k, m in ends_n:
+                for gr in groups:
+                    if abs(gr[0][2] @ m) > 0.95:
+                        gr.append((ei, k, m))
+                        break
+                else:
+                    groups.append([(ei, k, m)])
+            if len(groups) >= 2:
+                big = [gr for gr in groups if len(gr) >= 2]
+                for gr in groups:
+                    if len(gr) < 2 and big:
+                        best = max(big, key=lambda b: abs(b[0][2] @ gr[0][2]))
+                        best += gr
+                if len(big) >= 2:
+                    for gr in big[1:]:
+                        self.V.append(x.copy())
+                        nv = len(self.V) - 1
+                        for ei, k, _ in gr:
+                            self.E[ei][k] = nv
+                    self.cone_points = getattr(self, "cone_points", []) + [v]
+                    continue
             h = 1e-5
             H = np.array([(self.normal(x + h * b) - self.normal(x - h * b)) @ Bz.T / (2 * h) for b in Bz])
             w, U = np.linalg.eigh((H + H.T) / 2)
@@ -834,7 +868,7 @@ class Graph:
             if np.linalg.det(np.vstack([np.ones(4) / 2, e1, e2, n])) < 0:
                 e2 = -e2
             cum = np.r_[0, np.cumsum(np.linalg.norm(np.diff(P, axis=0), axis=1))]
-            d = min(4e-3, cum[-1] / 3)
+            d = min(2e-2, cum[-1] / 3)        # (far enough along to tell near-tangent curves apart)
             j = int(np.searchsorted(cum, d))
             y = P[min(j, len(P) - 1)] - x
             out[v].append((np.arctan2(y @ e2, y @ e1), i))
