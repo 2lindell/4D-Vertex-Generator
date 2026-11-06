@@ -26,22 +26,29 @@ import json, sys, numpy as np
 sys.path.insert(0, %r)
 import group as G
 from scipy.spatial import cKDTree
-from strata import symmetry
 other = "ixitic" if G.SUB.startswith("ixo") else "ixoic"
 g = G.sheet_cosets()[G.SHEET]
 O = G._cached(other, lambda: None)
 O = np.einsum("ji,njk,kl->nil", g, O, g)
+H4 = G._cached("full", lambda: G._closure(G.REFL))
 out = []
 for b, kind in json.loads(sys.stdin.read()):
     b = np.asarray(b, float); b = b / b.sum()
     tol = 1e-9 if kind == "region" else 1e-7
     sg, k = G.label(b, tol)
-    n, imp = symmetry(b) if k else (0, 0)
-    keeps = None
+    n, imp, keeps = 0, 0, None
     if k:
         V, _ = G.vertices(b)
         t = cKDTree(V)
-        keeps = int(sum(1 for h in O if t.query(V @ h.T)[0].max() < 1e-7 * np.abs(V).max()))
+        tol = 1e-7 * np.abs(V).max()
+
+        def count(E):
+            # (only the elements sending vertex 0 to a vertex can keep the set: test those)
+            ok = t.query(E @ V[0])[0] < tol
+            hits = [h for h in E[ok] if t.query(V @ h.T)[0].max() < tol]
+            return len(hits), sum(1 for h in hits if np.linalg.det(h) < 0)
+        n, imp = count(H4)
+        keeps = count(O)[0]
     out.append([sg, k, n, imp, keeps])
 print(json.dumps(out))
 '''
