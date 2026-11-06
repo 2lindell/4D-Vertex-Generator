@@ -30,10 +30,31 @@ def form(labels5):
     return sp.expand(M.det(method="berkowitz"))
 
 
+class _Slow(Exception):
+    pass
+
+
+def _alarm(signum, frame):
+    raise _Slow()
+
+
 @lru_cache(maxsize=None)
-def _factor(expr_text):
+def _factor(expr_text, limit=120):
+    """The factors over Q(sqrt5); a factorisation that takes more than `limit` seconds (it can run for hours on the
+    largest forms) is done over Q instead: the surfaces are then possibly products of Q(sqrt5)-conjugate factors, which
+    still vanish on every wall the form does."""
+    import signal
     f = sp.sympify(expr_text)
-    return [fac for fac, _ in sp.factor_list(f, *B, extension=sp.sqrt(5))[1] if fac.free_symbols]
+    old = signal.signal(signal.SIGALRM, _alarm)
+    signal.alarm(limit)
+    try:
+        facs = sp.factor_list(f, *B, extension=sp.sqrt(5))[1]
+    except _Slow:
+        facs = sp.factor_list(f, *B)[1]
+    finally:
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, old)
+    return [fac for fac, _ in facs if fac.free_symbols]
 
 
 def region_forms(beta):
