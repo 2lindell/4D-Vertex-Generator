@@ -363,33 +363,7 @@ def do_sheet(D, C, key, WS, log=print, rounds=3):
         r += 1
         G = sheet(D, C, key, log, extra)["graph"]
         F = faces_of(D, key, G, log=log)
-        curved = [f for f in F if f.get("too_curved")]
         F = [f for f in F if not f.get("too_curved")]
-        for f in curved:
-            # cut along the surface where it meets the plane through the face's middle, across
-            # the face's longest direction (a helper cut: not an edge of anything, not drawn)
-            P = f["P"]
-            # the plane halfway round its loop (perpendicular to the chord from its first point
-            # to the point half way round, through the chord's middle), traced from where the
-            # loop crosses it
-            a_, b_ = P[0], P[len(P) // 2]
-            d = (b_ - a_) - (b_ - a_).mean()
-            cpt = (a_ + b_) / 2
-            nrm = d - (d @ cpt) * np.ones(4)
-            t = Plane(nrm, f"helper cut {len(extra)}")
-            sv = P @ nrm
-            starts = []
-            for i in np.flatnonzero(np.sign(sv) != np.sign(np.roll(sv, -1))):
-                y, ok = solve([s, t], (P[i] + P[(i + 1) % len(P)]) / 2)
-                if ok:
-                    starts.append(y)
-            arcs = trace_on(s, t, D.face_planes, n_seeds=0, start=starts)
-            extra += [{"kind": "aux", "name": "helper cut", "pts": a, "eqs": [s, t]} for a in arcs]
-            rounds = min(8, max(rounds, r + 3))
-        if curved:
-            log(f"  sheet {key}: {len(curved)} faces too curved to lie flat: cut in two")
-            if r < rounds:
-                continue
         need = gaps(D, key, F, WS, done, s, G.normal)
         # (a point already on a traced arc needs nothing more)
         for k in list(need):
@@ -925,15 +899,19 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
         # the plane the face is laid flat on: the first of these on which its loops do not cross
         # themselves and no triangle, put back on the surface, turns over: the mean normal, the
         # normals at points round the loop, the loop's least spread direction
-        res = None
-        for n_try in _normals_to_try(L["P"], G.normal):
-            res = _triangulate(s, rings, L["P"].mean(0), n_try, G.normal, max_area, tr)
-            if res is not None:
-                break
-        if res is None:
+        parts = triangulate_face(s, rings, G.normal, max_area, tr)
+        if parts is None:
+            log(f"  sheet {key}: a face of {len(L['P'])} loop points could not be laid flat, even cut")
             out.append({"sheet": key, "too_curved": True, "P": L["P"], "frame": L["frame"]})
             continue
-        X, F, bad, (c, n, e1, e2) = res
+        Xs, Fs, off_ = [], [], 0
+        for Xp, Fp in parts:
+            Xs.append(Xp)
+            Fs.append(Fp + off_)
+            off_ += len(Xp)
+        X, F = np.vstack(Xs), np.vstack(Fs)
+        bad = 0
+        c, n, e1, e2 = L["frame"]
         flips = 0
         nrm = np.linalg.norm(_tri_normals(X, F), axis=1)
         # what it is: at the middle of its largest triangles, and at triangles all over it
@@ -1048,6 +1026,71 @@ def _triangulate(s, rings, c, n, normal, max_area, tr):
     if ((cr * sn).sum(1) <= 0).any():
         return None
     return X, F, bad, (c, n, e1, e2)
+
+
+def _cut_path(s, t, a, b, step=STEP, max_len=4.0):
+    """The exact curve s = t = 0 from a to b (both on it): stepped from a, the way that reaches b."""
+    fs, ft = _fg(s), _fg(t)
+    for sgn in (1, -1):
+        pts, x, tp = [a], a, None
+        for _ in range(int(max_len / step)):
+            tan = np.linalg.svd(np.vstack([np.ones(4), fs(x)[1], ft(x)[1]]))[2][-1]
+            tan = sgn * tan if tp is None else (tan if tan @ tp > 0 else -tan)
+            tp = tan
+            if np.linalg.norm(x - b) < 1.5 * step:
+                return np.array(pts[:-1] + [b]) if len(pts) > 1 else np.array([a, b])
+            y, ok = solve([s, t], x + step * tan / np.linalg.norm(tan))
+            if not ok:
+                break
+            pts.append(y)
+            x = y
+    return None
+
+
+def triangulate_face(s, rings, normal, max_area, tr, depth=0):
+    """A face triangulated inside its exact loops: laid flat on a plane where that works; else cut
+    in two along the exact curve where the surface meets a plane half way round its loop (the cut
+    shared by both halves, so they meet exactly), each half done the same way. Returns a list of
+    (X, F) or None."""
+    P = rings[0]
+    for n_try in _normals_to_try(P, normal):
+        res = _triangulate(s, rings, P.mean(0), n_try, normal, max_area, tr)
+        if res is not None:
+            return [res[:2]]
+    if depth >= 8 or len(rings) > 1:
+        return None
+    n = len(P)
+    for i0, i1 in ((0, n // 2), (n // 4, 3 * n // 4), (n // 8, 5 * n // 8), (3 * n // 8, 7 * n // 8)):
+        a_, b_ = P[i0], P[i1]
+        d = (b_ - a_) - (b_ - a_).mean()
+        cpt = (a_ + b_) / 2
+        nrm = d - (d @ cpt) * np.ones(4)
+        t = Plane(nrm, "helper cut")
+        sv = P @ nrm
+        xs = np.flatnonzero(np.sign(sv) != np.sign(np.roll(sv, -1)))
+        if len(xs) != 2:
+            continue
+        i, j = int(xs[0]), int(xs[1])
+        xi, ok1 = solve([s, t], (P[i] + P[(i + 1) % n]) / 2)
+        xj, ok2 = solve([s, t], (P[j] + P[(j + 1) % n]) / 2)
+        if not (ok1 and ok2):
+            continue
+        cut = _cut_path(s, t, xi, xj)
+        if cut is None or len(cut) < 2:
+            continue
+        inner = list(cut[1:-1])
+        L1 = np.array([xi] + list(P[i + 1:j + 1]) + [xj] + inner[::-1])
+        L2 = np.array([xj] + list(P[j + 1:]) + list(P[:i + 1]) + [xi] + inner)
+        out = []
+        for Lh in (L1, L2):
+            part = triangulate_face(s, [Lh], normal, max_area, tr, depth + 1)
+            if part is None:
+                out = None
+                break
+            out += part
+        if out is not None:
+            return out
+    return None
 
 
 def _tri_normals(X, F):
