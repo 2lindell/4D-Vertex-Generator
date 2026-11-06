@@ -1104,7 +1104,41 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
         if best is not None:
             holes[id(best)].append(O)
     out = []
+    # (a loop walking an edge both ways is split there: a part turning the loop's way is a face of
+    # its own, a part turning the other way a hole in the part round it; a curve reaching into the
+    # face and ending there is left out)
+    expanded = []
     for L in inner:
+        parts_c = [c_ for c_ in _split_bridges(L["cyc"]) if c_]
+        if len(parts_c) == 1 and len(parts_c[0]) == len(L["cyc"]):
+            expanded.append(L)
+            continue
+        c0, n0, e10, e20 = L["frame"]
+        pos, neg = [], []
+        for c_ in parts_c:
+            P_ = G.loop(c_)
+            if len(P_) < 3:
+                continue
+            a_ = _area(np.c_[(P_ - c0) @ e10, (P_ - c0) @ e20])
+            (pos if a_ > 0 else neg).append({"cyc": c_, "P": P_, "frame": _plane_frame(P_, G.normal), "area": a_})
+        for N_ in neg:
+            q = N_["P"][0]
+            host = None
+            for Pp in pos:
+                cf, nf, f1, f2 = Pp["frame"]
+                if _inside_poly(np.c_[(Pp["P"] - cf) @ f1, (Pp["P"] - cf) @ f2], np.array([(q - cf) @ f1, (q - cf) @ f2])):
+                    host = Pp
+                    break
+            if host is not None:
+                holes[id(host)].append(N_)
+        for Pp in pos:
+            holes[id(Pp)] += [] if Pp is not pos[0] else holes[id(L)]
+        expanded += pos
+    inner = expanded
+    for L in inner:
+        rings = [L["P"]] + [H["P"] for H in holes[id(L)]]
+        # (a loop walking an edge both ways: a curve reaching into the face and ending there is
+        # left out; one joining the outer loop to an inner one splits off that inner loop, a hole)
         rings = [L["P"]] + [H["P"] for H in holes[id(L)]]
         # first, what it is: at points a short way inside its loop (from the middle of each
         # edge, across the edge in the surface); a face of no wall is not meshed
@@ -1137,6 +1171,10 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
         # themselves and no triangle, put back on the surface, turns over: the mean normal, the
         # normals at points round the loop, the loop's least spread direction
         parts = triangulate_face(s, rings, G.normal, max_area, tr)
+        if parts is None and len(rings) == 1:
+            # (laying it flat failed even cut: triangulated on the surface itself)
+            res = _ear_clip_on_surface(s, rings[0], G.normal)
+            parts = [res] if res is not None else None
         if parts is None:
             log(f"  sheet {key}: a face of {len(L['P'])} loop points could not be laid flat, even cut")
             out.append({"sheet": key, "too_curved": True, "P": L["P"], "frame": L["frame"]})
@@ -1304,6 +1342,126 @@ def _inward_cut(s, t, P, i, xs_pts, normal, step=STEP, max_len=3.0):
 xs_idx_of = {}
 
 
+def _ear_clip_on_surface(s, P, normal, h=0.02, rounds=8):
+    """A loop on the surface triangulated without laying it flat: ears clipped one by one, each
+    checked in the surface's tangent plane at its tip (turning the way the surface does, no other
+    loop point inside); then inner edges longer than h split at their middles, each solved onto the
+    surface (rim edges never split). None if a triangle ends up facing against the surface."""
+    from scipy.spatial import cKDTree
+    Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+    if np.linalg.det(np.vstack([np.ones(4) / 2, Bz])) < 0:
+        Bz = Bz[[1, 0, 2]]
+    X3 = P @ Bz.T
+    n = len(P)
+    if n < 3:
+        return None
+    N3 = np.array([normal(x) @ Bz.T for x in P])
+    N3 /= np.linalg.norm(N3, axis=1, keepdims=True) + 1e-300
+    tree = cKDTree(X3)
+    alive = list(range(n))
+    nxt = {alive[i]: alive[(i + 1) % n] for i in range(n)}
+    prv = {alive[i]: alive[i - 1] for i in range(n)}
+    active = set(alive)
+    tris = []
+
+    def ear_ok(i):
+        a, b, c = prv[i], i, nxt[i]
+        t = np.cross(X3[b] - X3[a], X3[c] - X3[b])
+        if t @ N3[b] <= 0:
+            return None
+        nb = N3[b]
+        e1 = X3[c] - X3[b]
+        e1 -= (e1 @ nb) * nb
+        if np.linalg.norm(e1) < 1e-14:
+            return None
+        e1 /= np.linalg.norm(e1)
+        e2 = np.cross(nb, e1)
+        pr = lambda y: np.array([(y - X3[b]) @ e1, (y - X3[b]) @ e2])
+        A, B_, Cc = pr(X3[a]), pr(X3[b]), pr(X3[c])
+        r = max(np.linalg.norm(X3[a] - X3[b]), np.linalg.norm(X3[c] - X3[b]), np.linalg.norm(X3[a] - X3[c]))
+        for j in tree.query_ball_point(X3[b], r * 1.01):
+            if j in (a, b, c) or j not in active:
+                continue
+            q = pr(X3[j])
+            d1 = (B_[0] - A[0]) * (q[1] - A[1]) - (B_[1] - A[1]) * (q[0] - A[0])
+            d2 = (Cc[0] - B_[0]) * (q[1] - B_[1]) - (Cc[1] - B_[1]) * (q[0] - B_[0])
+            d3 = (A[0] - Cc[0]) * (q[1] - Cc[1]) - (A[1] - Cc[1]) * (q[0] - Cc[0])
+            if (d1 >= 0 and d2 >= 0 and d3 >= 0) or (d1 <= 0 and d2 <= 0 and d3 <= 0):
+                return None
+        # quality: the smallest angle
+        def ang(u, v):
+            return np.arccos(np.clip(u @ v / (np.linalg.norm(u) * np.linalg.norm(v) + 1e-300), -1, 1))
+        return min(ang(X3[a] - X3[b], X3[c] - X3[b]), ang(X3[b] - X3[a], X3[c] - X3[a]),
+                   ang(X3[a] - X3[c], X3[b] - X3[c]))
+    stall = 0
+    i = alive[0]
+    while len(active) > 3:
+        q = ear_ok(i)
+        if q is not None:
+            a, c = prv[i], nxt[i]
+            tris.append([a, i, c])
+            active.discard(i)
+            nxt[a], prv[c] = c, a
+            stall = 0
+            i = c
+        else:
+            i = nxt[i]
+            stall += 1
+            if stall > len(active) + 2:
+                return None
+    rest = list(active)
+    a = rest[0]
+    tris.append([prv[nxt[a]], nxt[a], nxt[nxt[a]]] if False else [a, nxt[a], nxt[nxt[a]]])
+    X = [p for p in P]
+    F = [list(t) for t in tris]
+    rim = {frozenset((k, (k + 1) % n)) for k in range(n)}
+    for _ in range(rounds):
+        edges = {}
+        for t_i, t in enumerate(F):
+            for k in range(3):
+                e = frozenset((t[k], t[(k + 1) % 3]))
+                edges.setdefault(e, []).append(t_i)
+        long_ = [e for e, ts in edges.items() if e not in rim and len(ts) == 2
+                 and np.linalg.norm(X[min(e)] - X[max(e)]) > h]
+        if not long_:
+            break
+        taken, newF, split_at = set(), [], {}
+        for e in sorted(long_, key=lambda e: -np.linalg.norm(X[min(e)] - X[max(e)])):
+            t1, t2 = edges[e]
+            if t1 in taken or t2 in taken:
+                continue
+            u, v = tuple(e)
+            m = (X[u] + X[v]) / 2
+            nn = normal(m)
+            if np.linalg.norm(nn) < 1e-12:
+                continue
+            y = _lift(s, m, nn / np.linalg.norm(nn))
+            if y is None:
+                continue
+            X.append(y)
+            split_at[e] = len(X) - 1
+            taken |= {t1, t2}
+        for t_i, t in enumerate(F):
+            if t_i not in taken:
+                newF.append(t)
+                continue
+            for k in range(3):
+                e = frozenset((t[k], t[(k + 1) % 3]))
+                if e in split_at:
+                    m_ = split_at[e]
+                    a_, b_, c_ = t[k], t[(k + 1) % 3], t[(k + 2) % 3]
+                    newF += [[a_, m_, c_], [m_, b_, c_]]
+                    break
+        F = newF
+    X = np.array(X)
+    F = np.array(F)
+    cr = _tri_normals(X, F)
+    sn = np.array([normal(x) for x in X[F].mean(1)])
+    if ((cr * sn).sum(1) <= 0).any():
+        return None
+    return X, F
+
+
 def triangulate_face(s, rings, normal, max_area, tr, depth=0):
     """A face triangulated inside its exact loops: laid flat on a plane where that works; else cut
     in two along the exact curve where the surface meets a plane across it (from where that plane
@@ -1359,6 +1517,30 @@ def _tri_normals(X, F):
         Bz = Bz[[1, 0, 2]]
     a, b = (X[F[:, 1]] - X[F[:, 0]]) @ Bz.T, (X[F[:, 2]] - X[F[:, 0]]) @ Bz.T
     return np.cross(a, b) @ Bz
+
+
+def _split_bridges(cyc):
+    """A face's cycle of half-edges with any edge walked both ways removed: the cycle split there
+    into the parts on either side (an empty part: the edge was a spur)."""
+    out, todo = [], [list(cyc)]
+    while todo:
+        c = todo.pop()
+        pos = {}
+        hit = None
+        for k, (ei, fwd) in enumerate(c):
+            if ei in pos:
+                hit = (pos[ei], k)
+                break
+            pos[ei] = k
+        if hit is None:
+            out.append(c)
+            continue
+        i, j = hit
+        a, b = c[j + 1:] + c[:i], c[i + 1:j]
+        for part in (a, b):
+            if part:
+                todo.append(part)
+    return out or [[]]
 
 
 def _crossings(Q):
