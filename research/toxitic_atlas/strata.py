@@ -6,7 +6,7 @@ contic_atlas/snub_map.py. This maps the lower strata:
   faces   b2 = 0, b3 = 0, b4 = 0 (F4 mirrors) and the fold b1 = b4;
   lines   the chamber's edges in the domain (b2 = b3 = 0, b2 = b4 = 0, b3 = b4 = 0, b1 = b4 = 0, and the fold's edges
           b1 = b4 with b2 = 0 or b3 = 0) and the fold line b1 = b4, b2 = b3;
-  points  the domain's corners.
+  points  the domain's corners, and (0,1,1,0) where the fold line meets the edge b1 = b4 = 0.
 
 Each stratum gets a grid (shifted off the lattice inside it), classified (group.label); grid neighbours of different
 polytopes are bisected inside the stratum and the polytope at the change classified with the wall tolerance (1e-7).
@@ -74,7 +74,9 @@ STRATA = [("face b2 = 0", [1], False, False), ("face b3 = 0", [2], False, False)
           ("line b1 = b4, b2 = 0", [1], True, False), ("line b1 = b4, b3 = 0", [2], True, False),
           ("line b1 = b4, b2 = b3", [], True, True),
           ("point (1,0,0,0)", [1, 2, 3], False, False), ("point (0,1,0,0)", [0, 2, 3], True, False),
-          ("point (0,0,1,0)", [0, 1, 3], True, False), ("point (1,0,0,1)", [1, 2], True, False)]
+          ("point (0,0,1,0)", [0, 1, 3], True, False), ("point (1,0,0,1)", [1, 2], True, False),
+          # (where the fold line b1 = b4, b2 = b3 meets the edge b1 = b4 = 0: cont)
+          ("point (0,1,1,0)", [0, 3], True, True)]
 
 
 def lattice(N, zero, fold, line):
