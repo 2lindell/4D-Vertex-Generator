@@ -49,7 +49,8 @@ from four_d_vertex_generator.off import to_4off  # noqa: E402
 B = O.B
 F.MONS = O.F.MONS if hasattr(O.F, "MONS") else [m for m in __import__("itertools").product(range(5), repeat=4) if sum(m) == 4]
 F.poly = lambda e: e                        # (a condition is kept as its sympy expression)
-OFF_DIR = os.path.join(ROOT, "optimized_off", {"full": "contic", "ki": "kicontic", "io": "iocontic"}[G.SUB])
+OFF_DIR = os.path.join(ROOT, "optimized_off", {"full": "contic", "ki": "kicontic", "io": "iocontic", "ico": "icoic",
+                                                "tox": "toxitic", "ox": "oxitic"}.get(G.SUB, G.SUB))
 O.OFF_DIR = OFF_DIR
 
 

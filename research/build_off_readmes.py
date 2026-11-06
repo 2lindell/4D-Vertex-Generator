@@ -23,6 +23,30 @@ def pennic_tail(path, marker):
     return s[i:].rstrip("\n") if i >= 0 else ""
 
 
+def icoic(kind):
+    """The icoic section (contic_atlas/icoic_shapes.json)."""
+    f = os.path.join(HERE, "contic_atlas", "icoic_shapes.json")
+    if not os.path.exists(f):
+        return []
+    d = json.load(open(f))["shapes"]
+    if kind == "opt":
+        L = ["## Icoic", "", "contic_atlas/icoic_shapes.py ([3,4,3], CONTIC_SUB=ico). Sidpii, icoi and gidpii are most even "
+             "where their two sets of 24 cells are equal: spic, cont and gippic.", "",
+             "| shape | kind | R seed | R best | status | best beta | file |", "|---|---|---|---|---|---|---|"]
+        for r in d:
+            L.append("| %s | %s (%d) | %.6f | %.10f | %s | %s | %s |" % (
+                r["name"], r["kind"], r["degrees"], r["seed_R"], r["R"], r["optimized_status"],
+                [round(v, 10) for v in r["optimized"]], r["opt_off"].split("/")[-1]))
+    else:
+        L = ["## Icoic", "", "contic_atlas/icoic_shapes.py.", "", "| shape | kind | depth | central beta | status | file |",
+             "|---|---|---|---|---|---|"]
+        for r in d:
+            dd = "-" if r["depth"] is None else "%.2e" % r["depth"]
+            L.append(f"| {r['name']} | {r['kind']} ({r['degrees']}) | {dd} | {[round(v, 10) for v in r['central']]} | "
+                     f"{r['central_status']} | {r['central_off'].split('/')[-1]} |")
+    return L + [""]
+
+
 def main():
     p = os.path.join(HERE, "optimized_off", "README.md")
     L = [head(p), ""]
@@ -39,6 +63,7 @@ def main():
                 r["name"], r["kind"], r["degrees"], r["start_R"], r["R"], r["status"], [round(v, 10) for v in r["best"]],
                 offs, r["off"].split("/")[-1]))
         L.append("")
+    L += icoic("opt")
     L.append(pennic_tail(p, "## Pennic"))
     open(p, "w").write("\n".join(L) + "\n")
     p = os.path.join(HERE, "central_off", "README.md")
@@ -60,6 +85,7 @@ def main():
             dd = "-" if r["depth"] is None else "%.2e -> %.2e" % (r["start_depth"], r["depth"])
             L.append(f"| {r['name']} | {r['kind']} ({r['degrees']}) | {dd} | {[round(v, 10) for v in r['centre']]} | {r['off'].split('/')[-1]} |")
         L.append("")
+    L += icoic("central")
     L.append(pennic_tail(p, "## pennic"))
     open(p, "w").write("\n".join(L) + "\n")
 

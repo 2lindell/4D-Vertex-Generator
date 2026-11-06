@@ -1,0 +1,437 @@
+{
+ "_about": "The nine icoic shapes ([3,4,3] = F4, order 1152): seed, optimized and central .off files (icoic_shapes.json).",
+ "shapes": [
+  {
+   "name": "ico",
+   "kind": "point",
+   "degrees": 0,
+   "seed": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "seed_R": 1.0,
+   "seed_off": "new_shapes/off/icoic/icoic_point_ico_24v_24c_seed.off",
+   "vertices": 24,
+   "cells": 24,
+   "optimized": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "R": 1.0,
+   "optimized_status": "point (no freedom)",
+   "central": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "point (no freedom)",
+   "opt_off": "optimized_off/icoic/ico_24v_24c_opt.off",
+   "opt_counts": [
+    24,
+    24
+   ],
+   "central_off": "central_off/icoic/ico_24v_24c_central.off",
+   "central_counts": [
+    24,
+    24
+   ],
+   "optimized_on_fold": false,
+   "seed_vector": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "rico",
+   "kind": "point",
+   "degrees": 0,
+   "seed": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "seed_R": 1.0000000000000002,
+   "seed_off": "new_shapes/off/icoic/icoic_point_rico_96v_48c_seed.off",
+   "vertices": 96,
+   "cells": 48,
+   "optimized": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "R": 1.0000000000000002,
+   "optimized_status": "point (no freedom)",
+   "central": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "point (no freedom)",
+   "opt_off": "optimized_off/icoic/rico_96v_48c_opt.off",
+   "opt_counts": [
+    96,
+    48
+   ],
+   "central_off": "central_off/icoic/rico_96v_48c_central.off",
+   "central_counts": [
+    96,
+    48
+   ],
+   "optimized_on_fold": true,
+   "seed_vector": [
+    1.0,
+    0.5,
+    0.5,
+    0.0
+   ]
+  },
+  {
+   "name": "sidpii",
+   "kind": "line",
+   "degrees": 1,
+   "seed": [
+    0.7,
+    0.0,
+    0.0,
+    0.3
+   ],
+   "seed_R": 2.333333333333335,
+   "seed_off": "new_shapes/off/icoic/icoic_line_sidpii_144v_240c_seed.off",
+   "vertices": 144,
+   "cells": 240,
+   "optimized": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.75,
+    0.0,
+    0.0,
+    0.24999999999999994
+   ],
+   "depth": 0.3535533905932737,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icoic/sidpii_144v_240c_opt.off",
+   "opt_counts": [
+    144,
+    240
+   ],
+   "central_off": "central_off/icoic/sidpii_144v_240c_central.off",
+   "central_counts": [
+    144,
+    240
+   ],
+   "optimized_on_fold": true,
+   "seed_vector": [
+    1.0,
+    0.4142135623730951,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "tico",
+   "kind": "line",
+   "degrees": 1,
+   "seed": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "seed_R": 1.0000000000000009,
+   "seed_off": "new_shapes/off/icoic/icoic_line_tico_192v_48c_seed.off",
+   "vertices": 192,
+   "cells": 48,
+   "optimized": [
+    0.49999999999999994,
+    0.49999999999999994,
+    0.0,
+    7.850462293418875e-17
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "depth": 0.7071067811865475,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icoic/tico_192v_48c_opt.off",
+   "opt_counts": [
+    192,
+    48
+   ],
+   "central_off": "central_off/icoic/tico_192v_48c_central.off",
+   "central_counts": [
+    192,
+    48
+   ],
+   "optimized_on_fold": false,
+   "seed_vector": [
+    1.0,
+    0.6666666666666665,
+    0.33333333333333326,
+    0.0
+   ]
+  },
+  {
+   "name": "srico",
+   "kind": "line",
+   "degrees": 1,
+   "seed": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "seed_R": 1.0000000000000002,
+   "seed_off": "new_shapes/off/icoic/icoic_line_srico_288v_144c_seed.off",
+   "vertices": 288,
+   "cells": 144,
+   "optimized": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "depth": 0.7071067811865475,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icoic/srico_288v_144c_opt.off",
+   "opt_counts": [
+    288,
+    144
+   ],
+   "central_off": "central_off/icoic/srico_288v_144c_central.off",
+   "central_counts": [
+    288,
+    144
+   ],
+   "optimized_on_fold": false,
+   "seed_vector": [
+    1.0,
+    0.5469181606780271,
+    0.22654091966098644,
+    0.22654091966098644
+   ]
+  },
+  {
+   "name": "icoi",
+   "kind": "line",
+   "degrees": 1,
+   "seed": [
+    0.0,
+    0.35,
+    0.65,
+    0.0
+   ],
+   "seed_R": 1.8571428571428585,
+   "seed_off": "new_shapes/off/icoic/icoic_line_icoi_288v_48c_seed.off",
+   "vertices": 288,
+   "cells": 48,
+   "optimized": [
+    0.0,
+    0.5,
+    0.5,
+    -5.551115123125783e-17
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0,
+    0.75,
+    0.25,
+    0
+   ],
+   "depth": 0.3535533905932738,
+   "central_status": "deepest point of the half-line between rico and cont (b2 = 3 b3)",
+   "opt_off": "optimized_off/icoic/icoi_288v_48c_opt.off",
+   "opt_counts": [
+    288,
+    48
+   ],
+   "central_off": "central_off/icoic/icoi_288v_48c_central.off",
+   "central_counts": [
+    288,
+    48
+   ],
+   "optimized_on_fold": true,
+   "seed_vector": [
+    1.0,
+    0.41421356237309503,
+    0.41421356237309503,
+    0.1715728752538099
+   ]
+  },
+  {
+   "name": "grico",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "seed_R": 1.0000000000000013,
+   "seed_off": "new_shapes/off/icoic/icoic_wall_grico_576v_144c_seed.off",
+   "vertices": 576,
+   "cells": 144,
+   "optimized": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.33333333333333337,
+    -3.700743415417189e-17
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.33333333333333337,
+    0.0
+   ],
+   "depth": 0.408248290463863,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icoic/grico_576v_144c_opt.off",
+   "opt_counts": [
+    576,
+    144
+   ],
+   "central_off": "central_off/icoic/grico_576v_144c_central.off",
+   "central_counts": [
+    576,
+    144
+   ],
+   "optimized_on_fold": false,
+   "seed_vector": [
+    1.0,
+    0.5285954792089683,
+    0.33333333333333337,
+    0.13807118745769836
+   ]
+  },
+  {
+   "name": "prico",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "seed_R": 1.0000000000000009,
+   "seed_off": "new_shapes/off/icoic/icoic_wall_prico_576v_240c_seed.off",
+   "vertices": 576,
+   "cells": 240,
+   "optimized": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.33333333333333337
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5773502691896263,
+    0.21132486540518677,
+    0.0,
+    0.21132486540518697
+   ],
+   "depth": 0.25881904510252035,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icoic/prico_576v_240c_opt.off",
+   "opt_counts": [
+    576,
+    240
+   ],
+   "central_off": "central_off/icoic/prico_576v_240c_central.off",
+   "central_counts": [
+    576,
+    240
+   ],
+   "optimized_on_fold": true,
+   "seed_vector": [
+    1.0,
+    0.4530818393219728,
+    0.2265409196609864,
+    0.0
+   ]
+  },
+  {
+   "name": "gidpii",
+   "kind": "region",
+   "degrees": 3,
+   "seed": [
+    0.4000000000000001,
+    0.30000000000000004,
+    0.20000000000000004,
+    0.10000000000000002
+   ],
+   "seed_R": 3.9999999999999987,
+   "seed_off": "new_shapes/off/icoic/icoic_region_gidpii_1152v_240c_seed.off",
+   "vertices": 1152,
+   "cells": 240,
+   "optimized": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "R": 1.0,
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.46742346141747687,
+    0.1775255128608416,
+    0.17752551286084073,
+    0.17752551286084084
+   ],
+   "depth": 0.20498880527646554,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icoic/gidpii_1152v_240c_opt.off",
+   "opt_counts": [
+    1152,
+    240
+   ],
+   "central_off": "central_off/icoic/gidpii_1152v_240c_central.off",
+   "central_counts": [
+    1152,
+    240
+   ],
+   "optimized_on_fold": true,
+   "seed_vector": [
+    1.0,
+    0.4142135623730951,
+    0.2612038749637415,
+    0.10819418755438785
+   ]
+  }
+ ]
+}

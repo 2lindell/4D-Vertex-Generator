@@ -231,6 +231,22 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 |---|---|---|---|---|
 | sadi | region (3) | 3.62e-02 -> 2.89e-01 | [0.25, 0.25, 0.25, 0.25] | sadi_96v_144c_central.off |
 
+## Icoic
+
+contic_atlas/icoic_shapes.py.
+
+| shape | kind | depth | central beta | status | file |
+|---|---|---|---|---|---|
+| ico | point (0) | - | [1.0, 0.0, 0.0, 0.0] | point (no freedom) | ico_24v_24c_central.off |
+| rico | point (0) | - | [0.0, 1.0, 0.0, 0.0] | point (no freedom) | rico_96v_48c_central.off |
+| sidpii | line (1) | 3.54e-01 | [0.75, 0.0, 0.0, 0.25] | deepest point of the shape | sidpii_144v_240c_central.off |
+| tico | line (1) | 7.07e-01 | [0.5, 0.5, 0.0, 0.0] | deepest point of the shape | tico_192v_48c_central.off |
+| srico | line (1) | 7.07e-01 | [0.5, 0.0, 0.5, 0.0] | deepest point of the shape | srico_288v_144c_central.off |
+| icoi | line (1) | 3.54e-01 | [0, 0.75, 0.25, 0] | deepest point of the half-line between rico and cont (b2 = 3 b3) | icoi_288v_48c_central.off |
+| grico | wall (2) | 4.08e-01 | [0.3333333333, 0.3333333333, 0.3333333333, 0.0] | deepest point of the shape | grico_576v_144c_central.off |
+| prico | wall (2) | 2.59e-01 | [0.5773502692, 0.2113248654, 0.0, 0.2113248654] | deepest point of the shape | prico_576v_240c_central.off |
+| gidpii | region (3) | 2.05e-01 | [0.4674234614, 0.1775255129, 0.1775255129, 0.1775255129] | deepest point of the shape | gidpii_1152v_240c_central.off |
+
 ## pennic
 
 | shape | central beta | vertices, cells |

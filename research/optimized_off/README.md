@@ -214,6 +214,22 @@ Folders (tessic family: seed vectors in R^4, the B4 frame, vertices the signed p
 |---|---|---|---|---|---|---|---|
 | sadi | region (3) | 29.819967 | 1.0000000000 | minimum inside the shape | [0.3819660113, 0.2360679775, 0.3819660113, -0.0] | same | sadi_96v_144c_opt.off |
 
+## Icoic
+
+contic_atlas/icoic_shapes.py ([3,4,3], CONTIC_SUB=ico). Sidpii, icoi and gidpii are most even where their two sets of 24 cells are equal: spic, cont and gippic.
+
+| shape | kind | R seed | R best | status | best beta | file |
+|---|---|---|---|---|---|---|
+| ico | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [1.0, 0.0, 0.0, 0.0] | ico_24v_24c_opt.off |
+| rico | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 1.0, 0.0, 0.0] | rico_96v_48c_opt.off |
+| sidpii | line (1) | 2.333333 | 1.0000000000 | minimum inside the shape | [0.5, 0.0, 0.0, 0.5] | sidpii_144v_240c_opt.off |
+| tico | line (1) | 1.000000 | 1.0000000000 | minimum inside the shape | [0.5, 0.5, 0.0, 0.0] | tico_192v_48c_opt.off |
+| srico | line (1) | 1.000000 | 1.0000000000 | minimum inside the shape | [0.5, 0.0, 0.5, 0.0] | srico_288v_144c_opt.off |
+| icoi | line (1) | 1.857143 | 1.0000000000 | minimum inside the shape | [0.0, 0.5, 0.5, -0.0] | icoi_288v_48c_opt.off |
+| grico | wall (2) | 1.000000 | 1.0000000000 | minimum inside the shape | [0.3333333333, 0.3333333333, 0.3333333333, -0.0] | grico_576v_144c_opt.off |
+| prico | wall (2) | 1.000000 | 1.0000000000 | minimum inside the shape | [0.3333333333, 0.3333333333, 0.0, 0.3333333333] | prico_576v_240c_opt.off |
+| gidpii | region (3) | 4.000000 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | gidpii_1152v_240c_opt.off |
+
 ## Pennic
 
 Pennic [3,3,3] = S5 (order 120; domain: the whole chamber). The optimized seed of each is its uniform seed (R = 1), reached from an uneven start; the central seed (central_off/pennic) is the same point (decaic_atlas/pennic_shapes.py).
