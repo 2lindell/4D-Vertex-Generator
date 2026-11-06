@@ -25,13 +25,13 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.46742346141747687,
-    0.1775255128608416,
-    0.17752551286084073,
-    0.17752551286084084
+    0.2500000000000006,
+    0.25000000000000033,
+    0.2499999999999997,
+    0.2499999999999994
    ],
-   "depth": 0.20498880527646554,
-   "central_status": "deepest point of the shape",
+   "depth": 0.2886751345948122,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "opt_off": "optimized_off/icopyritic/pysnapi_576v_240c_opt.off",
    "opt_counts": [
     576,
@@ -68,13 +68,13 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.5773502691896258,
+    0.33333333333333304,
     0.0,
-    0.21132486540518686,
-    0.2113248654051873
+    0.3333333333333334,
+    0.33333333333333365
    ],
-   "depth": 0.25881904510252046,
-   "central_status": "deepest point of the shape",
+   "depth": 0.4082482904638626,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "opt_off": "optimized_off/icopyritic/prissi_288v_240c_opt.off",
    "opt_counts": [
     288,

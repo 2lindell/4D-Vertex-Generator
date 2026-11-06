@@ -25,13 +25,13 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 3.805174; the polytope's 4.214060); re-optimised crossing the mirrors and the fold (was R 4.216182)",
    "central": [
-    0.10571899133591287,
-    0.157616575850137,
-    0.6623808132704083,
-    0.0742836195435418
+    0.10571899040843284,
+    0.15761657849357294,
+    0.6623808124819326,
+    0.07428361861606167
    ],
-   "depth": 0.02222816456350589,
-   "central_status": "deepest point of the shape",
+   "depth": 0.02222816456350597,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "opt_off": "optimized_off/oxitic/oxitic_region_06_576v_2688c_opt.off",
    "opt_counts": [
     576,
@@ -68,13 +68,13 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 4.388171; the polytope's 4.388174); re-optimised crossing the mirrors and the fold (was R 4.391579)",
    "central": [
-    0.13703278008427427,
-    0.05204448764603287,
-    0.7588782446236605,
-    0.05204448764603242
+    0.14115914287686981,
+    -0.09104419391967762,
+    0.9593942047201045,
+    -0.009509153677296564
    ],
-   "depth": 0.060095797904545945,
-   "central_status": "deepest point of the shape",
+   "depth": 0.10653857420327374,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "opt_off": "optimized_off/oxitic/oxitic_region_11_576v_3264c_opt.off",
    "opt_counts": [
     576,
@@ -113,13 +113,13 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 4.388171; the polytope's 4.388175); re-optimised crossing the mirrors and the fold (was R 4.388893)",
    "central": [
-    0.15055477822808316,
-    0.06931722274649774,
-    0.7001386935804957,
-    0.07998930544492334
+    0.15055477774130088,
+    0.06931722398327365,
+    0.7001386934688612,
+    0.07998930480656437
    ],
-   "depth": 0.05317046594117431,
-   "central_status": "deepest point of the shape",
+   "depth": 0.053170465941159595,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "opt_off": "optimized_off/oxitic/oxitic_wall_20_576v_2112c_opt.off",
    "opt_counts": [
     576,

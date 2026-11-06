@@ -4,50 +4,50 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixit
 
 | shape | kind | sheet | depth | status | beta | file |
 |---|---|---|---|---|---|---|
-| stotathi | region | ix0 | 4.08e-01 | deepest point of the shape | [0.333333333, 0.333333333, 0.333333333, 0.0] | stotathi_1440v_1440c_central.off |
-| sagypsobtady | region | ix0 | 1.89e-01 | deepest point of the shape | [0.16400127, 0.321021434, 0.16400127, 0.350976025] | sagypsobtady_1440v_3600c_central.off |
-| mestuthi | region | ix0 | 4.08e-01 | deepest point of the shape | [0.333333333, 0.0, 0.333333333, 0.333333333] | mestuthi_1440v_3600c_central.off |
-| sisbethi_or_unnamed_1 | region | ix0 | 8.77e-02 | deepest point of the shape | [0.128288958, 0.075919633, 0.287373005, 0.508418404] | sisbethi_or_unnamed_1_1440v_5040c_central.off |
-| sisbethi_or_unnamed_2 | region | ix0 | 1.35e-01 | deepest point of the shape | [0.116680531, 0.196242589, 0.57039635, 0.116680531] | sisbethi_or_unnamed_2_1440v_5040c_central.off |
-| ixitic_wall_03 | wall | ix0 | 2.18e-01 | deepest point of the shape | [0.17960109, 0.097594832, 0.415482688, 0.307321389] | ixitic_wall_03_1440v_2880c_central.off |
-| tisthi | line | ix0 | 7.07e-01 | deepest point of the shape | [0.5, 0.5, 0.0, 0.0] | tisthi_480v_1440c_central.off |
-| sagyptady | line | ix0 | 7.07e-01 | deepest point of the shape | [0.5, 0.0, 0.0, 0.5] | sagyptady_480v_2160c_central.off |
-| ratehi | line | ix0 | 7.07e-01 | deepest point of the shape | [0.5, 0.0, 0.5, 0.0] | ratehi_720v_720c_central.off |
-| tatehi | line | ix0 | 7.07e-01 | deepest point of the shape | [0.0, 0.0, 0.5, 0.5] | tatehi_1440v_720c_central.off |
-| tehi | point | ix0 | - | point (no freedom): the seed itself | [1.0, 0.0, 0.0, 0.0] | tehi_120v_600c_central.off |
-| misrethi | region | ix2 | 4.08e-01 | deepest point of the shape | [0.333333333, 0.333333333, 0.0, 0.333333333] | misrethi_1440v_2160c_central.off |
-| gypsobtady | region | ix2 | 1.61e-01 | deepest point of the shape | [0.139015787, 0.331124608, 0.390843817, 0.139015787] | gypsobtady_1440v_3360c_central.off |
-| ixitic_region_08 | region | ix2 | 1.05e-01 | deepest point of the shape | [0.091163381, 0.580814341, 0.236858898, 0.091163381] | ixitic_region_08_1440v_4800c_central.off |
-| ixitic_region_11 | region | ix2 | 1.58e-02 | deepest point of the shape | [0.013652529, 0.650030414, 0.161517947, 0.174799109] | ixitic_region_11_1440v_5520c_central.off |
-| ixitic_region_12 | region | ix2 | 7.54e-02 | deepest point of the shape | [0.303578032, 0.114105031, 0.320301275, 0.262015662] | ixitic_region_12_1440v_5760c_central.off |
-| magypsobtady_1 | region | ix2 | 4.45e-03 | deepest point of the shape | [0.318757548, 0.039511943, 0.082231524, 0.559498986] | magypsobtady_1_1440v_5760c_central.off |
-| ixitic_region_16 | region | ix2 | 4.44e-02 | deepest point of the shape | [0.302008418, 0.101054601, 0.114011649, 0.482925332] | ixitic_region_16_1440v_6480c_central.off |
-| ixitic_region_17 | region | ix2 | 4.05e-02 | deepest point of the shape | [0.229851228, 0.035050018, 0.226361156, 0.508737598] | ixitic_region_17_1440v_6480c_central.off |
-| petsobtady | wall | ix2 | 1.54e-01 | deepest point of the shape | [0.123233162, 0.098006627, 0.547453999, 0.231306212] | petsobtady_1440v_2160c_central.off |
-| ixitic_wall_04 | wall | ix2 | 3.13e-01 | deepest point of the shape | [0.255116762, 0.035933643, 0.435940127, 0.273009468] | ixitic_wall_04_1440v_2880c_central.off |
-| ixitic_wall_05 | wall | ix2 | 2.38e-01 | deepest point of the shape | [0.206070685, 0.547091983, 0.106813517, 0.140023815] | ixitic_wall_05_1440v_2880c_central.off |
-| ixitic_wall_08 | wall | ix2 | 2.08e-01 | deepest point of the shape | [0.180239221, 0.590261221, 0.115970876, 0.113528681] | ixitic_wall_08_1440v_3360c_central.off |
-| ixitic_wall_09 | wall | ix2 | 1.21e-01 | deepest point of the shape | [0.316983207, 0.037549556, 0.088289259, 0.557177978] | ixitic_wall_09_1440v_3600c_central.off |
-| ixitic_wall_11 | wall | ix2 | 5.00e-02 | deepest point of the shape | [0.16400647, 0.039901752, 0.182313496, 0.613778282] | ixitic_wall_11_1440v_5040c_central.off |
-| tasthi | line | ix4 | 7.07e-01 | deepest point of the shape | [0.5, 0.5, 0.0, 0.0] | tasthi_1440v_240c_central.off |
-| giserthi | region | ix5 | 2.04e-01 | deepest point of the shape | [0.666666667, 0.0, 0.166666667, 0.166666667] | giserthi_1440v_4320c_central.off |
-| magypsobtady_2 | region | ix5 | 9.25e-02 | deepest point of the shape | [0.536637233, 0.080094145, 0.303174478, 0.080094145] | magypsobtady_2_1440v_5760c_central.off |
-| gastuthi | region | ix5 | 2.26e-01 | deepest point of the shape | [0.631542227, 0.184228886, 0.0, 0.184228886] | gastuthi_1440v_5760c_central.off |
-| ixitic_region_18 | region | ix5 | 5.21e-02 | deepest point of the shape | [0.422962247, 0.240539989, 0.291343159, 0.045154604] | ixitic_region_18_1440v_7200c_central.off |
-| ixitic_region_19 | region | ix5 | 1.24e-01 | deepest point of the shape | [0.576050169, 0.209694847, 0.107127492, 0.107127492] | ixitic_region_19_1440v_7200c_central.off |
-| ixitic_wall_01 | wall | ix5 | 1.37e-01 | no deeper point found: the seed itself | [0.349972613, 0.300054773, 0.349972614, 0.0] | ixitic_wall_01_1440v_960c_central.off |
-| mastethi | wall | ix5 | 1.85e-01 | deepest point of the shape | [0.338137855, 0.32372429, 0.201619623, 0.136518232] | mastethi_1440v_3120c_central.off |
-| ixitic_wall_10 | wall | ix5 | 4.68e-02 | no deeper point found: the seed itself | [0.249799212, 0.566622469, 0.0, 0.183578319] | ixitic_wall_10_1440v_3600c_central.off |
-| ixitic_wall_12 | wall | ix5 | 2.03e-01 | deepest point of the shape | [0.415224433, 0.29066908, 0.133950749, 0.160155738] | ixitic_wall_12_1440v_5040c_central.off |
-| ixitic_wall_13 | wall | ix5 | 2.51e-02 | deepest point of the shape | [0.296387149, 0.442736097, 0.0, 0.260876754] | ixitic_wall_13_1440v_5760c_central.off |
+| stotathi | region | ix0 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.033470649, 0.033690393, 0.932838958, 0.0] | stotathi_1440v_1440c_central.off |
+| sagypsobtady | region | ix0 | 1.37e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.041815756, 0.042090287, 0.04230115, 0.873792806] | sagypsobtady_1440v_3600c_central.off |
+| mestuthi | region | ix0 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.033477011, 0.0, 0.03386561, 0.932657379] | mestuthi_1440v_3600c_central.off |
+| sisbethi_or_unnamed_1 | region | ix0 | 8.42e-03 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.041815756, 0.042090287, 0.083898147, 0.832195809] | sisbethi_or_unnamed_1_1440v_5040c_central.off |
+| sisbethi_or_unnamed_2 | region | ix0 | 5.88e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [-0.5, -0.5, 0.475154397, 1.524845603] | sisbethi_or_unnamed_2_1440v_5040c_central.off |
+| ixitic_wall_03 | wall | ix0 | 2.91e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.05166821, 0.076898183, 0.511252666, 0.360180941] | ixitic_wall_03_1440v_2880c_central.off |
+| tisthi | line | ix0 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.033489525, 0.966510475, 0.0, 0.0] | tisthi_480v_1440c_central.off |
+| sagyptady | line | ix0 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.033495894, 0.0, 0.0, 0.966504106] | sagyptady_480v_2160c_central.off |
+| ratehi | line | ix0 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.03348387, 0.0, 0.96651613, 0.0] | ratehi_720v_720c_central.off |
+| tatehi | line | ix0 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.0, 0.0, 0.033871542, 0.966128458] | tatehi_1440v_720c_central.off |
+| tehi | point | ix0 | - | point (no freedom): the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [1.0, 0.0, 0.0, 0.0] | tehi_120v_600c_central.off |
+| misrethi | region | ix2 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.033482664, 0.033702486, 0.0, 0.93281485] | misrethi_1440v_2160c_central.off |
+| gypsobtady | region | ix2 | 7.73e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [-0.5, 0.264437783, 1.060614165, 0.174948052] | gypsobtady_1440v_3360c_central.off |
+| ixitic_region_08 | region | ix2 | 6.12e-03 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.041815756, 0.41646326, 0.250286135, 0.291434849] | ixitic_region_08_1440v_4800c_central.off |
+| ixitic_region_11 | region | ix2 | 3.25e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [-0.5, 0.9749651, 0.296558093, 0.228476807] | ixitic_region_11_1440v_5520c_central.off |
+| ixitic_region_12 | region | ix2 | 7.54e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.303578034, 0.114105031, 0.320301274, 0.262015661] | ixitic_region_12_1440v_5760c_central.off |
+| magypsobtady_1 | region | ix2 | 4.45e-03 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.31875756, 0.039511943, 0.082231523, 0.559498973] | magypsobtady_1_1440v_5760c_central.off |
+| ixitic_region_16 | region | ix2 | 4.44e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.302008417, 0.101054601, 0.114011649, 0.482925333] | ixitic_region_16_1440v_6480c_central.off |
+| ixitic_region_17 | region | ix2 | 6.29e-03 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.041815756, 0.042090287, 0.125495144, 0.790598812] | ixitic_region_17_1440v_6480c_central.off |
+| petsobtady | wall | ix2 | 1.59e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.083837301, 0.099391635, 0.552685425, 0.264085639] | petsobtady_1440v_2160c_central.off |
+| ixitic_wall_04 | wall | ix2 | 3.13e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.253103295, 0.036025525, 0.436106537, 0.274764643] | ixitic_wall_04_1440v_2880c_central.off |
+| ixitic_wall_05 | wall | ix2 | 3.77e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [-0.5, 1.250052124, 0.140762116, 0.10918576] | ixitic_wall_05_1440v_2880c_central.off |
+| ixitic_wall_08 | wall | ix2 | 3.38e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [-0.5, 1.269597503, 0.159494902, 0.070907596] | ixitic_wall_08_1440v_3360c_central.off |
+| ixitic_wall_09 | wall | ix2 | 1.30e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.303657096, 0.035074218, 0.082634792, 0.578633894] | ixitic_wall_09_1440v_3600c_central.off |
+| ixitic_wall_11 | wall | ix2 | 2.00e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.041815752, 0.042090289, 0.114599879, 0.801494079] | ixitic_wall_11_1440v_5040c_central.off |
+| tasthi | line | ix4 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.033489525, 0.966510475, 0.0, 0.0] | tasthi_1440v_240c_central.off |
+| giserthi | region | ix5 | 4.04e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.533005154, 0.0, 0.03386561, 0.433129236] | giserthi_1440v_4320c_central.off |
+| magypsobtady_2 | region | ix5 | 3.18e-03 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.457785726, 0.125284281, 0.208689138, 0.208240855] | magypsobtady_2_1440v_5760c_central.off |
+| gastuthi | region | ix5 | 7.97e-03 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.066790163, 0.899697458, 0.0, 0.033512379] | gastuthi_1440v_5760c_central.off |
+| ixitic_region_18 | region | ix5 | 2.78e-03 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.12500975, 0.790836232, 0.04230115, 0.041852867] | ixitic_region_18_1440v_7200c_central.off |
+| ixitic_region_19 | region | ix5 | 1.09e-01 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.551088631, 0.254762727, 0.186074106, 0.008074536] | ixitic_region_19_1440v_7200c_central.off |
+| ixitic_wall_01 | wall | ix5 | 1.37e-01 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.349972613, 0.300054773, 0.349972614, 0.0] | ixitic_wall_01_1440v_960c_central.off |
+| mastethi | wall | ix5 | 7.86e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.104581884, 0.790836232, 0.04230115, 0.062280734] | mastethi_1440v_3120c_central.off |
+| ixitic_wall_10 | wall | ix5 | 4.68e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.249799212, 0.566622469, 0.0, 0.183578319] | ixitic_wall_10_1440v_3600c_central.off |
+| ixitic_wall_12 | wall | ix5 | 2.68e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.499382666, 0.156294499, 0.208689183, 0.135633652] | ixitic_wall_12_1440v_5040c_central.off |
+| ixitic_wall_13 | wall | ix5 | 2.51e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.296387149, 0.442736096, 0.0, 0.260876755] | ixitic_wall_13_1440v_5760c_central.off |
 | hidhi | line | ix5 | 2.19e-01 | no deeper point found: the seed itself; moved to another polytope: the seed is written instead | [0.499999999, 0.0, 0.0, 0.500000001] | hidhi_480v_1412c_central.off |
-| gagyptady | line | ix5 | 3.54e-01 | deepest point of the shape | [0.75, 0.0, 0.0, 0.25] | gagyptady_480v_2160c_central.off |
-| sartethi | line | ix5 | 3.54e-01 | deepest point of the shape | [0.75, 0.0, 0.25, 0.0] | sartethi_1440v_1680c_central.off |
-| sestuthi | region | ix7 | 4.08e-01 | deepest point of the shape | [0.0, 0.333333333, 0.333333333, 0.333333333] | sestuthi_1440v_1920c_central.off |
+| gagyptady | line | ix5 | 4.71e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.533305797, 0.0, 0.0, 0.466694203] | gagyptady_480v_2160c_central.off |
+| sartethi | line | ix5 | 4.68e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.53311436, 0.0, 0.46688564, 0.0] | sartethi_1440v_1680c_central.off |
+| sestuthi | region | ix7 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.0, 0.134688695, 0.083242192, 0.782069112] | sestuthi_1440v_1920c_central.off |
 | matethi | line | ix7 | 5.40e-01 | no deeper point found: the seed itself; moved to another polytope: the seed is written instead | [0.0, 0.618033986, 0.381966014, 0.0] | matethi_720v_716c_central.off |
-| sabtedy | line | ix7 | 2.70e-01 | deepest point of the shape | [0.0, 0.809016994, 0.190983006, 0.0] | sabtedy_720v_1680c_central.off |
-| gastethi | wall | ix8 | 1.37e-01 | deepest point of the shape | [0.498098573, 0.197395387, 0.304506039, 0.0] | gastethi_1440v_3120c_central.off |
-| ixitic_region_20 | region | ix9 | 5.14e-02 | deepest point of the shape | [0.340736124, 0.38985223, 0.181359964, 0.088051682] | ixitic_region_20_1440v_8640c_central.off |
-| ixitic_region_21 | region | ix9 | 2.25e-02 | deepest point of the shape | [0.27716252, 0.457994757, 0.019462763, 0.24537996] | ixitic_region_21_1440v_8640c_central.off |
-| ixitic_region_22 | region | ix9 | 2.19e-02 | deepest point of the shape | [0.417662104, 0.390331636, 0.08637676, 0.1056295] | ixitic_region_22_1440v_10080c_central.off |
-| ixitic_wall_14 | wall | ix9 | 1.63e-01 | deepest point of the shape | [0.443510924, 0.306043437, 0.105062666, 0.145382972] | ixitic_wall_14_1440v_7200c_central.off |
+| sabtedy | line | ix7 | 2.13e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.0, 0.633121109, 0.366878891, 0.0] | sabtedy_720v_1680c_central.off |
+| gastethi | wall | ix8 | 1.37e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.498098573, 0.197395387, 0.304506039, 0.0] | gastethi_1440v_3120c_central.off |
+| ixitic_region_20 | region | ix9 | 5.14e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.340736127, 0.389852228, 0.181359963, 0.088051682] | ixitic_region_20_1440v_8640c_central.off |
+| ixitic_region_21 | region | ix9 | 3.75e-04 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.443187945, 0.08014762, 0.034006978, 0.442657457] | ixitic_region_21_1440v_8640c_central.off |
+| ixitic_region_22 | region | ix9 | 2.19e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.417662111, 0.39033163, 0.086376758, 0.105629501] | ixitic_region_22_1440v_10080c_central.off |
+| ixitic_wall_14 | wall | ix9 | 1.63e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.443510924, 0.306043437, 0.105062666, 0.145382972] | ixitic_wall_14_1440v_7200c_central.off |

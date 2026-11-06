@@ -31,7 +31,7 @@
     0.0
    ],
    "depth": 0.408248290463863,
-   "central_status": "deepest point of the shape",
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "opt_off": "optimized_off/icopyritic/pysni_288v_144c_opt.off",
    "opt_counts": [
     288,
@@ -74,7 +74,7 @@
     0.0
    ],
    "depth": 0.7071067811865471,
-   "central_status": "deepest point of the shape",
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "opt_off": "optimized_off/icopyritic/sadi_96v_144c_opt.off",
    "opt_counts": [
     96,
