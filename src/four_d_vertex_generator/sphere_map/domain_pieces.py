@@ -1269,6 +1269,12 @@ def _normals_to_try(P, normal):
     Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
     Z = (P - P.mean(0)) @ Bz.T
     ns.append(np.linalg.svd(Z, full_matrices=False)[2][-1] @ Bz)
+    # (and the coordinate directions: a face folded over its own normals may lie flat along one)
+    E4 = np.eye(4)
+    for i in range(4):
+        ns.append(E4[i] - 0.25)
+        for j in range(i + 1, 4):
+            ns.append(E4[i] - E4[j])
     out = []
     for v in ns:
         v = v - v.mean()
@@ -1310,6 +1316,31 @@ def _triangulate(s, rings, c, n, normal, max_area, tr):
     T = tr.triangulate(A, f"pYq20a{max_area:.3g}")
     if "triangles" not in T or not len(T["triangles"]):
         return None
+    res = _lift_all(s, T, rep, rings, c, n, e1, e2, normal)
+    if res is not None:
+        return res
+    # (inner points that cannot all be put on the surface, next to a singular point: the loop's own
+    # points only, then inner edges split onto the surface where they can be)
+    T = tr.triangulate(A, "pY")
+    if "triangles" not in T or not len(T["triangles"]) or len(T["vertices"]) != len(rep):
+        return None
+    X0 = np.vstack(rings)[rep]
+    ring_ids = []
+    off = 0
+    rim = set()
+    seg = A["segments"]
+    for a_, b_ in seg:
+        rim.add(frozenset((int(a_), int(b_))))
+    X, F = _refine_on_surface(s, [x for x in X0], [list(t) for t in T["triangles"]], rim, normal)
+    X, F = np.array(X), np.array(F)
+    if _turned(_tri_normals(X, F), np.array([normal(x) for x in X[F].mean(1)])):
+        return None
+    return X, F, 0, (c, n, e1, e2)
+
+
+def _lift_all(s, T, rep, rings, c, n, e1, e2, normal):
+    """The triangulation's inner points moved along n onto the surface; None if one cannot be, or
+    a triangle then faces against the surface."""
     nb = len(rep)
     X = np.empty((len(T["vertices"]), 4))
     X[:nb] = np.vstack(rings)[rep]
@@ -1366,6 +1397,50 @@ def _inward_cut(s, t, P, i, xs_pts, normal, step=STEP, max_len=3.0):
 
 
 xs_idx_of = {}
+
+
+def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8):
+    """Inner edges longer than h split at their middles, each solved onto the surface (a middle
+    that cannot be: left); rim edges never split."""
+    for _ in range(rounds):
+        edges = {}
+        for t_i, t in enumerate(F):
+            for k in range(3):
+                e = frozenset((t[k], t[(k + 1) % 3]))
+                edges.setdefault(e, []).append(t_i)
+        long_ = [e for e, ts in edges.items() if e not in rim and len(ts) == 2
+                 and np.linalg.norm(X[min(e)] - X[max(e)]) > h]
+        if not long_:
+            break
+        taken, newF, split_at = set(), [], {}
+        for e in sorted(long_, key=lambda e: -np.linalg.norm(X[min(e)] - X[max(e)])):
+            t1, t2 = edges[e]
+            if t1 in taken or t2 in taken:
+                continue
+            u, v = tuple(e)
+            m = (X[u] + X[v]) / 2
+            nn = normal(m)
+            if np.linalg.norm(nn) < 1e-12:
+                continue
+            y = _lift(s, m, nn / np.linalg.norm(nn))
+            if y is None:
+                continue
+            X.append(y)
+            split_at[e] = len(X) - 1
+            taken |= {t1, t2}
+        for t_i, t in enumerate(F):
+            if t_i not in taken:
+                newF.append(t)
+                continue
+            for k in range(3):
+                e = frozenset((t[k], t[(k + 1) % 3]))
+                if e in split_at:
+                    m_ = split_at[e]
+                    a_, b_, c_ = t[k], t[(k + 1) % 3], t[(k + 2) % 3]
+                    newF += [[a_, m_, c_], [m_, b_, c_]]
+                    break
+        F = newF
+    return X, F
 
 
 def _ear_clip_on_surface(s, P, normal, h=0.02, rounds=8):
@@ -1438,47 +1513,8 @@ def _ear_clip_on_surface(s, P, normal, h=0.02, rounds=8):
     rest = list(active)
     a = rest[0]
     tris.append([prv[nxt[a]], nxt[a], nxt[nxt[a]]] if False else [a, nxt[a], nxt[nxt[a]]])
-    X = [p for p in P]
-    F = [list(t) for t in tris]
-    rim = {frozenset((k, (k + 1) % n)) for k in range(n)}
-    for _ in range(rounds):
-        edges = {}
-        for t_i, t in enumerate(F):
-            for k in range(3):
-                e = frozenset((t[k], t[(k + 1) % 3]))
-                edges.setdefault(e, []).append(t_i)
-        long_ = [e for e, ts in edges.items() if e not in rim and len(ts) == 2
-                 and np.linalg.norm(X[min(e)] - X[max(e)]) > h]
-        if not long_:
-            break
-        taken, newF, split_at = set(), [], {}
-        for e in sorted(long_, key=lambda e: -np.linalg.norm(X[min(e)] - X[max(e)])):
-            t1, t2 = edges[e]
-            if t1 in taken or t2 in taken:
-                continue
-            u, v = tuple(e)
-            m = (X[u] + X[v]) / 2
-            nn = normal(m)
-            if np.linalg.norm(nn) < 1e-12:
-                continue
-            y = _lift(s, m, nn / np.linalg.norm(nn))
-            if y is None:
-                continue
-            X.append(y)
-            split_at[e] = len(X) - 1
-            taken |= {t1, t2}
-        for t_i, t in enumerate(F):
-            if t_i not in taken:
-                newF.append(t)
-                continue
-            for k in range(3):
-                e = frozenset((t[k], t[(k + 1) % 3]))
-                if e in split_at:
-                    m_ = split_at[e]
-                    a_, b_, c_ = t[k], t[(k + 1) % 3], t[(k + 2) % 3]
-                    newF += [[a_, m_, c_], [m_, b_, c_]]
-                    break
-        F = newF
+    X, F = _refine_on_surface(s, [p for p in P], [list(t) for t in tris],
+                              {frozenset((k, (k + 1) % n)) for k in range(n)}, normal, h, rounds)
     X = np.array(X)
     F = np.array(F)
     cr = _tri_normals(X, F)
