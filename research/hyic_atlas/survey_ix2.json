@@ -1,0 +1,131 @@
+{
+ "_about": "A dense survey of the toxitic / oxitic domain for small regions the grid missed (survey_<sub>.json).",
+ "group": "ix2",
+ "known_regions": [
+  "11c376e3c804",
+  "270d63cd9ba9",
+  "271a2ad0dfa9",
+  "2da1ce87ceec",
+  "48f481bb1e96",
+  "5efe53c04ebf",
+  "9fbf16135e07",
+  "a0f7c29fa0bd",
+  "d243a1e80043"
+ ],
+ "zones": {
+  "whole domain": {
+   "points": 100,
+   "types": {
+    "48f481bb1e96": 9,
+    "270d63cd9ba9": 14,
+    "2da1ce87ceec": 13,
+    "5efe53c04ebf": 19,
+    "d243a1e80043": 27,
+    "271a2ad0dfa9": 4,
+    "a0f7c29fa0bd": 12,
+    "11c376e3c804": 2
+   },
+   "new": {}
+  },
+  "b1, b2 small": {
+   "points": 100,
+   "types": {
+    "48f481bb1e96": 22,
+    "5efe53c04ebf": 47,
+    "d243a1e80043": 22,
+    "271a2ad0dfa9": 9
+   },
+   "new": {}
+  },
+  "b1, b3 small": {
+   "points": 100,
+   "types": {
+    "270d63cd9ba9": 43,
+    "a0f7c29fa0bd": 55,
+    "271a2ad0dfa9": 1,
+    "2da1ce87ceec": 1
+   },
+   "new": {}
+  },
+  "b1, b4 small": {
+   "points": 100,
+   "types": {
+    "d243a1e80043": 60,
+    "2da1ce87ceec": 38,
+    "a0f7c29fa0bd": 2
+   },
+   "new": {}
+  },
+  "b2, b3 small": {
+   "points": 100,
+   "types": {
+    "271a2ad0dfa9": 61,
+    "270d63cd9ba9": 30,
+    "9fbf16135e07": 7,
+    "5efe53c04ebf": 1,
+    "d243a1e80043": 1
+   },
+   "new": {}
+  },
+  "b2, b4 small": {
+   "points": 100,
+   "types": {
+    "d243a1e80043": 72,
+    "48f481bb1e96": 4,
+    "5efe53c04ebf": 23,
+    "a0f7c29fa0bd": 1
+   },
+   "new": {}
+  },
+  "b3, b4 small": {
+   "points": 100,
+   "types": {
+    "2da1ce87ceec": 48,
+    "a0f7c29fa0bd": 37,
+    "11c376e3c804": 12,
+    "d243a1e80043": 2,
+    "270d63cd9ba9": 1
+   },
+   "new": {}
+  },
+  "b1 b2 b3 small": {
+   "points": 14,
+   "types": {
+    "5efe53c04ebf": 1,
+    "271a2ad0dfa9": 7,
+    "270d63cd9ba9": 5,
+    "9fbf16135e07": 1
+   },
+   "new": {}
+  },
+  "b1 b2 b4 small": {
+   "points": 15,
+   "types": {
+    "d243a1e80043": 14,
+    "5efe53c04ebf": 1
+   },
+   "new": {}
+  },
+  "b1 b3 b4 small": {
+   "points": 15,
+   "types": {
+    "a0f7c29fa0bd": 9,
+    "11c376e3c804": 2,
+    "2da1ce87ceec": 4
+   },
+   "new": {}
+  },
+  "b2 b3 b4 small": {
+   "points": 16,
+   "types": {
+    "270d63cd9ba9": 1,
+    "48f481bb1e96": 2,
+    "d243a1e80043": 3,
+    "a0f7c29fa0bd": 6,
+    "5efe53c04ebf": 4
+   },
+   "new": {}
+  }
+ },
+ "new": {}
+}
