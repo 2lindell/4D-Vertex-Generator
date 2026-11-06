@@ -378,7 +378,7 @@ def do_sheet(D, C, key, WS, log=print, rounds=3):
             y, ok = solve([s, t], cpt)
             arcs = trace_on(s, t, D.face_planes, n_seeds=300, start=[y] if ok else [])
             extra += [{"kind": "aux", "name": "helper cut", "pts": a, "eqs": [s, t]} for a in arcs]
-            rounds = max(rounds, r + 3)
+            rounds = min(8, max(rounds, r + 3))
         if curved:
             log(f"  sheet {key}: {len(curved)} faces too curved to lie flat: cut in two")
             if r < rounds:
