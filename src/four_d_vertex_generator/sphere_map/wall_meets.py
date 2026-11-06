@@ -37,11 +37,11 @@ def _fold(s):
 
 def resolve(name: str):
     """A surface by its atlas name: a library name, or 'BASE:map' (BASE's image under that map),
-    or 'BASE:map:fold' (that image, folded). BASE may be a wall's name for its one surface."""
+    or 'BASE:map:fold' (that image, folded); 'BASE@map' is 'BASE:map'. BASE may be a wall's name for its one surface."""
     by = surface_by_name()
     if name in by:
         return surfaces()[by[name]]
-    m = re.fullmatch(r"(.+?):(\d+)(:fold)?", name)
+    m = re.fullmatch(r"(.+?)(?::|\s*@\s*)(\d+)(:fold)?", name)
     if m:
         base = m.group(1)
         if base not in by:              # a wall's name for its own (single) surface

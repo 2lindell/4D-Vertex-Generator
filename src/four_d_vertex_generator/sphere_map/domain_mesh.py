@@ -440,7 +440,14 @@ def export(log=print):
     from . import wall_pieces
     root = data_dir() / "sphere_map"
     patches = json.loads((root / "patches.json").read_text())["patches"]
-    patch_tris, rims = build_parallel(log=log)
+    import pickle
+    cache = root / ".cache" / "domain_mesh_build.pkl"
+    if cache.exists() and cache.stat().st_mtime > (root / "patches.json").stat().st_mtime:
+        patch_tris, rims = pickle.loads(cache.read_bytes())
+    else:
+        patch_tris, rims = build_parallel(log=log)
+        cache.parent.mkdir(exist_ok=True)
+        cache.write_bytes(pickle.dumps((patch_tris, rims)))
     wp = wall_pieces.build(log=lambda *_: None)
     parent = {}
 
