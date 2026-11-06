@@ -358,9 +358,31 @@ def do_sheet(D, C, key, WS, log=print, rounds=3):
     inside it, the surfaces responsible traced and the sheet built again."""
     s = D.face_planes[FACE_NAMES.index(key[5:])] if isinstance(key, str) else D.lib[key]
     extra, done = [], set()
-    for r in range(rounds):
+    r = 0
+    while r < rounds:
+        r += 1
         G = sheet(D, C, key, log, extra)["graph"]
         F = faces_of(D, key, G, log=log)
+        curved = [f for f in F if f.get("too_curved")]
+        F = [f for f in F if not f.get("too_curved")]
+        for f in curved:
+            # cut along the surface where it meets the plane through the face's middle, across
+            # the face's longest direction (a helper cut: not an edge of anything, not drawn)
+            P = f["P"]
+            Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+            Z = (P - P.mean(0)) @ Bz.T
+            d = np.linalg.svd(Z, full_matrices=False)[2][0] @ Bz
+            cpt = P.mean(0)
+            nrm = d - (d @ cpt) * np.ones(4)
+            t = Plane(nrm, f"helper cut {len(extra)}")
+            y, ok = solve([s, t], cpt)
+            arcs = trace_on(s, t, D.face_planes, n_seeds=300, start=[y] if ok else [])
+            extra += [{"kind": "aux", "name": "helper cut", "pts": a, "eqs": [s, t]} for a in arcs]
+            rounds = max(rounds, r + 3)
+        if curved:
+            log(f"  sheet {key}: {len(curved)} faces too curved to lie flat: cut in two")
+            if r < rounds:
+                continue
         need = gaps(D, key, F, WS, done, s, G.normal)
         # (a point already on a traced arc needs nothing more)
         for k in list(need):
@@ -370,7 +392,7 @@ def do_sheet(D, C, key, WS, log=print, rounds=3):
                 need[k][2] = pts
             else:
                 del need[k]
-        if not need or r == rounds - 1:
+        if not need or r >= rounds:
             break
         for k, (t, walls, pts) in need.items():
             first = k not in done
@@ -628,7 +650,7 @@ class Graph:
                 self.E.append({"a": a, "b": b, "pts": pts_, "curve": ci})
         # one edge per stretch: a stretch two curves share kept once, as the named line, else
         # the meeting curve, else the half-cell's boundary
-        rank = {"line": 0, "meet": 1, "cross": 2, "face": 3}
+        rank = {"line": 0, "meet": 1, "cross": 2, "face": 3, "aux": 4}
         best = {}
         for e in self.E:
             if e["a"] == e["b"] and len(e["pts"]) < 4:
@@ -867,6 +889,17 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
     for L in inner:
         c, n, e1, e2 = L["frame"]
         rings = [L["P"]] + [H["P"] for H in holes[id(L)]]
+        # (a face too curved to lie flat on its plane, its loop folding over itself there: not
+        # triangulated; it is cut in two along the surface first)
+        nrms = np.array([G.normal(x) for x in L["P"][:: max(1, len(L["P"]) // 60)]])
+        nrms = nrms[np.linalg.norm(nrms, axis=1) > 1e-12]
+        nrms /= np.linalg.norm(nrms, axis=1, keepdims=True)
+        spread = float((nrms @ n).min()) if len(nrms) else 1.0
+        folds = sum(_crossings(np.c_[(R - c) @ e1, (R - c) @ e2]) for R in rings)
+        if folds or spread < 0.6:
+            out.append({"sheet": key, "too_curved": True, "P": L["P"], "frame": L["frame"],
+                        "folds": folds, "spread": spread})
+            continue
         verts, segs, hole_pts, off = [], [], [], 0
         for r_i, R in enumerate(rings):
             Q = np.c_[(R - c) @ e1, (R - c) @ e2]
@@ -914,6 +947,9 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             X[i] = y
         if np.abs(T["vertices"][:nb] - A["vertices"]).max() > 1e-12:
             log(f"  sheet {key}: boundary vertices moved by the triangulation")
+        if "triangles" not in T or not len(T["triangles"]):
+            log(f"  sheet {key}: a face loop of {len(L['P'])} points encloses nothing")
+            continue
         F = T["triangles"]
         # (triangles turned over by the lift: the loop is not a graph over its plane)
         U, W = (X[F[:, 1]] - X[F[:, 0]]) @ np.c_[e1, e2], (X[F[:, 2]] - X[F[:, 0]]) @ np.c_[e1, e2]
@@ -963,6 +999,26 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
     return out
 
 
+def _crossings(Q):
+    """How many pairs of a closed polyline's segments cross (not counting shared ends)."""
+    from scipy.spatial import cKDTree
+    n = len(Q)
+    A, B = Q, np.roll(Q, -1, axis=0)
+    mids = (A + B) / 2
+    L = np.linalg.norm(B - A, axis=1).max()
+    d = lambda a, b, c: (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
+    cnt = 0
+    for i, j in cKDTree(mids).query_pairs(L + 1e-12):
+        if abs(i - j) <= 1 or abs(i - j) == n - 1:
+            continue
+        a, b, c_, e = A[i], B[i], A[j], B[j]
+        if len({tuple(np.round(x, 12)) for x in (a, b, c_, e)}) < 4:
+            continue
+        if d(a, b, c_) * d(a, b, e) < 0 and d(c_, e, a) * d(c_, e, b) < 0:
+            cnt += 1
+    return cnt
+
+
 def _inside_poly(Q, q):
     x, y = q
     inside_ = False
@@ -976,6 +1032,9 @@ def _inside_poly(Q, q):
 
 def _sheet_job(key):
     import pickle
+    cache = data_dir() / "sphere_map" / ".cache" / "domain_sheets" / f"{key}.pkl"
+    if cache.exists():
+        return pickle.loads(cache.read_bytes())
     D = Data()
     C = pickle.loads((D.root / ".cache" / "domain_curves.pkl").read_bytes())
     try:
@@ -987,6 +1046,8 @@ def _sheet_job(key):
     G.curves = [{k: v for k, v in c.items() if k != "eqs"} for c in G.curves]
     for f in F:
         f["samples"] = [(y, nm) for y, nm in f["samples"]]
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_bytes(pickle.dumps((key, G, F)))
     return key, G, F
 
 
