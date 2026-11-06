@@ -156,6 +156,13 @@ def trace_on(s, t, others, step=STEP, n_seeds=1500, rng=None, start=()):
                 tan = sgn * tan if tp is None else (tan if tan @ tp > 0 else -tan)
                 tp = tan
                 y, ok = solve([s, t], x + step * tan / np.linalg.norm(tan))
+                if len(pts) == 1 and not (ok and inside(y, 1e-13)):
+                    # (from a corner or an edge of the half-cell, a full step may leave it at once:
+                    # shorter first steps)
+                    for frac in (0.3, 0.1, 0.03, 0.01):
+                        y, ok = solve([s, t], x + frac * step * tan / np.linalg.norm(tan))
+                        if ok and inside(y, 1e-13):
+                            break
                 if not ok:
                     break
                 if not inside(y, 1e-13):
@@ -754,6 +761,8 @@ class Graph:
             h = 1e-5
             H = np.array([(self.normal(x + h * b) - self.normal(x - h * b)) @ Bz.T / (2 * h) for b in Bz])
             w, U = np.linalg.eigh((H + H.T) / 2)
+            if np.abs(w).min() < 1e-6 * np.abs(w).max():
+                continue                              # (not a cone: a degenerate point)
             sg = np.sign(w)
             odd = [i for i in range(3) if (sg == sg[i]).sum() == 1]
             if not odd:
@@ -766,7 +775,7 @@ class Graph:
                 if e["b"] == v:
                     ends.append((ei, "b", e["pts"][max(-3, -len(e["pts"]))]))
             neg = [(ei, k) for ei, k, y in ends if (y - x) @ axis < 0]
-            if neg and len(neg) < len(ends):
+            if 2 <= len(neg) <= len(ends) - 2:       # (each sheet through the tip: two edges at least)
                 self.V.append(x.copy())
                 nv = len(self.V) - 1
                 for ei, k in neg:
