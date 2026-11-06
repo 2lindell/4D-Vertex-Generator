@@ -1203,7 +1203,7 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             # the loop's exact points about one every 1.5e-3, kept if that works)
             ntri = sum(len(F_) for _, F_ in parts)
             area = sum(float(np.linalg.norm(_tri_normals(X_, F_), axis=1).sum()) / 2 for X_, F_ in parts)
-            if ntri > 4 * area / max_area + 4 * len(rings[0]):
+            if ntri > 3 * area / max_area + 2 * len(rings[0]):
                 thin_rings = [G.loop(L["cyc"], gap=1.5e-3)] + [G.loop(H["cyc"], gap=1.5e-3) if "cyc" in H else H["P"]
                                                                for H in holes[id(L)]]
                 p2 = triangulate_face(s, thin_rings, G.normal, max_area, tr)
