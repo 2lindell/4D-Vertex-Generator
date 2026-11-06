@@ -350,8 +350,10 @@ def build() -> dict:
             for fc, fg in shown_faces:
                 for sd in face_sides[fc]:
                     sides_ok.add((sd["class"], int(mult[fg, sd["g"]])))
+            # a region touches the wall only on its own two sides: regions round a curve where
+            # another wall meets it lie beyond that wall unless they are the wall's own sides
             items = [(k, r) for k, r in items
-                     if not (k[0] == "region" and r in ("meets", "across a line") and (k[1], k[2]) not in sides_ok)
+                     if not (k[0] == "region" and r != "side")
                      and not (k[0] == "point" and r == "across a line")]
         return items
 
