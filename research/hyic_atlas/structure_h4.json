@@ -1,0 +1,62 @@
+{
+ "group": "h4",
+ "order": 14400,
+ "strata": [
+  {
+   "kind": "spheres",
+   "count": 60,
+   "stabilizer_order": 2,
+   "reflections": 1,
+   "generic_orbit": 7200
+  },
+  {
+   "kind": "rings",
+   "count": 450,
+   "stabilizer_order": 4,
+   "reflections": 2,
+   "generic_orbit": 3600
+  },
+  {
+   "kind": "rings",
+   "count": 200,
+   "stabilizer_order": 6,
+   "reflections": 3,
+   "generic_orbit": 2400
+  },
+  {
+   "kind": "rings",
+   "count": 72,
+   "stabilizer_order": 10,
+   "reflections": 5,
+   "generic_orbit": 1440
+  },
+  {
+   "kind": "points",
+   "count": 1200,
+   "stabilizer_order": 12,
+   "reflections": 6,
+   "generic_orbit": 1200
+  },
+  {
+   "kind": "points",
+   "count": 720,
+   "stabilizer_order": 20,
+   "reflections": 10,
+   "generic_orbit": 720
+  },
+  {
+   "kind": "points",
+   "count": 600,
+   "stabilizer_order": 24,
+   "reflections": 12,
+   "generic_orbit": 600
+  },
+  {
+   "kind": "points",
+   "count": 120,
+   "stabilizer_order": 120,
+   "reflections": 60,
+   "generic_orbit": 120
+  }
+ ]
+}

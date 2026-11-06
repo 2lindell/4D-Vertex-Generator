@@ -149,7 +149,7 @@
    "symmetry": 1152,
    "improper": 576,
    "sources": [
-    "strata: line b1 = b4 = 0"
+    "strata: line b1 = b4 = 0, point (0,1,1,0)"
    ],
    "sheets": [
     "tox"
@@ -1840,6 +1840,33 @@
    "edges": {
     "3": 576,
     "4": 288
+   }
+  },
+  {
+   "key": "10943c37691d",
+   "signature": "288: cells 48x[24v14f] | faces 144x8g+192x3g | edges 576x3",
+   "kind": "point",
+   "seed": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "sheet": "ox",
+   "symmetry": 2304,
+   "improper": 1152,
+   "sources": [
+    "strata: point (0,1,1,0)"
+   ],
+   "sheets": [
+    "ox",
+    "oxb"
+   ],
+   "name": "cont",
+   "vertices": 288,
+   "cells": 48,
+   "edges": {
+    "3": 576
    }
   }
  ]

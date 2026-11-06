@@ -31,7 +31,7 @@ The normaliser of toxitic is all of [[3,4,3]]: every F4 reflection and the swap 
 | prissi | wall | 288 | 240 | {3: 576, 4: 432} | 576 | [0.05009, 0.0, 0.92451, 0.0254]  | strata: face b2 = 0, face b3 = 0, line b1 = b4, b2 = 0, line |
 | sadi | line | 96 | 144 | {3: 288, 4: 144} | 576 | [0.02512, 0.97488, 0.0, 0.0]  | strata: line b3 = b4 = 0 |
 | sidpii | line | 144 | 240 | {4: 576} | 1152 | [0.52484, 0.0, 0.0, 0.47516]  | strata: line b2 = b3 = 0, point (1,0,0,1) |
-| icoi | line | 288 | 48 | {3: 576} | 1152 | [0.0, 0.02528, 0.97472, 0.0]  | strata: line b1 = b4 = 0 |
+| icoi | line | 288 | 48 | {3: 576} | 1152 | [0.0, 0.02528, 0.97472, 0.0]  | strata: line b1 = b4 = 0, point (0,1,1,0) |
 | ico | point | 24 | 24 | {3: 96} | 1152 | [1.0, 0.0, 0.0, 0.0]  | strata: point (1,0,0,0) |
 | rico | point | 96 | 48 | {3: 288} | 1152 | [0.0, 1.0, 0.0, 0.0]  | strata: point (0,0,1,0), point (0,1,0,0) |
 
@@ -98,14 +98,17 @@ The normaliser of oxitic is kicontic (the rotations of [[3,4,3]]), not [[3,4,3]]
 | bicont | point | 48 | 288 | {3: 192, 8: 144} | 2304 | [1.0, 0.0, 0.0, 0.0]  | strata: point (1,0,0,0) |
 | spic | point | 144 | 240 | {4: 576} | 2304 | [0.5, 0.0, 0.0, 0.5]  | strata: point (1,0,0,1) |
 | bamic | point | 192 | 192 | {3: 576, 4: 288} | 2304 | [0.0, 1.0, 0.0, 0.0]  | strata: point (0,0,1,0), point (0,1,0,0) |
+| cont | point | 288 | 48 | {3: 576} | 2304 | [0.0, 0.5, 0.5, 0.0]  | strata: point (0,1,1,0) |
 
 Names: the accepted list (contic_atlas/given_names.py), matched by cells and by the edge valences at a vertex. Notes:
 
+- cont: uniform cont (beta = (0, 1, 1, 0), where the fold line meets b1 = b4 = 0) is isogonal within oxitic: its 288 vertices are one oxitic orbit (48 tics, one class). Under toxitic it is the uniform member of icoi.
+- sebtidi: sebtidi is the subsymmetrical sebtic: under toxitic the polychora on the fold line b1 = b4, b2 = b3 are sebtidi's own type, and there oxitic gives them its symmetry (sebtic). Most even sebtic (on the line): R = 1.48563 at beta = (0.33139, 0.16861, 0.16861, 0.33139); most even sebtidi, just off the line: R = 1.48512.
 - gidwosbitac: the list gives 192x2 trigypos (3744 cells); the atlas shape with its edge valences and cells at a vertex (544,3^23) has one 192 orbit of octahedra (3552 cells).
 - mitatosbitac: the list's edges 77,555,444,3^4; the atlas shape with its cells (and cells at a vertex 5,444,3^11) has 7,555,4444,3^4: likely the same shape, one count apart.
 - gadwosbitac: the list's edges 6^6 12,4^8,333; the atlas shape with its cells (and 544,3^25) has 6^6 12,4^7,3^4: likely the same, one count apart.
 - gitatosbitac_or_mosbitic: three atlas regions have Gitatosbitac's cells and edges exactly (5568,4^6,3^4; 5,4444,3^13); Mosbitic lists the same cells but edges 56,4^7,3^5 and 5,4^4,3^11, which no atlas shape has. Incidence checks show the three are different polychora.
 - of the list's 23 oxitic names (21 of 576 vertices, bitac, sebtic), 22 are matched; mosbitic is among the three gitatosbitac_or_mosbitic regions or is not found (above). Atlas oxitic shapes with no name in the list: 26 (new).
 
-Totals: {'region': 19, 'wall': 29, 'line': 4, 'point': 3}; with exactly oxitic symmetry: {'region': 19, 'wall': 29, 'line': 2}.
+Totals: {'region': 19, 'wall': 29, 'line': 4, 'point': 4}; with exactly oxitic symmetry: {'region': 19, 'wall': 29, 'line': 2}.
 

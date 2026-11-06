@@ -1,0 +1,34 @@
+{
+ "group": "ixitic",
+ "order": 1440,
+ "strata": [
+  {
+   "kind": "rings",
+   "count": 90,
+   "stabilizer_order": 2,
+   "reflections": 0,
+   "generic_orbit": 720
+  },
+  {
+   "kind": "rings",
+   "count": 80,
+   "stabilizer_order": 3,
+   "reflections": 0,
+   "generic_orbit": 480
+  },
+  {
+   "kind": "points",
+   "count": 120,
+   "stabilizer_order": 12,
+   "reflections": 0,
+   "generic_orbit": 120
+  },
+  {
+   "kind": "points",
+   "count": 120,
+   "stabilizer_order": 12,
+   "reflections": 0,
+   "generic_orbit": 120
+  }
+ ]
+}

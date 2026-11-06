@@ -1,0 +1,55 @@
+{
+ "group": "ixoic",
+ "order": 2880,
+ "strata": [
+  {
+   "kind": "rings",
+   "count": 180,
+   "stabilizer_order": 2,
+   "reflections": 0,
+   "generic_orbit": 1440
+  },
+  {
+   "kind": "rings",
+   "count": 90,
+   "stabilizer_order": 2,
+   "reflections": 0,
+   "generic_orbit": 1440
+  },
+  {
+   "kind": "rings",
+   "count": 80,
+   "stabilizer_order": 3,
+   "reflections": 0,
+   "generic_orbit": 960
+  },
+  {
+   "kind": "points",
+   "count": 720,
+   "stabilizer_order": 4,
+   "reflections": 0,
+   "generic_orbit": 720
+  },
+  {
+   "kind": "points",
+   "count": 480,
+   "stabilizer_order": 6,
+   "reflections": 0,
+   "generic_orbit": 480
+  },
+  {
+   "kind": "points",
+   "count": 480,
+   "stabilizer_order": 6,
+   "reflections": 0,
+   "generic_orbit": 480
+  },
+  {
+   "kind": "points",
+   "count": 240,
+   "stabilizer_order": 12,
+   "reflections": 0,
+   "generic_orbit": 240
+  }
+ ]
+}

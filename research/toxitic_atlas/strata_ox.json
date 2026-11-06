@@ -271,6 +271,14 @@
     "e0a6a58eb3b3": 1
    },
    "changes": []
+  },
+  {
+   "stratum": "point (0,1,1,0)",
+   "points": 1,
+   "types": {
+    "10943c37691d": 1
+   },
+   "changes": []
   }
  ],
  "types": [
@@ -726,6 +734,23 @@
    ],
    "strata": [
     "point (1,0,0,1)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 2304,
+   "improper": 1152
+  },
+  {
+   "key": "10943c37691d",
+   "signature": "288: cells 48x[24v14f] | faces 144x8g+192x3g | edges 576x3",
+   "vertices": 288,
+   "example": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "strata": [
+    "point (0,1,1,0)"
    ],
    "only_at_a_change": false,
    "symmetry_in_contic": 2304,
