@@ -1557,11 +1557,11 @@
    "R": 2.2882456112707916,
    "optimized": [
     0.0,
-    0.618049077111209,
-    0.38195092288879096,
+    0.6180340050790453,
+    0.38196599492095473,
     0.0
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained; re-optimised crossing the mirrors and the fold (was R 2.288253)",
    "central": [
     0.0,
     0.8090169943749475,
@@ -1573,7 +1573,7 @@
    "seed_off": "new_shapes/off/ixitic/ixitic_line_sabtedy_720v_1680c_seed.off",
    "seed_R": 2.29490944119593,
    "opt_off": "optimized_off/ixitic/sabtedy_720v_1680c_opt.off",
-   "opt_R": 2.288252593957215,
+   "opt_R": 2.2882456188282996,
    "central_off": "central_off/ixitic/sabtedy_720v_1680c_central.off",
    "central_R": 2.3278341811935017
   },
