@@ -383,7 +383,7 @@ def _job(keys):
     return build(log=lambda *_: None, keys_wanted=set(keys))
 
 
-def build_parallel(log=print, workers=8):
+def build_parallel(log=print, workers=4):
     """build() over the surfaces, shared out between processes."""
     from multiprocessing import Pool
     patches = json.loads((data_dir() / "sphere_map" / "patches.json").read_text())["patches"]
