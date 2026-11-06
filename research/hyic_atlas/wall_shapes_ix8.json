@@ -1,0 +1,68 @@
+{
+ "_about": "The wall shapes of the kidecaic / iodecaic maps, reclassified cleanly (wall_shapes_<sub>.json).",
+ "shapes": [
+  {
+   "kind": "region",
+   "map_type": 0,
+   "vertices": 1440,
+   "cells": 3360,
+   "edges_by_valence": {
+    "3": 5760,
+    "4": 1440,
+    "6": 1440
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8737928060571701
+   ],
+   "wall_points": 0,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x6+720x6+1440x3+1440x3+1440x3+1440x3+1440x4"
+  },
+  {
+   "kind": "region",
+   "map_type": 1,
+   "vertices": 1440,
+   "cells": 5040,
+   "edges_by_valence": {
+    "3": 4320,
+    "4": 2160,
+    "5": 1440,
+    "6": 720,
+    "8": 720
+   },
+   "surfaces": {},
+   "seed_beta": [
+    0.08341275324046156,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8321958091163913
+   ],
+   "wall_points": 0,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x3+1440x4+1440x5"
+  },
+  {
+   "kind": "wall",
+   "map_type": null,
+   "vertices": 1440,
+   "cells": 1440,
+   "edges_by_valence": {
+    "3": 4320,
+    "4": 1440
+   },
+   "surfaces": {
+    "b1 - b3": 12
+   },
+   "seed_beta": [
+    0.0423011501217,
+    0.0420902873582,
+    0.0423011501217,
+    0.8733074123984
+   ],
+   "wall_points": 12,
+   "signature": "1440: cells 120x[12v8f]+120x[24v32f]+480x[6v8f]+720x[4v4f] | faces 480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3+1440x3"
+  }
+ ]
+}
