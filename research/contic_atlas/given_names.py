@@ -45,6 +45,10 @@ TOXITIC = {"a5f41b7684fb": "sebtidi", "50cdad1380f5": "prissi", "6b0cb2276095": 
 OXITIC = {"e695c863ed63": "awosbitac", "9f29b1b7c1be": "bamic", "31553874949a": "bicont", "a6ddde77b471": "bimtec", "414533b9acc6": "bipec", "80b2343fd8f0": "bitac", "89590d9cc67a": "gabertetic", "44f48f6922fc": "gabtutic", "17848f9c0c98": "gadwosbitac", "a2f01eef519b": "gidwosbitac", "51ee8ceff001": "gitatosbitac_or_mosbitic_1", "e910898ef869": "gitatosbitac_or_mosbitic_2", "64745339a7a1": "gitatosbitac_or_mosbitic_3", "d5ec887138b0": "gosbitic", "74748c41c6c4": "gywosbitic", "8da3f28a95bc": "mabertetic", "b577195e5701": "medwosbitac", "15028d583027": "mitatosbitac", "444e8e32e97b": "otosbitac", "7443559f1ee3": "sabertetic", "e39f8da091ec": "sabtutic", "a8da4ec5c0e2": "sebtic", "9e2bb739cd87": "sidwosbitac", "fdec102036a1": "sosbitic", "e0a6a58eb3b3": "spic", "b900c8edde78": "stitosbetic", "6fc49066ae8b": "tatbitutic", "223f1e4ac3a9": "tetabertetic", "6f4a50387244": "totabertetic"}
 
 NOTES = {
+    "sebtidi": "sebtidi is the subsymmetrical sebtic: under toxitic the polychora on the fold line b1 = b4, b2 = b3 "
+               "are sebtidi's own type, and there oxitic gives them its symmetry (sebtic). Most even sebtic (on the "
+               "line): R = 1.48563 at beta = (0.33139, 0.16861, 0.16861, 0.33139); most even sebtidi, just off the "
+               "line: R = 1.48512.",
     "mabosc_or_gabosc": "Mabosc and Gabosc have the same cells and edge valences in the list; two atlas regions fit both "
                         "(as mebosid / gabosid for kidecaic).",
     "gidwosbitac": "the list gives 192x2 trigypos (3744 cells); the atlas shape with its edge valences and cells at a "
