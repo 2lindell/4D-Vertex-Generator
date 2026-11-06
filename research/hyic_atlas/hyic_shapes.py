@@ -2,7 +2,8 @@
 
 Hyic is a reflection group with no diagram symmetry, so the whole chamber is the domain and the polychoron is the same
 (Wythoff) on each open face: one shape per face, 4 points, 6 lines, 4 walls and the region (the 120-cell family).
-Names: the accepted list's (hi = 120-cell, ex = 600-cell, ...; its prahi has srids, tuts, pips and ditrips, its prix tids,
+Names: the accepted list's (hi = 120-cell, ex = 600-cell, ...). Its prahi and prix follow the prismatorhombate operation
+(not the runcitruncate one): prahi has srids, tuts, pips and ditrips, prix tids,
 ratets, dipips and trips, and so they are placed).
 
   seed       a generic, uneven point of the face (betas 0.6 : 0.4, 0.5 : 0.3 : 0.2, 0.4 : 0.3 : 0.2 : 0.1);
