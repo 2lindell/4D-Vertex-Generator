@@ -1,14 +1,14 @@
-"""Systematic search: is every ixitic region closed off by recorded walls? (closure_<sheet>.json)
+"""Systematic search: is every ixitic (or ixoic) region closed off by recorded walls? (closure_<sheet>.json)
 
-On one sheet (HYIC_SUB = ix0..ix9), as decaic_atlas/snub_closure.py (no fold here): for every region type of the
+On one sheet (HYIC_SUB = ix0..ix9, or ixo0..ixo9 for ixoic), as decaic_atlas/snub_closure.py (no fold here): for every region type of the
 sheet (the map's and the dense survey's), up to four spread starting points (its example and Halton points labelled
 with it), and from each a walk along 24 evenly spread directions in steps of 0.01 until the polytope changes or a mirror
 is reached (a seam to another sheet: the walk stops). A change is bisected to ~1e-11, put exactly on the surface through
 it (the map's surfaces, or the forms of both sides when none), and the polytope there (wall tolerance) and just beyond
-classified. A key not among the merged ixitic shapes (ixitic_shapes.json) is new: a missed region (beyond) or wall
+classified. A key not among the group's merged shapes (ixitic_shapes.json / ixoic_shapes.json) is new: a missed region (beyond) or wall
 shape (on the surface).
 
-    HYIC_SUB=ix3 python closure.py
+    HYIC_SUB=ix3 python closure.py      (ixoic: HYIC_SUB=ixo3, after python ixitic_shapes.py ixo)
 """
 from __future__ import annotations
 
@@ -83,7 +83,7 @@ def main():
         regs += [t["example"] for t in json.load(open(os.path.join(HERE, G.fname("survey"))))["new"].values()]
     except FileNotFoundError:
         pass
-    known = {s["key"] for s in json.load(open(os.path.join(HERE, "ixitic_shapes.json")))["shapes"]}
+    known = {s["key"] for s in json.load(open(os.path.join(HERE, f"{G.NAME}_shapes.json")))["shapes"]}
     surfs = [Surface(t) for t in M["surfaces"]]
     pool = Pool(4)
     keys = pool.map(label, regs)
