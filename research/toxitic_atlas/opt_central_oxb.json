@@ -18,12 +18,12 @@
    "start_R": 5.8917891851730895,
    "R": 4.214867732044627,
    "optimized": [
-    0.08876523308117727,
-    0.21073656017930792,
-    0.6117638156929148,
-    0.08873439104659997
+    0.08837180090772198,
+    0.2109769372106088,
+    0.6112707659962542,
+    0.08938049588541504
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 3.805174; the polytope's 4.214060); re-optimised crossing the mirrors and the fold (was R 4.216182)",
    "central": [
     0.10571899133591287,
     0.157616575850137,
@@ -37,7 +37,7 @@
     576,
     2688
    ],
-   "off_R": 4.216182456336338,
+   "off_R": 4.214059698357783,
    "central_off": "central_off/oxitic/oxitic_region_06_576v_2688c_central.off",
    "central_counts": [
     576,
@@ -61,12 +61,12 @@
    "start_R": 15.666305437267194,
    "R": 4.388170865877123,
    "optimized": [
-    0.1496426345776836,
-    0.16939238352567967,
-    0.6809332480520204,
-    3.173384461633058e-05
+    0.14972970553454984,
+    0.16953020208154096,
+    0.680740058810918,
+    3.3572991164856116e-08
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 4.388171; the polytope's 4.388174); re-optimised crossing the mirrors and the fold (was R 4.391579)",
    "central": [
     0.13703278008427427,
     0.05204448764603287,
@@ -80,7 +80,7 @@
     576,
     3264
    ],
-   "off_R": 4.39157939479559,
+   "off_R": 4.388174469398801,
    "central_off": "central_off/oxitic/oxitic_region_11_576v_3264c_central.off",
    "central_counts": [
     576,
@@ -106,12 +106,12 @@
    "start_R": 5.234536759075209,
    "R": 4.388170865877123,
    "optimized": [
-    0.1496669248605922,
-    0.1696115545492778,
-    0.6806827668741382,
-    3.875371599179367e-05
+    0.14972939711821154,
+    0.169530865545027,
+    0.6807394903444504,
+    2.4699231112783647e-07
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 4.388171; the polytope's 4.388175); re-optimised crossing the mirrors and the fold (was R 4.388893)",
    "central": [
     0.15055477822808316,
     0.06931722274649774,
@@ -125,7 +125,7 @@
     576,
     2112
    ],
-   "off_R": 4.388893154547562,
+   "off_R": 4.388175467954856,
    "central_off": "central_off/oxitic/oxitic_wall_20_576v_2112c_central.off",
    "central_counts": [
     576,
