@@ -1,0 +1,129 @@
+{
+ "_about": "A dense survey of the toxitic / oxitic domain for small regions the grid missed (survey_<sub>.json).",
+ "group": "ix1",
+ "known_regions": [
+  "85edaf59db32",
+  "a0f7c29fa0bd"
+ ],
+ "zones": {
+  "whole domain": {
+   "points": 100,
+   "types": {
+    "85edaf59db32": 88,
+    "a0f7c29fa0bd": 12
+   },
+   "new": {}
+  },
+  "b1, b2 small": {
+   "points": 100,
+   "types": {
+    "a0f7c29fa0bd": 75,
+    "270d63cd9ba9": 18,
+    "85edaf59db32": 7
+   },
+   "new": {
+    "270d63cd9ba9": {
+     "count": 18,
+     "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x4+1440x4+1440x4",
+     "example": [
+      0.0002611169432308421,
+      0.004611447379564902,
+      0.19227654178124673,
+      0.8028508938959575
+     ],
+     "margin": 0.0001706363400516553
+    }
+   }
+  },
+  "b1, b3 small": {
+   "points": 100,
+   "types": {
+    "85edaf59db32": 100
+   },
+   "new": {}
+  },
+  "b1, b4 small": {
+   "points": 100,
+   "types": {
+    "a0f7c29fa0bd": 40,
+    "85edaf59db32": 60
+   },
+   "new": {}
+  },
+  "b2, b3 small": {
+   "points": 100,
+   "types": {
+    "85edaf59db32": 100
+   },
+   "new": {}
+  },
+  "b2, b4 small": {
+   "points": 100,
+   "types": {
+    "85edaf59db32": 71,
+    "a0f7c29fa0bd": 29
+   },
+   "new": {}
+  },
+  "b3, b4 small": {
+   "points": 100,
+   "types": {
+    "85edaf59db32": 100
+   },
+   "new": {}
+  },
+  "b1 b2 b3 small": {
+   "points": 14,
+   "types": {
+    "270d63cd9ba9": 1,
+    "85edaf59db32": 13
+   },
+   "new": {
+    "270d63cd9ba9": {
+     "count": 1,
+     "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x4+1440x4+1440x4",
+     "example": [
+      0.0007473109852375836,
+      0.015097073586153996,
+      0.029642556275247575,
+      0.9545130591533608
+     ]
+    }
+   }
+  },
+  "b1 b2 b4 small": {
+   "points": 15,
+   "types": {
+    "a0f7c29fa0bd": 15
+   },
+   "new": {}
+  },
+  "b1 b3 b4 small": {
+   "points": 15,
+   "types": {
+    "85edaf59db32": 15
+   },
+   "new": {}
+  },
+  "b2 b3 b4 small": {
+   "points": 16,
+   "types": {
+    "85edaf59db32": 16
+   },
+   "new": {}
+  }
+ },
+ "new": {
+  "270d63cd9ba9": {
+   "count": 18,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x4+1440x4+1440x4",
+   "example": [
+    0.0002611169432308421,
+    0.004611447379564902,
+    0.19227654178124673,
+    0.8028508938959575
+   ],
+   "margin": 0.0001706363400516553
+  }
+ }
+}
