@@ -973,7 +973,7 @@ class Graph:
                     break
             self.F.append(cyc)
 
-    def loop(self, cyc, gap=1.5e-3):
+    def loop(self, cyc, gap=2e-5):
         """A face's loop: its edges' exact points in order, about one every gap (the graph's
         vertices always kept; a curve point closer than gap to the one before it, or to the edge's
         end, left out: very short rim steps only crowd the triangulation)."""
@@ -1198,11 +1198,17 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
         # themselves and no triangle, put back on the surface, turns over: the mean normal, the
         # normals at points round the loop, the loop's least spread direction
         parts = triangulate_face(s, rings, G.normal, max_area, tr)
-        if parts is None and "cyc" in L:
-            # (again with every exact point of its loop: a sharp fold can need them)
-            rings = [G.loop(L["cyc"], gap=2e-5)] + [G.loop(H["cyc"], gap=2e-5) if "cyc" in H else H["P"]
-                                                    for H in holes[id(L)]]
-            parts = triangulate_face(s, rings, G.normal, max_area, tr)
+        if parts is not None and "cyc" in L:
+            # (a mesh far denser than asked for, its rim's very short steps crowding it: again with
+            # the loop's exact points about one every 1.5e-3, kept if that works)
+            ntri = sum(len(F_) for _, F_ in parts)
+            area = sum(float(np.linalg.norm(_tri_normals(X_, F_), axis=1).sum()) / 2 for X_, F_ in parts)
+            if ntri > 4 * area / max_area + 4 * len(rings[0]):
+                thin_rings = [G.loop(L["cyc"], gap=1.5e-3)] + [G.loop(H["cyc"], gap=1.5e-3) if "cyc" in H else H["P"]
+                                                               for H in holes[id(L)]]
+                p2 = triangulate_face(s, thin_rings, G.normal, max_area, tr)
+                if p2 is not None:
+                    parts, rings = p2, thin_rings
         if parts is None and len(rings) == 1:
             # (laying it flat failed even cut: triangulated on the surface itself)
             res = _ear_clip_on_surface(s, rings[0], G.normal)
@@ -1235,6 +1241,13 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             names.append(nm)
             at.append(y)
         named = [x for x in names if x]
+        if not any(x["wall"] for x in named) and any(x["wall"] for x in probe):
+            # (its inner points all next to a singular point, where no piece can be read: named
+            # from the points just inside its loop, which were)
+            from collections import Counter as _C
+            best = _C((x["wall"], tuple(x["sides"])) for x in probe if x["wall"]).most_common(1)[0][0]
+            named = [x for x in probe if x["wall"] == best[0] and tuple(x["sides"]) == best[1]]
+            names = named
         kinds = {(x["wall"], tuple(x["sides"])) for x in named}
         edges = []
         for ei, fwd in L["cyc"]:
@@ -1255,6 +1268,8 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             lifted = [_lift(s, y, nn) for y, nn in zip(cen, Nn)]
             cen = np.array([y if l_ is None else l_ for y, l_ in zip(cen, lifted)])
             tri_names = name_points(D, key, cen, Nn)
+            if not any(x and x[0] for x in tri_names):
+                tri_names = [(named[0]["wall"], tuple(named[0]["sides"]))] * len(F)
             # (a triangle at the rim where no patch is found, its sides the same, is not a change)
             kinds = {x for x in tri_names if x is not None and x[0] is not None}
         out.append({"sheet": key, "rings": rings, "what": named[0] if named else None, "agree": len(kinds) <= 1,
