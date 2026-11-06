@@ -86,6 +86,11 @@ def project(surf, X, iters=8):
     return X
 
 
+def _signs0(vals, tol=1e-12):
+    """Signs, with values within round-off of zero (a point on that surface) as 0."""
+    return np.where(np.abs(vals) < tol, 0, np.sign(vals)).astype(np.int8)
+
+
 # ------------------------------------------------------------------------------- base meshes
 
 def surface_mesh(surf, n=N_GRID):
@@ -300,10 +305,15 @@ def build(log=print, only=None, keys_wanted=None):
             V, F = surface_mesh(surfs[key])
             base = {"on": [Fn(surfs[key])], "fns": {}, "h": 1.0 / N_GRID}
             s_idx = key
-        Sv = np.sign(np.stack([sf.f(V) for sf in surfs], 1)).astype(np.int8)
+        Sv = _signs0(np.stack([sf.f(V) for sf in surfs], 1))
         FV = V @ FACE_N.T
         for p in plist:
             a, b = p["pieces"]
+            c = p["side_b_copy_shift"]
+            if isinstance(key, str) and not any(f["face"] == p["face"] for f in pieces[a]["faces"]) \
+                    and any(f["face"] == p["face"] and f["piece"] == a for f in pieces[b]["faces"]):
+                # (recorded the other way round: b is the piece on this side, a across, in copy c^-1)
+                a, b, c = b, a, int(np.flatnonzero(mult[c] == 0)[0])
             sa = sign[a].astype(np.int8).copy()
             if s_idx is not None:
                 sa[s_idx] = 0
@@ -319,9 +329,10 @@ def build(log=print, only=None, keys_wanted=None):
                 cons_all[f"face:{FACE_NAMES[i]}"] = face_fns[f"face:{FACE_NAMES[i]}"]
             Mb = None
             if isinstance(key, str):
-                c = p["side_b_copy_shift"]
                 Mb = T @ g[c] @ Tinv
-                Sb = np.sign(np.stack([sf.f(V @ Mb) for sf in surfs], 1)).astype(np.int8)
+                # (betas of copy c up to a positive factor: odd surfaces keep their signs)
+                Mb = Mb * np.sign((V @ Mb).sum(1).mean())
+                Sb = _signs0(np.stack([sf.f(V @ Mb) for sf in surfs], 1))
                 mism_b = (Sb * sign[b]) < 0
                 for j in range(L):
                     if sign[b][j]:
