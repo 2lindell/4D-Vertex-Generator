@@ -1,0 +1,118 @@
+{
+ "_about": "A dense survey of the toxitic / oxitic domain for small regions the grid missed (survey_<sub>.json).",
+ "group": "ix3",
+ "known_regions": [
+  "11c376e3c804",
+  "270d63cd9ba9",
+  "2da1ce87ceec",
+  "48f481bb1e96",
+  "5efe53c04ebf",
+  "a0f7c29fa0bd",
+  "d243a1e80043"
+ ],
+ "zones": {
+  "whole domain": {
+   "points": 100,
+   "types": {
+    "d243a1e80043": 27,
+    "270d63cd9ba9": 7,
+    "2da1ce87ceec": 22,
+    "a0f7c29fa0bd": 37,
+    "11c376e3c804": 4,
+    "5efe53c04ebf": 1,
+    "48f481bb1e96": 2
+   },
+   "new": {}
+  },
+  "b1, b2 small": {
+   "points": 100,
+   "types": {
+    "d243a1e80043": 57,
+    "5efe53c04ebf": 37,
+    "270d63cd9ba9": 2,
+    "48f481bb1e96": 4
+   },
+   "new": {}
+  },
+  "b1, b3 small": {
+   "points": 100,
+   "types": {
+    "270d63cd9ba9": 38,
+    "a0f7c29fa0bd": 61,
+    "2da1ce87ceec": 1
+   },
+   "new": {}
+  },
+  "b1, b4 small": {
+   "points": 100,
+   "types": {
+    "d243a1e80043": 59,
+    "2da1ce87ceec": 39,
+    "a0f7c29fa0bd": 2
+   },
+   "new": {}
+  },
+  "b2, b3 small": {
+   "points": 100,
+   "types": {
+    "a0f7c29fa0bd": 93,
+    "48f481bb1e96": 2,
+    "270d63cd9ba9": 5
+   },
+   "new": {}
+  },
+  "b2, b4 small": {
+   "points": 100,
+   "types": {
+    "2da1ce87ceec": 35,
+    "d243a1e80043": 55,
+    "a0f7c29fa0bd": 9,
+    "11c376e3c804": 1
+   },
+   "new": {}
+  },
+  "b3, b4 small": {
+   "points": 100,
+   "types": {
+    "a0f7c29fa0bd": 71,
+    "11c376e3c804": 15,
+    "2da1ce87ceec": 14
+   },
+   "new": {}
+  },
+  "b1 b2 b3 small": {
+   "points": 14,
+   "types": {
+    "5efe53c04ebf": 2,
+    "270d63cd9ba9": 10,
+    "48f481bb1e96": 2
+   },
+   "new": {}
+  },
+  "b1 b2 b4 small": {
+   "points": 15,
+   "types": {
+    "d243a1e80043": 15
+   },
+   "new": {}
+  },
+  "b1 b3 b4 small": {
+   "points": 15,
+   "types": {
+    "a0f7c29fa0bd": 9,
+    "11c376e3c804": 2,
+    "2da1ce87ceec": 4
+   },
+   "new": {}
+  },
+  "b2 b3 b4 small": {
+   "points": 16,
+   "types": {
+    "a0f7c29fa0bd": 15,
+    "11c376e3c804": 1
+   },
+   "new": {}
+  }
+ },
+ "new": {}
+}
