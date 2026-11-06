@@ -1,0 +1,650 @@
+{
+ "_about": "The fifteen hyic shapes ([5,3,3], order 14400): seed, optimized and central .off files (hyic_shapes.json).",
+ "shapes": [
+  {
+   "name": "hi",
+   "kind": "point",
+   "degrees": 0,
+   "ringed": [
+    1,
+    0,
+    0,
+    0
+   ],
+   "seed": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "optimized": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "central": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "seed_R": 1.0000000000005043,
+   "seed_off": "new_shapes/off/hyic/hyic_point_hi_600v_120c_seed.off",
+   "R": 1.0000000000005043,
+   "vertices": 600,
+   "cells": 120,
+   "cell_types": "120x[20v12f]",
+   "opt_off": "optimized_off/hyic/hi_600v_120c_opt.off",
+   "central_off": "central_off/hyic/hi_600v_120c_central.off",
+   "seed_vector": [
+    0.14589803375031435,
+    0.20081141588622578,
+    0.32491969623290406,
+    1.0
+   ]
+  },
+  {
+   "name": "rahi",
+   "kind": "point",
+   "degrees": 0,
+   "ringed": [
+    0,
+    1,
+    0,
+    0
+   ],
+   "seed": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "optimized": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "central": [
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "seed_R": 1.0000000000005356,
+   "seed_off": "new_shapes/off/hyic/hyic_point_rahi_1200v_720c_seed.off",
+   "R": 1.0000000000005356,
+   "vertices": 1200,
+   "cells": 720,
+   "cell_types": "600x[4v4f] + 120x[30v32f]",
+   "opt_off": "optimized_off/hyic/rahi_1200v_720c_opt.off",
+   "central_off": "central_off/hyic/rahi_1200v_720c_central.off",
+   "seed_vector": [
+    0.0,
+    0.20081141588622575,
+    0.324919696232904,
+    1.0
+   ]
+  },
+  {
+   "name": "rox",
+   "kind": "point",
+   "degrees": 0,
+   "ringed": [
+    0,
+    0,
+    1,
+    0
+   ],
+   "seed": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "optimized": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "central": [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "seed_R": 1.0000000000004354,
+   "seed_off": "new_shapes/off/hyic/hyic_point_rox_720v_720c_seed.off",
+   "R": 1.0000000000004354,
+   "vertices": 720,
+   "cells": 720,
+   "cell_types": "600x[6v8f] + 120x[12v20f]",
+   "opt_off": "optimized_off/hyic/rox_720v_720c_opt.off",
+   "central_off": "central_off/hyic/rox_720v_720c_central.off",
+   "seed_vector": [
+    0.0,
+    -5.181233049234265e-17,
+    0.324919696232904,
+    1.0
+   ]
+  },
+  {
+   "name": "ex",
+   "kind": "point",
+   "degrees": 0,
+   "ringed": [
+    0,
+    0,
+    0,
+    1
+   ],
+   "seed": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "optimized": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "central": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "seed_R": 1.0000000000001343,
+   "seed_off": "new_shapes/off/hyic/hyic_point_ex_120v_600c_seed.off",
+   "R": 1.0000000000001343,
+   "vertices": 120,
+   "cells": 600,
+   "cell_types": "600x[4v4f]",
+   "opt_off": "optimized_off/hyic/ex_120v_600c_opt.off",
+   "central_off": "central_off/hyic/ex_120v_600c_central.off",
+   "seed_vector": [
+    0.0,
+    -3.4157430010931816e-17,
+    -5.52678827260334e-17,
+    1.0
+   ]
+  },
+  {
+   "name": "thi",
+   "kind": "line",
+   "degrees": 1,
+   "ringed": [
+    1,
+    1,
+    0,
+    0
+   ],
+   "seed": [
+    0.6,
+    0.4,
+    0.0,
+    0.0
+   ],
+   "optimized": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "central": [
+    0.5,
+    0.5,
+    0.0,
+    0.0
+   ],
+   "seed_R": 1.5000000000012472,
+   "seed_off": "new_shapes/off/hyic/hyic_line_thi_2400v_720c_seed.off",
+   "R": 1.0000000000009268,
+   "vertices": 2400,
+   "cells": 720,
+   "cell_types": "600x[4v4f] + 120x[60v32f]",
+   "opt_off": "optimized_off/hyic/thi_2400v_720c_opt.off",
+   "central_off": "central_off/hyic/thi_2400v_720c_central.off",
+   "seed_vector": [
+    0.06524758424985229,
+    0.20081141588622578,
+    0.324919696232904,
+    1.0
+   ]
+  },
+  {
+   "name": "srahi",
+   "kind": "line",
+   "degrees": 1,
+   "ringed": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "seed": [
+    0.6,
+    0.0,
+    0.4,
+    0.0
+   ],
+   "optimized": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "central": [
+    0.5,
+    0.0,
+    0.5,
+    0.0
+   ],
+   "seed_R": 1.5000000000016822,
+   "seed_off": "new_shapes/off/hyic/hyic_line_srahi_3600v_1920c_seed.off",
+   "R": 1.0000000000010485,
+   "vertices": 3600,
+   "cells": 1920,
+   "cell_types": "1200x[6v5f] + 600x[6v8f] + 120x[60v62f]",
+   "opt_off": "optimized_off/hyic/srahi_3600v_1920c_opt.off",
+   "central_off": "central_off/hyic/srahi_3600v_1920c_central.off",
+   "seed_vector": [
+    0.07868932583326263,
+    0.10830656541096796,
+    0.324919696232904,
+    1.0
+   ]
+  },
+  {
+   "name": "sidpixhi",
+   "kind": "line",
+   "degrees": 1,
+   "ringed": [
+    1,
+    0,
+    0,
+    1
+   ],
+   "seed": [
+    0.6,
+    0.0,
+    0.0,
+    0.4
+   ],
+   "optimized": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "central": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "seed_R": 1.5000000000009246,
+   "seed_off": "new_shapes/off/hyic/hyic_line_sidpixhi_2400v_2640c_seed.off",
+   "R": 1.0000000000007032,
+   "vertices": 2400,
+   "cells": 2640,
+   "cell_types": "1200x[6v5f] + 720x[10v7f] + 600x[4v4f] + 120x[20v12f]",
+   "opt_off": "optimized_off/hyic/sidpixhi_2400v_2640c_opt.off",
+   "central_off": "central_off/hyic/sidpixhi_2400v_2640c_central.off",
+   "seed_vector": [
+    0.09910635852267875,
+    0.13640820007434928,
+    0.22071310406449315,
+    1.0
+   ]
+  },
+  {
+   "name": "xhi",
+   "kind": "line",
+   "degrees": 1,
+   "ringed": [
+    0,
+    1,
+    1,
+    0
+   ],
+   "seed": [
+    0.0,
+    0.6,
+    0.4,
+    0.0
+   ],
+   "optimized": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "central": [
+    0.0,
+    0.5,
+    0.5,
+    0.0
+   ],
+   "seed_R": 1.5000000000018499,
+   "seed_off": "new_shapes/off/hyic/hyic_line_xhi_3600v_720c_seed.off",
+   "R": 1.000000000001105,
+   "vertices": 3600,
+   "cells": 720,
+   "cell_types": "600x[12v8f] + 120x[60v32f]",
+   "opt_off": "optimized_off/hyic/xhi_3600v_720c_opt.off",
+   "central_off": "central_off/hyic/xhi_3600v_720c_central.off",
+   "seed_vector": [
+    0.0,
+    0.11875424839766388,
+    0.324919696232904,
+    1.0
+   ]
+  },
+  {
+   "name": "srix",
+   "kind": "line",
+   "degrees": 1,
+   "ringed": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "seed": [
+    0.0,
+    0.6,
+    0.0,
+    0.4
+   ],
+   "optimized": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "central": [
+    0.0,
+    0.5,
+    0.0,
+    0.5
+   ],
+   "seed_R": 1.5000000000010947,
+   "seed_off": "new_shapes/off/hyic/hyic_line_srix_3600v_1440c_seed.off",
+   "R": 1.0000000000007385,
+   "vertices": 3600,
+   "cells": 1440,
+   "cell_types": "720x[10v7f] + 600x[12v14f] + 120x[30v32f]",
+   "opt_off": "optimized_off/hyic/srix_3600v_1440c_opt.off",
+   "central_off": "central_off/hyic/srix_3600v_1440c_central.off",
+   "seed_vector": [
+    0.0,
+    0.14530850560107111,
+    0.2351141009169877,
+    1.0
+   ]
+  },
+  {
+   "name": "tex",
+   "kind": "line",
+   "degrees": 1,
+   "ringed": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "seed": [
+    0.0,
+    0.0,
+    0.6,
+    0.4
+   ],
+   "optimized": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "central": [
+    0.0,
+    0.0,
+    0.5,
+    0.5
+   ],
+   "seed_R": 1.500000000000473,
+   "seed_off": "new_shapes/off/hyic/hyic_line_tex_1440v_720c_seed.off",
+   "R": 1.0000000000005593,
+   "vertices": 1440,
+   "cells": 720,
+   "cell_types": "600x[12v8f] + 120x[12v20f]",
+   "opt_off": "optimized_off/hyic/tex_1440v_720c_opt.off",
+   "central_off": "central_off/hyic/tex_1440v_720c_central.off",
+   "seed_vector": [
+    0.0,
+    -4.55272490860127e-17,
+    0.20924944685970512,
+    1.0
+   ]
+  },
+  {
+   "name": "grahi",
+   "kind": "wall",
+   "degrees": 2,
+   "ringed": [
+    1,
+    1,
+    1,
+    0
+   ],
+   "seed": [
+    0.5,
+    0.3,
+    0.2,
+    0.0
+   ],
+   "optimized": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "central": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0
+   ],
+   "seed_R": 2.5000000000045812,
+   "seed_off": "new_shapes/off/hyic/hyic_wall_grahi_7200v_1920c_seed.off",
+   "R": 1.0000000000015201,
+   "vertices": 7200,
+   "cells": 1920,
+   "cell_types": "1200x[6v5f] + 600x[12v8f] + 120x[120v62f]",
+   "opt_off": "optimized_off/hyic/grahi_7200v_1920c_opt.off",
+   "central_off": "central_off/hyic/grahi_7200v_1920c_central.off",
+   "seed_vector": [
+    0.047213595499957586,
+    0.1453085056010711,
+    0.32491969623290406,
+    1.0
+   ]
+  },
+  {
+   "name": "prix",
+   "kind": "wall",
+   "degrees": 2,
+   "ringed": [
+    1,
+    1,
+    0,
+    1
+   ],
+   "seed": [
+    0.5,
+    0.3,
+    0.0,
+    0.2
+   ],
+   "optimized": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "central": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333
+   ],
+   "seed_R": 2.5000000000030282,
+   "seed_off": "new_shapes/off/hyic/hyic_wall_prix_7200v_2640c_seed.off",
+   "R": 1.000000000001175,
+   "vertices": 7200,
+   "cells": 2640,
+   "cell_types": "1200x[6v5f] + 720x[20v12f] + 600x[12v14f] + 120x[60v32f]",
+   "opt_off": "optimized_off/hyic/prix_7200v_2640c_opt.off",
+   "central_off": "central_off/hyic/prix_7200v_2640c_central.off",
+   "seed_vector": [
+    0.05387261719824283,
+    0.1658028670555764,
+    0.2682746743281029,
+    1.0
+   ]
+  },
+  {
+   "name": "prahi",
+   "kind": "wall",
+   "degrees": 2,
+   "ringed": [
+    1,
+    0,
+    1,
+    1
+   ],
+   "seed": [
+    0.5,
+    0.0,
+    0.3,
+    0.2
+   ],
+   "optimized": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "central": [
+    0.3333333333333333,
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "seed_R": 2.500000000001557,
+   "seed_off": "new_shapes/off/hyic/hyic_wall_prahi_7200v_2640c_seed.off",
+   "R": 1.0000000000011928,
+   "vertices": 7200,
+   "cells": 2640,
+   "cell_types": "1800x[12v8f] + 720x[10v7f] + 120x[60v62f]",
+   "opt_off": "optimized_off/hyic/prahi_7200v_2640c_opt.off",
+   "central_off": "central_off/hyic/prahi_7200v_2640c_central.off",
+   "seed_vector": [
+    0.06271844870964983,
+    0.08632453888396063,
+    0.258973616651882,
+    1.0
+   ]
+  },
+  {
+   "name": "grix",
+   "kind": "wall",
+   "degrees": 2,
+   "ringed": [
+    0,
+    1,
+    1,
+    1
+   ],
+   "seed": [
+    0.0,
+    0.5,
+    0.3,
+    0.2
+   ],
+   "optimized": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "central": [
+    0.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   "seed_R": 2.5000000000015485,
+   "seed_off": "new_shapes/off/hyic/hyic_wall_grix_7200v_1440c_seed.off",
+   "R": 1.0000000000012605,
+   "vertices": 7200,
+   "cells": 1440,
+   "cell_types": "720x[10v7f] + 600x[24v14f] + 120x[60v32f]",
+   "opt_off": "optimized_off/hyic/grix_7200v_1440c_opt.off",
+   "central_off": "central_off/hyic/grix_7200v_1440c_central.off",
+   "seed_vector": [
+    0.0,
+    0.09687233706738073,
+    0.2650492993556265,
+    1.0
+   ]
+  },
+  {
+   "name": "gidpixhi",
+   "kind": "region",
+   "degrees": 3,
+   "ringed": [
+    1,
+    1,
+    1,
+    1
+   ],
+   "seed": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+   ],
+   "optimized": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "central": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "seed_R": 4.000000000002638,
+   "seed_off": "new_shapes/off/hyic/hyic_region_gidpixhi_14400v_2640c_seed.off",
+   "R": 1.000000000001727,
+   "vertices": 14400,
+   "cells": 2640,
+   "cell_types": "1200x[12v8f] + 720x[20v12f] + 600x[24v14f] + 120x[120v62f]",
+   "opt_off": "optimized_off/hyic/gidpixhi_14400v_2640c_opt.off",
+   "central_off": "central_off/hyic/gidpixhi_14400v_2640c_central.off",
+   "seed_vector": [
+    0.04095606550845289,
+    0.12604980856283668,
+    0.28185594049733803,
+    1.0
+   ]
+  }
+ ]
+}

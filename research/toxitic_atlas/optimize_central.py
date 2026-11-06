@@ -10,7 +10,7 @@ deepest point inside the shape). The locus: a mirror face or edge (the zero beta
 b2 = b3, or the curved wall surface(s) of the map that vanish at the shape's seed. Unnamed shapes are numbered
 (oxitic_region_NN, oxitic_wall_NN, in the order of toxitic_shapes.json).
 
-    CONTIC_SUB=tox|ox|oxb python optimize_central.py      (then without CONTIC_SUB to gather: python optimize_central.py gather)
+    CONTIC_SUB=tox|ox|oxb|icp|icpb python optimize_central.py      (then without CONTIC_SUB to gather: python optimize_central.py gather)
 """
 from __future__ import annotations
 
@@ -24,7 +24,22 @@ ROOT = os.path.dirname(HERE)
 CONTIC = os.path.join(ROOT, "contic_atlas")
 
 
+# (icopyritic: its four shapes, by arrangement key in strata_<sheet>.json / the interior map, and the sheet each is run in)
+ICOPYRITIC = {"icp": {"23fecbac186a": ("pysnapi", "region"), "45054e62d639": ("prissi", "wall")},
+              "icpb": {"6b0cb2276095": ("pysni", "wall"), "3d29aef5b8e0": ("sadi", "line")}}
+ICP_SEEDS = {"pysnapi": [0.4, 0.3, 0.2, 0.1]}
+
+
 def shapes_for(sub):
+    if sub in ICOPYRITIC:
+        st = {t["key"]: t for t in json.load(open(os.path.join(HERE, f"strata_{sub}.json")))["types"]}
+        out = []
+        for k, (name, kind) in ICOPYRITIC[sub].items():
+            seed = ICP_SEEDS.get(name) or st[k]["example"]
+            out.append({"group": "icopyritic", "name": name, "kind": kind,
+                        "degrees": {"region": 3, "wall": 2, "line": 1}[kind], "seed": seed, "key": k,
+                        "hull_tol": 1e-9 if kind in ("region", "line") else 1e-7})
+        return out
     d = json.load(open(os.path.join(HERE, "toxitic_shapes.json")))
     out = []
     for group, lim in (("toxitic", 576), ("oxitic", 576)):
@@ -124,10 +139,12 @@ def run(sub):
 
 def gather():
     rows = []
-    for sub in ("tox", "ox", "oxb"):
+    for sub in ("tox", "ox", "oxb", "icp", "icpb"):
+        if not os.path.exists(os.path.join(HERE, f"opt_central_{sub}.json")):
+            continue
         rows += json.load(open(os.path.join(HERE, f"opt_central_{sub}.json")))["shapes"]
     for folder, tag, title in (("optimized_off", "opt", "Optimized"), ("central_off", "central", "Central")):
-        for group in ("toxitic", "oxitic"):
+        for group in ("toxitic", "oxitic", "icopyritic"):
             L = [f"# {title} {group} seeds", "", "Made by research/toxitic_atlas/optimize_central.py (see its docstring); "
                  "shapes from toxitic_shapes.md. oxb: the mirror-image sheet (the file is the mirror image of an oxitic "
                  "orbit, the same shape)." + (" For oxitic the mirrors are seams between the sheets: optima that stopped on one were "

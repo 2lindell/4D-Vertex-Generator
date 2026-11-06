@@ -1,0 +1,91 @@
+{
+ "_about": "Optimized and central seeds of the toxitic and oxitic shapes (opt_central_<sub>.json; optimized_off/toxitic|oxitic,\ncentral_off/toxitic|oxitic).",
+ "shapes": [
+  {
+   "group": "icopyritic",
+   "name": "pysnapi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "23fecbac186a",
+   "locus": [],
+   "sheet": "icp",
+   "seed": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+   ],
+   "start_R": 2.202938386677379,
+   "R": 1.0,
+   "optimized": [
+    0.3333333333333333,
+    0.3333333333333333,
+    1.529607510683308e-49,
+    0.33333333333333337
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.46742346141747687,
+    0.1775255128608416,
+    0.17752551286084073,
+    0.17752551286084084
+   ],
+   "depth": 0.20498880527646554,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icopyritic/pysnapi_576v_240c_opt.off",
+   "opt_counts": [
+    576,
+    240
+   ],
+   "off_R": 1.0000000000000009,
+   "central_off": "central_off/icopyritic/pysnapi_576v_240c_central.off",
+   "central_counts": [
+    576,
+    240
+   ]
+  },
+  {
+   "group": "icopyritic",
+   "name": "prissi",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "45054e62d639",
+   "locus": [],
+   "sheet": "icp",
+   "seed": [
+    0.05008698299106487,
+    0.0,
+    0.9245123808650045,
+    0.02540063614393059
+   ],
+   "start_R": 26.10374731163923,
+   "R": 1.0,
+   "optimized": [
+    0.4663911961440425,
+    0.0,
+    0.3297883774791577,
+    0.2038204263767998
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5773502691896258,
+    0.0,
+    0.21132486540518686,
+    0.2113248654051873
+   ],
+   "depth": 0.25881904510252046,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icopyritic/prissi_288v_240c_opt.off",
+   "opt_counts": [
+    288,
+    240
+   ],
+   "off_R": 1.0000000000000004,
+   "central_off": "central_off/icopyritic/prissi_288v_240c_central.off",
+   "central_counts": [
+    288,
+    240
+   ]
+  }
+ ]
+}

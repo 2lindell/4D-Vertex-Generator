@@ -230,6 +230,28 @@ contic_atlas/icoic_shapes.py ([3,4,3], CONTIC_SUB=ico). Sidpii, icoi and gidpii 
 | prico | wall (2) | 1.000000 | 1.0000000000 | minimum inside the shape | [0.3333333333, 0.3333333333, 0.0, 0.3333333333] | prico_576v_240c_opt.off |
 | gidpii | region (3) | 4.000000 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | gidpii_1152v_240c_opt.off |
 
+## Hyic
+
+hyic_atlas/hyic_shapes.py ([5,3,3]): one shape per face of the chamber; optimized and central seeds are the uniform ones.
+
+| shape | kind | R seed | R best | status | best beta | file |
+|---|---|---|---|---|---|---|
+| hi | point (0) | 1.000000 | 1.0000000000 | uniform: every edge equal | [1.0, 0.0, 0.0, 0.0] | hi_600v_120c_opt.off |
+| rahi | point (0) | 1.000000 | 1.0000000000 | uniform: every edge equal | [0.0, 1.0, 0.0, 0.0] | rahi_1200v_720c_opt.off |
+| rox | point (0) | 1.000000 | 1.0000000000 | uniform: every edge equal | [0.0, 0.0, 1.0, 0.0] | rox_720v_720c_opt.off |
+| ex | point (0) | 1.000000 | 1.0000000000 | uniform: every edge equal | [0.0, 0.0, 0.0, 1.0] | ex_120v_600c_opt.off |
+| thi | line (1) | 1.500000 | 1.0000000000 | uniform: every edge equal | [0.5, 0.5, 0.0, 0.0] | thi_2400v_720c_opt.off |
+| srahi | line (1) | 1.500000 | 1.0000000000 | uniform: every edge equal | [0.5, 0.0, 0.5, 0.0] | srahi_3600v_1920c_opt.off |
+| sidpixhi | line (1) | 1.500000 | 1.0000000000 | uniform: every edge equal | [0.5, 0.0, 0.0, 0.5] | sidpixhi_2400v_2640c_opt.off |
+| xhi | line (1) | 1.500000 | 1.0000000000 | uniform: every edge equal | [0.0, 0.5, 0.5, 0.0] | xhi_3600v_720c_opt.off |
+| srix | line (1) | 1.500000 | 1.0000000000 | uniform: every edge equal | [0.0, 0.5, 0.0, 0.5] | srix_3600v_1440c_opt.off |
+| tex | line (1) | 1.500000 | 1.0000000000 | uniform: every edge equal | [0.0, 0.0, 0.5, 0.5] | tex_1440v_720c_opt.off |
+| grahi | wall (2) | 2.500000 | 1.0000000000 | uniform: every edge equal | [0.3333333333, 0.3333333333, 0.3333333333, 0.0] | grahi_7200v_1920c_opt.off |
+| prix | wall (2) | 2.500000 | 1.0000000000 | uniform: every edge equal | [0.3333333333, 0.3333333333, 0.0, 0.3333333333] | prix_7200v_2640c_opt.off |
+| prahi | wall (2) | 2.500000 | 1.0000000000 | uniform: every edge equal | [0.3333333333, 0.0, 0.3333333333, 0.3333333333] | prahi_7200v_2640c_opt.off |
+| grix | wall (2) | 2.500000 | 1.0000000000 | uniform: every edge equal | [0.0, 0.3333333333, 0.3333333333, 0.3333333333] | grix_7200v_1440c_opt.off |
+| gidpixhi | region (3) | 4.000000 | 1.0000000000 | uniform: every edge equal | [0.25, 0.25, 0.25, 0.25] | gidpixhi_14400v_2640c_opt.off |
+
 ## Pennic
 
 Pennic [3,3,3] = S5 (order 120; domain: the whole chamber). The optimized seed of each is its uniform seed (R = 1), reached from an uneven start; the central seed (central_off/pennic) is the same point (decaic_atlas/pennic_shapes.py).

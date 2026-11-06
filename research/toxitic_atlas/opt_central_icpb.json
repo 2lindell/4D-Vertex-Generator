@@ -1,0 +1,91 @@
+{
+ "_about": "Optimized and central seeds of the toxitic and oxitic shapes (opt_central_<sub>.json; optimized_off/toxitic|oxitic,\ncentral_off/toxitic|oxitic).",
+ "shapes": [
+  {
+   "group": "icopyritic",
+   "name": "pysni",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "6b0cb2276095",
+   "locus": [],
+   "sheet": "icpb",
+   "seed": [
+    0.025112350533336124,
+    0.025277219491449947,
+    0.9496104299752138,
+    0.0
+   ],
+   "start_R": 22.57989442478663,
+   "R": 1.0,
+   "optimized": [
+    0.5,
+    3.8408650138543524e-55,
+    0.5,
+    -9.132162585817656e-71
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3333333333333335,
+    0.3333333333333333,
+    0.33333333333333337,
+    0.0
+   ],
+   "depth": 0.408248290463863,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icopyritic/pysni_288v_144c_opt.off",
+   "opt_counts": [
+    288,
+    144
+   ],
+   "off_R": 1.0000000000000002,
+   "central_off": "central_off/icopyritic/pysni_288v_144c_central.off",
+   "central_counts": [
+    288,
+    144
+   ]
+  },
+  {
+   "group": "icopyritic",
+   "name": "sadi",
+   "kind": "line",
+   "degrees": 1,
+   "key": "3d29aef5b8e0",
+   "locus": [],
+   "sheet": "icpb",
+   "seed": [
+    0.02512072515262567,
+    0.9748792748473744,
+    0.0,
+    0.0
+   ],
+   "start_R": 1.395885835043516,
+   "R": 1.0000000000000002,
+   "optimized": [
+    0.3819660112501051,
+    0.6180339887498947,
+    0.0,
+    1.9407410098929253e-16
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5000000000000002,
+    0.4999999999999997,
+    0.0,
+    0.0
+   ],
+   "depth": 0.7071067811865471,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/icopyritic/sadi_96v_144c_opt.off",
+   "opt_counts": [
+    96,
+    144
+   ],
+   "off_R": 1.0000000000000002,
+   "central_off": "central_off/icopyritic/sadi_96v_144c_central.off",
+   "central_counts": [
+    96,
+    144
+   ]
+  }
+ ]
+}

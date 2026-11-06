@@ -247,6 +247,28 @@ contic_atlas/icoic_shapes.py.
 | prico | wall (2) | 2.59e-01 | [0.5773502692, 0.2113248654, 0.0, 0.2113248654] | deepest point of the shape | prico_576v_240c_central.off |
 | gidpii | region (3) | 2.05e-01 | [0.4674234614, 0.1775255129, 0.1775255129, 0.1775255129] | deepest point of the shape | gidpii_1152v_240c_central.off |
 
+## Hyic
+
+hyic_atlas/hyic_shapes.py ([5,3,3]): one shape per face of the chamber; optimized and central seeds are the uniform ones.
+
+| shape | kind | depth | central beta | status | file |
+|---|---|---|---|---|---|
+| hi | point (0) | - | [1.0, 0.0, 0.0, 0.0] | the uniform seed (no fold, no walls) | hi_600v_120c_central.off |
+| rahi | point (0) | - | [0.0, 1.0, 0.0, 0.0] | the uniform seed (no fold, no walls) | rahi_1200v_720c_central.off |
+| rox | point (0) | - | [0.0, 0.0, 1.0, 0.0] | the uniform seed (no fold, no walls) | rox_720v_720c_central.off |
+| ex | point (0) | - | [0.0, 0.0, 0.0, 1.0] | the uniform seed (no fold, no walls) | ex_120v_600c_central.off |
+| thi | line (1) | - | [0.5, 0.5, 0.0, 0.0] | the uniform seed (no fold, no walls) | thi_2400v_720c_central.off |
+| srahi | line (1) | - | [0.5, 0.0, 0.5, 0.0] | the uniform seed (no fold, no walls) | srahi_3600v_1920c_central.off |
+| sidpixhi | line (1) | - | [0.5, 0.0, 0.0, 0.5] | the uniform seed (no fold, no walls) | sidpixhi_2400v_2640c_central.off |
+| xhi | line (1) | - | [0.0, 0.5, 0.5, 0.0] | the uniform seed (no fold, no walls) | xhi_3600v_720c_central.off |
+| srix | line (1) | - | [0.0, 0.5, 0.0, 0.5] | the uniform seed (no fold, no walls) | srix_3600v_1440c_central.off |
+| tex | line (1) | - | [0.0, 0.0, 0.5, 0.5] | the uniform seed (no fold, no walls) | tex_1440v_720c_central.off |
+| grahi | wall (2) | - | [0.3333333333, 0.3333333333, 0.3333333333, 0.0] | the uniform seed (no fold, no walls) | grahi_7200v_1920c_central.off |
+| prix | wall (2) | - | [0.3333333333, 0.3333333333, 0.0, 0.3333333333] | the uniform seed (no fold, no walls) | prix_7200v_2640c_central.off |
+| prahi | wall (2) | - | [0.3333333333, 0.0, 0.3333333333, 0.3333333333] | the uniform seed (no fold, no walls) | prahi_7200v_2640c_central.off |
+| grix | wall (2) | - | [0.0, 0.3333333333, 0.3333333333, 0.3333333333] | the uniform seed (no fold, no walls) | grix_7200v_1440c_central.off |
+| gidpixhi | region (3) | - | [0.25, 0.25, 0.25, 0.25] | the uniform seed (no fold, no walls) | gidpixhi_14400v_2640c_central.off |
+
 ## pennic
 
 | shape | central beta | vertices, cells |
