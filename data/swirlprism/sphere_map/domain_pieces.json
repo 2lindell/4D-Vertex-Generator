@@ -2533,7 +2533,7 @@
    "edges": [
     204,
     219,
-    221
+    222
    ],
    "hole_edges": [],
    "verts": [
@@ -2571,7 +2571,7 @@
    "share_of_triangles_named_so": 1.0,
    "edges": [
     204,
-    222,
+    223,
     212
    ],
    "hole_edges": [],
@@ -2727,10 +2727,10 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    223,
-    232,
-    234,
-    224
+    224,
+    233,
+    235,
+    225
    ],
    "hole_edges": [],
    "verts": [
@@ -2767,9 +2767,9 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    223,
-    233,
-    227
+    224,
+    234,
+    228
    ],
    "hole_edges": [],
    "verts": [
@@ -2806,10 +2806,10 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    225,
-    235,
-    230,
-    236
+    226,
+    236,
+    231,
+    237
    ],
    "hole_edges": [],
    "verts": [
@@ -2846,11 +2846,11 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9893,
    "edges": [
-    241,
     242,
-    255,
-    251,
-    243
+    243,
+    256,
+    252,
+    244
    ],
    "hole_edges": [],
    "verts": [
@@ -2887,9 +2887,9 @@
    "agree": true,
    "share_of_triangles_named_so": 0.996,
    "edges": [
-    241,
-    246,
-    252
+    242,
+    247,
+    253
    ],
    "hole_edges": [],
    "verts": [
@@ -2926,9 +2926,9 @@
    "agree": true,
    "share_of_triangles_named_so": 0.995,
    "edges": [
-    242,
-    252,
-    254
+    243,
+    253,
+    255
    ],
    "hole_edges": [],
    "verts": [
@@ -2965,9 +2965,9 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9954,
    "edges": [
-    243,
-    248,
-    250
+    244,
+    249,
+    251
    ],
    "hole_edges": [],
    "verts": [
@@ -3004,9 +3004,9 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9938,
    "edges": [
-    245,
-    250,
-    249
+    246,
+    251,
+    250
    ],
    "hole_edges": [],
    "verts": [
@@ -3043,10 +3043,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9994,
    "edges": [
-    257,
-    262,
-    265,
-    259
+    258,
+    263,
+    266,
+    260
    ],
    "hole_edges": [],
    "verts": [
@@ -3083,10 +3083,10 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    272,
-    278,
-    282,
-    280
+    273,
+    279,
+    283,
+    281
    ],
    "hole_edges": [],
    "verts": [
@@ -3123,10 +3123,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9988,
    "edges": [
-    272,
-    274,
-    279,
-    275
+    273,
+    275,
+    280,
+    276
    ],
    "hole_edges": [],
    "verts": [
@@ -3163,9 +3163,9 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    273,
-    276,
-    279
+    274,
+    277,
+    280
    ],
    "hole_edges": [],
    "verts": [
@@ -3202,10 +3202,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9994,
    "edges": [
-    284,
-    290,
-    298,
-    295
+    286,
+    292,
+    300,
+    297
    ],
    "hole_edges": [],
    "verts": [
@@ -3242,10 +3242,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9869,
    "edges": [
-    285,
-    286,
-    299,
-    287
+    287,
+    288,
+    301,
+    289
    ],
    "hole_edges": [],
    "verts": [
@@ -3282,10 +3282,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9964,
    "edges": [
-    285,
-    288,
-    302,
-    286
+    287,
+    290,
+    304,
+    288
    ],
    "hole_edges": [],
    "verts": [
@@ -3322,11 +3322,11 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9988,
    "edges": [
-    287,
-    294,
-    304,
-    301,
-    288
+    289,
+    296,
+    306,
+    303,
+    290
    ],
    "hole_edges": [],
    "verts": [
@@ -3363,10 +3363,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9989,
    "edges": [
-    289,
-    300,
-    293,
-    305
+    291,
+    302,
+    295,
+    307
    ],
    "hole_edges": [],
    "verts": [
@@ -3403,8 +3403,8 @@
    "agree": true,
    "share_of_triangles_named_so": 0.998,
    "edges": [
-    296,
-    299
+    298,
+    301
    ],
    "hole_edges": [],
    "verts": [
@@ -3441,10 +3441,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.999,
    "edges": [
-    306,
-    311,
     308,
-    309
+    313,
+    310,
+    311
    ],
    "hole_edges": [],
    "verts": [
@@ -3481,10 +3481,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9782,
    "edges": [
-    328,
-    337,
-    333,
-    329
+    330,
+    339,
+    335,
+    331
    ],
    "hole_edges": [],
    "verts": [
@@ -3521,9 +3521,9 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    342,
-    347,
-    357
+    344,
+    349,
+    359
    ],
    "hole_edges": [],
    "verts": [
@@ -3560,10 +3560,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9991,
    "edges": [
-    342,
-    355,
-    356,
-    354
+    344,
+    357,
+    358,
+    356
    ],
    "hole_edges": [],
    "verts": [
@@ -3600,10 +3600,10 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    343,
-    350,
-    359,
-    344
+    345,
+    352,
+    361,
+    346
    ],
    "hole_edges": [],
    "verts": [
@@ -3640,8 +3640,8 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    345,
-    358
+    347,
+    360
    ],
    "hole_edges": [],
    "verts": [
@@ -3678,10 +3678,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9993,
    "edges": [
-    345,
-    352,
-    346,
-    354
+    347,
+    354,
+    348,
+    356
    ],
    "hole_edges": [],
    "verts": [
@@ -3718,9 +3718,9 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9958,
    "edges": [
-    348,
-    353,
-    357
+    350,
+    355,
+    359
    ],
    "hole_edges": [],
    "verts": [
@@ -3757,9 +3757,9 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9978,
    "edges": [
-    349,
-    360,
-    353
+    351,
+    362,
+    355
    ],
    "hole_edges": [],
    "verts": [
@@ -3796,9 +3796,9 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    351,
-    352,
-    359
+    353,
+    354,
+    361
    ],
    "hole_edges": [],
    "verts": [
@@ -3835,10 +3835,10 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9957,
    "edges": [
-    361,
-    362,
-    378,
-    371
+    363,
+    364,
+    380,
+    373
    ],
    "hole_edges": [],
    "verts": [
@@ -3865,6 +3865,44 @@
    "sheet": "142",
    "wall": "X84",
    "sides": [
+    "X64",
+    "X74"
+   ],
+   "components": [
+    31,
+    44
+   ],
+   "agree": true,
+   "share_of_triangles_named_so": 1.0,
+   "edges": [
+    394,
+    402
+   ],
+   "hole_edges": [],
+   "verts": [
+    69491,
+    73869
+   ],
+   "tris": [
+    97244,
+    105539
+   ],
+   "turned_triangles": 0,
+   "lift_failed": 0,
+   "coarse_verts": [
+    6322,
+    6371
+   ],
+   "coarse_tris": [
+    7587,
+    7634
+   ]
+  },
+  {
+   "id": 99,
+   "sheet": "142",
+   "wall": "X84",
+   "sides": [
     "X63",
     "X74"
    ],
@@ -3875,31 +3913,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    398,
-    400
+    400,
+    402
    ],
    "hole_edges": [],
    "verts": [
-    69491,
-    70254
+    73869,
+    74632
    ],
    "tris": [
-    97244,
-    98317
+    105539,
+    106612
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6322,
-    6371
+    6371,
+    6420
    ],
    "coarse_tris": [
-    7587,
-    7635
+    7634,
+    7682
    ]
   },
   {
-   "id": 99,
+   "id": 100,
    "sheet": "144",
    "wall": "X85",
    "sides": [
@@ -3913,32 +3951,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9982,
    "edges": [
-    403,
-    415,
-    412
+    405,
+    417,
+    414
    ],
    "hole_edges": [],
    "verts": [
-    70254,
-    70656
+    74632,
+    75034
    ],
    "tris": [
-    98317,
-    98874
+    106612,
+    107169
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6371,
-    6423
+    6420,
+    6472
    ],
    "coarse_tris": [
-    7635,
-    7692
+    7682,
+    7739
    ]
   },
   {
-   "id": 100,
+   "id": 101,
    "sheet": "146",
    "wall": "X87",
    "sides": [
@@ -3952,32 +3990,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9946,
    "edges": [
-    417,
-    423,
-    418
+    419,
+    425,
+    420
    ],
    "hole_edges": [],
    "verts": [
-    70656,
-    71447
+    75034,
+    75825
    ],
    "tris": [
-    98874,
-    99992
+    107169,
+    108287
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6423,
-    6490
+    6472,
+    6539
    ],
    "coarse_tris": [
-    7692,
-    7769
+    7739,
+    7816
    ]
   },
   {
-   "id": 101,
+   "id": 102,
    "sheet": "148",
    "wall": "X88",
    "sides": [
@@ -3991,32 +4029,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9991,
    "edges": [
-    435,
-    442,
-    436
+    438,
+    445,
+    439
    ],
    "hole_edges": [],
    "verts": [
-    71447,
-    72235
+    75825,
+    76613
    ],
    "tris": [
-    99992,
-    101104
+    108287,
+    109399
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6490,
-    6557
+    6539,
+    6606
    ],
    "coarse_tris": [
-    7769,
-    7846
+    7816,
+    7893
    ]
   },
   {
-   "id": 102,
+   "id": 103,
    "sheet": "150",
    "wall": "X89",
    "sides": [
@@ -4030,33 +4068,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    456,
-    458,
-    460,
-    457
+    459,
+    461,
+    463,
+    460
    ],
    "hole_edges": [],
    "verts": [
-    72235,
-    72922
+    76613,
+    77300
    ],
    "tris": [
-    101104,
-    102067
+    109399,
+    110362
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6557,
-    6610
+    6606,
+    6659
    ],
    "coarse_tris": [
-    7846,
-    7904
+    7893,
+    7951
    ]
   },
   {
-   "id": 103,
+   "id": 104,
    "sheet": "152",
    "wall": "X90",
    "sides": [
@@ -4070,33 +4108,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    469,
-    470,
+    472,
     473,
-    471
+    476,
+    474
    ],
    "hole_edges": [],
    "verts": [
-    72922,
-    73615
+    77300,
+    77993
    ],
    "tris": [
-    102067,
-    103042
+    110362,
+    111337
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6610,
-    6663
+    6659,
+    6712
    ],
    "coarse_tris": [
-    7904,
-    7962
+    7951,
+    8009
    ]
   },
   {
-   "id": 104,
+   "id": 105,
    "sheet": "154",
    "wall": "X91",
    "sides": [
@@ -4110,33 +4148,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9973,
    "edges": [
-    492,
-    493,
-    500,
-    495
+    495,
+    496,
+    503,
+    498
    ],
    "hole_edges": [],
    "verts": [
-    73615,
-    74403
+    77993,
+    78781
    ],
    "tris": [
-    103042,
-    104153
+    111337,
+    112448
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6663,
-    6730
+    6712,
+    6779
    ],
    "coarse_tris": [
-    7962,
-    8041
+    8009,
+    8088
    ]
   },
   {
-   "id": 105,
+   "id": 106,
    "sheet": "156",
    "wall": "X92",
    "sides": [
@@ -4150,33 +4188,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9955,
    "edges": [
-    507,
     510,
-    519,
-    508
+    513,
+    522,
+    511
    ],
    "hole_edges": [],
    "verts": [
-    74403,
-    75194
+    78781,
+    79572
    ],
    "tris": [
-    104153,
-    105270
+    112448,
+    113565
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6730,
-    6795
+    6779,
+    6844
    ],
    "coarse_tris": [
-    8041,
-    8116
+    8088,
+    8163
    ]
   },
   {
-   "id": 106,
+   "id": 107,
    "sheet": "158",
    "wall": "X94",
    "sides": [
@@ -4190,32 +4228,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    527,
     530,
-    532
+    533,
+    535
    ],
    "hole_edges": [],
    "verts": [
-    75194,
-    75889
+    79572,
+    80267
    ],
    "tris": [
-    105270,
-    106255
+    113565,
+    114550
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6795,
-    6842
+    6844,
+    6891
    ],
    "coarse_tris": [
-    8116,
-    8166
+    8163,
+    8213
    ]
   },
   {
-   "id": 107,
+   "id": 108,
    "sheet": "158",
    "wall": "X94",
    "sides": [
@@ -4229,32 +4267,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    527,
-    529,
-    531
+    530,
+    532,
+    534
    ],
    "hole_edges": [],
    "verts": [
-    75889,
-    76581
+    80267,
+    80959
    ],
    "tris": [
-    106255,
-    107234
+    114550,
+    115529
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6842,
-    6889
+    6891,
+    6938
    ],
    "coarse_tris": [
-    8166,
-    8216
+    8213,
+    8263
    ]
   },
   {
-   "id": 108,
+   "id": 109,
    "sheet": "160",
    "wall": "X99",
    "sides": [
@@ -4268,33 +4306,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9994,
    "edges": [
-    537,
-    541,
-    545,
-    543
+    540,
+    544,
+    548,
+    546
    ],
    "hole_edges": [],
    "verts": [
-    76581,
-    77761
+    80959,
+    82139
    ],
    "tris": [
-    107234,
-    108941
+    115529,
+    117236
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6889,
-    7117
+    6938,
+    7166
    ],
    "coarse_tris": [
-    8216,
-    8570
+    8263,
+    8617
    ]
   },
   {
-   "id": 109,
+   "id": 110,
    "sheet": "162",
    "wall": "X99",
    "sides": [
@@ -4308,33 +4346,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9965,
    "edges": [
-    550,
-    561,
+    553,
     564,
-    559
+    567,
+    562
    ],
    "hole_edges": [],
    "verts": [
-    77761,
-    78945
+    82139,
+    83323
    ],
    "tris": [
-    108941,
-    110656
+    117236,
+    118951
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7117,
-    7354
+    7166,
+    7399
    ],
    "coarse_tris": [
-    8570,
-    8942
+    8617,
+    8981
    ]
   },
   {
-   "id": 110,
+   "id": 111,
    "sheet": "163",
    "wall": "X83",
    "sides": [
@@ -4348,32 +4386,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9989,
    "edges": [
-    570,
-    574,
-    572
+    573,
+    577,
+    575
    ],
    "hole_edges": [],
    "verts": [
-    78945,
-    79609
+    83323,
+    83987
    ],
    "tris": [
-    110656,
-    111592
+    118951,
+    119887
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7354,
-    7415
+    7399,
+    7460
    ],
    "coarse_tris": [
-    8942,
-    9014
+    8981,
+    9053
    ]
   },
   {
-   "id": 111,
+   "id": 112,
    "sheet": "164",
    "wall": "X100",
    "sides": [
@@ -4387,32 +4425,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    585,
     588,
-    586
+    591,
+    589
    ],
    "hole_edges": [],
    "verts": [
-    79609,
-    80524
+    83987,
+    84902
    ],
    "tris": [
-    111592,
-    112901
+    119887,
+    121196
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7415,
-    7515
+    7460,
+    7560
    ],
    "coarse_tris": [
-    9014,
-    9143
+    9053,
+    9182
    ]
   },
   {
-   "id": 112,
+   "id": 113,
    "sheet": "165",
    "wall": "X33",
    "sides": [
@@ -4426,33 +4464,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9887,
    "edges": [
-    592,
-    604,
-    597,
-    599
+    595,
+    607,
+    600,
+    602
    ],
    "hole_edges": [],
    "verts": [
-    80524,
-    81586
+    84902,
+    85964
    ],
    "tris": [
-    112901,
-    114407
+    121196,
+    122702
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7515,
-    7638
+    7560,
+    7683
    ],
    "coarse_tris": [
-    9143,
-    9306
+    9182,
+    9345
    ]
   },
   {
-   "id": 113,
+   "id": 114,
    "sheet": "166",
    "wall": "X28",
    "sides": [
@@ -4466,34 +4504,34 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    606,
     609,
     612,
     615,
-    613
+    618,
+    616
    ],
    "hole_edges": [],
    "verts": [
-    81586,
-    82163
+    85964,
+    86541
    ],
    "tris": [
-    114407,
-    115234
+    122702,
+    123529
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7638,
-    7695
+    7683,
+    7740
    ],
    "coarse_tris": [
-    9306,
-    9377
+    9345,
+    9416
    ]
   },
   {
-   "id": 114,
+   "id": 115,
    "sheet": "167",
    "wall": "X88",
    "sides": [
@@ -4507,32 +4545,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.999,
    "edges": [
-    617,
-    622,
-    631
+    620,
+    625,
+    634
    ],
    "hole_edges": [],
    "verts": [
-    82163,
-    82847
+    86541,
+    87225
    ],
    "tris": [
-    115234,
-    116191
+    123529,
+    124486
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7695,
-    7758
+    7740,
+    7803
    ],
    "coarse_tris": [
-    9377,
-    9448
+    9416,
+    9487
    ]
   },
   {
-   "id": 115,
+   "id": 116,
    "sheet": "168",
    "wall": "X53",
    "sides": [
@@ -4546,36 +4584,36 @@
    "agree": true,
    "share_of_triangles_named_so": 0.1815,
    "edges": [
-    633,
-    654,
-    652,
-    642,
-    635,
+    636,
+    657,
+    655,
+    645,
     638,
-    636
+    641,
+    639
    ],
    "hole_edges": [],
    "verts": [
-    82847,
-    84178
+    87225,
+    88556
    ],
    "tris": [
-    116191,
-    118042
+    124486,
+    126337
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7758,
-    7917
+    7803,
+    7962
    ],
    "coarse_tris": [
-    9448,
-    9667
+    9487,
+    9706
    ]
   },
   {
-   "id": 116,
+   "id": 117,
    "sheet": "169",
    "wall": "X90",
    "sides": [
@@ -4589,33 +4627,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9985,
    "edges": [
-    660,
-    673,
     663,
-    661
+    676,
+    666,
+    664
    ],
    "hole_edges": [],
    "verts": [
-    84178,
-    84650
+    88556,
+    89028
    ],
    "tris": [
-    118042,
-    118701
+    126337,
+    126996
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7917,
-    7973
+    7962,
+    8018
    ],
    "coarse_tris": [
-    9667,
-    9730
+    9706,
+    9769
    ]
   },
   {
-   "id": 117,
+   "id": 118,
    "sheet": "170",
    "wall": "X92",
    "sides": [
@@ -4629,33 +4667,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9964,
    "edges": [
-    681,
-    682,
-    683,
-    687
+    684,
+    685,
+    686,
+    690
    ],
    "hole_edges": [],
    "verts": [
-    84650,
-    85439
+    89028,
+    89817
    ],
    "tris": [
-    118701,
-    119813
+    126996,
+    128108
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7973,
-    8038
+    8018,
+    8083
    ],
    "coarse_tris": [
-    9730,
-    9803
+    9769,
+    9842
    ]
   },
   {
-   "id": 118,
+   "id": 119,
    "sheet": "172",
    "wall": "X28",
    "sides": [
@@ -4669,32 +4707,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9789,
    "edges": [
-    734,
     738,
-    743
+    742,
+    747
    ],
    "hole_edges": [],
    "verts": [
-    85439,
-    85986
+    89817,
+    90364
    ],
    "tris": [
-    119813,
-    120573
+    128108,
+    128868
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8038,
-    8104
+    8083,
+    8149
    ],
    "coarse_tris": [
-    9803,
-    9876
+    9842,
+    9915
    ]
   },
   {
-   "id": 119,
+   "id": 120,
    "sheet": "173",
    "wall": "X51",
    "sides": [
@@ -4708,32 +4746,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.96,
    "edges": [
-    744,
     748,
-    745
+    752,
+    749
    ],
    "hole_edges": [],
    "verts": [
-    85986,
-    86706
+    90364,
+    91084
    ],
    "tris": [
-    120573,
-    121573
+    128868,
+    129868
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8104,
-    8185
+    8149,
+    8230
    ],
    "coarse_tris": [
-    9876,
-    9963
+    9915,
+    10002
    ]
   },
   {
-   "id": 120,
+   "id": 121,
    "sheet": "174",
    "wall": "X48",
    "sides": [
@@ -4747,32 +4785,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9623,
    "edges": [
-    751,
-    752,
-    755
+    755,
+    756,
+    759
    ],
    "hole_edges": [],
    "verts": [
-    86706,
-    87305
+    91084,
+    91683
    ],
    "tris": [
-    121573,
-    122396
+    129868,
+    130691
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8185,
-    8278
+    8230,
+    8323
    ],
    "coarse_tris": [
-    9963,
-    10070
+    10002,
+    10109
    ]
   },
   {
-   "id": 121,
+   "id": 122,
    "sheet": "176",
    "wall": "X84",
    "sides": [
@@ -4786,31 +4824,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    785,
-    788
+    789,
+    792
    ],
    "hole_edges": [],
    "verts": [
-    87305,
-    88119
+    91683,
+    92497
    ],
    "tris": [
-    122396,
-    123541
+    130691,
+    131836
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8278,
-    8330
+    8323,
+    8375
    ],
    "coarse_tris": [
-    10070,
-    10122
+    10109,
+    10161
    ]
   },
   {
-   "id": 122,
+   "id": 123,
    "sheet": "176",
    "wall": "X84",
    "sides": [
@@ -4824,31 +4862,31 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9989,
    "edges": [
-    787,
-    788
+    791,
+    792
    ],
    "hole_edges": [],
    "verts": [
-    88119,
-    88801
+    92497,
+    93179
    ],
    "tris": [
-    123541,
-    124414
+    131836,
+    132709
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8330,
-    8382
+    8375,
+    8427
    ],
    "coarse_tris": [
-    10122,
-    10172
+    10161,
+    10211
    ]
   },
   {
-   "id": 123,
+   "id": 124,
    "sheet": "177",
    "wall": "X87",
    "sides": [
@@ -4862,32 +4900,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9916,
    "edges": [
-    793,
-    799,
-    810
+    797,
+    803,
+    814
    ],
    "hole_edges": [],
    "verts": [
-    88801,
-    89485
+    93179,
+    93863
    ],
    "tris": [
-    124414,
-    125371
+    132709,
+    133666
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8382,
-    8445
+    8427,
+    8490
    ],
    "coarse_tris": [
-    10172,
-    10243
+    10211,
+    10282
    ]
   },
   {
-   "id": 124,
+   "id": 125,
    "sheet": "178",
    "wall": "X91",
    "sides": [
@@ -4901,33 +4939,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    811,
+    815,
+    821,
     817,
-    813,
-    812
+    816
    ],
    "hole_edges": [],
    "verts": [
-    89485,
-    90271
+    93863,
+    94649
    ],
    "tris": [
-    125371,
-    126477
+    133666,
+    134772
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8445,
-    8511
+    8490,
+    8556
    ],
    "coarse_tris": [
-    10243,
-    10318
+    10282,
+    10357
    ]
   },
   {
-   "id": 125,
+   "id": 126,
    "sheet": "179",
    "wall": "X89",
    "sides": [
@@ -4941,33 +4979,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    825,
-    826,
-    828,
-    831
+    829,
+    830,
+    832,
+    835
    ],
    "hole_edges": [],
    "verts": [
-    90271,
-    90749
+    94649,
+    95127
    ],
    "tris": [
-    126477,
-    127148
+    134772,
+    135443
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8511,
-    8567
+    8556,
+    8612
    ],
    "coarse_tris": [
-    10318,
-    10381
+    10357,
+    10420
    ]
   },
   {
-   "id": 126,
+   "id": 127,
    "sheet": "180",
    "wall": "X33",
    "sides": [
@@ -4981,32 +5019,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9529,
    "edges": [
-    854,
-    855,
-    858
+    858,
+    859,
+    862
    ],
    "hole_edges": [],
    "verts": [
-    90749,
-    91246
+    95127,
+    95624
    ],
    "tris": [
-    127148,
-    127828
+    135443,
+    136123
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8567,
-    8635
+    8612,
+    8680
    ],
    "coarse_tris": [
-    10381,
-    10452
+    10420,
+    10491
    ]
   },
   {
-   "id": 127,
+   "id": 128,
    "sheet": "181",
    "wall": "X85",
    "sides": [
@@ -5020,32 +5058,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9985,
    "edges": [
-    860,
-    862,
-    870
+    864,
+    866,
+    874
    ],
    "hole_edges": [],
    "verts": [
-    91246,
-    91713
+    95624,
+    96091
    ],
    "tris": [
-    127828,
-    128479
+    136123,
+    136774
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8635,
-    8690
+    8680,
+    8735
    ],
    "coarse_tris": [
-    10452,
-    10513
+    10491,
+    10552
    ]
   },
   {
-   "id": 128,
+   "id": 129,
    "sheet": "2",
    "wall": "X3",
    "sides": [
@@ -5059,32 +5097,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    876,
-    885,
-    878
+    880,
+    889,
+    882
    ],
    "hole_edges": [],
    "verts": [
-    91713,
-    92170
+    96091,
+    96548
    ],
    "tris": [
-    128479,
-    129115
+    136774,
+    137410
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8690,
-    8723
+    8735,
+    8768
    ],
    "coarse_tris": [
-    10513,
-    10546
+    10552,
+    10585
    ]
   },
   {
-   "id": 129,
+   "id": 130,
    "sheet": "2",
    "wall": "T2",
    "sides": [
@@ -5098,32 +5136,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    876,
-    883,
-    887
+    880,
+    887,
+    891
    ],
    "hole_edges": [],
    "verts": [
-    92170,
-    92569
+    96548,
+    96947
    ],
    "tris": [
-    129115,
-    129671
+    137410,
+    137966
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8723,
-    8756
+    8768,
+    8801
    ],
    "coarse_tris": [
-    10546,
-    10580
+    10585,
+    10619
    ]
   },
   {
-   "id": 130,
+   "id": 131,
    "sheet": "2",
    "wall": "T2",
    "sides": [
@@ -5137,32 +5175,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    877,
-    888,
-    883
+    881,
+    892,
+    887
    ],
    "hole_edges": [],
    "verts": [
-    92569,
-    92949
+    96947,
+    97327
    ],
    "tris": [
-    129671,
-    130204
+    137966,
+    138499
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8756,
-    8786
+    8801,
+    8831
    ],
    "coarse_tris": [
-    10580,
-    10610
+    10619,
+    10649
    ]
   },
   {
-   "id": 131,
+   "id": 132,
    "sheet": "2",
    "wall": "X3",
    "sides": [
@@ -5176,32 +5214,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    879,
-    885,
-    881
+    883,
+    889,
+    885
    ],
    "hole_edges": [],
    "verts": [
-    92949,
-    93454
+    97327,
+    97832
    ],
    "tris": [
-    130204,
-    130912
+    138499,
+    139207
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8786,
-    8826
+    8831,
+    8871
    ],
    "coarse_tris": [
-    10610,
-    10654
+    10649,
+    10693
    ]
   },
   {
-   "id": 132,
+   "id": 133,
    "sheet": "2",
    "wall": "F1",
    "sides": [
@@ -5215,32 +5253,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    880,
-    881,
-    884
+    884,
+    885,
+    888
    ],
    "hole_edges": [],
    "verts": [
-    93454,
-    94643
+    97832,
+    99021
    ],
    "tris": [
-    130912,
-    132622
+    139207,
+    140917
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8826,
-    8946
+    8871,
+    8991
    ],
    "coarse_tris": [
-    10654,
-    10820
+    10693,
+    10859
    ]
   },
   {
-   "id": 133,
+   "id": 134,
    "sheet": "2",
    "wall": "F1",
    "sides": [
@@ -5254,32 +5292,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9987,
    "edges": [
-    882,
-    884,
-    886
+    886,
+    888,
+    890
    ],
    "hole_edges": [],
    "verts": [
-    94643,
-    96273
+    99021,
+    100651
    ],
    "tris": [
-    132622,
-    134980
+    140917,
+    143275
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8946,
-    9160
+    8991,
+    9205
    ],
    "coarse_tris": [
-    10820,
-    11140
+    10859,
+    11179
    ]
   },
   {
-   "id": 134,
+   "id": 135,
    "sheet": "6",
    "wall": "X20",
    "sides": [
@@ -5293,32 +5331,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    893,
-    899,
-    896
+    897,
+    903,
+    900
    ],
    "hole_edges": [],
    "verts": [
-    96273,
-    96835
+    100651,
+    101213
    ],
    "tris": [
-    134980,
-    135777
+    143275,
+    144072
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9160,
-    9214
+    9205,
+    9259
    ],
    "coarse_tris": [
-    11140,
-    11203
+    11179,
+    11242
    ]
   },
   {
-   "id": 135,
+   "id": 136,
    "sheet": "7",
    "wall": "X31",
    "sides": [
@@ -5332,32 +5370,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    901,
-    902,
-    907
+    905,
+    906,
+    911
    ],
    "hole_edges": [],
    "verts": [
-    96835,
-    97483
+    101213,
+    101861
    ],
    "tris": [
-    135777,
-    136666
+    144072,
+    144961
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9214,
-    9267
+    9259,
+    9312
    ],
    "coarse_tris": [
-    11203,
-    11258
+    11242,
+    11297
    ]
   },
   {
-   "id": 136,
+   "id": 137,
    "sheet": "7",
    "wall": "F1",
    "sides": [
@@ -5371,34 +5409,34 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9987,
    "edges": [
-    901,
     905,
+    909,
+    914,
     910,
-    906,
-    904
+    908
    ],
    "hole_edges": [],
    "verts": [
-    97483,
-    99100
+    101861,
+    103478
    ],
    "tris": [
-    136666,
-    139008
+    144961,
+    147303
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9267,
-    9509
+    9312,
+    9554
    ],
    "coarse_tris": [
-    11258,
-    11637
+    11297,
+    11676
    ]
   },
   {
-   "id": 137,
+   "id": 138,
    "sheet": "7",
    "wall": "X79",
    "sides": [
@@ -5412,31 +5450,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    902,
-    908
+    906,
+    912
    ],
    "hole_edges": [],
    "verts": [
-    99100,
-    99549
+    103478,
+    103927
    ],
    "tris": [
-    139008,
-    139521
+    147303,
+    147816
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9509,
-    9551
+    9554,
+    9596
    ],
    "coarse_tris": [
-    11637,
-    11677
+    11676,
+    11716
    ]
   },
   {
-   "id": 138,
+   "id": 139,
    "sheet": "7",
    "wall": "F1",
    "sides": [
@@ -5450,31 +5488,31 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9987,
    "edges": [
-    906,
-    909
+    910,
+    913
    ],
    "hole_edges": [],
    "verts": [
-    99549,
-    100109
+    103927,
+    104487
    ],
    "tris": [
-    139521,
-    140271
+    147816,
+    148566
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9551,
-    9593
+    9596,
+    9638
    ],
    "coarse_tris": [
-    11677,
-    11717
+    11716,
+    11756
    ]
   },
   {
-   "id": 139,
+   "id": 140,
    "sheet": "9",
    "wall": "X17",
    "sides": [
@@ -5488,32 +5526,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    914,
-    924,
-    916
+    918,
+    928,
+    920
    ],
    "hole_edges": [],
    "verts": [
-    100109,
-    100499
+    104487,
+    104877
    ],
    "tris": [
-    140271,
-    140821
+    148566,
+    149116
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9593,
-    9619
+    9638,
+    9664
    ],
    "coarse_tris": [
-    11717,
-    11744
+    11756,
+    11783
    ]
   },
   {
-   "id": 140,
+   "id": 141,
    "sheet": "9",
    "wall": "X17",
    "sides": [
@@ -5527,32 +5565,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    915,
-    923,
-    924
+    919,
+    927,
+    928
    ],
    "hole_edges": [],
    "verts": [
-    100499,
-    100857
+    104877,
+    105235
    ],
    "tris": [
-    140821,
-    141320
+    149116,
+    149615
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9619,
-    9642
+    9664,
+    9687
    ],
    "coarse_tris": [
-    11744,
-    11766
+    11783,
+    11805
    ]
   },
   {
-   "id": 141,
+   "id": 142,
    "sheet": "9",
    "wall": "T2",
    "sides": [
@@ -5566,32 +5604,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    916,
-    921,
-    922
+    920,
+    925,
+    926
    ],
    "hole_edges": [],
    "verts": [
-    100857,
-    101306
+    105235,
+    105684
    ],
    "tris": [
-    141320,
-    141948
+    149615,
+    150243
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9642,
-    9670
+    9687,
+    9715
    ],
    "coarse_tris": [
-    11766,
-    11794
+    11805,
+    11833
    ]
   },
   {
-   "id": 142,
+   "id": 143,
    "sheet": "9",
    "wall": "T2",
    "sides": [
@@ -5605,32 +5643,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    917,
-    922,
-    920
+    921,
+    926,
+    924
    ],
    "hole_edges": [],
    "verts": [
-    101306,
-    101771
+    105684,
+    106149
    ],
    "tris": [
-    141948,
-    142593
+    150243,
+    150888
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9670,
-    9702
+    9715,
+    9747
    ],
    "coarse_tris": [
-    11794,
-    11826
+    11833,
+    11865
    ]
   },
   {
-   "id": 143,
+   "id": 144,
    "sheet": "9",
    "wall": "F1",
    "sides": [
@@ -5644,32 +5682,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    918,
-    919,
-    927
+    922,
+    923,
+    931
    ],
    "hole_edges": [],
    "verts": [
-    101771,
-    102317
+    106149,
+    106695
    ],
    "tris": [
-    142593,
-    143357
+    150888,
+    151652
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9702,
-    9743
+    9747,
+    9788
    ],
    "coarse_tris": [
-    11826,
-    11869
+    11865,
+    11908
    ]
   },
   {
-   "id": 144,
+   "id": 145,
    "sheet": "9",
    "wall": "F1",
    "sides": [
@@ -5683,32 +5721,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    919,
-    930,
-    926
+    923,
+    934,
+    930
    ],
    "hole_edges": [],
    "verts": [
-    102317,
-    103240
+    106695,
+    107618
    ],
    "tris": [
-    143357,
-    144644
+    151652,
+    152939
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9743,
-    9820
+    9788,
+    9865
    ],
    "coarse_tris": [
-    11869,
-    11949
+    11908,
+    11988
    ]
   },
   {
-   "id": 145,
+   "id": 146,
    "sheet": "face:b1=0",
    "wall": "X9",
    "sides": [
@@ -5722,31 +5760,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    931,
-    939
+    935,
+    943
    ],
    "hole_edges": [],
    "verts": [
-    103240,
-    103388
+    107618,
+    107766
    ],
    "tris": [
-    144644,
-    144806
+    152939,
+    153101
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9820,
-    9832
+    9865,
+    9877
    ],
    "coarse_tris": [
-    11949,
-    11959
+    11988,
+    11998
    ]
   },
   {
-   "id": 146,
+   "id": 147,
    "sheet": "face:b1=0",
    "wall": "X23",
    "sides": [
@@ -5760,32 +5798,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    931,
-    941,
-    940
+    935,
+    945,
+    944
    ],
    "hole_edges": [],
    "verts": [
-    103388,
-    104125
+    107766,
+    108503
    ],
    "tris": [
-    144806,
-    145848
+    153101,
+    154143
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9832,
-    9902
+    9877,
+    9947
    ],
    "coarse_tris": [
-    11959,
-    12038
+    11998,
+    12077
    ]
   },
   {
-   "id": 147,
+   "id": 148,
    "sheet": "face:b1=0",
    "wall": "X9",
    "sides": [
@@ -5799,33 +5837,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    932,
-    935,
-    938,
-    939
+    936,
+    939,
+    942,
+    943
    ],
    "hole_edges": [],
    "verts": [
-    104125,
-    104961
+    108503,
+    109339
    ],
    "tris": [
-    145848,
-    147050
+    154143,
+    155345
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9902,
-    9992
+    9947,
+    10037
    ],
    "coarse_tris": [
-    12038,
-    12159
+    12077,
+    12198
    ]
   },
   {
-   "id": 148,
+   "id": 149,
    "sheet": "face:b1=0",
    "wall": "X23",
    "sides": [
@@ -5839,32 +5877,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9818,
    "edges": [
-    932,
-    940,
-    934
+    936,
+    944,
+    938
    ],
    "hole_edges": [],
    "verts": [
-    104961,
-    105936
+    109339,
+    110314
    ],
    "tris": [
-    147050,
-    148421
+    155345,
+    156716
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9992,
-    10064
+    10037,
+    10109
    ],
    "coarse_tris": [
-    12159,
-    12239
+    12198,
+    12278
    ]
   },
   {
-   "id": 149,
+   "id": 150,
    "sheet": "face:b1=0",
    "wall": "F4",
    "sides": [
@@ -5878,32 +5916,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9972,
    "edges": [
-    933,
     937,
-    938
+    941,
+    942
    ],
    "hole_edges": [],
    "verts": [
-    105936,
-    107160
+    110314,
+    111538
    ],
    "tris": [
-    148421,
-    150184
+    156716,
+    158479
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10064,
-    10180
+    10109,
+    10225
    ],
    "coarse_tris": [
-    12239,
-    12397
+    12278,
+    12436
    ]
   },
   {
-   "id": 150,
+   "id": 151,
    "sheet": "face:b1=0",
    "wall": "F4",
    "sides": [
@@ -5917,32 +5955,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9931,
    "edges": [
-    936,
-    942,
-    937
+    940,
+    946,
+    941
    ],
    "hole_edges": [],
    "verts": [
-    107160,
-    108375
+    111538,
+    112753
    ],
    "tris": [
-    150184,
-    151934
+    158479,
+    160229
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10180,
-    10377
+    10225,
+    10422
    ],
    "coarse_tris": [
-    12397,
-    12698
+    12436,
+    12737
    ]
   },
   {
-   "id": 151,
+   "id": 152,
    "sheet": "face:b2=0",
    "wall": "X9",
    "sides": [
@@ -5956,33 +5994,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    943,
-    951,
-    948,
-    945
+    947,
+    955,
+    952,
+    949
    ],
    "hole_edges": [],
    "verts": [
-    108375,
-    109206
+    112753,
+    113584
    ],
    "tris": [
-    151934,
-    153126
+    160229,
+    161421
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10377,
-    10462
+    10422,
+    10507
    ],
    "coarse_tris": [
-    12698,
-    12809
+    12737,
+    12848
    ]
   },
   {
-   "id": 152,
+   "id": 153,
    "sheet": "face:b2=0",
    "wall": "F4",
    "sides": [
@@ -5996,32 +6034,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9972,
    "edges": [
-    943,
-    952,
-    949
+    947,
+    956,
+    953
    ],
    "hole_edges": [],
    "verts": [
-    109206,
-    110432
+    113584,
+    114810
    ],
    "tris": [
-    153126,
-    154893
+    161421,
+    163188
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10462,
-    10578
+    10507,
+    10623
    ],
    "coarse_tris": [
-    12809,
-    12967
+    12848,
+    13006
    ]
   },
   {
-   "id": 153,
+   "id": 154,
    "sheet": "face:b2=0",
    "wall": "F4",
    "sides": [
@@ -6035,32 +6073,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9955,
    "edges": [
-    944,
-    952,
-    954
+    948,
+    956,
+    958
    ],
    "hole_edges": [],
    "verts": [
-    110432,
-    111655
+    114810,
+    116033
    ],
    "tris": [
-    154893,
-    156659
+    163188,
+    164954
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10578,
-    10772
+    10623,
+    10817
    ],
    "coarse_tris": [
-    12967,
-    13262
+    13006,
+    13301
    ]
   },
   {
-   "id": 154,
+   "id": 155,
    "sheet": "face:b2=0",
    "wall": "X9",
    "sides": [
@@ -6074,31 +6112,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    945,
-    947
+    949,
+    951
    ],
    "hole_edges": [],
    "verts": [
-    111655,
-    111805
+    116033,
+    116183
    ],
    "tris": [
-    156659,
-    156825
+    164954,
+    165120
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10772,
-    10784
+    10817,
+    10829
    ],
    "coarse_tris": [
-    13262,
-    13272
+    13301,
+    13311
    ]
   },
   {
-   "id": 155,
+   "id": 156,
    "sheet": "face:b2=0",
    "wall": "X23",
    "sides": [
@@ -6112,32 +6150,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    946,
-    953,
-    947
+    950,
+    957,
+    951
    ],
    "hole_edges": [],
    "verts": [
-    111805,
-    112539
+    116183,
+    116917
    ],
    "tris": [
-    156825,
-    157861
+    165120,
+    166156
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10784,
-    10853
+    10829,
+    10898
    ],
    "coarse_tris": [
-    13272,
-    13349
+    13311,
+    13388
    ]
   },
   {
-   "id": 156,
+   "id": 157,
    "sheet": "face:b2=0",
    "wall": "X23",
    "sides": [
@@ -6151,32 +6189,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9768,
    "edges": [
-    946,
-    948,
-    950
+    950,
+    952,
+    954
    ],
    "hole_edges": [],
    "verts": [
-    112539,
-    113517
+    116917,
+    117895
    ],
    "tris": [
-    157861,
-    159238
+    166156,
+    167533
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10853,
-    10927
+    10898,
+    10972
    ],
    "coarse_tris": [
-    13349,
-    13433
+    13388,
+    13472
    ]
   },
   {
-   "id": 157,
+   "id": 158,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -6190,32 +6228,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9905,
    "edges": [
-    957,
-    983,
-    960
+    961,
+    987,
+    964
    ],
    "hole_edges": [],
    "verts": [
-    113517,
-    114259
+    117895,
+    118637
    ],
    "tris": [
-    159238,
-    160287
+    167533,
+    168582
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10927,
-    10980
+    10972,
+    11025
    ],
    "coarse_tris": [
-    13433,
-    13491
+    13472,
+    13530
    ]
   },
   {
-   "id": 158,
+   "id": 159,
    "sheet": "face:b3=b4",
    "wall": "X19",
    "sides": [
@@ -6229,34 +6267,34 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9917,
    "edges": [
-    957,
-    962,
-    972,
-    959,
-    958
+    961,
+    966,
+    976,
+    963,
+    962
    ],
    "hole_edges": [],
    "verts": [
-    114259,
-    115175
+    118637,
+    119553
    ],
    "tris": [
-    160287,
-    161608
+    168582,
+    169903
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10980,
-    11073
+    11025,
+    11118
    ],
    "coarse_tris": [
-    13491,
-    13618
+    13530,
+    13657
    ]
   },
   {
-   "id": 159,
+   "id": 160,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -6270,32 +6308,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9925,
    "edges": [
-    958,
-    965,
-    983
+    962,
+    969,
+    987
    ],
    "hole_edges": [],
    "verts": [
-    115175,
-    116016
+    119553,
+    120394
    ],
    "tris": [
-    161608,
-    162801
+    169903,
+    171096
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11073,
-    11136
+    11118,
+    11181
    ],
    "coarse_tris": [
-    13618,
-    13689
+    13657,
+    13728
    ]
   },
   {
-   "id": 160,
+   "id": 161,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6309,32 +6347,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.992,
    "edges": [
-    959,
-    969,
-    982
+    963,
+    973,
+    986
    ],
    "hole_edges": [],
    "verts": [
-    116016,
-    116629
+    120394,
+    121007
    ],
    "tris": [
-    162801,
-    163673
+    171096,
+    171968
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11136,
-    11180
+    11181,
+    11225
    ],
    "coarse_tris": [
-    13689,
-    13738
+    13728,
+    13777
    ]
   },
   {
-   "id": 161,
+   "id": 162,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6348,32 +6386,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9915,
    "edges": [
-    964,
-    982,
-    967
+    968,
+    986,
+    971
    ],
    "hole_edges": [],
    "verts": [
-    116629,
-    117212
+    121007,
+    121590
    ],
    "tris": [
-    163673,
-    164494
+    171968,
+    172789
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11180,
-    11218
+    11225,
+    11263
    ],
    "coarse_tris": [
-    13738,
-    13778
+    13777,
+    13817
    ]
   },
   {
-   "id": 162,
+   "id": 163,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6387,32 +6425,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9913,
    "edges": [
-    964,
-    966,
-    970
+    968,
+    970,
+    974
    ],
    "hole_edges": [],
    "verts": [
-    117212,
-    117787
+    121590,
+    122165
    ],
    "tris": [
-    164494,
-    165300
+    172789,
+    173595
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11218,
-    11255
+    11263,
+    11300
    ],
    "coarse_tris": [
-    13778,
-    13816
+    13817,
+    13855
    ]
   },
   {
-   "id": 163,
+   "id": 164,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -6426,32 +6464,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9949,
    "edges": [
-    965,
-    977,
-    973
+    969,
+    981,
+    977
    ],
    "hole_edges": [],
    "verts": [
-    117787,
-    118617
+    122165,
+    122995
    ],
    "tris": [
-    165300,
-    166471
+    173595,
+    174766
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11255,
-    11319
+    11300,
+    11364
    ],
    "coarse_tris": [
-    13816,
-    13889
+    13855,
+    13928
    ]
   },
   {
-   "id": 164,
+   "id": 165,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6465,32 +6503,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9918,
    "edges": [
-    968,
-    978,
-    970
+    972,
+    982,
+    974
    ],
    "hole_edges": [],
    "verts": [
-    118617,
-    119220
+    122995,
+    123598
    ],
    "tris": [
-    166471,
-    167323
+    174766,
+    175618
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11319,
-    11363
+    11364,
+    11408
    ],
    "coarse_tris": [
-    13889,
-    13938
+    13928,
+    13977
    ]
   },
   {
-   "id": 165,
+   "id": 166,
    "sheet": "face:b3=b4",
    "wall": "X19",
    "sides": [
@@ -6504,34 +6542,34 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9908,
    "edges": [
-    971,
+    975,
+    985,
+    980,
     981,
-    976,
-    977,
-    978
+    982
    ],
    "hole_edges": [],
    "verts": [
-    119220,
-    120129
+    123598,
+    124507
    ],
    "tris": [
-    167323,
-    168630
+    175618,
+    176925
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11363,
-    11457
+    11408,
+    11502
    ],
    "coarse_tris": [
-    13938,
-    14067
+    13977,
+    14106
    ]
   },
   {
-   "id": 166,
+   "id": 167,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -6545,28 +6583,28 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9903,
    "edges": [
-    973,
-    976,
-    979
+    977,
+    980,
+    983
    ],
    "hole_edges": [],
    "verts": [
-    120129,
-    120861
+    124507,
+    125239
    ],
    "tris": [
-    168630,
-    169659
+    176925,
+    177954
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11457,
-    11510
+    11502,
+    11555
    ],
    "coarse_tris": [
-    14067,
-    14125
+    14106,
+    14164
    ]
   }
  ],
@@ -8558,7 +8596,16 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 311
+   "n": 133
+  },
+  {
+   "sheet": "128",
+   "kind": "face",
+   "name": "face b4=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 180
   },
   {
    "sheet": "128",
@@ -9125,7 +9172,16 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 465
+   "n": 174
+  },
+  {
+   "sheet": "132",
+   "kind": "face",
+   "name": "face b3=b4",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 293
   },
   {
    "sheet": "134",
@@ -9647,7 +9703,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 310
+   "n": 217
   },
   {
    "sheet": "14",
@@ -10395,6 +10451,15 @@
    "glued": null,
    "surface": null,
    "n": 93
+  },
+  {
+   "sheet": "146",
+   "kind": "face",
+   "name": "face b1=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 2
   },
   {
    "sheet": "146",
@@ -12878,6 +12943,15 @@
    "line_piece": 9,
    "glued": null,
    "surface": null,
+   "n": 2
+  },
+  {
+   "sheet": "171",
+   "kind": "line",
+   "name": "X13",
+   "line_piece": 9,
+   "glued": null,
+   "surface": null,
    "n": 189
   },
   {
@@ -13085,7 +13159,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 253
+   "n": 2
   },
   {
    "sheet": "171",
@@ -13094,7 +13168,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
+   "n": 253
   },
   {
    "sheet": "171",
@@ -15429,8 +15503,8 @@
   }
  ],
  "stats": {
-  "wall faces": 167,
-  "named the same all through": 167,
+  "wall faces": 168,
+  "named the same all through": 168,
   "faces of no wall": 6
  },
  "sheets_failed": []
