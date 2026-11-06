@@ -36,7 +36,7 @@ from .frame import data_dir, group, locate, point_from_beta
 
 STEP = 3e-3              # spacing of the exact curve points (betas)
 TOL_ON = 1e-9            # a point is on a surface when |f| / |grad f| is below this
-TOL_V = 1e-7             # curve ends closer than this are one vertex (they are exact points)
+TOL_V = 1e-6             # curve ends closer than this are one vertex (they are exact points)
 FACES = [0, 1, 3, 4]     # the half-cell's faces: b1 = 0, b2 = 0, b4 = 0, b3 = b4 (b3 >= b4 >= 0)
 
 
@@ -508,6 +508,65 @@ def boundary_arcs(s, faces, D, own):
                             new = True
         if not new:
             break
+    # the half-cell's edges: where the surface meets each (exact points), or the stretch of it the
+    # surface holds; an arc end left open near such a point is joined to it along the surface
+    corners = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, .5, .5]], float)
+    nodes = {j: [] for j in faces}
+    for a_i in range(4):
+        for b_i in range(a_i + 1, 4):
+            A, B = corners[a_i], corners[b_i]
+            on = [j for j in FACES if abs(A @ FACE_N[j]) < 1e-12 and abs(B @ FACE_N[j]) < 1e-12]
+            if len(on) < 2:
+                continue
+            tt = np.linspace(0, 1, 2001)
+            X = A + tt[:, None] * (B - A)
+            v = s.f(X)
+            if dist_to(s, X[1:-1:50]).max() < 1e-9:
+                seg = X[::20]
+                for j in on:
+                    if j in faces:
+                        arcs[j].append(seg)
+                continue
+            for k in np.flatnonzero(np.sign(v[:-1]) != np.sign(v[1:])):
+                lo, hi = tt[k], tt[k + 1]
+                for _ in range(60):
+                    mid = (lo + hi) / 2
+                    if np.sign(s.f((A + mid * (B - A))[None])[0]) == np.sign(v[k]):
+                        lo = mid
+                    else:
+                        hi = mid
+                x = A + (lo + hi) / 2 * (B - A)
+                for j in on:
+                    if j in faces:
+                        nodes[j].append(x)
+    for j in faces:
+        for a_i in range(len(arcs[j])):
+            a = arcs[j][a_i]
+            for k in (0, -1):
+                x = a[k]
+                if any(np.linalg.norm(x - y) < 1e-6 for y in nodes[j]):
+                    continue
+                touching = sum(1 for j2 in faces for b in arcs[j2]
+                               if b is not a and seg_dist(b, None, x) < 1e-6)
+                if touching:
+                    continue
+                # the nearest exact point to join: a point where the surface meets an edge of the
+                # half-cell, or the nearest point of another arc on this face (solved onto it)
+                cands = [(np.linalg.norm(y - x), y) for y in nodes[j]]
+                for j2 in faces:
+                    for b in arcs[j2]:
+                        if b is a or len(b) < 2:
+                            continue
+                        d_ = np.linalg.norm(b - x, axis=1)
+                        q = b[int(np.argmin(d_))]
+                        if abs(q @ FACE_N[j]) < 1e-9:
+                            y, ok = solve([s, D.face_planes[j], D.face_planes[j2]] if j2 != j else [s, D.face_planes[j]], q)
+                            cands.append((np.linalg.norm((y if ok else q) - x), y if ok else q))
+                if not cands:
+                    continue
+                dmin, y = min(cands, key=lambda c: c[0])
+                if 1e-9 < dmin < 0.03:
+                    arcs[j].append(resample(np.array([x, y]), [s, D.face_planes[j]], step=STEP / 3))
     return [{"kind": "face", "name": D.face_planes[j].name, "pts": a, "eqs": [s, D.face_planes[j]]}
             for j in faces for a in arcs[j] if len(a) > 1]
 
@@ -802,8 +861,13 @@ class Graph:
 def _plane_frame(P, normal):
     """A plane for a loop on the surface: its centre, the mean surface normal, two directions."""
     c = P.mean(0)
-    ns = [normal(x) for x in P[:: max(1, len(P) // 50)]]
-    n = np.mean([m / np.linalg.norm(m) for m in ns if np.linalg.norm(m) > 1e-12], axis=0)
+    ns = [normal(x) for x in P]
+    ns = [m / np.linalg.norm(m) for m in ns if np.linalg.norm(m) > 1e-12]
+    if ns:
+        n = np.mean(ns, axis=0)
+    else:
+        Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+        n = np.linalg.svd((P - c) @ Bz.T, full_matrices=False)[2][-1] @ Bz
     n /= np.linalg.norm(n)
     e1, e2 = np.linalg.svd(np.vstack([np.ones(4) / 2, n]))[2][2:]
     if np.linalg.det(np.vstack([np.ones(4) / 2, e1, e2, n])) < 0:
