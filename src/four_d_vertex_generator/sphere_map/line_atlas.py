@@ -15,7 +15,7 @@ from collections import Counter, defaultdict
 import numpy as np
 from scipy.spatial import cKDTree
 
-from .frame import load_json, point_from_beta
+from .frame import cell_vertices, load_json, point_from_beta
 
 MIN_PIECE = 5e-3     # line stretches shorter than this are rounding, not pieces
 
@@ -26,6 +26,43 @@ def _thin(poly, n=48):
     if len(poly) > n:
         poly = poly[np.unique(np.r_[np.linspace(0, len(poly) - 1, n).round().astype(int)])]
     return np.round(poly, 10).tolist()
+
+
+def _out_to_named(poly, surf_names, far, all_named, ntree, log, name):
+    """The exact curve of a line piece's two surfaces, from the record's start in the direction
+    it leaves, up to the first named point it reaches (that point exactly at its end)."""
+    from .wall_meets import resolve, trace
+    a, b = resolve(surf_names[0]), resolve(surf_names[1])
+    start, ahead = poly[0], poly[min(far, 5)]
+    for arc in trace(a, b):
+        P = arc["points"] / arc["points"].sum(axis=1, keepdims=True)
+        i0 = int(np.argmin(np.linalg.norm(P - start, axis=1)))
+        if np.linalg.norm(P[i0] - start) > 1e-3:      # (the record can sit a little off the curve)
+            continue
+        step = 1 if (i0 + 1 < len(P) and np.linalg.norm(P[i0 + 1] - ahead) < np.linalg.norm(P[max(i0 - 1, 0)] - ahead)) else -1
+        cell_inv = np.linalg.inv(cell_vertices())
+        # (its start exactly on the named point the record starts at)
+        j0 = ntree.query(point_from_beta(P[i0]))[1]
+        b0 = all_named[j0] @ cell_inv
+        out = [b0 / b0.sum()] if np.linalg.norm(all_named[j0] - point_from_beta(P[i0])) < 1e-3 else [P[i0]]
+        i = i0 + step
+        while 0 <= i < len(P):
+            x = point_from_beta(P[i])
+            hit = ntree.query_ball_point(x, 3e-3)
+            near = [j for j in hit if np.linalg.norm(all_named[j] - point_from_beta(P[i0])) > 1e-2]
+            if near:
+                j = min(near, key=lambda j: np.linalg.norm(all_named[j] - x))
+                bx = all_named[j] @ cell_inv
+                out.append(bx / bx.sum())
+                log(f"atlas lines: {name} record doubles back; calculated from its start to the "
+                    f"named point it reaches ({len(out)} points)")
+                return np.array(out)
+            out.append(P[i])
+            i += step
+        log(f"atlas lines: {name} record doubles back; calculated to where it leaves the domain")
+        return np.array(out)
+    log(f"atlas lines: {name} record doubles back; no exact curve through its start, kept")
+    return poly
 
 
 def densify(r4: np.ndarray, step: float = 2e-4) -> np.ndarray:
@@ -120,6 +157,14 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             keep = np.r_[True, np.linalg.norm(np.diff(poly, axis=0), axis=1) > 1e-12]
             poly = poly[keep]                    # (repeated points in the record)
             surf_names = info["surfaces"][pi] if pi < len(info["surfaces"]) else info["surfaces"][0]
+            # a record that doubles back to its own start (out along the curve and back again) is
+            # not a loop: the piece is calculated exactly instead, from its start along its two
+            # surfaces in the direction the record leaves, up to the first named point reached
+            if len(poly) > 4 and np.linalg.norm(poly[0] - poly[-1]) < 1e-6:
+                r4 = point_from_beta(poly)
+                far = int(np.argmax(np.linalg.norm(r4 - r4[0], axis=1)))
+                if cKDTree(r4[:far + 1]).query(r4[far:])[0].max() < 2e-3:
+                    poly = _out_to_named(poly, surf_names, far, all_named, ntree, log, name)
             exact_pair = [lib_by_name.get(n) for n in surf_names]
             if len(exact_pair) == 2 and all(x is not None for x in exact_pair):
                 poly = _exact_resample(poly, exact_pair)
