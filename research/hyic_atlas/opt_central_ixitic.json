@@ -54,12 +54,12 @@
    "start_R": 14.158654538599569,
    "R": 2.162453471411966,
    "optimized": [
-    4.182591405707867e-05,
-    0.21367682218466835,
-    0.3457105522697717,
-    0.440570799631503
+    -0.3087079355546831,
+    0.4997136768221963,
+    0.309053687932822,
+    0.4999405707996648
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 1.224745; the polytope's 1.225439); re-optimised crossing the mirrors and the fold (was R 2.164207)",
    "central": [
     0.16400127014097896,
     0.32102143448862847,
@@ -71,7 +71,7 @@
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sagypsobtady_1440v_3600c_seed.off",
    "seed_R": 14.158654538605655,
    "opt_off": "optimized_off/ixitic/sagypsobtady_1440v_3600c_opt.off",
-   "opt_R": 2.1642072209119476,
+   "opt_R": 1.2254394484175564,
    "central_off": "central_off/ixitic/sagypsobtady_1440v_3600c_central.off",
    "central_R": 3.1647738906052885
   },
@@ -128,12 +128,12 @@
    "start_R": 9.314561276203621,
    "R": 2.000000000000063,
    "optimized": [
-    4.1818659341948164e-05,
-    4.2093209512739926e-05,
-    0.4995838692592127,
-    0.5003322188719326
+    4.472170068938952e-08,
+    4.5015363124801255e-08,
+    0.49999955498125537,
+    0.5000003552816809
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.000002); re-optimised crossing the mirrors and the fold (was R 2.001633)",
    "central": [
     0.12828895833524678,
     0.07591963278902718,
@@ -145,7 +145,7 @@
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sisbethi_or_unnamed_1_1440v_5040c_seed.off",
    "seed_R": 9.314561276206387,
    "opt_off": "optimized_off/ixitic/sisbethi_or_unnamed_1_1440v_5040c_opt.off",
-   "opt_R": 2.0016333309658547,
+   "opt_R": 2.0000017453249876,
    "central_off": "central_off/ixitic/sisbethi_or_unnamed_1_1440v_5040c_central.off",
    "central_R": 3.4007156375996206
   },
@@ -165,12 +165,12 @@
    "start_R": 4.084283917870134,
    "R": 2.0604678629155004,
    "optimized": [
-    0.028818162561305427,
-    0.04856253668194879,
-    0.6000711073576215,
-    0.3225481933991243
+    -0.08529419986113698,
+    0.1380089144185201,
+    0.44148306056624936,
+    0.5058022248763676
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "minimum inside the shape; re-optimised crossing the mirrors and the fold (was R 3.143883)",
    "central": [
     0.11668053077173712,
     0.1962425888854457,
@@ -182,7 +182,7 @@
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sisbethi_or_unnamed_2_1440v_5040c_seed.off",
    "seed_R": 4.08428391787111,
    "opt_off": "optimized_off/ixitic/sisbethi_or_unnamed_2_1440v_5040c_opt.off",
-   "opt_R": 3.143882865207713,
+   "opt_R": 1.8140980120068435,
    "central_off": "central_off/ixitic/sisbethi_or_unnamed_2_1440v_5040c_central.off",
    "central_R": 5.825044035938521
   },
@@ -204,12 +204,12 @@
    "start_R": 2.6875142559385834,
    "R": 2.060467862915499,
    "optimized": [
-    -3.23072720244317e-16,
-    0.0629127569537402,
-    0.45332625271904026,
-    0.48376099032722003
+    -1.5209554696484847e-05,
+    6.45056096022566e-05,
+    0.5000351633493967,
+    0.4999155405956976
    ],
-   "optimized_status": "minimum inside the shape",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.000319); re-optimised crossing the mirrors and the fold (was R 2.060468)",
    "central": [
     0.17960109047718947,
     0.09759483247787892,
@@ -221,7 +221,7 @@
    "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_03_1440v_2880c_seed.off",
    "seed_R": 2.687514255939028,
    "opt_off": "optimized_off/ixitic/ixitic_wall_03_1440v_2880c_opt.off",
-   "opt_R": 2.0604678629157864,
+   "opt_R": 2.0003190811856326,
    "central_off": "central_off/ixitic/ixitic_wall_03_1440v_2880c_central.off",
    "central_R": 3.715716699686543
   },
@@ -241,12 +241,12 @@
    "start_R": 2.36473639680148,
    "R": 2.288245611270771,
    "optimized": [
-    -4.6442370643773604e-15,
-    1.0000000000000047,
-    0.0,
-    0.0
+    -0.712156688035698,
+    1.712156688035697,
+    -2.049110405148136e-14,
+    2.144106295920527e-14
    ],
-   "optimized_status": "minimum inside the shape",
+   "optimized_status": "minimum inside the shape; re-optimised crossing the mirrors and the fold (was R 2.288246)",
    "central": [
     0.5000000000000001,
     0.5,
@@ -258,7 +258,7 @@
    "seed_off": "new_shapes/off/ixitic/ixitic_line_tisthi_480v_1440c_seed.off",
    "seed_R": 2.3647363968017325,
    "opt_off": "optimized_off/ixitic/tisthi_480v_1440c_opt.off",
-   "opt_R": 2.2882456112710114,
+   "opt_R": 1.3946421831897606,
    "central_off": "central_off/ixitic/tisthi_480v_1440c_central.off",
    "central_R": 4.534567884457925
   },
