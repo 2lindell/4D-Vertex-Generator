@@ -714,7 +714,7 @@ class Graph:
         for a_ in range(len(cs)):                         # ends lying on other curves
             for x in (cs[a_]["pts"][0], cs[a_]["pts"][-1]):
                 for b_ in range(len(cs)):
-                    if b_ != a_ and seg_dist(cs[b_]["pts"], trees[b_], x) < 1e-7:
+                    if b_ != a_ and seg_dist(cs[b_]["pts"], trees[b_], x) < 3e-5:   # (within the chords' sag)
                         cuts[b_].append(x)
         segs, owner = [], []
         for ci, c in enumerate(cs):
@@ -878,9 +878,35 @@ class Graph:
                     self.E[ei][k] = nv
                 self.cone_points = getattr(self, "cone_points", []) + [v]
 
+    def snap_open_ends(self, r=1e-3):
+        """A boundary curve's end left loose (tracing stopped just short of a singular corner or
+        crossing) joined to the nearest vertex within r: its end point replaced by that vertex."""
+        from collections import Counter
+        deg = Counter()
+        for e in self.E:
+            deg[e["a"]] += 1
+            deg[e["b"]] += 1
+        for v in [v for v in deg if deg[v] == 1]:
+            x = self.V[v]
+            cands = [(np.linalg.norm(self.V[u] - x), u) for u in deg if u != v]
+            if not cands:
+                continue
+            d, u = min(cands)
+            if d > r:
+                continue
+            for e in self.E:
+                for k, idx in (("a", 0), ("b", -1)):
+                    if e[k] == v:
+                        e[k] = u
+                        e["pts"] = e["pts"].copy()
+                        e["pts"][idx] = self.V[u]
+            deg[u] += 1
+            deg[v] = 0
+
     def faces(self):
         """Faces: half-edges followed round each vertex in the surface's tangent plane (each face
         on the left of its half-edges, turning by the surface's normal)."""
+        self.snap_open_ends()
         self.split_cone_points()
         out = defaultdict(list)            # vertex -> [(angle, half-edge)]
         H = []                             # half-edges: (edge, forward)
@@ -1298,7 +1324,7 @@ def _triangulate(s, rings, c, n, normal, max_area, tr):
     # (each triangle, on the surface, facing the way the surface does)
     cr = _tri_normals(X, F)
     sn = np.array([normal(x) for x in X[F].mean(1)])
-    if ((cr * sn).sum(1) <= 0).any():
+    if _turned(cr, sn):
         return None
     return X, F, bad, (c, n, e1, e2)
 
@@ -1457,7 +1483,7 @@ def _ear_clip_on_surface(s, P, normal, h=0.02, rounds=8):
     F = np.array(F)
     cr = _tri_normals(X, F)
     sn = np.array([normal(x) for x in X[F].mean(1)])
-    if ((cr * sn).sum(1) <= 0).any():
+    if _turned(cr, sn):
         return None
     return X, F
 
@@ -1508,6 +1534,14 @@ def triangulate_face(s, rings, normal, max_area, tr, depth=0):
             out += part
         return out
     return None
+
+
+def _turned(cr, sn):
+    """Whether a triangle faces against the surface (where the surface's normal is too small to
+    tell, next to a singular point, it is not counted)."""
+    m = np.linalg.norm(sn, axis=1)
+    ok = m > 0.05 * np.median(m)
+    return bool(((cr * sn).sum(1)[ok] <= 0).any())
 
 
 def _tri_normals(X, F):
