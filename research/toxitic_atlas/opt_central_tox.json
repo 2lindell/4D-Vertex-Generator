@@ -1,0 +1,177 @@
+{
+ "_about": "Optimized and central seeds of the toxitic and oxitic shapes (opt_central_<sub>.json; optimized_off/toxitic|oxitic,\ncentral_off/toxitic|oxitic).",
+ "shapes": [
+  {
+   "group": "toxitic",
+   "name": "sebtidi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "a5f41b7684fb",
+   "locus": [],
+   "sheet": "tox",
+   "seed": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "start_R": 15.666305437267194,
+   "R": 1.4851159653039188,
+   "optimized": [
+    0.3422122465030855,
+    0.1551582288846516,
+    0.18201097843825673,
+    0.32061854617400615
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.46742346141747754,
+    0.1775255128608416,
+    0.17752551286083934,
+    0.17752551286084148
+   ],
+   "depth": 0.20498880527646393,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/toxitic/sebtidi_288v_528c_opt.off",
+   "opt_counts": [
+    288,
+    528
+   ],
+   "off_R": 1.4851159653039192,
+   "central_off": "central_off/toxitic/sebtidi_288v_528c_central.off",
+   "central_counts": [
+    288,
+    528
+   ]
+  },
+  {
+   "group": "toxitic",
+   "name": "pysni",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "6b0cb2276095",
+   "locus": [],
+   "sheet": "tox",
+   "seed": [
+    0.025112350533336124,
+    0.025277219491449947,
+    0.9496104299752138,
+    0.0
+   ],
+   "start_R": 22.57989442478663,
+   "R": 1.0,
+   "optimized": [
+    0.5,
+    -4.247653528130376e-55,
+    0.5,
+    0.0
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3333333333333335,
+    0.3333333333333333,
+    0.33333333333333337,
+    0.0
+   ],
+   "depth": 0.408248290463863,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/toxitic/pysni_288v_144c_opt.off",
+   "opt_counts": [
+    288,
+    144
+   ],
+   "off_R": 1.0000000000000002,
+   "central_off": "central_off/toxitic/pysni_288v_144c_central.off",
+   "central_counts": [
+    288,
+    144
+   ]
+  },
+  {
+   "group": "toxitic",
+   "name": "prissi",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "50cdad1380f5",
+   "locus": [],
+   "sheet": "tox",
+   "seed": [
+    0.05008698299106487,
+    0.0,
+    0.9245123808650045,
+    0.02540063614393059
+   ],
+   "start_R": 26.10374731163923,
+   "R": 1.0,
+   "optimized": [
+    0.4663911961440425,
+    0.0,
+    0.3297883774791577,
+    0.2038204263767998
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5773502691896258,
+    0.0,
+    0.21132486540518686,
+    0.2113248654051873
+   ],
+   "depth": 0.25881904510252046,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/toxitic/prissi_288v_240c_opt.off",
+   "opt_counts": [
+    288,
+    240
+   ],
+   "off_R": 1.0000000000000004,
+   "central_off": "central_off/toxitic/prissi_288v_240c_central.off",
+   "central_counts": [
+    288,
+    240
+   ]
+  },
+  {
+   "group": "toxitic",
+   "name": "sadi",
+   "kind": "line",
+   "degrees": 1,
+   "key": "3d29aef5b8e0",
+   "locus": [],
+   "sheet": "tox",
+   "seed": [
+    0.02512072515262567,
+    0.9748792748473744,
+    0.0,
+    0.0
+   ],
+   "start_R": 1.395885835043516,
+   "R": 1.0000000000000002,
+   "optimized": [
+    0.38196601125010504,
+    0.6180339887498948,
+    0.0,
+    1.9407410098929258e-16
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.49999999999999967,
+    0.5000000000000003,
+    0.0,
+    0.0
+   ],
+   "depth": 0.707106781186547,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/toxitic/sadi_96v_144c_opt.off",
+   "opt_counts": [
+    96,
+    144
+   ],
+   "off_R": 1.0000000000000004,
+   "central_off": "central_off/toxitic/sadi_96v_144c_central.off",
+   "central_counts": [
+    96,
+    144
+   ]
+  }
+ ]
+}
