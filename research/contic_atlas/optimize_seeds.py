@@ -32,6 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import forms as F  # noqa: E402  (the contic forms and group)
+import given_names  # noqa: E402  (the accepted names)
 import group as G  # noqa: E402
 
 sys.path.insert(1, os.path.join(ROOT, "decaic_atlas"))
@@ -105,11 +106,11 @@ def contic_shapes():
     for s, n in zip(S, N):
         seed = [float(Fraction(a)) + float(Fraction(b)) * 2 ** 0.5 for a, b in s["example"]]
         zero = [ktext(planes[i]) for i, v in enumerate(s["example_signs"]) if v == 0]
-        out.append({"name": n["decaic_counterpart"] + "-like", "kind": s["kind"], "degrees": s["degrees"], "seed": seed,
+        out.append({"name": given_names.contic(n["decaic_counterpart"]), "kind": s["kind"], "degrees": s["degrees"], "seed": seed,
                     "locus": O.independent(zero, seed), "hull_tol": 1e-9})
     O.add_pieces(out, [(f["dim"], f["point_float"], [ktext(planes[i]) for i, v in enumerate(f["signs"]) if v == 0])
                        for f in A["faces"]],
-                 {k: n["decaic_counterpart"] + "-like" for s, n in zip(S, N) for k in s["keys"]})
+                 {k: given_names.contic(n["decaic_counterpart"]) for s, n in zip(S, N) for k in s["keys"]})
     return out
 
 
@@ -150,6 +151,8 @@ def snub_shapes():
                             "degrees": 3, "seed": t["example"], "locus": [], "hull_tol": 1e-9})
     out.append({"name": "snad-like" if G.SUB == "ki" else "gippid-like", "kind": "line", "degrees": 1,
                 "seed": (np.array([1, 11, 11, 1]) / 24).tolist(), "locus": ["b1 - b4", "b2 - b3"], "hull_tol": 1e-9})
+    for s in out:
+        s["atlas_name"], s["name"] = s["name"], given_names.snub(G.SUB, s["name"])
     return out
 
 

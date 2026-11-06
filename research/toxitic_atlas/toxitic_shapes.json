@@ -21,6 +21,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "sebtidi",
    "vertices": 288,
    "cells": 528,
    "edges": {
@@ -47,6 +48,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "pysni",
    "vertices": 288,
    "cells": 144,
    "edges": {
@@ -72,6 +74,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "prissi",
    "vertices": 288,
    "cells": 240,
    "edges": {
@@ -98,6 +101,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "sadi",
    "vertices": 96,
    "cells": 144,
    "edges": {
@@ -124,6 +128,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "sidpii",
    "vertices": 144,
    "cells": 240,
    "edges": {
@@ -149,6 +154,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "icoi",
    "vertices": 288,
    "cells": 48,
    "edges": {
@@ -174,6 +180,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "ico",
    "vertices": 24,
    "cells": 24,
    "edges": {
@@ -199,6 +206,7 @@
    "sheets": [
     "tox"
    ],
+   "name": "rico",
    "vertices": 96,
    "cells": 48,
    "edges": {
@@ -229,6 +237,7 @@
     "ox",
     "oxb"
    ],
+   "name": "sosbitic",
    "vertices": 576,
    "cells": 1728,
    "edges": {
@@ -257,6 +266,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "gitatosbitac_or_mosbitic_1",
    "vertices": 576,
    "cells": 2304,
    "edges": {
@@ -286,6 +296,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "gitatosbitac_or_mosbitic_2",
    "vertices": 576,
    "cells": 2304,
    "edges": {
@@ -316,6 +327,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "gitatosbitac_or_mosbitic_3",
    "vertices": 576,
    "cells": 2304,
    "edges": {
@@ -345,6 +357,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "sidwosbitac",
    "vertices": 576,
    "cells": 2688,
    "edges": {
@@ -375,6 +388,7 @@
    "sheets": [
     "oxb"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2688,
    "edges": {
@@ -404,6 +418,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3168,
    "edges": {
@@ -434,6 +449,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3264,
    "edges": {
@@ -463,6 +479,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "medwosbitac",
    "vertices": 576,
    "cells": 3264,
    "edges": {
@@ -493,6 +510,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3264,
    "edges": {
@@ -523,6 +541,7 @@
    "sheets": [
     "oxb"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3264,
    "edges": {
@@ -552,6 +571,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "gidwosbitac",
    "vertices": 576,
    "cells": 3552,
    "edges": {
@@ -581,6 +601,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3840,
    "edges": {
@@ -611,6 +632,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3840,
    "edges": {
@@ -642,6 +664,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3840,
    "edges": {
@@ -673,6 +696,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "gadwosbitac",
    "vertices": 576,
    "cells": 3840,
    "edges": {
@@ -701,6 +725,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 3840,
    "edges": {
@@ -732,6 +757,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 4128,
    "edges": {
@@ -762,6 +788,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 4128,
    "edges": {
@@ -793,6 +820,7 @@
     "ox",
     "oxb"
    ],
+   "name": "tetabertetic",
    "vertices": 576,
    "cells": 336,
    "edges": {
@@ -819,6 +847,7 @@
     "ox",
     "oxb"
    ],
+   "name": "totabertetic",
    "vertices": 576,
    "cells": 384,
    "edges": {
@@ -845,6 +874,7 @@
     "ox",
     "oxb"
    ],
+   "name": "tatbitutic",
    "vertices": 576,
    "cells": 672,
    "edges": {
@@ -872,6 +902,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 816,
    "edges": {
@@ -899,6 +930,7 @@
     "ox",
     "oxb"
    ],
+   "name": "mabertetic",
    "vertices": 576,
    "cells": 864,
    "edges": {
@@ -925,6 +957,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 1008,
    "edges": {
@@ -953,6 +986,7 @@
     "ox",
     "oxb"
    ],
+   "name": "gabertetic",
    "vertices": 576,
    "cells": 1056,
    "edges": {
@@ -981,6 +1015,7 @@
     "ox",
     "oxb"
    ],
+   "name": "sabtutic",
    "vertices": 576,
    "cells": 1152,
    "edges": {
@@ -1011,6 +1046,7 @@
     "ox",
     "oxb"
    ],
+   "name": "stitosbetic",
    "vertices": 576,
    "cells": 1248,
    "edges": {
@@ -1039,6 +1075,7 @@
     "ox",
     "oxb"
    ],
+   "name": "sabertetic",
    "vertices": 576,
    "cells": 1248,
    "edges": {
@@ -1064,6 +1101,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 1728,
    "edges": {
@@ -1091,6 +1129,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 1728,
    "edges": {
@@ -1119,6 +1158,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "mitatosbitac",
    "vertices": 576,
    "cells": 1824,
    "edges": {
@@ -1147,6 +1187,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "gywosbitic",
    "vertices": 576,
    "cells": 1968,
    "edges": {
@@ -1175,6 +1216,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2112,
    "edges": {
@@ -1204,6 +1246,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "awosbitac",
    "vertices": 576,
    "cells": 2112,
    "edges": {
@@ -1233,6 +1276,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2112,
    "edges": {
@@ -1263,6 +1307,7 @@
     "ox",
     "oxb"
    ],
+   "name": "gabtutic",
    "vertices": 576,
    "cells": 2112,
    "edges": {
@@ -1292,6 +1337,7 @@
     "ox",
     "oxb"
    ],
+   "name": "gosbitic",
    "vertices": 576,
    "cells": 2112,
    "edges": {
@@ -1320,6 +1366,7 @@
    "sheets": [
     "oxb"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2112,
    "edges": {
@@ -1348,6 +1395,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2400,
    "edges": {
@@ -1376,6 +1424,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2400,
    "edges": {
@@ -1405,6 +1454,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2688,
    "edges": {
@@ -1435,6 +1485,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2688,
    "edges": {
@@ -1464,6 +1515,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2688,
    "edges": {
@@ -1492,6 +1544,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "otosbitac",
    "vertices": 576,
    "cells": 2688,
    "edges": {
@@ -1520,6 +1573,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2688,
    "edges": {
@@ -1549,6 +1603,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2976,
    "edges": {
@@ -1580,6 +1635,7 @@
    "sheets": [
     "ox"
    ],
+   "name": null,
    "vertices": 576,
    "cells": 2976,
    "edges": {
@@ -1610,6 +1666,7 @@
     "ox",
     "oxb"
    ],
+   "name": "bitac",
    "vertices": 192,
    "cells": 1248,
    "edges": {
@@ -1638,6 +1695,7 @@
     "ox",
     "oxb"
    ],
+   "name": "bipec",
    "vertices": 288,
    "cells": 528,
    "edges": {
@@ -1665,6 +1723,7 @@
    "sheets": [
     "ox"
    ],
+   "name": "sebtic",
    "vertices": 288,
    "cells": 528,
    "edges": {
@@ -1692,6 +1751,7 @@
     "ox",
     "oxb"
    ],
+   "name": "bimtec",
    "vertices": 576,
    "cells": 192,
    "edges": {
@@ -1719,6 +1779,7 @@
     "ox",
     "oxb"
    ],
+   "name": "bicont",
    "vertices": 48,
    "cells": 288,
    "edges": {
@@ -1746,6 +1807,7 @@
     "ox",
     "oxb"
    ],
+   "name": "spic",
    "vertices": 144,
    "cells": 240,
    "edges": {
@@ -1772,6 +1834,7 @@
     "ox",
     "oxb"
    ],
+   "name": "bamic",
    "vertices": 192,
    "cells": 192,
    "edges": {

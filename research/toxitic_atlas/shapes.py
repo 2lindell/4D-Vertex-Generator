@@ -25,6 +25,8 @@ from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONTIC = os.path.join(os.path.dirname(HERE), "contic_atlas")
+sys.path.insert(0, CONTIC)
+import given_names  # noqa: E402
 
 
 def gather(sub):
@@ -124,6 +126,7 @@ def merge(subs):
             s["kind"] = "wall"
     out = []
     for s in shapes.values():
+        s["name"] = (given_names.TOXITIC if subs == ["tox"] else given_names.OXITIC).get(s["key"])
         s["sources"], s["sheets"] = sorted(s["sources"]), sorted(s["sheets"])
         s["vertices"], s["cells"], s["edges"] = int(s["signature"].split(":")[0]), cells(s["signature"]), edges(s["signature"])
         out.append(s)
@@ -131,12 +134,12 @@ def merge(subs):
     return out
 
 
-def table(rows, group_order):
-    L = ["| kind | vertices | cells | edges by valence | symmetry | seed (beta) | found by |", "|---|---|---|---|---|---|---|"]
+def table(rows, group_order, names):
+    L = ["| name | kind | vertices | cells | edges by valence | symmetry | seed (beta) | found by |", "|---|---|---|---|---|---|---|---|"]
     for s in rows:
         sym = f"{s['symmetry']}" + (" (exactly the group)" if s["symmetry"] == group_order else "")
         src = "; ".join(x[:60] for x in s["sources"])[:120]
-        L.append(f"| {s['kind']} | {s['vertices']} | {s['cells']} | {s['edges']} | {sym} | "
+        L.append(f"| {names.get(s['key'], '')} | {s['kind']} | {s['vertices']} | {s['cells']} | {s['edges']} | {sym} | "
                  f"{[round(v, 5) for v in s['seed']]} {('(' + s['sheet'] + ')') if s['sheet'] == 'oxb' else ''} | {src} |")
     return L
 
@@ -166,7 +169,7 @@ def main():
           "The normaliser of toxitic is all of [[3,4,3]]: every F4 reflection and the swap map toxitic orbits to "
           "congruent ones, so the half-chamber is the whole shape space and its faces are mirrors (where the polytope "
           "gains a mirror: icopyritic [3,4,3+] or its dual, order 576).", ""]
-    L += table(tox, 288)
+    L += table(tox, 288, given_names.TOXITIC)
     n3 = sum(1 for s in tox if s["symmetry"] == 288)
     L += ["", f"Shapes with exactly toxitic symmetry: {n3}. The map (N = 32), every face, edge and corner (N = 40), and "
           "a dense survey of every edge and corner zone find one polychoron in the whole open domain.", ""]
@@ -177,7 +180,12 @@ def main():
           "sheet oxb: orbits under the mirror-image group, i.e. mirror images of the oxitic orbits of the reflected "
           "seeds), glued along the mirror faces (there both give the same polychoron, mirrored). The mirrors are no "
           "walls; the walls are curved (quadrics and quartics over Q(sqrt2)) and the plane b2 = b3.", ""]
-    L += table(ox, 576)
+    L += table(ox, 576, given_names.OXITIC)
+    L += ["", "Names: the accepted list (contic_atlas/given_names.py), matched by cells and by the edge valences at a "
+          "vertex. Notes:", ""] + [f"- {k}: {v}" for k, v in given_names.NOTES.items() if k != "mabosc_or_gabosc"]
+    L += ["- of the list's 23 oxitic names (21 of 576 vertices, bitac, sebtic), 22 are matched; mosbitic is among the "
+          "three gitatosbitac_or_mosbitic regions or is not found (above). Atlas oxitic shapes with no name in the list: "
+          f"{sum(1 for s in ox if s['symmetry'] == 576 and s['key'] not in given_names.OXITIC)} (new)."]
     cnt = Counter(s["kind"] for s in ox)
     n6 = Counter(s["kind"] for s in ox if s["symmetry"] == 576)
     L += ["", f"Totals: {dict(cnt)}; with exactly oxitic symmetry: {dict(n6)}.", ""]

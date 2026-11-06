@@ -1,6 +1,6 @@
 """The contic shapes, each with its decaic counterpart (the decaic shape in the same place of the domain, with the same
 kinds of cells: tet <-> tet, tut <-> tic, hip <-> hip or op, oct/trap <-> square antiprism, ...), exact seeds and the
-planes its faces lie on (contic_shapes.json, contic_shapes.md). Not an accepted list: contic names are not confirmed.
+planes its faces lie on (contic_shapes.json, contic_shapes.md); the accepted contic names from given_names.py.
 
     python names.py
 """
@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 from fractions import Fraction
 
+import given_names
 from qsqrt2 import K
 
 # (decaic counterpart: (kind, vertices, n_cells, a cell profile the shape must have))
@@ -49,7 +50,7 @@ def main():
         name = m[0] if len(m) == 1 else "UNMATCHED"
         used.add(name)
         on = [plane_text(planes[i]) for i, v in enumerate(s["example_signs"]) if v == 0]
-        out.append({"decaic_counterpart": name, "kind": s["kind"], "degrees": s["degrees"], "vertices": s["vertices"],
+        out.append({"name": given_names.contic(name), "decaic_counterpart": name, "kind": s["kind"], "degrees": s["degrees"], "vertices": s["vertices"],
                     "n_cells": s["n_cells"], "cells": s["cells_text"], "faces_by_dim": s["faces_by_dim"],
                     "seed_beta": [repr(kparse(v)) for v in s["example"]], "seed_float": s["example_float"],
                     "example_face_lies_on": on})
@@ -60,9 +61,9 @@ def main():
          f"{len(out)} shapes; each paired with its decaic counterpart (missing: {missing or 'none'}).", "",
          "Seeds: beta = distances to the four mirrors of the F4 chamber (b1, b2 long-root mirrors, b3, b4 short); "
          "domain beta >= 0, b1 >= b4. Exact values a + b*sqrt2; the float shown is normalized to sum 1.", "",
-         "| decaic counterpart | kind | vertices | cells | seed beta (float) | example face lies on |", "|---|---|---|---|---|---|"]
+         "| name | decaic counterpart | kind | vertices | cells | seed beta (float) | example face lies on |", "|---|---|---|---|---|---|---|"]
     for o in out:
-        L.append(f"| {o['decaic_counterpart']} | {o['kind']} ({o['degrees']}) | {o['vertices']} | {o['n_cells']}: {o['cells']} "
+        L.append(f"| {o['name']} | {o['decaic_counterpart']} | {o['kind']} ({o['degrees']}) | {o['vertices']} | {o['n_cells']}: {o['cells']} "
                  f"| {o['seed_float']} | {'; '.join(o['example_face_lies_on']) or '(open region)'} |")
     open("contic_shapes.md", "w").write("\n".join(L) + "\n")
     print("\n".join(L))

@@ -2,7 +2,7 @@
  "_about": "The most even seed of every contic, kicontic and iocontic shape (optimized_seeds<tag>.json, optimized .off files).",
  "shapes": [
   {
-   "name": "region_01_1152v_3552c",
+   "name": "sosbic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -45,7 +45,7 @@
    ],
    "off_R": 1.7834317973347236,
    "seconds": 37.1,
-   "off": "optimized_off/iocontic/region_01_1152v_3552c_1152v_3552c_opt.off",
+   "off": "optimized_off/iocontic/sosbic_1152v_3552c_opt.off",
    "vertices": 1152,
    "cells": 3552,
    "seed_vector": [
@@ -53,10 +53,11 @@
     0.3818331505980068,
     0.2303799766775551,
     0.17359974010168375
-   ]
+   ],
+   "atlas_name": "region_01_1152v_3552c"
   },
   {
-   "name": "region_02_1152v_3360c",
+   "name": "gosbic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -111,7 +112,7 @@
    ],
    "off_R": 1.733018801188213,
    "seconds": 40.2,
-   "off": "optimized_off/iocontic/region_02_1152v_3360c_1152v_3360c_opt.off",
+   "off": "optimized_off/iocontic/gosbic_1152v_3360c_opt.off",
    "vertices": 1152,
    "cells": 3360,
    "seed_vector": [
@@ -119,10 +120,11 @@
     0.457973275272384,
     0.2534994762052018,
     0.13161928587104138
-   ]
+   ],
+   "atlas_name": "region_02_1152v_3360c"
   },
   {
-   "name": "wall_01_1152v_1680c",
+   "name": "catosbic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -179,7 +181,7 @@
    ],
    "off_R": 1.4253578352776064,
    "seconds": 26.5,
-   "off": "optimized_off/iocontic/wall_01_1152v_1680c_1152v_1680c_opt.off",
+   "off": "optimized_off/iocontic/catosbic_1152v_1680c_opt.off",
    "vertices": 1152,
    "cells": 1680,
    "seed_vector": [
@@ -187,10 +189,11 @@
     0.41421356237309503,
     0.25036675343091175,
     0.15494397169856933
-   ]
+   ],
+   "atlas_name": "wall_01_1152v_1680c"
   },
   {
-   "name": "wall_02_1152v_1536c",
+   "name": "petosbic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -247,7 +250,7 @@
    ],
    "off_R": 1.5742779762052193,
    "seconds": 25.3,
-   "off": "optimized_off/iocontic/wall_02_1152v_1536c_1152v_1536c_opt.off",
+   "off": "optimized_off/iocontic/petosbic_1152v_1536c_opt.off",
    "vertices": 1152,
    "cells": 1536,
    "seed_vector": [
@@ -255,7 +258,8 @@
     0.47926414459003475,
     0.22546254204285518,
     0.12033447611578728
-   ]
+   ],
+   "atlas_name": "wall_02_1152v_1536c"
   },
   {
    "name": "region_03_1152v_4704c",
@@ -318,10 +322,11 @@
     0.4141942218327915,
     0.33332276202962596,
     0.2524752621266857
-   ]
+   ],
+   "atlas_name": "region_03_1152v_4704c"
   },
   {
-   "name": "gippid-like",
+   "name": "gippic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -379,7 +384,7 @@
    ],
    "off_R": 1.0,
    "seconds": 8.9,
-   "off": "optimized_off/iocontic/gippid-like_1152v_240c_opt.off",
+   "off": "optimized_off/iocontic/gippic_1152v_240c_opt.off",
    "vertices": 1152,
    "cells": 240,
    "seed_vector": [
@@ -387,7 +392,8 @@
     0.4142135623730951,
     0.2612038749637413,
     0.10819418755438778
-   ]
+   ],
+   "atlas_name": "gippid-like"
   }
  ]
 }

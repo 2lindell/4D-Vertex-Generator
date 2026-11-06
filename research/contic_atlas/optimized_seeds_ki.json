@@ -2,7 +2,7 @@
  "_about": "The most even seed of every contic, kicontic and iocontic shape (optimized_seeds<tag>.json, optimized .off files).",
  "shapes": [
   {
-   "name": "region_01_1152v_5280c",
+   "name": "mabosc_or_gabosc_1",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -54,7 +54,7 @@
    ],
    "off_R": 1.9831965111432446,
    "seconds": 278.1,
-   "off": "optimized_off/kicontic/region_01_1152v_5280c_1152v_5280c_opt.off",
+   "off": "optimized_off/kicontic/mabosc_or_gabosc_1_1152v_5280c_opt.off",
    "vertices": 1152,
    "cells": 5280,
    "seed_vector": [
@@ -62,7 +62,8 @@
     0.3656547119250707,
     0.20026622646223236,
     0.2002318742122712
-   ]
+   ],
+   "atlas_name": "region_01_1152v_5280c"
   },
   {
    "name": "region_02_1152v_5280c",
@@ -125,7 +126,8 @@
     0.38878945321858993,
     0.3288896560830628,
     0.2689579434758994
-   ]
+   ],
+   "atlas_name": "region_02_1152v_5280c"
   },
   {
    "name": "region_03_1152v_5280c",
@@ -176,10 +178,11 @@
     0.39968729407093656,
     0.3639478584014059,
     0.21023495312406787
-   ]
+   ],
+   "atlas_name": "region_03_1152v_5280c"
   },
   {
-   "name": "region_04_1152v_3936c",
+   "name": "apbosc",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -231,7 +234,7 @@
    ],
    "off_R": 2.3906149652598394,
    "seconds": 224.8,
-   "off": "optimized_off/kicontic/region_04_1152v_3936c_1152v_3936c_opt.off",
+   "off": "optimized_off/kicontic/apbosc_1152v_3936c_opt.off",
    "vertices": 1152,
    "cells": 3936,
    "seed_vector": [
@@ -239,10 +242,11 @@
     0.5067203747444076,
     0.27355520189330007,
     0.15165130366985083
-   ]
+   ],
+   "atlas_name": "region_04_1152v_3936c"
   },
   {
-   "name": "region_05_1152v_4128c",
+   "name": "sabosc",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -297,7 +301,7 @@
    ],
    "off_R": 1.7023103290572061,
    "seconds": 48.2,
-   "off": "optimized_off/kicontic/region_05_1152v_4128c_1152v_4128c_opt.off",
+   "off": "optimized_off/kicontic/sabosc_1152v_4128c_opt.off",
    "vertices": 1152,
    "cells": 4128,
    "seed_vector": [
@@ -305,10 +309,11 @@
     0.5304128254379813,
     0.2695281219679401,
     0.06617033908883377
-   ]
+   ],
+   "atlas_name": "region_05_1152v_4128c"
   },
   {
-   "name": "region_06_1152v_5280c",
+   "name": "mabosc_or_gabosc_2",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -360,7 +365,7 @@
    ],
    "off_R": 1.9541147207793967,
    "seconds": 255.7,
-   "off": "optimized_off/kicontic/region_06_1152v_5280c_1152v_5280c_opt.off",
+   "off": "optimized_off/kicontic/mabosc_or_gabosc_2_1152v_5280c_opt.off",
    "vertices": 1152,
    "cells": 5280,
    "seed_vector": [
@@ -368,7 +373,8 @@
     0.5403353453085111,
     0.255593484892699,
     0.10587030144237387
-   ]
+   ],
+   "atlas_name": "region_06_1152v_5280c"
   },
   {
    "name": "region_07_1152v_5280c",
@@ -431,7 +437,8 @@
     0.5287687714774886,
     0.16129250423717326,
     0.10323895066426195
-   ]
+   ],
+   "atlas_name": "region_07_1152v_5280c"
   },
   {
    "name": "region_08_1152v_5280c",
@@ -482,10 +489,11 @@
     0.5667972734582354,
     0.04507540420514469,
     0.018686899889688278
-   ]
+   ],
+   "atlas_name": "region_08_1152v_5280c"
   },
   {
-   "name": "wall_01_1152v_2688c",
+   "name": "sigawbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -539,7 +547,7 @@
    ],
    "off_R": 1.9811823507184483,
    "seconds": 158.2,
-   "off": "optimized_off/kicontic/wall_01_1152v_2688c_1152v_2688c_opt.off",
+   "off": "optimized_off/kicontic/sigawbosc_1152v_2688c_opt.off",
    "vertices": 1152,
    "cells": 2688,
    "seed_vector": [
@@ -547,7 +555,8 @@
     0.36565454019193877,
     0.200160596240361,
     0.20014108354076607
-   ]
+   ],
+   "atlas_name": "wall_01_1152v_2688c"
   },
   {
    "name": "wall_02_1152v_3552c",
@@ -612,7 +621,8 @@
     0.38878556417442867,
     0.32888564649971636,
     0.268963600354948
-   ]
+   ],
+   "atlas_name": "wall_02_1152v_3552c"
   },
   {
    "name": "wall_03_1152v_3552c",
@@ -677,10 +687,11 @@
     0.4141883081768292,
     0.32041500676688545,
     0.22653599736207297
-   ]
+   ],
+   "atlas_name": "wall_03_1152v_3552c"
   },
   {
-   "name": "wall_04_1152v_2256c",
+   "name": "catbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -737,7 +748,7 @@
    ],
    "off_R": 1.907518250801892,
    "seconds": 26.3,
-   "off": "optimized_off/kicontic/wall_04_1152v_2256c_1152v_2256c_opt.off",
+   "off": "optimized_off/kicontic/catbosc_1152v_2256c_opt.off",
    "vertices": 1152,
    "cells": 2256,
    "seed_vector": [
@@ -745,10 +756,11 @@
     0.4142135623730951,
     0.24090009853292138,
     0.19122437614574375
-   ]
+   ],
+   "atlas_name": "wall_04_1152v_2256c"
   },
   {
-   "name": "wall_05_1152v_2112c",
+   "name": "petbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -805,7 +817,7 @@
    ],
    "off_R": 1.9979944525625615,
    "seconds": 27.4,
-   "off": "optimized_off/kicontic/wall_05_1152v_2112c_1152v_2112c_opt.off",
+   "off": "optimized_off/kicontic/petbosc_1152v_2112c_opt.off",
    "vertices": 1152,
    "cells": 2112,
    "seed_vector": [
@@ -813,10 +825,11 @@
     0.507828223764854,
     0.2284203744990203,
     0.1333912794252672
-   ]
+   ],
+   "atlas_name": "wall_05_1152v_2112c"
   },
   {
-   "name": "wall_06_1152v_2976c",
+   "name": "gigawbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -873,7 +886,7 @@
    ],
    "off_R": 1.8057908946543568,
    "seconds": 40.1,
-   "off": "optimized_off/kicontic/wall_06_1152v_2976c_1152v_2976c_opt.off",
+   "off": "optimized_off/kicontic/gigawbosc_1152v_2976c_opt.off",
    "vertices": 1152,
    "cells": 2976,
    "seed_vector": [
@@ -881,7 +894,8 @@
     0.545137349599276,
     0.2853853716331849,
     0.11821049143335115
-   ]
+   ],
+   "atlas_name": "wall_06_1152v_2976c"
   },
   {
    "name": "wall_07_1152v_3552c",
@@ -949,7 +963,8 @@
     0.5288467101386666,
     0.1613209135948439,
     0.10327745875549649
-   ]
+   ],
+   "atlas_name": "wall_07_1152v_3552c"
   },
   {
    "name": "wall_08_1152v_3552c",
@@ -1014,7 +1029,8 @@
     0.699014340008436,
     0.08359771658533424,
     0.06719579847846725
-   ]
+   ],
+   "atlas_name": "wall_08_1152v_3552c"
   },
   {
    "name": "region_09_1152v_6432c",
@@ -1077,7 +1093,8 @@
     0.4141619198619326,
     0.3333390468336656,
     0.2524958552863799
-   ]
+   ],
+   "atlas_name": "region_09_1152v_6432c"
   },
   {
    "name": "region_10_1152v_6432c",
@@ -1140,7 +1157,8 @@
     0.3998049953883466,
     0.3320531132368115,
     0.2590201831133974
-   ]
+   ],
+   "atlas_name": "region_10_1152v_6432c"
   },
   {
    "name": "region_11_1152v_6432c",
@@ -1203,7 +1221,8 @@
     0.38879012888143377,
     0.32890148155417903,
     0.2689532174265996
-   ]
+   ],
+   "atlas_name": "region_11_1152v_6432c"
   },
   {
    "name": "region_12_1152v_6432c",
@@ -1266,7 +1285,8 @@
     0.567438721799571,
     0.10813903613509195,
     0.10813715308679812
-   ]
+   ],
+   "atlas_name": "region_12_1152v_6432c"
   },
   {
    "name": "region_13_1152v_6432c",
@@ -1317,7 +1337,8 @@
     0.5672657025167169,
     0.10817082085055292,
     0.10815322719020551
-   ]
+   ],
+   "atlas_name": "region_13_1152v_6432c"
   },
   {
    "name": "region_14_1152v_6432c",
@@ -1380,10 +1401,11 @@
     0.6991808253679906,
     0.08358542743672467,
     0.06720297068220073
-   ]
+   ],
+   "atlas_name": "region_14_1152v_6432c"
   },
   {
-   "name": "snad-like",
+   "name": "snoc",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1441,7 +1463,7 @@
    ],
    "off_R": 1.2062710560078225,
    "seconds": 9.5,
-   "off": "optimized_off/kicontic/snad-like_576v_816c_opt.off",
+   "off": "optimized_off/kicontic/snoc_576v_816c_opt.off",
    "vertices": 576,
    "cells": 816,
    "seed_vector": [
@@ -1449,7 +1471,8 @@
     0.41421356237309503,
     0.21684533543747514,
     0.08982027887554533
-   ]
+   ],
+   "atlas_name": "snad-like"
   }
  ]
 }

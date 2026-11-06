@@ -96,52 +96,52 @@ Folders (tessic family: seed vectors in R^4, the B4 frame, vertices the signed p
 
 | shape | kind | R start | R best | status | best beta | off seed (R) | file |
 |---|---|---|---|---|---|---|---|
-| sabotid-like | region (3) | 46.307538 | 1.8866314650 | minimum inside the shape | [0.3267877261, 0.3267877261, 0.1732122739, 0.1732122739] | same | sabotid-like_2304v_1248c_opt.off |
-| gabotid-like | region (3) | 3.866437 | 2.3065629649 | minimum inside the shape | [0.3487855803, 0.1512144197, 0.3487855803, 0.1512144197] | same | gabotid-like_2304v_1056c_opt.off |
-| gabipard-like | wall (2) | 47.713203 | 3.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.6, 0.0, 0.2, 0.2] | [0.6002162285, 0.0, 0.1998171051, 0.1999666663] (3.003828) | gabipard-like_1152v_1248c_opt.off |
-| mabipard-like | wall (2) | 3.000000 | 1.8057908947 | minimum inside the shape | [0.3915773323, 0.0, 0.3915773323, 0.2168453354] | same | mabipard-like_1152v_1056c_opt.off |
-| sabipard-like | wall (2) | 3.000000 | 1.4200457834 | minimum inside the shape | [0.3697947715, 0.3697947715, 0.0, 0.260410457] | same | sabipard-like_1152v_1248c_opt.off |
-| mobcated-like | wall (2) | 3.919689 | 1.7071067812 | infimum on the shape's edge (a sign condition is active): not attained | [0.3431457505, 0.2426406871, 0.4142135624, -0.0] | [0.3429692678, 0.2427313816, 0.4142993506, 0.0] (1.708339) | mobcated-like_1152v_864c_opt.off |
-| sobcated-like | wall (2) | 1.470127 | 1.2293022136 | minimum inside the shape | [0.3554330191, 0.3554330191, 0.2891339617, -0.0] | same | sobcated-like_1152v_1248c_opt.off |
-| gobcated-like | wall (2) | 4.653010 | 4.4142135624 | infimum on the shape's edge (a sign condition is active): not attained | [0.1559037582, 0.1559037582, 0.6881924837, -0.0] | [0.1558952675, 0.1559145223, 0.6881902102, 0.0] (4.414439) | gobcated-like_1152v_1056c_opt.off |
-| petbotid-like | wall (2) | 1.767767 | 1.7071067812 | minimum inside the shape | [0.3964466324, 0.160188585, 0.2734590197, 0.169905763] | same | petbotid-like_2304v_384c_opt.off |
-| tetbotid-like | wall (2) | 1.735674 | 1.5411961001 | minimum inside the shape | [0.2273851233, 0.1762309769, 0.4488458134, 0.1475380864] | same | tetbotid-like_2304v_528c_opt.off |
-| biped-like | line (1) | 19.485281 | 2.3065629649 | minimum inside the shape | [0.6975711606, 0.0, 0.0, 0.3024288394] | same | biped-like_288v_528c_opt.off |
-| bited-like | line (1) | 5.828427 | 1.1278643263 | minimum inside the shape | [0.5, 0.5, 0.0, -0.0] | same | bited-like_384v_1056c_opt.off |
-| mabred-like | line (1) | 3.736189 | 2.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.6666666667, 0.0, 0.3333333333, 0.0] | [0.6667888632, 0.0, 0.3332111368, 0.0] (2.001100) | mabred-like_576v_1248c_opt.off |
-| sabred-like | line (1) | 2.356048 | 1.3065629649 | minimum inside the shape | [0.5, 0.0, 0.5, 0.0] | same | sabred-like_576v_864c_opt.off |
-| gabred-like | line (1) | 7.828427 | 3.4142135624 | infimum on the shape's edge (a sign condition is active): not attained | [0.2265409197, 0.0, 0.7734590803, 0.0] | [0.2264276486, 0.0, 0.7735723514, 0.0] (3.416422) | gabred-like_576v_1056c_opt.off |
-| bimted-like | line (1) | 3.000000 | 2.7071067812 | minimum inside the shape | [0.0, 0.2697521434, 0.7302478566, -0.0] | same | bimted-like_576v_192c_opt.off |
-| tispid-like | line (1) | 1.500000 | 1.4142135624 | minimum inside the shape (not unique: R is flat along the locus there) | [0.5857865445, 0.0, 0.1715730889, 0.2426403666] | same | tispid-like_1152v_384c_opt.off |
-| tabcated-like | line (1) | 10.010408 | 1.7071067812 | minimum inside the shape | [0.3431457505, 0.2426406871, 0.4142135624, -0.0] | same | tabcated-like_1152v_384c_opt.off |
-| gippid-like | line (1) | 7.828427 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | same | gippid-like_1152v_240c_opt.off |
-| tabipard-like | line (1) | 8.044318 | 1.5411961001 | minimum inside the shape | [0.3511533024, 0.0, 0.421002037, 0.2278446606] | same | tabipard-like_1152v_528c_opt.off |
-| tadeca-like | line (1) | 2.207107 | 1.8477590650 | minimum inside the shape (not unique: R is flat along the locus there) | [0.1233086774, 0.2278445818, 0.6488467407, 0.0] | same | tadeca-like_1152v_336c_opt.off |
-| bideca-like | point (0) | 1.306563 | 1.3065629649 | point (no freedom) | [1.0, 0.0, 0.0, 0.0] | same | bideca-like_48v_288c_opt.off |
-| spid-like | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.5, 0.0, 0.0, 0.5] | same | spid-like_144v_240c_opt.off |
-| apid-like | point (0) | 1.707107 | 1.7071067812 | point (no freedom) | [0.0, 0.0, 1.0, 0.0] | same | apid-like_192v_192c_opt.off |
-| deca-like | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 0.5, 0.5, 0.0] | same | deca-like_288v_48c_opt.off |
-| respid-like | point (0) | 1.414214 | 1.4142135624 | point (no freedom) | [0.6666666667, 0.0, 0.3333333333, 0.0] | same | respid-like_576v_384c_opt.off |
-| redeca-like | point (0) | 1.847759 | 1.8477590650 | point (no freedom) | [0.2265409197, 0.0, 0.7734590803, 0.0] | same | redeca-like_576v_336c_opt.off |
+| sabotic | region (3) | 46.307538 | 1.8866314650 | minimum inside the shape | [0.3267877261, 0.3267877261, 0.1732122739, 0.1732122739] | same | sabotic_2304v_1248c_opt.off |
+| gabotic | region (3) | 3.866437 | 2.3065629649 | minimum inside the shape | [0.3487855803, 0.1512144197, 0.3487855803, 0.1512144197] | same | gabotic_2304v_1056c_opt.off |
+| gabiparc | wall (2) | 47.713203 | 3.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.6, 0.0, 0.2, 0.2] | [0.6002162285, 0.0, 0.1998171051, 0.1999666663] (3.003828) | gabiparc_1152v_1248c_opt.off |
+| mabiparc | wall (2) | 3.000000 | 1.8057908947 | minimum inside the shape | [0.3915773323, 0.0, 0.3915773323, 0.2168453354] | same | mabiparc_1152v_1056c_opt.off |
+| sabiparc | wall (2) | 3.000000 | 1.4200457834 | minimum inside the shape | [0.3697947715, 0.3697947715, 0.0, 0.260410457] | same | sabiparc_1152v_1248c_opt.off |
+| mobcotic | wall (2) | 3.919689 | 1.7071067812 | infimum on the shape's edge (a sign condition is active): not attained | [0.3431457505, 0.2426406871, 0.4142135624, -0.0] | [0.3429692678, 0.2427313816, 0.4142993506, 0.0] (1.708339) | mobcotic_1152v_864c_opt.off |
+| sobcotic | wall (2) | 1.470127 | 1.2293022136 | minimum inside the shape | [0.3554330191, 0.3554330191, 0.2891339617, -0.0] | same | sobcotic_1152v_1248c_opt.off |
+| gobcotic | wall (2) | 4.653010 | 4.4142135624 | infimum on the shape's edge (a sign condition is active): not attained | [0.1559037582, 0.1559037582, 0.6881924837, -0.0] | [0.1558952675, 0.1559145223, 0.6881902102, 0.0] (4.414439) | gobcotic_1152v_1056c_opt.off |
+| pitbotic | wall (2) | 1.767767 | 1.7071067812 | minimum inside the shape | [0.3964466324, 0.160188585, 0.2734590197, 0.169905763] | same | pitbotic_2304v_384c_opt.off |
+| catbotic | wall (2) | 1.735674 | 1.5411961001 | minimum inside the shape | [0.2273851233, 0.1762309769, 0.4488458134, 0.1475380864] | same | catbotic_2304v_528c_opt.off |
+| bipec | line (1) | 19.485281 | 2.3065629649 | minimum inside the shape | [0.6975711606, 0.0, 0.0, 0.3024288394] | same | bipec_288v_528c_opt.off |
+| bitec | line (1) | 5.828427 | 1.1278643263 | minimum inside the shape | [0.5, 0.5, 0.0, -0.0] | same | bitec_384v_1056c_opt.off |
+| sabric | line (1) | 3.736189 | 2.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.6666666667, 0.0, 0.3333333333, 0.0] | [0.6667888632, 0.0, 0.3332111368, 0.0] (2.001100) | sabric_576v_1248c_opt.off |
+| mabric | line (1) | 2.356048 | 1.3065629649 | minimum inside the shape | [0.5, 0.0, 0.5, 0.0] | same | mabric_576v_864c_opt.off |
+| gabric | line (1) | 7.828427 | 3.4142135624 | infimum on the shape's edge (a sign condition is active): not attained | [0.2265409197, 0.0, 0.7734590803, 0.0] | [0.2264276486, 0.0, 0.7735723514, 0.0] (3.416422) | gabric_576v_1056c_opt.off |
+| bimtec | line (1) | 3.000000 | 2.7071067812 | minimum inside the shape | [0.0, 0.2697521434, 0.7302478566, -0.0] | same | bimtec_576v_192c_opt.off |
+| tispic | line (1) | 1.500000 | 1.4142135624 | minimum inside the shape (not unique: R is flat along the locus there) | [0.5857865445, 0.0, 0.1715730889, 0.2426403666] | same | tispic_1152v_384c_opt.off |
+| tabcatic | line (1) | 10.010408 | 1.7071067812 | minimum inside the shape | [0.3431457505, 0.2426406871, 0.4142135624, -0.0] | same | tabcatic_1152v_384c_opt.off |
+| gippic | line (1) | 7.828427 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | same | gippic_1152v_240c_opt.off |
+| tabiparc | line (1) | 8.044318 | 1.5411961001 | minimum inside the shape | [0.3511533024, 0.0, 0.421002037, 0.2278446606] | same | tabiparc_1152v_528c_opt.off |
+| ticont | line (1) | 2.207107 | 1.8477590650 | minimum inside the shape (not unique: R is flat along the locus there) | [0.1233086774, 0.2278445818, 0.6488467407, 0.0] | same | ticont_1152v_336c_opt.off |
+| bicont | point (0) | 1.306563 | 1.3065629649 | point (no freedom) | [1.0, 0.0, 0.0, 0.0] | same | bicont_48v_288c_opt.off |
+| spic | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.5, 0.0, 0.0, 0.5] | same | spic_144v_240c_opt.off |
+| bamic | point (0) | 1.707107 | 1.7071067812 | point (no freedom) | [0.0, 0.0, 1.0, 0.0] | same | bamic_192v_192c_opt.off |
+| cont | point (0) | 1.000000 | 1.0000000000 | point (no freedom) | [0.0, 0.5, 0.5, 0.0] | same | cont_288v_48c_opt.off |
+| respic | point (0) | 1.414214 | 1.4142135624 | point (no freedom) | [0.6666666667, 0.0, 0.3333333333, 0.0] | same | respic_576v_384c_opt.off |
+| recont | point (0) | 1.847759 | 1.8477590650 | point (no freedom) | [0.2265409197, 0.0, 0.7734590803, 0.0] | same | recont_576v_336c_opt.off |
 
 ## Kicontic
 
 | shape | kind | R start | R best | status | best beta | off seed (R) | file |
 |---|---|---|---|---|---|---|---|
-| region_01_1152v_5280c | region (3) | 20.032259 | 1.9784371515 | infimum on the shape's edge (a sign condition is active): not attained | [0.2697521434, -0.0, 0.4604957132, 0.2697521434] | [0.2693849922, 5.5953e-05, 0.4612287145, 0.2693303403] (1.983197) | region_01_1152v_5280c_1152v_5280c_opt.off |
+| mabosc_or_gabosc_1 | region (3) | 20.032259 | 1.9784371515 | infimum on the shape's edge (a sign condition is active): not attained | [0.2697521434, -0.0, 0.4604957132, 0.2697521434] | [0.2693849922, 5.5953e-05, 0.4612287145, 0.2693303403] (1.983197) | mabosc_or_gabosc_1_1152v_5280c_opt.off |
 | region_02_1152v_5280c | region (3) | 12.450867 | 7.0028104157 | infimum on the shape's edge (a sign condition is active): not attained | [0.1175875312, 0.1175875312, 0.7462977101, 0.0185272275] | [0.117532507, 0.11759513, 0.7463319287, 0.0185404343] (7.006224) | region_02_1152v_5280c_1152v_5280c_opt.off |
 | region_03_1152v_5280c | region (3) | 12.024727 | 3.0747904739 | infimum on the shape's edge (a sign condition is active): not attained | [0.2414485547, 0.133330076, 0.4875095936, 0.1377117758] | [0.0707366895, 0.3042337364, 0.5884600174, 0.0365695568] (10.446791) | region_03_1152v_5280c_1152v_5280c_opt.off |
-| region_04_1152v_3936c | region (3) | 16.501498 | 2.3869165348 | infimum on the shape's edge (a sign condition is active): not attained | [0.3778059139, 0.1971515697, 0.3470665369, 0.0779759794] | [0.377490662, 0.1973604491, 0.347219156, 0.0779297329] (2.390615) | region_04_1152v_3936c_1152v_3936c_opt.off |
-| region_05_1152v_4128c | region (3) | 23.958866 | 1.7023103291 | minimum inside the shape | [0.3998263062, 0.3116617804, 0.1434171563, 0.1450947571] | same | region_05_1152v_4128c_1152v_4128c_opt.off |
-| region_06_1152v_5280c | region (3) | 17.046681 | 1.9514378726 | infimum on the shape's edge (a sign condition is active): not attained | [0.4360028985, 0.2288404697, 0.2288404697, 0.1063161621] | [0.4356337253, 0.2290652596, 0.2290653096, 0.1062357054] (1.954115) | region_06_1152v_5280c_1152v_5280c_opt.off |
+| apbosc | region (3) | 16.501498 | 2.3869165348 | infimum on the shape's edge (a sign condition is active): not attained | [0.3778059139, 0.1971515697, 0.3470665369, 0.0779759794] | [0.377490662, 0.1973604491, 0.347219156, 0.0779297329] (2.390615) | apbosc_1152v_3936c_opt.off |
+| sabosc | region (3) | 23.958866 | 1.7023103291 | minimum inside the shape | [0.3998263062, 0.3116617804, 0.1434171563, 0.1450947571] | same | sabosc_1152v_4128c_opt.off |
+| mabosc_or_gabosc_2 | region (3) | 17.046681 | 1.9514378726 | infimum on the shape's edge (a sign condition is active): not attained | [0.4360028985, 0.2288404697, 0.2288404697, 0.1063161621] | [0.4356337253, 0.2290652596, 0.2290653096, 0.1062357054] (1.954115) | mabosc_or_gabosc_2_1152v_5280c_opt.off |
 | region_07_1152v_5280c | region (3) | 8.355230 | 2.5163282107 | infimum on the shape's edge (a sign condition is active): not attained | [0.5121011643, 0.0808762843, 0.2035112757, 0.2035112757] | [0.5120260589, 0.0808893931, 0.2034329738, 0.2036515741] (2.518001) | region_07_1152v_5280c_1152v_5280c_opt.off |
 | region_08_1152v_5280c | region (3) | 11.957469 | 11.9574691469 | no progress: the optimiser found no feasible step from the seed (seed kept) | [0.6242398655, 0.0315738277, 0.0316202075, 0.3125660994] | same | region_08_1152v_5280c_1152v_5280c_opt.off |
-| wall_01_1152v_2688c | wall (2) | 20.917544 | 1.9784371515 | infimum on the shape's edge (a sign condition is active): not attained | [0.2697521434, -0.0, 0.4604957132, 0.2697521434] | [0.2695123235, 3.17771e-05, 0.460943576, 0.2695123235] (1.981182) | wall_01_1152v_2688c_1152v_2688c_opt.off |
+| sigawbosc | wall (2) | 20.917544 | 1.9784371515 | infimum on the shape's edge (a sign condition is active): not attained | [0.2697521434, -0.0, 0.4604957132, 0.2697521434] | [0.2695123235, 3.17771e-05, 0.460943576, 0.2695123235] (1.981182) | sigawbosc_1152v_2688c_opt.off |
 | wall_02_1152v_3552c | wall (2) | 12.509648 | 7.0028104157 | infimum on the shape's edge (a sign condition is active): not attained | [0.1175875312, 0.1175875312, 0.7462977101, 0.0185272275] | [0.1175327345, 0.1175761539, 0.7463475685, 0.0185435432] (7.006189) | wall_02_1152v_3552c_1152v_3552c_opt.off |
 | wall_03_1152v_3552c | wall (2) | 10.496220 | 4.0129533058 | infimum on the shape's edge (a sign condition is active): not attained | [0.1752201314, 0.1752201314, 0.598238949, 0.0513207883] | [0.1751131338, 0.1753105339, 0.5982624354, 0.051313897] (4.015785) | wall_03_1152v_3552c_1152v_3552c_opt.off |
-| wall_04_1152v_2256c | wall (2) | 7.885961 | 1.9075182508 | minimum inside the shape | [0.2878594395, 0.082507298, 0.4491655339, 0.1804677286] | same | wall_04_1152v_2256c_1152v_2256c_opt.off |
-| wall_05_1152v_2112c | wall (2) | 28.256169 | 1.9979944526 | minimum inside the shape | [0.4264081109, 0.1450251917, 0.287891797, 0.1406749003] | same | wall_05_1152v_2112c_1152v_2112c_opt.off |
-| wall_06_1152v_2976c | wall (2) | 17.027607 | 1.8057908947 | minimum inside the shape | [0.412073945, 0.2652084228, 0.2652084228, 0.0575092094] | same | wall_06_1152v_2976c_1152v_2976c_opt.off |
+| catbosc | wall (2) | 7.885961 | 1.9075182508 | minimum inside the shape | [0.2878594395, 0.082507298, 0.4491655339, 0.1804677286] | same | catbosc_1152v_2256c_opt.off |
+| petbosc | wall (2) | 28.256169 | 1.9979944526 | minimum inside the shape | [0.4264081109, 0.1450251917, 0.287891797, 0.1406749003] | same | petbosc_1152v_2112c_opt.off |
+| gigawbosc | wall (2) | 17.027607 | 1.8057908947 | minimum inside the shape | [0.412073945, 0.2652084228, 0.2652084228, 0.0575092094] | same | gigawbosc_1152v_2976c_opt.off |
 | wall_07_1152v_3552c | wall (2) | 8.793390 | 2.5163282107 | minimum inside the shape | [0.5121011643, 0.0808762843, 0.2035112757, 0.2035112757] | same | wall_07_1152v_3552c_1152v_3552c_opt.off |
 | wall_08_1152v_3552c | wall (2) | 9.888103 | 5.8207546037 | infimum on the shape's edge (a sign condition is active): not attained | [0.7388835642, 0.0196665466, 0.1141504307, 0.1272994586] | [0.738751447, 0.0196890046, 0.1140738865, 0.1274856619] (5.822638) | wall_08_1152v_3552c_1152v_3552c_opt.off |
 | region_09_1152v_6432c | region (3) | 16.635250 | 5.1699054209 | infimum on the shape's edge (a sign condition is active): not attained | [0.1559037582, 0.1559037582, 0.6881924837, 0.0] | [0.1558027158, 0.155841884, 0.6883510683, 4.3319e-06] (5.173950) | region_09_1152v_6432c_1152v_6432c_opt.off |
@@ -150,18 +150,18 @@ Folders (tessic family: seed vectors in R^4, the B4 frame, vertices the signed p
 | region_12_1152v_6432c | region (3) | 13.214097 | 3.1622776602 | infimum on the shape's edge (a sign condition is active): not attained | [0.6, -0.0, 0.2, 0.2] | [0.6002605123, 2.461e-06, 0.1998635311, 0.1998734957] (3.165446) | region_12_1152v_6432c_1152v_6432c_opt.off |
 | region_13_1152v_6432c | region (3) | 5.185682 | 3.1623069967 | infimum on the shape's edge (a sign condition is active): not attained | [0.6000023013, 9.817e-07, 0.1999980114, 0.1999987056] | [0.6000539115, 2.29956e-05, 0.199913582, 0.2000095109] (3.163658) | region_13_1152v_6432c_1152v_6432c_opt.off |
 | region_14_1152v_6432c | region (3) | 14.120967 | 5.8207546037 | infimum on the shape's edge (a sign condition is active): not attained | [0.7388835642, 0.0196665466, 0.1141504307, 0.1272994586] | [0.7389169525, 0.0196643364, 0.1140784824, 0.1273402286] (5.824376) | region_14_1152v_6432c_1152v_6432c_opt.off |
-| snad-like | line (1) | 14.372193 | 1.2062710560 | minimum inside the shape | [0.3042113339, 0.1957886661, 0.1957886661, 0.3042113339] | same | snad-like_576v_816c_opt.off |
+| snoc | line (1) | 14.372193 | 1.2062710560 | minimum inside the shape | [0.3042113339, 0.1957886661, 0.1957886661, 0.3042113339] | same | snoc_576v_816c_opt.off |
 
 ## Iocontic
 
 | shape | kind | R start | R best | status | best beta | off seed (R) | file |
 |---|---|---|---|---|---|---|---|
-| region_01_1152v_3552c | region (3) | 20.032259 | 1.7834317973 | minimum inside the shape | [0.2502557051, 0.0938215936, 0.4056669962, 0.2502557051] | same | region_01_1152v_3552c_1152v_3552c_opt.off |
-| region_02_1152v_3360c | region (3) | 12.400556 | 1.7330188012 | minimum inside the shape | [0.3279754179, 0.195495494, 0.2985644918, 0.1779645962] | same | region_02_1152v_3360c_1152v_3360c_opt.off |
-| wall_01_1152v_1680c | wall (2) | 4.713161 | 1.4253578353 | minimum inside the shape | [0.2703702313, 0.1574609829, 0.3615851342, 0.2105836516] | same | wall_01_1152v_1680c_1152v_1680c_opt.off |
-| wall_02_1152v_1536c | wall (2) | 1.983591 | 1.5742779762 | minimum inside the shape | [0.3887840056, 0.1610396079, 0.260686835, 0.1894895514] | same | wall_02_1152v_1536c_1152v_1536c_opt.off |
+| sosbic | region (3) | 20.032259 | 1.7834317973 | minimum inside the shape | [0.2502557051, 0.0938215936, 0.4056669962, 0.2502557051] | same | sosbic_1152v_3552c_opt.off |
+| gosbic | region (3) | 12.400556 | 1.7330188012 | minimum inside the shape | [0.3279754179, 0.195495494, 0.2985644918, 0.1779645962] | same | gosbic_1152v_3360c_opt.off |
+| catosbic | wall (2) | 4.713161 | 1.4253578353 | minimum inside the shape | [0.2703702313, 0.1574609829, 0.3615851342, 0.2105836516] | same | catosbic_1152v_1680c_opt.off |
+| petosbic | wall (2) | 1.983591 | 1.5742779762 | minimum inside the shape | [0.3887840056, 0.1610396079, 0.260686835, 0.1894895514] | same | petosbic_1152v_1536c_opt.off |
 | region_03_1152v_4704c | region (3) | 8.691921 | 5.1699054209 | infimum on the shape's edge (a sign condition is active): not attained | [0.1559037582, 0.1559037582, 0.6881924837, 0.0] | [0.1558882608, 0.1558420756, 0.6882590947, 1.05689e-05] (5.172060) | region_03_1152v_4704c_1152v_4704c_opt.off |
-| gippid-like | line (1) | 11.000000 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | same | gippid-like_1152v_240c_opt.off |
+| gippic | line (1) | 11.000000 | 1.0000000000 | minimum inside the shape | [0.25, 0.25, 0.25, 0.25] | same | gippic_1152v_240c_opt.off |
 
 ## Tessic
 

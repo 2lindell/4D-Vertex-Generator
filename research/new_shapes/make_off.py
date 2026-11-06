@@ -149,7 +149,7 @@ def main():
         V, Vn, idx, faces, cells = C.polytope(b)
         if len(V) != s["vertices"] or len(cells) != s["n_cells"]:
             raise RuntimeError(f"contic {s['decaic_counterpart']}: rebuilt with {len(cells)} cells, not {s['n_cells']}")
-        name = f"contic_{s['kind']}_{s['decaic_counterpart']}-like_{len(V)}v_{len(cells)}c"
+        name = f"contic_{s['kind']}_{s['name']}_{len(V)}v_{len(cells)}c"
         open(os.path.join(out_dir, name + ".off"), "w").write(to_4off(Vn, faces, cells))
         x = C.x4(b)
         rows.append({"name": name, "group": "contic", "kind": s["kind"], "degrees": s["degrees"],

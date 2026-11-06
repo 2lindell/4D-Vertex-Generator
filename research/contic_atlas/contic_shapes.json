@@ -1,8 +1,9 @@
 {
- "_about": "The contic shapes, each with its decaic counterpart (the decaic shape in the same place of the domain, with the same\nkinds of cells: tet <-> tet, tut <-> tic, hip <-> hip or op, oct/trap <-> square antiprism, ...), exact seeds and the\nplanes its faces lie on (contic_shapes.json, contic_shapes.md). Not an accepted list: contic names are not confirmed.",
+ "_about": "The contic shapes, each with its decaic counterpart (the decaic shape in the same place of the domain, with the same\nkinds of cells: tet <-> tet, tut <-> tic, hip <-> hip or op, oct/trap <-> square antiprism, ...), exact seeds and the\nplanes its faces lie on (contic_shapes.json, contic_shapes.md); the accepted contic names from given_names.py.",
  "missing": [],
  "shapes": [
   {
+   "name": "sabotic",
    "decaic_counterpart": "sabotid",
    "kind": "region",
    "degrees": 3,
@@ -30,6 +31,7 @@
    "example_face_lies_on": []
   },
   {
+   "name": "gabotic",
    "decaic_counterpart": "gabotid",
    "kind": "region",
    "degrees": 3,
@@ -57,6 +59,7 @@
    "example_face_lies_on": []
   },
   {
+   "name": "gabiparc",
    "decaic_counterpart": "gabipard",
    "kind": "wall",
    "degrees": 2,
@@ -84,6 +87,7 @@
    ]
   },
   {
+   "name": "mabiparc",
    "decaic_counterpart": "mabipard",
    "kind": "wall",
    "degrees": 2,
@@ -112,6 +116,7 @@
    ]
   },
   {
+   "name": "sabiparc",
    "decaic_counterpart": "sabipard",
    "kind": "wall",
    "degrees": 2,
@@ -140,6 +145,7 @@
    ]
   },
   {
+   "name": "mobcotic",
    "decaic_counterpart": "mobcated",
    "kind": "wall",
    "degrees": 2,
@@ -168,6 +174,7 @@
    ]
   },
   {
+   "name": "sobcotic",
    "decaic_counterpart": "sobcated",
    "kind": "wall",
    "degrees": 2,
@@ -196,6 +203,7 @@
    ]
   },
   {
+   "name": "gobcotic",
    "decaic_counterpart": "gobcated",
    "kind": "wall",
    "degrees": 2,
@@ -222,6 +230,7 @@
    ]
   },
   {
+   "name": "pitbotic",
    "decaic_counterpart": "petbotid",
    "kind": "wall",
    "degrees": 2,
@@ -250,6 +259,7 @@
    ]
   },
   {
+   "name": "catbotic",
    "decaic_counterpart": "tetbotid",
    "kind": "wall",
    "degrees": 2,
@@ -278,6 +288,7 @@
    ]
   },
   {
+   "name": "bipec",
    "decaic_counterpart": "biped",
    "kind": "line",
    "degrees": 1,
@@ -307,6 +318,7 @@
    ]
   },
   {
+   "name": "bitec",
    "decaic_counterpart": "bited",
    "kind": "line",
    "degrees": 1,
@@ -335,6 +347,7 @@
    ]
   },
   {
+   "name": "sabric",
    "decaic_counterpart": "mabred",
    "kind": "line",
    "degrees": 1,
@@ -363,6 +376,7 @@
    ]
   },
   {
+   "name": "mabric",
    "decaic_counterpart": "sabred",
    "kind": "line",
    "degrees": 1,
@@ -391,6 +405,7 @@
    ]
   },
   {
+   "name": "gabric",
    "decaic_counterpart": "gabred",
    "kind": "line",
    "degrees": 1,
@@ -418,6 +433,7 @@
    ]
   },
   {
+   "name": "bimtec",
    "decaic_counterpart": "bimted",
    "kind": "line",
    "degrees": 1,
@@ -446,6 +462,7 @@
    ]
   },
   {
+   "name": "tispic",
    "decaic_counterpart": "tispid",
    "kind": "line",
    "degrees": 1,
@@ -475,6 +492,7 @@
    ]
   },
   {
+   "name": "tabcatic",
    "decaic_counterpart": "tabcated",
    "kind": "line",
    "degrees": 1,
@@ -504,6 +522,7 @@
    ]
   },
   {
+   "name": "gippic",
    "decaic_counterpart": "gippid",
    "kind": "line",
    "degrees": 1,
@@ -535,6 +554,7 @@
    ]
   },
   {
+   "name": "tabiparc",
    "decaic_counterpart": "tabipard",
    "kind": "line",
    "degrees": 1,
@@ -564,6 +584,7 @@
    ]
   },
   {
+   "name": "ticont",
    "decaic_counterpart": "tadeca",
    "kind": "line",
    "degrees": 1,
@@ -593,6 +614,7 @@
    ]
   },
   {
+   "name": "bicont",
    "decaic_counterpart": "bideca",
    "kind": "point",
    "degrees": 0,
@@ -622,6 +644,7 @@
    ]
   },
   {
+   "name": "spic",
    "decaic_counterpart": "spid",
    "kind": "point",
    "degrees": 0,
@@ -664,6 +687,7 @@
    ]
   },
   {
+   "name": "bamic",
    "decaic_counterpart": "apid",
    "kind": "point",
    "degrees": 0,
@@ -695,6 +719,7 @@
    ]
   },
   {
+   "name": "cont",
    "decaic_counterpart": "deca",
    "kind": "point",
    "degrees": 0,
@@ -733,6 +758,7 @@
    ]
   },
   {
+   "name": "respic",
    "decaic_counterpart": "respid",
    "kind": "point",
    "degrees": 0,
@@ -765,6 +791,7 @@
    ]
   },
   {
+   "name": "recont",
    "decaic_counterpart": "redeca",
    "kind": "point",
    "degrees": 0,

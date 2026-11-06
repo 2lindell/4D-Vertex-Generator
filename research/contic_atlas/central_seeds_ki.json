@@ -2,7 +2,7 @@
  "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
  "shapes": [
   {
-   "name": "region_01_1152v_5280c",
+   "name": "mabosc_or_gabosc_1",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -22,7 +22,7 @@
    "start_depth": 0.02010490000507443,
    "status": "deepest point of the shape",
    "boundaries": 11,
-   "off": "central_off/kicontic/region_01_1152v_5280c_1152v_5280c_central.off",
+   "off": "central_off/kicontic/mabosc_or_gabosc_1_1152v_5280c_central.off",
    "vertices": 1152,
    "cells": 5280,
    "seed_vector": [
@@ -30,7 +30,8 @@
     0.3841565383643564,
     0.29423170341147753,
     0.26407734494683943
-   ]
+   ],
+   "atlas_name": "region_01_1152v_5280c"
   },
   {
    "name": "region_02_1152v_5280c",
@@ -61,7 +62,8 @@
     0.3705591768402289,
     0.3458030647696914,
     0.2588576843969273
-   ]
+   ],
+   "atlas_name": "region_02_1152v_5280c"
   },
   {
    "name": "region_03_1152v_5280c",
@@ -92,10 +94,11 @@
     0.4059881213583981,
     0.35047748196843354,
     0.22793462370697484
-   ]
+   ],
+   "atlas_name": "region_03_1152v_5280c"
   },
   {
-   "name": "region_04_1152v_3936c",
+   "name": "apbosc",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -115,7 +118,7 @@
    "start_depth": 0.002312631935828966,
    "status": "deepest point of the shape",
    "boundaries": 11,
-   "off": "central_off/kicontic/region_04_1152v_3936c_1152v_3936c_central.off",
+   "off": "central_off/kicontic/apbosc_1152v_3936c_central.off",
    "vertices": 1152,
    "cells": 3936,
    "seed_vector": [
@@ -123,10 +126,11 @@
     0.47727035828454284,
     0.2482630399325549,
     0.18500204553096394
-   ]
+   ],
+   "atlas_name": "region_04_1152v_3936c"
   },
   {
-   "name": "region_05_1152v_4128c",
+   "name": "sabosc",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -146,7 +150,7 @@
    "start_depth": 0.02180694136664682,
    "status": "deepest point of the shape",
    "boundaries": 11,
-   "off": "central_off/kicontic/region_05_1152v_4128c_1152v_4128c_central.off",
+   "off": "central_off/kicontic/sabosc_1152v_4128c_central.off",
    "vertices": 1152,
    "cells": 4128,
    "seed_vector": [
@@ -154,10 +158,11 @@
     0.5223740530434906,
     0.29210687229814064,
     0.061839691552789754
-   ]
+   ],
+   "atlas_name": "region_05_1152v_4128c"
   },
   {
-   "name": "region_06_1152v_5280c",
+   "name": "mabosc_or_gabosc_2",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -177,7 +182,7 @@
    "start_depth": 3.279549958595579e-05,
    "status": "deepest point of the shape",
    "boundaries": 11,
-   "off": "central_off/kicontic/region_06_1152v_5280c_1152v_5280c_central.off",
+   "off": "central_off/kicontic/mabosc_or_gabosc_2_1152v_5280c_central.off",
    "vertices": 1152,
    "cells": 5280,
    "seed_vector": [
@@ -185,7 +190,8 @@
     0.6073898570936306,
     0.20190881252467335,
     0.11827455900299579
-   ]
+   ],
+   "atlas_name": "region_06_1152v_5280c"
   },
   {
    "name": "region_07_1152v_5280c",
@@ -216,7 +222,8 @@
     0.5526336364341327,
     0.10616523975181709,
     0.08347591266596321
-   ]
+   ],
+   "atlas_name": "region_07_1152v_5280c"
   },
   {
    "name": "region_08_1152v_5280c",
@@ -247,10 +254,11 @@
     0.6835773445316027,
     0.04864354261431136,
     0.0240128415594186
-   ]
+   ],
+   "atlas_name": "region_08_1152v_5280c"
   },
   {
-   "name": "wall_01_1152v_2688c",
+   "name": "sigawbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -272,7 +280,7 @@
    "start_depth": 0.03121878578865842,
    "status": "deepest point of the shape",
    "boundaries": 10,
-   "off": "central_off/kicontic/wall_01_1152v_2688c_1152v_2688c_central.off",
+   "off": "central_off/kicontic/sigawbosc_1152v_2688c_central.off",
    "vertices": 1152,
    "cells": 2688,
    "seed_vector": [
@@ -280,7 +288,8 @@
     0.3715508334377361,
     0.27287137690120294,
     0.21602396389948952
-   ]
+   ],
+   "atlas_name": "wall_01_1152v_2688c"
   },
   {
    "name": "wall_02_1152v_3552c",
@@ -313,7 +322,8 @@
     0.3655988422637347,
     0.32642647924119034,
     0.2939136571860438
-   ]
+   ],
+   "atlas_name": "wall_02_1152v_3552c"
   },
   {
    "name": "wall_03_1152v_3552c",
@@ -346,10 +356,11 @@
     0.4076332675626411,
     0.3561658383542386,
     0.19238646318122726
-   ]
+   ],
+   "atlas_name": "wall_03_1152v_3552c"
   },
   {
-   "name": "wall_04_1152v_2256c",
+   "name": "catbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -371,7 +382,7 @@
    "start_depth": 0.04583913266446634,
    "status": "deepest point of the shape",
    "boundaries": 14,
-   "off": "central_off/kicontic/wall_04_1152v_2256c_1152v_2256c_central.off",
+   "off": "central_off/kicontic/catbosc_1152v_2256c_central.off",
    "vertices": 1152,
    "cells": 2256,
    "seed_vector": [
@@ -379,10 +390,11 @@
     0.41421356237309503,
     0.28449009691212296,
     0.22818536701407785
-   ]
+   ],
+   "atlas_name": "wall_04_1152v_2256c"
   },
   {
-   "name": "wall_05_1152v_2112c",
+   "name": "petbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -404,7 +416,7 @@
    "start_depth": 0.017715900718216684,
    "status": "deepest point of the shape",
    "boundaries": 14,
-   "off": "central_off/kicontic/wall_05_1152v_2112c_1152v_2112c_central.off",
+   "off": "central_off/kicontic/petbosc_1152v_2112c_central.off",
    "vertices": 1152,
    "cells": 2112,
    "seed_vector": [
@@ -412,10 +424,11 @@
     0.516463119705382,
     0.22148663044463496,
     0.13409591960816405
-   ]
+   ],
+   "atlas_name": "wall_05_1152v_2112c"
   },
   {
-   "name": "wall_06_1152v_2976c",
+   "name": "gigawbosc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -437,7 +450,7 @@
    "start_depth": 0.03664096380202901,
    "status": "deepest point of the shape",
    "boundaries": 10,
-   "off": "central_off/kicontic/wall_06_1152v_2976c_1152v_2976c_central.off",
+   "off": "central_off/kicontic/gigawbosc_1152v_2976c_central.off",
    "vertices": 1152,
    "cells": 2976,
    "seed_vector": [
@@ -445,7 +458,8 @@
     0.5708655349642904,
     0.1811690157537618,
     0.07504266340699305
-   ]
+   ],
+   "atlas_name": "wall_06_1152v_2976c"
   },
   {
    "name": "wall_07_1152v_3552c",
@@ -478,7 +492,8 @@
     0.5535496433556522,
     0.12387109579907035,
     0.07906291818400886
-   ]
+   ],
+   "atlas_name": "wall_07_1152v_3552c"
   },
   {
    "name": "wall_08_1152v_3552c",
@@ -511,7 +526,8 @@
     0.7725825111038735,
     0.05875319718829975,
     0.03965311128068556
-   ]
+   ],
+   "atlas_name": "wall_08_1152v_3552c"
   },
   {
    "name": "region_09_1152v_6432c",
@@ -542,7 +558,8 @@
     0.3979931516538506,
     0.3610026862866266,
     0.23167253793932766
-   ]
+   ],
+   "atlas_name": "region_09_1152v_6432c"
   },
   {
    "name": "region_10_1152v_6432c",
@@ -573,7 +590,8 @@
     0.4025088835465624,
     0.36395003473354065,
     0.220960612079035
-   ]
+   ],
+   "atlas_name": "region_10_1152v_6432c"
   },
   {
    "name": "region_11_1152v_6432c",
@@ -604,7 +622,8 @@
     0.3660570144514415,
     0.3414690941007158,
     0.2820921249727073
-   ]
+   ],
+   "atlas_name": "region_11_1152v_6432c"
   },
   {
    "name": "region_12_1152v_6432c",
@@ -635,7 +654,8 @@
     0.6005385626322304,
     0.05471026361848607,
     0.04378683643528596
-   ]
+   ],
+   "atlas_name": "region_12_1152v_6432c"
   },
   {
    "name": "region_13_1152v_6432c",
@@ -666,7 +686,8 @@
     0.5461196065218994,
     0.0656700491657548,
     0.05028553121125462
-   ]
+   ],
+   "atlas_name": "region_13_1152v_6432c"
   },
   {
    "name": "region_14_1152v_6432c",
@@ -697,10 +718,11 @@
     0.7622093714292884,
     0.03844986903804338,
     0.02695240757456364
-   ]
+   ],
+   "atlas_name": "region_14_1152v_6432c"
   },
   {
-   "name": "snad-like",
+   "name": "snoc",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -723,7 +745,7 @@
    "start_depth": 0.08333333333333334,
    "status": "deepest point of the shape",
    "boundaries": 4,
-   "off": "central_off/kicontic/snad-like_576v_816c_central.off",
+   "off": "central_off/kicontic/snoc_576v_816c_central.off",
    "vertices": 576,
    "cells": 816,
    "seed_vector": [
@@ -731,7 +753,8 @@
     0.4142135623730951,
     0.2612038749637415,
     0.10819418755438785
-   ]
+   ],
+   "atlas_name": "snad-like"
   }
  ]
 }

@@ -2,7 +2,7 @@
  "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
  "shapes": [
   {
-   "name": "region_01_1152v_3552c",
+   "name": "sosbic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -23,7 +23,7 @@
    "status": "deepest point of the shape",
    "boundaries": 8,
    "piece": 0,
-   "off": "central_off/iocontic/region_01_1152v_3552c_1152v_3552c_central.off",
+   "off": "central_off/iocontic/sosbic_1152v_3552c_central.off",
    "vertices": 1152,
    "cells": 3552,
    "seed_vector": [
@@ -31,10 +31,11 @@
     0.38354424092495715,
     0.300225554251018,
     0.2694569155279867
-   ]
+   ],
+   "atlas_name": "region_01_1152v_3552c"
   },
   {
-   "name": "region_02_1152v_3360c",
+   "name": "gosbic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -55,7 +56,7 @@
    "status": "deepest point of the shape",
    "boundaries": 8,
    "piece": 0,
-   "off": "central_off/iocontic/region_02_1152v_3360c_1152v_3360c_central.off",
+   "off": "central_off/iocontic/gosbic_1152v_3360c_central.off",
    "vertices": 1152,
    "cells": 3360,
    "seed_vector": [
@@ -63,10 +64,11 @@
     0.47727035828454256,
     0.24826303993255502,
     0.18500204553096383
-   ]
+   ],
+   "atlas_name": "region_02_1152v_3360c"
   },
   {
-   "name": "wall_01_1152v_1680c",
+   "name": "catosbic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -89,7 +91,7 @@
    "status": "deepest point of the shape",
    "boundaries": 13,
    "piece": 0,
-   "off": "central_off/iocontic/wall_01_1152v_1680c_1152v_1680c_central.off",
+   "off": "central_off/iocontic/catosbic_1152v_1680c_central.off",
    "vertices": 1152,
    "cells": 1680,
    "seed_vector": [
@@ -97,10 +99,11 @@
     0.41421356237309503,
     0.28642402072496537,
     0.1857705076805108
-   ]
+   ],
+   "atlas_name": "wall_01_1152v_1680c"
   },
   {
-   "name": "wall_02_1152v_1536c",
+   "name": "petosbic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -123,7 +126,7 @@
    "status": "deepest point of the shape",
    "boundaries": 12,
    "piece": 0,
-   "off": "central_off/iocontic/wall_02_1152v_1536c_1152v_1536c_central.off",
+   "off": "central_off/iocontic/petosbic_1152v_1536c_central.off",
    "vertices": 1152,
    "cells": 1536,
    "seed_vector": [
@@ -131,7 +134,8 @@
     0.5046786094116914,
     0.20842775529752633,
     0.12380545242332272
-   ]
+   ],
+   "atlas_name": "wall_02_1152v_1536c"
   },
   {
    "name": "region_03_1152v_4704c",
@@ -163,10 +167,11 @@
     0.3850946630729844,
     0.3509068747244085,
     0.2551614474856111
-   ]
+   ],
+   "atlas_name": "region_03_1152v_4704c"
   },
   {
-   "name": "gippid-like",
+   "name": "gippic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -190,7 +195,7 @@
    "status": "deepest point of the shape",
    "boundaries": 10,
    "piece": 0,
-   "off": "central_off/iocontic/gippid-like_1152v_240c_central.off",
+   "off": "central_off/iocontic/gippic_1152v_240c_central.off",
    "vertices": 1152,
    "cells": 240,
    "seed_vector": [
@@ -198,7 +203,8 @@
     0.4142135623730951,
     0.2612038749637415,
     0.10819418755438785
-   ]
+   ],
+   "atlas_name": "gippid-like"
   }
  ]
 }

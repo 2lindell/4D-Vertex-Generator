@@ -2,7 +2,7 @@
  "_about": "The central seed of every shape: the point of its locus deepest inside it (central_seeds<tag>.json, central .off).",
  "shapes": [
   {
-   "name": "sabotid-like",
+   "name": "sabotic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -23,7 +23,7 @@
    "status": "deepest point of the shape",
    "boundaries": 7,
    "piece": 0,
-   "off": "central_off/contic/sabotid-like_2304v_1248c_central.off",
+   "off": "central_off/contic/sabotic_2304v_1248c_central.off",
    "vertices": 2304,
    "cells": 1248,
    "seed_vector": [
@@ -31,10 +31,11 @@
     0.5251139655024728,
     0.266648410676555,
     0.06941254127365741
-   ]
+   ],
+   "atlas_name": "sabotid-like"
   },
   {
-   "name": "gabotid-like",
+   "name": "gabotic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -55,7 +56,7 @@
    "status": "deepest point of the shape",
    "boundaries": 7,
    "piece": 0,
-   "off": "central_off/contic/gabotid-like_2304v_1056c_central.off",
+   "off": "central_off/contic/gabotic_2304v_1056c_central.off",
    "vertices": 2304,
    "cells": 1056,
    "seed_vector": [
@@ -63,10 +64,11 @@
     0.47727035828454273,
     0.24826303993255452,
     0.18500204553096378
-   ]
+   ],
+   "atlas_name": "gabotid-like"
   },
   {
-   "name": "gabipard-like",
+   "name": "gabiparc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -89,7 +91,7 @@
    "status": "deepest point of the shape",
    "boundaries": 6,
    "piece": 0,
-   "off": "central_off/contic/gabipard-like_1152v_1248c_central.off",
+   "off": "central_off/contic/gabiparc_1152v_1248c_central.off",
    "vertices": 1152,
    "cells": 1248,
    "seed_vector": [
@@ -97,10 +99,11 @@
     0.691935599657669,
     0.07701610008558277,
     0.07701610008558277
-   ]
+   ],
+   "atlas_name": "gabipard-like"
   },
   {
-   "name": "mabipard-like",
+   "name": "mabiparc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -123,7 +126,7 @@
    "status": "deepest point of the shape",
    "boundaries": 6,
    "piece": 0,
-   "off": "central_off/contic/mabipard-like_1152v_1056c_central.off",
+   "off": "central_off/contic/mabiparc_1152v_1056c_central.off",
    "vertices": 1152,
    "cells": 1056,
    "seed_vector": [
@@ -131,10 +134,11 @@
     0.5131881110696005,
     0.1753938284699082,
     0.1753938284699082
-   ]
+   ],
+   "atlas_name": "mabipard-like"
   },
   {
-   "name": "sabipard-like",
+   "name": "sabiparc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -185,7 +189,7 @@
      ]
     }
    ],
-   "off": "central_off/contic/sabipard-like_1152v_1248c_central.off",
+   "off": "central_off/contic/sabiparc_1152v_1248c_central.off",
    "vertices": 1152,
    "cells": 1248,
    "seed_vector": [
@@ -193,10 +197,11 @@
     0.6072063586819176,
     0.16270045344786266,
     0.0
-   ]
+   ],
+   "atlas_name": "sabipard-like"
   },
   {
-   "name": "mobcated-like",
+   "name": "mobcotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -219,7 +224,7 @@
    "status": "deepest point of the shape",
    "boundaries": 5,
    "piece": 0,
-   "off": "central_off/contic/mobcated-like_1152v_864c_central.off",
+   "off": "central_off/contic/mobcotic_1152v_864c_central.off",
    "vertices": 1152,
    "cells": 864,
    "seed_vector": [
@@ -227,10 +232,11 @@
     0.4692843809153488,
     0.3072779300141142,
     0.223437689070537
-   ]
+   ],
+   "atlas_name": "mobcated-like"
   },
   {
-   "name": "sobcated-like",
+   "name": "sobcotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -253,7 +259,7 @@
    "status": "deepest point of the shape",
    "boundaries": 5,
    "piece": 0,
-   "off": "central_off/contic/sobcated-like_1152v_1248c_central.off",
+   "off": "central_off/contic/sobcotic_1152v_1248c_central.off",
    "vertices": 1152,
    "cells": 1248,
    "seed_vector": [
@@ -261,10 +267,11 @@
     0.51895289796794,
     0.3895344153911116,
     0.09151268664094839
-   ]
+   ],
+   "atlas_name": "sobcated-like"
   },
   {
-   "name": "gobcated-like",
+   "name": "gobcotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -287,7 +294,7 @@
    "status": "deepest point of the shape",
    "boundaries": 5,
    "piece": 0,
-   "off": "central_off/contic/gobcated-like_1152v_1056c_central.off",
+   "off": "central_off/contic/gobcotic_1152v_1056c_central.off",
    "vertices": 1152,
    "cells": 1056,
    "seed_vector": [
@@ -295,10 +302,11 @@
     0.38214886980224205,
     0.33333333333333354,
     0.28451779686442435
-   ]
+   ],
+   "atlas_name": "gobcated-like"
   },
   {
-   "name": "petbotid-like",
+   "name": "pitbotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -321,7 +329,7 @@
    "status": "deepest point of the shape",
    "boundaries": 6,
    "piece": 0,
-   "off": "central_off/contic/petbotid-like_2304v_384c_central.off",
+   "off": "central_off/contic/pitbotic_2304v_384c_central.off",
    "vertices": 2304,
    "cells": 384,
    "seed_vector": [
@@ -329,10 +337,11 @@
     0.5046786094116913,
     0.20842775529752647,
     0.12380545242332269
-   ]
+   ],
+   "atlas_name": "petbotid-like"
   },
   {
-   "name": "tetbotid-like",
+   "name": "catbotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -355,7 +364,7 @@
    "status": "deepest point of the shape",
    "boundaries": 11,
    "piece": 0,
-   "off": "central_off/contic/tetbotid-like_2304v_528c_central.off",
+   "off": "central_off/contic/catbotic_2304v_528c_central.off",
    "vertices": 2304,
    "cells": 528,
    "seed_vector": [
@@ -363,10 +372,11 @@
     0.41421356237309503,
     0.2889017908888104,
     0.18995018894281943
-   ]
+   ],
+   "atlas_name": "tetbotid-like"
   },
   {
-   "name": "biped-like",
+   "name": "bipec",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -390,7 +400,7 @@
    "status": "deepest point of the shape",
    "boundaries": 4,
    "piece": 0,
-   "off": "central_off/contic/biped-like_288v_528c_central.off",
+   "off": "central_off/contic/bipec_288v_528c_central.off",
    "vertices": 288,
    "cells": 528,
    "seed_vector": [
@@ -398,10 +408,11 @@
     0.6796227589829589,
     0.0,
     0.0
-   ]
+   ],
+   "atlas_name": "biped-like"
   },
   {
-   "name": "bited-like",
+   "name": "bitec",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -425,7 +436,7 @@
    "status": "deepest point of the shape",
    "boundaries": 2,
    "piece": 0,
-   "off": "central_off/contic/bited-like_384v_1056c_central.off",
+   "off": "central_off/contic/bitec_384v_1056c_central.off",
    "vertices": 384,
    "cells": 1056,
    "seed_vector": [
@@ -433,10 +444,11 @@
     0.6666666666666665,
     0.33333333333333337,
     0.0
-   ]
+   ],
+   "atlas_name": "bited-like"
   },
   {
-   "name": "mabred-like",
+   "name": "sabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -460,7 +472,7 @@
    "status": "deepest point of the shape",
    "boundaries": 4,
    "piece": 0,
-   "off": "central_off/contic/mabred-like_576v_1248c_central.off",
+   "off": "central_off/contic/sabric_576v_1248c_central.off",
    "vertices": 576,
    "cells": 1248,
    "seed_vector": [
@@ -468,10 +480,11 @@
     0.8014113262504646,
     0.0992943368747677,
     0.0992943368747677
-   ]
+   ],
+   "atlas_name": "mabred-like"
   },
   {
-   "name": "sabred-like",
+   "name": "mabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -495,7 +508,7 @@
    "status": "deepest point of the shape",
    "boundaries": 4,
    "piece": 0,
-   "off": "central_off/contic/sabred-like_576v_864c_central.off",
+   "off": "central_off/contic/mabric_576v_864c_central.off",
    "vertices": 576,
    "cells": 864,
    "seed_vector": [
@@ -503,10 +516,11 @@
     0.5170602925126878,
     0.24146985374365604,
     0.24146985374365604
-   ]
+   ],
+   "atlas_name": "sabred-like"
   },
   {
-   "name": "gabred-like",
+   "name": "gabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -530,7 +544,7 @@
    "status": "deepest point of the shape",
    "boundaries": 4,
    "piece": 0,
-   "off": "central_off/contic/gabred-like_576v_1056c_central.off",
+   "off": "central_off/contic/gabric_576v_1056c_central.off",
    "vertices": 576,
    "cells": 1056,
    "seed_vector": [
@@ -538,10 +552,11 @@
     0.3711979182970941,
     0.31440104085145293,
     0.31440104085145293
-   ]
+   ],
+   "atlas_name": "gabred-like"
   },
   {
-   "name": "bimted-like",
+   "name": "bimtec",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -565,7 +580,7 @@
    "status": "deepest point of the shape",
    "boundaries": 3,
    "piece": 0,
-   "off": "central_off/contic/bimted-like_576v_192c_central.off",
+   "off": "central_off/contic/bimtec_576v_192c_central.off",
    "vertices": 576,
    "cells": 192,
    "seed_vector": [
@@ -573,10 +588,11 @@
     0.37318685872766144,
     0.37318685872766144,
     0.2536262825446771
-   ]
+   ],
+   "atlas_name": "bimted-like"
   },
   {
-   "name": "tispid-like",
+   "name": "tispic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -600,7 +616,7 @@
    "status": "deepest point of the shape",
    "boundaries": 6,
    "piece": 0,
-   "off": "central_off/contic/tispid-like_1152v_384c_central.off",
+   "off": "central_off/contic/tispic_1152v_384c_central.off",
    "vertices": 1152,
    "cells": 384,
    "seed_vector": [
@@ -608,10 +624,11 @@
     0.582791324456788,
     0.11920247872663181,
     0.11920247872663181
-   ]
+   ],
+   "atlas_name": "tispid-like"
   },
   {
-   "name": "tabcated-like",
+   "name": "tabcatic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -635,7 +652,7 @@
    "status": "deepest point of the shape",
    "boundaries": 5,
    "piece": 0,
-   "off": "central_off/contic/tabcated-like_1152v_384c_central.off",
+   "off": "central_off/contic/tabcatic_1152v_384c_central.off",
    "vertices": 1152,
    "cells": 384,
    "seed_vector": [
@@ -643,10 +660,11 @@
     0.5112698372208091,
     0.317157287525381,
     0.1715728752538099
-   ]
+   ],
+   "atlas_name": "tabcated-like"
   },
   {
-   "name": "gippid-like",
+   "name": "gippic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -670,7 +688,7 @@
    "status": "deepest point of the shape",
    "boundaries": 4,
    "piece": 0,
-   "off": "central_off/contic/gippid-like_1152v_240c_central.off",
+   "off": "central_off/contic/gippic_1152v_240c_central.off",
    "vertices": 1152,
    "cells": 240,
    "seed_vector": [
@@ -678,10 +696,11 @@
     0.4142135623730951,
     0.2612038749637415,
     0.10819418755438785
-   ]
+   ],
+   "atlas_name": "gippid-like"
   },
   {
-   "name": "tabipard-like",
+   "name": "tabiparc",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -705,7 +724,7 @@
    "status": "deepest point of the shape",
    "boundaries": 9,
    "piece": 0,
-   "off": "central_off/contic/tabipard-like_1152v_528c_central.off",
+   "off": "central_off/contic/tabiparc_1152v_528c_central.off",
    "vertices": 1152,
    "cells": 528,
    "seed_vector": [
@@ -713,10 +732,11 @@
     0.4142135623730951,
     0.17789414921811073,
     0.17789414921811073
-   ]
+   ],
+   "atlas_name": "tabipard-like"
   },
   {
-   "name": "tadeca-like",
+   "name": "ticont",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -740,7 +760,7 @@
    "status": "deepest point of the shape",
    "boundaries": 6,
    "piece": 0,
-   "off": "central_off/contic/tadeca-like_1152v_336c_central.off",
+   "off": "central_off/contic/ticont_1152v_336c_central.off",
    "vertices": 1152,
    "cells": 336,
    "seed_vector": [
@@ -748,10 +768,11 @@
     0.41421356237309503,
     0.35653955984852587,
     0.2292468777783791
-   ]
+   ],
+   "atlas_name": "tadeca-like"
   },
   {
-   "name": "bideca-like",
+   "name": "bicont",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -774,7 +795,7 @@
    "depth": null,
    "status": "point (no freedom): the seed itself",
    "piece": 0,
-   "off": "central_off/contic/bideca-like_48v_288c_central.off",
+   "off": "central_off/contic/bicont_48v_288c_central.off",
    "vertices": 48,
    "cells": 288,
    "seed_vector": [
@@ -782,10 +803,11 @@
     1.0,
     0.0,
     0.0
-   ]
+   ],
+   "atlas_name": "bideca-like"
   },
   {
-   "name": "spid-like",
+   "name": "spic",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -808,7 +830,7 @@
    "depth": null,
    "status": "point (no freedom): the seed itself",
    "piece": 0,
-   "off": "central_off/contic/spid-like_144v_240c_central.off",
+   "off": "central_off/contic/spic_144v_240c_central.off",
    "vertices": 144,
    "cells": 240,
    "seed_vector": [
@@ -816,10 +838,11 @@
     0.4142135623730951,
     0.0,
     0.0
-   ]
+   ],
+   "atlas_name": "spid-like"
   },
   {
-   "name": "apid-like",
+   "name": "bamic",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -842,7 +865,7 @@
    "depth": null,
    "status": "point (no freedom): the seed itself",
    "piece": 0,
-   "off": "central_off/contic/apid-like_192v_192c_central.off",
+   "off": "central_off/contic/bamic_192v_192c_central.off",
    "vertices": 192,
    "cells": 192,
    "seed_vector": [
@@ -850,10 +873,11 @@
     0.3333333333333333,
     0.3333333333333333,
     0.3333333333333333
-   ]
+   ],
+   "atlas_name": "apid-like"
   },
   {
-   "name": "deca-like",
+   "name": "cont",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -876,7 +900,7 @@
    "depth": null,
    "status": "point (no freedom): the seed itself",
    "piece": 0,
-   "off": "central_off/contic/deca-like_288v_48c_central.off",
+   "off": "central_off/contic/cont_288v_48c_central.off",
    "vertices": 288,
    "cells": 48,
    "seed_vector": [
@@ -884,10 +908,11 @@
     0.41421356237309503,
     0.41421356237309503,
     0.1715728752538099
-   ]
+   ],
+   "atlas_name": "deca-like"
   },
   {
-   "name": "respid-like",
+   "name": "respic",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -910,7 +935,7 @@
    "depth": null,
    "status": "point (no freedom): the seed itself",
    "piece": 0,
-   "off": "central_off/contic/respid-like_576v_384c_central.off",
+   "off": "central_off/contic/respic_576v_384c_central.off",
    "vertices": 576,
    "cells": 384,
    "seed_vector": [
@@ -918,10 +943,11 @@
     0.6568542494923801,
     0.1715728752538099,
     0.1715728752538099
-   ]
+   ],
+   "atlas_name": "respid-like"
   },
   {
-   "name": "redeca-like",
+   "name": "recont",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -944,7 +970,7 @@
    "depth": null,
    "status": "point (no freedom): the seed itself",
    "piece": 0,
-   "off": "central_off/contic/redeca-like_576v_336c_central.off",
+   "off": "central_off/contic/recont_576v_336c_central.off",
    "vertices": 576,
    "cells": 336,
    "seed_vector": [
@@ -952,7 +978,8 @@
     0.41421356237309503,
     0.2928932188134525,
     0.2928932188134525
-   ]
+   ],
+   "atlas_name": "redeca-like"
   }
  ]
 }

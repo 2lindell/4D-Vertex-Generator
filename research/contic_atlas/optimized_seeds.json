@@ -2,7 +2,7 @@
  "_about": "The most even seed of every contic, kicontic and iocontic shape (optimized_seeds<tag>.json, optimized .off files).",
  "shapes": [
   {
-   "name": "sabotid-like",
+   "name": "sabotic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -58,7 +58,7 @@
    "off_R": 1.88663146501002,
    "seconds": 18.7,
    "piece": 0,
-   "off": "optimized_off/contic/sabotid-like_2304v_1248c_opt.off",
+   "off": "optimized_off/contic/sabotic_2304v_1248c_opt.off",
    "vertices": 2304,
    "cells": 1248,
    "seed_vector": [
@@ -66,10 +66,11 @@
     0.4872388283140085,
     0.2820682366611453,
     0.07689764500828207
-   ]
+   ],
+   "atlas_name": "sabotid-like"
   },
   {
-   "name": "gabotid-like",
+   "name": "gabotic",
    "kind": "region",
    "degrees": 3,
    "locus": [],
@@ -125,7 +126,7 @@
    "off_R": 2.3065629648763792,
    "seconds": 18.5,
    "piece": 0,
-   "off": "optimized_off/contic/gabotid-like_2304v_1056c_opt.off",
+   "off": "optimized_off/contic/gabotic_2304v_1056c_opt.off",
    "vertices": 2304,
    "cells": 1056,
    "seed_vector": [
@@ -133,10 +134,11 @@
     0.46520372523897713,
     0.24788504683814075,
     0.15366751117572988
-   ]
+   ],
+   "atlas_name": "gabotid-like"
   },
   {
-   "name": "gabipard-like",
+   "name": "gabiparc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -191,7 +193,7 @@
    "off_R": 3.003828066355264,
    "seconds": 61.2,
    "piece": 0,
-   "off": "optimized_off/contic/gabipard-like_1152v_1248c_opt.off",
+   "off": "optimized_off/contic/gabiparc_1152v_1248c_opt.off",
    "vertices": 1152,
    "cells": 1248,
    "seed_vector": [
@@ -199,10 +201,11 @@
     0.5673847497775092,
     0.10811335164649206,
     0.10811335164649206
-   ]
+   ],
+   "atlas_name": "gabipard-like"
   },
   {
-   "name": "mabipard-like",
+   "name": "mabiparc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -260,7 +263,7 @@
    "off_R": 1.805790894654361,
    "seconds": 13.8,
    "piece": 0,
-   "off": "optimized_off/contic/mabipard-like_1152v_1056c_opt.off",
+   "off": "optimized_off/contic/mabiparc_1152v_1056c_opt.off",
    "vertices": 1152,
    "cells": 1056,
    "seed_vector": [
@@ -268,10 +271,11 @@
     0.437218006937012,
     0.18110162818704434,
     0.18110162818704434
-   ]
+   ],
+   "atlas_name": "mabipard-like"
   },
   {
-   "name": "sabipard-like",
+   "name": "sabiparc",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -359,7 +363,7 @@
      "status": "minimum inside the shape"
     }
    ],
-   "off": "optimized_off/contic/sabipard-like_1152v_1248c_opt.off",
+   "off": "optimized_off/contic/sabiparc_1152v_1248c_opt.off",
    "vertices": 1152,
    "cells": 1248,
    "seed_vector": [
@@ -367,10 +371,11 @@
     0.5005139108534156,
     0.2502569554267078,
     0.0
-   ]
+   ],
+   "atlas_name": "sabipard-like"
   },
   {
-   "name": "mobcated-like",
+   "name": "mobcotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -425,7 +430,7 @@
    "off_R": 1.7083389204146462,
    "seconds": 47.3,
    "piece": 0,
-   "off": "optimized_off/contic/mobcated-like_1152v_864c_opt.off",
+   "off": "optimized_off/contic/mobcotic_1152v_864c_opt.off",
    "vertices": 1152,
    "cells": 864,
    "seed_vector": [
@@ -433,10 +438,11 @@
     0.5146475642535925,
     0.3137628111345732,
     0.17158962461183425
-   ]
+   ],
+   "atlas_name": "mobcated-like"
   },
   {
-   "name": "sobcated-like",
+   "name": "sobcotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -494,7 +500,7 @@
    "off_R": 1.2293022135827096,
    "seconds": 11.2,
    "piece": 0,
-   "off": "optimized_off/contic/sobcated-like_1152v_1248c_opt.off",
+   "off": "optimized_off/contic/sobcotic_1152v_1248c_opt.off",
    "vertices": 1152,
    "cells": 1248,
    "seed_vector": [
@@ -502,10 +508,11 @@
     0.5449453458959986,
     0.3333333333333334,
     0.12172132077066822
-   ]
+   ],
+   "atlas_name": "sobcated-like"
   },
   {
-   "name": "gobcated-like",
+   "name": "gobcotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -560,7 +567,7 @@
    "off_R": 4.414439392979832,
    "seconds": 58.3,
    "piece": 0,
-   "off": "optimized_off/contic/gobcated-like_1152v_1056c_opt.off",
+   "off": "optimized_off/contic/gobcotic_1152v_1056c_opt.off",
    "vertices": 1152,
    "cells": 1056,
    "seed_vector": [
@@ -568,10 +575,11 @@
     0.41421214258034383,
     0.33333666300001363,
     0.2524511944196426
-   ]
+   ],
+   "atlas_name": "gobcated-like"
   },
   {
-   "name": "petbotid-like",
+   "name": "pitbotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -617,7 +625,7 @@
    "off_R": 1.707106781186548,
    "seconds": 14.9,
    "piece": 0,
-   "off": "optimized_off/contic/petbotid-like_2304v_384c_opt.off",
+   "off": "optimized_off/contic/pitbotic_2304v_384c_opt.off",
    "vertices": 2304,
    "cells": 384,
    "seed_vector": [
@@ -625,10 +633,11 @@
     0.48789971881293,
     0.2299980991343755,
     0.12579013733801517
-   ]
+   ],
+   "atlas_name": "petbotid-like"
   },
   {
-   "name": "tetbotid-like",
+   "name": "catbotic",
    "kind": "wall",
    "degrees": 2,
    "locus": [
@@ -674,7 +683,7 @@
    "off_R": 1.5411961001461998,
    "seconds": 34.1,
    "piece": 0,
-   "off": "optimized_off/contic/tetbotid-like_2304v_528c_opt.off",
+   "off": "optimized_off/contic/catbotic_2304v_528c_opt.off",
    "vertices": 2304,
    "cells": 528,
    "seed_vector": [
@@ -682,10 +691,11 @@
     0.41421356237309503,
     0.28358074572797975,
     0.18233600044759402
-   ]
+   ],
+   "atlas_name": "tetbotid-like"
   },
   {
-   "name": "biped-like",
+   "name": "bipec",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -744,7 +754,7 @@
    "off_R": 2.306562964876376,
    "seconds": 6.5,
    "piece": 0,
-   "off": "optimized_off/contic/biped-like_288v_528c_opt.off",
+   "off": "optimized_off/contic/bipec_288v_528c_opt.off",
    "vertices": 288,
    "cells": 528,
    "seed_vector": [
@@ -752,10 +762,11 @@
     0.6199144044217748,
     0.0,
     0.0
-   ]
+   ],
+   "atlas_name": "biped-like"
   },
   {
-   "name": "bited-like",
+   "name": "bitec",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -814,7 +825,7 @@
    "off_R": 1.1278643263452157,
    "seconds": 11.0,
    "piece": 0,
-   "off": "optimized_off/contic/bited-like_384v_1056c_opt.off",
+   "off": "optimized_off/contic/bitec_384v_1056c_opt.off",
    "vertices": 384,
    "cells": 1056,
    "seed_vector": [
@@ -822,10 +833,11 @@
     0.6666666666666664,
     0.3333333333333332,
     5.669778323024742e-16
-   ]
+   ],
+   "atlas_name": "bited-like"
   },
   {
-   "name": "mabred-like",
+   "name": "sabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -881,7 +893,7 @@
    "off_R": 2.00110017173077,
    "seconds": 49.2,
    "piece": 0,
-   "off": "optimized_off/contic/mabred-like_576v_1248c_opt.off",
+   "off": "optimized_off/contic/sabric_576v_1248c_opt.off",
    "vertices": 576,
    "cells": 1248,
    "seed_vector": [
@@ -889,10 +901,11 @@
     0.6569458265774549,
     0.17152708671127254,
     0.17152708671127254
-   ]
+   ],
+   "atlas_name": "mabred-like"
   },
   {
-   "name": "sabred-like",
+   "name": "mabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -951,7 +964,7 @@
    "off_R": 1.3065629648763775,
    "seconds": 11.1,
    "piece": 0,
-   "off": "optimized_off/contic/sabred-like_576v_864c_opt.off",
+   "off": "optimized_off/contic/mabric_576v_864c_opt.off",
    "vertices": 576,
    "cells": 864,
    "seed_vector": [
@@ -959,10 +972,11 @@
     0.5469181606780271,
     0.22654091966098644,
     0.22654091966098644
-   ]
+   ],
+   "atlas_name": "sabred-like"
   },
   {
-   "name": "gabred-like",
+   "name": "gabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1018,7 +1032,7 @@
    "off_R": 3.4164217849166025,
    "seconds": 35.9,
    "piece": 0,
-   "off": "optimized_off/contic/gabred-like_576v_1056c_opt.off",
+   "off": "optimized_off/contic/gabric_576v_1056c_opt.off",
    "vertices": 576,
    "cells": 1056,
    "seed_vector": [
@@ -1026,10 +1040,11 @@
     0.41416762370941884,
     0.29291618814529063,
     0.29291618814529063
-   ]
+   ],
+   "atlas_name": "gabred-like"
   },
   {
-   "name": "bimted-like",
+   "name": "bimtec",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1088,7 +1103,7 @@
    "off_R": 2.7071067811865532,
    "seconds": 4.3,
    "piece": 0,
-   "off": "optimized_off/contic/bimted-like_576v_192c_opt.off",
+   "off": "optimized_off/contic/bimtec_576v_192c_opt.off",
    "vertices": 576,
    "cells": 192,
    "seed_vector": [
@@ -1096,10 +1111,11 @@
     0.3763849673692339,
     0.3763849673692339,
     0.24723006526153232
-   ]
+   ],
+   "atlas_name": "bimted-like"
   },
   {
-   "name": "tispid-like",
+   "name": "tispic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1146,7 +1162,7 @@
    "off_R": 1.4142135623730967,
    "seconds": 12.8,
    "piece": 0,
-   "off": "optimized_off/contic/tispid-like_1152v_384c_opt.off",
+   "off": "optimized_off/contic/tispic_1152v_384c_opt.off",
    "vertices": 1152,
    "cells": 384,
    "seed_vector": [
@@ -1154,10 +1170,11 @@
     0.5469183149754692,
     0.09383643046082188,
     0.09383643046082188
-   ]
+   ],
+   "atlas_name": "tispid-like"
   },
   {
-   "name": "tabcated-like",
+   "name": "tabcatic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1216,7 +1233,7 @@
    "off_R": 1.7071067811865475,
    "seconds": 7.3,
    "piece": 0,
-   "off": "optimized_off/contic/tabcated-like_1152v_384c_opt.off",
+   "off": "optimized_off/contic/tabcatic_1152v_384c_opt.off",
    "vertices": 1152,
    "cells": 384,
    "seed_vector": [
@@ -1224,10 +1241,11 @@
     0.5147186257614297,
     0.3137084989847604,
     0.1715728752538099
-   ]
+   ],
+   "atlas_name": "tabcated-like"
   },
   {
-   "name": "gippid-like",
+   "name": "gippic",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1286,7 +1304,7 @@
    "off_R": 1.0,
    "seconds": 5.4,
    "piece": 0,
-   "off": "optimized_off/contic/gippid-like_1152v_240c_opt.off",
+   "off": "optimized_off/contic/gippic_1152v_240c_opt.off",
    "vertices": 1152,
    "cells": 240,
    "seed_vector": [
@@ -1294,10 +1312,11 @@
     0.4142135623730951,
     0.2612038749637415,
     0.10819418755438785
-   ]
+   ],
+   "atlas_name": "gippid-like"
   },
   {
-   "name": "tabipard-like",
+   "name": "tabiparc",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1356,7 +1375,7 @@
    "off_R": 1.5411961001461985,
    "seconds": 8.5,
    "piece": 0,
-   "off": "optimized_off/contic/tabipard-like_1152v_528c_opt.off",
+   "off": "optimized_off/contic/tabiparc_1152v_528c_opt.off",
    "vertices": 1152,
    "cells": 528,
    "seed_vector": [
@@ -1364,10 +1383,11 @@
     0.4142135623730951,
     0.19004279778911268,
     0.19004279778911268
-   ]
+   ],
+   "atlas_name": "tabipard-like"
   },
   {
-   "name": "tadeca-like",
+   "name": "ticont",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -1414,7 +1434,7 @@
    "off_R": 1.8477590650225564,
    "seconds": 11.0,
    "piece": 0,
-   "off": "optimized_off/contic/tadeca-like_1152v_336c_opt.off",
+   "off": "optimized_off/contic/ticont_1152v_336c_opt.off",
    "vertices": 1152,
    "cells": 336,
    "seed_vector": [
@@ -1422,10 +1442,11 @@
     0.4142135623730953,
     0.35115328312183536,
     0.23463315450506944
-   ]
+   ],
+   "atlas_name": "tadeca-like"
   },
   {
-   "name": "bideca-like",
+   "name": "bicont",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -1455,7 +1476,7 @@
     0.0
    ],
    "piece": 0,
-   "off": "optimized_off/contic/bideca-like_48v_288c_opt.off",
+   "off": "optimized_off/contic/bicont_48v_288c_opt.off",
    "vertices": 48,
    "cells": 288,
    "seed_vector": [
@@ -1463,10 +1484,11 @@
     1.0,
     0.0,
     0.0
-   ]
+   ],
+   "atlas_name": "bideca-like"
   },
   {
-   "name": "spid-like",
+   "name": "spic",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -1496,7 +1518,7 @@
     0.5
    ],
    "piece": 0,
-   "off": "optimized_off/contic/spid-like_144v_240c_opt.off",
+   "off": "optimized_off/contic/spic_144v_240c_opt.off",
    "vertices": 144,
    "cells": 240,
    "seed_vector": [
@@ -1504,10 +1526,11 @@
     0.4142135623730951,
     0.0,
     0.0
-   ]
+   ],
+   "atlas_name": "spid-like"
   },
   {
-   "name": "apid-like",
+   "name": "bamic",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -1537,7 +1560,7 @@
     0.0
    ],
    "piece": 0,
-   "off": "optimized_off/contic/apid-like_192v_192c_opt.off",
+   "off": "optimized_off/contic/bamic_192v_192c_opt.off",
    "vertices": 192,
    "cells": 192,
    "seed_vector": [
@@ -1545,10 +1568,11 @@
     0.3333333333333333,
     0.3333333333333333,
     0.3333333333333333
-   ]
+   ],
+   "atlas_name": "apid-like"
   },
   {
-   "name": "deca-like",
+   "name": "cont",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -1578,7 +1602,7 @@
     0.0
    ],
    "piece": 0,
-   "off": "optimized_off/contic/deca-like_288v_48c_opt.off",
+   "off": "optimized_off/contic/cont_288v_48c_opt.off",
    "vertices": 288,
    "cells": 48,
    "seed_vector": [
@@ -1586,10 +1610,11 @@
     0.41421356237309503,
     0.41421356237309503,
     0.1715728752538099
-   ]
+   ],
+   "atlas_name": "deca-like"
   },
   {
-   "name": "respid-like",
+   "name": "respic",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -1619,7 +1644,7 @@
     0.0
    ],
    "piece": 0,
-   "off": "optimized_off/contic/respid-like_576v_384c_opt.off",
+   "off": "optimized_off/contic/respic_576v_384c_opt.off",
    "vertices": 576,
    "cells": 384,
    "seed_vector": [
@@ -1627,10 +1652,11 @@
     0.6568542494923801,
     0.1715728752538099,
     0.1715728752538099
-   ]
+   ],
+   "atlas_name": "respid-like"
   },
   {
-   "name": "redeca-like",
+   "name": "recont",
    "kind": "point",
    "degrees": 0,
    "locus": [
@@ -1660,7 +1686,7 @@
     0.0
    ],
    "piece": 0,
-   "off": "optimized_off/contic/redeca-like_576v_336c_opt.off",
+   "off": "optimized_off/contic/recont_576v_336c_opt.off",
    "vertices": 576,
    "cells": 336,
    "seed_vector": [
@@ -1668,7 +1694,8 @@
     0.41421356237309503,
     0.2928932188134525,
     0.2928932188134525
-   ]
+   ],
+   "atlas_name": "redeca-like"
   }
  ]
 }
