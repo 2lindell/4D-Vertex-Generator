@@ -446,6 +446,14 @@ def ring_walls(xa, xb, s_idx, surfs, keys, pw, n=24, rho=1e-6):
     return out, pcs
 
 
+def on_face(xa, xb, tol=1e-9):
+    """The domain face both ends of a rim stretch lie in (a library plane that is a face), if any."""
+    for i, n in enumerate(FACE_N):
+        if abs(xa @ n) < tol and abs(xb @ n) < tol:
+            return FACE_NAMES[i]
+    return None
+
+
 def reclassify(rims, log=print):
     """Rim stretches the four-piece reading left open (one of its four pieces is no piece: two
     crossing surfaces through the same curve, or a corner), named again from the ring round them:
@@ -465,6 +473,11 @@ def reclassify(rims, log=print):
             continue
         for i, (kind, name, cont, xa, xb) in enumerate(rl):
             if kind != "open":
+                continue
+            f = on_face(xa, xb)
+            if f:
+                rl[i] = ("face", f, False, xa, xb)
+                stats["face"] += 1
                 continue
             walls, _ = ring_walls(xa, xb, p["surface"], surfs, keys, pw)
             ws = [w for w in walls if w]
