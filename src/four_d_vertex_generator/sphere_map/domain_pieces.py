@@ -369,14 +369,21 @@ def do_sheet(D, C, key, WS, log=print, rounds=3):
             # cut along the surface where it meets the plane through the face's middle, across
             # the face's longest direction (a helper cut: not an edge of anything, not drawn)
             P = f["P"]
-            Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
-            Z = (P - P.mean(0)) @ Bz.T
-            d = np.linalg.svd(Z, full_matrices=False)[2][0] @ Bz
-            cpt = P.mean(0)
+            # the plane halfway round its loop (perpendicular to the chord from its first point
+            # to the point half way round, through the chord's middle), traced from where the
+            # loop crosses it
+            a_, b_ = P[0], P[len(P) // 2]
+            d = (b_ - a_) - (b_ - a_).mean()
+            cpt = (a_ + b_) / 2
             nrm = d - (d @ cpt) * np.ones(4)
             t = Plane(nrm, f"helper cut {len(extra)}")
-            y, ok = solve([s, t], cpt)
-            arcs = trace_on(s, t, D.face_planes, n_seeds=300, start=[y] if ok else [])
+            sv = P @ nrm
+            starts = []
+            for i in np.flatnonzero(np.sign(sv) != np.sign(np.roll(sv, -1))):
+                y, ok = solve([s, t], (P[i] + P[(i + 1) % len(P)]) / 2)
+                if ok:
+                    starts.append(y)
+            arcs = trace_on(s, t, D.face_planes, n_seeds=0, start=starts)
             extra += [{"kind": "aux", "name": "helper cut", "pts": a, "eqs": [s, t]} for a in arcs]
             rounds = min(8, max(rounds, r + 3))
         if curved:
@@ -887,74 +894,48 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             holes[id(best)].append(O)
     out = []
     for L in inner:
-        c, n, e1, e2 = L["frame"]
         rings = [L["P"]] + [H["P"] for H in holes[id(L)]]
-        # (a face too curved to lie flat on its plane, its loop folding over itself there: not
-        # triangulated; it is cut in two along the surface first)
-        nrms = np.array([G.normal(x) for x in L["P"][:: max(1, len(L["P"]) // 60)]])
-        nrms = nrms[np.linalg.norm(nrms, axis=1) > 1e-12]
-        nrms /= np.linalg.norm(nrms, axis=1, keepdims=True)
-        spread = float((nrms @ n).min()) if len(nrms) else 1.0
-        folds = sum(_crossings(np.c_[(R - c) @ e1, (R - c) @ e2]) for R in rings)
-        if folds or spread < 0.6:
-            out.append({"sheet": key, "too_curved": True, "P": L["P"], "frame": L["frame"],
-                        "folds": folds, "spread": spread})
+        # first, what it is: at points a short way inside its loop (from the middle of each
+        # edge, across the edge in the surface); a face of no wall is not meshed
+        probe = []
+        for ei, fwd in L["cyc"][:12]:
+            Pe = G.E[ei]["pts"] if fwd else G.E[ei]["pts"][::-1]
+            if len(Pe) < 3:
+                continue
+            k = len(Pe) // 2
+            m, tng = Pe[k], Pe[k + 1] - Pe[k - 1]
+            nn = G.normal(m)
+            if np.linalg.norm(nn) < 1e-12 or np.linalg.norm(tng) < 1e-14:
+                continue
+            nn = nn / np.linalg.norm(nn)
+            Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+            if np.linalg.det(np.vstack([np.ones(4) / 2, Bz])) < 0:
+                Bz = Bz[[1, 0, 2]]
+            left = np.cross(nn @ Bz.T, tng @ Bz.T) @ Bz          # (n x t: to the left of the edge)
+            left /= np.linalg.norm(left)
+            for dlt in (1e-3, 3e-3):
+                y = _lift(s, m + dlt * left, nn)
+                if y is not None:
+                    gy = G.normal(y)
+                    nm = name_point(D, key, y, gy / np.linalg.norm(gy))
+                    if nm:
+                        probe.append(nm)
+        if probe and not any(x["wall"] for x in probe):
             continue
-        verts, segs, hole_pts, off = [], [], [], 0
-        for r_i, R in enumerate(rings):
-            Q = np.c_[(R - c) @ e1, (R - c) @ e2]
-            verts.append(Q)
-            m = len(Q)
-            segs += [[off + i, off + (i + 1) % m] for i in range(m)]
-            off += m
-            if r_i:
-                t = tr.triangulate({"vertices": Q, "segments": [[i, (i + 1) % m] for i in range(m)]}, "p")
-                hole_pts.append(Q[t["triangles"][0]].mean(0))
-        Vall = np.vstack(verts)
-        # (a loop through the same point twice: one vertex there; only used vertices passed)
-        uniq, inv_ = np.unique(np.round(Vall, 13), axis=0, return_inverse=True)
-        inv_ = inv_.ravel()
-        rep = np.zeros(len(uniq), int)
-        for i in range(len(Vall) - 1, -1, -1):
-            rep[inv_[i]] = i
-        segs = np.array(sorted({(min(int(inv_[a]), int(inv_[b])), max(int(inv_[a]), int(inv_[b])))
-                                for a, b in segs if inv_[a] != inv_[b]}), dtype=np.int32)
-        A = {"vertices": np.ascontiguousarray(Vall[rep], dtype=np.float64),
-             "segments": np.ascontiguousarray(segs)}
-        src_of = rep                                      # triangle vertex i <- Vall[rep[i]]
-        if hole_pts:
-            A["holes"] = np.ascontiguousarray(hole_pts, dtype=np.float64)
-        import os
-        if os.environ.get("DP_DUMP"):
-            import pickle
-            pickle.dump(A, open(os.environ["DP_DUMP"], "wb"))
-        try:
-            T = tr.triangulate(A, f"pYq20a{max_area:.3g}")
-        except Exception as ex:                               # noqa: BLE001
-            log(f"  sheet {key}: a face could not be triangulated ({ex})")
+        # the plane the face is laid flat on: the first of these on which its loops do not cross
+        # themselves and no triangle, put back on the surface, turns over: the mean normal, the
+        # normals at points round the loop, the loop's least spread direction
+        res = None
+        for n_try in _normals_to_try(L["P"], G.normal):
+            res = _triangulate(s, rings, L["P"].mean(0), n_try, G.normal, max_area, tr)
+            if res is not None:
+                break
+        if res is None:
+            out.append({"sheet": key, "too_curved": True, "P": L["P"], "frame": L["frame"]})
             continue
-        nb = len(rep)
-        B = np.vstack(rings)[rep]
-        X = np.empty((len(T["vertices"]), 4))
-        X[:nb] = B
-        bad = 0
-        for i in range(nb, len(X)):
-            u, v = T["vertices"][i]
-            y = _lift(s, c + u * e1 + v * e2, n)
-            if y is None:
-                bad += 1
-                y = c + u * e1 + v * e2
-            X[i] = y
-        if np.abs(T["vertices"][:nb] - A["vertices"]).max() > 1e-12:
-            log(f"  sheet {key}: boundary vertices moved by the triangulation")
-        if "triangles" not in T or not len(T["triangles"]):
-            log(f"  sheet {key}: a face loop of {len(L['P'])} points encloses nothing")
-            continue
-        F = T["triangles"]
-        # (triangles turned over by the lift: the loop is not a graph over its plane)
-        U, W = (X[F[:, 1]] - X[F[:, 0]]) @ np.c_[e1, e2], (X[F[:, 2]] - X[F[:, 0]]) @ np.c_[e1, e2]
-        nrm = U[:, 0] * W[:, 1] - U[:, 1] * W[:, 0]
-        flips = int((nrm <= 0).sum())
+        X, F, bad, (c, n, e1, e2) = res
+        flips = 0
+        nrm = np.linalg.norm(_tri_normals(X, F), axis=1)
         # what it is: at the middle of its largest triangles, and at triangles all over it
         ar = np.abs(nrm)
         order = list(np.argsort(-ar)[:3])
@@ -997,6 +978,85 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
                     "names": named, "edges": edges, "verts": X, "tris": F, "flips": flips,
                     "lift_failed": bad, "area2d": L["area"]})
     return out
+
+
+def _normals_to_try(P, normal):
+    ns = []
+    m = [normal(x) for x in P[:: max(1, len(P) // 60)]]
+    m = [v / np.linalg.norm(v) for v in m if np.linalg.norm(v) > 1e-12]
+    if m:
+        ns.append(np.mean(m, axis=0))
+    ns += m[:: max(1, len(m) // 8)]
+    Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+    Z = (P - P.mean(0)) @ Bz.T
+    ns.append(np.linalg.svd(Z, full_matrices=False)[2][-1] @ Bz)
+    out = []
+    for v in ns:
+        v = v - v.mean()
+        if np.linalg.norm(v) > 1e-9:
+            out.append(v / np.linalg.norm(v))
+    return out
+
+
+def _triangulate(s, rings, c, n, normal, max_area, tr):
+    """The face laid flat on the plane through c across n, triangulated inside its loops (the
+    loop points the only rim vertices), inner vertices moved along n onto the surface. None if
+    its loops cross themselves there or a triangle turns over once on the surface."""
+    e1, e2 = np.linalg.svd(np.vstack([np.ones(4) / 2, n]))[2][2:]
+    if np.linalg.det(np.vstack([np.ones(4) / 2, e1, e2, n])) < 0:
+        e2 = -e2
+    flat = [np.c_[(R - c) @ e1, (R - c) @ e2] for R in rings]
+    if _area(flat[0]) <= 0 or sum(_crossings(Q) for Q in flat):
+        return None
+    verts, segs, hole_pts, off = [], [], [], 0
+    for r_i, Q in enumerate(flat):
+        verts.append(Q)
+        m = len(Q)
+        segs += [[off + i, off + (i + 1) % m] for i in range(m)]
+        off += m
+        if r_i:
+            t = tr.triangulate({"vertices": Q, "segments": [[i, (i + 1) % m] for i in range(m)]}, "p")
+            hole_pts.append(Q[t["triangles"][0]].mean(0))
+    Vall = np.vstack(verts)
+    uniq, inv_ = np.unique(np.round(Vall, 13), axis=0, return_inverse=True)
+    inv_ = inv_.ravel()
+    rep = np.zeros(len(uniq), int)
+    for i in range(len(Vall) - 1, -1, -1):
+        rep[inv_[i]] = i
+    segs = np.array(sorted({(min(int(inv_[a]), int(inv_[b])), max(int(inv_[a]), int(inv_[b])))
+                            for a, b in segs if inv_[a] != inv_[b]}), dtype=np.int32)
+    A = {"vertices": np.ascontiguousarray(Vall[rep], dtype=np.float64), "segments": np.ascontiguousarray(segs)}
+    if hole_pts:
+        A["holes"] = np.ascontiguousarray(hole_pts, dtype=np.float64)
+    T = tr.triangulate(A, f"pYq20a{max_area:.3g}")
+    if "triangles" not in T or not len(T["triangles"]):
+        return None
+    nb = len(rep)
+    X = np.empty((len(T["vertices"]), 4))
+    X[:nb] = np.vstack(rings)[rep]
+    bad = 0
+    for i in range(nb, len(X)):
+        u, v = T["vertices"][i]
+        y = _lift(s, c + u * e1 + v * e2, n)
+        if y is None:
+            return None
+        X[i] = y
+    F = T["triangles"]
+    # (each triangle, on the surface, facing the way the surface does)
+    cr = _tri_normals(X, F)
+    sn = np.array([normal(x) for x in X[F].mean(1)])
+    if ((cr * sn).sum(1) <= 0).any():
+        return None
+    return X, F, bad, (c, n, e1, e2)
+
+
+def _tri_normals(X, F):
+    """Normals (in the sum-zero 3-space, as 4-vectors) of triangles of points with sum 1."""
+    Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+    if np.linalg.det(np.vstack([np.ones(4) / 2, Bz])) < 0:
+        Bz = Bz[[1, 0, 2]]
+    a, b = (X[F[:, 1]] - X[F[:, 0]]) @ Bz.T, (X[F[:, 2]] - X[F[:, 0]]) @ Bz.T
+    return np.cross(a, b) @ Bz
 
 
 def _crossings(Q):
