@@ -1083,7 +1083,7 @@ def name_points(D, key, Y, N):
     return out
 
 
-def faces_of(D, key, G, max_area=6e-5, log=print):
+def faces_of(D, key, G, max_area=1e-4, log=print):
     """Each face of the graph: its loops (outer, holes), its triangles inside them (loop points the
     only boundary vertices, inner points on the surface), and what it is."""
     import triangle as tr
