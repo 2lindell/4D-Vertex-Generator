@@ -973,9 +973,10 @@ class Graph:
                     break
             self.F.append(cyc)
 
-    def loop(self, cyc, gap=2e-5):
-        """A face's loop: its edges' exact points in order (the graph's vertices always kept;
-        a curve point closer than gap to the point before it, or to the edge's end, left out)."""
+    def loop(self, cyc, gap=1.5e-3):
+        """A face's loop: its edges' exact points in order, about one every gap (the graph's
+        vertices always kept; a curve point closer than gap to the one before it, or to the edge's
+        end, left out: very short rim steps only crowd the triangulation)."""
         pts = []
         for ei, fwd in cyc:
             P = self.E[ei]["pts"] if fwd else self.E[ei]["pts"][::-1]
@@ -1083,7 +1084,7 @@ def name_points(D, key, Y, N):
     return out
 
 
-def faces_of(D, key, G, max_area=1e-4, log=print):
+def faces_of(D, key, G, max_area=6e-5, log=print):
     """Each face of the graph: its loops (outer, holes), its triangles inside them (loop points the
     only boundary vertices, inner points on the surface), and what it is."""
     import triangle as tr
@@ -1197,6 +1198,11 @@ def faces_of(D, key, G, max_area=1e-4, log=print):
         # themselves and no triangle, put back on the surface, turns over: the mean normal, the
         # normals at points round the loop, the loop's least spread direction
         parts = triangulate_face(s, rings, G.normal, max_area, tr)
+        if parts is None and "cyc" in L:
+            # (again with every exact point of its loop: a sharp fold can need them)
+            rings = [G.loop(L["cyc"], gap=2e-5)] + [G.loop(H["cyc"], gap=2e-5) if "cyc" in H else H["P"]
+                                                    for H in holes[id(L)]]
+            parts = triangulate_face(s, rings, G.normal, max_area, tr)
         if parts is None and len(rings) == 1:
             # (laying it flat failed even cut: triangulated on the surface itself)
             res = _ear_clip_on_surface(s, rings[0], G.normal)
