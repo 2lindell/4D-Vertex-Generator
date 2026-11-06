@@ -317,8 +317,7 @@ def gaps(D, key, faces, WS, done, s, normal):
             for a_, b_ in ((t[0], t[1]), (t[1], t[2]), (t[2], t[0])):
                 nb[(min(a_, b_), max(a_, b_))].append(ti)
         pairs = {(u, v) for ts in nb.values() if len(ts) == 2 for u, v in [ts]
-                 if tn[u] is not None and tn[v] is not None and tn[u] != tn[v]
-                 and tn[u][0] is not None and tn[v][0] is not None}
+                 if _real(tn[u]) and _real(tn[v]) and tn[u] != tn[v]}
         chosen = []                        # (a spread of pairs per change: each 0.02 from the last)
         for u, v in sorted(pairs):
             tr_ = (tn[u], tn[v])
@@ -333,7 +332,8 @@ def gaps(D, key, faces, WS, done, s, normal):
             ya, y = cen[u], cen[v]
             na = tn[u]
             lo, hi = 0.0, 1.0
-            for _ in range(32):
+            # (down to about 1e-7 apart: closer, the surface changing sign there reads as 0 on both)
+            while (hi - lo) * np.linalg.norm(y - ya) > 1e-7:
                 mid = (lo + hi) / 2
                 _, nmid = at(ya + mid * (y - ya))
                 if key_of(nmid) == na:
@@ -365,7 +365,7 @@ def gaps(D, key, faces, WS, done, s, normal):
     return need
 
 
-def do_sheet(D, C, key, WS, log=print, rounds=3):
+def do_sheet(D, C, key, WS, log=print, rounds=6):
     """One sheet: its graph of exact curves, faces named; where a wall face's naming changes
     inside it, the surfaces responsible traced and the sheet built again."""
     s = D.face_planes[FACE_NAMES.index(key[5:])] if isinstance(key, str) else D.lib[key]
@@ -1053,6 +1053,11 @@ def name_point(D, key, x, n):
             "components": [int(D.rcomp[0, a]), int(D.rcomp[0, b])]}
 
 
+def _real(x):
+    """A triangle's naming that counts: a wall, or no wall with one region on both sides."""
+    return x is not None and (x[0] is not None or x[1][0] == x[1][1])
+
+
 def name_points(D, key, Y, N):
     """name_point at many points at once: [(wall, sides) or None]."""
     eps = 1e-7
@@ -1270,8 +1275,9 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             tri_names = name_points(D, key, cen, Nn)
             if not any(x and x[0] for x in tri_names):
                 tri_names = [(named[0]["wall"], tuple(named[0]["sides"]))] * len(F)
-            # (a triangle at the rim where no patch is found, its sides the same, is not a change)
-            kinds = {x for x in tri_names if x is not None and x[0] is not None}
+            # (a triangle where no wall is found but its two sides differ: a rim triangle whose patch
+            # was missed, not a change; one with the same region on both sides: no wall there)
+            kinds = {x for x in tri_names if _real(x)}
         out.append({"sheet": key, "rings": rings, "what": named[0] if named else None, "agree": len(kinds) <= 1,
                     "tri_names": tri_names, "centres": cen, "F": F,
                     "samples": [(y, nm) for y, nm in zip(at, names) if nm],
