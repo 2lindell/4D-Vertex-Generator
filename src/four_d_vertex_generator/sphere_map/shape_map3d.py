@@ -329,7 +329,7 @@ def build() -> dict:
     ends_img, ends_dir, owner = [], [], []
     for li, geo in enumerate(line_geo):
         first, last = np.vstack(geo[0]), np.vstack(geo[-1])
-        for P, Q in ((first[0], first[min(3, len(first) - 1)]), (last[-1], last[max(-4, -len(last))])):
+        for P, Q in ((first[0], first[1]), (last[-1], last[-2])):     # (its first step: the curve bends)
             t = Q - P - (Q - P) @ P * P                      # direction leaving the end, along S^3
             t = t / np.linalg.norm(t)
             ends_img.append(np.einsum("gij,j->gi", g, P))
@@ -348,7 +348,7 @@ def build() -> dict:
         (la, ga), (lb, gb) = owner[i], owner[j]
         # one line carrying on through a point that is not a shape of its own: the two ends leave
         # it in opposite directions
-        if line_name[la] == line_name[lb] and ends_dir[i] @ ends_dir[j] < -0.999 \
+        if line_name[la] == line_name[lb] and ends_dir[i] @ ends_dir[j] < -0.99 \
                 and point_at(ends_img[i]) is None:
             lparent[lfind(lb * len(g) + gb)] = lfind(la * len(g) + ga)
 
