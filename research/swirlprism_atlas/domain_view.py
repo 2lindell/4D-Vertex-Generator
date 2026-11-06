@@ -488,6 +488,10 @@ def main(src_dir, out_path):
             + (f"Not drawn yet: {', '.join(sorted(whole))}" if whole else "")
             + (("; " if whole else "Not drawn yet: ") + f"part of {', '.join(partial)}" if partial else "")
             + ("." if whole or partial else ""))
+    trimmed = sorted({f["wall"] for f in doc["faces"] if f.get("trimmed")})
+    if trimmed:
+        note += (f" Part of {', '.join(trimmed)} ends where the database has no curve yet; there it is cut "
+                 "to its own triangles, so that edge is not exact.")
     tag = f'<p id="dv-note" class="lede">{note}</p>'
     html = re.sub(r'<p id="dv-note"[^>]*>.*?</p>', "", html)
     anchor = "map from several fundamental domains."
