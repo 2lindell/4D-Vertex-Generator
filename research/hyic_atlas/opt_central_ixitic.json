@@ -939,6 +939,43 @@
    "opt_R": 5.3023771822042844,
    "central_off": "central_off/ixitic/ixitic_wall_11_1440v_5040c_central.off",
    "central_R": 5.873561363652738
+  },
+  {
+   "name": "tasthi",
+   "kind": "line",
+   "degrees": 1,
+   "key": "5a26dde24dce",
+   "locus": [],
+   "sheet": "ix4",
+   "seed": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "start_R": 48.31462936276476,
+   "R": 3.2360679774995313,
+   "optimized": [
+    0.500000000000017,
+    0.499999999999983,
+    0.0,
+    0.0
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5000000000000002,
+    0.4999999999999999,
+    0.0,
+    0.0
+   ],
+   "depth": 0.7071067811865474,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_tasthi_1440v_240c_seed.off",
+   "seed_R": 48.314629362901975,
+   "opt_off": "optimized_off/ixitic/tasthi_1440v_240c_opt.off",
+   "opt_R": 3.2360679775005217,
+   "central_off": "central_off/ixitic/tasthi_1440v_240c_central.off",
+   "central_R": 3.2360679775004657
   }
  ]
 }
