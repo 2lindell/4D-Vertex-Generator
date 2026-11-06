@@ -1,21 +1,21 @@
 {
  "_about": "A hyic subgroup's domain (the H4 chamber) mapped over curved walls (snub_map<tag>.json); as\ndecaic_atlas/snub_map.py and contic_atlas/snub_map.py, over Q(sqrt5), with no fold (the hyic family).",
- "N": 6,
+ "N": 24,
  "types": [
   {
    "type": 0,
    "signature": "7200: cells 120x[60v92f]+600x[12v20f]+720x[10v12f]+1200x[6v8f]+7200x[4v4f] | faces 1440x5g+2400x3g+2400x3g+7200x3g+7200x3g+7200x3g+7200x3g | edges 3600x4+3600x4+3600x4+7200x3+7200x3+7200x3",
    "vertices": 7200,
    "example": [
-    0.16642818476582028,
-    0.1675208280604689,
-    0.1683600699452775,
-    0.49769091722843334
+    0.04181575629968275,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8737928060571701
    ],
    "grid_regions": [
-    10
+    1771
    ],
-   "grid_points": 10,
+   "grid_points": 1771,
    "fold_points": 0,
    "wall_of": []
   }
@@ -23,5 +23,5 @@
  "walls": [],
  "wall_points": [],
  "surfaces": [],
- "seconds": 47.3
+ "seconds": 1852.9
 }
