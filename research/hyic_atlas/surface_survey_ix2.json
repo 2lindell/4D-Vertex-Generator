@@ -1,0 +1,8 @@
+{
+ "_about": "Targeted search for ixitic shapes the map may have missed (surface_survey_<sheet>.json).",
+ "sheet": "ix2",
+ "samples": 7200,
+ "surfaces": 20,
+ "new": {},
+ "target_hits": []
+}
