@@ -409,6 +409,536 @@
    "opt_R": 1.0000000000000542,
    "central_off": "central_off/ixitic/tehi_120v_600c_central.off",
    "central_R": 1.0000000000000542
+  },
+  {
+   "name": "misrethi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2e644f68b084",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.033482663677828484,
+    0.033702485867237286,
+    0.0,
+    0.9328148504549343
+   ],
+   "start_R": 30.45668534026198,
+   "R": 2.5725539816978866,
+   "optimized": [
+    3.348266367785825e-05,
+    0.4995337024858504,
+    0.0,
+    0.5004328148504718
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3333333333333333,
+    0.33333333333333326,
+    0.0,
+    0.3333333333333335
+   ],
+   "depth": 0.4082482904638629,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_misrethi_1440v_2160c_seed.off",
+   "seed_R": 30.45668534028916,
+   "opt_off": "optimized_off/ixitic/misrethi_1440v_2160c_opt.off",
+   "opt_R": 2.5741060644747726,
+   "central_off": "central_off/ixitic/misrethi_1440v_2160c_central.off",
+   "central_R": 4.854101966251256
+  },
+  {
+   "name": "gypsobtady",
+   "kind": "region",
+   "degrees": 3,
+   "key": "d243a1e80043",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.04181575629968276,
+    0.04209028735820388,
+    0.7078531013374042,
+    0.2082408550047093
+   ],
+   "start_R": 5.106976063928482,
+   "R": 2.0000000000000333,
+   "optimized": [
+    0.0369728887126812,
+    0.03721562511572779,
+    0.6837807148400593,
+    0.24203077133153167
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.13901578748421256,
+    0.3311246083028514,
+    0.3908438167287266,
+    0.1390157874842095
+   ],
+   "depth": 0.16052160465123236,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_gypsobtady_1440v_3360c_seed.off",
+   "seed_R": 5.106976063930286,
+   "opt_off": "optimized_off/ixitic/gypsobtady_1440v_3360c_opt.off",
+   "opt_R": 4.38895234110418,
+   "central_off": "central_off/ixitic/gypsobtady_1440v_3360c_central.off",
+   "central_R": 4.335127541077009
+  },
+  {
+   "name": "ixitic_region_08",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2da1ce87ceec",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.04181575629968275,
+    0.41646325982521315,
+    0.2502861349888373,
+    0.29143484888626686
+   ],
+   "start_R": 3.228623602718013,
+   "R": 3.228623602718013,
+   "optimized": [
+    0.04181575629968275,
+    0.41646325982521315,
+    0.2502861349888373,
+    0.29143484888626686
+   ],
+   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "central": [
+    0.09116338064950842,
+    0.5808143411790508,
+    0.23685889752192105,
+    0.09116338064951966
+   ],
+   "depth": 0.10526640471645955,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_ixitic_region_08_1440v_4800c_seed.off",
+   "seed_R": 3.2286236027185864,
+   "opt_off": "optimized_off/ixitic/ixitic_region_08_1440v_4800c_opt.off",
+   "opt_R": 3.2286236027185864,
+   "central_off": "central_off/ixitic/ixitic_region_08_1440v_4800c_central.off",
+   "central_R": 6.434025434114067
+  },
+  {
+   "name": "ixitic_region_11",
+   "kind": "region",
+   "degrees": 3,
+   "key": "11c376e3c804",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.04181575629968275,
+    0.45806025676599194,
+    0.20868913804805847,
+    0.29143484888626686
+   ],
+   "start_R": 3.611149302940604,
+   "R": 2.6181854878848423,
+   "optimized": [
+    4.3178984797457e-05,
+    0.3820670761390973,
+    0.2360354106358882,
+    0.38185433424021714
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.013652529264171993,
+    0.6500304143300103,
+    0.1615179473295004,
+    0.17479910907631735
+   ],
+   "depth": 0.01576458289157762,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_ixitic_region_11_1440v_5520c_seed.off",
+   "seed_R": 3.611149302941293,
+   "opt_off": "optimized_off/ixitic/ixitic_region_11_1440v_5520c_opt.off",
+   "opt_R": 2.619008246713315,
+   "central_off": "central_off/ixitic/ixitic_region_11_1440v_5520c_central.off",
+   "central_R": 6.165561957607859
+  },
+  {
+   "name": "ixitic_region_12",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5efe53c04ebf",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.2502861349888373,
+    0.6658078213532761
+   ],
+   "start_R": 3.9631513687988154,
+   "R": 2.000000000000038,
+   "optimized": [
+    4.1821471384948624e-05,
+    4.209603996445577e-05,
+    0.49975025200583334,
+    0.5001658304828173
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.30357803243312276,
+    0.11410503070320928,
+    0.3203012751667796,
+    0.26201566169688845
+   ],
+   "depth": 0.07542605010936522,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_ixitic_region_12_1440v_5760c_seed.off",
+   "seed_R": 3.963151368799242,
+   "opt_off": "optimized_off/ixitic/ixitic_region_12_1440v_5760c_opt.off",
+   "opt_R": 2.00107692470048,
+   "central_off": "central_off/ixitic/ixitic_region_12_1440v_5760c_central.off",
+   "central_R": 5.223697146896165
+  },
+  {
+   "name": "magypsobtady_1",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9fbf16135e07",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.08341275324046156,
+    0.04209028735820387,
+    0.08389814722572204,
+    0.7905988121756125
+   ],
+   "start_R": 10.203721199770639,
+   "R": 6.1451699273412155,
+   "optimized": [
+    0.15621738970978186,
+    0.07687031957591571,
+    0.15621787598821474,
+    0.6106944147260877
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3187575475548852,
+    0.03951194307558122,
+    0.08223152356118488,
+    0.5594989858083488
+   ],
+   "depth": 0.004446207783721354,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_magypsobtady_1_1440v_5760c_seed.off",
+   "seed_R": 10.20372119977292,
+   "opt_off": "optimized_off/ixitic/magypsobtady_1_1440v_5760c_opt.off",
+   "opt_R": 6.14733412908086,
+   "central_off": "central_off/ixitic/magypsobtady_1_1440v_5760c_central.off",
+   "central_R": 12.950371677886533
+  },
+  {
+   "name": "ixitic_region_16",
+   "kind": "region",
+   "degrees": 3,
+   "key": "271a2ad0dfa9",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8737928060571701
+   ],
+   "start_R": 14.67283750101368,
+   "R": 4.421295752271793,
+   "optimized": [
+    0.028717697559332133,
+    0.09010570946827683,
+    0.06687440468234279,
+    0.8143021882900482
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3020084180991511,
+    0.10105460118801037,
+    0.11401164904668287,
+    0.4829253316661557
+   ],
+   "depth": 0.044447025384233285,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_ixitic_region_16_1440v_6480c_seed.off",
+   "seed_R": 14.672837501018861,
+   "opt_off": "optimized_off/ixitic/ixitic_region_16_1440v_6480c_opt.off",
+   "opt_R": 8.173885469311893,
+   "central_off": "central_off/ixitic/ixitic_region_16_1440v_6480c_central.off",
+   "central_R": 7.831650817280435
+  },
+  {
+   "name": "ixitic_region_17",
+   "kind": "region",
+   "degrees": 3,
+   "key": "48f481bb1e96",
+   "locus": [],
+   "sheet": "ix2",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.12549514416650084,
+    0.7905988121756125
+   ],
+   "start_R": 7.2807707274507925,
+   "R": 7.280770727450793,
+   "optimized": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.12549514416650087,
+    0.7905988121756126
+   ],
+   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "central": [
+    0.22985122793623425,
+    0.03505001803334238,
+    0.22636115573449672,
+    0.5087375982959266
+   ],
+   "depth": 0.040472274693302925,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_ixitic_region_17_1440v_6480c_seed.off",
+   "seed_R": 7.2807707274520705,
+   "opt_off": "optimized_off/ixitic/ixitic_region_17_1440v_6480c_opt.off",
+   "opt_R": 7.2807707274520705,
+   "central_off": "central_off/ixitic/ixitic_region_17_1440v_6480c_central.off",
+   "central_R": 5.326476010606334
+  },
+  {
+   "name": "petsobtady",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "177447212efe",
+   "locus": [
+    "b1*b2 - b1*b4 - b2**2/2 + sqrt(5)*b2**2/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - b2*b4"
+   ],
+   "sheet": "ix2",
+   "seed": [
+    0.0418157531759,
+    0.0794544254794,
+    0.5830621116351,
+    0.2956677097096
+   ],
+   "start_R": 3.306356230831419,
+   "R": 1.7320508075690235,
+   "optimized": [
+    -2.122477319595191e-05,
+    5.56229331493001e-05,
+    0.5001269874573605,
+    0.4998386143826861
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.12323316212348616,
+    0.09800662708149596,
+    0.5474539990035141,
+    0.23130621179150387
+   ],
+   "depth": 0.15439684194033784,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_petsobtady_1440v_2160c_seed.off",
+   "seed_R": 3.306356230832298,
+   "opt_off": "optimized_off/ixitic/petsobtady_1440v_2160c_opt.off",
+   "opt_R": 1.7326667737357615,
+   "central_off": "central_off/ixitic/petsobtady_1440v_2160c_central.off",
+   "central_R": 4.556651567013034
+  },
+  {
+   "name": "ixitic_wall_04",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "2d204abb7643",
+   "locus": [
+    "b1*b2 - sqrt(5)*b1*b4 + 2*b1*b4 + b2**2 - sqrt(5)*b2*b3/2 + 3*b2*b3/2"
+   ],
+   "sheet": "ix2",
+   "seed": [
+    0.0418157544037,
+    0.0478137697055,
+    0.1670921410786,
+    0.7432783348122
+   ],
+   "start_R": 5.578959571964938,
+   "R": 2.0000000000000333,
+   "optimized": [
+    5.3050040306013276e-05,
+    3.2810814696156314e-05,
+    0.49966105635198355,
+    0.5002530827930143
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2551167615409191,
+    0.035933643339072015,
+    0.4359401273829609,
+    0.273009467737048
+   ],
+   "depth": 0.31325050856676045,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_04_1440v_2880c_seed.off",
+   "seed_R": 5.578959571965666,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_04_1440v_2880c_opt.off",
+   "opt_R": 2.0014628143139426,
+   "central_off": "central_off/ixitic/ixitic_wall_04_1440v_2880c_central.off",
+   "central_R": 4.87357295590762
+  },
+  {
+   "name": "ixitic_wall_05",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "abf2453f3aa8",
+   "locus": [
+    "b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - sqrt(5)*b2*b4/2 + b2*b4/2 - b3**2/2 + sqrt(5)*b3**2/2"
+   ],
+   "sheet": "ix2",
+   "seed": [
+    0.0585755533605,
+    0.4164632591208,
+    0.2086891410037,
+    0.316272046515
+   ],
+   "start_R": 3.311012196899825,
+   "R": 2.6180339893280173,
+   "optimized": [
+    5.898644199493641e-05,
+    0.38199974149648447,
+    0.2360433047648878,
+    0.3818979672966328
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.20607068516366123,
+    0.5470919829625887,
+    0.1068135168959845,
+    0.14002381497776573
+   ],
+   "depth": 0.23820043338607735,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_05_1440v_2880c_seed.off",
+   "seed_R": 3.3110121969004815,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_05_1440v_2880c_opt.off",
+   "opt_R": 2.618625705666526,
+   "central_off": "central_off/ixitic/ixitic_wall_05_1440v_2880c_central.off",
+   "central_R": 8.70841728961977
+  },
+  {
+   "name": "ixitic_wall_08",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "d0c143c7e8a3",
+   "locus": [
+    "b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - b2*b4 - b3**2/2 + sqrt(5)*b3**2/2 - b3*b4/2 + sqrt(5)*b3*b4/2"
+   ],
+   "sheet": "ix2",
+   "seed": [
+    0.082386036846,
+    0.4164632600578,
+    0.2097158538062,
+    0.29143484929
+   ],
+   "start_R": 3.606011338484561,
+   "R": 2.6180339887499118,
+   "optimized": [
+    8.611318674455165e-05,
+    0.3819984658755991,
+    0.23604764118683413,
+    0.38186777975082226
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.18023922138887485,
+    0.5902612210666216,
+    0.11597087628132943,
+    0.11352868126317418
+   ],
+   "depth": 0.20814527024568946,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_08_1440v_3360c_seed.off",
+   "seed_R": 3.6060113384852395,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_08_1440v_3360c_opt.off",
+   "opt_R": 2.6188468205645083,
+   "central_off": "central_off/ixitic/ixitic_wall_08_1440v_3360c_central.off",
+   "central_R": 9.789543510581064
+  },
+  {
+   "name": "ixitic_wall_09",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "a23bc1d1c3b5",
+   "locus": [
+    "b1*b2 - 3*b1*b3/2 + sqrt(5)*b1*b3/2 + b2**2 - sqrt(5)*b2*b3 + 2*b2*b3 - sqrt(5)*b3**2 + 2*b3**2"
+   ],
+   "sheet": "ix2",
+   "seed": [
+    0.0720518554929,
+    0.0420902891529,
+    0.0838981458027,
+    0.8019597095515
+   ],
+   "start_R": 10.116615053579531,
+   "R": 6.139562061685498,
+   "optimized": [
+    0.1670679628359129,
+    0.07727096402390013,
+    0.1581425586508326,
+    0.5975185144893543
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.316983206791063,
+    0.03754955648463239,
+    0.08828925851285989,
+    0.5571779782114448
+   ],
+   "depth": 0.12120326257870498,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_09_1440v_3600c_seed.off",
+   "seed_R": 10.11661505358177,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_09_1440v_3600c_opt.off",
+   "opt_R": 6.141663888831463,
+   "central_off": "central_off/ixitic/ixitic_wall_09_1440v_3600c_central.off",
+   "central_R": 12.350490492837903
+  },
+  {
+   "name": "ixitic_wall_11",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "50b35e15fd85",
+   "locus": [
+    "b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 + b2*b3/2 + sqrt(5)*b2*b3/2 - b3**2/2 + sqrt(5)*b3**2/2"
+   ],
+   "sheet": "ix2",
+   "seed": [
+    0.0418157523693,
+    0.0420902891579,
+    0.114599879197,
+    0.8014940792758
+   ],
+   "start_R": 7.827561771519885,
+   "R": 5.301257326391633,
+   "optimized": [
+    0.1500346820790139,
+    6.358655034448661e-05,
+    0.21109652826546474,
+    0.6388052031051769
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.1640064702572957,
+    0.03990175220969651,
+    0.1823134957238955,
+    0.6137782818091123
+   ],
+   "depth": 0.05003831404599987,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_11_1440v_5040c_seed.off",
+   "seed_R": 7.827561771521304,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_11_1440v_5040c_opt.off",
+   "opt_R": 5.3023771822042844,
+   "central_off": "central_off/ixitic/ixitic_wall_11_1440v_5040c_central.off",
+   "central_R": 5.873561363652738
   }
  ]
 }
