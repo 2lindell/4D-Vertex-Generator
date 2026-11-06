@@ -217,6 +217,9 @@ class Data:
             a, b = p["pieces"]
             if p["face"] is None:
                 self.pw[(min(a, b), max(a, b), p["surface"])] = p
+                # (the same two pieces, whichever surface the patch was recorded on: two library
+                # surfaces can be one surface there)
+                self.pw.setdefault((min(a, b), max(a, b), None), p)
             else:
                 self.fw[(a, b, p["side_b_copy_shift"])] = p
         self.face_planes = {k: Plane(FACE_N[k], f"face {FACE_NAMES[k]}") for k in range(len(FACE_N))}
@@ -1047,7 +1050,7 @@ def name_point(D, key, x, n):
     a, b = D.piece(x + eps * n), D.piece(x - eps * n)
     if a is None or b is None:
         return None
-    p = D.pw.get((min(a, b), max(a, b), key)) if a != b else None
+    p = (D.pw.get((min(a, b), max(a, b), key)) or D.pw.get((min(a, b), max(a, b), None))) if a != b else None
     return {"wall": p["wall"] if p else None, "patch": p["id"] if p else None,
             "sides": [D.region[a], D.region[b]],
             "components": [int(D.rcomp[0, a]), int(D.rcomp[0, b])]}
@@ -1084,7 +1087,7 @@ def name_points(D, key, Y, N):
         if a is None or b is None:
             out.append(None)
             continue
-        p = D.pw.get((min(a, b), max(a, b), key)) if a != b else None
+        p = (D.pw.get((min(a, b), max(a, b), key)) or D.pw.get((min(a, b), max(a, b), None))) if a != b else None
         out.append((p["wall"] if p else None, (D.region[a], D.region[b])))
     return out
 
@@ -1792,12 +1795,25 @@ def export(log=print, workers=4):
                           "hole_edges": [e_off + x["edge"] for x in f["edges"] if x.get("hole")],
                           "verts": [nv, nv + len(f["verts"])], "tris": [sum(len(t) for t in T), sum(len(t) for t in T) + len(f["tris"])],
                           "turned_triangles": f["flips"], "lift_failed": f["lift_failed"]})
+            tris_f = f["tris"]
+            share = n_ / max(1, len(f["tri_names"]))
+            if share < 0.95:
+                # (part of this face is not the wall: a boundary the database has no curve for. Only
+                # the triangles named the wall are kept, so nothing is drawn where the wall is not;
+                # its edge there is as fine as the triangles, not exact)
+                keep = np.array([x is not None and x[0] == wall and tuple(x[1]) == tuple(sides)
+                                 for x in f["tri_names"]])
+                tris_f = f["tris"][keep]
+                faces[-1]["trimmed"] = {"kept_share": round(float(keep.mean()), 4),
+                                        "why": "a boundary of the wall here is on no curve of the database"}
+                faces[-1]["tris"] = [sum(len(t) for t in T), sum(len(t) for t in T) + len(tris_f)]
+                stats["faces trimmed to the wall's own triangles"] += 1
             V.append(f["verts"])
-            T.append(f["tris"] + 0)
+            T.append(tris_f + 0)
             nv += len(f["verts"])
             # (a coarser mesh of the same face, for views holding many images of the half-cell:
             # its loops' own points, every few of them, and bigger triangles inside)
-            cr = coarse(D, key, f["rings"])
+            cr = coarse(D, key, f["rings"]) if share >= 0.95 else (f["verts"], tris_f)
             if cr is None:
                 stats["coarse mesh: the fine one used"] += 1
                 cr = (f["verts"], f["tris"])
