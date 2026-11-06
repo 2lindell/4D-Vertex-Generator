@@ -342,6 +342,19 @@ def main(src_dir, out_path):
         for i in {d[3] for d in fc["drawn"]}:
             ecount[(fc["f"]["wall"], i)] += 1
 
+    # (a face whose mesh is far denser than the rest, its rim's short steps crowding it: shown with
+    # its coarser mesh in the half-cell too)
+    Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+    dens = []
+    for fc in faces:
+        Xb = verts[fc["f"]["verts"][0]:fc["f"]["verts"][1]] @ Bz.T
+        F_ = fc["F"]
+        a = np.linalg.norm(np.cross(Xb[F_[:, 1]] - Xb[F_[:, 0]], Xb[F_[:, 2]] - Xb[F_[:, 0]]), axis=1).sum() / 2
+        dens.append(len(F_) / max(a, 1e-12))
+    med = float(np.median(dens))
+    for fc, d_ in zip(faces, dens):
+        fc["dense"] = d_ > 1.8 * med and "Xc" in fc
+
     def outlines(fc, draw, done):
         out = []
         w = fc["f"]["wall"]
@@ -376,7 +389,7 @@ def main(src_dir, out_path):
         drawn_once = {}
         for fc in faces:
             parts = []
-            X0, F0 = (fc["Xc"], fc["Fc"]) if len(images) > 1 and "Xc" in fc else (fc["X"], fc["F"])
+            X0, F0 = (fc["Xc"], fc["Fc"]) if (len(images) > 1 or fc.get("dense")) and "Xc" in fc else (fc["X"], fc["F"])
             for g in images:
                 Xg = X0 @ g.T
                 if planes is not None:
@@ -426,8 +439,8 @@ def main(src_dir, out_path):
 
     ident = [np.eye(4)]
     cv, cshell = build_view(cell, None, 4, 1e-3, ident, inside_only=True)
-    vv, vshell = build_view(v1c, dplanes, 3, 3e-3, list(G))
-    chv, chshell = build_view(v1c, chplanes, 3, 3e-3, list(G))
+    vv, vshell = build_view(v1c, dplanes, 3, 8e-3, list(G))
+    chv, chshell = build_view(v1c, chplanes, 3, 6e-3, list(G))
 
     region_files = {}
     for vk, view, shells in (("cell", DC, cshell), ("v1", V1, vshell), ("chambers", CH, chshell)):
