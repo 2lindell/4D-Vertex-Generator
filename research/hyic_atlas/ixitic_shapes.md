@@ -5,10 +5,11 @@ survey's new regions, the wall shapes (classified on their surfaces), and the st
 corners). Every polytope is keyed by its arrangement key (a polytope and its mirror image or its image under ixoic get
 the same key), so the ten sheets merge by key. Kinds: region (3 degrees of freedom), wall (2), line (1), point (0) --
 the lowest stratum it lives on; a strata type seen in no sheet's interior is a wall (the mirrors are seams between
-sheets). Each gets its symmetry: the elements of H4 keeping its vertex set, and whether the sheet's ixoic (ixitic) also
-keeps it -- ixoic is not inside H4.
+sheets). Each gets its full symmetry (every isometry keeping its vertex set: fullsym.py -- not only those in H4, since
+a shape's symmetry group can be a rotated copy of a larger group), and how many elements of the sheet's ixoic (or
+ixitic) keep it.
 
-| kind | vertices | cells | edges by valence | H4 symmetry | ixoic elements kept | own symmetry only | sheets | seed (beta, sheet) |
+| kind | vertices | cells | edges by valence | symmetry | ixoic elements kept | own symmetry only | sheets | seed (beta, sheet) |
 |---|---|---|---|---|---|---|---|---|
 | region | 1440 | 1440 | {3: 4320, 4: 1440} | 1440 | 1440 |  | 10 | [0.03347, 0.03369, 0.93284, 0.0] (ix0) |
 | region | 1440 | 1920 | {3: 5760, 4: 720, 6: 720} | 1440 | 1440 |  | 5 | [0.0, 0.13469, 0.08324, 0.78207] (ix7) |
@@ -56,6 +57,6 @@ keeps it -- ixoic is not inside H4.
 | line | 1440 | 240 | {3: 2880} | 1440 | 1440 |  | 5 | [0.03349, 0.96651, 0.0, 0.0] (ix4) |
 | line | 1440 | 720 | {3: 3600, 5: 720} | 14400 | 1440 |  | 10 | [0.0, 0.0, 0.03387, 0.96613] (ix0) |
 | line | 1440 | 1680 | {3: 2880, 4: 2880} | 1440 | 1440 |  | 4 | [0.53311, 0.0, 0.46689, 0.0] (ix5) |
-| point | 120 | 600 | {5: 720} | 1440 | 1440 |  | 10 | [1.0, 0.0, 0.0, 0.0] (ix0) |
+| point | 120 | 600 | {5: 720} | 14400 | 1440 |  | 10 | [1.0, 0.0, 0.0, 0.0] (ix0) |
 
 Totals: {'region': 22, 'wall': 14, 'line': 10, 'point': 1}.

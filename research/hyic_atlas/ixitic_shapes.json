@@ -13,7 +13,7 @@
     0.0
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -58,7 +58,7 @@
     0.7820691124665942
    ],
    "sheet": "ix7",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -98,7 +98,7 @@
     0.9328148504549343
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -142,7 +142,7 @@
     0.2082408550047093
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -183,7 +183,7 @@
     0.8737928060571701
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -226,7 +226,7 @@
     0.9326573787951119
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -262,7 +262,7 @@
     0.4331292360027556
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -294,7 +294,7 @@
     0.29143484888626686
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -333,7 +333,7 @@
     0.8321958091163913
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -384,7 +384,7 @@
     0.2498378519454881
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -439,7 +439,7 @@
     0.29143484888626686
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -477,7 +477,7 @@
     0.6658078213532761
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -512,7 +512,7 @@
     0.7905988121756125
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -541,7 +541,7 @@
     0.2082408550047093
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -570,7 +570,7 @@
     0.03351237910800933
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -603,7 +603,7 @@
     0.8737928060571701
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -633,7 +633,7 @@
     0.7905988121756125
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -670,7 +670,7 @@
     0.04185286724159403
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -702,7 +702,7 @@
     0.008074536006121708
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -734,7 +734,7 @@
     0.041852867241594024
    ],
    "sheet": "ix9",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -764,7 +764,7 @@
     0.4426574572650991
    ],
    "sheet": "ix9",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -794,7 +794,7 @@
     0.041852867241594024
    ],
    "sheet": "ix9",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -824,7 +824,7 @@
     0.0
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -857,7 +857,7 @@
     0.2956677097096
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -891,7 +891,7 @@
     0.3805757036606
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -936,7 +936,7 @@
     0.7432783348122
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -971,7 +971,7 @@
     0.316272046515
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1008,7 +1008,7 @@
     0.0622807336573
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1038,7 +1038,7 @@
     0.0
    ],
    "sheet": "ix8",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1068,7 +1068,7 @@
     0.29143484929
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1106,7 +1106,7 @@
     0.8019597095515
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1134,7 +1134,7 @@
     0.183578318845292
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1165,7 +1165,7 @@
     0.8014940792758
    ],
    "sheet": "ix2",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1194,7 +1194,7 @@
     0.1356336518094
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1223,7 +1223,7 @@
     0.06681987804678433
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1255,7 +1255,7 @@
     0.041852867545
    ],
    "sheet": "ix9",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1284,7 +1284,7 @@
     0.5000000009831747
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1324,7 +1324,7 @@
     0.0
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1362,7 +1362,7 @@
     0.9665041058818377
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1392,7 +1392,7 @@
     0.46669420342202506
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1422,7 +1422,7 @@
     0.0
    ],
    "sheet": "ix7",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1458,7 +1458,7 @@
     0.0
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1502,7 +1502,7 @@
     0.0
    ],
    "sheet": "ix7",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1531,7 +1531,7 @@
     0.0
    ],
    "sheet": "ix4",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1565,7 +1565,7 @@
     0.966128458051945
    ],
    "sheet": "ix0",
-   "h4_symmetry": 14400,
+   "symmetry": 14400,
    "improper": 7200,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1610,7 +1610,7 @@
     0.0
    ],
    "sheet": "ix5",
-   "h4_symmetry": 1440,
+   "symmetry": 1440,
    "improper": 0,
    "other_group_elements_kept": 1440,
    "sources": [
@@ -1643,8 +1643,8 @@
     0.0
    ],
    "sheet": "ix0",
-   "h4_symmetry": 1440,
-   "improper": 0,
+   "symmetry": 14400,
+   "improper": 7200,
    "other_group_elements_kept": 1440,
    "sources": [
     "ix0 strata: point(0,0,0,1), point(1,0,0,0)",
