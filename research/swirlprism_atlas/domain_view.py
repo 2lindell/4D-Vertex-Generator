@@ -219,13 +219,45 @@ def clip_line(P, H):
     return runs
 
 
+def orient(F):
+    """Faces turned so neighbours agree (each shared edge run opposite ways in the two), so the
+    surface is shaded as one sheet."""
+    from collections import deque
+    F = [list(f) for f in F]
+    by = defaultdict(list)
+    for t, f in enumerate(F):
+        for k in range(3):
+            by[frozenset((f[k], f[(k + 1) % 3]))].append(t)
+    seen = [False] * len(F)
+    for t0 in range(len(F)):
+        if seen[t0]:
+            continue
+        seen[t0] = True
+        q = deque([t0])
+        while q:
+            t = q.popleft()
+            f = F[t]
+            for k in range(3):
+                a, b = f[k], f[(k + 1) % 3]
+                for u in by[frozenset((a, b))]:
+                    if u == t or seen[u]:
+                        continue
+                    g = F[u]
+                    same = any(g[j] == a and g[(j + 1) % 3] == b for j in range(3))
+                    if same:
+                        F[u] = [g[0], g[2], g[1]]
+                    seen[u] = True
+                    q.append(u)
+    return F
+
+
 def mesh(Q, nd):
-    """Triangles (n,3,3) as shared vertices and faces, rounded to nd places."""
+    """Triangles (n,3,3) as shared vertices and faces, rounded to nd places, turned consistently."""
     Q = np.round(Q, nd).reshape(-1, 3)
     V, inv = np.unique(Q, axis=0, return_inverse=True)
     F = inv.ravel().reshape(-1, 3)
     F = F[(F[:, 0] != F[:, 1]) & (F[:, 1] != F[:, 2]) & (F[:, 0] != F[:, 2])]
-    return V.tolist(), F.tolist()
+    return V.tolist(), orient(F.tolist())
 
 
 def rounded(o, n):
@@ -290,10 +322,10 @@ def main(src_dir, out_path):
         drawn = []
         for i in f["edges"]:
             if E[i]["kind"] in ("line", "meet", "cross"):
-                drawn.append((E[i]["kind"], E[i]["name"], to_sphere(edge_pts(i))))
+                drawn.append((E[i]["kind"], E[i]["name"], to_sphere(edge_pts(i)), i))
         a, b = f["sides"]
-        lines = sorted({n for k, n, _ in drawn if k == "line"})
-        meets = sorted({n for k, n, _ in drawn if k != "line"})
+        lines = sorted({n for k, n, _, _ in drawn if k == "line"})
+        meets = sorted({n for k, n, _, _ in drawn if k != "line"})
         hv = (f"{f['wall']} · {names.get(f['wall'], f['wall'])}<br>wall piece between {a} and {b}"
               + (f"<br>edges on {', '.join(lines)}" if lines else "")
               + (f"<br>met by {', '.join(meets)}" if meets else ""))
@@ -303,18 +335,27 @@ def main(src_dir, out_path):
             rec["Fc"] = z["coarse_tris"][f["coarse_tris"][0]:f["coarse_tris"][1]]
         faces.append(rec)
 
-    def outlines(fc, draw):
+    # an edge two pieces of one wall share is where the wall is cut (dashed: the wall goes on across
+    # it); an edge only one piece of the wall has is where the wall ends (solid). Each drawn once.
+    ecount = defaultdict(int)
+    for fc in faces:
+        for i in {d[3] for d in fc["drawn"]}:
+            ecount[(fc["f"]["wall"], i)] += 1
+
+    def outlines(fc, draw, done):
         out = []
-        for kind, nm, P in fc["drawn"]:
+        w = fc["f"]["wall"]
+        for kind, nm, P, i in fc["drawn"]:
+            if (w, i) in done:
+                continue
+            done.add((w, i))
+            cut = ecount[(w, i)] >= 2
             for Q in draw(P):
                 if len(Q) < 2:
                     continue
-                if kind == "line":
-                    out.append({"id": fc["f"]["wall"], "outline": True, "copy": False, "pts": Q,
-                                "hover": f"{fc['f']['wall']} · edge of the wall, on {nm}"})
-                else:
-                    out.append({"id": fc["f"]["wall"], "outline": True, "copy": True, "pts": Q,
-                                "hover": f"{fc['f']['wall']} · where {nm} meets it"})
+                what = (f"on {nm}" if kind == "line" else f"where {nm} meets it")
+                out.append({"id": w, "outline": True, "copy": cut, "pts": Q,
+                            "hover": f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}"})
         return out
 
     # the named lines: every stretch once
@@ -329,9 +370,10 @@ def main(src_dir, out_path):
         seen.add(key)
         line_runs.append((e["name"], to_sphere(P)))
 
-    def build_view(chart, planes, nd, line_tol, images):
+    def build_view(chart, planes, nd, line_tol, images, inside_only=False):
         xwalls, xlines, segments, rings, main_ = [], [], [], [], []
         shells = defaultdict(lambda: {"tris": [], "rim": [], "walls": set()})
+        drawn_once = {}
         for fc in faces:
             parts = []
             X0, F0 = (fc["Xc"], fc["Fc"]) if len(images) > 1 and "Xc" in fc else (fc["X"], fc["F"])
@@ -350,13 +392,19 @@ def main(src_dir, out_path):
             Q3 = chart(np.concatenate([q for _, q in parts]).reshape(-1, 4)).reshape(-1, 3, 3)
             v_, f_ = mesh(Q3, nd)
             xwalls.append({"id": fc["f"]["wall"], "hover": fc["hover"], "copy": False, "verts": v_, "faces": f_})
+            # (a piece lying in a face of the half-cell has only its inside side in this view's domain)
+            sides = fc["f"]["sides"][:1] if inside_only and fc["f"]["sheet"].startswith("face:") else fc["f"]["sides"]
             for g, _ in parts:
                 draw = (lambda P, g=g: [chart(R) for R in (clip_line(P @ g.T, planes) if planes is not None else [P @ g.T])])
-                for o in outlines(fc, draw):
+                done = drawn_once.setdefault(id(g), set())
+                for o in outlines(fc, draw, done):
                     xlines.append({**o, "pts": thin(o["pts"], line_tol).tolist()})
-                    for r in fc["f"]["sides"]:
-                        shells[r]["rim"].append(thin(o["pts"], line_tol).tolist())
-            for r in set(fc["f"]["sides"]):
+                # (a region's edges: every drawn edge of its pieces, each piece's own)
+                for kind, nm, P, i in fc["drawn"]:
+                    for Q in draw(P):
+                        for r in sides:
+                            shells[r]["rim"].append(thin(Q, line_tol).tolist())
+            for r in set(sides):
                 shells[r]["tris"].append(Q3)
                 shells[r]["walls"].add(fc["f"]["wall"])
         for nm, P in line_runs:
@@ -377,7 +425,7 @@ def main(src_dir, out_path):
         return {"xwalls": xwalls, "xlines": xlines, "segments": segments, "rings": rings, "main": main_}, shells
 
     ident = [np.eye(4)]
-    cv, cshell = build_view(cell, None, 4, 1e-3, ident)
+    cv, cshell = build_view(cell, None, 4, 1e-3, ident, inside_only=True)
     vv, vshell = build_view(v1c, dplanes, 3, 3e-3, list(G))
     chv, chshell = build_view(v1c, chplanes, 3, 3e-3, list(G))
 
