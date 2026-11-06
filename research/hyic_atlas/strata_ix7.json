@@ -1,0 +1,453 @@
+{
+ "_about": "The toxitic / oxitic shapes on the domain's faces, edges and special lines (strata_<sub>.json).",
+ "group": "ix7",
+ "order": 1440,
+ "N": 30,
+ "strata": [
+  {
+   "stratum": "face b1 = 0",
+   "points": 406,
+   "types": {
+    "a783fa88caa2": 254,
+    "85edaf59db32": 152
+   },
+   "changes": [
+    {
+     "sides": [
+      "85edaf59db32",
+      "a783fa88caa2"
+     ],
+     "at": "6b893c9304f5",
+     "crossings": 6
+    }
+   ]
+  },
+  {
+   "stratum": "face b2 = 0",
+   "points": 406,
+   "types": {
+    "d243a1e80043": 210,
+    "2e644f68b084": 196
+   },
+   "changes": [
+    {
+     "sides": [
+      "2e644f68b084",
+      "d243a1e80043"
+     ],
+     "at": "6b893c9304f5",
+     "crossings": 6
+    }
+   ]
+  },
+  {
+   "stratum": "face b3 = 0",
+   "points": 406,
+   "types": {
+    "85edaf59db32": 406
+   },
+   "changes": []
+  },
+  {
+   "stratum": "face b4 = 0",
+   "points": 406,
+   "types": {
+    "6b893c9304f5": 123,
+    "9e9eb2b34b24": 282,
+    "None": 1
+   },
+   "changes": [
+    {
+     "sides": [
+      "6b893c9304f5",
+      "9e9eb2b34b24"
+     ],
+     "at": "b3a63ce8a55e",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "9e9eb2b34b24",
+      "None"
+     ],
+     "at": "9e9eb2b34b24",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "9e9eb2b34b24",
+      "None"
+     ],
+     "at": "None",
+     "crossings": 4
+    }
+   ]
+  },
+  {
+   "stratum": "line b1 = b2 = 0",
+   "points": 29,
+   "types": {
+    "30ef0dbd6ae9": 29
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b3 = 0",
+   "points": 29,
+   "types": {
+    "85edaf59db32": 29
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b1 = b4 = 0",
+   "points": 29,
+   "types": {
+    "12dbebd1e5f4": 18,
+    "3745ab4a85c6": 11
+   },
+   "changes": [
+    {
+     "sides": [
+      "12dbebd1e5f4",
+      "3745ab4a85c6"
+     ],
+     "at": "9aa686e5af71",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b2 = b3 = 0",
+   "points": 29,
+   "types": {
+    "2e644f68b084": 29
+   },
+   "changes": []
+  },
+  {
+   "stratum": "line b2 = b4 = 0",
+   "points": 29,
+   "types": {
+    "6b893c9304f5": 15,
+    "f0a6159b8918": 14
+   },
+   "changes": [
+    {
+     "sides": [
+      "6b893c9304f5",
+      "f0a6159b8918"
+     ],
+     "at": "b3a63ce8a55e",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b3 = b4 = 0",
+   "points": 29,
+   "types": {
+    "5a26dde24dce": 29
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(1,0,0,0)",
+   "points": 1,
+   "types": {
+    "47481ab40611": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(0,1,0,0)",
+   "points": 1,
+   "types": {
+    "9aa686e5af71": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(0,0,1,0)",
+   "points": 1,
+   "types": {
+    "12dbebd1e5f4": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(0,0,0,1)",
+   "points": 1,
+   "types": {
+    "68b8f0a88662": 1
+   },
+   "changes": []
+  }
+ ],
+ "types": [
+  {
+   "key": "6b893c9304f5",
+   "signature": "1440: cells 120x[12v8f]+120x[24v32f]+480x[6v8f]+720x[4v4f] | faces 480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3+1440x3",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.1346886951642749,
+    0.08324219236913113,
+    0.7820691124665942
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b2 = 0",
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "a783fa88caa2",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[6v8f]+480x[9v11f]+720x[4v4f] | faces 480x3g+480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+1440x3+1440x3+1440x3+1440x3",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.033689392009793366,
+    0.03385816832958417,
+    0.9324524396606225
+   ],
+   "strata": [
+    "face b1 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "85edaf59db32",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+1440x3+1440x4+1440x4+1440x4",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.06698395054872261,
+    0.03385816832958417,
+    0.8991578811216933
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "d243a1e80043",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x6+720x6+1440x3+1440x3+1440x3+1440x3+1440x4",
+   "vertices": 1440,
+   "example": [
+    0.03347701135505291,
+    0.0,
+    0.033865609849835214,
+    0.9326573787951119
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "2e644f68b084",
+   "signature": "1440: cells 120x[12v14f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[6v7f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3+1440x3+1440x4",
+   "vertices": 1440,
+   "example": [
+    0.06677888754121,
+    0.0,
+    0.033865609849835214,
+    0.8993555026089548
+   ],
+   "strata": [
+    "face b2 = 0",
+    "line b2 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "b3a63ce8a55e",
+   "signature": "1440: cells 120x[24v20f]+120x[24v20f]+720x[4v4f] | faces 480x3g+480x9g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3",
+   "vertices": 1440,
+   "example": [
+    0.2167340430723137,
+    0.3501359765693757,
+    0.4331299803583105,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "9e9eb2b34b24",
+   "signature": "1440: cells 120x[12v20f]+120x[24v44f]+720x[4v4f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+1440x3+1440x3+1440x4+1440x4",
+   "vertices": 1440,
+   "example": [
+    0.5661033630591679,
+    0.16687258292958118,
+    0.26702405401125073,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "30ef0dbd6ae9",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[12v8f] | faces 480x3g+480x3g+480x6g+720x6g+1440x3g | edges 720x3+720x5+1440x3+1440x3",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.0,
+    0.03387154194805505,
+    0.966128458051945
+   ],
+   "strata": [
+    "line b1 = b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 14400,
+   "improper": 7200
+  },
+  {
+   "key": "9aa686e5af71",
+   "signature": "720: cells 120x[12v8f]+120x[18v20f] | faces 480x3g+480x6g+720x3g | edges 720x3+1440x3",
+   "vertices": 720,
+   "example": [
+    0.0,
+    0.6180339863193349,
+    0.3819660136806651,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0",
+    "point(0,1,0,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "12dbebd1e5f4",
+   "signature": "720: cells 120x[6v8f]+120x[12v20f]+480x[6v8f] | faces 480x3g+480x3g+480x3g+720x3g+1440x3g | edges 720x3+1440x3+1440x3",
+   "vertices": 720,
+   "example": [
+    0.0,
+    0.033696293029833096,
+    0.9663037069701669,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0",
+    "point(0,0,1,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "3745ab4a85c6",
+   "signature": "720: cells 120x[12v20f]+120x[12v20f]+1440x[4v4f] | faces 480x3g+480x3g+720x3g+720x3g+1440x3g+1440x3g | edges 720x3+720x3+1440x3+1440x5",
+   "vertices": 720,
+   "example": [
+    0.0,
+    0.6331211092749606,
+    0.36687889072503954,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "f0a6159b8918",
+   "signature": "1440: cells 120x[12v14f]+120x[24v32f]+720x[4v4f]+720x[6v5f] | faces 480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x4g | edges 720x4+720x4+1440x3+1440x3+1440x4",
+   "vertices": 1440,
+   "example": [
+    0.5331143602691915,
+    0.0,
+    0.46688563973080854,
+    0.0
+   ],
+   "strata": [
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "5a26dde24dce",
+   "signature": "1440: cells 120x[12v8f]+120x[36v20f] | faces 480x3g+480x6g+720x6g | edges 720x3+720x3+1440x3",
+   "vertices": 1440,
+   "example": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "strata": [
+    "line b3 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "47481ab40611",
+   "signature": "480: cells 120x[4v4f]+120x[16v16f] | faces 480x3g+720x4g | edges 720x3+720x3",
+   "vertices": 480,
+   "example": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "strata": [
+    "point(1,0,0,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "68b8f0a88662",
+   "signature": "120: cells 120x[4v4f]+480x[4v4f] | faces 480x3g+720x3g | edges 720x5",
+   "vertices": 120,
+   "example": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "strata": [
+    "point(0,0,0,1)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 14400,
+   "improper": 7200
+  }
+ ]
+}
