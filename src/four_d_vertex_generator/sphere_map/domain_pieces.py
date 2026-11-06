@@ -959,6 +959,10 @@ def _sheet_job(key):
     D = Data()
     C = pickle.loads((D.root / ".cache" / "domain_curves.pkl").read_bytes())
     G, F = do_sheet(D, C, key, wall_surfaces(D), log=lambda *a: None)
+    G.s = G.normal = None                      # (sent back: points and names only)
+    G.curves = [{k: v for k, v in c.items() if k != "eqs"} for c in G.curves]
+    for f in F:
+        f["samples"] = [(y, nm) for y, nm in f["samples"]]
     return key, G, F
 
 
