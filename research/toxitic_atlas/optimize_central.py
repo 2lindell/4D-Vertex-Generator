@@ -130,7 +130,9 @@ def gather():
         for group in ("toxitic", "oxitic"):
             L = [f"# {title} {group} seeds", "", "Made by research/toxitic_atlas/optimize_central.py (see its docstring); "
                  "shapes from toxitic_shapes.md. oxb: the mirror-image sheet (the file is the mirror image of an oxitic "
-                 "orbit, the same shape).", ""]
+                 "orbit, the same shape)." + (" For oxitic the mirrors are seams between the sheets: optima that stopped on one were "
+                 "carried across (cross_seam.py); the central seeds' depth still counts the mirrors as boundaries, so "
+                 "they are the deepest points within one sheet." if group == "oxitic" else ""), ""]
             if tag == "opt":
                 L += ["| shape | kind | sheet | R seed | R | status | beta | file |", "|---|---|---|---|---|---|---|---|"]
                 for r in rows:

@@ -53,7 +53,7 @@ def linear(fac):
 
 def region_forms(beta):
     """The forms of the seed's polychoron, one per face class and side, restricted to the seed's mirrors."""
-    info = G.classify(beta)
+    info = G.classify(beta) or G.classify(beta, 1e-7)       # (a wall shape may classify only at the wall tolerance)
     V, idx, faces, cells, perms, cc, fc = info["_hull"]
     Vn = V / np.linalg.norm(V[0])
     cv = [sorted({v for f in c for v in faces[f]}) for c in cells]
@@ -76,6 +76,8 @@ def region_forms(beta):
                     base.append(v)
                 if len(base) == 4:
                     break
+            if len(base) < 4:
+                continue                    # (a cell flat at the hull tolerance (a wall shape): no form from it)
             off = next(v for v in cv[Bc] if v not in set(pts))
             fx = form([idx[i] for i in base + [off]])
             if zero:

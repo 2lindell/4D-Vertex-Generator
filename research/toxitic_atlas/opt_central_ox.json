@@ -1,0 +1,2084 @@
+{
+ "_about": "Optimized and central seeds of the toxitic and oxitic shapes (opt_central_<sub>.json; optimized_off/toxitic|oxitic,\ncentral_off/toxitic|oxitic).",
+ "shapes": [
+  {
+   "group": "oxitic",
+   "name": "sosbitic",
+   "kind": "region",
+   "degrees": 3,
+   "key": "fdec102036a1",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.06257167770625723,
+    0.4060192861759185,
+    0.4996770306461539,
+    0.03173200547167041
+   ],
+   "start_R": 23.336642369874962,
+   "R": 1.5034627116953216,
+   "optimized": [
+    0.5140497841924772,
+    0.06783835909178534,
+    0.3387605764311374,
+    0.0793512802846001
+   ],
+   "optimized_status": "minimum inside the shape; continued across the mirror into sheet oxb: R 1.432848",
+   "central": [
+    0.40700588866867726,
+    0.127993737658321,
+    0.33700663601468067,
+    0.12799373765832106
+   ],
+   "depth": 0.14779443778323595,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/sosbitic_576v_1728c_opt.off",
+   "opt_counts": [
+    576,
+    1728
+   ],
+   "off_R": 1.432848257392455,
+   "central_off": "central_off/oxitic/sosbitic_576v_1728c_central.off",
+   "central_counts": [
+    576,
+    1728
+   ],
+   "seam_trail": [
+    "ox: R 1.503463 on mirror b2 = 0",
+    "oxb: R 1.432848 (minimum inside the shape)"
+   ],
+   "optimized_sheet": "oxb"
+  },
+  {
+   "group": "oxitic",
+   "name": "gitatosbitac_or_mosbitic_1",
+   "kind": "region",
+   "degrees": 3,
+   "key": "51ee8ceff001",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.06257167770625723,
+    0.46842686259587596,
+    0.43726945422619645,
+    0.03173200547167041
+   ],
+   "start_R": 33.89083097426033,
+   "R": 2.3389185689826886,
+   "optimized": [
+    0.48176533038951663,
+    0.19999635006637342,
+    0.19996518508793876,
+    0.11827313445617117
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2898003363101291,
+    0.3706188605409773,
+    0.2905470074265126,
+    0.04903379572238095
+   ],
+   "depth": 0.05661935031941115,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gitatosbitac_or_mosbitic_1_576v_2304c_opt.off",
+   "opt_counts": [
+    576,
+    2304
+   ],
+   "off_R": 2.3420792332665616,
+   "central_off": "central_off/oxitic/gitatosbitac_or_mosbitic_1_576v_2304c_central.off",
+   "central_counts": [
+    576,
+    2304
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gitatosbitac_or_mosbitic_2",
+   "kind": "region",
+   "degrees": 3,
+   "key": "e910898ef869",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.09377546591623595,
+    0.31240792154598235,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "start_R": 8.546094331599772,
+   "R": 3.1888265680919297,
+   "optimized": [
+    0.2835801227982052,
+    0.00035631621162233106,
+    0.5155815701752628,
+    0.20048199081490975
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.21164090194770385,
+    0.03900602497808898,
+    0.650418111202267,
+    0.09893496187194023
+   ],
+   "depth": 0.04504027804223388,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gitatosbitac_or_mosbitic_2_576v_2304c_opt.off",
+   "opt_counts": [
+    576,
+    2304
+   ],
+   "off_R": 3.191658983549551,
+   "central_off": "central_off/oxitic/gitatosbitac_or_mosbitic_2_576v_2304c_central.off",
+   "central_counts": [
+    576,
+    2304
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gitatosbitac_or_mosbitic_3",
+   "kind": "region",
+   "degrees": 3,
+   "key": "64745339a7a1",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.1561830423361934,
+    0.12518519228610997,
+    0.59328839527609,
+    0.1253433701016066
+   ],
+   "start_R": 4.304691565590792,
+   "R": 3.0401711608261923,
+   "optimized": [
+    0.26963856744678083,
+    0.00012519273408168963,
+    0.4606285139025272,
+    0.26960772591661036
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3387207376339299,
+    0.02744709895054331,
+    0.339932350680604,
+    0.2938998127349228
+   ],
+   "depth": 0.031693179935140876,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gitatosbitac_or_mosbitic_3_576v_2304c_opt.off",
+   "opt_counts": [
+    576,
+    2304
+   ],
+   "off_R": 3.0415523810347027,
+   "central_off": "central_off/oxitic/gitatosbitac_or_mosbitic_3_576v_2304c_central.off",
+   "central_counts": [
+    576,
+    2304
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "sidwosbitac",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9e2bb739cd87",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.40581334801602315,
+    0.12518519228610997,
+    0.12523157212640923,
+    0.34376988757145766
+   ],
+   "start_R": 13.81607713786344,
+   "R": 2.104074012508528,
+   "optimized": [
+    0.4154574475544626,
+    0.11949646150619221,
+    0.13026820261161162,
+    0.3347778883277336
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.669929582213064,
+    0.07124345023957414,
+    0.18758351730778797,
+    0.07124345023957397
+   ],
+   "depth": 0.08226485034763144,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/sidwosbitac_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 11.013995388478811,
+   "central_off": "central_off/oxitic/sidwosbitac_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_07",
+   "kind": "region",
+   "degrees": 3,
+   "key": "a54766660444",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.21859061875615085,
+    0.34361170975596106,
+    0.25004672496632413,
+    0.18775094652156404
+   ],
+   "start_R": 12.534803764888553,
+   "R": 3.9239225969047244,
+   "optimized": [
+    0.22712122551971015,
+    0.34075079243879,
+    0.24240290791462585,
+    0.18972507412687395
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3236533063590467,
+    0.25948583952426074,
+    0.16368033160582743,
+    0.2531805225108651
+   ],
+   "depth": 0.004492969763053408,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_07_576v_3168c_opt.off",
+   "opt_counts": [
+    576,
+    3168
+   ],
+   "off_R": 11.369120823220351,
+   "central_off": "central_off/oxitic/oxitic_region_07_576v_3168c_central.off",
+   "central_counts": [
+    576,
+    3168
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_08",
+   "kind": "region",
+   "degrees": 3,
+   "key": "0e9339f3a320",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "start_R": 15.666305437267194,
+   "R": 4.3410918750588205,
+   "optimized": [
+    0.12202155240448462,
+    0.16809333825664774,
+    0.6095281544596346,
+    0.10035695487923303
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.13851634309702718,
+    0.05260793879138496,
+    0.7562677793202025,
+    0.0526079387913854
+   ],
+   "depth": 0.0607464152454349,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_08_576v_3264c_opt.off",
+   "opt_counts": [
+    576,
+    3264
+   ],
+   "off_R": 4.344864828320055,
+   "central_off": "central_off/oxitic/oxitic_region_08_576v_3264c_central.off",
+   "central_counts": [
+    576,
+    3264
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "medwosbitac",
+   "kind": "region",
+   "degrees": 3,
+   "key": "b577195e5701",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.06257167770625723,
+    0.49963065080585467,
+    0.40606566601621774,
+    0.03173200547167041
+   ],
+   "start_R": 17.556640630110536,
+   "R": 2.5257989231839115,
+   "optimized": [
+    0.101679209877655,
+    0.46970533784807245,
+    0.3832717820167751,
+    0.04534367025749749
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.5412601351206567,
+    0.25319563509879284,
+    0.13026473516710954,
+    0.07527949461344093
+   ],
+   "depth": 0.08692527295905815,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/medwosbitac_576v_3264c_opt.off",
+   "opt_counts": [
+    576,
+    3264
+   ],
+   "off_R": 14.299295783882078,
+   "central_off": "central_off/oxitic/medwosbitac_576v_3264c_central.off",
+   "central_counts": [
+    576,
+    3264
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_10",
+   "kind": "region",
+   "degrees": 3,
+   "key": "25be69714f79",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.7178512301158104,
+    0.06277761586615252,
+    0.031620207496473034,
+    0.18775094652156404
+   ],
+   "start_R": 6.2705508351005275,
+   "R": 4.995144733361148,
+   "optimized": [
+    0.7314402499741482,
+    0.09852611243406113,
+    0.020196575660655008,
+    0.1498370619311356
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.791580573814911,
+    0.04830839311804075,
+    0.028113239931595667,
+    0.13199779313545273
+   ],
+   "depth": 0.014280129765236429,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_10_576v_3264c_opt.off",
+   "opt_counts": [
+    576,
+    3264
+   ],
+   "off_R": 4.996155614004101,
+   "central_off": "central_off/oxitic/oxitic_region_10_576v_3264c_central.off",
+   "central_counts": [
+    576,
+    3264
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gidwosbitac",
+   "kind": "region",
+   "degrees": 3,
+   "key": "a2f01eef519b",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.06257167770625723,
+    0.6244458036457695,
+    0.28125051317630284,
+    0.03173200547167041
+   ],
+   "start_R": 5.6715575616116665,
+   "R": 2.612125468525967,
+   "optimized": [
+    0.1552076724309129,
+    0.5349674943551984,
+    0.24014832560186936,
+    0.06967650761201935
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.35241214814438787,
+    0.3749696595252188,
+    0.12228175310764122,
+    0.15033643922275208
+   ],
+   "depth": 0.02417345366584278,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gidwosbitac_576v_3552c_opt.off",
+   "opt_counts": [
+    576,
+    3552
+   ],
+   "off_R": 4.9967934797787015,
+   "central_off": "central_off/oxitic/gidwosbitac_576v_3552c_central.off",
+   "central_counts": [
+    576,
+    3552
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_13",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2a7c00d22f50",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.06257167770625723,
+    0.34361170975596106,
+    0.5620846070661113,
+    0.03173200547167041
+   ],
+   "start_R": 9.834277980299811,
+   "R": 4.3410918750588205,
+   "optimized": [
+    0.12202154396971253,
+    0.16840540278012325,
+    0.6092161081074666,
+    0.10035694514269765
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.06594582393035048,
+    0.32933342837566953,
+    0.5719559627102483,
+    0.032764784983731664
+   ],
+   "depth": 0.0040405333250677295,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_13_576v_3840c_opt.off",
+   "opt_counts": [
+    576,
+    3840
+   ],
+   "off_R": 4.343661918240755,
+   "central_off": "central_off/oxitic/oxitic_region_13_576v_3840c_central.off",
+   "central_counts": [
+    576,
+    3840
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_14",
+   "kind": "region",
+   "degrees": 3,
+   "key": "dfc58323d987",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.06257167770625723,
+    0.37481549796593977,
+    0.5308808188561326,
+    0.03173200547167041
+   ],
+   "start_R": 13.920266923506405,
+   "R": 4.190058153468437,
+   "optimized": [
+    0.1467507499598908,
+    0.14523585917427714,
+    0.5888804548618529,
+    0.11913293600397919
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.09833705972660586,
+    0.26785105404110526,
+    0.5654431974311298,
+    0.06836868880115914
+   ],
+   "depth": 0.013926946636066579,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_14_576v_3840c_opt.off",
+   "opt_counts": [
+    576,
+    3840
+   ],
+   "off_R": 4.193526411118895,
+   "central_off": "central_off/oxitic/oxitic_region_14_576v_3840c_central.off",
+   "central_counts": [
+    576,
+    3840
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_15",
+   "kind": "region",
+   "degrees": 3,
+   "key": "63f47ecab99a",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.09377546591623595,
+    0.5932420154357908,
+    0.25004672496632413,
+    0.06293579368164913
+   ],
+   "start_R": 5.311584468123012,
+   "R": 2.6121254685259667,
+   "optimized": [
+    0.10554329512327482,
+    0.5819021599964255,
+    0.24526347926800737,
+    0.06729106561229242
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.23678123570437581,
+    0.5863460166106066,
+    0.07308617051641529,
+    0.10378657716860233
+   ],
+   "depth": 0.03590808731419904,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_15_576v_3840c_opt.off",
+   "opt_counts": [
+    576,
+    3840
+   ],
+   "off_R": 5.250450157500632,
+   "central_off": "central_off/oxitic/oxitic_region_15_576v_3840c_central.off",
+   "central_counts": [
+    576,
+    3840
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gadwosbitac",
+   "kind": "region",
+   "degrees": 3,
+   "key": "17848f9c0c98",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.12497925412621468,
+    0.5308344390158334,
+    0.25004672496632413,
+    0.09413958189162785
+   ],
+   "start_R": 6.00983936388284,
+   "R": 2.6347870706115852,
+   "optimized": [
+    0.16422041123235243,
+    0.498154583884145,
+    0.2275830662434761,
+    0.11004193864002644
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.18593359544601526,
+    0.527136894409439,
+    0.1614144973506688,
+    0.125515012793877
+   ],
+   "depth": 0.025001150538921636,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gadwosbitac_576v_3840c_opt.off",
+   "opt_counts": [
+    576,
+    3840
+   ],
+   "off_R": 5.55492475390392,
+   "central_off": "central_off/oxitic/gadwosbitac_576v_3840c_central.off",
+   "central_counts": [
+    576,
+    3840
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_17",
+   "kind": "region",
+   "degrees": 3,
+   "key": "58e2526402eb",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.7044479893663808,
+    0.030901221575063503,
+    0.01225553980277662,
+    0.25239524925577916
+   ],
+   "start_R": 13.368782300986007,
+   "R": 4.995144733361148,
+   "optimized": [
+    0.7075925685588854,
+    0.038779672167396396,
+    0.013178864686208023,
+    0.2404488945875103
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.8289687224043434,
+    0.03452754288197363,
+    0.008880430745342146,
+    0.12762330396834082
+   ],
+   "depth": 0.0038452131379990476,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_17_576v_3840c_opt.off",
+   "opt_counts": [
+    576,
+    3840
+   ],
+   "off_R": 11.10026055298197,
+   "central_off": "central_off/oxitic/oxitic_region_17_576v_3840c_central.off",
+   "central_counts": [
+    576,
+    3840
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_18",
+   "kind": "region",
+   "degrees": 3,
+   "key": "a4b56b4de6ce",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.022254101786114835,
+    0.7599505378956335,
+    0.20819858968526414,
+    0.009596770632987667
+   ],
+   "start_R": 6.097393955234094,
+   "R": 4.669589898697233,
+   "optimized": [
+    0.03213630018159426,
+    0.735305176423588,
+    0.2164348175600397,
+    0.016123705834778027
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.048742919367932,
+    0.7909938506743563,
+    0.14473629217045164,
+    0.015526937787259994
+   ],
+   "depth": 0.0015394900201176694,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_18_576v_4128c_opt.off",
+   "opt_counts": [
+    576,
+    4128
+   ],
+   "off_R": 5.667619251555511,
+   "central_off": "central_off/oxitic/oxitic_region_18_576v_4128c_central.off",
+   "central_counts": [
+    576,
+    4128
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_19",
+   "kind": "region",
+   "degrees": 3,
+   "key": "1f09ced335b9",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.6518353191073764,
+    0.03444707980687774,
+    0.011428858615943633,
+    0.3022887424698023
+   ],
+   "start_R": 12.048188178988562,
+   "R": 3.703299798576312,
+   "optimized": [
+    0.6525832401327261,
+    0.05664351536922177,
+    0.013287533998079316,
+    0.2774857104999728
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6979836326668494,
+    0.08161395848741658,
+    0.017557369007132454,
+    0.20284503983860158
+   ],
+   "depth": 0.006150480664298773,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_19_576v_4128c_opt.off",
+   "opt_counts": [
+    576,
+    4128
+   ],
+   "off_R": 7.847071495536636,
+   "central_off": "central_off/oxitic/oxitic_region_19_576v_4128c_central.off",
+   "central_counts": [
+    576,
+    4128
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "tetabertetic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "223f1e4ac3a9",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.1390292809133281,
+    0.1931475305029705,
+    0.6678231885837014,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.1390292809133281,
+    0.1931475305029705,
+    0.6678231885837014,
+    0.0
+   ],
+   "optimized_status": "optimiser failed: 'NoneType' object is not subscriptable",
+   "central": [
+    0.1390292809133281,
+    0.1931475305029705,
+    0.6678231885837014,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "centre finder failed: 'NoneType' object is not subscriptable",
+   "opt_off": "optimized_off/oxitic/tetabertetic_576v_336c_opt.off",
+   "opt_counts": [
+    576,
+    336
+   ],
+   "off_R": 2.3892579216058336,
+   "central_off": "central_off/oxitic/tetabertetic_576v_336c_central.off",
+   "central_counts": [
+    576,
+    336
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "totabertetic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "6f4a50387244",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.054558389985981004,
+    0.5248967221614868,
+    0.4205448878525324,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.054558389985981004,
+    0.5248967221614868,
+    0.4205448878525324,
+    0.0
+   ],
+   "optimized_status": "optimiser failed: list index out of range",
+   "central": [
+    0.054558389985981004,
+    0.5248967221614868,
+    0.4205448878525324,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "centre finder failed: list index out of range",
+   "opt_off": "optimized_off/oxitic/totabertetic_576v_384c_opt.off",
+   "opt_counts": [
+    576,
+    384
+   ],
+   "off_R": 13.487124652258425,
+   "central_off": "central_off/oxitic/totabertetic_576v_384c_central.off",
+   "central_counts": [
+    576,
+    384
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "tatbitutic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "6fc49066ae8b",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.19924120165668613,
+    0.0,
+    0.7246898839625502,
+    0.0760689143807636
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.19924120165668613,
+    0.0,
+    0.7246898839625502,
+    0.0760689143807636
+   ],
+   "optimized_status": "optimiser failed: list index out of range",
+   "central": [
+    0.19924120165668613,
+    0.0,
+    0.7246898839625502,
+    0.0760689143807636
+   ],
+   "depth": null,
+   "central_status": "centre finder failed: list index out of range",
+   "opt_off": "optimized_off/oxitic/tatbitutic_576v_672c_opt.off",
+   "opt_counts": [
+    576,
+    672
+   ],
+   "off_R": 5.143847025076563,
+   "central_off": "central_off/oxitic/tatbitutic_576v_672c_central.off",
+   "central_counts": [
+    576,
+    672
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_04",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "c41b4cd39c7a",
+   "locus": [
+    "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.10945223231,
+    0.2967311549898,
+    0.5620846071029,
+    0.0317320055973
+   ],
+   "start_R": 7.813595956310662,
+   "R": 2.4142135623730923,
+   "optimized": [
+    0.3042113338593692,
+    0.19578866614063073,
+    0.19578866614063167,
+    0.3042113338593684
+   ],
+   "optimized_status": "minimum inside the shape; continued across the mirror into sheet oxb: R 1.206271",
+   "central": [
+    0.24940249392419997,
+    0.13443606383719856,
+    0.4629902379144967,
+    0.15317120432410478
+   ],
+   "depth": 0.1594905872987325,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_04_576v_816c_opt.off",
+   "opt_counts": [
+    576,
+    816
+   ],
+   "off_R": 1.2062710560078234,
+   "central_off": "central_off/oxitic/oxitic_wall_04_576v_816c_central.off",
+   "central_counts": [
+    576,
+    816
+   ],
+   "seam_trail": [
+    "ox: R 2.414214 on mirror b2 = 0",
+    "oxb: R 1.206271 (minimum inside the shape)"
+   ],
+   "optimized_sheet": "oxb"
+  },
+  {
+   "group": "oxitic",
+   "name": "mabertetic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "8da3f28a95bc",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.025112350533336124,
+    0.44995379676098124,
+    0.5249338527056827,
+    0.0
+   ],
+   "start_R": 28.56702654436502,
+   "R": 1.3065629648763766,
+   "optimized": [
+    0.5000000000000001,
+    1.2504448921973586e-54,
+    0.5000000000000003,
+    -3.8857805861880484e-16
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3369099456513527,
+    0.2664543994118514,
+    0.396635654936796,
+    0.0
+   ],
+   "depth": 0.3263386591393907,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/mabertetic_576v_864c_opt.off",
+   "opt_counts": [
+    576,
+    864
+   ],
+   "off_R": 1.3065629648763804,
+   "central_off": "central_off/oxitic/mabertetic_576v_864c_central.off",
+   "central_counts": [
+    576,
+    864
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_06",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b86bc69f7dea",
+   "locus": [
+    "b2 - b3"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.0625716777063,
+    0.452848158411,
+    0.452848158411,
+    0.0317320054717
+   ],
+   "start_R": 50.1341360693146,
+   "R": 2.1693882612150945,
+   "optimized": [
+    0.44983974037123386,
+    0.23539138624248285,
+    0.23539138624248285,
+    0.07937748714380045
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3366715269463518,
+    0.2696956659273334,
+    0.2696956659273334,
+    0.12393714119898143
+   ],
+   "depth": 0.14311028366764802,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_06_576v_1008c_opt.off",
+   "opt_counts": [
+    576,
+    1008
+   ],
+   "off_R": 2.1693882612151016,
+   "central_off": "central_off/oxitic/oxitic_wall_06_576v_1008c_central.off",
+   "central_counts": [
+    576,
+    1008
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gabertetic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "89590d9cc67a",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.025112350533336124,
+    0.025277219491449947,
+    0.9496104299752138,
+    0.0
+   ],
+   "start_R": 22.57989442478663,
+   "R": 3.414213562373095,
+   "optimized": [
+    0.2263394277249058,
+    2.528517139412897e-05,
+    0.7736352871037,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.09763107293781732,
+    0.09763107293781734,
+    0.8047378541243654,
+    0.0
+   ],
+   "depth": 0.11957315586904993,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gabertetic_576v_1056c_opt.off",
+   "opt_counts": [
+    576,
+    1056
+   ],
+   "off_R": 3.417998523512614,
+   "central_off": "central_off/oxitic/gabertetic_576v_1056c_central.off",
+   "central_counts": [
+    576,
+    1056
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "sabtutic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "e39f8da091ec",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.1999538556679056,
+    0.0,
+    0.624778635511323,
+    0.17526750882077136
+   ],
+   "start_R": 4.418871628504888,
+   "R": 2.4142135623731,
+   "optimized": [
+    0.26977481203790166,
+    0.0,
+    0.46045037592419635,
+    0.26977481203790193
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.22678332511463917,
+    0.0,
+    0.6394132339120799,
+    0.13380344097328098
+   ],
+   "depth": 0.06574670659029329,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/sabtutic_576v_1152c_opt.off",
+   "opt_counts": [
+    576,
+    1152
+   ],
+   "off_R": 2.4142135623731003,
+   "central_off": "central_off/oxitic/sabtutic_576v_1152c_central.off",
+   "central_counts": [
+    576,
+    1152
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "stitosbetic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b900c8edde78",
+   "locus": [
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.4370171366234,
+    0.1689745448514,
+    0.1750535837277,
+    0.2189547347975
+   ],
+   "start_R": 3.783074979293992,
+   "R": 1.5613382216768972,
+   "optimized": [
+    0.6383843269570777,
+    1.9222071762008627e-55,
+    0.2767686539141554,
+    0.0848470191287669
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5723431052580685,
+    0.10023934906753944,
+    0.2249117883416815,
+    0.1025057573327106
+   ],
+   "depth": 0.11859729936992493,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/stitosbetic_576v_1248c_opt.off",
+   "opt_counts": [
+    576,
+    1248
+   ],
+   "off_R": 1.5613382216768996,
+   "central_off": "central_off/oxitic/stitosbetic_576v_1248c_central.off",
+   "central_counts": [
+    576,
+    1248
+   ],
+   "seam_trail": [
+    "ox: R 1.561338 on mirror b2 = 0",
+    "oxb: R 1.561338 (minimum inside the shape)",
+    "ox: R 1.561338 (minimum inside the shape)",
+    "oxb: R 1.561338 (minimum inside the shape)",
+    "ox: R 1.561338 (minimum inside the shape)"
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "sabertetic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "7443559f1ee3",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.025112350533336124,
+    0.5248967221614868,
+    0.44999092730517715,
+    0.0
+   ],
+   "start_R": 21.988549824606853,
+   "R": 3.6714230353468706,
+   "optimized": [
+    0.04591690492290585,
+    0.5224750652889996,
+    0.43160802978809465,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.15612538137250453,
+    0.6877492372549915,
+    0.15612538137250406,
+    0.0
+   ],
+   "depth": 0.19121376013003027,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/sabertetic_576v_1248c_opt.off",
+   "opt_counts": [
+    576,
+    1248
+   ],
+   "off_R": 15.782923446848791,
+   "central_off": "central_off/oxitic/sabertetic_576v_1248c_central.off",
+   "central_counts": [
+    576,
+    1248
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_11",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "d43bc476feec",
+   "locus": [
+    "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.1625946716686,
+    0.0875697727199,
+    0.6244921834454,
+    0.125343372166
+   ],
+   "start_R": 4.827409731233327,
+   "R": 3.1888265680919297,
+   "optimized": [
+    0.2836688195251005,
+    8.559818429779725e-05,
+    0.5156378940137004,
+    0.20060768827690134
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.23409518958603398,
+    0.13755358638973614,
+    0.4324252101244416,
+    0.19592601389978823
+   ],
+   "depth": 0.1610919624653281,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_11_576v_1728c_opt.off",
+   "opt_counts": [
+    576,
+    1728
+   ],
+   "off_R": 3.1902765085231506,
+   "central_off": "central_off/oxitic/oxitic_wall_11_576v_1728c_central.off",
+   "central_counts": [
+    576,
+    1728
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_12",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "0f38128f0793",
+   "locus": [
+    "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.2185906188994,
+    0.345945170404,
+    0.2477132643388,
+    0.1877509463579
+   ],
+   "start_R": 12.084456146342148,
+   "R": 3.8935551846690064,
+   "optimized": [
+    0.37755486517345127,
+    0.28620201397060174,
+    0.10969175098779659,
+    0.22655136986815042
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.33655088217635976,
+    0.2863126274086997,
+    0.14113701009624743,
+    0.23599948031869297
+   ],
+   "depth": 0.06876786513348301,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_12_576v_1728c_opt.off",
+   "opt_counts": [
+    576,
+    1728
+   ],
+   "off_R": 3.896372872162994,
+   "central_off": "central_off/oxitic/oxitic_wall_12_576v_1728c_central.off",
+   "central_counts": [
+    576,
+    1728
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "mitatosbitac",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "15028d583027",
+   "locus": [
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.0625716776374,
+    0.4807942293029,
+    0.4249020875135,
+    0.0317320055462
+   ],
+   "start_R": 25.123638855426293,
+   "R": 2.3389185689826886,
+   "optimized": [
+    0.4818949082371581,
+    0.2000923110712756,
+    0.19972658398386814,
+    0.11828619670769819
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.4560506520429808,
+    0.2697173028696408,
+    0.2057364642423858,
+    0.06849558084499265
+   ],
+   "depth": 0.08189125115761428,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/mitatosbitac_576v_1824c_opt.off",
+   "opt_counts": [
+    576,
+    1824
+   ],
+   "off_R": 2.34048937630044,
+   "central_off": "central_off/oxitic/mitatosbitac_576v_1824c_central.off",
+   "central_counts": [
+    576,
+    1824
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gywosbitic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "74748c41c6c4",
+   "locus": [
+    "b2 - b3"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.4057669671512,
+    0.1564353608486,
+    0.1564353608486,
+    0.2813623111515
+   ],
+   "start_R": 6.925741007316156,
+   "R": 2.5257989231839115,
+   "optimized": [
+    0.5756659922051872,
+    0.10700787238699289,
+    0.10700787238699289,
+    0.210318263020827
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.6267949505767443,
+    0.12745307091598074,
+    0.12745307091598074,
+    0.1182989075912943
+   ],
+   "depth": 0.13659981228534318,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gywosbitic_576v_1968c_opt.off",
+   "opt_counts": [
+    576,
+    1968
+   ],
+   "off_R": 2.525798923183918,
+   "central_off": "central_off/oxitic/gywosbitic_576v_1968c_central.off",
+   "central_counts": [
+    576,
+    1968
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_15",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "ead1cb7bdff5",
+   "locus": [
+    "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.0674612573696,
+    0.3699259188011,
+    0.5308808187021,
+    0.0317320051272
+   ],
+   "start_R": 13.48082529895616,
+   "R": 4.190058153468437,
+   "optimized": [
+    0.14679267408427846,
+    0.1452098571876885,
+    0.5888656274735584,
+    0.11913184125447482
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.12116496147347547,
+    0.23326600499487174,
+    0.5819009184746463,
+    0.06366811505700647
+   ],
+   "depth": 0.06074929821526874,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_15_576v_2112c_opt.off",
+   "opt_counts": [
+    576,
+    2112
+   ],
+   "off_R": 4.193502559243842,
+   "central_off": "central_off/oxitic/oxitic_wall_15_576v_2112c_central.off",
+   "central_counts": [
+    576,
+    2112
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "awosbitac",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "e695c863ed63",
+   "locus": [
+    "b1*b3 - b2*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.0625716775783,
+    0.6009408749787,
+    0.304755441787,
+    0.031732005656
+   ],
+   "start_R": 6.495907205063002,
+   "R": 2.612125468525967,
+   "optimized": [
+    0.5600630986044633,
+    0.1439123850664415,
+    0.06051573552094787,
+    0.23550878080814724
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5158761631546652,
+    0.24548159411360984,
+    0.07694448189353453,
+    0.16169776083819037
+   ],
+   "depth": 0.2032384490453285,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/awosbitac_576v_2112c_opt.off",
+   "opt_counts": [
+    576,
+    2112
+   ],
+   "off_R": 2.612125468525975,
+   "central_off": "central_off/oxitic/awosbitac_576v_2112c_central.off",
+   "central_counts": [
+    576,
+    2112
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_17",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "49bf2e589e5d",
+   "locus": [
+    "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.1561830474094,
+    0.1042183374856,
+    0.6142552467624,
+    0.1253433683426
+   ],
+   "start_R": 4.668006933300642,
+   "R": 4.099337042330928,
+   "optimized": [
+    0.1475689233414675,
+    0.13990528442699934,
+    0.5649568688900636,
+    0.14756892334146954
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.17238620924398626,
+    0.021208560899722888,
+    0.6583132909983616,
+    0.14809193885792937
+   ],
+   "depth": 0.02467728251156828,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_17_576v_2112c_opt.off",
+   "opt_counts": [
+    576,
+    2112
+   ],
+   "off_R": 4.099337042330932,
+   "central_off": "central_off/oxitic/oxitic_wall_17_576v_2112c_central.off",
+   "central_counts": [
+    576,
+    2112
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gabtutic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "44f48f6922fc",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.05008698299106487,
+    0.0,
+    0.9245123808650045,
+    0.02540063614393059
+   ],
+   "start_R": 26.10374731163923,
+   "R": 4.82842712474619,
+   "optimized": [
+    0.22636339217936963,
+    0.0,
+    0.7736110526471318,
+    2.5555173498518963e-05
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.15353630004247373,
+    0.0,
+    0.7902655137389111,
+    0.05619818621861519
+   ],
+   "depth": 0.0688284403527584,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gabtutic_576v_2112c_opt.off",
+   "opt_counts": [
+    576,
+    2112
+   ],
+   "off_R": 4.833163313741025,
+   "central_off": "central_off/oxitic/gabtutic_576v_2112c_central.off",
+   "central_counts": [
+    576,
+    2112
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "gosbitic",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "d5ec887138b0",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.5246654131343941,
+    0.0,
+    0.02531114480395991,
+    0.45002344206164613
+   ],
+   "start_R": 19.255147105573204,
+   "R": 1.851229586821916,
+   "optimized": [
+    0.617937188506874,
+    0.0,
+    0.23584947451322533,
+    0.14621333697990066
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.7384168123405104,
+    0.0,
+    0.13079159382974478,
+    0.13079159382974492
+   ],
+   "depth": 0.16018633376411173,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/gosbitic_576v_2112c_opt.off",
+   "opt_counts": [
+    576,
+    2112
+   ],
+   "off_R": 1.8526544408987393,
+   "central_off": "central_off/oxitic/gosbitic_576v_2112c_central.off",
+   "central_counts": [
+    576,
+    2112
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_21",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "e86435745437",
+   "locus": [
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 + b1*b3 + 2*sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.240404598877,
+    0.353001517725,
+    0.2188429366661,
+    0.1877509467319
+   ],
+   "start_R": 8.189326275473194,
+   "R": 3.9239225969047244,
+   "optimized": [
+    0.37306344911890565,
+    0.29182467629852527,
+    0.11160518964616171,
+    0.2235066849364073
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.31863602979795497,
+    0.2949330580367384,
+    0.16114553392956413,
+    0.22528537823574254
+   ],
+   "depth": 0.09734317188651287,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_21_576v_2400c_opt.off",
+   "opt_counts": [
+    576,
+    2400
+   ],
+   "off_R": 3.9259654831391613,
+   "central_off": "central_off/oxitic/oxitic_wall_21_576v_2400c_central.off",
+   "central_counts": [
+    576,
+    2400
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_22",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "bc46a0e6bdb1",
+   "locus": [
+    "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.6952891151917,
+    0.062777615307,
+    0.0316202050555,
+    0.2103130644458
+   ],
+   "start_R": 6.147887859393317,
+   "R": 4.995144733361148,
+   "optimized": [
+    0.7314182011371744,
+    0.09852578520668655,
+    0.020195966555207442,
+    0.14986004710093165
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.8430722729470193,
+    0.078553449004625,
+    0.020238910935587506,
+    0.058135367112768295
+   ],
+   "depth": 0.05252696682692601,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_22_576v_2400c_opt.off",
+   "opt_counts": [
+    576,
+    2400
+   ],
+   "off_R": 4.996084259563474,
+   "central_off": "central_off/oxitic/oxitic_wall_22_576v_2400c_central.off",
+   "central_counts": [
+    576,
+    2400
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_23",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "dc7e7a842ea3",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.085215824161,
+    0.2812041333449,
+    0.6018480371034,
+    0.0317320053907
+   ],
+   "start_R": 6.678834488980143,
+   "R": 4.3410918750588205,
+   "optimized": [
+    0.12204223971726687,
+    0.16834303317431348,
+    0.6092574037286741,
+    0.10035732337974551
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.15582657719705903,
+    0.1018946835259791,
+    0.6716132851016133,
+    0.07066545417534856
+   ],
+   "depth": 0.0840607375948922,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_23_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 4.342737989125925,
+   "central_off": "central_off/oxitic/oxitic_wall_23_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_24",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "c3f24045ca31",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.1602131080918,
+    0.0587475506103,
+    0.655695971266,
+    0.1253433700319
+   ],
+   "start_R": 5.477163925238446,
+   "R": 4.3410918750588205,
+   "optimized": [
+    0.12212326779760076,
+    0.16811167362919266,
+    0.609311890876644,
+    0.10045316769656264
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.16571158413016568,
+    0.029600979860286314,
+    0.6591189860376577,
+    0.14556844997189033
+   ],
+   "depth": 0.018946071432003535,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_24_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 4.342248468663656,
+   "central_off": "central_off/oxitic/oxitic_wall_24_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_25",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "9d5f2acc9092",
+   "locus": [
+    "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.0625716779222,
+    0.697314158551,
+    0.2083821583714,
+    0.0317320051554
+   ],
+   "start_R": 5.367130803645481,
+   "R": 4.669589898697233,
+   "optimized": [
+    0.059699063424111416,
+    0.6666044419223339,
+    0.2393726341158993,
+    0.034323860537655425
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.07131356601559802,
+    0.8046708628472005,
+    0.10504323680828974,
+    0.018972334328911822
+   ],
+   "depth": 0.08239621413427492,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_25_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 4.670210518964835,
+   "central_off": "central_off/oxitic/oxitic_wall_25_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "otosbitac",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "444e8e32e97b",
+   "locus": [
+    "b1*b3 - sqrt(2)*b2*b4 + b2*b4 - 2*b3*b4 + sqrt(2)*b3*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.0937754657416,
+    0.5783542149931,
+    0.2649345253605,
+    0.0629357939047
+   ],
+   "start_R": 5.75492678395612,
+   "R": 2.630838350089164,
+   "optimized": [
+    0.5531368446705673,
+    0.15990965293626633,
+    0.04003694234055899,
+    0.24691656005260734
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.271914610842898,
+    0.5408859949455465,
+    0.09491065608315145,
+    0.0922887381284042
+   ],
+   "depth": 0.13451088772729322,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/otosbitac_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 2.630838350089171,
+   "central_off": "central_off/oxitic/otosbitac_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_27",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b723efbea090",
+   "locus": [
+    "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.1561830397634,
+    0.0939814036429,
+    0.6288420508784,
+    0.1209935057153
+   ],
+   "start_R": 4.888632367933551,
+   "R": 4.190058153468437,
+   "optimized": [
+    0.14685191317002078,
+    0.14493355951830583,
+    0.5889842596668489,
+    0.1192302676448244
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.06968379749733258,
+    0.36530056673118205,
+    0.4989336539924213,
+    0.06608198177906408
+   ],
+   "depth": 0.05057903929739447,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_27_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 4.19071045855497,
+   "central_off": "central_off/oxitic/oxitic_wall_27_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_28",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "bb055ef6e972",
+   "locus": [
+    "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.063045306148,
+    0.3431380814572,
+    0.5620846069657,
+    0.0317320054291
+   ],
+   "start_R": 9.813392272641911,
+   "R": 4.3410918750588205,
+   "optimized": [
+    0.12202411014753625,
+    0.1684064227542561,
+    0.6092132034716994,
+    0.10035626362650824
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.16511997721166513,
+    0.09402178129698441,
+    0.682765601091367,
+    0.05809264039998358
+   ],
+   "depth": 0.0661719411315305,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_28_576v_2976c_opt.off",
+   "opt_counts": [
+    576,
+    2976
+   ],
+   "off_R": 4.343709093532986,
+   "central_off": "central_off/oxitic/oxitic_wall_28_576v_2976c_central.off",
+   "central_counts": [
+    576,
+    2976
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_29",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "0eb4d05eb752",
+   "locus": [
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 - b1*b3 + sqrt(2)*b1*b3 - b1*b4 + b2**2 - b2*b3 + sqrt(2)*b2*b3 - 2*b2*b4 - sqrt(2)*b2*b4 - sqrt(2)*b3**2 - 2*sqrt(2)*b3*b4 - 2*b3*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.1249792536297,
+    0.5589324495878,
+    0.2219487133979,
+    0.0941395833846
+   ],
+   "start_R": 5.118947350533628,
+   "R": 4.066818146268435,
+   "optimized": [
+    0.18609272598341614,
+    0.5363597071230559,
+    0.1766061453179322,
+    0.10094142157559571
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2191806526299363,
+    0.5670646420574948,
+    0.08240564048659349,
+    0.1313490648259754
+   ],
+   "depth": 0.08207201494335714,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_29_576v_2976c_opt.off",
+   "opt_counts": [
+    576,
+    2976
+   ],
+   "off_R": 4.0677418438531765,
+   "central_off": "central_off/oxitic/oxitic_wall_29_576v_2976c_central.off",
+   "central_counts": [
+    576,
+    2976
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "bitac",
+   "kind": "line",
+   "degrees": 1,
+   "key": "80b2343fd8f0",
+   "locus": [],
+   "sheet": "ox",
+   "seed": [
+    0.02512072515262567,
+    0.9748792748473744,
+    0.0,
+    0.0
+   ],
+   "start_R": 2.3823813597019323,
+   "R": 1.4856334612503015,
+   "optimized": [
+    0.5857864376269049,
+    0.4142135623730951,
+    1.9048415650791938e-17,
+    -1.115830354651399e-17
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5000000000000004,
+    0.49999999999999956,
+    0.0,
+    0.0
+   ],
+   "depth": 0.7071067811865468,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/bitac_192v_1248c_opt.off",
+   "opt_counts": [
+    192,
+    1248
+   ],
+   "off_R": 1.4856334612503024,
+   "central_off": "central_off/oxitic/bitac_192v_1248c_central.off",
+   "central_counts": [
+    192,
+    1248
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "sebtic",
+   "kind": "line",
+   "degrees": 1,
+   "key": "a8da4ec5c0e2",
+   "locus": [
+    "b1 - b4",
+    "b2 - b3"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.02510998404651458,
+    0.47489001595348546,
+    0.47489001595348546,
+    0.02510998404651458
+   ],
+   "start_R": 2.5432907304736156,
+   "R": 1.4856334612503004,
+   "optimized": [
+    0.3313913345815828,
+    0.16860866541841715,
+    0.1686086654184172,
+    0.3313913345815828
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.24999999999999994,
+    0.25,
+    0.25000000000000006,
+    0.24999999999999994
+   ],
+   "depth": 0.4999999999999999,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/sebtic_288v_528c_opt.off",
+   "opt_counts": [
+    288,
+    528
+   ],
+   "off_R": 1.4856334612503013,
+   "central_off": "central_off/oxitic/sebtic_288v_528c_central.off",
+   "central_counts": [
+    288,
+    528
+   ]
+  }
+ ]
+}
