@@ -1,0 +1,136 @@
+{
+ "_about": "Optimized and central seeds of the toxitic and oxitic shapes (opt_central_<sub>.json; optimized_off/toxitic|oxitic,\ncentral_off/toxitic|oxitic).",
+ "shapes": [
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_06",
+   "kind": "region",
+   "degrees": 3,
+   "key": "22386f50729d",
+   "locus": [],
+   "sheet": "oxb",
+   "seed": [
+    0.06257167770625723,
+    0.2812041333360036,
+    0.6244921834860688,
+    0.03173200547167041
+   ],
+   "start_R": 5.8917891851730895,
+   "R": 4.214867732044627,
+   "optimized": [
+    0.08876523308117727,
+    0.21073656017930792,
+    0.6117638156929148,
+    0.08873439104659997
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.10571899133591287,
+    0.157616575850137,
+    0.6623808132704083,
+    0.0742836195435418
+   ],
+   "depth": 0.02222816456350589,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_06_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 4.216182456336338,
+   "central_off": "central_off/oxitic/oxitic_region_06_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_region_11",
+   "kind": "region",
+   "degrees": 3,
+   "key": "4546bbe66243",
+   "locus": [],
+   "sheet": "oxb",
+   "seed": [
+    0.06257167770625723,
+    0.031573827656173795,
+    0.8741224891658985,
+    0.03173200547167041
+   ],
+   "start_R": 15.666305437267194,
+   "R": 4.388170865877123,
+   "optimized": [
+    0.1496426345776836,
+    0.16939238352567967,
+    0.6809332480520204,
+    3.173384461633058e-05
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.13703278008427427,
+    0.05204448764603287,
+    0.7588782446236605,
+    0.05204448764603242
+   ],
+   "depth": 0.060095797904545945,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_region_11_576v_3264c_opt.off",
+   "opt_counts": [
+    576,
+    3264
+   ],
+   "off_R": 4.39157939479559,
+   "central_off": "central_off/oxitic/oxitic_region_11_576v_3264c_central.off",
+   "central_counts": [
+    576,
+    3264
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_20",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "64e209745c78",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 3*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
+   ],
+   "sheet": "oxb",
+   "seed": [
+    0.0781782082261,
+    0.2500003450489,
+    0.6400894408778,
+    0.0317320058472
+   ],
+   "start_R": 5.234536759075209,
+   "R": 4.388170865877123,
+   "optimized": [
+    0.1496669248605922,
+    0.1696115545492778,
+    0.6806827668741382,
+    3.875371599179367e-05
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.15055477822808316,
+    0.06931722274649774,
+    0.7001386935804957,
+    0.07998930544492334
+   ],
+   "depth": 0.05317046594117431,
+   "central_status": "deepest point of the shape",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_20_576v_2112c_opt.off",
+   "opt_counts": [
+    576,
+    2112
+   ],
+   "off_R": 4.388893154547562,
+   "central_off": "central_off/oxitic/oxitic_wall_20_576v_2112c_central.off",
+   "central_counts": [
+    576,
+    2112
+   ]
+  }
+ ]
+}
