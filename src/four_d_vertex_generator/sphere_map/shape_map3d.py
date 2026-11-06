@@ -162,6 +162,8 @@ def build() -> dict:
                     if hit:
                         out.append({"kind": "face", "class": f1, "g": g1})
                         out.append({"kind": "face", "class": hit[0][0], "g": hit[0][1]})
+                        # (the pinched region touches the line too)
+                        out.append({"kind": "region", "class": mid1[0], "g": mid1[1]})
                         break
         for wl in r["walls"]:
             if wl.get("cusp_outer"):
