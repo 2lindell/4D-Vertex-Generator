@@ -371,25 +371,30 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
         if found:
             continue
         segs = []
+        tinv = np.linalg.inv(cell_vertices())
         for seg in c["segments"]:
             B = np.asarray(seg["polyline_beta"], float)
             R = (point_from_beta(B / B.sum(axis=1, keepdims=True)) @ grp.g[seg["copy"]].T) @ q.T
-            ks, betas = locate(R, tol=1e-9)
-            run = [0]
+            # its two ends exactly on the atlas points they are images of
+            for e in (0, -1):
+                dn, jn = ntree.query(R[e])
+                if dn < 1e-6:
+                    R[e] = all_named[jn]
+            # each step of the curve in the copy holding its middle; a run keeps both its ends
+            mids = R[:-1] + R[1:]
+            ks, _ = locate(mids / np.linalg.norm(mids, axis=1, keepdims=True), tol=1e-9)
+            i0 = 0
             for i in range(1, len(ks) + 1):
-                if i == len(ks) or ks[i] != ks[run[0]]:
-                    if len(run) >= 2:
-                        bb = betas[run]
-                        rel = np.abs(surface_values(bb, src)) / \
-                            (np.stack([np.linalg.norm(sf.grad(bb / bb.sum(1, keepdims=True)), axis=1)
-                                       for sf in src], axis=1) + 1e-300)
-                        eq = [src[j].name for j in np.flatnonzero(rel.max(axis=0) < 1e-8)][:2]
-                        segs.append({"copy": int(ks[run[0]]), "line": seg["line"], "atlas_piece": None,
-                                     "points": None, "equations": eq, "polyline_beta": _thin(bb),
-                                     "mirror_of": c["id"]})
-                    run = [i]
-                else:
-                    run.append(i)
+                if i == len(ks) or ks[i] != ks[i0]:
+                    k = int(ks[i0])
+                    bb = (R[i0:i + 1] @ grp.g[k]) @ tinv          # (points i0..i in copy k's frame)
+                    bb = bb / bb.sum(axis=1, keepdims=True)
+                    rel = np.abs(surface_values(bb, src)) / \
+                        (np.stack([np.linalg.norm(sf.grad(bb), axis=1) for sf in src], axis=1) + 1e-300)
+                    eq = [src[j].name for j in np.flatnonzero(rel.max(axis=0) < 1e-8)][:2]
+                    segs.append({"copy": k, "line": seg["line"], "atlas_piece": None, "points": None,
+                                 "equations": eq, "polyline_beta": _thin(bb), "mirror_of": c["id"]})
+                    i0 = i
         twin = dict(c, id=len(classes), segments=segs, _cloud=mirror, mirror_of=c["id"])
         classes.append(twin)
         n_twins += 1

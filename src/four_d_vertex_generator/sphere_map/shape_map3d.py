@@ -121,6 +121,13 @@ def build() -> dict:
                     return face_at.get(int(fcomp[mult[k0, cx], p["id"]]))
         return None
 
+    # every placed wall piece by its wall and the two region volumes it lies between
+    face_by_sides = {}
+    for f in atlas["faces"]:
+        for gg in range(len(g)):
+            vol = frozenset((sd["class"], int(mult[gg, sd["g"]])) for sd in f["sides"])
+            face_by_sides.setdefault((f["wall"], vol), (f["id"], gg))
+
     inc = Incidence()
 
     def ring(x, tangent, k0):
@@ -138,6 +145,17 @@ def build() -> dict:
                 out.append({"kind": "region", "class": at[0], "g": at[1], "angle": s["angle"]})
         for wl in r["walls"]:
             at = face_of_wall(k0, wl)
+            if at is None and wl.get("wall") and wl.get("sides"):
+                # no recorded patch between these two sectors (the exploration did not meet it
+                # so close to the line): the wall piece is the named wall between the two region
+                # volumes on its sides, which is exact
+                vol = []
+                for c, pc in wl["sides"]:
+                    if pc is None:
+                        break
+                    vol.append(region_at.get(int(rcomp[mult[k0, c], pc])))
+                if len(vol) == 2 and all(vol):
+                    at = face_by_sides.get((wl["wall"], frozenset(vol)))
             if at:
                 out.append({"kind": "face", "class": at[0], "g": at[1]})
         return out
