@@ -134,6 +134,8 @@ def build(out: Path) -> list[str]:
         shutil.copytree(ROOT / "assets" / "symmetry_domain_regions", out / "symmetry_domain_regions")
     # ... and the Octahedral Swirl Symmetry Domain (research/tetraswirl_atlas/build_page.py): the fourth tab
     shutil.copy2(ROOT / "assets" / "tetraswirl_oct_domain.html", out / "tetraswirl_oct_domain.html")
+    # ... and the Pennic and Decaic Isogonals page (research/pages/make_decaic_page.py), served on its own
+    shutil.copy2(ROOT / "assets" / "decaic_isogonals.html", out / "decaic_isogonals.html")
     hashed = [[rel, hashlib.sha256((out / rel).read_bytes()).hexdigest()[:12]] for rel in files]
     page = (
         PAGE.replace("__VERSION__", STLITE_VERSION)

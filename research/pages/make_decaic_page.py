@@ -182,6 +182,13 @@ def write_page(new):
             .replace("{{SECTIONS}}", "\n".join(parts)).replace("{{TOTAL}}", str(total))
             .replace("{{NEW}}", str(sum(len(v) for v in new.values()))))
     open(os.path.join(HERE, "decaic.html"), "w").write(page)
+    # (the standalone copy for the public site: assets/decaic_isogonals.html, copied to docs/ by tools/build_pages.py)
+    i = page.index('<div class="wrap">')
+    standalone = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+                  '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+                  + page[:i].replace('<meta name="claude:viewport-fit-sides" content="cover">\n', "")
+                  + "<style>body { margin: 0; }</style>\n</head>\n<body>\n" + page[i:] + "</body>\n</html>\n")
+    open(os.path.join(os.path.dirname(ROOT), "assets", "decaic_isogonals.html"), "w").write(standalone)
     print(f"decaic.html: {total} shapes ({sum(len(v) for v in new.values())} new)")
 
 
