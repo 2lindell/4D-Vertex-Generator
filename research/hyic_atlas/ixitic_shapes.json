@@ -45,7 +45,8 @@
    "edges": {
     "3": 4320,
     "4": 1440
-   }
+   },
+   "name": "stotathi"
   },
   {
    "key": "a783fa88caa2",
@@ -85,7 +86,8 @@
     "3": 5760,
     "4": 720,
     "6": 720
-   }
+   },
+   "name": "sestuthi"
   },
   {
    "key": "2e644f68b084",
@@ -129,7 +131,8 @@
    "edges": {
     "3": 4320,
     "4": 2880
-   }
+   },
+   "name": "misrethi"
   },
   {
    "key": "d243a1e80043",
@@ -170,7 +173,8 @@
     "3": 5760,
     "4": 1440,
     "6": 1440
-   }
+   },
+   "name": "gypsobtady"
   },
   {
    "key": "85edaf59db32",
@@ -213,7 +217,8 @@
    "edges": {
     "3": 1440,
     "4": 6480
-   }
+   },
+   "name": "sagypsobtady"
   },
   {
    "key": "1ca8c88a3c09",
@@ -249,7 +254,8 @@
     "3": 2880,
     "4": 4320,
     "8": 720
-   }
+   },
+   "name": "mestuthi"
   },
   {
    "key": "153231fd77ef",
@@ -281,7 +287,8 @@
     "4": 4320,
     "5": 1440,
     "6": 720
-   }
+   },
+   "name": "giserthi"
   },
   {
    "key": "2da1ce87ceec",
@@ -320,7 +327,8 @@
     "5": 1440,
     "6": 720,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "270d63cd9ba9",
@@ -371,7 +379,8 @@
     "4": 5040,
     "6": 720,
     "8": 720
-   }
+   },
+   "name": "sisbethi_or_unnamed_1"
   },
   {
    "key": "a0f7c29fa0bd",
@@ -426,7 +435,8 @@
     "5": 1440,
     "6": 720,
     "8": 720
-   }
+   },
+   "name": "sisbethi_or_unnamed_2"
   },
   {
    "key": "11c376e3c804",
@@ -464,7 +474,8 @@
     "4": 2880,
     "6": 1440,
     "10": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "5efe53c04ebf",
@@ -499,7 +510,8 @@
     "3": 2880,
     "4": 5760,
     "8": 1440
-   }
+   },
+   "name": null
   },
   {
    "key": "9fbf16135e07",
@@ -528,7 +540,8 @@
     "4": 2880,
     "5": 2880,
     "6": 1440
-   }
+   },
+   "name": "magypsobtady_1"
   },
   {
    "key": "eaa102928f4e",
@@ -557,7 +570,8 @@
     "4": 2880,
     "5": 2880,
     "6": 1440
-   }
+   },
+   "name": "magypsobtady_2"
   },
   {
    "key": "c867a73cc28f",
@@ -590,7 +604,8 @@
     "5": 1440,
     "6": 1440,
     "8": 720
-   }
+   },
+   "name": "gastuthi"
   },
   {
    "key": "271a2ad0dfa9",
@@ -620,7 +635,8 @@
     "5": 4320,
     "6": 720,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "48f481bb1e96",
@@ -657,7 +673,8 @@
     "4": 4320,
     "5": 2880,
     "10": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "6c15c7832948",
@@ -689,7 +706,8 @@
     "5": 1440,
     "6": 2160,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "93a4dac332aa",
@@ -721,7 +739,8 @@
     "5": 1440,
     "6": 2880,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "64c1a0c2067c",
@@ -751,7 +770,8 @@
     "5": 2880,
     "7": 1440,
     "12": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "fedadc7c63f7",
@@ -781,7 +801,8 @@
     "5": 2880,
     "6": 2160,
     "12": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "c27ea776ba1c",
@@ -811,7 +832,8 @@
     "6": 720,
     "9": 1440,
     "14": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "b3a63ce8a55e",
@@ -844,7 +866,8 @@
    "edges": {
     "3": 2880,
     "4": 1440
-   }
+   },
+   "name": null
   },
   {
    "key": "177447212efe",
@@ -878,7 +901,8 @@
    "edges": {
     "3": 5760,
     "5": 1440
-   }
+   },
+   "name": "petsobtady"
   },
   {
    "key": "cb91436c3354",
@@ -923,7 +947,8 @@
     "4": 1440,
     "5": 720,
     "6": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "2d204abb7643",
@@ -958,7 +983,8 @@
     "3": 5760,
     "4": 2160,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "abf2453f3aa8",
@@ -995,7 +1021,8 @@
     "3": 5040,
     "4": 2160,
     "7": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "9e9eb2b34b24",
@@ -1025,7 +1052,8 @@
    "edges": {
     "3": 2880,
     "4": 5040
-   }
+   },
+   "name": "mastethi"
   },
   {
    "key": "2f7458953f46",
@@ -1055,7 +1083,8 @@
     "3": 4320,
     "4": 2880,
     "6": 720
-   }
+   },
+   "name": "gastethi"
   },
   {
    "key": "d0c143c7e8a3",
@@ -1093,7 +1122,8 @@
     "4": 720,
     "5": 1440,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "a23bc1d1c3b5",
@@ -1121,7 +1151,8 @@
     "3": 4320,
     "4": 4320,
     "6": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "4c5d456184b2",
@@ -1152,7 +1183,8 @@
     "4": 2880,
     "5": 1440,
     "7": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "50b35e15fd85",
@@ -1181,7 +1213,8 @@
     "4": 2880,
     "5": 2880,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "fa7859e5dc42",
@@ -1210,7 +1243,8 @@
     "4": 2880,
     "5": 2880,
     "7": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "9124f944860a",
@@ -1242,7 +1276,8 @@
     "5": 2880,
     "6": 720,
     "8": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "fb85b4ae4690",
@@ -1271,7 +1306,8 @@
     "4": 5040,
     "7": 1440,
     "12": 720
-   }
+   },
+   "name": null
   },
   {
    "key": "47481ab40611",
@@ -1311,7 +1347,8 @@
    "cells": 240,
    "edges": {
     "3": 1440
-   }
+   },
+   "name": "hidhi"
   },
   {
    "key": "f3bfff522990",
@@ -1349,7 +1386,8 @@
     "3": 1440,
     "4": 720,
     "6": 720
-   }
+   },
+   "name": "tisthi"
   },
   {
    "key": "93e27c1e3d43",
@@ -1379,7 +1417,8 @@
     "3": 1440,
     "4": 720,
     "6": 1440
-   }
+   },
+   "name": "sagyptady"
   },
   {
    "key": "b4ad37d86d09",
@@ -1409,7 +1448,8 @@
     "3": 1440,
     "4": 1440,
     "8": 720
-   }
+   },
+   "name": "gagyptady"
   },
   {
    "key": "9aa686e5af71",
@@ -1445,7 +1485,8 @@
    "cells": 240,
    "edges": {
     "3": 2160
-   }
+   },
+   "name": "matethi"
   },
   {
    "key": "12dbebd1e5f4",
@@ -1489,7 +1530,8 @@
    "cells": 720,
    "edges": {
     "3": 3600
-   }
+   },
+   "name": "ratehi"
   },
   {
    "key": "3745ab4a85c6",
@@ -1518,7 +1560,8 @@
    "edges": {
     "3": 2880,
     "5": 1440
-   }
+   },
+   "name": "sabtedy"
   },
   {
    "key": "5a26dde24dce",
@@ -1552,7 +1595,8 @@
    "cells": 240,
    "edges": {
     "3": 2880
-   }
+   },
+   "name": "tasthi"
   },
   {
    "key": "30ef0dbd6ae9",
@@ -1597,7 +1641,8 @@
    "edges": {
     "3": 3600,
     "5": 720
-   }
+   },
+   "name": "tatehi"
   },
   {
    "key": "f0a6159b8918",
@@ -1630,7 +1675,8 @@
    "edges": {
     "3": 2880,
     "4": 2880
-   }
+   },
+   "name": "sartethi"
   },
   {
    "key": "68b8f0a88662",
@@ -1674,7 +1720,18 @@
    "cells": 600,
    "edges": {
     "5": 720
-   }
+   },
+   "name": "tehi"
   }
- ]
+ ],
+ "names_notes": {
+  "tehi": "the 600-cell (ex) seen under ixitic: its vertex set has ex's full symmetry (14400)",
+  "tatehi": "tex seen under ixitic (symmetry 14400)",
+  "sagyptady": "the only other 480-vertex shape with 2160 cells (gagyptady matches exactly); the list's edges 6^6,4^9, the atlas's 6^6,4^3,3^6",
+  "sartethi": "cells exactly the list's (120 ratets, 120 dazsnits, 720 phydows, 720 wedges); edges 4^4,3^4 against the list's 4,444,333: one count apart",
+  "mestuthi": "cells exactly the list's (120 snits, 120 tuts, 480 gytricus, 720x2 disphs, 1440 tets); edges 8,4^6,3^4 against the list's 8,4^6,333: one count apart",
+  "magypsobtady": "two atlas regions have its edges and cells exactly; which is which is not settled",
+  "sisbethi": "the list's edges 55668,44,3^4 match no atlas shape; two atlas regions have its cells exactly (240 snits, 480 trigypos, 1440 phydows, 2880 tets), with edges 8,6,4^7,3^4 and 8,6,55,444,3^6",
+  "not found": "awosbitdy (6480 cells: the two 6480-cell atlas regions have other edges), sastithi and gisbethi (4080 cells: none in the atlas) are not matched"
+ }
 }
