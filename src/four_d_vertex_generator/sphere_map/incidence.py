@@ -77,6 +77,12 @@ class Incidence:
         from .build import wall_naming
         self.naming = wall_naming()
         self.wall_surfaces = self._wall_surfaces()
+        # every library surface a wall's patches lie on (inside the half-cell a wall lies on
+        # images of its atlas surface too): for walls tangent along a line
+        self.wall_surfaces_all = {w: set(v) for w, v in self.wall_surfaces.items()}
+        for p in patches:
+            if p["wall"] and p["surface"] is not None:
+                self.wall_surfaces_all.setdefault(p["wall"], set()).add(int(p["surface"]))
         self.wall_edges = {k: set(v["edges"]) for k, v in load_json("working_data.json")["walls"].items()}
         self.line = None                     # the atlas line being checked, if any
         from .frame import cell_vertices, group
@@ -257,14 +263,14 @@ class Incidence:
             if ra not in v1["regions"]:
                 continue
             for t1 in same:
-                if t1 not in self.wall_surfaces.get(w1, ()):
+                if t1 not in self.wall_surfaces_all.get(w1, ()):
                     continue
                 for r in v1["regions"] - {ra}:
                     for w2, v2 in self.naming.items():
                         if w2 == w1 or r not in v2["regions"] or rb not in v2["regions"]:
                             continue
                         for t2 in same:
-                            if t2 != t1 and t2 in self.wall_surfaces.get(w2, ()):
+                            if t2 != t1 and t2 in self.wall_surfaces_all.get(w2, ()):
                                 found.append([(w1, ra, r, t1), (w2, r, rb, t2)])
         uniq = {tuple((c[0][0], c[0][2], c[1][0])) for c in found}
         return found[0] if len(uniq) == 1 else None
