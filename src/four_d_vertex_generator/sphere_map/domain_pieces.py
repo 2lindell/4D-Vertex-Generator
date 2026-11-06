@@ -653,13 +653,32 @@ class Graph:
             for fwd in (True, False):
                 H.append((ei, fwd))
         hid = {h: i for i, h in enumerate(H)}
+        vn = {}
+
+        def vnormal(v):
+            """The surface's normal at vertex v (at a singular point, where the gradient is 0:
+            the mean of the normals a short way along its edges)."""
+            if v not in vn:
+                n = self.normal(self.V[v])
+                if np.linalg.norm(n) < 1e-9:
+                    ns = []
+                    for e in self.E:
+                        for P in ((e["pts"],) if e["a"] == v else ()) + ((e["pts"][::-1],) if e["b"] == v else ()):
+                            y = P[min(len(P) - 1, 2)]
+                            m = self.normal(y)
+                            if np.linalg.norm(m) > 1e-12:
+                                ns.append(m / np.linalg.norm(m))
+                    n = np.mean(ns, axis=0) if ns else np.array([1.0, -1, 0, 0])
+                    if np.linalg.norm(n) < 1e-6:
+                        n = ns[0]
+                vn[v] = n / np.linalg.norm(n)
+            return vn[v]
         for i, (ei, fwd) in enumerate(H):
             e = self.E[ei]
             v = e["a"] if fwd else e["b"]
             P = e["pts"] if fwd else e["pts"][::-1]
             x = self.V[v]
-            n = self.normal(x)
-            n = n / np.linalg.norm(n)
+            n = vnormal(v)
             basis = np.linalg.svd(np.vstack([np.ones(4) / 2, n]))[2][2:]
             e1, e2 = basis
             # orientation: (e1, e2, n) right-handed in the sum-zero space
@@ -712,7 +731,8 @@ class Graph:
 def _plane_frame(P, normal):
     """A plane for a loop on the surface: its centre, the mean surface normal, two directions."""
     c = P.mean(0)
-    n = np.mean([normal(x) / np.linalg.norm(normal(x)) for x in P[:: max(1, len(P) // 50)]], axis=0)
+    ns = [normal(x) for x in P[:: max(1, len(P) // 50)]]
+    n = np.mean([m / np.linalg.norm(m) for m in ns if np.linalg.norm(m) > 1e-12], axis=0)
     n /= np.linalg.norm(n)
     e1, e2 = np.linalg.svd(np.vstack([np.ones(4) / 2, n]))[2][2:]
     if np.linalg.det(np.vstack([np.ones(4) / 2, e1, e2, n])) < 0:
@@ -958,7 +978,11 @@ def _sheet_job(key):
     import pickle
     D = Data()
     C = pickle.loads((D.root / ".cache" / "domain_curves.pkl").read_bytes())
-    G, F = do_sheet(D, C, key, wall_surfaces(D), log=lambda *a: None)
+    try:
+        G, F = do_sheet(D, C, key, wall_surfaces(D), log=lambda *a: None)
+    except Exception as ex:                                  # noqa: BLE001
+        import traceback
+        return key, None, traceback.format_exc()
     G.s = G.normal = None                      # (sent back: points and names only)
     G.curves = [{k: v for k, v in c.items() if k != "eqs"} for c in G.curves]
     for f in F:
@@ -976,9 +1000,13 @@ def export(log=print, workers=4):
     (D.root / ".cache").mkdir(exist_ok=True)
     (D.root / ".cache" / "domain_curves.pkl").write_bytes(pickle.dumps(C))
     keys = sorted(sheets(D), key=str)
-    results = []
+    results, failed = [], []
     with Pool(workers) as pool:
         for key, G, F in pool.imap_unordered(_sheet_job, keys):
+            if G is None:
+                log(f"sheet {key}: FAILED\n{F}")
+                failed.append(key)
+                continue
             results.append((key, G, F))
             log(f"sheet {key}: {len(F)} faces, {sum(1 for f in F if f['what'] and f['what']['wall'])} "
                 f"of walls ({len(results)}/{len(keys)})")
@@ -1022,7 +1050,7 @@ def export(log=print, workers=4):
                         edge_pts=np.concatenate(E), edge_len=lens.astype(np.int32))
     doc = {"_about": __doc__ + "\nnpz: verts (betas), tris (indices into each face's own verts range), "
            "edge_pts / edge_len (each edge's exact points, edges in order).",
-           "faces": faces, "edges": edges, "stats": dict(stats)}
+           "faces": faces, "edges": edges, "stats": dict(stats), "sheets_failed": [str(k) for k in failed]}
     (D.root / "domain_pieces.json").write_text(json.dumps(doc, indent=1))
     log(f"{len(faces)} wall faces, {sum(f['tris'][1] - f['tris'][0] for f in faces)} triangles, "
         f"{len(edges)} edges; {dict(stats)}")
