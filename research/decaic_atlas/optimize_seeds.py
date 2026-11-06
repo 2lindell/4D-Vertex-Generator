@@ -233,6 +233,19 @@ def same_shape(b, seed, key0, hull_tol):
 
 
 # ------------------------------------------------------------------------------------------------------------- optimise
+# (The chamber (and its fold) is only where seeds are listed: any point x gives the group's orbit of x, and the sign
+#  conditions and the arrangement key already keep the optimiser on the shape. So by default it may cross the mirrors
+#  and the fold: where a mirror is a true boundary (its reflection normalises the group) the far side is the mirror image
+#  and R is symmetric there; where it is a seam (oxitic, ixitic sheets; icopyritic's fold; a face shape carried across the
+#  fold onto another face) the shape continues there and so may its optimum (as sabtutic's did). The shape's own locus
+#  (the zero betas of a mirror-face shape, a wall's surface) is still kept.)
+CROSS_MIRRORS = True
+
+
+def in_domain(B, eps=0.0):
+    return True if CROSS_MIRRORS else bool(G.in_domain(B, eps)[0])
+
+
 def optimise(shape):
     t0 = time.time()
     seed = np.asarray(shape["seed"], float)
@@ -248,6 +261,9 @@ def optimise(shape):
     if shape["degrees"] == 0:
         res.update({"status": "point (no freedom)", "best": seed.tolist(), "R": R0, "off_seed": seed.tolist()})
         return res
+    if shape["degrees"] >= 3 and CROSS_MIRRORS and seed.min() < 1e-12:
+        seed = seed + 1e-4 * (seed < 1e-12)                          # (a region seed on a mirror: start just off it)
+        seed = seed / seed.sum()
     zero = [i for i in range(4) if seed[i] < 1e-12]                 # (on a mirror: stays there)
     free = [i for i in range(4) if i not in zero]
     # (locus equations not already met by the mirrors' zeros)
@@ -267,7 +283,8 @@ def optimise(shape):
     nf = len(free)
     cons = [{"type": "ineq", "fun": lambda z: z[nf] - q(full(z))},
             {"type": "ineq", "fun": lambda z: q(full(z)) - 1.0},
-            {"type": "ineq", "fun": lambda z: np.concatenate([z[:nf], [full(z)[0] - full(z)[3]] if (0 in free and getattr(G, "FOLD", True)) else []])}]
+            {"type": "ineq", "fun": (lambda z: np.array([z[:nf].sum()])) if CROSS_MIRRORS else
+             (lambda z: np.concatenate([z[:nf], [full(z)[0] - full(z)[3]] if (0 in free and getattr(G, "FOLD", True)) else []]))}]
     condf = None
     if conds:
         C = np.array([c[0] for c in conds])
@@ -287,7 +304,7 @@ def optimise(shape):
         if not ok:
             return False
         bb = full(z)
-        return bb.sum() > 0 and G.in_domain((bb / bb.sum())[None], 1e-12)[0]
+        return bb.sum() > 0 and in_domain((bb / bb.sum())[None], 1e-12)
     # (several starts: the seed, and small steps from it along the locus inside the shape; the best feasible result
     #  that is no worse than the seed; else the seed itself)
     rng = np.random.default_rng(3)
@@ -296,7 +313,7 @@ def optimise(shape):
         d = rng.normal(size=4)
         d[zero] = 0
         p = project(seed + 0.02 * d / np.linalg.norm(d) * seed[free].min(), loc_f, loc_g, zero)
-        if G.in_domain(p[None])[0] and same_shape(p, seed, key0, tol):
+        if in_domain(p[None]) and same_shape(p, seed, key0, tol):
             starts.append(p)
     best, msg = (z0, "start"), "start"
     bestR = R0
@@ -388,7 +405,7 @@ def ring_check(b, q, loc_f, loc_g, zero, R):
         d[zero] = 0
         d -= d.mean()
         p = project(b + 1e-5 * d / np.linalg.norm(d), loc_f, loc_g, zero)
-        if not G.in_domain(p[None])[0]:
+        if not in_domain(p[None]):
             continue
         qs = q(p)
         Rp = np.sqrt(qs.max() / qs.min())

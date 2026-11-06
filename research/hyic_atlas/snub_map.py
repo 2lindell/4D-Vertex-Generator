@@ -254,7 +254,7 @@ def main():
     ends = [(x, T.of(*la, a), T.of(*lb, b)) for (x, la, lb, a, b) in res]
     print(f"{len(ends)} wall crossings bisected; {time.time() - t0:.0f}s", flush=True)
     # (crossings with no known surface through them: add the forms of the polytopes on both sides)
-    miss = [(x, a, b) for (x, ta, tb), (_, _, _, a, b) in zip(ends, res) if min(s.dist(x) for s in surfs) >= 1e-7]
+    miss = [(x, a, b) for (x, ta, tb), (_, _, _, a, b) in zip(ends, res) if min((s.dist(x) for s in surfs), default=1.0) >= 1e-7]
     if miss:
         more = pool.map(forms_job, [tuple(p) for _, a, b in miss for p in (a, b)], chunksize=1)
         new = set().union(*more) - surf_text
@@ -263,10 +263,10 @@ def main():
         print(f"{len(miss)} crossings on no known surface: {len(new)} surfaces added", flush=True)
     walls, on = [], []
     for x, ta, tb in ends:
-        d = np.array([s.dist(x) for s in surfs])
+        d = np.array([s.dist(x) for s in surfs] or [1.0])     # (no surfaces (ixoic: no exact forms): the bisected point)
         si = int(d.argmin())
-        y = surfs[si].project(x) if d[si] < 1e-7 else x
-        on.append((y, si if d[si] < 1e-7 else -1, ta, tb, float(d[si])))
+        y = surfs[si].project(x) if surfs and d[si] < 1e-7 else x
+        on.append((y, si if surfs and d[si] < 1e-7 else -1, ta, tb, float(d[si])))
     W = pool.map(wall_label_job, [tuple(y) for y, *_ in on], chunksize=8)
     for (y, si, ta, tb, d), (sg, k) in zip(on, W):
         walls.append({"surface": surfs[si].text if si >= 0 else f"none (nearest {d:.0e})", "sides": sorted([ta, tb]),
