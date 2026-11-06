@@ -606,27 +606,27 @@
    "edges": [
     32,
     40,
-    47,
+    46,
     33
    ],
    "hole_edges": [],
    "verts": [
     7289,
-    8264
+    7924
    ],
    "tris": [
     10110,
-    11492
+    10998
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
     573,
-    663
+    654
    ],
    "coarse_tris": [
     621,
-    729
+    720
    ]
   },
   {
@@ -650,22 +650,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    8264,
-    8904
+    7924,
+    8566
    ],
    "tris": [
-    11492,
-    12364
+    10998,
+    11874
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    663,
-    720
+    654,
+    711
    ],
    "coarse_tris": [
-    729,
-    788
+    720,
+    779
    ]
   },
   {
@@ -688,22 +688,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    8904,
-    9387
+    8566,
+    9049
    ],
    "tris": [
-    12364,
-    12921
+    11874,
+    12431
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    720,
-    764
+    711,
+    755
    ],
    "coarse_tris": [
-    788,
-    830
+    779,
+    821
    ]
   },
   {
@@ -728,22 +728,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    9387,
-    9953
+    9049,
+    9615
    ],
    "tris": [
-    12921,
-    13662
+    12431,
+    13172
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    764,
-    812
+    755,
+    803
    ],
    "coarse_tris": [
-    830,
-    876
+    821,
+    867
    ]
   },
   {
@@ -767,22 +767,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    9953,
-    10491
+    9615,
+    10153
    ],
    "tris": [
-    13662,
-    14327
+    13172,
+    13837
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    812,
-    856
+    803,
+    847
    ],
    "coarse_tris": [
-    876,
-    918
+    867,
+    909
    ]
   },
   {
@@ -806,22 +806,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    10491,
-    11546
+    10153,
+    11208
    ],
    "tris": [
-    14327,
-    15824
+    13837,
+    15334
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    856,
-    928
+    847,
+    919
    ],
    "coarse_tris": [
-    918,
-    995
+    909,
+    986
    ]
   },
   {
@@ -846,22 +846,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    11546,
-    12379
+    11208,
+    12041
    ],
    "tris": [
-    15824,
-    17015
+    15334,
+    16525
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    928,
-    1016
+    919,
+    1007
    ],
    "coarse_tris": [
-    995,
-    1112
+    986,
+    1103
    ]
   },
   {
@@ -885,22 +885,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    12379,
-    13302
+    12041,
+    12964
    ],
    "tris": [
-    17015,
-    18305
+    16525,
+    17815
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1016,
-    1086
+    1007,
+    1077
    ],
    "coarse_tris": [
-    1112,
-    1191
+    1103,
+    1182
    ]
   },
   {
@@ -923,22 +923,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    13302,
-    13447
+    12964,
+    13109
    ],
    "tris": [
-    18305,
-    18464
+    17815,
+    17974
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1086,
-    1098
+    1077,
+    1089
    ],
    "coarse_tris": [
-    1191,
-    1201
+    1182,
+    1192
    ]
   },
   {
@@ -962,22 +962,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    13447,
-    14453
+    13109,
+    14115
    ],
    "tris": [
-    18464,
-    19901
+    17974,
+    19411
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1098,
-    1205
+    1089,
+    1196
    ],
    "coarse_tris": [
-    1201,
-    1337
+    1192,
+    1328
    ]
   },
   {
@@ -1002,22 +1002,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    14453,
-    15434
+    14115,
+    15096
    ],
    "tris": [
-    19901,
-    21292
+    19411,
+    20802
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1205,
-    1284
+    1196,
+    1275
    ],
    "coarse_tris": [
-    1337,
-    1427
+    1328,
+    1418
    ]
   },
   {
@@ -1041,22 +1041,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    15434,
-    17035
+    15096,
+    16697
    ],
    "tris": [
-    21292,
-    23606
+    20802,
+    23116
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1284,
-    1488
+    1275,
+    1479
    ],
    "coarse_tris": [
-    1427,
-    1734
+    1418,
+    1725
    ]
   },
   {
@@ -1081,22 +1081,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    17035,
-    17710
+    16697,
+    17372
    ],
    "tris": [
-    23606,
-    24469
+    23116,
+    23979
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1488,
-    1548
+    1479,
+    1539
    ],
    "coarse_tris": [
-    1734,
-    1796
+    1725,
+    1787
    ]
   },
   {
@@ -1121,22 +1121,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    17710,
-    18273
+    17372,
+    17935
    ],
    "tris": [
-    24469,
-    25200
+    23979,
+    24710
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1548,
-    1596
+    1539,
+    1587
    ],
    "coarse_tris": [
-    1796,
-    1844
+    1787,
+    1835
    ]
   },
   {
@@ -1160,22 +1160,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    18273,
-    18673
+    17935,
+    18335
    ],
    "tris": [
-    25200,
-    25662
+    24710,
+    25172
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1596,
-    1638
+    1587,
+    1629
    ],
    "coarse_tris": [
-    1844,
-    1884
+    1835,
+    1875
    ]
   },
   {
@@ -1198,22 +1198,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    18673,
-    19694
+    18335,
+    19356
    ],
    "tris": [
-    25662,
-    27080
+    25172,
+    26590
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1638,
-    1707
+    1629,
+    1698
    ],
    "coarse_tris": [
-    1884,
-    1951
+    1875,
+    1942
    ]
   },
   {
@@ -1238,22 +1238,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    19694,
-    20189
+    19356,
+    19851
    ],
    "tris": [
-    27080,
-    27776
+    26590,
+    27286
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1707,
-    1744
+    1698,
+    1735
    ],
    "coarse_tris": [
-    1951,
-    1992
+    1942,
+    1983
    ]
   },
   {
@@ -1278,22 +1278,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    20189,
-    20848
+    19851,
+    20510
    ],
    "tris": [
-    27776,
-    28690
+    27286,
+    28200
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1744,
-    1786
+    1735,
+    1777
    ],
    "coarse_tris": [
-    1992,
-    2033
+    1983,
+    2024
    ]
   },
   {
@@ -1317,22 +1317,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    20848,
-    21126
+    20510,
+    20788
    ],
    "tris": [
-    28690,
-    29064
+    28200,
+    28574
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1786,
-    1803
+    1777,
+    1794
    ],
    "coarse_tris": [
-    2033,
-    2048
+    2024,
+    2039
    ]
   },
   {
@@ -1356,22 +1356,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    21126,
-    21401
+    20788,
+    21063
    ],
    "tris": [
-    29064,
-    29441
+    28574,
+    28951
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1803,
-    1821
+    1794,
+    1812
    ],
    "coarse_tris": [
-    2048,
-    2066
+    2039,
+    2057
    ]
   },
   {
@@ -1395,22 +1395,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    21401,
-    21725
+    21063,
+    21387
    ],
    "tris": [
-    29441,
-    29894
+    28951,
+    29404
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1821,
-    1842
+    1812,
+    1833
    ],
    "coarse_tris": [
-    2066,
-    2087
+    2057,
+    2078
    ]
   },
   {
@@ -1435,22 +1435,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    21725,
-    22394
+    21387,
+    22056
    ],
    "tris": [
-    29894,
-    30851
+    29404,
+    30361
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1842,
-    1906
+    1833,
+    1897
    ],
    "coarse_tris": [
-    2087,
-    2169
+    2078,
+    2160
    ]
   },
   {
@@ -1474,22 +1474,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    22394,
-    22807
+    22056,
+    22469
    ],
    "tris": [
-    30851,
-    31423
+    30361,
+    30933
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1906,
-    1933
+    1897,
+    1924
    ],
    "coarse_tris": [
-    2169,
-    2195
+    2160,
+    2186
    ]
   },
   {
@@ -1513,22 +1513,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    22807,
-    23487
+    22469,
+    23149
    ],
    "tris": [
-    31423,
-    32383
+    30933,
+    31893
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1933,
-    1986
+    1924,
+    1977
    ],
    "coarse_tris": [
-    2195,
-    2253
+    2186,
+    2244
    ]
   },
   {
@@ -1553,22 +1553,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    23487,
-    24696
+    23149,
+    24358
    ],
    "tris": [
-    32383,
-    34124
+    31893,
+    33634
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    1986,
-    2134
+    1977,
+    2125
    ],
    "coarse_tris": [
-    2253,
-    2463
+    2244,
+    2454
    ]
   },
   {
@@ -1591,22 +1591,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    24696,
-    25343
+    24358,
+    25005
    ],
    "tris": [
-    34124,
-    35028
+    33634,
+    34538
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2134,
-    2190
+    2125,
+    2181
    ],
    "coarse_tris": [
-    2463,
-    2524
+    2454,
+    2515
    ]
   },
   {
@@ -1631,22 +1631,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    25343,
-    26124
+    25005,
+    25786
    ],
    "tris": [
-    35028,
-    36060
+    34538,
+    35570
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2190,
-    2259
+    2181,
+    2250
    ],
    "coarse_tris": [
-    2524,
-    2597
+    2515,
+    2588
    ]
   },
   {
@@ -1671,22 +1671,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    26124,
-    27074
+    25786,
+    26736
    ],
    "tris": [
-    36060,
-    37388
+    35570,
+    36898
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2259,
-    2318
+    2250,
+    2309
    ],
    "coarse_tris": [
-    2597,
-    2656
+    2588,
+    2647
    ]
   },
   {
@@ -1713,22 +1713,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    27074,
-    27935
+    26736,
+    27597
    ],
    "tris": [
-    37388,
-    38630
+    36898,
+    38140
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2318,
-    2402
+    2309,
+    2393
    ],
    "coarse_tris": [
-    2656,
-    2772
+    2647,
+    2763
    ]
   },
   {
@@ -1752,22 +1752,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    27935,
-    29195
+    27597,
+    28857
    ],
    "tris": [
-    38630,
-    40439
+    38140,
+    39949
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2402,
-    2510
+    2393,
+    2501
    ],
    "coarse_tris": [
-    2772,
-    2911
+    2763,
+    2902
    ]
   },
   {
@@ -1792,22 +1792,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    29195,
-    30016
+    28857,
+    29678
    ],
    "tris": [
-    40439,
-    41617
+    39949,
+    41127
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2510,
-    2597
+    2501,
+    2588
    ],
    "coarse_tris": [
-    2911,
-    3027
+    2902,
+    3018
    ]
   },
   {
@@ -1826,28 +1826,28 @@
    "share_of_triangles_named_so": 0.9781,
    "edges": [
     131,
-    140,
+    139,
     135,
     132
    ],
    "hole_edges": [],
    "verts": [
-    30016,
-    30751
+    29678,
+    30413
    ],
    "tris": [
-    41617,
-    42669
+    41127,
+    42179
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2597,
-    2684
+    2588,
+    2675
    ],
    "coarse_tris": [
-    3027,
-    3146
+    3018,
+    3137
    ]
   },
   {
@@ -1871,22 +1871,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    30751,
-    31406
+    30413,
+    31068
    ],
    "tris": [
-    42669,
-    43518
+    42179,
+    43028
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2684,
-    2741
+    2675,
+    2732
    ],
    "coarse_tris": [
-    3146,
-    3203
+    3137,
+    3194
    ]
   },
   {
@@ -1910,22 +1910,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    31406,
-    32156
+    31068,
+    31818
    ],
    "tris": [
-    43518,
-    44569
+    43028,
+    44079
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2741,
-    2811
+    2732,
+    2802
    ],
    "coarse_tris": [
-    3203,
-    3286
+    3194,
+    3277
    ]
   },
   {
@@ -1949,22 +1949,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    32156,
-    32845
+    31818,
+    32507
    ],
    "tris": [
-    44569,
-    45542
+    44079,
+    45052
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2811,
-    2868
+    2802,
+    2859
    ],
    "coarse_tris": [
-    3286,
-    3350
+    3277,
+    3341
    ]
   },
   {
@@ -1989,22 +1989,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    32845,
-    33691
+    32507,
+    33353
    ],
    "tris": [
-    45542,
-    46747
+    45052,
+    46257
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2868,
-    2948
+    2859,
+    2939
    ],
    "coarse_tris": [
-    3350,
-    3454
+    3341,
+    3445
    ]
   },
   {
@@ -2029,22 +2029,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    33691,
-    34371
+    33353,
+    34033
    ],
    "tris": [
-    46747,
-    47718
+    46257,
+    47228
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2948,
-    2991
+    2939,
+    2982
    ],
    "coarse_tris": [
-    3454,
-    3500
+    3445,
+    3491
    ]
   },
   {
@@ -2068,22 +2068,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    34371,
-    35004
+    34033,
+    34666
    ],
    "tris": [
-    47718,
-    48616
+    47228,
+    48126
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    2991,
-    3049
+    2982,
+    3040
    ],
    "coarse_tris": [
-    3500,
-    3568
+    3491,
+    3559
    ]
   },
   {
@@ -2107,22 +2107,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    35004,
-    35925
+    34666,
+    35585
    ],
    "tris": [
-    48616,
-    49917
+    48126,
+    49423
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3049,
-    3120
+    3040,
+    3111
    ],
    "coarse_tris": [
-    3568,
-    3649
+    3559,
+    3640
    ]
   },
   {
@@ -2145,22 +2145,22 @@
    ],
    "hole_edges": [],
    "verts": [
-    35925,
-    36666
+    35585,
+    36326
    ],
    "tris": [
-    49917,
-    50922
+    49423,
+    50428
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3120,
-    3170
+    3111,
+    3161
    ],
    "coarse_tris": [
-    3649,
-    3697
+    3640,
+    3688
    ]
   },
   {
@@ -2184,26 +2184,104 @@
    ],
    "hole_edges": [],
    "verts": [
-    36666,
-    37315
+    36326,
+    36975
    ],
    "tris": [
-    50922,
-    51841
+    50428,
+    51347
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3170,
-    3227
+    3161,
+    3218
    ],
    "coarse_tris": [
-    3697,
-    3764
+    3688,
+    3755
    ]
   },
   {
    "id": 56,
+   "sheet": "125",
+   "wall": "X22",
+   "sides": [
+    "F3",
+    "X54"
+   ],
+   "components": [
+    8,
+    35
+   ],
+   "agree": true,
+   "share_of_triangles_named_so": 0.9985,
+   "edges": [
+    169,
+    182,
+    172
+   ],
+   "hole_edges": [],
+   "verts": [
+    36975,
+    37888
+   ],
+   "tris": [
+    51347,
+    52640
+   ],
+   "turned_triangles": 0,
+   "lift_failed": 0,
+   "coarse_verts": [
+    3218,
+    3283
+   ],
+   "coarse_tris": [
+    3755,
+    3827
+   ]
+  },
+  {
+   "id": 57,
+   "sheet": "125",
+   "wall": "X82",
+   "sides": [
+    "X49",
+    "X43"
+   ],
+   "components": [
+    7,
+    6
+   ],
+   "agree": true,
+   "share_of_triangles_named_so": 1.0,
+   "edges": [
+    169,
+    171,
+    186
+   ],
+   "hole_edges": [],
+   "verts": [
+    37888,
+    38410
+   ],
+   "tris": [
+    52640,
+    53375
+   ],
+   "turned_triangles": 0,
+   "lift_failed": 0,
+   "coarse_verts": [
+    3283,
+    3348
+   ],
+   "coarse_tris": [
+    3827,
+    3905
+   ]
+  },
+  {
+   "id": 58,
    "sheet": "125",
    "wall": "X34",
    "sides": [
@@ -2218,31 +2296,31 @@
    "share_of_triangles_named_so": 1.0,
    "edges": [
     170,
-    187,
+    183,
     173
    ],
    "hole_edges": [],
    "verts": [
-    37315,
-    38015
+    38410,
+    38916
    ],
    "tris": [
-    51841,
-    52830
+    53375,
+    54087
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3227,
-    3290
+    3348,
+    3407
    ],
    "coarse_tris": [
-    3764,
-    3836
+    3905,
+    3972
    ]
   },
   {
-   "id": 57,
+   "id": 59,
    "sheet": "125",
    "wall": "X47",
    "sides": [
@@ -2262,26 +2340,26 @@
    ],
    "hole_edges": [],
    "verts": [
-    38015,
-    38702
+    38916,
+    39603
    ],
    "tris": [
-    52830,
-    53720
+    54087,
+    54977
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3290,
-    3349
+    3407,
+    3466
    ],
    "coarse_tris": [
-    3836,
-    3894
+    3972,
+    4030
    ]
   },
   {
-   "id": 58,
+   "id": 60,
    "sheet": "125",
    "wall": "X14",
    "sides": [
@@ -2293,7 +2371,7 @@
     22
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9991,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
     171,
     175,
@@ -2302,26 +2380,26 @@
    ],
    "hole_edges": [],
    "verts": [
-    38702,
-    39517
+    39603,
+    40319
    ],
    "tris": [
-    53720,
-    54873
+    54977,
+    55994
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3349,
-    3424
+    3466,
+    3540
    ],
    "coarse_tris": [
-    3894,
-    3988
+    4030,
+    4124
    ]
   },
   {
-   "id": 59,
+   "id": 61,
    "sheet": "125",
    "wall": "X14",
    "sides": [
@@ -2336,32 +2414,70 @@
    "share_of_triangles_named_so": 1.0,
    "edges": [
     173,
-    186,
+    184,
     181,
     174
    ],
    "hole_edges": [],
    "verts": [
-    39517,
-    40194
+    40319,
+    40929
    ],
    "tris": [
-    54873,
-    55836
+    55994,
+    56856
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3424,
-    3469
+    3540,
+    3584
    ],
    "coarse_tris": [
-    3988,
-    4037
+    4124,
+    4172
    ]
   },
   {
-   "id": 60,
+   "id": 62,
+   "sheet": "125",
+   "wall": "X22",
+   "sides": [
+    "F3",
+    "X70"
+   ],
+   "components": [
+    8,
+    57
+   ],
+   "agree": true,
+   "share_of_triangles_named_so": 0.9967,
+   "edges": [
+    178,
+    182
+   ],
+   "hole_edges": [],
+   "verts": [
+    40929,
+    41614
+   ],
+   "tris": [
+    56856,
+    57777
+   ],
+   "turned_triangles": 0,
+   "lift_failed": 0,
+   "coarse_verts": [
+    3584,
+    3632
+   ],
+   "coarse_tris": [
+    4172,
+    4218
+   ]
+  },
+  {
+   "id": 63,
    "sheet": "127",
    "wall": "X25",
    "sides": [
@@ -2375,33 +2491,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    192,
-    196,
-    203,
-    193
+    189,
+    193,
+    200,
+    190
    ],
    "hole_edges": [],
    "verts": [
-    40194,
-    40845
+    41614,
+    42265
    ],
    "tris": [
-    55836,
-    56769
+    57777,
+    58710
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3469,
-    3516
+    3632,
+    3679
    ],
    "coarse_tris": [
-    4037,
-    4092
+    4218,
+    4273
    ]
   },
   {
-   "id": 61,
+   "id": 64,
    "sheet": "128",
    "wall": "X86",
    "sides": [
@@ -2413,34 +2529,34 @@
     38
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9988,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    207,
-    217,
-    225
+    204,
+    219,
+    221
    ],
    "hole_edges": [],
    "verts": [
-    40845,
-    41420
+    42265,
+    42666
    ],
    "tris": [
-    56769,
-    57569
+    58710,
+    59265
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3516,
-    3572
+    3679,
+    3733
    ],
    "coarse_tris": [
-    4092,
-    4154
+    4273,
+    4334
    ]
   },
   {
-   "id": 62,
+   "id": 65,
    "sheet": "128",
    "wall": "X93",
    "sides": [
@@ -2454,32 +2570,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    207,
-    226,
-    215
+    204,
+    222,
+    212
    ],
    "hole_edges": [],
    "verts": [
-    41420,
-    42217
+    42666,
+    43463
    ],
    "tris": [
-    57569,
-    58685
+    59265,
+    60381
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3572,
-    3633
+    3733,
+    3794
    ],
    "coarse_tris": [
-    4154,
-    4221
+    4334,
+    4401
    ]
   },
   {
-   "id": 63,
+   "id": 66,
    "sheet": "128",
    "wall": "X86",
    "sides": [
@@ -2491,34 +2607,34 @@
     72
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9989,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    208,
-    221,
-    211
+    205,
+    215,
+    208
    ],
    "hole_edges": [],
    "verts": [
-    42217,
-    42875
+    43463,
+    43932
    ],
    "tris": [
-    58685,
-    59607
+    60381,
+    61036
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3633,
-    3691
+    3794,
+    3848
    ],
    "coarse_tris": [
-    4221,
-    4285
+    4401,
+    4460
    ]
   },
   {
-   "id": 64,
+   "id": 67,
    "sheet": "128",
    "wall": "X93",
    "sides": [
@@ -2532,32 +2648,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9992,
    "edges": [
-    208,
-    210,
-    214
+    205,
+    207,
+    211
    ],
    "hole_edges": [],
    "verts": [
-    42875,
-    43768
+    43932,
+    44825
    ],
    "tris": [
-    59607,
-    60860
+    61036,
+    62289
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3691,
-    3752
+    3848,
+    3909
    ],
    "coarse_tris": [
-    4285,
-    4350
+    4460,
+    4525
    ]
   },
   {
-   "id": 65,
+   "id": 68,
    "sheet": "128",
    "wall": "X25",
    "sides": [
@@ -2571,33 +2687,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    210,
-    211,
-    220,
-    213
+    207,
+    208,
+    216,
+    210
    ],
    "hole_edges": [],
    "verts": [
-    43768,
-    44416
+    44825,
+    45416
    ],
    "tris": [
-    60860,
-    61784
+    62289,
+    63132
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3752,
-    3800
+    3909,
+    3954
    ],
    "coarse_tris": [
-    4350,
-    4407
+    4525,
+    4577
    ]
   },
   {
-   "id": 66,
+   "id": 69,
    "sheet": "129",
    "wall": "X41",
    "sides": [
@@ -2611,33 +2727,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    227,
-    236,
-    238,
-    228
+    223,
+    232,
+    234,
+    224
    ],
    "hole_edges": [],
    "verts": [
-    44416,
-    45546
+    45416,
+    46546
    ],
    "tris": [
-    61784,
-    63411
+    63132,
+    64759
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3800,
-    3910
+    3954,
+    4064
    ],
    "coarse_tris": [
-    4407,
-    4551
+    4577,
+    4721
    ]
   },
   {
-   "id": 67,
+   "id": 70,
    "sheet": "129",
    "wall": "X28",
    "sides": [
@@ -2651,32 +2767,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    227,
-    237,
-    231
+    223,
+    233,
+    227
    ],
    "hole_edges": [],
    "verts": [
-    45546,
-    46810
+    46546,
+    47810
    ],
    "tris": [
-    63411,
-    65225
+    64759,
+    66573
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    3910,
-    4012
+    4064,
+    4166
    ],
    "coarse_tris": [
-    4551,
-    4676
+    4721,
+    4846
    ]
   },
   {
-   "id": 68,
+   "id": 71,
    "sheet": "129",
    "wall": "X41",
    "sides": [
@@ -2690,33 +2806,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    229,
-    239,
-    234,
-    240
+    225,
+    235,
+    230,
+    236
    ],
    "hole_edges": [],
    "verts": [
-    46810,
-    47940
+    47810,
+    48602
    ],
    "tris": [
-    65225,
-    66845
+    66573,
+    67703
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4012,
-    4130
+    4166,
+    4275
    ],
    "coarse_tris": [
-    4676,
-    4832
+    4846,
+    4993
    ]
   },
   {
-   "id": 69,
+   "id": 72,
    "sheet": "13",
    "wall": "X19",
    "sides": [
@@ -2728,36 +2844,36 @@
     5
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9905,
+   "share_of_triangles_named_so": 0.9893,
    "edges": [
-    245,
-    246,
-    259,
+    241,
+    242,
     255,
-    247
+    251,
+    243
    ],
    "hole_edges": [],
    "verts": [
-    47940,
-    48824
+    48602,
+    49318
    ],
    "tris": [
-    66845,
-    68113
+    67703,
+    68731
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4130,
-    4229
+    4275,
+    4370
    ],
    "coarse_tris": [
-    4832,
-    4970
+    4993,
+    5126
    ]
   },
   {
-   "id": 70,
+   "id": 73,
    "sheet": "13",
    "wall": "X26",
    "sides": [
@@ -2771,32 +2887,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.996,
    "edges": [
-    245,
-    250,
-    256
+    241,
+    246,
+    252
    ],
    "hole_edges": [],
    "verts": [
-    48824,
-    49711
+    49318,
+    50205
    ],
    "tris": [
-    68113,
-    69370
+    68731,
+    69988
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4229,
-    4295
+    4370,
+    4436
    ],
    "coarse_tris": [
-    4970,
-    5045
+    5126,
+    5201
    ]
   },
   {
-   "id": 71,
+   "id": 74,
    "sheet": "13",
    "wall": "X26",
    "sides": [
@@ -2808,34 +2924,34 @@
     71
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9926,
+   "share_of_triangles_named_so": 0.995,
    "edges": [
-    246,
-    256,
-    260
+    242,
+    252,
+    254
    ],
    "hole_edges": [],
    "verts": [
-    49711,
-    50474
+    50205,
+    50776
    ],
    "tris": [
-    69370,
-    70450
+    69988,
+    70794
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4295,
-    4354
+    4436,
+    4491
    ],
    "coarse_tris": [
-    5045,
-    5111
+    5201,
+    5262
    ]
   },
   {
-   "id": 72,
+   "id": 75,
    "sheet": "13",
    "wall": "X11",
    "sides": [
@@ -2849,32 +2965,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9954,
    "edges": [
-    247,
-    252,
-    254
+    243,
+    248,
+    250
    ],
    "hole_edges": [],
    "verts": [
-    50474,
-    51087
+    50776,
+    51389
    ],
    "tris": [
-    70450,
-    71322
+    70794,
+    71666
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4354,
-    4400
+    4491,
+    4537
    ],
    "coarse_tris": [
-    5111,
-    5164
+    5262,
+    5315
    ]
   },
   {
-   "id": 73,
+   "id": 76,
    "sheet": "13",
    "wall": "X11",
    "sides": [
@@ -2888,32 +3004,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9938,
    "edges": [
-    249,
-    254,
-    253
+    245,
+    250,
+    249
    ],
    "hole_edges": [],
    "verts": [
-    51087,
-    51663
+    51389,
+    51965
    ],
    "tris": [
-    71322,
-    72129
+    71666,
+    72473
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4400,
-    4438
+    4537,
+    4575
    ],
    "coarse_tris": [
-    5164,
-    5204
+    5315,
+    5355
    ]
   },
   {
-   "id": 74,
+   "id": 77,
    "sheet": "130",
    "wall": "X33",
    "sides": [
@@ -2927,33 +3043,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9994,
    "edges": [
-    261,
-    266,
-    269,
-    263
+    257,
+    262,
+    265,
+    259
    ],
    "hole_edges": [],
    "verts": [
-    51663,
-    52798
+    51965,
+    53100
    ],
    "tris": [
-    72129,
-    73753
+    72473,
+    74097
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4438,
-    4570
+    4575,
+    4707
    ],
    "coarse_tris": [
-    5204,
-    5385
+    5355,
+    5536
    ]
   },
   {
-   "id": 75,
+   "id": 78,
    "sheet": "132",
    "wall": "X38",
    "sides": [
@@ -2965,35 +3081,35 @@
     11
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9991,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    276,
+    272,
+    278,
     282,
-    286,
-    284
+    280
    ],
    "hole_edges": [],
    "verts": [
-    52798,
-    54321
+    53100,
+    54289
    ],
    "tris": [
-    73753,
-    75960
+    74097,
+    75822
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4570,
-    4820
+    4707,
+    4942
    ],
    "coarse_tris": [
-    5385,
-    5774
+    5536,
+    5904
    ]
   },
   {
-   "id": 76,
+   "id": 79,
    "sheet": "132",
    "wall": "X48",
    "sides": [
@@ -3007,33 +3123,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9988,
    "edges": [
-    276,
-    278,
-    283,
-    279
+    272,
+    274,
+    279,
+    275
    ],
    "hole_edges": [],
    "verts": [
-    54321,
-    55463
+    54289,
+    55431
    ],
    "tris": [
-    75960,
-    77590
+    75822,
+    77452
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4820,
-    4943
+    4942,
+    5065
    ],
    "coarse_tris": [
-    5774,
-    5936
+    5904,
+    6066
    ]
   },
   {
-   "id": 77,
+   "id": 80,
    "sheet": "132",
    "wall": "X83",
    "sides": [
@@ -3047,32 +3163,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    277,
-    280,
-    283
+    273,
+    276,
+    279
    ],
    "hole_edges": [],
    "verts": [
-    55463,
-    56127
+    55431,
+    56095
    ],
    "tris": [
-    77590,
-    78526
+    77452,
+    78388
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    4943,
-    5004
+    5065,
+    5126
    ],
    "coarse_tris": [
-    5936,
-    6008
+    6066,
+    6138
    ]
   },
   {
-   "id": 78,
+   "id": 81,
    "sheet": "134",
    "wall": "X40",
    "sides": [
@@ -3086,33 +3202,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9994,
    "edges": [
-    289,
-    295,
-    303,
-    300
+    284,
+    290,
+    298,
+    295
    ],
    "hole_edges": [],
    "verts": [
-    56127,
-    57279
+    56095,
+    57247
    ],
    "tris": [
-    78526,
-    80184
+    78388,
+    80046
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5004,
-    5140
+    5126,
+    5262
    ],
    "coarse_tris": [
-    6008,
-    6197
+    6138,
+    6327
    ]
   },
   {
-   "id": 79,
+   "id": 82,
    "sheet": "134",
    "wall": "X52",
    "sides": [
@@ -3126,33 +3242,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9869,
    "edges": [
-    290,
-    291,
-    304,
-    292
+    285,
+    286,
+    299,
+    287
    ],
    "hole_edges": [],
    "verts": [
-    57279,
-    58089
+    57247,
+    58057
    ],
    "tris": [
-    80184,
-    81254
+    80046,
+    81116
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5140,
-    5212
+    5262,
+    5334
    ],
    "coarse_tris": [
-    6197,
-    6273
+    6327,
+    6403
    ]
   },
   {
-   "id": 80,
+   "id": 83,
    "sheet": "134",
    "wall": "X39",
    "sides": [
@@ -3166,33 +3282,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9964,
    "edges": [
-    290,
-    293,
-    307,
-    291
+    285,
+    288,
+    302,
+    286
    ],
    "hole_edges": [],
    "verts": [
-    58089,
-    59078
+    58057,
+    59046
    ],
    "tris": [
-    81254,
-    82640
+    81116,
+    82502
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5212,
-    5284
+    5334,
+    5406
    ],
    "coarse_tris": [
-    6273,
-    6355
+    6403,
+    6485
    ]
   },
   {
-   "id": 81,
+   "id": 84,
    "sheet": "134",
    "wall": "X10",
    "sides": [
@@ -3206,34 +3322,34 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9988,
    "edges": [
-    292,
-    299,
-    309,
-    306,
-    293
+    287,
+    294,
+    304,
+    301,
+    288
    ],
    "hole_edges": [],
    "verts": [
-    59078,
-    59685
+    59046,
+    59653
    ],
    "tris": [
-    82640,
-    83508
+    82502,
+    83370
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5284,
-    5334
+    5406,
+    5456
    ],
    "coarse_tris": [
-    6355,
-    6412
+    6485,
+    6542
    ]
   },
   {
-   "id": 82,
+   "id": 85,
    "sheet": "134",
    "wall": "X10",
    "sides": [
@@ -3247,33 +3363,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9989,
    "edges": [
-    294,
-    305,
-    298,
-    310
+    289,
+    300,
+    293,
+    305
    ],
    "hole_edges": [],
    "verts": [
-    59685,
-    60337
+    59653,
+    60305
    ],
    "tris": [
-    83508,
-    84437
+    83370,
+    84299
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5334,
-    5395
+    5456,
+    5517
    ],
    "coarse_tris": [
-    6412,
-    6488
+    6542,
+    6618
    ]
   },
   {
-   "id": 83,
+   "id": 86,
    "sheet": "134",
    "wall": "X35",
    "sides": [
@@ -3287,31 +3403,31 @@
    "agree": true,
    "share_of_triangles_named_so": 0.998,
    "edges": [
-    301,
-    304
+    296,
+    299
    ],
    "hole_edges": [],
    "verts": [
-    60337,
-    61043
+    60305,
+    61011
    ],
    "tris": [
-    84437,
-    85433
+    84299,
+    85295
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5395,
-    5454
+    5517,
+    5575
    ],
    "coarse_tris": [
-    6488,
-    6552
+    6618,
+    6680
    ]
   },
   {
-   "id": 84,
+   "id": 87,
    "sheet": "136",
    "wall": "X42",
    "sides": [
@@ -3325,33 +3441,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.999,
    "edges": [
+    306,
     311,
-    316,
-    313,
-    314
+    308,
+    309
    ],
    "hole_edges": [],
    "verts": [
-    61043,
-    61770
+    61011,
+    61738
    ],
    "tris": [
-    85433,
-    86394
+    85295,
+    86256
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5454,
-    5511
+    5575,
+    5632
    ],
    "coarse_tris": [
-    6552,
-    6610
+    6680,
+    6738
    ]
   },
   {
-   "id": 85,
+   "id": 88,
    "sheet": "138",
    "wall": "X51",
    "sides": [
@@ -3365,33 +3481,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9782,
    "edges": [
+    328,
+    337,
     333,
-    342,
-    338,
-    334
+    329
    ],
    "hole_edges": [],
    "verts": [
-    61770,
-    63046
+    61738,
+    63014
    ],
    "tris": [
-    86394,
-    88229
+    86256,
+    88091
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5511,
-    5639
+    5632,
+    5760
    ],
    "coarse_tris": [
-    6610,
-    6783
+    6738,
+    6911
    ]
   },
   {
-   "id": 86,
+   "id": 89,
    "sheet": "14",
    "wall": "X3",
    "sides": [
@@ -3405,32 +3521,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
+    342,
     347,
-    352,
-    362
+    357
    ],
    "hole_edges": [],
    "verts": [
-    63046,
-    63507
+    63014,
+    63475
    ],
    "tris": [
-    88229,
-    88873
+    88091,
+    88735
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5639,
-    5672
+    5760,
+    5793
    ],
    "coarse_tris": [
-    6783,
-    6817
+    6911,
+    6945
    ]
   },
   {
-   "id": 87,
+   "id": 90,
    "sheet": "14",
    "wall": "T2",
    "sides": [
@@ -3444,33 +3560,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9991,
    "edges": [
-    347,
-    360,
-    361,
-    359
+    342,
+    355,
+    356,
+    354
    ],
    "hole_edges": [],
    "verts": [
-    63507,
-    64301
+    63475,
+    64269
    ],
    "tris": [
-    88873,
-    90008
+    88735,
+    89870
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5672,
-    5733
+    5793,
+    5854
    ],
    "coarse_tris": [
-    6817,
-    6892
+    6945,
+    7020
    ]
   },
   {
-   "id": 88,
+   "id": 91,
    "sheet": "14",
    "wall": "X96",
    "sides": [
@@ -3484,33 +3600,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    348,
-    355,
-    364,
-    349
+    343,
+    350,
+    359,
+    344
    ],
    "hole_edges": [],
    "verts": [
-    64301,
-    64945
+    64269,
+    64913
    ],
    "tris": [
-    90008,
-    90901
+    89870,
+    90763
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5733,
-    5777
+    5854,
+    5898
    ],
    "coarse_tris": [
-    6892,
-    6936
+    7020,
+    7064
    ]
   },
   {
-   "id": 89,
+   "id": 92,
    "sheet": "14",
    "wall": "X17",
    "sides": [
@@ -3524,31 +3640,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    350,
-    363
+    345,
+    358
    ],
    "hole_edges": [],
    "verts": [
-    64945,
-    65229
+    64913,
+    65197
    ],
    "tris": [
-    90901,
-    91283
+    90763,
+    91145
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5777,
-    5796
+    5898,
+    5917
    ],
    "coarse_tris": [
-    6936,
-    6953
+    7064,
+    7081
    ]
   },
   {
-   "id": 90,
+   "id": 93,
    "sheet": "14",
    "wall": "T2",
    "sides": [
@@ -3562,33 +3678,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9993,
    "edges": [
-    350,
-    357,
-    351,
-    359
+    345,
+    352,
+    346,
+    354
    ],
    "hole_edges": [],
    "verts": [
-    65229,
-    66187
+    65197,
+    66155
    ],
    "tris": [
-    91283,
-    92658
+    91145,
+    92520
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5796,
-    5885
+    5917,
+    6006
    ],
    "coarse_tris": [
-    6953,
-    7070
+    7081,
+    7198
    ]
   },
   {
-   "id": 91,
+   "id": 94,
    "sheet": "14",
    "wall": "X3",
    "sides": [
@@ -3602,32 +3718,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9958,
    "edges": [
+    348,
     353,
-    358,
-    362
+    357
    ],
    "hole_edges": [],
    "verts": [
-    66187,
-    66700
+    66155,
+    66668
    ],
    "tris": [
-    92658,
-    93378
+    92520,
+    93240
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5885,
-    5924
+    6006,
+    6045
    ],
    "coarse_tris": [
-    7070,
-    7113
+    7198,
+    7241
    ]
   },
   {
-   "id": 92,
+   "id": 95,
    "sheet": "14",
    "wall": "F1",
    "sides": [
@@ -3641,32 +3757,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9978,
    "edges": [
-    354,
-    365,
-    358
+    349,
+    360,
+    353
    ],
    "hole_edges": [],
    "verts": [
-    66700,
-    67662
+    66668,
+    67630
    ],
    "tris": [
-    93378,
-    94739
+    93240,
+    94601
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    5924,
-    6024
+    6045,
+    6145
    ],
    "coarse_tris": [
-    7113,
-    7236
+    7241,
+    7364
    ]
   },
   {
-   "id": 93,
+   "id": 96,
    "sheet": "14",
    "wall": "X96",
    "sides": [
@@ -3680,32 +3796,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    356,
-    357,
-    364
+    351,
+    352,
+    359
    ],
    "hole_edges": [],
    "verts": [
-    67662,
-    68382
+    67630,
+    68350
    ],
    "tris": [
-    94739,
-    95754
+    94601,
+    95616
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6024,
-    6076
+    6145,
+    6197
    ],
    "coarse_tris": [
-    7236,
-    7293
+    7364,
+    7421
    ]
   },
   {
-   "id": 94,
+   "id": 97,
    "sheet": "140",
    "wall": "X53",
    "sides": [
@@ -3719,33 +3835,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9957,
    "edges": [
-    366,
-    367,
-    383,
-    376
+    361,
+    362,
+    378,
+    371
    ],
    "hole_edges": [],
    "verts": [
-    68382,
-    69523
+    68350,
+    69491
    ],
    "tris": [
-    95754,
-    97382
+    95616,
+    97244
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6076,
-    6201
+    6197,
+    6322
    ],
    "coarse_tris": [
-    7293,
-    7459
+    7421,
+    7587
    ]
   },
   {
-   "id": 95,
+   "id": 98,
    "sheet": "142",
    "wall": "X84",
    "sides": [
@@ -3759,31 +3875,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    403,
-    405
+    398,
+    400
    ],
    "hole_edges": [],
    "verts": [
-    69523,
-    70286
+    69491,
+    70254
    ],
    "tris": [
-    97382,
-    98455
+    97244,
+    98317
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6201,
-    6250
+    6322,
+    6371
    ],
    "coarse_tris": [
-    7459,
-    7507
+    7587,
+    7635
    ]
   },
   {
-   "id": 96,
+   "id": 99,
    "sheet": "144",
    "wall": "X85",
    "sides": [
@@ -3795,34 +3911,34 @@
     38
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9963,
+   "share_of_triangles_named_so": 0.9982,
    "edges": [
-    408,
-    420,
-    414
+    403,
+    415,
+    412
    ],
    "hole_edges": [],
    "verts": [
-    70286,
-    70870
+    70254,
+    70656
    ],
    "tris": [
-    98455,
-    99273
+    98317,
+    98874
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6250,
-    6305
+    6371,
+    6423
    ],
    "coarse_tris": [
-    7507,
-    7567
+    7635,
+    7692
    ]
   },
   {
-   "id": 97,
+   "id": 100,
    "sheet": "146",
    "wall": "X87",
    "sides": [
@@ -3836,32 +3952,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9946,
    "edges": [
-    422,
-    428,
-    423
+    417,
+    423,
+    418
    ],
    "hole_edges": [],
    "verts": [
-    70870,
-    71661
+    70656,
+    71447
    ],
    "tris": [
-    99273,
-    100391
+    98874,
+    99992
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6305,
-    6372
+    6423,
+    6490
    ],
    "coarse_tris": [
-    7567,
-    7644
+    7692,
+    7769
    ]
   },
   {
-   "id": 98,
+   "id": 101,
    "sheet": "148",
    "wall": "X88",
    "sides": [
@@ -3875,32 +3991,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9991,
    "edges": [
-    440,
-    447,
-    441
+    435,
+    442,
+    436
    ],
    "hole_edges": [],
    "verts": [
-    71661,
-    72449
+    71447,
+    72235
    ],
    "tris": [
-    100391,
-    101503
+    99992,
+    101104
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6372,
-    6439
+    6490,
+    6557
    ],
    "coarse_tris": [
-    7644,
-    7721
+    7769,
+    7846
    ]
   },
   {
-   "id": 99,
+   "id": 102,
    "sheet": "150",
    "wall": "X89",
    "sides": [
@@ -3914,33 +4030,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    461,
-    463,
-    465,
-    462
+    456,
+    458,
+    460,
+    457
    ],
    "hole_edges": [],
    "verts": [
-    72449,
-    73136
+    72235,
+    72922
    ],
    "tris": [
-    101503,
-    102466
+    101104,
+    102067
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6439,
-    6492
+    6557,
+    6610
    ],
    "coarse_tris": [
-    7721,
-    7779
+    7846,
+    7904
    ]
   },
   {
-   "id": 100,
+   "id": 103,
    "sheet": "152",
    "wall": "X90",
    "sides": [
@@ -3954,33 +4070,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    474,
-    475,
-    478,
-    476
+    469,
+    470,
+    473,
+    471
    ],
    "hole_edges": [],
    "verts": [
-    73136,
-    73829
+    72922,
+    73615
    ],
    "tris": [
-    102466,
-    103441
+    102067,
+    103042
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6492,
-    6545
+    6610,
+    6663
    ],
    "coarse_tris": [
-    7779,
-    7837
+    7904,
+    7962
    ]
   },
   {
-   "id": 101,
+   "id": 104,
    "sheet": "154",
    "wall": "X91",
    "sides": [
@@ -3994,33 +4110,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9973,
    "edges": [
+    492,
+    493,
     500,
-    501,
-    508,
-    503
+    495
    ],
    "hole_edges": [],
    "verts": [
-    73829,
-    74617
+    73615,
+    74403
    ],
    "tris": [
-    103441,
-    104552
+    103042,
+    104153
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6545,
-    6612
+    6663,
+    6730
    ],
    "coarse_tris": [
-    7837,
-    7916
+    7962,
+    8041
    ]
   },
   {
-   "id": 102,
+   "id": 105,
    "sheet": "156",
    "wall": "X92",
    "sides": [
@@ -4034,33 +4150,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9955,
    "edges": [
-    515,
-    518,
-    527,
-    516
+    507,
+    510,
+    519,
+    508
    ],
    "hole_edges": [],
    "verts": [
-    74617,
-    75408
+    74403,
+    75194
    ],
    "tris": [
-    104552,
-    105669
+    104153,
+    105270
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6612,
-    6677
+    6730,
+    6795
    ],
    "coarse_tris": [
-    7916,
-    7991
+    8041,
+    8116
    ]
   },
   {
-   "id": 103,
+   "id": 106,
    "sheet": "158",
    "wall": "X94",
    "sides": [
@@ -4074,32 +4190,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    535,
-    538,
-    540
+    527,
+    530,
+    532
    ],
    "hole_edges": [],
    "verts": [
-    75408,
-    76103
+    75194,
+    75889
    ],
    "tris": [
-    105669,
-    106654
+    105270,
+    106255
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6677,
-    6724
+    6795,
+    6842
    ],
    "coarse_tris": [
-    7991,
-    8041
+    8116,
+    8166
    ]
   },
   {
-   "id": 104,
+   "id": 107,
    "sheet": "158",
    "wall": "X94",
    "sides": [
@@ -4113,32 +4229,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    535,
-    537,
-    539
+    527,
+    529,
+    531
    ],
    "hole_edges": [],
    "verts": [
-    76103,
-    76795
+    75889,
+    76581
    ],
    "tris": [
-    106654,
-    107633
+    106255,
+    107234
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6724,
-    6771
+    6842,
+    6889
    ],
    "coarse_tris": [
-    8041,
-    8091
+    8166,
+    8216
    ]
   },
   {
-   "id": 105,
+   "id": 108,
    "sheet": "160",
    "wall": "X99",
    "sides": [
@@ -4150,35 +4266,35 @@
     10
    ],
    "agree": true,
-   "share_of_triangles_named_so": 1.0,
+   "share_of_triangles_named_so": 0.9994,
    "edges": [
+    537,
+    541,
     545,
-    549,
-    553,
-    551
+    543
    ],
    "hole_edges": [],
    "verts": [
-    76795,
-    78320
+    76581,
+    77761
    ],
    "tris": [
-    107633,
-    109844
+    107234,
+    108941
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    6771,
-    7012
+    6889,
+    7117
    ],
    "coarse_tris": [
-    8091,
-    8462
+    8216,
+    8570
    ]
   },
   {
-   "id": 106,
+   "id": 109,
    "sheet": "162",
    "wall": "X99",
    "sides": [
@@ -4190,36 +4306,35 @@
     13
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9973,
+   "share_of_triangles_named_so": 0.9965,
    "edges": [
-    560,
-    571,
-    575,
-    574,
-    569
+    550,
+    561,
+    564,
+    559
    ],
    "hole_edges": [],
    "verts": [
-    78320,
-    79845
+    77761,
+    78945
    ],
    "tris": [
-    109844,
-    112054
+    108941,
+    110656
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7012,
-    7248
+    7117,
+    7354
    ],
    "coarse_tris": [
-    8462,
-    8823
+    8570,
+    8942
    ]
   },
   {
-   "id": 107,
+   "id": 110,
    "sheet": "163",
    "wall": "X83",
    "sides": [
@@ -4233,32 +4348,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9989,
    "edges": [
-    581,
-    585,
-    583
+    570,
+    574,
+    572
    ],
    "hole_edges": [],
    "verts": [
-    79845,
-    80509
+    78945,
+    79609
    ],
    "tris": [
-    112054,
-    112990
+    110656,
+    111592
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7248,
-    7309
+    7354,
+    7415
    ],
    "coarse_tris": [
-    8823,
-    8895
+    8942,
+    9014
    ]
   },
   {
-   "id": 108,
+   "id": 111,
    "sheet": "164",
    "wall": "X100",
    "sides": [
@@ -4270,37 +4385,34 @@
     50
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9983,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    609,
-    617,
-    616,
-    615,
-    611,
-    610
+    585,
+    588,
+    586
    ],
    "hole_edges": [],
    "verts": [
-    80509,
-    81717
+    79609,
+    80524
    ],
    "tris": [
-    112990,
-    114722
+    111592,
+    112901
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7309,
-    7417
+    7415,
+    7515
    ],
    "coarse_tris": [
-    8895,
-    9031
+    9014,
+    9143
    ]
   },
   {
-   "id": 109,
+   "id": 112,
    "sheet": "165",
    "wall": "X33",
    "sides": [
@@ -4314,33 +4426,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9887,
    "edges": [
-    621,
-    634,
-    626,
-    628
+    592,
+    604,
+    597,
+    599
    ],
    "hole_edges": [],
    "verts": [
-    81717,
-    82779
+    80524,
+    81586
    ],
    "tris": [
-    114722,
-    116228
+    112901,
+    114407
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7417,
-    7540
+    7515,
+    7638
    ],
    "coarse_tris": [
-    9031,
-    9194
+    9143,
+    9306
    ]
   },
   {
-   "id": 110,
+   "id": 113,
    "sheet": "166",
    "wall": "X28",
    "sides": [
@@ -4352,38 +4464,36 @@
     1
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9989,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    640,
-    643,
-    649,
-    651,
-    650,
-    645,
-    646
+    606,
+    609,
+    612,
+    615,
+    613
    ],
    "hole_edges": [],
    "verts": [
-    82779,
-    83432
+    81586,
+    82163
    ],
    "tris": [
-    116228,
-    117164
+    114407,
+    115234
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7540,
-    7601
+    7638,
+    7695
    ],
    "coarse_tris": [
-    9194,
-    9270
+    9306,
+    9377
    ]
   },
   {
-   "id": 111,
+   "id": 114,
    "sheet": "167",
    "wall": "X88",
    "sides": [
@@ -4397,32 +4507,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.999,
    "edges": [
-    653,
-    659,
-    668
+    617,
+    622,
+    631
    ],
    "hole_edges": [],
    "verts": [
-    83432,
-    84116
+    82163,
+    82847
    ],
    "tris": [
-    117164,
-    118121
+    115234,
+    116191
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7601,
-    7664
+    7695,
+    7758
    ],
    "coarse_tris": [
-    9270,
-    9341
+    9377,
+    9448
    ]
   },
   {
-   "id": 112,
+   "id": 115,
    "sheet": "168",
    "wall": "X53",
    "sides": [
@@ -4436,36 +4546,36 @@
    "agree": true,
    "share_of_triangles_named_so": 0.1815,
    "edges": [
-    674,
-    699,
-    697,
-    683,
-    676,
-    679,
-    677
+    633,
+    654,
+    652,
+    642,
+    635,
+    638,
+    636
    ],
    "hole_edges": [],
    "verts": [
-    84116,
-    85447
+    82847,
+    84178
    ],
    "tris": [
-    118121,
-    119972
+    116191,
+    118042
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7664,
-    7823
+    7758,
+    7917
    ],
    "coarse_tris": [
-    9341,
-    9560
+    9448,
+    9667
    ]
   },
   {
-   "id": 113,
+   "id": 116,
    "sheet": "169",
    "wall": "X90",
    "sides": [
@@ -4477,35 +4587,35 @@
     69
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9989,
+   "share_of_triangles_named_so": 0.9985,
    "edges": [
-    714,
-    729,
-    717,
-    715
+    660,
+    673,
+    663,
+    661
    ],
    "hole_edges": [],
    "verts": [
-    85447,
-    86117
+    84178,
+    84650
    ],
    "tris": [
-    119972,
-    120917
+    118042,
+    118701
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7823,
-    7881
+    7917,
+    7973
    ],
    "coarse_tris": [
-    9560,
-    9624
+    9667,
+    9730
    ]
   },
   {
-   "id": 114,
+   "id": 117,
    "sheet": "170",
    "wall": "X92",
    "sides": [
@@ -4519,33 +4629,33 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9964,
    "edges": [
-    737,
-    738,
-    739,
-    743
+    681,
+    682,
+    683,
+    687
    ],
    "hole_edges": [],
    "verts": [
-    86117,
-    86906
+    84650,
+    85439
    ],
    "tris": [
-    120917,
-    122029
+    118701,
+    119813
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7881,
-    7946
+    7973,
+    8038
    ],
    "coarse_tris": [
-    9624,
-    9697
+    9730,
+    9803
    ]
   },
   {
-   "id": 115,
+   "id": 118,
    "sheet": "172",
    "wall": "X28",
    "sides": [
@@ -4557,35 +4667,112 @@
     45
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9376,
+   "share_of_triangles_named_so": 0.9789,
    "edges": [
-    794,
-    796,
-    797,
-    811
+    734,
+    738,
+    743
    ],
    "hole_edges": [],
    "verts": [
-    86906,
-    87765
+    85439,
+    85986
    ],
    "tris": [
-    122029,
-    123214
+    119813,
+    120573
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    7946,
-    8022
+    8038,
+    8104
    ],
    "coarse_tris": [
-    9697,
-    9781
+    9803,
+    9876
    ]
   },
   {
-   "id": 116,
+   "id": 119,
+   "sheet": "173",
+   "wall": "X51",
+   "sides": [
+    "X64",
+    "X63"
+   ],
+   "components": [
+    86,
+    87
+   ],
+   "agree": true,
+   "share_of_triangles_named_so": 0.96,
+   "edges": [
+    744,
+    748,
+    745
+   ],
+   "hole_edges": [],
+   "verts": [
+    85986,
+    86706
+   ],
+   "tris": [
+    120573,
+    121573
+   ],
+   "turned_triangles": 0,
+   "lift_failed": 0,
+   "coarse_verts": [
+    8104,
+    8185
+   ],
+   "coarse_tris": [
+    9876,
+    9963
+   ]
+  },
+  {
+   "id": 120,
+   "sheet": "174",
+   "wall": "X48",
+   "sides": [
+    "X69",
+    "X66"
+   ],
+   "components": [
+    85,
+    61
+   ],
+   "agree": true,
+   "share_of_triangles_named_so": 0.9623,
+   "edges": [
+    751,
+    752,
+    755
+   ],
+   "hole_edges": [],
+   "verts": [
+    86706,
+    87305
+   ],
+   "tris": [
+    121573,
+    122396
+   ],
+   "turned_triangles": 0,
+   "lift_failed": 0,
+   "coarse_verts": [
+    8185,
+    8278
+   ],
+   "coarse_tris": [
+    9963,
+    10070
+   ]
+  },
+  {
+   "id": 121,
    "sheet": "176",
    "wall": "X84",
    "sides": [
@@ -4599,31 +4786,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    883,
-    886
+    785,
+    788
    ],
    "hole_edges": [],
    "verts": [
-    87765,
-    88579
+    87305,
+    88119
    ],
    "tris": [
-    123214,
-    124359
+    122396,
+    123541
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8022,
-    8074
+    8278,
+    8330
    ],
    "coarse_tris": [
-    9781,
-    9833
+    10070,
+    10122
    ]
   },
   {
-   "id": 117,
+   "id": 122,
    "sheet": "176",
    "wall": "X84",
    "sides": [
@@ -4637,31 +4824,31 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9989,
    "edges": [
-    885,
-    886
+    787,
+    788
    ],
    "hole_edges": [],
    "verts": [
-    88579,
-    89261
+    88119,
+    88801
    ],
    "tris": [
-    124359,
-    125232
+    123541,
+    124414
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8074,
-    8126
+    8330,
+    8382
    ],
    "coarse_tris": [
-    9833,
-    9883
+    10122,
+    10172
    ]
   },
   {
-   "id": 118,
+   "id": 123,
    "sheet": "177",
    "wall": "X87",
    "sides": [
@@ -4673,34 +4860,34 @@
     58
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9927,
+   "share_of_triangles_named_so": 0.9916,
    "edges": [
-    891,
-    897,
-    909
+    793,
+    799,
+    810
    ],
    "hole_edges": [],
    "verts": [
-    89261,
-    89944
+    88801,
+    89485
    ],
    "tris": [
-    125232,
-    126187
+    124414,
+    125371
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8126,
-    8189
+    8382,
+    8445
    ],
    "coarse_tris": [
-    9883,
-    9954
+    10172,
+    10243
    ]
   },
   {
-   "id": 119,
+   "id": 124,
    "sheet": "178",
    "wall": "X91",
    "sides": [
@@ -4712,36 +4899,35 @@
     80
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9991,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    910,
-    917,
-    912,
-    913,
-    911
+    811,
+    817,
+    813,
+    812
    ],
    "hole_edges": [],
    "verts": [
-    89944,
-    90731
+    89485,
+    90271
    ],
    "tris": [
-    126187,
-    127294
+    125371,
+    126477
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8189,
-    8255
+    8445,
+    8511
    ],
    "coarse_tris": [
-    9954,
-    10029
+    10243,
+    10318
    ]
   },
   {
-   "id": 120,
+   "id": 125,
    "sheet": "179",
    "wall": "X89",
    "sides": [
@@ -4753,35 +4939,74 @@
     69
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9989,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    925,
-    926,
-    928,
-    933
+    825,
+    826,
+    828,
+    831
    ],
    "hole_edges": [],
    "verts": [
-    90731,
-    91398
+    90271,
+    90749
    ],
    "tris": [
-    127294,
-    128233
+    126477,
+    127148
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8255,
-    8313
+    8511,
+    8567
    ],
    "coarse_tris": [
-    10029,
-    10093
+    10318,
+    10381
    ]
   },
   {
-   "id": 121,
+   "id": 126,
+   "sheet": "180",
+   "wall": "X33",
+   "sides": [
+    "X57",
+    "X50"
+   ],
+   "components": [
+    0,
+    1
+   ],
+   "agree": true,
+   "share_of_triangles_named_so": 0.9529,
+   "edges": [
+    854,
+    855,
+    858
+   ],
+   "hole_edges": [],
+   "verts": [
+    90749,
+    91246
+   ],
+   "tris": [
+    127148,
+    127828
+   ],
+   "turned_triangles": 0,
+   "lift_failed": 0,
+   "coarse_verts": [
+    8567,
+    8635
+   ],
+   "coarse_tris": [
+    10381,
+    10452
+   ]
+  },
+  {
+   "id": 127,
    "sheet": "181",
    "wall": "X85",
    "sides": [
@@ -4793,34 +5018,34 @@
     72
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9968,
+   "share_of_triangles_named_so": 0.9985,
    "edges": [
-    966,
-    969,
-    978
+    860,
+    862,
+    870
    ],
    "hole_edges": [],
    "verts": [
-    91398,
-    92058
+    91246,
+    91713
    ],
    "tris": [
-    128233,
-    129160
+    127828,
+    128479
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8313,
-    8371
+    8635,
+    8690
    ],
    "coarse_tris": [
-    10093,
-    10157
+    10452,
+    10513
    ]
   },
   {
-   "id": 122,
+   "id": 128,
    "sheet": "2",
    "wall": "X3",
    "sides": [
@@ -4834,32 +5059,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    985,
-    994,
-    987
+    876,
+    885,
+    878
    ],
    "hole_edges": [],
    "verts": [
-    92058,
-    92515
+    91713,
+    92170
    ],
    "tris": [
-    129160,
-    129796
+    128479,
+    129115
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8371,
-    8404
+    8690,
+    8723
    ],
    "coarse_tris": [
-    10157,
-    10190
+    10513,
+    10546
    ]
   },
   {
-   "id": 123,
+   "id": 129,
    "sheet": "2",
    "wall": "T2",
    "sides": [
@@ -4873,32 +5098,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    985,
-    992,
-    996
+    876,
+    883,
+    887
    ],
    "hole_edges": [],
    "verts": [
-    92515,
-    92914
+    92170,
+    92569
    ],
    "tris": [
-    129796,
-    130352
+    129115,
+    129671
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8404,
-    8437
+    8723,
+    8756
    ],
    "coarse_tris": [
-    10190,
-    10224
+    10546,
+    10580
    ]
   },
   {
-   "id": 124,
+   "id": 130,
    "sheet": "2",
    "wall": "T2",
    "sides": [
@@ -4912,32 +5137,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    986,
-    997,
-    992
+    877,
+    888,
+    883
    ],
    "hole_edges": [],
    "verts": [
-    92914,
-    93294
+    92569,
+    92949
    ],
    "tris": [
-    130352,
-    130885
+    129671,
+    130204
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8437,
-    8467
+    8756,
+    8786
    ],
    "coarse_tris": [
-    10224,
-    10254
+    10580,
+    10610
    ]
   },
   {
-   "id": 125,
+   "id": 131,
    "sheet": "2",
    "wall": "X3",
    "sides": [
@@ -4951,32 +5176,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    988,
-    994,
-    990
+    879,
+    885,
+    881
    ],
    "hole_edges": [],
    "verts": [
-    93294,
-    93799
+    92949,
+    93454
    ],
    "tris": [
-    130885,
-    131593
+    130204,
+    130912
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8467,
-    8507
+    8786,
+    8826
    ],
    "coarse_tris": [
-    10254,
-    10298
+    10610,
+    10654
    ]
   },
   {
-   "id": 126,
+   "id": 132,
    "sheet": "2",
    "wall": "F1",
    "sides": [
@@ -4990,32 +5215,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    989,
-    990,
-    993
+    880,
+    881,
+    884
    ],
    "hole_edges": [],
    "verts": [
-    93799,
-    94988
+    93454,
+    94643
    ],
    "tris": [
-    131593,
-    133303
+    130912,
+    132622
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8507,
-    8627
+    8826,
+    8946
    ],
    "coarse_tris": [
-    10298,
-    10464
+    10654,
+    10820
    ]
   },
   {
-   "id": 127,
+   "id": 133,
    "sheet": "2",
    "wall": "F1",
    "sides": [
@@ -5029,32 +5254,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9987,
    "edges": [
-    991,
-    993,
-    995
+    882,
+    884,
+    886
    ],
    "hole_edges": [],
    "verts": [
-    94988,
-    96618
+    94643,
+    96273
    ],
    "tris": [
-    133303,
-    135661
+    132622,
+    134980
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8627,
-    8841
+    8946,
+    9160
    ],
    "coarse_tris": [
-    10464,
-    10784
+    10820,
+    11140
    ]
   },
   {
-   "id": 128,
+   "id": 134,
    "sheet": "6",
    "wall": "X20",
    "sides": [
@@ -5068,32 +5293,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1002,
-    1008,
-    1005
+    893,
+    899,
+    896
    ],
    "hole_edges": [],
    "verts": [
-    96618,
-    97180
+    96273,
+    96835
    ],
    "tris": [
-    135661,
-    136458
+    134980,
+    135777
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8841,
-    8895
+    9160,
+    9214
    ],
    "coarse_tris": [
-    10784,
-    10847
+    11140,
+    11203
    ]
   },
   {
-   "id": 129,
+   "id": 135,
    "sheet": "7",
    "wall": "X31",
    "sides": [
@@ -5107,32 +5332,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1010,
-    1011,
-    1016
+    901,
+    902,
+    907
    ],
    "hole_edges": [],
    "verts": [
-    97180,
-    97828
+    96835,
+    97483
    ],
    "tris": [
-    136458,
-    137347
+    135777,
+    136666
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8895,
-    8948
+    9214,
+    9267
    ],
    "coarse_tris": [
-    10847,
-    10902
+    11203,
+    11258
    ]
   },
   {
-   "id": 130,
+   "id": 136,
    "sheet": "7",
    "wall": "F1",
    "sides": [
@@ -5146,34 +5371,34 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9987,
    "edges": [
-    1010,
-    1014,
-    1019,
-    1015,
-    1013
+    901,
+    905,
+    910,
+    906,
+    904
    ],
    "hole_edges": [],
    "verts": [
-    97828,
-    99445
+    97483,
+    99100
    ],
    "tris": [
-    137347,
-    139689
+    136666,
+    139008
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    8948,
-    9190
+    9267,
+    9509
    ],
    "coarse_tris": [
-    10902,
-    11281
+    11258,
+    11637
    ]
   },
   {
-   "id": 131,
+   "id": 137,
    "sheet": "7",
    "wall": "X79",
    "sides": [
@@ -5187,31 +5412,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1011,
-    1017
+    902,
+    908
    ],
    "hole_edges": [],
    "verts": [
-    99445,
-    99894
+    99100,
+    99549
    ],
    "tris": [
-    139689,
-    140202
+    139008,
+    139521
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9190,
-    9232
+    9509,
+    9551
    ],
    "coarse_tris": [
-    11281,
-    11321
+    11637,
+    11677
    ]
   },
   {
-   "id": 132,
+   "id": 138,
    "sheet": "7",
    "wall": "F1",
    "sides": [
@@ -5225,31 +5450,31 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9987,
    "edges": [
-    1015,
-    1018
+    906,
+    909
    ],
    "hole_edges": [],
    "verts": [
-    99894,
-    100454
+    99549,
+    100109
    ],
    "tris": [
-    140202,
-    140952
+    139521,
+    140271
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9232,
-    9274
+    9551,
+    9593
    ],
    "coarse_tris": [
-    11321,
-    11361
+    11677,
+    11717
    ]
   },
   {
-   "id": 133,
+   "id": 139,
    "sheet": "9",
    "wall": "X17",
    "sides": [
@@ -5263,32 +5488,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1023,
-    1033,
-    1025
+    914,
+    924,
+    916
    ],
    "hole_edges": [],
    "verts": [
-    100454,
-    100844
+    100109,
+    100499
    ],
    "tris": [
-    140952,
-    141502
+    140271,
+    140821
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9274,
-    9300
+    9593,
+    9619
    ],
    "coarse_tris": [
-    11361,
-    11388
+    11717,
+    11744
    ]
   },
   {
-   "id": 134,
+   "id": 140,
    "sheet": "9",
    "wall": "X17",
    "sides": [
@@ -5302,32 +5527,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1024,
-    1032,
-    1033
+    915,
+    923,
+    924
    ],
    "hole_edges": [],
    "verts": [
-    100844,
-    101202
+    100499,
+    100857
    ],
    "tris": [
-    141502,
-    142001
+    140821,
+    141320
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9300,
-    9323
+    9619,
+    9642
    ],
    "coarse_tris": [
-    11388,
-    11410
+    11744,
+    11766
    ]
   },
   {
-   "id": 135,
+   "id": 141,
    "sheet": "9",
    "wall": "T2",
    "sides": [
@@ -5341,32 +5566,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1025,
-    1030,
-    1031
+    916,
+    921,
+    922
    ],
    "hole_edges": [],
    "verts": [
-    101202,
-    101651
+    100857,
+    101306
    ],
    "tris": [
-    142001,
-    142629
+    141320,
+    141948
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9323,
-    9351
+    9642,
+    9670
    ],
    "coarse_tris": [
-    11410,
-    11438
+    11766,
+    11794
    ]
   },
   {
-   "id": 136,
+   "id": 142,
    "sheet": "9",
    "wall": "T2",
    "sides": [
@@ -5380,32 +5605,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1026,
-    1031,
-    1029
+    917,
+    922,
+    920
    ],
    "hole_edges": [],
    "verts": [
-    101651,
-    102116
+    101306,
+    101771
    ],
    "tris": [
-    142629,
-    143274
+    141948,
+    142593
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9351,
-    9383
+    9670,
+    9702
    ],
    "coarse_tris": [
-    11438,
-    11470
+    11794,
+    11826
    ]
   },
   {
-   "id": 137,
+   "id": 143,
    "sheet": "9",
    "wall": "F1",
    "sides": [
@@ -5419,32 +5644,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1027,
-    1028,
-    1036
+    918,
+    919,
+    927
    ],
    "hole_edges": [],
    "verts": [
-    102116,
-    102662
+    101771,
+    102317
    ],
    "tris": [
-    143274,
-    144038
+    142593,
+    143357
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9383,
-    9424
+    9702,
+    9743
    ],
    "coarse_tris": [
-    11470,
-    11513
+    11826,
+    11869
    ]
   },
   {
-   "id": 138,
+   "id": 144,
    "sheet": "9",
    "wall": "F1",
    "sides": [
@@ -5458,32 +5683,32 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1028,
-    1039,
-    1035
+    919,
+    930,
+    926
    ],
    "hole_edges": [],
    "verts": [
-    102662,
-    103585
+    102317,
+    103240
    ],
    "tris": [
-    144038,
-    145325
+    143357,
+    144644
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9424,
-    9501
+    9743,
+    9820
    ],
    "coarse_tris": [
-    11513,
-    11593
+    11869,
+    11949
    ]
   },
   {
-   "id": 139,
+   "id": 145,
    "sheet": "face:b1=0",
    "wall": "X9",
    "sides": [
@@ -5497,31 +5722,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1040,
-    1048
+    931,
+    939
    ],
    "hole_edges": [],
    "verts": [
-    103585,
-    103733
+    103240,
+    103388
    ],
    "tris": [
-    145325,
-    145487
+    144644,
+    144806
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9501,
-    9513
+    9820,
+    9832
    ],
    "coarse_tris": [
-    11593,
-    11603
+    11949,
+    11959
    ]
   },
   {
-   "id": 140,
+   "id": 146,
    "sheet": "face:b1=0",
    "wall": "X23",
    "sides": [
@@ -5533,34 +5758,34 @@
     52088
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9993,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    1040,
-    1050,
-    1049
+    931,
+    941,
+    940
    ],
    "hole_edges": [],
    "verts": [
-    103733,
-    104798
+    103388,
+    104125
    ],
    "tris": [
-    145487,
-    146999
+    144806,
+    145848
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9513,
-    9592
+    9832,
+    9902
    ],
    "coarse_tris": [
-    11603,
-    11691
+    11959,
+    12038
    ]
   },
   {
-   "id": 141,
+   "id": 147,
    "sheet": "face:b1=0",
    "wall": "X9",
    "sides": [
@@ -5574,33 +5799,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1041,
-    1044,
-    1047,
-    1048
+    932,
+    935,
+    938,
+    939
    ],
    "hole_edges": [],
    "verts": [
-    104798,
-    105634
+    104125,
+    104961
    ],
    "tris": [
-    146999,
-    148201
+    145848,
+    147050
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9592,
-    9682
+    9902,
+    9992
    ],
    "coarse_tris": [
-    11691,
-    11812
+    12038,
+    12159
    ]
   },
   {
-   "id": 142,
+   "id": 148,
    "sheet": "face:b1=0",
    "wall": "X23",
    "sides": [
@@ -5614,32 +5839,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9818,
    "edges": [
-    1041,
-    1049,
-    1043
+    932,
+    940,
+    934
    ],
    "hole_edges": [],
    "verts": [
-    105634,
-    106609
+    104961,
+    105936
    ],
    "tris": [
-    148201,
-    149572
+    147050,
+    148421
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9682,
-    9754
+    9992,
+    10064
    ],
    "coarse_tris": [
-    11812,
-    11892
+    12159,
+    12239
    ]
   },
   {
-   "id": 143,
+   "id": 149,
    "sheet": "face:b1=0",
    "wall": "F4",
    "sides": [
@@ -5653,32 +5878,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9972,
    "edges": [
-    1042,
-    1046,
-    1047
+    933,
+    937,
+    938
    ],
    "hole_edges": [],
    "verts": [
-    106609,
-    107833
+    105936,
+    107160
    ],
    "tris": [
-    149572,
-    151335
+    148421,
+    150184
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9754,
-    9870
+    10064,
+    10180
    ],
    "coarse_tris": [
-    11892,
-    12050
+    12239,
+    12397
    ]
   },
   {
-   "id": 144,
+   "id": 150,
    "sheet": "face:b1=0",
    "wall": "F4",
    "sides": [
@@ -5690,34 +5915,34 @@
     52038
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9956,
+   "share_of_triangles_named_so": 0.9931,
    "edges": [
-    1045,
-    1051,
-    1046
+    936,
+    942,
+    937
    ],
    "hole_edges": [],
    "verts": [
-    107833,
-    109394
+    107160,
+    108375
    ],
    "tris": [
-    151335,
-    153590
+    150184,
+    151934
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    9870,
-    10074
+    10180,
+    10377
    ],
    "coarse_tris": [
-    12050,
-    12356
+    12397,
+    12698
    ]
   },
   {
-   "id": 145,
+   "id": 151,
    "sheet": "face:b2=0",
    "wall": "X9",
    "sides": [
@@ -5731,33 +5956,33 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1052,
-    1060,
-    1057,
-    1054
+    943,
+    951,
+    948,
+    945
    ],
    "hole_edges": [],
    "verts": [
-    109394,
-    110225
+    108375,
+    109206
    ],
    "tris": [
-    153590,
-    154782
+    151934,
+    153126
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10074,
-    10159
+    10377,
+    10462
    ],
    "coarse_tris": [
-    12356,
-    12467
+    12698,
+    12809
    ]
   },
   {
-   "id": 146,
+   "id": 152,
    "sheet": "face:b2=0",
    "wall": "F4",
    "sides": [
@@ -5771,32 +5996,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9972,
    "edges": [
-    1052,
-    1061,
-    1058
+    943,
+    952,
+    949
    ],
    "hole_edges": [],
    "verts": [
-    110225,
-    111451
+    109206,
+    110432
    ],
    "tris": [
-    154782,
-    156549
+    153126,
+    154893
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10159,
-    10275
+    10462,
+    10578
    ],
    "coarse_tris": [
-    12467,
-    12625
+    12809,
+    12967
    ]
   },
   {
-   "id": 147,
+   "id": 153,
    "sheet": "face:b2=0",
    "wall": "F4",
    "sides": [
@@ -5808,34 +6033,34 @@
     38829
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9969,
+   "share_of_triangles_named_so": 0.9955,
    "edges": [
-    1053,
-    1061,
-    1062
+    944,
+    952,
+    954
    ],
    "hole_edges": [],
    "verts": [
-    111451,
-    113004
+    110432,
+    111655
    ],
    "tris": [
-    156549,
-    158789
+    154893,
+    156659
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10275,
-    10481
+    10578,
+    10772
    ],
    "coarse_tris": [
-    12625,
-    12935
+    12967,
+    13262
    ]
   },
   {
-   "id": 148,
+   "id": 154,
    "sheet": "face:b2=0",
    "wall": "X9",
    "sides": [
@@ -5849,31 +6074,31 @@
    "agree": true,
    "share_of_triangles_named_so": 1.0,
    "edges": [
-    1054,
-    1056
+    945,
+    947
    ],
    "hole_edges": [],
    "verts": [
-    113004,
-    113154
+    111655,
+    111805
    ],
    "tris": [
-    158789,
-    158955
+    156659,
+    156825
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10481,
-    10493
+    10772,
+    10784
    ],
    "coarse_tris": [
-    12935,
-    12945
+    13262,
+    13272
    ]
   },
   {
-   "id": 149,
+   "id": 155,
    "sheet": "face:b2=0",
    "wall": "X23",
    "sides": [
@@ -5885,34 +6110,34 @@
     38830
    ],
    "agree": true,
-   "share_of_triangles_named_so": 0.9993,
+   "share_of_triangles_named_so": 1.0,
    "edges": [
-    1055,
-    1063,
-    1056
+    946,
+    953,
+    947
    ],
    "hole_edges": [],
    "verts": [
-    113154,
-    114219
+    111805,
+    112539
    ],
    "tris": [
-    158955,
-    160467
+    156825,
+    157861
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10493,
-    10570
+    10784,
+    10853
    ],
    "coarse_tris": [
-    12945,
-    13029
+    13272,
+    13349
    ]
   },
   {
-   "id": 150,
+   "id": 156,
    "sheet": "face:b2=0",
    "wall": "X23",
    "sides": [
@@ -5926,32 +6151,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9768,
    "edges": [
-    1055,
-    1057,
-    1059
+    946,
+    948,
+    950
    ],
    "hole_edges": [],
    "verts": [
-    114219,
-    115197
+    112539,
+    113517
    ],
    "tris": [
-    160467,
-    161844
+    157861,
+    159238
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10570,
-    10644
+    10853,
+    10927
    ],
    "coarse_tris": [
-    13029,
-    13113
+    13349,
+    13433
    ]
   },
   {
-   "id": 151,
+   "id": 157,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -5965,32 +6190,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9905,
    "edges": [
-    1066,
-    1092,
-    1069
+    957,
+    983,
+    960
    ],
    "hole_edges": [],
    "verts": [
-    115197,
-    115939
+    113517,
+    114259
    ],
    "tris": [
-    161844,
-    162893
+    159238,
+    160287
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10644,
-    10697
+    10927,
+    10980
    ],
    "coarse_tris": [
-    13113,
-    13171
+    13433,
+    13491
    ]
   },
   {
-   "id": 152,
+   "id": 158,
    "sheet": "face:b3=b4",
    "wall": "X19",
    "sides": [
@@ -6004,34 +6229,34 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9917,
    "edges": [
-    1066,
-    1071,
-    1081,
-    1068,
-    1067
+    957,
+    962,
+    972,
+    959,
+    958
    ],
    "hole_edges": [],
    "verts": [
-    115939,
-    116855
+    114259,
+    115175
    ],
    "tris": [
-    162893,
-    164214
+    160287,
+    161608
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10697,
-    10790
+    10980,
+    11073
    ],
    "coarse_tris": [
-    13171,
-    13298
+    13491,
+    13618
    ]
   },
   {
-   "id": 153,
+   "id": 159,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -6045,32 +6270,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9925,
    "edges": [
-    1067,
-    1074,
-    1092
+    958,
+    965,
+    983
    ],
    "hole_edges": [],
    "verts": [
-    116855,
-    117696
+    115175,
+    116016
    ],
    "tris": [
-    164214,
-    165407
+    161608,
+    162801
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10790,
-    10853
+    11073,
+    11136
    ],
    "coarse_tris": [
-    13298,
-    13369
+    13618,
+    13689
    ]
   },
   {
-   "id": 154,
+   "id": 160,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6084,32 +6309,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.992,
    "edges": [
-    1068,
-    1078,
-    1091
+    959,
+    969,
+    982
    ],
    "hole_edges": [],
    "verts": [
-    117696,
-    118309
+    116016,
+    116629
    ],
    "tris": [
-    165407,
-    166279
+    162801,
+    163673
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10853,
-    10897
+    11136,
+    11180
    ],
    "coarse_tris": [
-    13369,
-    13418
+    13689,
+    13738
    ]
   },
   {
-   "id": 155,
+   "id": 161,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6123,32 +6348,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9915,
    "edges": [
-    1073,
-    1091,
-    1076
+    964,
+    982,
+    967
    ],
    "hole_edges": [],
    "verts": [
-    118309,
-    118892
+    116629,
+    117212
    ],
    "tris": [
-    166279,
-    167100
+    163673,
+    164494
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10897,
-    10935
+    11180,
+    11218
    ],
    "coarse_tris": [
-    13418,
-    13458
+    13738,
+    13778
    ]
   },
   {
-   "id": 156,
+   "id": 162,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6162,32 +6387,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9913,
    "edges": [
-    1073,
-    1075,
-    1079
+    964,
+    966,
+    970
    ],
    "hole_edges": [],
    "verts": [
-    118892,
-    119467
+    117212,
+    117787
    ],
    "tris": [
-    167100,
-    167906
+    164494,
+    165300
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10935,
-    10972
+    11218,
+    11255
    ],
    "coarse_tris": [
-    13458,
-    13496
+    13778,
+    13816
    ]
   },
   {
-   "id": 157,
+   "id": 163,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -6201,32 +6426,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9949,
    "edges": [
-    1074,
-    1086,
-    1082
+    965,
+    977,
+    973
    ],
    "hole_edges": [],
    "verts": [
-    119467,
-    120297
+    117787,
+    118617
    ],
    "tris": [
-    167906,
-    169077
+    165300,
+    166471
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    10972,
-    11036
+    11255,
+    11319
    ],
    "coarse_tris": [
-    13496,
-    13569
+    13816,
+    13889
    ]
   },
   {
-   "id": 158,
+   "id": 164,
    "sheet": "face:b3=b4",
    "wall": "X11",
    "sides": [
@@ -6240,32 +6465,32 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9918,
    "edges": [
-    1077,
-    1087,
-    1079
+    968,
+    978,
+    970
    ],
    "hole_edges": [],
    "verts": [
-    120297,
-    120900
+    118617,
+    119220
    ],
    "tris": [
-    169077,
-    169929
+    166471,
+    167323
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11036,
-    11080
+    11319,
+    11363
    ],
    "coarse_tris": [
-    13569,
-    13618
+    13889,
+    13938
    ]
   },
   {
-   "id": 159,
+   "id": 165,
    "sheet": "face:b3=b4",
    "wall": "X19",
    "sides": [
@@ -6279,34 +6504,34 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9908,
    "edges": [
-    1080,
-    1090,
-    1085,
-    1086,
-    1087
+    971,
+    981,
+    976,
+    977,
+    978
    ],
    "hole_edges": [],
    "verts": [
-    120900,
-    121809
+    119220,
+    120129
    ],
    "tris": [
-    169929,
-    171236
+    167323,
+    168630
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11080,
-    11174
+    11363,
+    11457
    ],
    "coarse_tris": [
-    13618,
-    13747
+    13938,
+    14067
    ]
   },
   {
-   "id": 160,
+   "id": 166,
    "sheet": "face:b3=b4",
    "wall": "X26",
    "sides": [
@@ -6320,28 +6545,28 @@
    "agree": true,
    "share_of_triangles_named_so": 0.9903,
    "edges": [
-    1082,
-    1085,
-    1088
+    973,
+    976,
+    979
    ],
    "hole_edges": [],
    "verts": [
-    121809,
-    122541
+    120129,
+    120861
    ],
    "tris": [
-    171236,
-    172265
+    168630,
+    169659
    ],
    "turned_triangles": 0,
    "lift_failed": 0,
    "coarse_verts": [
-    11174,
-    11227
+    11457,
+    11510
    ],
    "coarse_tris": [
-    13747,
-    13805
+    14067,
+    14125
    ]
   }
  ],
@@ -6767,7 +6992,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 238
+   "n": 51
   },
   {
    "sheet": "11",
@@ -6776,7 +7001,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "11",
@@ -7397,7 +7622,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "121",
@@ -7514,7 +7739,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "122",
@@ -7595,15 +7820,6 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
-  },
-  {
-   "sheet": "122",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 332
   },
   {
@@ -7614,6 +7830,15 @@
    "glued": null,
    "surface": null,
    "n": 93
+  },
+  {
+   "sheet": "122",
+   "kind": "face",
+   "name": "face b4=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 51
   },
   {
    "sheet": "123",
@@ -7838,7 +8063,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 410
+   "n": 101
   },
   {
    "sheet": "124",
@@ -7991,15 +8216,6 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "125",
-   "kind": "meet",
-   "name": "X22/X93",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 258
   },
   {
@@ -8009,7 +8225,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 139
+   "n": 37
   },
   {
    "sheet": "125",
@@ -8018,7 +8234,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 84
+   "n": 13
   },
   {
    "sheet": "125",
@@ -8027,7 +8243,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 46
+   "n": 22
   },
   {
    "sheet": "125",
@@ -8036,7 +8252,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 148
+   "n": 35
   },
   {
    "sheet": "125",
@@ -8055,24 +8271,6 @@
    "glued": null,
    "surface": null,
    "n": 185
-  },
-  {
-   "sheet": "125",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 138
-  },
-  {
-   "sheet": "125",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 168
   },
   {
    "sheet": "127",
@@ -8306,61 +8504,52 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 138
-  },
-  {
-   "sheet": "128",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 70
-  },
-  {
-   "sheet": "128",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 16
-  },
-  {
-   "sheet": "128",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 46
-  },
-  {
-   "sheet": "128",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 148
-  },
-  {
-   "sheet": "128",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 120
   },
   {
    "sheet": "128",
    "kind": "face",
-   "name": "face b4=0",
+   "name": "face b2=0",
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 133
+   "n": 37
+  },
+  {
+   "sheet": "128",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 13
+  },
+  {
+   "sheet": "128",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 5
+  },
+  {
+   "sheet": "128",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 18
+  },
+  {
+   "sheet": "128",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 35
   },
   {
    "sheet": "128",
@@ -8369,7 +8558,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 180
+   "n": 311
   },
   {
    "sheet": "128",
@@ -8513,7 +8702,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "129",
@@ -8522,7 +8711,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "129",
@@ -8675,7 +8864,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 138
+   "n": 37
   },
   {
    "sheet": "13",
@@ -8684,7 +8873,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 129
+   "n": 33
   },
   {
    "sheet": "13",
@@ -8693,7 +8882,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 147
+   "n": 35
   },
   {
    "sheet": "130",
@@ -8918,7 +9107,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "132",
@@ -8927,7 +9116,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "132",
@@ -8936,16 +9125,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 174
-  },
-  {
-   "sheet": "132",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 293
+   "n": 465
   },
   {
    "sheet": "134",
@@ -9287,25 +9467,25 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 148
-  },
-  {
-   "sheet": "136",
-   "kind": "face",
-   "name": "face b1=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 128
-  },
-  {
-   "sheet": "136",
-   "kind": "face",
-   "name": "face b1=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 137
+  },
+  {
+   "sheet": "136",
+   "kind": "face",
+   "name": "face b1=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 37
+  },
+  {
+   "sheet": "136",
+   "kind": "face",
+   "name": "face b1=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 33
   },
   {
    "sheet": "136",
@@ -9449,7 +9629,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 473
+   "n": 101
   },
   {
    "sheet": "138",
@@ -9845,43 +10025,43 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 138
-  },
-  {
-   "sheet": "140",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 65
-  },
-  {
-   "sheet": "140",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 66
-  },
-  {
-   "sheet": "140",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 147
-  },
-  {
-   "sheet": "140",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 120
+  },
+  {
+   "sheet": "140",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 37
+  },
+  {
+   "sheet": "140",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 18
+  },
+  {
+   "sheet": "140",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 17
+  },
+  {
+   "sheet": "140",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 35
   },
   {
    "sheet": "140",
@@ -10079,34 +10259,34 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 138
-  },
-  {
-   "sheet": "144",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 77
-  },
-  {
-   "sheet": "144",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 199
-  },
-  {
-   "sheet": "144",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 120
+  },
+  {
+   "sheet": "144",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 50
+  },
+  {
+   "sheet": "144",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 20
+  },
+  {
+   "sheet": "144",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 35
   },
   {
    "sheet": "144",
@@ -10232,34 +10412,34 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 196
-  },
-  {
-   "sheet": "146",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 71
-  },
-  {
-   "sheet": "146",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 148
-  },
-  {
-   "sheet": "146",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 120
+  },
+  {
+   "sheet": "146",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 37
+  },
+  {
+   "sheet": "146",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 19
+  },
+  {
+   "sheet": "146",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 49
   },
   {
    "sheet": "146",
@@ -10772,34 +10952,7 @@
    "line_piece": 55,
    "glued": null,
    "surface": null,
-   "n": 259
-  },
-  {
-   "sheet": "152",
-   "kind": "line",
-   "name": "B1",
-   "line_piece": 55,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "152",
-   "kind": "line",
-   "name": "B1",
-   "line_piece": 55,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "152",
-   "kind": "face",
-   "name": "face b1=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
+   "n": 260
   },
   {
    "sheet": "152",
@@ -10826,7 +10979,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 3
+   "n": 4
   },
   {
    "sheet": "152",
@@ -11321,7 +11474,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "160",
@@ -11330,7 +11483,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "160",
@@ -11340,24 +11493,6 @@
    "glued": null,
    "surface": null,
    "n": 281
-  },
-  {
-   "sheet": "160",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "160",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 238
   },
   {
    "sheet": "160",
@@ -11501,7 +11636,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 235
+   "n": 2
   },
   {
    "sheet": "162",
@@ -11510,7 +11645,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 4
+   "n": 51
   },
   {
    "sheet": "162",
@@ -11519,7 +11654,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 3
+   "n": 51
   },
   {
    "sheet": "162",
@@ -11528,16 +11663,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 236
-  },
-  {
-   "sheet": "162",
-   "kind": "face",
-   "name": "face b1=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 147
+   "n": 37
   },
   {
    "sheet": "162",
@@ -11636,78 +11762,6 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 36
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 13
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 7
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 25
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 24
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 142
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 57
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 94
   },
   {
@@ -11726,7 +11780,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 6
+   "n": 36
   },
   {
    "sheet": "163",
@@ -11735,7 +11789,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 6
+   "n": 7
   },
   {
    "sheet": "163",
@@ -11744,7 +11798,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 3
+   "n": 12
   },
   {
    "sheet": "163",
@@ -11754,42 +11808,6 @@
    "glued": null,
    "surface": null,
    "n": 74
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 18
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 19
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "163",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 143
   },
   {
    "sheet": "164",
@@ -11843,7 +11861,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 236
+   "n": 51
   },
   {
    "sheet": "164",
@@ -11852,25 +11870,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "164",
-   "kind": "face",
-   "name": "face b1=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 9
-  },
-  {
-   "sheet": "164",
-   "kind": "face",
-   "name": "face b1=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 231
+   "n": 51
   },
   {
    "sheet": "164",
@@ -11882,49 +11882,13 @@
    "n": 485
   },
   {
-   "sheet": "164",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "164",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "164",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 66
-  },
-  {
    "sheet": "165",
    "kind": "line",
    "name": "E1",
    "line_piece": 0,
    "glued": null,
    "surface": null,
-   "n": 268
-  },
-  {
-   "sheet": "165",
-   "kind": "line",
-   "name": "E1",
-   "line_piece": 0,
-   "glued": null,
-   "surface": null,
-   "n": 3
+   "n": 269
   },
   {
    "sheet": "165",
@@ -12032,16 +11996,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 233
-  },
-  {
-   "sheet": "165",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 6
+   "n": 51
   },
   {
    "sheet": "165",
@@ -12062,49 +12017,13 @@
    "n": 239
   },
   {
-   "sheet": "165",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 24
-  },
-  {
-   "sheet": "165",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "165",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
    "sheet": "166",
    "kind": "line",
    "name": "E1",
    "line_piece": 0,
    "glued": null,
    "surface": null,
-   "n": 265
-  },
-  {
-   "sheet": "166",
-   "kind": "line",
-   "name": "E1",
-   "line_piece": 0,
-   "glued": null,
-   "surface": null,
-   "n": 6
+   "n": 269
   },
   {
    "sheet": "166",
@@ -12158,33 +12077,6 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 54
-  },
-  {
-   "sheet": "166",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "166",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 181
-  },
-  {
-   "sheet": "166",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 107
   },
   {
@@ -12203,7 +12095,16 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
+   "n": 13
+  },
+  {
+   "sheet": "166",
+   "kind": "face",
+   "name": "face b4=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 39
   },
   {
    "sheet": "166",
@@ -12267,15 +12168,6 @@
    "glued": null,
    "surface": null,
    "n": 72
-  },
-  {
-   "sheet": "167",
-   "kind": "line",
-   "name": "C3",
-   "line_piece": 46,
-   "glued": null,
-   "surface": null,
-   "n": 2
   },
   {
    "sheet": "167",
@@ -12366,42 +12258,6 @@
    "glued": null,
    "surface": null,
    "n": 54
-  },
-  {
-   "sheet": "167",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "167",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "167",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 115
-  },
-  {
-   "sheet": "167",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 57
   },
   {
    "sheet": "168",
@@ -12518,25 +12374,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 135
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 7
+   "n": 120
   },
   {
    "sheet": "168",
@@ -12554,7 +12392,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 34
+   "n": 16
   },
   {
    "sheet": "168",
@@ -12563,7 +12401,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 58
+   "n": 10
   },
   {
    "sheet": "168",
@@ -12572,7 +12410,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 148
+   "n": 44
   },
   {
    "sheet": "168",
@@ -12581,7 +12419,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 120
+   "n": 2
   },
   {
    "sheet": "168",
@@ -12590,16 +12428,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 246
+   "n": 247
   },
   {
    "sheet": "168",
@@ -12609,15 +12438,6 @@
    "glued": null,
    "surface": null,
    "n": 252
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 236
   },
   {
    "sheet": "168",
@@ -12662,43 +12482,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 237
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
+   "n": 51
   },
   {
    "sheet": "168",
@@ -12716,52 +12500,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 115
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 176
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 96
-  },
-  {
-   "sheet": "168",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 74
   },
   {
    "sheet": "168",
@@ -12896,7 +12635,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 91
+   "n": 37
   },
   {
    "sheet": "169",
@@ -12905,7 +12644,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 39
+   "n": 11
   },
   {
    "sheet": "169",
@@ -12914,7 +12653,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 147
+   "n": 24
   },
   {
    "sheet": "169",
@@ -12923,25 +12662,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 132
-  },
-  {
-   "sheet": "169",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "169",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 6
+   "n": 35
   },
   {
    "sheet": "169",
@@ -13067,61 +12788,43 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 29
-  },
-  {
-   "sheet": "170",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "170",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 32
-  },
-  {
-   "sheet": "170",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 27
-  },
-  {
-   "sheet": "170",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 147
-  },
-  {
-   "sheet": "170",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 178
-  },
-  {
-   "sheet": "170",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 124
+  },
+  {
+   "sheet": "170",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 37
+  },
+  {
+   "sheet": "170",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 8
+  },
+  {
+   "sheet": "170",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 10
+  },
+  {
+   "sheet": "170",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 52
   },
   {
    "sheet": "170",
@@ -13346,7 +13049,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
+   "n": 37
   },
   {
    "sheet": "171",
@@ -13355,7 +13058,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 128
+   "n": 33
   },
   {
    "sheet": "171",
@@ -13364,16 +13067,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 148
-  },
-  {
-   "sheet": "171",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 138
+   "n": 35
   },
   {
    "sheet": "171",
@@ -13472,15 +13166,6 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 128
-  },
-  {
-   "sheet": "171",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 98
   },
   {
@@ -13517,7 +13202,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 251
+   "n": 47
   },
   {
    "sheet": "172",
@@ -13526,7 +13211,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 4
+   "n": 3
   },
   {
    "sheet": "172",
@@ -13535,43 +13220,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 8
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 214
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 410
+   "n": 55
   },
   {
    "sheet": "172",
@@ -13594,43 +13243,7 @@
   {
    "sheet": "172",
    "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 70
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 6
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 214
-  },
-  {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b4=0",
+   "name": "face b2=0",
    "line_piece": null,
    "glued": null,
    "surface": null,
@@ -13655,15 +13268,6 @@
    "n": 57
   },
   {
-   "sheet": "172",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 410
-  },
-  {
    "sheet": "173",
    "kind": "meet",
    "name": "X51/X84",
@@ -13679,7 +13283,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 141
+   "n": 69
   },
   {
    "sheet": "173",
@@ -13688,25 +13292,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 8
-  },
-  {
-   "sheet": "173",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 8
-  },
-  {
-   "sheet": "173",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 322
+   "n": 34
   },
   {
    "sheet": "173",
@@ -13729,24 +13315,6 @@
   {
    "sheet": "173",
    "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 14
-  },
-  {
-   "sheet": "173",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 193
-  },
-  {
-   "sheet": "173",
-   "kind": "face",
    "name": "face b3=b4",
    "line_piece": null,
    "glued": null,
@@ -13760,16 +13328,7 @@
    "line_piece": 55,
    "glued": null,
    "surface": null,
-   "n": 250
-  },
-  {
-   "sheet": "174",
-   "kind": "line",
-   "name": "B1",
-   "line_piece": 55,
-   "glued": null,
-   "surface": null,
-   "n": 13
+   "n": 261
   },
   {
    "sheet": "174",
@@ -13787,34 +13346,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 142
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 321
+   "n": 70
   },
   {
    "sheet": "174",
@@ -13824,78 +13356,6 @@
    "glued": null,
    "surface": null,
    "n": 33
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 6
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 135
   },
   {
    "sheet": "174",
@@ -13914,15 +13374,6 @@
    "glued": null,
    "surface": null,
    "n": 94
-  },
-  {
-   "sheet": "174",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
   },
   {
    "sheet": "174",
@@ -14021,7 +13472,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 222
+   "n": 8
   },
   {
    "sheet": "175",
@@ -14030,16 +13481,25 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 17
+   "n": 95
   },
   {
    "sheet": "175",
    "kind": "face",
-   "name": "face b1=0",
+   "name": "face b2=0",
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
+   "n": 35
+  },
+  {
+   "sheet": "175",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 68
   },
   {
    "sheet": "175",
@@ -14057,88 +13517,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 314
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 6
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 155
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 410
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 18
+   "n": 101
   },
   {
    "sheet": "175",
@@ -14165,25 +13544,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 247
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 73
   },
   {
    "sheet": "175",
@@ -14246,25 +13607,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 3
-  },
-  {
-   "sheet": "175",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
   },
   {
    "sheet": "176",
@@ -14345,7 +13688,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 410
+   "n": 101
   },
   {
    "sheet": "176",
@@ -14354,7 +13697,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "177",
@@ -14435,52 +13778,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
-  },
-  {
-   "sheet": "177",
-   "kind": "face",
-   "name": "face b1=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "177",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 138
-  },
-  {
-   "sheet": "177",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 91
-  },
-  {
-   "sheet": "177",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 40
-  },
-  {
-   "sheet": "177",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 147
+   "n": 101
   },
   {
    "sheet": "177",
@@ -14490,6 +13788,42 @@
    "glued": null,
    "surface": null,
    "n": 122
+  },
+  {
+   "sheet": "177",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 37
+  },
+  {
+   "sheet": "177",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 11
+  },
+  {
+   "sheet": "177",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 24
+  },
+  {
+   "sheet": "177",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 35
   },
   {
    "sheet": "177",
@@ -14553,15 +13887,6 @@
    "glued": null,
    "surface": null,
    "n": 122
-  },
-  {
-   "sheet": "178",
-   "kind": "line",
-   "name": "X2",
-   "line_piece": 23,
-   "glued": null,
-   "surface": null,
-   "n": 2
   },
   {
    "sheet": "178",
@@ -14723,43 +14048,43 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 206
-  },
-  {
-   "sheet": "179",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 29
-  },
-  {
-   "sheet": "179",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 33
-  },
-  {
-   "sheet": "179",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 147
-  },
-  {
-   "sheet": "179",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 120
+  },
+  {
+   "sheet": "179",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 37
+  },
+  {
+   "sheet": "179",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 10
+  },
+  {
+   "sheet": "179",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 8
+  },
+  {
+   "sheet": "179",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 51
   },
   {
    "sheet": "179",
@@ -14903,51 +14228,6 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 223
-  },
-  {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 16
-  },
-  {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 4
-  },
-  {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 234
-  },
-  {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 3
-  },
-  {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 178
   },
   {
@@ -14962,11 +14242,29 @@
   {
    "sheet": "180",
    "kind": "face",
-   "name": "face b3=b4",
+   "name": "face b4=0",
    "line_piece": null,
    "glued": null,
    "surface": null,
    "n": 2
+  },
+  {
+   "sheet": "180",
+   "kind": "face",
+   "name": "face b4=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 51
+  },
+  {
+   "sheet": "180",
+   "kind": "face",
+   "name": "face b4=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 51
   },
   {
    "sheet": "180",
@@ -15014,33 +14312,6 @@
    "n": 2
   },
   {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 232
-  },
-  {
-   "sheet": "180",
-   "kind": "face",
-   "name": "face b3=b4",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 2
-  },
-  {
    "sheet": "181",
    "kind": "line",
    "name": "X80",
@@ -15048,15 +14319,6 @@
    "glued": null,
    "surface": null,
    "n": 178
-  },
-  {
-   "sheet": "181",
-   "kind": "line",
-   "name": "X2",
-   "line_piece": 23,
-   "glued": null,
-   "surface": null,
-   "n": 2
   },
   {
    "sheet": "181",
@@ -15137,34 +14399,34 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 210
-  },
-  {
-   "sheet": "181",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 56
-  },
-  {
-   "sheet": "181",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 147
-  },
-  {
-   "sheet": "181",
-   "kind": "face",
-   "name": "face b2=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 120
+  },
+  {
+   "sheet": "181",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 37
+  },
+  {
+   "sheet": "181",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 15
+  },
+  {
+   "sheet": "181",
+   "kind": "face",
+   "name": "face b2=0",
+   "line_piece": null,
+   "glued": null,
+   "surface": null,
+   "n": 53
   },
   {
    "sheet": "181",
@@ -15182,25 +14444,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 2
-  },
-  {
-   "sheet": "181",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
    "n": 121
-  },
-  {
-   "sheet": "181",
-   "kind": "face",
-   "name": "face b4=0",
-   "line_piece": null,
-   "glued": null,
-   "surface": null,
-   "n": 49
   },
   {
    "sheet": "181",
@@ -15803,7 +15047,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "face:b1=0",
@@ -15812,7 +15056,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 238
+   "n": 51
   },
   {
    "sheet": "face:b2=0",
@@ -15911,7 +15155,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "face:b2=0",
@@ -15920,7 +15164,7 @@
    "line_piece": null,
    "glued": null,
    "surface": null,
-   "n": 237
+   "n": 51
   },
   {
    "sheet": "face:b3=b4",
@@ -16185,9 +15429,9 @@
   }
  ],
  "stats": {
-  "wall faces": 161,
-  "named the same all through": 161,
-  "faces of no wall": 12
+  "wall faces": 167,
+  "named the same all through": 167,
+  "faces of no wall": 6
  },
  "sheets_failed": []
 }
