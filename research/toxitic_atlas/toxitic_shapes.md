@@ -65,7 +65,7 @@ The normaliser of oxitic is kicontic (the rotations of [[3,4,3]]), not [[3,4,3]]
 | tetabertetic | wall | 576 | 336 | {3: 1728} | 576 (exactly the group) | [0.13903, 0.19315, 0.66782, 0.0]  | strata: face b4 = 0, line b2 = b4 = 0 |
 | totabertetic | wall | 576 | 384 | {3: 2304} | 576 (exactly the group) | [0.05456, 0.5249, 0.42054, 0.0]  | strata: face b4 = 0, line b2 = b4 = 0 |
 | tatbitutic | wall | 576 | 672 | {3: 1152, 4: 1152} | 576 (exactly the group) | [0.19924, 0.0, 0.72469, 0.07607]  | strata: face b2 = 0, face b3 = 0, line b1 = b4, b2 = 0, line |
-|  | wall | 576 | 816 | {3: 1728, 4: 864} | 576 (exactly the group) | [0.10945, 0.29673, 0.56208, 0.03173]  | map walls: b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4; strata: face b2 = 0 |
+| snoc_oxitic (subsymmetrical snoc) | wall | 576 | 816 | {3: 1728, 4: 864} | 576 (exactly the group) | [0.10945, 0.29673, 0.56208, 0.03173]  | map walls: b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4; strata: face b2 = 0 |
 | mabertetic | wall | 576 | 864 | {3: 1728, 4: 1152} | 576 (exactly the group) | [0.02511, 0.44995, 0.52493, 0.0]  | strata: face b4 = 0, line b2 = b4 = 0 |
 |  | wall | 576 | 1008 | {3: 2016, 4: 864, 5: 288} | 576 (exactly the group) | [0.06257, 0.45285, 0.45285, 0.03173]  | map walls: b2 - b3 |
 | gabertetic | wall | 576 | 1056 | {3: 1152, 4: 1152, 5: 576} | 576 (exactly the group) | [0.02511, 0.02528, 0.94961, 0.0]  | strata: face b4 = 0, line b2 = b4 = 0 |

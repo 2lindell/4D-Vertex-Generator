@@ -24,7 +24,7 @@ Made by research/toxitic_atlas/optimize_central.py (see its docstring); shapes f
 | tetabertetic | wall | ox | - | centre finder failed: 'NoneType' object is not subscriptable | [0.139029281, 0.193147531, 0.667823189, 0.0] | tetabertetic_576v_336c_central.off |
 | totabertetic | wall | ox | - | centre finder failed: list index out of range | [0.05455839, 0.524896722, 0.420544888, 0.0] | totabertetic_576v_384c_central.off |
 | tatbitutic | wall | ox | - | centre finder failed: list index out of range | [0.199241202, 0.0, 0.724689884, 0.076068914] | tatbitutic_576v_672c_central.off |
-| oxitic_wall_04 | wall | ox | 1.59e-01 | deepest point of the shape | [0.249402494, 0.134436064, 0.462990238, 0.153171204] | oxitic_wall_04_576v_816c_central.off |
+| snoc_oxitic | wall | ox | 1.59e-01 | deepest point of the shape | [0.249402494, 0.134436064, 0.462990238, 0.153171204] | snoc_oxitic_576v_816c_central.off |
 | mabertetic | wall | ox | 3.26e-01 | deepest point of the shape | [0.336909946, 0.266454399, 0.396635655, 0.0] | mabertetic_576v_864c_central.off |
 | oxitic_wall_06 | wall | ox | 1.43e-01 | deepest point of the shape | [0.336671527, 0.269695666, 0.269695666, 0.123937141] | oxitic_wall_06_576v_1008c_central.off |
 | gabertetic | wall | ox | 1.20e-01 | deepest point of the shape | [0.097631073, 0.097631073, 0.804737854, 0.0] | gabertetic_576v_1056c_central.off |

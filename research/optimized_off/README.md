@@ -78,7 +78,7 @@ Folders (tessic family: seed vectors in R^4, the B4 frame, vertices the signed p
 | new_region_10_120v_680c | region (3) | 9.215822 | 4.5827142798 | infimum on the shape's edge (a sign condition is active): not attained | [0.1666620648, 0.1666620648, 0.66667178, 4.0905e-06] | [0.095969056, 0.2830745251, 0.6091285608, 0.0118278581] (8.166715) | new_region_10_120v_680c_120v_680c_opt.off |
 | new_region_11_120v_380c | region (3) | 8.917945 | 1.8985107882 | infimum on the shape's edge (a sign condition is active): not attained | [0.4262441625, 0.2400881471, 0.2400881471, 0.0935795433] | [0.6001603745, 0.0335295528, 0.2990118908, 0.0672981819] (8.917915) | new_region_11_120v_380c_120v_380c_opt.off |
 | new_wall_12_120v_440c | wall (2) | 14.552280 | 14.5522797588 | no progress: the optimiser found no feasible step from the seed (seed kept) | [0.0491045137, 0.3493222266, 0.5755263782, 0.0260468815] | same | new_wall_12_120v_440c_120v_440c_opt.off |
-| snad | line (1) | 13.472194 | 1.2130618279 | minimum inside the shape | [0.2929009139, 0.2070990861, 0.2070990861, 0.2929009139] | same | snad_60v_90c_opt.off |
+| snad | line (1) | 13.472194 | 1.2130146416 | minimum inside the shape (exact: b1 = b4 = 1 - 1/sqrt2, b2 = b3 = 1/sqrt2 - 1/2, R = sqrt((3 + sqrt2)/3); the optimiser had stopped at b1 = 0.2929009, R 1.2130618) | [0.2928932188, 0.2071067812, 0.2071067812, 0.2928932188] | same | snad_60v_90c_opt.off |
 
 ## Iodecaic
 

@@ -868,7 +868,7 @@
   },
   {
    "group": "oxitic",
-   "name": "oxitic_wall_04",
+   "name": "snoc_oxitic",
    "kind": "wall",
    "degrees": 2,
    "key": "c41b4cd39c7a",
@@ -899,13 +899,13 @@
    ],
    "depth": 0.1594905872987325,
    "central_status": "deepest point of the shape",
-   "opt_off": "optimized_off/oxitic/oxitic_wall_04_576v_816c_opt.off",
+   "opt_off": "optimized_off/oxitic/snoc_oxitic_576v_816c_opt.off",
    "opt_counts": [
     576,
     816
    ],
    "off_R": 1.2062710560078234,
-   "central_off": "central_off/oxitic/oxitic_wall_04_576v_816c_central.off",
+   "central_off": "central_off/oxitic/snoc_oxitic_576v_816c_central.off",
    "central_counts": [
     576,
     816
@@ -1064,12 +1064,12 @@
    "start_R": 4.418871628504888,
    "R": 2.4142135623731,
    "optimized": [
-    0.26977481203790166,
+    0.26829674188247954,
     0.0,
-    0.46045037592419635,
-    0.26977481203790193
+    0.4522174861565342,
+    0.2794857719609864
    ],
-   "optimized_status": "minimum inside the shape",
+   "optimized_status": "minimum on the face b2 = 0 carried across the fold b1 = b4 (the face continues there as b3 = 0 under the swap): R 2.383675; the run kept b1 >= b4 and stopped on the fold at R 2.414214",
    "central": [
     0.22678332511463917,
     0.0,
@@ -1083,7 +1083,7 @@
     576,
     1152
    ],
-   "off_R": 2.4142135623731003,
+   "off_R": 2.3836745000241883,
    "central_off": "central_off/oxitic/sabtutic_576v_1152c_central.off",
    "central_counts": [
     576,

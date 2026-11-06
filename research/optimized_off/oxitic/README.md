@@ -24,11 +24,11 @@ Made by research/toxitic_atlas/optimize_central.py (see its docstring); shapes f
 | tetabertetic | wall | ox | 0.000000 | 2.38925792 | optimiser failed: 'NoneType' object is not subscriptable | [0.139029281, 0.193147531, 0.667823189, 0.0] | tetabertetic_576v_336c_opt.off |
 | totabertetic | wall | ox | 0.000000 | 13.48712465 | optimiser failed: list index out of range | [0.05455839, 0.524896722, 0.420544888, 0.0] | totabertetic_576v_384c_opt.off |
 | tatbitutic | wall | ox | 0.000000 | 5.14384703 | optimiser failed: list index out of range | [0.199241202, 0.0, 0.724689884, 0.076068914] | tatbitutic_576v_672c_opt.off |
-| oxitic_wall_04 | wall | ox | 7.813596 | 1.20627106 | minimum inside the shape; continued across the mirror into sheet oxb: R 1.206271 | [0.304211334, 0.195788666, 0.195788666, 0.304211334] | oxitic_wall_04_576v_816c_opt.off |
+| snoc_oxitic | wall | ox | 7.813596 | 1.20627106 | minimum inside the shape; continued across the mirror into sheet oxb: R 1.206271 | [0.304211334, 0.195788666, 0.195788666, 0.304211334] | snoc_oxitic_576v_816c_opt.off |
 | mabertetic | wall | ox | 28.567027 | 1.30656296 | minimum inside the shape | [0.5, 0.0, 0.5, -0.0] | mabertetic_576v_864c_opt.off |
 | oxitic_wall_06 | wall | ox | 50.134136 | 2.16938826 | minimum inside the shape | [0.44983974, 0.235391386, 0.235391386, 0.079377487] | oxitic_wall_06_576v_1008c_opt.off |
 | gabertetic | wall | ox | 22.579894 | 3.41799852 | infimum on the shape's edge (a sign condition is active): not attained | [0.226339428, 2.5285e-05, 0.773635287, 0.0] | gabertetic_576v_1056c_opt.off |
-| sabtutic | wall | ox | 4.418872 | 2.41421356 | minimum inside the shape | [0.269774812, 0.0, 0.460450376, 0.269774812] | sabtutic_576v_1152c_opt.off |
+| sabtutic | wall | ox | 4.418872 | 2.38367450 | minimum on the face b2 = 0 carried across the fold b1 = b4 (the face continues there as b3 = 0 under the swap): R 2.383675; the run kept b1 >= b4 and stopped on the fold at R 2.414214 | [0.268296742, 0.0, 0.452217486, 0.279485772] | sabtutic_576v_1152c_opt.off |
 | stitosbetic | wall | ox | 3.783075 | 1.56133822 | minimum inside the shape | [0.638384327, 0.0, 0.276768654, 0.084847019] | stitosbetic_576v_1248c_opt.off |
 | sabertetic | wall | ox | 21.988550 | 15.78292345 | infimum on the shape's edge (a sign condition is active): not attained | [0.045916905, 0.522475065, 0.43160803, 0.0] | sabertetic_576v_1248c_opt.off |
 | oxitic_wall_11 | wall | ox | 4.827410 | 3.19027651 | infimum on the shape's edge (a sign condition is active): not attained | [0.28366882, 8.5598e-05, 0.515637894, 0.200607688] | oxitic_wall_11_576v_1728c_opt.off |

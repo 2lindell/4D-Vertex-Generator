@@ -80,5 +80,6 @@ OXITIC = {
     "mitatosbitac": ("Medial Triangular Transitional Omnisnub Bitetrahedral 48", ""),
     "otosbitac": ("Octahedral transitional Omnisnub Bitetrahedral 48", ""),
     "mosbitic": ("Medial Omnisnub Bitetrahedral 48", ""),
+    "snoc_oxitic": ("Snub Tetracontoctachoron, oxitic version", "a lower-symmetry snoc"),
     "gadwosbitac": ("Grand Disphenoidal Omnisnub Bitetrahedral 48", ""),
 }
