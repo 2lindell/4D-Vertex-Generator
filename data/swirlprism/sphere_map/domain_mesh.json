@@ -28,11 +28,12 @@
   "D2",
   "T1",
   "X5",
+  "X4",
   "X29",
   "X20",
+  "b2=0",
   "X48",
   "X80",
-  "X4",
   "X94",
   "D1",
   "F1",
@@ -40,10 +41,8 @@
   "X3",
   "X8",
   "X9",
-  "b2=0",
   "C2a",
-  "X99",
-  "X38",
+  "b1=0",
   "F4",
   "X81",
   "X26",
@@ -55,27 +54,23 @@
   "T2/X17",
   "X19",
   "X31",
-  "X93",
   "X17",
   "F5",
-  "X15/X17",
   "X98",
+  "X93",
   "X39",
   "X14",
   "X101/X79",
-  "X34",
-  "X34/X85",
   "X17/X27",
-  "X85",
-  "X86",
   "X44",
   "X10",
+  "b3=0",
   "T2/X28",
   "X18",
+  "X99",
   "X100/X99",
   "X23",
   "X96",
-  "X15",
   "X20/X51",
   "X42",
   "X27",
@@ -83,10 +78,9 @@
   "F1/T2/X3",
   "X53",
   "X51",
-  "F5/X48",
   "X35",
+  "X86",
   "X88",
-  "X17/X93",
   "X90",
   "X89",
   "X92",
@@ -95,9 +89,7 @@
   "X87",
   "X41",
   "X21",
-  "X100/X38",
-  "b1=0",
-  "b3=0"
+  "X38"
  ],
  "pieces": [
   {
@@ -653,7 +645,7 @@
     186
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 74
   },
   {
    "id": 9,
@@ -668,7 +660,7 @@
     187
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 129
   },
   {
    "id": 10,
@@ -683,7 +675,7 @@
     188
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 56
   },
   {
    "id": 11,
@@ -698,7 +690,7 @@
     189
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 164
   },
   {
    "id": 12,
@@ -713,7 +705,7 @@
     190
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 75
   },
   {
    "id": 13,
@@ -728,7 +720,7 @@
     191
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 160
   },
   {
    "id": 14,
@@ -743,7 +735,7 @@
     192
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 116
   },
   {
    "id": 15,
@@ -758,7 +750,7 @@
     193
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 157
   },
   {
    "id": 16,
@@ -773,7 +765,7 @@
     194
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 17,
@@ -788,7 +780,7 @@
     195
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 150
   },
   {
    "id": 18,
@@ -803,7 +795,7 @@
     3
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 19,
@@ -818,7 +810,7 @@
     4
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 19
   },
   {
    "id": 20,
@@ -833,7 +825,7 @@
     5
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 21,
@@ -848,7 +840,7 @@
     6
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 22,
@@ -863,7 +855,7 @@
     7
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 91
   },
   {
    "id": 23,
@@ -878,7 +870,7 @@
     8
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 21
   },
   {
    "id": 24,
@@ -893,7 +885,7 @@
     9
    ],
    "classes_on_sphere": 1200,
-   "triangles": 45
+   "triangles": 43
   },
   {
    "id": 25,
@@ -908,7 +900,7 @@
     10
    ],
    "classes_on_sphere": 1200,
-   "triangles": 30
+   "triangles": 28
   },
   {
    "id": 26,
@@ -938,7 +930,7 @@
     196
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 44
   },
   {
    "id": 28,
@@ -953,7 +945,7 @@
     197
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 88
   },
   {
    "id": 29,
@@ -968,7 +960,7 @@
     198
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 112
   },
   {
    "id": 30,
@@ -983,7 +975,7 @@
     199
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 31,
@@ -998,7 +990,7 @@
     200
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 157
   },
   {
    "id": 32,
@@ -1013,7 +1005,7 @@
     201
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 139
   },
   {
    "id": 33,
@@ -1028,7 +1020,7 @@
     12
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 112
   },
   {
    "id": 34,
@@ -1043,7 +1035,7 @@
     13
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 35,
@@ -1058,7 +1050,7 @@
     14
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 178
   },
   {
    "id": 36,
@@ -1073,7 +1065,7 @@
     202
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 37,
@@ -1088,7 +1080,7 @@
     203
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 58
   },
   {
    "id": 38,
@@ -1103,7 +1095,7 @@
     204
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 39,
@@ -1118,7 +1110,7 @@
     205
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 40,
@@ -1133,7 +1125,7 @@
     206
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 41,
@@ -1148,7 +1140,7 @@
     207
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 42
   },
   {
    "id": 42,
@@ -1163,7 +1155,7 @@
     208
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 43,
@@ -1178,7 +1170,7 @@
     209
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 89
   },
   {
    "id": 44,
@@ -1193,7 +1185,7 @@
     210
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 174
   },
   {
    "id": 45,
@@ -1208,7 +1200,7 @@
     211
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 74
   },
   {
    "id": 46,
@@ -1223,7 +1215,7 @@
     212
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 87
   },
   {
    "id": 47,
@@ -1238,7 +1230,7 @@
     213
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 83
   },
   {
    "id": 48,
@@ -1253,7 +1245,7 @@
     214
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 60
   },
   {
    "id": 49,
@@ -1268,7 +1260,7 @@
     215
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 83
   },
   {
    "id": 50,
@@ -1283,7 +1275,7 @@
     216
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 51,
@@ -1298,7 +1290,7 @@
     217
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 278
   },
   {
    "id": 52,
@@ -1313,7 +1305,7 @@
     218
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 139
   },
   {
    "id": 53,
@@ -1328,7 +1320,7 @@
     219
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 102
   },
   {
    "id": 54,
@@ -1343,7 +1335,7 @@
     15
    ],
    "classes_on_sphere": 1200,
-   "triangles": 100
+   "triangles": 96
   },
   {
    "id": 55,
@@ -1433,7 +1425,7 @@
     220
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 49
   },
   {
    "id": 61,
@@ -1448,7 +1440,7 @@
     221
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 59
   },
   {
    "id": 62,
@@ -1463,7 +1455,7 @@
     222
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 63,
@@ -1478,7 +1470,7 @@
     223
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 71
   },
   {
    "id": 64,
@@ -1493,7 +1485,7 @@
     224
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 53
   },
   {
    "id": 65,
@@ -1508,7 +1500,7 @@
     225
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 65
   },
   {
    "id": 66,
@@ -1523,7 +1515,7 @@
     226
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 67,
@@ -1538,7 +1530,7 @@
     227
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 68,
@@ -1553,7 +1545,7 @@
     228
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 62
   },
   {
    "id": 69,
@@ -1568,7 +1560,7 @@
     229
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 58
   },
   {
    "id": 70,
@@ -1583,7 +1575,7 @@
     230
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 53
   },
   {
    "id": 71,
@@ -1598,7 +1590,7 @@
     231
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 42
   },
   {
    "id": 72,
@@ -1613,7 +1605,7 @@
     232
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 41
   },
   {
    "id": 73,
@@ -1628,7 +1620,7 @@
     233
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 53
   },
   {
    "id": 74,
@@ -1643,7 +1635,7 @@
     234
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 56
   },
   {
    "id": 75,
@@ -1658,7 +1650,7 @@
     235
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 87
   },
   {
    "id": 76,
@@ -1673,7 +1665,7 @@
     236
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 23
   },
   {
    "id": 77,
@@ -1688,7 +1680,7 @@
     237
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 78,
@@ -1703,7 +1695,7 @@
     238
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 79,
@@ -1733,7 +1725,7 @@
     240
    ],
    "classes_on_sphere": 1200,
-   "triangles": 30
+   "triangles": 57
   },
   {
    "id": 81,
@@ -1748,7 +1740,7 @@
     241
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 25
   },
   {
    "id": 82,
@@ -1763,7 +1755,7 @@
     242
    ],
    "classes_on_sphere": 1200,
-   "triangles": 93
+   "triangles": 213
   },
   {
    "id": 83,
@@ -1793,7 +1785,7 @@
     244
    ],
    "classes_on_sphere": 1200,
-   "triangles": 117
+   "triangles": 156
   },
   {
    "id": 85,
@@ -1808,7 +1800,7 @@
     245
    ],
    "classes_on_sphere": 1200,
-   "triangles": 27
+   "triangles": 71
   },
   {
    "id": 86,
@@ -1868,7 +1860,7 @@
     24
    ],
    "classes_on_sphere": 1200,
-   "triangles": 57
+   "triangles": 62
   },
   {
    "id": 90,
@@ -1913,7 +1905,7 @@
     27
    ],
    "classes_on_sphere": 1200,
-   "triangles": 117
+   "triangles": 115
   },
   {
    "id": 93,
@@ -1943,7 +1935,7 @@
     29
    ],
    "classes_on_sphere": 1200,
-   "triangles": 53
+   "triangles": 51
   },
   {
    "id": 95,
@@ -2018,7 +2010,7 @@
     34
    ],
    "classes_on_sphere": 1200,
-   "triangles": 79
+   "triangles": 77
   },
   {
    "id": 100,
@@ -2033,7 +2025,7 @@
     35
    ],
    "classes_on_sphere": 1200,
-   "triangles": 140
+   "triangles": 120
   },
   {
    "id": 101,
@@ -2063,7 +2055,7 @@
     37
    ],
    "classes_on_sphere": 1200,
-   "triangles": 64
+   "triangles": 56
   },
   {
    "id": 103,
@@ -2168,7 +2160,7 @@
     44
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 110,
@@ -2183,7 +2175,7 @@
     45
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 55
   },
   {
    "id": 111,
@@ -2198,7 +2190,7 @@
     46
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 112,
@@ -2213,7 +2205,7 @@
     47
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 77
   },
   {
    "id": 113,
@@ -2228,7 +2220,7 @@
     48
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 114,
@@ -2243,7 +2235,7 @@
     49
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 58
   },
   {
    "id": 115,
@@ -2258,7 +2250,7 @@
     50
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 70
   },
   {
    "id": 116,
@@ -2273,7 +2265,7 @@
     51
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 61
   },
   {
    "id": 117,
@@ -2288,7 +2280,7 @@
     52
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 56
   },
   {
    "id": 118,
@@ -2303,7 +2295,7 @@
     246
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 119,
@@ -2318,7 +2310,7 @@
     247
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 63
   },
   {
    "id": 120,
@@ -2333,7 +2325,7 @@
     248
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 64
   },
   {
    "id": 121,
@@ -2348,7 +2340,7 @@
     249
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 82
   },
   {
    "id": 122,
@@ -2363,7 +2355,7 @@
     250
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 222
   },
   {
    "id": 123,
@@ -2378,7 +2370,7 @@
     251
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 52
   },
   {
    "id": 124,
@@ -2393,7 +2385,7 @@
     53
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 62
   },
   {
    "id": 125,
@@ -2408,7 +2400,7 @@
     54
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 55
   },
   {
    "id": 126,
@@ -2423,7 +2415,7 @@
     55
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 127,
@@ -2438,7 +2430,7 @@
     56
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 128,
@@ -2453,7 +2445,7 @@
     57
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 129,
@@ -2468,7 +2460,7 @@
     58
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 142
   },
   {
    "id": 130,
@@ -2483,7 +2475,7 @@
     59
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 68
   },
   {
    "id": 131,
@@ -2498,7 +2490,7 @@
     60
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 37
   },
   {
    "id": 132,
@@ -2513,7 +2505,7 @@
     252
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 390
   },
   {
    "id": 133,
@@ -2528,7 +2520,7 @@
     253
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 128
   },
   {
    "id": 134,
@@ -2543,7 +2535,7 @@
     254
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 187
   },
   {
    "id": 135,
@@ -2558,7 +2550,7 @@
     255
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 105
   },
   {
    "id": 136,
@@ -2573,7 +2565,7 @@
     256
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 516
   },
   {
    "id": 137,
@@ -2588,7 +2580,7 @@
     257
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 70
   },
   {
    "id": 138,
@@ -2603,7 +2595,7 @@
     258
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 62
   },
   {
    "id": 139,
@@ -2618,7 +2610,7 @@
     259
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 39
   },
   {
    "id": 140,
@@ -2633,7 +2625,7 @@
     61
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 141,
@@ -2648,7 +2640,7 @@
     260
    ],
    "classes_on_sphere": 1200,
-   "triangles": 26
+   "triangles": 60
   },
   {
    "id": 142,
@@ -2663,7 +2655,7 @@
     261
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 96
   },
   {
    "id": 143,
@@ -2678,7 +2670,7 @@
     262
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 35
   },
   {
    "id": 144,
@@ -2693,7 +2685,7 @@
     263
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 53
   },
   {
    "id": 145,
@@ -2708,7 +2700,7 @@
     264
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 35
   },
   {
    "id": 146,
@@ -2738,7 +2730,7 @@
     63
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 148,
@@ -2753,7 +2745,7 @@
     64
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 21
   },
   {
    "id": 149,
@@ -2768,7 +2760,7 @@
     65
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 29
   },
   {
    "id": 150,
@@ -2783,7 +2775,7 @@
     66
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 151,
@@ -2843,7 +2835,7 @@
     70
    ],
    "classes_on_sphere": 1200,
-   "triangles": 71
+   "triangles": 70
   },
   {
    "id": 155,
@@ -2858,7 +2850,7 @@
     71
    ],
    "classes_on_sphere": 1200,
-   "triangles": 97
+   "triangles": 87
   },
   {
    "id": 156,
@@ -2873,7 +2865,7 @@
     265
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 159
   },
   {
    "id": 157,
@@ -2888,7 +2880,7 @@
     266
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 61
   },
   {
    "id": 158,
@@ -2903,7 +2895,7 @@
     267
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 83
   },
   {
    "id": 159,
@@ -2918,7 +2910,7 @@
     268
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 68
   },
   {
    "id": 160,
@@ -2933,7 +2925,7 @@
     269
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 161,
@@ -2948,7 +2940,7 @@
     270
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 162,
@@ -2963,7 +2955,7 @@
     72
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 15
   },
   {
    "id": 163,
@@ -2993,7 +2985,7 @@
     74
    ],
    "classes_on_sphere": 1200,
-   "triangles": 102
+   "triangles": 118
   },
   {
    "id": 165,
@@ -3008,7 +3000,7 @@
     75
    ],
    "classes_on_sphere": 1200,
-   "triangles": 86
+   "triangles": 122
   },
   {
    "id": 166,
@@ -3068,7 +3060,7 @@
     79
    ],
    "classes_on_sphere": 1200,
-   "triangles": 46
+   "triangles": 120
   },
   {
    "id": 170,
@@ -3083,7 +3075,7 @@
     80
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 50
   },
   {
    "id": 171,
@@ -3113,7 +3105,7 @@
     82
    ],
    "classes_on_sphere": 1200,
-   "triangles": 32
+   "triangles": 118
   },
   {
    "id": 173,
@@ -3128,7 +3120,7 @@
     83
    ],
    "classes_on_sphere": 1200,
-   "triangles": 26
+   "triangles": 27
   },
   {
    "id": 174,
@@ -3143,7 +3135,7 @@
     84
    ],
    "classes_on_sphere": 1200,
-   "triangles": 11
+   "triangles": 93
   },
   {
    "id": 175,
@@ -3158,7 +3150,7 @@
     85
    ],
    "classes_on_sphere": 1200,
-   "triangles": 71
+   "triangles": 87
   },
   {
    "id": 176,
@@ -3173,7 +3165,7 @@
     86
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 83
   },
   {
    "id": 177,
@@ -3188,7 +3180,7 @@
     87
    ],
    "classes_on_sphere": 1200,
-   "triangles": 1
+   "triangles": 92
   },
   {
    "id": 178,
@@ -3203,7 +3195,7 @@
     88
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 145
   },
   {
    "id": 179,
@@ -3218,7 +3210,7 @@
     89
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 180,
@@ -3233,7 +3225,7 @@
     90
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 181,
@@ -3248,7 +3240,7 @@
     271
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 43
   },
   {
    "id": 182,
@@ -3263,7 +3255,7 @@
     272
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 9
   },
   {
    "id": 183,
@@ -3278,7 +3270,7 @@
     273
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 66
   },
   {
    "id": 184,
@@ -3293,7 +3285,7 @@
     274
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 185,
@@ -3308,7 +3300,7 @@
     275
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 186,
@@ -3323,7 +3315,7 @@
     276
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 43
   },
   {
    "id": 187,
@@ -3338,7 +3330,7 @@
     277
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 37
   },
   {
    "id": 188,
@@ -3353,7 +3345,7 @@
     278
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 189,
@@ -3368,7 +3360,7 @@
     279
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 51
   },
   {
    "id": 190,
@@ -3383,7 +3375,7 @@
     280
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 89
   },
   {
    "id": 191,
@@ -3398,7 +3390,7 @@
     281
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 100
   },
   {
    "id": 192,
@@ -3413,7 +3405,7 @@
     282
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 55
   },
   {
    "id": 193,
@@ -3428,7 +3420,7 @@
     283
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 57
   },
   {
    "id": 194,
@@ -3458,7 +3450,7 @@
     92
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 196,
@@ -3473,7 +3465,7 @@
     284
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 54
   },
   {
    "id": 197,
@@ -3488,7 +3480,7 @@
     285
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 69
   },
   {
    "id": 198,
@@ -3503,7 +3495,7 @@
     286
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 45
   },
   {
    "id": 199,
@@ -3518,7 +3510,7 @@
     287
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 190
   },
   {
    "id": 200,
@@ -3533,7 +3525,7 @@
     288
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 117
   },
   {
    "id": 201,
@@ -3548,7 +3540,7 @@
     289
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 428
   },
   {
    "id": 202,
@@ -3563,7 +3555,7 @@
     93
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 29
   },
   {
    "id": 203,
@@ -3578,7 +3570,7 @@
     94
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 51
   },
   {
    "id": 204,
@@ -3593,7 +3585,7 @@
     95
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 205,
@@ -3608,7 +3600,7 @@
     96
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 44
   },
   {
    "id": 206,
@@ -3623,7 +3615,7 @@
     97
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 41
   },
   {
    "id": 207,
@@ -3638,7 +3630,7 @@
     98
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 9
   },
   {
    "id": 208,
@@ -3653,7 +3645,7 @@
     99
    ],
    "classes_on_sphere": 1200,
-   "triangles": 57
+   "triangles": 73
   },
   {
    "id": 209,
@@ -3668,7 +3660,7 @@
     100
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 210,
@@ -3683,7 +3675,7 @@
     101
    ],
    "classes_on_sphere": 1200,
-   "triangles": 5
+   "triangles": 35
   },
   {
    "id": 211,
@@ -3698,7 +3690,7 @@
     102
    ],
    "classes_on_sphere": 1200,
-   "triangles": 36
+   "triangles": 47
   },
   {
    "id": 212,
@@ -3713,7 +3705,7 @@
     103
    ],
    "classes_on_sphere": 1200,
-   "triangles": 18
+   "triangles": 16
   },
   {
    "id": 213,
@@ -3728,7 +3720,7 @@
     104
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 214,
@@ -3743,7 +3735,7 @@
     105
    ],
    "classes_on_sphere": 1200,
-   "triangles": 38
+   "triangles": 36
   },
   {
    "id": 215,
@@ -3758,7 +3750,7 @@
     106
    ],
    "classes_on_sphere": 1200,
-   "triangles": 32
+   "triangles": 45
   },
   {
    "id": 216,
@@ -3773,7 +3765,7 @@
     107
    ],
    "classes_on_sphere": 1200,
-   "triangles": 4
+   "triangles": 64
   },
   {
    "id": 217,
@@ -3788,7 +3780,7 @@
     290
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 112
   },
   {
    "id": 218,
@@ -3803,7 +3795,7 @@
     291
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 25
   },
   {
    "id": 219,
@@ -3818,7 +3810,7 @@
     292
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 220,
@@ -3833,7 +3825,7 @@
     108
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 38
   },
   {
    "id": 221,
@@ -3848,7 +3840,7 @@
     109
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 38
   },
   {
    "id": 222,
@@ -3863,7 +3855,7 @@
     293
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 223,
@@ -3878,7 +3870,7 @@
     294
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 110
   },
   {
    "id": 224,
@@ -3893,7 +3885,7 @@
     295
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 51
   },
   {
    "id": 225,
@@ -3908,7 +3900,7 @@
     296
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 249
   },
   {
    "id": 226,
@@ -3923,7 +3915,7 @@
     297
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 168
   },
   {
    "id": 227,
@@ -3938,7 +3930,7 @@
     298
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 39
   },
   {
    "id": 228,
@@ -3953,7 +3945,7 @@
     299
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 196
   },
   {
    "id": 229,
@@ -3968,7 +3960,7 @@
     300
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 52
   },
   {
    "id": 230,
@@ -3983,7 +3975,7 @@
     301
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 231,
@@ -3998,7 +3990,7 @@
     302
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 232,
@@ -4013,7 +4005,7 @@
     303
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 233,
@@ -4028,7 +4020,7 @@
     304
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 234,
@@ -4043,7 +4035,7 @@
     305
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 235,
@@ -4058,7 +4050,7 @@
     110
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 76
   },
   {
    "id": 236,
@@ -4073,7 +4065,7 @@
     111
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 42
   },
   {
    "id": 237,
@@ -4088,7 +4080,7 @@
     112
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 85
   },
   {
    "id": 238,
@@ -4103,7 +4095,7 @@
     306
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 38
   },
   {
    "id": 239,
@@ -4118,7 +4110,7 @@
     307
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 96
   },
   {
    "id": 240,
@@ -4133,7 +4125,7 @@
     308
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 126
   },
   {
    "id": 241,
@@ -4148,7 +4140,7 @@
     309
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 242,
@@ -4163,7 +4155,7 @@
     310
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 40
   },
   {
    "id": 243,
@@ -4178,7 +4170,7 @@
     311
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 244,
@@ -4208,7 +4200,7 @@
     114
    ],
    "classes_on_sphere": 1200,
-   "triangles": 28
+   "triangles": 29
   },
   {
    "id": 246,
@@ -4223,7 +4215,7 @@
     312
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 100
   },
   {
    "id": 247,
@@ -4238,7 +4230,7 @@
     115
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 3
   },
   {
    "id": 248,
@@ -4253,7 +4245,7 @@
     313
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 45
   },
   {
    "id": 249,
@@ -4268,7 +4260,7 @@
     314
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 250,
@@ -4283,7 +4275,7 @@
     315
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 251,
@@ -4298,7 +4290,7 @@
     316
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 252,
@@ -4313,7 +4305,7 @@
     317
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 253,
@@ -4328,7 +4320,7 @@
     318
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 254,
@@ -4343,7 +4335,7 @@
     319
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 255,
@@ -4358,7 +4350,7 @@
     116
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 54
   },
   {
    "id": 256,
@@ -4373,7 +4365,7 @@
     117
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 91
   },
   {
    "id": 257,
@@ -4388,7 +4380,7 @@
     118
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 110
   },
   {
    "id": 258,
@@ -4403,7 +4395,7 @@
     119
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 147
   },
   {
    "id": 259,
@@ -4418,7 +4410,7 @@
     120
    ],
    "classes_on_sphere": 1200,
-   "triangles": 47
+   "triangles": 45
   },
   {
    "id": 260,
@@ -4433,7 +4425,7 @@
     121
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 71
   },
   {
    "id": 261,
@@ -4448,7 +4440,7 @@
     122
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 80
   },
   {
    "id": 262,
@@ -4478,7 +4470,7 @@
     124
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 45
   },
   {
    "id": 264,
@@ -4493,7 +4485,7 @@
     125
    ],
    "classes_on_sphere": 1200,
-   "triangles": 39
+   "triangles": 85
   },
   {
    "id": 265,
@@ -4523,7 +4515,7 @@
     127
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 40
   },
   {
    "id": 267,
@@ -4538,7 +4530,7 @@
     128
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 268,
@@ -4553,7 +4545,7 @@
     129
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 269,
@@ -4568,7 +4560,7 @@
     320
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 35
   },
   {
    "id": 270,
@@ -4583,7 +4575,7 @@
     130
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 15
   },
   {
    "id": 271,
@@ -4628,7 +4620,7 @@
     321
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 274,
@@ -4643,7 +4635,7 @@
     133
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 275,
@@ -4658,7 +4650,7 @@
     134
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 276,
@@ -4673,7 +4665,7 @@
     322
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 96
   },
   {
    "id": 277,
@@ -4688,7 +4680,7 @@
     323
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 278,
@@ -4703,7 +4695,7 @@
     324
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 15
   },
   {
    "id": 279,
@@ -4718,7 +4710,7 @@
     325
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 280,
@@ -4733,7 +4725,7 @@
     326
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 4
   },
   {
    "id": 281,
@@ -4748,7 +4740,7 @@
     327
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 282,
@@ -4763,7 +4755,7 @@
     328
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 283,
@@ -4778,7 +4770,7 @@
     329
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 284,
@@ -4793,7 +4785,7 @@
     330
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 285,
@@ -4808,7 +4800,7 @@
     331
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 48
   },
   {
    "id": 286,
@@ -4823,7 +4815,7 @@
     135
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 51
   },
   {
    "id": 287,
@@ -4838,7 +4830,7 @@
     136
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 45
   },
   {
    "id": 288,
@@ -4853,7 +4845,7 @@
     137
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 41
   },
   {
    "id": 289,
@@ -4868,7 +4860,7 @@
     138
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 47
   },
   {
    "id": 290,
@@ -4883,7 +4875,7 @@
     332
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 291,
@@ -4928,7 +4920,7 @@
     333
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 294,
@@ -4943,7 +4935,7 @@
     334
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 43
   },
   {
    "id": 295,
@@ -4958,7 +4950,7 @@
     335
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 57
   },
   {
    "id": 296,
@@ -4973,7 +4965,7 @@
     336
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 19
   },
   {
    "id": 297,
@@ -4988,7 +4980,7 @@
     337
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 73
   },
   {
    "id": 298,
@@ -5003,7 +4995,7 @@
     141
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 299,
@@ -5018,7 +5010,7 @@
     142
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 300,
@@ -5033,7 +5025,7 @@
     338
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 301,
@@ -5078,7 +5070,7 @@
     339
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 304,
@@ -5093,7 +5085,7 @@
     340
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 305,
@@ -5108,7 +5100,7 @@
     341
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 306,
@@ -5123,7 +5115,7 @@
     342
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 307,
@@ -5138,7 +5130,7 @@
     343
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 19
   },
   {
    "id": 308,
@@ -5153,7 +5145,7 @@
     145
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 59
   },
   {
    "id": 309,
@@ -5168,7 +5160,7 @@
     146
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 310,
@@ -5183,7 +5175,7 @@
     344
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 311,
@@ -5198,7 +5190,7 @@
     345
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 68
   },
   {
    "id": 312,
@@ -5213,7 +5205,7 @@
     147
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 313,
@@ -5228,7 +5220,7 @@
     148
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 314,
@@ -5243,7 +5235,7 @@
     149
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 315,
@@ -5258,7 +5250,7 @@
     150
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 316,
@@ -5273,7 +5265,7 @@
     151
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 317,
@@ -5288,7 +5280,7 @@
     346
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 318,
@@ -5303,7 +5295,7 @@
     347
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 63
   },
   {
    "id": 319,
@@ -5318,7 +5310,7 @@
     348
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 320,
@@ -5333,7 +5325,7 @@
     349
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 321,
@@ -5348,7 +5340,7 @@
     350
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 322,
@@ -5363,7 +5355,7 @@
     351
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 323,
@@ -5378,7 +5370,7 @@
     352
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 324,
@@ -5393,7 +5385,7 @@
     353
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 19
   },
   {
    "id": 325,
@@ -5408,7 +5400,7 @@
     354
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 326,
@@ -5423,7 +5415,7 @@
     152
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 57
   },
   {
    "id": 327,
@@ -5543,7 +5535,7 @@
     160
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 74
   },
   {
    "id": 335,
@@ -5558,7 +5550,7 @@
     355
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 39
   },
   {
    "id": 336,
@@ -5573,7 +5565,7 @@
     356
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 29
   },
   {
    "id": 337,
@@ -5588,7 +5580,7 @@
     357
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 61
   },
   {
    "id": 338,
@@ -5603,7 +5595,7 @@
     161
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 339,
@@ -5618,7 +5610,7 @@
     162
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 75
   },
   {
    "id": 340,
@@ -5633,7 +5625,7 @@
     358
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 62
   },
   {
    "id": 341,
@@ -5648,7 +5640,7 @@
     359
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 15
   },
   {
    "id": 342,
@@ -5663,7 +5655,7 @@
     163
    ],
    "classes_on_sphere": 1200,
-   "triangles": 37
+   "triangles": 36
   },
   {
    "id": 343,
@@ -5678,7 +5670,7 @@
     360
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 55
   },
   {
    "id": 344,
@@ -5693,7 +5685,7 @@
     361
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 345,
@@ -5708,7 +5700,7 @@
     362
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 346,
@@ -5723,7 +5715,7 @@
     363
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 65
   },
   {
    "id": 347,
@@ -5738,7 +5730,7 @@
     164
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 348,
@@ -5753,7 +5745,7 @@
     165
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 349,
@@ -5768,7 +5760,7 @@
     166
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 350,
@@ -5783,7 +5775,7 @@
     167
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 41
   },
   {
    "id": 351,
@@ -5798,7 +5790,7 @@
     168
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 27
   },
   {
    "id": 352,
@@ -5813,7 +5805,7 @@
     169
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 27
   },
   {
    "id": 353,
@@ -5828,7 +5820,7 @@
     170
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 19
   },
   {
    "id": 354,
@@ -5843,7 +5835,7 @@
     364
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 355,
@@ -5858,7 +5850,7 @@
     171
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 60
   },
   {
    "id": 356,
@@ -5873,7 +5865,7 @@
     365
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 357,
@@ -5888,7 +5880,7 @@
     366
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 358,
@@ -5903,7 +5895,7 @@
     172
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 4
   },
   {
    "id": 359,
@@ -5918,7 +5910,7 @@
     367
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 9
   },
   {
    "id": 360,
@@ -5948,7 +5940,7 @@
     368
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 23
   },
   {
    "id": 362,
@@ -5963,7 +5955,7 @@
     174
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 363,
@@ -5978,7 +5970,7 @@
     175
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 56
   },
   {
    "id": 364,
@@ -5993,7 +5985,7 @@
     369
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 57
   },
   {
    "id": 365,
@@ -6008,7 +6000,7 @@
     370
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 75
   },
   {
    "id": 366,
@@ -6023,7 +6015,7 @@
     371
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 110
   },
   {
    "id": 367,
@@ -6038,7 +6030,7 @@
     372
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 4
   },
   {
    "id": 368,
@@ -6053,7 +6045,7 @@
     373
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 369,
@@ -6068,7 +6060,7 @@
     374
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 85
   },
   {
    "id": 370,
@@ -6083,7 +6075,7 @@
     375
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 35
   },
   {
    "id": 371,
@@ -6098,7 +6090,7 @@
     376
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 78
   },
   {
    "id": 372,
@@ -6113,7 +6105,7 @@
     377
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 15
   },
   {
    "id": 373,
@@ -6128,7 +6120,7 @@
     176
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 374,
@@ -6143,7 +6135,7 @@
     378
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 375,
@@ -6158,7 +6150,7 @@
     379
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 376,
@@ -6173,7 +6165,7 @@
     380
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 377,
@@ -6188,7 +6180,7 @@
     177
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 378,
@@ -6203,7 +6195,7 @@
     178
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 35
   },
   {
    "id": 379,
@@ -6218,7 +6210,7 @@
     381
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 23
   },
   {
    "id": 380,
@@ -6233,7 +6225,7 @@
     382
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 59
   },
   {
    "id": 381,
@@ -6248,7 +6240,7 @@
     383
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 53
   },
   {
    "id": 382,
@@ -6263,7 +6255,7 @@
     384
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 37
   },
   {
    "id": 383,
@@ -6278,7 +6270,7 @@
     385
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 4
   },
   {
    "id": 384,
@@ -6293,7 +6285,7 @@
     386
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 60
   },
   {
    "id": 385,
@@ -6308,7 +6300,7 @@
     387
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 3
   },
   {
    "id": 386,
@@ -6323,7 +6315,7 @@
     388
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 387,
@@ -6338,7 +6330,7 @@
     389
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 4
   },
   {
    "id": 388,
@@ -6353,7 +6345,7 @@
     179
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 389,
@@ -6368,7 +6360,7 @@
     180
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 25
   },
   {
    "id": 390,
@@ -7059,7 +7051,7 @@
     39
    ],
    "classes_on_sphere": 1200,
-   "triangles": 51
+   "triangles": 45
   },
   {
    "id": 409,
@@ -7209,7 +7201,7 @@
     43
    ],
    "classes_on_sphere": 1200,
-   "triangles": 165
+   "triangles": 153
   },
   {
    "id": 419,
@@ -7479,7 +7471,7 @@
     20
    ],
    "classes_on_sphere": 1200,
-   "triangles": 32
+   "triangles": 26
   },
   {
    "id": 437,
@@ -7554,7 +7546,7 @@
     25
    ],
    "classes_on_sphere": 1200,
-   "triangles": 85
+   "triangles": 69
   },
   {
    "id": 442,
@@ -7779,7 +7771,7 @@
     34
    ],
    "classes_on_sphere": 1200,
-   "triangles": 9
+   "triangles": 7
   },
   {
    "id": 457,
@@ -7809,7 +7801,7 @@
     36
    ],
    "classes_on_sphere": 1200,
-   "triangles": 13
+   "triangles": 11
   },
   {
    "id": 459,
@@ -8176,7 +8168,7 @@
     2
    ],
    "classes_on_sphere": 1200,
-   "triangles": 553
+   "triangles": 542
   },
   {
    "id": 471,
@@ -8191,7 +8183,7 @@
     3
    ],
    "classes_on_sphere": 1200,
-   "triangles": 215
+   "triangles": 207
   },
   {
    "id": 472,
@@ -8206,7 +8198,7 @@
     4
    ],
    "classes_on_sphere": 1200,
-   "triangles": 194
+   "triangles": 182
   },
   {
    "id": 473,
@@ -8221,7 +8213,7 @@
     5
    ],
    "classes_on_sphere": 1200,
-   "triangles": 237
+   "triangles": 227
   },
   {
    "id": 474,
@@ -8236,7 +8228,7 @@
     6
    ],
    "classes_on_sphere": 1200,
-   "triangles": 125
+   "triangles": 143
   },
   {
    "id": 475,
@@ -8251,7 +8243,7 @@
     7
    ],
    "classes_on_sphere": 1200,
-   "triangles": 138
+   "triangles": 160
   },
   {
    "id": 476,
@@ -8266,7 +8258,7 @@
     8
    ],
    "classes_on_sphere": 1200,
-   "triangles": 208
+   "triangles": 201
   },
   {
    "id": 477,
@@ -8281,7 +8273,7 @@
     9
    ],
    "classes_on_sphere": 1200,
-   "triangles": 69
+   "triangles": 113
   },
   {
    "id": 478,
@@ -8296,7 +8288,7 @@
     10
    ],
    "classes_on_sphere": 1200,
-   "triangles": 48
+   "triangles": 93
   },
   {
    "id": 479,
@@ -8697,7 +8689,7 @@
     2
    ],
    "classes_on_sphere": 1200,
-   "triangles": 246
+   "triangles": 243
   },
   {
    "id": 492,
@@ -8742,7 +8734,7 @@
     5
    ],
    "classes_on_sphere": 1200,
-   "triangles": 236
+   "triangles": 238
   },
   {
    "id": 495,
@@ -8757,7 +8749,7 @@
     27
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 55
   },
   {
    "id": 496,
@@ -8772,7 +8764,7 @@
     28
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 497,
@@ -8787,7 +8779,7 @@
     29
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 60
   },
   {
    "id": 498,
@@ -8802,7 +8794,7 @@
     30
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 499,
@@ -8817,7 +8809,7 @@
     31
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 62
   },
   {
    "id": 500,
@@ -8832,7 +8824,7 @@
     32
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 75
   },
   {
    "id": 501,
@@ -8847,7 +8839,7 @@
     33
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 502,
@@ -8862,7 +8854,7 @@
     34
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 21
   },
   {
    "id": 503,
@@ -8877,7 +8869,7 @@
     35
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 45
   },
   {
    "id": 504,
@@ -8892,7 +8884,7 @@
     36
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 106
   },
   {
    "id": 505,
@@ -8907,7 +8899,7 @@
     6
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 506,
@@ -8922,7 +8914,7 @@
     7
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 54
   },
   {
    "id": 507,
@@ -8937,7 +8929,7 @@
     8
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 84
   },
   {
    "id": 508,
@@ -8952,7 +8944,7 @@
     9
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 59
   },
   {
    "id": 509,
@@ -8967,7 +8959,7 @@
     10
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 510,
@@ -8982,7 +8974,7 @@
     11
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 49
   },
   {
    "id": 511,
@@ -8997,7 +8989,7 @@
     12
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 128
   },
   {
    "id": 512,
@@ -9012,7 +9004,7 @@
     37
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 31
   },
   {
    "id": 513,
@@ -9027,7 +9019,7 @@
     38
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 514,
@@ -9042,7 +9034,7 @@
     39
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 23
   },
   {
    "id": 515,
@@ -9057,7 +9049,7 @@
     40
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 516,
@@ -9072,7 +9064,7 @@
     41
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 53
   },
   {
    "id": 517,
@@ -9087,7 +9079,7 @@
     42
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 29
   },
   {
    "id": 518,
@@ -9102,7 +9094,7 @@
     43
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 3
   },
   {
    "id": 519,
@@ -9117,7 +9109,7 @@
     44
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 520,
@@ -9132,7 +9124,7 @@
     45
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 48
   },
   {
    "id": 521,
@@ -9147,7 +9139,7 @@
     46
    ],
    "classes_on_sphere": 1200,
-   "triangles": 43
+   "triangles": 38
   },
   {
    "id": 522,
@@ -9162,7 +9154,7 @@
     47
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 99
   },
   {
    "id": 523,
@@ -9177,7 +9169,7 @@
     48
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 524,
@@ -9192,7 +9184,7 @@
     49
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 95
   },
   {
    "id": 525,
@@ -9207,7 +9199,7 @@
     50
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 47
   },
   {
    "id": 526,
@@ -9222,7 +9214,7 @@
     51
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 527,
@@ -9237,7 +9229,7 @@
     52
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 528,
@@ -9252,7 +9244,7 @@
     53
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 70
   },
   {
    "id": 529,
@@ -9267,7 +9259,7 @@
     54
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 530,
@@ -9282,7 +9274,7 @@
     55
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 531,
@@ -9297,7 +9289,7 @@
     56
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 532,
@@ -9312,7 +9304,7 @@
     57
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 533,
@@ -9327,7 +9319,7 @@
     13
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 110
   },
   {
    "id": 534,
@@ -9342,7 +9334,7 @@
     14
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 182
   },
   {
    "id": 535,
@@ -9357,7 +9349,7 @@
     15
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 112
   },
   {
    "id": 536,
@@ -9372,7 +9364,7 @@
     16
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 204
   },
   {
    "id": 537,
@@ -9387,7 +9379,7 @@
     17
    ],
    "classes_on_sphere": 1200,
-   "triangles": 29
+   "triangles": 26
   },
   {
    "id": 538,
@@ -9402,7 +9394,7 @@
     58
    ],
    "classes_on_sphere": 1200,
-   "triangles": 103
+   "triangles": 104
   },
   {
    "id": 539,
@@ -9417,7 +9409,7 @@
     59
    ],
    "classes_on_sphere": 1200,
-   "triangles": 284
+   "triangles": 287
   },
   {
    "id": 540,
@@ -9432,7 +9424,7 @@
     60
    ],
    "classes_on_sphere": 1200,
-   "triangles": 155
+   "triangles": 156
   },
   {
    "id": 541,
@@ -9447,7 +9439,7 @@
     18
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 542,
@@ -9462,7 +9454,7 @@
     61
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 31
   },
   {
    "id": 543,
@@ -9477,7 +9469,7 @@
     62
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 37
   },
   {
    "id": 544,
@@ -9492,7 +9484,7 @@
     63
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 123
   },
   {
    "id": 545,
@@ -9507,7 +9499,7 @@
     19
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 80
   },
   {
    "id": 546,
@@ -9522,7 +9514,7 @@
     64
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 547,
@@ -9537,7 +9529,7 @@
     20
    ],
    "classes_on_sphere": 1200,
-   "triangles": 64
+   "triangles": 63
   },
   {
    "id": 548,
@@ -9552,7 +9544,7 @@
     65
    ],
    "classes_on_sphere": 1200,
-   "triangles": 200
+   "triangles": 174
   },
   {
    "id": 549,
@@ -9567,7 +9559,7 @@
     66
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 550,
@@ -9597,7 +9589,7 @@
     68
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 552,
@@ -9612,7 +9604,7 @@
     69
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 25
   },
   {
    "id": 553,
@@ -9627,7 +9619,7 @@
     70
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 25
   },
   {
    "id": 554,
@@ -9642,7 +9634,7 @@
     71
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 555,
@@ -9657,7 +9649,7 @@
     72
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 556,
@@ -9672,7 +9664,7 @@
     73
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 9
   },
   {
    "id": 557,
@@ -9687,7 +9679,7 @@
     74
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 558,
@@ -9702,7 +9694,7 @@
     75
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 127
   },
   {
    "id": 559,
@@ -9717,7 +9709,7 @@
     76
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 33
   },
   {
    "id": 560,
@@ -9732,7 +9724,7 @@
     21
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 9
   },
   {
    "id": 561,
@@ -9747,7 +9739,7 @@
     22
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 562,
@@ -9762,7 +9754,7 @@
     77
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 563,
@@ -9777,7 +9769,7 @@
     23
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 79
   },
   {
    "id": 564,
@@ -9792,7 +9784,7 @@
     78
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 565,
@@ -9807,7 +9799,7 @@
     79
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 29
   },
   {
    "id": 566,
@@ -9822,7 +9814,7 @@
     80
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 567,
@@ -9837,7 +9829,7 @@
     81
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 26
   },
   {
    "id": 568,
@@ -9852,7 +9844,7 @@
     82
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 66
   },
   {
    "id": 569,
@@ -9867,7 +9859,7 @@
     24
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 63
   },
   {
    "id": 570,
@@ -9882,7 +9874,7 @@
     25
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 571,
@@ -10011,7 +10003,7 @@
     2
    ],
    "classes_on_sphere": 1200,
-   "triangles": 157
+   "triangles": 142
   },
   {
    "id": 577,
@@ -10026,7 +10018,7 @@
     3
    ],
    "classes_on_sphere": 1200,
-   "triangles": 125
+   "triangles": 119
   },
   {
    "id": 578,
@@ -10041,7 +10033,7 @@
     4
    ],
    "classes_on_sphere": 1200,
-   "triangles": 275
+   "triangles": 253
   },
   {
    "id": 579,
@@ -10056,7 +10048,7 @@
     5
    ],
    "classes_on_sphere": 1200,
-   "triangles": 266
+   "triangles": 272
   },
   {
    "id": 580,
@@ -10086,7 +10078,7 @@
     7
    ],
    "classes_on_sphere": 1200,
-   "triangles": 201
+   "triangles": 207
   },
   {
    "id": 582,
@@ -10116,7 +10108,7 @@
     9
    ],
    "classes_on_sphere": 1200,
-   "triangles": 209
+   "triangles": 167
   },
   {
    "id": 584,
@@ -10131,7 +10123,7 @@
     10
    ],
    "classes_on_sphere": 1200,
-   "triangles": 309
+   "triangles": 315
   },
   {
    "id": 585,
@@ -10146,7 +10138,7 @@
     11
    ],
    "classes_on_sphere": 1200,
-   "triangles": 113
+   "triangles": 106
   },
   {
    "id": 586,
@@ -10161,7 +10153,7 @@
     12
    ],
    "classes_on_sphere": 1200,
-   "triangles": 166
+   "triangles": 172
   },
   {
    "id": 587,
@@ -10191,7 +10183,7 @@
     14
    ],
    "classes_on_sphere": 1200,
-   "triangles": 48
+   "triangles": 46
   },
   {
    "id": 589,
@@ -12677,7 +12669,7 @@
     2
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 99
   },
   {
    "id": 658,
@@ -12692,7 +12684,7 @@
     3
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 659,
@@ -12737,7 +12729,7 @@
     6
    ],
    "classes_on_sphere": 1200,
-   "triangles": 103
+   "triangles": 99
   },
   {
    "id": 662,
@@ -12767,7 +12759,7 @@
     8
    ],
    "classes_on_sphere": 1200,
-   "triangles": 22
+   "triangles": 20
   },
   {
    "id": 664,
@@ -12782,7 +12774,7 @@
     9
    ],
    "classes_on_sphere": 1200,
-   "triangles": 24
+   "triangles": 22
   },
   {
    "id": 665,
@@ -12797,7 +12789,7 @@
     10
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 73
   },
   {
    "id": 666,
@@ -12812,7 +12804,7 @@
     11
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 90
   },
   {
    "id": 667,
@@ -12827,7 +12819,7 @@
     12
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 668,
@@ -12842,7 +12834,7 @@
     13
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 669,
@@ -12857,7 +12849,7 @@
     14
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 670,
@@ -12872,7 +12864,7 @@
     15
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 21
   },
   {
    "id": 671,
@@ -12887,7 +12879,7 @@
     16
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 672,
@@ -12902,7 +12894,7 @@
     17
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 70
   },
   {
    "id": 673,
@@ -12917,7 +12909,7 @@
     18
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 37
   },
   {
    "id": 674,
@@ -12932,7 +12924,7 @@
     19
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 71
   },
   {
    "id": 675,
@@ -12947,7 +12939,7 @@
     20
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 676,
@@ -12962,7 +12954,7 @@
     21
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 57
   },
   {
    "id": 677,
@@ -12977,7 +12969,7 @@
     22
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 678,
@@ -12992,7 +12984,7 @@
     23
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 29
   },
   {
    "id": 679,
@@ -13007,7 +12999,7 @@
     24
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 20
   },
   {
    "id": 680,
@@ -13022,7 +13014,7 @@
     25
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 41
   },
   {
    "id": 681,
@@ -13037,7 +13029,7 @@
     26
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 47
   },
   {
    "id": 682,
@@ -13052,7 +13044,7 @@
     27
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 683,
@@ -13067,7 +13059,7 @@
     28
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 684,
@@ -13082,7 +13074,7 @@
     29
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 685,
@@ -13097,7 +13089,7 @@
     30
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 19
   },
   {
    "id": 686,
@@ -13112,7 +13104,7 @@
     31
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 71
   },
   {
    "id": 687,
@@ -13127,7 +13119,7 @@
     32
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 33
   },
   {
    "id": 688,
@@ -13142,7 +13134,7 @@
     33
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 27
   },
   {
    "id": 689,
@@ -13157,7 +13149,7 @@
     34
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 690,
@@ -13172,7 +13164,7 @@
     35
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 66
   },
   {
    "id": 691,
@@ -13187,7 +13179,7 @@
     36
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 692,
@@ -13202,7 +13194,7 @@
     37
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 59
   },
   {
    "id": 693,
@@ -13217,7 +13209,7 @@
     38
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 694,
@@ -13232,7 +13224,7 @@
     39
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 64
   },
   {
    "id": 695,
@@ -13247,7 +13239,7 @@
     40
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 30
   },
   {
    "id": 696,
@@ -13277,7 +13269,7 @@
     42
    ],
    "classes_on_sphere": 1200,
-   "triangles": 98
+   "triangles": 88
   },
   {
    "id": 698,
@@ -13292,7 +13284,7 @@
     43
    ],
    "classes_on_sphere": 1200,
-   "triangles": 65
+   "triangles": 61
   },
   {
    "id": 699,
@@ -13337,7 +13329,7 @@
     46
    ],
    "classes_on_sphere": 1200,
-   "triangles": 129
+   "triangles": 125
   },
   {
    "id": 702,
@@ -13367,7 +13359,7 @@
     48
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 46
   },
   {
    "id": 704,
@@ -13382,7 +13374,7 @@
     49
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 705,
@@ -13397,7 +13389,7 @@
     50
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 48
   },
   {
    "id": 706,
@@ -13412,7 +13404,7 @@
     51
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 707,
@@ -13427,7 +13419,7 @@
     52
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 44
   },
   {
    "id": 708,
@@ -13442,7 +13434,7 @@
     53
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 709,
@@ -13457,7 +13449,7 @@
     54
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 710,
@@ -13472,7 +13464,7 @@
     55
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 711,
@@ -13487,7 +13479,7 @@
     56
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 54
   },
   {
    "id": 712,
@@ -13502,7 +13494,7 @@
     57
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 56
   },
   {
    "id": 713,
@@ -13517,7 +13509,7 @@
     58
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 21
   },
   {
    "id": 714,
@@ -13532,7 +13524,7 @@
     59
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 715,
@@ -13547,7 +13539,7 @@
     60
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 716,
@@ -13562,7 +13554,7 @@
     238
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 21
   },
   {
    "id": 717,
@@ -13577,7 +13569,7 @@
     61
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 718,
@@ -13592,7 +13584,7 @@
     62
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 719,
@@ -13607,7 +13599,7 @@
     63
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 720,
@@ -13622,7 +13614,7 @@
     64
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 54
   },
   {
    "id": 721,
@@ -13637,7 +13629,7 @@
     65
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 55
   },
   {
    "id": 722,
@@ -13652,7 +13644,7 @@
     66
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 69
   },
   {
    "id": 723,
@@ -13667,7 +13659,7 @@
     67
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 73
   },
   {
    "id": 724,
@@ -13682,7 +13674,7 @@
     68
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 75
   },
   {
    "id": 725,
@@ -13697,7 +13689,7 @@
     69
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 59
   },
   {
    "id": 726,
@@ -13712,7 +13704,7 @@
     70
    ],
    "classes_on_sphere": 1200,
-   "triangles": 54
+   "triangles": 50
   },
   {
    "id": 727,
@@ -13727,7 +13719,7 @@
     71
    ],
    "classes_on_sphere": 1200,
-   "triangles": 44
+   "triangles": 43
   },
   {
    "id": 728,
@@ -13742,7 +13734,7 @@
     72
    ],
    "classes_on_sphere": 1200,
-   "triangles": 137
+   "triangles": 127
   },
   {
    "id": 729,
@@ -13757,7 +13749,7 @@
     73
    ],
    "classes_on_sphere": 1200,
-   "triangles": 45
+   "triangles": 44
   },
   {
    "id": 730,
@@ -13772,7 +13764,7 @@
     74
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 731,
@@ -13817,7 +13809,7 @@
     77
    ],
    "classes_on_sphere": 1200,
-   "triangles": 55
+   "triangles": 58
   },
   {
    "id": 734,
@@ -13832,7 +13824,7 @@
     78
    ],
    "classes_on_sphere": 1200,
-   "triangles": 46
+   "triangles": 49
   },
   {
    "id": 735,
@@ -13847,7 +13839,7 @@
     79
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 79
   },
   {
    "id": 736,
@@ -13862,7 +13854,7 @@
     80
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 72
   },
   {
    "id": 737,
@@ -13877,7 +13869,7 @@
     81
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 92
   },
   {
    "id": 738,
@@ -13892,7 +13884,7 @@
     82
    ],
    "classes_on_sphere": 1200,
-   "triangles": 37
+   "triangles": 32
   },
   {
    "id": 739,
@@ -13907,7 +13899,7 @@
     83
    ],
    "classes_on_sphere": 1200,
-   "triangles": 38
+   "triangles": 39
   },
   {
    "id": 740,
@@ -13997,7 +13989,7 @@
     89
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 746,
@@ -14012,7 +14004,7 @@
     90
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 22
   },
   {
    "id": 747,
@@ -14027,7 +14019,7 @@
     91
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 748,
@@ -14042,7 +14034,7 @@
     239
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 749,
@@ -14057,7 +14049,7 @@
     92
    ],
    "classes_on_sphere": 1200,
-   "triangles": 82
+   "triangles": 83
   },
   {
    "id": 750,
@@ -14087,7 +14079,7 @@
     94
    ],
    "classes_on_sphere": 1200,
-   "triangles": 76
+   "triangles": 77
   },
   {
    "id": 752,
@@ -14102,7 +14094,7 @@
     95
    ],
    "classes_on_sphere": 1200,
-   "triangles": 93
+   "triangles": 92
   },
   {
    "id": 753,
@@ -14117,7 +14109,7 @@
     96
    ],
    "classes_on_sphere": 1200,
-   "triangles": 76
+   "triangles": 59
   },
   {
    "id": 754,
@@ -14237,7 +14229,7 @@
     104
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 3
   },
   {
    "id": 762,
@@ -14252,7 +14244,7 @@
     105
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 35
   },
   {
    "id": 763,
@@ -14282,7 +14274,7 @@
     107
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 63
   },
   {
    "id": 765,
@@ -14297,7 +14289,7 @@
     108
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 17
   },
   {
    "id": 766,
@@ -14312,7 +14304,7 @@
     109
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 767,
@@ -14327,7 +14319,7 @@
     110
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 768,
@@ -14342,7 +14334,7 @@
     111
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 769,
@@ -14357,7 +14349,7 @@
     112
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 770,
@@ -14372,7 +14364,7 @@
     113
    ],
    "classes_on_sphere": 1200,
-   "triangles": 6
+   "triangles": 5
   },
   {
    "id": 771,
@@ -14402,7 +14394,7 @@
     115
    ],
    "classes_on_sphere": 1200,
-   "triangles": 9
+   "triangles": 8
   },
   {
    "id": 773,
@@ -14417,7 +14409,7 @@
     116
    ],
    "classes_on_sphere": 1200,
-   "triangles": 35
+   "triangles": 28
   },
   {
    "id": 774,
@@ -14432,7 +14424,7 @@
     117
    ],
    "classes_on_sphere": 1200,
-   "triangles": 5
+   "triangles": 4
   },
   {
    "id": 775,
@@ -14477,7 +14469,7 @@
     120
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 778,
@@ -14672,7 +14664,7 @@
     133
    ],
    "classes_on_sphere": 1200,
-   "triangles": 99
+   "triangles": 100
   },
   {
    "id": 791,
@@ -14687,7 +14679,7 @@
     134
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 792,
@@ -14702,7 +14694,7 @@
     135
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 25
   },
   {
    "id": 793,
@@ -14717,7 +14709,7 @@
     136
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 794,
@@ -14732,7 +14724,7 @@
     137
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 795,
@@ -14747,7 +14739,7 @@
     138
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 27
   },
   {
    "id": 796,
@@ -14762,7 +14754,7 @@
     139
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 797,
@@ -14777,7 +14769,7 @@
     140
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 798,
@@ -14792,7 +14784,7 @@
     141
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 799,
@@ -14807,7 +14799,7 @@
     142
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 9
   },
   {
    "id": 800,
@@ -14822,7 +14814,7 @@
     143
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 41
   },
   {
    "id": 801,
@@ -14837,7 +14829,7 @@
     144
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 802,
@@ -14852,7 +14844,7 @@
     145
    ],
    "classes_on_sphere": 1200,
-   "triangles": 11
+   "triangles": 9
   },
   {
    "id": 803,
@@ -14882,7 +14874,7 @@
     147
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 805,
@@ -14897,7 +14889,7 @@
     148
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 34
   },
   {
    "id": 806,
@@ -14912,7 +14904,7 @@
     149
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 42
   },
   {
    "id": 807,
@@ -14927,7 +14919,7 @@
     150
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 808,
@@ -14942,7 +14934,7 @@
     151
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 809,
@@ -14957,7 +14949,7 @@
     152
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 810,
@@ -14972,7 +14964,7 @@
     153
    ],
    "classes_on_sphere": 1200,
-   "triangles": 40
+   "triangles": 34
   },
   {
    "id": 811,
@@ -15017,7 +15009,7 @@
     156
    ],
    "classes_on_sphere": 1200,
-   "triangles": 10
+   "triangles": 8
   },
   {
    "id": 814,
@@ -15047,7 +15039,7 @@
     240
    ],
    "classes_on_sphere": 1200,
-   "triangles": 50
+   "triangles": 49
   },
   {
    "id": 816,
@@ -15062,7 +15054,7 @@
     241
    ],
    "classes_on_sphere": 1200,
-   "triangles": 61
+   "triangles": 60
   },
   {
    "id": 817,
@@ -15077,7 +15069,7 @@
     242
    ],
    "classes_on_sphere": 1200,
-   "triangles": 51
+   "triangles": 50
   },
   {
    "id": 818,
@@ -15092,7 +15084,7 @@
     158
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 15
   },
   {
    "id": 819,
@@ -15107,7 +15099,7 @@
     159
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 820,
@@ -15122,7 +15114,7 @@
     160
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 821,
@@ -15137,7 +15129,7 @@
     161
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 822,
@@ -15182,7 +15174,7 @@
     164
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 24
   },
   {
    "id": 825,
@@ -15197,7 +15189,7 @@
     165
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 826,
@@ -15287,7 +15279,7 @@
     171
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 832,
@@ -15347,7 +15339,7 @@
     175
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 836,
@@ -15362,7 +15354,7 @@
     176
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 837,
@@ -15377,7 +15369,7 @@
     177
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 838,
@@ -15392,7 +15384,7 @@
     178
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 839,
@@ -15407,7 +15399,7 @@
     179
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 840,
@@ -15422,7 +15414,7 @@
     180
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 49
   },
   {
    "id": 841,
@@ -15437,7 +15429,7 @@
     181
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 28
   },
   {
    "id": 842,
@@ -15452,7 +15444,7 @@
     182
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 843,
@@ -15467,7 +15459,7 @@
     183
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 7
   },
   {
    "id": 844,
@@ -15482,7 +15474,7 @@
     184
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 845,
@@ -15497,7 +15489,7 @@
     185
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 32
   },
   {
    "id": 846,
@@ -15527,7 +15519,7 @@
     187
    ],
    "classes_on_sphere": 1200,
-   "triangles": 37
+   "triangles": 36
   },
   {
    "id": 848,
@@ -15557,7 +15549,7 @@
     189
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 850,
@@ -15572,7 +15564,7 @@
     190
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 33
   },
   {
    "id": 851,
@@ -15587,7 +15579,7 @@
     191
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 852,
@@ -15602,7 +15594,7 @@
     192
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 853,
@@ -15617,7 +15609,7 @@
     193
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 854,
@@ -15632,7 +15624,7 @@
     194
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 16
   },
   {
    "id": 855,
@@ -15647,7 +15639,7 @@
     195
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 36
   },
   {
    "id": 856,
@@ -15662,7 +15654,7 @@
     196
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 857,
@@ -15677,7 +15669,7 @@
     197
    ],
    "classes_on_sphere": 1200,
-   "triangles": 9
+   "triangles": 8
   },
   {
    "id": 858,
@@ -15692,7 +15684,7 @@
     198
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 1
   },
   {
    "id": 859,
@@ -15722,7 +15714,7 @@
     200
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 3
   },
   {
    "id": 861,
@@ -15737,7 +15729,7 @@
     201
    ],
    "classes_on_sphere": 1200,
-   "triangles": 60
+   "triangles": 48
   },
   {
    "id": 862,
@@ -15752,7 +15744,7 @@
     202
    ],
    "classes_on_sphere": 1200,
-   "triangles": 13
+   "triangles": 11
   },
   {
    "id": 863,
@@ -15767,7 +15759,7 @@
     203
    ],
    "classes_on_sphere": 1200,
-   "triangles": 18
+   "triangles": 19
   },
   {
    "id": 864,
@@ -15782,7 +15774,7 @@
     204
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 865,
@@ -15797,7 +15789,7 @@
     205
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 866,
@@ -15872,7 +15864,7 @@
     210
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 871,
@@ -15902,7 +15894,7 @@
     212
    ],
    "classes_on_sphere": 1200,
-   "triangles": 57
+   "triangles": 58
   },
   {
    "id": 873,
@@ -15917,7 +15909,7 @@
     213
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 18
   },
   {
    "id": 874,
@@ -15932,7 +15924,7 @@
     214
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 875,
@@ -15947,7 +15939,7 @@
     215
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 876,
@@ -15962,7 +15954,7 @@
     216
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 15
   },
   {
    "id": 877,
@@ -15977,7 +15969,7 @@
     217
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 12
   },
   {
    "id": 878,
@@ -16007,7 +15999,7 @@
     219
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 880,
@@ -16022,7 +16014,7 @@
     220
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 881,
@@ -16037,7 +16029,7 @@
     221
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 882,
@@ -16052,7 +16044,7 @@
     222
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 883,
@@ -16067,7 +16059,7 @@
     223
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 11
   },
   {
    "id": 884,
@@ -16082,7 +16074,7 @@
     224
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 885,
@@ -16097,7 +16089,7 @@
     225
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 37
   },
   {
    "id": 886,
@@ -16112,7 +16104,7 @@
     226
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 8
   },
   {
    "id": 887,
@@ -16127,7 +16119,7 @@
     227
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 888,
@@ -16142,7 +16134,7 @@
     228
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 889,
@@ -16157,7 +16149,7 @@
     229
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 5
   },
   {
    "id": 890,
@@ -16172,7 +16164,7 @@
     230
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 6
   },
   {
    "id": 891,
@@ -16187,7 +16179,7 @@
     231
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 892,
@@ -16202,7 +16194,7 @@
     232
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 13
   },
   {
    "id": 893,
@@ -16217,7 +16209,7 @@
     233
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 10
   },
   {
    "id": 894,
@@ -16232,7 +16224,7 @@
     234
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 14
   },
   {
    "id": 895,
@@ -16247,7 +16239,7 @@
     235
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 19
   },
   {
    "id": 896,
@@ -16262,7 +16254,7 @@
     236
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 2
   },
   {
    "id": 897,
@@ -16277,7 +16269,7 @@
     237
    ],
    "classes_on_sphere": 1200,
-   "triangles": 0
+   "triangles": 9
   },
   {
    "id": 898,
@@ -17410,10 +17402,10 @@
  ],
  "joined_by_seam": 184,
  "rim_counts": {
-  "line": 46283,
-  "meet": 21031,
-  "open": 5428,
+  "line": 46214,
+  "meet": 38009,
+  "open": 5491,
   "seam": 214501,
-  "face": 9164
+  "face": 9635
  }
 }
