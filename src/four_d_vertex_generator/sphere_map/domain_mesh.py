@@ -406,6 +406,81 @@ def build_parallel(log=print, workers=4):
     return pt, rm
 
 
+def ring_walls(xa, xb, s_idx, surfs, keys, pw, n=24, rho=1e-6):
+    """The walls round a rim stretch, read from the pieces on a small ring round its curve: the
+    curve's crossing surfaces are those through both (exact) ends; its middle is solved onto them
+    and the wall's surface; ring points one apart in different pieces have a wall patch between
+    them when one surface separates them. Returns [wall or None for each step round the ring]."""
+    vals = lambda X: np.stack([sf.f(X) for sf in surfs], 1)
+    va, vb = vals(np.stack([xa, xb]))
+    gr = np.array([[np.linalg.norm(sf.grad(x[None])[0]) for sf in surfs] for x in (xa, xb)]) + 1e-300
+    on = [j for j in np.flatnonzero((np.abs(va) / gr[0] < 1e-9) & (np.abs(vb) / gr[1] < 1e-9)) if j != s_idx]
+    m0 = (xa + xb) / 2
+    if on:
+        m, ok = solve([Fn(surfs[s_idx])] + [Fn(surfs[j]) for j in on[:2]], m0)
+        if not ok:
+            m, ok = solve([Fn(surfs[s_idx]), Fn(surfs[on[0]])], m0)
+        if not ok:
+            m = m0
+    else:
+        m = m0
+    u = xb - xa
+    if not np.isfinite(u).all() or np.linalg.norm(u) < 1e-13 or not np.isfinite(m).all():
+        return [], []
+    basis = np.linalg.svd(np.vstack([np.ones(4) / 2, u / np.linalg.norm(u)]))[2][2:]
+    th = np.linspace(0, 2 * np.pi, n, endpoint=False)
+    X = m + rho * (np.cos(th)[:, None] * basis[0] + np.sin(th)[:, None] * basis[1])
+    S = np.sign(vals(X)).astype(np.int8)
+    pcs = [keys.get(r.tobytes()) for r in S]
+    out = []
+    for i in range(n):
+        j = (i + 1) % n
+        if pcs[i] == pcs[j]:
+            continue
+        diff = np.flatnonzero(S[i] != S[j])
+        w = None
+        if len(diff) == 1 and pcs[i] is not None and pcs[j] is not None:
+            r = pw.get((min(pcs[i], pcs[j]), max(pcs[i], pcs[j]), int(diff[0])))
+            w = r["wall"] if r else None
+        out.append(w)
+    return out, pcs
+
+
+def reclassify(rims, log=print):
+    """Rim stretches the four-piece reading left open (one of its four pieces is no piece: two
+    crossing surfaces through the same curve, or a corner), named again from the ring round them:
+    another wall there (a meeting), the wall itself across the curve (a seam or crease), else the
+    wall's true end."""
+    from .atlas_db import _library_surfaces, _piece_keys
+    root = data_dir() / "sphere_map"
+    surfs = _library_surfaces(root)
+    keys = _piece_keys(root)
+    patches = json.loads((root / "patches.json").read_text())["patches"]
+    pw = {(min(p["pieces"]), max(p["pieces"]), p["surface"]): p
+          for p in patches if p["face"] is None and p["wall"]}
+    stats = defaultdict(int)
+    for pid, rl in rims.items():
+        p = patches[pid]
+        if p["surface"] is None:
+            continue
+        for i, (kind, name, cont, xa, xb) in enumerate(rl):
+            if kind != "open":
+                continue
+            walls, _ = ring_walls(xa, xb, p["surface"], surfs, keys, pw)
+            ws = [w for w in walls if w]
+            others = sorted(set(ws) - {p["wall"]})
+            if others:
+                rl[i] = ("meet", "/".join(others), ws.count(p["wall"]) > 1, xa, xb)
+            elif ws.count(p["wall"]) > 1:
+                rl[i] = ("seam", None, True, xa, xb)
+            else:
+                stats["still open" + (" (unread ring)" if len(ws) < len(walls) else "")] += 1
+                continue
+            stats[rl[i][0]] += 1
+    log(f"open rims read again: {dict(stats)}")
+    return rims
+
+
 def exact_lines(step=4e-3):
     """Every named line's stretches in the domain (the atlas's line pieces), resampled every
     `step` and each point solved onto the segment's two exact surfaces."""
@@ -448,6 +523,7 @@ def export(log=print):
         patch_tris, rims = build_parallel(log=log)
         cache.parent.mkdir(exist_ok=True)
         cache.write_bytes(pickle.dumps((patch_tris, rims)))
+    rims = reclassify(rims, log=log)
     wp = wall_pieces.build(log=lambda *_: None)
     parent = {}
 
