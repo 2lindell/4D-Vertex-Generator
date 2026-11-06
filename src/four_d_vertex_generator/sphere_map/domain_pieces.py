@@ -574,8 +574,17 @@ def boundary_arcs(s, faces, D, own):
                 dmin, y = min(cands, key=lambda c: c[0])
                 if 1e-9 < dmin < 0.03:
                     arcs[j].append(resample(np.array([x, y]), [s, D.face_planes[j]], step=STEP / 3))
-    return [{"kind": "face", "name": D.face_planes[j].name, "pts": a, "eqs": [s, D.face_planes[j]]}
-            for j in faces for a in arcs[j] if len(a) > 1]
+    out = []
+    for j in faces:
+        kept = []
+        for a in sorted([a for a in arcs[j] if len(a) > 1], key=len, reverse=True):
+            probe_ = a[[0, len(a) // 4, len(a) // 2, 3 * len(a) // 4, -1]]
+            if any(all(seg_dist(b, None, x) < 2e-5 for x in probe_) for b in kept):
+                continue                         # (the same arc traced again)
+            kept.append(a)
+        out += [{"kind": "face", "name": D.face_planes[j].name, "pts": a, "eqs": [s, D.face_planes[j]]}
+                for a in kept]
+    return out
 
 
 def second(s, c, D):
@@ -653,7 +662,8 @@ class Graph:
             for b_ in range(len(cs)):
                 if a_ != b_:
                     X = cs[b_]["pts"][1:-1][::5]
-                    if len(X) and (near(a_, X) < 1e-7).sum() >= max(2, len(X) // 4):
+                    # (the same exact curve, its points elsewhere along it: within the chords' sag)
+                    if len(X) and (near(a_, X) < 2e-5).sum() >= max(2, len(X) // 4):
                         overlap |= {(a_, b_), (b_, a_)}
         cuts = defaultdict(list)
         for a_ in range(len(cs)):                         # ends lying on other curves
