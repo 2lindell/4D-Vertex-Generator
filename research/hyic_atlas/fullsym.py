@@ -43,4 +43,4 @@ def full_symmetry(V, tol=1e-7):
                 if t.query(V @ M.T)[0].max() < 1e-6:
                     stab += 1
                     improper += np.linalg.det(M) < 0
-    return len(V) * stab, len(V) * improper
+    return int(len(V) * stab), int(len(V) * improper)
