@@ -21,7 +21,7 @@ ROOT = os.path.dirname(HERE)
 DEC = os.path.join(ROOT, "decaic_atlas")
 WORD = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
         11: "eleven", 12: "twelve"}
-ORDER_CELLS = ["snits", "gratets", "ratets", "tuts", "gyrotuts", "cubes", "traps", "gyro-traps", "trips", "wedges",
+ORDER_CELLS = ["gircoes", "sircoes", "snics", "tics", "gratets / toes", "snits", "gratets", "ratets", "tuts", "gyrotuts", "cubes", "ditrips / hips", "tricus", "squaps / squigyps", "octs", "traps", "gyro-traps", "gyrowedges", "trips", "wedges",
                "square pyramids", "triangular bipyramids", "regular tets", "tetragonal disphenoids", "disphenoids", "irregular tets"]
 
 
@@ -178,6 +178,14 @@ def write_page(new):
                          + f'<br>{html.escape(e["off"])}</p></article>')
         P.append("</section>")
         parts.append("\n".join(P))
+    note = (f"This version adds the {sum(len(v) for v in new.values())} new kidecaic and iodecaic shapes found by the "
+            f"atlas, for {total} in all. The named shapes keep their original descriptions. New shapes are written in "
+            "the same terms from their polychora: cells by orbit, vertices with the dualcell's face count, edges by "
+            "how many faces meet there, and faces by shape. Each has its seed (β = distances to the four mirrors) and "
+            "its .off file in research/new_shapes/off.")
+    tpl = (tpl.replace("{{TITLE}}", "Pennic and Decaic Isogonals").replace("{{NOTE}}", html.escape(note))
+           .replace("{{FOOTER}}", "Made by research/pages/make_decaic_page.py from the decaic atlas (research/decaic_atlas). "
+                    "Original text: the Pennic and Decaic Isogonals page."))
     page = (tpl.replace("{{INTRO}}", html.escape(intro)).replace("{{NAV}}", "\n".join(nav))
             .replace("{{SECTIONS}}", "\n".join(parts)).replace("{{TOTAL}}", str(total))
             .replace("{{NEW}}", str(sum(len(v) for v in new.values()))))

@@ -2,7 +2,7 @@
 by kind), vertices and the dualcell's face count (= edges at a vertex), edges by valence (trigonic = three faces meet)
 with their orbit sizes, faces by shape (equits, isots, scalene triangles, squares, rectangles, trapezoids, ...).
 
-    DECAIC_SUB=ki|io python describe.py '<json list of [id, beta, hull_tol]>'   -> JSON on stdout
+    DECAIC_SUB=ki|io (or CONTIC_SUB=full|ki|io|ico|icp|icpb|tox|ox|oxb) python describe.py '<json list of [id, beta, hull_tol]>'   -> JSON on stdout
 """
 from __future__ import annotations
 
@@ -15,7 +15,9 @@ import numpy as np
 from scipy.spatial import cKDTree
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(os.path.dirname(HERE), "decaic_atlas"))
+# (the atlas: the contic family when CONTIC_SUB is set, else the decaic family (DECAIC_SUB))
+CONTIC = "CONTIC_SUB" in os.environ
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "contic_atlas" if CONTIC else "decaic_atlas"))
 import group as G  # noqa: E402
 
 from four_d_vertex_generator.local_view import hull_edges  # noqa: E402
@@ -78,6 +80,9 @@ def cell_kind(nv, nf, Pfaces, P):
                 else "disphenoids"
         return "irregular tets"
     if (nv, nf) == (6, 8):
+        E = [np.linalg.norm(P[f[i]] - P[f[i - 1]]) for f in Pfaces for i in range(3)]
+        if all(close(e, E[0]) for e in E):
+            return "octs"
         return "traps" if central else "gyro-traps"
     if (nv, nf) == (6, 5):
         tri = [f for f in Pfaces if len(f) == 3]
@@ -98,6 +103,8 @@ def cell_kind(nv, nf, Pfaces, P):
         return "square pyramids" if sizes.get(4) == 1 else "5-vertex 5-faced cells"
     if (nv, nf) == (12, 20):
         return "snits"
+    if (nv, nf) == (12, 8) and sizes.get(4) == 6:
+        return "ditrips / hips"
     if (nv, nf) == (12, 8):
         if sizes.get(6) == 4 and sizes.get(3) == 4:
             hexes = [face_kind(np.array([P[v] for v in f])) for f in Pfaces if len(f) == 6]
@@ -106,7 +113,19 @@ def cell_kind(nv, nf, Pfaces, P):
     if (nv, nf) == (12, 14):
         return "ratets"
     if (nv, nf) == (24, 14):
-        return "gratets"
+        return "tics" if sizes.get(8) else "gratets / toes"
+    if (nv, nf) == (24, 26):
+        return "sircoes"
+    if (nv, nf) == (48, 26):
+        return "gircoes"
+    if (nv, nf) == (8, 10) and sizes.get(3) == 8 and sizes.get(4) == 2:
+        return "squaps / squigyps"
+    if (nv, nf) == (24, 38) and sizes.get(3) == 32:
+        return "snics"
+    if (nv, nf) == (6, 7) and sizes.get(3) == 6 and sizes.get(4) == 1:
+        return "gyrowedges"
+    if (nv, nf) == (9, 8) and sizes.get(3) == 4 and sizes.get(4) == 3 and sizes.get(6) == 1:
+        return "tricus"
     if (nv, nf) == (8, 6):
         return "cubes"
     desc = " + ".join(f"{n} {k}-gons" for k, n in sorted(sizes.items()))
@@ -119,7 +138,10 @@ def plus(counts):
 
 
 def describe(beta, tol):
-    V5, V, faces, cells = G.polytope(np.asarray(beta, float), tol)
+    if CONTIC:
+        V5, V, idx, faces, cells = G.polytope(np.asarray(beta, float), tol)
+    else:
+        V5, V, faces, cells = G.polytope(np.asarray(beta, float), tol)
     tree = cKDTree(V5)
     perms = [tree.query(V5 @ g.T)[1] for g in G.GENS]
     edges = [tuple(e) for e in hull_edges(faces)]
