@@ -264,8 +264,12 @@ def build(walls=None, log=print) -> dict:
                             "regions": ["|".join(r) for r in regs],
                             "consistent": len(regs) == 1,
                             "patch_ids": sorted(ps[i]["id"] for i in v["patches"])})
-        classes.sort(key=lambda c: (-c["patches"], c["regions"]))
+        keyed = sorted(zip(per_class, classes), key=lambda kc: (-kc[1]["patches"], kc[1]["regions"]))
+        classes = [c for _, c in keyed]
+        order = {k: ci for ci, (k, _) in enumerate(keyed)}
+        domain = {ps[i]["id"]: (int(roots[i]), order[cf(i)]) for i in range(n)}
         out[wall] = {"classes": classes, "links": {"joined": n_join, "cut": n_cut, "unsolved": n_bad},
+                     "_domain": domain,
                      "_links": [(ps[i]["id"], ps[j]["id"], int(sh), bool(c)) for i, j, sh, c in links]}
         log(f"{wall:5s} {len(classes):2d} classes  "
             + "  ".join(f"{c['regions']}x{c['count_on_sphere']}({c['patches']}p)" for c in classes)
@@ -278,6 +282,7 @@ if __name__ == "__main__":
     res = build(sys.argv[1:] or None)
     for v in res.values():
         v.pop("_links", None)
+        v.pop("_domain", None)
     (data_dir() / "sphere_map" / "wall_pieces.json").write_text(json.dumps(
         {"_about": __doc__, "walls": res}, indent=1))
 
