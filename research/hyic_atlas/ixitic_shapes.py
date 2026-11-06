@@ -5,8 +5,9 @@ survey's new regions, the wall shapes (classified on their surfaces), and the st
 corners). Every polytope is keyed by its arrangement key (a polytope and its mirror image or its image under ixoic get
 the same key), so the ten sheets merge by key. Kinds: region (3 degrees of freedom), wall (2), line (1), point (0) --
 the lowest stratum it lives on; a strata type seen in no sheet's interior is a wall (the mirrors are seams between
-sheets). Each gets its symmetry: the elements of H4 keeping its vertex set, and whether the sheet's ixoic (ixitic) also
-keeps it -- ixoic is not inside H4.
+sheets). Each gets its full symmetry (every isometry keeping its vertex set: fullsym.py -- not only those in H4, since
+a shape's symmetry group can be a rotated copy of a larger group), and how many elements of the sheet's ixoic (or
+ixitic) keep it.
 
     python ixitic_shapes.py [ix|ixo]
 """
@@ -26,6 +27,7 @@ import json, sys, numpy as np
 sys.path.insert(0, %r)
 import group as G
 from scipy.spatial import cKDTree
+from fullsym import full_symmetry
 other = "ixitic" if G.SUB.startswith("ixo") else "ixoic"
 g = G.sheet_cosets()[G.SHEET]
 O = G._cached(other, lambda: None)
@@ -47,7 +49,7 @@ for b, kind in json.loads(sys.stdin.read()):
             ok = t.query(E @ V[0])[0] < tol
             hits = [h for h in E[ok] if t.query(V @ h.T)[0].max() < tol]
             return len(hits), sum(1 for h in hits if np.linalg.det(h) < 0)
-        n, imp = count(H4)
+        n, imp = full_symmetry(V)
         keeps = count(O)[0]
     out.append([sg, k, n, imp, keeps])
 print(json.dumps(out))
@@ -105,7 +107,7 @@ def main():
         for (b, kind, src), (sg, k, n, imp, keeps) in zip(items, json.loads(r.stdout)):
             if not k:
                 continue
-            s = shapes.setdefault(k, {"key": k, "signature": sg, "kind": kind, "seed": b, "sheet": sub, "h4_symmetry": n,
+            s = shapes.setdefault(k, {"key": k, "signature": sg, "kind": kind, "seed": b, "sheet": sub, "symmetry": n,
                                       "improper": imp, "other_group_elements_kept": keeps, "sources": set(), "sheets": set()})
             s["sources"].add(f"{sub} {src}")
             s["sheets"].add(sub)
@@ -131,12 +133,12 @@ def main():
               open(os.path.join(HERE, f"{name}_shapes.json"), "w"), indent=1)
     other = "ixoic" if name == "ixitic" else "ixitic"
     L = [f"# {name.capitalize()} shapes (merged over the ten sheets)", "", __doc__.strip().split("\n\n")[1], "",
-         f"| kind | vertices | cells | edges by valence | H4 symmetry | {other} elements kept | own symmetry only | sheets | seed (beta, sheet) |",
+         f"| kind | vertices | cells | edges by valence | symmetry | {other} elements kept | own symmetry only | sheets | seed (beta, sheet) |",
          "|---|---|---|---|---|---|---|---|---|"]
     for s in rows:
-        own = s["h4_symmetry"] == (order if name == "ixitic" else 1440) and (s["other_group_elements_kept"] or 0) <= (
+        own = s["symmetry"] == (order if name == "ixitic" else 1440) and (s["other_group_elements_kept"] or 0) <= (
             1440 if name == "ixoic" else 0)
-        L.append(f"| {s['kind']} | {s['vertices']} | {s['cells']} | {s['edges']} | {s['h4_symmetry']} | "
+        L.append(f"| {s['kind']} | {s['vertices']} | {s['cells']} | {s['edges']} | {s['symmetry']} | "
                  f"{s['other_group_elements_kept']} | {'yes' if own else ''} | {len(s['sheets'])} | "
                  f"{[round(v, 5) for v in s['seed']]} ({s['sheet']}) |")
     cnt = Counter(s["kind"] for s in rows)
@@ -144,7 +146,7 @@ def main():
     open(os.path.join(HERE, f"{name}_shapes.md"), "w").write("\n".join(L) + "\n")
     print(name, dict(cnt))
     for s in rows:
-        print(f"  {s['kind']:6} {s['vertices']:5}v {s['cells']:5}c  H4 sym {s['h4_symmetry']:5}  {other} kept "
+        print(f"  {s['kind']:6} {s['vertices']:5}v {s['cells']:5}c  sym {s['symmetry']:5}  {other} kept "
               f"{s['other_group_elements_kept']}  sheets {len(s['sheets'])}  {s['signature'].split('|')[0][6:90]}")
 
 

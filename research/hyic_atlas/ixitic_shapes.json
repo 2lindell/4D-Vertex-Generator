@@ -1,0 +1,1680 @@
+{
+ "_about": "The ixitic (or ixoic) shapes, merged over the ten sheets (ixitic_shapes.json / ixoic_shapes.json, and .md).",
+ "group": "ixitic",
+ "shapes": [
+  {
+   "key": "6b893c9304f5",
+   "signature": "1440: cells 120x[12v8f]+120x[24v32f]+480x[6v8f]+720x[4v4f] | faces 480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3+1440x3",
+   "kind": "region",
+   "seed": [
+    0.03347064943251924,
+    0.03369039274535676,
+    0.932838957822124,
+    0.0
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 strata: face b4 = 0, line b1 = b4 = 0",
+    "ix1 strata: face b4 = 0, line b1 = b4 = 0, line b2 = b4 = 0",
+    "ix2 strata: face b4 = 0, line b1 = b4 = 0",
+    "ix3 strata: face b4 = 0, line b1 = b4 = 0, line b2 = b4 = 0",
+    "ix4 strata: face b4 = 0, line b1 = b4 = 0, line b2 = b4 = 0",
+    "ix5 strata: face b4 = 0, line b1 = b4 = 0, line b2 = b4 = 0",
+    "ix6 strata: face b4 = 0, line b1 = b4 = 0, line b2 = b4 = 0",
+    "ix7 map wall: b1 - b2/2 + sqrt(5)*b2/2 - b3",
+    "ix8 map wall: b1 - b3",
+    "ix9 map wall: b2 - sqrt(5)*b3/2 - b3/2"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 1440,
+   "edges": {
+    "3": 4320,
+    "4": 1440
+   }
+  },
+  {
+   "key": "a783fa88caa2",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[6v8f]+480x[9v11f]+720x[4v4f] | faces 480x3g+480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+1440x3+1440x3+1440x3+1440x3",
+   "kind": "region",
+   "seed": [
+    0.0,
+    0.1346886951642749,
+    0.08324219236913113,
+    0.7820691124665942
+   ],
+   "sheet": "ix7",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map wall: b2 - sqrt(5)*b3/2 - b3/2",
+    "ix2 strata: face b1 = 0",
+    "ix3 map wall: b1 - b2/2 + sqrt(5)*b2/2 - b3",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map wall: b1 - b3",
+    "ix6 strata: face b2 = 0",
+    "ix7 strata: face b1 = 0",
+    "ix7 strata: face b1 = 0, face b2 = 0, face b4 = 0, line b2 = b4 = 0",
+    "ix9 strata: face b1 = 0"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6",
+    "ix7",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 1920,
+   "edges": {
+    "3": 5760,
+    "4": 720,
+    "6": 720
+   }
+  },
+  {
+   "key": "2e644f68b084",
+   "signature": "1440: cells 120x[12v14f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[6v7f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3+1440x3+1440x4",
+   "kind": "region",
+   "seed": [
+    0.033482663677828484,
+    0.033702485867237286,
+    0.0,
+    0.9328148504549343
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 map wall: b2 - sqrt(5)*b3/2 + b3/2",
+    "ix1 map wall: b1 - b2/2 + sqrt(5)*b2/2 - 3*b3/2 + sqrt(5)*b3/2",
+    "ix2 strata: face b3 = 0, line b1 = b3 = 0",
+    "ix3 strata: face b3 = 0, line b1 = b3 = 0, line b2 = b3 = 0",
+    "ix4 map wall: b1 - b2/2 + sqrt(5)*b2/2 - 3*b3/2 + sqrt(5)*b3/2",
+    "ix5 map wall: b2 - sqrt(5)*b3/2 + b3/2",
+    "ix5 strata: face b1 = 0",
+    "ix6 strata: line b2 = b3 = 0",
+    "ix7 strata: face b2 = 0, line b2 = b3 = 0",
+    "ix8 strata: face b2 = 0, line b2 = b3 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8"
+   ],
+   "vertices": 1440,
+   "cells": 2160,
+   "edges": {
+    "3": 4320,
+    "4": 2880
+   }
+  },
+  {
+   "key": "d243a1e80043",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x6+720x6+1440x3+1440x3+1440x3+1440x3+1440x4",
+   "kind": "region",
+   "seed": [
+    0.04181575629968276,
+    0.04209028735820388,
+    0.7078531013374042,
+    0.2082408550047093
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map",
+    "ix2 strata: face b1 = 0",
+    "ix3 map",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map",
+    "ix6 strata: face b1 = 0, face b2 = 0",
+    "ix7 map",
+    "ix7 strata: face b2 = 0",
+    "ix8 map",
+    "ix8 strata: face b1 = 0, face b2 = 0"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6",
+    "ix7",
+    "ix8"
+   ],
+   "vertices": 1440,
+   "cells": 3360,
+   "edges": {
+    "3": 5760,
+    "4": 1440,
+    "6": 1440
+   }
+  },
+  {
+   "key": "85edaf59db32",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+1440x3+1440x4+1440x4+1440x4",
+   "kind": "region",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8737928060571701
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 map",
+    "ix0 strata: face b1 = 0",
+    "ix1 map",
+    "ix1 strata: face b1 = 0, face b2 = 0",
+    "ix4 map",
+    "ix4 strata: face b1 = 0, face b2 = 0, face b3 = 0, line b1 = b3 = 0",
+    "ix5 map",
+    "ix5 strata: face b1 = 0, face b3 = 0, line b1 = b3 = 0",
+    "ix7 map",
+    "ix7 strata: face b1 = 0, face b3 = 0, line b1 = b3 = 0",
+    "ix9 map",
+    "ix9 strata: face b1 = 0, face b3 = 0, line b1 = b3 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix4",
+    "ix5",
+    "ix7",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 3600,
+   "edges": {
+    "3": 1440,
+    "4": 6480
+   }
+  },
+  {
+   "key": "1ca8c88a3c09",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[9v11f]+720x[4v4f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x8+1440x3+1440x3+1440x4+1440x4",
+   "kind": "region",
+   "seed": [
+    0.03347701135505291,
+    0.0,
+    0.033865609849835214,
+    0.9326573787951119
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 strata: face b2 = 0",
+    "ix2 map wall: b2 - sqrt(5)*b3/2 - b3/2",
+    "ix3 map wall: b1 - b2/2 + sqrt(5)*b2/2 - b3",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map wall: b1 - b3",
+    "ix6 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix2",
+    "ix3",
+    "ix6"
+   ],
+   "vertices": 1440,
+   "cells": 3600,
+   "edges": {
+    "3": 2880,
+    "4": 4320,
+    "8": 720
+   }
+  },
+  {
+   "key": "153231fd77ef",
+   "signature": "1440: cells 120x[12v14f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[6v7f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+1440x3+1440x3+1440x4+1440x4+1440x5",
+   "kind": "region",
+   "seed": [
+    0.5330051541474092,
+    0.0,
+    0.033865609849835214,
+    0.4331292360027556
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 map wall: b2 - sqrt(5)*b3/2 + b3/2",
+    "ix5 strata: face b2 = 0",
+    "ix9 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 4320,
+   "edges": {
+    "3": 2880,
+    "4": 4320,
+    "5": 1440,
+    "6": 720
+   }
+  },
+  {
+   "key": "2da1ce87ceec",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x6+720x8+1440x3+1440x3+1440x3+1440x3+1440x4+1440x5",
+   "kind": "region",
+   "seed": [
+    0.04181575629968275,
+    0.41646325982521315,
+    0.2502861349888373,
+    0.29143484888626686
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map",
+    "ix2 strata: face b1 = 0",
+    "ix3 map",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map",
+    "ix6 strata: face b2 = 0",
+    "ix9 map"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 4800,
+   "edges": {
+    "3": 5760,
+    "4": 1440,
+    "5": 1440,
+    "6": 720,
+    "8": 720
+   }
+  },
+  {
+   "key": "270d63cd9ba9",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x4+1440x4+1440x4",
+   "kind": "region",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.08389814722572204,
+    0.8321958091163913
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 map",
+    "ix0 strata: face b1 = 0",
+    "ix1 strata: face b1 = 0",
+    "ix1 survey",
+    "ix2 map",
+    "ix2 strata: face b1 = 0",
+    "ix3 map",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix5 strata: face b2 = 0",
+    "ix5 strata: face b2 = 0, face b4 = 0",
+    "ix5 survey",
+    "ix6 map",
+    "ix6 strata: face b2 = 0",
+    "ix8 survey",
+    "ix9 strata: face b2 = 0",
+    "ix9 survey"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix5",
+    "ix6",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 5040,
+   "edges": {
+    "3": 2880,
+    "4": 5040,
+    "6": 720,
+    "8": 720
+   }
+  },
+  {
+   "key": "a0f7c29fa0bd",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x3+1440x4+1440x5",
+   "kind": "region",
+   "seed": [
+    0.04181575629968276,
+    0.04209028735820388,
+    0.6662561043966253,
+    0.2498378519454881
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 map",
+    "ix0 strata: face b1 = 0",
+    "ix1 map",
+    "ix1 strata: face b1 = 0, face b2 = 0",
+    "ix2 map",
+    "ix2 strata: face b1 = 0",
+    "ix3 map",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix4 map",
+    "ix4 strata: face b1 = 0, face b2 = 0",
+    "ix5 map",
+    "ix5 strata: face b1 = 0, face b2 = 0",
+    "ix6 strata: face b2 = 0, face b3 = 0",
+    "ix6 survey",
+    "ix8 map",
+    "ix8 strata: face b3 = 0",
+    "ix9 map",
+    "ix9 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 5040,
+   "edges": {
+    "3": 4320,
+    "4": 2160,
+    "5": 1440,
+    "6": 720,
+    "8": 720
+   }
+  },
+  {
+   "key": "11c376e3c804",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x10+1440x3+1440x3+1440x3+1440x3+1440x4+1440x6",
+   "kind": "region",
+   "seed": [
+    0.04181575629968275,
+    0.45806025676599194,
+    0.20868913804805847,
+    0.29143484888626686
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map",
+    "ix2 strata: face b1 = 0",
+    "ix3 map",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map",
+    "ix6 strata: face b2 = 0",
+    "ix9 map"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 5520,
+   "edges": {
+    "3": 5760,
+    "4": 2880,
+    "6": 1440,
+    "10": 720
+   }
+  },
+  {
+   "key": "5efe53c04ebf",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x8+720x8+1440x3+1440x3+1440x4+1440x4+1440x4+1440x4",
+   "kind": "region",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.2502861349888373,
+    0.6658078213532761
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map",
+    "ix2 strata: face b1 = 0",
+    "ix3 map",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map",
+    "ix6 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6"
+   ],
+   "vertices": 1440,
+   "cells": 5760,
+   "edges": {
+    "3": 2880,
+    "4": 5760,
+    "8": 1440
+   }
+  },
+  {
+   "key": "9fbf16135e07",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+720x6+1440x3+1440x3+1440x4+1440x5+1440x5",
+   "kind": "region",
+   "seed": [
+    0.08341275324046156,
+    0.04209028735820387,
+    0.08389814722572204,
+    0.7905988121756125
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map"
+   ],
+   "sheets": [
+    "ix2"
+   ],
+   "vertices": 1440,
+   "cells": 5760,
+   "edges": {
+    "3": 2880,
+    "4": 2880,
+    "5": 2880,
+    "6": 1440
+   }
+  },
+  {
+   "key": "eaa102928f4e",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+720x6+1440x3+1440x3+1440x4+1440x5+1440x5",
+   "kind": "region",
+   "seed": [
+    0.45778572570747084,
+    0.1252842812397615,
+    0.20868913804805853,
+    0.2082408550047093
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 map"
+   ],
+   "sheets": [
+    "ix5"
+   ],
+   "vertices": 1440,
+   "cells": 5760,
+   "edges": {
+    "3": 2880,
+    "4": 2880,
+    "5": 2880,
+    "6": 1440
+   }
+  },
+  {
+   "key": "c867a73cc28f",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[9v11f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+720x8+1440x3+1440x3+1440x4+1440x5+1440x6",
+   "kind": "region",
+   "seed": [
+    0.06679016261660349,
+    0.8996974582753872,
+    0.0,
+    0.03351237910800933
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 strata: face b3 = 0",
+    "ix9 map wall: b2 - sqrt(5)*b3/2 - b3/2",
+    "ix9 strata: face b3 = 0"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 5760,
+   "edges": {
+    "3": 2880,
+    "4": 3600,
+    "5": 1440,
+    "6": 1440,
+    "8": 720
+   }
+  },
+  {
+   "key": "271a2ad0dfa9",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x8+1440x3+1440x3+1440x3+1440x5+1440x5+1440x5",
+   "kind": "region",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8737928060571701
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map"
+   ],
+   "sheets": [
+    "ix2"
+   ],
+   "vertices": 1440,
+   "cells": 6480,
+   "edges": {
+    "3": 4320,
+    "4": 720,
+    "5": 4320,
+    "6": 720,
+    "8": 720
+   }
+  },
+  {
+   "key": "48f481bb1e96",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x10+1440x3+1440x3+1440x4+1440x4+1440x5+1440x5",
+   "kind": "region",
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.12549514416650084,
+    0.7905988121756125
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map",
+    "ix2 strata: face b1 = 0",
+    "ix2 strata: face b1 = 0, face b2 = 0",
+    "ix3 map",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map",
+    "ix6 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6"
+   ],
+   "vertices": 1440,
+   "cells": 6480,
+   "edges": {
+    "3": 2880,
+    "4": 4320,
+    "5": 2880,
+    "10": 720
+   }
+  },
+  {
+   "key": "6c15c7832948",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+720x8+1440x3+1440x3+1440x4+1440x4+1440x5+1440x6",
+   "kind": "region",
+   "seed": [
+    0.12500975018124036,
+    0.7908362322922224,
+    0.04230115028494325,
+    0.04185286724159403
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 map",
+    "ix9 survey"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 7200,
+   "edges": {
+    "3": 2880,
+    "4": 4320,
+    "5": 1440,
+    "6": 2160,
+    "8": 720
+   }
+  },
+  {
+   "key": "93a4dac332aa",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+720x8+1440x3+1440x3+1440x3+1440x5+1440x6+1440x6",
+   "kind": "region",
+   "seed": [
+    0.5510886312633433,
+    0.2547627272269679,
+    0.18607410550356712,
+    0.008074536006121708
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 survey",
+    "ix9 map"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 7200,
+   "edges": {
+    "3": 4320,
+    "4": 2160,
+    "5": 1440,
+    "6": 2880,
+    "8": 720
+   }
+  },
+  {
+   "key": "64c1a0c2067c",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+720x12+1440x3+1440x3+1440x3+1440x4+1440x5+1440x5+1440x7",
+   "kind": "region",
+   "seed": [
+    0.08341275324046155,
+    0.5412542506475495,
+    0.33348012887039485,
+    0.041852867241594024
+   ],
+   "sheet": "ix9",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix9 map"
+   ],
+   "sheets": [
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 8640,
+   "edges": {
+    "3": 4320,
+    "4": 3600,
+    "5": 2880,
+    "7": 1440,
+    "12": 720
+   }
+  },
+  {
+   "key": "fedadc7c63f7",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+720x12+1440x3+1440x3+1440x3+1440x4+1440x5+1440x5+1440x6",
+   "kind": "region",
+   "seed": [
+    0.44318794520133825,
+    0.08014761995443859,
+    0.034006977579124104,
+    0.4426574572650991
+   ],
+   "sheet": "ix9",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix9 survey"
+   ],
+   "sheets": [
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 8640,
+   "edges": {
+    "3": 4320,
+    "4": 2880,
+    "5": 2880,
+    "6": 2160,
+    "12": 720
+   }
+  },
+  {
+   "key": "c27ea776ba1c",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+720x14+1440x3+1440x3+1440x3+1440x4+1440x4+1440x4+1440x4+1440x9",
+   "kind": "region",
+   "seed": [
+    0.08341275324046155,
+    0.6244482445291071,
+    0.25028613498883723,
+    0.041852867241594024
+   ],
+   "sheet": "ix9",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix9 map"
+   ],
+   "sheets": [
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 10080,
+   "edges": {
+    "3": 4320,
+    "4": 7200,
+    "6": 720,
+    "9": 1440,
+    "14": 720
+   }
+  },
+  {
+   "key": "b3a63ce8a55e",
+   "signature": "1440: cells 120x[24v20f]+120x[24v20f]+720x[4v4f] | faces 480x3g+480x9g+1440x3g+1440x3g | edges 720x4+720x4+1440x3+1440x3",
+   "kind": "wall",
+   "seed": [
+    0.34997261275451086,
+    0.3000547731138057,
+    0.34997261413168335,
+    0.0
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 strata: face b4 = 0, line b2 = b4 = 0",
+    "ix7 strata: face b4 = 0, line b2 = b4 = 0",
+    "ix8 strata: face b4 = 0, line b2 = b4 = 0",
+    "ix9 strata: face b4 = 0, line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "ix5",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 960,
+   "edges": {
+    "3": 2880,
+    "4": 1440
+   }
+  },
+  {
+   "key": "177447212efe",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[9v11f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x5+720x5+1440x3+1440x3+1440x3+1440x3",
+   "kind": "wall",
+   "seed": [
+    0.0418157531759,
+    0.0794544254794,
+    0.5830621116351,
+    0.2956677097096
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map wall: b1*b2 - b1*b4 - b2**2/2 + sqrt(5)*b2**2/2 - b2*b3/2 + sqrt(5",
+    "ix2 strata: face b1 = 0",
+    "ix3 map wall: b1*b2 + b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 - b2**2/2 + sqrt(5",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map wall: b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 + b2*b3",
+    "ix6 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6"
+   ],
+   "vertices": 1440,
+   "cells": 2160,
+   "edges": {
+    "3": 5760,
+    "5": 1440
+   }
+  },
+  {
+   "key": "cb91436c3354",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+1440x[5v5f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x3+720x5+720x6+1440x3+1440x3+1440x3+1440x4",
+   "kind": "wall",
+   "seed": [
+    0.041815750967,
+    0.0777404285911,
+    0.4998681167813,
+    0.3805757036606
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 map wall: b1*b2 - sqrt(5)*b1*b4/5 + 2*sqrt(5)*b2**2/5 - b2*b3/2 + 3*sq",
+    "ix0 strata: face b1 = 0",
+    "ix1 strata: face b1 = 0",
+    "ix2 map wall: b1*b2 - b1*b4 - b2**2/2 + sqrt(5)*b2**2/2 - b2*b3/2 + sqrt(5",
+    "ix2 strata: face b1 = 0",
+    "ix3 map wall: b1*b2 + b1*b3 - sqrt(5)*b1*b4/2 + 3*b1*b4/2 - b2**2/2 + sqrt",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix5 strata: face b2 = 0",
+    "ix6 strata: face b2 = 0",
+    "ix9 map wall: b1**2 - b1*b2 + sqrt(5)*b1*b2 - 3*b1*b3/2 + sqrt(5)*b1*b3/2 ",
+    "ix9 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix5",
+    "ix6",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 2880,
+   "edges": {
+    "3": 5040,
+    "4": 1440,
+    "5": 720,
+    "6": 720
+   }
+  },
+  {
+   "key": "2d204abb7643",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[6v6f]+1440x[5v5f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x4g | edges 720x4+720x8+1440x3+1440x3+1440x3+1440x3+1440x4",
+   "kind": "wall",
+   "seed": [
+    0.0418157544037,
+    0.0478137697055,
+    0.1670921410786,
+    0.7432783348122
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map wall: b1*b2 - sqrt(5)*b1*b4 + 2*b1*b4 + b2**2 - sqrt(5)*b2*b3/2 + ",
+    "ix2 strata: face b1 = 0",
+    "ix3 map wall: b1*b4 - sqrt(5)*b2*b3/2 + b2*b3/2 + b2*b4 - sqrt(5)*b3**2/2 ",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map wall: b1*b4 - sqrt(5)*b2*b3/2 + b2*b3/2 - sqrt(5)*b3**2/2 + b3**2/",
+    "ix6 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6"
+   ],
+   "vertices": 1440,
+   "cells": 2880,
+   "edges": {
+    "3": 5760,
+    "4": 2160,
+    "8": 720
+   }
+  },
+  {
+   "key": "abf2453f3aa8",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[9v11f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x3+720x4+720x7+1440x3+1440x3+1440x3+1440x4",
+   "kind": "wall",
+   "seed": [
+    0.0585755533605,
+    0.4164632591208,
+    0.2086891410037,
+    0.316272046515
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map wall: b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 - b2*b3/2 + sqrt(5)*b2*b3/",
+    "ix2 strata: face b1 = 0",
+    "ix3 map wall: b1*b4 - sqrt(5)*b2*b3/2 - b2*b3/2 + b2*b4/2 + sqrt(5)*b2*b4/",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map wall: b1*b4 - sqrt(5)*b2*b3/2 - b2*b3/2 - sqrt(5)*b3**2/2 - b3**2/",
+    "ix6 strata: face b2 = 0",
+    "ix9 map wall: b1*b2 + b1*b3 - sqrt(5)*b2*b4/2 - b2*b4/2"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 2880,
+   "edges": {
+    "3": 5040,
+    "4": 2160,
+    "7": 720
+   }
+  },
+  {
+   "key": "9e9eb2b34b24",
+   "signature": "1440: cells 120x[12v20f]+120x[24v44f]+720x[4v4f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+1440x3+1440x3+1440x4+1440x4",
+   "kind": "wall",
+   "seed": [
+    0.1045818838362,
+    0.7908362323276,
+    0.0423011501789,
+    0.0622807336573
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 map wall: b1 - b3 - b4",
+    "ix5 strata: face b3 = 0",
+    "ix9 map wall: b1 - b4"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 3120,
+   "edges": {
+    "3": 2880,
+    "4": 5040
+   }
+  },
+  {
+   "key": "2f7458953f46",
+   "signature": "1440: cells 120x[12v20f]+120x[24v44f]+720x[4v4f]+720x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+1440x3+1440x3+1440x3+1440x4",
+   "kind": "wall",
+   "seed": [
+    0.43271670143120844,
+    0.2670597441217336,
+    0.30022355444705784,
+    0.0
+   ],
+   "sheet": "ix8",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix8 strata: face b4 = 0",
+    "ix9 strata: face b2 = 0"
+   ],
+   "sheets": [
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 3120,
+   "edges": {
+    "3": 4320,
+    "4": 2880,
+    "6": 720
+   }
+  },
+  {
+   "key": "d0c143c7e8a3",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v5f]+480x[6v8f]+720x[6v6f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x4g | edges 720x4+720x8+1440x3+1440x3+1440x3+1440x3+1440x5",
+   "kind": "wall",
+   "seed": [
+    0.082386036846,
+    0.4164632600578,
+    0.2097158538062,
+    0.29143484929
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map wall: b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 - b2*b3/2 + sqrt(5)*b2*b3/",
+    "ix2 strata: face b1 = 0",
+    "ix3 map wall: b1*b4 - sqrt(5)*b2*b3/2 + b2*b3/2 + b2*b4 - sqrt(5)*b3**2/2 ",
+    "ix3 strata: face b1 = 0, face b2 = 0",
+    "ix6 map wall: b1*b4 - sqrt(5)*b2*b3/2 + b2*b3/2 - sqrt(5)*b3**2/2 + b3**2/",
+    "ix6 strata: face b2 = 0",
+    "ix9 map wall: b1*b3 - sqrt(5)*b2*b4/2 + b2*b4/2"
+   ],
+   "sheets": [
+    "ix2",
+    "ix3",
+    "ix6",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 3360,
+   "edges": {
+    "3": 5760,
+    "4": 720,
+    "5": 1440,
+    "8": 720
+   }
+  },
+  {
+   "key": "a23bc1d1c3b5",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[6v8f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+1440x3+1440x3+1440x3+1440x4+1440x4",
+   "kind": "wall",
+   "seed": [
+    0.0720518554929,
+    0.0420902891529,
+    0.0838981458027,
+    0.8019597095515
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map wall: b1*b2 - 3*b1*b3/2 + sqrt(5)*b1*b3/2 + b2**2 - sqrt(5)*b2*b3 "
+   ],
+   "sheets": [
+    "ix2"
+   ],
+   "vertices": 1440,
+   "cells": 3600,
+   "edges": {
+    "3": 4320,
+    "4": 4320,
+    "6": 720
+   }
+  },
+  {
+   "key": "4c5d456184b2",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[9v11f]+720x[4v4f]+720x[4v4f]+1440x[5v5f] | faces 480x3g+480x3g+480x6g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x3+720x4+720x4+720x7+1440x3+1440x3+1440x4+1440x5",
+   "kind": "wall",
+   "seed": [
+    0.24979921226707077,
+    0.5666224688876372,
+    0.0,
+    0.183578318845292
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 strata: face b3 = 0",
+    "ix9 strata: face b3 = 0"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 3600,
+   "edges": {
+    "3": 3600,
+    "4": 2880,
+    "5": 1440,
+    "7": 720
+   }
+  },
+  {
+   "key": "50b35e15fd85",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v5f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[5v5f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x4g | edges 720x4+720x4+720x8+1440x3+1440x3+1440x4+1440x5+1440x5",
+   "kind": "wall",
+   "seed": [
+    0.0418157523693,
+    0.0420902891579,
+    0.114599879197,
+    0.8014940792758
+   ],
+   "sheet": "ix2",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix2 map wall: b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 + b2*b3/2 + sqrt(5)*b2*b3/"
+   ],
+   "sheets": [
+    "ix2"
+   ],
+   "vertices": 1440,
+   "cells": 5040,
+   "edges": {
+    "3": 2880,
+    "4": 2880,
+    "5": 2880,
+    "8": 720
+   }
+  },
+  {
+   "key": "fa7859e5dc42",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[5v5f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x3+720x4+720x4+720x7+1440x3+1440x3+1440x4+1440x5+1440x5",
+   "kind": "wall",
+   "seed": [
+    0.4993826658001,
+    0.1562944990259,
+    0.2086891833645,
+    0.1356336518094
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 map wall: b1**2 - b1*b2/2 + sqrt(5)*b1*b2/2 - b1*b3 - b1*b4 - b2*b3 - "
+   ],
+   "sheets": [
+    "ix5"
+   ],
+   "vertices": 1440,
+   "cells": 5040,
+   "edges": {
+    "3": 3600,
+    "4": 2880,
+    "5": 2880,
+    "7": 720
+   }
+  },
+  {
+   "key": "9124f944860a",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[9v11f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x6g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x6+720x8+1440x3+1440x3+1440x4+1440x5+1440x5",
+   "kind": "wall",
+   "seed": [
+    0.10009766155537848,
+    0.8330824603978372,
+    0.0,
+    0.06681987804678433
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 strata: face b3 = 0",
+    "ix9 strata: face b3 = 0"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 5760,
+   "edges": {
+    "3": 2880,
+    "4": 2880,
+    "5": 2880,
+    "6": 720,
+    "8": 720
+   }
+  },
+  {
+   "key": "fb85b4ae4690",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[5v6f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x4+720x12+1440x3+1440x3+1440x3+1440x3+1440x4+1440x4+1440x7",
+   "kind": "wall",
+   "seed": [
+    0.0834127530478,
+    0.6237015056933,
+    0.2510328737139,
+    0.041852867545
+   ],
+   "sheet": "ix9",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix9 map wall: b1**2*b3**2 - sqrt(5)*b1*b2**2*b3/2 + 3*b1*b2**2*b3/2 - sqrt"
+   ],
+   "sheets": [
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 7200,
+   "edges": {
+    "3": 5760,
+    "4": 5040,
+    "7": 1440,
+    "12": 720
+   }
+  },
+  {
+   "key": "47481ab40611",
+   "signature": "480: cells 120x[4v4f]+120x[16v16f] | faces 480x3g+720x4g | edges 720x3+720x3",
+   "kind": "line",
+   "seed": [
+    0.4999999990168253,
+    0.0,
+    0.0,
+    0.5000000009831747
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix1 strata: point(1,0,0,0)",
+    "ix3 strata: point(1,0,0,0)",
+    "ix4 strata: point(1,0,0,0)",
+    "ix5 strata: line b2 = b3 = 0, point(1,0,0,0)",
+    "ix6 strata: point(1,0,0,0)",
+    "ix7 strata: point(1,0,0,0)",
+    "ix8 strata: point(1,0,0,0)",
+    "ix9 strata: line b2 = b3 = 0, point(1,0,0,0)"
+   ],
+   "sheets": [
+    "ix1",
+    "ix3",
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 480,
+   "cells": 240,
+   "edges": {
+    "3": 1440
+   }
+  },
+  {
+   "key": "f3bfff522990",
+   "signature": "480: cells 120x[4v4f]+120x[12v20f]+480x[4v4f]+720x[4v4f] | faces 480x3g+480x3g+1440x3g+1440x3g | edges 720x4+720x6+1440x3",
+   "kind": "line",
+   "seed": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 strata: line b3 = b4 = 0, point(0,1,0,0)",
+    "ix1 strata: line b3 = b4 = 0, point(0,1,0,0)",
+    "ix2 strata: line b3 = b4 = 0, point(0,1,0,0)",
+    "ix3 strata: line b3 = b4 = 0, point(0,1,0,0)",
+    "ix5 strata: line b2 = b3 = 0",
+    "ix9 strata: line b2 = b3 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 480,
+   "cells": 1440,
+   "edges": {
+    "3": 1440,
+    "4": 720,
+    "6": 720
+   }
+  },
+  {
+   "key": "93e27c1e3d43",
+   "signature": "480: cells 120x[4v4f]+120x[4v4f]+480x[6v8f]+720x[4v4f]+720x[4v4f] | faces 480x3g+480x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x6+720x6+1440x3",
+   "kind": "line",
+   "seed": [
+    0.03349589411816231,
+    0.0,
+    0.0,
+    0.9665041058818377
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 strata: line b2 = b3 = 0",
+    "ix2 strata: line b2 = b3 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix2"
+   ],
+   "vertices": 480,
+   "cells": 2160,
+   "edges": {
+    "3": 1440,
+    "4": 720,
+    "6": 1440
+   }
+  },
+  {
+   "key": "b4ad37d86d09",
+   "signature": "480: cells 120x[4v4f]+120x[4v4f]+480x[6v8f]+720x[4v4f]+720x[4v4f] | faces 480x3g+480x3g+1440x3g+1440x3g+1440x3g | edges 720x4+720x4+720x8+1440x3",
+   "kind": "line",
+   "seed": [
+    0.5333057965779749,
+    0.0,
+    0.0,
+    0.46669420342202506
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 strata: line b2 = b3 = 0",
+    "ix9 strata: line b2 = b3 = 0"
+   ],
+   "sheets": [
+    "ix5",
+    "ix9"
+   ],
+   "vertices": 480,
+   "cells": 2160,
+   "edges": {
+    "3": 1440,
+    "4": 1440,
+    "8": 720
+   }
+  },
+  {
+   "key": "9aa686e5af71",
+   "signature": "720: cells 120x[12v8f]+120x[18v20f] | faces 480x3g+480x6g+720x3g | edges 720x3+1440x3",
+   "kind": "line",
+   "seed": [
+    0.0,
+    0.6180339863193349,
+    0.3819660136806651,
+    0.0
+   ],
+   "sheet": "ix7",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix4 strata: point(0,1,0,0)",
+    "ix5 strata: point(0,1,0,0)",
+    "ix6 strata: point(0,1,0,0)",
+    "ix7 strata: line b1 = b4 = 0, point(0,1,0,0)",
+    "ix8 strata: point(0,1,0,0)",
+    "ix9 strata: line b1 = b4 = 0, point(0,1,0,0)"
+   ],
+   "sheets": [
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 720,
+   "cells": 240,
+   "edges": {
+    "3": 2160
+   }
+  },
+  {
+   "key": "12dbebd1e5f4",
+   "signature": "720: cells 120x[6v8f]+120x[12v20f]+480x[6v8f] | faces 480x3g+480x3g+480x3g+720x3g+1440x3g | edges 720x3+1440x3+1440x3",
+   "kind": "line",
+   "seed": [
+    0.03348387037799199,
+    0.0,
+    0.966516129622008,
+    0.0
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 strata: line b2 = b4 = 0, point(0,0,1,0)",
+    "ix1 strata: point(0,0,1,0)",
+    "ix2 strata: line b2 = b4 = 0, point(0,0,1,0)",
+    "ix3 strata: point(0,0,1,0)",
+    "ix4 strata: point(0,0,1,0)",
+    "ix5 strata: point(0,0,1,0)",
+    "ix6 strata: line b1 = b3 = 0, point(0,0,1,0)",
+    "ix7 strata: line b1 = b4 = 0, point(0,0,1,0)",
+    "ix8 strata: line b1 = b3 = 0, point(0,0,1,0)",
+    "ix9 strata: line b1 = b4 = 0, point(0,0,1,0)"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 720,
+   "cells": 720,
+   "edges": {
+    "3": 3600
+   }
+  },
+  {
+   "key": "3745ab4a85c6",
+   "signature": "720: cells 120x[12v20f]+120x[12v20f]+1440x[4v4f] | faces 480x3g+480x3g+720x3g+720x3g+1440x3g+1440x3g | edges 720x3+720x3+1440x3+1440x5",
+   "kind": "line",
+   "seed": [
+    0.0,
+    0.6331211092749606,
+    0.36687889072503954,
+    0.0
+   ],
+   "sheet": "ix7",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix7 strata: line b1 = b4 = 0",
+    "ix9 strata: line b1 = b4 = 0"
+   ],
+   "sheets": [
+    "ix7",
+    "ix9"
+   ],
+   "vertices": 720,
+   "cells": 1680,
+   "edges": {
+    "3": 2880,
+    "5": 1440
+   }
+  },
+  {
+   "key": "5a26dde24dce",
+   "signature": "1440: cells 120x[12v8f]+120x[36v20f] | faces 480x3g+480x6g+720x6g | edges 720x3+720x3+1440x3",
+   "kind": "line",
+   "seed": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "sheet": "ix4",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix4 strata: line b3 = b4 = 0",
+    "ix5 strata: line b3 = b4 = 0",
+    "ix6 strata: line b3 = b4 = 0",
+    "ix7 strata: line b3 = b4 = 0",
+    "ix8 strata: line b3 = b4 = 0"
+   ],
+   "sheets": [
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8"
+   ],
+   "vertices": 1440,
+   "cells": 240,
+   "edges": {
+    "3": 2880
+   }
+  },
+  {
+   "key": "30ef0dbd6ae9",
+   "signature": "1440: cells 120x[12v8f]+120x[12v20f]+480x[12v8f] | faces 480x3g+480x3g+480x6g+720x6g+1440x3g | edges 720x3+720x5+1440x3+1440x3",
+   "kind": "line",
+   "seed": [
+    0.0,
+    0.0,
+    0.03387154194805505,
+    0.966128458051945
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 14400,
+   "improper": 7200,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 strata: line b1 = b2 = 0",
+    "ix1 strata: line b1 = b2 = 0",
+    "ix2 strata: line b1 = b2 = 0",
+    "ix3 strata: line b1 = b2 = 0",
+    "ix4 strata: line b1 = b2 = 0",
+    "ix5 strata: line b1 = b2 = 0",
+    "ix6 strata: line b1 = b2 = 0",
+    "ix7 strata: line b1 = b2 = 0",
+    "ix8 strata: line b1 = b2 = 0",
+    "ix9 strata: line b1 = b2 = 0"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 720,
+   "edges": {
+    "3": 3600,
+    "5": 720
+   }
+  },
+  {
+   "key": "f0a6159b8918",
+   "signature": "1440: cells 120x[12v14f]+120x[24v32f]+720x[4v4f]+720x[6v5f] | faces 480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x4g | edges 720x4+720x4+1440x3+1440x3+1440x4",
+   "kind": "line",
+   "seed": [
+    0.5331143602691915,
+    0.0,
+    0.46688563973080854,
+    0.0
+   ],
+   "sheet": "ix5",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix5 strata: line b2 = b4 = 0",
+    "ix7 strata: line b2 = b4 = 0",
+    "ix8 strata: line b2 = b4 = 0",
+    "ix9 strata: line b2 = b4 = 0"
+   ],
+   "sheets": [
+    "ix5",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 1680,
+   "edges": {
+    "3": 2880,
+    "4": 2880
+   }
+  },
+  {
+   "key": "68b8f0a88662",
+   "signature": "120: cells 120x[4v4f]+480x[4v4f] | faces 480x3g+720x3g | edges 720x5",
+   "kind": "point",
+   "seed": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sheet": "ix0",
+   "h4_symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix0 strata: point(0,0,0,1), point(1,0,0,0)",
+    "ix1 strata: point(0,0,0,1)",
+    "ix2 strata: point(0,0,0,1), point(1,0,0,0)",
+    "ix3 strata: point(0,0,0,1)",
+    "ix4 strata: point(0,0,0,1)",
+    "ix5 strata: point(0,0,0,1)",
+    "ix6 strata: point(0,0,0,1)",
+    "ix7 strata: point(0,0,0,1)",
+    "ix8 strata: point(0,0,0,1)",
+    "ix9 strata: point(0,0,0,1)"
+   ],
+   "sheets": [
+    "ix0",
+    "ix1",
+    "ix2",
+    "ix3",
+    "ix4",
+    "ix5",
+    "ix6",
+    "ix7",
+    "ix8",
+    "ix9"
+   ],
+   "vertices": 120,
+   "cells": 600,
+   "edges": {
+    "5": 720
+   }
+  }
+ ]
+}
