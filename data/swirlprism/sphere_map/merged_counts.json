@@ -1022,8 +1022,8 @@
     ]
    },
    "D3": {
-    "classes": 4,
-    "pieces_on_sphere": 2400,
+    "classes": 2,
+    "pieces_on_sphere": 1200,
     "classes_detail": [
      {
       "id": 48,
@@ -1035,21 +1035,6 @@
      },
      {
       "id": 49,
-      "ends": [
-       "C1"
-      ],
-      "on_sphere": 600
-     },
-     {
-      "id": 57,
-      "ends": [
-       "A1",
-       "C1"
-      ],
-      "on_sphere": 600
-     },
-     {
-      "id": 58,
       "ends": [
        "C1"
       ],
@@ -63156,7 +63141,7 @@
  ],
  "totals": {
   "wall_pieces_on_sphere": 175200,
-  "atlas_line_pieces_on_sphere": 62640,
+  "atlas_line_pieces_on_sphere": 61440,
   "meeting_edge_pieces_on_sphere": 44400,
   "points_on_sphere": 317976
  }

@@ -1,6 +1,6 @@
 {
  "summary": {
-  "walls_matching": 24,
+  "walls_matching": 25,
   "walls": 55,
   "lines_matching": 11,
   "lines": 24,
@@ -20,7 +20,6 @@
     "wall X28"
    ],
    "found_edges": [
-    "(unnamed curve)",
     "B1",
     "D3",
     "E2",
@@ -32,7 +31,6 @@
     "wall T2"
    ],
    "not_in_data": [
-    "(unnamed curve)",
     "X97"
    ],
    "match": false
@@ -307,18 +305,14 @@
     "wall X93"
    ],
    "found_edges": [
+    "D3",
     "X13",
     "X4",
-    "wall F1",
     "wall X93"
    ],
-   "missing_on_map": [
-    "D3"
-   ],
-   "not_in_data": [
-    "wall F1"
-   ],
-   "match": false
+   "missing_on_map": [],
+   "not_in_data": [],
+   "match": true
   },
   "X23": {
    "data_edges": [
@@ -1176,6 +1170,7 @@
    ],
    "found_walls": [
     "F1",
+    "X22",
     "X26",
     "X33",
     "X35",
@@ -1184,7 +1179,6 @@
     "X92"
    ],
    "missing_on_map": [
-    "X22",
     "X40",
     "X87",
     "X88"
@@ -2254,7 +2248,6 @@
    ],
    "orbit": 1,
    "edges_found": [
-    "(unnamed curve)",
     "D3",
     "E2",
     "wall X28"
@@ -2920,7 +2913,7 @@
    ],
    "orbit": 0,
    "edges_found": [
-    "wall F1",
+    "D3",
     "wall X93"
    ]
   },
