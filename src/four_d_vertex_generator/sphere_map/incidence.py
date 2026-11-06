@@ -185,10 +185,14 @@ class Incidence:
             if wall is None and len(same) > 1 and a["region"] and b["region"]:
                 chain = self._cusp(a["region"], b["region"], same)
                 if chain:
-                    for (w1, r1, r2, t) in chain:
+                    for n_, (w1, r1, r2, t) in enumerate(chain):
                         walls.append({"surface": t, "copy": a["copy"], "between": [r1, r2],
                                       "wall": w1, "named_by": "cusp: surfaces tangent along the line",
-                                      "sides": None, "surfaces_here": [i for _, i in here]})
+                                      "sides": None, "surfaces_here": [i for _, i in here],
+                                      # (the sector on this wall's outer side: before the first wall
+                                      # of the chain, after the last)
+                                      "cusp_outer": (a["copy"], a["piece"]) if n_ == 0 else (b["copy"], b["piece"]),
+                                      "cusp_chain": [c[0] for c in chain]})
                     continue
             if a["region"] != b["region"] or wall:
                 walls.append({"surface": s, "copy": a["copy"], "between": [a["region"], b["region"]],

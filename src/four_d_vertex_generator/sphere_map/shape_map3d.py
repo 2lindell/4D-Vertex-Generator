@@ -123,10 +123,13 @@ def build() -> dict:
 
     # every placed wall piece by its wall and the two region volumes it lies between
     face_by_sides = {}
+    faces_by_side = defaultdict(list)          # (wall, one side) -> [(face, g, the other side)]
     for f in atlas["faces"]:
         for gg in range(len(g)):
-            vol = frozenset((sd["class"], int(mult[gg, sd["g"]])) for sd in f["sides"])
-            face_by_sides.setdefault((f["wall"], vol), (f["id"], gg))
+            sides = [(sd["class"], int(mult[gg, sd["g"]])) for sd in f["sides"]]
+            face_by_sides.setdefault((f["wall"], frozenset(sides)), (f["id"], gg))
+            for i_ in range(2):
+                faces_by_side[(f["wall"], sides[i_])].append((f["id"], gg, sides[1 - i_]))
 
     inc = Incidence()
 
@@ -143,7 +146,26 @@ def build() -> dict:
             at = region_at.get(int(rcomp[mult[k0, s["copy"]], s["piece"]]))
             if at:
                 out.append({"kind": "region", "class": at[0], "g": at[1], "angle": s["angle"]})
+        # walls tangent along the line (a region between them pinched to nothing): each is the
+        # wall piece with the region volume on its outer side, the two sharing the pinched volume
+        cusp = [wl for wl in r["walls"] if wl.get("cusp_outer")]
+        if len(cusp) == 2:
+            outer = []
+            for wl in cusp:
+                c, pc = wl["cusp_outer"]
+                outer.append(region_at.get(int(rcomp[mult[k0, c], pc])) if pc is not None else None)
+            if all(outer):
+                c1 = faces_by_side.get((cusp[0]["wall"], outer[0]), [])
+                c2 = faces_by_side.get((cusp[1]["wall"], outer[1]), [])
+                for f1, g1, mid1 in c1:
+                    hit = [(f2, g2) for f2, g2, mid2 in c2 if mid2 == mid1]
+                    if hit:
+                        out.append({"kind": "face", "class": f1, "g": g1})
+                        out.append({"kind": "face", "class": hit[0][0], "g": hit[0][1]})
+                        break
         for wl in r["walls"]:
+            if wl.get("cusp_outer"):
+                continue
             at = face_of_wall(k0, wl)
             if at is None and wl.get("wall") and wl.get("sides"):
                 # no recorded patch between these two sectors (the exploration did not meet it
