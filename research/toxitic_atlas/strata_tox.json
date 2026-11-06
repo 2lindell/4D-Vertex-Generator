@@ -123,6 +123,14 @@
     "cc9050ff3c4e": 1
    },
    "changes": []
+  },
+  {
+   "stratum": "point (0,1,1,0)",
+   "points": 1,
+   "types": {
+    "095e2d12fe7f": 1
+   },
+   "changes": []
   }
  ],
  "types": [
@@ -228,7 +236,8 @@
     0.0
    ],
    "strata": [
-    "line b1 = b4 = 0"
+    "line b1 = b4 = 0",
+    "point (0,1,1,0)"
    ],
    "only_at_a_change": false,
    "symmetry_in_contic": 1152,

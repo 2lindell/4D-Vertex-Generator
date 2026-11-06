@@ -62,7 +62,7 @@ assert len(ELEMENTS) == ORDER, len(ELEMENTS)
 import os  # noqa: E402
 
 SUB = os.environ.get("CONTIC_SUB", "full")
-TAG = {"full": "", "ki": "_ki", "io": "_io", "tox": "_tox", "ox": "_ox", "oxb": "_oxb", "ico": "_ico"}[SUB]
+TAG = {"full": "", "ki": "_ki", "io": "_io", "tox": "_tox", "ox": "_ox", "oxb": "_oxb", "ico": "_ico", "icp": "_icp", "icpb": "_icpb"}[SUB]
 _IN_F4 = np.array([np.abs(g @ np.array([1, 1, 0, 0.0]) - np.round(g @ np.array([1, 1, 0, 0.0]))).max() < 1e-9 for g in ELEMENTS])
 _DET = np.array([np.sign(np.linalg.det(g)) for g in ELEMENTS])
 if SUB == "ki":
@@ -75,6 +75,23 @@ elif SUB == "ico":
     # (icoic [3,4,3] = F4 itself (1152): the swap phi normalises it, so the fold still halves the chamber)
     _KEEP = _IN_F4
     GENS = list(REFL)
+elif SUB in ("icp", "icpb"):
+    # (icopyritic [3,4,3+] = <r1, r2, r3 r4> (576: the long mirrors kept, the short ones as rotations); icpb is its image
+    #  under the swap, [3+,4,3] = <r1 r2, r3, r4>. The swap does not normalise icopyritic, so the chamber's two halves
+    #  (b1 >= b4 and b1 <= b4) are two sheets: icopyritic orbits of the half b1 >= b4 (icp) and of its swap image
+    #  (icpb on b1 >= b4), joined along the fold.)
+    GENS = [REFL[0], REFL[1], REFL[2] @ REFL[3]] if SUB == "icp" else [REFL[0] @ REFL[1], REFL[2], REFL[3]]
+    _sub = {tuple(np.eye(4).round(8).ravel())}
+    _q = [np.eye(4)]
+    while _q:
+        _g = _q.pop()
+        for _s in GENS:
+            _h = _s @ _g
+            _k = tuple(_h.round(8).ravel())
+            if _k not in _sub:
+                _sub.add(_k)
+                _q.append(_h)
+    _KEEP = np.array([tuple(g.round(8).ravel()) in _sub for g in ELEMENTS])
 elif SUB in ("tox", "ox", "oxb"):
     # (toxitic [3+,4,3+] = <r1 r2, r3 r4> (288: an even number of long and of short reflections); oxitic [[3+,4,3+]]
     #  adds the swap phi (576). Oxitic's mirror image (oxb: phi r1 r4 in place of phi) is another subgroup: the F4
