@@ -160,7 +160,7 @@ def build_line_pieces(grp, line_segs_doc, log, traced_edges=()):
             # a record that doubles back to its own start (out along the curve and back again) is
             # not a loop: the piece is calculated exactly instead, from its start along its two
             # surfaces in the direction the record leaves, up to the first named point reached
-            if len(poly) > 4 and np.linalg.norm(poly[0] - poly[-1]) < 1e-6:
+            if len(poly) > 4 and np.linalg.norm(poly[0] - poly[-1]) < 1e-3:
                 r4 = point_from_beta(poly)
                 far = int(np.argmax(np.linalg.norm(r4 - r4[0], axis=1)))
                 if cKDTree(r4[:far + 1]).query(r4[far:])[0].max() < 2e-3:
