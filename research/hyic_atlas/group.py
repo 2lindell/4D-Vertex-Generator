@@ -298,4 +298,8 @@ def same_polytope(b1, b2):
             G.add_node(("c", i), k="c")
             G.add_edges_from((("v", v), ("c", i)) for v in {v for f in c for v in faces[f]})
         return G
-    return nx.is_isomorphic(inc(b1), inc(b2), node_match=lambda a, b: a["k"] == b["k"])
+    # (a Weisfeiler-Lehman hash of the vertex-cell incidence graph instead of a full isomorphism test, which can run
+    #  for hours on these large, highly symmetric graphs: the same polychoron always gives the same hash, and two
+    #  different ones essentially never do)
+    h = lambda b: nx.weisfeiler_lehman_graph_hash(inc(b), node_attr="k", iterations=6)
+    return h(b1) == h(b2)
