@@ -87,7 +87,11 @@ def solve(surfs, x, iters=40):
         if np.abs(v).max() < 1e-16:
             break
         J = np.array([f(x)[1] for f in fs])
+        if not (np.isfinite(J).all() and np.isfinite(v).all()):
+            return x, False
         x = x + np.linalg.lstsq(np.vstack([J, np.ones(4)]), np.r_[-v, 1.0 - x.sum()], rcond=None)[0]
+        if not np.isfinite(x).all() or np.abs(x).max() > 1e3:
+            return x, False
     ok = all(abs(f(x)[0]) <= 1e-12 * (1 + np.linalg.norm(f(x)[1])) for f in fs)
     return x, ok
 
@@ -171,6 +175,7 @@ def trace_on(s, t, others, step=STEP, n_seeds=1500, rng=None, start=()):
             if closed:
                 break
         poly = np.array(halves[0][::-1] + (halves[1][1:] if len(halves) > 1 else []))
+        poly = poly[np.isfinite(poly).all(1)]
         d = np.min(np.linalg.norm(seeds[:, None] - poly[None], axis=2), axis=1)
         done |= d < 3 * step
         arcs.append(poly)
@@ -412,18 +417,13 @@ def sheet(D, C, key, log=print, extra=()):
         own += glued_images(D, C, k)
         bound = [D.face_planes[j] for j in FACES if j != k]
         arcs = []
-        for t in bound:
-            arcs += [{"kind": "face", "name": t.name, "pts": a, "eqs": [s, t]}
-                     for a in trace_on(s, t, D.face_planes)]
+        arcs = boundary_arcs(s, [j for j in FACES if j != k], D, own)
     else:
         s = D.lib[key]
         normal = lambda x: (lambda g: g - g.mean())(s.grad(x[None])[0])
         own = [c for c in C if key in c["on"]]
         arcs = []
-        for j in FACES:
-            t = D.face_planes[j]
-            arcs += [{"kind": "face", "name": t.name, "pts": a, "eqs": [s, t]}
-                     for a in trace_on(s, t, D.face_planes)]
+        arcs = boundary_arcs(s, FACES, D, own)
     edges = [dict(c, eqs=[s, second(s, c, D)]) for c in own] + arcs + list(extra)
     G = Graph(s, normal)
     for e in edges:
@@ -475,6 +475,41 @@ def glued_images(D, C, k):
                                 "eqs": [Pulled(e, M * np.sign(np.sum(r[0] @ M)), f"{getattr(e, 'name', '')} @ {gi}")
                                         for e in cv["eqs"]]})
     return out
+
+
+def boundary_arcs(s, faces, D, own):
+    """The surface's whole boundary in the half-cell: its curves on each face, traced from random
+    starts and from every point where a curve of the database on it ends on that face; then closed
+    up: an arc's end on another face starts that face's curve there, until no end is left open."""
+    arcs = {j: [] for j in faces}
+    on_face = lambda x, j: abs(x @ FACE_N[j]) < 1e-9
+    starts = {j: [] for j in faces}
+    for c in own:
+        for x in (c["pts"][0], c["pts"][-1]):
+            for j in faces:
+                if on_face(x, j):
+                    starts[j].append(x)
+    for j in faces:
+        arcs[j] = trace_on(s, D.face_planes[j], D.face_planes, start=starts[j])
+    for _ in range(4):
+        new = False
+        for j in faces:
+            for a in list(arcs[j]):
+                for x in (a[0], a[-1]):
+                    for j2 in faces:
+                        if j2 == j or not on_face(x, j2):
+                            continue
+                        if any(seg_dist(b, None, x) < 1e-7 for b in arcs[j2]):
+                            continue
+                        got = trace_on(s, D.face_planes[j2], D.face_planes, n_seeds=0, start=[x])
+                        got = [g for g in got if len(g) > 1]
+                        if got:
+                            arcs[j2] += got
+                            new = True
+        if not new:
+            break
+    return [{"kind": "face", "name": D.face_planes[j].name, "pts": a, "eqs": [s, D.face_planes[j]]}
+            for j in faces for a in arcs[j] if len(a) > 1]
 
 
 def second(s, c, D):
@@ -647,9 +682,42 @@ class Graph:
                 best[(key, len(best))] = e
         self.E = list(best.values())
 
+    def split_cone_points(self):
+        """A vertex where the surface comes to a point (its gradient 0: the tip of a cone) is two
+        points of the surface, one on each of the cone's two sheets: the edges leaving it are
+        shared between two vertices by the side of the cone's axis they leave on."""
+        Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+        for v in range(len(self.V)):
+            x = self.V[v]
+            g = self.normal(x)
+            if np.linalg.norm(g) > 1e-7:
+                continue
+            h = 1e-5
+            H = np.array([(self.normal(x + h * b) - self.normal(x - h * b)) @ Bz.T / (2 * h) for b in Bz])
+            w, U = np.linalg.eigh((H + H.T) / 2)
+            sg = np.sign(w)
+            odd = [i for i in range(3) if (sg == sg[i]).sum() == 1]
+            if not odd:
+                continue
+            axis = U[:, odd[0]] @ Bz
+            ends = []
+            for ei, e in enumerate(self.E):
+                if e["a"] == v:
+                    ends.append((ei, "a", e["pts"][min(2, len(e["pts"]) - 1)]))
+                if e["b"] == v:
+                    ends.append((ei, "b", e["pts"][max(-3, -len(e["pts"]))]))
+            neg = [(ei, k) for ei, k, y in ends if (y - x) @ axis < 0]
+            if neg and len(neg) < len(ends):
+                self.V.append(x.copy())
+                nv = len(self.V) - 1
+                for ei, k in neg:
+                    self.E[ei][k] = nv
+                self.cone_points = getattr(self, "cone_points", []) + [v]
+
     def faces(self):
         """Faces: half-edges followed round each vertex in the surface's tangent plane (each face
         on the left of its half-edges, turning by the surface's normal)."""
+        self.split_cone_points()
         out = defaultdict(list)            # vertex -> [(angle, half-edge)]
         H = []                             # half-edges: (edge, forward)
         for ei, e in enumerate(self.E):
