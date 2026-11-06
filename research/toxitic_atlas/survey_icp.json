@@ -1,0 +1,115 @@
+{
+ "_about": "A dense survey of the toxitic / oxitic domain for small regions the grid missed (survey_<sub>.json).",
+ "group": "icp",
+ "known_regions": [
+  "23fecbac186a"
+ ],
+ "zones": {
+  "whole domain": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b1, b2 small": {
+   "points": 26,
+   "types": {
+    "23fecbac186a": 26
+   },
+   "new": {}
+  },
+  "b1, b3 small": {
+   "points": 24,
+   "types": {
+    "23fecbac186a": 24
+   },
+   "new": {}
+  },
+  "b1, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b2, b3 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b2, b4 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b2, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b3, b4 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b3, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b4, b1-b4 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b1, b4 small": {
+   "points": 300,
+   "types": {
+    "23fecbac186a": 300
+   },
+   "new": {}
+  },
+  "b2 b3 b4 small": {
+   "points": 42,
+   "types": {
+    "23fecbac186a": 42
+   },
+   "new": {}
+  },
+  "b1 b3 b4 small": {
+   "points": 22,
+   "types": {
+    "23fecbac186a": 22
+   },
+   "new": {}
+  },
+  "b1 b2 b4 small": {
+   "points": 24,
+   "types": {
+    "23fecbac186a": 24
+   },
+   "new": {}
+  },
+  "b2 b3 b1-b4 small": {
+   "points": 21,
+   "types": {
+    "23fecbac186a": 21
+   },
+   "new": {}
+  }
+ },
+ "new": {}
+}
