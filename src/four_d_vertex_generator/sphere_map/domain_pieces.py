@@ -1331,7 +1331,8 @@ def _triangulate(s, rings, c, n, normal, max_area, tr):
     seg = A["segments"]
     for a_, b_ in seg:
         rim.add(frozenset((int(a_), int(b_))))
-    X, F = _refine_on_surface(s, [x for x in X0], [list(t) for t in T["triangles"]], rim, normal)
+    X, F = _refine_on_surface(s, [x for x in X0], [list(t) for t in T["triangles"]], rim, normal,
+                              h=1.6 * np.sqrt(2 * max_area))      # (as fine as the mesh asked for)
     X, F = np.array(X), np.array(F)
     if _turned(_tri_normals(X, F), np.array([normal(x) for x in X[F].mean(1)])):
         return None
