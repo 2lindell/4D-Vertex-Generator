@@ -38,8 +38,17 @@ def job(r):
         except Exception as e:
             continue
         b = np.asarray(o.get("off_seed", o["best"]), float)
-        if o["R"] is not None and o["R"] < best[0] - 1e-9 and G.label(b / b.sum(), tol)[1] == r["key"]:
-            best = (o["R"], b.tolist(), o["status"])
+        bb = b / b.sum()
+        if o["R"] is None or G.label(bb, tol)[1] != r["key"]:
+            continue
+        # (the true R, from the polytope's own edges: across a seam the optimiser can reach a congruent copy of the
+        #  shape whose edges are other group elements than the seed's, where its edge forms no longer apply)
+        V, Vn, idx, faces, cells = G.polytope(bb, tol)
+        E = [np.linalg.norm(Vn[x] - Vn[y]) for x, y in (tuple(e) for e in hull_edges(faces))]
+        Rt = float(max(E) / min(E))
+        if Rt < best[0] - 1e-9:
+            best = (Rt, b.tolist(), o["status"] + ("" if abs(Rt - o["R"]) < 1e-6 else
+                                                   f" (the optimiser's own R {o['R']:.6f}; the polytope's {Rt:.6f})"))
     return best
 
 
