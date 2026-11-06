@@ -1028,56 +1028,80 @@ def _triangulate(s, rings, c, n, normal, max_area, tr):
     return X, F, bad, (c, n, e1, e2)
 
 
-def _cut_path(s, t, a, b, step=STEP, max_len=4.0):
-    """The exact curve s = t = 0 from a to b (both on it): stepped from a, the way that reaches b."""
+def _inward_cut(s, t, P, i, xs_pts, normal, step=STEP, max_len=3.0):
+    """From the loop's crossing i with the plane t, the exact curve s = t = 0 traced into the face
+    (to the left of the loop there) up to the first other crossing it reaches: (path, j) or None."""
     fs, ft = _fg(s), _fg(t)
-    for sgn in (1, -1):
-        pts, x, tp = [a], a, None
-        for _ in range(int(max_len / step)):
-            tan = np.linalg.svd(np.vstack([np.ones(4), fs(x)[1], ft(x)[1]]))[2][-1]
-            tan = sgn * tan if tp is None else (tan if tan @ tp > 0 else -tan)
-            tp = tan
-            if np.linalg.norm(x - b) < 1.5 * step:
-                return np.array(pts[:-1] + [b]) if len(pts) > 1 else np.array([a, b])
-            y, ok = solve([s, t], x + step * tan / np.linalg.norm(tan))
-            if not ok:
-                break
-            pts.append(y)
-            x = y
+    n = len(P)
+    x0 = xs_pts[i]
+    k = list(xs_pts).index(x0) if False else None
+    nn = normal(x0)
+    if np.linalg.norm(nn) < 1e-12:
+        return None
+    Bz = np.linalg.svd(np.ones((1, 4)))[2][1:]
+    if np.linalg.det(np.vstack([np.ones(4) / 2, Bz])) < 0:
+        Bz = Bz[[1, 0, 2]]
+    a_idx = xs_idx_of[id(xs_pts)][i]
+    tng = P[(a_idx + 1) % n] - P[a_idx]
+    left = np.cross(nn @ Bz.T, tng @ Bz.T) @ Bz
+    tan = np.linalg.svd(np.vstack([np.ones(4), fs(x0)[1], ft(x0)[1]]))[2][-1]
+    if tan @ left < 0:
+        tan = -tan
+    pts, x, tp = [x0], x0, tan
+    others = [(k2, y) for k2, y in enumerate(xs_pts) if k2 != i]
+    for _ in range(int(max_len / step)):
+        tan = np.linalg.svd(np.vstack([np.ones(4), fs(x)[1], ft(x)[1]]))[2][-1]
+        tan = tan if tan @ tp > 0 else -tan
+        tp = tan
+        y, ok = solve([s, t], x + step * tan / np.linalg.norm(tan))
+        if not ok or not inside(y, 1e-9):
+            return None
+        for k2, z in others:
+            if np.linalg.norm(y - z) < 1.5 * step:
+                return np.array(pts + [z]), k2
+        pts.append(y)
+        x = y
     return None
+
+
+xs_idx_of = {}
 
 
 def triangulate_face(s, rings, normal, max_area, tr, depth=0):
     """A face triangulated inside its exact loops: laid flat on a plane where that works; else cut
-    in two along the exact curve where the surface meets a plane half way round its loop (the cut
-    shared by both halves, so they meet exactly), each half done the same way. Returns a list of
-    (X, F) or None."""
+    in two along the exact curve where the surface meets a plane across it (from where that plane
+    crosses its loop, into the face, to the next crossing; the cut shared by both halves, so they
+    meet exactly), each half done the same way. Returns a list of (X, F) or None."""
     P = rings[0]
     for n_try in _normals_to_try(P, normal):
         res = _triangulate(s, rings, P.mean(0), n_try, normal, max_area, tr)
         if res is not None:
             return [res[:2]]
-    if depth >= 8 or len(rings) > 1:
+    if depth >= 6 or len(rings) > 1:
         return None
     n = len(P)
-    for i0, i1 in ((0, n // 2), (n // 4, 3 * n // 4), (n // 8, 5 * n // 8), (3 * n // 8, 7 * n // 8)):
+    for i0, i1 in ((0, n // 2), (n // 4, 3 * n // 4)):
         a_, b_ = P[i0], P[i1]
         d = (b_ - a_) - (b_ - a_).mean()
         cpt = (a_ + b_) / 2
         nrm = d - (d @ cpt) * np.ones(4)
         t = Plane(nrm, "helper cut")
         sv = P @ nrm
-        xs = np.flatnonzero(np.sign(sv) != np.sign(np.roll(sv, -1)))
-        if len(xs) != 2:
+        idx = [int(k) for k in np.flatnonzero(np.sign(sv) != np.sign(np.roll(sv, -1)))]
+        if len(idx) < 2:
             continue
-        i, j = int(xs[0]), int(xs[1])
-        xi, ok1 = solve([s, t], (P[i] + P[(i + 1) % n]) / 2)
-        xj, ok2 = solve([s, t], (P[j] + P[(j + 1) % n]) / 2)
-        if not (ok1 and ok2):
+        pts = []
+        for k in idx:
+            x, ok = solve([s, t], (P[k] + P[(k + 1) % n]) / 2)
+            pts.append(x if ok else (P[k] + P[(k + 1) % n]) / 2)
+        xs_idx_of[id(pts)] = idx
+        res = _inward_cut(s, t, P, 0, pts, normal)
+        xs_idx_of.pop(id(pts), None)
+        if res is None:
             continue
-        cut = _cut_path(s, t, xi, xj)
-        if cut is None or len(cut) < 2:
-            continue
+        cut, jj = res
+        i, j = idx[0], idx[jj]
+        xi, xj = pts[0], pts[jj]
         inner = list(cut[1:-1])
         L1 = np.array([xi] + list(P[i + 1:j + 1]) + [xj] + inner[::-1])
         L2 = np.array([xj] + list(P[j + 1:]) + list(P[:i + 1]) + [xi] + inner)
@@ -1085,11 +1109,9 @@ def triangulate_face(s, rings, normal, max_area, tr, depth=0):
         for Lh in (L1, L2):
             part = triangulate_face(s, [Lh], normal, max_area, tr, depth + 1)
             if part is None:
-                out = None
-                break
+                return None
             out += part
-        if out is not None:
-            return out
+        return out
     return None
 
 
