@@ -30,6 +30,33 @@ F = None
 OPT = {}            # (the optimized seeds by name, as extra starting points)
 
 
+def _normalises(M):
+    """Does the isometry M (in this atlas's frame) map the group onto itself?"""
+    E = getattr(G, "ELEMENTS", None)
+    if E is None:
+        return True
+    from scipy.spatial import cKDTree
+    t = cKDTree(E.reshape(len(E), -1))
+    return bool(t.query(np.einsum("ij,njk,lk->nil", M, E, M).reshape(len(E), -1))[0].max() < 1e-6)
+
+
+_SEAMS = {}
+
+
+def seams():
+    """Which of the chamber's mirrors (and the fold) are seams: their reflection (the swap) does not normalise the group,
+    so the shape continues past them (they are no boundary of the shape space); mirrors whose reflection normalises the
+    group are boundaries (the far side is the mirror image). Groups without 4D reflections (decaic's frame): none."""
+    key = getattr(G, "SUB", None)
+    if key not in _SEAMS:
+        R = getattr(G, "REFL", None)
+        mir = [False] * 4 if R is None or getattr(G, "ELEMENTS", None) is None else [not _normalises(r) for r in R]
+        phi = getattr(G, "PHI", None)
+        fold = phi is not None and getattr(G, "ELEMENTS", None) is not None and not _normalises(phi)
+        _SEAMS[key] = (mir, fold)
+    return _SEAMS[key]
+
+
 def centre(shape):
     seed = np.asarray(shape["seed"], float)
     seed = seed / seed.sum()
@@ -86,16 +113,23 @@ def centre(shape):
         for f, g, sg in facs:
             gt = tangent(np.array([[float(gi(*b)) for gi in g]]), b)
             out.append(sg * float(f(*b)) / (np.linalg.norm(gt) + 1e-300))
-        for k in free:                                  # (the mirrors the shape is not on)
+        mir, fold = seams()
+        for k in free:                                  # (the mirrors the shape is not on, unless they are seams)
+            if mir[k]:
+                continue
             out.append(b[k] / (np.linalg.norm(tangent(np.eye(4)[k][None], b)) + 1e-300))
-        if getattr(G, "FOLD", True) and 0 in free and 3 in free and \
+        if getattr(G, "FOLD", True) and not fold and 0 in free and 3 in free and \
                 not any(sp.expand(e - (O.B[0] - O.B[3])) == 0 for e in loc):
             out.append((b[0] - b[3]) / (np.linalg.norm(tangent(np.array([[1, 0, 0, -1.0]]), b)) + 1e-300))
-        return np.array(out, float)
+        return np.array(out or [1.0], float)
 
     nf = len(free)
     cons = [{"type": "ineq", "fun": lambda z: depths(full(z)) - z[nf]},
             {"type": "eq", "fun": lambda z: np.array([full(z).sum() - 1] + [f(*full(z)) for f in loc_f])}]
+    # (past a seam mirror the shape continues on the next sheet: allowed, to at most -0.5 (about that sheet's extent);
+    #  the arrangement key, checked below, keeps it on the shape)
+    for k in [k for k in free if seams()[0][k]]:
+        cons.append({"type": "ineq", "fun": (lambda kk: lambda z: np.array([full(z)[kk] + 0.5]))(k)})
     starts = [seed]
     o = OPT.get(shape["name"])
     if o is not None:
@@ -110,7 +144,8 @@ def centre(shape):
         if b.sum() <= 0:
             continue
         b = b / b.sum()
-        if not G.in_domain(b[None], 1e-12)[0]:
+        mir, fold = seams()
+        if not any(mir) and not fold and not G.in_domain(b[None], 1e-12)[0]:
             continue
         d = float(depths(b).min())
         if d > bestd and G.label(b, tol)[1] == key0:
