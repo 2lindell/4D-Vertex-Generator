@@ -5,9 +5,13 @@ Simple roots from the generator page's Coxeter construction (library._coxeter_ro
 at pi/5, 2 meets 3 and 3 meets 4 at pi/3). A seed is beta_k = its distance to mirror k, x(beta) = X beta. There is no
 diagram symmetry, so the whole chamber is the domain (no fold).
 
-HYIC_SUB = full ([5,3,3], 14400), ki (kihyic [5,3,3]+, the rotations, 7200), ix (ixitic 5[3+,4,3+] = +-[I x T], 1440:
-found inside H4 through the icosian (quaternion) form of H4, where it is the pairs (l, r) with l in the binary
-icosahedral group and r in its binary tetrahedral subgroup, carried to this basis by the map of simple roots).
+HYIC_SUB = full ([5,3,3], 14400), ki (kihyic [5,3,3]+, the rotations, 7200), ix0..ix9 (ixitic 5[3+,4,3+] = +-[I x T],
+1440) and ixo0..ixo9 (ixoic 5[[3+,4,3+]] = +-[I x O], 2880). Ixitic and ixoic are the generator page's groups (icosian
+form) carried to this basis by the map of simple roots; ixitic lies in H4 with index 10, ixoic does not. The shape
+space of either is the sphere modulo ixoic (ixoic is ixitic's normaliser), which the H4 chamber does not cover: the
+sphere modulo ixitic is ten H4 chambers g_i C (H4 = union of the cosets ixitic g_i), so the map is made on ten sheets,
+sheet i being the conjugate g_i^-1 E g_i acting on the chamber C itself; shapes met on several sheets (through ixoic,
+or as mirror images) merge by arrangement key.
 
 Exactness: in root coordinates (y = UNIT x) every element of H4 has entries in Z[(1+sqrt5)/2], and a vertex is
 (UNIT g X) beta; a 5-vertex determinant there is the true one times det(UNIT), so its zero set is the same.
@@ -36,8 +40,11 @@ FOLD = False
 SQ5 = sp.sqrt(5)
 S5 = 5 ** 0.5
 SUB = os.environ.get("HYIC_SUB", "full")
-TAG = {"full": "", "ki": "_ki", "ix": "_ix"}[SUB]
-NAME = {"full": "hyic", "ki": "kihyic", "ix": "ixitic"}[SUB]
+# (ixitic / ixoic sheets: ix0..ix9, ixo0..ixo9; "ix" is sheet ix0)
+SUB = "ix0" if SUB == "ix" else SUB
+SHEET = int(SUB[-1]) if SUB[:2] == "ix" else None
+TAG = {"full": "", "ki": "_ki"}.get(SUB, f"_{SUB}")
+NAME = {"full": "hyic", "ki": "kihyic"}.get(SUB, "ixoic" if SUB.startswith("ixo") else "ixitic")
 
 
 def _closure(gens):
@@ -54,8 +61,8 @@ def _closure(gens):
     return np.array(list(out.values()))
 
 
-def _ixitic_generators():
-    """Ixitic in this basis: the generator page's ixitic (icosian form) carried over by the simple-root map."""
+def _ixitic_generators(name="ixitic"):
+    """Ixitic (or ixoic) in this basis: the generator page's group (icosian form) carried over by the simple-root map."""
     from four_d_vertex_generator.library import _reflection_chamber_roots, named_symmetry
     Rq = np.asarray(_reflection_chamber_roots("h4_icosian"), float)
     Rq = Rq / np.linalg.norm(Rq, axis=1)[:, None]
@@ -65,27 +72,55 @@ def _ixitic_generators():
         Rq = Rq[::-1]
     assert np.abs(Rq @ Rq.T - G0).max() < 1e-9
     C = UNIT.T @ np.linalg.inv(Rq.T)                       # (C r_q = r: the orthogonal map of the icosian chamber to ours)
-    return [C @ g @ C.T for g in named_symmetry("ixitic").generators]
+    return [C @ g @ C.T for g in named_symmetry(name).generators]
+
+
+def _cached(name, make):
+    p = os.path.join(HERE, f".elements_{name}.npy")
+    if os.path.exists(p):
+        return np.load(p)
+    E = make()
+    np.save(p, E)
+    return E
+
+
+def sheet_cosets():
+    """Ten H4 elements g_i with H4 = union of ixitic g_i (right cosets): the sphere modulo ixitic is the ten chambers
+    g_i C, and sheet i is the conjugate g_i^-1 (ixitic) g_i acting on the chamber C itself."""
+    H = _cached("full", lambda: _closure(REFL))
+    E = _cached("ixitic", lambda: _closure(_ixitic_generators()))
+    tree = cKDTree(H.reshape(len(H), -1))
+    used = np.zeros(len(H), bool)
+    reps = []
+    for i in range(len(H)):
+        if used[i]:
+            continue
+        reps.append(H[i])
+        used[tree.query((E @ H[i]).reshape(len(E), -1))[1]] = True
+    assert len(reps) == 10
+    return reps
 
 
 if SUB == "full":
-    GENS = list(REFL)
+    ELEMENTS = _cached("full", lambda: _closure(REFL))
 elif SUB == "ki":
-    GENS = [REFL[i] @ REFL[j] for i in range(4) for j in range(i + 1, 4)]
+    ELEMENTS = _cached("ki", lambda: _closure([REFL[i] @ REFL[j] for i in range(4) for j in range(i + 1, 4)]))
 else:
-    GENS = _ixitic_generators()
-_cache = os.path.join(HERE, f".elements_{SUB}.npy")
-if os.path.exists(_cache):
-    ELEMENTS = np.load(_cache)
+    g = sheet_cosets()[SHEET]
+    base = _cached("ixoic", lambda: _closure(_ixitic_generators("ixoic"))) if SUB.startswith("ixo") else \
+        _cached("ixitic", lambda: _closure(_ixitic_generators()))
+    ELEMENTS = np.einsum("ji,njk,kl->nil", g, base, g)     # (g^-1 E g, g orthogonal)
+GENS = list(ELEMENTS[np.random.default_rng(0).choice(len(ELEMENTS), 6, replace=False)])
+if SUB != "full":                                          # (generators: a few elements that generate the group)
+    from itertools import count
+    for n in count(6):
+        if len(_closure(GENS)) == len(ELEMENTS):
+            break
+        GENS = list(ELEMENTS[np.random.default_rng(n).choice(len(ELEMENTS), n, replace=False)])
 else:
-    ELEMENTS = _closure(GENS)
-    np.save(_cache, ELEMENTS)
+    GENS = list(REFL)
 ORDER = len(ELEMENTS)
-assert ORDER == {"full": 14400, "ki": 7200, "ix": 1440}[SUB], ORDER
-if SUB == "ix":                                            # (ixitic lies in H4: every element is an H4 element)
-    _H4 = np.load(os.path.join(HERE, ".elements_full.npy")) if os.path.exists(os.path.join(HERE, ".elements_full.npy")) \
-        else _closure(REFL)
-    assert np.abs(cKDTree(_H4.reshape(len(_H4), -1)).query(ELEMENTS.reshape(len(ELEMENTS), -1))[0]).max() < 1e-7
+assert ORDER == {"full": 14400, "ki": 7200}.get(SUB, 2880 if SUB.startswith("ixo") else 1440), ORDER
 
 
 def fname(stem, ext="json"):
