@@ -529,10 +529,31 @@ def boundary_arcs(s, faces, D, own):
             X = A + tt[:, None] * (B - A)
             v = s.f(X)
             if dist_to(s, X[1:-1:50]).max() < 1e-9:
+                # (the surface holds this edge: the stretches traced along it on either face are
+                # dropped, and the edge itself is the boundary there, once)
                 seg = X[::20]
                 for j in on:
-                    if j in faces:
-                        arcs[j].append(seg)
+                    if j not in faces:
+                        continue
+                    kept = []
+                    for a in arcs[j]:
+                        off_edge = ~((np.abs(a @ FACE_N[on[0]]) < 1e-9) & (np.abs(a @ FACE_N[on[1]]) < 1e-9))
+                        run, off = [], False
+                        for x, o in zip(a, off_edge):
+                            if o:
+                                run.append(x)
+                                off = True
+                            else:
+                                if off:
+                                    run.append(x)          # (a stretch off the edge, ending on it)
+                                    kept.append(np.array(run))
+                                run, off = [x], False
+                        if off and len(run) > 1:
+                            kept.append(np.array(run))
+                    arcs[j] = kept
+                j0 = next((j for j in on if j in faces), None)
+                if j0 is not None:
+                    arcs[j0].append(seg)
                 continue
             for k in np.flatnonzero(np.sign(v[:-1]) != np.sign(v[1:])):
                 lo, hi = tt[k], tt[k + 1]
@@ -601,6 +622,30 @@ def second(s, c, D):
         if cs < bc:
             best, bc = e, cs
     return best
+
+
+def _cross_along(s, ti, tj, a, b, iters=60):
+    """Where the curve s = ti = 0 between its points a and b crosses the surface tj: bisection on
+    tj along it, every point solved back onto the curve."""
+    fa = float(tj.f(a[None])[0])
+    fb = float(tj.f(b[None])[0])
+    if np.sign(fa) == np.sign(fb):
+        return a, False
+    lo, hi = 0.0, 1.0
+    x = a
+    for _ in range(iters):
+        mid = (lo + hi) / 2
+        x, ok = solve([s, ti], a + mid * (b - a))
+        if not ok:
+            return x, False
+        fm = float(tj.f(x[None])[0])
+        if abs(fm) < 1e-15:
+            break
+        if np.sign(fm) == np.sign(fa):
+            lo = mid
+        else:
+            hi = mid
+    return x, True
 
 
 def seg_dist(P, tree, x):
@@ -699,9 +744,16 @@ class Graph:
                 continue
             x0 = (a + t1 * u + c_ + t2 * v) / 2
             x, ok = solve([self.s, cs[ci]["eqs"][1], cs[cj]["eqs"][1]], x0)
+            tol_on = 1e-6
             if not ok or np.linalg.norm(x - x0) > 5e-3:
-                continue
-            if min(seg_dist(cs[ci]["pts"], trees[ci], x), seg_dist(cs[cj]["pts"], trees[cj], x)) > 1e-6:
+                tol_on = 3e-5
+                # (the three surfaces meeting at a small angle: the crossing found along the first
+                # curve instead, where the second's own surface changes sign, each point on the first)
+                x, ok = _cross_along(self.s, cs[ci]["eqs"][1], cs[cj]["eqs"][1], a, b)
+                if not ok:
+                    continue
+            # (on both curves: within their polylines' chord sag)
+            if max(seg_dist(cs[ci]["pts"], trees[ci], x), seg_dist(cs[cj]["pts"], trees[cj], x)) > tol_on:
                 continue
             cuts[ci].append(x)
             cuts[cj].append(x)
