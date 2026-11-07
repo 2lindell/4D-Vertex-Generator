@@ -94,7 +94,13 @@ def main():
     X = qmc.Halton(4, seed=5).random(3000)
     X = -np.log(1 - X * 0.999999)
     X = X / X.sum(1, keepdims=True)
-    K = pool.map(label, list(map(tuple, X)), chunksize=16)
+    # (checkpoint: the start labels and each batch of walks, so a restart resumes)
+    ck = os.path.join(HERE, f"closure_{G.SUB}.partial.json")
+    C = json.load(open(ck)) if os.path.exists(ck) else {}
+    if "K" not in C:
+        C["K"] = pool.map(label, list(map(tuple, X)), chunksize=16)
+        json.dump(C, open(ck, "w"))
+    K = C["K"]
     starts = defaultdict(list)
     for k, b in reg.items():
         starts[k].append(b)
@@ -110,7 +116,13 @@ def main():
         starts[k] = chosen
     D = directions(24)
     items = [(tuple(s), tuple(d), k) for k in reg for s in starts[k] for d in D]
-    E = pool.map(walk, items, chunksize=4)
+    E = C.get("E", [])
+    if E:
+        print(f"resumed after {len(E)} of {len(items)} walks", flush=True)
+    for i in range(len(E), len(items), 64):
+        E += pool.map(walk, items[i:i + 64], chunksize=4)
+        C["E"] = E
+        json.dump(C, open(ck, "w"))
     ch = [(i, e) for i, e in enumerate(E) if e is not None]
     sid = {}
     miss = []
@@ -141,6 +153,7 @@ def main():
     out = {"_about": __doc__.strip().split("\n\n")[0], "sheet": G.SUB, "regions": len(reg), "walks": len(items),
            "changes": len(ch), "on_no_surface": nosurf, "new_regions": new_regions, "new_wall_shapes": new_walls}
     json.dump(out, open(os.path.join(HERE, f"closure_{G.SUB}.json"), "w"), indent=1)
+    os.remove(ck)
     print(f"{G.SUB}: {len(reg)} regions, {len(items)} walks, {len(ch)} changes ({nosurf} on no surface); "
           f"{len(new_regions)} new regions, {len(new_walls)} new wall shapes", flush=True)
 
