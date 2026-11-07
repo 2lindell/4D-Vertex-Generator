@@ -47,6 +47,8 @@ ixitic) keep it.
 |  | wall | 1440 | 5040 | {3: 3600, 4: 2880, 5: 2880, 7: 720} | 1440 | 1440 |  | 1 | [0.49938, 0.15629, 0.20869, 0.13563] (ix5) |
 |  | wall | 1440 | 5760 | {3: 2880, 4: 2880, 5: 2880, 6: 720, 8: 720} | 1440 | 1440 |  | 2 | [0.1001, 0.83308, 0.0, 0.06682] (ix5) |
 |  | wall | 1440 | 7200 | {3: 5760, 4: 5040, 7: 1440, 12: 720} | 1440 | 1440 |  | 1 | [0.08341, 0.6237, 0.25103, 0.04185] (ix9) |
+|  | wall | 1440 | 6480 | {3: 3600, 4: 5760, 6: 1440, 11: 720} | 1440 | 1440 |  | 1 | [0.09916, 0.53205, 0.27486, 0.09392] (ix9) |
+| awosbitdy | wall | 1440 | 6480 | {3: 7200, 4: 2880, 8: 1440, 12: 720} | 1440 | 1440 |  | 1 | [0.21558, 0.4303, 0.19558, 0.15854] (ix9) |
 | hidhi | line | 480 | 240 | {3: 1440} | 1440 | 1440 |  | 8 | [0.5, 0.0, 0.0, 0.5] (ix5) |
 | tisthi | line | 480 | 1440 | {3: 1440, 4: 720, 6: 720} | 1440 | 1440 |  | 6 | [0.03349, 0.96651, 0.0, 0.0] (ix0) |
 | sagyptady | line | 480 | 2160 | {3: 1440, 4: 720, 6: 1440} | 1440 | 1440 |  | 2 | [0.0335, 0.0, 0.0, 0.9665] (ix0) |
@@ -59,7 +61,7 @@ ixitic) keep it.
 | sartethi | line | 1440 | 1680 | {3: 2880, 4: 2880} | 1440 | 1440 |  | 4 | [0.53311, 0.0, 0.46689, 0.0] (ix5) |
 | tehi | point | 120 | 600 | {5: 720} | 14400 | 1440 |  | 10 | [1.0, 0.0, 0.0, 0.0] (ix0) |
 
-Totals: {'region': 22, 'wall': 14, 'line': 10, 'point': 1}.
+Totals: {'region': 22, 'wall': 16, 'line': 10, 'point': 1}.
 
 Names from the accepted ixitic list, matched by edge valences at a vertex and by cells. Notes:
 
@@ -70,6 +72,9 @@ Names from the accepted ixitic list, matched by edge valences at a vertex and by
 - mestuthi: cells exactly the list's (120 snits, 120 tuts, 480 gytricus, 720x2 disphs, 1440 tets); edges 8,4^6,3^4 against the list's 8,4^6,333: one count apart
 - magypsobtady: two atlas regions have its edges and cells exactly; which is which is not settled
 - sisbethi: the list's edges 55668,44,3^4 match no atlas shape; two atlas regions have its cells exactly (240 snits, 480 trigypos, 1440 phydows, 2880 tets), with edges 8,6,4^7,3^4 and 8,6,55,444,3^6
-- not found: awosbitdy (6480 cells: the two 6480-cell atlas regions have other edges), sastithi and gisbethi (4080 cells: none in the atlas) are not matched
+- awosbitdy: found by the surface survey on sheet ix9, on the wall b1 b3 = (sqrt(5) - 1)/2 b2 b4: cells exactly the list's (120x2 snits, 480 trigypos, 720x2 phywdows, 1440+1440 tets and 1440 hexflanges, 6480) and edges 88 12,4^4,3^10 exactly
+- not found: sastithi and gisbethi (4080 cells: none in the atlas) are not matched
 
 - atlas shapes with exactly ixitic symmetry and no name in the list: 21.
+
+- added from the surface survey (add_survey_shapes.py): 41ab2de5065a (ix9, 6480 cells), awosbitdy (ix9, 6480 cells)

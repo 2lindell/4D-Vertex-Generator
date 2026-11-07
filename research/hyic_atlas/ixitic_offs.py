@@ -7,7 +7,7 @@ and centre finder (optimize_seeds.py); its locus: free for a region, the zero be
 numbered (ixitic_region_NN, ...). A seed the optimiser or the centre finder moves to another polytope is not used: the
 shape's own seed is written instead, and noted.
 
-    python ixitic_offs.py [gather]
+    python ixitic_offs.py [gather | new]      (new: only the shapes not yet in opt_central_ixitic.json)
 """
 from __future__ import annotations
 
@@ -81,17 +81,22 @@ print(json.dumps(out))
 '''
 
 
-def main():
+def main(only_new=False):
     d = json.load(open(os.path.join(HERE, "ixitic_shapes.json")))["shapes"]
     count, todo = {}, {}
+    rows = []
+    if only_new:
+        rows = json.load(open(os.path.join(HERE, "opt_central_ixitic.json")))["shapes"]
+    done = {r["key"] for r in rows}
     for s in d:
         count[s["kind"]] = count.get(s["kind"], 0) + 1
         name = s.get("name") or f"ixitic_{s['kind']}_{count[s['kind']]:02d}"
+        if s["key"] in done:
+            continue
         todo.setdefault(s["sheet"], []).append({
             "name": name, "kind": s["kind"], "degrees": {"region": 3, "wall": 2, "line": 1, "point": 0}[s["kind"]],
             "seed": s["seed"], "key": s["key"], "sheet": s["sheet"],
             "hull_tol": 1e-9 if s["kind"] in ("region", "line", "point") else 1e-7})
-    rows = []
     for sub in sorted(todo):
         r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT}], input=json.dumps(todo[sub]),
                            capture_output=True, text=True, cwd=HERE, env={**os.environ, "HYIC_SUB": sub})
@@ -130,4 +135,5 @@ def gather(rows=None):
 
 
 if __name__ == "__main__":
-    gather() if len(sys.argv) > 1 and sys.argv[1] == "gather" else main()
+    arg = sys.argv[1] if len(sys.argv) > 1 else ""
+    gather() if arg == "gather" else main(only_new=arg == "new")

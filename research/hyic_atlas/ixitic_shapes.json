@@ -1722,6 +1722,66 @@
     "5": 720
    },
    "name": "tehi"
+  },
+  {
+   "key": "41ab2de5065a",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[4v4f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[5v5f] | faces 480x3g+480x3g+480x3g+720x4g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g | edges 720x3+720x4+720x4+720x11+1440x3+1440x3+1440x4+1440x4+1440x4+1440x6",
+   "kind": "wall",
+   "seed": [
+    0.09916458931942723,
+    0.5320498349296123,
+    0.27486059126061924,
+    0.0939249844903411
+   ],
+   "sheet": "ix9",
+   "symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix9 surface survey: b1**2 - b1*b2/2 + sqrt(5)*b1*b2/2 - b1*b3/2 + sqrt(5)*b1*b3/2 - b1*b4 - b2*b4"
+   ],
+   "sheets": [
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 6480,
+   "edges": {
+    "3": 3600,
+    "4": 5760,
+    "6": 1440,
+    "11": 720
+   },
+   "name": null
+  },
+  {
+   "key": "ce1564d83d55",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v8f]+720x[6v6f]+720x[6v6f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x3g+1440x4g | edges 720x4+720x4+720x12+1440x3+1440x3+1440x3+1440x3+1440x3+1440x4+1440x8",
+   "kind": "wall",
+   "seed": [
+    0.2155761689435843,
+    0.43029805879172783,
+    0.1955822623638432,
+    0.15854350990084462
+   ],
+   "sheet": "ix9",
+   "symmetry": 1440,
+   "improper": 0,
+   "other_group_elements_kept": 1440,
+   "sources": [
+    "ix9 surface survey: b1*b3 - sqrt(5)*b2*b4/2 + b2*b4/2"
+   ],
+   "sheets": [
+    "ix9"
+   ],
+   "vertices": 1440,
+   "cells": 6480,
+   "edges": {
+    "3": 7200,
+    "4": 2880,
+    "8": 1440,
+    "12": 720
+   },
+   "name": "awosbitdy"
   }
  ],
  "names_notes": {
