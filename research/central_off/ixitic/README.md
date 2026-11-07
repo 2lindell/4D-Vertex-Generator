@@ -51,3 +51,5 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixit
 | ixitic_region_21 | region | ix9 | 3.75e-04 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.443187945, 0.08014762, 0.034006978, 0.442657457] | ixitic_region_21_1440v_8640c_central.off |
 | ixitic_region_22 | region | ix9 | 2.19e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.417662111, 0.39033163, 0.086376758, 0.105629501] | ixitic_region_22_1440v_10080c_central.off |
 | ixitic_wall_14 | wall | ix9 | 1.63e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.443510924, 0.306043437, 0.105062666, 0.145382972] | ixitic_wall_14_1440v_7200c_central.off |
+| ixitic_wall_15 | wall | ix9 | 3.97e-02 | no deeper point found: the seed itself | [0.099164589, 0.532049835, 0.274860591, 0.093924984] | ixitic_wall_15_1440v_6480c_central.off |
+| awosbitdy | wall | ix9 | 1.98e-01 | deepest point of the shape | [0.467360325, 0.333681424, 0.060913392, 0.138044859] | awosbitdy_1440v_6480c_central.off |

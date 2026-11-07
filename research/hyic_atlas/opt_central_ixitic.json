@@ -1763,6 +1763,84 @@
    "opt_R": 4.375624568054075,
    "central_off": "central_off/ixitic/ixitic_wall_14_1440v_7200c_central.off",
    "central_R": 4.993159557310668
+  },
+  {
+   "name": "ixitic_wall_15",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "41ab2de5065a",
+   "locus": [
+    "b1**2 - b1*b2/2 + sqrt(5)*b1*b2/2 - b1*b3/2 + sqrt(5)*b1*b3/2 - b1*b4 - b2*b4"
+   ],
+   "sheet": "ix9",
+   "seed": [
+    0.09916458931942723,
+    0.5320498349296123,
+    0.27486059126061924,
+    0.0939249844903411
+   ],
+   "start_R": 14.200541657405497,
+   "R": 4.534567884457094,
+   "optimized": [
+    0.27589658761060043,
+    0.2771276802944847,
+    0.17112514210833957,
+    0.2758505899865754
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.09916458931942723,
+    0.5320498349296123,
+    0.27486059126061924,
+    0.0939249844903411
+   ],
+   "depth": 0.039709804421431266,
+   "central_status": "no deeper point found: the seed itself",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_15_1440v_6480c_seed.off",
+   "seed_R": 14.20054165741079,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_15_1440v_6480c_opt.off",
+   "opt_R": 4.544261902950961,
+   "central_off": "central_off/ixitic/ixitic_wall_15_1440v_6480c_central.off",
+   "central_R": 14.20054165741079
+  },
+  {
+   "name": "awosbitdy",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "ce1564d83d55",
+   "locus": [
+    "b1*b3 - sqrt(5)*b2*b4/2 + b2*b4/2"
+   ],
+   "sheet": "ix9",
+   "seed": [
+    0.2155761689435843,
+    0.43029805879172783,
+    0.1955822623638432,
+    0.15854350990084462
+   ],
+   "start_R": 6.990597401395825,
+   "R": 4.382063927591246,
+   "optimized": [
+    0.3850886496105211,
+    0.36258209582847883,
+    0.09282031317639018,
+    0.15950894138460991
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.4673603250138563,
+    0.33368142351526925,
+    0.06091339224552299,
+    0.13804485922535153
+   ],
+   "depth": 0.1978270431790915,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_awosbitdy_1440v_6480c_seed.off",
+   "seed_R": 6.9905974013971415,
+   "opt_off": "optimized_off/ixitic/awosbitdy_1440v_6480c_opt.off",
+   "opt_R": 4.382063927592335,
+   "central_off": "central_off/ixitic/awosbitdy_1440v_6480c_central.off",
+   "central_R": 5.168136972838479
   }
  ]
 }
