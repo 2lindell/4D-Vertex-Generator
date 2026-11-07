@@ -132,7 +132,18 @@ def main():
     pool = Pool(4)
     types = {}                                    # key -> {signature, example, strata}
     out = {"_about": __doc__.strip().split("\n\n")[0], "group": G.SUB, "order": G.ORDER, "N": N, "strata": []}
+    # (checkpoint after each stratum, so a restart resumes where it stopped)
+    ck = os.path.join(HERE, f"strata_{G.SUB}.partial.json")
+    if os.path.exists(ck):
+        c = json.load(open(ck))
+        if c["N"] == N:
+            out["strata"] = c["strata"]
+            types = {(None if k == "None" else k): {**t, "strata": set(t["strata"])} for k, t in c["types"].items()}
+            print(f"resumed after {len(out['strata'])} strata", flush=True)
+    done = {s["stratum"] for s in out["strata"]}
     for name, zero, fold, line in STRATA:
+        if name in done:
+            continue
         P = lattice(N if "point" not in name else 2, zero, fold, line)
         if "point" in name:
             X = np.zeros((1, 4))
@@ -167,6 +178,8 @@ def main():
             t["at_change"] = False
         out["strata"].append({"stratum": name, "points": len(P), "types": {str(k): n for k, n in found.items()},
                               "changes": [{"sides": list(s), "at": k, "crossings": n} for (s, k), n in changes.items()]})
+        json.dump({"N": N, "strata": out["strata"],
+                   "types": {str(k): {**t, "strata": sorted(t["strata"])} for k, t in types.items()}}, open(ck, "w"))
         print(f"{name:24} {len(P):5} points  {len(found)} types  {len(changes)} kinds of change  {time.time() - t0:.0f}s",
               flush=True)
     keys = [k for k in types if k is not None]
@@ -183,6 +196,7 @@ def main():
               f"{'change ' if t['only_at_a_change'] else '        '}{', '.join(t['strata'])[:70]:70}  "
               f"{t['signature'].split('|')[0][5:80]}", flush=True)
     json.dump(out, open(os.path.join(HERE, f"strata_{G.SUB}.json"), "w"), indent=1)
+    os.remove(ck)
     print(f"{time.time() - t0:.0f}s")
 
 
