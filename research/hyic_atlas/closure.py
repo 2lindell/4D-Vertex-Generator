@@ -97,10 +97,11 @@ def main():
     # (checkpoint: the start labels and each batch of walks, so a restart resumes)
     ck = os.path.join(HERE, f"closure_{G.SUB}.partial.json")
     C = json.load(open(ck)) if os.path.exists(ck) else {}
-    if "K" not in C:
-        C["K"] = pool.map(label, list(map(tuple, X)), chunksize=16)
+    K = C.get("K", [])
+    for i in range(len(K), len(X), 200):
+        K += pool.map(label, list(map(tuple, X[i:i + 200])), chunksize=16)
+        C["K"] = K
         json.dump(C, open(ck, "w"))
-    K = C["K"]
     starts = defaultdict(list)
     for k, b in reg.items():
         starts[k].append(b)
