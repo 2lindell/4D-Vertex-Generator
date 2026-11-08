@@ -386,7 +386,7 @@ def main(src_dir, out_path):
     def build_view(chart, planes, nd, line_tol, images, inside_only=False):
         xwalls, xlines, segments, rings, main_ = [], [], [], [], []
         shells = defaultdict(lambda: {"tris": [], "rim": [], "walls": set()})
-        drawn_once = {}
+        drawn_once, rim_done = {}, set()
         for fc in faces:
             parts = []
             X0, F0 = (fc["Xc"], fc["Fc"]) if (len(images) > 1 or fc.get("dense")) and "Xc" in fc else (fc["X"], fc["F"])
@@ -412,11 +412,18 @@ def main(src_dir, out_path):
                 done = drawn_once.setdefault(id(g), set())
                 for o in outlines(fc, draw, done):
                     xlines.append({**o, "pts": thin(o["pts"], line_tol).tolist()})
-                # (a region's edges: every drawn edge of its pieces, each piece's own)
+                # (a region's edges: every drawn edge of its pieces once, dashed where the wall goes
+                # on across it, as the walls draw them)
+                w_ = fc["f"]["wall"]
                 for kind, nm, P, i in fc["drawn"]:
-                    for Q in draw(P):
-                        for r in sides:
-                            shells[r]["rim"].append(thin(Q, line_tol).tolist())
+                    for r in sides:
+                        if (r, w_, i, id(g)) in rim_done:
+                            continue
+                        rim_done.add((r, w_, i, id(g)))
+                        for Q in draw(P):
+                            if len(Q) > 1:
+                                shells[r]["rim"].append({"pts": thin(Q, line_tol).tolist(),
+                                                         "dash": ecount[(w_, i)] >= 2})
             for r in set(sides):
                 shells[r]["tris"].append(Q3)
                 shells[r]["walls"].add(fc["f"]["wall"])
