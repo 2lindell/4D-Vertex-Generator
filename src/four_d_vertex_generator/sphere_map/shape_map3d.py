@@ -91,7 +91,18 @@ def build() -> dict:
     # named: a shape of its own in the atlas (working data 'shapes'); other exact points only mark
     # where lines meet
     point_shapes = {k for k, v in load_json("working_data.json")["shapes"].items() if v["dim"] == "point"}
-    named_points = [p["id"] for p in atlas["points"] if p.get("atlas_point") in point_shapes]
+    named_points = []
+    # one class per point of S^3 up to the group: the atlas can hold the same exact point more than
+    # once (met from different pieces); keep the record with the largest stabiliser
+    for p in sorted((p for p in atlas["points"] if p.get("atlas_point") in point_shapes),
+                    key=lambda p: (-p["stabilizer_order"], p["id"])):
+        x = point_pos[p["id"]]
+        if not any(np.abs(g @ point_pos[q] - x).max(axis=1).min() < 1e-6 for q in named_points):
+            named_points.append(p["id"])
+    named_points.sort()
+    # a point's stabiliser: the elements fixing it (its whole surroundings are those of every one)
+    point_stab = {i: [int(h) for h in np.flatnonzero(np.abs(g @ point_pos[i] - point_pos[i]).max(axis=1) < 1e-6)]
+                  for i in named_points}
 
     # ---- patch lookup for walls read off a ring
     inner = {(min(p["pieces"]), max(p["pieces"]), p["surface"]): p["id"]
@@ -538,9 +549,9 @@ def build() -> dict:
                      "c": region_pos[i].round(6).tolist(),
                      "nb": node_nb("region", [(r["id"], 0)], ("region", r["id"], 0))}
                     for i, r in enumerate(atlas["regions"])],
-        "points": [{"id": p["id"], "name": p["atlas_point"], "stab": p["stabilizer_order"],
+        "points": [{"id": p["id"], "name": p["atlas_point"], "stab": len(point_stab[p["id"]]),
                     "c": np.round(p["R4"], 6).tolist(),
-                    "nb": node_nb("point", [(p["id"], 0)],
+                    "nb": node_nb("point", [(p["id"], h) for h in point_stab[p["id"]]],
                                   ("point", (p["id"], tuple(np.round(point_pos[p["id"]], 6)))))}
                    for p in atlas["points"] if p["id"] in set(named_points)],
         "meetings": len(meetings),
