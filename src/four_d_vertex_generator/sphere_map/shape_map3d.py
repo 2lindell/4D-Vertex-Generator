@@ -34,6 +34,9 @@ SHOWN = {"region": {"boundary", "corner"},
          "point": {"boundary", "touches"}}
 
 
+THIN = 0.05          # a region whose least spread is under this share of its greatest is a slab
+
+
 def _log(*a):
     print(*a, flush=True)
 
@@ -67,6 +70,30 @@ def build() -> dict:
     for r in atlas["regions"]:
         P = np.array([g[k] @ point_from_beta(np.asarray(pieces[p]["sample_beta"])) for k, p in r["members"]])
         region_pos.append(unit(P.mean(0)))
+    # each region's shape: points sampled through the domain, sorted into pieces by their signs on
+    # every surface, carried to the region's representative; their spread in the tangent space at
+    # its centre gives its principal directions (least spread first). A region is thin when its
+    # least spread is under THIN of its greatest: a slab, drawn so
+    from .atlas_db import _library_surfaces, _piece_keys
+    from .chords import FACE_N
+    surfs, keys = _library_surfaces(root), _piece_keys(root)
+    B = np.random.default_rng(0).dirichlet(np.ones(4), 600_000)
+    B = B[((B @ FACE_N.T) >= 0).all(1)]
+    S_ = np.sign(np.stack([sf.f(B) for sf in surfs], 1)).astype(np.int8)
+    pid = np.array([keys.get(row.tobytes(), -1) for row in S_])
+    region_shape = []
+    for r, c in zip(atlas["regions"], region_pos):
+        P = [point_from_beta(B[pid == p][:4000]) @ g[k].T for k, p in r["members"] if (pid == p).any()]
+        if not P:
+            region_shape.append(None)
+            continue
+        P = np.vstack(P)
+        T = P / (P @ c)[:, None] - c                       # gnomonic, in the tangent space at c
+        w, V = np.linalg.eigh(np.cov(T.T))
+        V = V[:, np.argsort(w)][:, 1:]                       # (the first is c itself: no spread)
+        sp = np.sqrt(np.clip(np.sort(w)[1:], 0, None))
+        region_shape.append({"axes": V.T.round(5).tolist(), "spread": (sp / sp.max()).round(3).tolist(),
+                             "thin": bool(sp[0] < THIN * sp.max())})
     face_geo = []
     for f in atlas["faces"]:
         P = np.array([g[k] @ point_from_beta(np.asarray(patches[p]["sample_beta"]))
@@ -546,7 +573,7 @@ def build() -> dict:
                    "nb": node_nb("line", w_["members"], ("line", w_["rep"]))
                    + line_end_links(w_["members"], w_["rep"])} for w_ in lines_w],
         "regions": [{"id": r["id"], "name": r["region"], "stab": r["stabilizer_order"],
-                     "c": region_pos[i].round(6).tolist(),
+                     "c": region_pos[i].round(6).tolist(), "shape": region_shape[i],
                      "nb": node_nb("region", [(r["id"], 0)], ("region", r["id"], 0))}
                     for i, r in enumerate(atlas["regions"])],
         "points": [{"id": p["id"], "name": p["atlas_point"], "stab": len(point_stab[p["id"]]),
