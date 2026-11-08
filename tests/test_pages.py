@@ -20,3 +20,10 @@ def test_docs_site_is_up_to_date(tmp_path: Path) -> None:
     assert built == committed, "docs/ has missing or extra files: run python tools/build_pages.py"
     stale = [str(p) for p in built if not filecmp.cmp(fresh / p, docs / p, shallow=False)]
     assert not stale, f"docs/ is out of date ({', '.join(stale)}): run python tools/build_pages.py"
+
+
+def test_every_page_has_the_tab_icon() -> None:
+    docs = ROOT / "docs"
+    assert (docs / "assets" / "favicon.svg").is_file()
+    missing = [p.name for p in sorted(docs.glob("*.html")) if 'rel="icon"' not in p.read_text(encoding="utf-8")]
+    assert not missing, f"pages without the tab icon: {', '.join(missing)}"

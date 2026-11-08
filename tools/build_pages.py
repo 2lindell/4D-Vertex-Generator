@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -113,6 +114,19 @@ PAGE = """<!doctype html>
 """
 
 
+ICON_LINK = '<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">'
+
+
+def add_icon(path: Path) -> None:
+    """Give a page the app's tab icon (assets/favicon.svg, beside it in the build), unless it has one."""
+    html = path.read_text(encoding="utf-8")
+    if 'rel="icon"' in html:
+        return
+    m = re.search(r"<head[^>]*>", html, re.I)
+    i = m.end() if m else 0
+    path.write_text(html[:i] + "\n" + ICON_LINK + html[i:], encoding="utf-8")
+
+
 def build(out: Path) -> list[str]:
     if out.exists():
         shutil.rmtree(out)
@@ -145,6 +159,9 @@ def build(out: Path) -> list[str]:
     for name in ("tessic_isogonals.html", "hyic_isogonals.html"):
         if (ROOT / "assets" / name).exists():
             shutil.copy2(ROOT / "assets" / name, out / name)
+    # every page served beside the app shows the app's icon in its browser tab
+    for path in sorted(out.glob("*.html")):
+        add_icon(path)
     hashed = [[rel, hashlib.sha256((out / rel).read_bytes()).hexdigest()[:12]] for rel in files]
     page = (
         PAGE.replace("__VERSION__", STLITE_VERSION)
