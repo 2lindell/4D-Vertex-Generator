@@ -302,6 +302,33 @@ def main(src_dir, out_path):
     by = {t["id"]: t for t in DC["types"]}
     G = np.stack(group_elements(named_symmetry("h4_swirlprism")))
 
+    # the key's boundaries, from the 3-sphere map's own neighbours (shape_map3d.json, as the shape map
+    # shows them): a region's walls, lines and corner points; a wall's edge lines and corner points,
+    # and apart the regions it separates; a line's end points and the lines it ends on
+    sm = json.loads((src_dir / "shape_map3d.json").read_text())
+    name_of = {k: {x["id"]: x["name"] for x in sm[k]} for k in ("regions", "walls", "lines", "points")}
+    plural = {"region": "regions", "wall": "walls", "line": "lines", "point": "points"}
+    bnd, sep = defaultdict(set), defaultdict(set)
+    want = {"regions": {("wall", "boundary"), ("line", "boundary"), ("point", "corner")},
+            "walls": {("line", "boundary"), ("point", "corner")},
+            "lines": {("point", "end"), ("line", "ends on")}}
+    for k, rels in want.items():
+        for x in sm[k]:
+            for n in x["nb"]:
+                nm_ = name_of[plural[n["kind"]]].get(n["node"])
+                if nm_ is None:
+                    continue
+                if (n["kind"], n["rel"]) in rels:
+                    bnd[x["name"]].add(nm_)
+                elif k == "walls" and n["rel"] == "side":
+                    sep[x["name"]].add(nm_)
+    for t in DC["types"]:
+        if t["id"] in bnd or t["dim"] in ("region", "wall", "line"):
+            t["bounds"] = sorted(bnd.get(t["id"], ()))
+            t["partial"] = []
+            if t["dim"] == "wall":
+                t["separates"] = sorted(sep.get(t["id"], ()))
+
     cell, err = fit_cell_chart(DC)
     v1c, share, dplanes = fit_v1_chart(DC, V1, G)
     chplanes = chamber_planes(CH, v1c)
@@ -405,9 +432,20 @@ def main(src_dir, out_path):
             Q3 = chart(np.concatenate([q for _, q in parts]).reshape(-1, 4)).reshape(-1, 3, 3)
             v_, f_ = mesh(Q3, nd)
             xwalls.append({"id": fc["f"]["wall"], "hover": fc["hover"], "copy": False, "verts": v_, "faces": f_})
-            # (a piece lying in a face of the half-cell has only its inside side in this view's domain)
-            sides = fc["f"]["sides"][:1] if inside_only and fc["f"]["sheet"].startswith("face:") else fc["f"]["sides"]
-            for g, _ in parts:
+            # (a piece lying in a face of the half-cell has only its inside side in this view's domain;
+            # in the dodecahedron views, a piece lying in a face of the view likewise: only the region
+            # on the view's side of it)
+            base_sides = fc["f"]["sides"][:1] if inside_only and fc["f"]["sheet"].startswith("face:") else fc["f"]["sides"]
+            for g, Qg in parts:
+                sides = base_sides
+                if planes is not None and "probe" in fc["f"]:
+                    Xg = X0 @ g.T
+                    on = [h for h in planes if np.abs(Xg @ h).max() < 1e-9 * (1 + np.linalg.norm(h))]
+                    if on:
+                        x0 = np.asarray(fc["f"]["probe"])
+                        d0 = np.asarray(fc["f"]["side0_dir"])
+                        step = (to_sphere(x0 + 1e-6 * d0) - to_sphere(x0))[0] @ g.T
+                        sides = fc["f"]["sides"][:1] if step @ on[0] > 0 else fc["f"]["sides"][1:]
                 draw = (lambda P, g=g: [chart(R) for R in (clip_line(P @ g.T, planes) if planes is not None else [P @ g.T])])
                 done = drawn_once.setdefault(id(g), set())
                 for o in outlines(fc, draw, done):
@@ -424,9 +462,10 @@ def main(src_dir, out_path):
                             if len(Q) > 1:
                                 shells[r]["rim"].append({"pts": thin(Q, line_tol).tolist(),
                                                          "dash": ecount[(w_, i)] >= 2})
-            for r in set(sides):
-                shells[r]["tris"].append(Q3)
-                shells[r]["walls"].add(fc["f"]["wall"])
+                Qc = chart(Qg.reshape(-1, 4)).reshape(-1, 3, 3)
+                for r in set(sides):
+                    shells[r]["tris"].append(Qc)
+                    shells[r]["walls"].add(fc["f"]["wall"])
         for nm, P in line_runs:
             for g in images:
                 runs = clip_line(P @ g.T, planes) if planes is not None else [P @ g.T]
