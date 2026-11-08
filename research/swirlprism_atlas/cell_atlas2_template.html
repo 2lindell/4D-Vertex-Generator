@@ -159,7 +159,6 @@ __TYPE_CSS__
       <ul>
         <li>The letter gives the vertex count and whether the wiki names the shape: <b>A</b> 120 named, <b>B</b> 240 named, <b>C</b> 600 named, <b>D</b> 600 unnamed, <b>E</b> 1200 named, <b>F</b> 1200 unnamed, <b>T</b> 1200 transitional, each numbered in the wiki's order. Shapes not in the wiki list are <b>Y</b> (600) and <b>X</b> (1200). C2a and C2b are the two subsymmetrical icosafold icosidodecaswirlchoron ranges on the cross rings, told apart by their counts.</li>
         <li>Marker shape shows the vertex count: circles 1200, diamonds 600, squares 120 or 240. Large outlined markers are uniform H4 seeds, labelled by the shape they produce; open markers of the same shape are their copies under the extra half-turn. Every named shape has its own colour, darkest for shapes on a line, lighter on a wall and lightest for regions; unlisted shapes are grey, in the same steps. Click a row in the key to show only that shape; Ctrl-click (⌘-click on a Mac) more rows to show several at once, with their wall patches, lines and outlines. A selected region shows its shell in its own colour: only the pieces of wall, and of the cell's faces, that it touches, with their edges.</li>
-        <li>"Where" says where a shape lives: a region, a wall (plane) or line, or a point or curve. X shapes that only live on a wall, line or point are listed separately as transitional walls, lines and points, each grouped by where they lie.</li>
         <li>"Boundaries" lists the shapes found on a shape's boundary, by what they fill: the shapes past either end of a traced line, the line shapes on the edges and the shapes at the corners of the exact wall patches, the regions on either side of those patches, and the transitional shapes whose nudged samples fall into a region. A wall's entry has a second section, "separates", naming the regions on its two sides (they are not on its boundary). A shape whose surroundings are only partly traced has a partial list.</li>
         <li>✕ marks exact points that are not golden, in the colour of their shape: the icosafold points of C2a and C2b; the points of C3 with 3600 symmetries, where the green girdle meets the cross rings (C3 is named after the shape there; the rest of its range is subsymmetrical); the points where the purple axes meet the domain's boundary; and the points where a purple axis passes through a transitional shape (X1, X7 and X78).</li>
       </ul>
@@ -579,10 +578,16 @@ __TYPE_CSS__
         const all = D.regionEdges[id];
         const solidE = all.filter((e) => !e.dash).map((e) => e.pts || e);
         const dashE = all.filter((e) => e.dash).map((e) => e.pts);
-        for (const [E, dash] of [[solidE, "solid"], [dashE, "dash"]]) {
-          if (!E.length) continue;
-          const trace = lines(E, `Boundary of ${id}`, { color: color(byId[id]), width: 3, dash });
-          trace.hovertemplate = `Boundary of ${id}${dash === "dash" ? " (its wall goes on across here)" : ""}<extra></extra>`;
+        if (solidE.length) {
+          const trace = lines(solidE, `Boundary of ${id}`, { color: color(byId[id]), width: 3 });
+          trace.hovertemplate = `Boundary of ${id}<extra></extra>`;
+          out.push(trace);
+        }
+        // (each dashed edge a trace of its own, as a wall's dashed edges are: one long trace spreads
+        // its dashes thin)
+        for (const e of dashE) {
+          const trace = lines([e], `Boundary of ${id}`, { color: color(byId[id]), width: 3, dash: "dash" });
+          trace.hovertemplate = `Boundary of ${id} (its wall goes on across here)<extra></extra>`;
           out.push(trace);
         }
       }
@@ -900,7 +905,7 @@ __TYPE_CSS__
       ["X · transitional points or curves (found off every golden plane; not traced yet)", (t) => t.id.startsWith("X") && t.dim === "point", true],
       ["Z · other vertex counts, not in the wiki list", (t) => t.id.startsWith("Z")],
     ];
-    let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th>Boundaries</th><th class="num">Samples</th></tr></thead><tbody>`;
+    let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Boundaries</th><th class="num">Samples</th></tr></thead><tbody>`;
     const dimOf = Object.fromEntries(D.types.map((t) => [t.id, t.dim]));
     const DIMS = [["region", "regions"], ["wall", "walls"], ["line", "lines"], ["point", "points"]];
     const bounds = (t) => t.dim === "point" && !t.id.startsWith("X") ? `<span class="locus">none (a point)</span>`
@@ -920,7 +925,7 @@ __TYPE_CSS__
           + (t.evenness ? `<br><span class="locus">most even edges: longest/shortest ${t.evenness.toFixed(4)}</span>` : "") : "";
         if (t.exact) counts += `<div class="exact"><span class="xmark" style="color:${color(t)}">✕</span> exact point ${t.exact.label ? "(" + t.exact.label + ")" : "at " + t.exact.angle + "°"}: cells ${t.exact.cells}<br>faces ${t.exact.faces}<br>edges ${t.exact.edges}</div>`;
         html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
-          + `<td class="counts">${counts}</td><td class="where">${t.where || (t.samples ? "golden samples" : "not found yet")}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td><td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;
+          + `<td class="counts">${counts}</td><td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;
       }
     }
     el("key").innerHTML = html + "</tbody>";
