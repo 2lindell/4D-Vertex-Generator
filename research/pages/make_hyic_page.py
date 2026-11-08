@@ -138,7 +138,7 @@ def main():
             elif re.search(r"_\d$", name) and full:
                 body += " Two atlas regions fit this name's listed counts exactly; which is which is not settled."
             if b in nts:
-                body += f" Note: {nts[b][len(b) + 2:] if nts[b].startswith(b) else nts[b]}"
+                body += f" Note: {nts[b][len(b) + 2:] if nts[b].startswith(b) else nts[b]}".rstrip(".") + "."
             head = f"({full})." if full else "not yet named."
             beta = ", ".join(f"{v:.6f}" for v in seed)
             sheet = f" · sheet {sub[2:]}" if sub.startswith("ix") else ""
