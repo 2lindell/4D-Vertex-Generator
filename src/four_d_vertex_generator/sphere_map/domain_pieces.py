@@ -1809,6 +1809,16 @@ def export(log=print, workers=4):
                                         "why": "a boundary of the wall here is on no curve of the database"}
                 faces[-1]["tris"] = [sum(len(t) for t in T), sum(len(t) for t in T) + len(tris_f)]
                 stats["faces trimmed to the wall's own triangles"] += 1
+            # (a point of the face and the way from it to its first side's region: + the surface's
+            # normal for a library surface, into the half-cell for a face of it)
+            x0 = f["verts"][f["tris"][0][0]]
+            if isinstance(key, str):
+                n0 = FACE_N[FACE_NAMES.index(key[5:])].astype(float)
+            else:
+                n0 = D.lib[key].grad(x0[None])[0]
+            n0 = n0 - n0.mean()
+            faces[-1]["probe"] = [float(v) for v in x0]
+            faces[-1]["side0_dir"] = [float(v) for v in n0 / (np.linalg.norm(n0) + 1e-300)]
             V.append(f["verts"])
             T.append(tris_f + 0)
             nv += len(f["verts"])
