@@ -1,0 +1,10 @@
+{
+ "_about": "Systematic search: is every ixitic (or ixoic) region closed off by recorded walls? (closure_<sheet>.json)",
+ "sheet": "ix5",
+ "regions": 6,
+ "walks": 576,
+ "changes": 286,
+ "on_no_surface": 9,
+ "new_regions": {},
+ "new_wall_shapes": {}
+}
