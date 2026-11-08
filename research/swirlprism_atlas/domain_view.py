@@ -585,9 +585,46 @@ def main(src_dir, out_path):
         html = html[:j] + "\n      " + tag + html[j:]
     print(note, flush=True)
     Path(out_path).write_text(html)
+    write_shape_map(src_dir, Path(out_path).parent)
     n = lambda D: sum(len(w["faces"]) for w in D["xwalls"])
     print(f"{out_path}: {len(html) / 1e6:.1f} MB; wall pieces {len(DC['xwalls'])}; triangles: half-cell {n(DC)}, "
           f"dodecahedron {n(V1)}, tenth {n(CH)}; regions {len(DC['regionWallsIds'])}", flush=True)
+
+
+def write_shape_map(src_dir, out_dir):
+    """symmetry_domain_shape_map.html beside the page: the 3-sphere map's shape map (shape_map3d.html,
+    built in the main repository), framed in the page's "Shape map" section. Its own heading and
+    introduction are left out (the section explains it), it takes the page's fonts and theme, and its
+    stage has a fixed height so the page can size the frame to it."""
+    html = (Path(src_dir) / "shape_map3d.html").read_text()
+    html = re.sub(r"<header>.*?</header>", "", html, count=1, flags=re.S)
+    html = html.replace("family=Chivo:wght@400;600;700&family=Chivo+Mono:wght@400;500",
+                        "family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500")
+    extra = """<style>
+:root { --font-text: "Spline Sans", system-ui, sans-serif; --font-data: "Spline Sans Mono", ui-monospace, monospace; }
+html, body { height: auto; background: transparent; }
+.wrap { padding: 0; max-width: none; }
+.stage { height: 600px; min-height: 0; }
+.detail { max-height: 600px; }
+</style>
+<script>
+// the page's theme, followed as it changes
+(function () {
+  let host = null;
+  try { host = window.parent !== window ? window.parent.document.documentElement : null; } catch (e) {}
+  if (!host) return;
+  const sync = () => { const t = host.getAttribute("data-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); };
+  sync();
+  new MutationObserver(sync).observe(host, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
+"""
+    i = html.rfind("</body>")
+    html = html[:i] + extra + html[i:]
+    out = Path(out_dir) / "symmetry_domain_shape_map.html"
+    out.write_text(html)
+    print(f"{out}: {len(html) / 1e6:.2f} MB", flush=True)
 
 
 if __name__ == "__main__":
