@@ -70,30 +70,56 @@ def build() -> dict:
     for r in atlas["regions"]:
         P = np.array([g[k] @ point_from_beta(np.asarray(pieces[p]["sample_beta"])) for k, p in r["members"]])
         region_pos.append(unit(P.mean(0)))
-    # each region's shape: points sampled through the domain, sorted into pieces by their signs on
-    # every surface, carried to the region's representative; their spread in the tangent space at
-    # its centre gives its principal directions (least spread first). A region is thin when its
-    # least spread is under THIN of its greatest: a slab, drawn so
+    # each region's shape: points sampled evenly over S^3 through the domain (even in the flat cell,
+    # weighted by the area they stand for on the sphere, |p|^-4 for p in the cell's hyperplane),
+    # sorted into pieces by their signs on every surface and carried to the region's representative.
+    # Their weighted centre is the region's centre, and their spread in the tangent space there gives
+    # its principal directions (least spread first). A region and its copy under Q are congruent, so
+    # where two regions of one name have the same volume their spreads are pooled; a region is thin
+    # when its least spread is under THIN of its greatest
     from .atlas_db import _library_surfaces, _piece_keys
     from .chords import FACE_N
+    from .frame import cell_vertices
     surfs, keys = _library_surfaces(root), _piece_keys(root)
-    B = np.random.default_rng(0).dirichlet(np.ones(4), 600_000)
+    B = np.random.default_rng(0).dirichlet(np.ones(4), 2_000_000)
     B = B[((B @ FACE_N.T) >= 0).all(1)]
     S_ = np.sign(np.stack([sf.f(B) for sf in surfs], 1)).astype(np.int8)
     pid = np.array([keys.get(row.tobytes(), -1) for row in S_])
-    region_shape = []
-    for r, c in zip(atlas["regions"], region_pos):
-        P = [point_from_beta(B[pid == p][:4000]) @ g[k].T for k, p in r["members"] if (pid == p).any()]
-        if not P:
+    Pf = B @ cell_vertices()
+    rad = np.linalg.norm(Pf, axis=1)
+    Xs, Ws = Pf / rad[:, None], rad ** -4.0
+    in_piece = defaultdict(list)
+    for i_, p_ in enumerate(pid):
+        in_piece[int(p_)].append(i_)
+    in_piece = {k: np.array(v) for k, v in in_piece.items()}
+    region_shape, region_vol = [], []
+    for ri, r in enumerate(atlas["regions"]):
+        got = [(Xs[in_piece[p]] @ g[k].T, Ws[in_piece[p]]) for k, p in r["members"] if p in in_piece]
+        if not got:
             region_shape.append(None)
+            region_vol.append(0.0)
             continue
-        P = np.vstack(P)
+        P, w = np.vstack([a for a, _ in got]), np.concatenate([b for _, b in got])
+        c = unit((P * w[:, None]).sum(0))
+        region_pos[ri] = c
         T = P / (P @ c)[:, None] - c                       # gnomonic, in the tangent space at c
-        w, V = np.linalg.eigh(np.cov(T.T))
-        V = V[:, np.argsort(w)][:, 1:]                       # (the first is c itself: no spread)
-        sp = np.sqrt(np.clip(np.sort(w)[1:], 0, None))
-        region_shape.append({"axes": V.T.round(5).tolist(), "spread": (sp / sp.max()).round(3).tolist(),
-                             "thin": bool(sp[0] < THIN * sp.max())})
+        ev, V = np.linalg.eigh(np.cov(T.T, aweights=w))
+        o = np.argsort(ev)[1:]                             # (the first is c itself: no spread)
+        sp = np.sqrt(np.clip(ev[o], 0, None))
+        region_shape.append({"axes": V[:, o].T.round(5).tolist(), "spread": (sp / sp.max()).tolist()})
+        region_vol.append(float(w.sum()))
+    by_name = defaultdict(list)
+    for ri, r in enumerate(atlas["regions"]):
+        if region_shape[ri]:
+            by_name[r["region"]].append(ri)
+    for ids in by_name.values():
+        vols = [region_vol[i] for i in ids]
+        pool = ids if len(ids) > 1 and max(vols) < 1.1 * min(vols) else []
+        sp_pool = np.average([region_shape[i]["spread"] for i in pool], axis=0, weights=[region_vol[i] for i in pool]) if pool else None
+        for i in ids:
+            sp = np.asarray(sp_pool if pool else region_shape[i]["spread"])
+            region_shape[i]["spread"] = sp.round(3).tolist()
+            region_shape[i]["thin"] = bool(sp[0] < THIN)
     face_geo = []
     for f in atlas["faces"]:
         P = np.array([g[k] @ point_from_beta(np.asarray(patches[p]["sample_beta"]))
