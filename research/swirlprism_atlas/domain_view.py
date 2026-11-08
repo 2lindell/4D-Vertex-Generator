@@ -37,6 +37,8 @@ from four_d_vertex_generator.library import named_symmetry
 
 T = np.load(Path(__file__).with_name("cell_vertices.npy"))
 RINGS = ("C2a", "C2b", "C3", "D1", "D2", "D3")
+DODECA_LINE_TOL = 2e-3   # (curves in the dodecahedron views kept where they turn by more than this)
+CLIP_TOL = 1e-9         # a point within this of a view's face counts as inside (pieces lying in the face)
 SEL_ONLY = {"T1", "E1", "E2"}
 
 
@@ -145,7 +147,7 @@ def dodeca_planes(c, G):
     return c - near
 
 
-def chamber_planes(CH, chart):
+def chamber_planes(CH, chart, G):
     """The tenth's faces (as the page draws them), as half-spaces X . h >= 0 on the sphere."""
     from scipy.spatial import ConvexHull
     P = np.unique(np.round(np.array([p for f in CH["dodecaFaces"] for p in f]), 5), axis=0)
@@ -155,7 +157,37 @@ def chamber_planes(CH, chart):
     for a0, a1, a2, b in H.equations:                # inside: a . u + b <= 0
         a = np.array([a0, a1, a2])
         out.append(-(Bm @ a + b * c))
-    return np.unique(np.round(np.array(out), 12), axis=0)
+    # (the page draws the tenth to 3 places: each face snapped to the exact plane it is, an H4 mirror
+    # (its normal a vertex of the 600-cell: an image of V1) or a face of the dodecahedron round V1)
+    orbit = np.unique(np.round(G @ c, 12), axis=0)
+    D_ = dodeca_planes(c, G)
+    exact = [v / np.linalg.norm(v) for v in orbit] + [d / np.linalg.norm(d) for d in D_]
+    # (and the planes through V1 and two of the dodecahedron's own points, the chambers' faces: its
+    # face centres, corners and edge midpoints)
+    near = c - D_
+    centres = [(c + n) / np.linalg.norm(c + n) for n in near]
+    from itertools import combinations
+    corners = []
+    for i, j, k in combinations(range(len(D_)), 3):
+        x = np.linalg.svd(np.vstack([D_[i], D_[j], D_[k]]))[2][-1]
+        x = x if x @ c > 0 else -x
+        if (D_ @ x >= -1e-9).all() and not any(np.linalg.norm(x - y) < 1e-9 for y in corners):
+            corners.append(x)
+    mids = []
+    for a, b in combinations(corners, 2):
+        m = (a + b) / np.linalg.norm(a + b)
+        if sum(abs(d @ m) < 1e-9 for d in D_) >= 2:
+            mids.append(m)
+    pts = centres + corners + mids
+    for a, b in combinations(pts, 2):
+        nrm = np.linalg.svd(np.vstack([c, a, b]))[2][-1]
+        exact.append(nrm / np.linalg.norm(nrm))
+    snapped = []
+    for h in out:
+        h = h / np.linalg.norm(h)
+        best = max(exact, key=lambda e: abs(e @ h))
+        snapped.append(best * np.sign(best @ h) if abs(best @ h) > 0.999 else h)
+    return np.unique(np.round(np.array(snapped), 12), axis=0)
 
 
 # ---------------------------------------------------------------- cutting on the sphere
@@ -168,7 +200,7 @@ def clip_polygon(P, H):
         out = []
         for i in range(len(P)):
             a, b = P[i], P[(i + 1) % len(P)]
-            fa, fb = a @ h, b @ h
+            fa, fb = a @ h + CLIP_TOL, b @ h + CLIP_TOL      # (a piece lying in the face: kept)
             if fa >= 0:
                 out.append(a)
             if (fa >= 0) != (fb >= 0):
@@ -180,9 +212,9 @@ def clip_polygon(P, H):
 def clip_tris(X, F, H):
     """Triangles (vertices X on R^4, faces F) cut by the half-spaces: a list of triangles (n,3,4)."""
     S = X @ H.T
-    allin = (S[F] >= -1e-12).all((1, 2))
+    allin = (S[F] >= -CLIP_TOL).all((1, 2))
     out = [X[F[allin]]]
-    for t in np.flatnonzero(~allin & ~(S[F] < -1e-12).all(1).any(1)):
+    for t in np.flatnonzero(~allin & ~(S[F] < -CLIP_TOL).all(1).any(1)):
         P = clip_polygon([X[i] for i in F[t]], H)
         for k in range(1, len(P) - 1):
             out.append(np.array([[P[0], P[k], P[k + 1]]]))
@@ -195,7 +227,7 @@ def clip_line(P, H):
     for a, b in zip(P[:-1], P[1:]):
         lo, hi = 0.0, 1.0
         for h in H:
-            fa, fb = a @ h, b @ h
+            fa, fb = a @ h + CLIP_TOL, b @ h + CLIP_TOL
             if fa < 0 and fb < 0:
                 lo, hi = 1, 0
                 break
@@ -331,7 +363,7 @@ def main(src_dir, out_path):
 
     cell, err = fit_cell_chart(DC)
     v1c, share, dplanes = fit_v1_chart(DC, V1, G)
-    chplanes = chamber_planes(CH, v1c)
+    chplanes = chamber_planes(CH, v1c, G)
     print(f"charts: half-cell fitted to the page's seeds within {err:.1e}; dodecahedron: "
           f"{share:.0%} of the page's samples there matched", flush=True)
 
@@ -380,7 +412,7 @@ def main(src_dir, out_path):
         dens.append(len(F_) / max(a, 1e-12))
     med = float(np.median(dens))
     for fc, d_ in zip(faces, dens):
-        fc["dense"] = d_ > 1.8 * med and "Xc" in fc
+        fc["dense"] = d_ > 1.6 * med and "Xc" in fc
 
     def outlines(fc, draw, done):
         out = []
@@ -420,7 +452,7 @@ def main(src_dir, out_path):
             for g in images:
                 Xg = X0 @ g.T
                 if planes is not None:
-                    if not (Xg @ planes.T >= -1e-9).all(1).any():
+                    if not (Xg @ planes.T >= -CLIP_TOL).all(1).any():
                         continue
                     Q = clip_tris(Xg, F0, planes)
                 else:
@@ -485,8 +517,8 @@ def main(src_dir, out_path):
 
     ident = [np.eye(4)]
     cv, cshell = build_view(cell, None, 4, 1e-3, ident, inside_only=True)
-    vv, vshell = build_view(v1c, dplanes, 3, 8e-3, list(G))
-    chv, chshell = build_view(v1c, chplanes, 3, 6e-3, list(G))
+    vv, vshell = build_view(v1c, dplanes, 3, DODECA_LINE_TOL, list(G))
+    chv, chshell = build_view(v1c, chplanes, 3, DODECA_LINE_TOL, list(G))
 
     region_files = {}
     for vk, view, shells in (("cell", DC, cshell), ("v1", V1, vshell), ("chambers", CH, chshell)):
@@ -497,9 +529,9 @@ def main(src_dir, out_path):
             if by.get(r, {}).get("dim") != "region":
                 continue
             v_, f_ = mesh(np.concatenate(sh["tris"]), 4 if vk == "cell" else 3)
-            region_files[f"{vk}/{r}.json"] = {"verts": v_, "faces": f_, "walls": sorted(sh["walls"])}
-            if vk == "cell":
-                view["regionEdges"][r] = sh["rim"]
+            # (its edges beside its walls, fetched with them when it is selected)
+            region_files[f"{vk}/{r}.json"] = {"verts": v_, "faces": f_, "walls": sorted(sh["walls"]),
+                                              "edges": sh["rim"]}
             ids.append(r)
         view["regionWallsIds"] = sorted(ids)
         view["tpatches"] = []
@@ -509,8 +541,14 @@ def main(src_dir, out_path):
     shutil.rmtree(rdir, ignore_errors=True)
     for f, m in region_files.items():
         (rdir / f).parent.mkdir(parents=True, exist_ok=True)
-        (rdir / f).write_text(dump(m, 4 if f.startswith("cell/") else 3))
-    new = {"atlas-data": dump(DC, 4), "atlas-v1": dump(V1, 3), "atlas-chambers": dump(CH, 3)}
+        n_ = 4 if f.startswith("cell/") else 3
+        (rdir / f).write_text(json.dumps({k: rounded(v, 4 if k == "edges" else n_) for k, v in m.items()},
+                                         separators=(",", ":")))
+    # (the dodecahedron views: meshes to 3 places; their curves to 4, so they stay smooth)
+    LINE_KEYS = ("xlines", "segments", "rings", "main")
+    dump_dv = lambda V: json.dumps({k: rounded(v, 4 if k in LINE_KEYS else 3) for k, v in V.items()},
+                                   separators=(",", ":"))
+    new = {"atlas-data": dump(DC, 4), "atlas-v1": dump_dv(V1), "atlas-chambers": dump_dv(CH)}
     for name in sorted(new, key=lambda n: -pos[n][0]):
         s, e = pos[name]
         html = html[:s] + new[name] + html[e:]
