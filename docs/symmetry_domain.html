@@ -89,6 +89,7 @@ tr.row { cursor: pointer; }
 tr.row:hover td { background: var(--bg); }
 tr.row.active td { background: var(--bg); box-shadow: inset 0 1px 0 var(--ink); }
 .sw { display: inline-block; width: 11px; height: 11px; vertical-align: -1px; margin-right: 9px; }
+#shape-map-frame { width: 100%; height: 760px; border: 0; display: block; background: transparent; }
 .notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
 @media (max-width: 780px) { .notes { grid-template-columns: minmax(0, 1fr); } }
 ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
@@ -203,6 +204,43 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         <li><b>Regular pentagonal antiprisms</b> (brown) also lie on straight lines from M34: β₁ = φ²β₂, β₃ = β₁ + β₄ (F1) and β₂ = φ²β₁, β₃ = β₂ + β₄ (E1). Their copies run from the V points along the cell's edges and into the cell. A short piece inside X32, from the X19 point (2φ², 1, φ², φ²) to its own copy (3+2φ, 1, 2+φ, 1+φ), ends where each regular antiprism merges with another antiprism and five tetrahedra into a cupola-shaped cell. Spidrox (1, φ², φ², 0) is the one point where regular prisms and regular antiprisms are both cells.</li>
         <li><b>Regular decagon faces</b> (black): a decagon face is two regular pentagons, orbits of a 5-fold rotation that fixes a plane, lying in one plane; that happens on the X19 and X26 walls, and the decagon is regular where the two pentagons are turned exactly 36° apart. Both conditions are linear in the seed, so these are exact straight lines: one through M34 in the splitting mirror, and its copy from V1 to β ∝ (2, 1, 2, 1). ✕ marks where each decagon's cell is an untwisted pentagonal cupola, its pentagon lined up with the decagon: β ∝ (φ², 1, 1, 1), and its copy (φ², 1, 2, 1).</li>
         <li><b>2400 fundamental domain</b> shows one fundamental domain of the group with Q: the points closer to a centre on the E2 line, β ∝ (2, 2, 2, 1) (black dot), than to any of its 2399 images. It has 13 corners and 10 faces and half the half-cell's volume; its four purple faces each fold onto themselves across a purple axis.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel" id="shape-map">
+    <h2>Shape map</h2>
+    <p class="lede">Every named shape of the group on the whole 3-sphere, with everything that touches it. The views above show one fundamental domain, where a shape can be cut by the domain's faces; here each shape is whole, with all the copies of its neighbours round it. Find a shape by name, or click a node or a chip in the list to move to it.</p>
+    <iframe id="shape-map-frame" src="symmetry_domain_shape_map.html" title="Shape map: the selected shape and every shape that touches it on the 3-sphere" loading="lazy"></iframe>
+  </section>
+
+  <section class="notes">
+    <div class="panel">
+      <h2>What the shape map shows</h2>
+      <ul>
+        <li>A <b>node</b> is a whole named shape on the 3-sphere: a <b>region</b> (a solid), a <b>wall</b> (a surface, up to the named lines that bound it), a <b>line</b> (from named point to named point) or a <b>named point</b>. Curves and corners where walls only meet are not nodes; they show as links between the walls that meet there.</li>
+        <li>The selected shape is drawn whole in the middle, and each neighbour sits where it touches it. Positions are true places on the 3-sphere, projected from the point opposite the selected shape, so the selected shape is least distorted and everything round it keeps its real arrangement.</li>
+        <li>Colour gives the kind: <b>orange</b> regions, <b>blue</b> walls, <b>green</b> lines, <b>purple</b> named points. Walls are drawn as clouds of their own points and lines along their own curves, strongest for the selected shape.</li>
+        <li>Each node's marker has the shape's dimension and its symmetry on the sphere: a wall is a tile lying in the wall's plane, a line a rod along the line, a region a solid and a point a small solid. A shape with no symmetry gets a cut corner (tile), an arrowhead (rod) or a lopsided solid; a 2-fold one a rectangle, a rod capped at both ends or a 2-sided bipyramid; an n-fold one a regular n-gon, a rod with n fins or an n-gonal bipyramid.</li>
+        <li>A <b>solid</b> link joins the selected shape to a shape it bounds or that bounds it; a <b>dashed</b> link joins walls that only meet along a curve.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Reading the list</h2>
+      <ul>
+        <li>The heading names the shape; a wall also gives the regions it separates. The number after # tells apart different shapes with the same name, such as walls of one type between different pairs of regions.</li>
+        <li><b>Symmetry on S³</b> is the number of rotations of the 1200-element group that map the shape to itself; <b>copies on S³</b> is 1200 divided by that. A wall's entry says which regions it separates and how many pieces it is made of: pieces of the same wall joined across curves where other walls meet it.</li>
+        <li>The chips list every shape that touches it, by kind, with how it touches: <i>on its boundary</i> (the walls, lines and points that bound a region, the lines that bound a wall, the lines a point ends), <i>on a side</i> (the regions either side of a wall), <i>round it</i> (the regions and walls round a line), <i>touches it</i> (the regions and walls round a named point), <i>an end</i> and <i>a corner</i> (the points that end a line or are corners of a wall or region), <i>meets it</i> (walls that meet along a curve), and <i>ends on it</i> / <i>this ends on it</i> (lines that end on another line). ×n counts separate copies of the same shape round it.</li>
+        <li>It opens on T2. Drag to turn and scroll to zoom; "← back" returns to the shape before.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>How it is found</h2>
+      <ul>
+        <li>The map is built from the same 3-sphere map as the walls in the views above: the domain is cut into pieces by the library's surfaces, its 1200 copies are glued across their faces, and the connected regions, wall patches, lines and points are traced through all of them.</li>
+        <li>What surrounds every named line, and every curve where walls meet, is read exactly from the ring round it at points along it: each sector of the ring names its region and each wall between sectors names its wall patch. Placed by the group element that carries each copy there, these give every shape's neighbours, seen from the shape itself.</li>
+        <li>Each shape keeps its representative's geometry on the 3-sphere and its symmetry there, which give the positions and markers.</li>
+        <li>The key's "Boundaries" column is read from the same data.</li>
       </ul>
     </div>
   </section>
@@ -1043,6 +1081,16 @@ code { font-family: var(--font-data); font-size: 0.86em; }
     ["quarter", "showListed", "showX", "showRings", "showAxes", "showRegular", "showDecagon", "showDomain", "showMirrors"].forEach((id) => el(id).addEventListener("input", render));
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    // the shape map's frame takes the height of what it holds (it is served beside the page, same origin)
+    (function () {
+      const fr = document.getElementById("shape-map-frame");
+      if (!fr) return;
+      const fit = () => { try { const d = fr.contentDocument; const w = d && (d.querySelector(".wrap") || d.body); if (w) fr.style.height = Math.ceil(w.getBoundingClientRect().height) + 2 + "px"; } catch (e) {} };
+      const hook = () => { fit(); try { new ResizeObserver(fit).observe(fr.contentDocument.body); } catch (e) {} };
+      fr.addEventListener("load", hook);
+      try { if (fr.contentDocument && fr.contentDocument.readyState === "complete" && fr.contentDocument.body) hook(); } catch (e) {}
+    })();
   }
 })();
 // When shown inside the web app's tab, grow the frame to the whole page so only the app scrolls.

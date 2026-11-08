@@ -132,6 +132,9 @@ def build(out: Path) -> list[str]:
     # (its regions' coloured walls, fetched by the page when a region is selected)
     if (ROOT / "assets" / "symmetry_domain_regions").exists():
         shutil.copytree(ROOT / "assets" / "symmetry_domain_regions", out / "symmetry_domain_regions")
+    # (and its shape map, framed in the page's "Shape map" section)
+    if (ROOT / "assets" / "symmetry_domain_shape_map.html").exists():
+        shutil.copy2(ROOT / "assets" / "symmetry_domain_shape_map.html", out / "symmetry_domain_shape_map.html")
     # ... and the Octahedral Swirl Symmetry Domain (research/tetraswirl_atlas/build_page.py): the fourth tab
     shutil.copy2(ROOT / "assets" / "tetraswirl_oct_domain.html", out / "tetraswirl_oct_domain.html")
     # ... and the Pennic and Decaic Isogonals page (research/pages/make_decaic_page.py), served on its own
