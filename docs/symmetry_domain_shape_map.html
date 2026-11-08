@@ -96,7 +96,7 @@ const ident = (k, x) => k === "wall" ? `${x.name} (${x.regions.join("|")}) #${x.
 const piece = {
   wall: (c, g) => { const f = D.face_geo[c]; return { c: apply(g, f.c), cloud: f.cloud.map((p) => apply(g, p)), side: apply(g, f.side[0]) }; },
   line: (c, g) => { const P = D.line_geo[c].map((Q) => Q.map((p) => apply(g, p))); const all = P.flat(); return { c: all[Math.floor(all.length / 2)], polys: P, all }; },
-  region: (c, g) => { const r = idx.region[c]; return { c: apply(g, r.c), thin: !!(r.shape && r.shape.thin),
+  region: (c, g) => { const r = idx.region[c]; return { c: apply(g, r.c), spread: r.shape ? r.shape.spread : null,
                                                         axes: r.shape ? r.shape.axes.map((a) => apply(g, a)) : null }; },
   point: (c, g) => ({ c: apply(g, idx.point[c].c) }),
 };
@@ -167,13 +167,43 @@ function solidGlyph(sym, m, size) {               // a solid: lopsided (1), n-go
   }
   return new THREE.Mesh(geo, m);
 }
-function regionGlyph(thin, m, size) {            // a box: a cube for a full region, a thin slab for a thin one
-  const a = size * 1.5;
-  const geo = thin ? new THREE.BoxGeometry(a * 1.3, a * 1.3, a * 0.16) : new THREE.BoxGeometry(a, a, a);
+// a region's proportions in steps: each of its two lesser spreads (as a share of its greatest) is
+// thin, flat, half or full
+const PROP_STEPS = [[0.05, 0.12], [0.2, 0.3], [0.45, 0.6], [Infinity, 1]];
+const propStep = (r) => PROP_STEPS.find(([lim]) => r < lim)[1];
+function regionGlyph(spread, m, size) {           // a box in the region's proportions, one corner cut off (no symmetry)
+  const L = size * 0.9, sp = spread || [1, 1, 1];
+  const h = [L, L * propStep(sp[1]), L * propStep(sp[0])];          // half sizes: x widest, z thinnest
+  const P = [1, 1, 1], k = h.map((t) => Math.min(0.55 * L, 1.7 * t)); // the cut corner, and how far it is cut
+  const V = (c) => c.map((sg, a) => sg * h[a]);
+  const cutToward = (c, a) => V(c).map((x, b) => (b === a ? x - k[a] * Math.sign(c[a]) : x));
+  const isP = (c) => c.every((x, a) => x === P[a]);
+  const faces = [];
+  for (let a = 0; a < 3; a++) for (const sg of [-1, 1]) {
+    const b = (a + 1) % 3, d = (a + 2) % 3, cyc = [[-1, -1], [1, -1], [1, 1], [-1, 1]];
+    const corners = cyc.map(([u, w]) => { const c = [0, 0, 0]; c[a] = sg; c[b] = u; c[d] = w; return c; });
+    const poly = [];
+    corners.forEach((c, n) => {
+      if (!isP(c)) { poly.push(V(c)); return; }
+      const prev = corners[(n + 3) % 4], next = corners[(n + 1) % 4];
+      poly.push(cutToward(c, prev.findIndex((x, q) => x !== c[q])), cutToward(c, next.findIndex((x, q) => x !== c[q])));
+    });
+    faces.push(poly);
+  }
+  faces.push([0, 1, 2].map((a) => cutToward(P, a)));
+  const pos = [];
+  for (const f of faces) {                         // fan triangles, wound outward
+    const c = f.reduce((s, v) => s.map((x, q) => x + v[q] / f.length), [0, 0, 0]);
+    const e1 = f[1].map((x, q) => x - f[0][q]), e2 = f[2].map((x, q) => x - f[0][q]);
+    const nrm = [e1[1] * e2[2] - e1[2] * e2[1], e1[2] * e2[0] - e1[0] * e2[2], e1[0] * e2[1] - e1[1] * e2[0]];
+    const out = nrm[0] * c[0] + nrm[1] * c[1] + nrm[2] * c[2] > 0;
+    for (let n = 1; n + 1 < f.length; n++) { const t = out ? [f[0], f[n], f[n + 1]] : [f[0], f[n + 1], f[n]]; for (const v of t) pos.push(...v); }
+  }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo.computeVertexNormals();
   const box = new THREE.Mesh(geo, m);
-  box.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo),
+  box.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 10),
     new THREE.LineBasicMaterial({ color: m.color.clone().multiplyScalar(0.6), transparent: true, opacity: 0.7 })));
-  return box;                                     // (its thin side along z)
+  return box;                                     // (widest along x, thinnest along z)
 }
 // a region's box turned to its principal directions where it is placed: least spread along z
 function orientRegion(obj, p) {
@@ -310,7 +340,7 @@ function addGlyph(kind, sym, pcs, strong, name, e) {
     const t3 = next[i].clone().sub(prev[i]);                            // along the curve there
     if (t3.length() > 1e-9) orientTo(obj, new THREE.Vector3(0, 1, 0), t3);
   } else {
-    obj = kind === "region" ? regionGlyph(pcs[0].thin, m, 0.26) : solidGlyph(sym, m, 0.1);
+    obj = kind === "region" ? regionGlyph(pcs[0].spread, m, 0.26) : solidGlyph(sym, m, 0.1);
     if (kind === "region") orientRegion(obj, pcs[0]);
     pos = proj(mean4(pcs.map((p) => p.c)));
   }
