@@ -448,7 +448,7 @@
    "atlas_name": "bited-like"
   },
   {
-   "name": "sabric",
+   "name": "mabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -472,7 +472,7 @@
    "status": "deepest point of the shape",
    "boundaries": 4,
    "piece": 0,
-   "off": "central_off/contic/sabric_576v_1248c_central.off",
+   "off": "central_off/contic/mabric_576v_1248c_central.off",
    "vertices": 576,
    "cells": 1248,
    "seed_vector": [
@@ -484,7 +484,7 @@
    "atlas_name": "mabred-like"
   },
   {
-   "name": "mabric",
+   "name": "sabric",
    "kind": "line",
    "degrees": 1,
    "locus": [
@@ -508,7 +508,7 @@
    "status": "deepest point of the shape",
    "boundaries": 4,
    "piece": 0,
-   "off": "central_off/contic/mabric_576v_864c_central.off",
+   "off": "central_off/contic/sabric_576v_864c_central.off",
    "vertices": 576,
    "cells": 864,
    "seed_vector": [

@@ -347,7 +347,7 @@
    ]
   },
   {
-   "name": "sabric",
+   "name": "mabric",
    "decaic_counterpart": "mabred",
    "kind": "line",
    "degrees": 1,
@@ -376,7 +376,7 @@
    ]
   },
   {
-   "name": "mabric",
+   "name": "sabric",
    "decaic_counterpart": "sabred",
    "kind": "line",
    "degrees": 1,

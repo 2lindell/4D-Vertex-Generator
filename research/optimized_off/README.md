@@ -108,8 +108,8 @@ Folders (tessic family: seed vectors in R^4, the B4 frame, vertices the signed p
 | catbotic | wall (2) | 1.735674 | 1.5411961001 | minimum inside the shape | [0.2273851233, 0.1762309769, 0.4488458134, 0.1475380864] | same | catbotic_2304v_528c_opt.off |
 | bipec | line (1) | 19.485281 | 2.3065629649 | minimum inside the shape | [0.6975711606, 0.0, 0.0, 0.3024288394] | same | bipec_288v_528c_opt.off |
 | bitec | line (1) | 5.828427 | 1.1278643263 | minimum inside the shape | [0.5, 0.5, 0.0, -0.0] | same | bitec_384v_1056c_opt.off |
-| sabric | line (1) | 3.736189 | 2.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.6666666667, 0.0, 0.3333333333, 0.0] | [0.6667888632, 0.0, 0.3332111368, 0.0] (2.001100) | sabric_576v_1248c_opt.off |
-| mabric | line (1) | 2.356048 | 1.3065629649 | minimum inside the shape | [0.5, 0.0, 0.5, 0.0] | same | mabric_576v_864c_opt.off |
+| mabric | line (1) | 3.736189 | 2.0000000000 | infimum on the shape's edge (a sign condition is active): not attained | [0.6666666667, 0.0, 0.3333333333, 0.0] | [0.6667888632, 0.0, 0.3332111368, 0.0] (2.001100) | mabric_576v_1248c_opt.off |
+| sabric | line (1) | 2.356048 | 1.3065629649 | minimum inside the shape | [0.5, 0.0, 0.5, 0.0] | same | sabric_576v_864c_opt.off |
 | gabric | line (1) | 7.828427 | 3.4142135624 | infimum on the shape's edge (a sign condition is active): not attained | [0.2265409197, 0.0, 0.7734590803, 0.0] | [0.2264276486, 0.0, 0.7735723514, 0.0] (3.416422) | gabric_576v_1056c_opt.off |
 | bimtec | line (1) | 3.000000 | 2.7071067812 | minimum inside the shape | [0.0, 0.2697521434, 0.7302478566, -0.0] | same | bimtec_576v_192c_opt.off |
 | tispic | line (1) | 1.500000 | 1.4142135624 | minimum inside the shape (not unique: R is flat along the locus there) | [0.5857865445, 0.0, 0.1715730889, 0.2426403666] | same | tispic_1152v_384c_opt.off |

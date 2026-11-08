@@ -125,8 +125,8 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | catbotic | wall (2) | 1.82e-01 -> 2.06e-01 | [0.220422338, 0.1740550244, 0.472518115, 0.1330045227] | catbotic_2304v_528c_central.off |
 | bipec | line (1) | 6.90e-02 -> 3.54e-01 | [0.75, 0.0, 0.0, 0.25] | bipec_288v_528c_central.off |
 | bitec | line (1) | 2.07e-01 -> 7.07e-01 | [0.5, 0.5, 0.0, 0.0] | bitec_384v_1056c_central.off |
-| sabric | line (1) | 1.73e-01 -> 2.36e-01 | [0.8333333333, 0.0, 0.1666666667, 0.0] | sabric_576v_1248c_central.off |
-| mabric | line (1) | 1.01e-01 -> 3.11e-01 | [0.4466037932, 0.0, 0.5533962068, 0.0] | mabric_576v_864c_central.off |
+| mabric | line (1) | 1.73e-01 -> 2.36e-01 | [0.8333333333, 0.0, 0.1666666667, 0.0] | mabric_576v_1248c_central.off |
+| sabric | line (1) | 1.01e-01 -> 3.11e-01 | [0.4466037932, 0.0, 0.5533962068, 0.0] | sabric_576v_864c_central.off |
 | gabric | line (1) | 1.60e-01 -> 1.60e-01 | [0.1132704598, 0.0, 0.8867295402, 0.0] | gabric_576v_1056c_central.off |
 | bimtec | line (1) | 3.54e-01 -> 3.54e-01 | [0.0, 0.25, 0.75, 0.0] | bimtec_576v_192c_central.off |
 | tispic | line (1) | 1.56e-01 -> 2.08e-01 | [0.6111111111, 0.0, 0.2222222222, 0.1666666667] | tispic_1152v_384c_central.off |

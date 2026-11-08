@@ -16,9 +16,9 @@ CONTIC = {
     "gabipard": "gabiparc", "mabipard": "mabiparc", "sabipard": "sabiparc",
     "sobcated": "sobcotic", "mobcated": "mobcotic", "gobcated": "gobcotic",
     "biped": "bipec", "bited": "bitec", "bimted": "bimtec",
-    # (by cells: the atlas's "mabred" has 48 coes, 192 trips, 144 squaps, 288 tedows, 576 rectpyrs = sabric; its
-    #  "sabred" has 384 trapos (octahedra) = mabric; "gabred" has sircoes = gabric)
-    "mabred": "sabric", "sabred": "mabric", "gabred": "gabric",
+    # (corrected by the project: the 864-cell line (the atlas's "sabred": 384 trapos) is sabric and the 1248-cell one
+    #  ("mabred": 48 coes, 192 trips, 144 squaps, 288 tedows, 576 rectpyrs) is mabric; "gabred" has sircoes = gabric)
+    "mabred": "mabric", "sabred": "sabric", "gabred": "gabric",
     "tispid": "tispic", "tabcated": "tabcatic", "gippid": "gippic", "tabipard": "tabiparc", "tadeca": "ticont",
     "bideca": "bicont", "spid": "spic", "apid": "bamic", "deca": "cont", "respid": "respic", "redeca": "recont",
 }
