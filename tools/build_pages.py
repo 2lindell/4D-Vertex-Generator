@@ -138,6 +138,10 @@ def build(out: Path) -> list[str]:
     shutil.copy2(ROOT / "assets" / "decaic_isogonals.html", out / "decaic_isogonals.html")
     # ... and the Icoic and Contic Isogonals page (research/pages/make_contic_page.py)
     shutil.copy2(ROOT / "assets" / "contic_isogonals.html", out / "contic_isogonals.html")
+    # ... and the Tessic and Hyic Isogonals pages (research/pages/make_tessic_page.py, make_hyic_page.py)
+    for name in ("tessic_isogonals.html", "hyic_isogonals.html"):
+        if (ROOT / "assets" / name).exists():
+            shutil.copy2(ROOT / "assets" / name, out / name)
     hashed = [[rel, hashlib.sha256((out / rel).read_bytes()).hexdigest()[:12]] for rel in files]
     page = (
         PAGE.replace("__VERSION__", STLITE_VERSION)

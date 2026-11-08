@@ -15,9 +15,12 @@ import numpy as np
 from scipy.spatial import cKDTree
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-# (the atlas: the contic family when CONTIC_SUB is set, else the decaic family (DECAIC_SUB))
-CONTIC = "CONTIC_SUB" in os.environ
-sys.path.insert(0, os.path.join(os.path.dirname(HERE), "contic_atlas" if CONTIC else "decaic_atlas"))
+# (the atlas: contic (CONTIC_SUB), hyic (HYIC_SUB) or tessic (TESSIC_SUB) family, else decaic (DECAIC_SUB))
+ATLAS = next((a for e, a in (("CONTIC_SUB", "contic_atlas"), ("HYIC_SUB", "hyic_atlas"), ("TESSIC_SUB", "tessic_atlas"))
+              if e in os.environ), "decaic_atlas")
+CONTIC = ATLAS != "decaic_atlas"                  # (these atlases' polytope() also returns the orbit indices)
+HYIC = ATLAS == "hyic_atlas"
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), ATLAS))
 import group as G  # noqa: E402
 
 from four_d_vertex_generator.local_view import hull_edges  # noqa: E402
@@ -102,7 +105,28 @@ def cell_kind(nv, nf, Pfaces, P):
     if (nv, nf) == (5, 5):
         return "square pyramids" if sizes.get(4) == 1 else "5-vertex 5-faced cells"
     if (nv, nf) == (12, 20):
-        return "snits"
+        E = [np.linalg.norm(P[f[i]] - P[f[i - 1]]) for f in Pfaces for i in range(3)]
+        return "ikes" if HYIC and all(close(e, E[0]) for e in E) else "snits"
+    if (nv, nf) == (20, 12):
+        return "does" if sizes.get(5) == 12 else ("dipips" if sizes.get(10) == 2 else "20-vertex 12-faced cells")
+    if (nv, nf) == (30, 32) and sizes.get(5) == 12:
+        return "ids"
+    if (nv, nf) == (60, 32):
+        return "tids" if sizes.get(10) else ("tis" if sizes.get(6) else "60-vertex 32-faced cells")
+    if (nv, nf) == (60, 62):
+        return "srids"
+    if (nv, nf) == (120, 62):
+        return "grids"
+    if (nv, nf) == (60, 92):
+        return "snids"
+    if (nv, nf) == (10, 7) and sizes.get(5) == 2:
+        return "pips"
+    if (nv, nf) == (10, 12) and sizes.get(5) == 2:
+        return "pegyps"
+    if (nv, nf) == (16, 16) and sizes.get(3) == 4 and sizes.get(5) == 12:
+        return "teddids"
+    if (nv, nf) == (16, 10) and sizes.get(8) == 2:
+        return "ops"
     if (nv, nf) == (12, 8) and sizes.get(4) == 6:
         return "ditrips / hips"
     if (nv, nf) == (12, 8):

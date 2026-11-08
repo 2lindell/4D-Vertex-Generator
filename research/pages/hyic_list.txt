@@ -1,0 +1,19 @@
+Hyic		[5,3,3]																									
+Ex	Hexecosachoron	Hyic	120	5^12	3^20	Doic	0		600 tets						Kihyic, Ixitic, 5-swirldoic, 5-skidoic, 3-swirldoic, 3-skidoic, 2-swirldoic, 2-skidoic, 1-swirldoic, 1-skidoic, 5-spyritic, 5-skitettic	Hi	Hi										
+Hi	Hecatonicosachoron	Hyic	600	3333	3333	Tettic	0	120 does							Kihyic, 5-swirldoic, 5-skidoic	Ex	Ex										
+Rox	Rectified Ex	Hyic	720	3^10	55,4^5	Pippic	0	120 ikes	600 octs						Kihyic, Ixitic												
+Rahi	Rectified Hi	Hyic	1200	3^6	33,444	Trippic	0	120 ids	600 tets						Kihyic												
+Tex	Truncated Ex	Hyic	1440	5,3^5	5,3^5	Peppyric	1	120 ikes	600 tuts						Kihyic, Ixitic												
+Thi	Truncated Hi	Hyic	2400	3333	3333	Trippyric	1	120 tids	600 tets						Kihyic												
+Sidpixhi	Small Disprismato600-120	Hyic	2400	4^6	33,3^6	Trippyric	1	120 does	600 tets	720 pips	1200 trips				Kihyic												
+Srahi	Small Rhombated Hi	Hyic	3600	3^6	444,33	Rectpyric	1	120 srids	600 octs		1200 trips				Kihyic												
+Srix	Small Rhombated Ex	Hyic	3600	3^6	444,33	Rectpyric	1	120 ids	600 ratets	720 pips					Kihyic												
+Xhi	Hexecosahecatonicosachoron	Hyic	3600	3333	3333	Rectpyric	1	120 tis	600 tuts						Kihyic												
+Grahi	Great Rhombated Hi	Hyic	7200	3333	3333	Dyadic	2	120 grids	600 tuts		1200 trips				Kihyic												
+Grix	Great Rhombated Ex	Hyic	7200	3333	3333	Dyadic	2	120 tis	600 gratets	720 pips					Kihyic												
+Prahi	Prismatorhombated Hi	Hyic	7200	4,3^4	4,3^4	Dyadic	2	120 srids	600 tuts	720 pips	1200 ditrips				Kihyic												
+Prix	Prismatorhombated Ex	Hyic	7200	4,3^4	4,3^4	Dyadic	2	120 tids	600 ratets	720 dipips	1200 trips				Kihyic												
+Gidpixhi	Great Disprismato600-120	Hyic	14400	3333	3333	Monic	3	120 grids	600 gratets	720 dipips	1200 ditrips																
+Kihyic		[5,3,3]+																									
+Snixhi	Snub 600-120	Kihyic	7200	444,3^6	5544,3^4	Monic	3	120 snids	600 snits	720 pegyps	1200 trigyps			7200 irr. tets
+

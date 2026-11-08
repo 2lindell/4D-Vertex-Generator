@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tessic Isogonals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Alegreya+Sans+SC:wght@500;700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: a reading column of shape entries, a section index that wraps above it; new entries carry a slate rule. */
+:root {
+  --paper: #f7f8f6;
+  --ink: #1f2428;
+  --muted: #5b6670;
+  --rule: #d5dad6;
+  --accent: #2f5d62;
+  --new: #8a5a1c;
+  --new-wash: #f3ece1;
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+  --label: "Alegreya Sans SC", "Gill Sans", "Trebuchet MS", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15191c; --ink: #e3e7e4; --muted: #9aa5ad; --rule: #2c3337; --accent: #8fc1c6;
+    --new: #e0b67a; --new-wash: #2a241b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15191c; --ink: #e3e7e4; --muted: #9aa5ad; --rule: #2c3337; --accent: #8fc1c6;
+  --new: #e0b67a; --new-wash: #2a241b; color-scheme: dark;
+}
+body { background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.65 var(--serif); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-block: 2.5rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1 { font: 600 2.1rem/1.15 var(--serif); margin: 0 0 .75rem; text-wrap: balance; letter-spacing: -.01em; }
+.intro { color: var(--ink); margin: 0 0 .5rem; }
+.note { color: var(--muted); font-size: .95rem; margin: 0 0 1.75rem; }
+nav { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 2.5rem; padding-block: .9rem; border-block: 1px solid var(--rule); }
+nav a { font: 500 .95rem/1 var(--label); letter-spacing: .04em; color: var(--accent); text-decoration: none;
+  padding: .45rem .7rem; border: 1px solid var(--rule); border-radius: 3px; }
+nav a:hover, nav a:focus-visible { border-color: var(--accent); outline: none; }
+.n { font: 400 .78rem/1 var(--mono); color: var(--muted); margin-left: .3rem; font-variant-numeric: tabular-nums; }
+section { margin-block: 0 3rem; }
+h2 { font: 700 1.35rem/1.2 var(--label); letter-spacing: .06em; color: var(--accent); margin: 0 0 .4rem; }
+.lede { color: var(--muted); font-style: italic; margin: 0 0 1.25rem; }
+h3.sub { font: 700 1.05rem/1.2 var(--label); letter-spacing: .06em; color: var(--new); margin: 2.25rem 0 .3rem; }
+.shape { padding-block: .9rem; border-top: 1px solid var(--rule); }
+.shape h3 { font: 600 1.1rem/1.3 var(--serif); margin: 0 0 .25rem; display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; }
+.shape p { margin: 0; }
+.shape.new { border-left: 3px solid var(--new); padding-left: .9rem; background: var(--new-wash); border-top-color: transparent; margin-top: .6rem; }
+.tag { font: 500 .78rem/1 var(--label); letter-spacing: .08em; color: var(--new); border: 1px solid var(--new); border-radius: 2px; padding: .15rem .35rem; }
+.data { font: 400 .8rem/1.5 var(--mono); color: var(--muted); margin-top: .45rem !important; overflow-wrap: anywhere; }
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+@media (max-width: 30rem) { h1 { font-size: 1.7rem; } body { font-size: 1rem; } }
+</style>
+<style>body { margin: 0; }</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Tessic Isogonals</h1>
+<p class="intro">There are 18 isogonal polychora that have one or more of the tessic family symmetries, they are listed below with animations of their nets. Sections, verf, and net for snit. Animations done with Stella4D.</p>
+<p class="note">The tessic atlas mapped all five tessic family groups (tessic, kitessic, tessipyritic, demitessic and kidemitessic: plane arrangements, curved-wall maps, dense surveys of the edge zones and region closure checks) and found exactly these 18 polychora, no others. The original descriptions are kept; each entry adds the atlas&#x27;s most even seed (β = distances to the four B4 mirrors, b1 the hexadecachoron&#x27;s node and b4 the tesseract&#x27;s; R = longest / shortest edge) and its .off file, and notes marked atlas where it differs from or adds to the list.</p>
+<nav aria-label="Sections">
+<a href="#strictly-tessics">Strictly Tessics <span class="n">7</span></a>
+<a href="#only-tessic">Only Tessic <span class="n">1</span></a>
+<a href="#tessic-demitessics">Tessic Demitessics <span class="n">4</span></a>
+<a href="#tessic-icoics">Tessic Icoics <span class="n">3</span></a>
+<a href="#tessipyritic">Tessipyritic <span class="n">2</span></a>
+<a href="#kitessic">Kitessic <span class="n">1</span></a>
+</nav>
+<section id="strictly-tessics"><h2>Strictly Tessics</h2><p class="lede">These are isogonal under tessic, kitessic, and sometimes tessipyritic symmetries but not demitessic, kidemitessic, nor any icoic symmetries, you may be familiar with these. Above are the nets in the same order.</p>
+<article class="shape"><h3>Tes</h3><p>the tesseract has eight cubes as cells and a tet for a verf. It has 16 vertices, 32 trigonic edges, and 24 square faces. It is both isogonal and isotopal under tessic, kitessic, and tessipyritic symmetries. It is isotopal under demitessic and kidemitessic symmetry. There are several other symmetries it is isogonal and/or isotopal under - like cupic, kicupic, and procupic (isogonal); tetappic, protetappic, kitetappic (isotopal), squiddippic and exsquiddippic (isogonal and isotopal), and a few other symmetries amongst duoprismatics, swirlprismatics, and gyrochorics.</p><p class="data">most even tessic: β = (0.000000, 0.000000, 0.000000, 1.000000) · R = 1.000000<br>optimized_off/tessic/tes_16v_8c_opt.off</p></article>
+<article class="shape"><h3>Tat</h3><p>the truncated tesseract has eight tics and 16 tets and its verf is a triangular pyramid. It has 64 vertices, 32+96 trigonic edges, and its faces are 24 ditetragons and 64 equits. It is isogonal under tessic, kitessic, tessipyritic, and exsquiddippic symmetries with one degree of variance.</p><p class="data">most even tessic: β = (0.000000, 0.000000, 0.500000, 0.500000) · R = 1.000000<br>optimized_off/tessic/tat_64v_24c_opt.off</p></article>
+<article class="shape"><h3>Srit</h3><p>the small rhombated tesseract has 8 sircoes, 16 octs, and 32 trips and its verf is a wedge. It has 96 vertices, 96+48 trigonic edges, and its faces are 24 squares, 64+64 equits, and 96 rectangles. It is isogonal under tessic, kitessic, and tessipyritic symmetries with one degree of variance.</p><p class="data">most even tessic: β = (0.000000, 0.500000, 0.000000, 0.500000) · R = 1.000000<br>optimized_off/tessic/srit_96v_56c_opt.off</p></article>
+<article class="shape"><h3>Grit</h3><p>the great rhombated tesseract has 8 gircoes, 16 tuts, and 32 trips. Its verf is a scalene tet. It has 192 vertices, 192+192 trigonic edges, and its faces are 24 ditetragons, 64 equits, 96 rectangles, and 64 ditrigons. It is isogonal under tessic and kitessic symmetries with two degrees of variance.</p><p class="data">most even tessic: β = (0.000000, 0.333333, 0.333333, 0.333333) · R = 1.000000<br>optimized_off/tessic/grit_192v_56c_opt.off</p></article>
+<article class="shape"><h3>Sidpith</h3><p>the small disprismatotesseractihexadecachoron has eight cubes, 16 tets, 24 squips (square prisms), and 32 trips. Its verf is a trigonal antipodium. It has 64 vertices, 96+96 tetragonic edges, and its faces are 48 squares, 64 equits, and 96 rectangles. It is isogonal under tessic, kitessic, tessipyritic, and esquiddippic symmetries with one degree of variance.</p><p class="data">most even tessic: β = (0.500000, 0.000000, 0.000000, 0.500000) · R = 1.000000<br>optimized_off/tessic/sidpith_64v_80c_opt.off</p></article>
+<article class="shape"><h3>Prit</h3><p>the prismatorhombated tesseract has 8 sircoes, 16 tuts, 24 squips, and 32 ditrips. Its verf is a trapezoid pyramid. It has 192 vertices, 192+192 trigonic and 96 tetragonic edges, and its faces are 48 squares, 64 equits, 96+96 rectangles, and 64 ditrigons. It is isogonal under tessic, kitessic, and tessipyritic symmetries with two degrees of variance.</p><p class="data">most even tessic: β = (0.333333, 0.000000, 0.333333, 0.333333) · R = 1.000000<br>optimized_off/tessic/prit_192v_80c_opt.off</p></article>
+<article class="shape"><h3>Proh</h3><p>the prismatorhombated hexadecachoron has 8 tics, 16 ratets (co variant), 24 ditetragon prisms, and 32 trips. Its verf is a trapezoid pyramid. It has 192 vertices, 192+192 trigonic and 96 tetragonic edges, and its faces are 64+64 equits, 96 rectangles, and 48 ditetragons. It is isogonal under tessic, kitessic, and tessipyritic symmetries with two degrees of variance.</p><p class="data">most even tessic: β = (0.333333, 0.333333, 0.000000, 0.333333) · R = 1.000000<br>optimized_off/tessic/proh_192v_80c_opt.off</p></article>
+</section>
+<section id="only-tessic"><h2>Only Tessic</h2><p class="lede">This one is isogonal under tessic symmetry and no other symmetry, you may be familiar with this one. Above is the net.</p>
+<article class="shape"><h3>Gidpith</h3><p>the great disprismatotesseractihexadecachoron has eight gircoes, sixteen toes/gratets, 24 ops (ditetragon prisms), and 32 ditrips. Its verf is an irregular tet. It has 384 vertices and 768 (192+192+192+192) edges. Its faces are 48 octagons (ditetragons), 64+64 ditrigons, and 96+96+96 rectangles. It is isogonal under tessic symmetries with three degrees of variance. Note that it is not isogonal under kitessic symmetry.</p><p class="data">most even tessic: β = (0.250000, 0.250000, 0.250000, 0.250000) · R = 1.000000<br>optimized_off/tessic/gidpith_384v_80c_opt.off</p></article>
+</section>
+<section id="tessic-demitessics"><h2>Tessic Demitessics</h2><p class="lede">These are isogonal under tessic, kitessic, demitessic, and kidemitessic symmetries, but not under any icoic symmetries, you may be familiar with these. Above are the nets in the same order.</p>
+<article class="shape"><h3>Hex</h3><p>the hexadecachoron has 16 tets as cells (8+8 under demitessic) and an oct for a verf. It has eight vertices, 24 tetragonic edges, and 32 equits. It is both isogonal and isotopal under tessic, kitessic, and tessipyritic symmetries. It is demitessic and kidemitessic symmetries. There are several other symmetries it is isogonal and/or isotopal under - like cupic, kicupic, and procupic (isotopal); tetappic, protetappic, kitetappic (isogonal), squiddippic and exsquiddippic (isogonal and isotopal), and a few other symmetries amongst duoprismatics, swirlprismatics, and gyrochorics.</p><p class="data">most even tessic: β = (1.000000, 0.000000, 0.000000, 0.000000) · R = 1.000000<br>optimized_off/tessic/hex_8v_16c_opt.off</p></article>
+<article class="shape"><h3>Thex</h3><p>the truncated hexadecachoron has eight octs and 16 tuts (8+8 under demitessic) and its verf is a squippy. It has 48 vertices, 24 tetragonic and 96 trigonic edges, and its faces are 64 equits (32+32 under demitessic) and 32 ditrigons. It is isogonal under tessic, kitessic, tessipyritic, demitessic, and kidemitessic symmetries with one degree of variance (two under demi). <span class="tag">atlas</span> Under demitessic symmetry the atlas finds thex with one degree of variance (on a line of the D4 chamber), not two.</p><p class="data">most even tessic: β = (0.500000, 0.500000, 0.000000, 0.000000) · R = 1.000000<br>optimized_off/tessic/thex_48v_24c_opt.off</p></article>
+<article class="shape"><h3>Rit</h3><p>the rectified tesseract has eight coes (ratets under demitessic) and 16 tets (8+8 under demitessic) and its verf is a trip. It has 32 vertices, 96 trigonic edges (48+48 under demi), and its faces are 64 equits (32+32 under demi) and 24 squares (rectangles under demi). It is isogonal under tessic, kitessic, demitessic, kidemitessic, and tessipyritic with one degree of variance under demitessic.</p><p class="data">most even tessic: β = (0.000000, 0.000000, 1.000000, 0.000000) · R = 1.000000<br>optimized_off/tessic/rit_32v_24c_opt.off</p></article>
+<article class="shape"><h3>Tah</h3><p>the tesseractihexadecachoron has 8 toes (gratets under demi) and 16 tuts (8+8 under demi). Its verf is a disphenoid. It has 96 vertices, 96+96 trigonic edges (96+48+48 under demi), and its faces are 24 squares (rectangles under demi), 32 equits, 64 ditrigons (32+32 under demi). It is isogonal under tessic, kitessic, demitessic, and kidemitessic symmetries with one degree of variance (two under demi). <span class="tag">atlas</span> The atlas finds tah isogonal under tessipyritic symmetry too: its tessic seed&#x27;s stabilizer holds an odd permutation, so the tessipyritic orbit is the whole tessic one.</p><p class="data">most even tessic: β = (0.000000, 0.500000, 0.500000, 0.000000) · R = 1.000000<br>optimized_off/tessic/tah_96v_24c_opt.off</p></article>
+</section>
+<section id="tessic-icoics"><h2>Tessic Icoics</h2><p class="lede">These are isogonal under tessic, kitessic, demitessic, kidemitessic, icoic, and kiicoic symmetries, you may be familiar with these. Above are the nets in the same order.</p>
+<article class="shape"><h3>Ico</h3><p>the icosatetrachoron has 24 octs as cells (8+16 under tessic and 8+8+8 under demitessic) and a cube for a verf, it is self dual. It has 24 vertices, 96 trigonic edges, and 96 equits (32+64 under tessic, 32+32+32 under demi). It is both isogonal and isotopal under tessic, kitessic, demitessic, kidemitessic, tessipyritic, icoic, kiicoic, icopyritic, and toxitic symmetries. It is also isogonal and isotoxal under 1,2,and 3-skitetic; 1,2, and 3-swirltettic; 1,2, and 3-askitettic; 1,2, and 3-astettic; 1,2, and 3-spyritic; and various 12 bigyric and swirlantiprism such as swirl dappic symmetries. OK Ico, this is overkill.</p><p class="data">most even tessic: β = (0.000000, 1.000000, 0.000000, 0.000000) · R = 1.000000<br>optimized_off/tessic/ico_24v_24c_opt.off</p></article>
+<article class="shape"><h3>Rico</h3><p>the rectified icosatetrachoron has 24 cubes (24 squips under tessic, and 24 bricks under demitessic) and 24 coes (8 coes and 16 ratets under tessic, and 8+8+8 ratets under demi) and its verf is a trip/wedge/skew wedge. It has 96 vertices, 288 trigonic edges (96+192 under tessic, 96+96+96 under demi), and its faces are 144 squares (48 squares and 96 rectangles under tessic, 48+48+48 rectangles under demitessic) and 96 equits (32+64 under tessic, 32+32+32 under demitessic). It is isogonal under tessic, kitessic, demitessic, kidemitessic, tessipyritic, icoic, kiicoic, icopyritic, and toxitic symmetries with one degree of variance under tessic, two under demitessic. It may also be isogonal under some of the 3-stettic based symmetries.</p><p class="data">most even tessic: β = (0.500000, 0.000000, 0.500000, 0.000000) · R = 1.000000<br>optimized_off/tessic/rico_96v_48c_opt.off</p></article>
+<article class="shape"><h3>Tico</h3><p>the truncated icosatetrachoron has 24 cubes (squips under tessic, bricks under demi) and 24 tuts (8+16 under tessic and 8+8+8 under demi) and its verf is a triangular pyramid. It has 192 vertices, 96+288 (96+96+192 under tessic, and 96x4 under demi) edges, and its faces are 144 squares (48 squares and 96 rectangles under tessic, 48+48+48 rectangles under demitessic) and 96 (32+64 / 32+32+32) ditrigons. It is isogonal under tessic, kitessic, demitessic, kidemitessic, tessipyritic, icoic, kiicoic, icopyritic, and toxitic symmetries with one degree of variance under icoic, two under tessic, and three under demitessic. <span class="tag">atlas</span> Tico cannot be kidemitessic (that group&#x27;s order, 96, is less than its 192 vertices); under tessipyritic symmetry its tessic seed gives sadi. Its cells are truncated octahedra (toes) and cubes.</p><p class="data">most even tessic: β = (0.333333, 0.333333, 0.333333, 0.000000) · R = 1.000000<br>optimized_off/tessic/tico_192v_48c_opt.off</p></article>
+</section>
+<section id="tessipyritic"><h2>Tessipyritic</h2><p class="lede">These are isogonal under tessipyritic symmetry, you may be familiar with one of these.</p>
+<article class="shape"><h3>Sadi</h3><p>the snub disicosatetrachoron. It has 24 pyritic ikes, 24 tets, and 96 triangle pyramids under icopyritic. The toxitic version has 24 snits, 24 tets with chiral symmetry, and 96 triangular pyrimids (chiral). Under tessipyritic, it has 8 pyritic ikes, 16 snits, 24 disphenoids, and 96 irregular tets, and under kidemitessic it has 8+8+8 snits, 24 gyrated disphenoids, and 96 irregular tets. Its verf is a teddi. It has 96 vertices. It has 288 (96+192 under tessipyritic, 96+96+96 under kidemitessic) trigonic and 144 (48+96 under tessipyritic and 48+48+48 under kidemitessic) tetragonic edges. Its faces are 96+96 equits and 288 isots (isosceles triangles) under icopyritic. Under tessipyritic, the faces are 96 isots, 32+64 equits, 96 more isots, and 192 scalenes. Under kidemitessic, the faces are 96 scalenes, 32+32+32 equits, and 96+96+96 more scalenes. It is isogonal under tessipyritic, kidemitessic, icopyritic, toxitic, 3-spyritic, and likely some swirlprism-swirlantiprism symmetries with one degree of variance under icopyritic, two under tessipyritic, and three under kidemitessic symmetry.</p><p class="data">most even tessipyritic: β = (0.381966, 0.236068, 0.381966, 0.000000) · R = 1.000000<br>optimized_off/tessipyritic/sadi_96v_144c_opt.off</p></article>
+<article class="shape"><h3>Pysnet</h3><p>the pyritosnub tesseract. It has 8 pyritosnub cubes (pysnic - a sirco variant), 16 snits, 24 rectangular trapezoprisms, 32 trips, and 96 skew wedges. Its verf is an irregular pentagonal pyramid where one trigon face is replaced with a tetragonal one. It has 192 vertices. It has 96+192+192 trigonic, 96 tetragonic, and 96 pentagonic edges. Its faces are 64+64 equits, 192 scalenes, 48+96 rectangles, and 96+96 trapezoids. It is isogonal under tessipyritic symmetry with three degree of variance.</p><p class="data">most even tessipyritic: β = (0.306008, 0.254635, 0.113113, 0.326245) · R = 1.490323<br>optimized_off/tessipyritic/pysnet_192v_176c_opt.off</p></article>
+</section>
+<section id="kitessic"><h2>Kitessic</h2><p class="lede">This one is isogonal under kitessic only.</p>
+<article class="shape"><h3>Snet</h3><p>the snub tesseract. It has 8 snics and 16 snits, 24 gyro-squaps (chiral version of squap), 32 gyro-traps (chiral version of traps), and 192 irregular tets. Its verf is an irregular shape with two pentagons, two trapezoids, and 4 trigons. It has 192 vertices and 96+96+96 trigonic and 192+192+192 tetragonic edges. Its faces are 48 squares, 64+64 equits, and 192+192+192 scalenes. It is isogonal under kitessic symmetry with three degrees of variance. <span class="tag">atlas</span> The atlas counts its edges as 576 trigonic and 288 tetragonic (its verf -- two pentagons, two trapezoids and four triangles -- has six three-face and three four-face corners).</p><p class="data">most even kitessic: β = (0.299409, 0.216392, 0.197882, 0.286317) · R = 1.250018<br>optimized_off/kitessic/snet_192v_272c_opt.off</p></article>
+</section>
+<footer>Made by research/pages/make_tessic_page.py from the tessic atlas (research/tessic_atlas). Original text: the Tessic Isogonals page.</footer>
+</div>
+</body>
+</html>

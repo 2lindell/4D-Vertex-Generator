@@ -1,0 +1,73 @@
+Here's some information for you t get started on tessic groups, but these may not be comprehensive either so will need their own searches: Tessic Isogonals
+There are 18 isogonal polychora that have one or more of the tessic family symmetries, they are listed below with animations of their nets. Sections, verf, and net for snit. Animations done with Stella4D.
+Strictly Tessics
+Tes NetTat NetSrit NetGrit Net
+
+Sidpith NetPrit NetProh Net
+
+These are isogonal under tessic, kitessic, and sometimes tessipyritic symmetries but not demitessic, kidemitessic, nor any icoic symmetries, you may be familiar with these. Above are the nets in the same order.
+
+Tes - the tesseract has eight cubes as cells and a tet for a verf. It has 16 vertices, 32 trigonic edges, and 24 square faces. It is both isogonal and isotopal under tessic, kitessic, and tessipyritic symmetries. It is isotopal under demitessic and kidemitessic symmetry. There are several other symmetries it is isogonal and/or isotopal under - like cupic, kicupic, and procupic (isogonal); tetappic, protetappic, kitetappic (isotopal), squiddippic and exsquiddippic (isogonal and isotopal), and a few other symmetries amongst duoprismatics, swirlprismatics, and gyrochorics.
+
+Tat - the truncated tesseract has eight tics and 16 tets and its verf is a triangular pyramid. It has 64 vertices, 32+96 trigonic edges, and its faces are 24 ditetragons and 64 equits. It is isogonal under tessic, kitessic, tessipyritic, and exsquiddippic symmetries with one degree of variance.
+
+Srit - the small rhombated tesseract has 8 sircoes, 16 octs, and 32 trips and its verf is a wedge. It has 96 vertices, 96+48 trigonic edges, and its faces are 24 squares, 64+64 equits, and 96 rectangles. It is isogonal under tessic, kitessic, and tessipyritic symmetries with one degree of variance.
+
+Grit - the great rhombated tesseract has 8 gircoes, 16 tuts, and 32 trips. Its verf is a scalene tet. It has 192 vertices, 192+192 trigonic edges, and its faces are 24 ditetragons, 64 equits, 96 rectangles, and 64 ditrigons. It is isogonal under tessic and kitessic symmetries with two degrees of variance.
+
+Sidpith - the small disprismatotesseractihexadecachoron has eight cubes, 16 tets, 24 squips (square prisms), and 32 trips. Its verf is a trigonal antipodium. It has 64 vertices, 96+96 tetragonic edges, and its faces are 48 squares, 64 equits, and 96 rectangles. It is isogonal under tessic, kitessic, tessipyritic, and esquiddippic symmetries with one degree of variance.
+
+Prit - the prismatorhombated tesseract has 8 sircoes, 16 tuts, 24 squips, and 32 ditrips. Its verf is a trapezoid pyramid. It has 192 vertices, 192+192 trigonic and 96 tetragonic edges, and its faces are 48 squares, 64 equits, 96+96 rectangles, and 64 ditrigons. It is isogonal under tessic, kitessic, and tessipyritic symmetries with two degrees of variance.
+
+Proh - the prismatorhombated hexadecachoron has 8 tics, 16 ratets (co variant), 24 ditetragon prisms, and 32 trips. Its verf is a trapezoid pyramid. It has 192 vertices, 192+192 trigonic and 96 tetragonic edges, and its faces are 64+64 equits, 96 rectangles, and 48 ditetragons. It is isogonal under tessic, kitessic, and tessipyritic symmetries with two degrees of variance.
+
+Only Tessic
+Gidpith Net
+
+This one is isogonal under tessic symmetry and no other symmetry, you may be familiar with this one. Above is the net.
+
+Gidpith - the great disprismatotesseractihexadecachoron has eight gircoes, sixteen toes/gratets, 24 ops (ditetragon prisms), and 32 ditrips. Its verf is an irregular tet. It has 384 vertices and 768 (192+192+192+192) edges. Its faces are 48 octagons (ditetragons), 64+64 ditrigons, and 96+96+96 rectangles. It is isogonal under tessic symmetries with three degrees of variance. Note that it is not isogonal under kitessic symmetry.
+
+Tessic Demitessics
+Hex NetThex NetRit NetTah Net
+
+These are isogonal under tessic, kitessic, demitessic, and kidemitessic symmetries, but not under any icoic symmetries, you may be familiar with these. Above are the nets in the same order.
+
+Hex - the hexadecachoron has 16 tets as cells (8+8 under demitessic) and an oct for a verf. It has eight vertices, 24 tetragonic edges, and 32 equits. It is both isogonal and isotopal under tessic, kitessic, and tessipyritic symmetries. It is demitessic and kidemitessic symmetries. There are several other symmetries it is isogonal and/or isotopal under - like cupic, kicupic, and procupic (isotopal); tetappic, protetappic, kitetappic (isogonal), squiddippic and exsquiddippic (isogonal and isotopal), and a few other symmetries amongst duoprismatics, swirlprismatics, and gyrochorics.
+
+Thex - the truncated hexadecachoron has eight octs and 16 tuts (8+8 under demitessic) and its verf is a squippy. It has 48 vertices, 24 tetragonic and 96 trigonic edges, and its faces are 64 equits (32+32 under demitessic) and 32 ditrigons. It is isogonal under tessic, kitessic, tessipyritic, demitessic, and kidemitessic symmetries with one degree of variance (two under demi).
+
+Rit - the rectified tesseract has eight coes (ratets under demitessic) and 16 tets (8+8 under demitessic) and its verf is a trip. It has 32 vertices, 96 trigonic edges (48+48 under demi), and its faces are 64 equits (32+32 under demi) and 24 squares (rectangles under demi). It is isogonal under tessic, kitessic, demitessic, kidemitessic, and tessipyritic with one degree of variance under demitessic.
+
+Tah - the tesseractihexadecachoron has 8 toes (gratets under demi) and 16 tuts (8+8 under demi). Its verf is a disphenoid. It has 96 vertices, 96+96 trigonic edges (96+48+48 under demi), and its faces are 24 squares (rectangles under demi), 32 equits, 64 ditrigons (32+32 under demi). It is isogonal under tessic, kitessic, demitessic, and kidemitessic symmetries with one degree of variance (two under demi).
+
+Tessic Icoics
+Ico NetRico NetTico Net
+
+These are isogonal under tessic, kitessic, demitessic, kidemitessic, icoic, and kiicoic symmetries, you may be familiar with these. Above are the nets in the same order.
+
+Ico - the icosatetrachoron has 24 octs as cells (8+16 under tessic and 8+8+8 under demitessic) and a cube for a verf, it is self dual. It has 24 vertices, 96 trigonic edges, and 96 equits (32+64 under tessic, 32+32+32 under demi). It is both isogonal and isotopal under tessic, kitessic, demitessic, kidemitessic, tessipyritic, icoic, kiicoic, icopyritic, and toxitic symmetries. It is also isogonal and isotoxal under 1,2,and 3-skitetic; 1,2, and 3-swirltettic; 1,2, and 3-askitettic; 1,2, and 3-astettic; 1,2, and 3-spyritic; and various 12 bigyric and swirlantiprism such as swirl dappic symmetries. OK Ico, this is overkill.
+
+Rico - the rectified icosatetrachoron has 24 cubes (24 squips under tessic, and 24 bricks under demitessic) and 24 coes (8 coes and 16 ratets under tessic, and 8+8+8 ratets under demi) and its verf is a trip/wedge/skew wedge. It has 96 vertices, 288 trigonic edges (96+192 under tessic, 96+96+96 under demi), and its faces are 144 squares (48 squares and 96 rectangles under tessic, 48+48+48 rectangles under demitessic) and 96 equits (32+64 under tessic, 32+32+32 under demitessic). It is isogonal under tessic, kitessic, demitessic, kidemitessic, tessipyritic, icoic, kiicoic, icopyritic, and toxitic symmetries with one degree of variance under tessic, two under demitessic. It may also be isogonal under some of the 3-stettic based symmetries.
+
+Tico - the truncated icosatetrachoron has 24 cubes (squips under tessic, bricks under demi) and 24 tuts (8+16 under tessic and 8+8+8 under demi) and its verf is a triangular pyramid. It has 192 vertices, 96+288 (96+96+192 under tessic, and 96x4 under demi) edges, and its faces are 144 squares (48 squares and 96 rectangles under tessic, 48+48+48 rectangles under demitessic) and 96 (32+64 / 32+32+32) ditrigons. It is isogonal under tessic, kitessic, demitessic, kidemitessic, tessipyritic, icoic, kiicoic, icopyritic, and toxitic symmetries with one degree of variance under icoic, two under tessic, and three under demitessic.
+
+Tessipyritic
+These are isogonal under tessipyritic symmetry, you may be familiar with one of these.
+
+Sadi - the snub disicosatetrachoron. It has 24 pyritic ikes, 24 tets, and 96 triangle pyramids under icopyritic. The toxitic version has 24 snits, 24 tets with chiral symmetry, and 96 triangular pyrimids (chiral). Under tessipyritic, it has 8 pyritic ikes, 16 snits, 24 disphenoids, and 96 irregular tets, and under kidemitessic it has 8+8+8 snits, 24 gyrated disphenoids, and 96 irregular tets. Its verf is a teddi. It has 96 vertices. It has 288 (96+192 under tessipyritic, 96+96+96 under kidemitessic) trigonic and 144 (48+96 under tessipyritic and 48+48+48 under kidemitessic) tetragonic edges. Its faces are 96+96 equits and 288 isots (isosceles triangles) under icopyritic. Under tessipyritic, the faces are 96 isots, 32+64 equits, 96 more isots, and 192 scalenes. Under kidemitessic, the faces are 96 scalenes, 32+32+32 equits, and 96+96+96 more scalenes. It is isogonal under tessipyritic, kidemitessic, icopyritic, toxitic, 3-spyritic, and likely some swirlprism-swirlantiprism symmetries with one degree of variance under icopyritic, two under tessipyritic, and three under kidemitessic symmetry.
+
+Sadi SlicesSadi VerfSadi Net
+
+Pysnet - the pyritosnub tesseract. It has 8 pyritosnub cubes (pysnic - a sirco variant), 16 snits, 24 rectangular trapezoprisms, 32 trips, and 96 skew wedges. Its verf is an irregular pentagonal pyramid where one trigon face is replaced with a tetragonal one. It has 192 vertices. It has 96+192+192 trigonic, 96 tetragonic, and 96 pentagonic edges. Its faces are 64+64 equits, 192 scalenes, 48+96 rectangles, and 96+96 trapezoids. It is isogonal under tessipyritic symmetry with three degree of variance.
+
+Pysnet SlicesPysnet VerfPysnet Net
+
+Kitessic
+This one is isogonal under kitessic only.
+
+Snet - the snub tesseract. It has 8 snics and 16 snits, 24 gyro-squaps (chiral version of squap), 32 gyro-traps (chiral version of traps), and 192 irregular tets. Its verf is an irregular shape with two pentagons, two trapezoids, and 4 trigons. It has 192 vertices and 96+96+96 trigonic and 192+192+192 tetragonic edges. Its faces are 48 squares, 64+64 equits, and 192+192+192 scalenes. It is isogonal under kitessic symmetry with three degrees of variance.
+
+Snet SectionsSnet VerfSnet Net
+
+Back to 4-D Symmetry Page --- Back to Polychoron Page

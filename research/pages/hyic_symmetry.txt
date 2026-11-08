@@ -1,0 +1,16 @@
+For after: Hyic Symmetry Family
+Hyic Symmetry - [5,3,3] order 14400. This is the symmetry of the 120-cell and is quite common in the uniform polychora. This symmetry has 120 points of doic symmetry, 600 points of tettic symmetry, 720 points of pippic symmetry, and 1200 points of trippic symmetry. It has 72 rings with decagonal symmetry that generate 1440 spots with pentagon symmetry, 200 rings with hexagonal symmetry that generate 2400 trigonic regions, and 450 rings with square symmetry that create 3600 rectic areas. There are also 60 spheres with doic symmetry that create 7200 dyadic regions. White space creates 14400 points with no symmetry.
+
+Hyic ExampleHyic SlicesHyic Net
+
+Kihyic Symmetry - [5,3,3]⁺ order 7200. This is the chiral 120-cell symmetry. It has 120 points of kidoic symmetry, 600 points of kitettic symmetry, 720 points of kipippic symmetry, and 1200 points of kitrippic symmetry. It has 72 rings with decagonal symmetry that create 1440 kipeggic regions, 200 hexagonal rings that generate 2400 kitriggic regions, and 450 square rings that create 3600 essic regions. White space creates 7200 spots with no symmetry.
+
+Kihyic ExampleKihyic SlicesKihyic Net
+
+Ixitic Symmetry - 5[3⁺,4,3⁺] order 1440. It has two sets of 120 points with kitettic symmetry. It has 80 rings with kihiggic symmetry which generate 480 kitriggic areas and 90 rings with square symmetry that generate 720 essic areas. White space generates 1440 no sym areas.
+
+Ixitic ExampleIxitic SlicesIxitic Net
+
+Ixoic Symmetry - 5[[3⁺,4,3⁺]] order 2880. It has 240 points with kitettic symmetry, two sets of 480 points with kitrippic symmetry, and 720 points with kibrick symmetry. It has 80 hexagonal rings which generate 960 kitriggic areas and 90 octagonal rings that generate 1440 essic areas. White space creates 2880 no sym areas.
+
+Ixoic ExampleIxoic SlicesIxoic Net
