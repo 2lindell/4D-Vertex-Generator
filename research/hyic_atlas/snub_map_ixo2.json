@@ -1,0 +1,4872 @@
+{
+ "_about": "A hyic subgroup's domain (the H4 chamber) mapped over curved walls (snub_map<tag>.json); as\ndecaic_atlas/snub_map.py and contic_atlas/snub_map.py, over Q(sqrt5), with no fold (the hyic family).",
+ "N": 18,
+ "types": [
+  {
+   "type": 0,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x10+1440x14+2880x3+2880x3+2880x4+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.8318174792505181
+   ],
+   "grid_regions": [
+    3,
+    1,
+    2
+   ],
+   "grid_points": 6,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 1,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+1440x8+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.11180188264881961,
+    0.7763857119910567
+   ],
+   "grid_regions": [
+    1,
+    1,
+    109,
+    80
+   ],
+   "grid_points": 191,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 2,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x5+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.1672336499082811,
+    0.7209539447315951
+   ],
+   "grid_regions": [
+    402
+   ],
+   "grid_points": 402,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 3,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.44439248620558863,
+    0.4437951084342876
+   ],
+   "grid_regions": [
+    13,
+    4,
+    5,
+    1
+   ],
+   "grid_points": 23,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 4,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x12+1440x14+2880x3+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.6661195552434347,
+    0.22206803939644165
+   ],
+   "grid_regions": [
+    13
+   ],
+   "grid_points": 13,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 5,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x12+1440x12+2880x3+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.7769830897623576,
+    0.11120450487751861
+   ],
+   "grid_regions": [
+    4,
+    1
+   ],
+   "grid_points": 5,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 6,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x12+1440x12+2880x3+2880x3+2880x4+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.11152088869400824,
+    0.1672336499082811,
+    0.6655221774721336
+   ],
+   "grid_regions": [
+    1,
+    17,
+    4
+   ],
+   "grid_points": 22,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 7,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x8+1440x12+1440x12+2880x3+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.11152088869400824,
+    0.6661195552434347,
+    0.16663627213698012
+   ],
+   "grid_regions": [
+    5
+   ],
+   "grid_points": 5,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 8,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+2880x3+2880x3+2880x3+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.16695265595346975,
+    0.05637011538935812,
+    0.7209539447315951
+   ],
+   "grid_regions": [
+    5
+   ],
+   "grid_points": 5,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 9,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+1440x10+1440x14+2880x3+2880x3+2880x3+2880x3+2880x5+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.11115505118503852,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.7763857119910567
+   ],
+   "grid_regions": [
+    1
+   ],
+   "grid_points": 1,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 10,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x6+1440x8+1440x10+1440x10+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.33288212022288455,
+    0.056089121434546745,
+    0.1672336499082811,
+    0.4437951084342876
+   ],
+   "grid_regions": [
+    7
+   ],
+   "grid_points": 7,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 11,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x10+1440x12+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.08880748519392184,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.7987332779821733
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 12,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v6f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+1440x10+1440x12+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.16249187207492516,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.72504889110117
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 13,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x6+1440x8+1440x9+2880x3+2880x4+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.22201858570396152,
+    0.06376962614209081,
+    0.159553145200737,
+    0.5546586429532107
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      0,
+      6
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 14,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[5v6f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x8+1440x8+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.06767600918340078,
+    0.056089121434546745,
+    0.09984915739099584,
+    0.7763857119910567
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      1,
+      10
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 15,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x5+1440x6+1440x6+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.113986976962265,
+    0.7742006176776112
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 16,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x5+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.12081454581462933,
+    0.22238442321293125,
+    0.05637011538935812,
+    0.6004309155830814
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      1,
+      2
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 17,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.10896995356760233,
+    0.056089121434546745,
+    0.11398698026625578,
+    0.7209539447315951
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      1,
+      2
+     ]
+    ],
+    [
+     "none (nearest 1e+00)",
+     [
+      1,
+      15
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 18,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[8v10f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.1293187835421748,
+    0.056089121434546745,
+    0.14906991755114485,
+    0.6655221774721336
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      1,
+      2
+     ]
+    ],
+    [
+     "none (nearest 1e+00)",
+     [
+      1,
+      15
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 19,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[5v6f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.16658681844450002,
+    0.056089121434546745,
+    0.11707226339223575,
+    0.6602517967287174
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 20,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[8v12f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x10+1440x12+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.21522112023822199,
+    0.06288658690028633,
+    0.22266541716774263,
+    0.4992268756937491
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      0,
+      6
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 21,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x8+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.1064332905034534,
+    0.394048317136682,
+    0.4437951084342876
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      3,
+      4
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 22,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[8v10f]+960x[6v8f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x6+1440x8+1440x8+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.11115505118503852,
+    0.10038692787352572,
+    0.6218217488044557,
+    0.16663627213698012
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      3,
+      7
+     ]
+    ],
+    [
+     "none (nearest 1e+00)",
+     [
+      3,
+      33
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 23,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x11+1440x12+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.07940374570793388,
+    0.6428049309700476,
+    0.22206803939644165
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      4,
+      4
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 24,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[12v17f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x9+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.14238020586373584,
+    0.056089121434546745,
+    0.6661195552434347,
+    0.13541111745828277
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      4,
+      5
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 25,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[9v14f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x10+1440x10+2880x3+2880x3+2880x3+2880x3+2880x3",
+   "vertices": 2880,
+   "example": [
+    0.10212982119071094,
+    0.056089121434546745,
+    0.7769830897623576,
+    0.06479796761238467
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      5,
+      7
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 26,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v6f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x6+1440x6+1440x6+1440x6+1440x8+1440x8+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.1183746603579075,
+    0.05637011538935812,
+    0.7695319403271573
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      0,
+      10
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 27,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x8+1440x8+1440x8+1440x12+2880x3+2880x3+2880x4+2880x4+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.08975393483359745,
+    0.11152088869400824,
+    0.1332029990002607,
+    0.6655221774721336
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 28,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[12v20f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x8+1440x8+1440x8+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.1292253840893437,
+    0.14952915451294568,
+    0.6655221774721336
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      3,
+      27
+     ]
+    ],
+    [
+     "none (nearest 1e+00)",
+     [
+      3,
+      29
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 29,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x8+1440x8+1440x8+1440x8+1440x16+2880x3+2880x3+2880x3+2880x4+2880x4+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.1963019667293025,
+    0.056089121434546745,
+    0.08208673436401712,
+    0.6655221774721336
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 30,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v6f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x12+1440x12+2880x3+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.07891710438346175,
+    0.11152088869400824,
+    0.42119866574770387,
+    0.3883633411748261
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      4,
+      31
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 31,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x6+1440x8+1440x12+1440x14+2880x3+2880x3+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.08136249369985846,
+    0.11152088869400824,
+    0.47418504369076875,
+    0.33293157391536465
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 32,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[12v17f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x5+1440x8+1440x8+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.13805165064888153,
+    0.5287252587696384,
+    0.2774998066559031
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      1,
+      3
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 33,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x7+1440x10+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.08975392657362047,
+    0.11152088869400824,
+    0.6875206798548528,
+    0.11120450487751861
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 34,
+   "signature": "2880: cells 240x[12v8f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[9v11f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x6g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x6+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.055723283925577,
+    0.1722797794348297,
+    0.1064747591674597,
+    0.6655221774721336
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      3,
+      8
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 35,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[12v17f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x5+1440x6+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.11115505118503852,
+    0.10605934565107243,
+    0.05637011538935812,
+    0.7264154877745309
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 36,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x6+1440x6+1440x10+1440x10+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.11115505118503852,
+    0.056089121434546745,
+    0.10750683338062904,
+    0.7252489939997856
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 37,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x5+1440x6+1440x6+1440x10+1440x10+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.29053272919461726,
+    0.056089121434546745,
+    0.1672336499082811,
+    0.4861444994625549
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": []
+  },
+  {
+   "type": 38,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x5+1440x6+1440x8+1440x9+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.3108697077542016,
+    0.056089121434546745,
+    0.22266541716774263,
+    0.41037575364350903
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      6,
+      10
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 39,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x6+1440x6+1440x6+1440x6+1440x6+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.06738460269317265,
+    0.0998595699264126,
+    0.05637011538935812,
+    0.7763857119910567
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      0,
+      6
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 40,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+1440x9+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.154926417411973,
+    0.06774952246707372,
+    0.05637011538935812,
+    0.7209539447315951
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      0,
+      6
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 41,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v6f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+1440x12+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.16658681844450002,
+    0.057484085321078675,
+    0.11040691876228773,
+    0.6655221774721336
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      6,
+      27
+     ]
+    ]
+   ]
+  },
+  {
+   "type": 42,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[8v10f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x6+1440x8+1440x10+2880x3+2880x3+2880x4+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.33288212022288455,
+    0.056089121434546745,
+    0.11398697569745603,
+    0.4970417826451127
+   ],
+   "grid_regions": [],
+   "grid_points": 0,
+   "fold_points": 0,
+   "wall_of": [
+    [
+     "none (nearest 1e+00)",
+     [
+      6,
+      37
+     ]
+    ]
+   ]
+  }
+ ],
+ "walls": [
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "crossings": 22
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "crossings": 20
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "crossings": 17
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "crossings": 14
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "crossings": 13
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "crossings": 12
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "crossings": 12
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "crossings": 11
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "crossings": 10
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "crossings": 7
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "crossings": 7
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 18,
+   "crossings": 6
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    7
+   ],
+   "wall_type": 25,
+   "crossings": 6
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    30
+   ],
+   "wall_type": 30,
+   "crossings": 6
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    8
+   ],
+   "wall_type": 2,
+   "crossings": 6
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    12
+   ],
+   "wall_type": 12,
+   "crossings": 5
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    8
+   ],
+   "wall_type": 34,
+   "crossings": 5
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 20,
+   "crossings": 4
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 21,
+   "crossings": 4
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    25
+   ],
+   "wall_type": 25,
+   "crossings": 4
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    15
+   ],
+   "wall_type": 18,
+   "crossings": 3
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    20
+   ],
+   "wall_type": 20,
+   "crossings": 3
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 24,
+   "crossings": 3
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 13,
+   "crossings": 3
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 28,
+   "crossings": 3
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 22,
+   "crossings": 3
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    11
+   ],
+   "wall_type": 11,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 39,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    15
+   ],
+   "wall_type": 17,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    19
+   ],
+   "wall_type": 19,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": -1,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    4
+   ],
+   "wall_type": 23,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    24
+   ],
+   "wall_type": 24,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    32
+   ],
+   "wall_type": 32,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    33
+   ],
+   "wall_type": 22,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    34
+   ],
+   "wall_type": 34,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 16,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    10
+   ],
+   "wall_type": 38,
+   "crossings": 2
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 0,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    9
+   ],
+   "wall_type": 0,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 1,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    10
+   ],
+   "wall_type": 26,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    26
+   ],
+   "wall_type": 26,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 40,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    27
+   ],
+   "wall_type": 28,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    29
+   ],
+   "wall_type": 28,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    31
+   ],
+   "wall_type": 30,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    8,
+    35
+   ],
+   "wall_type": 35,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    36
+   ],
+   "wall_type": 36,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    27
+   ],
+   "wall_type": 41,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    37
+   ],
+   "wall_type": 37,
+   "crossings": 1
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    37
+   ],
+   "wall_type": 42,
+   "crossings": 1
+  }
+ ],
+ "wall_points": [
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    11
+   ],
+   "wall_type": 11,
+   "point": [
+    0.0888074798507,
+    0.0560891214345,
+    0.0563701153894,
+    0.7987332833253
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 39,
+   "point": [
+    0.0673846026932,
+    0.0998595699264,
+    0.0563701153894,
+    0.7763857119911
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    12
+   ],
+   "wall_type": 12,
+   "point": [
+    0.162491876747,
+    0.0560891214345,
+    0.0563701153894,
+    0.7250488864291
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 0,
+   "point": [
+    0.0557232839256,
+    0.0560891214345,
+    0.0609838573623,
+    0.8272037372776
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 39,
+   "point": [
+    0.0557232839256,
+    0.107068189221,
+    0.0608228148624,
+    0.7763857119911
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    9
+   ],
+   "wall_type": 0,
+   "point": [
+    0.0557232839256,
+    0.0972891834107,
+    0.1118018826488,
+    0.7351856500149
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.222018585704,
+    0.0637696259614,
+    0.1595531453814,
+    0.5546586429532
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0676760078153,
+    0.0560891214345,
+    0.0998491587591,
+    0.7763857119911
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1044600482817,
+    0.0560891214345,
+    0.1118018826488,
+    0.7276489476349
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1396234788359,
+    0.111520888694,
+    0.3050605240358,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1263058027567,
+    0.111520888694,
+    0.4292417346339,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1775058056459,
+    0.1006019014927,
+    0.2780971844272,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.2159491206153,
+    0.0621585865232,
+    0.5552560207245,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.222018585704,
+    0.0905690579164,
+    0.2990490152048,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.222018585704,
+    0.0792750056807,
+    0.4443924862056,
+    0.2543139224097
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.2351547645085,
+    0.0560891214345,
+    0.5552560207245,
+    0.1535000933325
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.2490303789055,
+    0.0845090954925,
+    0.2780971844272,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 1,
+   "point": [
+    0.2831430070909,
+    0.0560891214345,
+    0.1061092285213,
+    0.5546586429532
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.2774503529634,
+    0.0771958863042,
+    0.312422186817,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.2774503529634,
+    0.0646976542004,
+    0.4357839534397,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    15
+   ],
+   "wall_type": 17,
+   "point": [
+    0.0557232839256,
+    0.0560891214345,
+    0.1139869739938,
+    0.774200620646
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "point": [
+    0.0557232839256,
+    0.2930182665469,
+    0.5954857119095,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.1208145641156,
+    0.2223844232129,
+    0.0563701153894,
+    0.6004308972821
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 18,
+   "point": [
+    0.111155051185,
+    0.5549750267697,
+    0.0680495013079,
+    0.2658204207374
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "point": [
+    0.1703007993168,
+    0.2186704423406,
+    0.4443924862056,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    15
+   ],
+   "wall_type": 18,
+   "point": [
+    0.222018585704,
+    0.1669526559535,
+    0.1245400783127,
+    0.4864886800299
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    15
+   ],
+   "wall_type": 18,
+   "point": [
+    0.2774503529634,
+    0.111520888694,
+    0.1245400875019,
+    0.4864886708407
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 18,
+   "point": [
+    0.2774503529634,
+    0.4436326278026,
+    0.0568489798375,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 18,
+   "point": [
+    0.3328821202229,
+    0.3905503044448,
+    0.0563701153894,
+    0.220197459943
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 18,
+   "point": [
+    0.4561272955926,
+    0.0560891214345,
+    0.099420241798,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    15
+   ],
+   "wall_type": 17,
+   "point": [
+    0.4991774220013,
+    0.0560891214345,
+    0.113986998877,
+    0.3307464576872
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 18,
+   "point": [
+    0.6095620910395,
+    0.111520888694,
+    0.05684898087,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.1089699530772,
+    0.0560891214345,
+    0.1139869807567,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "point": [
+    0.0557232839256,
+    0.0919300065724,
+    0.1868245320299,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0651782633575,
+    0.111520888694,
+    0.2780971844272,
+    0.5452036635213
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.0585576692954,
+    0.1641182705837,
+    0.3335289516867,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    18
+   ],
+   "wall_type": 18,
+   "point": [
+    0.1293187808319,
+    0.0560891214345,
+    0.1490699202614,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.111155051185,
+    0.111520888694,
+    0.2266380524051,
+    0.5506860077159
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "point": [
+    0.111155051185,
+    0.1284915125722,
+    0.261126560549,
+    0.4992268756937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.111155051185,
+    0.1467722654173,
+    0.2982775749634,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "point": [
+    0.111155051185,
+    0.1650530182623,
+    0.3354285893778,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    19
+   ],
+   "wall_type": 19,
+   "point": [
+    0.1665868184445,
+    0.0560891214345,
+    0.1170722639859,
+    0.660251796135
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    19
+   ],
+   "wall_type": 19,
+   "point": [
+    0.2212169987406,
+    0.0568907083979,
+    0.1118018826488,
+    0.6100904102127
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.2512494742269,
+    0.0822900001711,
+    0.1672336499083,
+    0.4992268756937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 20,
+   "point": [
+    0.0557232839256,
+    0.0946706687452,
+    0.1286521025977,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.1987934240798,
+    0.0560891214345,
+    0.1672336499083,
+    0.5778838045774
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.2103076178667,
+    0.0678000892718,
+    0.1672336499083,
+    0.5546586429532
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2152211228453,
+    0.0628865842932,
+    0.2226654171677,
+    0.4992268756937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.222018585704,
+    0.0654208425988,
+    0.1672336499083,
+    0.5453269217889
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.222018585704,
+    0.0628865844481,
+    0.2158679541542,
+    0.4992268756937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 20,
+   "point": [
+    0.222018585704,
+    0.0621261165536,
+    0.2226654171677,
+    0.4931898805747
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": -1,
+   "point": [
+    0.0916476495534,
+    0.0560891214345,
+    0.3335289516867,
+    0.5187342773254
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0651817050318,
+    0.0560891214345,
+    0.3889607189461,
+    0.4897684545875
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0557232839256,
+    0.111520888694,
+    0.2979319132015,
+    0.5348239141789
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0916865742303,
+    0.1669526559535,
+    0.1118018826488,
+    0.6295588871674
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0652621804389,
+    0.1669526559535,
+    0.1672336499083,
+    0.6005515136993
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0557232839256,
+    0.1669526559535,
+    0.1872550609771,
+    0.5900689991439
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.1444532119022,
+    0.0560891214345,
+    0.2226654171677,
+    0.5767922494955
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.1180294708555,
+    0.0560891214345,
+    0.2780971844272,
+    0.5477842232828
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.111155051185,
+    0.1465339210967,
+    0.1118018826488,
+    0.6305091450695
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.1181185214609,
+    0.111520888694,
+    0.1672336499083,
+    0.6031269399368
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": 2,
+   "point": [
+    0.111155051185,
+    0.111520888694,
+    0.1818409896739,
+    0.5954830704471
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.1665868184445,
+    0.0919300072435,
+    0.1868245313588,
+    0.5546586429532
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    3
+   ],
+   "wall_type": -1,
+   "point": [
+    0.0557232839256,
+    0.0660539896076,
+    0.3889607189461,
+    0.4892620075207
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.0557232839256,
+    0.165053017901,
+    0.3354285897392,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0557232839256,
+    0.1064332901679,
+    0.3940483174722,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0557232839256,
+    0.0941379026039,
+    0.4617754722957,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1103841825082,
+    0.0560891214345,
+    0.5552560207245,
+    0.2782706753327
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0557232839256,
+    0.0766915994795,
+    0.5552560207245,
+    0.3123290958704
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.083220504824,
+    0.0560891214345,
+    0.610687787984,
+    0.2500025857575
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0557232839256,
+    0.0560891214345,
+    0.6626686646019,
+    0.225518930038
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.065047275868,
+    0.1021968967516,
+    0.3889607189461,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0982331437209,
+    0.0690110288987,
+    0.4998242534651,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1509836338089,
+    0.0560891214345,
+    0.4599956708412,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 21,
+   "point": [
+    0.111155051185,
+    0.0560891214345,
+    0.5536074563915,
+    0.2791483709889
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.111155051185,
+    0.1003869280542,
+    0.6218217486238,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1343629593692,
+    0.0883129805098,
+    0.610687787984,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0557232839256,
+    0.0661260154712,
+    0.610687787984,
+    0.2674629126192
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0897539362533,
+    0.111520888694,
+    0.610687787984,
+    0.1880373870687
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.111155051185,
+    0.1003869282607,
+    0.6772535156767,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.111155051185,
+    0.1003869284156,
+    0.7215513225029,
+    0.0669066978965
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.1343629589562,
+    0.0883129809228,
+    0.6661195552434,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.0557232839256,
+    0.0794037433074,
+    0.6428049333706,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.0713419820369,
+    0.0560891214345,
+    0.7215513225029,
+    0.1510175740256
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    4
+   ],
+   "wall_type": 23,
+   "point": [
+    0.0557232839256,
+    0.0560891214345,
+    0.7499168474636,
+    0.1382707471763
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 24,
+   "point": [
+    0.0557232839256,
+    0.111520888694,
+    0.5635205812551,
+    0.2692352461253
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.102585551973,
+    0.0646586206466,
+    0.610687787984,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    24
+   ],
+   "wall_type": 24,
+   "point": [
+    0.1423802034632,
+    0.0560891214345,
+    0.6661195552434,
+    0.1354111198588
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    24
+   ],
+   "wall_type": 24,
+   "point": [
+    0.111155051185,
+    0.0560891214345,
+    0.6973447076248,
+    0.1354111197556
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 24,
+   "point": [
+    0.1665868184445,
+    0.0560891214345,
+    0.6419129403137,
+    0.1354111198072
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.0557232839256,
+    0.0747239040951,
+    0.6661195552434,
+    0.2034332567358
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.0557232839256,
+    0.0646650636352,
+    0.7129753803023,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.0557232839256,
+    0.0627262091995,
+    0.7215513225029,
+    0.1599991843721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    5
+   ],
+   "wall_type": 24,
+   "point": [
+    0.0982211697485,
+    0.0690230028711,
+    0.6661195552434,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.1021298204938,
+    0.0560891214345,
+    0.7769830897624,
+    0.0647979683093
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.0557232839256,
+    0.0911282460204,
+    0.7419439651765,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.0557232839256,
+    0.0801525879171,
+    0.7769830897624,
+    0.087141038395
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.0776410590759,
+    0.0560891214345,
+    0.8104970818715,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.0557232839256,
+    0.0611138855929,
+    0.8273900928634,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.0557232839256,
+    0.111520888694,
+    0.6548815547728,
+    0.1778742726076
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.0854400429317,
+    0.0818041296879,
+    0.7215513225029,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.139265689466,
+    0.0560891214345,
+    0.7215513225029,
+    0.0830938665966
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    25
+   ],
+   "wall_type": 25,
+   "point": [
+    0.111155051185,
+    0.0560891214345,
+    0.7641111781837,
+    0.0686446491967
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    5,
+    7
+   ],
+   "wall_type": 25,
+   "point": [
+    0.1665868184445,
+    0.0560891214345,
+    0.6748219613572,
+    0.1025020987638
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    10
+   ],
+   "wall_type": 26,
+   "point": [
+    0.0752198425822,
+    0.111520888694,
+    0.0563701153894,
+    0.7568891533344
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    26
+   ],
+   "wall_type": 26,
+   "point": [
+    0.0557232839256,
+    0.118374660074,
+    0.0563701153894,
+    0.7695319406111
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.069818315861,
+    0.111520888694,
+    0.0977068507134,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.0557232839256,
+    0.119026459866,
+    0.1042963114768,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 40,
+   "point": [
+    0.154926417412,
+    0.0677495224671,
+    0.0563701153894,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    12
+   ],
+   "wall_type": 12,
+   "point": [
+    0.1665868184445,
+    0.058891277355,
+    0.0563701153894,
+    0.7181517888112
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.0905660642637,
+    0.0766781083559,
+    0.1118018826488,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 20,
+   "point": [
+    0.0557232839256,
+    0.111520888694,
+    0.1469249062474,
+    0.6858309211331
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    12
+   ],
+   "wall_type": 12,
+   "point": [
+    0.1549512127788,
+    0.0560891214345,
+    0.0680057210551,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    12
+   ],
+   "wall_type": 12,
+   "point": [
+    0.1665868184445,
+    0.0560891214345,
+    0.0588476831756,
+    0.7184763769454
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    11
+   ],
+   "wall_type": 11,
+   "point": [
+    0.222018585704,
+    0.0560891214345,
+    0.1471363964535,
+    0.574755896408
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.2449804667565,
+    0.0560891214345,
+    0.1442717688558,
+    0.5546586429532
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 13,
+   "point": [
+    0.2717384624853,
+    0.0560891214345,
+    0.1672336499083,
+    0.5049387661719
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.2745783696755,
+    0.0560891214345,
+    0.1701056331962,
+    0.4992268756937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 20,
+   "point": [
+    0.2759804173957,
+    0.0560891214345,
+    0.2226654171677,
+    0.445265044002
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    20
+   ],
+   "wall_type": 20,
+   "point": [
+    0.222018585704,
+    0.0560891214345,
+    0.2766272650181,
+    0.4452650278434
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 13,
+   "point": [
+    0.0771928767511,
+    0.111520888694,
+    0.1118018826488,
+    0.6994843519061
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.0557232839256,
+    0.1208745305466,
+    0.1118018826488,
+    0.711600302879
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    12
+   ],
+   "wall_type": 12,
+   "point": [
+    0.1697005892244,
+    0.0560891214345,
+    0.0563701153894,
+    0.7178401739517
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.1993145716342,
+    0.0560891214345,
+    0.1899376639781,
+    0.5546586429532
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.1994410382318,
+    0.0560891214345,
+    0.2226654171677,
+    0.5218044231659
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    13
+   ],
+   "wall_type": 13,
+   "point": [
+    0.1990598717331,
+    0.0560891214345,
+    0.2456241311386,
+    0.4992268756937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    27
+   ],
+   "wall_type": 28,
+   "point": [
+    0.0897539364082,
+    0.111520888694,
+    0.1332029974257,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.0557232839256,
+    0.1292253844249,
+    0.1495291541774,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.0684304112863,
+    0.111520888694,
+    0.3208218243259,
+    0.4992268756937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.111155051185,
+    0.1003869281058,
+    0.1118018826488,
+    0.6766561380603
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.111155051185,
+    0.0868027990044,
+    0.3335289516867,
+    0.4685131981239
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.111155051185,
+    0.0797662910951,
+    0.3889607189461,
+    0.4201179387737
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.111155051185,
+    0.0722034445974,
+    0.4443924862056,
+    0.372249018012
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    28
+   ],
+   "wall_type": 28,
+   "point": [
+    0.1343629592144,
+    0.0883129806647,
+    0.1118018826488,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    4
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1543207297675,
+    0.0683552101116,
+    0.3335289516867,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    29
+   ],
+   "wall_type": 28,
+   "point": [
+    0.1963019702656,
+    0.0560891214345,
+    0.0820867308277,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.195976078294,
+    0.0560891214345,
+    0.3041396918372,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    21
+   ],
+   "wall_type": 21,
+   "point": [
+    0.1788742573552,
+    0.0560891214345,
+    0.3766732800355,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0669943181608,
+    0.111520888694,
+    0.2113943829325,
+    0.6100904102127
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.0590108608833,
+    0.1636650789958,
+    0.610687787984,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.071962929421,
+    0.1669526559535,
+    0.649879909748,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.0557232839256,
+    0.1806229376732,
+    0.6524492735237,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.0888204851845,
+    0.1669526559535,
+    0.688454121244,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.111155051185,
+    0.1081294768562,
+    0.4998242534651,
+    0.2808912184937
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1209556831897,
+    0.111520888694,
+    0.6008871559793,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.111155051185,
+    0.1197709086192,
+    0.6024377680587,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1378132366817,
+    0.111520888694,
+    0.6394613697468,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.111155051185,
+    0.1339613358291,
+    0.6436791081083,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1546707922386,
+    0.111520888694,
+    0.6780355814493,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1665868184445,
+    0.103182175046,
+    0.2780971844272,
+    0.4521338220823
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.0700518844694,
+    0.111520888694,
+    0.3746321184023,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.067318889517,
+    0.111520888694,
+    0.3889607189461,
+    0.4321995028429
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.0789171032735,
+    0.111520888694,
+    0.4211986668576,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.0794471608651,
+    0.111520888694,
+    0.4443924862056,
+    0.3646394642353
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    31
+   ],
+   "wall_type": 30,
+   "point": [
+    0.0813624916091,
+    0.111520888694,
+    0.4741850457816,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.1604338550553,
+    0.0622420848237,
+    0.4443924862056,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    23
+   ],
+   "wall_type": 23,
+   "point": [
+    0.1786773175631,
+    0.0560891214345,
+    0.432301987087,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    4
+   ],
+   "wall_type": 23,
+   "point": [
+    0.1761399341985,
+    0.0560891214345,
+    0.4443924862056,
+    0.3233784581614
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.177034615723,
+    0.0560891214345,
+    0.4893764561866,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.1770150376158,
+    0.0560891214345,
+    0.4998242534651,
+    0.2670715874846
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.1797455964428,
+    0.0560891214345,
+    0.5420972427262,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    4,
+    30
+   ],
+   "wall_type": 30,
+   "point": [
+    0.1816644136715,
+    0.0560891214345,
+    0.5552560207245,
+    0.2069904441695
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0557232839256,
+    0.1394014449545,
+    0.3889607189461,
+    0.4159145521738
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0557232839256,
+    0.1360818633479,
+    0.4443924862056,
+    0.3638023665209
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0557232839256,
+    0.1324158827764,
+    0.4789292593826,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.0958366708659,
+    0.111520888694,
+    0.5151426337842,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.0557232839256,
+    0.1380516571794,
+    0.5287252522391,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.111155051185,
+    0.1075210427177,
+    0.5038240994413,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.111155051185,
+    0.1055804814094,
+    0.5611964280091,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1316269064701,
+    0.0910490334089,
+    0.5552560207245,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1665868184445,
+    0.0964619387131,
+    0.4443924862056,
+    0.2925587566368
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1665868184445,
+    0.0885794749352,
+    0.4998242534651,
+    0.2450094531552
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.1665868184445,
+    0.0786008915608,
+    0.5552560207245,
+    0.1995562692702
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1665868184445,
+    0.0731093064653,
+    0.5936676029532,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1040981295428,
+    0.111520888694,
+    0.5623129423667,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.0557232839256,
+    0.152242083873,
+    0.5699665928049,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.0557232839256,
+    0.166253537257,
+    0.610687787984,
+    0.1673353908334
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.2036635446134,
+    0.0560891214345,
+    0.6290428290745,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.2198666742219,
+    0.0560891214345,
+    0.6661195552434,
+    0.0579246491001
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1665868184445,
+    0.0872997341398,
+    0.6349089425382,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1665868184445,
+    0.0980387638811,
+    0.6661195552434,
+    0.0692548624309
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0897539364082,
+    0.111520888694,
+    0.6320889027609,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0897539366663,
+    0.111520888694,
+    0.6661195552434,
+    0.1326056193963
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0557232839256,
+    0.1292253845282,
+    0.6661195552434,
+    0.1489317763028
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    33
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0897539368212,
+    0.111520888694,
+    0.6875206696073,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    33
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0897539370793,
+    0.111520888694,
+    0.7215513225029,
+    0.0771738517238
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    7
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0557232839256,
+    0.129225384683,
+    0.7038468265139,
+    0.1112045048775
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0557232839256,
+    0.1292253847347,
+    0.7215513225029,
+    0.0935000088369
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0897539372858,
+    0.111520888694,
+    0.7429524364022,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.0557232839256,
+    0.1292253849412,
+    0.7592785935152,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.111155051185,
+    0.1003869284672,
+    0.7326852827297,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    22
+   ],
+   "wall_type": 22,
+   "point": [
+    0.13436295844,
+    0.088312981439,
+    0.7215513225029,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    32
+   ],
+   "wall_type": 32,
+   "point": [
+    0.0557232839256,
+    0.1664325103085,
+    0.6112079336289,
+    0.166636272137
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.2205210998606,
+    0.0560891214345,
+    0.6676170410868,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    3
+   ],
+   "wall_type": 32,
+   "point": [
+    0.1665868184445,
+    0.1014901626919,
+    0.6761502812455,
+    0.0557727376181
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    8
+   ],
+   "wall_type": 34,
+   "point": [
+    0.0557232839256,
+    0.1669526559535,
+    0.1031824177518,
+    0.6741416423692
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    8
+   ],
+   "wall_type": 34,
+   "point": [
+    0.0643427484096,
+    0.1669526559535,
+    0.1031824181648,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.0557232839256,
+    0.1722797779635,
+    0.1064747606388,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    34
+   ],
+   "wall_type": 34,
+   "point": [
+    0.111155051185,
+    0.111520888694,
+    0.0689237005158,
+    0.7084003596051
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    8
+   ],
+   "wall_type": 34,
+   "point": [
+    0.1540332312014,
+    0.111520888694,
+    0.0689237026324,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    8
+   ],
+   "wall_type": 34,
+   "point": [
+    0.111155051185,
+    0.1380210616051,
+    0.0853017097377,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    3,
+    8
+   ],
+   "wall_type": 34,
+   "point": [
+    0.1868989545296,
+    0.0912087526089,
+    0.0563701153894,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    8
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0652633101973,
+    0.2223844232129,
+    0.0563701153894,
+    0.6559821512005
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    8
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0557232839256,
+    0.232391180517,
+    0.0563701153894,
+    0.655515420168
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    8
+   ],
+   "wall_type": 2,
+   "point": [
+    0.0557232839256,
+    0.2223844232129,
+    0.0763833870768,
+    0.6455089057847
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    8
+   ],
+   "wall_type": 2,
+   "point": [
+    0.111155051185,
+    0.1742485254108,
+    0.0563701153894,
+    0.6582263080148
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    8
+   ],
+   "wall_type": 2,
+   "point": [
+    0.111155051185,
+    0.1669526559535,
+    0.0709656141166,
+    0.6509266787449
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    8
+   ],
+   "wall_type": 2,
+   "point": [
+    0.1665868184445,
+    0.111520888694,
+    0.0655370966299,
+    0.6563551962316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    8,
+    35
+   ],
+   "wall_type": 35,
+   "point": [
+    0.111155051185,
+    0.1060593465545,
+    0.0563701153894,
+    0.7264154868711
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    36
+   ],
+   "wall_type": 36,
+   "point": [
+    0.111155051185,
+    0.0560891214345,
+    0.1075068390852,
+    0.7252489882952
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    0,
+    6
+   ],
+   "wall_type": 13,
+   "point": [
+    0.111155051185,
+    0.0671423205623,
+    0.1007486835211,
+    0.7209539447316
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    27
+   ],
+   "wall_type": 41,
+   "point": [
+    0.1665868184445,
+    0.0574840853211,
+    0.1104069187623,
+    0.6655221774721
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    16
+   ],
+   "wall_type": 16,
+   "point": [
+    0.1658277901866,
+    0.1669526559535,
+    0.0563701153894,
+    0.6108494384706
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 16,
+   "point": [
+    0.2108410161543,
+    0.111520888694,
+    0.0563701153894,
+    0.6212679797624
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 16,
+   "point": [
+    0.1665868184445,
+    0.1660179467612,
+    0.0563701153894,
+    0.611025119405
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    37
+   ],
+   "wall_type": 37,
+   "point": [
+    0.2905327221994,
+    0.0560891214345,
+    0.1672336499083,
+    0.4861445064577
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    10
+   ],
+   "wall_type": 38,
+   "point": [
+    0.2991447160763,
+    0.0560891214345,
+    0.2009710540548,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "point": [
+    0.3108697046309,
+    0.0560891214345,
+    0.2226654171677,
+    0.4103757567668
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    10
+   ],
+   "wall_type": 38,
+   "point": [
+    0.3170509484002,
+    0.0560891214345,
+    0.2384965889904,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "point": [
+    0.3253302191497,
+    0.0560891214345,
+    0.2780971844272,
+    0.3404834749886
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "point": [
+    0.3258806948365,
+    0.0560891214345,
+    0.2850986098136,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "point": [
+    0.3236605213816,
+    0.0560891214345,
+    0.3335289516867,
+    0.2867214054972
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "point": [
+    0.3218878492681,
+    0.0560891214345,
+    0.3445232226414,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "point": [
+    0.3108668799769,
+    0.0560891214345,
+    0.3889607189461,
+    0.2440832796424
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    38
+   ],
+   "wall_type": 38,
+   "point": [
+    0.2989359635879,
+    0.0560891214345,
+    0.4229068755811,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    6,
+    37
+   ],
+   "wall_type": 42,
+   "point": [
+    0.3328821202229,
+    0.0560891214345,
+    0.1139869756975,
+    0.4970417826451
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3066812412282,
+    0.0822900004292,
+    0.1672336499083,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.2794051508325,
+    0.1095660908249,
+    0.2226654171677,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3328821202229,
+    0.0822900004809,
+    0.1672336499083,
+    0.417594229388
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3328821202229,
+    0.0919300077597,
+    0.1868245308425,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3328821202229,
+    0.1095660909798,
+    0.2226654171677,
+    0.3348863716296
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3328821202229,
+    0.1102107605532,
+    0.2239755453086,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.362113008436,
+    0.0822900004809,
+    0.1672336499083,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3348369179371,
+    0.1095660909798,
+    0.2226654171677,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.4415605592668,
+    0.0560891214345,
+    0.1139869781238,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3883138874823,
+    0.0736492550696,
+    0.1496735162733,
+    0.3883633411748
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3883138874823,
+    0.0822900005841,
+    0.1672336499083,
+    0.3621624620253
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    2,
+    17
+   ],
+   "wall_type": 17,
+   "point": [
+    0.3883138874823,
+    0.0919300078114,
+    0.1868245307909,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3192342869523,
+    0.0697369547051,
+    0.2780971844272,
+    0.3329315739154
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3239897626706,
+    0.0649814789868,
+    0.3335289516867,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3319681456378,
+    0.0570030960196,
+    0.3889607189461,
+    0.2220680393964
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    15
+   ],
+   "wall_type": 18,
+   "point": [
+    0.3865051171786,
+    0.0560891214345,
+    0.1136106529526,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    2
+   ],
+   "wall_type": 18,
+   "point": [
+    0.3328821202229,
+    0.1097121214361,
+    0.1136106499067,
+    0.4437951084343
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3874975542402,
+    0.0560891214345,
+    0.2780971844272,
+    0.2783161398981
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3328821202229,
+    0.066956831628,
+    0.2780971844272,
+    0.3220638637219
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3869856686496,
+    0.0560891214345,
+    0.2794254032599,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3636530072194,
+    0.0560891214345,
+    0.3335289516867,
+    0.2467289196594
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3328821202229,
+    0.0636392055709,
+    0.3259788675503,
+    0.2774998066559
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    10
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3328821202229,
+    0.0629570696711,
+    0.3335289516867,
+    0.2706318584193
+   ]
+  },
+  {
+   "surface": "none (nearest 1e+00)",
+   "sides": [
+    1,
+    14
+   ],
+   "wall_type": 14,
+   "point": [
+    0.3389475679685,
+    0.0560891214345,
+    0.3828952712005,
+    0.2220680393964
+   ]
+  }
+ ],
+ "surfaces": [],
+ "seconds": 19779.1
+}
