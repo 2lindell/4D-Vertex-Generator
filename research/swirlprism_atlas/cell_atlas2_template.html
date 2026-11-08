@@ -575,9 +575,16 @@ __TYPE_CSS__
       }
       // a selected region's shell in the cell: the edges of the wall pieces and face parts around it
       for (const id of state.sel) if (D.regionEdges && D.regionEdges[id]) {
-        const trace = lines(D.regionEdges[id], `Boundary of ${id}`, { color: color(byId[id]), width: 3 });
-        trace.hovertemplate = `Boundary of ${id}<extra></extra>`;
-        out.push(trace);
+        // (an edge is a list of points, or {pts, dash}: dashed where its wall goes on across it)
+        const all = D.regionEdges[id];
+        const solidE = all.filter((e) => !e.dash).map((e) => e.pts || e);
+        const dashE = all.filter((e) => e.dash).map((e) => e.pts);
+        for (const [E, dash] of [[solidE, "solid"], [dashE, "dash"]]) {
+          if (!E.length) continue;
+          const trace = lines(E, `Boundary of ${id}`, { color: color(byId[id]), width: 3, dash });
+          trace.hovertemplate = `Boundary of ${id}${dash === "dash" ? " (its wall goes on across here)" : ""}<extra></extra>`;
+          out.push(trace);
+        }
       }
       // (the faces as one mesh: a trace per face, a thousand in the chambers view, stalled every redraw)
       if ((D.dodecaFaces || []).length) {
