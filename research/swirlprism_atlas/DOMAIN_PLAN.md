@@ -122,7 +122,6 @@ map's pieces, and triangulated inside its exact loop: the loop points the only r
 the exact surface (a face too curved to lie flat is cut along an exact curve first). The page's charts are read
 off the page itself (the half-cell fitted to its seed points; the dodecahedron round V1 matched to its samples).
 
-Not drawn yet (the build reports it on the page): X42 (its surface folds too much for the flattening used), and one
-piece each of X22, X33, X48, X51, X53, X82.
+Every wall is drawn complete (173 wall pieces, each named the same all through, none trimmed).
 
     PYTHONPATH=../../src python domain_view.py <4D-Vertex-Generator>/data/swirlprism/sphere_map ../../assets/symmetry_domain.html
