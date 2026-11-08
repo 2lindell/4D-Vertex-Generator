@@ -16,4 +16,31 @@ Prix	Prismatorhombated Ex	Hyic	7200	4,3^4	4,3^4	Dyadic	2	120 tids	600 ratets	720
 Gidpixhi	Great Disprismato600-120	Hyic	14400	3333	3333	Monic	3	120 grids	600 gratets	720 dipips	1200 ditrips																
 Kihyic		[5,3,3]+																									
 Snixhi	Snub 600-120	Kihyic	7200	444,3^6	5544,3^4	Monic	3	120 snids	600 snits	720 pegyps	1200 trigyps			7200 irr. tets
-
+Ixitic		5[3+,4,3+]																									
+Tehi	Tetrahedral 120	ixitic	120	5^12	3^20	Kitettic		120 tets	480 tripies						Ex												
+Hidhi	120diminished 120	Ixitic	480	3^6	444,33	Kitrippyric		120 teddids, 120 tets																			
+Tisthi	Tetrahedral Snub Tetrahedral 120	Ixitic	480	666,444,3^6	5^3,3^9,33	Kitrippyric		120 snits, 120 tets	480 tripies	720 phydows																	
+Sagyptady	Small Gyroprismatic Tetrahedral Dis120	Ixitic	480	6^6,4^9	4^6,33,3^12	Kitrippyric		120+120 tets	480 trigypos	720+720 phydows					Sagybted												
+Gagyptady	Great Gyroprismatic Tetrahedral Dis120	Ixitic	480	888,4^6,3^6	4^6,33,3^12	Kitrippyric		120+120 tets	480 trigypos	720+720 phydows					Gagybted												
+Ratehi	Rectified Tetrahedral 120	Ixitic	720	3^10	55,4^5	Espyric		120 snits, 120 octs	480 trigyps						Rox												
+Sabtedy	Snub Bitetrahedral Dis120	Ixitic	720	5^4,3^8	5^4,3^8	Espyric		120+120 snits		720+72- phydows					Sobted												
+Matethi	Ambotruncatotetrahedral 120	Ixitic	720	3^6	444,33	Espyric		120 tuts, 120 retuts																			
+Tatehi	Truncated Tetrahedral 120	Ixitic	1440	5,3^5	5,3^5	Monic		120 snits, 120 tuts	480 tatripies						Tex												
+Gypsobtady	Gyropodial Snub Bitetrahedral Dis120	Ixitic	1440	66,44,3^8	55,4^4,3^6	Monic		120x2 snits	480+480 trigypos	720 phydows		1440 irr. tets			Gypsoted												
+Sagypsobtady	Small Gyroprismatic Snub Bitetrahedral Dis120	Ixitic	1440	4^9,33	5,44,3^8	Monic		120x2 snits	480 trigypos	720 phydows		1440 irr. tets			Sagypsobted												
+Awosbitdy	Antiwedged Snub bitetrahedral Dis120	Ixitic	1440	88 12,4^4,3^10	55,4^4,3^16	Monic		120x2 snits	480 trigypos	720x2 phywdows		1440+1440 irr. tets, 1440 hexflanges			Awosbited												
+Magypsobtady	Medial Gyroprismatic Snub Bitetrahedral Dis120	Ixitic	1440	66,5^4,4^4,3^4	55,44,3^14	Espyric		120x2 snits	480 trigypos	720x3 phydows		1440x2 irr. tets			Magypsobted												
+Petsobtady	Prismatic Transitional Snub Bitetrahedral Dis120	Ixitic	1440	55,3^8	55,444,3^4	Espyric		120x2 snits	480 retrips	720+720 phydows									ixo-1440-7								
+Stotathi	Snub Truncatotetrahedral Transitional 120	Ixitic	1440	44,3^6	5,444,333	Monic		120 gyrotuts, 120 tuts	480 trigyps	720 phydows									ixi-1440-2								
+Tasthi	Truncatosnub Tetrahedral 120	Ixitic	1440	3333	3333	Monic		120 titkats, 120 tuts											ixi-1440-4								
+Sartethi	Snub Rhombatotetrahedral-Transitional 120	Ixitic	1440	4,444,333	5,44,3^5	Monic		120 ratets, 120 dazsnits		720 phydows, 720 wedges									ixi-1440-5								
+Gastuthi	Great Snub Truncatotetrahedral 120	Ixitic	1440	55668,4^5,3^4	5,444,3^15	Monic		120 snits, 120 tuts	480 gytricus	720x3 disphs		1440x2 irr. tets															
+Gastethi	Great Snub Tetrahedral Transitional 120	Ixitic	1440	64444,3^6	5,44,3^8	Monic		120 snits, 120 disnits		720x2 disphs		1440 irr. tets															
+Sastithi	Small Snub Tetrahedral Transitional 120	Ixitic	1440	4^6,3^5	554,3^8	Monic		120 snits, 120 gysnits	last	720x2 disphs		1440 irr. tets															
+Giserthi	Great Snub Rhombatotetrahedral 120	Ixitic	1440	556,4^6,3^4	5,4^5,3^9	Monic		120 snits, 120 ratets	480 trigyps	720 x2 disphs, 720 gyrowedges		1440 irr. tets															
+Sestuthi	Small Snub Truncatotetrahedral 120	Ixitic	1440	64,3^8	5,4^5,333	Monic		120 snits, 120 tuts	480 gytricus, 480 trigyps	720 disphs																	
+Misrethi	Medial Snub Rhombatotetrahedral 120	Ixitic	1440	4444,3^6	5,4^5,33	Monic		120 snits, 120 ratets	480 trigypos	720 phydows, 720 gyrowedges									ixi-1440-1								
+Mestuthi	Medial Snub Truncatotetrahedral 120	Ixitic	1440	8,4^6,333	5,444,3^9	Monic		120 snits, 120 tuts	480 gytricus	720x2 disphs		1440 irr. tets															
+Mastethi	Medial Snub Tetrahedral Transitional 120	Ixitic	1440	4^7,3^4	544,3^8	Monic		120 snits, 120 gysnits		720x2 disphs		1440 disphs															
+Sisbethi	Small Snub Bitetrahedral 120	Ixitic	1440	55668,44,3^4	55,44,3^12	Monic		120x2 snits	480 trigypos	720x2 phydows		1440x2 irr. tets							ixi-1440-3								
+Gisbethi	Great Snub Bitetrahedral 120	Ixitic		55,4^4,3^10	445568,3^6			120x2 snits	480x2 trigypos			1440x2 irr. tets							ixi-1440-6

@@ -86,7 +86,7 @@ def cell_kind(nv, nf, Pfaces, P):
         E = [np.linalg.norm(P[f[i]] - P[f[i - 1]]) for f in Pfaces for i in range(3)]
         if all(close(e, E[0]) for e in E):
             return "octs"
-        return "traps" if central else "gyro-traps"
+        return "traps" if central else ("trigypos" if HYIC else "gyro-traps")
     if (nv, nf) == (6, 5):
         tri = [f for f in Pfaces if len(f) == 3]
         if len(tri) == 2:
@@ -123,7 +123,9 @@ def cell_kind(nv, nf, Pfaces, P):
         return "pips"
     if (nv, nf) == (10, 12) and sizes.get(5) == 2:
         return "pegyps"
-    if (nv, nf) == (16, 16) and sizes.get(3) == 4 and sizes.get(5) == 12:
+    if HYIC and (nv, nf) == (6, 6) and sizes.get(3) == 4 and sizes.get(4) == 2:
+        return "phydows"
+    if (nv, nf) == (16, 16) and sizes.get(3) == 4:
         return "teddids"
     if (nv, nf) == (16, 10) and sizes.get(8) == 2:
         return "ops"
