@@ -261,7 +261,8 @@ def curves(D, log=print):
     # the library surfaces each lies on
     for c in out:
         P = c["pts"]
-        c["on"] = [i for i, s in enumerate(D.lib) if dist_to(s, P).max() < 1e-8]
+        # (within 1e-6: a curve where two surfaces touch is placed a little less exactly)
+        c["on"] = [i for i, s in enumerate(D.lib) if dist_to(s, P).max() < 1e-6]
         if c["eqs"] is None:
             c["eqs"] = [D.lib[i] for i in c["on"][:2]]
     log(f"curves: {sum(c['kind'] == 'line' for c in out)} named line stretches, "
