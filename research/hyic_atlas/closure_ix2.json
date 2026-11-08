@@ -5,37 +5,7 @@
  "walks": 864,
  "changes": 603,
  "on_no_surface": 5,
- "new_regions": {
-  "b6d9831cb4b3": {
-   "at": [
-    0.4062859689129864,
-    0.050345600273101664,
-    0.09978793744465525,
-    0.4435804933692567
-   ],
-   "from": "271a2ad0dfa9",
-   "count": 3
-  },
-  "18c2c62afa79": {
-   "at": [
-    0.035797869975915116,
-    0.051384397139357586,
-    0.11519066974074597,
-    0.7976270631439815
-   ],
-   "from": "48f481bb1e96",
-   "count": 12
-  },
-  "801a4a733cb2": {
-   "at": [
-    0.005201463018056729,
-    7.096237243117523e-05,
-    0.9729392260820755,
-    0.021788348527436597
-   ],
-   "from": "5efe53c04ebf",
-   "count": 2
-  }
- },
- "new_wall_shapes": {}
+ "new_regions": {},
+ "new_wall_shapes": {},
+ "rechecked": "3 new regions from the bisection's last label; 0 confirmed by the point just beyond the wall"
 }

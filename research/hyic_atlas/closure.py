@@ -76,6 +76,29 @@ def wall_job(item):
     return y.tolist(), label(y, 1e-7)
 
 
+def confirm(new_regions, known, pool=None):
+    out = {}
+    for k, v in new_regions.items():
+        kb = label(tuple(v["at"]))
+        if kb and kb not in known:
+            out[kb] = {**v, "bisection_key": k} if kb != k else v
+    return out
+
+
+def recheck():
+    """Re-check a finished sheet's new regions (closure_<sheet>.json) by the point beyond the wall."""
+    f = os.path.join(HERE, f"closure_{G.SUB}.json")
+    out = json.load(open(f))
+    known = {s["key"] for s in json.load(open(os.path.join(HERE, f"{G.NAME}_shapes.json")))["shapes"]}
+    before = out["new_regions"]
+    out["new_regions"] = confirm(before, known)
+    if len(out["new_regions"]) != len(before):
+        out["rechecked"] = (f"{len(before)} new regions from the bisection's last label; {len(out['new_regions'])} "
+                            f"confirmed by the point just beyond the wall")
+    json.dump(out, open(f, "w"), indent=1)
+    print(f"{G.SUB}: {len(before)} -> {len(out['new_regions'])} new regions", flush=True)
+
+
 def main():
     M = json.load(open(os.path.join(HERE, G.fname("snub_map"))))
     regs = [t["example"] for t in M["types"] if t["grid_regions"]]
@@ -151,6 +174,9 @@ def main():
             new_regions.setdefault(kb, {"at": beyond, "from": items[i][2], "count": 0})["count"] += 1
         if kw and kw not in known and kw not in reg:
             new_walls.setdefault(kw, {"at": y, "surface": sid.get(i), "sides": [items[i][2], kb], "count": 0})["count"] += 1
+    # (the bisection's last label is within 2^-36 of the wall, where a wall polytope can classify as a stray key: a new
+    #  region counts only if the point just beyond the wall (1e-6 along the walk) is itself new)
+    new_regions = confirm(new_regions, known, pool=None)
     out = {"_about": __doc__.strip().split("\n\n")[0], "sheet": G.SUB, "regions": len(reg), "walks": len(items),
            "changes": len(ch), "on_no_surface": nosurf, "new_regions": new_regions, "new_wall_shapes": new_walls}
     json.dump(out, open(os.path.join(HERE, f"closure_{G.SUB}.json"), "w"), indent=1)
@@ -160,4 +186,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    recheck() if len(sys.argv) > 1 and sys.argv[1] == "recheck" else main()
