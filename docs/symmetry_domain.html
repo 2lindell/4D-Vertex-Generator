@@ -549,6 +549,34 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         for (const s of segs) { for (const q of s) { x.push(q[0]); y.push(q[1]); z.push(q[2]); } x.push(null); y.push(null); z.push(null); }
         return { type: "scatter3d", mode: "lines", x, y, z, name, line, hoverinfo: "name", ...extra };
       };
+      // dashes drawn as short pieces of their own, sized to the view: so many dashed edges can share one
+      // trace (the plot's own dash pattern spreads over a trace's whole length, and a trace per edge, in
+      // the thousands, stalls the plot)
+      const DASH = (D === DC ? 1 : 0.45) * 0.016, GAP = (D === DC ? 1 : 0.45) * 0.010;
+      const dashed = (segs) => {
+        const out = [];
+        for (const s of segs) {
+          let draw = true, left = DASH, cur = [s[0]];
+          for (let n = 1; n < s.length; n++) {
+            const a = s[n - 1], b = s[n];
+            const L = Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]);
+            let t = 0;
+            while (L - t > 1e-12) {
+              const step = Math.min(left, L - t);
+              t += step; left -= step;
+              const q = [a[0] + (b[0] - a[0]) * t / L, a[1] + (b[1] - a[1]) * t / L, a[2] + (b[2] - a[2]) * t / L];
+              if (draw) cur.push(q);
+              if (left <= 1e-12) {
+                if (draw && cur.length > 1) out.push(cur);
+                draw = !draw; left = draw ? DASH : GAP; cur = draw ? [q] : [];
+              }
+            }
+          }
+          if (draw && cur.length > 1) out.push(cur);
+        }
+        return out;
+      };
+      const dashLines = (segs, name, line, extra = {}) => lines(dashed(segs), name, { ...line, dash: "solid" }, extra);
       const frameName = { dodeca: "The dodecahedron around M34", piece: "One domain: a tenth of the M34 dodecahedron",
         v1: "The dodecahedron around V1", chambers: "One domain: 12 whole H4 chambers", cohesive: "One domain: every region in one piece" }[quarter] || "Cell (upper half)";
       out.push(lines(D.edges, frameName, { color: faint, width: 2 }, { hoverinfo: "skip" }));
@@ -611,8 +639,8 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         }
         // (each dashed edge a trace of its own, as a wall's dashed edges are: one long trace spreads
         // its dashes thin)
-        for (const e of dashE) {
-          const trace = lines([e], `Boundary of ${id}`, { color: color(byId[id]), width: 3, dash: "dash" });
+        if (dashE.length) {
+          const trace = dashLines(dashE, `Boundary of ${id}`, { color: color(byId[id]), width: 3 });
           trace.hovertemplate = `Boundary of ${id} (its wall goes on across here)<extra></extra>`;
           out.push(trace);
         }
@@ -709,20 +737,31 @@ code { font-family: var(--font-data); font-size: 0.86em; }
             // the copies' edges: the wall's own outline taken through the same group elements, dashed
             const e = w.edgesGiven ? [] : copyEdges(w);      // (given with the page's lines: edges only, white gaps)
             if (e.length) {
-              const trace = lines(e, hv, { color: color(byId[w.id]), width: 3, dash: "dash" });
+              const trace = dashLines(e, hv, { color: color(byId[w.id]), width: 3 });
               trace.hovertemplate = hv + "<extra></extra>";
               out.push(trace);
             }
           }
         }
-        for (const s of D.xlines || []) {
-          if (!state.sel.has(s.id)) continue;
-          // (a wall's outline: its own edges in its colour, and white where it goes on across a line or wall lying there)
-          const gap = s.kind === "gap";
-          const trace = lines([s.pts], gap ? s.hover + "<br>(white: the wall goes on across here)" : s.hover,
-            { color: gap ? "#ffffff" : color(byId[s.id]), width: s.outline ? 3 : 5, dash: s.copy ? "dash" : "solid" });
-          trace.hovertemplate = s.hover + "<extra></extra>";
-          out.push(trace);
+        {
+          // (a wall's outline: its own edges in its colour, and white where it goes on across a line or wall
+          // lying there; one trace per shape and kind of line)
+          const groups = new Map();
+          for (const s of D.xlines || []) {
+            if (!state.sel.has(s.id)) continue;
+            const key = [s.id, s.outline ? 1 : 0, s.copy ? 1 : 0, s.kind === "gap" ? 1 : 0].join("|");
+            if (!groups.has(key)) groups.set(key, { s, segs: [] });
+            groups.get(key).segs.push(s.pts);
+          }
+          for (const { s, segs } of groups.values()) {
+            const gap = s.kind === "gap";
+            const hv = gap ? `${s.id} · where the wall goes on across (white)` : s.outline
+              ? (s.copy ? `${s.id} · cut, between its pieces (dashed)` : `${s.id} · edge of the wall`) : s.hover;
+            const style = { color: gap ? "#ffffff" : color(byId[s.id]), width: s.outline ? 3 : 5 };
+            const trace = s.copy ? dashLines(segs, hv, style) : lines(segs, hv, style);
+            trace.hovertemplate = hv + "<extra></extra>";
+            out.push(trace);
+          }
         }
         if (state.sel.has("T2")) for (const p of D.tpatches) {
           // the patches are flat but not all convex: fill by ear clipping, so curved edges are never overshot
@@ -756,9 +795,12 @@ code { font-family: var(--font-data); font-size: 0.86em; }
           x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]), customdata: pts.map((p) => `${t.id} · ${t.name}<br>${typeof p[3] === "number" ? DC.samples[t.id][p[3]][3] : p[3]}`),
           marker: { size: t.listed ? 3.6 : 2.6, color: color(t), symbol: t.symbol, opacity: 0.9 },   // (full shade: it shows the dimension)
           hovertemplate: "%{customdata}<extra></extra>" });
-        for (const seg of D.segments.filter((g) => g.id === t.id && (!g.selOnly || state.sel.has(g.id)))) {
-          const trace = lines([seg.pts], seg.hover, { color: color(t), width: seg.copy ? 3.5 : 4.5, dash: seg.copy ? "dash" : "solid" });
-          trace.hovertemplate = seg.hover + "<extra></extra>";
+        for (const copy of [false, true]) {
+          const segs = D.segments.filter((g) => g.id === t.id && !!g.copy === copy && (!g.selOnly || state.sel.has(g.id)));
+          if (!segs.length) continue;
+          const style = { color: color(t), width: copy ? 3.5 : 4.5 };
+          const trace = copy ? dashLines(segs.map((g) => g.pts), segs[0].hover, style) : lines(segs.map((g) => g.pts), segs[0].hover, style);
+          trace.hovertemplate = segs[0].hover + "<extra></extra>";
           out.push(trace);
         }
         // (axis points only while their row is selected, except on the rings: the wiki lines always show theirs)
@@ -850,15 +892,33 @@ code { font-family: var(--font-data); font-size: 0.86em; }
         delete cameras[el("quarter").value];
         Plotly.relayout(plot, { "scene.camera": defaultCamera() });
       } }] };
-    const render = () => Plotly.react(plot, traces(), layout(), CONFIG).then(() => {
+    // (before each redraw, the camera as it is on screen is kept for this view: a redraw that comes while
+    // the picture is being turned, or just after, then never snaps it back to an older or default one)
+    let lastView = null;
+    const keepCamera = () => {
+      const v = el("quarter").value, sc = plot._fullLayout && plot._fullLayout.scene;
+      if (v === lastView && sc && sc._scene && sc._scene.getCamera) {
+        try { cameras[v] = JSON.parse(JSON.stringify(sc._scene.getCamera())); } catch (e) { /* keep the last one */ }
+      }
+      lastView = v;
+    };
+    const render = () => { keepCamera(); return Plotly.react(plot, traces(), layout(), CONFIG).then(() => {
       const sc = plot._fullLayout.scene && plot._fullLayout.scene._scene;
       // (the pick slots are handed out when an object joins the scene: so it leaves and joins again)
-      if (sc) for (const t of Object.values(sc.traces)) if (t.mesh && t.data && t.data.meta === "nopick" && t.mesh.pickSlots) {
-        t.mesh.pickSlots = 0;
-        sc.glplot.remove(t.mesh);
-        sc.glplot.add(t.mesh);
+      // (an object the cursor test trips over, mid-redraw, is taken as nothing under the cursor: the error
+      // would otherwise stop the scene's drawing and leave the picture stuck)
+      if (sc && sc.glplot && !sc.glplot._safeRender && sc.glplot.onrender) {
+        // (likewise a frame whose hover drawing fails is let go: the next frame draws as usual)
+        const onrender = sc.glplot.onrender;
+        sc.glplot.onrender = function (...a) { try { return onrender.apply(this, a); } catch (e) { return undefined; } };
+        sc.glplot._safeRender = true;
       }
-    });
+      if (sc && sc.glplot) for (const o of sc.glplot.objects || []) if (o && o.pick && !o._safePick) {
+        const pick = o.pick;
+        o.pick = function (...a) { try { return pick.apply(this, a); } catch (e) { return null; } };
+        o._safePick = true;
+      }
+    }); };
     render();
     // a host that resizes the frame (an auto-sizing viewer) leaves the 3D scene's mouse handling stale: redraw after
     // each resize settles
