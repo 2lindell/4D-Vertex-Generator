@@ -134,12 +134,14 @@ function mat(kind, strong) {
   return new THREE.MeshStandardMaterial({ color: new THREE.Color(colOf(kind)), roughness: 0.55, metalness: 0.05,
     transparent: !strong, opacity: strong ? 1 : 0.82, side: THREE.DoubleSide });
 }
+// a wall tile is much thinner than the thinnest region box (2 x 0.15 x 0.234 = 0.07)
+const WALL_T = 0.018;
 function wallGlyph(sym, m) {                    // a tile: notched rectangle (1), rectangle (2), regular n-gon tile
   const sh = new THREE.Shape(), w = 0.34, h = 0.24;
   if (sym === 1) { sh.moveTo(-w, -h); sh.lineTo(w, -h); sh.lineTo(w, h * 0.25); sh.lineTo(w * 0.45, h); sh.lineTo(-w, h); sh.closePath(); }
   else if (sym === 2) { sh.moveTo(-w, -h); sh.lineTo(w, -h); sh.lineTo(w, h); sh.lineTo(-w, h); sh.closePath(); }
   else { for (let i = 0; i < sym; i++) { const a = (2 * Math.PI * i) / sym; const x = Math.cos(a) * w, y = Math.sin(a) * w; i ? sh.lineTo(x, y) : sh.moveTo(x, y); } sh.closePath(); }
-  const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.035, bevelEnabled: false }); geo.translate(0, 0, -0.0175);
+  const geo = new THREE.ExtrudeGeometry(sh, { depth: WALL_T, bevelEnabled: false }); geo.translate(0, 0, -WALL_T / 2);
   return new THREE.Mesh(geo, m);                 // tile in its x-y plane, normal +z
 }
 function lineGlyph(sym, m) {                     // a rod along +y: arrowhead (1), capped ends (2), n fins
@@ -168,7 +170,7 @@ function solidGlyph(sym, m, size) {               // a solid: lopsided (1), n-go
 }
 // a region's proportions in steps: each of its two lesser spreads (as a share of its greatest) is
 // thin, flat, half or full
-const PROP_STEPS = [[0.05, 0.12], [0.2, 0.3], [0.45, 0.6], [Infinity, 1]];
+const PROP_STEPS = [[0.05, 0.15], [0.2, 0.3], [0.45, 0.6], [Infinity, 1]];
 const propStep = (r) => PROP_STEPS.find(([lim]) => r < lim)[1];
 function regionGlyph(spread, m, size) {           // a box in the region's proportions, one corner cut off (no symmetry)
   const L = size * 0.9, sp = spread || [1, 1, 1];
