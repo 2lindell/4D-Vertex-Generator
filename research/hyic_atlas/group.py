@@ -249,9 +249,26 @@ def signature(info):
     return f"{info['vertices']}: cells {cells} | faces {faces} | edges {edges}"
 
 
+_MEMO = {}
+_STAR = os.environ.get("HYIC_STAR", "1") != "0"
+
+
 def label(beta, hull_tol=1e-9):
+    """(signature, arrangement key). A seed whose vertex-0 star (star.py) was met before gets that polytope's label
+    without the full hull: the same star is the same hull, index for index (HYIC_STAR=0 turns this off)."""
+    s = None
+    if _STAR:
+        import star as S
+        s = S.star(beta, hull_tol)
+        if s is not None and (hull_tol, s) in _MEMO:
+            return _MEMO[(hull_tol, s)]
     info = classify(beta, hull_tol)
-    return (signature(info), info["key"]) if info else ("none", None)
+    out = (signature(info), info["key"]) if info else ("none", None)
+    if s is not None and info:
+        if len(_MEMO) > 20000:
+            _MEMO.clear()
+        _MEMO[(hull_tol, s)] = out
+    return out
 
 
 def _arrangement_key(faces, cells, cell_sets, face_sets, edge_sets, valence, cell_classes, face_classes, edge_classes):
