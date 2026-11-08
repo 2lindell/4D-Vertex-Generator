@@ -573,9 +573,12 @@ __TYPE_CSS__
           flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
       }
       // a selected region's shell in the cell: the edges of the wall pieces and face parts around it
-      for (const id of state.sel) if (D.regionEdges && D.regionEdges[id]) {
-        // (an edge is a list of points, or {pts, dash}: dashed where its wall goes on across it)
-        const all = D.regionEdges[id];
+      for (const id of state.sel) {
+        // (an edge is a list of points, or {pts, dash}: dashed where its wall goes on across it; from
+        // the page, or fetched with the region's walls)
+        const rwE = regionWallsFor(D, id);
+        const all = (D.regionEdges && D.regionEdges[id]) || (rwE && rwE.edges) || null;
+        if (!all) continue;
         const solidE = all.filter((e) => !e.dash).map((e) => e.pts || e);
         const dashE = all.filter((e) => e.dash).map((e) => e.pts);
         if (solidE.length) {
