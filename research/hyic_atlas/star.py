@@ -4,9 +4,11 @@ The vertices are the orbit of one point in a fixed order (group.vertices), and e
 cell through vertex 0, so two seeds with the same vertex indexing and the same star have the same hull, index for
 index, and hence the same arrangement key. The star needs Qhull's triangulation and the simplices around vertex 0
 (grown over neighbours whose hyperplanes agree within the hull tolerance, as compute_convex_hull groups them) -- not
-the whole hull's faces, cells, checks and classes -- so it costs a small part of a full classification. Where two
-neighbouring simplices' hyperplanes nearly agree (within 1000x the tolerance but not within it) the star is called
-ambiguous (None) and the caller falls back to the full classification.
+the whole hull's faces, cells, checks and classes -- so it costs a small part of a full classification. Simplices are
+joined only when their hyperplanes agree to within 1/1000 of the hull tolerance and kept apart only when they differ by
+1000x it; anything between is ambiguous (None: the caller falls back to the full classification), so the grouping is
+the one compute_convex_hull makes under any reading of its tolerance. A star with a cell inside another (a flat sliver
+of Qhull's triangulation, which compute_convex_hull folds away) is ambiguous too.
 """
 from __future__ import annotations
 
@@ -39,11 +41,13 @@ def star(beta, hull_tol=1e-9):
                 if t in group:
                     continue
                 d = np.abs(eq[s] - eq[t]).max()
-                if d < hull_tol:
+                if d < hull_tol / 1000:
                     group.add(t)
                     seen.add(t)
                     todo.append(t)
                 elif d < 1000 * hull_tol:
                     return None
         cells.append(frozenset(int(v) for s in group for v in sx[s]))
+    if any(a < b for a in cells for b in cells):
+        return None
     return len(V), keep.tobytes(), frozenset(cells)
