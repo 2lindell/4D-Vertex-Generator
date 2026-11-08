@@ -197,5 +197,8 @@ def describe(beta, tol):
 if __name__ == "__main__":
     out = {}
     for ident, beta, tol in json.loads(sys.argv[1]):
-        out[ident] = describe(beta, tol)
+        try:
+            out[ident] = describe(beta, tol)
+        except ValueError:                          # (a hull that does not close at this tolerance: the wall one)
+            out[ident] = describe(beta, max(tol, 1e-7))
     print(json.dumps(out))
