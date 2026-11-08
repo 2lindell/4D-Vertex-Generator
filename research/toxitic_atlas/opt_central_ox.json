@@ -918,7 +918,7 @@
   },
   {
    "group": "oxitic",
-   "name": "mabertetic",
+   "name": "sabertetic",
    "kind": "wall",
    "degrees": 2,
    "key": "8da3f28a95bc",
@@ -947,13 +947,13 @@
    ],
    "depth": 0.37969470982934206,
    "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
-   "opt_off": "optimized_off/oxitic/mabertetic_576v_864c_opt.off",
+   "opt_off": "optimized_off/oxitic/sabertetic_576v_864c_opt.off",
    "opt_counts": [
     576,
     864
    ],
    "off_R": 1.3065629648763804,
-   "central_off": "central_off/oxitic/mabertetic_576v_864c_central.off",
+   "central_off": "central_off/oxitic/sabertetic_576v_864c_central.off",
    "central_counts": [
     576,
     864
@@ -1144,7 +1144,7 @@
   },
   {
    "group": "oxitic",
-   "name": "sabertetic",
+   "name": "mabertetic",
    "kind": "wall",
    "degrees": 2,
    "key": "7443559f1ee3",
@@ -1173,13 +1173,13 @@
    ],
    "depth": 0.009880882316211205,
    "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
-   "opt_off": "optimized_off/oxitic/sabertetic_576v_1248c_opt.off",
+   "opt_off": "optimized_off/oxitic/mabertetic_576v_1248c_opt.off",
    "opt_counts": [
     576,
     1248
    ],
    "off_R": 15.782434946555005,
-   "central_off": "central_off/oxitic/sabertetic_576v_1248c_central.off",
+   "central_off": "central_off/oxitic/mabertetic_576v_1248c_central.off",
    "central_counts": [
     576,
     1248

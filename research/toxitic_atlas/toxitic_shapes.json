@@ -930,7 +930,7 @@
     "ox",
     "oxb"
    ],
-   "name": "mabertetic",
+   "name": "sabertetic",
    "vertices": 576,
    "cells": 864,
    "edges": {
@@ -1075,7 +1075,7 @@
     "ox",
     "oxb"
    ],
-   "name": "sabertetic",
+   "name": "mabertetic",
    "vertices": 576,
    "cells": 1248,
    "edges": {
