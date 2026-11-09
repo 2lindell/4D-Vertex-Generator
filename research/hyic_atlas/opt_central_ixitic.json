@@ -285,19 +285,19 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.03349589411816231,
+    0.49988421599402977,
     0.0,
     0.0,
-    0.9665041058818377
+    0.5001157840059702
    ],
-   "depth": 1.0,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.7068679249286656,
+   "central_status": "centre of the shape's extent (chords to where its polytope changes, seams crossed)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_sagyptady_480v_2160c_seed.off",
    "seed_R": 13.335704149472123,
    "opt_off": "optimized_off/ixitic/sagyptady_480v_2160c_opt.off",
    "opt_R": 1.847759065022753,
    "central_off": "central_off/ixitic/sagyptady_480v_2160c_central.off",
-   "central_R": 3.0776835371757167
+   "central_R": 3.0766523665111936
   },
   {
    "name": "ratehi",
