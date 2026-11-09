@@ -84,19 +84,19 @@ def job(row):
         return Vt[rank:]                             # (orthonormal rows spanning the locus's tangent space)
 
     def reach(x, d):
-        prev, t = x, STEP
+        lo, t = 0.0, STEP / 2                        # (steps doubling: 0.005, 0.01, 0.02, ... then bisection)
         while t <= MAXLEN:
             p = proj(x + t * d)
             if lab(p) != key:
-                lo, hi = t - STEP, t
-                for _ in range(22):
+                hi = t
+                for _ in range(20):
                     m = (lo + hi) / 2
                     if lab(proj(x + m * d)) == key:
                         lo = m
                     else:
                         hi = m
                 return (lo + hi) / 2
-            t += STEP
+            lo, t = t, 2 * t
         return MAXLEN
 
     x = proj(b0)
@@ -105,7 +105,7 @@ def job(row):
                 "centre": list(b0), "depth": None}
     k = 3 - len(zero) - len(surfs)
     hist = []
-    for it in range(25):
+    for it in range(12):
         U = basis(x)
         D = directions(k) @ U
         R = np.array([reach(x, d) for d in D])
@@ -122,7 +122,7 @@ def job(row):
                 break
         step = float(np.abs(y - x).max())
         x = y
-        if step < 1e-6:
+        if step < 1e-4:
             break
     unbounded = bool((R >= MAXLEN).any())
     return {"name": row["name"], "centre": list(map(float, x)), "depth": float(R.min()), "iterations": it + 1,
@@ -131,9 +131,14 @@ def job(row):
 
 
 rows = json.loads(sys.stdin.read())
-with Pool(int(os.environ.get("NPROC", "3"))) as pool:
-    out = pool.map(job, rows, chunksize=1)
-for row, o in zip(rows, out):
+
+
+def run(row):
+    return row, job(row)
+
+
+pool = Pool(int(os.environ.get("NPROC", "3")))
+for row, o in pool.imap_unordered(run, rows):
     b = np.asarray(o["centre"], float)
     V, Vn, idx, faces, cells = G.polytope(b, row["tol"])
     k = G.label(b, row["tol"])[1]
@@ -168,17 +173,18 @@ def run(oc, atlas, envvar, only):
     for r in O["shapes"]:
         if r["kind"] == "point" or (only and r["name"] not in only):
             continue
+        if not only and r.get("central_status", "").startswith("centre of the shape's extent"):
+            continue                                    # (done in an earlier run)
         by.setdefault(r["sheet"], []).append({
             "name": r["name"], "key": r["key"], "seed": r["seed"], "locus": r["locus"] if r["kind"] == "wall" else [],
             "tol": 1e-7 if r["kind"] == "wall" else 1e-9, "central_off": r["central_off"]})
     rows = {r["name"]: r for r in O["shapes"]}
     for sub, items in sorted(by.items()):
-        p = subprocess.run([sys.executable, "-c", CODE % {"here": atlas, "root": ROOT}], input=json.dumps(items),
-                           capture_output=True, text=True, cwd=atlas, env={**os.environ, envvar: sub})
-        if p.returncode:
-            print(sub, "FAILED", p.stderr[-1500:], flush=True)
-            continue
-        for line in p.stdout.strip().splitlines():
+        p = subprocess.Popen([sys.executable, "-c", CODE % {"here": atlas, "root": ROOT}], stdin=subprocess.PIPE,
+                             stdout=subprocess.PIPE, text=True, cwd=atlas, env={**os.environ, envvar: sub})
+        p.stdin.write(json.dumps(items))
+        p.stdin.close()
+        for line in p.stdout:
             o = json.loads(line)
             r = rows[o["name"]]
             if o.get("ok"):
@@ -186,6 +192,7 @@ def run(oc, atlas, envvar, only):
                 r.pop("central_note", None)
             else:
                 r["central_status"] = r.get("central_status", "") + "; the extent finder's centre was another polytope"
+            json.dump(O, open(oc, "w"), indent=1)       # (saved after each shape: a rerun skips it)
             print(f"{sub} {o['name']:24} depth {o['depth'] if o['depth'] is None else round(o['depth'], 5)}  "
                   f"{'written' if o.get('ok') else 'NOT written'}  {[round(v, 5) for v in o['centre']]}  "
                   f"R {o.get('central_R', 0):.4f}", flush=True)
