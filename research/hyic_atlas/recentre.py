@@ -10,7 +10,10 @@ chord r(d) + r(-d) through x. x moves to the mean of the chords' midpoints, x + 
 stops: for a line the segment's midpoint, for a face or region the point that every chord through it is (on average)
 bisected at. depth = the shortest r(d). The central .off file is rewritten from the new seed.
 
-    python recentre.py [name ...]
+Also for oxitic (its mirrors are seams too; the fold, kept by the swap in oxitic, is crossed like a seam: beyond it
+lies the same polychoron): python recentre.py --oxitic [name ...] updates toxitic_atlas/opt_central_ox|oxb.json.
+
+    python recentre.py [--oxitic] [name ...]
 """
 from __future__ import annotations
 
@@ -28,7 +31,7 @@ import numpy as np
 from multiprocessing import Pool
 sys.path.insert(0, %(here)r)
 import group as G
-from snub_map import Surface
+from snub_map import Surface  # (the atlas's own: hyic_atlas or contic_atlas)
 from four_d_vertex_generator.off import to_4off
 from four_d_vertex_generator.local_view import hull_edges
 
@@ -134,7 +137,9 @@ for row, o in zip(rows, out):
     b = np.asarray(o["centre"], float)
     V, Vn, idx, faces, cells = G.polytope(b, row["tol"])
     k = G.label(b, row["tol"])[1]
-    o["ok"] = k == row["key"] and (len(V), len(cells)) == (row["vertices"], row["cells"])
+    b0 = np.asarray(row["seed"], float)
+    V0, _, _, _, cells0 = G.polytope(b0 / b0.sum(), row["tol"])
+    o["ok"] = k == row["key"] and (len(V), len(cells)) == (len(V0), len(cells0))
     if o["ok"]:
         open(os.path.join(%(root)r, row["central_off"]), "w").write(to_4off(Vn, faces, cells))
         E = [np.linalg.norm(Vn[a] - Vn[c]) for a, c in (tuple(e) for e in hull_edges(faces))]
@@ -144,23 +149,32 @@ for row, o in zip(rows, out):
 
 
 def main():
-    only = set(sys.argv[1:])
-    S = {s["key"]: s for s in json.load(open(os.path.join(HERE, "ixitic_shapes.json")))["shapes"]}
-    oc = os.path.join(HERE, "opt_central_ixitic.json")
+    args = sys.argv[1:]
+    ox = "--oxitic" in args
+    only = set(a for a in args if not a.startswith("--"))
+    if ox:
+        atlas, envvar = os.path.join(ROOT, "contic_atlas"), "CONTIC_SUB"
+        files = [os.path.join(ROOT, "toxitic_atlas", f"opt_central_{s}.json") for s in ("ox", "oxb")]
+    else:
+        atlas, envvar = HERE, "HYIC_SUB"
+        files = [os.path.join(HERE, "opt_central_ixitic.json")]
+    for oc in files:
+        run(oc, atlas, envvar, only)
+
+
+def run(oc, atlas, envvar, only):
     O = json.load(open(oc))
     by = {}
     for r in O["shapes"]:
         if r["kind"] == "point" or (only and r["name"] not in only):
             continue
-        s = S[r["key"]]
         by.setdefault(r["sheet"], []).append({
             "name": r["name"], "key": r["key"], "seed": r["seed"], "locus": r["locus"] if r["kind"] == "wall" else [],
-            "tol": 1e-7 if r["kind"] == "wall" else 1e-9, "vertices": s["vertices"], "cells": s["cells"],
-            "central_off": r["central_off"]})
+            "tol": 1e-7 if r["kind"] == "wall" else 1e-9, "central_off": r["central_off"]})
     rows = {r["name"]: r for r in O["shapes"]}
     for sub, items in sorted(by.items()):
-        p = subprocess.run([sys.executable, "-c", CODE % {"here": HERE, "root": ROOT}], input=json.dumps(items),
-                           capture_output=True, text=True, cwd=HERE, env={**os.environ, "HYIC_SUB": sub})
+        p = subprocess.run([sys.executable, "-c", CODE % {"here": atlas, "root": ROOT}], input=json.dumps(items),
+                           capture_output=True, text=True, cwd=atlas, env={**os.environ, envvar: sub})
         if p.returncode:
             print(sub, "FAILED", p.stderr[-1500:], flush=True)
             continue
@@ -170,6 +184,8 @@ def main():
             if o.get("ok"):
                 r.update(central=o["centre"], depth=o["depth"], central_status=o["status"], central_R=o["central_R"])
                 r.pop("central_note", None)
+            else:
+                r["central_status"] = r.get("central_status", "") + "; the extent finder's centre was another polytope"
             print(f"{sub} {o['name']:24} depth {o['depth'] if o['depth'] is None else round(o['depth'], 5)}  "
                   f"{'written' if o.get('ok') else 'NOT written'}  {[round(v, 5) for v in o['centre']]}  "
                   f"R {o.get('central_R', 0):.4f}", flush=True)
