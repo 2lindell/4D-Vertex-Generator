@@ -1,0 +1,2741 @@
+{
+ "_about": "The toxitic / oxitic shapes on the domain's faces, edges and special lines (strata_<sub>.json).",
+ "group": "ixo7",
+ "order": 2880,
+ "N": 24,
+ "strata": [
+  {
+   "stratum": "face b1 = 0",
+   "points": 253,
+   "types": {
+    "b240fd91d8cf": 125,
+    "c8f4e949f236": 34,
+    "d96985aac7ba": 48,
+    "78a1a6858080": 29,
+    "f9035eeab1c9": 3,
+    "393ccc10a1ba": 2,
+    "ab90a7e8c164": 1,
+    "8b029fed3e2e": 1,
+    "9c72058cc3a9": 8,
+    "241c936dfb1f": 2
+   },
+   "changes": [
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "78a1a6858080"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "b240fd91d8cf",
+      "d96985aac7ba"
+     ],
+     "at": "3aa3168dd0ed",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "b240fd91d8cf",
+      "c8f4e949f236"
+     ],
+     "at": "b240fd91d8cf",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "b240fd91d8cf",
+      "c8f4e949f236"
+     ],
+     "at": "c8f4e949f236",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "d96985aac7ba"
+     ],
+     "at": "b5c23e297a26",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "d96985aac7ba"
+     ],
+     "at": "78a1a6858080",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "8b029fed3e2e"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "8b029fed3e2e"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "8b029fed3e2e"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "9c72058cc3a9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "b240fd91d8cf"
+     ],
+     "at": "3aa3168dd0ed",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "241c936dfb1f",
+      "9c72058cc3a9"
+     ],
+     "at": "9c72058cc3a9",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "d96985aac7ba"
+     ],
+     "at": "b5c23e297a26",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "f9035eeab1c9"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "9c72058cc3a9"
+     ],
+     "at": "843db71207f8",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "ab90a7e8c164",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "9c72058cc3a9"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "ab90a7e8c164"
+     ],
+     "at": "ab90a7e8c164",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "ab90a7e8c164"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "d96985aac7ba"
+     ],
+     "at": "b5c23e297a26",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "face b2 = 0",
+   "points": 253,
+   "types": {
+    "b240fd91d8cf": 48,
+    "2f95e8d554a8": 8,
+    "dde81598bfa2": 22,
+    "d96985aac7ba": 7,
+    "16db6804df08": 4,
+    "a8e2a892cc7d": 2,
+    "414f5b0e4bb1": 10,
+    "aae8c1df7a38": 33,
+    "4e8d5797255d": 5,
+    "f61083fa4719": 4,
+    "9c72058cc3a9": 46,
+    "b945e5651fdd": 1,
+    "4da9b751c8d0": 1,
+    "abee14417700": 53,
+    "32604d11723e": 9
+   },
+   "changes": [
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "abee14417700"
+     ],
+     "at": "9c72058cc3a9",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "aae8c1df7a38"
+     ],
+     "at": "b1467af548d6",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "aae8c1df7a38"
+     ],
+     "at": "aae8c1df7a38",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "aae8c1df7a38"
+     ],
+     "at": "414f5b0e4bb1",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "9c72058cc3a9"
+     ],
+     "at": "414f5b0e4bb1",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "aae8c1df7a38",
+      "b240fd91d8cf"
+     ],
+     "at": "c8ed52f32c12",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "4da9b751c8d0"
+     ],
+     "at": "cc84fd39f22f",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "4da9b751c8d0"
+     ],
+     "at": "5cdf86262713",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "d96985aac7ba"
+     ],
+     "at": "6a549504a98f",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "2f95e8d554a8",
+      "b240fd91d8cf"
+     ],
+     "at": "b240fd91d8cf",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "2f95e8d554a8",
+      "b240fd91d8cf"
+     ],
+     "at": "2f95e8d554a8",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "b240fd91d8cf",
+      "d96985aac7ba"
+     ],
+     "at": "3aa3168dd0ed",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "dde81598bfa2"
+     ],
+     "at": "7166621a6bf5",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "dde81598bfa2"
+     ],
+     "at": "cc84fd39f22f",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "dde81598bfa2"
+     ],
+     "at": "dde81598bfa2",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "d96985aac7ba",
+      "f61083fa4719"
+     ],
+     "at": "6a549504a98f",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "4e8d5797255d",
+      "dde81598bfa2"
+     ],
+     "at": "cacdd913b4d6",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "16db6804df08",
+      "dde81598bfa2"
+     ],
+     "at": "7166621a6bf5",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "d96985aac7ba"
+     ],
+     "at": "6a549504a98f",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "d96985aac7ba"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "d96985aac7ba"
+     ],
+     "at": "None",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "b945e5651fdd",
+      "dde81598bfa2"
+     ],
+     "at": "dde81598bfa2",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "b945e5651fdd",
+      "dde81598bfa2"
+     ],
+     "at": "5cdf86262713",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f61083fa4719"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f61083fa4719"
+     ],
+     "at": "None",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "16db6804df08",
+      "414f5b0e4bb1"
+     ],
+     "at": "414f5b0e4bb1",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "16db6804df08",
+      "414f5b0e4bb1"
+     ],
+     "at": "16db6804df08",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "b240fd91d8cf"
+     ],
+     "at": "3aa3168dd0ed",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "b240fd91d8cf"
+     ],
+     "at": "3aa3168dd0ed",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "b240fd91d8cf"
+     ],
+     "at": "c8ed52f32c12",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "16db6804df08",
+      "2f95e8d554a8"
+     ],
+     "at": "0b6d68ae8211",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "2f95e8d554a8",
+      "dde81598bfa2"
+     ],
+     "at": "3bae326e0265",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "2f95e8d554a8",
+      "dde81598bfa2"
+     ],
+     "at": "0b6d68ae8211",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "f61083fa4719"
+     ],
+     "at": "070b671a6ba7",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "b240fd91d8cf",
+      "f61083fa4719"
+     ],
+     "at": "3aa3168dd0ed",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "b240fd91d8cf",
+      "f61083fa4719"
+     ],
+     "at": "b240fd91d8cf",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "2f95e8d554a8",
+      "414f5b0e4bb1"
+     ],
+     "at": "2f95e8d554a8",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "aae8c1df7a38",
+      "dde81598bfa2"
+     ],
+     "at": "dde81598bfa2",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "aae8c1df7a38",
+      "dde81598bfa2"
+     ],
+     "at": "7166621a6bf5",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "b240fd91d8cf"
+     ],
+     "at": "c8ed52f32c12",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "32604d11723e",
+      "abee14417700"
+     ],
+     "at": "27ac0fa5cd4b",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "4da9b751c8d0",
+      "dde81598bfa2"
+     ],
+     "at": "dde81598bfa2",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "aae8c1df7a38",
+      "abee14417700"
+     ],
+     "at": "b1467af548d6",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "aae8c1df7a38",
+      "b945e5651fdd"
+     ],
+     "at": "aae8c1df7a38",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "aae8c1df7a38",
+      "b945e5651fdd"
+     ],
+     "at": "cc84fd39f22f",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "4e8d5797255d",
+      "b945e5651fdd"
+     ],
+     "at": "cacdd913b4d6",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "414f5b0e4bb1",
+      "b945e5651fdd"
+     ],
+     "at": "cc84fd39f22f",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "4da9b751c8d0",
+      "b945e5651fdd"
+     ],
+     "at": "5cdf86262713",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "16db6804df08",
+      "b240fd91d8cf"
+     ],
+     "at": "b240fd91d8cf",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "4da9b751c8d0",
+      "aae8c1df7a38"
+     ],
+     "at": "aae8c1df7a38",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "4da9b751c8d0",
+      "aae8c1df7a38"
+     ],
+     "at": "5cdf86262713",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "face b3 = 0",
+   "points": 253,
+   "types": {
+    "a8e2a892cc7d": 40,
+    "78a1a6858080": 37,
+    "f9035eeab1c9": 44,
+    "8b029fed3e2e": 1,
+    "393ccc10a1ba": 35,
+    "9c72058cc3a9": 31,
+    "d96985aac7ba": 14,
+    "ab90a7e8c164": 1,
+    "2c0d36b57a9d": 30,
+    "f61083fa4719": 3,
+    "076a274811fa": 17
+   },
+   "changes": [
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "f9035eeab1c9"
+     ],
+     "at": "52806e416597",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "a8e2a892cc7d"
+     ],
+     "at": "8906740db4ef",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "9c72058cc3a9"
+     ],
+     "at": "9c72058cc3a9",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "78a1a6858080"
+     ],
+     "at": "52806e416597",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "78a1a6858080"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "78a1a6858080"
+     ],
+     "at": "8906740db4ef",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "78a1a6858080"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "f9035eeab1c9"
+     ],
+     "at": "db61e2e84d2a",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "f9035eeab1c9"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "f61083fa4719"
+     ],
+     "at": "070b671a6ba7",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "9c72058cc3a9"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "076a274811fa",
+      "f9035eeab1c9"
+     ],
+     "at": "4378938566e3",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "076a274811fa",
+      "393ccc10a1ba"
+     ],
+     "at": "db61e2e84d2a",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f61083fa4719"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "a8e2a892cc7d"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "a8e2a892cc7d"
+     ],
+     "at": "070b671a6ba7",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "a8e2a892cc7d"
+     ],
+     "at": "843db71207f8",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "a8e2a892cc7d"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "a8e2a892cc7d"
+     ],
+     "at": "8906740db4ef",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "d96985aac7ba"
+     ],
+     "at": "6a549504a98f",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "d96985aac7ba"
+     ],
+     "at": "8906740db4ef",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "d96985aac7ba"
+     ],
+     "at": "14b10e9d9380",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "d96985aac7ba"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "9c72058cc3a9"
+     ],
+     "at": "8906740db4ef",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "9c72058cc3a9"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f9035eeab1c9"
+     ],
+     "at": "9c72058cc3a9",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "ab90a7e8c164"
+     ],
+     "at": "ab90a7e8c164",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "ab90a7e8c164"
+     ],
+     "at": "9c72058cc3a9",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "ab90a7e8c164",
+      "f9035eeab1c9"
+     ],
+     "at": "843db71207f8",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "8b029fed3e2e"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "d96985aac7ba"
+     ],
+     "at": "6a549504a98f",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "d96985aac7ba"
+     ],
+     "at": "14b10e9d9380",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "076a274811fa",
+      "78a1a6858080"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "ab90a7e8c164"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "a8e2a892cc7d"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "face b4 = 0",
+   "points": 253,
+   "types": {
+    "36e258d4f7df": 45,
+    "None": 2,
+    "8cd3bc68ed80": 30,
+    "96fddb749551": 26,
+    "393ccc10a1ba": 35,
+    "2c0d36b57a9d": 40,
+    "d96985aac7ba": 6,
+    "12ca4772890d": 2,
+    "ab90a7e8c164": 25,
+    "8b029fed3e2e": 6,
+    "78a1a6858080": 9,
+    "f9035eeab1c9": 20,
+    "076a274811fa": 7
+   },
+   "changes": [
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "f9035eeab1c9"
+     ],
+     "at": "52806e416597",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "8cd3bc68ed80",
+      "None"
+     ],
+     "at": "8cd3bc68ed80",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "8cd3bc68ed80",
+      "None"
+     ],
+     "at": "96fddb749551",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "d96985aac7ba"
+     ],
+     "at": "14b10e9d9380",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "8cd3bc68ed80",
+      "96fddb749551"
+     ],
+     "at": "28300feb758c",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "8cd3bc68ed80",
+      "96fddb749551"
+     ],
+     "at": "96fddb749551",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "78a1a6858080"
+     ],
+     "at": "52806e416597",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "96fddb749551",
+      "ab90a7e8c164"
+     ],
+     "at": "96fddb749551",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "96fddb749551",
+      "ab90a7e8c164"
+     ],
+     "at": "None",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "8b029fed3e2e"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "8b029fed3e2e"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "8b029fed3e2e"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "076a274811fa",
+      "f9035eeab1c9"
+     ],
+     "at": "4378938566e3",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "393ccc10a1ba"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "36e258d4f7df",
+      "8cd3bc68ed80"
+     ],
+     "at": "36e258d4f7df",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "36e258d4f7df",
+      "8cd3bc68ed80"
+     ],
+     "at": "8cd3bc68ed80",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "78a1a6858080"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "8cd3bc68ed80",
+      "ab90a7e8c164"
+     ],
+     "at": "28300feb758c",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "f9035eeab1c9"
+     ],
+     "at": "db61e2e84d2a",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "f9035eeab1c9"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "96fddb749551"
+     ],
+     "at": "None",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "96fddb749551"
+     ],
+     "at": "96fddb749551",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "96fddb749551"
+     ],
+     "at": "843db71207f8",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "8b029fed3e2e"
+     ],
+     "at": "52806e416597",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "8b029fed3e2e"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "076a274811fa",
+      "393ccc10a1ba"
+     ],
+     "at": "db61e2e84d2a",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "96fddb749551"
+     ],
+     "at": "96fddb749551",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "393ccc10a1ba"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 4
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "8b029fed3e2e"
+     ],
+     "at": "028fdf32bc16",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "96fddb749551",
+      "None"
+     ],
+     "at": "96fddb749551",
+     "crossings": 6
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "ab90a7e8c164"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "2c0d36b57a9d",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "2c0d36b57a9d"
+     ],
+     "at": "028fdf32bc16",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "2c0d36b57a9d"
+     ],
+     "at": "52806e416597",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "96fddb749551"
+     ],
+     "at": "96fddb749551",
+     "crossings": 2
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "96fddb749551"
+     ],
+     "at": "96fddb749551",
+     "crossings": 5
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "96fddb749551"
+     ],
+     "at": "None",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "076a274811fa",
+      "78a1a6858080"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "076a274811fa",
+      "78a1a6858080"
+     ],
+     "at": "4378938566e3",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "36e258d4f7df",
+      "None"
+     ],
+     "at": "36e258d4f7df",
+     "crossings": 3
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "36e258d4f7df",
+      "96fddb749551"
+     ],
+     "at": "36e258d4f7df",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "12ca4772890d",
+      "78a1a6858080"
+     ],
+     "at": "028fdf32bc16",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b1 = b2 = 0",
+   "points": 23,
+   "types": {
+    "b240fd91d8cf": 15,
+    "c8f4e949f236": 8
+   },
+   "changes": [
+    {
+     "sides": [
+      "b240fd91d8cf",
+      "c8f4e949f236"
+     ],
+     "at": "b240fd91d8cf",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b1 = b3 = 0",
+   "points": 23,
+   "types": {
+    "78a1a6858080": 12,
+    "f9035eeab1c9": 3,
+    "8b029fed3e2e": 1,
+    "393ccc10a1ba": 1,
+    "ab90a7e8c164": 1,
+    "9c72058cc3a9": 3,
+    "241c936dfb1f": 2
+   },
+   "changes": [
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "ab90a7e8c164"
+     ],
+     "at": "ab90a7e8c164",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "8b029fed3e2e",
+      "f9035eeab1c9"
+     ],
+     "at": "31f9d7d2ce75",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "8b029fed3e2e"
+     ],
+     "at": "95b23ba2e772",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "241c936dfb1f",
+      "9c72058cc3a9"
+     ],
+     "at": "9c72058cc3a9",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "78a1a6858080",
+      "f9035eeab1c9"
+     ],
+     "at": "d8916f10b74b",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "393ccc10a1ba",
+      "ab90a7e8c164"
+     ],
+     "at": "843db71207f8",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b1 = b4 = 0",
+   "points": 23,
+   "types": {
+    "7465267cd9b6": 9,
+    "9fc73ba17c51": 5,
+    "baf95c7dc2b1": 9
+   },
+   "changes": [
+    {
+     "sides": [
+      "7465267cd9b6",
+      "9fc73ba17c51"
+     ],
+     "at": "7465267cd9b6",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "9fc73ba17c51",
+      "baf95c7dc2b1"
+     ],
+     "at": "2f41ae404d62",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b2 = b3 = 0",
+   "points": 23,
+   "types": {
+    "a8e2a892cc7d": 4,
+    "f61083fa4719": 3,
+    "9c72058cc3a9": 4,
+    "abee14417700": 5,
+    "32604d11723e": 7
+   },
+   "changes": [
+    {
+     "sides": [
+      "a8e2a892cc7d",
+      "f61083fa4719"
+     ],
+     "at": "070b671a6ba7",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "abee14417700"
+     ],
+     "at": "9c72058cc3a9",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "9c72058cc3a9",
+      "f61083fa4719"
+     ],
+     "at": "1170fd3c1a9f",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "32604d11723e",
+      "abee14417700"
+     ],
+     "at": "27ac0fa5cd4b",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b2 = b4 = 0",
+   "points": 23,
+   "types": {
+    "36e258d4f7df": 11,
+    "8cd3bc68ed80": 1,
+    "abee14417700": 7,
+    "32604d11723e": 4
+   },
+   "changes": [
+    {
+     "sides": [
+      "32604d11723e",
+      "abee14417700"
+     ],
+     "at": "27ac0fa5cd4b",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "36e258d4f7df",
+      "8cd3bc68ed80"
+     ],
+     "at": "36e258d4f7df",
+     "crossings": 1
+    },
+    {
+     "sides": [
+      "8cd3bc68ed80",
+      "abee14417700"
+     ],
+     "at": "28300feb758c",
+     "crossings": 1
+    }
+   ]
+  },
+  {
+   "stratum": "line b3 = b4 = 0",
+   "points": 23,
+   "types": {
+    "3aa3168dd0ed": 23
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(1,0,0,0)",
+   "points": 1,
+   "types": {
+    "90e4431c1ce1": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(0,1,0,0)",
+   "points": 1,
+   "types": {
+    "2f41ae404d62": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(0,0,1,0)",
+   "points": 1,
+   "types": {
+    "7465267cd9b6": 1
+   },
+   "changes": []
+  },
+  {
+   "stratum": "point(0,0,0,1)",
+   "points": 1,
+   "types": {
+    "1813106ecd49": 1
+   },
+   "changes": []
+  }
+ ],
+ "types": [
+  {
+   "key": "d8916f10b74b",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x4+1440x10+2880x3+2880x3+2880x3+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.674220948654275,
+    0.07588653307314472,
+    0.24989251827258027
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "3aa3168dd0ed",
+   "signature": "2880: cells 240x[12v8f]+480x[6v8f]+480x[12v14f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 960x3g+960x6g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.31716642331724026,
+    0.19601963358196703,
+    0.4868139431007927
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b2 = 0",
+    "line b3 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "b240fd91d8cf",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x5+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.04899138968096388,
+    0.6316876800455223,
+    0.31932093027351366
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b2 = 0",
+    "line b1 = b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "c8f4e949f236",
+   "signature": "2880: cells 240x[12v8f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[9v11f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x6g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x8+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.298765244342808,
+    0.6004781603795495,
+    0.10075659527764247
+   ],
+   "strata": [
+    "face b1 = 0",
+    "line b1 = b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "b5c23e297a26",
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v5f]+720x[4v4f]+1440x[4v4f]+1440x[6v7f]+1440x[6v7f] | faces 960x3g+960x3g+1440x4g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.6303461742949926,
+    0.16136740609667627,
+    0.2082864196083312
+   ],
+   "strata": [
+    "face b1 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "78a1a6858080",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+1440x12+2880x3+2880x3+2880x3+2880x3+2880x7",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.45816048365967244,
+    0.11723388844217986,
+    0.4246056278981477
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "95b23ba2e772",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+1440x10+2880x3+2880x3+2880x3+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.7494031743094162,
+    0.12130638530714066,
+    0.12929044038344326
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "31f9d7d2ce75",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x4+1440x11+2880x3+2880x3+2880x4+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.7494031743094162,
+    0.13309469167334964,
+    0.1175021340172343
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "9c72058cc3a9",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+2880x3+2880x3+2880x3+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.8768055111123714,
+    0.042310406082252776,
+    0.08088408280537585
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b1 = b3 = 0",
+    "line b2 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "843db71207f8",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x5+1440x6+1440x8+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.7361140989892697,
+    0.042310406082252776,
+    0.2215754949284777
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "ab90a7e8c164",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x10+2880x3+2880x4+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.7694984701917599,
+    0.0624057019645968,
+    0.16809582784364313
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "d96985aac7ba",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x6+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.08370559568143063,
+    0.042310406082252776,
+    0.8739839982363167
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b2 = 0",
+    "face b3 = 0",
+    "face b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "f9035eeab1c9",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x4+1440x4+1440x12+2880x3+2880x4+2880x4+2880x7",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.6245848783166689,
+    0.042310406082252776,
+    0.3331047156010784
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "393ccc10a1ba",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x6+1440x10+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.707797075645167,
+    0.042310406082252776,
+    0.24989251827258027
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "8b029fed3e2e",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x6+1440x8+1440x14+2880x3+2880x3+2880x3+2880x4+2880x7",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.7494031743094162,
+    0.12552260341075094,
+    0.125074222279833
+   ],
+   "strata": [
+    "face b1 = 0",
+    "face b3 = 0",
+    "face b4 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "241c936dfb1f",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x8+1440x8+1440x8+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.0,
+    0.8742214703021635,
+    0.08391650474650186,
+    0.04186202495133481
+   ],
+   "strata": [
+    "face b1 = 0",
+    "line b1 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "b1467af548d6",
+   "signature": "2880: cells 240x[12v8f]+480x[6v8f]+480x[12v14f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x6g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.44446290057022586,
+    0.0,
+    0.4444629077291243,
+    0.11107419170065003
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "aae8c1df7a38",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x8+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.1666889731951868,
+    0.0,
+    0.5328932970597804,
+    0.3004177297450326
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "414f5b0e4bb1",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.17135388193812257,
+    0.0,
+    0.5324025274629901,
+    0.29624359059888755
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "c8ed52f32c12",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[12v17f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x3+1440x4+1440x4+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.1464129767324679,
+    0.0,
+    0.5001148184810791,
+    0.35347220478645297
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "cc84fd39f22f",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x8+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.4163941320018805,
+    0.0,
+    0.5209497439070803,
+    0.06265612409103896
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "5cdf86262713",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x11+1440x12+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.43270338430882943,
+    0.0,
+    0.5254230926419126,
+    0.04187352304925806
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "6a549504a98f",
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.14126197633341708,
+    0.0,
+    0.058512556941486445,
+    0.8002254667250964
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "2f95e8d554a8",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.08658392809039997,
+    0.0,
+    0.6187073822228703,
+    0.29470868968672975
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "7166621a6bf5",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+960x[6v8f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x10+1440x10+2880x3+2880x3+2880x3+2880x3+2880x3+2880x3",
+   "vertices": 2880,
+   "example": [
+    0.22085065570193585,
+    0.0,
+    0.5998790858064925,
+    0.17927025849157174
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "dde81598bfa2",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x12+1440x12+2880x3+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.2740217033794169,
+    0.0,
+    0.5767720433870949,
+    0.14920625323348818
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "cacdd913b4d6",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[9v14f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x10+1440x10+2880x3+2880x3+2880x3+2880x3+2880x3",
+   "vertices": 2880,
+   "example": [
+    0.3331590790663159,
+    0.0,
+    0.6243462319403064,
+    0.04249468899337764
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "1170fd3c1a9f",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[12v17f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x5+1440x6+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.25611832641610394,
+    0.0,
+    0.12555708027103843,
+    0.6183245933128576
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b2 = b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "16db6804df08",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+960x[6v8f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x6+1440x6+1440x12+1440x12+2880x3+2880x3+2880x3+2880x3+2880x3+2880x3+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.1442281910815516,
+    0.0,
+    0.605810653530279,
+    0.24996115538816957
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "0b6d68ae8211",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[12v17f]+960x[6v8f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x6+1440x7+1440x8+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.10723197373910535,
+    0.0,
+    0.6338871343785754,
+    0.25888089188231916
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "3bae326e0265",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x8+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.05127229747904262,
+    0.0,
+    0.8236191265361348,
+    0.12510857598482264
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "070b671a6ba7",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x5+1440x6+1440x8+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.1818423537496276,
+    0.0,
+    0.0574754078899147,
+    0.7606822383604578
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b2 = b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "27ac0fa5cd4b",
+   "signature": "2880: cells 240x[12v14f]+480x[6v8f]+480x[6v8f]+1440x[4v4f]+1440x[6v7f]+1440x[6v7f] | faces 720x4g+960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x5+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.8110825341611578,
+    0.0,
+    0.14704394278958416,
+    0.04187352304925806
+   ],
+   "strata": [
+    "face b2 = 0",
+    "line b2 = b3 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "a8e2a892cc7d",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x6+1440x10+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.1250714467274045,
+    0.0,
+    0.04232202733547385,
+    0.8326065259371217
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b2 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "4e8d5797255d",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x8+1440x12+1440x12+2880x3+2880x3+2880x3+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.1666889731951868,
+    0.0,
+    0.7914375037555551,
+    0.04187352304925806
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "f61083fa4719",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x6+1440x10+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.20830649966296907,
+    0.0,
+    0.04232202733547385,
+    0.749371473001557
+   ],
+   "strata": [
+    "face b2 = 0",
+    "face b3 = 0",
+    "line b2 = b3 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "b945e5651fdd",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x12+1440x14+2880x3+2880x3+2880x3+2880x3+2880x4+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.37477660553409825,
+    0.0,
+    0.5417323449488615,
+    0.08349104951704035
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "4da9b751c8d0",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x12+1440x14+2880x3+2880x3+2880x4+2880x4+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.4163941320018805,
+    0.0,
+    0.5417323449488615,
+    0.04187352304925806
+   ],
+   "strata": [
+    "face b2 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "abee14417700",
+   "signature": "2880: cells 240x[12v14f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.4996291849374451,
+    0.0,
+    0.04232202733547385,
+    0.458048787727081
+   ],
+   "strata": [
+    "face b2 = 0",
+    "line b2 = b3 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "32604d11723e",
+   "signature": "2880: cells 240x[12v14f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+2880x3+2880x3+2880x3+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.749334343744139,
+    0.0,
+    0.04232202733547385,
+    0.20834362892038727
+   ],
+   "strata": [
+    "face b2 = 0",
+    "line b2 = b3 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "52806e416597",
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+2880x3+2880x3+2880x3+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.7916935247215648,
+    0.16584936187357635,
+    0.0,
+    0.042457113404859
+   ],
+   "strata": [
+    "face b3 = 0",
+    "face b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "8906740db4ef",
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x10+2880x3+2880x3+2880x3+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.07098967883255355,
+    0.27730556718880817,
+    0.0,
+    0.6517047539786383
+   ],
+   "strata": [
+    "face b3 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "db61e2e84d2a",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f] | faces 720x4g+960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x6+1440x6+1440x9+2880x3+2880x3+2880x3+2880x5",
+   "vertices": 2880,
+   "example": [
+    0.3332293794670599,
+    0.3496983106067799,
+    0.0,
+    0.3170723099261601
+   ],
+   "strata": [
+    "face b3 = 0",
+    "face b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "4378938566e3",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v8f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x4+1440x10+2880x3+2880x3+2880x3+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.6495639146290781,
+    0.14204849354654725,
+    0.0,
+    0.20838759182437477
+   ],
+   "strata": [
+    "face b3 = 0",
+    "face b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "14b10e9d9380",
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+2880x3+2880x4+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.16983106287694616,
+    0.663407653543614,
+    0.0,
+    0.16676128357944006
+   ],
+   "strata": [
+    "face b3 = 0",
+    "face b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "2c0d36b57a9d",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x6+1440x8+2880x3+2880x3+2880x4+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.20835045473225586,
+    0.6665145699332388,
+    0.0,
+    0.12513497533450535
+   ],
+   "strata": [
+    "face b3 = 0",
+    "face b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "076a274811fa",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x6+1440x6+1440x8+1440x12+2880x3+2880x3+2880x3+2880x3+2880x7",
+   "vertices": 2880,
+   "example": [
+    0.45810830420186405,
+    0.2502514874838918,
+    0.0,
+    0.2916402083142442
+   ],
+   "strata": [
+    "face b3 = 0",
+    "face b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "8cd3bc68ed80",
+   "signature": "2880: cells 240x[24v32f]+480x[6v8f]+480x[12v14f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x6g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.04182645844818792,
+    0.3819459091265748,
+    0.5762276324252374,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "96fddb749551",
+   "signature": "2880: cells 240x[24v44f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x8+1440x8+1440x8+2880x3+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.16665002788418945,
+    0.41656856741105724,
+    0.4167814047047532,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "28300feb758c",
+   "signature": "2880: cells 240x[24v20f]+480x[6v8f]+480x[18v14f]+720x[4v4f]+2880x[4v4f] | faces 960x3g+960x9g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x6+1440x7+2880x3+2880x3",
+   "vertices": 2880,
+   "example": [
+    0.3583448885059575,
+    0.17509534644669364,
+    0.4665597650473491,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "36e258d4f7df",
+   "signature": "2880: cells 240x[12v8f]+480x[6v8f]+480x[12v14f]+720x[4v4f]+960x[6v8f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+960x6g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x8+1440x8+2880x3+2880x3+2880x3+2880x4",
+   "vertices": 2880,
+   "example": [
+    0.35124457775417217,
+    0.10187332046940442,
+    0.5468821017764236,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0",
+    "line b2 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "028fdf32bc16",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x4+1440x7+1440x12+2880x3+2880x3+2880x4+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.13606388754022306,
+    0.6551935633928956,
+    0.20874254906688114,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0"
+   ],
+   "only_at_a_change": true,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "12ca4772890d",
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x4+1440x8+1440x14+2880x3+2880x3+2880x4+2880x5+2880x6",
+   "vertices": 2880,
+   "example": [
+    0.08343410154912317,
+    0.7078233493839956,
+    0.20874254906688114,
+    0.0
+   ],
+   "strata": [
+    "face b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "7465267cd9b6",
+   "signature": "1440: cells 240x[6v8f]+480x[6v8f]+480x[6v8f]+960x[6v8f]+1440x[4v4f] | faces 960x3g+960x3g+960x3g+2880x3g+2880x3g+2880x3g | edges 720x4+1440x4+1440x6+2880x3+2880x3",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.41408416550311683,
+    0.5859158344968831,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0",
+    "point(0,0,1,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "2f41ae404d62",
+   "signature": "1440: cells 240x[12v8f]+480x[6v8f]+480x[12v14f] | faces 960x3g+960x6g+1440x3g+2880x3g | edges 720x4+1440x3+1440x4+2880x3",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.6180339868834989,
+    0.38196601311650114,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0",
+    "point(0,1,0,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "9fc73ba17c51",
+   "signature": "1440: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+1440x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 720x4+1440x3+1440x4+1440x8+2880x3+2880x4",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.4166610195031182,
+    0.5833389804968819,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "baf95c7dc2b1",
+   "signature": "1440: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+1440x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 720x8+1440x4+1440x5+1440x6+2880x3+2880x3",
+   "vertices": 1440,
+   "example": [
+    0.0,
+    0.6247447669252443,
+    0.37525523307475583,
+    0.0
+   ],
+   "strata": [
+    "line b1 = b4 = 0"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "90e4431c1ce1",
+   "signature": "960: cells 240x[4v4f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f] | faces 960x3g+2880x3g+2880x3g+2880x3g | edges 480x6+1440x4+1440x4+1440x4+1440x6",
+   "vertices": 960,
+   "example": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "strata": [
+    "point(1,0,0,0)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  },
+  {
+   "key": "1813106ecd49",
+   "signature": "240: cells 720x[4v4f]+1440x[4v4f] | faces 1440x3g+2880x3g | edges 480x6+480x12+1440x3",
+   "vertices": 240,
+   "example": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "strata": [
+    "point(0,0,0,1)"
+   ],
+   "only_at_a_change": false,
+   "symmetry_in_contic": 1440,
+   "improper": 0
+  }
+ ]
+}
