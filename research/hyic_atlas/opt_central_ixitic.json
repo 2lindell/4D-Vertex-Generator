@@ -1353,42 +1353,40 @@
   },
   {
    "name": "hidhi",
-   "kind": "line",
-   "degrees": 1,
+   "kind": "point",
+   "degrees": 0,
    "key": "47481ab40611",
    "locus": [],
    "sheet": "ix5",
    "seed": [
-    0.4999999990168253,
+    0.5,
     0.0,
     0.0,
-    0.5000000009831747
+    0.5
    ],
-   "start_R": 1.6180339877667407,
-   "R": 1.3946421831896625,
+   "start_R": 1.6180339887501425,
+   "R": 1.6180339887501425,
    "optimized": [
-    0.4999999990167073,
+    0.5,
     0.0,
     0.0,
-    0.5000000009832928
+    0.5
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "a point: no freedom (the exact seed)",
    "central": [
-    0.4999999990168253,
+    0.5,
     0.0,
     0.0,
-    0.5000000009831747
+    0.5
    ],
-   "depth": 0.2185080110995379,
-   "central_status": "no deeper point found: the seed itself",
-   "seed_off": "new_shapes/off/ixitic/ixitic_line_hidhi_480v_1412c_seed.off",
-   "seed_R": 1.6180339877669605,
-   "opt_note": "moved to another polytope: the seed is written instead",
-   "opt_off": "optimized_off/ixitic/hidhi_480v_1412c_opt.off",
-   "opt_R": 1.6180339877669605,
-   "central_note": "moved to another polytope: the seed is written instead",
-   "central_off": "central_off/ixitic/hidhi_480v_1412c_central.off",
-   "central_R": 1.6180339877669605
+   "depth": null,
+   "central_status": "a point: the exact seed",
+   "seed_off": "new_shapes/off/ixitic/ixitic_point_hidhi_480v_240c_seed.off",
+   "seed_R": 1.6180339887501425,
+   "opt_off": "optimized_off/ixitic/hidhi_480v_240c_opt.off",
+   "opt_R": 1.6180339887501425,
+   "central_off": "central_off/ixitic/hidhi_480v_240c_central.off",
+   "central_R": 1.6180339887501425
   },
   {
    "name": "gagyptady",
@@ -1503,42 +1501,40 @@
   },
   {
    "name": "matethi",
-   "kind": "line",
-   "degrees": 1,
+   "kind": "point",
+   "degrees": 0,
    "key": "9aa686e5af71",
    "locus": [],
    "sheet": "ix7",
    "seed": [
     0.0,
-    0.6180339863193349,
-    0.3819660136806651,
+    0.6180339887498949,
+    0.3819660112501051,
     0.0
    ],
-   "start_R": 2.2882456076306528,
-   "R": 2.2882456076306528,
+   "start_R": 1.6180339887501674,
+   "R": 1.6180339887501674,
    "optimized": [
     0.0,
-    0.6180339863193349,
-    0.3819660136806651,
+    0.6180339887498949,
+    0.3819660112501051,
     0.0
    ],
-   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "optimized_status": "a point: no freedom (the exact seed)",
    "central": [
     0.0,
-    0.6180339863193349,
-    0.3819660136806651,
+    0.6180339887498949,
+    0.3819660112501051,
     0.0
    ],
-   "depth": 0.5401815169127837,
-   "central_status": "no deeper point found: the seed itself",
-   "seed_off": "new_shapes/off/ixitic/ixitic_line_matethi_720v_716c_seed.off",
-   "seed_R": 2.288245607630895,
-   "opt_note": "moved to another polytope: the seed is written instead",
-   "opt_off": "optimized_off/ixitic/matethi_720v_716c_opt.off",
-   "opt_R": 2.288245607630895,
-   "central_note": "moved to another polytope: the seed is written instead",
-   "central_off": "central_off/ixitic/matethi_720v_716c_central.off",
-   "central_R": 2.288245607630895
+   "depth": null,
+   "central_status": "a point: the exact seed",
+   "seed_off": "new_shapes/off/ixitic/ixitic_point_matethi_720v_240c_seed.off",
+   "seed_R": 1.6180339887501674,
+   "opt_off": "optimized_off/ixitic/matethi_720v_240c_opt.off",
+   "opt_R": 1.6180339887501674,
+   "central_off": "central_off/ixitic/matethi_720v_240c_central.off",
+   "central_R": 1.6180339887501674
   },
   {
    "name": "sabtedy",

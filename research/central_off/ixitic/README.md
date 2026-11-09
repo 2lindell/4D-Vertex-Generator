@@ -40,11 +40,11 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixit
 | ixitic_wall_10 | wall | ix5 | 4.68e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.249799212, 0.566622469, 0.0, 0.183578319] | ixitic_wall_10_1440v_3600c_central.off |
 | ixitic_wall_12 | wall | ix5 | 2.68e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.499382666, 0.156294499, 0.208689183, 0.135633652] | ixitic_wall_12_1440v_5040c_central.off |
 | ixitic_wall_13 | wall | ix5 | 2.51e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.296387149, 0.442736096, 0.0, 0.260876755] | ixitic_wall_13_1440v_5760c_central.off |
-| hidhi | line | ix5 | 2.19e-01 | no deeper point found: the seed itself; moved to another polytope: the seed is written instead | [0.499999999, 0.0, 0.0, 0.500000001] | hidhi_480v_1412c_central.off |
+| hidhi | point | ix5 | - | a point: the exact seed | [0.5, 0.0, 0.0, 0.5] | hidhi_480v_240c_central.off |
 | gagyptady | line | ix5 | 4.71e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.533305797, 0.0, 0.0, 0.466694203] | gagyptady_480v_2160c_central.off |
 | sartethi | line | ix5 | 4.68e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.53311436, 0.0, 0.46688564, 0.0] | sartethi_1440v_1680c_central.off |
 | sestuthi | region | ix7 | 1.00e+00 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.0, 0.134688695, 0.083242192, 0.782069112] | sestuthi_1440v_1920c_central.off |
-| matethi | line | ix7 | 5.40e-01 | no deeper point found: the seed itself; moved to another polytope: the seed is written instead | [0.0, 0.618033986, 0.381966014, 0.0] | matethi_720v_716c_central.off |
+| matethi | point | ix7 | - | a point: the exact seed | [0.0, 0.618033989, 0.381966011, 0.0] | matethi_720v_240c_central.off |
 | sabtedy | line | ix7 | 2.13e-02 | no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted | [0.0, 0.633121109, 0.366878891, 0.0] | sabtedy_720v_1680c_central.off |
 | gastethi | wall | ix8 | 1.37e-01 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.498098573, 0.197395387, 0.304506039, 0.0] | gastethi_1440v_3120c_central.off |
 | ixitic_region_20 | region | ix9 | 5.14e-02 | deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted | [0.340736127, 0.389852228, 0.181359963, 0.088051682] | ixitic_region_20_1440v_8640c_central.off |

@@ -49,11 +49,11 @@ ixitic) keep it.
 |  | wall | 1440 | 7200 | {3: 5760, 4: 5040, 7: 1440, 12: 720} | 1440 | 1440 |  | 1 | [0.08341, 0.6237, 0.25103, 0.04185] (ix9) |
 |  | wall | 1440 | 6480 | {3: 3600, 4: 5760, 6: 1440, 11: 720} | 1440 | 1440 |  | 1 | [0.09916, 0.53205, 0.27486, 0.09392] (ix9) |
 | awosbitdy | wall | 1440 | 6480 | {3: 7200, 4: 2880, 8: 1440, 12: 720} | 1440 | 1440 |  | 1 | [0.21558, 0.4303, 0.19558, 0.15854] (ix9) |
-| hidhi | line | 480 | 240 | {3: 1440} | 1440 | 1440 |  | 8 | [0.5, 0.0, 0.0, 0.5] (ix5) |
+| hidhi | point | 480 | 240 | {3: 1440} | 1440 | 1440 |  | 8 | [0.5, 0.0, 0.0, 0.5] (ix5) |
 | tisthi | line | 480 | 1440 | {3: 1440, 4: 720, 6: 720} | 1440 | 1440 |  | 6 | [0.03349, 0.96651, 0.0, 0.0] (ix0) |
 | sagyptady | line | 480 | 2160 | {3: 1440, 4: 720, 6: 1440} | 1440 | 1440 |  | 2 | [0.0335, 0.0, 0.0, 0.9665] (ix0) |
 | gagyptady | line | 480 | 2160 | {3: 1440, 4: 1440, 8: 720} | 1440 | 1440 |  | 2 | [0.53331, 0.0, 0.0, 0.46669] (ix5) |
-| matethi | line | 720 | 240 | {3: 2160} | 1440 | 1440 |  | 6 | [0.0, 0.61803, 0.38197, 0.0] (ix7) |
+| matethi | point | 720 | 240 | {3: 2160} | 1440 | 1440 |  | 6 | [0.0, 0.61803, 0.38197, 0.0] (ix7) |
 | ratehi | line | 720 | 720 | {3: 3600} | 1440 | 1440 |  | 10 | [0.03348, 0.0, 0.96652, 0.0] (ix0) |
 | sabtedy | line | 720 | 1680 | {3: 2880, 5: 1440} | 1440 | 1440 |  | 2 | [0.0, 0.63312, 0.36688, 0.0] (ix7) |
 | tasthi | line | 1440 | 240 | {3: 2880} | 1440 | 1440 |  | 5 | [0.03349, 0.96651, 0.0, 0.0] (ix4) |
@@ -61,7 +61,7 @@ ixitic) keep it.
 | sartethi | line | 1440 | 1680 | {3: 2880, 4: 2880} | 1440 | 1440 |  | 4 | [0.53311, 0.0, 0.46689, 0.0] (ix5) |
 | tehi | point | 120 | 600 | {5: 720} | 14400 | 1440 |  | 10 | [1.0, 0.0, 0.0, 0.0] (ix0) |
 
-Totals: {'region': 22, 'wall': 16, 'line': 10, 'point': 1}.
+Totals: {'region': 22, 'wall': 16, 'point': 3, 'line': 8}.
 
 Names from the accepted ixitic list, matched by edge valences at a vertex and by cells. Notes:
 
@@ -78,3 +78,5 @@ Names from the accepted ixitic list, matched by edge valences at a vertex and by
 - atlas shapes with exactly ixitic symmetry and no name in the list: 21.
 
 - added from the surface survey (add_survey_shapes.py): 41ab2de5065a (ix9, 6480 cells), awosbitdy (ix9, 6480 cells)
+
+- hidhi and matethi: points, not lines (line_check.py: each is an isolated change point on its line, hidhi at b1 = b4 on b2 = b3 = 0 and matethi at b2 / (b2 + b3) = (sqrt(5) - 1)/2 on b1 = b4 = 0), as the accepted list has them; fix_points.py
