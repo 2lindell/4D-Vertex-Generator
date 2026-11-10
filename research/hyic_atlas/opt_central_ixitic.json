@@ -24,19 +24,19 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.03347064943251924,
-    0.03369039274535676,
-    0.932838957822124,
+    -0.016672743985433013,
+    0.25217599254399237,
+    0.7644967514414407,
     0.0
    ],
    "depth": 1.0,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "central_status": "centre of the shape's extent (chords to where its polytope changes, seams crossed); some chords reach the 1.0 cap (the shape extends that far)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_stotathi_1440v_1440c_seed.off",
    "seed_R": 31.682636455657615,
    "opt_off": "optimized_off/ixitic/stotathi_1440v_1440c_opt.off",
    "opt_R": 3.139124394836198,
    "central_off": "central_off/ixitic/stotathi_1440v_1440c_central.off",
-   "central_R": 5.4236895066936945
+   "central_R": 4.888947818394634
   },
   {
    "name": "sagypsobtady",
