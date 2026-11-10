@@ -83,7 +83,18 @@ def job(row):
         rank = int((S > 1e-9).sum())
         return Vt[rank:]                             # (orthonormal rows spanning the locus's tangent space)
 
+    def chamber(x, d):
+        """How far x + t d stays in the sheet's own chamber (its nonzero betas positive)."""
+        ts = [-x[i] / d[i] for i in range(4) if i not in zero and d[i] < -1e-15]
+        return min([t for t in ts if t > 0] + [MAXLEN])
+
     def reach(x, d):
+        r = change(x, d)
+        # (a shape that runs on past the cap across the seams has no centre of its own there: the chord stops at
+        #  the sheet's chamber instead -- the seams then bound it, as in one sheet)
+        return r if r < MAXLEN else max(chamber(x, d), 1e-6)
+
+    def change(x, d):
         lo, t = 0.0, STEP / 2                        # (steps doubling: 0.005, 0.01, 0.02, ... then bisection)
         while t <= MAXLEN:
             p = proj(x + t * d)
@@ -124,10 +135,10 @@ def job(row):
         x = y
         if step < 1e-4:
             break
-    unbounded = bool((R >= MAXLEN).any())
+    unbounded = any(change(x, d) >= MAXLEN for d in D)
     return {"name": row["name"], "centre": list(map(float, x)), "depth": float(R.min()), "iterations": it + 1,
-            "status": ("centre of the shape's extent (chords to where its polytope changes, seams crossed)"
-                       + ("; some chords reach the 1.0 cap (the shape extends that far)" if unbounded else ""))}
+            "status": ("centre of the shape's extent v2 (chords to where its polytope changes, seams crossed"
+                       + ("; where it runs on past the cap, to the sheet's chamber)" if unbounded else ")"))}
 
 
 rows = json.loads(sys.stdin.read())
@@ -173,7 +184,7 @@ def run(oc, atlas, envvar, only):
     for r in O["shapes"]:
         if r["kind"] == "point" or (only and r["name"] not in only):
             continue
-        if not only and r.get("central_status", "").startswith("centre of the shape's extent"):
+        if not only and r.get("central_status", "").startswith("centre of the shape's extent v2"):
             continue                                    # (done in an earlier run)
         by.setdefault(r["sheet"], []).append({
             "name": r["name"], "key": r["key"], "seed": r["seed"], "locus": r["locus"] if r["kind"] == "wall" else [],
