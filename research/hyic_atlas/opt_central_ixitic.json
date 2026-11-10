@@ -98,19 +98,19 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.03347701135505291,
+    0.4856877654203144,
     0.0,
-    0.033865609849835214,
-    0.9326573787951119
+    0.7056129703150704,
+    -0.19130073573538475
    ],
-   "depth": 1.0,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.5798634338378909,
+   "central_status": "centre of the shape's extent (chords to where its polytope changes, seams crossed); some chords reach the 1.0 cap (the shape extends that far)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_mestuthi_1440v_3600c_seed.off",
    "seed_R": 30.181833907747954,
    "opt_off": "optimized_off/ixitic/mestuthi_1440v_3600c_opt.off",
    "opt_R": 2.001907903790501,
    "central_off": "central_off/ixitic/mestuthi_1440v_3600c_central.off",
-   "central_R": 3.9633576589184925
+   "central_R": 8.814185023849376
   },
   {
    "name": "sisbethi_or_unnamed_1",
