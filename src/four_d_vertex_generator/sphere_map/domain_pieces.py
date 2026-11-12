@@ -1451,7 +1451,7 @@ def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8, off=None):
             long_ = [e for e, d in zip(long_, _off_surface(s, M)) if d > 0.5 * off]
         if not long_:
             break
-        taken, newF, split_at = set(), [], {}
+        taken, newF, split_at, flips = set(), [], {}, {}
         for e in sorted(long_, key=lambda e: -np.linalg.norm(X[min(e)] - X[max(e)])):
             t1, t2 = edges[e]
             if t1 in taken or t2 in taken:
@@ -1489,11 +1489,30 @@ def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8, off=None):
                     y = yy
                     break
             if y is None:
+                if off is not None and len(F[t1]) == 3:
+                    # (no split will do: the quad's other diagonal instead, if it keeps nearer the
+                    # surface and turns nothing over; the next round may split that)
+                    a_ = [q for q in F[t1] if q not in e][0]
+                    b_ = [q for q in F[t2] if q not in e][0]
+                    k_ = next(k for k in range(3) if frozenset((F[t1][k], F[t1][(k + 1) % 3])) == e)
+                    p_, q_ = F[t1][k_], F[t1][(k_ + 1) % 3]
+                    nt1, nt2 = [p_, b_, a_], [b_, q_, a_]
+                    Xa_ = np.array(X)
+                    m2 = (Xa_[a_] + Xa_[b_]) / 2
+                    sn = np.array([normal(x) for x in Xa_[[nt1, nt2]].mean(1)])
+                    if (a_ != b_ and frozenset((a_, b_)) not in edges
+                            and _off_surface(s, m2[None])[0] < _off_surface(s, m[None])[0]
+                            and not _turned(_tri_normals(Xa_, np.array([nt1, nt2])), sn)):
+                        flips[t1], flips[t2] = nt1, nt2
+                        taken |= {t1, t2}
                 continue
             X.append(y)
             split_at[e] = len(X) - 1
             taken |= {t1, t2}
         for t_i, t in enumerate(F):
+            if t_i in flips:
+                newF.append(flips[t_i])
+                continue
             if t_i not in taken:
                 newF.append(t)
                 continue
@@ -1879,9 +1898,18 @@ def export(log=print, workers=4):
             if share >= 0.95:
                 # (kept on the surface: long thin triangles across a curved part split)
                 n0_ = len(f["tris"])
-                f["verts"], f["tris"] = onto_surface(D, key, f["verts"], f["tris"], FINE_TOL)
-                if len(f["tris"]) != n0_:
-                    stats["fine meshes split onto the surface"] += 1
+                bad = not isinstance(key, str) and \
+                    _off_surface(D.lib[key], _mesh_samples(f["verts"], f["tris"])).max() > 5 * FINE_TOL
+                cr0 = coarse(D, key, f["rings"]) if bad else None
+                if cr0 is not None:
+                    # (a fine mesh of long thin triangles across a strongly curved sheet: the coarse
+                    # one, well shaped, split onto the surface as finely instead)
+                    f["verts"], f["tris"] = onto_surface(D, key, cr0[0], cr0[1], FINE_TOL)
+                    stats["fine meshes remade from the coarse one, onto the surface"] += 1
+                else:
+                    f["verts"], f["tris"] = onto_surface(D, key, f["verts"], f["tris"], FINE_TOL)
+                    if len(f["tris"]) != n0_:
+                        stats["fine meshes split onto the surface"] += 1
                 faces[-1]["verts"] = [nv, nv + len(f["verts"])]
                 faces[-1]["tris"] = [sum(len(t) for t in T), sum(len(t) for t in T) + len(f["tris"])]
             tris_f = f["tris"]
