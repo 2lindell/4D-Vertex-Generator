@@ -541,15 +541,6 @@ def main(src_dir, out_path):
     for fc in faces:
         for i in {d[3] for d in fc["drawn"]}:
             ecount[(fc["f"]["wall"], i)] += 1
-    # ... and where a wall crossing its sheet ends it, the sheet going on past as another wall (X101
-    # ends at X26, its sheet going on as X79): dashed too, as a wall cut there
-    sheet_on = defaultdict(set)
-    for fc in faces:
-        for i in {d[3] for d in fc["drawn"]}:
-            sheet_on[(fc["f"]["sheet"], i)].add(fc["f"]["wall"])
-
-    def is_cut(fc, kind, i):
-        return ecount[(fc["f"]["wall"], i)] >= 2 or (kind in ("meet", "cross") and len(sheet_on[(fc["f"]["sheet"], i)]) >= 2)
 
     # (a face whose mesh is far denser than the rest, its rim's short steps crowding it: shown with
     # its coarser mesh in the half-cell too)
@@ -571,15 +562,13 @@ def main(src_dir, out_path):
             if (w, i) in done:
                 continue
             done.add((w, i))
-            cut = is_cut(fc, kind, i)
+            cut = ecount[(w, i)] >= 2
             for Q in draw(P):
                 if len(Q) < 2:
                     continue
                 what = (f"on {nm}" if kind == "line" else f"where {nm} meets it")
-                hv = (f"{w} · ends {what}, its sheet going on past it as {', '.join(sheet_on[(fc['f']['sheet'], i)] - {w})}"
-                      if cut and ecount[(w, i)] < 2 else
-                      f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}")
-                out.append({"id": w, "outline": True, "copy": cut, "pts": Q, "hover": hv})
+                out.append({"id": w, "outline": True, "copy": cut, "pts": Q,
+                            "hover": f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}"})
         return out
 
     # the named lines: every stretch once
@@ -679,7 +668,7 @@ def main(src_dir, out_path):
                         for Q in draw(P):
                             if len(Q) > 1:
                                 shells[r]["rim"].append({"pts": thin(Q, line_tol).tolist(),
-                                                         "dash": is_cut(fc, kind, i)})
+                                                         "dash": ecount[(w_, i)] >= 2})
                 Qc = chart(Qg.reshape(-1, 4)).reshape(-1, 3, 3)
                 for r in set(sides):
                     shells[r]["tris"].append(Qc)
