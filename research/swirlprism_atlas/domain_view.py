@@ -521,11 +521,12 @@ def main(src_dir, out_path):
         F = tris[f["tris"][0]:f["tris"][1]]
         drawn = []
         for i in f["edges"]:
-            if E[i]["kind"] in ("line", "meet", "cross"):
+            # (also where the wall meets a face of the domain: it goes on across it into its copy)
+            if E[i]["kind"] in ("line", "meet", "cross", "face"):
                 drawn.append((E[i]["kind"], E[i]["name"], to_sphere(edge_pts(i)), i))
         a, b = f["sides"]
         lines = sorted({n for k, n, _, _ in drawn if k == "line"})
-        meets = sorted({n for k, n, _, _ in drawn if k != "line"})
+        meets = sorted({n for k, n, _, _ in drawn if k not in ("line", "face")})
         hv = (f"{f['wall']} · {names.get(f['wall'], f['wall'])}<br>wall piece between {a} and {b}"
               + (f"<br>edges on {', '.join(lines)}" if lines else "")
               + (f"<br>met by {', '.join(meets)}" if meets else ""))
@@ -562,13 +563,14 @@ def main(src_dir, out_path):
             if (w, i) in done:
                 continue
             done.add((w, i))
-            cut = ecount[(w, i)] >= 2
+            cut = ecount[(w, i)] >= 2 or kind == "face"
             for Q in draw(P):
                 if len(Q) < 2:
                     continue
                 what = (f"on {nm}" if kind == "line" else f"where {nm} meets it")
-                out.append({"id": w, "outline": True, "copy": cut, "pts": Q,
-                            "hover": f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}"})
+                hv = (f"{w} · going on across the {nm[5:]} face of the domain, into its copy" if kind == "face"
+                      else f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}")
+                out.append({"id": w, "outline": True, "copy": cut, "pts": Q, "hover": hv})
         return out
 
     # the named lines: every stretch once
@@ -668,7 +670,7 @@ def main(src_dir, out_path):
                         for Q in draw(P):
                             if len(Q) > 1:
                                 shells[r]["rim"].append({"pts": thin(Q, line_tol).tolist(),
-                                                         "dash": ecount[(w_, i)] >= 2})
+                                                         "dash": ecount[(w_, i)] >= 2 or kind == "face"})
                 Qc = chart(Qg.reshape(-1, 4)).reshape(-1, 3, 3)
                 for r in set(sides):
                     shells[r]["tris"].append(Qc)
