@@ -521,12 +521,11 @@ def main(src_dir, out_path):
         F = tris[f["tris"][0]:f["tris"][1]]
         drawn = []
         for i in f["edges"]:
-            # (also where the wall meets a face of the domain: it goes on across it into its copy)
-            if E[i]["kind"] in ("line", "meet", "cross", "face"):
+            if E[i]["kind"] in ("line", "meet", "cross"):
                 drawn.append((E[i]["kind"], E[i]["name"], to_sphere(edge_pts(i)), i))
         a, b = f["sides"]
         lines = sorted({n for k, n, _, _ in drawn if k == "line"})
-        meets = sorted({n for k, n, _, _ in drawn if k not in ("line", "face")})
+        meets = sorted({n for k, n, _, _ in drawn if k != "line"})
         hv = (f"{f['wall']} · {names.get(f['wall'], f['wall'])}<br>wall piece between {a} and {b}"
               + (f"<br>edges on {', '.join(lines)}" if lines else "")
               + (f"<br>met by {', '.join(meets)}" if meets else ""))
@@ -542,6 +541,15 @@ def main(src_dir, out_path):
     for fc in faces:
         for i in {d[3] for d in fc["drawn"]}:
             ecount[(fc["f"]["wall"], i)] += 1
+    # ... and where a wall crossing its sheet ends it, the sheet going on past as another wall (X101
+    # ends at X26, its sheet going on as X79): dashed too, as a wall cut there
+    sheet_on = defaultdict(set)
+    for fc in faces:
+        for i in {d[3] for d in fc["drawn"]}:
+            sheet_on[(fc["f"]["sheet"], i)].add(fc["f"]["wall"])
+
+    def is_cut(fc, kind, i):
+        return ecount[(fc["f"]["wall"], i)] >= 2 or (kind in ("meet", "cross") and len(sheet_on[(fc["f"]["sheet"], i)]) >= 2)
 
     # (a face whose mesh is far denser than the rest, its rim's short steps crowding it: shown with
     # its coarser mesh in the half-cell too)
@@ -563,13 +571,14 @@ def main(src_dir, out_path):
             if (w, i) in done:
                 continue
             done.add((w, i))
-            cut = ecount[(w, i)] >= 2 or kind == "face"
+            cut = is_cut(fc, kind, i)
             for Q in draw(P):
                 if len(Q) < 2:
                     continue
                 what = (f"on {nm}" if kind == "line" else f"where {nm} meets it")
-                hv = (f"{w} · going on across the {nm[5:]} face of the domain, into its copy" if kind == "face"
-                      else f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}")
+                hv = (f"{w} · ends {what}, its sheet going on past it as {', '.join(sheet_on[(fc['f']['sheet'], i)] - {w})}"
+                      if cut and ecount[(w, i)] < 2 else
+                      f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}")
                 out.append({"id": w, "outline": True, "copy": cut, "pts": Q, "hover": hv})
         return out
 
@@ -670,7 +679,7 @@ def main(src_dir, out_path):
                         for Q in draw(P):
                             if len(Q) > 1:
                                 shells[r]["rim"].append({"pts": thin(Q, line_tol).tolist(),
-                                                         "dash": ecount[(w_, i)] >= 2 or kind == "face"})
+                                                         "dash": is_cut(fc, kind, i)})
                 Qc = chart(Qg.reshape(-1, 4)).reshape(-1, 3, 3)
                 for r in set(sides):
                     shells[r]["tris"].append(Qc)
