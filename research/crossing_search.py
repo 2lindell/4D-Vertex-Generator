@@ -25,7 +25,8 @@ OUT = os.path.join(HERE, "crossing_search")
 ATLAS = {"contic": ("contic_atlas", "CONTIC_SUB"), "decaic": ("decaic_atlas", "DECAIC_SUB"),
          "hyic": ("hyic_atlas", "HYIC_SUB")}
 FAMILY = {"contic": [("toxitic_atlas/toxitic_shapes.json", ("toxitic", "oxitic"))],
-          "hyic": [("hyic_atlas/ixitic_shapes.json", ("shapes",))], "decaic": []}
+          "hyic": [("hyic_atlas/ixitic_shapes.json", ("shapes",)), ("hyic_atlas/ixoic_shapes.json", ("shapes",))],
+          "decaic": []}
 
 CODE = r'''
 import json, os, sys, itertools
@@ -162,6 +163,8 @@ def run(atlas, subs):
     os.makedirs(OUT, exist_ok=True)
     fam = []
     for f, groups in FAMILY[atlas]:
+        if not os.path.exists(os.path.join(HERE, f)):
+            continue
         d = json.load(open(os.path.join(HERE, f)))
         for g in groups:
             fam += [s["key"] for s in d[g]]

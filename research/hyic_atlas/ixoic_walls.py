@@ -5,7 +5,10 @@ Ixoic is not inside H4: its elements have entries (a + b sqrt2 + c sqrt5 + d sqr
 points. group.exact now writes ixoic's elements over Q(sqrt2, sqrt5); here, for every region and wall type of a
 sheet's map, its forms (forms.region_forms: one quartic per face class and side) are evaluated at the sheet's wall
 points, and only the forms vanishing at one (|f| / |grad f| < 1e-7) are factored, over Q(sqrt2, sqrt5) (over Q after
-60 s); the factors vanishing at wall points are the sheet's wall surfaces. Each wall point is assigned its surface,
+20 s: in practice the Q(sqrt2, sqrt5) factorisation does not finish, and over a single sqrt the coefficients, which
+mix sqrt2 and sqrt5, do not fit, so the surfaces are the whole quartic forms -- each the product of the walls' true
+factors, vanishing on every wall it bounds and on its conjugate sheets); the ones vanishing at wall points are the
+sheet's wall surfaces. Each wall point is assigned its surface,
 the map's wall summary and surfaces list rewritten, and the coverage reported.
 
     python ixoic_walls.py [ixo0 ...]
@@ -96,7 +99,8 @@ if __name__ == "__main__":
     summ = Counter((w["surface"], tuple(w["sides"]), w["wall_type"]) for w in M["wall_points"])
     M["walls"] = [{"surface": s, "sides": list(sd), "wall_type": wt, "crossings": n} for (s, sd, wt), n in summ.most_common()]
     M["surfaces"] = surfs
-    M["surfaces_note"] = "fitted after the map by ixoic_walls.py (exact over Q(sqrt2, sqrt5))"
+    M["surfaces_note"] = ("fitted after the map by ixoic_walls.py (exact over Q(sqrt2, sqrt5); whole forms where the "
+                          "factorisation did not finish)")
     json.dump(M, open(path, "w"), indent=1)
     try:
         wp = G.fname("wall_shapes")
