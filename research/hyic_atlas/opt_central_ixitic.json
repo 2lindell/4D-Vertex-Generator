@@ -61,19 +61,19 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 1.224745; the polytope's 1.225439); re-optimised crossing the mirrors and the fold (was R 2.164207)",
    "central": [
-    0.04181575629968275,
-    0.04209028735820387,
-    0.04230115028494325,
-    0.8737928060571701
+    0.1868873162796828,
+    0.29720728839664906,
+    0.14593056256293382,
+    0.36997483276073434
    ],
-   "depth": 0.013747742809648458,
-   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.17255302429199215,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sagypsobtady_1440v_3600c_seed.off",
    "seed_R": 14.158654538605655,
    "opt_off": "optimized_off/ixitic/sagypsobtady_1440v_3600c_opt.off",
    "opt_R": 1.2254394484175564,
    "central_off": "central_off/ixitic/sagypsobtady_1440v_3600c_central.off",
-   "central_R": 3.1647738906052885
+   "central_R": 3.4846835543436576
   },
   {
    "name": "mestuthi",
@@ -135,19 +135,19 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.000002); re-optimised crossing the mirrors and the fold (was R 2.001633)",
    "central": [
-    0.04181575629968275,
-    0.04209028735820387,
-    0.08389814722572204,
-    0.8321958091163913
+    0.11742478187396453,
+    0.057174842101342965,
+    0.25189261284459036,
+    0.5735077631801021
    ],
-   "depth": 0.00841552826655892,
-   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.07145330429077147,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sisbethi_or_unnamed_1_1440v_5040c_seed.off",
    "seed_R": 9.314561276206387,
    "opt_off": "optimized_off/ixitic/sisbethi_or_unnamed_1_1440v_5040c_opt.off",
    "opt_R": 2.0000017453249876,
    "central_off": "central_off/ixitic/sisbethi_or_unnamed_1_1440v_5040c_central.off",
-   "central_R": 3.4007156375996206
+   "central_R": 3.89426784557368
   },
   {
    "name": "sisbethi_or_unnamed_2",
@@ -172,19 +172,19 @@
    ],
    "optimized_status": "minimum inside the shape; re-optimised crossing the mirrors and the fold (was R 3.143883)",
    "central": [
-    -0.5,
-    -0.5000000000000002,
-    0.4751543966015494,
-    1.5248456033984508
+    -0.26516727599509166,
+    0.24741843863809473,
+    0.7240665719861664,
+    0.2936822653708306
    ],
-   "depth": 0.588306488063475,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.16379676818847655,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sisbethi_or_unnamed_2_1440v_5040c_seed.off",
    "seed_R": 4.08428391787111,
    "opt_off": "optimized_off/ixitic/sisbethi_or_unnamed_2_1440v_5040c_opt.off",
    "opt_R": 1.8140980120068435,
    "central_off": "central_off/ixitic/sisbethi_or_unnamed_2_1440v_5040c_central.off",
-   "central_R": 5.825044035938521
+   "central_R": 2.526023907093695
   },
   {
    "name": "ixitic_wall_03",
@@ -211,19 +211,19 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.000319); re-optimised crossing the mirrors and the fold (was R 2.060468)",
    "central": [
-    0.05166820981028174,
-    0.07689818343167565,
-    0.5112526661625041,
-    0.3601809405955386
+    0.2912987006026021,
+    0.0683500310460742,
+    0.4440984371119432,
+    0.1962528312393806
    ],
-   "depth": 0.2910635396546263,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.2862885284423828,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_wall_ixitic_wall_03_1440v_2880c_seed.off",
    "seed_R": 2.687514255939028,
    "opt_off": "optimized_off/ixitic/ixitic_wall_03_1440v_2880c_opt.off",
    "opt_R": 2.0003190811856326,
    "central_off": "central_off/ixitic/ixitic_wall_03_1440v_2880c_central.off",
-   "central_R": 3.715716699686543
+   "central_R": 6.331207923582213
   },
   {
    "name": "tisthi",
@@ -248,19 +248,19 @@
    ],
    "optimized_status": "minimum inside the shape; re-optimised crossing the mirrors and the fold (was R 2.288246)",
    "central": [
-    0.03348952501738162,
-    0.9665104749826183,
+    0.49999999999999994,
+    0.5,
     0.0,
     0.0
    ],
-   "depth": 1.0,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.7071067811865475,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_tisthi_480v_1440c_seed.off",
    "seed_R": 2.3647363968017325,
    "opt_off": "optimized_off/ixitic/tisthi_480v_1440c_opt.off",
    "opt_R": 1.3946421831897606,
    "central_off": "central_off/ixitic/tisthi_480v_1440c_central.off",
-   "central_R": 4.534567884457925
+   "central_R": 4.534567884457923
   },
   {
    "name": "sagyptady",
@@ -322,19 +322,19 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.033483870377992,
+    0.5,
     0.0,
-    0.9665161296220081,
+    0.5,
     0.0
    ],
-   "depth": 1.0,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.7071067811865476,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_ratehi_720v_720c_seed.off",
    "seed_R": 1.073796143899688,
    "opt_off": "optimized_off/ixitic/ratehi_720v_720c_opt.off",
    "opt_R": 1.0000000000001183,
    "central_off": "central_off/ixitic/ratehi_720v_720c_central.off",
-   "central_R": 3.236067977500335
+   "central_R": 3.2360679775003343
   },
   {
    "name": "tatehi",
@@ -361,17 +361,17 @@
    "central": [
     0.0,
     0.0,
-    0.03387154194805505,
-    0.966128458051945
+    0.49999999999999994,
+    0.5
    ],
-   "depth": 1.0,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.7071067811865475,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_tatehi_1440v_720c_seed.off",
    "seed_R": 28.523309022497884,
    "opt_off": "optimized_off/ixitic/tatehi_1440v_720c_opt.off",
    "opt_R": 1.0000000000002263,
    "central_off": "central_off/ixitic/tatehi_1440v_720c_central.off",
-   "central_R": 1.0000000000002676
+   "central_R": 1.0000000000002671
   },
   {
    "name": "tehi",
@@ -433,19 +433,19 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.033482663677828484,
-    0.033702485867237286,
+    0.3321486199668251,
+    0.3342797296006697,
     0.0,
-    0.9328148504549343
+    0.33357165043250514
    ],
-   "depth": 1.0,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.406941515968498,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_misrethi_1440v_2160c_seed.off",
    "seed_R": 30.45668534028916,
    "opt_off": "optimized_off/ixitic/misrethi_1440v_2160c_opt.off",
    "opt_R": 2.5741060644747726,
    "central_off": "central_off/ixitic/misrethi_1440v_2160c_central.off",
-   "central_R": 4.854101966251256
+   "central_R": 4.848227313270701
   },
   {
    "name": "gypsobtady",
