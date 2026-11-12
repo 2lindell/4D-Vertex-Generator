@@ -442,7 +442,22 @@ def main(src_dir, out_path):
         seen.add(key)
         line_runs.append((e["name"], to_sphere(P)))
 
-    def build_view(chart, planes, nd, line_tol, images, inside_only=False):
+    # the half-cell's faces (beta_i >= 0 and beta_3 >= beta_4) as half-spaces on R^4
+    Tinv = np.linalg.inv(T)
+    cell_planes = np.c_[Tinv, Tinv[:, 2] - Tinv[:, 3]].T
+    cell_planes /= np.linalg.norm(cell_planes, axis=1, keepdims=True)
+
+    def line_copies(P, planes, images):
+        """The runs of a line's copies (under images) that lie in the view (planes): the database
+        keeps a line lying in a face of the domain once, on one side of where the face is glued to
+        itself, so its other half is a copy"""
+        if planes is None:
+            return [P @ g.T for g in images]
+        Y = np.einsum("gij,nj->gni", np.asarray(images), P)
+        hit = ((Y @ planes.T) >= -CLIP_TOL).all(-1).any(-1)
+        return [R for k in np.flatnonzero(hit) for R in clip_line(Y[k], planes)]
+
+    def build_view(chart, planes, nd, line_tol, images, inside_only=False, line_planes=None, line_images=None):
         xwalls, xlines, segments, rings, main_ = [], [], [], [], []
         shells = defaultdict(lambda: {"tris": [], "rim": [], "walls": set()})
         drawn_once, rim_done = {}, set()
@@ -498,25 +513,36 @@ def main(src_dir, out_path):
                 for r in set(sides):
                     shells[r]["tris"].append(Qc)
                     shells[r]["walls"].add(fc["f"]["wall"])
+        lp = planes if line_images is None else line_planes
+        li = images if line_images is None else line_images
+        line_seen = set()
         for nm, P in line_runs:
-            for g in images:
-                runs = clip_line(P @ g.T, planes) if planes is not None else [P @ g.T]
-                for R in runs:
-                    Q = thin(chart(R), line_tol / 4).tolist()
-                    if nm in RINGS:
-                        rings.append({"id": nm, "pts": Q})
-                    elif nm == "B1":
-                        main_.append({"id": nm, "pts": Q})
+            for R in line_copies(P, lp, li):
+                if line_images is not None:
+                    # (the half-cell's copies: none only touching it, and a stretch reached from two
+                    # copies, either way round, once)
+                    if np.linalg.norm(np.diff(R, axis=0), axis=1).sum() < 1e-4:
+                        continue
+                    ends = sorted(tuple(np.round(x, 5)) for x in (R[0], R[-1]))
+                    key = (nm, *ends, tuple(np.round(R.mean(0), 4)))
+                    if key in line_seen:
+                        continue
+                    line_seen.add(key)
+                Q = thin(chart(R), line_tol / 4).tolist()
+                if nm in RINGS:
+                    rings.append({"id": nm, "pts": Q})
+                elif nm == "B1":
+                    main_.append({"id": nm, "pts": Q})
+                else:
+                    hv = f"{nm} · {names.get(nm, nm)}<br>named line (each point on its two exact surfaces)"
+                    if nm in SEL_ONLY or by.get(nm, {}).get("listed"):
+                        segments.append({"id": nm, "copy": False, "selOnly": nm in SEL_ONLY, "pts": Q, "hover": hv})
                     else:
-                        hv = f"{nm} · {names.get(nm, nm)}<br>named line (each point on its two exact surfaces)"
-                        if nm in SEL_ONLY or by.get(nm, {}).get("listed"):
-                            segments.append({"id": nm, "copy": False, "selOnly": nm in SEL_ONLY, "pts": Q, "hover": hv})
-                        else:
-                            xlines.append({"id": nm, "copy": False, "pts": Q, "hover": hv})
+                        xlines.append({"id": nm, "copy": False, "pts": Q, "hover": hv})
         return {"xwalls": xwalls, "xlines": xlines, "segments": segments, "rings": rings, "main": main_}, shells
 
     ident = [np.eye(4)]
-    cv, cshell = build_view(cell, None, 4, 1e-3, ident, inside_only=True)
+    cv, cshell = build_view(cell, None, 4, 1e-3, ident, inside_only=True, line_planes=cell_planes, line_images=list(G))
     vv, vshell = build_view(v1c, dplanes, 3, DODECA_LINE_TOL, list(G))
     chv, chshell = build_view(v1c, chplanes, 3, DODECA_LINE_TOL, list(G))
 
