@@ -70,6 +70,7 @@ OXITIC = {
     "sabtutic": ("Small Bitruncatotetrahedral 48", ""), "sosbitic": ("Small Omnisnub Bitetrahedral 48", ""),
     "gosbitic": ("Great Omnisnub Bitetrahedral 48", ""),
     "stitosbetic": ("Small Triangular Transitional Omnisnub Bitetrahedral 48", ""),
+    "oxitic_line_01": ("Transitional Gyrowedged Omnisnub Bitetrahedral Tetracontoctachoron", ""),
     "awosbitac": ("Antiwedged Omnisnub Bitetrahedral 48", ""), "gywosbitic": ("Gyrowedged Omnisnub Bitetrahedral 48", ""),
     "sidwosbitac": ("Small Disphenoidal Omnisnub Bitetrahedral 48", ""),
     "medwosbitac": ("Medial Disphenoidal Omnisnub Bitetrahedral 48", ""),

@@ -46,6 +46,9 @@ TOXITIC = {"a5f41b7684fb": "sebtidi", "50cdad1380f5": "prissi", "6b0cb2276095": 
 OXITIC = {"10943c37691d": "cont", "c41b4cd39c7a": "snoc_oxitic", "e695c863ed63": "awosbitac", "9f29b1b7c1be": "bamic", "31553874949a": "bicont", "a6ddde77b471": "bimtec", "414533b9acc6": "bipec", "80b2343fd8f0": "bitac", "89590d9cc67a": "gabertetic", "44f48f6922fc": "gabtutic", "17848f9c0c98": "gadwosbitac", "a2f01eef519b": "gidwosbitac", "51ee8ceff001": "gitatosbitac_or_mosbitic_1", "e910898ef869": "gitatosbitac_or_mosbitic_2", "64745339a7a1": "gitatosbitac_or_mosbitic_3", "d5ec887138b0": "gosbitic", "74748c41c6c4": "gywosbitic", "8da3f28a95bc": "sabertetic", "b577195e5701": "medwosbitac", "15028d583027": "mitatosbitac", "444e8e32e97b": "otosbitac", "7443559f1ee3": "mabertetic", "e39f8da091ec": "sabtutic", "a8da4ec5c0e2": "sebtic", "9e2bb739cd87": "sidwosbitac", "fdec102036a1": "sosbitic", "e0a6a58eb3b3": "spic", "b900c8edde78": "stitosbetic", "6fc49066ae8b": "tatbitutic", "223f1e4ac3a9": "tetabertetic", "6f4a50387244": "totabertetic"}
 
 NOTES = {
+    "oxitic_line_01": "Transitional Gyrowedged Omnisnub Bitetrahedral Tetracontoctachoron (the community's name; short "
+                      "name not yet given): an oxitic line where the wall b2 = b3 crosses a quadric wall, between "
+                      "medwosbitac / sosbitic and gywosbitic; 576 vertices, 48 snits, 192 9v11f cells, 288 gyrowedges.",
     "snoc_oxitic": "the subsymmetrical snoc (community): an oxitic wall (in the mirror-image sheet) through the line "
                    "b1 = b4, b2 = b3, where it gains kicontic symmetry and is snoc; same counts (576 vertices, 816 cells), "
                    "and its most even member is snoc's (R 1.206271).",
