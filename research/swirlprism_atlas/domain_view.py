@@ -535,12 +535,17 @@ def main(src_dir, out_path):
             rec["Fc"] = z["coarse_tris"][f["coarse_tris"][0]:f["coarse_tris"][1]]
         faces.append(rec)
 
-    # an edge two pieces of one wall share is where the wall is cut (dashed: the wall goes on across
-    # it); an edge only one piece of the wall has is where the wall ends (solid). Each drawn once.
+    # an edge two pieces of one wall share is where the wall is cut (the wall goes on across it); an
+    # edge only one piece of the wall has is where the wall ends. Each drawn once.
     ecount = defaultdict(int)
     for fc in faces:
         for i in {d[3] for d in fc["drawn"]}:
             ecount[(fc["f"]["wall"], i)] += 1
+
+    # solid only along a named line (a shape of its own); along a curve where walls meet, which is no
+    # shape, dashed, whether the wall goes on past it or ends there
+    def dashed_edge(w, kind, i):
+        return ecount[(w, i)] >= 2 or kind != "line"
 
     # (a face whose mesh is far denser than the rest, its rim's short steps crowding it: shown with
     # its coarser mesh in the half-cell too)
@@ -562,13 +567,14 @@ def main(src_dir, out_path):
             if (w, i) in done:
                 continue
             done.add((w, i))
-            cut = ecount[(w, i)] >= 2
+            cut = dashed_edge(w, kind, i)
             for Q in draw(P):
                 if len(Q) < 2:
                     continue
                 what = (f"on {nm}" if kind == "line" else f"where {nm} meets it")
-                out.append({"id": w, "outline": True, "copy": cut, "pts": Q,
-                            "hover": f"{w} · {'cut ' + what + ', between its pieces' if cut else 'edge of the wall, ' + what}"})
+                hv = (f"{w} · cut {what}, between its pieces" if ecount[(w, i)] >= 2 else
+                      f"{w} · ends {what}" if kind != "line" else f"{w} · edge of the wall, {what}")
+                out.append({"id": w, "outline": True, "copy": cut, "pts": Q, "hover": hv})
         return out
 
     # the named lines: every stretch once
@@ -668,7 +674,7 @@ def main(src_dir, out_path):
                         for Q in draw(P):
                             if len(Q) > 1:
                                 shells[r]["rim"].append({"pts": thin(Q, line_tol).tolist(),
-                                                         "dash": ecount[(w_, i)] >= 2})
+                                                         "dash": dashed_edge(w_, kind, i)})
                 Qc = chart(Qg.reshape(-1, 4)).reshape(-1, 3, 3)
                 for r in set(sides):
                     shells[r]["tris"].append(Qc)
