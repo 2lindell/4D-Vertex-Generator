@@ -2079,6 +2079,52 @@
     288,
     528
    ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_line_01",
+   "kind": "line",
+   "degrees": 1,
+   "key": "b771df7d9ae6",
+   "locus": [
+    "b2 - b3",
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.4821850457076059,
+    0.19972758550558056,
+    0.1997275855055807,
+    0.11835978328123288
+   ],
+   "start_R": 2.1996065065888146,
+   "R": 2.1996065065888044,
+   "optimized": [
+    0.482185045707604,
+    0.1997275855055803,
+    0.1997275855055803,
+    0.11835978328123536
+   ],
+   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "central": [
+    0.4821850457076059,
+    0.19972758550558056,
+    0.1997275855055807,
+    0.11835978328123288
+   ],
+   "depth": null,
+   "central_status": "pending (recentre.py --oxitic)",
+   "opt_off": "optimized_off/oxitic/oxitic_line_01_576v_528c_opt.off",
+   "opt_counts": [
+    576,
+    528
+   ],
+   "off_R": 2.1996065065888093,
+   "central_off": "central_off/oxitic/oxitic_line_01_576v_528c_central.off",
+   "central_counts": [
+    576,
+    528
+   ]
   }
  ]
 }

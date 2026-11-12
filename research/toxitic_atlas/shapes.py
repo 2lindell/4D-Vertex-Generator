@@ -49,6 +49,11 @@ def gather(sub):
                 out.append((w["signature"], w["seed_beta"], "wall", "map walls: " + ", ".join(list(w["surfaces"])[:2])))
     except FileNotFoundError:
         pass
+    try:                                        # (shapes where interior walls cross: crossing_search.py / added by hand)
+        for t in json.load(open(os.path.join(HERE, f"crossings_{sub}.json")))["shapes"]:
+            out.append((t["signature"], t["seed"], t["kind"], t["source"]))
+    except FileNotFoundError:
+        pass
     st = json.load(open(os.path.join(HERE, f"strata_{sub}.json")))
     for t in st["types"]:
         strata = t["strata"]

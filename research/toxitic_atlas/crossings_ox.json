@@ -1,0 +1,22 @@
+{
+ "_about": "shapes where interior walls cross",
+ "shapes": [
+  {
+   "key": "b771df7d9ae6",
+   "name": "oxitic_line_01",
+   "signature": "576: cells 48x[12v20f]+192x[9v11f]+288x[6v7f] | faces 144x4g+192x3g+192x3g+288x4g+576x3g+576x3g+576x3g | edges 288x3+288x3+288x4+576x3+576x3+576x3",
+   "seed": [
+    0.4821850457076059,
+    0.19972758550558056,
+    0.1997275855055807,
+    0.11835978328123288
+   ],
+   "kind": "line",
+   "locus": [
+    "b2 - b3",
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4"
+   ],
+   "source": "where the walls b2 = b3 and a quadric cross (reported by the community; missed by the map, which only took lines on the chamber's strata)"
+  }
+ ]
+}

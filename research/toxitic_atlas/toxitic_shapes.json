@@ -1868,6 +1868,33 @@
    "edges": {
     "3": 576
    }
+  },
+  {
+   "key": "b771df7d9ae6",
+   "signature": "576: cells 48x[12v20f]+192x[9v11f]+288x[6v7f] | faces 144x4g+192x3g+192x3g+288x4g+576x3g+576x3g+576x3g | edges 288x3+288x3+288x4+576x3+576x3+576x3",
+   "kind": "line",
+   "seed": [
+    0.4821850457076059,
+    0.19972758550558056,
+    0.1997275855055807,
+    0.11835978328123288
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "ox where the walls b2 = b3 and a quadric cross (reported by the community; missed by the map, which only took lines on the chamber's strata)"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "name": null,
+   "vertices": 576,
+   "cells": 528,
+   "edges": {
+    "3": 2304,
+    "4": 288
+   }
   }
  ]
 }
