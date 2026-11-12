@@ -42,16 +42,29 @@ def forms_of(b):
         return []
 
 
+def numeric(text):
+    """(monomial exponents, float coefficients) of the form: a fast evaluator."""
+    p = sp.Poly(sp.sympify(text), *B)
+    return np.array(p.monoms(), float), np.array([float(c) for c in p.coeffs()])
+
+
 def vanishing(text):
-    S = Surface(text)
-    v = np.array([abs(S.val(x)) for x in P])
-    d = np.array([S.dist(x) for x in P])
-    return text, int(((d < 1e-7) | (v < 1e-12)).sum())
+    E, c = numeric(text)
+    vals = (np.prod(P[:, None, :] ** E[None], axis=2) * c).sum(1)
+    scale = np.abs(c).sum() * np.abs(P).max(1) ** E.sum(1).max()
+    return text, int((np.abs(vals) < 1e-11 * scale).sum())
+
+
+def signature(text):
+    """The form up to scale and sign, for merging duplicates."""
+    E, c = numeric(text)
+    c = c / c[np.argmax(np.abs(c))]
+    return tuple(sorted(zip(map(tuple, E.astype(int)), np.round(c, 9))))
 
 
 def factors(text):
     try:
-        facs = F._factor(text, 60)
+        facs = F._factor(text, 20)
     except Exception:
         return []
     return [str(sp.expand(f)) for f in facs if mixed(str(f))]
@@ -61,6 +74,10 @@ if __name__ == "__main__":
     pool = Pool(int(os.environ.get("NPROC", "4")))
     ex = [t["example"] for t in M["types"]]
     fs = sorted({f for r in pool.map(forms_of, ex, chunksize=1) for f in r})
+    sig = {}
+    for f, g in zip(fs, pool.map(signature, fs, chunksize=8)):
+        sig.setdefault(g, f)
+    fs = sorted(sig.values())
     print(f"{G.SUB}: {len(ex)} types, {len(fs)} forms, {len(P)} wall points; {time.time() - t0:.0f}s", flush=True)
     hit = [t for t, n in pool.map(vanishing, fs, chunksize=4) if n]
     print(f"  {len(hit)} forms vanish at a wall point; {time.time() - t0:.0f}s", flush=True)
