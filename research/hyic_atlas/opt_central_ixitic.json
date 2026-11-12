@@ -470,19 +470,19 @@
    ],
    "optimized_status": "minimum inside the shape; re-optimised crossing the mirrors and the fold (was R 4.388952)",
    "central": [
-    -0.5,
-    0.264437783028006,
-    1.0606141645484748,
-    0.17494805242351916
+    0.11024452017168804,
+    0.22028226767632011,
+    0.5372546195249953,
+    0.13221859262699656
    ],
-   "depth": 0.7734644821716701,
-   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 0.12426319910414045,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_gypsobtady_1440v_3360c_seed.off",
    "seed_R": 5.106976063930286,
    "opt_off": "optimized_off/ixitic/gypsobtady_1440v_3360c_opt.off",
    "opt_R": 1.931942239897152,
    "central_off": "central_off/ixitic/gypsobtady_1440v_3360c_central.off",
-   "central_R": 4.335127541077009
+   "central_R": 5.304353744332941
   },
   {
    "name": "ixitic_region_08",
