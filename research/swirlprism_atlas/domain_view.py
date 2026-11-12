@@ -438,6 +438,26 @@ def add_new_shapes(DC, src_dir):
         print(f"key: {k} ({v['dim']}) added from the database", flush=True)
 
 
+def add_wiki_list(DC, src_dir):
+    """Each shape's entry in the 5-swirldoic list (working_data.json, wiki_list) for the key: the
+    list's name and 5sd codes, its counts and edge valences and edge ratio; a shape split from a
+    listed one, with its counts and valences but another vertex figure, says so."""
+    wd = json.loads((Path(src_dir).parent / "source" / "working_data.json").read_text())["shapes"]
+    for t in DC["types"]:
+        v = wd.get(t["id"], {})
+        t.pop("wiki", None)
+        t.pop("wikiNote", None)
+        if "wiki_list" in v:
+            e = v["wiki_list"]
+            t["wiki"] = {"name": e["name"], "codes": e["codes"], "counts": e["counts"],
+                         "valences": e["edge_valences"], "ratio": e["edge_ratio"]}
+        elif v.get("split_from") and "wiki_list" in wd.get(v["split_from"], {}):
+            e = wd[v["split_from"]]["wiki_list"]
+            code = (e["codes"] or [e["name"]])[0]
+            t["wikiNote"] = (f"not in the list: the counts and edge valences of {v['split_from']} "
+                             f"({code}: {e['counts']}, {e['edge_valences']}), another vertex figure")
+
+
 def main(src_dir, out_path):
     src_dir = Path(src_dir)
     doc = json.loads((src_dir / "domain_pieces.json").read_text())
@@ -448,6 +468,7 @@ def main(src_dir, out_path):
     V1 = json.loads(html[slice(*pos["atlas-v1"])])
     CH = json.loads(html[slice(*pos["atlas-chambers"])])
     add_new_shapes(DC, src_dir)
+    add_wiki_list(DC, src_dir)
     names = {t["id"]: t["name"] for t in DC["types"]}
     by = {t["id"]: t for t in DC["types"]}
     G = np.stack(group_elements(named_symmetry("h4_swirlprism")))

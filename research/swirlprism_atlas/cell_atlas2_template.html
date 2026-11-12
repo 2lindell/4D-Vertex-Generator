@@ -79,6 +79,7 @@ td.id { white-space: nowrap; font-weight: 600; }
 .copy.copied { color: var(--s3); border-color: var(--s3); }
 .copy svg { width: 14px; height: 14px; }
 #hoverbox .pinned { font-size: 0.74rem; color: var(--faint); }
+td .wiki { margin-top: 0.3rem; font-size: 0.76rem; color: var(--muted); }
 td.counts .exact { margin-top: 0.4rem; } td.counts .xmark { font-weight: 700; }
 td.counts { font-family: var(--font-data); font-size: 0.76rem; color: var(--muted); word-break: break-word; min-width: 15rem; }
 td.where { color: var(--muted); font-size: 0.82rem; }
@@ -1026,7 +1027,11 @@ __TYPE_CSS__
         let counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}<br>${seedLine(t.seed)}<br>β ∝ ${t.betatext}`
           + (t.evenness ? `<br><span class="locus">most even edges: longest/shortest ${t.evenness.toFixed(4)}</span>` : "") : "";
         if (t.exact) counts += `<div class="exact"><span class="xmark" style="color:${color(t)}">✕</span> exact point ${t.exact.label ? "(" + t.exact.label + ")" : "at " + t.exact.angle + "°"}: cells ${t.exact.cells}<br>faces ${t.exact.faces}<br>edges ${t.exact.edges}</div>`;
-        html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}</td>`
+        // (its entry in the 5-swirldoic list: name, codes, cells/faces/edges, edge valences, edge ratio)
+        const wl = t.wiki ? `<div class="wiki"><span class="locus">5-swirldoic list:</span> ${[t.wiki.name, ...(t.wiki.codes || [])].filter(Boolean).join(" = ")}`
+          + `<br>${t.wiki.counts}, ${t.wiki.valences}${t.wiki.ratio ? ` (${t.wiki.ratio})` : ""}</div>`
+          : t.wikiNote ? `<div class="wiki"><span class="locus">5-swirldoic list:</span> ${t.wikiNote}</div>` : "";
+        html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name}${wl}</td>`
           + `<td class="counts">${counts}</td><td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;
       }
     }
