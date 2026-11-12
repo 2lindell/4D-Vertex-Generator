@@ -211,6 +211,10 @@ def classify(seed: np.ndarray, hull_tol: float = 1e-9) -> dict:
         "faces": sorted(s for s, _ in fo),
         "edges": sorted(s for s, _ in eo),
         "valence": dict(sorted(valence.items())),
+        # (each edge class's valence, the number of cells round it, greatest first, as the wiki's
+        # list writes them; under this group, so classes the shape's own larger symmetry joins count
+        # apart)
+        "edge_valences": sorted((len(edge_cells[edge_list[m[0]]]) for _, m in eo), reverse=True),
         "vfig": _vertex_key(cells, cell_list, face_sets, edge_list, faces, face_edges,
                             edge_cells, co, fo, eo),
     }

@@ -15,7 +15,17 @@
     1.0,
     0.0
    ],
-   "evenness": 1.0
+   "evenness": 1.0,
+   "wiki_list": {
+    "line": "120: hexacosichoron (600/1200/720, 5) (1:1)",
+    "vertices": 120,
+    "name": "hexacosichoron",
+    "codes": [],
+    "counts": "600/1200/720",
+    "edge_valences": "5",
+    "edge_ratio": "1:1",
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "C1": {
    "dim": "point",
@@ -31,7 +41,17 @@
     0.25,
     0.25
    ],
-   "evenness": 1.0
+   "evenness": 1.0,
+   "wiki_list": {
+    "line": "600: hecatonicosachoron (120/720/1200, 3) (1:1)",
+    "vertices": 600,
+    "name": "hecatonicosachoron",
+    "codes": [],
+    "counts": "120/720/1200",
+    "edge_valences": "3",
+    "edge_ratio": "1:1",
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "B1": {
    "dim": "line",
@@ -47,7 +67,17 @@
     0.7437285933705203,
     0.25627140662947967
    ],
-   "evenness": 1.975377
+   "evenness": 1.975377,
+   "wiki_list": {
+    "line": "240: subsymmetrical icosafold icosaswirlchoron (1800/3600/2040, 10-8-3) (1:√(8+2√(10+2√5))/2 ~ 1:1.97538)",
+    "vertices": 240,
+    "name": "subsymmetrical icosafold icosaswirlchoron",
+    "codes": [],
+    "counts": "1800/3600/2040",
+    "edge_valences": "10-8-3",
+    "edge_ratio": "1:√(8+2√(10+2√5))/2 ~ 1:1.97538",
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "C2a": {
    "dim": "line",
@@ -63,7 +93,19 @@
     0.4596495450877361,
     0.0
    ],
-   "evenness": 1.246697
+   "evenness": 1.246697,
+   "wiki_list": {
+    "line": "600: subsymmetrical icosafold icosidodecaswirlchoron (1440/3840/3000, 5-4-3) = 5sd-600-4 (1:√(50-5√5)/5 ~ 1:1.24611)",
+    "vertices": 600,
+    "name": "subsymmetrical icosafold icosidodecaswirlchoron",
+    "codes": [
+     "5sd-600-4"
+    ],
+    "counts": "1440/3840/3000",
+    "edge_valences": "5-4-3",
+    "edge_ratio": "1:√(50-5√5)/5 ~ 1:1.24611",
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "C2b": {
    "dim": "line",
@@ -79,7 +121,19 @@
     0.2625349273780539,
     0.2625349273780539
    ],
-   "evenness": 1.246109
+   "evenness": 1.246109,
+   "wiki_list": {
+    "line": "600: subsymmetrical icosafold icosidodecaswirlchoron (1440/3840/3000, 5-4-3) = 5sd-600-4 (1:√(50-5√5)/5 ~ 1:1.24611)",
+    "vertices": 600,
+    "name": "subsymmetrical icosafold icosidodecaswirlchoron",
+    "codes": [
+     "5sd-600-4"
+    ],
+    "counts": "1440/3840/3000",
+    "edge_valences": "5-4-3",
+    "edge_ratio": "1:√(50-5√5)/5 ~ 1:1.24611",
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "C3": {
    "dim": "line",
@@ -95,7 +149,17 @@
     0.24994982554797562,
     0.24994982554797562
    ],
-   "evenness": 1.618235
+   "evenness": 1.618235,
+   "wiki_list": {
+    "line": "600: subsymmetrical pentagonal-gyroprismatic triacosihexecontachoron (360/2160/2400, 3-3) (asymptotic 1:(1+√5)/2 ~ 1:1.61803)",
+    "vertices": 600,
+    "name": "subsymmetrical pentagonal-gyroprismatic triacosihexecontachoron",
+    "codes": [],
+    "counts": "360/2160/2400",
+    "edge_valences": "3-3",
+    "edge_ratio": "asymptotic 1:(1+√5)/2 ~ 1:1.61803",
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "D1": {
    "dim": "line",
@@ -111,7 +175,19 @@
     0.4197801461088723,
     0.0
    ],
-   "evenness": 1.414407
+   "evenness": 1.414407,
+   "wiki_list": {
+    "line": "600: decafold truncatododecaswirlchoron (1440/3840/3000, 5-4-4-3) = 5sd-600-1 (asymptotic 1:√2 ~ 1:1.41421)",
+    "vertices": 600,
+    "name": "decafold truncatododecaswirlchoron",
+    "codes": [
+     "5sd-600-1"
+    ],
+    "counts": "1440/3840/3000",
+    "edge_valences": "5-4-4-3",
+    "edge_ratio": "asymptotic 1:√2 ~ 1:1.41421",
+    "match": "exact"
+   }
   },
   "D2": {
    "dim": "line",
@@ -127,7 +203,19 @@
     0.3333748909014524,
     0.33337489090145234
    ],
-   "evenness": 2.803216
+   "evenness": 2.803216,
+   "wiki_list": {
+    "line": "600: 5sd-600-3 (3120/6720/4200, 8-7-4-4-4-3) (asymptotic 1:√(18+6√5)/2 ~ 1:2.80252)",
+    "vertices": 600,
+    "name": null,
+    "codes": [
+     "5sd-600-3"
+    ],
+    "counts": "3120/6720/4200",
+    "edge_valences": "8-7-4-4-4-3",
+    "edge_ratio": "asymptotic 1:√(18+6√5)/2 ~ 1:2.80252",
+    "match": "exact"
+   }
   },
   "D3": {
    "dim": "line",
@@ -143,7 +231,19 @@
     0.2500501720764242,
     0.25005017207642416
    ],
-   "evenness": 2.288705
+   "evenness": 2.288705,
+   "wiki_list": {
+    "line": "600: 5sd-600-2 (3120/6720/4200, 8-7-5-4-4-3) (asymptotic 1:√(3+√5) ~ 1:2.28825)",
+    "vertices": 600,
+    "name": null,
+    "codes": [
+     "5sd-600-2"
+    ],
+    "counts": "3120/6720/4200",
+    "edge_valences": "8-7-5-4-4-3",
+    "edge_ratio": "asymptotic 1:√(3+√5) ~ 1:2.28825",
+    "match": "exact"
+   }
   },
   "C4": {
    "dim": "point",
@@ -159,7 +259,17 @@
     0.3333333333333333,
     0.3333333333333333
    ],
-   "evenness": 1.902113
+   "evenness": 1.902113,
+   "wiki_list": {
+    "line": "600: bigyroprismatic transitional didecafold icosidodecaswirlchoron (1320/3720/3000, 5-4-4-3) (1:√(10+2√5)/2 ~ 1:1.90211)",
+    "vertices": 600,
+    "name": "bigyroprismatic transitional didecafold icosidodecaswirlchoron",
+    "codes": [],
+    "counts": "1320/3720/3000",
+    "edge_valences": "5-4-4-3",
+    "edge_ratio": "1:√(10+2√5)/2 ~ 1:1.90211",
+    "match": "exact"
+   }
   },
   "C5": {
    "dim": "point",
@@ -175,7 +285,17 @@
     0.3333333333333333,
     0.0
    ],
-   "evenness": 1.618034
+   "evenness": 1.618034,
+   "wiki_list": {
+    "line": "600: partially-rectified small swirlprism (240/1440/1800, 3-3) (1:(1+√5)/2 ~ 1:1.61803)",
+    "vertices": 600,
+    "name": "partially-rectified small swirlprism",
+    "codes": [],
+    "counts": "240/1440/1800",
+    "edge_valences": "3-3",
+    "edge_ratio": "1:(1+√5)/2 ~ 1:1.61803",
+    "match": "exact"
+   }
   },
   "C6": {
    "dim": "point",
@@ -191,7 +311,17 @@
     0.5,
     0.0
    ],
-   "evenness": 1.0
+   "evenness": 1.0,
+   "wiki_list": {
+    "line": "600: swirlprismatodiminished rectified hexacosichoron (840/2640/2400, 4-4-3) (1:1)",
+    "vertices": 600,
+    "name": "swirlprismatodiminished rectified hexacosichoron",
+    "codes": [],
+    "counts": "840/2640/2400",
+    "edge_valences": "4-4-3",
+    "edge_ratio": "1:1",
+    "match": "exact"
+   }
   },
   "F1": {
    "dim": "wall",
@@ -207,7 +337,19 @@
     0.5167582019384352,
     0.08576383072593229
    ],
-   "evenness": 1.482476
+   "evenness": 1.482476,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-2 (3840/9240/6600, 6-6-5-4-4-4-4-3) = F1",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-2"
+    ],
+    "counts": "3840/9240/6600",
+    "edge_valences": "6-6-5-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "F2": {
    "dim": "region",
@@ -223,11 +365,23 @@
     0.25765158154485535,
     0.14347935210089477
    ],
-   "evenness": 1.749755
+   "evenness": 1.749755,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-4 (4080/10080/7200, 8-6-6-4-4-4-3-3) = F2",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-4"
+    ],
+    "counts": "4080/10080/7200",
+    "edge_valences": "8-6-6-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "F3": {
    "dim": "region",
-   "name": "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+1200\u00d79 faces)",
+   "name": "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+1200×9 faces)",
    "listed": true,
    "vertices": "1200",
    "cells": "120+120+600+600+600+600+1200+1200",
@@ -239,11 +393,23 @@
     0.5155961327174249,
     0.05047014697746548
    ],
-   "evenness": 1.519545
+   "evenness": 1.519545,
+   "wiki_list": {
+    "line": "1200: subsymmetrical icosafold small rhombicosidodecaswirlchoron (5040/11040/7200, 6-5-5-4-4-4) = 5sd-1200-6 = F3",
+    "vertices": 1200,
+    "name": "subsymmetrical icosafold small rhombicosidodecaswirlchoron",
+    "codes": [
+     "5sd-1200-6"
+    ],
+    "counts": "5040/11040/7200",
+    "edge_valences": "6-5-5-4-4-4",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "F4": {
    "dim": "wall",
-   "name": "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200\u00d79 faces)",
+   "name": "Polychoron with 120+120+600+600+600+600+1200+1200 cells (240+600+1200×9 faces)",
    "listed": true,
    "vertices": "1200",
    "cells": "120+120+600+600+600+600+1200+1200",
@@ -255,7 +421,19 @@
     0.5170585472921004,
     0.15977987128116725
    ],
-   "evenness": 1.86667
+   "evenness": 1.86667,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-3 (5040/11640/7800, 10-6-6-4-4-4-4-3-3) = F4",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-3"
+    ],
+    "counts": "5040/11640/7800",
+    "edge_valences": "10-6-6-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "F5": {
    "dim": "wall",
@@ -271,7 +449,19 @@
     0.41725763059346954,
     0.17317317336220528
    ],
-   "evenness": 2.221067
+   "evenness": 2.221067,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-7 (6240/14040/9000, 10-8-6-6-5-4-4-4-3-3) = F5",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-7"
+    ],
+    "counts": "6240/14040/9000",
+    "edge_valences": "10-8-6-6-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "E1": {
    "dim": "line",
@@ -287,7 +477,19 @@
     0.6666666666666666,
     0.0
    ],
-   "evenness": 2.0
+   "evenness": 2.0,
+   "wiki_list": {
+    "line": "1200: bi-hecatonicosadiminished truncated hexacosichoron (840/3240/3600, 5-4-3-3-3) = 5sd-1200-20 = E1 (1:2)",
+    "vertices": 1200,
+    "name": "bi-hecatonicosadiminished truncated hexacosichoron",
+    "codes": [
+     "5sd-1200-20"
+    ],
+    "counts": "840/3240/3600",
+    "edge_valences": "5-4-3-3-3",
+    "edge_ratio": "1:2",
+    "match": "exact"
+   }
   },
   "E2": {
    "dim": "line",
@@ -303,7 +505,19 @@
     0.2956859994078892,
     0.11294200177633239
    ],
-   "evenness": 2.618034
+   "evenness": 2.618034,
+   "wiki_list": {
+    "line": "1200: small swirlprismatodiminished truncated hecatonicosachoron (240/1440/2400, 3-3-3) = 5sd-1200-19 = E2 (1:(3+√5)/2 ~ 1:2.61803)",
+    "vertices": 1200,
+    "name": "small swirlprismatodiminished truncated hecatonicosachoron",
+    "codes": [
+     "5sd-1200-19"
+    ],
+    "counts": "240/1440/2400",
+    "edge_valences": "3-3-3",
+    "edge_ratio": "1:(3+√5)/2 ~ 1:2.61803",
+    "match": "exact"
+   }
   },
   "T1": {
    "dim": "line",
@@ -319,7 +533,19 @@
     0.4198212717045359,
     0.16035745659092823
    ],
-   "evenness": 1.902113
+   "evenness": 1.902113,
+   "wiki_list": {
+    "line": "1200: swirlprismatodiminished hexacosihecatonicosachoron (1440/4440/4200, 4-4-4-4-3) = 5sd-1200-1 = T1 (1:√(10+2√5)/2 ~ 1:1.90211)",
+    "vertices": 1200,
+    "name": "swirlprismatodiminished hexacosihecatonicosachoron",
+    "codes": [
+     "5sd-1200-1"
+    ],
+    "counts": "1440/4440/4200",
+    "edge_valences": "4-4-4-4-3",
+    "edge_ratio": "1:√(10+2√5)/2 ~ 1:1.90211",
+    "match": "exact"
+   }
   },
   "T2": {
    "dim": "wall",
@@ -335,7 +561,19 @@
     0.3767917883970543,
     0.12320821219953096
    ],
-   "evenness": 1.550544
+   "evenness": 1.550544,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-21 (2640/7440/6000, 6-4-4-4-4-3-3) = T2",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-21"
+    ],
+    "counts": "2640/7440/6000",
+    "edge_valences": "6-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X1": {
    "dim": "line",
@@ -351,7 +589,17 @@
     0.22078387223082596,
     0.054144435938769345
    ],
-   "evenness": 3.196227
+   "evenness": 3.196227,
+   "wiki_list": {
+    "line": "1200: subsymmetrical transitional icosafold small rhombicosidodecaswirlchoron (840/3240/3600, 4-3-3) = X1 (1:√(12+4√5+2√(50+22√5))/2 ~ 1:3.19623)",
+    "vertices": 1200,
+    "name": "subsymmetrical transitional icosafold small rhombicosidodecaswirlchoron",
+    "codes": [],
+    "counts": "840/3240/3600",
+    "edge_valences": "4-3-3",
+    "edge_ratio": "1:√(12+4√5+2√(50+22√5))/2 ~ 1:3.19623",
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X2": {
    "dim": "line",
@@ -367,7 +615,19 @@
     0.2956859994078892,
     0.2956859994078892
    ],
-   "evenness": 3.236068
+   "evenness": 3.236068,
+   "wiki_list": {
+    "line": "1200: great swirlprismatodiminished truncated hecatonicosachoron (1320/4320/4200, 5-4-3-3-3-3) = 5sd-1200-10 = X2 (1:1+√5 ~ 1:3.23607)",
+    "vertices": 1200,
+    "name": "great swirlprismatodiminished truncated hecatonicosachoron",
+    "codes": [
+     "5sd-1200-10"
+    ],
+    "counts": "1320/4320/4200",
+    "edge_valences": "5-4-3-3-3-3",
+    "edge_ratio": "1:1+√5 ~ 1:3.23607",
+    "match": "exact"
+   }
   },
   "X3": {
    "dim": "wall",
@@ -383,7 +643,19 @@
     0.2955989016009626,
     0.11295596832901844
    ],
-   "evenness": 3.237711
+   "evenness": 3.237711,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-33 (1080/4680/4800, 4-4-3-3-3) = X3",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-33"
+    ],
+    "counts": "1080/4680/4800",
+    "edge_valences": "4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X4": {
    "dim": "line",
@@ -399,7 +671,19 @@
     0.33333333333333337,
     0.2060113295832983
    ],
-   "evenness": 1.902113
+   "evenness": 1.902113,
+   "wiki_list": {
+    "line": "1200: small transitional swirlprismatodiminished great rhombated hecatonicosachoron (1440/5040/4800, 4-4-4-4-3-3) = 5sd-1200-34 = X4 (1:√(10+2√5)/2 ~ 1:1.90211)",
+    "vertices": 1200,
+    "name": "small transitional swirlprismatodiminished great rhombated hecatonicosachoron",
+    "codes": [
+     "5sd-1200-34"
+    ],
+    "counts": "1440/5040/4800",
+    "edge_valences": "4-4-4-4-3-3",
+    "edge_ratio": "1:√(10+2√5)/2 ~ 1:1.90211",
+    "match": "exact"
+   }
   },
   "X5": {
    "dim": "line",
@@ -415,7 +699,19 @@
     0.37849547342358497,
     0.15927384050223886
    ],
-   "evenness": 2.175571
+   "evenness": 2.175571,
+   "wiki_list": {
+    "line": "1200: medial transitional swirlprismatodiminished great rhombated hecatonicosachoron (1440/5640/5400, 4-4-4-3-3-3) = 5sd-1200-35 = X5 (1:(2+√(10-2√5))/2 ~ 1:2.17557)",
+    "vertices": 1200,
+    "name": "medial transitional swirlprismatodiminished great rhombated hecatonicosachoron",
+    "codes": [
+     "5sd-1200-35"
+    ],
+    "counts": "1440/5640/5400",
+    "edge_valences": "4-4-4-3-3-3",
+    "edge_ratio": "1:(2+√(10-2√5))/2 ~ 1:2.17557",
+    "match": "exact"
+   }
   },
   "X6": {
    "dim": "line",
@@ -431,7 +727,19 @@
     0.17292384351812715,
     0.17292384351812715
    ],
-   "evenness": 1.618034
+   "evenness": 1.618034,
+   "wiki_list": {
+    "line": "1200: swirlprismatodiminished small disprismatohexacosihecatonicosachoron (1560/5160/4800, 5-5-4-4-3-3) = 5sd-1200-9 = X6 (1:(1+√5)/2 ~ 1:1.61803)",
+    "vertices": 1200,
+    "name": "swirlprismatodiminished small disprismatohexacosihecatonicosachoron",
+    "codes": [
+     "5sd-1200-9"
+    ],
+    "counts": "1560/5160/4800",
+    "edge_valences": "5-5-4-4-3-3",
+    "edge_ratio": "1:(1+√5)/2 ~ 1:1.61803",
+    "match": "exact"
+   }
   },
   "X7": {
    "dim": "wall",
@@ -447,7 +755,17 @@
     0.2956722920279823,
     0.11277245606406384
    ],
-   "evenness": 3.481874
+   "evenness": 3.481874,
+   "wiki_list": {
+    "line": "1200: subsymmetrical great transitional icosafold truncatododecaswirlchoron (1680/5880/5400, 5-4-3-3) = X7",
+    "vertices": 1200,
+    "name": "subsymmetrical great transitional icosafold truncatododecaswirlchoron",
+    "codes": [],
+    "counts": "1680/5880/5400",
+    "edge_valences": "5-4-3-3",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X8": {
    "dim": "line",
@@ -463,7 +781,19 @@
     0.3409731324650868,
     0.15902686753491319
    ],
-   "evenness": 2.229185
+   "evenness": 2.229185,
+   "wiki_list": {
+    "line": "1200: swirlprismatodiminished small rhombated hecatonicosachoron (2040/6840/6000, 6-5-4-3-3-3-3) = 5sd-1200-36 = X8 (1:√(8+2√5+2√(7+3√5))/2 ~ 1:2.22918)",
+    "vertices": 1200,
+    "name": "swirlprismatodiminished small rhombated hecatonicosachoron",
+    "codes": [
+     "5sd-1200-36"
+    ],
+    "counts": "2040/6840/6000",
+    "edge_valences": "6-5-4-3-3-3-3",
+    "edge_ratio": "1:√(8+2√5+2√(7+3√5))/2 ~ 1:2.22918",
+    "match": "exact"
+   }
   },
   "X9": {
    "dim": "wall",
@@ -479,7 +809,19 @@
     0.37821430118240745,
     0.13464293066547456
    ],
-   "evenness": 2.026221
+   "evenness": 2.026221,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-37 (1680/5880/5400, 4-4-4-4-3-3) = X9",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-37"
+    ],
+    "counts": "1680/5880/5400",
+    "edge_valences": "4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X10": {
    "dim": "wall",
@@ -495,7 +837,19 @@
     0.14644660966336426,
     1.5958991417915073e-10
    ],
-   "evenness": 2.717255
+   "evenness": 2.717255,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-38 (2280/7080/6000, 6-5-4-4-3-3-3) = X10",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-38"
+    ],
+    "counts": "2280/7080/6000",
+    "edge_valences": "6-5-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X11": {
    "dim": "wall",
@@ -511,7 +865,19 @@
     0.17795902489270463,
     0.17795902489270463
    ],
-   "evenness": 1.902477
+   "evenness": 1.902477,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-39 (2760/7560/6000, 7-5-4-4-4-3-3) = X11",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-39"
+    ],
+    "counts": "2760/7560/6000",
+    "edge_valences": "7-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X12": {
    "dim": "region",
@@ -527,7 +893,17 @@
     0.25238989038377924,
     0.09640435769145013
    ],
-   "evenness": 3.589984
+   "evenness": 3.589984,
+   "wiki_list": {
+    "line": "1200: subsymmetrical hexecontafold dodecaswirlchoron (2520/7920/6600, 6-4-3) = X12",
+    "vertices": 1200,
+    "name": "subsymmetrical hexecontafold dodecaswirlchoron",
+    "codes": [],
+    "counts": "2520/7920/6600",
+    "edge_valences": "6-4-3",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X13": {
    "dim": "line",
@@ -543,7 +919,19 @@
     0.15107313097158662,
     0.1510731309715866
    ],
-   "evenness": 3.236857
+   "evenness": 3.236857,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-8 (2640/6840/5400, 6-4-4-4-4-4-4) = X13",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-8"
+    ],
+    "counts": "2640/6840/5400",
+    "edge_valences": "6-4-4-4-4-4-4",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X14": {
    "dim": "wall",
@@ -559,7 +947,19 @@
     0.17810227276191753,
     0.17802191717809485
    ],
-   "evenness": 1.90254
+   "evenness": 1.90254,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-40 (2880/8880/7200, 6-6-6-4-3-3-3-3) = X14",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-40"
+    ],
+    "counts": "2880/8880/7200",
+    "edge_valences": "6-6-6-4-3-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X15": {
    "dim": "wall",
@@ -575,7 +975,19 @@
     0.3022096926582557,
     0.15115078523842146
    ],
-   "evenness": 1.903563
+   "evenness": 1.903563,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-41 (2880/8880/7200, 6-6-4-4-4-3-3-3) = X15",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-41"
+    ],
+    "counts": "2880/8880/7200",
+    "edge_valences": "6-6-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X16": {
    "dim": "region",
@@ -591,7 +1003,17 @@
     0.35488455899159904,
     0.12650051403590662
    ],
-   "evenness": 2.06244
+   "evenness": 2.06244,
+   "wiki_list": {
+    "line": "1200: subsymmetrical tetracontafold icosidodecaswirlchoron (2880/7680/6000, 4-4-4) = X16",
+    "vertices": 1200,
+    "name": "subsymmetrical tetracontafold icosidodecaswirlchoron",
+    "codes": [],
+    "counts": "2880/7680/6000",
+    "edge_valences": "4-4-4",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X17": {
    "dim": "wall",
@@ -607,7 +1029,19 @@
     0.3333019393440919,
     0.20608610924054507
    ],
-   "evenness": 2.28893
+   "evenness": 2.28893,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-42 (3240/8640/6600, 6-6-4-4-4-4-3-3) = X17",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-42"
+    ],
+    "counts": "3240/8640/6600",
+    "edge_valences": "6-6-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X18": {
    "dim": "line",
@@ -623,7 +1057,19 @@
     0.36115976808460143,
     0.29648820509192614
    ],
-   "evenness": 7.683364
+   "evenness": 7.683364,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-43 (3240/9240/7200, 9-4-4-4-4-4-3-3-3) = X18",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-43"
+    ],
+    "counts": "3240/9240/7200",
+    "edge_valences": "9-4-4-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X19": {
    "dim": "wall",
@@ -639,7 +1085,19 @@
     0.17806833552233142,
     0.17806833552233142
    ],
-   "evenness": 1.902435
+   "evenness": 1.902435,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-44 (3360/8760/6600, 7-6-5-4-4-4-3-3) = X19",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-44"
+    ],
+    "counts": "3360/8760/6600",
+    "edge_valences": "7-6-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X20": {
    "dim": "wall",
@@ -655,7 +1113,19 @@
     0.34100870171653364,
     0.15893151768371988
    ],
-   "evenness": 2.230347
+   "evenness": 2.230347,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-45 (3840/9840/7200, 8-6-4-4-4-4-3-3) = X20",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-45"
+    ],
+    "counts": "3840/9840/7200",
+    "edge_valences": "8-6-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X21": {
    "dim": "wall",
@@ -671,7 +1141,19 @@
     0.3477392472370579,
     0.17169693139251743
    ],
-   "evenness": 2.068095
+   "evenness": 2.068095,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-46 (3840/9840/7200, 8-6-6-4-4-3-3-3) = X21",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-46"
+    ],
+    "counts": "3840/9840/7200",
+    "edge_valences": "8-6-6-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X22": {
    "dim": "wall",
@@ -687,7 +1169,19 @@
     0.3333261321990845,
     0.20604891689095634
    ],
-   "evenness": 3.620763
+   "evenness": 3.620763,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-48 (3840/9840/7200, 6-5-4-4-4-4-4-4-3) = X22",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-48"
+    ],
+    "counts": "3840/9840/7200",
+    "edge_valences": "6-5-4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X23": {
    "dim": "wall",
@@ -703,7 +1197,19 @@
     0.4471458245727471,
     0.17079450744288435
    ],
-   "evenness": 2.237081
+   "evenness": 2.237081,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-12 (3840/10440/7800, 8-6-4-4-4-4-4-3-3) = X23",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-12"
+    ],
+    "counts": "3840/10440/7800",
+    "edge_valences": "8-6-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X24": {
    "dim": "line",
@@ -719,7 +1225,19 @@
     0.31298015017845515,
     0.25466289258241814
    ],
-   "evenness": 4.219583
+   "evenness": 4.219583,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-13 (3840/10440/7800, 8-6-6-4-4-4-3-3-3) = X24",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-13"
+    ],
+    "counts": "3840/10440/7800",
+    "edge_valences": "8-6-6-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X25": {
    "dim": "wall",
@@ -735,7 +1253,19 @@
     0.27633539882544217,
     0.2236646023334487
    ],
-   "evenness": 2.62412
+   "evenness": 2.62412,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-18 (4080/10680/7800, 8-7-6-6-4-3-3-3-3) = X25",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-18"
+    ],
+    "counts": "4080/10680/7800",
+    "edge_valences": "8-7-6-6-4-3-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X26": {
    "dim": "wall",
@@ -751,7 +1281,19 @@
     0.295736414025998,
     0.295736414025998
    ],
-   "evenness": 4.981081
+   "evenness": 4.981081,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-49 (4320/9720/6600, 7-7-6-6-4-4-4-4-3) = X26",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-49"
+    ],
+    "counts": "4320/9720/6600",
+    "edge_valences": "7-7-6-6-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X27": {
    "dim": "wall",
@@ -767,7 +1309,19 @@
     0.312875350558113,
     0.25466527733863015
    ],
-   "evenness": 3.113589
+   "evenness": 3.113589,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-50 (4440/11040/7800, 8-6-6-6-4-4-3-3-3) = X27",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-50"
+    ],
+    "counts": "4440/11040/7800",
+    "edge_valences": "8-6-6-6-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X28": {
    "dim": "wall",
@@ -783,7 +1337,19 @@
     0.44027483633525194,
     0.13079663411355522
    ],
-   "evenness": 2.069066
+   "evenness": 2.069066,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-51 (4440/10440/7200, 8-6-5-5-4-4-4-3-3) = X28",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-51"
+    ],
+    "counts": "4440/10440/7200",
+    "edge_valences": "8-6-5-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X29": {
    "dim": "line",
@@ -799,7 +1365,19 @@
     0.35941183758852646,
     0.17278497304733792
    ],
-   "evenness": 2.591714
+   "evenness": 2.591714,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-52 (4440/11040/7800, 9-6-6-5-4-4-4-3-3) = X29",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-52"
+    ],
+    "counts": "4440/11040/7800",
+    "edge_valences": "9-6-6-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X30": {
    "dim": "region",
@@ -815,7 +1393,17 @@
     0.22866622715116114,
     0.11214612409959264
    ],
-   "evenness": 3.425216
+   "evenness": 3.425216,
+   "wiki_list": {
+    "line": "1200: subsymmetrical small icosafold truncatododecaswirlchoron (4680/11280/7800, 8-4-4-4-4-3) = X30",
+    "vertices": 1200,
+    "name": "subsymmetrical small icosafold truncatododecaswirlchoron",
+    "codes": [],
+    "counts": "4680/11280/7800",
+    "edge_valences": "8-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X31": {
    "dim": "wall",
@@ -831,7 +1419,19 @@
     0.3333572803439552,
     0.20621903969643884
    ],
-   "evenness": 3.239356
+   "evenness": 3.239356,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-53 (4440/10440/7200, 6-6-6-5-4-4-4-4-3) = X31",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-53"
+    ],
+    "counts": "4440/10440/7200",
+    "edge_valences": "6-6-6-5-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X32": {
    "dim": "region",
@@ -847,7 +1447,17 @@
     0.30206750612602595,
     0.15103375362424465
    ],
-   "evenness": 1.903414
+   "evenness": 1.903414,
+   "wiki_list": {
+    "line": "1200: subsymmetrical great icosafold truncatododecaswirlchoron (4680/11280/7800, 8-6-5-4-4-3) = X32",
+    "vertices": 1200,
+    "name": "subsymmetrical great icosafold truncatododecaswirlchoron",
+    "codes": [],
+    "counts": "4680/11280/7800",
+    "edge_valences": "8-6-5-4-4-3",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X33": {
    "dim": "wall",
@@ -863,7 +1473,19 @@
     0.44722625098927155,
     0.17104664146308912
    ],
-   "evenness": 2.238357
+   "evenness": 2.238357,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-14 (5040/12240/8400, 10-6-6-5-4-4-4-3-3-3) = X33",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-14"
+    ],
+    "counts": "5040/12240/8400",
+    "edge_valences": "10-6-6-5-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X34": {
    "dim": "wall",
@@ -879,7 +1501,19 @@
     0.31301433705169435,
     0.2547036796337293
    ],
-   "evenness": 4.598358
+   "evenness": 4.598358,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-15 (5040/12240/8400, 8-6-6-4-4-4-4-4-4-3) = X34",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-15"
+    ],
+    "counts": "5040/12240/8400",
+    "edge_valences": "8-6-6-4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X35": {
    "dim": "wall",
@@ -895,7 +1529,19 @@
     0.36124084596957545,
     0.2966496087781262
    ],
-   "evenness": 7.69134
+   "evenness": 7.69134,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-16 (5040/11640/7800, 9-6-6-4-4-4-4-4-4-3) = X35",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-16"
+    ],
+    "counts": "5040/11640/7800",
+    "edge_valences": "9-6-6-4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X36": {
    "dim": "region",
@@ -911,7 +1557,19 @@
     0.142139995238561,
     0.10951634914147956
    ],
-   "evenness": 2.986191
+   "evenness": 2.986191,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-54 (5280/12480/8400, 10-6-5-5-4-4-4-3-3) = X36",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-54"
+    ],
+    "counts": "5280/12480/8400",
+    "edge_valences": "10-6-5-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X37": {
    "dim": "region",
@@ -927,7 +1585,19 @@
     0.30063876409501356,
     0.1503196154347783
    ],
-   "evenness": 1.953466
+   "evenness": 1.953466,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-55 (5280/12480/8400, 8-8-6-5-5-4-3-3-3) = X37",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-55"
+    ],
+    "counts": "5280/12480/8400",
+    "edge_valences": "8-8-6-5-5-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X38": {
    "dim": "wall",
@@ -943,7 +1613,17 @@
     0.5759544667243206,
     0.08352976646497967
    ],
-   "evenness": 2.128923
+   "evenness": 2.128923,
+   "wiki_list": {
+    "line": "1200: subsymmetrical icosafold truncatoicosaswirlchoron (5640/13440/9000, 12-8-4-4-4-3-3) = X38",
+    "vertices": 1200,
+    "name": "subsymmetrical icosafold truncatoicosaswirlchoron",
+    "codes": [],
+    "counts": "5640/13440/9000",
+    "edge_valences": "12-8-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X39": {
    "dim": "wall",
@@ -959,7 +1639,19 @@
     0.3908376004194622,
     0.16399005085680501
    ],
-   "evenness": 2.879086
+   "evenness": 2.879086,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-56 (5640/12840/8400, 9-6-6-5-5-4-4-4-4-3) = X39",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-56"
+    ],
+    "counts": "5640/12840/8400",
+    "edge_valences": "9-6-6-5-5-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X40": {
    "dim": "wall",
@@ -975,7 +1667,19 @@
     0.4471608852885609,
     0.17084424482456476
    ],
-   "evenness": 2.236974
+   "evenness": 2.236974,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-57 (5640/12840/8400, 10-7-6-5-4-4-4-4-3-3) = X40",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-57"
+    ],
+    "counts": "5640/12840/8400",
+    "edge_valences": "10-7-6-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X41": {
    "dim": "wall",
@@ -991,7 +1695,19 @@
     0.4471901086179673,
     0.1708507154710806
    ],
-   "evenness": 2.236785
+   "evenness": 2.236785,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-58 (5640/12840/8400, 10-7-6-5-5-4-4-3-3-3) = X41",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-58"
+    ],
+    "counts": "5640/12840/8400",
+    "edge_valences": "10-7-6-5-5-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X42": {
    "dim": "wall",
@@ -1007,7 +1723,19 @@
     0.2996171704042988,
     0.2977251923184056
    ],
-   "evenness": 5.396803
+   "evenness": 5.396803,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-59 (5640/13440/9000, 10-6-6-6-4-4-4-4-4-3-3) = X42",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-59"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "10-6-6-6-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X43": {
    "dim": "region",
@@ -1023,7 +1751,19 @@
     0.3334088774450982,
     0.20624975414148722
    ],
-   "evenness": 3.622939
+   "evenness": 3.622939,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-60 (5640/12240/7800, 8-6-6-5-4-4-4-4-4-4) = X43",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-60"
+    ],
+    "counts": "5640/12240/7800",
+    "edge_valences": "8-6-6-5-4-4-4-4-4-4",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X44": {
    "dim": "wall",
@@ -1039,7 +1779,19 @@
     0.3130659035999353,
     0.25484355788212676
    ],
-   "evenness": 4.22312
+   "evenness": 4.22312,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-61 (5640/12840/8400, 8-8-6-6-4-4-4-4-4-3) = X44",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-61"
+    ],
+    "counts": "5640/12840/8400",
+    "edge_valences": "8-8-6-6-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X45": {
    "dim": "region",
@@ -1055,7 +1807,19 @@
     0.27644918179362127,
     0.22380813453833479
    ],
-   "evenness": 2.619389
+   "evenness": 2.619389,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-69 (5880/13680/9000, 10-8-8-6-4-4-4-3-3-3) = X45",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-69"
+    ],
+    "counts": "5880/13680/9000",
+    "edge_valences": "10-8-8-6-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X46": {
    "dim": "region",
@@ -1071,7 +1835,19 @@
     0.17829246247438102,
     0.17819134856007607
    ],
-   "evenness": 1.903752
+   "evenness": 1.903752,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-70 (5880/13680/9000, 10-8-6-6-5-4-4-3-3-3) = X46",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-70"
+    ],
+    "counts": "5880/13680/9000",
+    "edge_valences": "10-8-6-6-5-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X47": {
    "dim": "wall",
@@ -1087,7 +1863,19 @@
     0.31295428319414303,
     0.25462740576045567
    ],
-   "evenness": 4.598107
+   "evenness": 4.598107,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-22 (6240/14640/9600, 12-6-6-6-5-4-4-4-3-3-3) = X47",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-22"
+    ],
+    "counts": "6240/14640/9600",
+    "edge_valences": "12-6-6-6-5-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X48": {
    "dim": "wall",
@@ -1103,7 +1891,19 @@
     0.44713179691115823,
     0.1708317786063971
    ],
-   "evenness": 2.236951
+   "evenness": 2.236951,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-23 (6240/14640/9600, 14-6-6-6-6-4-4-3-3-3-3) = X48",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-23"
+    ],
+    "counts": "6240/14640/9600",
+    "edge_valences": "14-6-6-6-6-4-4-3-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X49": {
    "dim": "region",
@@ -1119,7 +1919,19 @@
     0.5718507254180916,
     0.03988815971002363
    ],
-   "evenness": 1.778523
+   "evenness": 1.778523,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-24 (6240/13440/8400, 10-6-6-6-5-4-4-4-3-3) = X49",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-24"
+    ],
+    "counts": "6240/13440/8400",
+    "edge_valences": "10-6-6-6-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X50": {
    "dim": "region",
@@ -1135,7 +1947,19 @@
     0.44320458954333364,
     0.1331785247947655
    ],
-   "evenness": 2.077251
+   "evenness": 2.077251,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-25 (6240/13440/8400, 10-6-6-6-5-4-4-4-4-3) = X50",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-25"
+    ],
+    "counts": "6240/13440/8400",
+    "edge_valences": "10-6-6-6-5-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X51": {
    "dim": "wall",
@@ -1151,7 +1975,19 @@
     0.4471386601703656,
     0.17079569000385972
    ],
-   "evenness": 2.236734
+   "evenness": 2.236734,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-26 (6240/14040/9000, 13-8-5-5-4-4-4-4-4-3-3) = X51",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-26"
+    ],
+    "counts": "6240/14040/9000",
+    "edge_valences": "13-8-5-5-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X52": {
    "dim": "wall",
@@ -1167,7 +2003,19 @@
     0.35935740218831674,
     0.1729953278249448
    ],
-   "evenness": 2.958747
+   "evenness": 2.958747,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-47 (6840/15240/9600, 13-7-6-6-5-4-4-4-4-3-3) = X52",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-47"
+    ],
+    "counts": "6840/15240/9600",
+    "edge_valences": "13-7-6-6-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X53": {
    "dim": "wall",
@@ -1183,7 +2031,19 @@
     0.44713467326138767,
     0.1708265978867391
    ],
-   "evenness": 2.236933
+   "evenness": 2.236933,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-11 (6840/15840/10200, 14-6-6-6-4-4-4-4-4-3-3-3) = X53",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-11"
+    ],
+    "counts": "6840/15840/10200",
+    "edge_valences": "14-6-6-6-4-4-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X54": {
    "dim": "region",
@@ -1199,7 +2059,19 @@
     0.333947499954094,
     0.20731562847853893
    ],
-   "evenness": 3.63743
+   "evenness": 3.63743,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-28 (6840/14640/9000, 8-8-7-6-5-4-4-4-4-3-3) = X54",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-28"
+    ],
+    "counts": "6840/14640/9000",
+    "edge_valences": "8-8-7-6-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X55": {
    "dim": "region",
@@ -1215,7 +2087,19 @@
     0.3129069314097405,
     0.25509881079532337
    ],
-   "evenness": 4.606513
+   "evenness": 4.606513,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-29 (6840/14640/9000, 8-8-6-6-5-4-4-4-4-4-4) = X55",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-29"
+    ],
+    "counts": "6840/14640/9000",
+    "edge_valences": "8-8-6-6-5-4-4-4-4-4-4",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X56": {
    "dim": "region",
@@ -1231,7 +2115,19 @@
     0.3211293129991085,
     0.27805669696125146
    ],
-   "evenness": 8.21537
+   "evenness": 8.21537,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-30 (6840/14640/9000, 10-8-6-6-6-4-4-4-4-4-3) = X56",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-30"
+    ],
+    "counts": "6840/14640/9000",
+    "edge_valences": "10-8-6-6-6-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X57": {
    "dim": "region",
@@ -1247,7 +2143,19 @@
     0.447006942251357,
     0.1707409740680173
    ],
-   "evenness": 2.238463
+   "evenness": 2.238463,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-71 (7440/15840/9600, 12-8-8-6-6-4-4-4-3-3-3) = X57",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-71"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "12-8-8-6-6-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X58": {
    "dim": "region",
@@ -1263,7 +2171,19 @@
     0.4999998520295235,
     0.17228816994776158
    ],
-   "evenness": 1.975377
+   "evenness": 1.975377,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-72 (7440/15840/9600, 12-8-6-6-5-4-4-4-4-3-3) = X58",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-72"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "12-8-6-6-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X59": {
    "dim": "region",
@@ -1279,7 +2199,19 @@
     0.4469906113271417,
     0.17082111305133513
    ],
-   "evenness": 2.238358
+   "evenness": 2.238358,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-73 (7440/15840/9600, 10-8-6-6-5-5-4-4-4-4-3) = X59",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-73"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "10-8-6-6-5-5-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X60": {
    "dim": "region",
@@ -1295,7 +2227,19 @@
     0.3907608187946559,
     0.16408885955195476
    ],
-   "evenness": 2.88121
+   "evenness": 2.88121,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-74 (7440/15840/9600, 10-8-8-6-6-4-4-4-4-3-3) = X60",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-74"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "10-8-8-6-6-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X61": {
    "dim": "region",
@@ -1311,7 +2255,19 @@
     0.5957064002076111,
     0.03050828513507485
    ],
-   "evenness": 2.083601
+   "evenness": 2.083601,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-75 (7440/15840/9600, 12-7-6-5-5-4-4-4-4-3-3) = X61",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-75"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "12-7-6-5-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X62": {
    "dim": "region",
@@ -1327,7 +2283,19 @@
     0.44810446783845775,
     0.1781671643734839
    ],
-   "evenness": 2.300155
+   "evenness": 2.300155,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-76 (7440/15840/9600, 12-8-6-6-6-5-4-4-3-3-3) = X62",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-76"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "12-8-6-6-6-5-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X63": {
    "dim": "region",
@@ -1343,7 +2311,19 @@
     0.446639311164514,
     0.1706010347591085
    ],
-   "evenness": 2.240823
+   "evenness": 2.240823,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-77 (8040/17040/10200, 14-10-6-6-4-4-4-4-4-4-3-3) = X63",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-77"
+    ],
+    "counts": "8040/17040/10200",
+    "edge_valences": "14-10-6-6-4-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X64": {
    "dim": "region",
@@ -1359,7 +2339,19 @@
     0.4425234540996056,
     0.17550712713468808
    ],
-   "evenness": 2.332326
+   "evenness": 2.332326,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-78 (8040/17040/10200, 14-8-6-6-6-5-4-4-4-3-3-3) = X64",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-78"
+    ],
+    "counts": "8040/17040/10200",
+    "edge_valences": "14-8-6-6-6-5-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X65": {
    "dim": "region",
@@ -1375,7 +2367,19 @@
     0.31305907647379094,
     0.2548214250613288
    ],
-   "evenness": 4.602495
+   "evenness": 4.602495,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-79 (8040/17040/10200, 12-8-8-6-5-5-4-4-4-4-3-3) = X65",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-79"
+    ],
+    "counts": "8040/17040/10200",
+    "edge_valences": "12-8-8-6-5-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X66": {
    "dim": "region",
@@ -1391,7 +2395,19 @@
     0.4426996228003036,
     0.16909439040049648
    ],
-   "evenness": 2.288871
+   "evenness": 2.288871,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-83 (8640/18240/10800, 14-8-8-6-6-4-4-4-4-4-3-3) = X66",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-83"
+    ],
+    "counts": "8640/18240/10800",
+    "edge_valences": "14-8-8-6-6-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X67": {
    "dim": "region",
@@ -1407,7 +2423,19 @@
     0.3592916459003748,
     0.17315294878937568
    ],
-   "evenness": 2.961217
+   "evenness": 2.961217,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-84 (8640/18240/10800, 14-8-8-8-5-5-4-4-4-3-3-3) = X67",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-84"
+    ],
+    "counts": "8640/18240/10800",
+    "edge_valences": "14-8-8-8-5-5-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X68": {
    "dim": "region",
@@ -1423,7 +2451,19 @@
     0.5246663375727003,
     0.12903027053120047
    ],
-   "evenness": 2.132709
+   "evenness": 2.132709,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-85 (8640/18240/10800, 14-9-6-4-4-4-4-4-4-4-4-3) = X68",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-85"
+    ],
+    "counts": "8640/18240/10800",
+    "edge_valences": "14-9-6-4-4-4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X69": {
    "dim": "region",
@@ -1439,7 +2479,19 @@
     0.3736873653519457,
     0.14273601934809424
    ],
-   "evenness": 3.104301
+   "evenness": 3.104301,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-86 (9240/19440/11400, 16-8-7-6-6-4-4-4-4-4-4-3-3) = X69",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-86"
+    ],
+    "counts": "9240/19440/11400",
+    "edge_valences": "16-8-7-6-6-4-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X70": {
    "dim": "region",
@@ -1455,7 +2507,19 @@
     0.3216395608412968,
     0.31128768414398056
    ],
-   "evenness": 9.833087
+   "evenness": 9.833087,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-31 (6840/14640/9000, 8-8-8-6-4-4-4-4-4-4-3) = X70",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-31"
+    ],
+    "counts": "6840/14640/9000",
+    "edge_valences": "8-8-8-6-4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X71": {
    "dim": "region",
@@ -1471,7 +2535,19 @@
     0.422613942503133,
     0.4121720756999421
    ],
-   "evenness": 13.879503
+   "evenness": 13.879503,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-32 (6840/14640/9000, 10-8-8-6-6-6-4-4-3-3-3) = X71",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-32"
+    ],
+    "counts": "6840/14640/9000",
+    "edge_valences": "10-8-8-6-6-6-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X72": {
    "dim": "region",
@@ -1487,7 +2563,19 @@
     0.05151910243312917,
     0.023065950635878733
    ],
-   "evenness": 22.400188
+   "evenness": 22.400188,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-87 (7440/15840/9600, 10-8-8-8-6-4-4-4-4-4-3-3) = X72",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-87"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "10-8-8-8-6-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X73": {
    "dim": "region",
@@ -1503,7 +2591,19 @@
     0.1424962067654255,
     0.05806790893347222
    ],
-   "evenness": 8.828707
+   "evenness": 8.828707,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-88 (7440/15840/9600, 10-8-6-6-6-5-4-4-4-4-4-3) = X73",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-88"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "10-8-6-6-6-5-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X74": {
    "dim": "region",
@@ -1519,7 +2619,19 @@
     0.12546251842801062,
     0.024219711205373605
    ],
-   "evenness": 11.236969
+   "evenness": 11.236969,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-89 (7440/15840/9600, 12-10-6-5-4-4-4-4-4-4-4-3) = X74",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-89"
+    ],
+    "counts": "7440/15840/9600",
+    "edge_valences": "12-10-6-5-4-4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X75": {
    "dim": "region",
@@ -1535,7 +2647,19 @@
     0.18349970362731385,
     0.06772865444629217
    ],
-   "evenness": 7.707839
+   "evenness": 7.707839,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-80 (8040/17040/10200, 10-10-7-6-6-6-4-4-4-3-3-3) = X75",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-80"
+    ],
+    "counts": "8040/17040/10200",
+    "edge_valences": "10-10-7-6-6-6-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X76": {
    "dim": "region",
@@ -1551,7 +2675,19 @@
     0.3322851691781083,
     0.31984935315077795
    ],
-   "evenness": 6.264866
+   "evenness": 6.264866,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-81 (8040/17040/10200, 10-8-6-6-6-6-6-5-4-3-3-3) = X76",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-81"
+    ],
+    "counts": "8040/17040/10200",
+    "edge_valences": "10-8-6-6-6-6-6-5-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X77": {
    "dim": "region",
@@ -1567,7 +2703,19 @@
     0.3082464662200124,
     0.3013170512535432
    ],
-   "evenness": 10.310451
+   "evenness": 10.310451,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-82 (8040/17040/10200, 12-10-8-8-6-6-6-3-3-3-3-3) = X77",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-82"
+    ],
+    "counts": "8040/17040/10200",
+    "edge_valences": "12-10-8-8-6-6-6-3-3-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X78": {
    "dim": "line",
@@ -1583,7 +2731,17 @@
     0.23118577678203855,
     0.11339073977401563
    ],
-   "evenness": 2.899162
+   "evenness": 2.899162,
+   "wiki_list": {
+    "line": "1200: subsymmetrical small transitional icosafold truncatododecaswirlchoron (1080/5280/5400, 4-4-3-3) = X78",
+    "vertices": 1200,
+    "name": "subsymmetrical small transitional icosafold truncatododecaswirlchoron",
+    "codes": [],
+    "counts": "1080/5280/5400",
+    "edge_valences": "4-4-3-3",
+    "edge_ratio": null,
+    "match": "the shape has more symmetry than the group: edge classes it joins are listed once"
+   }
   },
   "X79": {
    "dim": "wall",
@@ -1599,7 +2757,19 @@
     0.19512389681235942,
     0.09758059744839467
    ],
-   "evenness": 4.986765
+   "evenness": 4.986765,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-90 (5040/11640/7800, 8-8-6-6-6-4-4-4-3-3) = X79",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-90"
+    ],
+    "counts": "5040/11640/7800",
+    "edge_valences": "8-8-6-6-6-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X80": {
    "dim": "line",
@@ -1615,7 +2785,19 @@
     0.19533213777249003,
     0.09768027503910094
    ],
-   "evenness": 4.980846
+   "evenness": 4.980846,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-27 (2640/7440/6000, 6-5-4-4-4-4-3-3) = X80",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-27"
+    ],
+    "counts": "2640/7440/6000",
+    "edge_valences": "6-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X81": {
    "dim": "line",
@@ -1631,7 +2813,19 @@
     0.19536164350812507,
     0.09766311250830031
    ],
-   "evenness": 4.980795
+   "evenness": 4.980795,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-91 (3240/9240/7200, 6-6-6-4-4-4-3-3-3) = X81",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-91"
+    ],
+    "counts": "3240/9240/7200",
+    "edge_valences": "6-6-6-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X82": {
    "dim": "wall",
@@ -1647,7 +2841,19 @@
     0.15108659584363018,
     0.15100704879379045
    ],
-   "evenness": 3.621265
+   "evenness": 3.621265,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-92 (3840/9840/7200, 8-4-4-4-4-4-4-4-3) = X82",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-92"
+    ],
+    "counts": "3840/9840/7200",
+    "edge_valences": "8-4-4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X83": {
    "dim": "wall",
@@ -1663,7 +2869,19 @@
     0.23123799178929796,
     0.11333929639031369
    ],
-   "evenness": 3.409508
+   "evenness": 3.409508,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-93 (2280/7680/6600, 8-4-4-4-3-3-3) = X83",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-93"
+    ],
+    "counts": "2280/7680/6600",
+    "edge_valences": "8-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X84": {
    "dim": "wall",
@@ -1679,7 +2897,19 @@
     0.3495417041996973,
     0.28403250419993553
    ],
-   "evenness": 7.786683
+   "evenness": 7.786683,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-62 (5640/13440/9000, 12-8-4-4-4-4-4-4-4-3-3) = X84",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-62"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "12-8-4-4-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X85": {
    "dim": "wall",
@@ -1695,7 +2925,19 @@
     0.2958238977223219,
     0.29578001252558356
    ],
-   "evenness": 5.336654
+   "evenness": 5.336654,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-94 (4440/11040/7800, 8-6-6-4-4-4-4-4-3-3) = X85",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-94"
+    ],
+    "counts": "4440/11040/7800",
+    "edge_valences": "8-6-6-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X86": {
    "dim": "wall",
@@ -1711,7 +2953,19 @@
     0.296480791354794,
     0.2961693103347557
    ],
-   "evenness": 5.347786
+   "evenness": 5.347786,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-17 (5040/11640/7800, 8-7-6-6-5-4-4-4-3-3) = X86",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-17"
+    ],
+    "counts": "5040/11640/7800",
+    "edge_valences": "8-7-6-6-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X87": {
    "dim": "wall",
@@ -1727,7 +2981,19 @@
     0.19473039075314857,
     0.09746743377083353
    ],
-   "evenness": 5.345835
+   "evenness": 5.345835,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-63 (5640/13440/9000, 8-8-6-6-4-4-4-4-3-3-3) = X87",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-63"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "8-8-6-6-4-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X88": {
    "dim": "wall",
@@ -1743,7 +3009,19 @@
     0.1948274279580669,
     0.09749134310456535
    ],
-   "evenness": 5.344099
+   "evenness": 5.344099,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-64 (5640/13440/9000, 8-8-6-6-5-4-4-4-3-3-3) = X88",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-64"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "8-8-6-6-5-4-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X89": {
    "dim": "wall",
@@ -1759,7 +3037,19 @@
     0.2960061996054052,
     0.2958610410340377
    ],
-   "evenness": 5.338669
+   "evenness": 5.338669,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-65 (5640/13440/9000, 8-8-6-6-4-4-4-4-4-3-3) = X89",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-65"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "8-8-6-6-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X90": {
    "dim": "wall",
@@ -1775,7 +3065,19 @@
     0.2958261882738447,
     0.2957696903071551
    ],
-   "evenness": 5.335909
+   "evenness": 5.335909,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-66 (5640/13440/9000, 8-6-6-6-5-4-4-4-4-3-3) = X90",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-66"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "8-6-6-6-5-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X91": {
    "dim": "wall",
@@ -1791,7 +3093,19 @@
     0.29571532596477634,
     0.29568610917381233
    ],
-   "evenness": 5.334919
+   "evenness": 5.334919,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-67 (5640/13440/9000, 8-8-8-6-6-4-4-3-3-3-3) = X91",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-67"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "8-8-8-6-6-4-4-3-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X92": {
    "dim": "wall",
@@ -1807,7 +3121,19 @@
     0.2957005191902845,
     0.29567478356456833
    ],
-   "evenness": 5.335658
+   "evenness": 5.335658,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-68 (5640/13440/9000, 10-8-6-6-6-4-4-3-3-3-3) = X92",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-68"
+    ],
+    "counts": "5640/13440/9000",
+    "edge_valences": "10-8-6-6-6-4-4-3-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X93": {
    "dim": "wall",
@@ -1823,7 +3149,19 @@
     0.3105349383211574,
     0.30523228746736564
    ],
-   "evenness": 5.614859
+   "evenness": 5.614859,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-95 (5040/11640/7800, 7-6-6-6-4-4-4-4-3-3) = X93",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-95"
+    ],
+    "counts": "5040/11640/7800",
+    "edge_valences": "7-6-6-6-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X94": {
    "dim": "wall",
@@ -1839,7 +3177,19 @@
     0.32046842249548724,
     0.12245725498138865
    ],
-   "evenness": 2.856365
+   "evenness": 2.856365,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-96 (4080/10080/7200, 8-6-5-5-4-4-3-3) = X94",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-96"
+    ],
+    "counts": "4080/10080/7200",
+    "edge_valences": "8-6-5-5-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X95": {
    "dim": "region",
@@ -1855,7 +3205,19 @@
     0.3404476318913583,
     0.15873078123530204
    ],
-   "evenness": 2.235917
+   "evenness": 2.235917,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-97 (4080/10080/7200, 8-6-5-4-4-4-3-3) = X95",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-97"
+    ],
+    "counts": "4080/10080/7200",
+    "edge_valences": "8-6-5-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X96": {
    "dim": "wall",
@@ -1871,7 +3233,19 @@
     0.4198212612770528,
     0.16035745177334665
    ],
-   "evenness": 2.148961
+   "evenness": 2.148961,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-5 (2640/7440/6000, 4-4-4-4-4-4-3) = X96",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-5"
+    ],
+    "counts": "2640/7440/6000",
+    "edge_valences": "4-4-4-4-4-4-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X97": {
    "dim": "line",
@@ -1887,7 +3261,19 @@
     0.31292876739060393,
     0.2546143126106121
    ],
-   "evenness": 2.946649
+   "evenness": 2.946649,
+   "wiki_list": {
+    "line": "1200: great transitional swirlprismatodiminished great rhombated hecatonicosachoron (2640/7440/6000, 6-6-6-4-3-3-3) = 5sd-1200-98 = X97 (1:√(10+4√5+2√(31+14√5))/2 ~ 1:2.94665)",
+    "vertices": 1200,
+    "name": "great transitional swirlprismatodiminished great rhombated hecatonicosachoron",
+    "codes": [
+     "5sd-1200-98"
+    ],
+    "counts": "2640/7440/6000",
+    "edge_valences": "6-6-6-4-3-3-3",
+    "edge_ratio": "1:√(10+4√5+2√(31+14√5))/2 ~ 1:2.94665",
+    "match": "exact"
+   }
   },
   "X98": {
    "dim": "wall",
@@ -1903,7 +3289,19 @@
     0.3625983850431019,
     0.21098834616176965
    ],
-   "evenness": 3.136232
+   "evenness": 3.136232,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-99 (6240/14040/9000, 10-8-8-6-5-4-4-3-3-3) = X98",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-99"
+    ],
+    "counts": "6240/14040/9000",
+    "edge_valences": "10-8-8-6-5-4-4-3-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X99": {
    "dim": "wall",
@@ -1919,7 +3317,19 @@
     0.4900791724665613,
     0.14371203566220164
    ],
-   "evenness": 2.078426
+   "evenness": 2.078426,
+   "wiki_list": {
+    "line": "1200: 5sd-1200-100 (6240/14640/9600, 12-7-4-4-4-4-4-4-4-3-3) = X99",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-100"
+    ],
+    "counts": "6240/14640/9600",
+    "edge_valences": "12-7-4-4-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X100": {
    "dim": "wall",
@@ -1935,7 +3345,19 @@
     0.5283233900553433,
     0.15101217320113153
    ],
-   "signature": "1200: cells 120+120+600+600+600+1200+1200+1200 | faces 240+600+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200+1200 | val 3:1800,4:4200,6:1800,11:600"
+   "signature": "1200: cells 120+120+600+600+600+1200+1200+1200 | faces 240+600+1200+1200+1200+1200+1200+1200+1200+1200+1200+1200 | edges 600+600+600+600+600+600+1200+1200+1200+1200 | val 3:1800,4:4200,6:1800,11:600",
+   "wiki_list": {
+    "line": "1200: 5sd-1200-101 (5640/12840/8400, 11-6-6-4-4-4-4-4-3-3) = X100",
+    "vertices": 1200,
+    "name": null,
+    "codes": [
+     "5sd-1200-101"
+    ],
+    "counts": "5640/12840/8400",
+    "edge_valences": "11-6-6-4-4-4-4-4-3-3",
+    "edge_ratio": null,
+    "match": "exact"
+   }
   },
   "X101": {
    "dim": "wall",
@@ -2275,7 +3697,7 @@
   "notes": {
    "X84/D2": "D2 is not an edge of X84 (user)",
    "C2b": "C2b is an edge of X14 the full stretch from C4 to the other C4, and of X25 part way, until it cuts into X14; in both it runs on into the next cell and is still an edge there (user)",
-   "edge_corners": "a wall's edge along another wall runs between these corners (user): X28 along F1 from A1 to C5; X11 along T2 from C4 to X4; X94 along T2 and along X11 from C5 to the point where X94, X11 and T2 meet; the point where X94, X11 and T2 meet is X94\u00b7X11\u00b7T2 in exact_points.json: two places in the half-cell, one the other's copy under the half-turn (user)",
+   "edge_corners": "a wall's edge along another wall runs between these corners (user): X28 along F1 from A1 to C5; X11 along T2 from C4 to X4; X94 along T2 and along X11 from C5 to the point where X94, X11 and T2 meet; the point where X94, X11 and T2 meet is X94·X11·T2 in exact_points.json: two places in the half-cell, one the other's copy under the half-turn (user)",
    "X28/D1": "D1 is an edge of X28, with C5 a corner (user; the ring round D1 meets X28 twice)",
    "X11/C3": "C3 is an edge of X11 (user; the ring round C3 met X11 twice)",
    "X94/C3": "C3 is not an edge of X94 (user; the ring round C3 met X94 twice, but it is not an edge)",
@@ -2307,11 +3729,11 @@
    },
    "X94": {
     "T2": [
-     "X94\u00b7X11\u00b7T2",
+     "X94·X11·T2",
      "ends at C1"
     ],
     "X11": [
-     "X94\u00b7X11\u00b7T2",
+     "X94·X11·T2",
      "ends at C1"
     ]
    }
@@ -7127,7 +8549,7 @@
     ]
    },
    {
-    "name": "X94\u00b7X11\u00b7T2",
+    "name": "X94·X11·T2",
     "b": [
      "0.4669517989440131853559672438285946405034",
      "0.2749235950428992287825034226247533246889",
@@ -7153,7 +8575,7 @@
     ]
    },
    {
-    "name": "X94\u00b7X11\u00b7T2",
+    "name": "X94·X11·T2",
     "b": [
      "0.3333333333333333333333333333333333333333",
      "0.2328261468077458274156754590840617528418",
@@ -33131,5 +34553,6 @@
     "plane (0.934172, -0.356822, 0, 0)"
    ]
   }
- }
+ },
+ "_about_wiki_list": "Each shape's entry in the 5-swirldoic list (wiki_list): the list's own line, its name, its 5sd codes, cells/faces/edges, the valence of each edge class (cells round it, greatest first) and its edge ratio where given; matched by vertex count, those counts and those valences (computed from the shape's seed). C2a and C2b are the one listed shape. X101, X102 and X103 have the counts and valences of X79, X72 and X73 (5sd-1200-90, -87, -88) but other vertex figures: not in the list."
 }
