@@ -38,6 +38,7 @@ from four_d_vertex_generator.library import named_symmetry
 T = np.load(Path(__file__).with_name("cell_vertices.npy"))
 RINGS = ("C2a", "C2b", "C3", "D1", "D2", "D3")
 DODECA_LINE_TOL = 2e-3   # (curves in the dodecahedron views kept where they turn by more than this)
+SLIVER = 1e-3          # a wall copy reaching no deeper than this into a dodecahedron view is left out
 CLIP_TOL = 1e-9         # a point within this of a view's face counts as inside (pieces lying in the face)
 SEL_ONLY = {"T1", "E1", "E2"}
 
@@ -251,6 +252,39 @@ def clip_line(P, H):
     return runs
 
 
+def _surface_near(Q):
+    """For a clipped set of triangles (n, 3, 4): a tree of its corners and centres, and a reach of
+    about one and a half of its triangles."""
+    from scipy.spatial import cKDTree
+    if not len(Q):
+        return None
+    reach = 1.5 * np.median(np.linalg.norm(Q[:, 1] - Q[:, 0], axis=1))
+    return cKDTree(np.r_[Q.reshape(-1, 4), Q.mean(1)]), reach
+
+
+def _runs_beside(R, near, planes):
+    """The stretches of a clipped polyline that border the surface: a point lying on a face of the
+    view is kept only where the surface is beside it (an edge of a copy lying flat on a face of the
+    view, with its surface going outward, is not this view's); points off the faces are kept."""
+    if near is None:
+        return []
+    tree, reach = near
+    on = (np.abs(R @ planes.T) < 1e-7).any(1)
+    ok = ~on
+    if on.any():
+        ok[on] = tree.query(R[on])[0] < reach
+    out, cur = [], []
+    for x, k in zip(R, ok):
+        if k:
+            cur.append(x)
+        elif cur:
+            if len(cur) > 1:
+                out.append(np.array(cur))
+            cur = []
+    if len(cur) > 1:
+        out.append(np.array(cur))
+    return out
+
 def orient(F):
     """Faces turned so neighbours agree (each shared edge run opposite ways in the two), so the
     surface is shaded as one sheet."""
@@ -321,6 +355,89 @@ def thin(P, tol):
 
 # ---------------------------------------------------------------- the page
 
+def add_point_copies(DC, cell, G):
+    """The page keeps each seed once; a seed on a face of the half-cell (the splitting mirror and the
+    faces glued to other copies) also lies there as its copies under the group, on the other side of
+    where the face is glued. Those copies are added (once: a copy already there is not added again),
+    each with its own position and seed."""
+    Tinv = np.linalg.inv(T)
+    H = np.c_[Tinv, Tinv[:, 2] - Tinv[:, 3]].T
+    H /= np.linalg.norm(H, axis=1, keepdims=True)
+
+    def copies(x):
+        if (x @ H.T).min() > 1e-9:                     # (inside: no other copy in the half-cell)
+            return []
+        Y = np.einsum("gij,j->gi", G, x)
+        Y = Y[((Y @ H.T) >= -1e-9).all(1) & (np.abs(Y - x).max(1) > 1e-7)]
+        return list({tuple(np.round(y, 9)): y for y in Y}.values())
+
+    def relabel(hover, y):
+        b = y @ Tinv
+        b = np.clip(b / b.max(), 0, None)
+        bt = ", ".join("0" if v < 5e-10 else "1" if abs(v - 1) < 5e-10 else f"{v:.4f}" for v in b)
+        hover = re.sub(r"β ∝ \([^)]*\)", f"β ∝ ({bt})", hover)
+        return re.sub(r"seed [-0-9.e]+, [-0-9.e]+, [-0-9.e]+, [-0-9.e]+",
+                      "seed " + ", ".join(repr(float(v)) for v in y), hover)
+    added = 0
+    for nm, pts in DC["samples"].items():
+        have = {tuple(np.round(p[:3], 3)) for p in pts}
+        for p in list(pts):
+            x = seed_of(p[3])
+            if x is None:
+                continue
+            for y in copies(x):
+                q = [round(float(v), 4) for v in cell(y[None])[0]]
+                if tuple(np.round(q, 3)) in have:
+                    continue
+                have.add(tuple(np.round(q, 3)))
+                pts.append(q + [relabel(p[3], y)])
+                added += 1
+    have = {(u["id"], u.get("copy"), tuple(np.round(u["q"], 3))) for u in DC["uniform"]}
+    for u in list(DC["uniform"]):
+        x = seed_of(u.get("hover", ""))
+        if x is None:
+            continue
+        for y in copies(x):
+            q = [round(float(v), 4) for v in cell(y[None])[0]]
+            k = (u["id"], u.get("copy"), tuple(np.round(q, 3)))
+            if k in have:
+                continue
+            have.add(k)
+            DC["uniform"].append({**u, "q": q, "hover": relabel(u["hover"], y)})
+            added += 1
+    print(f"seeds on the half-cell's faces: {added} copies added on the other side of their face", flush=True)
+
+
+COLOR_OF = {"region": "--x", "wall": "--xw", "line": "--xl", "point": "--xp"}
+
+
+def add_new_shapes(DC, src_dir):
+    """Shapes of the database the page's key does not list yet (found after the key was made): a
+    row each, from the shape's record (working_data.json): its counts, and its seed, a point well
+    inside it. Its boundaries are filled in from the 3-sphere map with every other shape's."""
+    wd = json.loads((Path(src_dir).parent / "source" / "working_data.json").read_text())["shapes"]
+    have = {t["id"] for t in DC["types"]}
+
+    def order(k):
+        m = re.match(r"([A-Z]+)(\d+)", k)
+        return (m.group(1), int(m.group(2))) if m else (k, 0)
+    for k in sorted(set(wd) - have, key=order):
+        v = wd[k]
+        if v.get("dim") not in COLOR_OF or v.get("seed") is None:
+            continue
+        b = np.asarray(v["seed"], float)
+        x = to_sphere(b)[0]
+        bt = "(" + ", ".join("1" if i == 0 else f"{t:.6f}" for i, t in enumerate(b / b[0])) + ")"
+        seed = ", ".join(repr(float(t)) for t in x)
+        DC["types"].append({"id": k, "name": v.get("name", "Not in the wiki list"), "listed": bool(v.get("listed")),
+                            "dim": v["dim"], "color": COLOR_OF[v["dim"]], "symbol": "circle", "samples": 0,
+                            "vertices": v.get("vertices", ""), "cells": v.get("cells", ""),
+                            "faces": v.get("faces", ""), "edges": v.get("edges", ""), "locus": None,
+                            "bounds": [], "example": f"{seed}  β ∝ {bt}", "seed": seed, "betatext": bt,
+                            "partial": []})
+        print(f"key: {k} ({v['dim']}) added from the database", flush=True)
+
+
 def main(src_dir, out_path):
     src_dir = Path(src_dir)
     doc = json.loads((src_dir / "domain_pieces.json").read_text())
@@ -330,6 +447,7 @@ def main(src_dir, out_path):
     DC = json.loads(html[slice(*pos["atlas-data"])])
     V1 = json.loads(html[slice(*pos["atlas-v1"])])
     CH = json.loads(html[slice(*pos["atlas-chambers"])])
+    add_new_shapes(DC, src_dir)
     names = {t["id"]: t["name"] for t in DC["types"]}
     by = {t["id"]: t for t in DC["types"]}
     G = np.stack(group_elements(named_symmetry("h4_swirlprism")))
@@ -366,6 +484,8 @@ def main(src_dir, out_path):
     chplanes = chamber_planes(CH, v1c, G)
     print(f"charts: half-cell fitted to the page's seeds within {err:.1e}; dodecahedron: "
           f"{share:.0%} of the page's samples there matched", flush=True)
+
+    add_point_copies(DC, cell, G)
 
     verts, tris = z["verts"], z["tris"]
     ep, el = z["edge_pts"], z["edge_len"]
@@ -470,6 +590,17 @@ def main(src_dir, out_path):
                     if not (Xg @ planes.T >= -CLIP_TOL).all(1).any():
                         continue
                     Q = clip_tris(Xg, F0, planes)
+                    if len(Q):
+                        u, v = Q[:, 1] - Q[:, 0], Q[:, 2] - Q[:, 0]
+                        area = 0.5 * np.sqrt(np.clip((u * u).sum(1) * (v * v).sum(1) - (u * v).sum(1) ** 2, 0, None))
+                        Q = Q[area > 1e-12]
+                        if area.sum() < 1e-9:
+                            continue
+                        # (a copy reaching into the view by a hair only, not lying in a face of it:
+                        # nothing of it would show but its edge along the face)
+                        in_face = (np.abs(Xg @ planes.T) < 1e-6).all(0).any()     # (the whole copy)
+                        if not in_face and (Q.reshape(-1, 4) @ planes.T).min(1).max() < SLIVER:
+                            continue
                 else:
                     Q = Xg[F0]
                 if len(Q):
@@ -493,7 +624,15 @@ def main(src_dir, out_path):
                         d0 = np.asarray(fc["f"]["side0_dir"])
                         step = (to_sphere(x0 + 1e-6 * d0) - to_sphere(x0))[0] @ g.T
                         sides = fc["f"]["sides"][:1] if step @ on[0] > 0 else fc["f"]["sides"][1:]
-                draw = (lambda P, g=g: [chart(R) for R in (clip_line(P @ g.T, planes) if planes is not None else [P @ g.T])])
+                if planes is None:
+                    draw = (lambda P, g=g: [chart(P @ g.T)])
+                else:
+                    # (only where the line borders this copy's own surface in the view: an edge of a
+                    # copy lying flat on a face of the view, with its surface going outward, is not
+                    # this view's)
+                    near = _surface_near(Qg)
+                    draw = (lambda P, g=g, near=near: [chart(R) for R0 in clip_line(P @ g.T, planes)
+                                                       for R in _runs_beside(R0, near, planes)])
                 done = drawn_once.setdefault(id(g), set())
                 for o in outlines(fc, draw, done):
                     xlines.append({**o, "pts": thin(o["pts"], line_tol).tolist()})
