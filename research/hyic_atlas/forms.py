@@ -48,7 +48,8 @@ def _factor(expr_text, limit=120):
     old = signal.signal(signal.SIGALRM, _alarm)
     signal.alarm(limit)
     try:
-        facs = sp.factor_list(f, *B, extension=sp.sqrt(5))[1]
+        ext = [sp.sqrt(2), sp.sqrt(5)] if G.SUB.startswith("ixo") else sp.sqrt(5)   # (ixoic: Q(sqrt2, sqrt5))
+        facs = sp.factor_list(f, *B, extension=ext)[1]
     except _Slow:
         facs = sp.factor_list(f, *B)[1]
     finally:

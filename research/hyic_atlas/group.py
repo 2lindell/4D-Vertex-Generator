@@ -127,6 +127,26 @@ def fname(stem, ext="json"):
     return f"{stem}{TAG}.{ext}"
 
 
+_Q25 = None
+
+
+def _exact_q25(v):
+    """v = (a + b sqrt2 + c sqrt5 + d sqrt10) / 4 exactly (b, c, d up to 12 in size): ixoic's entries."""
+    global _Q25
+    if _Q25 is None:
+        r = np.arange(-12, 13)
+        bb, cc, dd = np.meshgrid(r, r, r, indexing="ij")
+        _Q25 = (bb.ravel(), cc.ravel(), dd.ravel(),
+                bb.ravel() * np.sqrt(2) + cc.ravel() * np.sqrt(5) + dd.ravel() * np.sqrt(10))
+    bb, cc, dd, val = _Q25
+    a = 4 * v - val
+    i = np.flatnonzero(np.abs(a - np.round(a)) < 1e-8)
+    if not len(i):
+        raise ValueError(f"not in Q(sqrt2, sqrt5)/4: {v}")
+    i = i[np.argmin(np.abs(bb[i]) + np.abs(cc[i]) + np.abs(dd[i]))]
+    return (sp.Integer(int(round(a[i]))) + int(bb[i]) * sp.sqrt(2) + int(cc[i]) * SQ5 + int(dd[i]) * sp.sqrt(10)) / 4
+
+
 def exact(M):
     """A float matrix with entries (a + b sqrt5) / 2 (a, b integers up to 64) as a sympy matrix."""
     out = sp.zeros(*M.shape)
@@ -139,7 +159,9 @@ def exact(M):
                     out[i, j] = (sp.Integer(round(a)) + sp.Integer(b) * SQ5) / 2
                     break
             else:
-                raise ValueError(f"not in Z[phi]/2: {v}")
+                if not SUB.startswith("ixo"):
+                    raise ValueError(f"not in Z[phi]/2: {v}")
+                out[i, j] = _exact_q25(v)               # (ixoic: outside H4, its elements need sqrt2 too)
     return out
 
 
