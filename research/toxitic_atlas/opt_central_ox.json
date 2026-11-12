@@ -2098,14 +2098,14 @@
     0.11835978328123288
    ],
    "start_R": 2.1996065065888146,
-   "R": 2.1996065065888044,
+   "R": 2.199606506588816,
    "optimized": [
-    0.482185045707604,
-    0.1997275855055803,
-    0.1997275855055803,
-    0.11835978328123536
+    0.4821850457076059,
+    0.19972758550558056,
+    0.1997275855055807,
+    0.11835978328123288
    ],
-   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "optimized_status": "minimum along the crossing curve (stepped and refined by hand: the optimiser takes no step on two curved walls); the seed reported is that minimum, a kink where two edge lengths meet",
    "central": [
     0.4821850457076059,
     0.19972758550558056,
@@ -2119,7 +2119,7 @@
     576,
     528
    ],
-   "off_R": 2.1996065065888093,
+   "off_R": 2.199606506588816,
    "central_off": "central_off/oxitic/oxitic_line_01_576v_528c_central.off",
    "central_counts": [
     576,
