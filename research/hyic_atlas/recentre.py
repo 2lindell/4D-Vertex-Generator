@@ -63,7 +63,7 @@ def job(row):
 
     def proj(x):
         x = np.array(x, float)
-        for _ in range(8):
+        for _ in range(8 if len(surfs) < 2 else 60):     # (two walls: alternate until on both)
             x[zero] = 0
             x = x / x.sum()
             for s in surfs:

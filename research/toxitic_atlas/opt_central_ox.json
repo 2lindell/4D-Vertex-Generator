@@ -2112,8 +2112,8 @@
     0.1997275855055807,
     0.11835978328123288
    ],
-   "depth": null,
-   "central_status": "pending (recentre.py --oxitic)",
+   "depth": 2.384185791015625e-09,
+   "central_status": "pending",
    "opt_off": "optimized_off/oxitic/oxitic_line_01_576v_528c_opt.off",
    "opt_counts": [
     576,
@@ -2124,7 +2124,8 @@
    "central_counts": [
     576,
     528
-   ]
+   ],
+   "central_R": 2.1996065065888164
   }
  ]
 }
