@@ -433,6 +433,12 @@ def sheet(D, C, key, log=print, extra=()):
         s = D.lib[key]
         normal = lambda x: (lambda g: g - g.mean())(s.grad(x[None])[0])
         own = [c for c in C if key in c["on"]]
+        # (a curve where walls meet that lies in a face of the domain is kept once, in one of the two
+        # copies glued there: where the surface meets the face at its other place, its image there;
+        # else the surface's edge there is taken for the face's own, and the wall ending at the
+        # other wall has no edge: X101 ending at X26 on the splitting mirror)
+        own += [g for k in FACES for g in glued_images(D, C, k)
+                if g["kind"] == "meet" and dist_to(s, g["pts"]).max() < 1e-6]
         arcs = []
         arcs = boundary_arcs(s, FACES, D, own)
     edges = [dict(c, eqs=[s, second(s, c, D)]) for c in own] + arcs + list(extra)
