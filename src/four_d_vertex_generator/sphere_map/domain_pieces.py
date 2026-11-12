@@ -1722,6 +1722,29 @@ def coarse(D, key, rings, gap=0.02, max_area=1.2e-3):
     return np.vstack(Xs), np.vstack(Fs)
 
 
+COARSE_TOL = 3e-3       # a coarse mesh keeps within this of the face's exact (fine) mesh
+
+
+def coarse_within(D, key, f, tol, tries=3):
+    """The face's coarse mesh, made finer (its loop points closer, its triangles smaller) until it
+    keeps within tol of the fine mesh: a flat triangle across a strongly curved part of a sheet
+    leaves the surface, and past the face's edge. None (the fine mesh is then used) if it cannot."""
+    from scipy.spatial import cKDTree
+    X, F = f["verts"], f["tris"]
+    tree = cKDTree(np.r_[X, X[F].mean(1), (X[F[:, 0]] + X[F[:, 1]]) / 2,
+                         (X[F[:, 1]] + X[F[:, 2]]) / 2, (X[F[:, 2]] + X[F[:, 0]]) / 2])
+    gap, area = 0.02, 1.2e-3
+    for _ in range(tries + 1):
+        cr = coarse(D, key, f["rings"], gap=gap, max_area=area)
+        if cr is not None:
+            P = cr[0][cr[1]]
+            S = np.r_[P.mean(1), (P[:, 0] + P[:, 1]) / 2, (P[:, 1] + P[:, 2]) / 2, (P[:, 2] + P[:, 0]) / 2]
+            if tree.query(S)[0].max() < tol:
+                return cr
+        gap, area = gap / 2, area / 4
+    return None
+
+
 def _sheet_job(key):
     import pickle
     cache = data_dir() / "sphere_map" / ".cache" / "domain_sheets" / f"{key}.pkl"
@@ -1824,7 +1847,7 @@ def export(log=print, workers=4):
             nv += len(f["verts"])
             # (a coarser mesh of the same face, for views holding many images of the half-cell:
             # its loops' own points, every few of them, and bigger triangles inside)
-            cr = coarse(D, key, f["rings"])
+            cr = coarse_within(D, key, f, COARSE_TOL)
             if share < 0.95 and cr is not None:
                 # (the coarse mesh trimmed the same way: each triangle kept as the fine triangle
                 # nearest its middle is)
