@@ -187,7 +187,7 @@ def run(oc, atlas, envvar, only):
         if not only and r.get("central_status", "").startswith("centre of the shape's extent v2"):
             continue                                    # (done in an earlier run)
         by.setdefault(r["sheet"], []).append({
-            "name": r["name"], "key": r["key"], "seed": r["seed"], "locus": r["locus"] if r["kind"] == "wall" else [],
+            "name": r["name"], "key": r["key"], "seed": r["seed"], "locus": r.get("locus") or [],
             "tol": 1e-7 if r["kind"] == "wall" else 1e-9, "central_off": r["central_off"]})
     rows = {r["name"]: r for r in O["shapes"]}
     for sub, items in sorted(by.items()):

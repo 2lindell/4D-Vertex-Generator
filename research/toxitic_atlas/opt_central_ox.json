@@ -2107,13 +2107,13 @@
    ],
    "optimized_status": "minimum along the crossing curve (stepped and refined by hand: the optimiser takes no step on two curved walls); the seed reported is that minimum, a kink where two edge lengths meet",
    "central": [
-    0.4821850457076059,
-    0.19972758550558056,
-    0.1997275855055807,
-    0.11835978328123288
+    0.45023573026976965,
+    0.18649374574269326,
+    0.18649374574269326,
+    0.17677677824484378
    ],
-   "depth": 2.384185791015625e-09,
-   "central_status": "pending",
+   "depth": 0.20929649353027346,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "opt_off": "optimized_off/oxitic/oxitic_line_01_576v_528c_opt.off",
    "opt_counts": [
     576,
@@ -2125,7 +2125,7 @@
     576,
     528
    ],
-   "central_R": 2.1996065065888164
+   "central_R": 2.974875198758016
   }
  ]
 }
