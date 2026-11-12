@@ -1431,9 +1431,11 @@ def _inward_cut(s, t, P, i, xs_pts, normal, step=STEP, max_len=3.0):
 xs_idx_of = {}
 
 
-def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8):
+def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8, off=None):
     """Inner edges longer than h split at their middles, each solved onto the surface (a middle
-    that cannot be: left); rim edges never split."""
+    that cannot be: left); rim edges never split. With off: instead, inner edges whose middle on
+    the surface lies further than off from the straight edge (where the surface bends away from
+    its flat triangles)."""
     for _ in range(rounds):
         edges = {}
         for t_i, t in enumerate(F):
@@ -1441,7 +1443,12 @@ def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8):
                 e = frozenset((t[k], t[(k + 1) % 3]))
                 edges.setdefault(e, []).append(t_i)
         long_ = [e for e, ts in edges.items() if e not in rim and len(ts) == 2
-                 and np.linalg.norm(X[min(e)] - X[max(e)]) > h]
+                 and np.linalg.norm(X[min(e)] - X[max(e)]) > (h if off is None else 2 * off)]
+        if off is not None and long_:
+            # (only edges whose middle is off the surface, by a first-order estimate, are tried)
+            Xa = np.asarray(X)
+            M = np.array([(Xa[min(e)] + Xa[max(e)]) / 2 for e in long_])
+            long_ = [e for e, d in zip(long_, _off_surface(s, M)) if d > 0.5 * off]
         if not long_:
             break
         taken, newF, split_at = set(), [], {}
@@ -1456,18 +1463,32 @@ def _refine_on_surface(s, X, F, rim, normal, h=0.02, rounds=8):
             tn = _tri_normals(np.array(X), np.array([F[t1], F[t2]])).sum(0)
             if np.linalg.norm(tn) < 1e-14:
                 continue
-            y = _lift(s, m, tn / np.linalg.norm(tn))
-            if y is None or np.linalg.norm(y - m) > 0.5 * np.linalg.norm(X[u] - X[v]):
-                continue
             newt = []
             for t_ in (F[t1], F[t2]):
                 k_ = next(k for k in range(3) if frozenset((t_[k], t_[(k + 1) % 3])) == e)
                 a_, b_, c_ = t_[k_], t_[(k_ + 1) % 3], t_[(k_ + 2) % 3]
                 newt += [[a_, -1, c_], [-1, b_, c_]]
-            Xt = np.array(X + [y])
             Ft = np.array([[len(X) if q == -1 else q for q in t_] for t_ in newt])
-            sn = np.array([normal(x) for x in Xt[Ft].mean(1)])
-            if _turned(_tri_normals(Xt, Ft), sn):
+            # (when refining onto the surface, also the surface's own normal there: across thin
+            # triangles theirs can miss it, or land where the new triangles turn over)
+            dirs = [tn / np.linalg.norm(tn)]
+            if off is not None:
+                n_ = normal(m)
+                if np.linalg.norm(n_) > 1e-14:
+                    dirs.append(n_ / np.linalg.norm(n_))
+            y = None
+            for d_ in dirs:
+                yy = _lift(s, m, d_)
+                if yy is None or np.linalg.norm(yy - m) > 0.5 * np.linalg.norm(X[u] - X[v]):
+                    continue
+                if off is not None and np.linalg.norm(yy - m) <= off:
+                    break                                   # (on the surface already: no split)
+                Xt = np.array(X + [yy])
+                sn = np.array([normal(x) for x in Xt[Ft].mean(1)])
+                if not _turned(_tri_normals(Xt, Ft), sn):
+                    y = yy
+                    break
+            if y is None:
                 continue
             X.append(y)
             split_at[e] = len(X) - 1
@@ -1688,9 +1709,11 @@ def _inside_poly(Q, q):
 
 # ------------------------------------------------------------------------------- output
 
-def coarse(D, key, rings, gap=0.02, max_area=1.2e-3):
+def coarse(D, key, rings, gap=0.02, max_area=1.2e-3, sag=1e-3):
     """A coarser triangulation of a face: its loops' points kept every gap or so (their ends and
-    sharp turns always), larger triangles inside, inner points on the surface."""
+    sharp turns always, and wherever a straight chord would leave the loop by more than sag: else
+    the face would reach past its own edge where the edge bends inward), larger triangles inside,
+    inner points on the surface."""
     import triangle as tr
     s = D.face_planes[FACE_NAMES.index(key[5:])] if isinstance(key, str) else D.lib[key]
     if isinstance(key, str):
@@ -1708,6 +1731,14 @@ def coarse(D, key, rings, gap=0.02, max_area=1.2e-3):
                 a, b = R[i] - R[i - 1], R[i + 1] - R[i]
                 if a @ b < 0.9 * np.linalg.norm(a) * np.linalg.norm(b):
                     keep.append(i)
+                    continue
+                # (the chord from the last kept point to the next would leave the loop: keep this)
+                j0 = keep[-1]
+                u = R[i + 1] - R[j0]
+                w = R[j0 + 1:i + 1] - R[j0]
+                t = np.clip(w @ u / max(u @ u, 1e-300), 0, 1)
+                if np.linalg.norm(w - t[:, None] * u, axis=1).max() > sag:
+                    keep.append(i)
         if len(keep) < 3:
             keep = list(range(len(R)))
         thin.append(R[keep])
@@ -1722,28 +1753,53 @@ def coarse(D, key, rings, gap=0.02, max_area=1.2e-3):
     return np.vstack(Xs), np.vstack(Fs)
 
 
-COARSE_TOL = 3e-3       # a coarse mesh keeps within this of the face's exact (fine) mesh
+COARSE_TOL = 3e-3       # a face's coarse mesh keeps within this of its surface
+FINE_TOL = 1e-3         # and its fine mesh within this
 
 
-def coarse_within(D, key, f, tol, tries=3):
-    """The face's coarse mesh, made finer (its loop points closer, its triangles smaller) until it
-    keeps within tol of the fine mesh: a flat triangle across a strongly curved part of a sheet
-    leaves the surface, and past the face's edge. None (the fine mesh is then used) if it cannot."""
-    from scipy.spatial import cKDTree
-    X, F = f["verts"], f["tris"]
-    tree = cKDTree(np.r_[X, X[F].mean(1), (X[F[:, 0]] + X[F[:, 1]]) / 2,
-                         (X[F[:, 1]] + X[F[:, 2]]) / 2, (X[F[:, 2]] + X[F[:, 0]]) / 2])
-    gap, area = 0.02, 1.2e-3
-    for _ in range(tries + 1):
-        cr = coarse(D, key, f["rings"], gap=gap, max_area=area)
-        if cr is not None:
-            P = cr[0][cr[1]]
-            S = np.r_[P.mean(1), (P[:, 0] + P[:, 1]) / 2, (P[:, 1] + P[:, 2]) / 2, (P[:, 2] + P[:, 0]) / 2]
-            if tree.query(S)[0].max() < tol:
-                return cr
-        gap, area = gap / 2, area / 4
-    return None
+def _off_surface(s, P):
+    """How far points are off a library surface, to first order: |f| / |grad f| (in the
+    hyperplane of the barycentric weights)."""
+    P = np.atleast_2d(P)
+    g = s.grad(P)
+    g = g - g.mean(1, keepdims=True)
+    return np.abs(s.f(P)) / np.maximum(np.linalg.norm(g, axis=1), 1e-300)
 
+
+def _mesh_samples(X, F):
+    P = X[F]
+    return np.r_[P.mean(1), (P[:, 0] + P[:, 1]) / 2, (P[:, 1] + P[:, 2]) / 2, (P[:, 2] + P[:, 0]) / 2]
+
+
+def onto_surface(D, key, X, F, tol):
+    """A face's mesh with its inner edges split where its flat triangles leave the surface by more
+    than tol (long thin triangles across a strongly curved part of a sheet), the new points on the
+    surface; its rim (on the face's exact loops) kept. A face of the domain is flat: unchanged."""
+    if isinstance(key, str) or not len(F):
+        return X, F
+    s = D.lib[key]
+    if _off_surface(s, _mesh_samples(X, F)).max() <= tol:
+        return X, F
+    normal = lambda x: (lambda g: g - g.mean())(s.grad(x[None])[0])
+    cnt = {}
+    for t in F:
+        for k in range(3):
+            e = frozenset((int(t[k]), int(t[(k + 1) % 3])))
+            cnt[e] = cnt.get(e, 0) + 1
+    rim = {e for e, c in cnt.items() if c == 1}
+    Xl, Fl = _refine_on_surface(s, [x for x in X], [list(map(int, t)) for t in F], rim, normal,
+                                rounds=40, off=tol / 2)
+    return np.array(Xl), np.array(Fl, dtype=F.dtype)
+
+
+def coarse_within(D, key, f, tol):
+    """The face's coarse mesh (its edge kept to its own loop within sag), with its triangles split
+    where they leave the surface by more than tol. None (the fine mesh is then used) if it cannot
+    be made."""
+    cr = coarse(D, key, f["rings"])
+    if cr is None:
+        return None
+    return onto_surface(D, key, cr[0], cr[1], tol)
 
 def _sheet_job(key):
     import pickle
@@ -1819,8 +1875,16 @@ def export(log=print, workers=4):
                           "hole_edges": [e_off + x["edge"] for x in f["edges"] if x.get("hole")],
                           "verts": [nv, nv + len(f["verts"])], "tris": [sum(len(t) for t in T), sum(len(t) for t in T) + len(f["tris"])],
                           "turned_triangles": f["flips"], "lift_failed": f["lift_failed"]})
-            tris_f = f["tris"]
             share = n_ / max(1, len(f["tri_names"]))
+            if share >= 0.95:
+                # (kept on the surface: long thin triangles across a curved part split)
+                n0_ = len(f["tris"])
+                f["verts"], f["tris"] = onto_surface(D, key, f["verts"], f["tris"], FINE_TOL)
+                if len(f["tris"]) != n0_:
+                    stats["fine meshes split onto the surface"] += 1
+                faces[-1]["verts"] = [nv, nv + len(f["verts"])]
+                faces[-1]["tris"] = [sum(len(t) for t in T), sum(len(t) for t in T) + len(f["tris"])]
+            tris_f = f["tris"]
             if share < 0.95:
                 # (part of this face is not the wall: a boundary the database has no curve for. Only
                 # the triangles named the wall are kept, so nothing is drawn where the wall is not;
