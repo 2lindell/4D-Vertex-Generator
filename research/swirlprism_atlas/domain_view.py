@@ -469,6 +469,11 @@ def main(src_dir, out_path):
     CH = json.loads(html[slice(*pos["atlas-chambers"])])
     add_new_shapes(DC, src_dir)
     add_wiki_list(DC, src_dir)
+    # the "Select the shapes in a mirror, face or surface" list: from the 3-sphere map's own data
+    # (surface_sets.json: each mirror, face, line, plane and surface of the half-cell, every named
+    # shape lying in it)
+    DC["mirrorWalls"] = [{"name": e["name"], "ids": e["ids"]}
+                         for e in json.loads((src_dir / "surface_sets.json").read_text())["sets"]]
     names = {t["id"]: t["name"] for t in DC["types"]}
     by = {t["id"]: t for t in DC["types"]}
     G = np.stack(group_elements(named_symmetry("h4_swirlprism")))
