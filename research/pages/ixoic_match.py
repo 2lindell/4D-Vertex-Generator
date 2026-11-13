@@ -135,6 +135,26 @@ def figures(A):
         a["figure"] = Counter({int(k): v for k, v in C.get(a["key"], {}).items()})
 
 
+# Entries whose two columns disagree (see check()), where correcting one column leaves a single atlas shape with the
+# listed vertices, cell orbits and the other column. Keyed by name, or by the edge column for an unnamed entry.
+CORRECTIONS = {
+    "Sagybted": ("002f275609bc", "edge column should read 6^6,4^3,3^6 (the listed 6^6,4^9 sums to 72; its vertex figure, "
+                                 "and these cells, need 66). Also the ixoic point of ixitic's sagyptady line"),
+    "66668,444,3^6": ("32604d11723e", "vertex figure should read 4^5,3^14 (the listed 4^5,3^13 sums to 59; the edge "
+                                      "column needs 62)"),
+}
+
+
+def check(e):
+    """The list's two columns must agree: summed over a vertex's edges, the faces at each edge (fifth column) count
+    the same cell-edge pairs as the vertex figure's edges per cell (sixth column). None when either is missing."""
+    f = parse_profile(e["figure"]) if e["figure"] else None
+    if not (f and e["profile"]):
+        return None
+    a, b = sum(k * n for k, n in e["profile"].items()), sum(k * n for k, n in f.items())
+    return None if a == b else f"list columns disagree: edges sum to {a}, vertex figure to {b}"
+
+
 def fmt(c):
     return ",".join(f"{k}^{n}" if n > 1 else f"{k}" for k, n in sorted(c.items(), reverse=True)) if c else "?"
 
@@ -153,19 +173,27 @@ def main():
             better = [a for a in cand if a["orbits"] == e["orbits"]]
             cand = better or cand
         label = e["name"] or f"(unnamed {e['vertices']} {e['profile_text']})"
+        bad = check(e)
+        fix = CORRECTIONS.get(e["name"] or e["profile_text"])
+        if fix:
+            cand = [a for a in A if a["key"] == fix[0]]
         if len(cand) == 1:
             a = cand[0]
             note = "" if not fig or a["figure"] == fig else f"vertex figure {fmt(a['figure'])}, listed {e['figure']}"
+            if fix:
+                note = "corrected: " + fix[1]
+            elif bad:
+                note = "; ".join(x for x in (note, bad) if x)
             rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | {a['key']} | {a['kind']} ({a['source']}) | {note} |")
             if e["name"]:
                 names.setdefault(a["key"], []).append({"name": e["name"], "full": e["full"], "related": e["related"]})
             used.add(a["key"])
         elif cand:
             rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | {', '.join(a['key'] for a in cand)} | "
-                       f"{len(cand)} fit | not settled |")
+                       f"{len(cand)} fit | not settled{'; ' + bad if bad else ''} |")
             used |= {a["key"] for a in cand}
         else:
-            rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | — | not found | |")
+            rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | — | not found | {bad or ''} |")
     out = ["# Ixoic list matched to the atlas", "", __doc__.strip().split("\n\n")[1], "",
            "| list entry | vertices | edge profile | atlas key | kind | note |", "|---|---|---|---|---|---|"] + rep
     rest = [a for a in A if a["key"] not in used]

@@ -9,92 +9,91 @@ merged ixoic list (hyic_atlas/ixoic_shapes.json) and the half-turns' fixed lines
 | list entry | vertices | edge profile | atlas key | kind | note |
 |---|---|---|---|---|---|
 | Bittid | 240 | (6,12,333)^4 | 1813106ecd49 | point (merged) |  |
-| Sagybted | 480 | 6^6,4^9 | — | not found | |
+| Sagybted | 480 | 6^6,4^9 | 002f275609bc | point (fixed line) | corrected: edge column should read 6^6,4^3,3^6 (the listed 6^6,4^9 sums to 72; its vertex figure, and these cells, need 66). Also the ixoic point of ixitic's sagyptady line |
 | Gagybted | 480 | 888,4^6,3^6 | 83922e6f3606 | point (fixed line) |  |
 | Sobted | 720 | 5555,3^8 | 8f82404e9b10 | point (fixed line) |  |
 | Sobtated | 960 | 6666,4^9 | 90e4431c1ce1 | line (merged) |  |
-| Gobtated | 960 | 999 18,4^9,3^9 | 9fd7a0032a66 | line (merged) | vertex figure 4^6,3^28, listed 444,33,3^24 |
+| Gobtated | 960 | 999 18,4^9,3^9 | 9fd7a0032a66 | line (merged) | vertex figure 4^6,3^28, listed 444,33,3^24; list columns disagree: edges sum to 108, vertex figure to 90 |
 | Bitutid | 1440 | 444,3^6 | 2f41ae404d62 | line (merged) |  |
 | Sagypbittid | 1440 | 66444,3^8 | 7465267cd9b6 | line (merged) |  |
 | Masbittid | 1440 | 488,4^6,3^6 | 9fc73ba17c51 | line (merged) |  |
 | Gasbittid | 1440 | 55668,44,3^8 | baf95c7dc2b1 | line (merged) |  |
-| Bamtuted | 1440 | 455,3^6 | — | not found | |
+| Bamtuted | 1440 | 455,3^6 | — | not found |  |
 | Gagypbittid | 1440 | 5566,4^10 | 7ce9604523ae | line (merged) |  |
-| Potbatid | 1440 | 44,3^6 | 524c547d9ed6 | line (merged) | vertex figure 4^5,3^2, listed 5^4,433 |
+| Potbatid | 1440 | 44,3^6 | 524c547d9ed6 | line (merged) | vertex figure 4^5,3^2, listed 5^4,433; list columns disagree: edges sum to 26, vertex figure to 30 |
 | Awosbited | 1440 | 88 12,4^4,3^10 | 9700535b0ae7 | line (fixed line) |  |
-| Sagypsobted | 1440 | 4^9,33 | 01f5277e9331 | line (fixed line) | vertex figure 5^2,4^2,3^8, listed 5,44,3^8 |
-| Tetsobted | 1440 | 44,3^3 | — | not found | |
-| (unnamed 1440 5568,44,3^6) | 1440 | 5568,44,3^6 | — | not found | |
-| (unnamed 1440 68,4^8,333?) | 1440 | 68,4^8,333? | — | not found | |
-| (unnamed 1440 5566668,4^4,3^4?) | 1440 | 5566668,4^4,3^4? | — | not found | |
-| (unnamed 1440 5568,44,3^6?) | 1440 | 5568,44,3^6? | — | not found | |
+| Sagypsobted | 1440 | 4^9,33 | 01f5277e9331 | line (fixed line) | vertex figure 5^2,4^2,3^8, listed 5,44,3^8; list columns disagree: edges sum to 42, vertex figure to 37 |
+| Tetsobted | 1440 | 44,3^3 | — | not found | list columns disagree: edges sum to 17, vertex figure to 18 |
+| (unnamed 1440 5568,44,3^6) | 1440 | 5568,44,3^6 | — | not found |  |
+| (unnamed 1440 68,4^8,333?) | 1440 | 68,4^8,333? | — | not found |  |
+| (unnamed 1440 5566668,4^4,3^4?) | 1440 | 5566668,4^4,3^4? | — | not found |  |
+| (unnamed 1440 5568,44,3^6?) | 1440 | 5568,44,3^6? | — | not found |  |
 | Gypsobted | 1440 | 66,44,3^8 | 0962ec32bf42 | line (fixed line) |  |
-| (unnamed 1440 66 10,4^5,3^5 ?) | 1440 | 66 10,4^5,3^5 ? | — | not found | |
-| (unnamed 1440 7,444,3^7 ?) | 1440 | 7,444,3^7 ? | — | not found | |
-| (unnamed 1440 56,44,3^7) | 1440 | 56,44,3^7 | — | not found | |
+| (unnamed 1440 66 10,4^5,3^5 ?) | 1440 | 66 10,4^5,3^5 ? | — | not found |  |
+| (unnamed 1440 7,444,3^7 ?) | 1440 | 7,444,3^7 ? | — | not found |  |
+| (unnamed 1440 56,44,3^7) | 1440 | 56,44,3^7 | — | not found |  |
 | Gagypsobted | 1440 | 88,4^8,3^4 | 7880b9e5cd1a | line (fixed line) |  |
-| (unnamed 1440 5555 10,4^,3^?) | 1440 | 5555 10,4^,3^? | — | not found | |
-| (unnamed 1440 8444,3^6) | 1440 | 8444,3^6 | — | not found | |
+| (unnamed 1440 5555 10,4^,3^?) | 1440 | 5555 10,4^,3^? | — | not found |  |
+| (unnamed 1440 8444,3^6) | 1440 | 8444,3^6 | — | not found |  |
 | Petsobted | 1440 | 55,3^8 | 8ef1c968ad64 | point (fixed line) |  |
-| (unnamed 1440 8,4^6,3^4) | 1440 | 8,4^6,3^4 | — | not found | |
-| (unnamed 1440 558,4,3^8 ?) | 1440 | 558,4,3^8 ? | — | not found | |
+| (unnamed 1440 8,4^6,3^4) | 1440 | 8,4^6,3^4 | — | not found |  |
+| (unnamed 1440 558,4,3^8 ?) | 1440 | 558,4,3^8 ? | — | not found |  |
 | (unnamed 1440 555566,4^4,3^4) | 1440 | 555566,4^4,3^4 | 85a06f9fec4f, 612fa060af7c | 2 fit | not settled |
 | Sabgypsobted | 1440 | 88,4^7,3^6 | 9fc73ba17c51 | line (merged) |  |
-| Gabgypsobted | 1440 | 5568,4^5,3^6 | — | not found | |
-| (unnamed 1440 4^7,3^4 ?) | 1440 | 4^7,3^4 ? | — | not found | |
+| Gabgypsobted | 1440 | 5568,4^5,3^6 | — | not found |  |
+| (unnamed 1440 4^7,3^4 ?) | 1440 | 4^7,3^4 ? | — | not found |  |
 | Magypsobted | 1440 | 66,5^4,4^4,3^4 | 85a06f9fec4f, 612fa060af7c | 2 fit | not settled |
 | Regposbitad | 1440 | 44,3^8 | 1e8454f185ca | point (fixed line) |  |
 | Sidwesbited | 2880 | 555566,4^5,33 | b240fd91d8cf | region (merged) |  |
-| Gycbituted | 2880 | 8,4^9,33 | c8f4e949f236 | wall (merged) | vertex figure 5,4^3,3^11, listed 4^5,3^8 |
-| Stetbituted | 2880 | 6,4^7,33 | — | not found | |
+| Gycbituted | 2880 | 8,4^9,33 | c8f4e949f236 | wall (merged) | vertex figure 5,4^3,3^11, listed 4^5,3^8; list columns disagree: edges sum to 50, vertex figure to 44 |
+| Stetbituted | 2880 | 6,4^7,33 | — | not found |  |
 | Gidwesbited | 2880 | 66778 12,444,3^8 | 076a274811fa, 78a1a6858080 | 2 fit | not settled |
 | (unnamed 2880 6778 14,4^7,3^6) | 2880 | 6778 14,4^7,3^6 | 2d9a0f1ef565, 8b029fed3e2e | 2 fit | not settled |
 | (unnamed 2880 55666 10,4^5,3^4) | 2880 | 55666 10,4^5,3^4 | a8e2a892cc7d, f61083fa4719, 393ccc10a1ba | 3 fit | not settled |
 | (unnamed 2880 77 12,4^11,33) | 2880 | 77 12,4^11,33 | f9035eeab1c9 | region (merged) |  |
 | (unnamed 2880 55668,444,3^6) | 2880 | 55668,444,3^6 | 9c72058cc3a9 | region (merged) |  |
 | (unnamed 2880 6888,4^6,3^6) | 2880 | 6888,4^6,3^6 | b3dc3734858f, 241c936dfb1f | 2 fit | not settled |
-| Ditapbutitid | 2880 | 6,4^9 | 3aa3168dd0ed | wall (merged) | vertex figure 4^3,3^10, listed 4,3^12 |
+| Ditapbutitid | 2880 | 6,4^9 | 3aa3168dd0ed | wall (merged) | vertex figure 4^3,3^10, listed 4,3^12; list columns disagree: edges sum to 42, vertex figure to 40 |
 | (unnamed 2880 66,4^5,3^4) | 2880 | 66,4^5,3^4 | b1467af548d6 | wall (merged) |  |
 | (unnamed 2880 688,4^4,3^6) | 2880 | 688,4^4,3^6 | 36e258d4f7df, 9e263c5ae9be | 2 fit | not settled |
-| Gyptabtutid | 2880 | 5444,3^5 | b938205e6326 | wall (merged) | vertex figure 5^2,4,3^6, listed 5,4^6,333 |
+| Gyptabtutid | 2880 | 5444,3^5 | b938205e6326 | wall (merged) | vertex figure 5^2,4,3^6, listed 5,4^6,333; list columns disagree: edges sum to 32, vertex figure to 38 |
 | (unnamed 2880 688,4^4,3^6) | 2880 | 688,4^4,3^6 | 36e258d4f7df, 9e263c5ae9be | 2 fit | not settled |
-| (unnamed 2880 444,3^6) | 2880 | 444,3^6 | d36befd40531 | wall (merged) | vertex figure 4^6,3^2, listed 4^4,3^4 |
+| (unnamed 2880 444,3^6) | 2880 | 444,3^6 | d36befd40531 | wall (merged) | vertex figure 4^6,3^2, listed 4^4,3^4; list columns disagree: edges sum to 30, vertex figure to 28 |
 | (unnamed 2880 66,4^8,33) | 2880 | 66,4^8,33 | abee14417700 | wall (merged) |  |
-| (unnamed 2880 66668,444,3^6) | 2880 | 66668,444,3^6 | 52806e416597, 32604d11723e | 2 fit | not settled |
-| (unnamed 2880 5,4^5,3^5) | 2880 | 5,4^5,3^5 | 27ac0fa5cd4b | wall (merged) | vertex figure 4^7,3^4, listed 4^5,33 |
-| (unnamed 2880 544,3^5) | 2880 | 544,3^5 | — | not found | |
-| (unnamed 2880 6688,44,3^8) | 2880 | 6688,44,3^8 | — | not found | |
-| Tetsobted | 2880 | 6744,3^5 | 28300feb758c | wall (merged) | vertex figure 4^3,3^8, listed 55,444,3^5 |
-| (unnamed 2880 8 10,4^6,3^6) | 2880 | 8 10,4^6,3^6 | 8cd3bc68ed80 | wall (merged) | vertex figure 5,4^4,3^13, listed 5,4^4,3^11 |
+| (unnamed 2880 66668,444,3^6) | 2880 | 66668,444,3^6 | 32604d11723e | wall (merged) | corrected: vertex figure should read 4^5,3^14 (the listed 4^5,3^13 sums to 59; the edge column needs 62) |
+| (unnamed 2880 5,4^5,3^5) | 2880 | 5,4^5,3^5 | 27ac0fa5cd4b | wall (merged) | vertex figure 4^7,3^4, listed 4^5,33; list columns disagree: edges sum to 40, vertex figure to 26 |
+| (unnamed 2880 544,3^5) | 2880 | 544,3^5 | — | not found | list columns disagree: edges sum to 28, vertex figure to 26 |
+| (unnamed 2880 6688,44,3^8) | 2880 | 6688,44,3^8 | — | not found | list columns disagree: edges sum to 60, vertex figure to 68 |
+| Tetsobted | 2880 | 6744,3^5 | 28300feb758c | wall (merged) | vertex figure 4^3,3^8, listed 55,444,3^5; list columns disagree: edges sum to 36, vertex figure to 37 |
+| (unnamed 2880 8 10,4^6,3^6) | 2880 | 8 10,4^6,3^6 | 8cd3bc68ed80 | wall (merged) | vertex figure 5,4^4,3^13, listed 5,4^4,3^11; list columns disagree: edges sum to 60, vertex figure to 54 |
 | Gotetbituted | 2880 | 6744,3^5 | 28300feb758c | wall (merged) | vertex figure 4^3,3^8, listed 55,44,3^6 |
-| (unnamed 2880 66 10,4^6,3^6) | 2880 | 66 10,4^6,3^6 | d8916f10b74b, 4378938566e3 | 2 fit | not settled |
-| (unnamed 2880 66 11,4^7,3^5) | 2880 | 66 11,4^7,3^5 | 31f9d7d2ce75 | wall (merged) | vertex figure 5,4^4,3^15, listed 5,444,3^15 |
-| (unnamed 2880 556 10,4^5,3^6) | 2880 | 556 10,4^5,3^6 | baa02be8a0ae, 95b23ba2e772 | 2 fit | not settled |
+| (unnamed 2880 66 10,4^6,3^6) | 2880 | 66 10,4^6,3^6 | d8916f10b74b, 4378938566e3 | 2 fit | not settled; list columns disagree: edges sum to 64, vertex figure to 55 |
+| (unnamed 2880 66 11,4^7,3^5) | 2880 | 66 11,4^7,3^5 | 31f9d7d2ce75 | wall (merged) | vertex figure 5,4^4,3^15, listed 5,444,3^15; list columns disagree: edges sum to 66, vertex figure to 62 |
+| (unnamed 2880 556 10,4^5,3^6) | 2880 | 556 10,4^5,3^6 | baa02be8a0ae, 95b23ba2e772 | 2 fit | not settled; list columns disagree: edges sum to 64, vertex figure to 61 |
 | (unnamed 2880 5566 10,4^8,33) | 2880 | 5566 10,4^8,33 | ab90a7e8c164 | region (merged) |  |
-| (unnamed 2880 568,4^7,333) | 2880 | 568,4^7,333 | 070b671a6ba7, 843db71207f8 | 2 fit | not settled |
-| (unnamed 2880 56,4^5,333) | 2880 | 56,4^5,333 | — | not found | |
-| (unnamed 2880 566,4^4,3^5) | 2880 | 566,4^4,3^5 | — | not found | |
-| (unnamed 2880 56,4^4,3^5) | 2880 | 56,4^4,3^5 | 1170fd3c1a9f | wall (merged) | vertex figure 5^2,4^2,3^8, listed 54,3^8 |
+| (unnamed 2880 568,4^7,333) | 2880 | 568,4^7,333 | 070b671a6ba7, 843db71207f8 | 2 fit | not settled; list columns disagree: edges sum to 56, vertex figure to 52 |
+| (unnamed 2880 56,4^5,333) | 2880 | 56,4^5,333 | — | not found | list columns disagree: edges sum to 40, vertex figure to 37 |
+| (unnamed 2880 566,4^4,3^5) | 2880 | 566,4^4,3^5 | — | not found |  |
+| (unnamed 2880 56,4^4,3^5) | 2880 | 56,4^4,3^5 | 1170fd3c1a9f | wall (merged) | vertex figure 5^2,4^2,3^8, listed 54,3^8; list columns disagree: edges sum to 42, vertex figure to 33 |
 | Gidwesbited | 2880 | 55666 10,4^5,3^4 | a8e2a892cc7d, f61083fa4719, 393ccc10a1ba | 3 fit | not settled |
-| (unnamed 2880 44,3^6) | 2880 | 44,3^6 | 9be131c0d31c | wall (merged) | vertex figure 5,4^3,3^3, listed 554,3^5 |
+| (unnamed 2880 44,3^6) | 2880 | 44,3^6 | 9be131c0d31c | wall (merged) | vertex figure 5,4^3,3^3, listed 554,3^5; list columns disagree: edges sum to 26, vertex figure to 29 |
 | Sagpodwsbited | 2880 | 12 12,4^8,3^8 | dde81598bfa2 | region (merged) |  |
-| Megpodwsbited | 2880 | 88 12,4^7,3^8 | — | not found | |
+| Megpodwsbited | 2880 | 88 12,4^7,3^8 | — | not found | list columns disagree: edges sum to 80, vertex figure to 84 |
 | Gagpodwsbited | 2880 | 556 12 14,4^6,3^8 | 2ea838120994, b945e5651fdd | 2 fit | not settled |
 | Midwesbited | 2880 | 556688,4^5,3^4 | a2b48e7840a3, e3ae1c55fa82 | 2 fit | not settled |
-| Gywesbitad | 2880 | 5669,4^4,3^6 | — | not found | |
-| Awosbited | 2880 | 55 10,4^7,33 | — | not found | |
-| Totbituted | 2880 | 6,4^4,3^4 | — | not found | |
-| Cutsobted | 2880 | 6,4^5,3^4 | — | not found | |
-| Ditsobted | 2880 | 67,444,3^5 | — | not found | |
-| Gabertatid | 2880 | 5,4^5,3^5 | 27ac0fa5cd4b | wall (merged) | vertex figure 4^7,3^4, listed 4^4,3^6 |
-| Gidwabtuted | 2880 | 56 12 12,4^7,3^7 | — | not found | |
-| Sidwabtuted | None | 6688 10,4^4,3^8 | — | not found | |
+| Gywesbitad | 2880 | 5669,4^4,3^6 | — | not found |  |
+| Awosbited | 2880 | 55 10,4^7,33 | — | not found |  |
+| Totbituted | 2880 | 6,4^4,3^4 | — | not found | list columns disagree: edges sum to 34, vertex figure to 37 |
+| Cutsobted | 2880 | 6,4^5,3^4 | — | not found |  |
+| Ditsobted | 2880 | 67,444,3^5 | — | not found | list columns disagree: edges sum to 40, vertex figure to 38 |
+| Gabertatid | 2880 | 5,4^5,3^5 | 27ac0fa5cd4b | wall (merged) | vertex figure 4^7,3^4, listed 4^4,3^6; list columns disagree: edges sum to 40, vertex figure to 34 |
+| Gidwabtuted | 2880 | 56 12 12,4^7,3^7 | — | not found |  |
+| Sidwabtuted | None | 6688 10,4^4,3^8 | — | not found |  |
 
 ## Atlas shapes not in the list (167)
 
 | key | kind | vertices | edge profile | vertex figure | source |
 |---|---|---|---|---|---|
-| 002f275609bc | point | 480 | 6^6,4^3,3^6 | 4^6,3^14 | fixed line |
 | 992e194bf999 | point | 1440 | 4^2,3^4 | 4^2,3^4 | fixed line |
 | 2f95e8d554a8 | region | 2880 | 10,8,6,5^2,4^5,3^6 | 5,4^4,3^17 | merged |
 | 414f5b0e4bb1 | region | 2880 | 10,8,6,5^2,4^5,3^6 | 5,4^4,3^17 | merged |
@@ -244,6 +243,7 @@ merged ixoic list (hyic_atlas/ixoic_shapes.json) and the half-turns' fixed lines
 | 6173a68c18b5 | wall | 2880 | 8,6^3,4^5,3^6 | 5,4^5,3^13 | merged |
 | 332c96fdee8f | wall | 2880 | 8,6^3,4^5,3^6 | 5,4^5,3^13 | merged |
 | 64cb84bb3b64 | wall | 2880 | 8,6^3,5^2,4^5,3^4 | 5,4^3,3^17 | merged |
+| 52806e416597 | wall | 2880 | 8,6^4,4^3,3^6 | 5,4^3,3^15 | merged |
 | 0b6d68ae8211 | wall | 2880 | 8,7,6,4^2,3^9 | 5^2,4^4,3^10 | merged |
 | 35ca3a7689f0 | wall | 2880 | 8,7,6,4^7,3^3 | 4^4,3^14 | merged |
 | a9eb68364630 | wall | 2880 | 8,7,6^3,4^3,3^7 | 5,4^4,3^15 | merged |
