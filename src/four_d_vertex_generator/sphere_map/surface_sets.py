@@ -329,10 +329,9 @@ def samples() -> dict:
     walls = []
     rng = np.random.default_rng(0)
     for f in doc["faces"]:
+        # (its mesh's own points: on the surface, as its triangles' middles are not where it curves)
         X = z["verts"][f["verts"][0]:f["verts"][1]]
-        F = z["tris"][f["tris"][0]:f["tris"][1]]
-        cen = X[F].mean(1)
-        pick = cen[rng.choice(len(cen), min(10, len(cen)), replace=False)]
+        pick = X[rng.choice(len(X), min(10, len(X)), replace=False)]
         walls.append({"name": f["wall"], "sheet": f["sheet"], "pts": (pick / pick.sum(1, keepdims=True)).round(9).tolist()})
     line_pts = [{"name": c["name"], "pts": c["pts"][np.linspace(0, len(c["pts"]) - 1, min(9, len(c["pts"]))).astype(int)].round(10).tolist()}
                 for c in curves]
