@@ -40,10 +40,16 @@ TYPEKEY = {}
 
 
 def key(b, tol=1e-9):
-    try:
-        return G.label(np.asarray(b, float), tol)[1]
-    except Exception:
-        return None
+    # (some regions' polytopes have large flat cells -- 12-vertex icosahedra -- whose hull at 1e-9 trips the
+    #  ambiguity check on float noise (~1e-13 vertex-plane gaps); at 1e-8 they classify, as known regions)
+    for t in (tol, 1e-8):
+        try:
+            k = G.label(np.asarray(b, float), t)[1]
+        except Exception:
+            k = None
+        if k:
+            return k
+    return None
 
 
 def two_sided(s, p, sides):

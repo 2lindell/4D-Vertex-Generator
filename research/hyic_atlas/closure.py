@@ -46,10 +46,15 @@ def directions(n):
 
 
 def label(b, tol=1e-9):
-    try:
-        return G.label(np.asarray(b, float), tol)[1]
-    except Exception:
-        return None
+    # (falls back to 1e-8 where the 1e-9 hull trips on float noise at large flat cells; see missing_walls.py)
+    for t in (tol, 1e-8):
+        try:
+            k = G.label(np.asarray(b, float), t)[1]
+        except Exception:
+            k = None
+        if k:
+            return k
+    return None
 
 
 def walk(item):
