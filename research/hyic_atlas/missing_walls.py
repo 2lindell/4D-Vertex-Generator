@@ -56,6 +56,19 @@ def two_sided(s, p, sides):
     return ks == {TYPEKEY.get(sides[0]), TYPEKEY.get(sides[1])}
 
 
+RB = np.random.default_rng(3).dirichlet([1, 1, 1, 1], 3)
+
+
+def numeric_alive(lab5):
+    """Is the 5-vertex determinant not identically zero? (numerically, at three random seeds)"""
+    for b in RB:
+        P = np.array([G.UNIT @ G.ELEMENTS[g] @ G.X @ b for g in lab5])
+        D = P[1:] - P[0]
+        if abs(np.linalg.det(D)) > 1e-9 * max(1.0, np.abs(D).max() ** 4):
+            return True
+    return False
+
+
 def flat_forms(p):
     """Forms of the polytope's flats with five or more vertices (cells at a loose tolerance) at a wall point."""
     out = set()
@@ -67,7 +80,7 @@ def flat_forms(p):
         zero = {v: 0 for v, b in zip(B, p) if abs(b) < 1e-12}
         for c in cells:
             vs = sorted({v for f in c for v in faces[f]})
-            if len(vs) < 5:
+            if len(vs) < 5 or 0 not in vs:      # (one vertex's cells suffice: the group carries the rest)
                 continue
             base = [vs[0]]
             for v in vs[1:]:
@@ -78,7 +91,10 @@ def flat_forms(p):
             if len(base) < 4:
                 continue
             for v in [u for u in vs if u not in base][:4]:
-                fx = F.form([idx[i] for i in base + [v]])
+                lab5 = [int(idx[i]) for i in base + [v]]
+                if not numeric_alive(lab5):
+                    continue                    # (flat for every beta: a cell on both sides, no wall)
+                fx = F.form(lab5)
                 if zero:
                     fx = sp.expand(fx.subs(zero))
                 if fx != 0:
