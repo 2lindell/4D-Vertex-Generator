@@ -131,16 +131,16 @@ _Q25 = None
 
 
 def _exact_q25(v):
-    """v = (a + b sqrt2 + c sqrt5 + d sqrt10) / 4 exactly (b, c, d up to 12 in size): ixoic's entries."""
+    """v = (a + b sqrt2 + c sqrt5 + d sqrt10) / 4 exactly (b, c, d up to 40 in size; the smallest fit): ixoic's entries."""
     global _Q25
     if _Q25 is None:
-        r = np.arange(-12, 13)
+        r = np.arange(-40, 41)
         bb, cc, dd = np.meshgrid(r, r, r, indexing="ij")
         _Q25 = (bb.ravel(), cc.ravel(), dd.ravel(),
                 bb.ravel() * np.sqrt(2) + cc.ravel() * np.sqrt(5) + dd.ravel() * np.sqrt(10))
     bb, cc, dd, val = _Q25
     a = 4 * v - val
-    i = np.flatnonzero(np.abs(a - np.round(a)) < 1e-8)
+    i = np.flatnonzero(np.abs(a - np.round(a)) < 1e-10)
     if not len(i):
         raise ValueError(f"not in Q(sqrt2, sqrt5)/4: {v}")
     i = i[np.argmin(np.abs(bb[i]) + np.abs(cc[i]) + np.abs(dd[i]))]

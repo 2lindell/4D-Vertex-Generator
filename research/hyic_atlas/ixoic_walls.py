@@ -41,7 +41,8 @@ t0 = time.time()
 def forms_of(b):
     try:
         return [str(f) for f in F.region_forms(np.asarray(b, float))]
-    except Exception:
+    except Exception as e:
+        print("  forms failed at", list(b), repr(e)[:200], flush=True)
         return []
 
 
