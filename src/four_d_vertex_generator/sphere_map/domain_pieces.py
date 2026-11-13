@@ -443,6 +443,7 @@ def sheet(D, C, key, log=print, extra=()):
         own += [g for g in boundary_images(D, C) if dist_to(s, g["pts"]).max() < 1e-6]
         arcs = []
         arcs = boundary_arcs(s, FACES, D, own)
+    arcs = _snap_arcs_to_ends(arcs, own)
     edges = [dict(c, eqs=[s, second(s, c, D)]) for c in own] + arcs + list(extra)
     G = Graph(s, normal)
     for e in edges:
@@ -453,6 +454,33 @@ def sheet(D, C, key, log=print, extra=()):
         f"{len(extra)} traced where its faces changed; "
         f"{len(G.V)} vertices, {len(G.E)} edges, {len(G.F)} faces")
     return {"key": key, "graph": G}
+
+
+def _snap_arcs_to_ends(arcs, own):
+    """A curve's end lying on a face of the domain lies on the surface's own edge there exactly; a
+    boundary arc traced past it, its nearest point within 1e-3, has that point moved onto it, so the
+    curve's end cuts the arc there and the stretch the arc shares with the curve is kept once, as
+    the curve (X48's edge on the splitting mirror, traced to 4e-4 short of the corner where D1 and
+    E1 end, was left as the face's own)."""
+    ends = [x for c in own for x in (c["pts"][0], c["pts"][-1])]
+    out = []
+    for a in arcs:
+        if a.get("kind") != "face" or not ends:
+            out.append(a)
+            continue
+        k = FACE_NAMES.index(a["name"][5:])
+        P = np.array(a["pts"], float)
+        moved = False
+        for x in ends:
+            if abs(x @ FACE_N[k]) > 1e-9:
+                continue
+            d = np.linalg.norm(P - x, axis=1)
+            j = int(d.argmin())
+            if 1e-12 < d[j] < 1e-3 and 0 < j < len(P) - 1:
+                P[j] = x
+                moved = True
+        out.append(dict(a, pts=P) if moved else a)
+    return out
 
 
 def glued_images(D, C, k):
@@ -817,6 +845,14 @@ class Graph:
                 continue
             cuts[ci].append(x)
             cuts[cj].append(x)
+        # (curves lying along each other are cut alike: a cut of one on the stretch they share cuts
+        # the other there too, so the shared stretch has the same ends on both and is kept once,
+        # as the line: D1 and the splitting mirror's edge of sheet 180, cut where X33's edge meets it)
+        for a_, b_ in sorted(overlap):
+            for x in list(cuts.get(a_, [])) + [cs[a_]["pts"][0], cs[a_]["pts"][-1]]:
+                if seg_dist(cs[b_]["pts"], trees[b_], x) < 3e-5 and \
+                        not any(np.linalg.norm(x - y) < 1e-9 for y in cuts[b_]):
+                    cuts[b_].append(x)
         self._overlap = overlap
         self._cuts = cuts
         for ci, c in enumerate(cs):
