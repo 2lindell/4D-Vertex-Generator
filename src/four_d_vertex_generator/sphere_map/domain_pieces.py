@@ -862,7 +862,10 @@ class Graph:
             m = e["pts"][len(e["pts"]) // 2]
             key = (min(e["a"], e["b"]), max(e["a"], e["b"]))
             for k2, e2 in list(best.items()):
-                if k2[0] == key and (seg_dist(e2["pts"], None, m) < 1e-6):
+                # (two curves found lying along each other are matched within their chords' sag, as
+                # they were found: a face's edge traced along a line, its points elsewhere along it)
+                tol = 3e-5 if (e["curve"], e2["curve"]) in overlap else 1e-6
+                if k2[0] == key and (seg_dist(e2["pts"], None, m) < tol):
                     if rank[cs[e["curve"]]["kind"]] < rank[cs[e2["curve"]]["kind"]]:
                         best[k2] = e
                     break
