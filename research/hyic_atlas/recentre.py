@@ -110,13 +110,18 @@ def job(row):
             lo, t = t, 2 * t
         return MAXLEN
 
+    ck = os.path.join(%(here)r, "recentre_ckpt", row["name"] + ".json")
     x = proj(b0)
     if lab(x) != key:
         return {"name": row["name"], "status": "the seed does not classify as the shape at its tolerance: kept",
                 "centre": list(b0), "depth": None}
     k = 3 - len(zero) - len(surfs)
     hist = []
-    for it in range(12):
+    it0 = 0
+    if os.path.exists(ck):                           # (resume after a container restart)
+        c = json.load(open(ck))
+        x, it0 = np.asarray(c["x"], float), c["it"]
+    for it in range(it0, 12):
         U = basis(x)
         D = directions(k) @ U
         R = np.array([reach(x, d) for d in D])
@@ -133,8 +138,14 @@ def job(row):
                 break
         step = float(np.abs(y - x).max())
         x = y
+        os.makedirs(os.path.dirname(ck), exist_ok=True)
+        json.dump({"x": list(map(float, x)), "it": 12 if step < 1e-4 else it + 1}, open(ck, "w"))
         if step < 1e-4:
             break
+    if it0 >= 12:                                    # (converged before a restart: only the last chords to redo)
+        it = it0 - 1
+        D = directions(k) @ basis(x)
+        R = np.array([reach(x, d) for d in D])
     unbounded = any(change(x, d) >= MAXLEN for d in D)
     return {"name": row["name"], "centre": list(map(float, x)), "depth": float(R.min()), "iterations": it + 1,
             "status": ("centre of the shape's extent v2 (chords to where its polytope changes, seams crossed"
