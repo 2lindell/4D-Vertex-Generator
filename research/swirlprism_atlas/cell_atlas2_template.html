@@ -1049,14 +1049,28 @@ __TYPE_CSS__
     }));
     // "shapes in a mirror, face or surface": choosing one selects every wall shape with a patch in it (and, for a
     // curved surface or a plane shared by walls, the lines lying in it), as if each row were Ctrl-clicked
+    // (each view has its own list: the spheres, surfaces and lines through the region it shows)
     const pick = el("mirrorPick");
-    (DC.mirrorWalls || []).forEach((m, k) => {
-      const o = document.createElement("option");
-      o.value = String(k); o.textContent = `${m.name} (${m.ids.join(", ")})`;
-      pick.appendChild(o);
+    const pickList = () => (({ v1: DV, chambers: DH }[el("quarter").value] || DC).mirrorWalls || []);
+    const fillPick = () => {
+      while (pick.options.length > 1) pick.remove(1);
+      pickList().forEach((m, k) => {
+        const o = document.createElement("option");
+        o.value = String(k); o.textContent = `${m.name} (${m.ids.join(", ")})`;
+        pick.appendChild(o);
+      });
+      pick.value = "";
+    };
+    fillPick();
+    el("quarter").addEventListener("input", () => {
+      fillPick();
+      if (state.sel.size) {
+        state.sel = new Set();
+        document.querySelectorAll("tr.row").forEach((r) => r.classList.remove("active"));
+      }
     });
     pick.addEventListener("input", () => {
-      const m = (DC.mirrorWalls || [])[Number(pick.value)];
+      const m = pickList()[Number(pick.value)];
       state.sel = new Set(pick.value === "" || !m ? [] : m.ids);
       document.querySelectorAll("tr.row").forEach((r) => r.classList.toggle("active", state.sel.has(r.dataset.id)));
       render();

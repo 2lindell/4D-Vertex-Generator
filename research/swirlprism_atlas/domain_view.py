@@ -458,6 +458,125 @@ def add_wiki_list(DC, src_dir):
                              f"({code}: {e['counts']}, {e['edge_valences']}), another vertex figure")
 
 
+def _poly(sf, B):
+    """A library curved surface's polynomial at betas B (rows), and the size of its gradient there."""
+    A = np.asarray(sf["A"], float)
+    y = B @ A.T
+    f = np.zeros(len(B))
+    gy = np.zeros_like(y)
+    for c, m in zip(sf["coefficients"], sf["monomials"]):
+        f += c * np.prod(y[:, m], axis=1)
+        for pos, var in enumerate(m):
+            rest = m[:pos] + m[pos + 1:]
+            gy[:, var] += c * np.prod(y[:, rest], axis=1)
+    g = gy @ A
+    g = g - g.mean(1, keepdims=True)
+    return f, np.linalg.norm(g, axis=1)
+
+
+def view_selections(S, G, region, copies, line_shapes):
+    """The 'Select the shapes in' list for one view: every individual sphere (plane), curved surface
+    and line passing through the view's region, each with the shapes lying on it there (a wall
+    piece, line stretch or point lying on it in some copy of the half-cell reaching into the region,
+    a point of it inside); entries with the same shapes once; a line kept only with two kinds of
+    line on it or more, a sphere or surface with a wall on it or two kinds of line."""
+    Ti = np.linalg.inv(T)
+    toR4 = lambda B: (lambda X: X / np.linalg.norm(X, axis=-1, keepdims=True))(np.asarray(B, float) @ T)
+    items = ([("wall", w["name"], np.asarray(w["pts"]), w["sheet"]) for w in S["walls"]] +
+             [("line", l["name"], np.asarray(l["pts"]), None) for l in S["line_stretches"]] +
+             [("point", p["name"], np.asarray([p["pt"]]), None) for p in S["points"]])
+    # each item at each copy: its points on R^4, and whether any lies in the region
+    Xs = [toR4(it[2]) for it in items]
+    placed = []                                  # (item index, copy index, points on R^4)
+    for ci, g in enumerate(copies):
+        for ii, X in enumerate(Xs):
+            Y = X @ g.T
+            if region(Y).any():
+                placed.append((ii, ci, Y))
+    out = []
+
+    def collect(on):                              # on(Y, ci) -> bool: the item's points lie on the locus
+        got = defaultdict(set)
+        for ii, ci, Y in placed:
+            if on(Y, ci):
+                got[items[ii][0]].add(items[ii][1])
+        return got
+    # planes: each base plane's copies through the region (normals on R^4, up to sign)
+    seen = []
+    for pl in S["planes"]:
+        n0 = Ti @ np.asarray(pl["normal"], float)
+        n0 /= np.linalg.norm(n0)
+        for g in copies:
+            n = g @ n0
+            if any(abs(abs(n @ m) - 1) < 1e-9 for m, _ in seen):
+                continue
+            seen.append((n, pl))
+    for n, pl in seen:
+        got = collect(lambda Y, ci, n=n: (np.abs(Y @ n) < 1e-7).all())
+        if got["wall"] or len(got["line"]) >= 2:
+            out.append(("sphere", pl["rank"], pl["name"], got))
+    # curved surfaces: each wall piece on a curved sheet, at each copy reaching the region, names its
+    # surface (the library surface carried by that copy); pieces whose surfaces coincide are one
+    found = []                                    # (surface, copy) representatives
+    for ii, ci, Y in placed:
+        kind, name, _, sheet = items[ii]
+        if kind != "wall" or sheet is None or sheet.startswith("face"):
+            continue
+        k = S["sheet_surface"].get(sheet)
+        if k is None:
+            continue
+        if any(_on_surface(S["surfaces"][k2], copies[c2], Y) for k2, c2 in found):
+            continue
+        found.append((k, ci))
+    for k, ci in found:
+        sf, g = S["surfaces"][k], copies[ci]
+        got = collect(lambda Y, ci_, sf=sf, g=g: _on_surface(sf, g, Y))
+        if got["wall"]:
+            out.append(("surface", 4, f"the surface found for {sf['base'].split(':')[0]}"
+                        + (" (its fold)" if ":fold" in sf["base"] else ""), got))
+    # lines: each base line's copies through the region (2-planes of R^4)
+    seenL = []
+    for ln in S["lines"]:
+        B0 = np.linalg.svd(np.asarray(ln["M"], float))[2][2:] @ T
+        B0 = np.linalg.qr(B0.T)[0].T
+        for g in copies:
+            B = B0 @ g.T
+            if any(np.linalg.norm(B - B @ C.T @ C) < 1e-6 for C, _ in seenL):
+                continue
+            seenL.append((B, ln))
+    for B, ln in seenL:
+        got = collect(lambda Y, ci, B=B: (np.linalg.norm(Y - Y @ B.T @ B, axis=1) < 1e-6).all())
+        if len(got["line"]) >= 2:
+            out.append(("line", 5, ln["name"], got))
+    # entries with the same shapes once (the simplest name kept)
+    order = lambda k: (re.match(r"[A-Z]+", k).group(0), int(re.search(r"\d+", k).group(0)), k)
+    best = {}
+    for kind, rank, name, got in out:
+        ids = tuple(sorted(set().union(*got.values()), key=order))
+        if ids not in best or rank < best[ids][0]:
+            best[ids] = (rank, name, kind, got)
+    res = []
+    for ids, (rank, name, kind, got) in sorted(best.items(), key=lambda kv: (kv[1][0], kv[1][1], kv[0])):
+        res.append({"name": name, "kind": kind, "ids": list(ids)})
+    # (several entries of one name: numbered, with their walls, so they can be told apart)
+    count = defaultdict(int)
+    for e in res:
+        count[e["name"]] += 1
+    seen_n = defaultdict(int)
+    for e in res:
+        if count[e["name"]] > 1:
+            seen_n[e["name"]] += 1
+            e["name"] = f"{e['name']}, copy {seen_n[e['name']]}"
+    return res
+
+
+def _on_surface(sf, g, Y):
+    """Whether points Y (on R^4) lie on the library surface sf carried by g: sf at g^-1 Y."""
+    B = (Y @ g) @ np.linalg.inv(T)
+    f, gr = _poly(sf, B)
+    return bool((np.abs(f) / np.maximum(gr, 1e-300) < 1e-6).all())
+
+
 def main(src_dir, out_path):
     src_dir = Path(src_dir)
     doc = json.loads((src_dir / "domain_pieces.json").read_text())
@@ -469,11 +588,6 @@ def main(src_dir, out_path):
     CH = json.loads(html[slice(*pos["atlas-chambers"])])
     add_new_shapes(DC, src_dir)
     add_wiki_list(DC, src_dir)
-    # the "Select the shapes in a mirror, face or surface" list: from the 3-sphere map's own data
-    # (surface_sets.json: each mirror, face, line, plane and surface of the half-cell, every named
-    # shape lying in it)
-    DC["mirrorWalls"] = [{"name": e["name"], "ids": e["ids"]}
-                         for e in json.loads((src_dir / "surface_sets.json").read_text())["sets"]]
     names = {t["id"]: t["name"] for t in DC["types"]}
     by = {t["id"]: t for t in DC["types"]}
     G = np.stack(group_elements(named_symmetry("h4_swirlprism")))
@@ -508,6 +622,24 @@ def main(src_dir, out_path):
     cell, err = fit_cell_chart(DC)
     v1c, share, dplanes = fit_v1_chart(DC, V1, G)
     chplanes = chamber_planes(CH, v1c, G)
+
+    # the "Select the shapes in a mirror, face or surface" list, for each view: every individual
+    # sphere, surface and line through the view's region and the shapes on it there, from the
+    # 3-sphere map's own data (selection_samples.json)
+    S = json.loads((src_dir / "selection_samples.json").read_text())
+    Ti_ = np.linalg.inv(T)
+    in_cell = lambda Y: (lambda B: (B.min(1) > -1e-9) & (B[:, 2] - B[:, 3] > -1e-9))((Y @ Ti_) / (Y @ Ti_).sum(1, keepdims=True))
+    probe = np.vstack([np.eye(4), np.random.default_rng(0).dirichlet(np.ones(4), 400)])
+    probe[:, 2], probe[:, 3] = np.maximum(probe[:, 2], probe[:, 3]), np.minimum(probe[:, 2], probe[:, 3])
+    probe = to_sphere(probe)
+    for name_, V_, H_ in (("half tetrahedron", DC, None), ("dodecahedron", V1, dplanes), ("1/10 dodecahedron", CH, chplanes)):
+        if H_ is None:
+            region, copies = in_cell, [np.eye(4)]
+        else:
+            region = (lambda H: lambda Y: (Y @ H.T > -1e-9).all(1))(H_)
+            copies = [g for g in G if region(probe @ g.T).any()]
+        V_["mirrorWalls"] = view_selections(S, G, region, copies, None)
+        print(f"shapes-in list, {name_}: {len(V_['mirrorWalls'])} entries ({len(copies)} copies of the half-cell)", flush=True)
     print(f"charts: half-cell fitted to the page's seeds within {err:.1e}; dodecahedron: "
           f"{share:.0%} of the page's samples there matched", flush=True)
 
