@@ -1283,7 +1283,11 @@ def faces_of(D, key, G, max_area=6e-5, log=print):
             lifted = [_lift(s, y, nn) for y, nn in zip(cen, Nn)]
             cen = np.array([y if l_ is None else l_ for y, l_ in zip(cen, lifted)])
             tri_names = name_points(D, key, cen, Nn)
-            if not any(x and x[0] for x in tri_names):
+            # (only where every triangle's lookup failed, the face's own samples name it; triangles
+            # finding no wall there, one region on both sides, mean the face is no wall: a sample
+            # matched to a wall's patch near its edge must not name it, as X99's patch beside the
+            # stretch of sheet 160 inside X66 once did)
+            if all(x is None for x in tri_names):
                 tri_names = [(named[0]["wall"], tuple(named[0]["sides"]))] * len(F)
             # (a triangle where no wall is found but its two sides differ: a rim triangle whose patch
             # was missed, not a change; one with the same region on both sides: no wall there)
