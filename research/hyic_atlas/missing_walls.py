@@ -6,7 +6,9 @@ and is cut differently on the two sides). At such a wall point the polytope itse
 point being only a bisected one) has that flat as a cell with five or more vertices; for every such cell, four of its
 vertices spanning it and each further vertex give a quartic (forms.form) that vanishes there. Nonzero ones vanishing at
 the point (relative to their gradient, at the point's precision) are factored, and each factor is checked: the point
-moved onto it (one Newton projection) and stepped 1e-5 to each side must give the wall's two regions. Confirmed
+moved onto it (one Newton projection) and stepped 1e-5 to each side must give two different polytopes (not
+necessarily the map's recorded sides: many such points were bisected across regions the grid missed, found later by the
+survey, and lie on those regions' walls). Confirmed
 surfaces are added to the sheet's map (surfaces, wall points' "surface"), and the near misses -- points within 1e-4 of an
 existing surface that pass the same two-sided check -- are assigned too. Report: missing_walls_<sheet>.json.
 
@@ -53,7 +55,9 @@ def two_sided(s, p, sides):
     n = n - n.mean()
     n /= np.linalg.norm(n)
     ks = {key(q + e * n) for e in (1e-5, -1e-5)}
-    return ks == {TYPEKEY.get(sides[0]), TYPEKEY.get(sides[1])}
+    # (a real wall: two different polytopes either side -- not necessarily the map's recorded sides: many of these
+    #  points were bisected across regions the grid missed, which the survey found, and lie on those regions' walls)
+    return len(ks) == 2 and None not in ks
 
 
 RB = np.random.default_rng(3).dirichlet([1, 1, 1, 1], 3)
