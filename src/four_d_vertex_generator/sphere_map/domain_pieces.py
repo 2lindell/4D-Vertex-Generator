@@ -433,13 +433,14 @@ def sheet(D, C, key, log=print, extra=()):
         s = D.lib[key]
         normal = lambda x: (lambda g: g - g.mean())(s.grad(x[None])[0])
         own = [c for c in C if key in c["on"]]
-        # (a curve of the database lying in a face of the domain, a named line or where walls meet,
-        # is kept once, in one of the two copies glued there: where the surface meets the face at
-        # its other place, its image there; else the surface's edge there is taken for the face's
-        # own, and a wall ending on it there has no edge: X101 ending at X26 on the splitting
-        # mirror, X85 and X86 on D2. On the surface only where it meets the face, such an image can
-        # only name an edge of a piece, never cut one)
-        own += [g for k in FACES for g in glued_images(D, C, k) if dist_to(s, g["pts"]).max() < 1e-6]
+        # (a curve of the database lying on the domain's boundary, a named line or where walls
+        # meet, is kept once, in one of the copies that share it there (two across a face, more
+        # along an edge of the cell): where the surface meets the boundary at its other places, its
+        # images there; else the surface's edge there is taken for a bare face, and a wall ending
+        # on it there has no edge: X101 ending at X26 on the splitting mirror, X85 and X86 on D2,
+        # X99 on E1 along the edge where beta_1 = beta_4 = 0. On the surface only where it meets
+        # the boundary, such an image can only name an edge of a piece, never cut one)
+        own += [g for g in boundary_images(D, C) if dist_to(s, g["pts"]).max() < 1e-6]
         arcs = []
         arcs = boundary_arcs(s, FACES, D, own)
     edges = [dict(c, eqs=[s, second(s, c, D)]) for c in own] + arcs + list(extra)
@@ -492,6 +493,54 @@ def glued_images(D, C, k):
                                 "pts": r, "on": [], "glued": int(gi),
                                 "eqs": [Pulled(e, M * np.sign(np.sum(r[0] @ M)), f"{getattr(e, 'name', '')} @ {gi}")
                                         for e in cv["eqs"]]})
+    return out
+
+
+_BOUNDARY_IMAGES = {}
+
+
+def boundary_images(D, C):
+    """Every copy under the group of each curve of the database that lies on the domain's boundary,
+    read in the domain: its stretches in the closed half-cell lying in a face kept (the curve's own
+    place left out). A curve on the boundary is kept once, in one of the copies sharing it there."""
+    if id(C) in _BOUNDARY_IMAGES:
+        return _BOUNDARY_IMAGES[id(C)]
+    from .frame import cell_vertices
+    T = cell_vertices()
+    Ti = np.linalg.inv(T)
+    G = group()
+    Ms = np.stack([T @ g @ Ti for g in G])            # beta (domain) -> beta in copy g's frame
+    Minv = np.linalg.inv(Ms)                          # a point of that frame, read in the domain
+    out = []
+    for cv in C:
+        Y = np.einsum("nj,gjk->gnk", cv["pts"], Minv)
+        Y = Y / Y.sum(-1, keepdims=True)
+        # (within 1e-9: a curve traced onto two surfaces sits on a face to about that)
+        ok = (Y.min(-1) > -1e-9) & (Y[..., 2] - Y[..., 3] > -1e-9)
+        on = ok & ((np.abs(Y) < 1e-9).any(-1) | (np.abs(Y[..., 2] - Y[..., 3]) < 1e-9))
+        for gi in np.flatnonzero(on.sum(1) >= 2):
+            runs, cur = [], []
+            for y, o in zip(Y[gi], on[gi]):
+                if o:
+                    cur.append(y)
+                elif cur:
+                    runs.append(cur)
+                    cur = []
+            if cur:
+                runs.append(cur)
+            for r in runs:
+                if len(r) < 2:
+                    continue
+                r = np.array(r)
+                if any(len(o["pts"]) == len(r) and np.abs(o["pts"] - r).max() < 1e-9 for o in C):
+                    continue                           # (its own place: already in the database)
+                if any(len(o["pts"]) == len(r) and np.abs(o["pts"] - r).max() < 1e-9 for o in out):
+                    continue                           # (the same copy reached by another element)
+                out.append({"kind": cv["kind"], "name": cv["name"], "piece": cv.get("piece"),
+                            "pts": r, "on": [], "glued": int(gi),
+                            "eqs": [Pulled(e, Ms[gi] * np.sign(np.sum(r[0] @ Ms[gi])), f"{getattr(e, 'name', '')} @ {gi}")
+                                    for e in cv["eqs"]]})
+    _BOUNDARY_IMAGES[id(C)] = out
     return out
 
 
