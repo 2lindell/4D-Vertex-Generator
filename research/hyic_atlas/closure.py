@@ -2,13 +2,15 @@
 
 On one sheet (HYIC_SUB = ix0..ix9, or ixo0..ixo9 for ixoic), as decaic_atlas/snub_closure.py (no fold here): for every region type of the
 sheet (the map's and the dense survey's), up to four spread starting points (its example and Halton points labelled
-with it), and from each a walk along 24 evenly spread directions in steps of 0.01 until the polytope changes or a mirror
+with it), and from each a walk along 24 evenly spread directions in steps of 0.04 until the polytope changes or a mirror
 is reached (a seam to another sheet: the walk stops). A change is bisected to ~1e-11, put exactly on the surface through
 it (the map's surfaces, or the forms of both sides when none), and the polytope there (wall tolerance) and just beyond
 classified. A key not among the group's merged shapes (ixitic_shapes.json / ixoic_shapes.json) is new: a missed region (beyond) or wall
 shape (on the surface).
 
     HYIC_SUB=ix3 python closure.py      (ixoic: HYIC_SUB=ixo3, after python ixitic_shapes.py ixo)
+
+Lite (the default; CLOSURE_LITE=0 for the full search): two starts and 12 of the directions, a quarter of the walks.
 """
 from __future__ import annotations
 
@@ -26,7 +28,12 @@ sys.path.insert(0, HERE)
 import group as G  # noqa: E402
 from snub_map import Surface, forms_job  # noqa: E402
 
-STEP, MAXLEN = 0.01, 1.5
+STEP, MAXLEN = 0.04, 1.5
+# (lite: two starts per region and every other of the 24 directions -- a quarter of the walks. The step only finds
+#  that the walk has left its region; the bisection then finds the first wall, so a coarser step loses nothing but
+#  regions thinner than the step lying wholly between two samples, which the point just beyond the wall still sees
+#  when it is the next one)
+LITE = os.environ.get("CLOSURE_LITE", "1") == "1"
 
 
 def directions(n):
@@ -139,8 +146,14 @@ def main():
             chosen.append(P[int(dd.argmax())])
         starts[k] = chosen
     D = directions(24)
-    items = [(tuple(s), tuple(d), k) for k in reg for s in starts[k] for d in D]
+    full = [((tuple(s), tuple(d), k), si, di) for k in reg for si, s in enumerate(starts[k]) for di, d in enumerate(D)]
     E = C.get("E", [])
+    if "I" in C:                                        # (the walk list as first fixed, so a resume indexes the same)
+        items = [(tuple(s), tuple(d), k) for s, d, k in C["I"]]
+    else:                                               # (walks already done kept; the rest thinned when lite)
+        items = [it for it, _, _ in full[:len(E)]] + [it for it, si, di in full[len(E):]
+                                                      if not LITE or (si < 2 and di % 2 == 0)]
+        C["I"] = items
     if E:
         print(f"resumed after {len(E)} of {len(items)} walks", flush=True)
     for i in range(len(E), len(items), 64):

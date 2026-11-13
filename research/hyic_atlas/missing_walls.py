@@ -10,7 +10,8 @@ moved onto it (one Newton projection) and stepped 1e-5 to each side must give tw
 necessarily the map's recorded sides: many such points were bisected across regions the grid missed, found later by the
 survey, and lie on those regions' walls). Confirmed
 surfaces are added to the sheet's map (surfaces, wall points' "surface"), and the near misses -- points within 1e-4 of an
-existing surface that pass the same two-sided check -- are assigned too. Report: missing_walls_<sheet>.json.
+existing surface that pass the same two-sided check -- are assigned too. Points are searched in rounds, and each round's new surfaces are tried on the points still
+waiting first (most walls carry several points). Report: missing_walls_<sheet>.json.
 
     python missing_walls.py [ixo0 ...]
 """
@@ -151,15 +152,37 @@ if __name__ == "__main__":
             rest.append(w)
     print(f"  {rep['near_misses']} near misses assigned; {len(rest)} left; {time.time() - t0:.0f}s", flush=True)
     new = []
-    for w, found, err in pool.imap_unordered(job, rest, chunksize=1):
-        mine = next(x for x in M["wall_points"] if x["point"] == w["point"])
-        if found:
-            for t in found:
-                if t not in M["surfaces"] and t not in new:
-                    new.append(t)
-            mine["surface"] = found[0]
-        else:
-            rep["unresolved"].append({"point": w["point"], "sides": w["sides"], "error": err})
+    NP = int(os.environ.get("NPROC", "3"))
+    skipped = 0
+    while rest:
+        # (in rounds: each round's new surfaces are tried on the points still waiting -- a cheap distance and
+        #  two-sided check -- before any of them gets the full search; many points lie on one wall)
+        batch, rest = rest[:2 * NP], rest[2 * NP:]
+        found_now = []
+        for w, found, err in pool.imap_unordered(job, batch, chunksize=1):
+            mine = next(x for x in M["wall_points"] if x["point"] == w["point"])
+            if found:
+                for t in found:
+                    if t not in M["surfaces"] and t not in new:
+                        new.append(t)
+                        found_now.append(t)
+                mine["surface"] = found[0]
+            else:
+                rep["unresolved"].append({"point": w["point"], "sides": w["sides"], "error": err})
+        if found_now:
+            NS = [(t, Surface(t)) for t in found_now]
+            keep = []
+            for w in rest:
+                p = np.asarray(w["point"], float)
+                hit = next((t for t, s in NS if s.dist(p) < 1e-4 and two_sided(s, p, w["sides"])), None)
+                if hit:
+                    next(x for x in M["wall_points"] if x["point"] == w["point"])["surface"] = hit
+                    skipped += 1
+                else:
+                    keep.append(w)
+            rest = keep
+        print(f"  {len(new)} new surfaces, {skipped} points placed on them without a search, {len(rest)} waiting; "
+              f"{time.time() - t0:.0f}s", flush=True)
     # points still without one may lie on a surface found at another point
     NS = [Surface(t) for t in new]
     for u in list(rep["unresolved"]):
