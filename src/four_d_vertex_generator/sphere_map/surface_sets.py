@@ -277,7 +277,78 @@ def build() -> dict:
             "line", [], lns, pts)
     return {"_about": __doc__, "sets": out}
 
+def samples() -> dict:
+    """What the domain viewer needs to list, for each view, every individual sphere, surface and
+    line passing through it with the shapes lying on it there (selection_samples.json):
+    * loci in the half-cell's betas: its mirrors and faces and the library's planes (a normal), the
+      library's curved surfaces (their polynomial), and the lines where two mirrors or faces meet
+      and the line through (1,1,1,0) and (2+phi, 2+phi, 1, 1) (two equations);
+    * the shapes, as points in the half-cell: each wall piece at points spread over it, each named
+      line's stretches (their own place and their copies on the domain's boundary) at points along
+      them, and each named point."""
+    root = data_dir() / "sphere_map"
+    lib = json.loads((root / "surface_library.json").read_text())["surfaces"]
+    doc = json.loads((root / "domain_pieces.json").read_text())
+    z = np.load(root / "domain_pieces.npz")
+    atlas = json.loads((root / "atlas.json").read_text())
+    Ti = np.linalg.inv(cell_vertices())
+    from . import domain_pieces as dp
+    import __main__
+    for k_, v_ in vars(dp).items():
+        if not k_.startswith("__") and not hasattr(__main__, k_):
+            setattr(__main__, k_, v_)
+    C = pickle.loads((root / ".cache" / "domain_curves.pkl").read_bytes())
+    D = dp.Data()
+    curves = [c for c in C if c["kind"] == "line"] + [c for c in dp.boundary_images(D, C) if c["kind"] == "line"]
+    planes = []
+    for i, j in itertools.combinations(range(4), 2):
+        n = np.eye(4)[i] - np.eye(4)[j]
+        planes.append({"name": "the splitting mirror β3 = β4 (the top face of the half tetrahedron)" if (i, j) == (2, 3)
+                       else f"the mirror β{i + 1} = β{j + 1}", "rank": 0 if (i, j) == (2, 3) else 1, "normal": n.tolist()})
+    for nm, k in (("the face β1 = 0", 0), ("the face β2 = 0", 1), ("the face β4 = 0 (the bottom face)", 3)):
+        planes.append({"name": nm, "rank": 2, "normal": np.eye(4)[k].tolist()})
+    for k, d in enumerate(lib):
+        if d["kind"] == "plane" and _mirror_name(d["normal"]) is None:
+            planes.append({"name": "the plane " + _plane_text(d["exact"]), "rank": 3, "normal": d["normal"]})
+    surfaces = [{"index": k, "name": d["name"], "family": d["family"], "base": d["base"], "monomials": d["monomials"],
+                 "coefficients": d["coefficients"], "A": d["A"]} for k, d in enumerate(lib) if d["kind"] != "plane"]
+    sheet_surface = {str(sf["index"]): i for i, sf in enumerate(surfaces)}
+    lines = []
+    eqs = {}
+    for i, j in itertools.combinations(range(4), 2):
+        eqs[(("eq", i, j),)] = np.eye(4)[i] - np.eye(4)[j]
+    for i in range(4):
+        eqs[(("zero", i),)] = np.eye(4)[i]
+    for (ka, a), (kb, b) in itertools.combinations(eqs.items(), 2):
+        M = np.array([a, b])
+        if np.linalg.matrix_rank(M) == 2:
+            lines.append({"name": _chain(ka + kb), "M": M.tolist()})
+    P1, P2 = np.array([1, 1, 1, 0.0]), np.array([2 + PHI, 2 + PHI, 1, 1])
+    lines.append({"name": "the line through β ∝ (1, 1, 1, 0) and (2+φ, 2+φ, 1, 1)",
+                  "M": np.linalg.svd(np.array([P1, P2]))[2][2:].tolist()})
+    walls = []
+    rng = np.random.default_rng(0)
+    for f in doc["faces"]:
+        X = z["verts"][f["verts"][0]:f["verts"][1]]
+        F = z["tris"][f["tris"][0]:f["tris"][1]]
+        cen = X[F].mean(1)
+        pick = cen[rng.choice(len(cen), min(10, len(cen)), replace=False)]
+        walls.append({"name": f["wall"], "sheet": f["sheet"], "pts": (pick / pick.sum(1, keepdims=True)).round(9).tolist()})
+    line_pts = [{"name": c["name"], "pts": c["pts"][np.linspace(0, len(c["pts"]) - 1, min(9, len(c["pts"]))).astype(int)].round(10).tolist()}
+                for c in curves]
+    named = {k for k, v in json.loads((root.parent / "source" / "working_data.json").read_text())["shapes"].items()
+             if v["dim"] == "point"}
+    points = []
+    for p in atlas["points"]:
+        if p.get("atlas_point") in named:
+            b = np.asarray(p["R4"], float) @ Ti
+            points.append({"name": p["atlas_point"], "pt": (b / b.sum()).round(12).tolist()})
+    return {"_about": samples.__doc__, "planes": planes, "surfaces": surfaces, "sheet_surface": sheet_surface, "lines": lines,
+            "walls": walls, "line_stretches": line_pts, "points": points}
+
+
 def run() -> str:
+    (data_dir() / "sphere_map" / "selection_samples.json").write_text(json.dumps(samples(), ensure_ascii=False))
     data = build()
     path = data_dir() / "sphere_map" / "surface_sets.json"
     path.write_text(json.dumps(data, indent=1, ensure_ascii=False))
