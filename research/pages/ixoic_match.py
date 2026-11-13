@@ -37,13 +37,9 @@ def parse_profile(text):
             continue
         if not re.fullmatch(r"[\d ]+", g):
             return None
-        parts = g.split()
-        for i, p in enumerate(parts):
-            if i == 0 and not (len(parts) > 1 and len(p) == 2 and p[0] == "1"):
-                for ch in p:
-                    out[int(ch)] += 1
-            else:
-                out[int(p)] += 1
+        for p in g.split():                             # (no edge has fewer than 3 faces: a 1 starts a two-digit number)
+            for n in re.findall(r"1\d|[3-9]", p):
+                out[int(n)] += 1
     return out
 
 

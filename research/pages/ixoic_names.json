@@ -1,4 +1,25 @@
 {
+ "1813106ecd49": [
+  {
+   "name": "Bittid",
+   "full": "Bitetrahedral 240",
+   "related": "4-swirldoic, 4-skidoic, 3-swirldoic, 2-swirldoic, 1-swirldoic, 5-scubic, 5-stettic"
+  }
+ ],
+ "83922e6f3606": [
+  {
+   "name": "Gagybted",
+   "full": "Great Gyroprismatic Bitetrahedral 240",
+   "related": "Ixitic"
+  }
+ ],
+ "8f82404e9b10": [
+  {
+   "name": "Sobted",
+   "full": "Snub Bitetrahedral 240",
+   "related": "Ixitic"
+  }
+ ],
  "90e4431c1ce1": [
   {
    "name": "Sobtated",
@@ -57,6 +78,48 @@
   {
    "name": "Potbatid",
    "full": "Prismatic Transitional Biambotetrahedral 240",
+   "related": ""
+  }
+ ],
+ "9700535b0ae7": [
+  {
+   "name": "Awosbited",
+   "full": "Antiwedged Snub bitetrahedral 240",
+   "related": "Ixitic"
+  }
+ ],
+ "01f5277e9331": [
+  {
+   "name": "Sagypsobted",
+   "full": "Small Gyroprismatic Snub Bitetrahedral 240",
+   "related": "Ixitic"
+  }
+ ],
+ "0962ec32bf42": [
+  {
+   "name": "Gypsobted",
+   "full": "Gyropodial Snub Bitetrahedral 240",
+   "related": "Ixitic"
+  }
+ ],
+ "7880b9e5cd1a": [
+  {
+   "name": "Gagypsobted",
+   "full": "Great Gyroprismatic Snub Bitetrahedral 240",
+   "related": ""
+  }
+ ],
+ "8ef1c968ad64": [
+  {
+   "name": "Petsobted",
+   "full": "Prismatic Transitional Snub Bitetrahedral 240",
+   "related": "Ixitic"
+  }
+ ],
+ "1e8454f185ca": [
+  {
+   "name": "Regposbitad",
+   "full": "Rectangular Gyroprismatic Snub Bitetrahedral 240",
    "related": ""
   }
  ],
