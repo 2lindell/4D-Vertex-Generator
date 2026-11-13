@@ -1,0 +1,83 @@
+Ixoic		5[[3+,4,3+]]
+Bittid	Bitetrahedral 240	Ixoic	240	(6,12,333)^4	3^12,3^24	Kitettic				720 rhodows		1440 phydows			4-swirldoic, 4-skidoic, 3-swirldoic, 2-swirldoic, 1-swirldoic, 5-scubic, 5-stettic
+Sagybted	Small Gyroprismatic Bitetrahedral 240	Ixoic	480	6^6,4^9	4^6,33,3^12	Kitrippic		240 tets	480 trigyps			1440 phydows			Ixitic
+Gagybted	Great Gyroprismatic Bitetrahedral 240	Ixoic	480	888,4^6,3^6	4^6,33,3^12	Kitrippic		240 tets	480 trigyps			1440 phydows			Ixitic
+Sobted	Snub Bitetrahedral 240	Ixoic	720	5555,3^8	5555,3^8	Kibrick		240 snits				1440 phydows			Ixitic
+Sobtated	Small Bitetratetrahedral 240	Ixoic	960	6666,4^9	4443,3^15	Kitrippyric		240 tets	480 trigyps	720 rhodows		1440x2 phydows
+Gobtated	Great Bitetratetrahedral 240	Ixoic	960	999 18,4^9,3^9	444,33,3^24	Kitrippyric		240 tets	480 trigyps	720 rhodows		1440 phydows, 1440 hexflanges	2880 irr. tets
+Bitutid	Bitruncatotetrahedral 240	Ixoic	1440	444,3^6	33,4^6	Espyric		240 tuts	480 ditraps, 480 trigyps										ixo-1440-14
+Sagypbittid	Small Gyroprismatic Bitetratetrahedral 240	Ixoic	1440	66444,3^8	4^9,3^4	Espyric		240 octs	480x2 trigyps		960 trigypos	1440 phydows							ixo-1440-1
+Masbittid	Medial Snub Bitetratetrahedral 240	Ixoic	1440	488,4^6,3^6	55,4^4,3^12	Espyric		240 snits	480x2 trigyps			1440 disphs	2880 irr. tets
+Gasbittid	Great Snub Bitetratetrahedral 240	Ixoic	1440	55668,44,3^8	55,4^4,3^12	Espyric		240 snits	480x2 trigyps			1440 disphs	2880 irr. tets
+Bamtuted	Biambotruncatotetrahedral 240	Ixoic	1440	455,3^6	4^5,3^4	Espyric		240 gyrotuts	480 trigyps			1440 phydows							ixo-1440-8
+Gagypbittid	Great Gyroprismatic Bitetratetrahedral 240	Ixoic	1440	5566,4^10	4^5,3^14	Espyric		240 octs	480x2 trigyps	720 rhodows		1440 phydows	2880 irr. tets						ixo-1440-15
+Potbatid	Prismatic Transitional Biambotetrahedral 240	Ixoic	1440	44,3^6	5^4,433	Espyric		240 octs	480 trigyps, 480 ertrips										ixo-1440-9
+Awosbited	Antiwedged Snub bitetrahedral 240	Ixoic	1440	88 12,4^4,3^10	55,4^4,3^16	Espyric		240 snits	480 trigyps			1440 phydows, 1440 hexflanges	2880 irr. tets		Ixitic				ixo-1440-4
+Sagypsobted	Small Gyroprismatic Snub Bitetrahedral 240	Ixoic	1440	4^9,33	5,44,3^8	Espyric		240 snits	480 trigyps			1440x2 phydows			Ixitic				ixo-1440-3
+Tetsobted	Tetrahedral Transitional snub Bitetrahedral 240	Ixoic	1440	44,3^3	3^6	Espyric		240 etuts		720 rhodows					Ixitic				ixo-1440-10
+		Ixoic	1440	5568,44,3^6		Espyric
+		Ixoic	1440	68,4^8,333?		Espyric
+		Ixoic	1440	5566668,4^4,3^4?		Espyric
+		Ixoic	1440	5568,44,3^6?		Espyric
+Gypsobted	Gyropodial Snub Bitetrahedral 240	Ixoic	1440	66,44,3^8	55,4^4,3^6	Espyric		240 snits		720 rhodows	960 trigypos	1440 phydows			Ixitic				ixo-1440-2
+		Ixoic	1440	66 10,4^5,3^5 ?		Espyric
+		Ixoic	1440	7,444,3^7 ?		Espyric
+		Ixoic	1440	56,44,3^7		Espyric
+Gagypsobted	Great Gyroprismatic Snub Bitetrahedral 240	Ixoic	1440	88,4^8,3^4	55,44,3^14	Espyric		240 snits	480 trigyps	720 rhodows		1440 phydows	2880 irr. tets						ixo-1440-12
+		Ixoic	1440	5555 10,4^,3^?		Espyric
+		Ixoic	1440	8444,3^6		Espyric
+Petsobted	Prismatic Transitional Snub Bitetrahedral 240	Ixoic	1440	55,3^8	55,444,3^4	Espyric		240 snits	480 retrips			1440 phydows			Ixitic				ixo-1440-7
+		Ixoic	1440	8,4^6,3^4		Espyric
+		Ixoic	1440	558,4,3^8 ?		Espyric
+		Ixoic	1440	555566,4^4,3^4 		Espyric
+Sabgypsobted	Small Bigyroprismatic Snub Bitetrahedral 240	Ixoic	1440	88,4^7,3^6	55,4^4,3^12	Espyric		240 snits	480x2 trigyps			1440 phydows	2880 irr. tets						ixo-1440-13
+Gabgypsobted	Great Bigyroprismatic Snub Bitetrahedral 240	Ixoic	1440	5568,4^5,3^6	55,4^4,3^12	Espyric		240 snits	480x2 trigyps			1440 phydows	2880 irr. tets						ixo-1440-6
+		Ixoic	1440	4^7,3^4 ?		Espyric
+Magypsobted	Medial Gyroprismatic Snub Bitetrahedral 240	Ixoic	1440	66,5^4,4^4,3^4	55,44,3^14	Espyric		240 snits	480 trigyps	720 rhodows		1440 phydows	2880 irr. tets		Ixitic				ixo-1440-5
+Regposbitad	Rectangular Gyroprismatic Snub Bitetrahedral 240	Ixoic	1440	44,3^8	55,4^4,33	Espyric		240 snits	480 trips	720 rectaps									ixo-1440-11
+
+Sidwesbited	Small Disphenoidal Snub Bitetrahedral 240	Ixoic	2880	555566,4^5,33	544,3^15	Monic		240 snits	480x2 trigyps	720 rhodows		1440x3 phydows	2880x2 irr. tets						ixo-2880-3
+Gycbituted	Gyrocupolaic Bitruncatotetrahedral 240	Ixoic	2880	8,4^9,33	4^5,3^8	Monic		240 tuts	480x2 trigyps	720 rhodows	960 gytricus	1440x2 hphydows	2880 irr. tets						ixo-2880-7
+Stetbituted	Small Tetrahedral Transitional Bitruncatotetrahedral 240	Ixoic	2880	6,4^7,33	5,44,3^9	Monic		240 gyrotuts	480 trigyps	720 rhodows		1440x2 phydows	2880 irr. tets						ixo-2880-8
+Gidwesbited	Great Disphenoidal Snub Bitetrahedral 240	Ixoic	2880	66778 12,444,3^8	544,3^23	Monic		240 snits	480x2 trigyps	720 rhodows		1440x3 phydows	2880x4 irr. tets						ixo-2880-6
+		Ixoic	2880	6778 14,4^7,3^6	544,3^25	Monic		240 snits	480x2 trigyps	720 disphs		1440x4 disphs	2880x4 irr. tets
+		Ixoic	2880	55666 10,4^5,3^4	544,3^19	Monic		240 snits	480x2 trigyps	720 disphs		1440x3 disphs	2880x3 irr. tets
+		Ixoic	2880	77 12,4^11,33	544,3^21	Monic		240 snits	480x2 trigyps	720 disphs		1440x4 disphs	2880x3 irr. tets
+		Ixoic	2880	55668,444,3^6	5,4^4,3^13	Monic		240 snits	480x2 trigyps	720 disphs	960 trigyps	1440x2 disphs	2880x2 irr. tets
+		Ixoic	2880	6888,4^6,3^6	5,4^4,3^17	Monic		240 snits	480x2 trigyps	720 disphs	960 trigyps	1440x2 disphs	2880x3 irr. tets
+Ditapbutitid	Ditrigonal Antiprissmatic Transitional Bitruncatotetrahedral 240	Ixoic	2880	6,4^9	4,3^12	Monic		240 tuts	480 ditras, 480 trigyps	720 rhodows		1440x2 phydows	2880 irr. tets						ixo-2880-21
+		Ixoic	2880	66,4^5,3^4	4^5,3^8	Monic		240 tuts	480 ditraps, 480 trigyps	720 disphs	960 trigyps	1440 disphs	2880 irr. tets
+		Ixoic	2880	688,4^4,3^6	4^5,3^12	Monic		240 tuts	480 ditraps, 480 trigyps	720 disphs	960 trigyps	1440 disphs	2880x2 irr. tets
+Gyptabtutid	Gyroprismatic Transitional Bitruncatotetrahedral 240	Ixoic	2880	5444,3^5	5,4^6,333	Monic		240 tuts	480 ditraps	720 rhodows	960 gytricus	1440 phydows							ixo-2880-9
+		Ixoic	2880	688,4^4,3^6	4^5,^12	Monic		240 tuts	480 ditraps, 480 trigyps	720 disphs	960 trigyps	1440 disphs	2880x2 irr. tets
+		Ixoic	2880	444,3^6	4^4,3^4	Monic		240 tuts	480 ditraps, 480 trips	720 rectas	960 trigyps
+		Ixoic	2880	66,4^8,33	4^5,3^10	Monic		240 ratets	480x2 trigyps	720 disphs		1440x2 disphs, 1440 gyrowedges	2880 irr. tets
+		Ixoic	2880	66668,444,3^6	4^5,3^13	Monic		240 ratets	480x2 trigyps	720 disphs		1440x2 disphs, 1440 gyrowedges	2880x2 irr. tets
+		Ixoic	2880	5,4^5,3^5	4^5,33	Monic		240 ratets	480x2 trigyps			1440 disphs, 1440 gyrowedges
+		Ixoic	2880	544,3^5	44,3^6	Monic		240 gyrogratets		720 disphs		1440x2 disphs
+		Ixoic	2880	6688,44,3^8	5,4^6,3^13	Monic		240 dazsnits	480x2 trigyps	720 disphs		1440x2 disphs	2880 irr. tets, 2880 trapyrs
+Tetsobted	Tetrahedral TranstioaTransitional Snub Bitetrahedral 240	Ixoic	2880	6744,3^5	55,444,3^5	Monic		240 etuts	480 enzaps, 480 trigyps	720 rhodows			2880 irr. tets						ixo-2880-19
+		Ixoic	2880	8 10,4^6,3^6	5,4^4,3^11	Monic		240 gyrotuts	480 ditraps, 480 trigyps	720 disps		1440x2 disphs	2880x2 rir. tets
+Gotetbituted	Great Tetrahaedral Transitional Bitruncatotetrahedral 240	Ixoic	2880	6744,3^5	55,44,3^6	Monic		240 dotuts	480 trigyps	720 rhodows		1440 disphs	2880 irr. tets						ixo-2880-10
+		Ixoic	2880	66 10,4^6,3^6	5,44,3^14	Monic		240 snits	480x2 trigyps	720 disphs		1440x2 disphs, 1440 ?	2880x2 irr. tets
+		Ixoic	2880	66 11,4^7,3^5	5,444,3^15	Monic		240 snits	480x2 trigyps	720 disphs		1440x3 disphs, 1440 ?	2880x2 irr. tets
+		Ixoic	2880	556 10,4^5,3^6	5,44,3^16	Monic		240 snits	480x2 trigyps	720 disphs		1440x2 disphs, 1440 trapyrs?	2880x2 irr. tets
+		Ixoic	2880	5566 10,4^8,33	544,3^19	Monic		240 snits	480x2 trigyps	720 disphs		1440x3 disphs	2880x3 irr. tets
+		Ixoic	2880	568,4^7,333	544,3^13	Monic		240 snits	480x2 trigyps	720 disphs		1440x2 disphs	2880 irr. tets, 2880 trapyrs
+		Ixoic	2880	56,4^5,333	5,44,3^8	Monic		240 gyrotuts ?	480 trigyps	720 disphs		1440x2 disphs	2880 irr. tets
+		Ixoic	2880	566,4^4,3^5	5,4^4,3^9	Monic		240 snits	480 trigyps	720 disphs	960 gytricus	1440x2 tets	2880 irr. tets
+		Ixoic	2880	56,4^4,3^5	54,3^8	Monic		240 snits	480 gyrotrips			1440x2 disphs	2880 irr. tets
+Gidwesbited	Great Disphenoidal Snub Bitetrahedral 240	Ixoic	2880	55666 10,4^5,3^4	544,3^19	Monic		240 snits	480x2 trigyps	720 rhodows		1440x3 phydows	2880x3 irr. tets						ixo-2880-2
+		Ixoic	2880	44,3^6	554,3^5	Monic		240 tuts	480 gyrotrips, 480 ditraps			1440 disphs
+Sagpodwsbited	Small Gyropodial Disphenoidal Snub Bitetrahedral 240	Ixoic	2880	12 12,4^8,3^8	5,4^6,3^17	Monic		240 snits	480x2 trigyps	720 rhodows	960x2 trigypos	1440x2 phydows	2880x3 irr. tets						ixo-2880-1
+Megpodwsbited	Medial Gyropodial Disphenoidal Snub Bitetrahedral 240	Ixoic	2880	88 12,4^7,3^8	5,4^4,3^21	Monic		240 snits	480x2 trigyps	720 rhodows	960 trigypos	1440x4 phydows	2880x3 irr. tets						ixo-2880-4
+Gagpodwsbited	Great Gyropodial Disphenoidal Snub Bitetrahedral 240	Ixoic	2880	556 12 14,4^6,3^8	5,4^4,3^23	Monic		240 snits	480x2 trigyps	720 rhodows	960 trigypos	1440x3 phydows	2880x4 irr. tets						ixo-2880-5
+Midwesbited	Medial Disphenoidal Snub Bitetrahedral 240	Ixoic	2880	556688,4^5,3^4	544,3^19	Monic		240 snits	480x2 trigyps	720 rhodows		1440x3 phydows	2880x3 irr. tets						ixo-2880-11
+Gywesbitad	Gyrowedged Snub Bitetrahedral 240	Ixoic	2880	5669,4^4,3^6	5,4^4,3^13	Monic		240 snits	480x2 trigyps			1440x2 phydows, 1440 gyrowedges	2880x2 irr. tets						ixo-2880-12
+Awosbited	Antiwedged Snub Bitetrahedral 240	Ixoic	2880	55 10,4^7,33	5,4^4,3^11	monic		240 snits	480 trips, 480 trigyps	720 rhodows		1440 phydows, 1440 trapyrs, 1440 hexflanges	2880 irr. tets						ixo-2880-13
+Totbituted	Triangular Transitional Bitruncatotetrahedaral 480	ixoic	2880	6,4^4,3^4	5554,3^6	Monic		240 tuts	480 ditraps, 480 trigyps				2880 irr. tets						ixo-2880-14
+Cutsobted	Cupotransitional Snub Bitetrahedral 240	Ixoic	2880	6,4^5,3^4	55,4^4,3^4	Monic		240 snist		720 rhodows	960 augytricus	1440 phydows, 1440 wedges							ixo-2880-15
+Ditsobted	Digonal Transitional Snub Bitetahedral 240	Ixoic	2880	67,444,3^5	5,444,3^7	Monic		240 snist	480 trigyps, 480 battrips	720 hatcubes			2880 irr. tets						ixo-2880-16
+Gabertatid	Great Birhombitetratetrahedral 240	Ixoic	2880	5,4^5,3^5	4^4,3^6	Monic		240 ratets	480x2 trigyps			1440 gyrowedges	2880 irr. tets						ixo-2880-17
+Gidwabtuted	Great Disphenoidal Bitruncatotetrahedral 240	Ixoic	2880	56 12 12,4^7,3^7	5,4^4,3^21	Monic		240 tuts	480x2 trigyps	720 rhodows	960 gytricus	1440x4 phydows	2880x3 irr. tets						ixo-2880-18
+Sidwabtuted	Small Disphenoidal Bitruncatotetrahedral 240	Ixoic		6688 10,4^4,3^8	5,4^4,3^19	Monic		240 tuts	480x2 trigyps	720 rhodows	960 gytricus	1440x3 phydows	2880x3 irr. tets						ixo-2880-20
