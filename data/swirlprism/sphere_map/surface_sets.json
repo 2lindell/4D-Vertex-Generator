@@ -1,0 +1,980 @@
+{
+ "_about": "The shapes in each mirror, face, plane, surface and line of the half-cell (surface_sets.json).\n\nThe domain viewer's \"Select the shapes in a mirror, face or surface\" list: each entry a locus in the\nhalf-cell and every named shape lying in it, read from the 3-sphere map's own data:\n\n* walls: those with a piece in it (domain_pieces.json: the sheet the piece lies on);\n* lines: those with a stretch in it, in the database's own place or as a copy on the domain's\n  boundary (the curves domain_pieces.py builds from: line pieces and their copies);\n* points: those on it (atlas.json: each named point's place).\n\nEntries: every H4 mirror through the half-cell (the splitting mirror beta_3 = beta_4 its top face),\nits faces, the lines where two of these meet that carry a named shape, and every other plane or\nsurface (a surface with its folds and copies, one family) holding at least two walls.\n\n    python -m four_d_vertex_generator.sphere_map.surface_sets\n",
+ "sets": [
+  {
+   "name": "the mirror β1 = β2",
+   "kind": "mirror",
+   "ids": [
+    "B1",
+    "C3",
+    "D1",
+    "D3",
+    "E2",
+    "F1",
+    "T2",
+    "X1",
+    "X3"
+   ],
+   "walls": [
+    "F1",
+    "T2",
+    "X3"
+   ],
+   "lines": [
+    "B1",
+    "C3",
+    "D1",
+    "D3",
+    "E2",
+    "X1"
+   ],
+   "points": []
+  },
+  {
+   "name": "the mirror β1 = β3",
+   "kind": "mirror",
+   "ids": [
+    "E2",
+    "F1",
+    "T1",
+    "T2",
+    "X2",
+    "X4",
+    "X6",
+    "X13",
+    "X17"
+   ],
+   "walls": [
+    "F1",
+    "T2",
+    "X17"
+   ],
+   "lines": [
+    "E2",
+    "T1",
+    "X2",
+    "X4",
+    "X6",
+    "X13"
+   ],
+   "points": []
+  },
+  {
+   "name": "the mirror β1 = β4",
+   "kind": "mirror",
+   "ids": [
+    "E1",
+    "X2",
+    "X6",
+    "X8",
+    "X13"
+   ],
+   "walls": [],
+   "lines": [
+    "E1",
+    "X2",
+    "X6",
+    "X8",
+    "X13"
+   ],
+   "points": []
+  },
+  {
+   "name": "the mirror β2 = β3",
+   "kind": "mirror",
+   "ids": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E2",
+    "T1",
+    "X2",
+    "X5",
+    "X6",
+    "X8",
+    "X13",
+    "X20",
+    "X21",
+    "X27",
+    "X96",
+    "X97"
+   ],
+   "walls": [
+    "X20",
+    "X21",
+    "X27",
+    "X96"
+   ],
+   "lines": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E2",
+    "T1",
+    "X2",
+    "X5",
+    "X6",
+    "X8",
+    "X13",
+    "X97"
+   ],
+   "points": []
+  },
+  {
+   "name": "the mirror β2 = β4",
+   "kind": "mirror",
+   "ids": [
+    "E1",
+    "F5",
+    "X2",
+    "X6",
+    "X13",
+    "X24",
+    "X29",
+    "X31",
+    "X44",
+    "X79",
+    "X80",
+    "X81",
+    "X98",
+    "X101"
+   ],
+   "walls": [
+    "F5",
+    "X31",
+    "X44",
+    "X79",
+    "X98",
+    "X101"
+   ],
+   "lines": [
+    "E1",
+    "X2",
+    "X6",
+    "X13",
+    "X24",
+    "X29",
+    "X80",
+    "X81"
+   ],
+   "points": []
+  },
+  {
+   "name": "the splitting mirror β3 = β4 (the top face of the half tetrahedron)",
+   "kind": "mirror",
+   "ids": [
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "X2",
+    "X6",
+    "X11",
+    "X13",
+    "X19",
+    "X26"
+   ],
+   "walls": [
+    "X11",
+    "X19",
+    "X26"
+   ],
+   "lines": [
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "X2",
+    "X6",
+    "X13"
+   ],
+   "points": []
+  },
+  {
+   "name": "the faces β1 = 0 and β2 = 0 (folds of each other)",
+   "kind": "face",
+   "ids": [
+    "B1",
+    "C2b",
+    "D2",
+    "E1",
+    "F4",
+    "T1",
+    "X5",
+    "X9",
+    "X23"
+   ],
+   "walls": [
+    "F4",
+    "X9",
+    "X23"
+   ],
+   "lines": [
+    "B1",
+    "C2b",
+    "D2",
+    "E1",
+    "T1",
+    "X5"
+   ],
+   "points": []
+  },
+  {
+   "name": "the face β4 = 0 (the bottom face)",
+   "kind": "face",
+   "ids": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1"
+   ],
+   "walls": [],
+   "lines": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1"
+   ],
+   "points": []
+  },
+  {
+   "name": "the line β1 = β2 = β3",
+   "kind": "line",
+   "ids": [
+    "C1",
+    "C5",
+    "E2"
+   ],
+   "walls": [],
+   "lines": [
+    "E2"
+   ],
+   "points": [
+    "C1",
+    "C5"
+   ]
+  },
+  {
+   "name": "the line β1 = β2 = β4",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C1"
+   ],
+   "walls": [],
+   "lines": [],
+   "points": [
+    "A1",
+    "C1"
+   ]
+  },
+  {
+   "name": "the line β1 = β2 and β3 = β4",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C1",
+    "C3",
+    "C5",
+    "C6",
+    "D1",
+    "D3"
+   ],
+   "walls": [],
+   "lines": [
+    "C3",
+    "D1",
+    "D3"
+   ],
+   "points": [
+    "A1",
+    "C1",
+    "C5",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β1 = β2 = 0",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "B1"
+   ],
+   "walls": [],
+   "lines": [
+    "B1"
+   ],
+   "points": [
+    "A1"
+   ]
+  },
+  {
+   "name": "the line β1 = β2 and β4 = 0",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C5",
+    "C6"
+   ],
+   "walls": [],
+   "lines": [],
+   "points": [
+    "A1",
+    "C5",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β1 = β3 = β4",
+   "kind": "line",
+   "ids": [
+    "C1",
+    "X2",
+    "X6",
+    "X13"
+   ],
+   "walls": [],
+   "lines": [
+    "X2",
+    "X6",
+    "X13"
+   ],
+   "points": [
+    "C1"
+   ]
+  },
+  {
+   "name": "the line β1 = β3 and β2 = β4",
+   "kind": "line",
+   "ids": [
+    "C1",
+    "C6"
+   ],
+   "walls": [],
+   "lines": [],
+   "points": [
+    "C1",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β1 = β3 and β2 = 0",
+   "kind": "line",
+   "ids": [
+    "C6",
+    "T1"
+   ],
+   "walls": [],
+   "lines": [
+    "T1"
+   ],
+   "points": [
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β1 = β3 and β4 = 0",
+   "kind": "line",
+   "ids": [
+    "C5",
+    "C6"
+   ],
+   "walls": [],
+   "lines": [],
+   "points": [
+    "C5",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β1 = β4 and β2 = β3",
+   "kind": "line",
+   "ids": [
+    "C1",
+    "C6",
+    "X8"
+   ],
+   "walls": [],
+   "lines": [
+    "X8"
+   ],
+   "points": [
+    "C1",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β1 = β4 = 0 (≅ β2 = β4 = 0, β3 = β4 = 0)",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C6",
+    "E1"
+   ],
+   "walls": [],
+   "lines": [
+    "E1"
+   ],
+   "points": [
+    "A1",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β2 = β3 = β4",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C1",
+    "C4",
+    "X2",
+    "X6",
+    "X13"
+   ],
+   "walls": [],
+   "lines": [
+    "X2",
+    "X6",
+    "X13"
+   ],
+   "points": [
+    "A1",
+    "C1",
+    "C4"
+   ]
+  },
+  {
+   "name": "the line β2 = β3 and β1 = 0",
+   "kind": "line",
+   "ids": [
+    "C4",
+    "C6",
+    "T1"
+   ],
+   "walls": [],
+   "lines": [
+    "T1"
+   ],
+   "points": [
+    "C4",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β2 = β3 and β4 = 0",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C1",
+    "C2a",
+    "C3",
+    "C5",
+    "C6",
+    "D1",
+    "D3"
+   ],
+   "walls": [],
+   "lines": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3"
+   ],
+   "points": [
+    "A1",
+    "C1",
+    "C5",
+    "C6"
+   ]
+  },
+  {
+   "name": "the line β2 = β4 and β1 = 0",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C4"
+   ],
+   "walls": [],
+   "lines": [],
+   "points": [
+    "A1",
+    "C4"
+   ]
+  },
+  {
+   "name": "the line β3 = β4 and β1 = 0 (≅ β3 = β4 and β2 = 0)",
+   "kind": "line",
+   "ids": [
+    "A1",
+    "C2b",
+    "C4",
+    "D2"
+   ],
+   "walls": [],
+   "lines": [
+    "C2b",
+    "D2"
+   ],
+   "points": [
+    "A1",
+    "C4"
+   ]
+  },
+  {
+   "name": "the line through β ∝ (1, 1, 1, 0) and (2+φ, 2+φ, 1, 1)",
+   "kind": "line",
+   "ids": [
+    "C5",
+    "X1"
+   ],
+   "walls": [],
+   "lines": [
+    "X1"
+   ],
+   "points": [
+    "C5"
+   ]
+  },
+  {
+   "name": "the plane β1 = (1+φ)·β2",
+   "kind": "plane",
+   "ids": [
+    "B1",
+    "F1",
+    "X6",
+    "X13",
+    "X31",
+    "X79",
+    "X80"
+   ],
+   "walls": [
+    "F1",
+    "X31",
+    "X79"
+   ],
+   "lines": [
+    "B1",
+    "X6",
+    "X13",
+    "X80"
+   ],
+   "points": []
+  },
+  {
+   "name": "the plane β1 = (1+φ)·β3 + β4",
+   "kind": "plane",
+   "ids": [
+    "E2",
+    "F1",
+    "T2",
+    "X2",
+    "X4",
+    "X17"
+   ],
+   "walls": [
+    "F1",
+    "T2",
+    "X17"
+   ],
+   "lines": [
+    "E2",
+    "X2",
+    "X4"
+   ],
+   "points": []
+  },
+  {
+   "name": "the plane β1 = φ·β2 + β3 + (1+φ)·β4",
+   "kind": "plane",
+   "ids": [
+    "X2",
+    "X5",
+    "X8",
+    "X20",
+    "X21",
+    "X27",
+    "X97"
+   ],
+   "walls": [
+    "X20",
+    "X21",
+    "X27"
+   ],
+   "lines": [
+    "X2",
+    "X5",
+    "X8",
+    "X97"
+   ],
+   "points": []
+  },
+  {
+   "name": "the plane β2 + β4 = β3",
+   "kind": "plane",
+   "ids": [
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "X2",
+    "X6",
+    "X11",
+    "X13",
+    "X19",
+    "X26"
+   ],
+   "walls": [
+    "X11",
+    "X19",
+    "X26"
+   ],
+   "lines": [
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "X2",
+    "X6",
+    "X13"
+   ],
+   "points": []
+  },
+  {
+   "name": "the plane β2 = β3 + (1+φ)·β4",
+   "kind": "plane",
+   "ids": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E2",
+    "F1",
+    "T1",
+    "T2",
+    "X1",
+    "X3",
+    "X4",
+    "X5",
+    "X17",
+    "X96"
+   ],
+   "walls": [
+    "F1",
+    "T2",
+    "X3",
+    "X17",
+    "X96"
+   ],
+   "lines": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E2",
+    "T1",
+    "X1",
+    "X4",
+    "X5"
+   ],
+   "points": []
+  },
+  {
+   "name": "the plane β1 + (2-φ)·β4 = (2-φ)·β3",
+   "kind": "plane",
+   "ids": [
+    "C2b",
+    "D2",
+    "E1",
+    "F4",
+    "T1",
+    "X5",
+    "X9",
+    "X23"
+   ],
+   "walls": [
+    "F4",
+    "X9",
+    "X23"
+   ],
+   "lines": [
+    "C2b",
+    "D2",
+    "E1",
+    "T1",
+    "X5"
+   ],
+   "points": []
+  },
+  {
+   "name": "the plane β1 = (2-φ)·β2",
+   "kind": "plane",
+   "ids": [
+    "B1",
+    "E1",
+    "F4",
+    "F5",
+    "X24",
+    "X29",
+    "X44",
+    "X81",
+    "X98",
+    "X101"
+   ],
+   "walls": [
+    "F4",
+    "F5",
+    "X44",
+    "X98",
+    "X101"
+   ],
+   "lines": [
+    "B1",
+    "E1",
+    "X24",
+    "X29",
+    "X81"
+   ],
+   "points": []
+  },
+  {
+   "name": "the surface found for X10 and its fold",
+   "kind": "surface",
+   "ids": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1",
+    "E2",
+    "X8",
+    "X10",
+    "X18",
+    "X29",
+    "X35",
+    "X39",
+    "X40",
+    "X52"
+   ],
+   "walls": [
+    "X10",
+    "X35",
+    "X39",
+    "X40",
+    "X52"
+   ],
+   "lines": [
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1",
+    "E2",
+    "X8",
+    "X18",
+    "X29"
+   ],
+   "points": []
+  },
+  {
+   "name": "the surface found for X100 and its fold",
+   "kind": "surface",
+   "ids": [
+    "B1",
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1",
+    "E2",
+    "X7",
+    "X51",
+    "X100"
+   ],
+   "walls": [
+    "X7",
+    "X51",
+    "X100"
+   ],
+   "lines": [
+    "B1",
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1",
+    "E2"
+   ],
+   "points": []
+  },
+  {
+   "name": "the surface found for X14 and its fold",
+   "kind": "surface",
+   "ids": [
+    "B1",
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "X2",
+    "X4",
+    "X6",
+    "X13",
+    "X14",
+    "X15",
+    "X18",
+    "X22",
+    "X24",
+    "X34",
+    "X47",
+    "X78",
+    "X82",
+    "X97"
+   ],
+   "walls": [
+    "X14",
+    "X15",
+    "X22",
+    "X34",
+    "X47",
+    "X82"
+   ],
+   "lines": [
+    "B1",
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "X2",
+    "X4",
+    "X6",
+    "X13",
+    "X18",
+    "X24",
+    "X78",
+    "X97"
+   ],
+   "points": []
+  },
+  {
+   "name": "the surface found for X25 and its fold",
+   "kind": "surface",
+   "ids": [
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "X2",
+    "X6",
+    "X13",
+    "X24",
+    "X25",
+    "X80",
+    "X86",
+    "X93"
+   ],
+   "walls": [
+    "X25",
+    "X86",
+    "X93"
+   ],
+   "lines": [
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "X2",
+    "X6",
+    "X13",
+    "X24",
+    "X80"
+   ],
+   "points": []
+  },
+  {
+   "name": "the surface found for X28",
+   "kind": "surface",
+   "ids": [
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "X28",
+    "X41"
+   ],
+   "walls": [
+    "X28",
+    "X41"
+   ],
+   "lines": [
+    "C2a",
+    "C2b",
+    "C3",
+    "D1",
+    "D2",
+    "D3",
+    "E1"
+   ],
+   "points": []
+  },
+  {
+   "name": "the surface found for X38 and its fold",
+   "kind": "surface",
+   "ids": [
+    "B1",
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1",
+    "E2",
+    "X18",
+    "X38",
+    "X48",
+    "X78",
+    "X83"
+   ],
+   "walls": [
+    "X38",
+    "X48",
+    "X83"
+   ],
+   "lines": [
+    "B1",
+    "C2a",
+    "C3",
+    "D1",
+    "D3",
+    "E1",
+    "E2",
+    "X18",
+    "X78"
+   ],
+   "points": []
+  }
+ ]
+}
