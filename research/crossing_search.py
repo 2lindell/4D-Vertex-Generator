@@ -7,7 +7,8 @@ b2 = b3 and a quadric, was found by the community that way. For every pair of th
 kept where the group has one) are found by alternating projections from random starts, and the polytope there is
 classified (wall tolerance). A key not among the sheet's known polytopes (map regions, wall shapes, strata, the
 family's merged shape lists) is a candidate: stepped 1e-4 along the curve (both ways) it is a line if it stays, else
-an isolated point on the curve. Triples of surfaces are searched the same way for points.
+an isolated point on the curve. Triples of surfaces are searched the same way for points (only those whose
+three pairs all cross inside: a point on three walls lies on each pair's curve).
 
     python crossing_search.py contic ox oxb tox icp icpb ki io | decaic ki io | hyic ix0 ... ix9    (one atlas per run)
     python crossing_search.py summary
@@ -132,8 +133,12 @@ if __name__ == "__main__":
     K |= {k for k in pool.starmap(lab, items) if k}
     n = len(S)
     pairs = list(itertools.combinations(range(n), 2))
-    triples = list(itertools.combinations(range(n), 3)) if A["triples"] else []
-    found = [x for r in pool.map(find, pairs + triples, chunksize=8) for x in r]
+    found = [x for r in pool.map(find, pairs, chunksize=8) for x in r]
+    # (a point on three walls lies on each pair's crossing curve: only triples whose three pairs all cross inside)
+    cross = {tuple(idx) for idx, _ in found}
+    nb = {i: {j for a, b in cross for i_, j in ((a, b), (b, a)) if i_ == i} for i in range(n)}
+    triples = sorted({tuple(sorted((a, b, c))) for a, b in cross for c in nb[a] & nb[b]}) if A["triples"] else []
+    found += [x for r in pool.map(find, triples, chunksize=8) for x in r]
     C = pool.map(classify, found, chunksize=8)
     cand = [c for c in C if c[2] and c[2] not in K]
     V = pool.map(along, [c for c in cand if len(c[0]) == 2], chunksize=1)
