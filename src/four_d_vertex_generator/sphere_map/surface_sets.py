@@ -8,9 +8,13 @@ half-cell and every named shape lying in it, read from the 3-sphere map's own da
   boundary (the curves domain_pieces.py builds from: line pieces and their copies);
 * points: those on it (atlas.json: each named point's place).
 
-Entries: every H4 mirror through the half-cell (the splitting mirror beta_3 = beta_4 its top face),
-its faces, the lines where two of these meet that carry a named shape, and every other plane or
-surface (a surface with its folds and copies, one family) holding at least two walls.
+Each locus is taken whole on the 3-sphere: a shape is in it when a copy of it lies on it anywhere,
+that is, when the shape (in the half-cell) lies on one of the locus's images under the group; and
+loci that are images of each other are one entry (a mirror that is another plane's image is that
+plane). Entries: every H4 mirror and face of the half-cell (the splitting mirror beta_3 = beta_4 its
+top face), the lines where two of these meet holding two named shapes or more, the line through
+(1,1,1,0) and (2+phi, 2+phi, 1, 1), and every other plane or surface (a surface with its folds and
+copies, one family) holding at least two walls.
 
     python -m four_d_vertex_generator.sphere_map.surface_sets
 """
@@ -108,6 +112,9 @@ def build() -> dict:
     atlas = json.loads((root / "atlas.json").read_text())
     T = cell_vertices()
     Ti = np.linalg.inv(T)
+    from .frame import group
+    G = group()
+    Ms = np.stack([T @ g @ Ti for g in G])           # beta (domain) -> beta in copy g's frame
     # the curves the pieces were built from: database line stretches and their copies on the boundary
     from . import domain_pieces as dp
     import __main__
@@ -117,21 +124,11 @@ def build() -> dict:
     C = pickle.loads((root / ".cache" / "domain_curves.pkl").read_bytes())
     D = dp.Data()
     curves = [c for c in C if c["kind"] == "line"] + [c for c in dp.boundary_images(D, C) if c["kind"] == "line"]
-    lines_of_lib = defaultdict(set)              # library surface -> lines with a stretch on it
-    for c in curves:
-        for i, s in enumerate(D.lib):
-            if dp.dist_to(s, c["pts"]).max() < 1e-6:
-                lines_of_lib[i].add(c["name"])
-    faces = {"b1=0": 0, "b2=0": 1, "b4=0": 3, "b3=b4": 4}
-    lines_of_face = defaultdict(set)
-    for c in curves:
-        for nm, k in faces.items():
-            if np.abs(c["pts"] @ dp.FACE_N[k]).max() < 1e-9:
-                lines_of_face[nm].add(c["name"])
+    # (each curve tested at a few of its points)
+    cpts = [(c["name"], c["pts"][np.linspace(0, len(c["pts"]) - 1, min(7, len(c["pts"]))).astype(int)]) for c in curves]
     walls_of = defaultdict(set)                  # sheet -> walls with a piece on it
     for f in doc["faces"]:
         walls_of[f["sheet"]].add(f["wall"])
-    # named points' places in the domain
     named = {k for k, v in json.loads((root.parent / "source" / "working_data.json").read_text())["shapes"].items()
              if v["dim"] == "point"}
     points = []
@@ -139,41 +136,106 @@ def build() -> dict:
         if p.get("atlas_point") in named:
             b = np.asarray(p["R4"], float) @ Ti
             points.append((p["atlas_point"], b / b.sum()))
-
     order = lambda k: (re.match(r"[A-Z]+", k).group(0), int(re.search(r"\d+", k).group(0)), k)
     out = []
 
-    def add(name, kind, walls, lines, pts=()):
+    def add(name, kind, walls, lines, pts):
         ids = sorted(set(walls) | set(lines) | set(pts), key=order)
         if ids:
-            out.append({"name": name, "kind": kind, "ids": ids, "walls": sorted(walls, key=order),
-                        "lines": sorted(lines, key=order), "points": sorted(set(pts), key=order)})
+            out.append({"name": name, "kind": kind, "ids": ids, "walls": sorted(set(walls), key=order),
+                        "lines": sorted(set(lines), key=order), "points": sorted(set(pts), key=order)})
 
-    # the H4 mirrors through the half-cell; the splitting mirror is its top face
+    # ---- planes: the half-cell's mirrors and faces and the library's planes, one entry per plane of
+    # the 3-sphere up to the group (a mirror that is an image of another plane is that plane)
+    cand = []                                    # (name, rank, normal in beta, sheets on it)
     for i, j in itertools.combinations(range(4), 2):
-        n = np.zeros(4)
-        n[i], n[j] = 1, -1
-        idx = [k for k, d in enumerate(lib) if d["kind"] == "plane" and
-               abs(abs(np.dot(d["normal"], n / np.linalg.norm(n))) - 1) < 1e-9]
-        walls = set().union(*[walls_of.get(str(k), set()) for k in idx]) if idx else set()
-        lines = set().union(*[lines_of_lib.get(k, set()) for k in idx]) if idx else set()
+        n = np.eye(4)[i] - np.eye(4)[j]
         if (i, j) == (2, 3):
-            walls |= walls_of.get("face:b3=b4", set())
-            lines |= lines_of_face["b3=b4"]
-            add("the splitting mirror β3 = β4 (the top face of the half tetrahedron)", "mirror", walls, lines)
+            cand.append(("the splitting mirror β3 = β4 (the top face of the half tetrahedron)", 0, n, ["face:b3=b4"]))
         else:
-            add(f"the mirror β{i + 1} = β{j + 1}", "mirror", walls, lines)
-    # the other faces
-    add("the faces β1 = 0 and β2 = 0 (folds of each other)", "face",
-        walls_of.get("face:b1=0", set()) | walls_of.get("face:b2=0", set()), lines_of_face["b1=0"] | lines_of_face["b2=0"])
-    add("the face β4 = 0 (the bottom face)", "face", walls_of.get("face:b4=0", set()), lines_of_face["b4=0"])
+            cand.append((f"the mirror β{i + 1} = β{j + 1}", 1, n, []))
+    cand.append(("the face β1 = 0", 2, np.eye(4)[0], ["face:b1=0"]))
+    cand.append(("the face β2 = 0", 2, np.eye(4)[1], ["face:b2=0"]))
+    cand.append(("the face β4 = 0 (the bottom face)", 2, np.eye(4)[3], ["face:b4=0"]))
+    for k, d in enumerate(lib):
+        if d["kind"] == "plane":
+            cand.append(("the plane " + _plane_text(d["exact"]), 3, np.asarray(d["normal"], float), [str(k)]))
+    n4 = lambda n: (lambda v: v / np.linalg.norm(v))(Ti @ n)        # (the plane's normal on R^4)
+    orbits = []                                  # [members, images of the normal in beta]
+    for c in cand:
+        v = n4(c[2])
+        for o in orbits:
+            if np.abs(np.abs(o[2] @ v) - 1).min() < 1e-9:
+                o[0].append(c)
+                break
+        else:
+            imgs = np.einsum("gij,j->gi", G, v)
+            orbits.append([[c], None, imgs])
+    for members, _, imgs in orbits:
+        nb = imgs @ T.T                          # (beta . (T n4') = X . n4')
+        nb = nb / np.linalg.norm(nb, axis=1, keepdims=True)
+        nb = np.unique(np.round(np.where(nb[:, :1] < 0, -nb, nb), 9), axis=0)
+        sheets = {sh for c in members for sh in c[3]}
+        # (the library's planes on any image of this one)
+        for k, d in enumerate(lib):
+            if d["kind"] == "plane" and np.abs(np.abs(nb @ (np.asarray(d["normal"]) / np.linalg.norm(d["normal"]))) - 1).min() < 1e-9:
+                sheets.add(str(k))
+        for fn, fv in (("face:b1=0", np.eye(4)[0]), ("face:b2=0", np.eye(4)[1]), ("face:b4=0", np.eye(4)[3]),
+                       ("face:b3=b4", np.eye(4)[2] - np.eye(4)[3])):
+            if np.abs(np.abs(nb @ (fv / np.linalg.norm(fv))) - 1).min() < 1e-9:
+                sheets.add(fn)
+        walls = set().union(*[walls_of.get(sh, set()) for sh in sheets])
+        lines = {nm for nm, P in cpts if (np.abs(P @ nb.T) < 1e-7).all(0).any()}
+        pts = {nm for nm, b in points if np.abs(b @ nb.T).min() < 1e-6}
+        # (named by its simplest member: the splitting mirror, a mirror, a face, else the plane of the
+        # library holding the most walls, the shortest written; the others it is the same great sphere
+        # as listed when they are mirrors, faces or planes holding walls, with the count of all)
+        own = lambda c: len(set().union(*[walls_of.get(sh, set()) for sh in c[3]]))
+        members.sort(key=lambda c: (c[1], -own(c), len(c[0])))
+        rank = members[0][1]
+        if rank >= 3 and len(walls) < 2:
+            continue                             # (a plane of the library holding fewer than two walls)
+        others = []
+        for c in members[1:]:
+            short = c[0].replace("the ", "", 1)
+            if c[1] >= 3 and (_mirror_name(c[2]) is not None or own(c) == 0):
+                continue                         # (a library plane that is a mirror, or holds no wall)
+            if short not in others and c[0] != members[0][0]:
+                others.append(short)
+        n_planes = len(nb)
+        name = members[0][0] + (f" — the same great sphere, carried by the group, as the {'; the '.join(others)} "
+                                f"({n_planes} planes through the half-cell's copies in all)" if others else "")
+        add(name, "mirror" if rank <= 1 else "face" if rank == 2 else "plane", walls, lines, pts)
 
-    # lines where two of the half-cell's mirrors and faces meet, and the line through the corner
-    # (1,1,1,0) and the point (2+phi, 2+phi, 1, 1): the named points and lines on each. Lines one
-    # symmetry carries onto another are one entry (the others after "≅"); a line holding one shape
-    # only (a corner's point, on every line through that corner) is left out
-    from .frame import group
-    G = group()
+    # ---- curved surfaces: each family (a surface with its folds and copies), whole on the 3-sphere:
+    # a line or point on any image of one of its surfaces is on it
+    fam = defaultdict(list)
+    for k, d in enumerate(lib):
+        if d["kind"] != "plane":
+            fam[d["family"]].append(k)
+    Pinv = np.linalg.inv(Ms)
+    for f_, idx in fam.items():
+        walls = set().union(*[walls_of.get(str(k), set()) for k in idx])
+        if len(walls) < 2:
+            continue
+        s0 = D.lib[idx[0]]
+        # (its images: s(beta M_g) = 0)
+        def on_any(X, tol):
+            X = np.atleast_2d(X)
+            Y = np.einsum("nj,gjk->gnk", X, Ms)
+            Y = Y / Y.sum(-1, keepdims=True)
+            vals = np.abs(np.stack([s0.f(y) for y in Y]))
+            gr = np.stack([np.linalg.norm(s0.grad(y) - s0.grad(y).mean(1, keepdims=True), axis=1) for y in Y])
+            return ((vals / np.maximum(gr, 1e-300)) < tol).all(1).any()
+        lines = {nm for nm, P in cpts if on_any(P, 1e-6)}
+        pts = {nm for nm, b in points if on_any(b, 1e-6)}
+        bases = sorted({lib[k]["base"].split(":")[0] for k in idx})
+        folds = any(":fold" in lib[k]["base"] for k in idx)
+        add(f"the surface found for {bases[0]}" + (" and its fold" if folds else ""), "surface", walls, lines, pts)
+
+    # ---- lines: where two of the half-cell's mirrors and faces meet, and the line through (1,1,1,0)
+    # and (2+phi, 2+phi, 1, 1); each whole on the 3-sphere (its images through the half-cell), one
+    # entry per line up to the group; a line holding one shape only is left out
     eqs = {}
     for i, j in itertools.combinations(range(4), 2):
         eqs[(("eq", i, j),)] = np.eye(4)[i] - np.eye(4)[j]
@@ -187,58 +249,33 @@ def build() -> dict:
     P1, P2 = np.array([1, 1, 1, 0.0]), np.array([2 + PHI, 2 + PHI, 1, 1])
     loci.append(("the line through β ∝ (1, 1, 1, 0) and (2+φ, 2+φ, 1, 1)",
                  np.linalg.svd(np.array([P1, P2]))[2][2:]))
-    entries = {}
+    seen = []                                    # [name, names of its images, its 2-plane of R^4]
     for name, M in loci:
-        Mn = M / np.linalg.norm(M, axis=1, keepdims=True)
-        # (a point's stored place to 1e-6; a traced curve to 1e-7)
-        on = lambda X, tol: (np.abs(np.atleast_2d(X) @ Mn.T) < tol).all(1)
-        pts = sorted({nm for nm, b_ in points if on(b_, 1e-6)[0] and b_.min() > -1e-6 and b_[2] - b_[3] > -1e-6}, key=order)
-        lns = sorted({c["name"] for c in curves if on(c["pts"], 1e-7).all()}, key=order)
+        B = np.linalg.svd(M)[2][2:] @ T            # (its 2-plane of R^4)
+        B = np.linalg.qr(B.T)[0].T
+        GB = np.einsum("gij,kj->gki", G, B)        # (its images)
+        for e in seen:
+            # (some symmetry carries it onto that line: each image row lies in that line's plane)
+            if np.linalg.norm(GB - GB @ e[2].T @ e[2], axis=(1, 2)).min() < 1e-6:
+                if name != e[0] and name not in e[1]:
+                    e[1].append(name)
+                break
+        else:
+            seen.append([name, [], B])
+    for name, others, B in seen:
+        imgs = np.einsum("gij,kj->gki", G, B)       # (its images, as 2-planes of R^4)
+        def on_line(X, tol):
+            Xr = np.atleast_2d(X) @ T
+            Xr = Xr / np.linalg.norm(Xr, axis=1, keepdims=True)
+            res = np.linalg.norm(Xr[None] - np.einsum("gnk,gkj->gnj", np.einsum("nj,gkj->gnk", Xr, imgs), imgs), axis=2)
+            return (res < tol).all(1).any()
+        pts = {nm for nm, b in points if on_line(b, 1e-6)}
+        lns = {nm for nm, P in cpts if on_line(P, 1e-6)}
         if len(pts) + len(lns) < 2:
             continue
-        # the line on the sphere (R^4): the 2-plane its beta directions span
-        B = np.linalg.svd(Mn)[2][2:] @ T
-        B = np.linalg.qr(B.T)[0].T
-        key = None
-        for k_, e in entries.items():
-            if (e["pts"], e["lns"]) != (pts, lns):
-                continue
-            # (one symmetry of the group carrying this line onto that one)
-            Q = np.einsum("gij,kj->gki", G, B)
-            res = np.linalg.norm(Q - Q @ e["B"].T @ e["B"], axis=(1, 2))
-            if res.min() < 1e-6:
-                key = k_
-                break
-        if key is None:
-            entries[name] = {"pts": pts, "lns": lns, "B": B, "also": []}
-        elif name != key and name.replace("the line ", "") not in entries[key]["also"]:
-            entries[key]["also"].append(name.replace("the line ", ""))
-    for name, e in entries.items():
-        add(name + (f" (≅ {', '.join(e['also'])})" if e["also"] else ""), "line", [], e["lns"], e["pts"])
-
-    # every other plane, and every surface (with its folds and copies), holding two walls or more
-    fam = defaultdict(list)
-    for k, d in enumerate(lib):
-        if d["kind"] == "plane":
-            if _mirror_name(d["normal"]) is None:
-                fam[("plane", k)].append(k)
-        else:
-            fam[("surface", d["family"])].append(k)
-    for (kind, key), idx in fam.items():
-        walls = set().union(*[walls_of.get(str(k), set()) for k in idx])
-        if len(walls) < 2:
-            continue
-        lines = set().union(*[lines_of_lib.get(k, set()) for k in idx])
-        if kind == "plane":
-            name = "the plane " + _plane_text(lib[idx[0]]["exact"])
-        else:
-            bases = sorted({lib[k]["base"].split(":")[0] for k in idx})
-            folds = sorted({lib[k]["base"] for k in idx if ":fold" in lib[k]["base"]})
-            # (the library names a surface after the wall it was found for)
-            name = f"the surface found for {bases[0]}" + (" and its fold" if folds else "")
-        add(name, kind, walls, lines)
+        add(name + (f" (the same line as {'; '.join(o.replace('the line ', '') for o in others)})" if others else ""),
+            "line", [], lns, pts)
     return {"_about": __doc__, "sets": out}
-
 
 def run() -> str:
     data = build()
