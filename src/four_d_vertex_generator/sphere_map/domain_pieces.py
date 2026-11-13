@@ -443,7 +443,7 @@ def sheet(D, C, key, log=print, extra=()):
         own += [g for g in boundary_images(D, C) if dist_to(s, g["pts"]).max() < 1e-6]
         arcs = []
         arcs = boundary_arcs(s, FACES, D, own)
-    arcs = _snap_arcs_to_ends(arcs, own)
+    arcs = _clean_arcs(_snap_arcs_to_ends(arcs, own), own)
     edges = [dict(c, eqs=[s, second(s, c, D)]) for c in own] + arcs + list(extra)
     G = Graph(s, normal)
     for e in edges:
@@ -481,6 +481,61 @@ def _snap_arcs_to_ends(arcs, own):
                 moved = True
         out.append(dict(a, pts=P) if moved else a)
     return out
+
+
+def _clean_arcs(arcs, own):
+    """Two slips of the boundary arcs' tracing where they reach an edge of the cell:
+    - a step far longer than the arc's own, both its ends on one edge of the cell (on two faces),
+      is the arc running on along that edge, which a curve or the next face's arc already has (E1
+      along the edge where beta_2 = beta_4 = 0, beside X51's arc on beta_4 = 0): the arc is split
+      there and the step left out;
+    - an arc under 5e-3 long, both its ends within 5e-3 of a corner where curves of the database
+      end, cuts that corner off (X99's at beta (0, 0, 1, 0), where B1 and E1 end): left out."""
+    ends = [x for c in own for x in (c["pts"][0], c["pts"][-1])]
+    out = []
+    for a in arcs:
+        if a.get("kind") != "face":
+            out.append(a)
+            continue
+        P = np.asarray(a["pts"], float)
+        L = np.linalg.norm(np.diff(P, axis=0), axis=1)
+        if L.sum() < 5e-3 and ends and any(
+                max(np.linalg.norm(P[0] - x), np.linalg.norm(P[-1] - x)) < 5e-3 for x in ends):
+            continue
+        # (its ends on the edge to 3e-3: the trace stops a little short of the edge, then steps along it)
+        on_edge = lambda x, y: [j for j in range(len(FACE_N)) if abs(x @ FACE_N[j]) < 3e-3 and abs(y @ FACE_N[j]) < 3e-3]
+        cut = [i for i in range(len(L)) if len(P) > 4 and L[i] > max(0.02, 10 * np.median(L))
+               and len(on_edge(P[i], P[i + 1])) >= 2]
+        if not cut:
+            out.append(a)
+            continue
+        start = 0
+        for i in cut + [len(P) - 1]:
+            piece = P[start:i + 1].copy()
+            if len(piece) >= 2 and np.linalg.norm(np.diff(piece, axis=0), axis=1).sum() > 1e-9:
+                # (an end left short of the edge moved onto the curve of the database lying there,
+                # on the surface and on the edge, so the arc meets it)
+                for k_ in ((-1,) if i in cut else ()) + ((0,) if start > 0 else ()):
+                    piece[k_] = _nearest_on(own, piece[k_], 3e-3)
+                out.append(dict(a, pts=piece))
+            start = i + 1
+    return out
+
+
+def _nearest_on(curves, x, tol):
+    """The point of the curves' polylines nearest x, if within tol; else x."""
+    best, bd = x, tol
+    for c in curves:
+        P = c["pts"]
+        a, b = P[:-1], P[1:]
+        u = b - a
+        t = np.clip(((x - a) * u).sum(1) / np.maximum((u * u).sum(1), 1e-300), 0, 1)
+        Y = a + t[:, None] * u
+        d = np.linalg.norm(Y - x, axis=1)
+        j = int(d.argmin())
+        if d[j] < bd:
+            best, bd = Y[j], d[j]
+    return best
 
 
 def glued_images(D, C, k):
