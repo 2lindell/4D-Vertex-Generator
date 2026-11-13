@@ -76,13 +76,22 @@ def factors(text):
 if __name__ == "__main__":
     pool = Pool(int(os.environ.get("NPROC", "4")))
     ex = [t["example"] for t in M["types"]]
-    fs = sorted({f for r in pool.map(forms_of, ex, chunksize=1) for f in r})
+    ck = G.fname("ixoic_walls").replace(".json", ".partial.json")   # (resumes after a container restart)
+    C = json.load(open(ck)) if os.path.exists(ck) else {"forms": {}}
+    todo = [str(i) for i in range(len(ex)) if str(i) not in C["forms"]]
+    for i, r in zip(todo, pool.imap(forms_of, [ex[int(i)] for i in todo], chunksize=1)):
+        C["forms"][i] = r
+        json.dump(C, open(ck, "w"))
+    fs = sorted({f for r in C["forms"].values() for f in r})
     sig = {}
     for f, g in zip(fs, pool.map(signature, fs, chunksize=8)):
         sig.setdefault(g, f)
     fs = sorted(sig.values())
     print(f"{G.SUB}: {len(ex)} types, {len(fs)} forms, {len(P)} wall points; {time.time() - t0:.0f}s", flush=True)
-    hit = [t for t, n in pool.map(vanishing, fs, chunksize=4) if n]
+    if "hit" not in C:
+        C["hit"] = [t for t, n in pool.map(vanishing, fs, chunksize=4) if n]
+        json.dump(C, open(ck, "w"))
+    hit = C["hit"]
     print(f"  {len(hit)} forms vanish at a wall point; {time.time() - t0:.0f}s", flush=True)
     facs = sorted({f for r in pool.map(factors, hit, chunksize=1) for f in r})
     surfs = [s for s, n in pool.map(vanishing, facs, chunksize=4) if n]
@@ -111,6 +120,7 @@ if __name__ == "__main__":
         json.dump(W, open(wp, "w"), indent=1)
     except FileNotFoundError:
         pass
+    os.remove(ck)
     print(f"  {len(surfs)} wall surfaces; {covered} of {len(P)} wall points on one; {time.time() - t0:.0f}s", flush=True)
 '''
 
