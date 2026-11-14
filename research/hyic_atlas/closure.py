@@ -11,6 +11,7 @@ shape (on the surface).
     HYIC_SUB=ix3 python closure.py      (ixoic: HYIC_SUB=ixo3, after python ixitic_shapes.py ixo)
 
 Lite (the default; CLOSURE_LITE=0 for the full search): two starts and 12 of the directions, a quarter of the walks.
+Crossings on no known surface are left for missing_walls.py (listed as no_surface_points); CLOSURE_FORMS=1 fits them here.
 """
 from __future__ import annotations
 
@@ -34,6 +35,7 @@ STEP, MAXLEN = 0.04, 1.5
 #  regions thinner than the step lying wholly between two samples, which the point just beyond the wall still sees
 #  when it is the next one)
 LITE = os.environ.get("CLOSURE_LITE", "1") == "1"
+FORMS = os.environ.get("CLOSURE_FORMS", "0") == "1"
 
 
 def directions(n):
@@ -174,7 +176,7 @@ def main():
             sid[i] = surfs[int(np.argmin(dd))].text
         else:
             miss.append(i)
-    if miss:
+    if miss and FORMS:                                  # (slow: minutes a point; missing_walls.py does this in rounds)
         more = pool.map(forms_job, [tuple(E[i][0]) for i in miss] + [tuple(E[i][2]) for i in miss], chunksize=1)
         new = set().union(*more) - {s.text for s in surfs}
         surfs += [Surface(t) for t in sorted(new)]
@@ -196,7 +198,8 @@ def main():
     #  region counts only if the point just beyond the wall (1e-6 along the walk) is itself new)
     new_regions = confirm(new_regions, known, pool=None)
     out = {"_about": __doc__.strip().split("\n\n")[0], "sheet": G.SUB, "regions": len(reg), "walks": len(items),
-           "changes": len(ch), "on_no_surface": nosurf, "new_regions": new_regions, "new_wall_shapes": new_walls}
+           "changes": len(ch), "on_no_surface": nosurf,
+           "no_surface_points": [E[i][0] for i, _ in ch if i not in sid], "new_regions": new_regions, "new_wall_shapes": new_walls}
     json.dump(out, open(os.path.join(HERE, f"closure_{G.SUB}.json"), "w"), indent=1)
     os.remove(ck)
     print(f"{G.SUB}: {len(reg)} regions, {len(items)} walks, {len(ch)} changes ({nosurf} on no surface); "
