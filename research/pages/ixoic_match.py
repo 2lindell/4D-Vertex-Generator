@@ -4,7 +4,8 @@ The list's fifth column gives, for one vertex, how many faces meet at each of it
 5, 5, 6, 8, 4, 4 and six 3 faces; numbers of two digits are set apart by spaces ("999 18" is 9, 9, 9, 18). The atlas's
 edge counts by valence give the same per vertex (count x 2 / vertices). Shapes are matched on vertices and this edge
 profile; where several fit, the listed cell orbits (sizes) decide, and what still ties is reported. Atlas shapes: the
-merged ixoic list (hyic_atlas/ixoic_shapes.json) and the half-turns' fixed lines (hyic_atlas/fixed_lines.json).
+merged ixoic list (hyic_atlas/ixoic_shapes.json), the half-turns' fixed lines (hyic_atlas/fixed_lines.json) and
+the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 
     python ixoic_match.py
 """
@@ -82,10 +83,51 @@ def atlas():
                 e[int(k_)] += int(n_)
             A.append({"key": k, "kind": r["kind"], "vertices": V, "edges": dict(e), "signature": sg, "seed": r["seed"],
                       "sheet": sub, "source": "fixed line"})
+    for sub in sorted(F) or [f"ixo{i}" for i in range(10)]:     # (regions the closure check found: closure_<sheet>.json)
+        try:
+            Cl = json.load(open(os.path.join(HY, f"closure_{sub}.json")))
+        except FileNotFoundError:
+            continue
+        need = [[k, v["at"]] for k, v in Cl["new_regions"].items() if "signature" not in v]
+        if need:
+            import subprocess
+            import sys
+            r = subprocess.run([sys.executable, "-c", SIG % HY], input=json.dumps(need), capture_output=True, text=True,
+                               cwd=HY, env={**os.environ, "HYIC_SUB": sub})
+            for k, sg in json.loads(r.stdout.strip().splitlines()[-1]).items():
+                Cl["new_regions"][k]["signature"] = sg
+            json.dump(Cl, open(os.path.join(HY, f"closure_{sub}.json"), "w"), indent=1)
+        for k, v in Cl["new_regions"].items():
+            if k in seen or "signature" not in v:
+                continue
+            seen.add(k)
+            sg = v["signature"]
+            e = Counter()
+            for n_, k_ in re.findall(r"(\d+)x(\d+)", sg.split("edges")[1]):
+                e[int(k_)] += int(n_)
+            A.append({"key": k, "kind": "region", "vertices": int(sg.split(":")[0]), "edges": dict(e), "signature": sg,
+                      "seed": v["at"], "sheet": sub, "source": "closure"})
     for a in A:
         a["profile"] = Counter({int(k): v * 2 // a["vertices"] for k, v in a["edges"].items()})
         a["orbits"] = Counter(int(n) for n, _ in re.findall(r"(\d+)x\[(\d+v\d+f)\]", a["signature"].split("|")[0]))
     return A
+
+
+SIG = r'''
+import json, sys
+import numpy as np
+sys.path.insert(0, %r)
+import group as G
+out = {}
+for key, seed in json.loads(sys.stdin.read()):
+    for t in (1e-9, 1e-8):
+        try:
+            out[key] = G.label(np.asarray(seed, float), t)[0]
+            break
+        except Exception:
+            pass
+print(json.dumps(out))
+'''
 
 
 FIG = r'''

@@ -4,7 +4,8 @@ The list's fifth column gives, for one vertex, how many faces meet at each of it
 5, 5, 6, 8, 4, 4 and six 3 faces; numbers of two digits are set apart by spaces ("999 18" is 9, 9, 9, 18). The atlas's
 edge counts by valence give the same per vertex (count x 2 / vertices). Shapes are matched on vertices and this edge
 profile; where several fit, the listed cell orbits (sizes) decide, and what still ties is reported. Atlas shapes: the
-merged ixoic list (hyic_atlas/ixoic_shapes.json) and the half-turns' fixed lines (hyic_atlas/fixed_lines.json).
+merged ixoic list (hyic_atlas/ixoic_shapes.json), the half-turns' fixed lines (hyic_atlas/fixed_lines.json) and
+the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 
 | list entry | vertices | edge profile | atlas key | kind | note |
 |---|---|---|---|---|---|
@@ -90,7 +91,7 @@ merged ixoic list (hyic_atlas/ixoic_shapes.json) and the half-turns' fixed lines
 | Gidwabtuted | 2880 | 56 12 12,4^7,3^7 | — | not found |  |
 | Sidwabtuted | None | 6688 10,4^4,3^8 | — | not found |  |
 
-## Atlas shapes not in the list (167)
+## Atlas shapes not in the list (172)
 
 | key | kind | vertices | edge profile | vertex figure | source |
 |---|---|---|---|---|---|
@@ -114,12 +115,16 @@ merged ixoic list (hyic_atlas/ixoic_shapes.json) and the half-turns' fixed lines
 | 80314f6918ad | region | 2880 | 10^2,8,6^4,5^2,4^2,3^8 | 5,4^2,3^27 | merged |
 | 3e1d8d51c6de | region | 2880 | 10^2,8^2,6^3,4^4,3^8 | 5,4^2,3^27 | merged |
 | f68dfcec7c78 | region | 2880 | 10^2,8^2,6^3,4^4,3^8 | 5,4^2,3^27 | merged |
+| 8a47582fb978 | region | 2880 | 10^2,8^2,6^3,4^4,3^8 | 5,4^2,3^27 | closure |
 | 034eccb8aa72 | region | 2880 | 12,10,6^2,5^4,4^7,3^4 | 5,4^2,3^27 | merged |
 | 8c375a29ebe9 | region | 2880 | 12,10,6^3,5^4,4^7,3^4 | 5,4^2,3^29 | merged |
+| bc68380762a1 | region | 2880 | 12,10,6^4,5^2,4^8,3^4 | 5,4^2,3^29 | closure |
+| 9b5fd8356656 | region | 2880 | 12,10,8,6^2,4^7,3^6 | 5,4^2,3^25 | closure |
 | ab715fb554b7 | region | 2880 | 12,10,8,6^3,5^2,4^6,3^6 | 5,4^2,3^29 | merged |
 | 9d02e1e622fa | region | 2880 | 12,10,8,6^3,5^4,4^2,3^8 | 5,4^2,3^29 | merged |
 | 553ba96f5b83 | region | 2880 | 12,10,8,6^5,4^4,3^8 | 5,4^2,3^29 | merged |
 | 5f3beae7c484 | region | 2880 | 12,10,8^2,6^2,5^2,4^4,3^8 | 5,4^2,3^29 | merged |
+| 459c5d1f6ec6 | region | 2880 | 12,10^2,6^3,4^8,3^6 | 5,4^2,3^29 | closure |
 | 5a87375bd124 | region | 2880 | 12,10^2,8,6^2,4^5,3^10 | 5,4^4,3^27 | merged |
 | a80252891331 | region | 2880 | 12,8,6^3,4^11,3^2 | 5,4^2,3^25 | merged |
 | 2b6e4f8b8d86 | region | 2880 | 12,8,6^4,4^7,3^6 | 5,4^4,3^23 | merged |
@@ -178,6 +183,7 @@ merged ixoic list (hyic_atlas/ixoic_shapes.json) and the half-turns' fixed lines
 | 2c0d36b57a9d | region | 2880 | 8,6^5,4^5,3^4 | 5,4^2,3^19 | merged |
 | 0f8c6022686f | region | 2880 | 8^2,6^3,4^6,3^4 | 5,4^2,3^19 | merged |
 | 82f5f72a7367 | region | 2880 | 8^3,6^2,5^2,4^6,3^4 | 5,4^2,3^23 | merged |
+| 5ea58b93fa90 | region | 2880 | 8^3,6^3,4^7,3^4 | 5,4^2,3^23 | closure |
 | a2c1b1e0a5e9 | region | 2880 | 8^4,6,4^8,3^4 | 5,4^2,3^23 | merged |
 | 8906740db4ef | wall | 2880 | 10,6^2,5^2,4^3,3^6 | 5,4^3,3^15 | merged |
 | 9407ce9d79f3 | wall | 2880 | 10,6^5,4^3,3^8 | 5,4^5,3^17 | merged |
