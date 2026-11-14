@@ -95,7 +95,13 @@ def confirm(new_regions, known, pool=None):
     for k, v in new_regions.items():
         kb = label(tuple(v["at"]))
         if kb and kb not in known:
-            out[kb] = {**v, "bisection_key": k} if kb != k else v
+            out[kb] = {**v, "bisection_key": k} if kb != k else dict(v)
+            for t in (1e-9, 1e-8):                      # (its signature, for the list match)
+                try:
+                    out[kb]["signature"] = G.label(np.asarray(v["at"], float), t)[0]
+                    break
+                except Exception:
+                    pass
     return out
 
 
