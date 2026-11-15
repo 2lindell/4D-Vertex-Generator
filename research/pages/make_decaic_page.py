@@ -140,13 +140,18 @@ def main():
                     t += f". On the map it borders {listing(across)}"
             found = FOUND.get(r["name"]) or ("the crossing search (where the map's walls cross)" if r["name"] in CROSS
                                              else None)
-            t += "." + (f" It was found by {found}." if found else "")
+            t += "." + (f" It was found by {found}." if found else "") + SAME.get(r["name"], "")
             out.append({"name": name, "kind": r["kind"], "text": t, "beta": r["beta"], "surface": r.get("surface") or "",
                         "off": r.get("off") or f"{r['name']}.off", "cells": d["n_cells"]})
         new_entries[group] = out
     write_page(new_entries)
 
 
+# (shapes with every count the same as another's but a non-isomorphic face lattice)
+SAME = {"kidecaic_point_26_120v_200c": " It has the same cells, edges and faces as kidecaic line 25, but its face lattice "
+                                       "is not isomorphic to the line's: they are different polychora.",
+        "kidecaic_line_25_120v_200c": " Kidecaic point 26 has all the same counts, but is a different polychoron (its "
+                                      "face lattice is not isomorphic to this one's)."}
 CROSS = {}  # (crossing shapes: name -> number of walls crossing there)
 # (shapes not found on the map grid: decaic_snub_shapes.md)
 FOUND = {"kidecaic_region_21_120v_680c": "the dense survey of the edge zones",

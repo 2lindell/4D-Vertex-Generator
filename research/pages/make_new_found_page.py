@@ -1,9 +1,8 @@
-"""The 'Newly Found Isogonals' page (new_found.html): the shapes found since the family pages were first written, by the
-crossing search (where two or three of a map's walls cross: crossing_search.py, checked by crossing_verify.py, added by
-crossing_add.py) and the ixoic closure check (walks from every region to its walls, then sampling around what they
-found: hyic_atlas/closure.py, closure_grow.py). Each entry is written from its polychoron at its seed in its own group
-(describe.py), in the words of the family pages, with how it was found, its seed and, for the crossing shapes, its most
-even member (R = longest / shortest edge) and .off files.
+"""The 'Newly Found Isogonals' page (new_found.html): the shapes the crossing search found (where two or three of a map's
+walls cross: crossing_search.py, checked by crossing_verify.py, added by crossing_add.py). Each entry is written from its
+polychoron at its seed in its own group (describe.py), in the words of the family pages, with how it was found, its
+seed, its most even member (R = longest / shortest edge) and .off files. (New ixoic regions go on the ixoic match
+report, pages/ixoic_match.md, not here.)
 
     python make_new_found_page.py
 """
@@ -71,6 +70,14 @@ def closure_rows():
     return out
 
 
+# (notes on particular shapes, by key)
+NOTES = {"aced5db9ac46": " It has the same cells, edges and faces (every count, and every count of cells meeting across "
+                         "a face) as kidecaic line 25, but its face lattice is not isomorphic to the line's: they are "
+                         "different polychora.",
+         "2cc54ef1b550": " Kidecaic point 26 has all the same counts, but is a different polychoron (its face lattice "
+                         "is not isomorphic to this one's)."}
+
+
 def fmt_beta(b):
     return ", ".join(f"{x:.6f}" for x in b)
 
@@ -101,7 +108,7 @@ def main():
     for i, (group, sub, var, t) in enumerate(X):
         tol = 1e-7 if t["kind"] != "region" else 1e-9
         by.setdefault((var, sub), []).append([f"x{i}", t["seed"], tol])
-    Cl = closure_rows()
+    Cl = []                                     # (ixoic closure regions: on ixoic_match.md instead)
     for i, (sheet, k, v) in enumerate(Cl):
         by.setdefault(("HYIC_SUB", sheet), []).append([f"c{i}", v["at"], 1e-9])
     D = {}
@@ -142,7 +149,7 @@ def main():
                    "point": f" It was found where {WORD.get(n, n)} of the map's walls meet, as an isolated point.",
                    "wall": " It was found where two of the map's walls cross: it fills a stretch of one of them that "
                            "the map had not classified."}[t["kind"]]
-            text = body(d, group, t["kind"], t["degrees"]) + how
+            text = body(d, group, t["kind"], t["degrees"]) + how + NOTES.get(t["key"], "")
             R = t.get("R")
             data = (f"β = ({fmt_beta(t['seed'])}) · {d['n_cells']} cells · {t['kind']} · sheet {sub} · key {t['key']}"
                     + (f"<br>most even: R = {R:.4f}" if isinstance(R, (int, float)) else "")
@@ -176,8 +183,9 @@ def main():
                       "font-variant-numeric: tabular-nums; } th, td { text-align: left; padding: .35rem .9rem .35rem 0; "
                       "border-bottom: 1px solid var(--rule); } th { font: 500 .85rem/1.2 var(--label); letter-spacing: .06em; "
                       "color: var(--muted); }\nfooter {", 1)
-    intro = (f"{total} isogonal polychora found since the family pages were written: {len(X)} where the walls of a "
-             f"symmetry's map cross, and {len(Cl)} ixoic regions the closure check turned up.")
+    intro = (f"{total} isogonal polychora found by the crossing search, where two or three of the walls of a symmetry's "
+             "map cross inside its chamber. The maps had sampled lines and points only on the chamber's own edges and "
+             "corners.")
     note = ("Each entry is written from the polychoron itself at the seed given (β = the map's coordinates on the sheet "
             "named): cells by orbit, vertices with the dualcell's face count, edges by how many faces meet there, faces "
             "by shape. They are also listed on their families' pages.")
@@ -185,7 +193,7 @@ def main():
             .replace("{{NOTE}}", html.escape(note)).replace("{{NAV}}", "\n".join(nav))
             .replace("{{SECTIONS}}", summary + "\n" + "\n".join(secs))
             .replace("{{FOOTER}}", "Made by research/pages/make_new_found_page.py from the crossing search "
-                     "(research/crossing_search) and the ixoic closure check (research/hyic_atlas)."))
+                     "(research/crossing_search)."))
     open(os.path.join(HERE, "new_found.html"), "w").write(page)
     print(f"new_found.html: {total} shapes")
 
