@@ -96,6 +96,7 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 **Oxitic line 4** (line, sheet ox, key `a4043696cfa4`). It has 48 snits, 192 gyro-traps, 576 gyrowedges, 144 disphenoids, and 288+576 irregular tets. It has 576 vertices with a 14 faced dualcell. It has 288+576+576+576 trigonic, 288+576 tetragonic, 288+576 pentagonic, and 288 octagonic edges. Its faces are 192+192 equits, eight types of 576 scalene triangles, and 288 trapezoids. It is isogonal under oxitic symmetry with one degree of variation. It was found where two of the map's walls cross, as a line along their crossing curve.
 
 - β = (0.072109, 0.304565, 0.558141, 0.065185); 1824 cells; most even R = 4.3411
+- `new_shapes/off/oxitic/oxitic_line_04_576v_1824c_seed.off`
 - `optimized_off/oxitic/oxitic_line_04_576v_1824c_opt.off`
 - `central_off/oxitic/oxitic_line_04_576v_1824c_central.off`
 - on `b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2` and `b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4` = 0
@@ -103,6 +104,7 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 **Oxitic line 5** (line, sheet ox, key `a02e136d42e8`). It has 48 snits, 288+576 6-faced cells (6 vertices: 4 3-gons + 2 4-gons), 192 gyro-traps, and 144 disphenoids. It has 576 vertices with a 12 faced dualcell. It has 288+288+576+576+576 trigonic, 288 tetragonic, 576 pentagonic, and 288 octagonic edges. Its faces are 192+192 equits, five types of 576 scalene triangles, and 288+576 trapezoids. It is isogonal under oxitic symmetry with one degree of variation. It was found where two of the map's walls cross, as a line along their crossing curve.
 
 - β = (0.631452, 0.050631, 0.023599, 0.294318); 1248 cells; most even R = 4.9951
+- `new_shapes/off/oxitic/oxitic_line_05_576v_1248c_seed.off`
 - `optimized_off/oxitic/oxitic_line_05_576v_1248c_opt.off`
 - `central_off/oxitic/oxitic_line_05_576v_1248c_central.off`
 - on `b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2` and `b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2` = 0
@@ -110,6 +112,7 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 **Oxitic line 6** (line, sheet ox, key `9f3d3a62de03`). It has 48 snits, 192 11-faced cells (9 vertices: 8 3-gons + 3 4-gons), 576 square pyramids, 144 disphenoids, and 288+288 irregular tets. It has 576 vertices with a 12 faced dualcell. It has 576+576 trigonic, 288+288+288+576+576 tetragonic, and 288 octagonic edges. Its faces are 192+192 equits, six types of 576 scalene triangles, and 576 trapezoids. It is isogonal under oxitic symmetry with one degree of variation. It was found where two of the map's walls cross, as a line along their crossing curve.
 
 - β = (0.181343, 0.005663, 0.684018, 0.128975); 1536 cells; most even R = 4.1901
+- `new_shapes/off/oxitic/oxitic_line_06_576v_1536c_seed.off`
 - `optimized_off/oxitic/oxitic_line_06_576v_1536c_opt.off`
 - `central_off/oxitic/oxitic_line_06_576v_1536c_central.off`
 - on `b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4` and `b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2` = 0
@@ -117,6 +120,7 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 **Oxitic wall 30** (wall, sheet ox, key `b8c25a009132`). It has 48 snits, 192 gyro-traps, 576 triangular bipyramids, 144 disphenoids, and 288+288+288+576+576 irregular tets. It has 576 vertices with a 17 faced dualcell. It has 576+576+576 trigonic, 288+288+288+288+576 tetragonic, 576 pentagonic, 576 heptagonic, and 288 decagonic edges. Its faces are 192+192 equits and twelve types of 576 scalene triangles. It is isogonal under oxitic symmetry with two degrees of variation. It was found where two of the map's walls cross: it fills a stretch of one of them that the map had not classified.
 
 - β = (0.811139, 0.173040, 0.002437, 0.013385); 2976 cells; most even R = 3.5229
+- `new_shapes/off/oxitic/oxitic_wall_30_576v_2976c_seed.off`
 - `optimized_off/oxitic/oxitic_wall_30_576v_2976c_opt.off`
 - `central_off/oxitic/oxitic_wall_30_576v_2976c_central.off`
 - on `b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2` = 0
@@ -124,6 +128,7 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 **Oxitic wall 31** (wall, sheet ox, key `d2cbbabe4f15`). It has 48 snits, 192 gyro-traps, 576 triangular bipyramids, 144 disphenoids, and 288+288+576+576 irregular tets. It has 576 vertices with a 16 faced dualcell. It has 576+576+576 trigonic, 288+576+576 tetragonic, 288+288+576 hexagonic, and 288 octagonic edges. Its faces are 192+192 equits and eleven types of 576 scalene triangles. It is isogonal under oxitic symmetry with two degrees of variation. It was found where two of the map's walls cross: it fills a stretch of one of them that the map had not classified.
 
 - β = (0.859243, 0.083082, 0.008105, 0.049570); 2688 cells; most even R = 4.9951
+- `new_shapes/off/oxitic/oxitic_wall_31_576v_2688c_seed.off`
 - `optimized_off/oxitic/oxitic_wall_31_576v_2688c_opt.off`
 - `central_off/oxitic/oxitic_wall_31_576v_2688c_central.off`
 - on `b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2` = 0
@@ -131,6 +136,7 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 **Oxitic wall 32** (wall, sheet ox, key `5a23229b7cf9`). It has 48 snits, 288 6-faced cells (6 vertices: 4 3-gons + 2 4-gons), 192 gyro-traps, 576 square pyramids, 144 disphenoids, and 288+576+576 irregular tets. It has 576 vertices with a 16 faced dualcell. It has 576+576+576 trigonic, 288+288+576+576 tetragonic, 288 hexagonic, 576 heptagonic, and 288 decagonic edges. Its faces are 192+192 equits, ten types of 576 scalene triangles, and 576 trapezoids. It is isogonal under oxitic symmetry with two degrees of variation. It was found where two of the map's walls cross: it fills a stretch of one of them that the map had not classified.
 
 - β = (0.646287, 0.041673, 0.018902, 0.293138); 2688 cells; most even R = 4.9951
+- `new_shapes/off/oxitic/oxitic_wall_32_576v_2688c_seed.off`
 - `optimized_off/oxitic/oxitic_wall_32_576v_2688c_opt.off`
 - `central_off/oxitic/oxitic_wall_32_576v_2688c_central.off`
 - on `b1*b3 - b2*b4` = 0
