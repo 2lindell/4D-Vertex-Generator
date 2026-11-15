@@ -1,0 +1,31 @@
+{
+ "sheet": "ix9",
+ "surfaces": 18,
+ "pairs": 153,
+ "triples": 226,
+ "crossing_points": 608,
+ "known_keys": 263,
+ "keys_seen": {
+  "a0f7c29fa0bd": 12,
+  "9e9eb2b34b24": 62,
+  "5a26dde24dce": 377,
+  "None": 9,
+  "2f7458953f46": 9,
+  "85edaf59db32": 44,
+  "abf2453f3aa8": 5,
+  "2da1ce87ceec": 2,
+  "d0c143c7e8a3": 6,
+  "6b893c9304f5": 4,
+  "cb91436c3354": 6,
+  "41ab2de5065a": 23,
+  "fb85b4ae4690": 8,
+  "270d63cd9ba9": 5,
+  "fedadc7c63f7": 2,
+  "c27ea776ba1c": 1,
+  "64c1a0c2067c": 18,
+  "ce1564d83d55": 8,
+  "4c5d456184b2": 6,
+  "c867a73cc28f": 1
+ },
+ "candidates": {}
+}
