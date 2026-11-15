@@ -16,3 +16,4 @@ the shape is a point whatever its walls do), else a line of the half-turn's fixe
 | 992e194bf999 | ixo5 | 2 | 1 | 1e-05: 0962ec32bf42 / 612fa060af7c; 0.001: 0962ec32bf42 / 612fa060af7c | yes |
 | 2f41ae404d62 | ixo6 | 2 | 1 | 1e-05: baf95c7dc2b1 / 9fc73ba17c51; 0.001: baf95c7dc2b1 / 9fc73ba17c51 | yes |
 | 8f82404e9b10 | ixo7 | 4 | 0 | none (a lone point) | yes |
+| f86ef4998f60 | ixo7 | 2 | 1 | 1e-05: 7465267cd9b6 / 9fc73ba17c51; 0.001: 7465267cd9b6 / 9fc73ba17c51 | yes |

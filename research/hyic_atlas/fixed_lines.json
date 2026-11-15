@@ -675,6 +675,18 @@
      1,
      0
     ]
+   },
+   "f86ef4998f60": {
+    "signature": "1440: cells 240x[18v20f]+480x[6v8f]+1440x[4v4f] | faces 480x6g+960x3g+2880x3g+2880x3g | edges 720x4+1440x3+1440x5+2880x3",
+    "kind": "point",
+    "seed": [
+     0.0,
+     0.41421356237309515,
+     0.5857864376269049,
+     0.0
+    ],
+    "segments": [],
+    "source": "fixed_circles.py: the half-turn line traced whole; the point between 7465267cd9b6 and 9fc73ba17c51 at beta = (0, sqrt2-1, 2-sqrt2, 0), on the chamber edge b1 = b4 = 0, which the strata and the piecewise line search bisected only to where its hull could not be classified"
    }
   }
  },
