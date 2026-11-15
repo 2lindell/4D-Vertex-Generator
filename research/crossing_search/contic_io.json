@@ -1,0 +1,31 @@
+{
+ "sheet": "io",
+ "surfaces": 28,
+ "pairs": 378,
+ "triples": 27,
+ "crossing_points": 217,
+ "known_keys": 69,
+ "keys_seen": {
+  "b5fefa7f0ef3": 33,
+  "19ba4c2a499e": 129,
+  "baae4a443957": 20,
+  "911fcbbb21bc": 27,
+  "d00f3022144f": 8
+ },
+ "candidates": {
+  "d00f3022144f": {
+   "kind": "wall",
+   "seed": [
+    0.6153219377972798,
+    0.01322563782887374,
+    0.0209070253143781,
+    0.3505453990594683
+   ],
+   "surfaces": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 2*b1*b2**2*b4 - b1*b2*b3**2 + sqrt(2)*b1*b2*b3**2/2 - 5*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**2*b4 + 2*b1*b3**2*b4 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2 - b2**2*b3*b4 + sqrt(2)*b2**2*b3*b4/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
+   ],
+   "hits": 8,
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[5v6f] | faces 288x4g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+576x4+1152x3+1152x3+1152x4+1152x4"
+  }
+ }
+}

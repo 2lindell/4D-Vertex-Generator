@@ -1,0 +1,13 @@
+{
+ "sheet": "ix1",
+ "surfaces": 5,
+ "pairs": 10,
+ "triples": 0,
+ "crossing_points": 21,
+ "known_keys": 263,
+ "keys_seen": {
+  "2e644f68b084": 10,
+  "85edaf59db32": 11
+ },
+ "candidates": {}
+}
