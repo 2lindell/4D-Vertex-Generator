@@ -474,6 +474,9 @@ def _poly(sf, B):
     return f, np.linalg.norm(g, axis=1)
 
 
+SAME_SHARE = 0.85      # an entry with this share of its walls and lines in a larger one is that one
+
+
 def view_selections(S, G, region, copies, line_shapes):
     """The 'Select the shapes in' list for one view: every individual sphere (plane), curved surface
     and line passing through the view's region, each with the shapes lying on it there (a wall
@@ -556,8 +559,18 @@ def view_selections(S, G, region, copies, line_shapes):
         ids = tuple(sorted(set().union(*got.values()), key=order))
         if ids not in best or rank < best[ids][0]:
             best[ids] = (rank, name, kind, got)
+    # (entries nearly the same shown once, the one holding the most: one whose walls and lines, its
+    # points aside, are all or nearly all (85%) in a larger one already kept is left out; points
+    # alone never keep an entry apart)
+    ranked = sorted(best.items(), key=lambda kv: (-len(kv[1][3]["wall"] | kv[1][3]["line"]), -len(kv[0]), kv[1][0], kv[1][1]))
+    kept = []
+    for ids, (rank, name, kind, got) in ranked:
+        core = got["wall"] | got["line"]
+        if any(len(core & k[4]) >= SAME_SHARE * len(core) for k in kept):
+            continue
+        kept.append((ids, rank, name, kind, core))
     res = []
-    for ids, (rank, name, kind, got) in sorted(best.items(), key=lambda kv: (kv[1][0], kv[1][1], kv[0])):
+    for ids, rank, name, kind, core in sorted(kept, key=lambda k: (k[1], k[2], k[0])):
         res.append({"name": name, "kind": kind, "ids": list(ids)})
     # (several entries of one name: numbered, with their walls, so they can be told apart)
     count = defaultdict(int)
