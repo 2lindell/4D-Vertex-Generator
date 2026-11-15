@@ -62,9 +62,11 @@ def crossings(path):
 
 def cross_text(name, kind):
     n = CROSS[name]
-    return (f" It was found by the crossing search, where {WORD.get(n, n)} of the map's walls cross"
-            + (": a line along their crossing curve." if kind == "line" else ": an isolated point." if kind == "point"
-               else ": on one wall, cut out by the others."))
+    if kind == "wall":
+        return (" It was found by the crossing search, where two of the map's walls cross: it fills a stretch of one "
+                "of them that the map had not classified.")
+    return (f" It was found by the crossing search, where {WORD.get(n, n)} of the map's walls "
+            + ("cross, as a line along their crossing curve." if kind == "line" else "meet, as an isolated point."))
 
 
 def entries():

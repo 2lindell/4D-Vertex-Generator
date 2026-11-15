@@ -126,9 +126,10 @@ def main():
                  f"dualcell. It has {edges_text(d['edges'])}. Faces are {faces_text(d['faces'])}. It is isogonal under "
                  f"{group} symmetry with " + (f"{WORD[dof]} degrees of variations" if dof else "no degrees of variation"))
             if r["name"] in CROSS:
-                t += (f" and is a transitional case where {WORD[CROSS[r['name']]]} of the map's walls cross" +
-                      (" (a line along their crossing curve)" if r["kind"] == "line" else
-                       " (an isolated point)" if r["kind"] == "point" else " (on one wall, cut out by the others)"))
+                t += (" and is a transitional case on a stretch of one of the map's walls that the map had not "
+                      "classified, found where it crosses another" if r["kind"] == "wall" else
+                      f" and is a transitional case where {WORD[CROSS[r['name']]]} of the map's walls "
+                      + ("cross, along their crossing curve" if r["kind"] == "line" else "meet, at an isolated point"))
             elif r["kind"] == "wall":
                 sides = sorted(disp.get(x, "an unnamed region") for x in nb.get(k, set()) if isinstance(x, str))
                 t += " and is a transitional case"
