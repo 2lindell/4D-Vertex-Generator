@@ -1,0 +1,17 @@
+{
+ "sheet": "io",
+ "surfaces": 83,
+ "pairs": 3403,
+ "triples": 2660,
+ "crossing_points": 2690,
+ "known_keys": 6,
+ "keys_seen": {
+  "f7ee5c9f30c8": 2451,
+  "c847e6a3121d": 155,
+  "2a507bdd6bb8": 20,
+  "b8d6e023d89e": 28,
+  "f601e2ad9db2": 12,
+  "40ae39982cd2": 24
+ },
+ "candidates": {}
+}
