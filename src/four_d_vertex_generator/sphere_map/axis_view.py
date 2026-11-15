@@ -2,18 +2,29 @@
 
 The axis: the great circle fixed by one of the extra half-turns (the 2400-element group's elements
 outside the swirlprism group); here the one X38 runs along. The view is gnomonic at the point of the
-axis nearest the shapes, the axis a straight line through it.
+axis nearest X38, the axis a straight line through it (the view's x).
 
-Each shape is shown with only the extent every seed it holds needs once: a region or wall the
-2400-element group carries onto itself by an element other than the identity is cut to a part
-no such element carries onto itself (X38, turned onto itself by the axis's half-turn: the half on
-one side of the axis); a region another of its copies is carried onto (X68's two sides of X38,
-swapped by the half-turn) is shown once. Shapes are laid out apart from one another, each moved
-straight out from the axis, so each can be seen whole.
+Which shapes: layer by layer out from the axis. The first layer is X38, the region X68 on its sides,
+X68's other wall X99, and the edges and corners bounding them (E1, C2a, B1; A1, C6); the next layer is
+every shape the shape map (shape_map3d.json) puts round those edges and on those walls' sides.
 
-A region is drawn as its shell (the wall patches bounding it, regions.json), a wall as its patches;
-each patch's triangles are those of the wall pieces (domain_pieces) found between that patch's two
-pieces of the domain.
+Each shape is shown once, with only the extent every seed it holds needs once: of the copies of one
+named shape, one is shown (the one touching most of the shapes already chosen, then the one nearest
+the axis), and a shape the 2400-element group carries onto itself by an element other than the
+identity is cut to a part no such element carries onto itself (X38, turned onto itself by the axis's
+half-turn: its half on one side of the axis; C2a and B1, turned end for end by it: their halves).
+
+The layout is an exploded drawing that keeps every shape's place against its neighbours: each shape
+is moved from its place so that, for every shape A on the boundary of a shape B (a corner of an edge,
+an edge of a wall or region, a wall of a region), B stands the same distance GAP from A in the
+direction it lies from A there (an edge leaves its corner along itself; the walls and regions round
+an edge stand in a ring round it, each in its own direction; a region stands off its wall towards its
+volume). These conditions are met as nearly as they can be together (least squares), each shape also
+held weakly to its true place, so the picture stays centred on the axis.
+
+A region is drawn as its shell (the wall patches bounding it), a wall as its patches; each patch's
+triangles are those of the wall pieces' meshes (domain_pieces, the coarse meshes) found between that
+patch's two pieces of the domain.
 
     python -m four_d_vertex_generator.sphere_map.axis_view
 """
@@ -23,34 +34,64 @@ import json
 from collections import defaultdict
 
 import numpy as np
+from scipy.spatial import cKDTree
 
-from .frame import data_dir, group, point_from_beta, source_dir
+from .frame import cell_vertices, data_dir, group, locate, point_from_beta, source_dir
 
 AXIS_ELEMENT = 1200 + 368          # the half-turn whose axis X38 runs along (in the 2400-element group)
-# the explosion: the whole picture scaled by EXPLODE about the view's centre (the axis's point the view
-# is centred on) while each shape keeps its own size: each shape moved so its middle (a wall's area, an
-# edge's length) goes from m to EXPLODE * m. Every shape then keeps its place against its neighbours,
-# with a gap: a corner just beyond its edges' ends, an edge just off its wall's side.
-# A region moves with the walls bounding it (the mean of their moves), and each of those walls then moves
-# off it, along the wall's normal away from the region's volume, by WALL_STEP: the walls curve round
-# the axis, so moving by the region's middle (here almost on the axis) would slide it along them.
-EXPLODE = 1.8
-WALL_STEP = 0.05
-NEAR = ("X38", "X68", "X99")              # the shapes whose edges and corners are shown with them
+GAP = 0.15                         # each shape's distance from the shapes on its boundary, in the view
+NEAR = 0.035                       # the neighbourhood of a boundary shape a direction is read in
+HOLD = 0.05                        # how weakly each shape is held to its true place
+WIDTH = 0.14                       # the room each shape takes in a circle round an edge
+TOUCH = 6e-3                       # shapes this close (in the view) touch
 
+
+# ---------------------------------------------------------------- geometry of the 3-sphere map
 
 def _patch_triangles(D, doc, z):
-    """Each wall patch's triangles (on R^4, in the half-cell's own copy): every wall piece's triangles,
-    each named by the patch between the two pieces of the domain on either side of its middle."""
+    """Each wall patch's triangles (on R^4, in the half-cell's own copy): every wall piece's coarse
+    triangles, each named by the patch between the two pieces of the domain on either side of its
+    middle (for a piece in a face of the half-cell: the piece inside and the piece across the face,
+    in the copy beyond it)."""
     from . import domain_pieces as dp
+    from .chords import FACE_N, FACE_NAMES
+    T, Ti, G = cell_vertices(), np.linalg.inv(cell_vertices()), group()
     vals = lambda X: np.sign(np.stack([sf.f(X) for sf in D.lib], 1)).astype(np.int8)
+    face_patches = defaultdict(list)
+    for p in D.patches:
+        if p["face"] is not None:
+            face_patches[p["face"]].append(p)
     out = defaultdict(list)
     for f in doc["faces"]:
-        X = z["verts"][f["verts"][0]:f["verts"][1]]
-        F = z["tris"][f["tris"][0]:f["tris"][1]]
+        X = z["coarse_verts"][f["coarse_verts"][0]:f["coarse_verts"][1]]
+        F = z["coarse_tris"][f["coarse_tris"][0]:f["coarse_tris"][1]]
+        if not len(F):
+            continue
         cen = X[F].mean(1)
         if f["sheet"].startswith("face"):
-            continue                      # (pieces in a face of the half-cell: none in this view yet)
+            name = f["sheet"][5:]
+            k = FACE_NAMES.index(name)
+            nin = FACE_N[k] - FACE_N[k].mean()
+            nin = nin / np.linalg.norm(nin)
+            cen = cen - (cen @ FACE_N[k])[:, None] * FACE_N[k] / (FACE_N[k] @ FACE_N[k])
+            A = [D.keys.get(r.tobytes()) for r in vals(cen + 1e-7 * nin)]
+            for t, a in enumerate(A):
+                if a is None:
+                    continue
+                y = cen[t] - 1e-7 * nin
+                kk, _ = locate(point_from_beta(y)[None], tol=1e-13)
+                kk = int(kk[0])
+                M = T @ G[kk] @ Ti
+                M = M * np.sign((y @ M).sum())
+                b = D.keys.get(vals((y @ M)[None])[0].tobytes())
+                if b is None:
+                    continue
+                # (the patch with this piece inside and that one across, in the copy beyond)
+                cands = [p for p in face_patches[name] if p["pieces"] == [a, b] and p["side_b_copy_shift"] == kk
+                         or p["pieces"] == [b, a] and p["side_b_copy_shift"] == int(D.inv[kk])]
+                if len(cands) == 1:
+                    out[cands[0]["id"]].append(point_from_beta(X[F[t]]))
+            continue
         s = D.lib[int(f["sheet"])]
         n = s.grad(cen)
         n = n - n.mean(1, keepdims=True)
@@ -70,25 +111,144 @@ def _patch_triangles(D, doc, z):
     return {k: np.array(v) for k, v in out.items()}
 
 
-def _to_path(X, M):
-    """Each point of X's distance to the polyline M (a single point when M has one)."""
-    if len(M) == 1:
-        return np.linalg.norm(X - M[0], axis=1)
-    a, b = M[:-1], M[1:]
-    ab = b - a
-    t = np.clip(np.einsum("nsk,sk->ns", X[:, None] - a[None], ab) / np.maximum(np.einsum("sk,sk->s", ab, ab), 1e-30), 0, 1)
-    return np.linalg.norm(X[:, None] - (a[None] + t[..., None] * ab[None]), axis=2).min(1)
+def _same_curve(L, M, tol=1e-4):
+    """Whether two sampled curves on R^4 are the same set (each sample within tol of the other's
+    polyline: their samples need not fall at the same places or run the same way)."""
+    def to_path(X, Y):
+        a, b = Y[:-1], Y[1:]
+        ab = b - a
+        t = np.clip(np.einsum("nsk,sk->ns", X[:, None] - a[None], ab) / np.maximum(np.einsum("sk,sk->s", ab, ab), 1e-30), 0, 1)
+        return np.linalg.norm(X[:, None] - (a[None] + t[..., None] * ab[None]), axis=2).min(1)
+    return max(to_path(L, M).max(), to_path(M, L).max()) < tol
 
 
-def _same(L, M, tol=1e-4):
-    """Whether two sampled curves (or points) on R^4 are the same set, within tol (each sample of
-    one measured to the other's polyline, as their samples need not fall at the same places)."""
-    return len(L) == len(M) == 1 and np.linalg.norm(L[0] - M[0]) < tol or \
-        len(L) > 1 and len(M) > 1 and max(_to_path(L, M).max(), _to_path(M, L).max()) < tol
+class Map:
+    """Placed shapes of the shape map, with their geometry on R^4."""
+
+    def __init__(self):
+        from . import domain_pieces as dp
+        from .shape_map3d import multiplication_table
+        root = data_dir() / "sphere_map"
+        self.D = dp.Data()
+        doc = json.loads((root / "domain_pieces.json").read_text())
+        z = np.load(root / "domain_pieces.npz")
+        self.tris = _patch_triangles(self.D, doc, z)
+        self.G = group()
+        self.M = multiplication_table()
+        Q = np.load(source_dir() / "normalizer_q.npy")
+        self.GQ = np.concatenate([self.G, self.G @ Q])
+        self.sm = json.loads((root / "shape_map3d.json").read_text())
+        self.atlas = json.loads((root / "atlas.json").read_text())
+        self.patches = json.loads((root / "patches.json").read_text())["patches"]
+        self.pieces = {p["id"]: p for p in json.loads((root / "pieces.json").read_text())["pieces"]}
+        self.node = {k: {x["id"]: x for x in self.sm[k + "s"]} for k in ("wall", "line", "region", "point")}
+        # (each piece's patches, as side a and as side b; the copy a patch lies in, given side b's)
+        self.as_a, self.as_b = defaultdict(list), defaultdict(list)
+        for p in self.patches:
+            self.as_a[p["pieces"][0]].append(p)
+            self.as_b[p["pieces"][1]].append(p)
+        self.copy_of_b = {}
+
+    def name(self, kind, node):
+        return self.node[kind][node]["name"]
+
+    def wall(self, node, at):
+        """A wall node placed by at: its patches' triangles (n, 3, 4)."""
+        out = []
+        for c, h in self.node["wall"][node]["members"]:
+            for k, p in self.atlas["faces"][c]["members"]:
+                if p in self.tris:
+                    g = self.G[at] @ self.G[h] @ self.G[k]
+                    out.append(self.tris[p] @ g.T)
+        return np.concatenate(out) if out else np.zeros((0, 3, 4))
+
+    def region(self, c, at):
+        """A region class placed by at: its shell's triangles (n, 3, 4), and its volume's middle."""
+        S = {(int(self.M[at, k]), p) for k, p in self.atlas["regions"][c]["members"]}
+        parts = set()
+        for kk, piece in S:
+            for p in self.as_a[piece]:
+                if (int(self.M[kk, p["side_b_copy_shift"]]), p["pieces"][1]) not in S:
+                    parts.add((kk, p["id"]))
+            for p in self.as_b[piece]:
+                s = p["side_b_copy_shift"]
+                if (s, kk) not in self.copy_of_b:
+                    self.copy_of_b[(s, kk)] = int(np.flatnonzero(self.M[:, s] == kk)[0])
+                ka = self.copy_of_b[(s, kk)]
+                if (ka, p["pieces"][0]) not in S:
+                    parts.add((ka, p["id"]))
+        T = [self.tris[p] @ self.G[k].T for k, p in sorted(parts) if p in self.tris]
+        w = np.array([self.pieces[p]["volume_share"] for _, p in S])
+        P = np.array([point_from_beta(np.array(self.pieces[p]["sample_beta"])) @ self.G[k].T for k, p in S])
+        mid = (w[:, None] * P).sum(0)
+        return np.concatenate(T), mid / np.linalg.norm(mid)
+
+    def line(self, node, at):
+        """A line node placed by at: its curve (n, 4), its pieces joined end to end."""
+        segs = []
+        for piece, h in self.node["line"][node]["members"]:
+            g = self.G[at] @ self.G[h]
+            for run in self.sm["line_geo"][piece]:
+                L = np.array(run) @ g.T
+                if not any(_same_curve(o, L) for o in segs):
+                    segs.append(L)
+        path = segs[0]
+        for L in segs[1:]:                        # (joined where their ends meet)
+            ends = [(np.linalg.norm(path[-1] - L[0]), 0), (np.linalg.norm(path[-1] - L[-1]), 1),
+                    (np.linalg.norm(path[0] - L[-1]), 2), (np.linalg.norm(path[0] - L[0]), 3)]
+            e = min(ends)[1]
+            path = [np.vstack([path, L]), np.vstack([path, L[::-1]]), np.vstack([L, path]),
+                    np.vstack([L[::-1], path])][e]
+        return path
+
+    def point(self, node, at):
+        return (np.array(self.node["point"][node]["c"]) @ self.G[at].T)[None]
 
 
-def _half_path(L, u):
-    """A curve cut to x . u >= 0 (the end on the axis found exactly)."""
+# ---------------------------------------------------------------- reduced extent
+
+def _samples(sh, n=1500, rng=np.random.default_rng(0)):
+    """Points spread over a shape (on R^4): over its triangles by area, along its curve, or itself."""
+    if sh["kind"] in ("wall", "region"):
+        T = sh["geo"]
+        ar = np.linalg.norm(np.einsum("ni,nj->nij", T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]).reshape(len(T), -1), axis=1)
+        i = rng.choice(len(T), n, p=ar / ar.sum())
+        a, b = rng.random(n), rng.random(n)
+        f = a + b > 1
+        a[f], b[f] = 1 - a[f], 1 - b[f]
+        X = T[i, 0] + a[:, None] * (T[i, 1] - T[i, 0]) + b[:, None] * (T[i, 2] - T[i, 0])
+    elif sh["kind"] == "line":
+        L = sh["geo"]
+        ln = np.r_[0, np.cumsum(np.linalg.norm(np.diff(L, axis=0), axis=1))]
+        t = np.sort(rng.random(n)) * ln[-1]
+        X = np.stack([np.interp(t, ln, L[:, i]) for i in range(4)], 1)
+    else:
+        X = sh["geo"]
+    return X / np.linalg.norm(X, axis=1, keepdims=True)
+
+
+def _cut_tris(T, u):
+    """Triangles cut to x . u >= 0."""
+    out = []
+    for tri in T:
+        s = tri @ u
+        if (s >= -1e-12).all():
+            out.append(tri)
+        elif (s > 0).any():
+            pts = []
+            for i in range(3):
+                a, b = tri[i], tri[(i + 1) % 3]
+                sa, sb = a @ u, b @ u
+                if sa >= 0:
+                    pts.append(a)
+                if (sa >= 0) != (sb >= 0):
+                    pts.append(a + sa / (sa - sb) * (b - a))
+            for k in range(1, len(pts) - 1):
+                out.append(np.array([pts[0], pts[k], pts[k + 1]]))
+    return np.array(out).reshape(-1, 3, T.shape[-1])
+
+
+def _cut_path(L, u):
     s = L @ u
     keep = []
     for i in range(len(L)):
@@ -99,180 +259,293 @@ def _half_path(L, u):
     return np.array(keep)
 
 
-def _edges_and_corners(H, u, half):
-    """The named lines and points bounding the near shapes (shape_map3d.json), each placed copy once:
-    a copy the half-turn carries onto itself is cut to its half on the kept side (x . u >= 0); of two
-    copies it swaps, the one on the kept side is shown."""
-    sm = json.loads((data_dir() / "sphere_map" / "shape_map3d.json").read_text())
-    G = group()
-    names = {(k, x["id"]): x["name"] for k in ("lines", "points") for x in sm[k]}
-    pc = {p["id"]: np.array(p["c"]) for p in sm["points"]}
-    found = {"line": [], "point": []}               # (name, geometry on R^4)
-    for kind in ("walls", "regions"):
-        for x in sm[kind]:
-            if x["name"] not in NEAR:
+def reduce_extent(sh, GQ, prefer):
+    """Cut a shape to a part no element of the 2400-element group carries onto itself: for each
+    element (other than the identity) carrying the part onto itself and moving it, the part is cut by
+    the hyperplane through that element's fixed 2-plane across the part's widest direction in its
+    turned 2-plane, keeping the side towards `prefer`. Returns the elements that cut it."""
+    if sh["kind"] == "point":
+        return []
+    cuts = []
+    for _ in range(4):
+        X = _samples(sh)
+        tree = cKDTree(X)
+        spacing = np.median(tree.query(_samples(sh, rng=np.random.default_rng(1)))[0])
+        c = X.mean(0)
+        rad = np.linalg.norm(X - c, axis=1).max()
+        found = None
+        order = [AXIS_ELEMENT] + [e for e in range(len(GQ)) if e != AXIS_ELEMENT]   # (the axis's own first)
+        for e in order:
+            g = GQ[e]
+            if e == 0 or np.linalg.norm(c @ g.T - c) > 0.5 * rad + 1e-9:
                 continue
-            for n in x["nb"]:
-                if n["kind"] not in found:
-                    continue
-                for piece, g in n["touch"]:
-                    if n["kind"] == "line":
-                        geo = np.array(sm["line_geo"][piece][0]) @ G[g].T
-                    else:
-                        geo = (pc[piece] @ G[g].T)[None]
-                    nm = names[(n["kind"] + "s", n["node"])]
-                    if not any(_same(geo, o) for _, o in found[n["kind"]]):
-                        found[n["kind"]].append((nm, geo))
-    out = []
-    for kind, items in found.items():
-        done = set()
-        for i, (nm, geo) in enumerate(items):
-            if i in done:
-                continue
-            img = geo @ H.T
-            if _same(img, geo):
-                if kind == "point":
-                    out.append({"id": nm, "kind": kind, "note": "on the axis: the half-turn holds it fixed", "at": geo[0]})
-                else:
-                    out.append({"id": nm, "kind": kind, "note": "half: it crosses the axis, and the half-turn turns it end for end",
-                                "path": _half_path(geo, u)})
-                continue
-            j = next((j for j, (_, o) in enumerate(items) if j != i and _same(img, o)), None)
-            if j is not None:
-                done.add(j)
-                if (items[j][1] @ u).mean() > (geo @ u).mean():
-                    geo = items[j][1]
-                note = "one of two copies (the half-turn carries each onto the other)"
-            else:
-                note = "whole: no symmetry here repeats it"
-            if kind == "point":
-                out.append({"id": nm, "kind": kind, "note": note, "at": geo[0]})
-            else:
-                out.append({"id": nm, "kind": kind, "note": note, "path": geo})
-    return out
+            Y = X @ g.T
+            if np.abs(Y - X).max() < 2e-4:
+                continue                              # (holds it fixed point by point: the data are to 1e-5)
+            d = tree.query(Y)[0]
+            # (the data are to 1e-5: matches are allowed a little more than the samples' spacing)
+            if np.median(d) < max(1.3 * spacing, 1e-4) and np.quantile(d, 0.95) < max(3 * spacing, 6e-4):
+                found = (e, g)
+                break
+        if found is None:
+            break
+        e, g = found
+        w, V = np.linalg.eigh((g + g.T) / 2)
+        Pm = V[:, w < -0.5].T
+        if len(Pm) != 2 or not np.allclose(g @ g, np.eye(4), atol=1e-8):
+            sh.setdefault("warn", []).append(f"element {e} of order > 2 carries it onto itself")
+            break
+        u = Pm.T @ np.linalg.svd(X @ Pm.T, full_matrices=False)[2][0]
+        u /= np.linalg.norm(u)
+        if prefer @ u < 0:
+            u = -u
+        sh["geo"] = _cut_tris(sh["geo"], u) if sh["kind"] in ("wall", "region") else _cut_path(sh["geo"], u)
+        cuts.append(e)
+    return cuts
 
+
+def _main_body(T, eps=0.03, keep=0.1):
+    """A surface's triangles without its small detached bits: triangles cluster where their middles
+    lie within eps of one another; clusters under `keep` of the area are dropped (a sheet's stray
+    bits elsewhere in the cell, far from the shapes round here)."""
+    if len(T) < 2:
+        return T
+    C = T.mean(1)
+    par = np.arange(len(T))
+
+    def find(i):
+        while par[i] != i:
+            par[i] = par[par[i]]
+            i = par[i]
+        return i
+    for i, j in cKDTree(C).query_pairs(eps):
+        par[find(i)] = find(j)
+    root = np.array([find(i) for i in range(len(T))])
+    ar = np.linalg.norm(np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]), axis=1)
+    tot = defaultdict(float)
+    for r_, a_ in zip(root, ar):
+        tot[r_] += a_
+    big = {r_ for r_, a_ in tot.items() if a_ >= keep * ar.sum()}
+    return T[np.isin(root, list(big))]
+
+
+# ---------------------------------------------------------------- the view
 
 def build() -> dict:
-    root = data_dir() / "sphere_map"
-    from . import domain_pieces as dp
-    D = dp.Data()
-    doc = json.loads((root / "domain_pieces.json").read_text())
-    z = np.load(root / "domain_pieces.npz")
-    G = group()
-    Q = np.load(source_dir() / "normalizer_q.npy")
-    H = G[AXIS_ELEMENT - 1200] @ Q
-    tris = _patch_triangles(D, doc, z)
-    patches = json.loads((root / "patches.json").read_text())["patches"]
-    regions = json.loads((root / "regions.json").read_text())["regions"]
-
-    # the axis: the 2-plane the half-turn fixes; its other 2-plane is turned half round
+    m = Map()
+    G, M, GQ = m.G, m.M, m.GQ
+    H = GQ[AXIS_ELEMENT]
     w, V = np.linalg.eigh((H + H.T) / 2)
     A, P = V[:, w > 0.5].T, V[:, w < -0.5].T
-    # shapes (on R^4): X38's patches in the half-cell's copy, and X68's side through its first orbit
-    x38 = [p["id"] for p in patches if p["wall"] == "X38" and p["id"] in tris]
-    X38 = np.concatenate([tris[i] for i in x38])                      # (n, 3, 4)
-    o = regions["X68"]["orbits"][0]
-    shell = [(k, pid) for b in o["boundary"] for k, pid in b["parts"] if pid in tris]
-    X68 = np.concatenate([np.einsum("ij,ntj->nti", G[k], tris[pid]) for k, pid in shell])
-    x68_faces = defaultdict(list)                 # (its shell's faces, one per wall)
-    for b in o["boundary"]:
-        for k, pid in b["parts"]:
-            if pid in tris:
-                x68_faces[b["wall"]].append(np.einsum("ij,ntj->nti", G[k], tris[pid]))
-    # (X68's middle: the middle of its volume, from its pieces' samples weighted by their volumes)
-    pcs = {pc["id"]: pc for pc in json.loads((root / "pieces.json").read_text())["pieces"]}
-    mem = o["members"] if isinstance(o["members"], list) else json.loads(o["members"])
-    wts = np.array([pcs[pid]["volume_share"] for _, pid in mem])
-    pts = np.array([point_from_beta(np.array(pcs[pid]["sample_beta"])) @ G[k].T for k, pid in mem])
-    x68_mid = (wts[:, None] * pts).sum(0)
-    x68_mid /= np.linalg.norm(x68_mid)
-    # the view: gnomonic at the axis's point nearest X38, the axis along x
-    m = X38.reshape(-1, 4).mean(0)
-    c = A.T @ (A @ m)
+
+    # the first layer, in the half-cell's frame: X38's sheet, the X68 on its first side, X99's sheet
+    # bounding that X68, and their edges and corners (from X38's neighbours)
+    x38 = next(x for x in m.sm["walls"] if x["name"] == "X38")
+    x68 = m.atlas["faces"][x38["members"][0][0]]["sides"][0]["class"]
+    x99 = next(x for x in m.sm["walls"] if x["name"] == "X99"
+               and any(n["kind"] == "region" and n["node"] == x68 and n["at"] == 0 for n in x["nb"]))
+    first = [("wall", x38["id"], 0), ("region", x68, 0), ("wall", x99["id"], 0)]
+    first += [(n["kind"], n["node"], n["at"]) for n in x38["nb"] if n["kind"] in ("line", "point")]
+
+    def nb_of(kind, node, at):
+        """The shape map's neighbours of a placed shape, placed (their 'at' carried by its own)."""
+        rec = m.node[kind][node]
+        out = []
+        for n in rec["nb"]:
+            out.append((n["kind"], n["node"], int(M[at, n["at"]])))
+        return out
+    def rel(a):
+        """A placed shape's neighbours in the shape map, placed: {key: relation}."""
+        return {(k, nd, int(M[a["key"][2], at])): r for (k, nd, at, r) in
+                ((n["kind"], n["node"], n["at"], n["rel"]) for n in m.node[a["kind"]][a["key"][1]]["nb"])}
+
+    # the next layer: every shape round the first layer's edges and on its walls' sides
+    second = []
+    for key in first:
+        if key[0] in ("line", "wall", "region"):
+            second += [k for k in nb_of(*key) if k not in first and k not in second]
+
+    def geometry(kind, node, at):
+        if kind == "wall":
+            return m.wall(node, at), None
+        if kind == "region":
+            return m.region(node, at)
+        if kind == "line":
+            return m.line(node, at), None
+        return m.point(node, at), None
+    cache = {}
+
+    def make(key):
+        if key not in cache:
+            geo, mid = geometry(*key)
+            cache[key] = {"key": key, "kind": key[0], "id": m.name(key[0], key[1]), "geo": geo, "mid": mid}
+        return cache[key]
+
+    # the view: gnomonic at the axis's point nearest X38, the axis along x; y across the axis's turned
+    # 2-plane in X38's widest direction there (the side of the axis whose halves are kept)
+    X38 = make(first[0])["geo"].reshape(-1, 4)
+    c = A.T @ (A @ X38.mean(0))
     c /= np.linalg.norm(c)
     e1 = A.T @ (A @ np.array([1.0, 0, 0, 0]))
     e1 = A[0] if np.linalg.norm(e1) < 1e-9 else e1
     e1 = e1 - (e1 @ c) * c
     e1 /= np.linalg.norm(e1)
-    # X38's half: the side of the axis it reaches out to most (the half-turn turns u to -u)
-    Pm = (X38.reshape(-1, 4) @ P.T)
-    u = P.T @ np.linalg.svd(Pm - 0, full_matrices=False)[2][0]
+    u = P.T @ np.linalg.svd(X38 @ P.T, full_matrices=False)[2][0]
     u /= np.linalg.norm(u)
-    e2 = u
     e3 = P.T @ (P @ np.ones(4))
-    e3 = e3 - (e3 @ e2) * e2
+    e3 = e3 - (e3 @ u) * u
     e3 = e3 if np.linalg.norm(e3) > 1e-9 else P[1]
     e3 /= np.linalg.norm(e3)
-    chart = lambda X: np.stack([X @ e1, X @ e2, X @ e3], -1) / (X @ c)[..., None]
+    chart = lambda X: np.stack([X @ e1, X @ u, X @ e3], -1) / (X @ c)[..., None]
+    prefer = c + 0.3 * u                         # (the kept side: towards +u, at the view's centre)
 
-    def half(T):                              # triangles cut to x . u >= 0
-        out = []
-        for tri in T:
-            s = tri @ u
-            if (s >= -1e-12).all():
-                out.append(tri)
-            elif (s > 0).any():
-                pts = []
-                for i in range(3):
-                    a, b = tri[i], tri[(i + 1) % 3]
-                    sa, sb = a @ u, b @ u
-                    if sa >= 0:
-                        pts.append(a)
-                    if (sa >= 0) != (sb >= 0):
-                        pts.append(a + sa / (sa - sb) * (b - a))
-                for k in range(1, len(pts) - 1):
-                    out.append(np.array([pts[0], pts[k], pts[k + 1]]))
-        return np.array(out)
+    # one copy of each named shape: the first layer's own, then the copy touching most of the shapes
+    # chosen so far, then the one nearest the axis
+    chosen = {}
+    for key in first:
+        sh = make(key)
+        chosen.setdefault((sh["kind"], sh["id"]), sh)
 
-    shapes = [
-        {"id": "X38", "kind": "wall", "note": "half: the axis's half-turn carries X38 onto itself",
-         "T": half(X38), "bounds": "X68"},
-        {"id": "X99", "kind": "wall", "note": "one of two copies, one bounding each side of X68 (the half-turn carries each onto the other)",
-         "T": np.concatenate(x68_faces["X99"]), "bounds": "X68"},
-        {"id": "X68", "kind": "region", "note": "one of its two sides of X38 (the half-turn carries each onto the other)",
-         "T": X68, "mid": x68_mid},
-    ]
-    shapes += _edges_and_corners(H, u, half)
-    # first every shape's own middle and its move out from the view's centre
-    for s_ in shapes:
-        key = "T" if "T" in s_ else "path" if "path" in s_ else "at"
-        T3 = chart(np.asarray(s_[key]))
-        if key == "T":                                       # (area-weighted)
-            ar = np.linalg.norm(np.cross(T3[:, 1] - T3[:, 0], T3[:, 2] - T3[:, 0]), axis=1)
-            cen = (ar[:, None] * T3.mean(1)).sum(0) / ar.sum()
-        elif key == "path":                                  # (length-weighted)
-            ln = np.linalg.norm(np.diff(T3, axis=0), axis=1)
-            cen = (ln[:, None] * (T3[1:] + T3[:-1]) / 2).sum(0) / max(ln.sum(), 1e-12)
-        else:
-            cen = T3
-        s_.update(key=key, T3=T3, shift=(EXPLODE - 1) * cen)
-    by = {s_["id"]: s_ for s_ in shapes}
-    # a region with its walls; each of its walls then off it, away from its volume
-    for s_ in shapes:
-        walls = [w for w in shapes if w.get("bounds") == s_["id"]]
-        if s_["kind"] == "region" and walls:
-            s_["shift"] = np.mean([w["shift"] for w in walls], 0)
-    for w in shapes:
-        if "bounds" in w:
-            r = by[w["bounds"]]
-            P = w["T3"].reshape(-1, 3)
-            n = np.linalg.svd(P - P.mean(0), full_matrices=False)[2][2]     # (its best plane's normal)
-            n *= -np.sign(n @ (chart(r["mid"]) - P.mean(0)))
-            w["shift"] = w["shift"] + WALL_STEP * n
+    def view_pts(sh):
+        return chart(_samples(sh, 600))
+
+    def touches(a, b):
+        return cKDTree(view_pts(a)).query(view_pts(b))[0].min() < TOUCH
+    by_name = defaultdict(list)
+    for key in second:
+        sh = make(key)
+        if (sh["kind"], sh["id"]) not in chosen:
+            by_name[(sh["kind"], sh["id"])].append(sh)
+    for nm, cands in by_name.items():
+        if len(cands) == 1:
+            chosen[nm] = cands[0]
+            continue
+        firsts = [chosen[(k, n)] for k, n in chosen]
+        rels = [(f, rel(f)) for f in firsts if f["kind"] != "point"]
+
+        def score(sh):
+            # (the copy the shape map puts beside most of the shapes chosen, then the one nearest the axis)
+            r_sh = rel(sh) if sh["kind"] != "point" else {}
+            Xv = view_pts(sh)
+            return (sum(sh["key"] in r_f or f["key"] in r_sh for f, r_f in rels),
+                    -np.linalg.norm(Xv[:, 1:], axis=1).mean())
+        chosen[nm] = max(cands, key=score)
+    shapes = list(chosen.values())
+
+    # each cut to the extent its seeds need once
+    for sh in shapes:
+        sh["cuts"] = reduce_extent(sh, GQ, prefer)
+        n_copies = 1 + sum(1 for k in second + first if k != sh["key"] and m.name(k[0], k[1]) == sh["id"] and k[0] == sh["kind"])
+        sh["note"] = ("cut by the symmetries carrying it onto itself: " + ", ".join(
+            "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in sh["cuts"])
+            if sh["cuts"] else "whole: no symmetry carries it onto itself") + \
+            (f"; one of {n_copies} copies round here" if n_copies > 1 else "")
+
+    # ---- the layout
+    for sh in shapes:
+        geo = sh["geo"]
+        sh["v"] = chart(geo)
+        if sh["kind"] in ("wall", "region"):
+            sh["v"] = _main_body(sh["v"])
+        X = sh["v"].reshape(-1, 3)
+        sh["pts"] = (sh["v"].reshape(-1, 3) if sh["kind"] != "point" else X) if sh["kind"] in ("wall", "region", "point") else view_pts(sh)
+    dim = {"point": 0, "line": 1, "wall": 2, "region": 3}
+    idx = {id(sh): i for i, sh in enumerate(shapes)}
+    # which shapes bound which (the shape map's own relations, for the copies shown): a corner ends an
+    # edge, an edge has walls and regions round it, a wall has regions on its sides
+    def bounds(a, b):
+        if a["kind"] == "point":
+            return b["kind"] == "line" and min(np.linalg.norm(b["v"][[0, -1]] - a["v"].reshape(3), axis=1)) < 2e-3
+        if a["kind"] == "line":
+            return b["kind"] in ("wall", "region") and rel(a).get(b["key"]) == "round"
+        if a["kind"] == "wall":
+            return b["kind"] == "region" and rel(a).get(b["key"]) == "side"
+        return False
+    rows = []                                   # (i, j, direction): shape j off shape i
+    for a in shapes:
+        ta = cKDTree(a["pts"])
+        for b in shapes:
+            if not bounds(a, b):
+                continue
+            d, j = ta.query(b["pts"])
+            if a["kind"] == "wall":                  # (a region off its wall, towards its volume)
+                Pa = a["pts"]
+                n = np.linalg.svd(Pa - Pa.mean(0), full_matrices=False)[2][2]
+                mid = chart(b["mid"]) if b["mid"] is not None else b["pts"].mean(0)
+                v = n * np.sign(n @ (mid - Pa.mean(0)))
+            elif a["kind"] == "point":               # (an edge leaves its corner along itself)
+                v = (b["pts"][:len(b["pts"]) // 10 + 1].mean(0) if np.linalg.norm(b["v"][0] - a["v"].reshape(3))
+                     < np.linalg.norm(b["v"][-1] - a["v"].reshape(3)) else b["pts"][-(len(b["pts"]) // 10 + 1):].mean(0)) \
+                    - a["v"].reshape(3)
+            else:                                    # (off an edge: across it, where b lies near it,
+                L = a["pts"]                         # away from its ends, where every shape meets)
+                near = (d < NEAR) & (j > 0.1 * len(L)) & (j < 0.9 * len(L))
+                if not near.any():
+                    near = d < NEAR
+                Bn, jj = b["pts"][near], j[near]
+                tng = L[np.minimum(jj + 3, len(L) - 1)] - L[np.maximum(jj - 3, 0)]
+                tng /= np.maximum(np.linalg.norm(tng, axis=1, keepdims=True), 1e-12)
+                off = Bn - L[jj]
+                off -= np.einsum("nk,nk->n", off, tng)[:, None] * tng
+                off /= np.maximum(np.linalg.norm(off, axis=1, keepdims=True), 1e-12)
+                v = off.mean(0)
+            if np.linalg.norm(v) < 1e-9:
+                continue
+            rows.append((idx[id(a)], idx[id(b)], v / np.linalg.norm(v)))   # (unit; a circle may widen it)
+    # round each edge: its walls and regions in a circle, in the order they lie round it, evenly
+    # spaced (each keeps the direction nearest its own that the even spacing allows)
+    for i, a in enumerate(shapes):
+        if a["kind"] != "line":
+            continue
+        ring = [r for r, (ii, j, v) in enumerate(rows) if ii == i]
+        if len(ring) < 3:
+            continue
+        L = a["pts"]
+        t = L[-1] - L[0]
+        t /= np.linalg.norm(t)
+        vs = np.array([rows[r][2] - (rows[r][2] @ t) * t for r in ring])
+        b1 = vs[0] / np.linalg.norm(vs[0])
+        b2 = np.cross(t, b1)
+        ang = np.arctan2(vs @ b2, vs @ b1)
+        order = np.argsort(ang)
+        even = 2 * np.pi * np.arange(len(ring)) / len(ring)
+        # (the rotation of the even circle that best fits the true angles)
+        off = np.angle(np.exp(1j * (ang[order] - even)).mean())
+        # (the circle wide enough for them all side by side: each about WIDTH across)
+        rad = max(1.0, len(ring) * WIDTH / (2 * np.pi) / GAP)
+        for k, o in enumerate(order):
+            th = even[k] + off
+            rows[ring[o]] = (rows[ring[o]][0], rows[ring[o]][1], rad * (np.cos(th) * b1 + np.sin(th) * b2))
+    n = len(shapes)
+    Am = np.zeros((len(rows) + n, n))
+    bm = np.zeros((len(rows) + n, 3))
+    for r, (i, j, v) in enumerate(rows):
+        Am[r, j], Am[r, i], bm[r] = 1, -1, GAP * v
+    for i in range(n):
+        Am[len(rows) + i, i] = HOLD
+    shift = np.linalg.lstsq(Am, bm, rcond=None)[0]
+    resid = [float(np.linalg.norm(shift[j] - shift[i] - GAP * v)) / float(np.linalg.norm(GAP * v)) for i, j, v in rows]
+
     out = []
-    for s_ in shapes:
-        key, T3 = s_["key"], s_["T3"] + s_["shift"]
-        rec = {"id": s_["id"], "kind": s_["kind"], "note": s_["note"]}
-        if key == "T":
-            V3, F3 = np.unique(T3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
-            rec.update(verts=V3.round(5).tolist(), faces=F3.reshape(-1, 3).tolist())
-        elif key == "path":
-            rec["path"] = T3.round(5).tolist()
+    for sh, s in zip(shapes, shift):
+        V3 = sh["v"] + s
+        rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
+               "layer": 1 if sh["key"] in first else 2}
+        if sh["kind"] in ("wall", "region"):
+            Vu, F3 = np.unique(V3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
+            rec.update(verts=Vu.round(5).tolist(), faces=F3.reshape(-1, 3).tolist())
+        elif sh["kind"] == "line":
+            rec["path"] = V3.round(5).tolist()
         else:
-            rec["at"] = T3.round(5).tolist()
+            rec["at"] = V3.reshape(3).round(5).tolist()
+        if sh.get("warn"):
+            rec["warn"] = sh["warn"]
         out.append(rec)
     L = np.linspace(-0.35, 0.35, 2)
-    return {"_about": __doc__, "axis": [[float(t), 0.0, 0.0] for t in L], "shapes": out}
+    return {"_about": __doc__, "axis": [[float(t), 0.0, 0.0] for t in L], "shapes": out,
+            "links": [[i, j] for i, j, _ in rows],
+            "fit": {"gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
+                    "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
 
 def run() -> str:
@@ -281,7 +554,8 @@ def run() -> str:
     path.write_text(json.dumps(data, separators=(",", ":")))
     for s in data["shapes"]:
         size = f"{len(s['faces'])} triangles" if "faces" in s else f"{len(s['path'])} steps" if "path" in s else "point"
-        print(f"{s['id']} ({s['kind']}): {size}; {s['note']}")
+        print(f"{s['id']} ({s['kind']}, layer {s['layer']}): {size}; {s['note']}{'; ' + str(s['warn']) if s.get('warn') else ''}")
+    print(f"{len(data['links'])} links")
     return str(path)
 
 
