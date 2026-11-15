@@ -42,7 +42,8 @@ AXIS_ELEMENT = 1200 + 368          # the half-turn whose axis X38 runs along (in
 GAP = 0.15                         # each shape's distance from the shapes on its boundary, in the view
 NEAR = 0.035                       # the neighbourhood of a boundary shape a direction is read in
 HOLD = 0.05                        # how weakly each shape is held to its true place
-WIDTH = 0.14                       # the room each shape takes in a circle round an edge
+MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
+RING = 0.30                        # how far the walls and regions round an edge stand from it
 TOUCH = 6e-3                       # shapes this close (in the view) touch
 
 
@@ -492,8 +493,10 @@ def build() -> dict:
             if np.linalg.norm(v) < 1e-9:
                 continue
             rows.append((idx[id(a)], idx[id(b)], v / np.linalg.norm(v)))   # (unit; a circle may widen it)
-    # round each edge: its walls and regions in a circle, in the order they lie round it, evenly
-    # spaced (each keeps the direction nearest its own that the even spacing allows)
+    # round each edge: its walls and regions keep the directions they truly lie in from it, in their
+    # order round it and over the arc they truly span; only where they crowd are they opened out, to at
+    # least MIN_STEP apart (about the arc's middle), and they stand RING out from it
+    arcs = {}
     for i, a in enumerate(shapes):
         if a["kind"] != "line":
             continue
@@ -508,14 +511,29 @@ def build() -> dict:
         b2 = np.cross(t, b1)
         ang = np.arctan2(vs @ b2, vs @ b1)
         order = np.argsort(ang)
-        even = 2 * np.pi * np.arange(len(ring)) / len(ring)
-        # (the rotation of the even circle that best fits the true angles)
-        off = np.angle(np.exp(1j * (ang[order] - even)).mean())
-        # (the circle wide enough for them all side by side: each about WIDTH across)
-        rad = max(1.0, len(ring) * WIDTH / (2 * np.pi) / GAP)
-        for k, o in enumerate(order):
-            th = even[k] + off
-            rows[ring[o]] = (rows[ring[o]][0], rows[ring[o]][1], rad * (np.cos(th) * b1 + np.sin(th) * b2))
+        sa = ang[order]
+        # (unwrapped from the widest empty gap round the edge: the arc they truly span)
+        gaps = np.diff(np.r_[sa, sa[0] + 2 * np.pi])
+        start = (int(np.argmax(gaps)) + 1) % len(sa)
+        sa = np.r_[sa[start:], sa[:start] + 2 * np.pi]
+        order = np.r_[order[start:], order[:start]]
+        new = sa.copy()
+        for _ in range(500):                      # (opened out where closer than MIN_STEP)
+            moved = False
+            for k in range(len(new) - 1):
+                d = new[k + 1] - new[k]
+                if d < MIN_STEP - 1e-9:
+                    push = (MIN_STEP - d) / 2
+                    new[k] -= push
+                    new[k + 1] += push
+                    moved = True
+            if not moved:
+                break
+        new += sa.mean() - new.mean()             # (about the arc's middle)
+        arcs[a["id"]] = {"true_span_deg": round(float(np.degrees(sa[-1] - sa[0])), 1),
+                         "shown_span_deg": round(float(np.degrees(new[-1] - new[0])), 1)}
+        for th, o in zip(new, order):
+            rows[ring[o]] = (rows[ring[o]][0], rows[ring[o]][1], RING / GAP * (np.cos(th) * b1 + np.sin(th) * b2))
     n = len(shapes)
     Am = np.zeros((len(rows) + n, n))
     bm = np.zeros((len(rows) + n, 3))
@@ -544,7 +562,7 @@ def build() -> dict:
     L = np.linspace(-0.35, 0.35, 2)
     return {"_about": __doc__, "axis": [[float(t), 0.0, 0.0] for t in L], "shapes": out,
             "links": [[i, j] for i, j, _ in rows],
-            "fit": {"gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
+            "fit": {"arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
 
