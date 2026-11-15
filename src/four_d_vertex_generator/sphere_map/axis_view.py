@@ -27,8 +27,10 @@ import numpy as np
 from .frame import data_dir, group, point_from_beta, source_dir
 
 AXIS_ELEMENT = 1200 + 368          # the half-turn whose axis X38 runs along (in the 2400-element group)
-# how far each kind of shape is moved out from the axis, in the view's units
-LAYER = {"point": 0.03, "line": 0.06, "wall": 0.12, "region": 0.38}
+# the explosion: every shape moved straight out from the axis by this multiple of its own distance
+# from it (that of its middle: a region's volume, a wall's area, an edge's length), so the shapes keep
+# their places round the axis and the gaps grow with distance, as in an exploded drawing
+EXPLODE = 1.5
 NEAR = ("X38", "X68")              # the shapes whose edges and corners are shown with them
 
 
@@ -167,6 +169,13 @@ def build() -> dict:
     o = regions["X68"]["orbits"][0]
     shell = [(k, pid) for b in o["boundary"] for k, pid in b["parts"] if pid in tris]
     X68 = np.concatenate([np.einsum("ij,ntj->nti", G[k], tris[pid]) for k, pid in shell])
+    # (X68's middle: the middle of its volume, from its pieces' samples weighted by their volumes)
+    pcs = {pc["id"]: pc for pc in json.loads((root / "pieces.json").read_text())["pieces"]}
+    mem = o["members"] if isinstance(o["members"], list) else json.loads(o["members"])
+    wts = np.array([pcs[pid]["volume_share"] for _, pid in mem])
+    pts = np.array([point_from_beta(np.array(pcs[pid]["sample_beta"])) @ G[k].T for k, pid in mem])
+    x68_mid = (wts[:, None] * pts).sum(0)
+    x68_mid /= np.linalg.norm(x68_mid)
     # the view: gnomonic at the axis's point nearest X38, the axis along x
     m = X38.reshape(-1, 4).mean(0)
     c = A.T @ (A @ m)
@@ -209,19 +218,24 @@ def build() -> dict:
         {"id": "X38", "kind": "wall", "note": "half: the axis's half-turn carries X38 onto itself",
          "T": half(X38)},
         {"id": "X68", "kind": "region", "note": "one of its two sides of X38 (the half-turn carries each onto the other)",
-         "T": X68},
+         "T": X68, "mid": x68_mid},
     ]
     shapes += _edges_and_corners(H, u, half)
     out = []
     for s_ in shapes:
         key = "T" if "T" in s_ else "path" if "path" in s_ else "at"
         T3 = chart(np.asarray(s_[key]))
-        cen = T3.reshape(-1, 3).mean(0)
-        d = np.array([0.0, cen[1], cen[2]])                  # (straight out from the axis)
-        d = d / np.linalg.norm(d) if np.linalg.norm(d) > 1e-9 else np.array([0, 1.0, 0])
-        # each kind moved out its own distance, lowest dimension nearest the axis: corners, edges,
-        # walls, regions (a region's shell holds its walls, so it stands furthest out)
-        T3 = T3 + LAYER[s_["kind"]] * d
+        if "mid" in s_:
+            cen = chart(s_["mid"])
+        elif key == "T":                                     # (area-weighted)
+            ar = np.linalg.norm(np.cross(T3[:, 1] - T3[:, 0], T3[:, 2] - T3[:, 0]), axis=1)
+            cen = (ar[:, None] * T3.mean(1)).sum(0) / ar.sum()
+        elif key == "path":                                  # (length-weighted)
+            ln = np.linalg.norm(np.diff(T3, axis=0), axis=1)
+            cen = (ln[:, None] * (T3[1:] + T3[:-1]) / 2).sum(0) / max(ln.sum(), 1e-12)
+        else:
+            cen = T3
+        T3 = T3 + EXPLODE * np.array([0.0, cen[1], cen[2]])  # (straight out from the axis)
         rec = {"id": s_["id"], "kind": s_["kind"], "note": s_["note"]}
         if key == "T":
             V3, F3 = np.unique(T3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
