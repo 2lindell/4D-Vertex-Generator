@@ -35,18 +35,20 @@ p { margin: 0; max-width: 78ch; line-height: 1.5; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.15); display: none; }
 .tip b { font-family: var(--font-data); }
 .hint { position: absolute; left: 10px; bottom: 8px; font-size: 12px; color: var(--muted); pointer-events: none; }
+.toggle { font-size: 14px; display: flex; gap: 8px; align-items: center; }
 ul { margin: 0; padding-left: 1.2rem; line-height: 1.5; max-width: 78ch; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Around a 2400-symmetry axis</h1>
-  <p class="lede">The shapes nearest one of the axes of the extra half-turns (the 2400-element group's elements outside the swirlprism group), each shown once and moved out from the axis so each stands apart. The axis is the purple line; the view is gnomonic, as in the domain page, centred on the axis.</p>
+  <p class="lede">The shapes round one of the axes of the extra half-turns (the 2400-element group's elements outside the swirlprism group), layer by layer out from the axis, each shown once and exploded so each stands apart from its neighbours. The axis is the purple line; the view is gnomonic, as in the domain page, centred on the axis.</p>
   <div class="stage" id="stage"><canvas id="cv" aria-label="3D view of the shapes around the axis"></canvas><div class="labels" id="labels"></div><div class="tip" id="tip"></div><div class="hint">drag to turn · scroll to zoom · hover a shape</div></div>
+  <label class="toggle"><input type="checkbox" id="layer2" checked> Show the next layer (the shapes round E1, C2a and B1, and X61 beyond X99)</label>
   <ul>
-    <li>Each shape is shown with only the extent its seeds need once: a shape the 2400-element group carries onto itself is cut to the part no symmetry repeats (<b>X38</b>, turned onto itself by the axis's half-turn: its half on one side of the axis); of a shape and its copies, one is shown (<b>X68</b>'s two sides of X38, which the half-turn carries onto each other: one side; <b>X99</b>, X68's other wall, one copy bounding each side: the one bounding the side shown).</li>
-    <li>Their edges (<b>E1</b>, <b>C2a</b>, <b>B1</b>) and corners (<b>A1</b>, <b>C6</b>) are shown the same way: C2a and B1 cross the axis and the half-turn turns each end for end, so each is shown by its half; E1 and the corners come in pairs the half-turn swaps, so one of each is shown.</li>
-    <li>The view is exploded about the axis: the whole picture is scaled up about the axis's point at the centre of the view while every shape keeps its own size (each moved so its middle, of a wall's area or an edge's length, goes out from that point). So every shape keeps its place against its neighbours, with a gap: a corner sits just beyond the ends of its edges, an edge just off its wall's side. A region moves with the walls bounding it, and each of those walls then moves straight off it, away from its volume: X38 and X99 enclose X68 like a lens, so they stand apart on either side of it. (The walls curve round the axis, so moving the region out from the axis would slide it along them instead.) The camera turns round the axis. Walls and edges are solid; a region is shown by its shell, the walls bounding it, see-through.</li>
+    <li>The first layer is the shapes nearest the axis: the wall <b>X38</b>, the region <b>X68</b> on its sides, X68's other wall <b>X99</b>, and their edges (<b>E1</b>, <b>C2a</b>, <b>B1</b>) and corners (<b>A1</b>, <b>C6</b>). The next layer is every shape round those edges and on those walls' sides: <b>X61</b> beyond X99, and the walls and regions round E1, C2a and B1.</li>
+    <li>Each shape is shown once, with only the extent its seeds need once. Of the copies of a shape, one is shown (the one touching most of the shapes already shown, then the one nearest the axis). A shape a symmetry of the 2400-element group carries onto itself is cut to a part no symmetry repeats: X38, C2a, B1 and F3 by the axis's half-turn (each its half on the same side of the axis), X16 by another half-turn.</li>
+    <li>The view is exploded so that every shape keeps its place against its neighbours. An edge leaves each of its corners along itself (C2a slides out from C6, into the middle of its own ring). The walls and regions round an edge stand in a circle round it, in the order they lie round it, evenly spaced and all the same distance from it, the circle wide enough for them side by side: the view opens looking down E1, whose circle holds 24. A region stands off each of its walls towards its own volume. A shape round more than one edge (the ones near B1 and C2a) is set where those circles best agree, and each shape is held lightly to its true place, so the picture stays centred on the axis. Hover a shape for its name and why it has the extent shown. Walls and edges are solid; a region is shown by its shell, see-through.</li>
   </ul>
 </div>
 <script id="data" type="application/json">__DATA__</script>
@@ -75,7 +77,10 @@ function build() {
   const ag = new THREE.BufferGeometry().setFromPoints(D.axis.map((p) => new THREE.Vector3(...p)));
   world.add(new THREE.Line(ag, new THREE.LineBasicMaterial({ color: new THREE.Color(css("--axis")) })));
   const R = 0.0035;                                   // edge tube radius; corners a little larger
+  const shadeCount = {};
+  const layer = document.getElementById("layer2").checked ? 2 : 1;
   for (const s of D.shapes) {
+    if (s.layer > layer) { s._label = null; continue; }
     let g, hg;
     if (s.path) {
       const pts = s.path.map((p) => new THREE.Vector3(...p));
@@ -92,9 +97,15 @@ function build() {
       g.computeVertexNormals();
     }
     const solid = s.kind !== "region";
+    // (each wall and region its own shade of its kind's colour, so neighbours can be told apart)
     const col = new THREE.Color(css("--" + s.kind));
+    if (s.kind === "wall" || s.kind === "region") {
+      const hsl = {}; col.getHSL(hsl);
+      const n = (s._k = (shadeCount[s.kind] = (shadeCount[s.kind] || 0) + 1) - 1);
+      col.setHSL((hsl.h + ((n * 0.61803) % 1 - 0.5) * 0.16 + 1) % 1, hsl.s, Math.min(0.85, Math.max(0.25, hsl.l + ((n * 0.381966) % 1 - 0.5) * 0.3)));
+    }
     const mat = new THREE.MeshStandardMaterial({ color: col, side: THREE.DoubleSide, roughness: 0.6, metalness: 0.05,
-      transparent: !solid, opacity: solid ? 1 : 0.35, depthWrite: solid });
+      transparent: !solid, opacity: solid ? 1 : 0.28, depthWrite: solid });
     const mesh = new THREE.Mesh(g, mat);
     // the halo: a glowing shell behind the shape, shown on hover (a surface a little larger; an edge or
     // corner a fatter tube or ball)
@@ -144,6 +155,7 @@ function frame() {
   renderer.render(scene, camera);
   const r = stage.getBoundingClientRect();
   for (const s of D.shapes) {
+    if (!s._label) continue;
     const v = s._centre.clone().project(camera);
     s._label.style.display = v.z > 1 ? "none" : "block";
     s._label.style.left = ((v.x * 0.5 + 0.5) * r.width) + "px";
@@ -151,12 +163,17 @@ function frame() {
   }
   requestAnimationFrame(frame);
 }
+document.getElementById("layer2").addEventListener("change", () => { hovered = null; tip.style.display = "none"; build(); });
 build();
 resize();
-// the camera turns round the view's centre, the axis's point the picture is scaled about
-const box = new THREE.Box3().setFromObject(world), ctr = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3()).length();
-ctr.set(0, 0, 0);
-controls.target.copy(ctr); camera.position.copy(ctr).add(new THREE.Vector3(0.35, 0.25, 1).normalize().multiplyScalar(size * 1.2)); controls.update();
+// the camera turns round the view's centre on the axis; it starts looking down E1, a little tilted,
+// so the ring of shapes round E1 can be seen whole
+const box = new THREE.Box3().setFromObject(world), size = box.getSize(new THREE.Vector3()).length();
+const ctr = new THREE.Vector3(0, 0, 0);
+const e1 = D.shapes.find((s) => s.id === "E1");
+let look = new THREE.Vector3(0.35, 0.25, 1);
+if (e1) { const a = new THREE.Vector3(...e1.path[0]), b = new THREE.Vector3(...e1.path[e1.path.length - 1]); ctr.copy(a).add(b).multiplyScalar(0.5); look = b.sub(a).normalize().add(new THREE.Vector3(0, 0.25, 0.2)); }
+controls.target.copy(ctr); camera.position.copy(ctr).add(look.normalize().multiplyScalar(size * 1.15)); controls.update();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", build);
 new MutationObserver(build).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 frame();
