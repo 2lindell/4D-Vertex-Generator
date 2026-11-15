@@ -1,0 +1,332 @@
+{
+ "_about": "Which ixoic shapes are also ixitic shapes (ixitic_relations.json, ixitic_relations.md).",
+ "pairs": [
+  {
+   "ixoic": "1813106ecd49",
+   "names": [
+    "Bittid"
+   ],
+   "kind": "point",
+   "vertices": 240,
+   "sheet": "ixo0",
+   "tol": 1e-09,
+   "ixitic": "68b8f0a88662",
+   "ixitic_vertices": 120,
+   "ixitic_kind": "point",
+   "ixitic_name": "tehi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "90e4431c1ce1",
+   "names": [
+    "Sobtated"
+   ],
+   "kind": "line",
+   "vertices": 960,
+   "sheet": "ixo0",
+   "tol": 1e-09,
+   "ixitic": "f3bfff522990",
+   "ixitic_vertices": 480,
+   "ixitic_kind": "line",
+   "ixitic_name": "tisthi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "9fd7a0032a66",
+   "names": [
+    "Gobtated"
+   ],
+   "kind": "line",
+   "vertices": 960,
+   "sheet": "ixo0",
+   "tol": 1e-09,
+   "ixitic": "93e27c1e3d43",
+   "ixitic_vertices": 480,
+   "ixitic_kind": "line",
+   "ixitic_name": "sagyptady",
+   "relation": "half"
+  },
+  {
+   "ixoic": "2f41ae404d62",
+   "names": [
+    "Bitutid"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo7",
+   "tol": 1e-08,
+   "ixitic": "9aa686e5af71",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "point",
+   "ixitic_name": "matethi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "524c547d9ed6",
+   "names": [
+    "Potbatid"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo0",
+   "tol": 1e-08,
+   "ixitic": "12dbebd1e5f4",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "line",
+   "ixitic_name": "ratehi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "7465267cd9b6",
+   "names": [
+    "Sagypbittid"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo0",
+   "tol": 1e-09,
+   "ixitic": "12dbebd1e5f4",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "line",
+   "ixitic_name": "ratehi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "7ce9604523ae",
+   "names": [
+    "Gagypbittid"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo0",
+   "tol": 1e-09,
+   "ixitic": "12dbebd1e5f4",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "line",
+   "ixitic_name": "ratehi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "9fc73ba17c51",
+   "names": [
+    "Masbittid",
+    "Sabgypsobted"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo6",
+   "tol": 1e-09,
+   "ixitic": "12dbebd1e5f4",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "line",
+   "ixitic_name": "ratehi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "baf95c7dc2b1",
+   "names": [
+    "Gasbittid"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo7",
+   "tol": 1e-09,
+   "ixitic": "3745ab4a85c6",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "line",
+   "ixitic_name": "sabtedy",
+   "relation": "half"
+  },
+  {
+   "ixoic": "f86ef4998f60",
+   "names": [
+    "Bamtuted"
+   ],
+   "kind": "point",
+   "vertices": 1440,
+   "sheet": "ixo7",
+   "tol": 1e-09,
+   "ixitic": "12dbebd1e5f4",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "line",
+   "ixitic_name": "ratehi",
+   "relation": "half"
+  },
+  {
+   "ixoic": "002f275609bc",
+   "names": [
+    "Sagybted"
+   ],
+   "kind": "point",
+   "vertices": 480,
+   "sheet": "ixo0",
+   "tol": 1e-09,
+   "ixitic": "93e27c1e3d43",
+   "ixitic_vertices": 480,
+   "ixitic_kind": "line",
+   "ixitic_name": "sagyptady",
+   "relation": "same"
+  },
+  {
+   "ixoic": "83922e6f3606",
+   "names": [
+    "Gagybted"
+   ],
+   "kind": "point",
+   "vertices": 480,
+   "sheet": "ixo5",
+   "tol": 1e-09,
+   "ixitic": "b4ad37d86d09",
+   "ixitic_vertices": 480,
+   "ixitic_kind": "line",
+   "ixitic_name": "gagyptady",
+   "relation": "same"
+  },
+  {
+   "ixoic": "8f82404e9b10",
+   "names": [
+    "Sobted"
+   ],
+   "kind": "point",
+   "vertices": 720,
+   "sheet": "ixo7",
+   "tol": 1e-09,
+   "ixitic": "3745ab4a85c6",
+   "ixitic_vertices": 720,
+   "ixitic_kind": "line",
+   "ixitic_name": "sabtedy",
+   "relation": "same"
+  },
+  {
+   "ixoic": "01f5277e9331",
+   "names": [
+    "Sagypsobted"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo0",
+   "tol": 1e-09,
+   "ixitic": "85edaf59db32",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "region",
+   "ixitic_name": "sagypsobtady",
+   "relation": "same"
+  },
+  {
+   "ixoic": "0962ec32bf42",
+   "names": [
+    "Gypsobted"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo3",
+   "tol": 1e-09,
+   "ixitic": "d243a1e80043",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "region",
+   "ixitic_name": "gypsobtady",
+   "relation": "same"
+  },
+  {
+   "ixoic": "1e8454f185ca",
+   "names": [
+    "Regposbitad"
+   ],
+   "kind": "point",
+   "vertices": 1440,
+   "sheet": "ixo2",
+   "tol": 1e-08,
+   "ixitic": "d9ca4ec7c345",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": null,
+   "ixitic_name": "ixitic_line_01",
+   "relation": "same"
+  },
+  {
+   "ixoic": "612fa060af7c",
+   "names": [],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo5",
+   "tol": 1e-09,
+   "ixitic": "eaa102928f4e",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "region",
+   "ixitic_name": "magypsobtady_2",
+   "relation": "same"
+  },
+  {
+   "ixoic": "7880b9e5cd1a",
+   "names": [
+    "Gagypsobted"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo2",
+   "tol": 1e-09,
+   "ixitic": "5efe53c04ebf",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "region",
+   "ixitic_name": "ixitic_region_12",
+   "relation": "same"
+  },
+  {
+   "ixoic": "8ef1c968ad64",
+   "names": [
+    "Petsobted"
+   ],
+   "kind": "point",
+   "vertices": 1440,
+   "sheet": "ixo3",
+   "tol": 1e-08,
+   "ixitic": "177447212efe",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "wall",
+   "ixitic_name": "petsobtady",
+   "relation": "same"
+  },
+  {
+   "ixoic": "9700535b0ae7",
+   "names": [
+    "Awosbited"
+   ],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo9",
+   "tol": 1e-09,
+   "ixitic": "ce1564d83d55",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "wall",
+   "ixitic_name": "awosbitdy",
+   "relation": "same"
+  },
+  {
+   "ixoic": "992e194bf999",
+   "names": [
+    "Tetsobted"
+   ],
+   "kind": "point",
+   "vertices": 1440,
+   "sheet": "ixo5",
+   "tol": 1e-09,
+   "ixitic": "b3a63ce8a55e",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "wall",
+   "ixitic_name": "ixitic_wall_01",
+   "relation": "same"
+  },
+  {
+   "ixoic": "85a06f9fec4f",
+   "names": [],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo2",
+   "tol": 1e-09,
+   "ixitic": null,
+   "ixitic_vertices": null,
+   "ixitic_kind": null,
+   "ixitic_name": null,
+   "relation": "unlabelled"
+  }
+ ]
+}

@@ -84,6 +84,34 @@ def main():
                          "tol": it["tol"], "ixitic": y[1] if y else None, "ixitic_vertices": y[3] if y else None,
                          "ixitic_kind": ixkind.get(y[1]) if y else None, "ixitic_name": ixname.get(y[1]) if y else None,
                          "relation": rel})
+    # (a line whose recorded seed sits too near a change to label: a seed mid-way along its stretch of the half-turn
+    #  line traced whole, fixed_circles.json, in sheet ixo0)
+    try:
+        import numpy as np
+        FC = json.load(open(os.path.join(HERE, "fixed_circles.json")))
+        sys.path.insert(0, HERE)
+        os.environ["HYIC_SUB"] = "ixo0"
+        import group as G0
+        for r in rows:
+            if r["relation"] != "unlabelled":
+                continue
+            for c in FC["circles"]:
+                st = [x for x in c["stretches"] if x["key"] == r["ixoic"]]
+                if st:
+                    u, v = map(np.array, c["plane"])
+                    th = st[0]["from"] + np.pi / FC["samples"] * st[0]["samples"] / 2
+                    b = np.linalg.solve(G0.X, np.cos(th) * u + np.sin(th) * v)
+                    it = [{"key": r["ixoic"], "seed": (b / b.sum()).tolist()}]
+                    x = run("ixo", it, "ixo0")[r["ixoic"]]
+                    if x:
+                        it[0]["tol"] = x[0]
+                        y = run("ix", it, "ix0")[r["ixoic"]]
+                        if y and x[2] == y[2] and x[3] == y[3]:
+                            r.update(ixitic=y[1], ixitic_vertices=y[3], ixitic_kind=ixkind.get(y[1]),
+                                     ixitic_name=ixname.get(y[1]), relation="same", sheet="ixo0 (mid-stretch)")
+                    break
+    except FileNotFoundError:
+        pass
     rows.sort(key=lambda r: (r["relation"], r["vertices"], r["ixoic"]))
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "pairs": rows}, open(os.path.join(HERE, "ixitic_relations.json"), "w"), indent=1)
     L = ["# Ixoic shapes that are also ixitic", "", __doc__.strip().split("\n\n")[1], "",
