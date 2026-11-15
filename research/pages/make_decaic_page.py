@@ -148,10 +148,8 @@ def main():
 
 
 # (shapes with every count the same as another's but a non-isomorphic face lattice)
-SAME = {"kidecaic_point_26_120v_200c": " It has the same cells, edges and faces as kidecaic line 25, but its face lattice "
-                                       "is not isomorphic to the line's: they are different polychora.",
-        "kidecaic_line_25_120v_200c": " Kidecaic point 26 has all the same counts, but is a different polychoron (its "
-                                      "face lattice is not isomorphic to this one's)."}
+SAME = {"kidecaic_line_26_120v_200c": " It has the same cells, edges and faces as kidecaic line 25, every count alike, but is a different polychoron: around its pentagonic edge are four 6-faced cells and a snit (line 25: four 6-faced cells and a gyro-trap), and its trigonic edges between two 6-faced cells meet a gyro-trap twice (line 25: once a snit, once a gyro-trap). Three of the map's walls all contain the curve it lies on, so it has one degree of variation, not none; the curve runs across the chamber from near (1/2, 0, 0, 1/2) to near (0.80, 0.01, 0.16, 0.04).",
+        "kidecaic_line_25_120v_200c": " Kidecaic line 26 has every count the same, but is a different polychoron: around this one's pentagonic edge are four 6-faced cells and a gyro-trap (line 26: a snit), and of its trigonic edges between two 6-faced cells one meets a snit and one a gyro-trap (line 26: a gyro-trap both times)."}
 CROSS = {}  # (crossing shapes: name -> number of walls crossing there)
 # (shapes not found on the map grid: decaic_snub_shapes.md)
 FOUND = {"kidecaic_region_21_120v_680c": "the dense survey of the edge zones",

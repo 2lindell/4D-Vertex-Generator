@@ -141,7 +141,7 @@ def main():
                 n = len([s for s in D if s["kind"] == kind and s["symmetry"] <= 576]) + 1
                 nm = f"oxitic_{kind}_{n:02d}"
                 p = subprocess.run([sys.executable, "add_crossing_shape.py", "ox", nm, json.dumps(r["seed"])]
-                                   + C[k]["surfaces"] + ["--source", SRC], cwd=os.path.join(HERE, "toxitic_atlas"),
+                                   + (r.get("locus") or C[k]["surfaces"]) + ["--source", SRC], cwd=os.path.join(HERE, "toxitic_atlas"),
                                    capture_output=True, text=True)
                 print(name, k, nm, "added" if p.returncode == 0 else "FAILED " + p.stderr[-800:], flush=True)
                 D = json.load(open(os.path.join(HERE, "toxitic_atlas", "toxitic_shapes.json")))["oxitic"]
@@ -162,7 +162,7 @@ def main():
             num = number(group, r["kind"], ex)
             nm = (f"{group}_" if group == "ixitic" else "") + f"{r['kind']}_{num:02d}"
             shapes.append({"name": nm, "key": k, "kind": r["kind"], "degrees": r["degrees"], "seed": r["seed"],
-                           "locus": C[k]["surfaces"], "hull_tol": 1e-7, "signature": r["signature"],
+                           "locus": r.get("locus") or C[k]["surfaces"], "hull_tol": 1e-7, "signature": r["signature"],
                            "file": f"{group}_{r['kind']}_{num:02d}_{nv}v_{ncell}c"})
         if not shapes:
             continue

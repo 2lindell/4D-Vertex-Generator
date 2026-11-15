@@ -1,6 +1,7 @@
 """Check the crossing search's candidates (crossing_search/<atlas>_<sheet>.json) before they join an atlas.
 
-For each candidate, on its sheet: (1) it labels the same at hull tolerance 1e-7 and 1e-8, and at 1e-9 where it can;
+For each candidate, on its sheet: (0) its walls are checked for independence there (walls meeting along a curve
+count once: kidecaic's "point" on three walls lies on a curve all three contain, so it is a line); (1) it labels the same at hull tolerance 1e-7 and 1e-8, and at 1e-9 where it can;
 (2) it keeps its key moved along its locus (a line: along the crossing curve; a wall: two directions within the wall;
 a point: none) by 1e-5, 1e-4 and 1e-3, re-projected onto the locus each time; (3) it changes key stepped 1e-5 off each
 of its walls, both ways (else it is not confined to that locus: a region or wall shape seen through a tolerance); and
@@ -58,9 +59,23 @@ def tangents(x, S):
 
 out = {}
 for k, c in A["cands"].items():
+    r_dep = []
     S = [Surface(t) for t in c["surfaces"]]
     x = onto(c["seed"], S)
-    r = {"kind": c["kind"], "surfaces": len(S)}
+    if x is not None:                               # (walls that meet along more than their count says: keep the
+        keep = []                                   #  independent ones, simplest first; the rest add nothing)
+        for i in sorted(range(len(S)), key=lambda i: len(c["surfaces"][i])):
+            M = np.array([np.ones(4)] + [S[j].grad(x) for j in keep + [i]])
+            if np.linalg.svd(M)[1][-1] > 1e-8 * np.linalg.svd(M)[1][0]:
+                keep.append(i)
+        if len(keep) < len(S):
+            r_dep = [c["surfaces"][i] for i in range(len(S)) if i not in keep]
+            S = [S[i] for i in sorted(keep)]
+            c = {**c, "surfaces": [c["surfaces"][i] for i in sorted(keep)]}
+            c["kind"] = {1: "wall", 2: "line", 3: "point"}[len(S)]
+    r = {"kind": c["kind"], "surfaces": len(S), "locus": c["surfaces"]}
+    if r_dep:
+        r["dependent_walls"] = r_dep
     if x is None:
         r["verdict"] = "seed does not project onto its walls"
         out[k] = r

@@ -71,11 +71,8 @@ def closure_rows():
 
 
 # (notes on particular shapes, by key)
-NOTES = {"aced5db9ac46": " It has the same cells, edges and faces (every count, and every count of cells meeting across "
-                         "a face) as kidecaic line 25, but its face lattice is not isomorphic to the line's: they are "
-                         "different polychora.",
-         "2cc54ef1b550": " Kidecaic point 26 has all the same counts, but is a different polychoron (its face lattice "
-                         "is not isomorphic to this one's)."}
+NOTES = {"aced5db9ac46": " It has the same cells, edges and faces as kidecaic line 25, every count alike, but is a different polychoron: around its pentagonic edge are four 6-faced cells and a snit (line 25: four 6-faced cells and a gyro-trap), and its trigonic edges between two 6-faced cells meet a gyro-trap twice (line 25: once a snit, once a gyro-trap). Three of the map's walls all contain the curve it lies on, so it has one degree of variation, not none; the curve runs across the chamber from near (1/2, 0, 0, 1/2) to near (0.80, 0.01, 0.16, 0.04).",
+         "2cc54ef1b550": " Kidecaic line 26 has every count the same, but is a different polychoron: around this one's pentagonic edge are four 6-faced cells and a gyro-trap (line 26: a snit), and of its trigonic edges between two 6-faced cells one meets a snit and one a gyro-trap (line 26: a gyro-trap both times)."}
 
 
 def fmt_beta(b):
