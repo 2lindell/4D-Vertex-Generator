@@ -27,7 +27,7 @@ valence agree; the ixitic shape is named from opt_central_ixitic.json / the cros
 | 1e8454f185ca | Regposbitad | 1440 | point | d9ca4ec7c345 | ixitic_line_01 | — | same |
 | 612fa060af7c | — | 1440 | line | eaa102928f4e | magypsobtady_2 | region | same |
 | 7880b9e5cd1a | Gagypsobted | 1440 | line | 5efe53c04ebf | ixitic_region_12 | region | same |
+| 85a06f9fec4f | — | 1440 | line | 9fbf16135e07 | magypsobtady_1 | region | same |
 | 8ef1c968ad64 | Petsobted | 1440 | point | 177447212efe | petsobtady | wall | same |
 | 9700535b0ae7 | Awosbited | 1440 | line | ce1564d83d55 | awosbitdy | wall | same |
 | 992e194bf999 | Tetsobted | 1440 | point | b3a63ce8a55e | ixitic_wall_01 | wall | same |
-| 85a06f9fec4f | — | 1440 | line | — | — | — | unlabelled |

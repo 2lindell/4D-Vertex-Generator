@@ -271,6 +271,19 @@
    "relation": "same"
   },
   {
+   "ixoic": "85a06f9fec4f",
+   "names": [],
+   "kind": "line",
+   "vertices": 1440,
+   "sheet": "ixo0 (mid-stretch)",
+   "tol": 1e-09,
+   "ixitic": "9fbf16135e07",
+   "ixitic_vertices": 1440,
+   "ixitic_kind": "region",
+   "ixitic_name": "magypsobtady_1",
+   "relation": "same"
+  },
+  {
    "ixoic": "8ef1c968ad64",
    "names": [
     "Petsobted"
@@ -314,19 +327,6 @@
    "ixitic_kind": "wall",
    "ixitic_name": "ixitic_wall_01",
    "relation": "same"
-  },
-  {
-   "ixoic": "85a06f9fec4f",
-   "names": [],
-   "kind": "line",
-   "vertices": 1440,
-   "sheet": "ixo2",
-   "tol": 1e-09,
-   "ixitic": null,
-   "ixitic_vertices": null,
-   "ixitic_kind": null,
-   "ixitic_name": null,
-   "relation": "unlabelled"
   }
  ]
 }
