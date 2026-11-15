@@ -178,10 +178,17 @@ def figures(A):
 
 
 # Entries whose two columns disagree (see check()), where correcting one column leaves a single atlas shape with the
-# listed vertices, cell orbits and the other column. Keyed by name, or by the edge column for an unnamed entry.
+# listed vertices, cell orbits and the other column. Keyed by name (with the vertex count where a name is listed twice),
+# or by the edge column for an unnamed entry.
 CORRECTIONS = {
     "Sagybted": ("002f275609bc", "edge column should read 6^6,4^3,3^6 (the listed 6^6,4^9 sums to 72; its vertex figure, "
                                  "and these cells, need 66). Also the ixoic point of ixitic's sagyptady line"),
+    "Tetsobted 1440": ("992e194bf999", "edge column should read 44,3^4 and vertex figure 44,3^4 (the listed 44,3^3 and "
+                                       "3^6 give five edges for six cells; its 240 etuts and 720 rhodows put 4 + 2 cells "
+                                       "at a vertex). Also the ixoic point of ixitic wall 1 (b3a63ce8a55e), where that "
+                                       "wall's two orbits of 120 etuts become equal"),
+    "Tetsobted 2880": ("28300feb758c", "vertex figure should read 4^3,3^8 (the listed 55,444,3^5 has ten cells; the listed "
+                                       "cells put 2 + 3 + 1 + 1 + 4 = 11 at a vertex). Not Ditsobted, whose cells differ"),
     "66668,444,3^6": ("32604d11723e", "vertex figure should read 4^5,3^14 (the listed 4^5,3^13 sums to 59; the edge "
                                       "column needs 62)"),
 }
@@ -216,7 +223,7 @@ def main():
             cand = better or cand
         label = e["name"] or f"(unnamed {e['vertices']} {e['profile_text']})"
         bad = check(e)
-        fix = CORRECTIONS.get(e["name"] or e["profile_text"])
+        fix = CORRECTIONS.get(f"{e['name']} {e['vertices']}") or CORRECTIONS.get(e["name"] or e["profile_text"])
         if fix:
             cand = [a for a in A if a["key"] == fix[0]]
         if len(cand) == 1:

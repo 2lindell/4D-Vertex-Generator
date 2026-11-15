@@ -24,7 +24,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | Potbatid | 1440 | 44,3^6 | 524c547d9ed6 | line (merged) | vertex figure 4^5,3^2, listed 5^4,433; list columns disagree: edges sum to 26, vertex figure to 30 |
 | Awosbited | 1440 | 88 12,4^4,3^10 | 9700535b0ae7 | line (fixed line) |  |
 | Sagypsobted | 1440 | 4^9,33 | 01f5277e9331 | line (fixed line) | vertex figure 5^2,4^2,3^8, listed 5,44,3^8; list columns disagree: edges sum to 42, vertex figure to 37 |
-| Tetsobted | 1440 | 44,3^3 | — | not found | list columns disagree: edges sum to 17, vertex figure to 18 |
+| Tetsobted | 1440 | 44,3^3 | 992e194bf999 | point (fixed line) | corrected: edge column should read 44,3^4 and vertex figure 44,3^4 (the listed 44,3^3 and 3^6 give five edges for six cells; its 240 etuts and 720 rhodows put 4 + 2 cells at a vertex). Also the ixoic point of ixitic wall 1 (b3a63ce8a55e), where that wall's two orbits of 120 etuts become equal |
 | (unnamed 1440 5568,44,3^6) | 1440 | 5568,44,3^6 | — | not found |  |
 | (unnamed 1440 68,4^8,333?) | 1440 | 68,4^8,333? | — | not found |  |
 | (unnamed 1440 5566668,4^4,3^4?) | 1440 | 5566668,4^4,3^4? | — | not found |  |
@@ -65,7 +65,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | (unnamed 2880 5,4^5,3^5) | 2880 | 5,4^5,3^5 | 27ac0fa5cd4b | wall (merged) | vertex figure 4^7,3^4, listed 4^5,33; list columns disagree: edges sum to 40, vertex figure to 26 |
 | (unnamed 2880 544,3^5) | 2880 | 544,3^5 | — | not found | list columns disagree: edges sum to 28, vertex figure to 26 |
 | (unnamed 2880 6688,44,3^8) | 2880 | 6688,44,3^8 | — | not found | list columns disagree: edges sum to 60, vertex figure to 68 |
-| Tetsobted | 2880 | 6744,3^5 | 28300feb758c | wall (merged) | vertex figure 4^3,3^8, listed 55,444,3^5; list columns disagree: edges sum to 36, vertex figure to 37 |
+| Tetsobted | 2880 | 6744,3^5 | 28300feb758c | wall (merged) | corrected: vertex figure should read 4^3,3^8 (the listed 55,444,3^5 has ten cells; the listed cells put 2 + 3 + 1 + 1 + 4 = 11 at a vertex). Not Ditsobted, whose cells differ |
 | (unnamed 2880 8 10,4^6,3^6) | 2880 | 8 10,4^6,3^6 | 8cd3bc68ed80 | wall (merged) | vertex figure 5,4^4,3^13, listed 5,4^4,3^11; list columns disagree: edges sum to 60, vertex figure to 54 |
 | Gotetbituted | 2880 | 6744,3^5 | 28300feb758c | wall (merged) | vertex figure 4^3,3^8, listed 55,44,3^6 |
 | (unnamed 2880 66 10,4^6,3^6) | 2880 | 66 10,4^6,3^6 | d8916f10b74b, 4378938566e3 | 2 fit | not settled; list columns disagree: edges sum to 64, vertex figure to 55 |
@@ -91,11 +91,10 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | Gidwabtuted | 2880 | 56 12 12,4^7,3^7 | — | not found |  |
 | Sidwabtuted | None | 6688 10,4^4,3^8 | — | not found |  |
 
-## Atlas shapes not in the list (185)
+## Atlas shapes not in the list (184)
 
 | key | kind | vertices | edge profile | vertex figure | source |
 |---|---|---|---|---|---|
-| 992e194bf999 | point | 1440 | 4^2,3^4 | 4^2,3^4 | fixed line |
 | 2f95e8d554a8 | region | 2880 | 10,8,6,5^2,4^5,3^6 | 5,4^4,3^17 | merged |
 | 414f5b0e4bb1 | region | 2880 | 10,8,6,5^2,4^5,3^6 | 5,4^4,3^17 | merged |
 | 05ce72c24843 | region | 2880 | 10,8,6^3,5^2,4^6,3^4 | 5,4^2,3^23 | merged |
