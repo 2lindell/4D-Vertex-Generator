@@ -41,3 +41,25 @@ three pairs all cross inside: a point on three walls lies on each pair's curve).
 | hyic | ix7 | 3 | 6 | none |  |  |  |  |
 | hyic | ix8 | 5 | 37 | none |  |  |  |  |
 | hyic | ix9 | 18 | 608 | none |  |  |  |  |
+
+## Added to the atlases
+
+Confirmed by crossing_verify.py (verified.json: same key at hull tolerances 1e-7 to 1e-9; kept along the locus to 1e-3; changed 1e-5 off every wall) and checked to have exactly their group's symmetry (fullsym.py). None is on the accepted lists. Added by crossing_add.py.
+
+| atlas | sheet | name | key | kind (degrees) | seed |
+|---|---|---|---|---|---|
+| contic | io | wall_06 | d00f3022144f | wall (2) | [0.615322, 0.013226, 0.020907, 0.350545] |
+| contic | ki | wall_23 | d21ede0dace5 | wall (2) | [0.903963, 0.002011, 0.027212, 0.066814] |
+| contic | ki | wall_24 | 09c95d10b74a | wall (2) | [0.605511, 0.014636, 0.018352, 0.361501] |
+| contic | ki | line_25 | 3a8177163bd8 | line (1) | [0.033457, 0.377287, 0.566993, 0.022263] |
+| contic | ki | line_26 | bb3d2c1875c2 | line (1) | [0.637314, 0.028089, 0.066864, 0.267733] |
+| contic | ox | oxitic_wall_30 | b8c25a009132 | wall (2) | [0.811139, 0.17304, 0.002437, 0.013385] |
+| contic | ox | oxitic_wall_31 | d2cbbabe4f15 | wall (2) | [0.859243, 0.083082, 0.008105, 0.04957] |
+| contic | ox | oxitic_wall_32 | 5a23229b7cf9 | wall (2) | [0.646287, 0.041673, 0.018902, 0.293138] |
+| contic | ox | oxitic_line_04 | a4043696cfa4 | line (1) | [0.072109, 0.304565, 0.558141, 0.065185] |
+| contic | ox | oxitic_line_05 | a02e136d42e8 | line (1) | [0.631452, 0.050631, 0.023599, 0.294318] |
+| contic | ox | oxitic_line_06 | 9f3d3a62de03 | line (1) | [0.181343, 0.005663, 0.684018, 0.128975] |
+| hyic | ix2 | ixitic_line_01 | d9ca4ec7c345 | line (1) | [0.043824, 0.057736, 0.105902, 0.792538] |
+| decaic | ki | wall_24 | 6127f3ea279d | wall (2) | [0.060382, 0.367492, 0.565152, 0.006974] |
+| decaic | ki | line_25 | 2cc54ef1b550 | line (1) | [0.042913, 0.358412, 0.571775, 0.0269] |
+| decaic | ki | point_26 | aced5db9ac46 | point (0) | [0.51554, 0.009063, 0.010041, 0.465356] |

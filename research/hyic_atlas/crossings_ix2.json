@@ -1,0 +1,49 @@
+{
+ "_about": "shapes where interior walls cross (crossing_add.py)",
+ "shapes": [
+  {
+   "key": "d9ca4ec7c345",
+   "name": "ixitic_line_01",
+   "group": "ixitic",
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v5f]+720x[8v10f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x4g | edges 720x4+720x4+1440x3+1440x3+1440x3+1440x3",
+   "kind": "line",
+   "degrees": 1,
+   "seed": [
+    0.04382381184323491,
+    0.057735989671339076,
+    0.1059017367227749,
+    0.7925384617626512
+   ],
+   "locus": [
+    "b1*b2 - 3*b1*b3/2 + sqrt(5)*b1*b3/2 + b2**2 - sqrt(5)*b2*b3 + 2*b2*b3 - sqrt(5)*b3**2 + 2*b3**2",
+    "b1*b2 - sqrt(5)*b1*b4 + 2*b1*b4 + b2**2 - sqrt(5)*b2*b3/2 + 3*b2*b3/2"
+   ],
+   "source": "found where walls cross (crossing_search.py)",
+   "start_R": null,
+   "R": 5.087933426394005,
+   "optimized": [
+    0.15629040014856438,
+    0.07690519792345354,
+    0.15629040014856696,
+    0.6105140017794152
+   ],
+   "optimized_status": null,
+   "central": [
+    0.28197853410474283,
+    0.07564580684266298,
+    0.1645466608381536,
+    0.4778289982144406
+   ],
+   "depth": 507.87061445205825,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_01_1440v_1440c_seed.off",
+   "seed_R": 6.65593679637806,
+   "opt_off": "optimized_off/ixitic/ixitic_line_01_1440v_1440c_opt.off",
+   "opt_R": 5.087933426394005,
+   "central_off": "central_off/ixitic/ixitic_line_01_1440v_1440c_central.off",
+   "central_R": 5.651060923871829,
+   "vertices": 1440,
+   "cells": 1440
+  }
+ ]
+}

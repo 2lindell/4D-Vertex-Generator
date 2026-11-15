@@ -33,6 +33,89 @@
     "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
    ],
    "source": "found where walls cross (crossing_search.py)"
+  },
+  {
+   "key": "d2cbbabe4f15",
+   "name": "oxitic_wall_31",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x8+576x3+576x3+576x3+576x4+576x4+576x6",
+   "seed": [
+    0.8592432827660116,
+    0.08308226265040382,
+    0.008104634308265544,
+    0.04956982027531909
+   ],
+   "kind": "wall",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2"
+   ],
+   "source": "found where walls cross (crossing_search.py)"
+  },
+  {
+   "key": "5a23229b7cf9",
+   "name": "oxitic_wall_32",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v6f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x6+288x10+576x3+576x3+576x3+576x4+576x4+576x7",
+   "seed": [
+    0.6462867420465481,
+    0.041673356752295464,
+    0.01890189583147476,
+    0.2931380053696817
+   ],
+   "kind": "wall",
+   "locus": [
+    "b1*b3 - b2*b4"
+   ],
+   "source": "found where walls cross (crossing_search.py)"
+  },
+  {
+   "key": "a4043696cfa4",
+   "name": "oxitic_line_04",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[6v7f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x5+288x8+576x3+576x3+576x3+576x4+576x5",
+   "seed": [
+    0.07210899542071633,
+    0.30456504228413867,
+    0.5581407858836716,
+    0.06518517641147356
+   ],
+   "kind": "line",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4"
+   ],
+   "source": "found where walls cross (crossing_search.py)"
+  },
+  {
+   "key": "a02e136d42e8",
+   "name": "oxitic_line_05",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[6v6f]+576x[6v6f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x3+288x3+288x4+288x8+576x3+576x3+576x3+576x5",
+   "seed": [
+    0.6314521201601697,
+    0.050630877578154994,
+    0.02359891226565973,
+    0.29431808999601555
+   ],
+   "kind": "line",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2"
+   ],
+   "source": "found where walls cross (crossing_search.py)"
+  },
+  {
+   "key": "9f3d3a62de03",
+   "name": "oxitic_line_06",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+288x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x8+576x3+576x3+576x4+576x4",
+   "seed": [
+    0.18134346169597318,
+    0.005663012495938033,
+    0.6840180284465409,
+    0.12897549736154784
+   ],
+   "kind": "line",
+   "locus": [
+    "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+    "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2"
+   ],
+   "source": "found where walls cross (crossing_search.py)"
   }
  ]
 }

@@ -1925,6 +1925,151 @@
     "7": 576,
     "10": 288
    }
+  },
+  {
+   "key": "d2cbbabe4f15",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+576x[5v6f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x4+288x6+288x6+288x8+576x3+576x3+576x3+576x4+576x4+576x6",
+   "kind": "wall",
+   "seed": [
+    0.8592432827660116,
+    0.08308226265040382,
+    0.008104634308265544,
+    0.04956982027531909
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "ox found where walls cross (crossing_search.py)"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "name": null,
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 1728,
+    "4": 1440,
+    "6": 1152,
+    "8": 288
+   }
+  },
+  {
+   "key": "5a23229b7cf9",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+288x[6v6f]+576x[4v4f]+576x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x6+288x10+576x3+576x3+576x3+576x4+576x4+576x7",
+   "kind": "wall",
+   "seed": [
+    0.6462867420465481,
+    0.041673356752295464,
+    0.01890189583147476,
+    0.2931380053696817
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "ox found where walls cross (crossing_search.py)"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "name": null,
+   "vertices": 576,
+   "cells": 2688,
+   "edges": {
+    "3": 1728,
+    "4": 1728,
+    "6": 288,
+    "7": 576,
+    "10": 288
+   }
+  },
+  {
+   "key": "a4043696cfa4",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[6v7f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g | edges 288x3+288x4+288x5+288x8+576x3+576x3+576x3+576x4+576x5",
+   "kind": "line",
+   "seed": [
+    0.07210899542071633,
+    0.30456504228413867,
+    0.5581407858836716,
+    0.06518517641147356
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "ox found where walls cross (crossing_search.py)"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "name": null,
+   "vertices": 576,
+   "cells": 1824,
+   "edges": {
+    "3": 2016,
+    "4": 864,
+    "5": 864,
+    "8": 288
+   }
+  },
+  {
+   "key": "a02e136d42e8",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[6v8f]+288x[6v6f]+576x[6v6f] | faces 192x3g+192x3g+288x4g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x3+288x3+288x4+288x8+576x3+576x3+576x3+576x5",
+   "kind": "line",
+   "seed": [
+    0.6314521201601697,
+    0.050630877578154994,
+    0.02359891226565973,
+    0.29431808999601555
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "ox found where walls cross (crossing_search.py)"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "name": null,
+   "vertices": 576,
+   "cells": 1248,
+   "edges": {
+    "3": 2304,
+    "4": 288,
+    "5": 576,
+    "8": 288
+   }
+  },
+  {
+   "key": "9f3d3a62de03",
+   "signature": "576: cells 48x[12v20f]+144x[4v4f]+192x[9v11f]+288x[4v4f]+288x[4v4f]+576x[5v5f] | faces 192x3g+192x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x3g+576x4g | edges 288x4+288x4+288x4+288x8+576x3+576x3+576x4+576x4",
+   "kind": "line",
+   "seed": [
+    0.18134346169597318,
+    0.005663012495938033,
+    0.6840180284465409,
+    0.12897549736154784
+   ],
+   "sheet": "ox",
+   "symmetry": 576,
+   "improper": 0,
+   "sources": [
+    "ox found where walls cross (crossing_search.py)"
+   ],
+   "sheets": [
+    "ox"
+   ],
+   "name": null,
+   "vertices": 576,
+   "cells": 1536,
+   "edges": {
+    "3": 1152,
+    "4": 2016,
+    "8": 288
+   }
   }
  ]
 }

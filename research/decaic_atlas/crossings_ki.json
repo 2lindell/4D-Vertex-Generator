@@ -1,0 +1,137 @@
+{
+ "_about": "shapes where interior walls cross (crossing_add.py)",
+ "shapes": [
+  {
+   "key": "6127f3ea279d",
+   "name": "wall_24",
+   "group": "kidecaic",
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+60x[4v4f]+60x[4v4f]+120x[4v4f]+120x[5v6f] | faces 40x3g+40x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g+120x3g | edges 60x4+60x4+60x4+60x4+60x8+60x8+120x3+120x3+120x3+120x4",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.0603819068314331,
+    0.36749164542978174,
+    0.5651520435907567,
+    0.006974404148028547
+   ],
+   "locus": [
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2"
+   ],
+   "source": "found where walls cross (crossing_search.py)",
+   "start_R": null,
+   "R": 4.585747274968644,
+   "optimized": [
+    0.16655917745620472,
+    0.1668684470085573,
+    0.6665684601572558,
+    3.9153779821938915e-06
+   ],
+   "optimized_status": null,
+   "central": [
+    0.1688669708762513,
+    0.0710069780409822,
+    0.7506255833526913,
+    0.009500467730075252
+   ],
+   "depth": 0.029548330747438224,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kidecaic/kidecaic_wall_24_120v_440c_seed.off",
+   "seed_R": 13.387169332748696,
+   "opt_off": "optimized_off/kidecaic/kidecaic_wall_24_120v_440c_opt.off",
+   "opt_R": 4.585747274968644,
+   "central_off": "central_off/kidecaic/kidecaic_wall_24_120v_440c_central.off",
+   "central_R": 11.00688994363834,
+   "vertices": 120,
+   "cells": 440
+  },
+  {
+   "key": "2cc54ef1b550",
+   "name": "line_25",
+   "group": "kidecaic",
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+120x[6v6f] | faces 40x3g+40x3g+60x4g+60x4g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x3+60x3+60x4+60x5+60x6+120x3+120x3",
+   "kind": "line",
+   "degrees": 1,
+   "seed": [
+    0.042912965405911815,
+    0.3584122163356836,
+    0.571775206550034,
+    0.02689961170837068
+   ],
+   "locus": [
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 - 3*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 + 3*b2*b3*b4**2"
+   ],
+   "source": "found where walls cross (crossing_search.py)",
+   "start_R": null,
+   "R": 6.325656524788825,
+   "optimized": [
+    0.12454639605109208,
+    0.12454639605109208,
+    0.7296479064848295,
+    0.021259301412986372
+   ],
+   "optimized_status": null,
+   "central": [
+    0.10224823322249078,
+    0.18501848540251814,
+    0.6851209096316142,
+    0.027612371743376926
+   ],
+   "depth": 0.21674414048990015,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kidecaic/kidecaic_line_25_120v_200c_seed.off",
+   "seed_R": 16.044390978590393,
+   "opt_off": "optimized_off/kidecaic/kidecaic_line_25_120v_200c_opt.off",
+   "opt_R": 6.325656524788825,
+   "central_off": "central_off/kidecaic/kidecaic_line_25_120v_200c_central.off",
+   "central_R": 7.4965412133599685,
+   "vertices": 120,
+   "cells": 200
+  },
+  {
+   "key": "aced5db9ac46",
+   "name": "point_26",
+   "group": "kidecaic",
+   "signature": "120: cells 10x[12v20f]+20x[6v8f]+20x[6v8f]+30x[4v4f]+120x[6v6f] | faces 40x3g+40x3g+60x4g+60x4g+120x3g+120x3g+120x3g+120x3g | edges 60x3+60x3+60x3+60x4+60x5+60x6+120x3+120x3",
+   "kind": "point",
+   "degrees": 0,
+   "seed": [
+    0.5155402533085861,
+    0.009063315326055721,
+    0.010040714467105106,
+    0.465355716898253
+   ],
+   "locus": [
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+    "3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2",
+    "b1*b2 - b3*b4"
+   ],
+   "source": "found where walls cross (crossing_search.py)",
+   "start_R": null,
+   "R": 41.95952878530168,
+   "optimized": [
+    0.5155402533085861,
+    0.009063315326055721,
+    0.010040714467105106,
+    0.465355716898253
+   ],
+   "optimized_status": null,
+   "central": [
+    0.5155402533085861,
+    0.009063315326055721,
+    0.010040714467105106,
+    0.465355716898253
+   ],
+   "depth": null,
+   "central_status": "point (no freedom): the seed itself",
+   "seed_off": "new_shapes/off/kidecaic/kidecaic_point_26_120v_200c_seed.off",
+   "seed_R": 41.95952878530168,
+   "opt_off": "optimized_off/kidecaic/kidecaic_point_26_120v_200c_opt.off",
+   "opt_R": 41.95952878530168,
+   "central_off": "central_off/kidecaic/kidecaic_point_26_120v_200c_central.off",
+   "central_R": 41.95952878530168,
+   "vertices": 120,
+   "cells": 200
+  }
+ ]
+}

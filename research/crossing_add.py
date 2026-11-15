@@ -48,6 +48,7 @@ elif %(adir)r == "hyic_atlas":
 else:
     import optimize_seeds as O
     import central_seeds as CS
+    CS.O, CS.G, CS.F = O, O.G, O.F
 import group as G
 A = json.loads(sys.stdin.read())
 

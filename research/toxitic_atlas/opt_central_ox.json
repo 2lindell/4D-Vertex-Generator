@@ -2171,6 +2171,234 @@
     576,
     2976
    ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_31",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "d2cbbabe4f15",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.8592432827660116,
+    0.08308226265040382,
+    0.008104634308265544,
+    0.04956982027531909
+   ],
+   "start_R": 16.749326815321638,
+   "R": 4.995144733361148,
+   "optimized": [
+    0.7315812244818226,
+    0.09854636343527495,
+    0.02017375891395191,
+    0.14969865316895048
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.8592432827660116,
+    0.08308226265040382,
+    0.008104634308265544,
+    0.04956982027531909
+   ],
+   "depth": null,
+   "central_status": "pending (recentre.py --oxitic)",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_31_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 4.999028520959763,
+   "central_off": "central_off/oxitic/oxitic_wall_31_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_32",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "5a23229b7cf9",
+   "locus": [
+    "b1*b3 - b2*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.6462867420465481,
+    0.041673356752295464,
+    0.01890189583147476,
+    0.2931380053696817
+   ],
+   "start_R": 9.168256668943977,
+   "R": 4.995144733361148,
+   "optimized": [
+    0.7313636187656185,
+    0.0985021407001318,
+    0.02019433469553382,
+    0.1499399058387158
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6462867420465481,
+    0.041673356752295464,
+    0.01890189583147476,
+    0.2931380053696817
+   ],
+   "depth": null,
+   "central_status": "pending (recentre.py --oxitic)",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_32_576v_2688c_opt.off",
+   "opt_counts": [
+    576,
+    2688
+   ],
+   "off_R": 4.996851183751689,
+   "central_off": "central_off/oxitic/oxitic_wall_32_576v_2688c_central.off",
+   "central_counts": [
+    576,
+    2688
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_line_04",
+   "kind": "line",
+   "degrees": 1,
+   "key": "a4043696cfa4",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.07210899542071633,
+    0.30456504228413867,
+    0.5581407858836716,
+    0.06518517641147356
+   ],
+   "start_R": 7.745846415795297,
+   "R": 4.3410918750588205,
+   "optimized": [
+    0.12208106212895281,
+    0.16822999520507034,
+    0.6092632937507746,
+    0.10042564891520228
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.07210899542071633,
+    0.30456504228413867,
+    0.5581407858836716,
+    0.06518517641147356
+   ],
+   "depth": null,
+   "central_status": "pending (recentre.py --oxitic)",
+   "opt_off": "optimized_off/oxitic/oxitic_line_04_576v_1824c_opt.off",
+   "opt_counts": [
+    576,
+    1824
+   ],
+   "off_R": 4.341091875058826,
+   "central_off": "central_off/oxitic/oxitic_line_04_576v_1824c_central.off",
+   "central_counts": [
+    576,
+    1824
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_line_05",
+   "kind": "line",
+   "degrees": 1,
+   "key": "a02e136d42e8",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.6314521201601697,
+    0.050630877578154994,
+    0.02359891226565973,
+    0.29431808999601555
+   ],
+   "start_R": 7.415958418461149,
+   "R": 4.995144733361148,
+   "optimized": [
+    0.7314538728200004,
+    0.09856194991632763,
+    0.02018512359294197,
+    0.14979905367072996
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.6314521201601697,
+    0.050630877578154994,
+    0.02359891226565973,
+    0.29431808999601555
+   ],
+   "depth": null,
+   "central_status": "pending (recentre.py --oxitic)",
+   "opt_off": "optimized_off/oxitic/oxitic_line_05_576v_1248c_opt.off",
+   "opt_counts": [
+    576,
+    1248
+   ],
+   "off_R": 4.995144733361155,
+   "central_off": "central_off/oxitic/oxitic_line_05_576v_1248c_central.off",
+   "central_counts": [
+    576,
+    1248
+   ]
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_line_06",
+   "kind": "line",
+   "degrees": 1,
+   "key": "9f3d3a62de03",
+   "locus": [
+    "b1*b2 + sqrt(2)*b1*b3/2 - sqrt(2)*b2*b4/2 - b3*b4",
+    "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.18134346169597318,
+    0.005663012495938033,
+    0.6840180284465409,
+    0.12897549736154784
+   ],
+   "start_R": 5.835931718144449,
+   "R": 4.190058153468437,
+   "optimized": [
+    0.1468425825807904,
+    0.14498540618909936,
+    0.5889437278160805,
+    0.11922828341402977
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.18134346169597318,
+    0.005663012495938033,
+    0.6840180284465409,
+    0.12897549736154784
+   ],
+   "depth": null,
+   "central_status": "pending (recentre.py --oxitic)",
+   "opt_off": "optimized_off/oxitic/oxitic_line_06_576v_1536c_opt.off",
+   "opt_counts": [
+    576,
+    1536
+   ],
+   "off_R": 4.190058153468442,
+   "central_off": "central_off/oxitic/oxitic_line_06_576v_1536c_central.off",
+   "central_counts": [
+    576,
+    1536
+   ]
   }
  ]
 }
