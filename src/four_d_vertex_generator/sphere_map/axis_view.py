@@ -27,7 +27,9 @@ import numpy as np
 from .frame import data_dir, group, point_from_beta, source_dir
 
 AXIS_ELEMENT = 1200 + 368          # the half-turn whose axis X38 runs along (in the 2400-element group)
-GAP = 0.18                         # how far each shape is moved out from the axis, in the view's units
+# how far each kind of shape is moved out from the axis, in the view's units
+LAYER = {"point": 0.03, "line": 0.06, "wall": 0.12, "region": 0.38}
+NEAR = ("X38", "X68")              # the shapes whose edges and corners are shown with them
 
 
 def _patch_triangles(D, doc, z):
@@ -59,6 +61,88 @@ def _patch_triangles(D, doc, z):
             if p is not None:
                 out[p["id"]].append(point_from_beta(X[F[t]]))
     return {k: np.array(v) for k, v in out.items()}
+
+
+def _to_path(X, M):
+    """Each point of X's distance to the polyline M (a single point when M has one)."""
+    if len(M) == 1:
+        return np.linalg.norm(X - M[0], axis=1)
+    a, b = M[:-1], M[1:]
+    ab = b - a
+    t = np.clip(np.einsum("nsk,sk->ns", X[:, None] - a[None], ab) / np.maximum(np.einsum("sk,sk->s", ab, ab), 1e-30), 0, 1)
+    return np.linalg.norm(X[:, None] - (a[None] + t[..., None] * ab[None]), axis=2).min(1)
+
+
+def _same(L, M, tol=1e-4):
+    """Whether two sampled curves (or points) on R^4 are the same set, within tol (each sample of
+    one measured to the other's polyline, as their samples need not fall at the same places)."""
+    return len(L) == len(M) == 1 and np.linalg.norm(L[0] - M[0]) < tol or \
+        len(L) > 1 and len(M) > 1 and max(_to_path(L, M).max(), _to_path(M, L).max()) < tol
+
+
+def _half_path(L, u):
+    """A curve cut to x . u >= 0 (the end on the axis found exactly)."""
+    s = L @ u
+    keep = []
+    for i in range(len(L)):
+        if s[i] >= 0:
+            keep.append(L[i])
+        if i + 1 < len(L) and (s[i] >= 0) != (s[i + 1] >= 0):
+            keep.append(L[i] + s[i] / (s[i] - s[i + 1]) * (L[i + 1] - L[i]))
+    return np.array(keep)
+
+
+def _edges_and_corners(H, u, half):
+    """The named lines and points bounding the near shapes (shape_map3d.json), each placed copy once:
+    a copy the half-turn carries onto itself is cut to its half on the kept side (x . u >= 0); of two
+    copies it swaps, the one on the kept side is shown."""
+    sm = json.loads((data_dir() / "sphere_map" / "shape_map3d.json").read_text())
+    G = group()
+    names = {(k, x["id"]): x["name"] for k in ("lines", "points") for x in sm[k]}
+    pc = {p["id"]: np.array(p["c"]) for p in sm["points"]}
+    found = {"line": [], "point": []}               # (name, geometry on R^4)
+    for kind in ("walls", "regions"):
+        for x in sm[kind]:
+            if x["name"] not in NEAR:
+                continue
+            for n in x["nb"]:
+                if n["kind"] not in found:
+                    continue
+                for piece, g in n["touch"]:
+                    if n["kind"] == "line":
+                        geo = np.array(sm["line_geo"][piece][0]) @ G[g].T
+                    else:
+                        geo = (pc[piece] @ G[g].T)[None]
+                    nm = names[(n["kind"] + "s", n["node"])]
+                    if not any(_same(geo, o) for _, o in found[n["kind"]]):
+                        found[n["kind"]].append((nm, geo))
+    out = []
+    for kind, items in found.items():
+        done = set()
+        for i, (nm, geo) in enumerate(items):
+            if i in done:
+                continue
+            img = geo @ H.T
+            if _same(img, geo):
+                if kind == "point":
+                    out.append({"id": nm, "kind": kind, "note": "on the axis: the half-turn holds it fixed", "at": geo[0]})
+                else:
+                    out.append({"id": nm, "kind": kind, "note": "half: it crosses the axis, and the half-turn turns it end for end",
+                                "path": _half_path(geo, u)})
+                continue
+            j = next((j for j, (_, o) in enumerate(items) if j != i and _same(img, o)), None)
+            if j is not None:
+                done.add(j)
+                if (items[j][1] @ u).mean() > (geo @ u).mean():
+                    geo = items[j][1]
+                note = "one of two copies (the half-turn carries each onto the other)"
+            else:
+                note = "whole: no symmetry here repeats it"
+            if kind == "point":
+                out.append({"id": nm, "kind": kind, "note": note, "at": geo[0]})
+            else:
+                out.append({"id": nm, "kind": kind, "note": note, "path": geo})
+    return out
 
 
 def build() -> dict:
@@ -127,19 +211,27 @@ def build() -> dict:
         {"id": "X68", "kind": "region", "note": "one of its two sides of X38 (the half-turn carries each onto the other)",
          "T": X68},
     ]
+    shapes += _edges_and_corners(H, u, half)
     out = []
     for s_ in shapes:
-        T3 = chart(s_["T"])
+        key = "T" if "T" in s_ else "path" if "path" in s_ else "at"
+        T3 = chart(np.asarray(s_[key]))
         cen = T3.reshape(-1, 3).mean(0)
         d = np.array([0.0, cen[1], cen[2]])                  # (straight out from the axis)
         d = d / np.linalg.norm(d) if np.linalg.norm(d) > 1e-9 else np.array([0, 1.0, 0])
-        # (walls nearest the axis, regions further: a region's shell holds its walls, so each is
-        # moved out its own distance to stand clear of them)
-        T3 = T3 + GAP * (1 if s_["kind"] == "wall" else 3.2) * d
-        V3, F3 = np.unique(T3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
-        out.append({"id": s_["id"], "kind": s_["kind"], "note": s_["note"],
-                    "verts": V3.round(5).tolist(), "faces": F3.reshape(-1, 3).tolist()})
-    L = np.linspace(-0.6, 0.6, 2)
+        # each kind moved out its own distance, lowest dimension nearest the axis: corners, edges,
+        # walls, regions (a region's shell holds its walls, so it stands furthest out)
+        T3 = T3 + LAYER[s_["kind"]] * d
+        rec = {"id": s_["id"], "kind": s_["kind"], "note": s_["note"]}
+        if key == "T":
+            V3, F3 = np.unique(T3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
+            rec.update(verts=V3.round(5).tolist(), faces=F3.reshape(-1, 3).tolist())
+        elif key == "path":
+            rec["path"] = T3.round(5).tolist()
+        else:
+            rec["at"] = T3.round(5).tolist()
+        out.append(rec)
+    L = np.linspace(-0.35, 0.35, 2)
     return {"_about": __doc__, "axis": [[float(t), 0.0, 0.0] for t in L], "shapes": out}
 
 
@@ -148,7 +240,8 @@ def run() -> str:
     data = build()
     path.write_text(json.dumps(data, separators=(",", ":")))
     for s in data["shapes"]:
-        print(f"{s['id']} ({s['kind']}): {len(s['faces'])} triangles; {s['note']}")
+        size = f"{len(s['faces'])} triangles" if "faces" in s else f"{len(s['path'])} steps" if "path" in s else "point"
+        print(f"{s['id']} ({s['kind']}): {size}; {s['note']}")
     return str(path)
 
 
