@@ -1,0 +1,12 @@
+{
+ "sheet": "tox",
+ "surfaces": 27,
+ "pairs": 351,
+ "triples": 25,
+ "crossing_points": 207,
+ "known_keys": 65,
+ "keys_seen": {
+  "a5f41b7684fb": 207
+ },
+ "candidates": {}
+}

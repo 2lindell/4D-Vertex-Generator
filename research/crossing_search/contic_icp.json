@@ -1,0 +1,12 @@
+{
+ "sheet": "icp",
+ "surfaces": 27,
+ "pairs": 351,
+ "triples": 23,
+ "crossing_points": 206,
+ "known_keys": 71,
+ "keys_seen": {
+  "23fecbac186a": 206
+ },
+ "candidates": {}
+}

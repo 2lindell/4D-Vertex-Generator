@@ -1,0 +1,12 @@
+{
+ "sheet": "icpb",
+ "surfaces": 27,
+ "pairs": 351,
+ "triples": 25,
+ "crossing_points": 205,
+ "known_keys": 68,
+ "keys_seen": {
+  "23fecbac186a": 205
+ },
+ "candidates": {}
+}

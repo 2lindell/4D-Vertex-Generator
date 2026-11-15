@@ -1,0 +1,17 @@
+{
+ "sheet": "oxb",
+ "surfaces": 30,
+ "pairs": 435,
+ "triples": 48,
+ "crossing_points": 258,
+ "known_keys": 65,
+ "keys_seen": {
+  "fdec102036a1": 135,
+  "c41b4cd39c7a": 24,
+  "4546bbe66243": 2,
+  "22386f50729d": 38,
+  "b900c8edde78": 26,
+  "64e209745c78": 33
+ },
+ "candidates": {}
+}
