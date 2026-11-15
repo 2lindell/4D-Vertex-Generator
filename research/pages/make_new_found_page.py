@@ -20,6 +20,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 from make_decaic_page import WORD, cells_text, edges_text, faces_text  # noqa: E402
+from suggested_names import SUGGESTED  # noqa: E402
 
 ENV = {"contic_atlas": "CONTIC_SUB", "decaic_atlas": "DECAIC_SUB", "hyic_atlas": "HYIC_SUB", "toxitic_atlas": "CONTIC_SUB"}
 DEG = {"region": 3, "wall": 2, "line": 1, "point": 0}
@@ -53,8 +54,10 @@ def crossing_rows():
                 if "crossing_search" not in t.get("source", ""):
                     continue                    # (oxitic_line_01, found by the community, is on the contic page)
                 o = opt.get(t["name"], {})
+                seed = glob.glob(os.path.join(ROOT, "new_shapes", "off", "oxitic", f"{t['name']}_*_seed.off"))
                 out.append(("oxitic", sh, "CONTIC_SUB", {**t, "degrees": DEG[t["kind"]], "R": o.get("R"),
                                                           "start_R": o.get("start_R"), "opt_off": o.get("opt_off"),
+                                                          "seed_off": os.path.relpath(seed[0], ROOT) if seed else None,
                                                           "central_off": o.get("central_off")}))
     return out
 
@@ -149,16 +152,23 @@ def main():
                    "wall": " It was found where two of the map's walls cross: it fills a stretch of one of them that "
                            "the map had not classified."}[t["kind"]]
             text = body(d, group, t["kind"], t["degrees"]) + how + NOTES.get(t["key"], "")
+            sug = SUGGESTED.get(t["name"])
+            title = name_of(group, t)
+            if sug:
+                text = f"{sug[1]}: a suggested name ({title} in the atlas). {text} {sug[2]}"
+                title = f"{sug[0]} (suggested)"
             R = t.get("R")
             data = (f"β = ({fmt_beta(t['seed'])}) · {d['n_cells']} cells · {t['kind']} · sheet {sub} · key {t['key']}"
                     + (f"<br>most even: R = {R:.4f}" if isinstance(R, (int, float)) else "")
-                    + "".join(f"<br>{html.escape(t[k])}" for k in ("seed_off", "opt_off", "central_off") if t.get(k))
+                    + "".join(f"<br>{html.escape(t[k])}" for k in ("seed_off", "opt_off", "central_off")
+                            if t.get(k) and os.path.exists(os.path.join(ROOT, t[k])))
                     + "<br>on " + html.escape(" and ".join(s if len(s) < 90 else s[:87] + "…" for s in t["locus"])) + " = 0")
-            P.append(entry(name_of(group, t), text, data))
-            MD.append(f"**{name_of(group, t)}** ({t['kind']}, sheet {sub}, key `{t['key']}`). {text}\n\n"
+            P.append(entry(title, text, data))
+            MD.append(f"**{title}** ({t['kind']}, sheet {sub}, key `{t['key']}`). {text}\n\n"
                       f"- β = ({fmt_beta(t['seed'])}); {d['n_cells']} cells"
                       + (f"; most even R = {R:.4f}" if isinstance(R, (int, float)) else "") + "\n"
-                      + "".join(f"- `{t[k]}`\n" for k in ("seed_off", "opt_off", "central_off") if t.get(k))
+                      + "".join(f"- `{t[k]}`\n" for k in ("seed_off", "opt_off", "central_off")
+                                if t.get(k) and os.path.exists(os.path.join(ROOT, t[k])))
                       + "- on " + " and ".join(f"`{x}`" for x in t["locus"]) + " = 0\n")
     P.append("</section>")
     secs.append("\n".join(P))

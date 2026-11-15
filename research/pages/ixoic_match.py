@@ -250,6 +250,26 @@ def main():
             "|---|---|---|---|---|---|"]
     out += [f"| {a['key']} | {a['kind']} | {a['vertices']} | {fmt(a['profile'])} | {fmt(a['figure'])} | {a['source']} |"
             for a in sorted(rest, key=lambda a: (a["vertices"], a["kind"], fmt(a["profile"])))]
+    try:                                        # (ixoic shapes that are also ixitic: hyic_atlas/ixitic_relations.py)
+        from suggested_names import SUGGESTED
+        R = json.load(open(os.path.join(HY, "ixitic_relations.json")))["pairs"]
+        out += ["", "## Ixoic shapes that are also ixitic", "",
+                "From hyic_atlas/ixitic_relations.py: each ixoic shape below 2880 vertices labelled at its seed under the "
+                "ixitic group of its sheet. Where the vertices and edges agree it is the same polychoron, isogonal under "
+                "ixitic too; where the ixitic orbit has half the vertices, the half-turn fixing the seed is in ixitic and "
+                "the ixitic shape there is a different one. Suggested names (not on the list) follow the list's own "
+                "pairs, '... Snub Bitetrahedral 240' and '... Snub Bitetrahedral Dis120'. The two unnamed lines "
+                "85a06f9fec4f and 612fa060af7c are the list's Magypsobted and its unnamed entry with the same counts, "
+                "and the ixitic magypsobtady_1 and _2 respectively: settling one tie settles the other.", "",
+                "| ixoic | name | vertices | ixitic | ixitic name | relation |", "|---|---|---|---|---|---|"]
+        for r in R:
+            nm = r["ixitic_name"] or "—"
+            if nm in SUGGESTED:
+                nm = f"{nm}: suggested **{SUGGESTED[nm][0]}** ({SUGGESTED[nm][1]})"
+            out.append(f"| {r['ixoic']} | {', '.join(r['names']) or '—'} | {r['vertices']} | {r['ixitic'] or '—'} | {nm} | "
+                       f"{r['relation']}" + (f" ({r['ixitic_vertices']} vertices)" if r["relation"] == "half" else "") + " |")
+    except FileNotFoundError:
+        pass
     open(os.path.join(HERE, "ixoic_match.md"), "w").write("\n".join(out) + "\n")
     json.dump(names, open(os.path.join(HERE, "ixoic_names.json"), "w"), indent=1)
     print("\n".join(out[:len(rep) + 6]))

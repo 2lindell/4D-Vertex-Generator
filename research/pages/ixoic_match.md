@@ -279,3 +279,32 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | 7ed1ced25c1c | wall | 2880 | 9,8,5,4^10,3^2 | 5,4^3,3^17 | merged |
 | 1f89551dc87e | wall | 2880 | 9,8,6,4^7,3^5 | 5,4^4,3^15 | merged |
 | cb07e807b976 | wall | 2880 | 9,8,6,5,4^7,3^4 | 5,4^3,3^17 | merged |
+
+## Ixoic shapes that are also ixitic
+
+From hyic_atlas/ixitic_relations.py: each ixoic shape below 2880 vertices labelled at its seed under the ixitic group of its sheet. Where the vertices and edges agree it is the same polychoron, isogonal under ixitic too; where the ixitic orbit has half the vertices, the half-turn fixing the seed is in ixitic and the ixitic shape there is a different one. Suggested names (not on the list) follow the list's own pairs, '... Snub Bitetrahedral 240' and '... Snub Bitetrahedral Dis120'. The two unnamed lines 85a06f9fec4f and 612fa060af7c are the list's Magypsobted and its unnamed entry with the same counts, and the ixitic magypsobtady_1 and _2 respectively: settling one tie settles the other.
+
+| ixoic | name | vertices | ixitic | ixitic name | relation |
+|---|---|---|---|---|---|
+| 1813106ecd49 | Bittid | 240 | 68b8f0a88662 | tehi | half (120 vertices) |
+| 90e4431c1ce1 | Sobtated | 960 | f3bfff522990 | tisthi | half (480 vertices) |
+| 9fd7a0032a66 | Gobtated | 960 | 93e27c1e3d43 | sagyptady | half (480 vertices) |
+| 2f41ae404d62 | Bitutid | 1440 | 9aa686e5af71 | matethi | half (720 vertices) |
+| 524c547d9ed6 | Potbatid | 1440 | 12dbebd1e5f4 | ratehi | half (720 vertices) |
+| 7465267cd9b6 | Sagypbittid | 1440 | 12dbebd1e5f4 | ratehi | half (720 vertices) |
+| 7ce9604523ae | Gagypbittid | 1440 | 12dbebd1e5f4 | ratehi | half (720 vertices) |
+| 9fc73ba17c51 | Masbittid, Sabgypsobted | 1440 | 12dbebd1e5f4 | ratehi | half (720 vertices) |
+| baf95c7dc2b1 | Gasbittid | 1440 | 3745ab4a85c6 | sabtedy | half (720 vertices) |
+| f86ef4998f60 | Bamtuted | 1440 | 12dbebd1e5f4 | ratehi | half (720 vertices) |
+| 002f275609bc | Sagybted | 480 | 93e27c1e3d43 | sagyptady | same |
+| 83922e6f3606 | Gagybted | 480 | b4ad37d86d09 | gagyptady | same |
+| 8f82404e9b10 | Sobted | 720 | 3745ab4a85c6 | sabtedy | same |
+| 01f5277e9331 | Sagypsobted | 1440 | 85edaf59db32 | sagypsobtady | same |
+| 0962ec32bf42 | Gypsobted | 1440 | d243a1e80043 | gypsobtady | same |
+| 1e8454f185ca | Regposbitad | 1440 | d9ca4ec7c345 | ixitic_line_01: suggested **Regposbitdy** (Rectangular Gyroprismatic Snub Bitetrahedral Dis120) | same |
+| 612fa060af7c | — | 1440 | eaa102928f4e | magypsobtady_2 | same |
+| 7880b9e5cd1a | Gagypsobted | 1440 | 5efe53c04ebf | ixitic_region_12: suggested **Gagypsobtady** (Great Gyroprismatic Snub Bitetrahedral Dis120) | same |
+| 85a06f9fec4f | — | 1440 | 9fbf16135e07 | magypsobtady_1 | same |
+| 8ef1c968ad64 | Petsobted | 1440 | 177447212efe | petsobtady | same |
+| 9700535b0ae7 | Awosbited | 1440 | ce1564d83d55 | awosbitdy | same |
+| 992e194bf999 | Tetsobted | 1440 | b3a63ce8a55e | ixitic_wall_01: suggested **Tetsobtady** (Tetrahedral Transitional Snub Bitetrahedral Dis120) | same |

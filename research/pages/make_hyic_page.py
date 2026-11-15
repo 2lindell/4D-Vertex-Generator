@@ -112,6 +112,8 @@ def entries():
     return S
 
 
+from suggested_names import RELATED, SUGGESTED  # noqa: E402
+
 CROSS = {}  # (shapes found where the map's walls cross: name -> number of walls)
 
 
@@ -152,12 +154,20 @@ def main():
                 body += (f" It was found by the crossing search, where {('two', 'three')[n - 2] if n in (2, 3) else n} "
                          "of the map's walls cross" + (": a line along their crossing curve." if kind == "line" else
                                                        ": an isolated point." if kind == "point" else "."))
+            if name in RELATED:
+                body += " " + RELATED[name]
+            sug = SUGGESTED.get(name)
+            if sug:
+                body += " " + sug[2]
             if b in nts:
                 body += f" Note: {nts[b][len(b) + 2:] if nts[b].startswith(b) else nts[b]}".rstrip(".") + "."
-            head = f"({full})." if full else "not yet named."
+            head = f"({full})." if full else (f"({sug[1]}: a suggested name; {label} in the atlas)." if sug else
+                                              "not yet named.")
+            if sug:
+                label = sug[0]
             beta = ", ".join(f"{v:.6f}" for v in seed)
             sheet = f" · sheet {sub[2:]}" if sub.startswith("ix") else ""
-            tag = ' <span class="tag">new</span>' if unnamed else ""
+            tag = (' <span class="tag">suggested name</span>' if sug else ' <span class="tag">new</span>') if unnamed else ""
             P.append(f'<article class="{"shape new" if unnamed else "shape"}"><h3>{html.escape(label)}{tag}</h3>'
                      f'<p>{html.escape(head)} {html.escape(body)}</p><p class="data">β = ({beta}) · {d["n_cells"]} cells'
                      f' · {kind}{sheet}</p></article>')

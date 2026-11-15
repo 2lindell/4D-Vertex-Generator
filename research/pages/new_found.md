@@ -138,7 +138,7 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 
 ### Ixitic
 
-**Ixitic line 1** (line, sheet ix2, key `d9ca4ec7c345`). It has 120+120 snits, 720 squaps / squigyps, and 480 trips. It has 1440 vertices with a 10 faced dualcell. It has 1440+1440+1440+1440 trigonic and 720+720 tetragonic edges. Its faces are three types of 480 equits, three types of 1440 scalene triangles, and 1440 trapezoids. It is isogonal under ixitic symmetry with one degree of variation. It was found where two of the map's walls cross, as a line along their crossing curve.
+**Regposbitdy (suggested)** (line, sheet ix2, key `d9ca4ec7c345`). Rectangular Gyroprismatic Snub Bitetrahedral Dis120: a suggested name (Ixitic line 1 in the atlas). It has 120+120 snits, 720 squaps / squigyps, and 480 trips. It has 1440 vertices with a 10 faced dualcell. It has 1440+1440+1440+1440 trigonic and 720+720 tetragonic edges. Its faces are three types of 480 equits, three types of 1440 scalene triangles, and 1440 trapezoids. It is isogonal under ixitic symmetry with one degree of variation. It was found where two of the map's walls cross, as a line along their crossing curve. Suggested from ixoic Regposbitad (1440 vertices, edges 44,3^8), the same polychoron at a point of this line where its symmetry doubles to ixoic; named as Awosbited's twin Awosbitdy.
 
 - β = (0.043824, 0.057736, 0.105902, 0.792538); 1440 cells; most even R = 5.0879
 - `new_shapes/off/ixitic/ixitic_line_01_1440v_1440c_seed.off`
