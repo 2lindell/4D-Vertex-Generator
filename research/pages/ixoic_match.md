@@ -91,7 +91,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | Gidwabtuted | 2880 | 56 12 12,4^7,3^7 | — | not found |  |
 | Sidwabtuted | None | 6688 10,4^4,3^8 | — | not found |  |
 
-## Atlas shapes not in the list (194)
+## Atlas shapes not in the list (196)
 
 | key | kind | vertices | edge profile | vertex figure | source |
 |---|---|---|---|---|---|
@@ -175,6 +175,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | 09a5e6d51e0e | region | 2880 | 14,12,10,6^3,4^10,3^6 | 5,4^2,3^33 | merged |
 | 4da9b751c8d0 | region | 2880 | 14,12,4^13,3^4 | 5,4^4,3^23 | merged |
 | fc2f6668afd2 | region | 2880 | 14,12,6,4^10,3^6 | 5,4^4,3^23 | merged |
+| c30a8cd80019 | region | 2880 | 14,12,6^2,5^4,4^5,3^8 | 5,4^4,3^27 | closure |
 | 750866d1f30c | region | 2880 | 14,12,6^6,4^8,3^6 | 5,4^2,3^33 | merged |
 | a4d5f327ee33 | region | 2880 | 14,12,8,6^2,5^2,4^4,3^10 | 5,4^4,3^27 | merged |
 | eca059cf9d00 | region | 2880 | 14,8,6^2,5^2,4^8,3^4 | 5,4^2,3^25 | merged |
@@ -185,6 +186,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | 13ca776daef6 | region | 2880 | 14,8^2,6^4,5^2,4^3,3^8 | 5,4^2,3^29 | merged |
 | f0b5203e54aa | region | 2880 | 14,8^3,6^2,5^2,4^3,3^10 | 5,4^4,3^27 | merged |
 | 2314d7c0308b | region | 2880 | 14^2,6^2,5^2,4^7,3^8 | 5,4^4,3^27 | merged |
+| 3bac15a9e22b | region | 2880 | 14^2,6^3,4^8,3^8 | 5,4^4,3^27 | closure |
 | d9ef88449de5 | region | 2880 | 14^2,6^3,5^2,4^4,3^10 | 5,4^4,3^27 | closure |
 | ad736fba6beb | region | 2880 | 16,10,8,6^2,5^4,4^4,3^8 | 5,4^2,3^31 | merged |
 | 856a7072b1c2 | region | 2880 | 16,10,8,6^2,5^4,4^4,3^8 | 5,4^2,3^31 | closure |
