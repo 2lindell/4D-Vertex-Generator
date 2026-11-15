@@ -479,7 +479,8 @@ def view_selections(S, G, region, copies, line_shapes):
     and line passing through the view's region, each with the shapes lying on it there (a wall
     piece, line stretch or point lying on it in some copy of the half-cell reaching into the region,
     a point of it inside); entries with the same shapes once; a line kept only with two kinds of
-    line on it or more, a sphere or surface with a wall on it or two kinds of line."""
+    line on it or more, a sphere with a wall on it or two kinds of line, a curved surface with two walls
+    or more."""
     Ti = np.linalg.inv(T)
     toR4 = lambda B: (lambda X: X / np.linalg.norm(X, axis=-1, keepdims=True))(np.asarray(B, float) @ T)
     items = ([("wall", w["name"], np.asarray(w["pts"]), w["sheet"]) for w in S["walls"]] +
@@ -531,7 +532,7 @@ def view_selections(S, G, region, copies, line_shapes):
     for k, ci in found:
         sf, g = S["surfaces"][k], copies[ci]
         got = collect(lambda Y, ci_, sf=sf, g=g: _on_surface(sf, g, Y))
-        if got["wall"]:
+        if len(got["wall"]) >= 2:                # (a surface with one wall only: not listed)
             out.append(("surface", 4, f"the surface found for {sf['base'].split(':')[0]}"
                         + (" (its fold)" if ":fold" in sf["base"] else ""), got))
     # lines: each base line's copies through the region (2-planes of R^4)
