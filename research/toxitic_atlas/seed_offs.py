@@ -24,7 +24,8 @@ for s in json.loads(sys.stdin.read()):
     b = np.asarray(s["seed"], float); b = b / b.sum()
     V, Vn, idx, faces, cells = G.polytope(b, s["hull_tol"])
     d = os.path.join(%r, "new_shapes", "off", s["group"]); os.makedirs(d, exist_ok=True)
-    f = os.path.join(d, f"{s['group']}_{s['kind']}_{s['name']}_{len(V)}v_{len(cells)}c_seed.off")
+    stem = s["name"] if s["name"].startswith(f"{s['group']}_") else f"{s['group']}_{s['kind']}_{s['name']}"
+    f = os.path.join(d, f"{stem}_{len(V)}v_{len(cells)}c_seed.off")     # (a numbered name already has its group, kind)
     open(f, "w").write(to_4off(Vn, faces, cells))
     print(os.path.basename(f), flush=True)
 '''
