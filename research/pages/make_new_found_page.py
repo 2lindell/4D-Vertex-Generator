@@ -1,4 +1,4 @@
-"""The 'Newly Found Isogonals' page (new_found.html): the shapes the crossing search found (where two or three of a map's
+"""The 'Newly Found Isogonals' page (new_found.html, and the same as Markdown: new_found.md): the shapes the crossing search found (where two or three of a map's
 walls cross: crossing_search.py, checked by crossing_verify.py, added by crossing_add.py). Each entry is written from its
 polychoron at its seed in its own group (describe.py), in the words of the family pages, with how it was found, its
 seed, its most even member (R = longest / shortest edge) and .off files. (New ixoic regions go on the ixoic match
@@ -113,6 +113,7 @@ def main():
         D.update(describe(var, sub, items))
         print(var, sub, len(items), flush=True)
 
+    MD = []
     order = ["kidecaic", "iodecaic", "kicontic", "iocontic", "oxitic", "ixitic"]
     secs, nav = [], []
     # (summary table)
@@ -138,6 +139,7 @@ def main():
         if not rows_g:
             continue
         P.append(f'<h3 class="sub" id="{g}">{g.capitalize()}</h3>')
+        MD.append(f"\n### {g.capitalize()}\n")
         for i, (group, sub, var, t) in sorted(rows_g, key=lambda x: (DEG[x[1][3]["kind"]], x[1][3]["name"])):
             d = D[f"x{i}"]
             n = len(t["locus"])
@@ -153,6 +155,11 @@ def main():
                     + "".join(f"<br>{html.escape(t[k])}" for k in ("seed_off", "opt_off", "central_off") if t.get(k))
                     + "<br>on " + html.escape(" and ".join(s if len(s) < 90 else s[:87] + "…" for s in t["locus"])) + " = 0")
             P.append(entry(name_of(group, t), text, data))
+            MD.append(f"**{name_of(group, t)}** ({t['kind']}, sheet {sub}, key `{t['key']}`). {text}\n\n"
+                      f"- β = ({fmt_beta(t['seed'])}); {d['n_cells']} cells"
+                      + (f"; most even R = {R:.4f}" if isinstance(R, (int, float)) else "") + "\n"
+                      + "".join(f"- `{t[k]}`\n" for k in ("seed_off", "opt_off", "central_off") if t.get(k))
+                      + "- on " + " and ".join(f"`{x}`" for x in t["locus"]) + " = 0\n")
     P.append("</section>")
     secs.append("\n".join(P))
     nav.append('<a href="#crossings">Where walls cross <span class="n">%d</span></a>' % len(X))
@@ -192,6 +199,19 @@ def main():
             .replace("{{FOOTER}}", "Made by research/pages/make_new_found_page.py from the crossing search "
                      "(research/crossing_search)."))
     open(os.path.join(HERE, "new_found.html"), "w").write(page)
+    table = ["| symmetry | new | kinds |", "|---|---|---|"] + [
+        f"| {g.capitalize()} | {counts[g]} | " + ", ".join(
+            f"{n} {k}{'s' if n > 1 else ''}" for k in ("wall", "line", "point")
+            for n in [sum(1 for gg, _, _, t in X if gg == g and t["kind"] == k)] if n) + " |" for g in order if g in counts]
+    md = ["# Newly Found Isogonals", "", intro, "", note, "", "## Summary", ""] + table + [
+        "", "## Where walls cross", "",
+        "The atlas maps took lines and points only on each chamber's own edges and corners. The crossing search follows "
+        "every pair (and triple) of a map's walls where they cross inside the chamber and classifies the polychoron "
+        "there. Each shape below kept the same polychoron at three hull tolerances, kept it moving along its locus out "
+        "to 0.001, changed it 0.00001 off each of its walls, and has exactly its group's symmetry (no larger one). None "
+        "is on the accepted lists."] + MD + ["", "---", "", "Made by research/pages/make_new_found_page.py from the "
+                                               "crossing search (research/crossing_search)."]
+    open(os.path.join(HERE, "new_found.md"), "w").write("\n".join(md) + "\n")
     print(f"new_found.html: {total} shapes")
 
 
