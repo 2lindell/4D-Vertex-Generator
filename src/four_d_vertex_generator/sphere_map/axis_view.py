@@ -27,10 +27,15 @@ import numpy as np
 from .frame import data_dir, group, point_from_beta, source_dir
 
 AXIS_ELEMENT = 1200 + 368          # the half-turn whose axis X38 runs along (in the 2400-element group)
-# the explosion: every shape moved straight out from the axis by this multiple of its own distance
-# from it (that of its middle: a region's volume, a wall's area, an edge's length), so the shapes keep
-# their places round the axis and the gaps grow with distance, as in an exploded drawing
-EXPLODE = 1.5
+# the explosion: the whole picture scaled by EXPLODE about the view's centre (the axis's point the view
+# is centred on) while each shape keeps its own size: each shape moved so its middle (a wall's area, an
+# edge's length) goes from m to EXPLODE * m. Every shape then keeps its place against its neighbours,
+# with a gap: a corner just beyond its edges' ends, an edge just off its wall's side.
+# A region is moved with the wall it lies against and then off it, along the wall's normal towards the
+# region's volume, by REGION_STEP: the walls curve round the axis, so the region's middle (here almost on
+# the axis) would slide it along the wall rather than off it.
+EXPLODE = 1.8
+REGION_STEP = 0.07
 NEAR = ("X38", "X68")              # the shapes whose edges and corners are shown with them
 
 
@@ -218,16 +223,14 @@ def build() -> dict:
         {"id": "X38", "kind": "wall", "note": "half: the axis's half-turn carries X38 onto itself",
          "T": half(X38)},
         {"id": "X68", "kind": "region", "note": "one of its two sides of X38 (the half-turn carries each onto the other)",
-         "T": X68, "mid": x68_mid},
+         "T": X68, "mid": x68_mid, "against": "X38"},
     ]
     shapes += _edges_and_corners(H, u, half)
-    out = []
+    out, moved = [], {}
     for s_ in shapes:
         key = "T" if "T" in s_ else "path" if "path" in s_ else "at"
         T3 = chart(np.asarray(s_[key]))
-        if "mid" in s_:
-            cen = chart(s_["mid"])
-        elif key == "T":                                     # (area-weighted)
+        if key == "T":                                       # (area-weighted)
             ar = np.linalg.norm(np.cross(T3[:, 1] - T3[:, 0], T3[:, 2] - T3[:, 0]), axis=1)
             cen = (ar[:, None] * T3.mean(1)).sum(0) / ar.sum()
         elif key == "path":                                  # (length-weighted)
@@ -235,7 +238,18 @@ def build() -> dict:
             cen = (ln[:, None] * (T3[1:] + T3[:-1]) / 2).sum(0) / max(ln.sum(), 1e-12)
         else:
             cen = T3
-        T3 = T3 + EXPLODE * np.array([0.0, cen[1], cen[2]])  # (straight out from the axis)
+        if "against" in s_:
+            # with its wall, then off it: the normal of the wall's best plane, turned
+            # towards the region's volume
+            w = moved[s_["against"]]
+            P = w["T3"].reshape(-1, 3)
+            n = np.linalg.svd(P - P.mean(0), full_matrices=False)[2][2]     # (its best plane's normal)
+            n *= np.sign(n @ (chart(s_["mid"]) - w["cen"]))
+            T3 = T3 + w["shift"] + REGION_STEP * n
+        else:
+            shift = (EXPLODE - 1) * cen                      # (out from the view's centre, on the axis)
+            T3 = T3 + shift
+            moved[s_["id"]] = {"T3": T3, "cen": cen, "shift": shift}
         rec = {"id": s_["id"], "kind": s_["kind"], "note": s_["note"]}
         if key == "T":
             V3, F3 = np.unique(T3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
