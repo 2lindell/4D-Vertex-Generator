@@ -19,7 +19,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | Sagypbittid | 1440 | 66444,3^8 | 7465267cd9b6 | line (merged) |  |
 | Masbittid | 1440 | 488,4^6,3^6 | 9fc73ba17c51 | line (merged) |  |
 | Gasbittid | 1440 | 55668,44,3^8 | baf95c7dc2b1 | line (merged) |  |
-| Bamtuted | 1440 | 455,3^6 | — | not found |  |
+| Bamtuted | 1440 | 455,3^6 | f86ef4998f60 | point (fixed line) |  |
 | Gagypbittid | 1440 | 5566,4^10 | 7ce9604523ae | line (merged) |  |
 | Potbatid | 1440 | 44,3^6 | 524c547d9ed6 | line (merged) | vertex figure 4^5,3^2, listed 5^4,433; list columns disagree: edges sum to 26, vertex figure to 30 |
 | Awosbited | 1440 | 88 12,4^4,3^10 | 9700535b0ae7 | line (fixed line) |  |
