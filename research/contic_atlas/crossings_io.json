@@ -1,0 +1,48 @@
+{
+ "_about": "shapes where interior walls cross (crossing_add.py)",
+ "shapes": [
+  {
+   "key": "d00f3022144f",
+   "name": "wall_06",
+   "group": "iocontic",
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[5v6f] | faces 288x4g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+576x4+1152x3+1152x3+1152x4+1152x4",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.6153219377972798,
+    0.013225637828873753,
+    0.020907025314378092,
+    0.3505453990594683
+   ],
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 2*b1*b2**2*b4 - b1*b2*b3**2 + sqrt(2)*b1*b2*b3**2/2 - 5*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**2*b4 + 2*b1*b3**2*b4 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2 - b2**2*b3*b4 + sqrt(2)*b2**2*b3*b4/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
+   ],
+   "source": "found where walls cross (crossing_search.py)",
+   "start_R": null,
+   "R": 3.1650610580635616,
+   "optimized": [
+    0.6000027140110679,
+    2.7581605953337646e-05,
+    0.1998203535661276,
+    0.20014935081685126
+   ],
+   "optimized_status": null,
+   "central": [
+    0.6865092299014217,
+    0.02344282205094692,
+    0.07432667808699094,
+    0.21572126996064045
+   ],
+   "depth": 0.07573904397521372,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/iocontic/iocontic_wall_06_1152v_2400c_seed.off",
+   "seed_R": 22.36004117001154,
+   "opt_off": "optimized_off/iocontic/iocontic_wall_06_1152v_2400c_opt.off",
+   "opt_R": 3.1650610580635616,
+   "central_off": "central_off/iocontic/iocontic_wall_06_1152v_2400c_central.off",
+   "central_R": 7.787733302912018,
+   "vertices": 1152,
+   "cells": 2400
+  }
+ ]
+}

@@ -2126,6 +2126,51 @@
     528
    ],
    "central_R": 2.974875198758016
+  },
+  {
+   "group": "oxitic",
+   "name": "oxitic_wall_30",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b8c25a009132",
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
+   ],
+   "sheet": "ox",
+   "seed": [
+    0.8111388713576546,
+    0.17303957263960232,
+    0.002436520565222601,
+    0.0133850354375205
+   ],
+   "start_R": 61.71000831015913,
+   "R": 3.5228817130956904,
+   "optimized": [
+    0.6416429600199636,
+    0.13501456275984383,
+    0.021582802771529914,
+    0.2017596744486626
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.8111388713576546,
+    0.17303957263960232,
+    0.002436520565222601,
+    0.0133850354375205
+   ],
+   "depth": null,
+   "central_status": "pending (recentre.py --oxitic)",
+   "opt_off": "optimized_off/oxitic/oxitic_wall_30_576v_2976c_opt.off",
+   "opt_counts": [
+    576,
+    2976
+   ],
+   "off_R": 3.5265843943994617,
+   "central_off": "central_off/oxitic/oxitic_wall_30_576v_2976c_central.off",
+   "central_counts": [
+    576,
+    2976
+   ]
   }
  ]
 }
