@@ -2292,13 +2292,13 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.07210899542071633,
-    0.30456504228413867,
-    0.5581407858836716,
-    0.06518517641147356
+    0.12520953023482814,
+    0.1596474985782725,
+    0.6128343976340497,
+    0.10230857355284967
    ],
-   "depth": null,
-   "central_status": "pending (recentre.py --oxitic)",
+   "depth": 0.18861244201660154,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "opt_off": "optimized_off/oxitic/oxitic_line_04_576v_1824c_opt.off",
    "opt_counts": [
     576,
@@ -2309,7 +2309,8 @@
    "central_counts": [
     576,
     1824
-   ]
+   ],
+   "central_R": 4.425170900077818
   },
   {
    "group": "oxitic",
@@ -2338,13 +2339,13 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.6314521201601697,
-    0.050630877578154994,
-    0.02359891226565973,
-    0.29431808999601555
+    0.6100949902374901,
+    0.04134387820947524,
+    0.0221215983102776,
+    0.326439533242757
    ],
-   "depth": null,
-   "central_status": "pending (recentre.py --oxitic)",
+   "depth": 0.1815549468994141,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "opt_off": "optimized_off/oxitic/oxitic_line_05_576v_1248c_opt.off",
    "opt_counts": [
     576,
@@ -2355,7 +2356,8 @@
    "central_counts": [
     576,
     1248
-   ]
+   ],
+   "central_R": 8.584692890870395
   },
   {
    "group": "oxitic",
@@ -2384,13 +2386,13 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.18134346169597318,
-    0.005663012495938033,
-    0.6840180284465409,
-    0.12897549736154784
+    0.15468468865994173,
+    0.11177437473171756,
+    0.6116458920320201,
+    0.12189504457632064
    ],
-   "depth": null,
-   "central_status": "pending (recentre.py --oxitic)",
+   "depth": 0.1384073257446289,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "opt_off": "optimized_off/oxitic/oxitic_line_06_576v_1536c_opt.off",
    "opt_counts": [
     576,
@@ -2401,7 +2403,8 @@
    "central_counts": [
     576,
     1536
-   ]
+   ],
+   "central_R": 4.584971268181049
   }
  ]
 }
