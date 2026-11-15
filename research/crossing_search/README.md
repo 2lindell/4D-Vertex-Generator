@@ -62,4 +62,3 @@ Confirmed by crossing_verify.py (verified.json: same key at hull tolerances 1e-7
 | hyic | ix2 | ixitic_line_01 | d9ca4ec7c345 | line (1) | [0.043824, 0.057736, 0.105902, 0.792538] |
 | decaic | ki | wall_24 | 6127f3ea279d | wall (2) | [0.060382, 0.367492, 0.565152, 0.006974] |
 | decaic | ki | line_25 | 2cc54ef1b550 | line (1) | [0.042913, 0.358412, 0.571775, 0.0269] |
-| decaic | ki | point_26 | aced5db9ac46 | point (0) | [0.51554, 0.009063, 0.010041, 0.465356] |
