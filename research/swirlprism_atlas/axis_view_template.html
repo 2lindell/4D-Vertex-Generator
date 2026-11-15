@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swirlprism Axis View</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --ink: #16191f; --muted: #5b6270; --rule: #d9dde4;
+  --wall: #2c6a97; --region: #b8582f; --axis: #6b4bb3; --halo: #f2b134;
+  --font-text: "Spline Sans", system-ui, sans-serif; --font-data: "Spline Sans Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d;
+  --wall: #7db4de; --region: #f0956f; --axis: #b49cf0; --halo: #ffd166; } }
+:root[data-theme="dark"] {
+  --bg: #121418; --panel: #1b1e24; --ink: #eef0f4; --muted: #a3aab6; --rule: #2f343d;
+  --wall: #7db4de; --region: #f0956f; --axis: #b49cf0; --halo: #ffd166; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-text); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 20px 16px 36px; display: grid; gap: 14px; }
+h1 { font-size: 1.4rem; margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 78ch; line-height: 1.5; }
+.lede { color: var(--muted); }
+.stage { position: relative; height: min(72vh, 720px); min-height: 360px; background: var(--panel);
+  border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.labels { position: absolute; inset: 0; pointer-events: none; font: 12px var(--font-data); }
+.labels div { position: absolute; transform: translate(-50%, -100%); padding: 1px 5px; border-radius: 4px;
+  background: color-mix(in srgb, var(--panel) 80%, transparent); white-space: nowrap; }
+.tip { position: absolute; pointer-events: none; max-width: 320px; padding: 8px 10px; border-radius: 8px;
+  background: var(--panel); border: 1px solid var(--rule); font-size: 13px; line-height: 1.4;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.15); display: none; }
+.tip b { font-family: var(--font-data); }
+.hint { position: absolute; left: 10px; bottom: 8px; font-size: 12px; color: var(--muted); pointer-events: none; }
+ul { margin: 0; padding-left: 1.2rem; line-height: 1.5; max-width: 78ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Around a 2400-symmetry axis</h1>
+  <p class="lede">The shapes nearest one of the axes of the extra half-turns (the 2400-element group's elements outside the swirlprism group), each shown once and moved out from the axis so each stands apart. The axis is the purple line; the view is gnomonic, as in the domain page, centred on the axis.</p>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="3D view of the shapes around the axis"></canvas><div class="labels" id="labels"></div><div class="tip" id="tip"></div><div class="hint">drag to turn · scroll to zoom · hover a shape</div></div>
+  <ul>
+    <li>Each shape is shown with only the extent its seeds need once: a shape the 2400-element group carries onto itself is cut to the part no symmetry repeats (<b>X38</b>, turned onto itself by the axis's half-turn: its half on one side of the axis); of a shape and its copies, one is shown (<b>X68</b>'s two sides of X38, which the half-turn carries onto each other: one side).</li>
+    <li>Walls are solid; a region is shown by its shell, the walls bounding it, see-through.</li>
+  </ul>
+</div>
+<script id="data" type="application/json">__DATA__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const D = JSON.parse(document.getElementById("data").textContent);
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const stage = document.getElementById("stage"), cv = document.getElementById("cv"), tip = document.getElementById("tip");
+const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 100);
+const controls = new THREE.OrbitControls(camera, cv);
+controls.enableDamping = true;
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+const sun = new THREE.DirectionalLight(0xffffff, 0.7); sun.position.set(2, 3, 4); scene.add(sun);
+const world = new THREE.Group(); scene.add(world);
+const shapes = [];
+
+function build() {
+  while (world.children.length) world.remove(world.children[0]);
+  shapes.length = 0;
+  document.getElementById("labels").innerHTML = "";
+  // the axis
+  const ag = new THREE.BufferGeometry().setFromPoints(D.axis.map((p) => new THREE.Vector3(...p)));
+  world.add(new THREE.Line(ag, new THREE.LineBasicMaterial({ color: new THREE.Color(css("--axis")) })));
+  for (const s of D.shapes) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(s.verts.flat(), 3));
+    g.setIndex(s.faces.flat());
+    g.computeVertexNormals();
+    const col = new THREE.Color(css(s.kind === "wall" ? "--wall" : "--region"));
+    const mat = new THREE.MeshStandardMaterial({ color: col, side: THREE.DoubleSide, roughness: 0.6, metalness: 0.05,
+      transparent: s.kind !== "wall", opacity: s.kind === "wall" ? 1 : 0.35, depthWrite: s.kind === "wall" });
+    const mesh = new THREE.Mesh(g, mat);
+    // the halo: the same surface a little larger, glowing, behind it; shown on hover
+    g.computeBoundingSphere();
+    const c = g.boundingSphere.center.clone();
+    const halo = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: new THREE.Color(css("--halo")), side: THREE.BackSide,
+      transparent: true, opacity: 0.55, depthWrite: false }));
+    halo.position.copy(c).multiplyScalar(-0.06); halo.scale.setScalar(1.06); halo.visible = false;
+    const grp = new THREE.Group(); grp.add(halo); grp.add(mesh); world.add(grp);
+    mesh.userData = { shape: s, halo };
+    shapes.push(mesh);
+    const el = document.createElement("div"); el.textContent = s.id; document.getElementById("labels").appendChild(el);
+    s._label = el; s._centre = c;
+  }
+}
+
+function resize() { const r = stage.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+new ResizeObserver(resize).observe(stage);
+
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+let hovered = null;
+cv.addEventListener("pointermove", (e) => {
+  const r = cv.getBoundingClientRect();
+  mouse.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(mouse, camera);
+  const hit = ray.intersectObjects(shapes, false)[0];
+  const m = hit ? hit.object : null;
+  if (m !== hovered) {
+    if (hovered) hovered.userData.halo.visible = false;
+    hovered = m;
+    if (m) m.userData.halo.visible = true;
+  }
+  if (m) {
+    const s = m.userData.shape;
+    tip.innerHTML = `<b>${s.id}</b> · ${s.kind}<br>${s.note}`;
+    tip.style.display = "block";
+    tip.style.left = Math.min(e.clientX - r.left + 14, r.width - 330) + "px";
+    tip.style.top = (e.clientY - r.top + 14) + "px";
+  } else tip.style.display = "none";
+});
+cv.addEventListener("pointerleave", () => { if (hovered) hovered.userData.halo.visible = false; hovered = null; tip.style.display = "none"; });
+
+function frame() {
+  controls.update();
+  renderer.setClearColor(new THREE.Color(css("--panel")));
+  renderer.render(scene, camera);
+  const r = stage.getBoundingClientRect();
+  for (const s of D.shapes) {
+    const v = s._centre.clone().project(camera);
+    s._label.style.display = v.z > 1 ? "none" : "block";
+    s._label.style.left = ((v.x * 0.5 + 0.5) * r.width) + "px";
+    s._label.style.top = ((-v.y * 0.5 + 0.5) * r.height) + "px";
+  }
+  requestAnimationFrame(frame);
+}
+build();
+resize();
+const box = new THREE.Box3().setFromObject(world), ctr = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3()).length();
+controls.target.copy(ctr); camera.position.copy(ctr).add(new THREE.Vector3(0.2, 0.35, 1).multiplyScalar(size * 1.1)); controls.update();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", build);
+new MutationObserver(build).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+frame();
+</script>
+</body>
+</html>
