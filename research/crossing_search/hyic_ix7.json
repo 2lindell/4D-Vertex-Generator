@@ -1,0 +1,13 @@
+{
+ "sheet": "ix7",
+ "surfaces": 3,
+ "pairs": 3,
+ "triples": 0,
+ "crossing_points": 6,
+ "known_keys": 263,
+ "keys_seen": {
+  "6b893c9304f5": 5,
+  "d243a1e80043": 1
+ },
+ "candidates": {}
+}
