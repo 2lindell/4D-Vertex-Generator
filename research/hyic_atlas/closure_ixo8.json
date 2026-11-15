@@ -760,5 +760,6 @@
    ],
    "count": 9
   }
- }
+ },
+ "grown": "0 more new regions by sampling around the new regions (48 points at 1e-4 and 1e-3 each)"
 }
