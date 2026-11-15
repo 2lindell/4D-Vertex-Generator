@@ -141,7 +141,7 @@ def main():
             found = FOUND.get(r["name"]) or ("the crossing search (where the map's walls cross)" if r["name"] in CROSS
                                              else None)
             t += "." + (f" It was found by {found}." if found else "") + SAME.get(r["name"], "")
-            out.append({"name": name, "kind": r["kind"], "text": t, "beta": r["beta"], "surface": r.get("surface") or "",
+            out.append({"name": name, "kind": r["kind"], "degrees": dof, "text": t, "beta": r["beta"], "surface": r.get("surface") or "",
                         "off": r.get("off") or f"{r['name']}.off", "cells": d["n_cells"]})
         new_entries[group] = out
     write_page(new_entries)
@@ -155,6 +155,13 @@ CROSS = {}  # (crossing shapes: name -> number of walls crossing there)
 FOUND = {"kidecaic_region_21_120v_680c": "the dense survey of the edge zones",
          "kidecaic_region_22_120v_380c": "the region closure check (walks from every region to its walls)",
          "kidecaic_wall_23_120v_440c": "the region closure check, as a quartic wall between two regions"}
+
+
+def text_degrees(e):
+    """A named entry's degrees of variation, from its own words ("with one degree of variance", "with no variants");
+    an isotopal or uniform shape that states none is a point (0)."""
+    m = re.search(r"with (no|one|two|three|four) (?:degrees?|variants?|variations?)(?: of vari\w+)?", e)
+    return {"no": 0, "one": 1, "two": 2, "three": 3, "four": 4}[m.group(1)] if m else 0
 
 
 def display(ident):
@@ -180,20 +187,24 @@ def write_page(new):
         g = {"Kidecaics": "kidecaic", "Iodecaics": "iodecaic"}.get(title)
         extra = new.get(g, [])
         nav.append(f'<a href="#{sid}">{html.escape(title)} <span class="n">{len(entries) + len(extra)}</span></a>')
-        P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(sintro)}</p>']
-        for e in entries:
-            m = re.match(r"([A-Z][a-z]+) - (.*)", e, re.S)
-            P.append(f'<article class="shape"><h3>{html.escape(m.group(1))}</h3><p>{html.escape(m.group(2))}</p></article>')
         if extra:
-            P.append(f'<h3 class="sub">New {g} shapes <span class="n">{len(extra)}</span></h3>'
-                     f'<p class="lede">Found by the atlas map (curved walls, a dense survey of the edge zones and a region '
-                     f'closure check); not yet named. Each is described from its polychoron at the seed given.</p>')
-            for e in extra:
-                beta = ", ".join(f"{v:.6f}" for v in e["beta"])
-                P.append(f'<article class="shape new"><h3>{html.escape(e["name"])} <span class="tag">new</span></h3>'
-                         f'<p>{html.escape(e["text"])}</p><p class="data">β = ({beta})'
-                         + (f'<br>wall surface: {html.escape(e["surface"])} = 0' if e["surface"] else "")
-                         + f'<br>{html.escape(e["off"])}</p></article>')
+            sintro += (f" The {len(extra)} marked new were found by the atlas map (curved walls, a dense survey of the edge "
+                       "zones, a region closure check and the crossing search) and are not yet named; each is described "
+                       "from its polychoron at the seed given.")
+        P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(sintro)}</p>']
+        items = []                              # (degrees of variation first; named before new; then as listed)
+        for i, e in enumerate(entries):
+            m = re.match(r"([A-Z][a-z]+) - (.*)", e, re.S)
+            items.append((text_degrees(e), 0, i, f'<article class="shape"><h3>{html.escape(m.group(1))}</h3>'
+                                                 f'<p>{html.escape(m.group(2))}</p></article>'))
+        for i, e in enumerate(extra):
+            beta = ", ".join(f"{v:.6f}" for v in e["beta"])
+            items.append((int(e["degrees"]), 1, i,
+                          f'<article class="shape new"><h3>{html.escape(e["name"])} <span class="tag">new</span></h3>'
+                          f'<p>{html.escape(e["text"])}</p><p class="data">β = ({beta})'
+                          + (f'<br>wall surface: {html.escape(e["surface"])} = 0' if e["surface"] else "")
+                          + f'<br>{html.escape(e["off"])}</p></article>'))
+        P += [h for *_, h in sorted(items)]
         P.append("</section>")
         parts.append("\n".join(P))
     note = (f"This version adds the {sum(len(v) for v in new.values())} new kidecaic and iodecaic shapes found by the "

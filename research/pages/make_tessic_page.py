@@ -63,7 +63,8 @@ def main():
         sid = title.lower().replace(" ", "-")
         nav.append(f'<a href="#{sid}">{html.escape(title)} <span class="n">{len(entries)}</span></a>')
         P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(sintro or "")}</p>']
-        for name, body in entries:
+        from make_decaic_page import text_degrees
+        for name, body in sorted(entries, key=lambda nb: text_degrees(nb[1])):   # (by degrees of variation; stable)
             n = name.lower()
             sub, group = GROUP.get(n, ("full", "tessic"))
             s = S.get((sub, n))

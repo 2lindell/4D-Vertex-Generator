@@ -133,7 +133,7 @@ def main():
         nav.append(f'<a href="#{sid}">{html.escape(title)} <span class="n">{len(rows)}</span></a>')
         P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(intro)}</p>']
         base = lambda n: re.sub(r"(_or_unnamed)?_\d$", "", n)
-        idx = sorted(range(len(rows)), key=lambda i: (base(rows[i][0]) not in names, order[rows[i][1]],
+        idx = sorted(range(len(rows)), key=lambda i: (int(rows[i][2]), base(rows[i][0]) not in names, order[rows[i][1]],
                                                       D[f"{si}:{i}"]["vertices"], rows[i][0]))
         for ri in idx:
             name, kind, dof, seed, sub = rows[ri]

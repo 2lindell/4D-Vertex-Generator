@@ -174,7 +174,7 @@ def main():
         nav.append(f'<a href="#{sid}">{html.escape(title)} <span class="n">{len(rows)}</span></a>')
         P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(intro)}</p>']
         order = {"point": 0, "line": 1, "wall": 2, "region": 3}
-        idx = sorted(range(len(rows)), key=lambda i: (rows[i][0] not in names and "_or_" not in rows[i][0],
+        idx = sorted(range(len(rows)), key=lambda i: (int(rows[i][2]), rows[i][0] not in names and "_or_" not in rows[i][0],
                                                       order.get(rows[i][1], 4), D[f"{si}:{i}"]["vertices"]))
         for ri in idx:
             name, kind, dof, seed, sub, snub = rows[ri]
