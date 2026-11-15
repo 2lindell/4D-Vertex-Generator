@@ -46,7 +46,7 @@ ul { margin: 0; padding-left: 1.2rem; line-height: 1.5; max-width: 78ch; }
   <ul>
     <li>Each shape is shown with only the extent its seeds need once: a shape the 2400-element group carries onto itself is cut to the part no symmetry repeats (<b>X38</b>, turned onto itself by the axis's half-turn: its half on one side of the axis); of a shape and its copies, one is shown (<b>X68</b>'s two sides of X38, which the half-turn carries onto each other: one side).</li>
     <li>Their edges (<b>E1</b>, <b>C2a</b>, <b>B1</b>) and corners (<b>A1</b>, <b>C6</b>) are shown the same way: C2a and B1 cross the axis and the half-turn turns each end for end, so each is shown by its half; E1 and the corners come in pairs the half-turn swaps, so one of each is shown.</li>
-    <li>The view is exploded about the axis: every shape is moved straight out from the axis by the same multiple of its own distance from it (the distance of its middle: a region's volume, a wall's area, an edge's length), so each keeps its place round the axis and the gaps grow with distance. The camera turns round the axis. Walls and edges are solid; a region is shown by its shell, the walls bounding it, see-through.</li>
+    <li>The view is exploded about the axis: the whole picture is scaled up about the axis's point at the centre of the view while every shape keeps its own size (each moved so its middle, of a wall's area or an edge's length, goes out from that point). So every shape keeps its place against its neighbours, with a gap: a corner sits just beyond the ends of its edges, an edge just off its wall's side. A region moves with the wall it lies against and then straight off it, towards its own volume: the walls curve round the axis, so moving it out from the axis would slide it along the wall instead. The camera turns round the axis. Walls and edges are solid; a region is shown by its shell, the walls bounding it, see-through.</li>
   </ul>
 </div>
 <script id="data" type="application/json">__DATA__</script>
@@ -153,9 +153,9 @@ function frame() {
 }
 build();
 resize();
-// the camera turns round the axis: its target the axis's point level with the shapes' middle
+// the camera turns round the view's centre, the axis's point the picture is scaled about
 const box = new THREE.Box3().setFromObject(world), ctr = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3()).length();
-ctr.y = 0; ctr.z = 0;
+ctr.set(0, 0, 0);
 controls.target.copy(ctr); camera.position.copy(ctr).add(new THREE.Vector3(0.35, 0.25, 1).normalize().multiplyScalar(size * 1.2)); controls.update();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", build);
 new MutationObserver(build).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
