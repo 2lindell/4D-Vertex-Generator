@@ -149,6 +149,9 @@ def build(out: Path) -> list[str]:
     # (and its shape map, framed in the page's "Shape map" section)
     if (ROOT / "assets" / "symmetry_domain_shape_map.html").exists():
         shutil.copy2(ROOT / "assets" / "symmetry_domain_shape_map.html", out / "symmetry_domain_shape_map.html")
+    # ... and the axis view (research/swirlprism_atlas/axis_view_page.py): the shapes round a 2400-symmetry axis
+    if (ROOT / "assets" / "symmetry_axis.html").exists():
+        shutil.copy2(ROOT / "assets" / "symmetry_axis.html", out / "symmetry_axis.html")
     # ... and the Octahedral Swirl Symmetry Domain (research/tetraswirl_atlas/build_page.py): the fourth tab
     shutil.copy2(ROOT / "assets" / "tetraswirl_oct_domain.html", out / "tetraswirl_oct_domain.html")
     # ... and the Pennic and Decaic Isogonals page (research/pages/make_decaic_page.py), served on its own
