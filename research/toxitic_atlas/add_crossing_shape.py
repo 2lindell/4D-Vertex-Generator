@@ -40,7 +40,8 @@ for folder, beta, tag in (("new_shapes/off/oxitic", b, "seed"), ("optimized_off/
         out[tag + "_note"] = "moved to another polytope: the seed is written instead"
         beta = b
     V, Vn, idx, faces, cells = G.polytope(beta, 1e-9)
-    name = (f"oxitic_{kind}_" if tag == "seed" else "") + f"{a['name']}_{len(V)}v_{len(cells)}c_{tag}.off"
+    stem = a["name"] if a["name"].startswith("oxitic_") else f"oxitic_{kind}_{a['name']}"
+    name = (stem if tag == "seed" else a["name"]) + f"_{len(V)}v_{len(cells)}c_{tag}.off"
     f = os.path.join(%(root)r, folder, name)
     open(f, "w").write(to_4off(Vn, faces, cells))
     E = [np.linalg.norm(Vn[x] - Vn[y]) for x, y in (tuple(e) for e in hull_edges(faces))]
