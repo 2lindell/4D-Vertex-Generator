@@ -2153,13 +2153,13 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.8111388713576546,
-    0.17303957263960232,
-    0.002436520565222601,
-    0.0133850354375205
+    0.7125427497019027,
+    0.15688152392520993,
+    0.016658224383789718,
+    0.11391750198909775
    ],
-   "depth": null,
-   "central_status": "pending (recentre.py --oxitic)",
+   "depth": 0.06208311080932616,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "opt_off": "optimized_off/oxitic/oxitic_wall_30_576v_2976c_opt.off",
    "opt_counts": [
     576,
@@ -2170,7 +2170,8 @@
    "central_counts": [
     576,
     2976
-   ]
+   ],
+   "central_R": 6.614609621577442
   },
   {
    "group": "oxitic",
@@ -2198,13 +2199,13 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.8592432827660116,
-    0.08308226265040382,
-    0.008104634308265544,
-    0.04956982027531909
+    0.8142659686696151,
+    0.055010834400391485,
+    0.014103198785209069,
+    0.11661999814478438
    ],
-   "depth": null,
-   "central_status": "pending (recentre.py --oxitic)",
+   "depth": 0.07911764144897462,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "opt_off": "optimized_off/oxitic/oxitic_wall_31_576v_2688c_opt.off",
    "opt_counts": [
     576,
@@ -2215,7 +2216,8 @@
    "central_counts": [
     576,
     2688
-   ]
+   ],
+   "central_R": 9.173016113592485
   },
   {
    "group": "oxitic",
@@ -2243,13 +2245,13 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.6462867420465481,
-    0.041673356752295464,
-    0.01890189583147476,
-    0.2931380053696817
+    0.805663471033798,
+    0.05673890139128432,
+    0.009052779157708241,
+    0.12854484841720956
    ],
-   "depth": null,
-   "central_status": "pending (recentre.py --oxitic)",
+   "depth": 0.07378057479858399,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "opt_off": "optimized_off/oxitic/oxitic_wall_32_576v_2688c_opt.off",
    "opt_counts": [
     576,
@@ -2260,7 +2262,8 @@
    "central_counts": [
     576,
     2688
-   ]
+   ],
+   "central_R": 9.431335104492137
   },
   {
    "group": "oxitic",
