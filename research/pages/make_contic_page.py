@@ -47,6 +47,26 @@ def display(name, group):
     return name.capitalize()
 
 
+CROSS = {}  # (shapes found where the map's walls cross: name -> number of walls)
+
+
+def crossings(path):
+    try:
+        T = json.load(open(path))["shapes"]
+    except FileNotFoundError:
+        return []
+    for t in T:
+        CROSS[t["name"]] = len(t["locus"])
+    return T
+
+
+def cross_text(name, kind):
+    n = CROSS[name]
+    return (f" It was found by the crossing search, where {WORD.get(n, n)} of the map's walls cross"
+            + (": a line along their crossing curve." if kind == "line" else ": an isolated point." if kind == "point"
+               else ": on one wall, cut out by the others."))
+
+
 def entries():
     """(section title, group, intro, [(name, kind, degrees, seed, sub, snub)])."""
     S = []
@@ -70,8 +90,10 @@ def entries():
              "Iocontic symmetry [[3,4,3]+] (order 1152) keeps F4's rotations and F4's reflections times the swap. "
              "These are isogonal under it alone.")):
         R = json.load(open(os.path.join(CON, f"optimized_seeds_{sub}.json")))["shapes"]
-        S.append((title, group, names, intro,
-                  [(r["name"], r["kind"], r["degrees"], r["start"], sub, True) for r in R]))
+        rows = [(r["name"], r["kind"], r["degrees"], r["start"], sub, True) for r in R]
+        for t in crossings(os.path.join(CON, f"crossings_{sub}.json")):   # (found where the map's walls cross)
+            rows.append((t["name"], t["kind"], t["degrees"], t["seed"], sub, True))
+        S.append((title, group, names, intro, rows))
     icp = [r for f in ("icp", "icpb") for r in json.load(open(os.path.join(TOX, f"opt_central_{f}.json")))["shapes"]]
     S.append(("Icopyritics", "icopyritic", N.ICOPYRITIC,
               "Icopyritic symmetry [3,4,3+] (order 576) keeps the long mirrors and turns the short ones into rotations: "
@@ -86,6 +108,8 @@ def entries():
               "pysni (icopyritic), its rings sadi, sidpii and icoi.",
               [(r["name"], r["kind"], r["degrees"], r["seed"], "tox", True) for r in tox if r["name"] == "sebtidi"]))
     ox = [r for f in ("ox", "oxb") for r in json.load(open(os.path.join(TOX, f"opt_central_{f}.json")))["shapes"]]
+    for f in ("ox", "oxb"):
+        crossings(os.path.join(TOX, f"crossings_{f}.json"))
     S.append(("Oxitics", "oxitic", N.OXITIC,
               "Oxitic symmetry [[3+,4,3+]] (order 576) adds the swap to toxitic: 48 kitettic and 144 kibrick points, "
               "octagonal, kihexagonal and square rings. The F4 reflections do not preserve it, so a seed and its "
@@ -162,6 +186,8 @@ def main():
             unnamed = not full
             head = f"{label} - ({full})." if full else f"{label} - not yet named."
             body = text(d, group, kind, dof, also)
+            if name in CROSS and not full:
+                body += cross_text(name, kind)
             if "_or_" in name:
                 body += (" Two (or three) atlas shapes fit this name's listed counts; which is which is not settled.")
             beta = ", ".join(f"{v:.6f}" for v in seed)

@@ -95,6 +95,13 @@ def entries():
     S.append(("Kihyics", "kihyic", f"Kihyic symmetry {para['Kihyic']} The map of its chamber is one region: snixhi.",
               [("snixhi", "region", 3, t["example"], "ki") for t in M["types"] if t["grid_regions"]]))
     X = json.load(open(os.path.join(HY, "opt_central_ixitic.json")))["shapes"]
+    for i in range(10):                         # (shapes found where the map's walls cross: crossing_add.py)
+        try:
+            for t in json.load(open(os.path.join(HY, f"crossings_ix{i}.json")))["shapes"]:
+                X.append({**t, "sheet": f"ix{i}"})
+                CROSS[t["name"]] = len(t["locus"])
+        except FileNotFoundError:
+            pass
     S.append(("Ixitics", "ixitic", f"Ixitic symmetry {para['Ixitic']} It has index 10 in hyic, so its domain is ten "
               "copies of the hyic chamber (ten sheets), each mapped by curved walls; the mirrors are seams between "
               "sheets. Below: its regions (three degrees of variation), walls (two), lines (one) and tehi.",
@@ -103,6 +110,9 @@ def entries():
               "has no exact wall forms over the golden field and each sheet is mapped numerically. The ten sheets are "
               "being mapped; this section is filled in when they are done.", []))
     return S
+
+
+CROSS = {}  # (shapes found where the map's walls cross: name -> number of walls)
 
 
 def main():
@@ -137,6 +147,11 @@ def main():
                 body += " Two atlas regions have this name's listed cells; which (if either) it is is not settled."
             elif re.search(r"_\d$", name) and full:
                 body += " Two atlas regions fit this name's listed counts exactly; which is which is not settled."
+            if name in CROSS and not full:
+                n = CROSS[name]
+                body += (f" It was found by the crossing search, where {('two', 'three')[n - 2] if n in (2, 3) else n} "
+                         "of the map's walls cross" + (": a line along their crossing curve." if kind == "line" else
+                                                       ": an isolated point." if kind == "point" else "."))
             if b in nts:
                 body += f" Note: {nts[b][len(b) + 2:] if nts[b].startswith(b) else nts[b]}".rstrip(".") + "."
             head = f"({full})." if full else "not yet named."

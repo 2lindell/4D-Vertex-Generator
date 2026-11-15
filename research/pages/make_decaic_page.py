@@ -78,6 +78,14 @@ def main():
     new_entries = {}
     for sub, group, title in (("ki", "kidecaic", "## Kidecaic: own shapes"), ("io", "iodecaic", "## Iodecaic: own shapes")):
         mine = [r for r in rows if r["group"] == group]
+        try:                                    # (shapes found where the map's walls cross: crossing_add.py)
+            for t in json.load(open(os.path.join(DEC, f"crossings_{sub}.json")))["shapes"]:
+                stem = os.path.basename(t["seed_off"])[:-len("_seed.off")]
+                mine.append({"name": stem, "kind": t["kind"], "degrees": t["degrees"], "beta": t["seed"],
+                             "surface": " and ".join(t["locus"]), "off": os.path.basename(t["seed_off"])})
+                CROSS[stem] = len(t["locus"])
+        except FileNotFoundError:
+            pass
         named = own_named(md, title)
         M = json.load(open(os.path.join(DEC, f"snub_map_{sub}.json")))
         items = [[r["name"], r["beta"], 1e-9 if r["kind"] == "region" else 1e-7] for r in mine]
@@ -116,8 +124,12 @@ def main():
             dof = r["degrees"]
             t = (f"It has {cells_text(d['cells'])}. It has {d['vertices']} vertices with a {d['dualcell_faces']} faced "
                  f"dualcell. It has {edges_text(d['edges'])}. Faces are {faces_text(d['faces'])}. It is isogonal under "
-                 f"{group} symmetry with {WORD[dof]} degrees of variations")
-            if r["kind"] == "wall":
+                 f"{group} symmetry with " + (f"{WORD[dof]} degrees of variations" if dof else "no degrees of variation"))
+            if r["name"] in CROSS:
+                t += (f" and is a transitional case where {WORD[CROSS[r['name']]]} of the map's walls cross" +
+                      (" (a line along their crossing curve)" if r["kind"] == "line" else
+                       " (an isolated point)" if r["kind"] == "point" else " (on one wall, cut out by the others)"))
+            elif r["kind"] == "wall":
                 sides = sorted(disp.get(x, "an unnamed region") for x in nb.get(k, set()) if isinstance(x, str))
                 t += " and is a transitional case"
                 t += f". It is between {listing(sides)}" if sides else ""
@@ -125,14 +137,16 @@ def main():
                 across = sorted({disp.get(x[1], "an unnamed region") for x in nb.get(k, set()) if isinstance(x, tuple)})
                 if across:
                     t += f". On the map it borders {listing(across)}"
-            found = FOUND.get(r["name"])
+            found = FOUND.get(r["name"]) or ("the crossing search (where the map's walls cross)" if r["name"] in CROSS
+                                             else None)
             t += "." + (f" It was found by {found}." if found else "")
             out.append({"name": name, "kind": r["kind"], "text": t, "beta": r["beta"], "surface": r.get("surface") or "",
-                        "off": f"{r['name']}.off", "cells": d["n_cells"]})
+                        "off": r.get("off") or f"{r['name']}.off", "cells": d["n_cells"]})
         new_entries[group] = out
     write_page(new_entries)
 
 
+CROSS = {}  # (crossing shapes: name -> number of walls crossing there)
 # (shapes not found on the map grid: decaic_snub_shapes.md)
 FOUND = {"kidecaic_region_21_120v_680c": "the dense survey of the edge zones",
          "kidecaic_region_22_120v_380c": "the region closure check (walks from every region to its walls)",
