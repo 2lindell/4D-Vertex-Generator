@@ -566,21 +566,26 @@ def view_selections(S, G, region, copies, line_shapes):
     kept = []
     for ids, (rank, name, kind, got) in ranked:
         core = got["wall"] | got["line"]
-        if any(len(core & k[4]) >= SAME_SHARE * len(core) for k in kept):
+        into = next((k for k in kept if len(core & k[4]) >= SAME_SHARE * len(core)), None)
+        if into is not None:
+            into[5].append(name)               # (named on the entry it is folded into)
             continue
-        kept.append((ids, rank, name, kind, core))
+        kept.append((ids, rank, name, kind, core, []))
     res = []
-    for ids, rank, name, kind, core in sorted(kept, key=lambda k: (k[1], k[2], k[0])):
-        res.append({"name": name, "kind": kind, "ids": list(ids)})
+    for ids, rank, name, kind, core, folded in sorted(kept, key=lambda k: (k[1], k[2], k[0])):
+        also = sorted({f.replace("the ", "", 1) for f in folded} - {name.replace("the ", "", 1)})
+        res.append({"name": name + (f" (also covers: {'; '.join(also)})" if also else ""), "kind": kind, "ids": list(ids)})
     # (several entries of one name: numbered, with their walls, so they can be told apart)
+    base = lambda nm: nm.split(" (also covers: ")[0]
     count = defaultdict(int)
     for e in res:
-        count[e["name"]] += 1
+        count[base(e["name"])] += 1
     seen_n = defaultdict(int)
     for e in res:
-        if count[e["name"]] > 1:
-            seen_n[e["name"]] += 1
-            e["name"] = f"{e['name']}, copy {seen_n[e['name']]}"
+        b_ = base(e["name"])
+        if count[b_] > 1:
+            seen_n[b_] += 1
+            e["name"] = f"{b_}, copy {seen_n[b_]}" + e["name"][len(b_):]
     return res
 
 
