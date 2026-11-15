@@ -98,8 +98,13 @@ def main():
         _, s, Vt = np.linalg.svd(g - np.eye(4))
         u, v = Vt[2], Vt[3]
         th = np.linspace(0, np.pi, n, endpoint=False)
+        ck = os.path.join(HERE, f"fixed_circles_{size}.partial.json")    # (the samples kept, so a rerun resumes)
         with Pool(int(os.environ.get("NPROC", "2")), initializer=init, initargs=((u, v),)) as P:
-            keys = P.map(lab, th, chunksize=8)
+            if os.path.exists(ck) and json.load(open(ck))["n"] == n:
+                keys = json.load(open(ck))["keys"]
+            else:
+                keys = P.map(lab, th, chunksize=8)
+                json.dump({"n": n, "keys": keys}, open(ck, "w"))
             keys.append(keys[0])                # (the circle closes: pi is 0 again, x -> -x)
             th = np.append(th, np.pi)
             ch = [(th[i], th[i + 1], keys[i], keys[i + 1]) for i in range(n) if keys[i] != keys[i + 1]]
@@ -114,7 +119,7 @@ def main():
         for b in B:
             for x, k in b["between"]:
                 pts.setdefault(k, x)
-        found = {s_["key"] for s_ in stretches if s_["key"]} | set(pts)
+        found = ({s_["key"] for s_ in stretches} | set(pts)) - {None}
         miss = sorted(k for k in found if k not in recorded and k not in known)
         line_keys = {s_["key"] for s_ in stretches if s_["key"]}
         kind_wrong = sorted(k for k in found if k in recorded and
@@ -125,7 +130,7 @@ def main():
              "not_recorded": miss, "kind_differs": kind_wrong}
         out["circles"].append(c)
         md += [f"## Half-turns of the class of {size}", "",
-               f"{n} samples round the line, {len(ch)} changes of key, {len(stretches)} stretches, {len(pts)} points "
+               f"{n} samples round the line ({sum(k is None for k in keys)} failed to label), {len(ch)} changes of key, {len(stretches)} stretches, {len(pts)} points "
                f"between stretches. Keys met: {len(c['keys'])}; recorded by fixed_lines.py or the atlas: "
                f"{len(c['keys']) - len(miss)}; not recorded: {len(miss)}" + (f" ({', '.join(miss)})" if miss else "")
                + (f". Kind differs from the record: {', '.join(kind_wrong)}" if kind_wrong else "") + ".", ""]
