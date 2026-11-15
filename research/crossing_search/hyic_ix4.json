@@ -1,0 +1,12 @@
+{
+ "sheet": "ix4",
+ "surfaces": 2,
+ "pairs": 1,
+ "triples": 0,
+ "crossing_points": 4,
+ "known_keys": 263,
+ "keys_seen": {
+  "2e644f68b084": 4
+ },
+ "candidates": {}
+}

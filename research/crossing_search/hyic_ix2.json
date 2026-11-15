@@ -1,0 +1,44 @@
+{
+ "sheet": "ix2",
+ "surfaces": 18,
+ "pairs": 153,
+ "triples": 238,
+ "crossing_points": 539,
+ "known_keys": 263,
+ "keys_seen": {
+  "5efe53c04ebf": 144,
+  "177447212efe": 34,
+  "2d204abb7643": 51,
+  "50b35e15fd85": 25,
+  "d243a1e80043": 58,
+  "48f481bb1e96": 14,
+  "271a2ad0dfa9": 12,
+  "270d63cd9ba9": 22,
+  "cb91436c3354": 7,
+  "a0f7c29fa0bd": 13,
+  "d0c143c7e8a3": 4,
+  "2da1ce87ceec": 2,
+  "abf2453f3aa8": 4,
+  "d9ca4ec7c345": 46,
+  "1ca8c88a3c09": 25,
+  "30ef0dbd6ae9": 72,
+  "a783fa88caa2": 6
+ },
+ "candidates": {
+  "d9ca4ec7c345": {
+   "kind": "line",
+   "seed": [
+    0.04382381184323489,
+    0.05773598967133906,
+    0.10590173672277493,
+    0.7925384617626512
+   ],
+   "surfaces": [
+    "b1*b2 - 3*b1*b3/2 + sqrt(5)*b1*b3/2 + b2**2 - sqrt(5)*b2*b3 + 2*b2*b3 - sqrt(5)*b3**2 + 2*b3**2",
+    "b1*b2 - sqrt(5)*b1*b4 + 2*b1*b4 + b2**2 - sqrt(5)*b2*b3/2 + 3*b2*b3/2"
+   ],
+   "hits": 46,
+   "signature": "1440: cells 120x[12v20f]+120x[12v20f]+480x[6v5f]+720x[8v10f] | faces 480x3g+480x3g+480x3g+1440x3g+1440x3g+1440x3g+1440x4g | edges 720x4+720x4+1440x3+1440x3+1440x3+1440x3"
+  }
+ }
+}

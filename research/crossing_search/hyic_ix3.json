@@ -1,0 +1,22 @@
+{
+ "sheet": "ix3",
+ "surfaces": 14,
+ "pairs": 91,
+ "triples": 45,
+ "crossing_points": 170,
+ "known_keys": 263,
+ "keys_seen": {
+  "30ef0dbd6ae9": 88,
+  "a783fa88caa2": 7,
+  "d243a1e80043": 21,
+  "a0f7c29fa0bd": 24,
+  "177447212efe": 7,
+  "cb91436c3354": 1,
+  "2da1ce87ceec": 9,
+  "11c376e3c804": 3,
+  "d0c143c7e8a3": 3,
+  "abf2453f3aa8": 4,
+  "5efe53c04ebf": 3
+ },
+ "candidates": {}
+}
