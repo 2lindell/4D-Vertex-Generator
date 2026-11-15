@@ -194,6 +194,37 @@ CORRECTIONS = {
 }
 
 
+# Identifications made by deduction rather than by the counts alone (kept separate from CORRECTIONS: nothing on the
+# list is changed or removed; each entry keeps its row and gets this atlas shape, marked "deduced"). A 1440-vertex
+# ixoic shape has its seed fixed by one half-turn, and both half-turn lines were traced whole (hyic_atlas/
+# fixed_circles.py): they give 16 shapes, all on the list. Keyed as CORRECTIONS.
+LINE90 = ("on the line of the 90-class half-turns the order is Sagypbittid 7465, 9fc73, Gasbittid baf95, 9fc73, "
+          "Sagypbittid, Gagypbittid, mirror-symmetric, so both 9fc73 stretches are one shape; only 9fc73 and baf95 have "
+          "vertex figure 55,4^4,3^12, against four list entries (Masbittid, Gasbittid, Sabgypsobted, Gabgypsobted)")
+DEDUCED = {
+    "Masbittid": ("9fc73ba17c51", "the same shape as Sabgypsobted: " + LINE90 + ". Its 1440 tetrahedra have 2-fold "
+                                  "symmetry only (phyllic disphenoids). Masbittid has no ixo-1440 number"),
+    "Sabgypsobted": ("9fc73ba17c51", "the same shape as Masbittid: " + LINE90 + ". Its 1440 tetrahedra have 2-fold "
+                                     "symmetry only, the listed phydows"),
+    "Gasbittid": ("baf95c7dc2b1", "the same shape as Gabgypsobted (see there). Gasbittid has no ixo-1440 number"),
+    "Gabgypsobted": ("baf95c7dc2b1", "the same shape as Gasbittid, next to Sabgypsobted on its line: " + LINE90 +
+                                     ". With it the 15 numbered ixo-1440 entries and the unnamed 555566,4^4,3^4 are "
+                                     "exactly the 16 shapes on the half-turn lines. Its 1440 tetrahedra have 2-fold "
+                                     "symmetry only, the listed phydows. The listed edge column 5568,4^5,3^6 would then "
+                                     "read 55668,44,3^8 (Gasbittid's); both sum to 62, so the list's own check cannot "
+                                     "tell. The least certain of these deductions"),
+    "Magypsobted": ("85a06f9fec4f", "by position: on the line of the 180-class half-turns the order is Sagypsobted 01f5, "
+                                    "85a06f, Gagypsobted 7880, Gypsobted 0962, 612fa0, Awosbited 9700, and the medial "
+                                    "one sits between the small and the great. The cells do not decide (85a06f and "
+                                    "612fa0 both have 240 snits, 480 trigyps, 720 rhodows, 1440 phydows, 2880 irr. "
+                                    "tets). Also ixitic magypsobtady_1"),
+    "555566,4^4,3^4": ("612fa060af7c", "by position, as Magypsobted is 85a06f (see there): between Gypsobted and "
+                                       "Awosbited on the line of the 180-class half-turns. Also ixitic magypsobtady_2"),
+}
+NOT_1440 = ("kept as listed, but no ixoic shape has these counts at 1440 vertices: both half-turn lines, where every "
+            "1440 lies, were traced whole and their 16 shapes are all matched above")
+
+
 def check(e):
     """The list's two columns must agree: summed over a vertex's edges, the faces at each edge (fifth column) count
     the same cell-edge pairs as the vertex figure's edges per cell (sixth column). None when either is missing."""
@@ -224,16 +255,21 @@ def main():
         label = e["name"] or f"(unnamed {e['vertices']} {e['profile_text']})"
         bad = check(e)
         fix = CORRECTIONS.get(f"{e['name']} {e['vertices']}") or CORRECTIONS.get(e["name"] or e["profile_text"])
+        ded = None if fix else DEDUCED.get(e["name"] or e["profile_text"].strip())
         if fix:
             cand = [a for a in A if a["key"] == fix[0]]
+        elif ded:
+            cand = [a for a in A if a["key"] == ded[0]]
         if len(cand) == 1:
             a = cand[0]
             note = "" if not fig or a["figure"] == fig else f"vertex figure {fmt(a['figure'])}, listed {e['figure']}"
             if fix:
                 note = "corrected: " + fix[1]
+            elif ded:
+                note = "deduced: " + ded[1] + ("; " + note if note else "") + ("; " + bad if bad else "")
             elif bad:
                 note = "; ".join(x for x in (note, bad) if x)
-            rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | {a['key']} | {a['kind']} ({a['source']}) | {note} |")
+            rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | {a['key']} | {a['kind']} ({a['source']}){' — deduced' if ded else ''} | {note} |")
             if e["name"]:
                 names.setdefault(a["key"], []).append({"name": e["name"], "full": e["full"], "related": e["related"]})
             used.add(a["key"])
@@ -242,7 +278,9 @@ def main():
                        f"{len(cand)} fit | not settled{'; ' + bad if bad else ''} |")
             used |= {a["key"] for a in cand}
         else:
-            rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | — | not found | {bad or ''} |")
+            why = NOT_1440 if e["vertices"] == 1440 else ""
+            rep.append(f"| {label} | {e['vertices']} | {e['profile_text']} | — | not found | "
+                       f"{'; '.join(x for x in (why, bad) if x)} |")
     out = ["# Ixoic list matched to the atlas", "", __doc__.strip().split("\n\n")[1], "",
            "| list entry | vertices | edge profile | atlas key | kind | note |", "|---|---|---|---|---|---|"] + rep
     rest = [a for a in A if a["key"] not in used]
@@ -258,9 +296,9 @@ def main():
                 "ixitic group of its sheet. Where the vertices and edges agree it is the same polychoron, isogonal under "
                 "ixitic too; where the ixitic orbit has half the vertices, the half-turn fixing the seed is in ixitic and "
                 "the ixitic shape there is a different one. Suggested names (not on the list) follow the list's own "
-                "pairs, '... Snub Bitetrahedral 240' and '... Snub Bitetrahedral Dis120'. The two unnamed lines "
-                "85a06f9fec4f and 612fa060af7c are the list's Magypsobted and its unnamed entry with the same counts, "
-                "and the ixitic magypsobtady_1 and _2 respectively: settling one tie settles the other.", "",
+                "pairs, '... Snub Bitetrahedral 240' and '... Snub Bitetrahedral Dis120'. The lines 85a06f9fec4f and "
+                "612fa060af7c, deduced above to be the list's Magypsobted and its unnamed entry with the same counts, "
+                "are the ixitic magypsobtady_1 and _2 respectively.", "",
                 "| ixoic | name | vertices | ixitic | ixitic name | relation |", "|---|---|---|---|---|---|"]
         for r in R:
             nm = r["ixitic_name"] or "—"

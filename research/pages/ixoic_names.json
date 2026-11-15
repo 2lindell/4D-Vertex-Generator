@@ -72,6 +72,11 @@
    "name": "Gasbittid",
    "full": "Great Snub Bitetratetrahedral 240",
    "related": ""
+  },
+  {
+   "name": "Gabgypsobted",
+   "full": "Great Bigyroprismatic Snub Bitetrahedral 240",
+   "related": ""
   }
  ],
  "f86ef4998f60": [
@@ -134,6 +139,13 @@
   {
    "name": "Petsobted",
    "full": "Prismatic Transitional Snub Bitetrahedral 240",
+   "related": "Ixitic"
+  }
+ ],
+ "85a06f9fec4f": [
+  {
+   "name": "Magypsobted",
+   "full": "Medial Gyroprismatic Snub Bitetrahedral 240",
    "related": "Ixitic"
   }
  ],

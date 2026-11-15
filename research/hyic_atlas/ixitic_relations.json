@@ -125,7 +125,8 @@
   {
    "ixoic": "baf95c7dc2b1",
    "names": [
-    "Gasbittid"
+    "Gasbittid",
+    "Gabgypsobted"
    ],
    "kind": "line",
    "vertices": 1440,
@@ -272,7 +273,9 @@
   },
   {
    "ixoic": "85a06f9fec4f",
-   "names": [],
+   "names": [
+    "Magypsobted"
+   ],
    "kind": "line",
    "vertices": 1440,
    "sheet": "ixo0 (mid-stretch)",

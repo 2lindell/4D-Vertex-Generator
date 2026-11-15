@@ -17,7 +17,7 @@ valence agree; the ixitic shape is named from opt_central_ixitic.json / the cros
 | 7465267cd9b6 | Sagypbittid | 1440 | line | 12dbebd1e5f4 | ratehi | line | half (720 vertices) |
 | 7ce9604523ae | Gagypbittid | 1440 | line | 12dbebd1e5f4 | ratehi | line | half (720 vertices) |
 | 9fc73ba17c51 | Masbittid, Sabgypsobted | 1440 | line | 12dbebd1e5f4 | ratehi | line | half (720 vertices) |
-| baf95c7dc2b1 | Gasbittid | 1440 | line | 3745ab4a85c6 | sabtedy | line | half (720 vertices) |
+| baf95c7dc2b1 | Gasbittid, Gabgypsobted | 1440 | line | 3745ab4a85c6 | sabtedy | line | half (720 vertices) |
 | f86ef4998f60 | Bamtuted | 1440 | point | 12dbebd1e5f4 | ratehi | line | half (720 vertices) |
 | 002f275609bc | Sagybted | 480 | point | 93e27c1e3d43 | sagyptady | line | same |
 | 83922e6f3606 | Gagybted | 480 | point | b4ad37d86d09 | gagyptady | line | same |
@@ -27,7 +27,7 @@ valence agree; the ixitic shape is named from opt_central_ixitic.json / the cros
 | 1e8454f185ca | Regposbitad | 1440 | point | d9ca4ec7c345 | ixitic_line_01 | — | same |
 | 612fa060af7c | — | 1440 | line | eaa102928f4e | magypsobtady_2 | region | same |
 | 7880b9e5cd1a | Gagypsobted | 1440 | line | 5efe53c04ebf | ixitic_region_12 | region | same |
-| 85a06f9fec4f | — | 1440 | line | 9fbf16135e07 | magypsobtady_1 | region | same |
+| 85a06f9fec4f | Magypsobted | 1440 | line | 9fbf16135e07 | magypsobtady_1 | region | same |
 | 8ef1c968ad64 | Petsobted | 1440 | point | 177447212efe | petsobtady | wall | same |
 | 9700535b0ae7 | Awosbited | 1440 | line | ce1564d83d55 | awosbitdy | wall | same |
 | 992e194bf999 | Tetsobted | 1440 | point | b3a63ce8a55e | ixitic_wall_01 | wall | same |
