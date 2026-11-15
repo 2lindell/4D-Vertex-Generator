@@ -31,12 +31,12 @@ AXIS_ELEMENT = 1200 + 368          # the half-turn whose axis X38 runs along (in
 # is centred on) while each shape keeps its own size: each shape moved so its middle (a wall's area, an
 # edge's length) goes from m to EXPLODE * m. Every shape then keeps its place against its neighbours,
 # with a gap: a corner just beyond its edges' ends, an edge just off its wall's side.
-# A region is moved with the wall it lies against and then off it, along the wall's normal towards the
-# region's volume, by REGION_STEP: the walls curve round the axis, so the region's middle (here almost on
-# the axis) would slide it along the wall rather than off it.
+# A region moves with the walls bounding it (the mean of their moves), and each of those walls then moves
+# off it, along the wall's normal away from the region's volume, by WALL_STEP: the walls curve round
+# the axis, so moving by the region's middle (here almost on the axis) would slide it along them.
 EXPLODE = 1.8
-REGION_STEP = 0.07
-NEAR = ("X38", "X68")              # the shapes whose edges and corners are shown with them
+WALL_STEP = 0.05
+NEAR = ("X38", "X68", "X99")              # the shapes whose edges and corners are shown with them
 
 
 def _patch_triangles(D, doc, z):
@@ -174,6 +174,11 @@ def build() -> dict:
     o = regions["X68"]["orbits"][0]
     shell = [(k, pid) for b in o["boundary"] for k, pid in b["parts"] if pid in tris]
     X68 = np.concatenate([np.einsum("ij,ntj->nti", G[k], tris[pid]) for k, pid in shell])
+    x68_faces = defaultdict(list)                 # (its shell's faces, one per wall)
+    for b in o["boundary"]:
+        for k, pid in b["parts"]:
+            if pid in tris:
+                x68_faces[b["wall"]].append(np.einsum("ij,ntj->nti", G[k], tris[pid]))
     # (X68's middle: the middle of its volume, from its pieces' samples weighted by their volumes)
     pcs = {pc["id"]: pc for pc in json.loads((root / "pieces.json").read_text())["pieces"]}
     mem = o["members"] if isinstance(o["members"], list) else json.loads(o["members"])
@@ -221,12 +226,14 @@ def build() -> dict:
 
     shapes = [
         {"id": "X38", "kind": "wall", "note": "half: the axis's half-turn carries X38 onto itself",
-         "T": half(X38)},
+         "T": half(X38), "bounds": "X68"},
+        {"id": "X99", "kind": "wall", "note": "one of two copies, one bounding each side of X68 (the half-turn carries each onto the other)",
+         "T": np.concatenate(x68_faces["X99"]), "bounds": "X68"},
         {"id": "X68", "kind": "region", "note": "one of its two sides of X38 (the half-turn carries each onto the other)",
-         "T": X68, "mid": x68_mid, "against": "X38"},
+         "T": X68, "mid": x68_mid},
     ]
     shapes += _edges_and_corners(H, u, half)
-    out, moved = [], {}
+    # first every shape's own middle and its move out from the view's centre
     for s_ in shapes:
         key = "T" if "T" in s_ else "path" if "path" in s_ else "at"
         T3 = chart(np.asarray(s_[key]))
@@ -238,18 +245,23 @@ def build() -> dict:
             cen = (ln[:, None] * (T3[1:] + T3[:-1]) / 2).sum(0) / max(ln.sum(), 1e-12)
         else:
             cen = T3
-        if "against" in s_:
-            # with its wall, then off it: the normal of the wall's best plane, turned
-            # towards the region's volume
-            w = moved[s_["against"]]
+        s_.update(key=key, T3=T3, shift=(EXPLODE - 1) * cen)
+    by = {s_["id"]: s_ for s_ in shapes}
+    # a region with its walls; each of its walls then off it, away from its volume
+    for s_ in shapes:
+        walls = [w for w in shapes if w.get("bounds") == s_["id"]]
+        if s_["kind"] == "region" and walls:
+            s_["shift"] = np.mean([w["shift"] for w in walls], 0)
+    for w in shapes:
+        if "bounds" in w:
+            r = by[w["bounds"]]
             P = w["T3"].reshape(-1, 3)
             n = np.linalg.svd(P - P.mean(0), full_matrices=False)[2][2]     # (its best plane's normal)
-            n *= np.sign(n @ (chart(s_["mid"]) - w["cen"]))
-            T3 = T3 + w["shift"] + REGION_STEP * n
-        else:
-            shift = (EXPLODE - 1) * cen                      # (out from the view's centre, on the axis)
-            T3 = T3 + shift
-            moved[s_["id"]] = {"T3": T3, "cen": cen, "shift": shift}
+            n *= -np.sign(n @ (chart(r["mid"]) - P.mean(0)))
+            w["shift"] = w["shift"] + WALL_STEP * n
+    out = []
+    for s_ in shapes:
+        key, T3 = s_["key"], s_["T3"] + s_["shift"]
         rec = {"id": s_["id"], "kind": s_["kind"], "note": s_["note"]}
         if key == "T":
             V3, F3 = np.unique(T3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
