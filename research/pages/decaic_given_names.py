@@ -56,8 +56,10 @@ GIVEN = {
                                    "Walls 18 and 24 have the same columns; told apart " + ORDER + "."),
     "kidecaic_wall_24_120v_440c": ("Ebybosid", "Epsilon Bipyramidic Biomnisnub Decachoron",
                                    "Walls 18 and 23 have the same columns; told apart " + ORDER + "."),
-    "iodecaic_region_01_120v_500c": ("Dawosbid", "Disphenoidal Omnisnub Bidecachoron", ""),
-    "iodecaic_wall_02_120v_260c": ("Bosbid", "Bipyramidal Omnisnub Bidecachoron", ""),
+    "iodecaic_region_01_120v_500c": ("Gosbid", "Great Omnisnub Bidecachoron",
+                                     "First named Dawosbid (Disphenoidal Omnisnub Bidecachoron); the list's earlier Gosbid "
+                                     "is now Mosbid."),
+    "iodecaic_wall_02_120v_260c": ("Bipyosbid", "Bipyramidal Omnisnub Bidecachoron", ""),
     "kidecaic_line_25_120v_200c": ("Sawbosid", "Small Antiwedged Biomnisnub Decachoron",
                                    "Line 26 (Gawbosid) has the same columns; told apart " + ORDER + "."),
     "kidecaic_line_26_120v_200c": ("Gawbosid", "Great Antiwedged Biomnisnub Decachoron",
@@ -69,12 +71,65 @@ GIVEN = {
 # the named entries of the original page whose names changed (old heading -> (name, full name))
 RENAMED = {"Sabosid": ("Abosid", "Alpha Biomnisnub Decachoron"),
            "Mebosid": ("Bebosid", "Beta Biomnisnub Decachoron"),
-           "Gabosid": ("Gabosid", "Gamma Biomnisnub Decachoron")}
+           "Gabosid": ("Gabosid", "Gamma Biomnisnub Decachoron"),
+           "Gosbid": ("Mosbid", "Medial Omnisnub Bidecachoron")}
 
 
 def given(name):
     """(short, full, note) for an atlas name (with or without the _NNNv_NNNc ending), or None."""
     for k, v in GIVEN.items():
+        if name == k or k.startswith(name + "_") or name.startswith(k):
+            return v
+    return None
+
+
+# The unnamed kicontic and iocontic shapes, named from their kidecaic / iodecaic counterparts with the last d swapped for
+# a c (2026-11-16). Counterparts: the same edges at a vertex by how many cells meet there (the contic counts are
+# 1152/120 = 9.6 times the decaic ones); where several decaic shapes share those, the one nearest on the map (the two maps
+# are laid out alike: every pair matched this way is within 0.4 of each other in beta, every other candidate 0.66 or
+# more away). Full names: Decachoron -> 48, as the listed contic snubs (Small Biomnisnub 48, Small Omnisnub Bi48).
+CONTIC_FROM_DECAIC = {
+    "kicontic_region_02_1152v_5280c": "Debosid",
+    "kicontic_region_03_1152v_5280c": "Ebosid",
+    "kicontic_region_07_1152v_5280c": "Zebosid",
+    "kicontic_region_08_1152v_5280c": "Hebosid",
+    "kicontic_region_09_1152v_6432c": "Bedwebosid",
+    "kicontic_region_10_1152v_6432c": "Zedwebosid",
+    "kicontic_region_11_1152v_6432c": "Adwebosid",
+    "kicontic_region_12_1152v_6432c": "Gadwebosid",
+    "kicontic_region_13_1152v_6432c": "Edwebosid",
+    "kicontic_region_14_1152v_6432c": "Dedwebosid",
+    "kicontic_wall_02_1152v_3552c": "Bepybosid",
+    "kicontic_wall_03_1152v_3552c": "Epybosid",
+    "kicontic_wall_07_1152v_3552c": "Zepybosid",
+    "kicontic_wall_08_1152v_3552c": "Hepybosid",
+    "kicontic_wall_23": "Thepybosid",
+    "kicontic_wall_24": "Gabybosid",
+    "kicontic_line_25": "Sawbosid",
+    "kicontic_line_26": "Gawbosid",
+    "iocontic_region_03_1152v_4704c": "Gosbid",
+    "iocontic_wall_06": "Bipyosbid",
+}
+
+
+def _contic(dname):
+    full = next(v[1] for v in GIVEN.values() if v[0] == dname)
+    full = full.replace("Bidecachoron", "Bi48").replace("Decachoron", "48")
+    return (dname[:-1] + "c", full, f"Named from the {'iodecaic' if 'osbid' in dname else 'kidecaic'} {dname}, its "
+            "counterpart: the same edges at a vertex, and the nearest of those on the map.")
+
+
+CONTIC_GIVEN = {k: _contic(v) for k, v in CONTIC_FROM_DECAIC.items()}
+# (the listed contic names changed to follow their decaic counterparts: Gosbid -> Mosbid)
+CONTIC_RENAMED = {"gosbic": ("Mosbic", "Medial Omnisnub Bi48")}
+
+
+def given_any(name):
+    """given() for decaic names, then the contic ones."""
+    g = given(name)
+    if g:
+        return g
+    for k, v in CONTIC_GIVEN.items():
         if name == k or k.startswith(name + "_") or name.startswith(k):
             return v
     return None

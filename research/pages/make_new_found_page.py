@@ -21,7 +21,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 from make_decaic_page import WORD, cells_text, edges_text, faces_text  # noqa: E402
 from suggested_names import SUGGESTED  # noqa: E402
-from decaic_given_names import given  # noqa: E402
+from decaic_given_names import given_any as given  # noqa: E402
 
 ENV = {"contic_atlas": "CONTIC_SUB", "decaic_atlas": "DECAIC_SUB", "hyic_atlas": "HYIC_SUB", "toxitic_atlas": "CONTIC_SUB"}
 DEG = {"region": 3, "wall": 2, "line": 1, "point": 0}

@@ -204,6 +204,9 @@ def write_page(new):
             if title == "Kidecaics":
                 sintro += (" Sabosid and Mebosid are now Abosid and Bebosid; Gabosid is now the Gamma (not Great) "
                            "biomnisnub decachoron.")
+            if title == "Iodecaics":
+                sintro += (" The list's Gosbid is now Mosbid (medial omnisnub bidecachoron); Gosbid is now the region "
+                           "first named Dawosbid.")
         P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(sintro)}</p>']
         items = []                              # (degrees of variation first; named before new; then as listed)
         for i, e in enumerate(entries):

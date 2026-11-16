@@ -59,10 +59,10 @@ The differences, all kept on the list as given:
 | list name | atlas shape | edges at a vertex | vertex figure |
 |---|---|---|---|
 | Sosbid | sosbid | 5^4,4^5,33 | 544,3^11 |
-| Gosbid | gosbid | 55556,4,3^6 (the list has "55556,43^6") | 5,4^4,3^9 |
-| Dawosbid | region 01 | 6^3,5^4,44,3^4 | 544,3^15 |
+| Mosbid (was Gosbid) | gosbid | 55556,4,3^6 (the list has "55556,43^6") | 5,4^4,3^9 |
+| Gosbid (first Dawosbid) | region 01 | 6^3,5^4,44,3^4 | 544,3^15 |
 | Tetosbid | tetosbid | 4^4,3^4 | 5,44,3^5 |
 | Petosbid | petosbid | 444,3^6 | 55,44,3^4 |
-| Bosbid (Bipyramidal Omnisnub Bidecachoron) | wall 02 (260 cells) | 4^7,3^4 | 5,4^5,3^5 |
+| Bipyosbid (Bipyramidal Omnisnub Bidecachoron) | wall 02 (260 cells) | 4^7,3^4 | 5,4^5,3^5 |
 
-The iodecaic wall 02, between Sosbid and Dawosbid, was named afterwards: Bosbid, the Bipyramidal Omnisnub Bidecachoron.
+The iodecaic wall 02, between Sosbid and the new Gosbid, was named afterwards: Bipyosbid, the Bipyramidal Omnisnub Bidecachoron. Later renames: the list's Gosbid is now Mosbid (Medial Omnisnub Bidecachoron), and region 01, first Dawosbid, is now Gosbid (Great Omnisnub Bidecachoron).

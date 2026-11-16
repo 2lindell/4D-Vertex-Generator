@@ -24,6 +24,7 @@ CON = os.path.join(ROOT, "contic_atlas")
 TOX = os.path.join(ROOT, "toxitic_atlas")
 sys.path.insert(0, HERE)
 import contic_names as N  # noqa: E402
+from decaic_given_names import CONTIC_GIVEN, CONTIC_RENAMED  # noqa: E402
 from make_decaic_page import WORD, cells_text, edges_text, faces_text  # noqa: E402
 
 
@@ -87,7 +88,7 @@ def entries():
             ("ki", "Kicontics", "kicontic", N.KICONTIC,
              "Kicontic symmetry [[3,4,3]]+ (order 1152) is the rotation half of contic. These are isogonal under it "
              "alone and are chiral: the biomnisnub 48s, the snub 48 (snoc) on the line b1 = b4, b2 = b3, and the "
-             "regions and walls the map found that the list does not name."),
+             "regions, walls and lines the atlas found, named from their kidecaic counterparts."),
             ("io", "Iocontics", "iocontic", N.IOCONTIC,
              "Iocontic symmetry [[3,4,3]+] (order 1152) keeps F4's rotations and F4's reflections times the swap. "
              "These are isogonal under it alone.")):
@@ -185,16 +186,27 @@ def main():
                 a, b = name.split("_or_")[0], re.sub(r"_\d$", "", name.split("_or_")[1])
                 full = f"{names.get(a, ('',))[0]} or {names.get(b, ('',))[0]}".strip(" or")
             label = display(name, group)
+            gv = CONTIC_GIVEN.get(f"{group}_{name}")
+            if gv:                              # (named from its decaic counterpart)
+                atlas, label, full = label, gv[0], gv[1]
+            if name in CONTIC_RENAMED:
+                old = label
+                label, full = CONTIC_RENAMED[name]
+                full += f"; formerly {old}"
             unnamed = not full
             head = f"{label} - ({full})." if full else f"{label} - not yet named."
+            if gv:
+                head = f"{label} - ({full}; {atlas} in the atlas)."
             body = text(d, group, kind, dof, also)
-            if name in CROSS and not full:
+            if name in CROSS and (not full or gv):
                 body += cross_text(name, kind)
+            if gv:
+                body += " " + gv[2]
             if "_or_" in name:
                 body += (" Two (or three) atlas shapes fit this name's listed counts; which is which is not settled.")
             beta = ", ".join(f"{v:.6f}" for v in seed)
-            cls = "shape new" if unnamed else "shape"
-            tag = ' <span class="tag">new</span>' if unnamed else ""
+            cls = "shape new" if unnamed or gv else "shape"
+            tag = ' <span class="tag">new</span>' if unnamed else (' <span class="tag">named</span>' if gv else "")
             P.append(f'<article class="{cls}"><h3>{html.escape(label)}{tag}</h3><p>{html.escape(head[len(label) + 3:])} '
                      f'{html.escape(body)}</p><p class="data">β = ({beta}) · {d["n_cells"]} cells · {kind}'
                      + (f" · {sub} sheet" if sub in ("oxb", "icpb") else "") + '</p></article>')
@@ -202,13 +214,16 @@ def main():
         P.append("</section>")
         parts.append("\n".join(P))
     tpl = open(os.path.join(HERE, "page_template.html")).read()
-    n_new = sum(1 for s in secs for r in s[4] if r[0] not in s[2] and "_or_" not in r[0])
+    n_new = sum(1 for s in secs for r in s[4] if r[0] not in s[2] and "_or_" not in r[0]
+                and f"{s[1]}_{r[0]}" not in CONTIC_GIVEN)
     intro = (f"There are {total} isogonal polychora with one or more of the icoic family symmetries (F4 = [3,4,3] and "
              "the groups around it) listed below, by the symmetry under which each is isogonal and no larger one.")
     note = (f"Every entry is written from the polychoron itself at the seed given (β = distances to the four F4 mirrors, "
             f"b1 and b2 long, b3 and b4 short): cells by orbit, vertices with the dualcell's face count, edges by how "
-            f"many faces meet there, faces by shape. Names and full names are from the accepted lists; the {n_new} "
-            "shapes marked new were found by the atlas and are not yet named.")
+            f"many faces meet there, faces by shape. Names and full names are from the accepted lists; the {len(CONTIC_GIVEN)} "
+            "kicontic and iocontic shapes marked named were found by the atlas and are named from their kidecaic and "
+            f"iodecaic counterparts (the last d of the decaic name swapped for a c); the {n_new} marked new are not yet "
+            "named.")
     page = (tpl.replace("{{TITLE}}", "Icoic and Contic Isogonals").replace("{{INTRO}}", html.escape(intro))
             .replace("{{NOTE}}", html.escape(note)).replace("{{NAV}}", "\n".join(nav)).replace("{{SECTIONS}}", "\n".join(parts))
             .replace("{{FOOTER}}", "Made by research/pages/make_contic_page.py from the contic and toxitic atlases "
