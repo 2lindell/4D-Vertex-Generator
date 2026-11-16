@@ -41,7 +41,8 @@ from .frame import cell_vertices, data_dir, group, locate, point_from_beta, sour
 AXIS_ELEMENT = 1200 + 368          # the half-turn whose axis X38 runs along (in the 2400-element group)
 GAP = 0.15                         # each shape's distance from the shapes on its boundary, in the view
 NEAR = 0.035                       # the neighbourhood of a boundary shape a direction is read in
-HOLD = 0.05                        # how weakly each shape is held to its true place
+EXPLODE = 1.5                      # the corners (and any shape with nothing shown on its boundary) spread
+                                   # as the picture scaled by this about the view's centre
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 RING = 0.30                        # how far the walls and regions round an edge stand from it
 MAX_ANGLE = 70                     # how far round the sphere from the view's centre a shape may reach
@@ -550,21 +551,29 @@ def build() -> dict:
                          "shown_span_deg": round(float(np.degrees(new[-1] - new[0])), 1)}
         for th, o in zip(new, order):
             rows[ring[o]] = (rows[ring[o]][0], rows[ring[o]][1], RING / GAP * (np.cos(th) * b1 + np.sin(th) * b2))
+    # the moves, from the lowest shapes up, each from the shapes on its boundary only (no shape's move
+    # feeds back into those below it, and no chain is longer than corner, edge, wall, region):
+    # a shape with nothing shown on its boundary (the corners, and any other) moves as the whole
+    # picture scaled by EXPLODE about the view's centre would carry its middle, so corners spread out
+    # beyond their edges' ends; any other shape takes the mean, over the shapes on its boundary, of
+    # that shape's move plus its gap from it in the direction it stands off it
     n = len(shapes)
-    Am = np.zeros((len(rows) + n, n))
-    bm = np.zeros((len(rows) + n, 3))
-    for r, (i, j, v) in enumerate(rows):
-        Am[r, j], Am[r, i], bm[r] = 1, -1, GAP * v
-    for i in range(n):
-        Am[len(rows) + i, i] = HOLD
-    shift = np.linalg.lstsq(Am, bm, rcond=None)[0]
+    shift = np.zeros((n, 3))
+    parents = defaultdict(list)
+    for i, j, v in rows:
+        parents[j].append((i, v))
+    for i in sorted(range(n), key=lambda i: dim[shapes[i]["kind"]]):
+        if parents[i]:
+            shift[i] = np.mean([shift[a_] + GAP * v for a_, v in parents[i]], 0)
+        else:
+            shift[i] = (EXPLODE - 1) * shapes[i]["pts"].mean(0)
     resid = [float(np.linalg.norm(shift[j] - shift[i] - GAP * v)) / float(np.linalg.norm(GAP * v)) for i, j, v in rows]
 
     out = []
     for sh, s in zip(shapes, shift):
         V3 = sh["v"] + s
         rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
-               "layer": layer_of[sh["key"]]}
+               "layer": layer_of[sh["key"]], "moved": np.round(s, 4).tolist()}
         if sh["kind"] in ("wall", "region"):
             Vu, F3 = np.unique(V3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
             rec.update(verts=Vu.round(5).tolist(), faces=F3.reshape(-1, 3).tolist())
