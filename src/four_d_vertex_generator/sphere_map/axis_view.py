@@ -45,6 +45,7 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
                                    # as the picture scaled by this about the view's centre
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 RING = 0.30                        # how far the walls and regions round an edge stand from it
+DEBUG_PICK = ()                    # (names whose copy picks are printed)
 MAX_ANGLE = 70                     # how far round the sphere from the view's centre a shape may reach
 TOUCH = 6e-3                       # shapes this close (in the view) touch
 
@@ -65,11 +66,32 @@ def _patch_triangles(D, doc, z):
         if p["face"] is not None:
             face_patches[p["face"]].append(p)
     out = defaultdict(list)
+
+    def fill(F, lab):
+        """Triangles left unnamed take the name most of the triangles sharing a corner with them have."""
+        by_v = defaultdict(list)
+        for t, tri in enumerate(F):
+            for v_ in tri:
+                by_v[int(v_)].append(t)
+        for _ in range(20):
+            todo = [t for t in range(len(F)) if lab[t] is None]
+            if not todo:
+                break
+            got = {}
+            for t in todo:
+                near = [lab[u] for v_ in F[t] for u in by_v[int(v_)] if lab[u] is not None]
+                if near:
+                    got[t] = max(set(near), key=near.count)
+            if not got:
+                break
+            lab.update(got)
+        return lab
     for f in doc["faces"]:
         X = z["coarse_verts"][f["coarse_verts"][0]:f["coarse_verts"][1]]
         F = z["coarse_tris"][f["coarse_tris"][0]:f["coarse_tris"][1]]
         if not len(F):
             continue
+        lab = {t: None for t in range(len(F))}         # (each triangle's patch, and the copy it is carried from)
         cen = X[F].mean(1)
         if f["sheet"].startswith("face"):
             name = f["sheet"][5:]
@@ -93,7 +115,18 @@ def _patch_triangles(D, doc, z):
                 cands = [p for p in face_patches[name] if p["pieces"] == [a, b] and p["side_b_copy_shift"] == kk
                          or p["pieces"] == [b, a] and p["side_b_copy_shift"] == int(D.inv[kk])]
                 if len(cands) == 1:
-                    out[cands[0]["id"]].append(point_from_beta(X[F[t]]))
+                    lab[t] = (cands[0]["id"], -1)
+                    continue
+                # (or a patch kept on the face glued to this one, seen from the copy beyond: the piece
+                # across is its inside; carried back into that patch's own copy)
+                cands = [p for fn, ps in face_patches.items() if fn != name for p in ps
+                         if p["pieces"] == [b, a] and p["side_b_copy_shift"] == int(D.inv[kk])]
+                if len(cands) == 1:
+                    lab[t] = (cands[0]["id"], kk)
+            for t, l_ in fill(F, lab).items():
+                if l_ is not None:
+                    Y = point_from_beta(X[F[t]])
+                    out[l_[0]].append(Y if l_[1] < 0 else Y @ G[l_[1]])
             continue
         s = D.lib[int(f["sheet"])]
         n = s.grad(cen)
@@ -110,7 +143,10 @@ def _patch_triangles(D, doc, z):
                 continue
             p = D.pw.get((min(a, b), max(a, b), key)) or D.pw.get((min(a, b), max(a, b), None))
             if p is not None:
-                out[p["id"]].append(point_from_beta(X[F[t]]))
+                lab[t] = (p["id"], -1)
+        for t, l_ in fill(F, lab).items():
+            if l_ is not None:
+                out[l_[0]].append(point_from_beta(X[F[t]]))
     return {k: np.array(v) for k, v in out.items()}
 
 
@@ -430,21 +466,43 @@ def build() -> dict:
                 seen[nm].add(key)
                 if nm not in chosen and key not in [x["key"] for x in by_name[nm]]:
                     by_name[nm].append(make(key))
-        shown = list(chosen.values())
-        new = []
-        for nm, cands in by_name.items():
-            cands = [x for x in cands if in_view(x)]
-            if not cands:
-                continue
+        # (picked one at a time, each against every shape shown so far, this layer's too: the shape with
+        # the copy beside most of them goes first, so its neighbours can then take the copies beside it)
+        shown = [x for x in chosen.values() if x["kind"] != "point"]
+        cands_of = {nm: [x for x in cs if in_view(x)] for nm, cs in by_name.items()}
+        cands_of = {nm: cs for nm, cs in cands_of.items() if cs}
+        far = {}
 
-            def score(sh):
-                r_sh = rel_of(sh) if sh["kind"] != "point" else {}
-                return (sum(sh["key"] in rel_of(f) or f["key"] in r_sh for f in shown if f["kind"] != "point"),
-                        -np.linalg.norm(view_pts(sh)[:, 1:], axis=1).mean())
-            best = max(cands, key=score) if len(cands) > 1 else cands[0]
-            chosen[nm] = best
+        def near_axis(sh):
+            if sh["key"] not in far:
+                far[sh["key"]] = -np.linalg.norm(view_pts(sh)[:, 1:], axis=1).mean()
+            return far[sh["key"]]
+
+        def score(sh):
+            # (first: shown shapes it bounds or lies on, round an edge they both are round, so the
+            # shapes round an edge follow on one from the next; then: shown shapes beside it at all;
+            # then: nearness to the axis)
+            r_sh = rel_of(sh) if sh["kind"] != "point" else {}
+            beside = [f for f in shown if sh["key"] in rel_of(f) or f["key"] in r_sh]
+            lines = [f for f in shown if f["kind"] == "line" and sh["key"] in rel_of(f)]
+            follow = sum(1 for f in beside if f["kind"] in ("wall", "region") and f["kind"] != sh["kind"]
+                         and any(f["key"] in rel_of(L) for L in lines))
+            return (follow, len(beside), near_axis(sh))
+        new = []
+        while cands_of:
+            best_nm, best = max(((nm, max(cs, key=score)) for nm, cs in cands_of.items()),
+                                key=lambda t: score(t[1]))
+            chosen[best_nm] = best
             layer_of[best["key"]] = layer
+            if DEBUG_PICK and best_nm[1] in DEBUG_PICK:
+                for x in cands_of[best_nm]:
+                    r_sh = rel_of(x)
+                    print("pick", best_nm, x["key"], score(x)[:2], [f["id"] for f in shown if x["key"] in rel_of(f) or f["key"] in r_sh],
+                          "<-" if x is best else "")
             new.append(best)
+            if best["kind"] != "point":
+                shown.append(best)
+            del cands_of[best_nm]
         frontier = new
     shapes = list(chosen.values())
     missing = sorted(f"{k} {n}" for k, n in {(k, x["name"]) for k in ("wall", "line", "region", "point")
@@ -548,7 +606,9 @@ def build() -> dict:
                 break
         new += sa.mean() - new.mean()             # (about the arc's middle)
         arcs[a["id"]] = {"true_span_deg": round(float(np.degrees(sa[-1] - sa[0])), 1),
-                         "shown_span_deg": round(float(np.degrees(new[-1] - new[0])), 1)}
+                         "shown_span_deg": round(float(np.degrees(new[-1] - new[0])), 1),
+                         "order": [[shapes[rows[ring[o]][1]]["id"], round(float(np.degrees(x)), 1), round(float(np.degrees(y)), 1)]
+                                   for o, x, y in zip(order, sa, new)]}
         for th, o in zip(new, order):
             rows[ring[o]] = (rows[ring[o]][0], rows[ring[o]][1], RING / GAP * (np.cos(th) * b1 + np.sin(th) * b2))
     # the moves, from the lowest shapes up, each from the shapes on its boundary only (no shape's move
@@ -563,8 +623,11 @@ def build() -> dict:
     for i, j, v in rows:
         parents[j].append((i, v))
     for i in sorted(range(n), key=lambda i: dim[shapes[i]["kind"]]):
-        if parents[i]:
-            shift[i] = np.mean([shift[a_] + GAP * v for a_, v in parents[i]], 0)
+        # (only from boundary shapes of its own layer or nearer the axis: a shape is placed among
+        # the shapes it was found beside, not pulled away by ones found from it later)
+        own = [(a_, v) for a_, v in parents[i] if layer_of[shapes[a_]["key"]] <= layer_of[shapes[i]["key"]]]
+        if own:
+            shift[i] = np.mean([shift[a_] + GAP * v for a_, v in own], 0)
         else:
             shift[i] = (EXPLODE - 1) * shapes[i]["pts"].mean(0)
     resid = [float(np.linalg.norm(shift[j] - shift[i] - GAP * v)) / float(np.linalg.norm(GAP * v)) for i, j, v in rows]
