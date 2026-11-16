@@ -591,15 +591,6 @@
    "crossings": 4
   },
   {
-   "surface": "none (nearest 1e-04)",
-   "sides": [
-    4,
-    6
-   ],
-   "wall_type": 4,
-   "crossings": 4
-  },
-  {
    "surface": "-2*sqrt(10)*b1**2*b2**2 + 2*b1**2*b2**2 + 2*sqrt(5)*b1**2*b2**2 - 5*sqrt(10)*b1**2*b2*b3 - 7*sqrt(2)*b1**2*b2*b3 + 8*b1**2*b2*b3 + 8*sqrt(5)*b1**2*b2*b3 - 5*sqrt(10)*b1**2*b2*b4 - 7*sqrt(2)*b1**2*b2*b4 + 8*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 - 7*sqrt(2)*b1**2*b3**2 - 3*sqrt(10)*b1**2*b3**2 + 6*b1**2*b3**2 + 6*sqrt(5)*b1**2*b3**2 - 14*sqrt(2)*b1**2*b3*b4 - 6*sqrt(10)*b1**2*b3*b4 + 12*b1**2*b3*b4 + 12*sqrt(5)*b1**2*b3*b4 - 7*sqrt(2)*b1**2*b4**2 - 3*sqrt(10)*b1**2*b4**2 + 6*b1**2*b4**2 + 6*sqrt(5)*b1**2*b4**2 - 10*sqrt(2)*b1*b2**3 + 2*sqrt(10)*b1*b2**3 + 8*b1*b2**3 - 22*sqrt(2)*b1*b2**2*b3 - 2*sqrt(10)*b1*b2**2*b3 + 4*sqrt(5)*b1*b2**2*b3 + 28*b1*b2**2*b3 - 25*sqrt(2)*b1*b2**2*b4 - 3*sqrt(10)*b1*b2**2*b4 + 4*sqrt(5)*b1*b2**2*b4 + 36*b1*b2**2*b4 - 10*sqrt(10)*b1*b2*b3**2 - 10*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 36*b1*b2*b3**2 - 22*sqrt(10)*b1*b2*b3*b4 - 30*sqrt(2)*b1*b2*b3*b4 + 12*sqrt(5)*b1*b2*b3*b4 + 84*b1*b2*b3*b4 - 12*sqrt(10)*b1*b2*b4**2 - 20*sqrt(2)*b1*b2*b4**2 + 8*sqrt(5)*b1*b2*b4**2 + 48*b1*b2*b4**2 - 6*sqrt(10)*b1*b3**3 + 2*sqrt(2)*b1*b3**3 + 16*b1*b3**3 - 15*sqrt(10)*b1*b3**2*b4 + 5*sqrt(2)*b1*b3**2*b4 + 40*b1*b3**2*b4 - 12*sqrt(10)*b1*b3*b4**2 + 4*sqrt(2)*b1*b3*b4**2 + 32*b1*b3*b4**2 - 3*sqrt(10)*b1*b4**3 + sqrt(2)*b1*b4**3 + 8*b1*b4**3 - 4*sqrt(10)*b2**3*b4 + 4*b2**3*b4 + 4*sqrt(5)*b2**3*b4 - 8*sqrt(10)*b2**2*b3*b4 - 16*sqrt(2)*b2**2*b3*b4 + 20*b2**2*b3*b4 + 12*sqrt(5)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b4**2 - 15*sqrt(2)*b2**2*b4**2 + 16*b2**2*b4**2 + 12*sqrt(5)*b2**2*b4**2 - 14*sqrt(2)*b2*b3**2*b4 - 2*sqrt(10)*b2*b3**2*b4 + 8*b2*b3**2*b4 + 8*sqrt(5)*b2*b3**2*b4 - 21*sqrt(2)*b2*b3*b4**2 - 3*sqrt(10)*b2*b3*b4**2 + 12*b2*b3*b4**2 + 12*sqrt(5)*b2*b3*b4**2 - 7*sqrt(2)*b2*b4**3 - sqrt(10)*b2*b4**3 + 4*b2*b4**3 + 4*sqrt(5)*b2*b4**3",
    "sides": [
     7,
@@ -660,6 +651,24 @@
     5
    ],
    "wall_type": 17,
+   "crossings": 3
+  },
+  {
+   "surface": "none (nearest 1e-04)",
+   "sides": [
+    4,
+    6
+   ],
+   "wall_type": 4,
+   "crossings": 3
+  },
+  {
+   "surface": "-5*sqrt(5)*b1**4 - 9*b1**4 + 3*sqrt(10)*b1**4 + 7*sqrt(2)*b1**4 - 37*b1**3*b2 - 11*sqrt(5)*b1**3*b2 + 20*sqrt(2)*b1**3*b2 + 10*sqrt(10)*b1**3*b2 - 18*b1**3*b3 - 8*sqrt(5)*b1**3*b3 + 12*sqrt(2)*b1**3*b3 + 6*sqrt(10)*b1**3*b3 - 2*sqrt(5)*b1**3*b4 - 4*b1**3*b4 + 2*sqrt(2)*b1**3*b4 + 2*sqrt(10)*b1**3*b4 - 15*sqrt(5)*b1**2*b2**2 - 19*b1**2*b2**2 + 7*sqrt(10)*b1**2*b2**2 + 21*sqrt(2)*b1**2*b2**2 - 18*sqrt(5)*b1**2*b2*b3 - 38*b1**2*b2*b3 + 11*sqrt(10)*b1**2*b2*b3 + 31*sqrt(2)*b1**2*b2*b3 - 9*b1**2*b2*b4 - 3*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 - 2*sqrt(2)*b1**2*b3**2 + 2*sqrt(5)*b1**2*b3**2 - 2*sqrt(5)*b1**2*b3*b4 - 4*b1**2*b3*b4 + 2*sqrt(2)*b1**2*b3*b4 + 2*sqrt(10)*b1**2*b3*b4 - 2*sqrt(5)*b1*b2**3 + sqrt(2)*b1*b2**3 + sqrt(10)*b1*b2**3 - 17*sqrt(5)*b1*b2**2*b3 - 21*b1*b2**2*b3 + 9*sqrt(10)*b1*b2**2*b3 + 21*sqrt(2)*b1*b2**2*b3 - 2*sqrt(2)*b1*b2**2*b4 - sqrt(5)*b1*b2**2*b4 - b1*b2**2*b4 + 2*sqrt(10)*b1*b2**2*b4 - 4*sqrt(10)*b1*b2*b3**2 - 2*sqrt(2)*b1*b2*b3**2 + sqrt(5)*b1*b2*b3**2 + 15*b1*b2*b3**2 - 6*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 - 6*sqrt(10)*b1*b3**3 - 12*sqrt(2)*b1*b3**3 + 8*sqrt(5)*b1*b3**3 + 18*b1*b3**3 - 2*sqrt(10)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3**2*b4 + 4*b1*b3**2*b4 + 2*sqrt(5)*b1*b3**2*b4 - 4*sqrt(2)*b2**4 - b2**4 + 3*sqrt(5)*b2**4 - 24*b2**3*b3 + sqrt(2)*b2**3*b3 + 7*sqrt(10)*b2**3*b3 - 6*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 12*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3**2 + 4*sqrt(5)*b2**2*b3**2 + 4*sqrt(10)*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3*b4 - 3*sqrt(5)*b2**2*b3*b4 - 3*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 - 13*sqrt(2)*b2*b3**3 - 5*sqrt(10)*b2*b3**3 + 16*b2*b3**3 + 8*sqrt(5)*b2*b3**3 - 4*sqrt(2)*b2*b3**2*b4 + sqrt(5)*b2*b3**2*b4 + 3*b2*b3**2*b4 - 3*sqrt(10)*b3**4 - 5*sqrt(2)*b3**4 + 3*sqrt(5)*b3**4 + 9*b3**4 - 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**3*b4 + 4*b3**3*b4 + 2*sqrt(5)*b3**3*b4",
+   "sides": [
+    4,
+    6
+   ],
+   "wall_type": 4,
    "crossings": 3
   },
   {
@@ -804,15 +813,6 @@
     6
    ],
    "wall_type": 1,
-   "crossings": 2
-  },
-  {
-   "surface": "none (nearest 7e-05)",
-   "sides": [
-    4,
-    6
-   ],
-   "wall_type": 4,
    "crossings": 2
   },
   {
@@ -1167,7 +1167,7 @@
    "crossings": 1
   },
   {
-   "surface": "none (nearest 4e-07)",
+   "surface": "-7*b1**3*b2 - sqrt(5)*b1**3*b2 + 2*sqrt(2)*b1**3*b2 + 2*sqrt(10)*b1**3*b2 - 6*b1**3*b3 + 2*sqrt(10)*b1**3*b3 - 6*b1**3*b4 + 2*sqrt(10)*b1**3*b4 - 5*sqrt(5)*b1**2*b2**2 - 3*b1**2*b2**2 + 10*sqrt(2)*b1**2*b2**2 - 8*sqrt(5)*b1**2*b2*b3 - 3*sqrt(10)*b1**2*b2*b3 + 12*b1**2*b2*b3 + 11*sqrt(2)*b1**2*b2*b3 - 9*sqrt(5)*b1**2*b2*b4 - 7*b1**2*b2*b4 + sqrt(10)*b1**2*b2*b4 + 17*sqrt(2)*b1**2*b2*b4 - 3*sqrt(10)*b1**2*b3**2 - 3*sqrt(5)*b1**2*b3**2 + 5*sqrt(2)*b1**2*b3**2 + 9*b1**2*b3**2 - 6*sqrt(5)*b1**2*b3*b4 - sqrt(10)*b1**2*b3*b4 + 4*b1**2*b3*b4 + 9*sqrt(2)*b1**2*b3*b4 - 3*sqrt(5)*b1**2*b4**2 - 5*b1**2*b4**2 + 4*sqrt(2)*b1**2*b4**2 + 2*sqrt(10)*b1**2*b4**2 - 8*b1*b2**3 - 2*sqrt(2)*b1*b2**3 + 2*sqrt(5)*b1*b2**3 + 2*sqrt(10)*b1*b2**3 - 13*sqrt(2)*b1*b2**2*b3 - 11*b1*b2**2*b3 + 3*sqrt(10)*b1*b2**2*b3 + 9*sqrt(5)*b1*b2**2*b3 - 25*b1*b2**2*b4 - sqrt(5)*b1*b2**2*b4 + 6*sqrt(2)*b1*b2**2*b4 + 6*sqrt(10)*b1*b2**2*b4 - 12*sqrt(2)*b1*b2*b3**2 + b1*b2*b3**2 + 7*sqrt(5)*b1*b2*b3**2 - 8*sqrt(2)*b1*b2*b3*b4 + 2*sqrt(5)*b1*b2*b3*b4 + 6*b1*b2*b3*b4 - 2*sqrt(10)*b1*b2*b4**2 - 2*sqrt(5)*b1*b2*b4**2 + 2*b1*b2*b4**2 + 6*sqrt(2)*b1*b2*b4**2 - 2*sqrt(10)*b1*b3**3 + 6*b1*b3**3 - 8*sqrt(10)*b1*b3**2*b4 - 2*sqrt(5)*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 24*b1*b3**2*b4 - 10*sqrt(10)*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 32*b1*b3*b4**2 - 4*sqrt(10)*b1*b4**3 - 2*sqrt(5)*b1*b4**3 + 2*sqrt(2)*b1*b4**3 + 14*b1*b4**3 - 2*sqrt(5)*b2**3*b4 - 4*b2**3*b4 + 6*sqrt(2)*b2**3*b4 - 6*sqrt(10)*b2**2*b3*b4 - 2*sqrt(2)*b2**2*b3*b4 + 3*sqrt(5)*b2**2*b3*b4 + 15*b2**2*b3*b4 - 3*sqrt(10)*b2**2*b4**2 - 5*sqrt(2)*b2**2*b4**2 + 2*sqrt(5)*b2**2*b4**2 + 12*b2**2*b4**2 - 7*sqrt(10)*b2*b3**2*b4 - 13*sqrt(2)*b2*b3**2*b4 + 7*sqrt(5)*b2*b3**2*b4 + 25*b2*b3**2*b4 - 23*sqrt(2)*b2*b3*b4**2 - 9*sqrt(10)*b2*b3*b4**2 + 30*b2*b3*b4**2 + 14*sqrt(5)*b2*b3*b4**2 - 12*sqrt(2)*b2*b4**3 - 2*sqrt(10)*b2*b4**3 + 10*b2*b4**3 + 6*sqrt(5)*b2*b4**3 - 6*sqrt(2)*b3**3*b4 - 2*sqrt(10)*b3**3*b4 + 6*b3**3*b4 + 4*sqrt(5)*b3**3*b4 - 17*sqrt(2)*b3**2*b4**2 - 3*sqrt(10)*b3**2*b4**2 + 9*b3**2*b4**2 + 11*sqrt(5)*b3**2*b4**2 - 15*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 2*b3*b4**3 + 10*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4",
    "sides": [
     4,
     11
@@ -1176,7 +1176,7 @@
    "crossings": 1
   },
   {
-   "surface": "none (nearest 4e-07)",
+   "surface": "-sqrt(10)*b1**3*b2 - sqrt(2)*b1**3*b2 + 2*sqrt(5)*b1**3*b2 - 3*sqrt(10)*b1**3*b3 - 3*sqrt(2)*b1**3*b3 + 3*sqrt(5)*b1**3*b3 + 7*b1**3*b3 - 3*sqrt(10)*b1**3*b4 - 3*sqrt(2)*b1**3*b4 + 3*sqrt(5)*b1**3*b4 + 7*b1**3*b4 - 4*sqrt(2)*b1**2*b2**2 - 2*sqrt(5)*b1**2*b2**2 + 10*b1**2*b2**2 - 10*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 4*sqrt(5)*b1**2*b2*b3 + 12*b1**2*b2*b3 - 13*sqrt(2)*b1**2*b2*b4 - 3*sqrt(10)*b1**2*b2*b4 + 10*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 - 8*sqrt(2)*b1**2*b3**2 - 2*b1**2*b3**2 + 6*sqrt(5)*b1**2*b3**2 - 18*sqrt(2)*b1**2*b3*b4 - 6*sqrt(10)*b1**2*b3*b4 + 11*b1**2*b3*b4 + 15*sqrt(5)*b1**2*b3*b4 - 6*sqrt(10)*b1**2*b4**2 - 10*sqrt(2)*b1**2*b4**2 + 13*b1**2*b4**2 + 9*sqrt(5)*b1**2*b4**2 - 8*sqrt(2)*b1*b2**2*b4 - 4*sqrt(5)*b1*b2**2*b4 + 20*b1*b2**2*b4 - 20*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(10)*b1*b2*b3*b4 + 8*sqrt(5)*b1*b2*b3*b4 + 24*b1*b2*b3*b4 - 21*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 6*sqrt(5)*b1*b2*b4**2 + 20*b1*b2*b4**2 - 16*sqrt(2)*b1*b3**2*b4 - 4*b1*b3**2*b4 + 12*sqrt(5)*b1*b3**2*b4 - 21*sqrt(2)*b1*b3*b4**2 - 13*b1*b3*b4**2 + 3*sqrt(10)*b1*b3*b4**2 + 15*sqrt(5)*b1*b3*b4**2 - 9*b1*b4**3 - 5*sqrt(2)*b1*b4**3 + 3*sqrt(5)*b1*b4**3 + 3*sqrt(10)*b1*b4**3 - 10*b2**2*b4**2 + 2*sqrt(5)*b2**2*b4**2 + 4*sqrt(2)*b2**2*b4**2 - 12*b2*b3*b4**2 - 4*sqrt(5)*b2*b3*b4**2 + 2*sqrt(10)*b2*b3*b4**2 + 10*sqrt(2)*b2*b3*b4**2 - 10*b2*b4**3 - 4*sqrt(5)*b2*b4**3 + sqrt(10)*b2*b4**3 + 11*sqrt(2)*b2*b4**3 - 6*sqrt(5)*b3**2*b4**2 + 2*b3**2*b4**2 + 8*sqrt(2)*b3**2*b4**2 - 9*sqrt(5)*b3*b4**3 + 3*b3*b4**3 + 12*sqrt(2)*b3*b4**3 - 3*sqrt(5)*b4**4 + b4**4 + 4*sqrt(2)*b4**4",
    "sides": [
     4,
     6
@@ -2900,7 +2900,7 @@
    ]
   },
   {
-   "surface": "none (nearest 4e-07)",
+   "surface": "-7*b1**3*b2 - sqrt(5)*b1**3*b2 + 2*sqrt(2)*b1**3*b2 + 2*sqrt(10)*b1**3*b2 - 6*b1**3*b3 + 2*sqrt(10)*b1**3*b3 - 6*b1**3*b4 + 2*sqrt(10)*b1**3*b4 - 5*sqrt(5)*b1**2*b2**2 - 3*b1**2*b2**2 + 10*sqrt(2)*b1**2*b2**2 - 8*sqrt(5)*b1**2*b2*b3 - 3*sqrt(10)*b1**2*b2*b3 + 12*b1**2*b2*b3 + 11*sqrt(2)*b1**2*b2*b3 - 9*sqrt(5)*b1**2*b2*b4 - 7*b1**2*b2*b4 + sqrt(10)*b1**2*b2*b4 + 17*sqrt(2)*b1**2*b2*b4 - 3*sqrt(10)*b1**2*b3**2 - 3*sqrt(5)*b1**2*b3**2 + 5*sqrt(2)*b1**2*b3**2 + 9*b1**2*b3**2 - 6*sqrt(5)*b1**2*b3*b4 - sqrt(10)*b1**2*b3*b4 + 4*b1**2*b3*b4 + 9*sqrt(2)*b1**2*b3*b4 - 3*sqrt(5)*b1**2*b4**2 - 5*b1**2*b4**2 + 4*sqrt(2)*b1**2*b4**2 + 2*sqrt(10)*b1**2*b4**2 - 8*b1*b2**3 - 2*sqrt(2)*b1*b2**3 + 2*sqrt(5)*b1*b2**3 + 2*sqrt(10)*b1*b2**3 - 13*sqrt(2)*b1*b2**2*b3 - 11*b1*b2**2*b3 + 3*sqrt(10)*b1*b2**2*b3 + 9*sqrt(5)*b1*b2**2*b3 - 25*b1*b2**2*b4 - sqrt(5)*b1*b2**2*b4 + 6*sqrt(2)*b1*b2**2*b4 + 6*sqrt(10)*b1*b2**2*b4 - 12*sqrt(2)*b1*b2*b3**2 + b1*b2*b3**2 + 7*sqrt(5)*b1*b2*b3**2 - 8*sqrt(2)*b1*b2*b3*b4 + 2*sqrt(5)*b1*b2*b3*b4 + 6*b1*b2*b3*b4 - 2*sqrt(10)*b1*b2*b4**2 - 2*sqrt(5)*b1*b2*b4**2 + 2*b1*b2*b4**2 + 6*sqrt(2)*b1*b2*b4**2 - 2*sqrt(10)*b1*b3**3 + 6*b1*b3**3 - 8*sqrt(10)*b1*b3**2*b4 - 2*sqrt(5)*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 24*b1*b3**2*b4 - 10*sqrt(10)*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 32*b1*b3*b4**2 - 4*sqrt(10)*b1*b4**3 - 2*sqrt(5)*b1*b4**3 + 2*sqrt(2)*b1*b4**3 + 14*b1*b4**3 - 2*sqrt(5)*b2**3*b4 - 4*b2**3*b4 + 6*sqrt(2)*b2**3*b4 - 6*sqrt(10)*b2**2*b3*b4 - 2*sqrt(2)*b2**2*b3*b4 + 3*sqrt(5)*b2**2*b3*b4 + 15*b2**2*b3*b4 - 3*sqrt(10)*b2**2*b4**2 - 5*sqrt(2)*b2**2*b4**2 + 2*sqrt(5)*b2**2*b4**2 + 12*b2**2*b4**2 - 7*sqrt(10)*b2*b3**2*b4 - 13*sqrt(2)*b2*b3**2*b4 + 7*sqrt(5)*b2*b3**2*b4 + 25*b2*b3**2*b4 - 23*sqrt(2)*b2*b3*b4**2 - 9*sqrt(10)*b2*b3*b4**2 + 30*b2*b3*b4**2 + 14*sqrt(5)*b2*b3*b4**2 - 12*sqrt(2)*b2*b4**3 - 2*sqrt(10)*b2*b4**3 + 10*b2*b4**3 + 6*sqrt(5)*b2*b4**3 - 6*sqrt(2)*b3**3*b4 - 2*sqrt(10)*b3**3*b4 + 6*b3**3*b4 + 4*sqrt(5)*b3**3*b4 - 17*sqrt(2)*b3**2*b4**2 - 3*sqrt(10)*b3**2*b4**2 + 9*b3**2*b4**2 + 11*sqrt(5)*b3**2*b4**2 - 15*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 2*b3*b4**3 + 10*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4",
    "sides": [
     4,
     11
@@ -2928,7 +2928,7 @@
    ]
   },
   {
-   "surface": "none (nearest 4e-07)",
+   "surface": "-sqrt(10)*b1**3*b2 - sqrt(2)*b1**3*b2 + 2*sqrt(5)*b1**3*b2 - 3*sqrt(10)*b1**3*b3 - 3*sqrt(2)*b1**3*b3 + 3*sqrt(5)*b1**3*b3 + 7*b1**3*b3 - 3*sqrt(10)*b1**3*b4 - 3*sqrt(2)*b1**3*b4 + 3*sqrt(5)*b1**3*b4 + 7*b1**3*b4 - 4*sqrt(2)*b1**2*b2**2 - 2*sqrt(5)*b1**2*b2**2 + 10*b1**2*b2**2 - 10*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 4*sqrt(5)*b1**2*b2*b3 + 12*b1**2*b2*b3 - 13*sqrt(2)*b1**2*b2*b4 - 3*sqrt(10)*b1**2*b2*b4 + 10*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 - 8*sqrt(2)*b1**2*b3**2 - 2*b1**2*b3**2 + 6*sqrt(5)*b1**2*b3**2 - 18*sqrt(2)*b1**2*b3*b4 - 6*sqrt(10)*b1**2*b3*b4 + 11*b1**2*b3*b4 + 15*sqrt(5)*b1**2*b3*b4 - 6*sqrt(10)*b1**2*b4**2 - 10*sqrt(2)*b1**2*b4**2 + 13*b1**2*b4**2 + 9*sqrt(5)*b1**2*b4**2 - 8*sqrt(2)*b1*b2**2*b4 - 4*sqrt(5)*b1*b2**2*b4 + 20*b1*b2**2*b4 - 20*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(10)*b1*b2*b3*b4 + 8*sqrt(5)*b1*b2*b3*b4 + 24*b1*b2*b3*b4 - 21*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 6*sqrt(5)*b1*b2*b4**2 + 20*b1*b2*b4**2 - 16*sqrt(2)*b1*b3**2*b4 - 4*b1*b3**2*b4 + 12*sqrt(5)*b1*b3**2*b4 - 21*sqrt(2)*b1*b3*b4**2 - 13*b1*b3*b4**2 + 3*sqrt(10)*b1*b3*b4**2 + 15*sqrt(5)*b1*b3*b4**2 - 9*b1*b4**3 - 5*sqrt(2)*b1*b4**3 + 3*sqrt(5)*b1*b4**3 + 3*sqrt(10)*b1*b4**3 - 10*b2**2*b4**2 + 2*sqrt(5)*b2**2*b4**2 + 4*sqrt(2)*b2**2*b4**2 - 12*b2*b3*b4**2 - 4*sqrt(5)*b2*b3*b4**2 + 2*sqrt(10)*b2*b3*b4**2 + 10*sqrt(2)*b2*b3*b4**2 - 10*b2*b4**3 - 4*sqrt(5)*b2*b4**3 + sqrt(10)*b2*b4**3 + 11*sqrt(2)*b2*b4**3 - 6*sqrt(5)*b3**2*b4**2 + 2*b3**2*b4**2 + 8*sqrt(2)*b3**2*b4**2 - 9*sqrt(5)*b3*b4**3 + 3*b3*b4**3 + 12*sqrt(2)*b3*b4**3 - 3*sqrt(5)*b4**4 + b4**4 + 4*sqrt(2)*b4**4",
    "sides": [
     4,
     6
@@ -2984,7 +2984,7 @@
    ]
   },
   {
-   "surface": "none (nearest 7e-05)",
+   "surface": "-5*sqrt(5)*b1**4 - 9*b1**4 + 3*sqrt(10)*b1**4 + 7*sqrt(2)*b1**4 - 37*b1**3*b2 - 11*sqrt(5)*b1**3*b2 + 20*sqrt(2)*b1**3*b2 + 10*sqrt(10)*b1**3*b2 - 18*b1**3*b3 - 8*sqrt(5)*b1**3*b3 + 12*sqrt(2)*b1**3*b3 + 6*sqrt(10)*b1**3*b3 - 2*sqrt(5)*b1**3*b4 - 4*b1**3*b4 + 2*sqrt(2)*b1**3*b4 + 2*sqrt(10)*b1**3*b4 - 15*sqrt(5)*b1**2*b2**2 - 19*b1**2*b2**2 + 7*sqrt(10)*b1**2*b2**2 + 21*sqrt(2)*b1**2*b2**2 - 18*sqrt(5)*b1**2*b2*b3 - 38*b1**2*b2*b3 + 11*sqrt(10)*b1**2*b2*b3 + 31*sqrt(2)*b1**2*b2*b3 - 9*b1**2*b2*b4 - 3*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 - 2*sqrt(2)*b1**2*b3**2 + 2*sqrt(5)*b1**2*b3**2 - 2*sqrt(5)*b1**2*b3*b4 - 4*b1**2*b3*b4 + 2*sqrt(2)*b1**2*b3*b4 + 2*sqrt(10)*b1**2*b3*b4 - 2*sqrt(5)*b1*b2**3 + sqrt(2)*b1*b2**3 + sqrt(10)*b1*b2**3 - 17*sqrt(5)*b1*b2**2*b3 - 21*b1*b2**2*b3 + 9*sqrt(10)*b1*b2**2*b3 + 21*sqrt(2)*b1*b2**2*b3 - 2*sqrt(2)*b1*b2**2*b4 - sqrt(5)*b1*b2**2*b4 - b1*b2**2*b4 + 2*sqrt(10)*b1*b2**2*b4 - 4*sqrt(10)*b1*b2*b3**2 - 2*sqrt(2)*b1*b2*b3**2 + sqrt(5)*b1*b2*b3**2 + 15*b1*b2*b3**2 - 6*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 - 6*sqrt(10)*b1*b3**3 - 12*sqrt(2)*b1*b3**3 + 8*sqrt(5)*b1*b3**3 + 18*b1*b3**3 - 2*sqrt(10)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3**2*b4 + 4*b1*b3**2*b4 + 2*sqrt(5)*b1*b3**2*b4 - 4*sqrt(2)*b2**4 - b2**4 + 3*sqrt(5)*b2**4 - 24*b2**3*b3 + sqrt(2)*b2**3*b3 + 7*sqrt(10)*b2**3*b3 - 6*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 12*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3**2 + 4*sqrt(5)*b2**2*b3**2 + 4*sqrt(10)*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3*b4 - 3*sqrt(5)*b2**2*b3*b4 - 3*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 - 13*sqrt(2)*b2*b3**3 - 5*sqrt(10)*b2*b3**3 + 16*b2*b3**3 + 8*sqrt(5)*b2*b3**3 - 4*sqrt(2)*b2*b3**2*b4 + sqrt(5)*b2*b3**2*b4 + 3*b2*b3**2*b4 - 3*sqrt(10)*b3**4 - 5*sqrt(2)*b3**4 + 3*sqrt(5)*b3**4 + 9*b3**4 - 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**3*b4 + 4*b3**3*b4 + 2*sqrt(5)*b3**3*b4",
    "sides": [
     4,
     6
@@ -2998,7 +2998,7 @@
    ]
   },
   {
-   "surface": "none (nearest 1e-04)",
+   "surface": "-5*sqrt(5)*b1**4 - 9*b1**4 + 3*sqrt(10)*b1**4 + 7*sqrt(2)*b1**4 - 37*b1**3*b2 - 11*sqrt(5)*b1**3*b2 + 20*sqrt(2)*b1**3*b2 + 10*sqrt(10)*b1**3*b2 - 18*b1**3*b3 - 8*sqrt(5)*b1**3*b3 + 12*sqrt(2)*b1**3*b3 + 6*sqrt(10)*b1**3*b3 - 2*sqrt(5)*b1**3*b4 - 4*b1**3*b4 + 2*sqrt(2)*b1**3*b4 + 2*sqrt(10)*b1**3*b4 - 15*sqrt(5)*b1**2*b2**2 - 19*b1**2*b2**2 + 7*sqrt(10)*b1**2*b2**2 + 21*sqrt(2)*b1**2*b2**2 - 18*sqrt(5)*b1**2*b2*b3 - 38*b1**2*b2*b3 + 11*sqrt(10)*b1**2*b2*b3 + 31*sqrt(2)*b1**2*b2*b3 - 9*b1**2*b2*b4 - 3*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 - 2*sqrt(2)*b1**2*b3**2 + 2*sqrt(5)*b1**2*b3**2 - 2*sqrt(5)*b1**2*b3*b4 - 4*b1**2*b3*b4 + 2*sqrt(2)*b1**2*b3*b4 + 2*sqrt(10)*b1**2*b3*b4 - 2*sqrt(5)*b1*b2**3 + sqrt(2)*b1*b2**3 + sqrt(10)*b1*b2**3 - 17*sqrt(5)*b1*b2**2*b3 - 21*b1*b2**2*b3 + 9*sqrt(10)*b1*b2**2*b3 + 21*sqrt(2)*b1*b2**2*b3 - 2*sqrt(2)*b1*b2**2*b4 - sqrt(5)*b1*b2**2*b4 - b1*b2**2*b4 + 2*sqrt(10)*b1*b2**2*b4 - 4*sqrt(10)*b1*b2*b3**2 - 2*sqrt(2)*b1*b2*b3**2 + sqrt(5)*b1*b2*b3**2 + 15*b1*b2*b3**2 - 6*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 - 6*sqrt(10)*b1*b3**3 - 12*sqrt(2)*b1*b3**3 + 8*sqrt(5)*b1*b3**3 + 18*b1*b3**3 - 2*sqrt(10)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3**2*b4 + 4*b1*b3**2*b4 + 2*sqrt(5)*b1*b3**2*b4 - 4*sqrt(2)*b2**4 - b2**4 + 3*sqrt(5)*b2**4 - 24*b2**3*b3 + sqrt(2)*b2**3*b3 + 7*sqrt(10)*b2**3*b3 - 6*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 12*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3**2 + 4*sqrt(5)*b2**2*b3**2 + 4*sqrt(10)*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3*b4 - 3*sqrt(5)*b2**2*b3*b4 - 3*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 - 13*sqrt(2)*b2*b3**3 - 5*sqrt(10)*b2*b3**3 + 16*b2*b3**3 + 8*sqrt(5)*b2*b3**3 - 4*sqrt(2)*b2*b3**2*b4 + sqrt(5)*b2*b3**2*b4 + 3*b2*b3**2*b4 - 3*sqrt(10)*b3**4 - 5*sqrt(2)*b3**4 + 3*sqrt(5)*b3**4 + 9*b3**4 - 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**3*b4 + 4*b3**3*b4 + 2*sqrt(5)*b3**3*b4",
    "sides": [
     4,
     6
@@ -3026,7 +3026,7 @@
    ]
   },
   {
-   "surface": "none (nearest 7e-05)",
+   "surface": "-5*sqrt(5)*b1**4 - 9*b1**4 + 3*sqrt(10)*b1**4 + 7*sqrt(2)*b1**4 - 37*b1**3*b2 - 11*sqrt(5)*b1**3*b2 + 20*sqrt(2)*b1**3*b2 + 10*sqrt(10)*b1**3*b2 - 18*b1**3*b3 - 8*sqrt(5)*b1**3*b3 + 12*sqrt(2)*b1**3*b3 + 6*sqrt(10)*b1**3*b3 - 2*sqrt(5)*b1**3*b4 - 4*b1**3*b4 + 2*sqrt(2)*b1**3*b4 + 2*sqrt(10)*b1**3*b4 - 15*sqrt(5)*b1**2*b2**2 - 19*b1**2*b2**2 + 7*sqrt(10)*b1**2*b2**2 + 21*sqrt(2)*b1**2*b2**2 - 18*sqrt(5)*b1**2*b2*b3 - 38*b1**2*b2*b3 + 11*sqrt(10)*b1**2*b2*b3 + 31*sqrt(2)*b1**2*b2*b3 - 9*b1**2*b2*b4 - 3*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 - 2*sqrt(2)*b1**2*b3**2 + 2*sqrt(5)*b1**2*b3**2 - 2*sqrt(5)*b1**2*b3*b4 - 4*b1**2*b3*b4 + 2*sqrt(2)*b1**2*b3*b4 + 2*sqrt(10)*b1**2*b3*b4 - 2*sqrt(5)*b1*b2**3 + sqrt(2)*b1*b2**3 + sqrt(10)*b1*b2**3 - 17*sqrt(5)*b1*b2**2*b3 - 21*b1*b2**2*b3 + 9*sqrt(10)*b1*b2**2*b3 + 21*sqrt(2)*b1*b2**2*b3 - 2*sqrt(2)*b1*b2**2*b4 - sqrt(5)*b1*b2**2*b4 - b1*b2**2*b4 + 2*sqrt(10)*b1*b2**2*b4 - 4*sqrt(10)*b1*b2*b3**2 - 2*sqrt(2)*b1*b2*b3**2 + sqrt(5)*b1*b2*b3**2 + 15*b1*b2*b3**2 - 6*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 - 6*sqrt(10)*b1*b3**3 - 12*sqrt(2)*b1*b3**3 + 8*sqrt(5)*b1*b3**3 + 18*b1*b3**3 - 2*sqrt(10)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3**2*b4 + 4*b1*b3**2*b4 + 2*sqrt(5)*b1*b3**2*b4 - 4*sqrt(2)*b2**4 - b2**4 + 3*sqrt(5)*b2**4 - 24*b2**3*b3 + sqrt(2)*b2**3*b3 + 7*sqrt(10)*b2**3*b3 - 6*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 12*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3**2 + 4*sqrt(5)*b2**2*b3**2 + 4*sqrt(10)*b2**2*b3**2 - 6*sqrt(2)*b2**2*b3*b4 - 3*sqrt(5)*b2**2*b3*b4 - 3*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 - 13*sqrt(2)*b2*b3**3 - 5*sqrt(10)*b2*b3**3 + 16*b2*b3**3 + 8*sqrt(5)*b2*b3**3 - 4*sqrt(2)*b2*b3**2*b4 + sqrt(5)*b2*b3**2*b4 + 3*b2*b3**2*b4 - 3*sqrt(10)*b3**4 - 5*sqrt(2)*b3**4 + 3*sqrt(5)*b3**4 + 9*b3**4 - 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**3*b4 + 4*b3**3*b4 + 2*sqrt(5)*b3**3*b4",
    "sides": [
     4,
     6
@@ -4237,5 +4237,5 @@
   "-sqrt(5)*b1**3*b2 - b1**3*b2 + 2*sqrt(2)*b1**3*b2 - sqrt(10)*b1**3*b3 - b1**3*b3 + sqrt(2)*b1**3*b3 + sqrt(5)*b1**3*b3 - sqrt(10)*b1**3*b4 - b1**3*b4 + sqrt(2)*b1**3*b4 + sqrt(5)*b1**3*b4 - 9*b1**2*b2**2 - sqrt(5)*b1**2*b2**2 + sqrt(2)*b1**2*b2**2 + 3*sqrt(10)*b1**2*b2**2 - 2*sqrt(5)*b1**2*b2*b3 - 2*b1**2*b2*b3 + 2*sqrt(10)*b1**2*b2*b3 - 5*b1**2*b2*b4 - sqrt(5)*b1**2*b2*b4 + 2*sqrt(10)*b1**2*b2*b4 - 4*sqrt(2)*b1**2*b3**2 + 6*b1**2*b3**2 - 2*sqrt(10)*b1**2*b3*b4 - 4*sqrt(2)*b1**2*b3*b4 + 5*b1**2*b3*b4 + 3*sqrt(5)*b1**2*b3*b4 - 2*sqrt(10)*b1**2*b4**2 - b1**2*b4**2 + 3*sqrt(5)*b1**2*b4**2 - 7*b1*b2**3 - sqrt(5)*b1*b2**3 + 2*sqrt(2)*b1*b2**3 + 2*sqrt(10)*b1*b2**3 - 22*b1*b2**2*b3 - 4*sqrt(2)*b1*b2**2*b3 + 4*sqrt(5)*b1*b2**2*b3 + 6*sqrt(10)*b1*b2**2*b3 - 30*b1*b2**2*b4 + sqrt(2)*b1*b2**2*b4 + 9*sqrt(10)*b1*b2**2*b4 - 14*sqrt(2)*b1*b2*b3**2 - 19*b1*b2*b3**2 + 6*sqrt(10)*b1*b2*b3**2 + 9*sqrt(5)*b1*b2*b3**2 - 20*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b3*b4 + 8*sqrt(5)*b1*b2*b3*b4 + 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b4**2 - 10*b1*b2*b4**2 + 6*sqrt(5)*b1*b2*b4**2 + 6*sqrt(10)*b1*b2*b4**2 - 5*sqrt(2)*b1*b3**3 - 3*b1*b3**3 + sqrt(10)*b1*b3**3 + 3*sqrt(5)*b1*b3**3 - 20*sqrt(2)*b1*b3**2*b4 + 5*b1*b3**2*b4 + 2*sqrt(10)*b1*b3**2*b4 + 7*sqrt(5)*b1*b3**2*b4 - 22*sqrt(2)*b1*b3*b4**2 + 2*sqrt(10)*b1*b3*b4**2 + 10*b1*b3*b4**2 + 6*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 + 2*b1*b4**3 + sqrt(10)*b1*b4**3 + 2*sqrt(5)*b1*b4**3 - 5*sqrt(5)*b2**3*b4 - 11*b2**3*b4 + 3*sqrt(10)*b2**3*b4 + 9*sqrt(2)*b2**3*b4 - 8*sqrt(5)*b2**2*b3*b4 - 14*b2**2*b3*b4 + 2*sqrt(10)*b2**2*b3*b4 + 18*sqrt(2)*b2**2*b3*b4 - 3*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2**2*b4**2 - b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 3*sqrt(10)*b2*b3**2*b4 - 3*sqrt(5)*b2*b3**2*b4 + 5*sqrt(2)*b2*b3**2*b4 + 9*b2*b3**2*b4 - 6*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b2*b3*b4**2 + 4*sqrt(2)*b2*b3*b4**2 + 18*b2*b3*b4**2 - 3*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b2*b4**3 + 3*sqrt(2)*b2*b4**3 + 10*b2*b4**3 - 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**3*b4 + sqrt(5)*b3**3*b4 + 7*b3**3*b4 - 5*sqrt(10)*b3**2*b4**2 - sqrt(2)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2 + 11*b3**2*b4**2 - 4*sqrt(10)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(5)*b3*b4**3 + 6*b3*b4**3 - sqrt(10)*b4**4 + sqrt(2)*b4**4 + 2*b4**4"
  ],
  "seconds": 5832.5,
- "surfaces_note": "fitted after the map by ixoic_walls.py (exact over Q(sqrt2, sqrt5); whole forms where the factorisation did not finish)"
+ "surfaces_note": "fitted after the map by ixoic_walls.py (exact over Q(sqrt2, sqrt5); whole forms where the factorisation did not finish); missing walls added by missing_walls.py (flats of the wall polytope that are cells on neither side; near misses checked two-sided)"
 }
