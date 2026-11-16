@@ -303,8 +303,10 @@ class Map:
 
 # ---------------------------------------------------------------- reduced extent
 
-def _samples(sh, n=1500, rng=np.random.default_rng(0)):
-    """Points spread over a shape (on R^4): over its triangles by area, along its curve, or itself."""
+def _samples(sh, n=1500, rng=None):
+    """Points spread over a shape (on R^4): over its triangles by area, along its curve, or itself
+    (the same points each time, unless another generator is given)."""
+    rng = np.random.default_rng(0) if rng is None else rng
     if sh["kind"] in ("wall", "region"):
         T = sh["geo"]
         ar = np.linalg.norm(np.einsum("ni,nj->nij", T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]).reshape(len(T), -1), axis=1)
@@ -575,7 +577,12 @@ def build() -> dict:
 
     # each cut to the extent its seeds need once
     for sh in shapes:
-        sh["cuts"] = reduce_extent(sh, GQ, prefer)
+        # (the half kept is the one holding the corner A1 shown, for a shape that reaches it: so X38,
+        # B1 and F3 are the halves that meet at that A1; otherwise the side of the axis kept)
+        a1 = chosen.get(("point", "A1"))
+        at_a1 = a1 is not None and sh["kind"] != "point" and \
+            np.linalg.norm(_samples(sh, 3000) - a1["geo"][0], axis=1).min() < 2e-3
+        sh["cuts"] = reduce_extent(sh, GQ, a1["geo"][0] if at_a1 else prefer)
         n_copies = len(seen[(sh["kind"], sh["id"])])
         sh["note"] = ("cut by the symmetries carrying it onto itself: " + ", ".join(
             "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in sh["cuts"])
@@ -663,6 +670,11 @@ def build() -> dict:
         # (the least step: wider round an edge with few shapes, up to MAX_STEP, so they spread over
         # about RING_ARC; never under MIN_STEP)
         step = float(np.clip(np.radians(RING_ARC) / len(sa), MIN_STEP, MAX_STEP))
+        # (round an edge with a turn of order 3 or more about it, the shapes shown lie in one of the
+        # sectors the turn repeats, and keep their true directions there: close together, as they lie)
+        held_ring = m.node["line"][a["key"][1]]["stab"] >= 3
+        if held_ring:
+            step = 0.0
         new = sa.copy()
         for _ in range(500):                      # (opened out where closer than the step)
             moved = False
@@ -680,6 +692,8 @@ def build() -> dict:
         lay = np.array([layer_of[shapes[rows[ring[o]][1]]["key"]] for o in order])
         held = lay == lay.min()
         new += (sa[held] - new[held]).mean()
+        if held_ring:
+            new = sa.copy()
         arcs[a["id"]] = {"true_span_deg": round(float(np.degrees(sa[-1] - sa[0])), 1),
                          "shown_span_deg": round(float(np.degrees(new[-1] - new[0])), 1),
                          "order": [[shapes[rows[ring[o]][1]]["id"], round(float(np.degrees(x)), 1), round(float(np.degrees(y)), 1)]
@@ -689,7 +703,7 @@ def build() -> dict:
             # (and the turn about the edge that would swing it from its true direction to this one)
             j_ = rows[ring[o]][1]
             if layer_of[a["key"]] <= layer_of[shapes[j_]["key"]]:      # (only edges of its layer or nearer)
-                turns[j_].append((abs(th - th0), th - th0, L.mean(0), t, a["id"]))
+                turns[j_].append((np.inf if held_ring else abs(th - th0), th - th0, L.mean(0), t, a["id"]))
     # the moves, from the lowest shapes up, each from the shapes on its boundary only (no shape's move
     # feeds back into those below it, and no chain is longer than corner, edge, wall, region):
     # a shape with nothing shown on its boundary (the corners, and any other) moves as the whole
