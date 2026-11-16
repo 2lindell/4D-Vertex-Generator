@@ -57,6 +57,8 @@ GIVEN = {
     "kidecaic_wall_24_120v_440c": ("Ebybosid", "Epsilon Bipyramidic Biomnisnub Decachoron",
                                    "Walls 18 and 23 have the same columns; told apart " + ORDER + "."),
     "iodecaic_region_01_120v_500c": ("Dawosbid", "Disphenoidal Omnisnub Bidecachoron", ""),
+    "iodecaic_wall_02_120v_260c": ("Bipyramidal Omnisnub Bidecachoron", "Bipyramidal Omnisnub Bidecachoron",
+                                   "Its short name is not yet given."),
     "kidecaic_line_25_120v_200c": ("Sawbosid", "Small Antiwedged Biomnisnub Decachoron",
                                    "Line 26 (Gawbosid) has the same columns; told apart " + ORDER + "."),
     "kidecaic_line_26_120v_200c": ("Gawbosid", "Great Antiwedged Biomnisnub Decachoron",
