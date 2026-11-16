@@ -624,35 +624,6 @@
    ]
   },
   {
-   "name": "kidecaic_region_22_120v_380c",
-   "group": "kidecaic",
-   "kind": "region",
-   "degrees": 3,
-   "vertices": 120,
-   "cells": 380,
-   "cell_types": "10x12v(20x3) + 40x6v(8x3) + 120x5v(4x3+1x4) + 210x4v(4x3)",
-   "edges_by_valence": {
-    "3": 300,
-    "4": 300,
-    "7": 60,
-    "8": 60
-   },
-   "surface": "",
-   "beta": [
-    0.6001613,
-    0.0335292,
-    0.2990123,
-    0.0672982
-   ],
-   "seed_vector": [
-    1.0,
-    0.052343656937525,
-    -0.000599042063244,
-    -0.472740286006663,
-    -0.579004328867619
-   ]
-  },
-  {
    "name": "kidecaic_wall_23_120v_440c",
    "group": "kidecaic",
    "kind": "wall",

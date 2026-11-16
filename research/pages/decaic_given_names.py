@@ -3,7 +3,7 @@
 Each list entry was matched by its two profile columns: the edges at a vertex by how many cells meet there (e.g.
 5568 10,4^3,3^6) and the vertex figure's faces (e.g. 5,44,3^17), computed from each shape's .off file (all vertices are
 alike). Where several shapes share both columns, the list's Greek letters follow the order the shapes have on the
-decaic page (regions 01-09, 21, 22, then walls 10-20, 23, 24, then lines 25, 26), as they do everywhere the columns do
+decaic page (regions 01-09, 21, then walls 10-20, 23, then lines 25, 26), as they do everywhere the columns do
 tell the shapes apart.
 """
 
@@ -23,34 +23,29 @@ GIVEN = {
     "kidecaic_region_08_120v_680c": ("Dedwebosid", "Delta Disphenoidal Biomnisnub Decachoron", ""),
     "kidecaic_region_09_120v_680c": ("Edwebosid", "Epsilon Disphenoidal Biomnisnub Decachoron", ""),
     "kidecaic_region_21_120v_680c": ("Zedwebosid", "Zeta Disphenoidal Biomnisnub Decachoron", ""),
-    "kidecaic_region_22_120v_380c": ("Apybosid", "Alpha Pyramidic Biomnisnub Decachoron",
-                                     "Walls 14 and 15 (Epybosid, Zepybosid) have the same columns but are walls; this "
-                                     "is the region."),
-    "kidecaic_wall_10_120v_380c": ("Bepybosid", "Beta Pyramidic Biomnisnub Decachoron",
-                                   "Wall 16 (Hepybosid) has the same columns; told apart " + ORDER + "."),
+    "kidecaic_wall_10_120v_380c": ("Apybosid", "Alpha Pyramidic Biomnisnub Decachoron",
+                                   "Wall 16 (Zepybosid) has the same columns; told apart " + ORDER + "." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
     "kidecaic_wall_11_120v_440c": ("Abybosid", "Alpha Bipyramidic Biomnisnub Decachoron",
                                    "Wall 17 (Bebybosid) has the same columns; told apart " + ORDER + "."),
-    "kidecaic_wall_12_120v_500c": ("Gapybosid", "Gamma Pyramidic Biomnisnub Decachoron",
-                                   "Wall 19 (Thepybosid) has the same columns; told apart " + ORDER + "."),
-    "kidecaic_wall_13_120v_500c": ("Depybosid", "Delta Pyramidic Biomnisnub Decachoron",
-                                   "Its edges at a vertex are 56688,44,3^7; the list has 55668,44,3^7 (also for "
-                                   "Ipybosid). Wall 20 (Ipybosid) has the same columns; told apart " + ORDER + "."),
-    "kidecaic_wall_14_120v_380c": ("Epybosid", "Epsilon Pyramidic Biomnisnub Decachoron",
-                                   "Wall 15 (Zepybosid) has the same columns; told apart " + ORDER + "."),
-    "kidecaic_wall_15_120v_380c": ("Zepybosid", "Zeta Pyramidic Biomnisnub Decachoron",
-                                   "Wall 14 (Epybosid) has the same columns; told apart " + ORDER + "."),
-    "kidecaic_wall_16_120v_380c": ("Hepybosid", "Eta Pyramidic Biomnisnub Decachoron",
-                                   "Wall 10 (Bepybosid) has the same columns; told apart " + ORDER + "."),
+    "kidecaic_wall_12_120v_500c": ("Bepybosid", "Beta Pyramidic Biomnisnub Decachoron",
+                                   "Wall 19 (Hepybosid) has the same columns; told apart " + ORDER + "." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
+    "kidecaic_wall_13_120v_500c": ("Gapybosid", "Gamma Pyramidic Biomnisnub Decachoron",
+                                   "Its edges at a vertex are 56688,44,3^7; the list has 55668,44,3^7 (also for the next wall). " + "Wall 20 (Thepybosid) has the same columns; told apart " + ORDER + "." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
+    "kidecaic_wall_14_120v_380c": ("Depybosid", "Delta Pyramidic Biomnisnub Decachoron",
+                                   "Wall 15 (Epybosid) has the same columns; told apart " + ORDER + "." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
+    "kidecaic_wall_15_120v_380c": ("Epybosid", "Epsilon Pyramidic Biomnisnub Decachoron",
+                                   "Wall 14 (Depybosid) has the same columns; told apart " + ORDER + "." + " Region 22, listed as Apybosid, was this shape again (a point of this wall) and has been removed." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
+    "kidecaic_wall_16_120v_380c": ("Zepybosid", "Zeta Pyramidic Biomnisnub Decachoron",
+                                   "Wall 10 (Apybosid) has the same columns; told apart " + ORDER + "." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
     "kidecaic_wall_17_120v_440c": ("Bebybosid", "Beta Bipyramidic Biomnisnub Decachoron",
                                    "Wall 11 (Abybosid) has the same columns; told apart " + ORDER + "."),
     "kidecaic_wall_18_120v_440c": ("Gabybosid", "Gamma Bipyramidic Biomnisnub Decachoron",
                                    "Its edges at a vertex are 88,4^6,3^6 (as for Debybosid); the list has 688,4^3,3^8, "
                                    "Abybosid's and Bebybosid's. Placed by the list's order."),
-    "kidecaic_wall_19_120v_500c": ("Thepybosid", "Theta Pyramidic Biomnisnub Decachoron",
-                                   "Wall 12 (Gapybosid) has the same columns; told apart " + ORDER + "."),
-    "kidecaic_wall_20_120v_500c": ("Ipybosid", "Iota Pyramidic Biomnisnub Decachoron",
-                                   "Its edges at a vertex are 56688,44,3^7; the list has 55668,44,3^7. Wall 13 "
-                                   "(Depybosid) has the same columns; told apart " + ORDER + "."),
+    "kidecaic_wall_19_120v_500c": ("Hepybosid", "Eta Pyramidic Biomnisnub Decachoron",
+                                   "Wall 12 (Bepybosid) has the same columns; told apart " + ORDER + "." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
+    "kidecaic_wall_20_120v_500c": ("Thepybosid", "Theta Pyramidic Biomnisnub Decachoron",
+                                   "Its edges at a vertex are 56688,44,3^7; the list has 55668,44,3^7. " + "Wall 13 (Gapybosid) has the same columns; told apart " + ORDER + "." + " Pybosid names shifted down one letter (2026-11-16) when Apybosid, region 22, was found to be wall 15."),
     "kidecaic_wall_23_120v_440c": ("Debybosid", "Delta Bipyramidic Biomnisnub Decachoron",
                                    "Wall 18 (Gabybosid) has the same columns; told apart " + ORDER + ". The crossing search found this "
                                    "shape again as wall 24 (listed as Ebybosid); that repeat has been removed."),
@@ -97,20 +92,20 @@ CONTIC_FROM_DECAIC = {
     "kicontic_region_12_1152v_6432c": "Gadwebosid",
     "kicontic_region_13_1152v_6432c": "Edwebosid",
     "kicontic_region_14_1152v_6432c": "Dedwebosid",
-    "kicontic_wall_02_1152v_3552c": "Bepybosid",
-    "kicontic_wall_03_1152v_3552c": "Epybosid",
-    "kicontic_wall_07_1152v_3552c": "Zepybosid",
-    "kicontic_wall_08_1152v_3552c": "Hepybosid",
-    "kicontic_wall_23": "Thepybosid",
+    "kicontic_wall_02_1152v_3552c": "Apybosid",
+    "kicontic_wall_03_1152v_3552c": "Depybosid",
+    "kicontic_wall_07_1152v_3552c": "Epybosid",
+    "kicontic_wall_08_1152v_3552c": "Zepybosid",
+    "kicontic_wall_23": "Hepybosid",
     "kicontic_wall_24": "Gabybosid",
     "kicontic_line_25": "Sawbosid",
     "kicontic_line_26": "Gawbosid",
     # (found by the kicontic region closure check, 2026-11-16: contic_atlas/kicontic_closure.md)
     "kicontic_wall_27": "Abybosid",
-    "kicontic_wall_28": "Gapybosid",
-    "kicontic_wall_29": "Depybosid",
+    "kicontic_wall_28": "Bepybosid",
+    "kicontic_wall_29": "Gapybosid",
     "kicontic_wall_30": "Bebybosid",
-    "kicontic_wall_31": "Ipybosid",
+    "kicontic_wall_31": "Thepybosid",
     "kicontic_wall_32": "Debybosid",
     "iocontic_region_03_1152v_4704c": "Gosbid",
     "iocontic_wall_06": "Bipyosbid",

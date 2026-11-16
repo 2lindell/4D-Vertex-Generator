@@ -1,0 +1,287 @@
+{
+ "_about": "new wall shapes found by the region closure check (closure_add.py)",
+ "shapes": [
+  {
+   "key": "f7c174f6a037",
+   "name": "wall_27",
+   "group": "kicontic",
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[5v6f] | faces 288x4g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+576x4+576x6+576x8+576x8+1152x3+1152x3+1152x3+1152x3",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.07852667153967488,
+    0.1742191588388206,
+    0.7201445781437485,
+    0.027109591477756174
+   ],
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4 - b1*b2*b3**2 + sqrt(2)*b1*b2*b3**2/2 - 5*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**2*b4 + 2*b1*b3**2*b4 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2 - b2**2*b3*b4 + sqrt(2)*b2**2*b3*b4/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
+   ],
+   "sides": [
+    "bacf5469687f",
+    "f7f32456c461"
+   ],
+   "source": "found by the region closure check (snub_closure.py)",
+   "start_R": null,
+   "R": 7.005134400326036,
+   "optimized": [
+    0.11754810089378757,
+    0.11764440437174703,
+    0.7462693007988188,
+    0.01853819393564668
+   ],
+   "optimized_status": null,
+   "central": [
+    0.05177892441307417,
+    0.14532842706776605,
+    0.7784673885411812,
+    0.024425259977978557
+   ],
+   "depth": 0.03953305221958438,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kicontic/kicontic_wall_27_1152v_4128c_seed.off",
+   "seed_R": 10.259304606808142,
+   "opt_off": "optimized_off/kicontic/kicontic_wall_27_1152v_4128c_opt.off",
+   "opt_R": 7.005134400326036,
+   "central_off": "central_off/kicontic/kicontic_wall_27_1152v_4128c_central.off",
+   "central_R": 15.496763469948437,
+   "vertices": 1152,
+   "cells": 4128
+  },
+  {
+   "key": "cf1591d75b16",
+   "name": "wall_28",
+   "group": "kicontic",
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[4v4f]+1152x[5v5f] | faces 288x4g+384x3g+576x4g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+576x5+576x6+576x8+576x9+1152x3+1152x3+1152x3+1152x4",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.05406638318016307,
+    0.09397780842173531,
+    0.8459494921252515,
+    0.00600631627285048
+   ],
+   "locus": [
+    "b1*b2 - b3*b4"
+   ],
+   "sides": [
+    "510703a3f204",
+    "f7f32456c461"
+   ],
+   "source": "found by the region closure check (snub_closure.py)",
+   "start_R": null,
+   "R": 7.007305728688073,
+   "optimized": [
+    0.11752478902142666,
+    0.11756474150898337,
+    0.7463992347318348,
+    0.018511234737755188
+   ],
+   "optimized_status": null,
+   "central": [
+    0.056540482880325094,
+    0.11262411600638643,
+    0.8230990025963612,
+    0.007736398516927313
+   ],
+   "depth": 0.06897294893374764,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kicontic/kicontic_wall_28_1152v_4704c_seed.off",
+   "seed_R": 16.816831558673787,
+   "opt_off": "optimized_off/kicontic/kicontic_wall_28_1152v_4704c_opt.off",
+   "opt_R": 7.007305728688073,
+   "central_off": "central_off/kicontic/kicontic_wall_28_1152v_4704c_central.off",
+   "central_R": 15.880232492360912,
+   "vertices": 1152,
+   "cells": 4704
+  },
+  {
+   "key": "088a005dd446",
+   "name": "wall_29",
+   "group": "kicontic",
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[4v4f]+1152x[5v5f] | faces 288x4g+384x3g+576x4g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x3+576x5+576x6+576x6+576x8+576x8+1152x3+1152x3+1152x3+1152x4",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.04112127186950799,
+    0.4028640362242931,
+    0.5528769521797662,
+    0.0031377397264324733
+   ],
+   "locus": [
+    "b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - b2*b3 + sqrt(2)*b2*b3/2 - 2*b2*b4 + 3*sqrt(2)*b2*b4/2 - sqrt(2)*b3*b4 + 2*b3*b4 - sqrt(2)*b4**2/2 + b4**2"
+   ],
+   "sides": [
+    "46f94f640787",
+    "510703a3f204"
+   ],
+   "source": "found by the region closure check (snub_closure.py)",
+   "start_R": null,
+   "R": 5.174530136411543,
+   "optimized": [
+    0.15577808317662517,
+    0.15617358332626213,
+    0.688046696548179,
+    1.6369489336640794e-06
+   ],
+   "optimized_status": null,
+   "central": [
+    0.16511076221302584,
+    0.06985612471690017,
+    0.7587324775257978,
+    0.0063006355442762774
+   ],
+   "depth": 0.03707756995246238,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kicontic/kicontic_wall_29_1152v_4704c_seed.off",
+   "seed_R": 21.45577981580132,
+   "opt_off": "optimized_off/kicontic/kicontic_wall_29_1152v_4704c_opt.off",
+   "opt_R": 5.174530136411543,
+   "central_off": "central_off/kicontic/kicontic_wall_29_1152v_4704c_central.off",
+   "central_R": 11.543199418184015,
+   "vertices": 1152,
+   "cells": 4704
+  },
+  {
+   "key": "a97fdecc2dff",
+   "name": "wall_30",
+   "group": "kicontic",
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[5v6f] | faces 288x4g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+576x4+576x6+576x8+576x8+1152x3+1152x3+1152x3+1152x3",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.5436207720257059,
+    0.007447420158754772,
+    0.06310813153704356,
+    0.38582367627849584
+   ],
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4 - b1*b2*b3**2 + sqrt(2)*b1*b2*b3**2/2 - 5*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**2*b4 + 2*b1*b3**2*b4 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2 - b2**2*b3*b4 + sqrt(2)*b2**2*b3*b4/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2"
+   ],
+   "sides": [
+    "579a0b146ac2",
+    "ebdbd67c9b4c"
+   ],
+   "source": "found by the region closure check (snub_closure.py)",
+   "start_R": null,
+   "R": 3.164484477048845,
+   "optimized": [
+    0.5999450728184055,
+    4.507375801218706e-06,
+    0.19985991872087858,
+    0.20019050108491473
+   ],
+   "optimized_status": null,
+   "central": [
+    0.7026679295800285,
+    0.01556998691649564,
+    0.15559748032260767,
+    0.1261646031808682
+   ],
+   "depth": 0.05149656538908478,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kicontic/kicontic_wall_30_1152v_4128c_seed.off",
+   "seed_R": 9.72080089201532,
+   "opt_off": "optimized_off/kicontic/kicontic_wall_30_1152v_4128c_opt.off",
+   "opt_R": 3.164484477048845,
+   "central_off": "central_off/kicontic/kicontic_wall_30_1152v_4128c_central.off",
+   "central_R": 5.661419436875573,
+   "vertices": 1152,
+   "cells": 4128
+  },
+  {
+   "key": "c9267f353a08",
+   "name": "wall_31",
+   "group": "kicontic",
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[4v4f]+1152x[5v5f] | faces 288x4g+384x3g+576x4g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x3+576x5+576x6+576x6+576x8+576x8+1152x3+1152x3+1152x3+1152x4",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.5696328577396365,
+    0.021555679891207793,
+    0.03943960024110315,
+    0.3693718621280526
+   ],
+   "locus": [
+    "b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - b2*b3 + sqrt(2)*b2*b3/2 - 2*b2*b4 + 3*sqrt(2)*b2*b4/2 - sqrt(2)*b3*b4 + 2*b3*b4 - sqrt(2)*b4**2/2 + b4**2"
+   ],
+   "sides": [
+    "579a0b146ac2",
+    "68c231e69b7c"
+   ],
+   "source": "found by the region closure check (snub_closure.py)",
+   "start_R": null,
+   "R": 3.1648864151847813,
+   "optimized": [
+    0.5999760591376552,
+    1.3434523785256284e-05,
+    0.1998359194312446,
+    0.200174586907315
+   ],
+   "optimized_status": null,
+   "central": [
+    0.6883218346264957,
+    0.008749741143681343,
+    0.19934934717394115,
+    0.10357907705588183
+   ],
+   "depth": 0.08624943865359914,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kicontic/kicontic_wall_31_1152v_4704c_seed.off",
+   "seed_R": 11.959703432294932,
+   "opt_off": "optimized_off/kicontic/kicontic_wall_31_1152v_4704c_opt.off",
+   "opt_R": 3.1648864151847813,
+   "central_off": "central_off/kicontic/kicontic_wall_31_1152v_4704c_central.off",
+   "central_R": 6.89391018658092,
+   "vertices": 1152,
+   "cells": 4704
+  },
+  {
+   "key": "0e8641589e0e",
+   "name": "wall_32",
+   "group": "kicontic",
+   "signature": "1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[5v6f] | faces 288x4g+384x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g+1152x3g | edges 576x4+576x4+576x4+576x4+576x8+576x8+1152x3+1152x3+1152x3+1152x4",
+   "kind": "wall",
+   "degrees": 2,
+   "seed": [
+    0.05411532324762767,
+    0.3237008203371295,
+    0.5981730287940421,
+    0.024010827621200617
+   ],
+   "locus": [
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 2*b1*b2**2*b4 - b1*b2*b3**2 + sqrt(2)*b1*b2*b3**2/2 - 5*b1*b2*b3*b4 + 5*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**2*b4 + 2*b1*b3**2*b4 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2 - b2**2*b3*b4 + sqrt(2)*b2**2*b3*b4/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2"
+   ],
+   "sides": [
+    "219807d43832",
+    "46f94f640787"
+   ],
+   "source": "found by the region closure check (snub_closure.py)",
+   "start_R": null,
+   "R": 5.17372409990945,
+   "optimized": [
+    0.15579938572788957,
+    0.1560728714532162,
+    0.6881122651890984,
+    1.5477629795919962e-05
+   ],
+   "optimized_status": null,
+   "central": [
+    0.1664751861914434,
+    0.06881247699608403,
+    0.7583863777153594,
+    0.006325959097113179
+   ],
+   "depth": 0.03695261166374544,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/kicontic/kicontic_wall_32_1152v_4128c_seed.off",
+   "seed_R": 14.495103241610089,
+   "opt_off": "optimized_off/kicontic/kicontic_wall_32_1152v_4128c_opt.off",
+   "opt_R": 5.17372409990945,
+   "central_off": "central_off/kicontic/kicontic_wall_32_1152v_4128c_central.off",
+   "central_R": 11.700126741522343,
+   "vertices": 1152,
+   "cells": 4128
+  }
+ ]
+}

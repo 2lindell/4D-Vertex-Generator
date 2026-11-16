@@ -159,7 +159,6 @@ SAME = {"kidecaic_line_26_120v_200c": " It has the same cells, edges and faces a
 CROSS = {}  # (crossing shapes: name -> number of walls crossing there)
 # (shapes not found on the map grid: decaic_snub_shapes.md)
 FOUND = {"kidecaic_region_21_120v_680c": "the dense survey of the edge zones",
-         "kidecaic_region_22_120v_380c": "the region closure check (walks from every region to its walls)",
          "kidecaic_wall_23_120v_440c": "the region closure check, as a quartic wall between two regions"}
 
 

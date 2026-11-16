@@ -5,7 +5,7 @@ The updated list's entries matched to the atlas's shapes by the list's two profi
 pages: pages/decaic_given_names.py.
 
 Where several shapes have both columns alike, the Greek letters are taken in the decaic page's order (regions 01-09, 21,
-22, walls 10-20, 23, lines 25, 26). That is the order the letters follow wherever the columns do tell shapes apart.
+walls 10-20, 23, lines 25, 26). That is the order the letters follow wherever the columns do tell shapes apart.
 
 ## Kidecaic
 
@@ -26,22 +26,21 @@ Where several shapes have both columns alike, the Greek letters are taken in the
 | Dedwebosid | region 08 | 5566 10 10,4^4,3^6 | same | 5,44,3^21 | same |
 | Edwebosid | region 09 | 6688 10,4^5,3^6 | same | 5,44,3^21 | same |
 | Zedwebosid | region 21 | 6668 10,55,4^3,3^6 | same | 5,44,3^21 | same |
-| Apybosid | region 22 | 78,4^5,3^5 | same | 5,444,3^11 | same |
 | Sigwebosid | sigwebosid | 7,4^5,3^5 | same | 5,4^4,3^7 | same |
 | Gigwebosid | gigwebosid | 8,4^6,3^4 | same | 5,444,3^9 | same |
 | Tetbosid | tetbosid | 56,44,3^5 | same | 544,3^7 | same |
 | Petbosid | petbosid | 564,3^7 | same | 55,44,3^6 | same |
-| Bepybosid | wall 10 | 568,4^4,3^5 | same | 5,444,3^11 | same (as wall 16: by order) |
+| Apybosid (was Bepybosid) | wall 10 | 568,4^4,3^5 | same | 5,444,3^11 | same (as wall 16: by order) |
 | Abybosid | wall 11 | 688,4^3,3^8 | same | 5,4^5,3^11 | same (as wall 17: by order) |
-| Gapybosid | wall 12 | 5689,4^4,3^6 | same | 5,444,3^15 | same (as wall 19: by order) |
-| Depybosid | wall 13 | 56688,44,3^7 | **55668,44,3^7** | 5,444,3^15 | same (as wall 20: by order) |
-| Epybosid | wall 14 | 78,4^5,3^5 | same | 5,444,3^11 | same (as wall 15: by order) |
-| Zepybosid | wall 15 | 78,4^5,3^5 | same | 5,444,3^11 | same |
-| Hepybosid | wall 16 | 568,4^4,3^5 | same | 5,444,3^11 | same |
+| Bepybosid (was Gapybosid) | wall 12 | 5689,4^4,3^6 | same | 5,444,3^15 | same (as wall 19: by order) |
+| Gapybosid (was Depybosid) | wall 13 | 56688,44,3^7 | **55668,44,3^7** | 5,444,3^15 | same (as wall 20: by order) |
+| Depybosid (was Epybosid) | wall 14 | 78,4^5,3^5 | same | 5,444,3^11 | same (as wall 15: by order) |
+| Epybosid (was Zepybosid) | wall 15 | 78,4^5,3^5 | same | 5,444,3^11 | same |
+| Zepybosid (was Hepybosid) | wall 16 | 568,4^4,3^5 | same | 5,444,3^11 | same |
 | Bebybosid | wall 17 | 688,4^3,3^8 | same | 5,4^5,3^11 | same |
 | Gabybosid | wall 18 | 88,4^6,3^6 | **688,4^3,3^8** | 5,4^5,3^11 | same |
-| Thepybosid | wall 19 | 5689,4^4,3^6 | same | 5,444,3^15 | same |
-| Ipybosid | wall 20 | 56688,44,3^7 | **55668,44,3^7** | 5,444,3^15 | same |
+| Hepybosid (was Thepybosid) | wall 19 | 5689,4^4,3^6 | same | 5,444,3^15 | same |
+| Thepybosid (was Ipybosid) | wall 20 | 56688,44,3^7 | **55668,44,3^7** | 5,444,3^15 | same |
 | Debybosid | wall 23 | 88,4^6,3^6 | same | 5,4^5,3^11 | same |
 | Sawbosid | line 25 (crossing) | 456,3^7 | same | 5,4^4,3^5 | same |
 | Gawbosid | line 26 (crossing) | 456,3^7 | same | 5,4^4,3^5 | same; **the list gives 0 degrees, the atlas 1** |
@@ -52,7 +51,7 @@ The differences, all kept on the list as given:
   688,4^3,3^8 (11 and 17).
 * **Ebybosid** (was wall 24) is removed: it was wall 23 (Debybosid) found a second time (see below). Being the last of
   the bybosid letters, no other name moves.
-* **Depybosid and Ipybosid:** the atlas has edges 5,6,6,8,8 above the 4s, and the list has 5,5,6,6,8.
+* **Gapybosid and Thepybosid (was Depybosid and Ipybosid):** the atlas has edges 5,6,6,8,8 above the 4s, and the list has 5,5,6,6,8.
 * **Gawbosid:** it lies on a curve that three of the map's walls contain, so it has one degree of variation.
 
 ## Iodecaic
@@ -83,7 +82,7 @@ The iodecaic wall 02, between Sosbid and the new Gosbid, was named afterwards: B
   shape looked new and was added as wall 24.
 * Wall 24 has been removed (2026-11-16) and Debybosid, wall 23, is the one shape; the name Ebybosid is dropped.
 
-## Every kidecaic shape compared by key (2026-11-16)
+## Every kidecaic shape compared by key (2026-11-16; names here are those before the pybosid shift below)
 
 All 24 remaining kidecaic atlas shapes were labelled and their arrangement keys compared. Every pair that shares the
 list's two columns (walls 10/16, 11/17, 12/19, 13/20, 14/15, 18/23) has two different keys: these are different
@@ -96,3 +95,10 @@ from wall 15's seed to region 22's, the shape never changes (61 points). The reg
 a change to within 1e-8 of the wall, labelled the point there, and recorded it as a new region because its key was not
 among the regions. It is a wall point, so it has two degrees of variation, not three. This is also why kicontic has
 no counterpart of Apybosid: there is no such region.
+
+## Repeats removed and pybosid names shifted (2026-11-16)
+
+Region 22 (Apybosid) has been removed as a repeat of wall 15, and the pybosid names moved down one letter in the page's
+order: wall 10 Apybosid (was Bepybosid), 12 Bepybosid (was Gapybosid), 13 Gapybosid (was Depybosid), 14 Depybosid (was
+Epybosid), 15 Epybosid (was Zepybosid), 16 Zepybosid (was Hepybosid), 19 Hepybosid (was Thepybosid), 20 Thepybosid (was
+Ipybosid). The name Ipybosid is no longer used. The kicontic counterparts follow (d -> c).
