@@ -46,6 +46,9 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 RING = 0.30                        # how far the walls and regions round an edge stand from it
 DEBUG_PICK = ()                    # (names whose copy picks are printed)
+PATCH_NAMING = 4                   # (bumped when the way triangles are named changes: the cache is redone)
+GRID = 0.004                       # the page's meshes are thinned to this (in the view's units)
+FILL = False                       # whether unnamed triangles take their neighbours' patch
 MAX_ANGLE = 70                     # how far round the sphere from the view's centre a shape may reach
 TOUCH = 6e-3                       # shapes this close (in the view) touch
 
@@ -68,7 +71,10 @@ def _patch_triangles(D, doc, z):
     out = defaultdict(list)
 
     def fill(F, lab):
-        """Triangles left unnamed take the name most of the triangles sharing a corner with them have."""
+        """Triangles left unnamed take the name most of the triangles sharing a corner with them have
+        (only where a sheet's triangles are coarse: with the fine meshes, none are filled)."""
+        if not FILL:
+            return lab
         by_v = defaultdict(list)
         for t, tri in enumerate(F):
             for v_ in tri:
@@ -79,7 +85,7 @@ def _patch_triangles(D, doc, z):
                 break
             got = {}
             for t in todo:
-                near = [lab[u] for v_ in F[t] for u in by_v[int(v_)] if lab[u] is not None]
+                near = [lab[u] for v_ in F[t] for u in by_v[int(v_)] if lab[u]]
                 if near:
                     got[t] = max(set(near), key=near.count)
             if not got:
@@ -87,8 +93,10 @@ def _patch_triangles(D, doc, z):
             lab.update(got)
         return lab
     for f in doc["faces"]:
-        X = z["coarse_verts"][f["coarse_verts"][0]:f["coarse_verts"][1]]
-        F = z["coarse_tris"][f["coarse_tris"][0]:f["coarse_tris"][1]]
+        # (the fine meshes: a coarse triangle can be larger than a small patch, and is named by the
+        # patch at its middle only)
+        X = z["verts"][f["verts"][0]:f["verts"][1]]
+        F = z["tris"][f["tris"][0]:f["tris"][1]]
         if not len(F):
             continue
         lab = {t: None for t in range(len(F))}         # (each triangle's patch, and the copy it is carried from)
@@ -112,10 +120,12 @@ def _patch_triangles(D, doc, z):
                 if b is None:
                     continue
                 # (the patch with this piece inside and that one across, in the copy beyond)
-                cands = [p for p in face_patches[name] if p["pieces"] == [a, b] and p["side_b_copy_shift"] == kk
-                         or p["pieces"] == [b, a] and p["side_b_copy_shift"] == int(D.inv[kk])]
+                # (a patch has its side a inside its own copy: with this piece inside it is as it lies;
+                # with the piece across inside, it lies in the copy beyond and is carried back from there)
+                cands = [(p, -1) for p in face_patches[name] if p["pieces"] == [a, b] and p["side_b_copy_shift"] == kk] + \
+                        [(p, kk) for p in face_patches[name] if p["pieces"] == [b, a] and p["side_b_copy_shift"] == int(D.inv[kk])]
                 if len(cands) == 1:
-                    lab[t] = (cands[0]["id"], -1)
+                    lab[t] = (cands[0][0]["id"], cands[0][1])
                     continue
                 # (or a patch kept on the face glued to this one, seen from the copy beyond: the piece
                 # across is its inside; carried back into that patch's own copy)
@@ -124,7 +134,7 @@ def _patch_triangles(D, doc, z):
                 if len(cands) == 1:
                     lab[t] = (cands[0]["id"], kk)
             for t, l_ in fill(F, lab).items():
-                if l_ is not None:
+                if l_:
                     Y = point_from_beta(X[F[t]])
                     out[l_[0]].append(Y if l_[1] < 0 else Y @ G[l_[1]])
             continue
@@ -139,13 +149,15 @@ def _patch_triangles(D, doc, z):
         A = [D.keys.get(r.tobytes()) for r in vals(cen + 1e-7 * n)]
         B = [D.keys.get(r.tobytes()) for r in vals(cen - 1e-7 * n)]
         for t, (a, b) in enumerate(zip(A, B)):
+            if a is not None and a == b:
+                lab[t] = False                    # (the same piece on both sides: no wall here)
             if a is None or b is None or a == b:
                 continue
             p = D.pw.get((min(a, b), max(a, b), key)) or D.pw.get((min(a, b), max(a, b), None))
             if p is not None:
                 lab[t] = (p["id"], -1)
         for t, l_ in fill(F, lab).items():
-            if l_ is not None:
+            if l_:
                 out[l_[0]].append(point_from_beta(X[F[t]]))
     return {k: np.array(v) for k, v in out.items()}
 
@@ -171,7 +183,23 @@ class Map:
         self.D = dp.Data()
         doc = json.loads((root / "domain_pieces.json").read_text())
         z = np.load(root / "domain_pieces.npz")
-        self.tris = _patch_triangles(self.D, doc, z)
+        # (cached: naming every fine triangle takes a while)
+        import pickle
+        cache = root.parent.parent.parent / ".cache" / "axis_patch_tris.pkl"
+        stamp = (round((root / "domain_pieces.npz").stat().st_mtime), round((root / "patches.json").stat().st_mtime),
+                 PATCH_NAMING)
+        got = None
+        if cache.exists():
+            try:
+                got = pickle.loads(cache.read_bytes())
+            except Exception:
+                got = None
+        if got and got[0] == stamp:
+            self.tris = got[1]
+        else:
+            self.tris = _patch_triangles(self.D, doc, z)
+            cache.parent.mkdir(exist_ok=True)
+            cache.write_bytes(pickle.dumps((stamp, self.tris)))
         self.G = group()
         self.M = multiplication_table()
         Q = np.load(source_dir() / "normalizer_q.npy")
@@ -638,8 +666,22 @@ def build() -> dict:
         rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
                "layer": layer_of[sh["key"]], "moved": np.round(s, 4).tolist()}
         if sh["kind"] in ("wall", "region"):
-            Vu, F3 = np.unique(V3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
-            rec.update(verts=Vu.round(5).tolist(), faces=F3.reshape(-1, 3).tolist())
+            # (thinned for the page: corners within a GRID cell merged, triangles left flat dropped)
+            Vu, F3 = np.unique(np.round(V3.reshape(-1, 3) / GRID), axis=0, return_inverse=True)
+            F3 = F3.reshape(-1, 3)
+            F3 = F3[(F3[:, 0] != F3[:, 1]) & (F3[:, 1] != F3[:, 2]) & (F3[:, 0] != F3[:, 2])]
+            _, first = np.unique(np.sort(F3, 1), axis=0, return_index=True)
+            F3 = F3[np.sort(first)]
+            used = np.unique(F3)
+            remap = -np.ones(len(Vu), int)
+            remap[used] = np.arange(len(used))
+            # (each merged corner at the mean of the corners it stands for, not its cell's middle,
+            # so edges stay smooth)
+            inv = np.unique(np.round(V3.reshape(-1, 3) / GRID), axis=0, return_inverse=True)[1].ravel()
+            mean = np.zeros((len(Vu), 3))
+            np.add.at(mean, inv, V3.reshape(-1, 3))
+            mean /= np.bincount(inv, minlength=len(Vu))[:, None]
+            rec.update(verts=mean[used].round(4).tolist(), faces=remap[F3].tolist())
         elif sh["kind"] == "line":
             rec["path"] = V3.round(5).tolist()
         else:
