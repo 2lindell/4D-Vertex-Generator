@@ -17,6 +17,8 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from decaic_given_names import GIVEN, RENAMED  # noqa: E402
 ROOT = os.path.dirname(HERE)
 DEC = os.path.join(ROOT, "decaic_atlas")
 WORD = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
@@ -96,10 +98,10 @@ def main():
         disp = {}
         for ident, d in D.items():
             if ident.startswith("named:") and d["key"]:
-                disp.setdefault(d["key"], ident[6:].capitalize())
+                disp.setdefault(d["key"], RENAMED.get(ident[6:].capitalize(), (ident[6:].capitalize(),))[0])
         for r in mine:
             k = D[r["name"]]["key"]
-            disp.setdefault(k, display(r["name"]))
+            disp.setdefault(k, GIVEN[r["name"]][0] if r["name"] in GIVEN else display(r["name"]))
         tkey = {int(i[5:]): d["key"] for i, d in D.items() if i.startswith("type:")}
         # (neighbours across the map's walls)
         nb = {}
@@ -124,7 +126,7 @@ def main():
             dof = r["degrees"]
             t = (f"It has {cells_text(d['cells'])}. It has {d['vertices']} vertices with a {d['dualcell_faces']} faced "
                  f"dualcell. It has {edges_text(d['edges'])}. Faces are {faces_text(d['faces'])}. It is isogonal under "
-                 f"{group} symmetry with " + (f"{WORD[dof]} degrees of variations" if dof else "no degrees of variation"))
+                 f"{group} symmetry with " + (f"{WORD[dof]} degree{'s' if dof > 1 else ''} of variation" if dof else "no degrees of variation"))
             if r["name"] in CROSS:
                 t += (" and is a transitional case on a stretch of one of the map's walls that the map had not "
                       "classified, found where it crosses another" if r["kind"] == "wall" else
@@ -141,7 +143,11 @@ def main():
             found = FOUND.get(r["name"]) or ("the crossing search (where the map's walls cross)" if r["name"] in CROSS
                                              else None)
             t += "." + (f" It was found by {found}." if found else "") + SAME.get(r["name"], "")
-            out.append({"name": name, "kind": r["kind"], "degrees": dof, "text": t, "beta": r["beta"], "surface": r.get("surface") or "",
+            g = GIVEN.get(r["name"])
+            if g:
+                t = f"{g[1]} ({name} in the atlas). " + t + (f" Name match: {g[2]}" if g[2] else "")
+                name = g[0]
+            out.append({"name": name, "given": bool(g), "kind": r["kind"], "degrees": dof, "text": t, "beta": r["beta"], "surface": r.get("surface") or "",
                         "off": r.get("off") or f"{r['name']}.off", "cells": d["n_cells"]})
         new_entries[group] = out
     write_page(new_entries)
@@ -188,19 +194,30 @@ def write_page(new):
         extra = new.get(g, [])
         nav.append(f'<a href="#{sid}">{html.escape(title)} <span class="n">{len(entries) + len(extra)}</span></a>')
         if extra:
+            ng = sum(1 for e in extra if e.get("given"))
             sintro += (f" The {len(extra)} marked new were found by the atlas map (curved walls, a dense survey of the edge "
-                       "zones, a region closure check and the crossing search) and are not yet named; each is described "
-                       "from its polychoron at the seed given.")
+                       "zones, a region closure check and the crossing search)"
+                       + (f"; {ng} of them have since been named (marked named, with the atlas's label beside the name)"
+                          if ng else "")
+                       + (f"; {len(extra) - ng} are not yet named" if len(extra) > ng else "")
+                       + ". Each is described from its polychoron at the seed given.")
+            if title == "Kidecaics":
+                sintro += (" Sabosid and Mebosid are now Abosid and Bebosid; Gabosid is now the Gamma (not Great) "
+                           "biomnisnub decachoron.")
         P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(sintro)}</p>']
         items = []                              # (degrees of variation first; named before new; then as listed)
         for i, e in enumerate(entries):
             m = re.match(r"([A-Z][a-z]+) - (.*)", e, re.S)
-            items.append((text_degrees(e), 0, i, f'<article class="shape"><h3>{html.escape(m.group(1))}</h3>'
-                                                 f'<p>{html.escape(m.group(2))}</p></article>'))
+            nm, body = m.group(1), m.group(2)
+            if nm in RENAMED:
+                body = (f"{RENAMED[nm][1]}" + (f" (formerly {nm})" if RENAMED[nm][0] != nm else "") + ". " + body)
+                nm = RENAMED[nm][0]
+            items.append((text_degrees(e), 0, i, f'<article class="shape"><h3>{html.escape(nm)}</h3>'
+                                                 f'<p>{html.escape(body)}</p></article>'))
         for i, e in enumerate(extra):
             beta = ", ".join(f"{v:.6f}" for v in e["beta"])
             items.append((int(e["degrees"]), 1, i,
-                          f'<article class="shape new"><h3>{html.escape(e["name"])} <span class="tag">new</span></h3>'
+                          f'<article class="shape new"><h3>{html.escape(e["name"])} <span class="tag">{"named" if e.get("given") else "new"}</span></h3>'
                           f'<p>{html.escape(e["text"])}</p><p class="data">β = ({beta})'
                           + (f'<br>wall surface: {html.escape(e["surface"])} = 0' if e["surface"] else "")
                           + f'<br>{html.escape(e["off"])}</p></article>'))

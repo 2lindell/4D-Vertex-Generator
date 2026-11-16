@@ -21,6 +21,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 from make_decaic_page import WORD, cells_text, edges_text, faces_text  # noqa: E402
 from suggested_names import SUGGESTED  # noqa: E402
+from decaic_given_names import given  # noqa: E402
 
 ENV = {"contic_atlas": "CONTIC_SUB", "decaic_atlas": "DECAIC_SUB", "hyic_atlas": "HYIC_SUB", "toxitic_atlas": "CONTIC_SUB"}
 DEG = {"region": 3, "wall": 2, "line": 1, "point": 0}
@@ -154,7 +155,11 @@ def main():
             text = body(d, group, t["kind"], t["degrees"]) + how + NOTES.get(t["key"], "")
             sug = SUGGESTED.get(t["name"])
             title = name_of(group, t)
-            if sug:
+            gv = given(f"{group}_{t['name']}")
+            if gv:
+                text = f"{gv[1]}: named ({title} in the atlas). {text}" + (f" Name match: {gv[2]}" if gv[2] else "")
+                title = gv[0]
+            elif sug:
                 text = f"{sug[1]}: a suggested name ({title} in the atlas). {text} {sug[2]}"
                 title = f"{sug[0]} (suggested)"
             R = t.get("R")
