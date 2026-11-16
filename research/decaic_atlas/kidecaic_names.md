@@ -66,3 +66,18 @@ The differences, all kept on the list as given:
 | Bipyosbid (Bipyramidal Omnisnub Bidecachoron) | wall 02 (260 cells) | 4^7,3^4 | 5,4^5,3^5 |
 
 The iodecaic wall 02, between Sosbid and the new Gosbid, was named afterwards: Bipyosbid, the Bipyramidal Omnisnub Bidecachoron. Later renames: the list's Gosbid is now Mosbid (Medial Omnisnub Bidecachoron), and region 01, first Dawosbid, is now Gosbid (Great Omnisnub Bidecachoron).
+
+## Debybosid (wall 23) and Ebybosid (wall 24) are one shape (checked 2026-11-16)
+
+* **Same polychoron.** Both lie on the quartic surface 3b1²b2b3 + … − 2b2b3b4² = 0, between Ebosid (region 04) and
+  Zedwebosid (region 21), and both have arrangement key 6127f3ea279d. Walking along that surface from wall 23's seed
+  (0.0491, 0.3493, 0.5755, 0.0260) to wall 24's (0.0604, 0.3675, 0.5652, 0.0070), 41 points projected onto the
+  surface, the polychoron never changes. They are one connected wall, not two that happen to share a profile. Wall 18
+  (Gabybosid), with the same edge and vertex-figure profile, is a different shape (key b39c8835296c, on another part
+  of the map).
+* **Why it was recorded twice.** Wall 23 was found by the region closure check (2026-11-02) and written only to
+  new_shapes/new_shapes.json. It was never added to the map's wall list, decaic_atlas/wall_shapes_ki.json (last
+  changed 2026-11-01). The crossing search (2026-11-15) decides what is new from the map's regions, wall_shapes_ki.json
+  and the strata. It does not read new_shapes.json, so when the search reached this wall where two surfaces cross, the
+  shape looked new and was added as wall 24.
+* Both names stay on the list as given.
