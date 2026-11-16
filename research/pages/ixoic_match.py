@@ -88,7 +88,7 @@ def atlas():
             Cl = json.load(open(os.path.join(HY, f"closure_{sub}.json")))
         except FileNotFoundError:
             continue
-        need = [[k, v["at"]] for k, v in Cl["new_regions"].items() if "signature" not in v]
+        need = [[k, v["at"]] for k, v in Cl["new_regions"].items() if v.get("signature") in (None, "none")]
         if need:
             import subprocess
             import sys
@@ -122,8 +122,10 @@ out = {}
 for key, seed in json.loads(sys.stdin.read()):
     for t in (1e-9, 1e-8):
         try:
-            out[key] = G.label(np.asarray(seed, float), t)[0]
-            break
+            sg = G.label(np.asarray(seed, float), t)[0]
+            if sg and sg != "none":         # (at 1e-9 a near-flat hull can come back "none": try 1e-8)
+                out[key] = sg
+                break
         except Exception:
             pass
 print(json.dumps(out))

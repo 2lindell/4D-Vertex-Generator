@@ -91,7 +91,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | Gidwabtuted | 2880 | 56 12 12,4^7,3^7 | — | not found |  |
 | Sidwabtuted | None | 6688 10,4^4,3^8 | — | not found |  |
 
-## Atlas shapes not in the list (196)
+## Atlas shapes not in the list (208)
 
 | key | kind | vertices | edge profile | vertex figure | source |
 |---|---|---|---|---|---|
@@ -107,6 +107,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | de5c34caa7bf | region | 2880 | 10,8^2,6^2,4^11,3^2 | 5,4^2,3^25 | merged |
 | 839a33206de2 | region | 2880 | 10,8^2,6^2,4^8,3^4 | 5,4^2,3^23 | merged |
 | 24ae98633d75 | region | 2880 | 10,8^2,6^3,4^8,3^4 | 5,4^2,3^25 | merged |
+| cf724943f1d4 | region | 2880 | 10,8^2,6^5,4^5,3^6 | 5,4^2,3^27 | closure |
 | b715a5043c89 | region | 2880 | 10^2,6^3,5^2,4^6,3^6 | 5,4^4,3^23 | closure |
 | b806135a9f8e | region | 2880 | 10^2,6^3,5^2,4^6,3^6 | 5,4^4,3^23 | closure |
 | 930c46854f46 | region | 2880 | 10^2,6^3,5^2,4^7,3^4 | 5,4^2,3^25 | merged |
@@ -115,6 +116,8 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | 5b0e751cd3bc | region | 2880 | 10^2,8,6^2,4^6,3^6 | 5,4^2,3^23 | merged |
 | 1e2f8eb80e4e | region | 2880 | 10^2,8,6^2,5^2,4^5,3^6 | 5,4^2,3^25 | merged |
 | 80314f6918ad | region | 2880 | 10^2,8,6^4,5^2,4^2,3^8 | 5,4^2,3^27 | merged |
+| 0b69cd8d8c97 | region | 2880 | 10^2,8^2,6^2,4^3,3^10 | 5,4^4,3^23 | closure |
+| 42b31d215802 | region | 2880 | 10^2,8^2,6^2,4^3,3^10 | ? | closure |
 | 3e1d8d51c6de | region | 2880 | 10^2,8^2,6^3,4^4,3^8 | 5,4^2,3^27 | merged |
 | f68dfcec7c78 | region | 2880 | 10^2,8^2,6^3,4^4,3^8 | 5,4^2,3^27 | merged |
 | 8a47582fb978 | region | 2880 | 10^2,8^2,6^3,4^4,3^8 | 5,4^2,3^27 | closure |
@@ -124,19 +127,25 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | 9b5fd8356656 | region | 2880 | 12,10,8,6^2,4^7,3^6 | 5,4^2,3^25 | closure |
 | 1b87da213400 | region | 2880 | 12,10,8,6^2,4^7,3^6 | 5,4^2,3^25 | closure |
 | 1a79068c23fb | region | 2880 | 12,10,8,6^2,4^7,3^6 | 5,4^2,3^25 | closure |
+| 6f7109bc6299 | region | 2880 | 12,10,8,6^2,4^7,3^6 | 5,4^2,3^25 | closure |
 | ab715fb554b7 | region | 2880 | 12,10,8,6^3,5^2,4^6,3^6 | 5,4^2,3^29 | merged |
 | 9d02e1e622fa | region | 2880 | 12,10,8,6^3,5^4,4^2,3^8 | 5,4^2,3^29 | merged |
 | 553ba96f5b83 | region | 2880 | 12,10,8,6^5,4^4,3^8 | 5,4^2,3^29 | merged |
 | f31290aa4e37 | region | 2880 | 12,10,8^2,6^2,4^5,3^8 | 5,4^2,3^27 | closure |
+| a44db1e85714 | region | 2880 | 12,10,8^2,6^2,4^7,3^8 | 5,4^4,3^27 | closure |
 | 5f3beae7c484 | region | 2880 | 12,10,8^2,6^2,5^2,4^4,3^8 | 5,4^2,3^29 | merged |
+| 090753bfd3a4 | region | 2880 | 12,10,8^2,6^3,4^4,3^10 | 5,4^4,3^27 | closure |
 | 459c5d1f6ec6 | region | 2880 | 12,10^2,6^3,4^8,3^6 | 5,4^2,3^29 | closure |
+| 92c36d8e8fce | region | 2880 | 12,10^2,8,6,4^8,3^8 | ? | closure |
 | 5a87375bd124 | region | 2880 | 12,10^2,8,6^2,4^5,3^10 | 5,4^4,3^27 | merged |
 | a80252891331 | region | 2880 | 12,8,6^3,4^11,3^2 | 5,4^2,3^25 | merged |
 | 16fa71ee5a42 | region | 2880 | 12,8,6^3,4^11,3^2 | 5,4^2,3^25 | closure |
 | 2b6e4f8b8d86 | region | 2880 | 12,8,6^4,4^7,3^6 | 5,4^4,3^23 | merged |
 | ef0698a734b8 | region | 2880 | 12,8,6^4,4^8,3^4 | 5,4^2,3^25 | merged |
+| 176513e6c150 | region | 2880 | 12,8,6^4,4^8,3^4 | 5,4^2,3^25 | closure |
 | 349adf2c0558 | region | 2880 | 12,8,6^5,4^4,3^8 | 5,4^4,3^23 | merged |
 | e1538aee6f85 | region | 2880 | 12,8^2,6,4^12,3^2 | 5,4^2,3^25 | closure |
+| 12407a9d392e | region | 2880 | 12,8^2,6^2,4^8,3^6 | ? | closure |
 | ab69a12daf17 | region | 2880 | 12,8^2,6^2,4^9,3^4 | 5,4^2,3^25 | merged |
 | 1ee7f4eac05e | region | 2880 | 12,8^2,6^3,4^5,3^8 | 5,4^4,3^23 | merged |
 | c1c750add769 | region | 2880 | 12,8^2,6^5,4^6,3^6 | 5,4^2,3^29 | merged |
@@ -159,8 +168,10 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | 2fc96e114605 | region | 2880 | 14,10,6^3,5^2,4^5,3^8 | 5,4^4,3^25 | merged |
 | f8bda2bcc522 | region | 2880 | 14,10,6^3,5^4,4^4,3^8 | 5,4^4,3^27 | merged |
 | 7645b88a2001 | region | 2880 | 14,10,6^3,5^4,4^4,3^8 | 5,4^4,3^27 | merged |
+| 422333e6047a | region | 2880 | 14,10,6^3,5^4,4^5,3^6 | 5,4^2,3^29 | closure |
 | 615a0876dae8 | region | 2880 | 14,10,6^4,5^4,4^2,3^8 | 5,4^2,3^29 | closure |
 | 2f7fb6b3c64b | region | 2880 | 14,10,6^4,5^4,4^2,3^8 | 5,4^2,3^29 | closure |
+| c8f19cc4f1dd | region | 2880 | 14,10,6^4,5^4,4^2,3^8 | 5,4^2,3^29 | closure |
 | c9f010089b8b | region | 2880 | 14,10,8,6,5^4,4^6,3^6 | 5,4^2,3^29 | merged |
 | 9b25d2c21a5c | region | 2880 | 14,10,8,6^2,5^2,4^6,3^8 | 5,4^4,3^27 | closure |
 | bd46757eb076 | region | 2880 | 14,10,8,6^2,5^2,4^6,3^8 | 5,4^4,3^27 | closure |
@@ -208,6 +219,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | e0fd956db5bd | region | 2880 | 8^2,6^4,5^2,4^5,3^4 | 5,4^2,3^23 | closure |
 | 82f5f72a7367 | region | 2880 | 8^3,6^2,5^2,4^6,3^4 | 5,4^2,3^23 | merged |
 | 5ea58b93fa90 | region | 2880 | 8^3,6^3,4^7,3^4 | 5,4^2,3^23 | closure |
+| fafecd873004 | region | 2880 | 8^3,6^3,5^2,4^3,3^6 | 5,4^2,3^23 | closure |
 | a2c1b1e0a5e9 | region | 2880 | 8^4,6,4^8,3^4 | 5,4^2,3^23 | merged |
 | 8906740db4ef | wall | 2880 | 10,6^2,5^2,4^3,3^6 | 5,4^3,3^15 | merged |
 | 9407ce9d79f3 | wall | 2880 | 10,6^5,4^3,3^8 | 5,4^5,3^17 | merged |
