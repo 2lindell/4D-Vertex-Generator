@@ -209,6 +209,8 @@ def write_page(new):
         for i, e in enumerate(entries):
             m = re.match(r"([A-Z][a-z]+) - (.*)", e, re.S)
             nm, body = m.group(1), m.group(2)
+            if title == "Iodecaics":            # (the original page's text says kidecaic here: a slip)
+                body = body.replace("isogonal under kidecaic symmetry", "isogonal under iodecaic symmetry")
             if nm in RENAMED:
                 body = (f"{RENAMED[nm][1]}" + (f" (formerly {nm})" if RENAMED[nm][0] != nm else "") + ". " + body)
                 nm = RENAMED[nm][0]

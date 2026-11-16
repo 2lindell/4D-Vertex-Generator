@@ -63,6 +63,6 @@ The differences, all kept on the list as given:
 | Dawosbid | region 01 | 6^3,5^4,44,3^4 | 544,3^15 |
 | Tetosbid | tetosbid | 4^4,3^4 | 5,44,3^5 |
 | Petosbid | petosbid | 444,3^6 | 55,44,3^4 |
-| Bipyramidal Omnisnub Bidecachoron (short name not yet given) | wall 02 (260 cells) | 4^7,3^4 | 5,4^5,3^5 |
+| Bosbid (Bipyramidal Omnisnub Bidecachoron) | wall 02 (260 cells) | 4^7,3^4 | 5,4^5,3^5 |
 
-The iodecaic wall 02, between Sosbid and Dawosbid, was named afterwards: the Bipyramidal Omnisnub Bidecachoron.
+The iodecaic wall 02, between Sosbid and Dawosbid, was named afterwards: Bosbid, the Bipyramidal Omnisnub Bidecachoron.
