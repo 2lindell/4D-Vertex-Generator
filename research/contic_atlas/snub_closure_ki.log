@@ -1,0 +1,41 @@
+14 region types, 10 wall shapes known
+960 walks
+  50 walks done
+  100 walks done
+  150 walks done
+  200 walks done
+  250 walks done
+  300 walks done
+  350 walks done
+  400 walks done
+  450 walks done
+  500 walks done
+  550 walks done
+  600 walks done
+  650 walks done
+  700 walks done
+  750 walks done
+  800 walks done
+  850 walks done
+  900 walks done
+  950 walks done
+59894d196aa6 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 CLOSED
+bacf5469687f 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3': 29}
+219807d43832 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3': 15}
+b5d5d87bc8e2 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+38 CLOSED
+b1b168cda0c0 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 CLOSED
+ff3b438e9507 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 CLOSED
+ebdbd67c9b4c 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3': 24}
+8bbb1d4f0af6 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 CLOSED
+510703a3f204 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1*b2 - b3*b4': 21, 'wall shape missing | b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - ': 17}
+46f94f640787 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3': 38, 'wall shape missing | b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - ': 34}
+f7f32456c461 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3': 39, 'wall shape missing | b1*b2 - b3*b4': 33}
+68c231e69b7c 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - ': 20}
+579a0b146ac2 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 OPEN {'wall shape missing | b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - ': 36, 'wall shape missing | b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3': 36}
+22a08fbd1fd9 1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+57 CLOSED
+NEW WALL SHAPE f7c174f6a037 between ['bacf5469687f', 'f7f32456c461'] on b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt  1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+1152x[4v4f
+NEW WALL SHAPE 0e8641589e0e between ['219807d43832', '46f94f640787'] on b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt  1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+1152x[4v4f
+NEW WALL SHAPE a97fdecc2dff between ['579a0b146ac2', 'ebdbd67c9b4c'] on b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 - b1**2*b3*b4 + sqrt  1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+576x[4v4f]+1152x[4v4f
+NEW WALL SHAPE cf1591d75b16 between ['510703a3f204', 'f7f32456c461'] on b1*b2 - b3*b4  1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[4v4
+NEW WALL SHAPE 088a005dd446 between ['46f94f640787', '510703a3f204'] on b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - b2*b3 + sq  1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[4v4
+NEW WALL SHAPE c9267f353a08 between ['579a0b146ac2', '68c231e69b7c'] on b1*b2 - b1*b4 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - b2*b3 + sq  1152: cells 48x[24v38f]+144x[8v10f]+192x[6v8f]+288x[4v4f]+576x[4v4f]+1152x[4v4f]+1152x[4v4
