@@ -60,6 +60,6 @@ Confirmed by crossing_verify.py (verified.json: same key at hull tolerances 1e-7
 | contic | ox | oxitic_line_05 | a02e136d42e8 | line (1) | [0.631452, 0.050631, 0.023599, 0.294318] |
 | contic | ox | oxitic_line_06 | 9f3d3a62de03 | line (1) | [0.181343, 0.005663, 0.684018, 0.128975] |
 | hyic | ix2 | ixitic_line_01 | d9ca4ec7c345 | line (1) | [0.043824, 0.057736, 0.105902, 0.792538] |
-| decaic | ki | wall_24 | 6127f3ea279d | wall (2) | [0.060382, 0.367492, 0.565152, 0.006974] |
+| decaic | ki | wall_24 (removed 2026-11-16: the same shape as kidecaic wall 23, which this search did not know; see decaic_atlas/kidecaic_names.md) | 6127f3ea279d | wall (2) | [0.060382, 0.367492, 0.565152, 0.006974] |
 | decaic | ki | line_25 | 2cc54ef1b550 | line (1) | [0.042913, 0.358412, 0.571775, 0.0269] |
 | decaic | ki | line_26 | aced5db9ac46 | line (1) | [0.51554, 0.009063, 0.010041, 0.465356] |
