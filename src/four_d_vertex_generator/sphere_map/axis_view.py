@@ -44,6 +44,7 @@ NEAR = 0.035                       # the neighbourhood of a boundary shape a dir
 HOLD = 0.05                        # how weakly each shape is held to its true place
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 RING = 0.30                        # how far the walls and regions round an edge stand from it
+MAX_ANGLE = 70                     # how far round the sphere from the view's centre a shape may reach
 TOUCH = 6e-3                       # shapes this close (in the view) touch
 
 
@@ -360,12 +361,6 @@ def build() -> dict:
         return {(k, nd, int(M[a["key"][2], at])): r for (k, nd, at, r) in
                 ((n["kind"], n["node"], n["at"], n["rel"]) for n in m.node[a["kind"]][a["key"][1]]["nb"])}
 
-    # the next layer: every shape round the first layer's edges and on its walls' sides
-    second = []
-    for key in first:
-        if key[0] in ("line", "wall", "region"):
-            second += [k for k in nb_of(*key) if k not in first and k not in second]
-
     def geometry(kind, node, at):
         if kind == "wall":
             return m.wall(node, at), None
@@ -400,47 +395,68 @@ def build() -> dict:
     chart = lambda X: np.stack([X @ e1, X @ u, X @ e3], -1) / (X @ c)[..., None]
     prefer = c + 0.3 * u                         # (the kept side: towards +u, at the view's centre)
 
-    # one copy of each named shape: the first layer's own, then the copy touching most of the shapes
-    # chosen so far, then the one nearest the axis
-    chosen = {}
-    for key in first:
-        sh = make(key)
-        chosen.setdefault((sh["kind"], sh["id"]), sh)
+    # one copy of each named shape, layer by layer out from the first: each next layer holds the shapes
+    # the shape map puts beside the last layer's shapes whose names are not shown yet, each by the copy
+    # it puts beside most of the shapes already shown (then the one nearest the axis); copies too far
+    # round the sphere for the view (over MAX_ANGLE from its centre) are passed over
+    rels = {}
+
+    def rel_of(sh):
+        if sh["key"] not in rels:
+            rels[sh["key"]] = rel(sh)
+        return rels[sh["key"]]
 
     def view_pts(sh):
         return chart(_samples(sh, 600))
 
-    def touches(a, b):
-        return cKDTree(view_pts(a)).query(view_pts(b))[0].min() < TOUCH
-    by_name = defaultdict(list)
-    for key in second:
+    def in_view(sh):
+        X = sh["geo"].reshape(-1, 4)
+        return (X @ c).min() > np.cos(np.radians(MAX_ANGLE))
+    chosen, layer_of, seen = {}, {}, defaultdict(set)
+    for key in first:
         sh = make(key)
+        seen[(sh["kind"], sh["id"])].add(key)
         if (sh["kind"], sh["id"]) not in chosen:
-            by_name[(sh["kind"], sh["id"])].append(sh)
-    for nm, cands in by_name.items():
-        if len(cands) == 1:
-            chosen[nm] = cands[0]
-            continue
-        firsts = [chosen[(k, n)] for k, n in chosen]
-        rels = [(f, rel(f)) for f in firsts if f["kind"] != "point"]
+            chosen[(sh["kind"], sh["id"])] = sh
+            layer_of[key] = 1
+    frontier, layer = list(chosen.values()), 1
+    while frontier:
+        layer += 1
+        by_name = defaultdict(list)
+        for f in frontier:
+            for key in nb_of(*f["key"]):
+                nm = (key[0], m.name(key[0], key[1]))
+                seen[nm].add(key)
+                if nm not in chosen and key not in [x["key"] for x in by_name[nm]]:
+                    by_name[nm].append(make(key))
+        shown = list(chosen.values())
+        new = []
+        for nm, cands in by_name.items():
+            cands = [x for x in cands if in_view(x)]
+            if not cands:
+                continue
 
-        def score(sh):
-            # (the copy the shape map puts beside most of the shapes chosen, then the one nearest the axis)
-            r_sh = rel(sh) if sh["kind"] != "point" else {}
-            Xv = view_pts(sh)
-            return (sum(sh["key"] in r_f or f["key"] in r_sh for f, r_f in rels),
-                    -np.linalg.norm(Xv[:, 1:], axis=1).mean())
-        chosen[nm] = max(cands, key=score)
+            def score(sh):
+                r_sh = rel_of(sh) if sh["kind"] != "point" else {}
+                return (sum(sh["key"] in rel_of(f) or f["key"] in r_sh for f in shown if f["kind"] != "point"),
+                        -np.linalg.norm(view_pts(sh)[:, 1:], axis=1).mean())
+            best = max(cands, key=score) if len(cands) > 1 else cands[0]
+            chosen[nm] = best
+            layer_of[best["key"]] = layer
+            new.append(best)
+        frontier = new
     shapes = list(chosen.values())
+    missing = sorted(f"{k} {n}" for k, n in {(k, x["name"]) for k in ("wall", "line", "region", "point")
+                                               for x in m.sm[k + "s"]} if (k, n) not in chosen)
 
     # each cut to the extent its seeds need once
     for sh in shapes:
         sh["cuts"] = reduce_extent(sh, GQ, prefer)
-        n_copies = 1 + sum(1 for k in second + first if k != sh["key"] and m.name(k[0], k[1]) == sh["id"] and k[0] == sh["kind"])
+        n_copies = len(seen[(sh["kind"], sh["id"])])
         sh["note"] = ("cut by the symmetries carrying it onto itself: " + ", ".join(
             "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in sh["cuts"])
             if sh["cuts"] else "whole: no symmetry carries it onto itself") + \
-            (f"; one of {n_copies} copies round here" if n_copies > 1 else "")
+            (f"; one of {n_copies} copies met" if n_copies > 1 else "")
 
     # ---- the layout
     for sh in shapes:
@@ -548,7 +564,7 @@ def build() -> dict:
     for sh, s in zip(shapes, shift):
         V3 = sh["v"] + s
         rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
-               "layer": 1 if sh["key"] in first else 2}
+               "layer": layer_of[sh["key"]]}
         if sh["kind"] in ("wall", "region"):
             Vu, F3 = np.unique(V3.reshape(-1, 3).round(6), axis=0, return_inverse=True)
             rec.update(verts=Vu.round(5).tolist(), faces=F3.reshape(-1, 3).tolist())
@@ -561,7 +577,7 @@ def build() -> dict:
         out.append(rec)
     L = np.linspace(-0.35, 0.35, 2)
     return {"_about": __doc__, "axis": [[float(t), 0.0, 0.0] for t in L], "shapes": out,
-            "links": [[i, j] for i, j, _ in rows],
+            "links": [[i, j] for i, j, _ in rows], "missing": missing,
             "fit": {"arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
@@ -573,7 +589,7 @@ def run() -> str:
     for s in data["shapes"]:
         size = f"{len(s['faces'])} triangles" if "faces" in s else f"{len(s['path'])} steps" if "path" in s else "point"
         print(f"{s['id']} ({s['kind']}, layer {s['layer']}): {size}; {s['note']}{'; ' + str(s['warn']) if s.get('warn') else ''}")
-    print(f"{len(data['links'])} links")
+    print(f"{len(data['links'])} links; not shown: {data['missing']}")
     return str(path)
 
 
