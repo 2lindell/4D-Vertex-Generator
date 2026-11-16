@@ -16,7 +16,7 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | group | files | moved deeper | kept the seed |
 |---|---|---|---|
 | Decaic | 27 | 21 | - |
-| Kidecaic | 32 | 31 | new_region_11_120v_380c |
+| Kidecaic | 31 | 31 | - |
 | Iodecaic | 7 | 7 | - |
 | Contic | 27 | 21 | - |
 | Kicontic | 23 | 23 | - |
@@ -93,7 +93,6 @@ Groups: decaic [[3,3,3]] (order 240), kidecaic [[3,3,3]]+ and iodecaic [[3,3,3]+
 | new_wall_10_120v_500c | wall (2) | 1.62e-02 -> 7.37e-02 | [0.8131300333, 0.0087545529, 0.0605500723, 0.1175653415] | new_wall_10_120v_500c_120v_500c_central.off |
 | new_wall_11_120v_500c | wall (2) | 2.23e-02 -> 7.65e-02 | [0.690494668, 0.0097495172, 0.2024658362, 0.0972899787] | new_wall_11_120v_500c_120v_500c_central.off |
 | new_region_10_120v_680c | region (3) | 7.40e-04 -> 1.62e-03 | [0.0833356274, 0.2866325792, 0.6102536638, 0.0197781296] | new_region_10_120v_680c_120v_680c_central.off |
-| new_region_11_120v_380c | region (3) | 6.00e-04 -> 6.00e-04 | [0.6001606998, 0.0335291665, 0.299012001, 0.0672981327] | new_region_11_120v_380c_120v_380c_central.off |
 | new_wall_12_120v_440c | wall (2) | 3.74e-03 -> 2.95e-02 | [0.1688669709, 0.071006978, 0.7506255834, 0.0095004677] | new_wall_12_120v_440c_120v_440c_central.off |
 | snad | line (1) | 8.33e-02 -> 5.00e-01 | [0.25, 0.25, 0.25, 0.25] | snad_60v_90c_central.off |
 
@@ -279,3 +278,6 @@ hyic_atlas/hyic_shapes.py ([5,3,3]): one shape per face of the chamber; optimize
 | srip | [0.5, 0.0, 0.5, 0.0] | [30, 20] |
 | grip | [0.333333, 0.333333, 0.333333, 0.0] | [60, 20] |
 | prip | [0.333333, 0.333333, 0.0, 0.333333] | [60, 30] |
+
+
+new_region_11_120v_380c (kidecaic region 22) was removed on 2026-11-16: it is a point of wall 15 (Zepybosid, now Epybosid), not a region.
