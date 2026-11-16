@@ -44,10 +44,12 @@ NEAR = 0.035                       # the neighbourhood of a boundary shape a dir
 EXPLODE = 1.5                      # the corners (and any shape with nothing shown on its boundary) spread
                                    # as the picture scaled by this about the view's centre
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
-RING = 0.30                        # how far the walls and regions round an edge stand from it
+MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
+RING_ARC = 300                     # ... so that they spread over about this many degrees
+RING = 0.20                        # how far the walls and regions round an edge stand from it
 DEBUG_PICK = ()                    # (names whose copy picks are printed)
-PATCH_NAMING = 4                   # (bumped when the way triangles are named changes: the cache is redone)
-GRID = 0.004                       # the page's meshes are thinned to this (in the view's units)
+PATCH_NAMING = 5                   # (bumped when the way triangles are named changes: the cache is redone)
+GRID = 1e-5                        # the page's meshes are thinned to this (in the view's units)
 FILL = False                       # whether unnamed triangles take their neighbours' patch
 MAX_ANGLE = 70                     # how far round the sphere from the view's centre a shape may reach
 TOUCH = 6e-3                       # shapes this close (in the view) touch
@@ -69,6 +71,8 @@ def _patch_triangles(D, doc, z):
         if p["face"] is not None:
             face_patches[p["face"]].append(p)
     out = defaultdict(list)
+    from collections import Counter
+    faces_of = defaultdict(Counter)
 
     def fill(F, lab):
         """Triangles left unnamed take the name most of the triangles sharing a corner with them have
@@ -137,6 +141,7 @@ def _patch_triangles(D, doc, z):
                 if l_:
                     Y = point_from_beta(X[F[t]])
                     out[l_[0]].append(Y if l_[1] < 0 else Y @ G[l_[1]])
+                    faces_of[l_[0]][(f["id"], l_[1])] += 1
             continue
         s = D.lib[int(f["sheet"])]
         n = s.grad(cen)
@@ -159,7 +164,11 @@ def _patch_triangles(D, doc, z):
         for t, l_ in fill(F, lab).items():
             if l_:
                 out[l_[0]].append(point_from_beta(X[F[t]]))
-    return {k: np.array(v) for k, v in out.items()}
+                faces_of[l_[0]][(f["id"], -1)] += 1
+    # (and each patch's wall piece: the piece most of its triangles lie in, and the copy it is carried
+    # from, -1 for none)
+    return {k: np.array(v) for k, v in out.items()}, \
+        {k: max(c.items(), key=lambda kv: kv[1])[0] for k, c in faces_of.items()}
 
 
 def _same_curve(L, M, tol=1e-4):
@@ -195,11 +204,19 @@ class Map:
             except Exception:
                 got = None
         if got and got[0] == stamp:
-            self.tris = got[1]
+            self.tris, self.face_of = got[1]
         else:
-            self.tris = _patch_triangles(self.D, doc, z)
+            self.tris, self.face_of = _patch_triangles(self.D, doc, z)
             cache.parent.mkdir(exist_ok=True)
-            cache.write_bytes(pickle.dumps((stamp, self.tris)))
+            cache.write_bytes(pickle.dumps((stamp, (self.tris, self.face_of))))
+        # each wall piece's own (coarse) mesh, whole: shapes are drawn from whole pieces, whose edges
+        # follow the curves where walls meet, not from triangles sorted one by one into patches
+        self.piece_mesh = {}
+        for f in doc["faces"]:
+            X = z["coarse_verts"][f["coarse_verts"][0]:f["coarse_verts"][1]]
+            F = z["coarse_tris"][f["coarse_tris"][0]:f["coarse_tris"][1]]
+            if len(F):
+                self.piece_mesh[f["id"]] = point_from_beta(X)[F]
         self.G = group()
         self.M = multiplication_table()
         Q = np.load(source_dir() / "normalizer_q.npy")
@@ -219,15 +236,27 @@ class Map:
     def name(self, kind, node):
         return self.node[kind][node]["name"]
 
+    def from_pieces(self, parts):
+        """The triangles of the wall pieces holding these patches (copy, patch), each piece whole and
+        once, in its place."""
+        seen, out = set(), []
+        for k, p in parts:
+            if p not in self.face_of:
+                continue
+            fid, t = self.face_of[p]
+            g = k if t < 0 else int(self.M[k, self.D.inv[t]])     # (carried from copy t, then to k)
+            if (fid, g) not in seen and fid in self.piece_mesh:
+                seen.add((fid, g))
+                out.append(self.piece_mesh[fid] @ self.G[g].T)
+        return np.concatenate(out) if out else np.zeros((0, 3, 4))
+
     def wall(self, node, at):
-        """A wall node placed by at: its patches' triangles (n, 3, 4)."""
-        out = []
+        """A wall node placed by at: its wall pieces' triangles (n, 3, 4)."""
+        parts = []
         for c, h in self.node["wall"][node]["members"]:
             for k, p in self.atlas["faces"][c]["members"]:
-                if p in self.tris:
-                    g = self.G[at] @ self.G[h] @ self.G[k]
-                    out.append(self.tris[p] @ g.T)
-        return np.concatenate(out) if out else np.zeros((0, 3, 4))
+                parts.append((int(self.M[self.M[at, h], k]), p))
+        return self.from_pieces(parts)
 
     def region(self, c, at):
         """A region class placed by at: its shell's triangles (n, 3, 4), and its volume's middle."""
@@ -244,7 +273,7 @@ class Map:
                 ka = self.copy_of_b[(s, kk)]
                 if (ka, p["pieces"][0]) not in S:
                     parts.add((ka, p["id"]))
-        T = [self.tris[p] @ self.G[k].T for k, p in sorted(parts) if p in self.tris]
+        T = [self.from_pieces(sorted(parts))]
         w = np.array([self.pieces[p]["volume_share"] for _, p in S])
         P = np.array([point_from_beta(np.array(self.pieces[p]["sample_beta"])) @ self.G[k].T for k, p in S])
         mid = (w[:, None] * P).sum(0)
@@ -369,6 +398,14 @@ def reduce_extent(sh, GQ, prefer):
         sh["geo"] = _cut_tris(sh["geo"], u) if sh["kind"] in ("wall", "region") else _cut_path(sh["geo"], u)
         cuts.append(e)
     return cuts
+
+
+def _turn(V, P0, t, ang):
+    """Points turned by ang about the line through P0 along the unit vector t."""
+    X = V.reshape(-1, 3) - P0
+    c_, s_ = np.cos(ang), np.sin(ang)
+    X = X * c_ + np.cross(t, X) * s_ + np.outer(X @ t, t) * (1 - c_)
+    return (X + P0).reshape(V.shape)
 
 
 def _main_body(T, eps=0.03, keep=0.1):
@@ -586,6 +623,8 @@ def build() -> dict:
                 near = (d < NEAR) & (j > 0.1 * len(L)) & (j < 0.9 * len(L))
                 if not near.any():
                     near = d < NEAR
+                if not near.any():                   # (or its nearest points, wherever they are)
+                    near = d <= np.quantile(d, 0.05)
                 Bn, jj = b["pts"][near], j[near]
                 tng = L[np.minimum(jj + 3, len(L) - 1)] - L[np.maximum(jj - 3, 0)]
                 tng /= np.maximum(np.linalg.norm(tng, axis=1, keepdims=True), 1e-12)
@@ -593,13 +632,14 @@ def build() -> dict:
                 off -= np.einsum("nk,nk->n", off, tng)[:, None] * tng
                 off /= np.maximum(np.linalg.norm(off, axis=1, keepdims=True), 1e-12)
                 v = off.mean(0)
-            if np.linalg.norm(v) < 1e-9:
+            if not np.isfinite(v).all() or np.linalg.norm(v) < 1e-9:
                 continue
             rows.append((idx[id(a)], idx[id(b)], v / np.linalg.norm(v)))   # (unit; a circle may widen it)
     # round each edge: its walls and regions keep the directions they truly lie in from it, in their
     # order round it and over the arc they truly span; only where they crowd are they opened out, to at
     # least MIN_STEP apart (about the arc's middle), and they stand RING out from it
     arcs = {}
+    turns = defaultdict(list)
     for i, a in enumerate(shapes):
         if a["kind"] != "line":
             continue
@@ -620,25 +660,36 @@ def build() -> dict:
         start = (int(np.argmax(gaps)) + 1) % len(sa)
         sa = np.r_[sa[start:], sa[:start] + 2 * np.pi]
         order = np.r_[order[start:], order[:start]]
+        # (the least step: wider round an edge with few shapes, up to MAX_STEP, so they spread over
+        # about RING_ARC; never under MIN_STEP)
+        step = float(np.clip(np.radians(RING_ARC) / len(sa), MIN_STEP, MAX_STEP))
         new = sa.copy()
-        for _ in range(500):                      # (opened out where closer than MIN_STEP)
+        for _ in range(500):                      # (opened out where closer than the step)
             moved = False
             for k in range(len(new) - 1):
                 d = new[k + 1] - new[k]
-                if d < MIN_STEP - 1e-9:
-                    push = (MIN_STEP - d) / 2
+                if d < step - 1e-9:
+                    push = (step - d) / 2
                     new[k] -= push
                     new[k + 1] += push
                     moved = True
             if not moved:
                 break
-        new += sa.mean() - new.mean()             # (about the arc's middle)
+        # (held so the shapes of the earliest layer round it keep their true directions on average:
+        # the others swing out from them)
+        lay = np.array([layer_of[shapes[rows[ring[o]][1]]["key"]] for o in order])
+        held = lay == lay.min()
+        new += (sa[held] - new[held]).mean()
         arcs[a["id"]] = {"true_span_deg": round(float(np.degrees(sa[-1] - sa[0])), 1),
                          "shown_span_deg": round(float(np.degrees(new[-1] - new[0])), 1),
                          "order": [[shapes[rows[ring[o]][1]]["id"], round(float(np.degrees(x)), 1), round(float(np.degrees(y)), 1)]
                                    for o, x, y in zip(order, sa, new)]}
-        for th, o in zip(new, order):
+        for th, o, th0 in zip(new, order, sa):
             rows[ring[o]] = (rows[ring[o]][0], rows[ring[o]][1], RING / GAP * (np.cos(th) * b1 + np.sin(th) * b2))
+            # (and the turn about the edge that would swing it from its true direction to this one)
+            j_ = rows[ring[o]][1]
+            if layer_of[a["key"]] <= layer_of[shapes[j_]["key"]]:      # (only edges of its layer or nearer)
+                turns[j_].append((abs(th - th0), th - th0, L.mean(0), t, a["id"]))
     # the moves, from the lowest shapes up, each from the shapes on its boundary only (no shape's move
     # feeds back into those below it, and no chain is longer than corner, edge, wall, region):
     # a shape with nothing shown on its boundary (the corners, and any other) moves as the whole
@@ -662,9 +713,19 @@ def build() -> dict:
 
     out = []
     for sh, s in zip(shapes, shift):
-        V3 = sh["v"] + s
+        V3 = sh["v"]
+        rec_turn = None
+        if turns.get(idx[id(sh)]):
+            # (swung about the edge round which it is opened out most, so the shapes round an edge fan
+            # out from it rather than standing parallel, side by side)
+            _, ang, P0, t, about = max(turns[idx[id(sh)]], key=lambda x: x[0])
+            rec_turn = (about, round(float(np.degrees(ang)), 1))
+            V3 = _turn(V3, P0, t, ang)
+        V3 = V3 + s
         rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
                "layer": layer_of[sh["key"]], "moved": np.round(s, 4).tolist()}
+        if rec_turn:
+            rec["turned"] = {"about": rec_turn[0], "degrees": rec_turn[1]}
         if sh["kind"] in ("wall", "region"):
             # (thinned for the page: corners within a GRID cell merged, triangles left flat dropped)
             Vu, F3 = np.unique(np.round(V3.reshape(-1, 3) / GRID), axis=0, return_inverse=True)
