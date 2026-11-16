@@ -44,10 +44,10 @@ ul { margin: 0; padding-left: 1.2rem; line-height: 1.5; max-width: 78ch; }
   <h1>Around a 2400-symmetry axis</h1>
   <p class="lede">The shapes round one of the axes of the extra half-turns (the 2400-element group's elements outside the swirlprism group), layer by layer out from the axis, each shown once and exploded so each stands apart from its neighbours. The axis is the purple line; the view is gnomonic, as in the domain page, centred on the axis.</p>
   <div class="stage" id="stage"><canvas id="cv" aria-label="3D view of the shapes around the axis"></canvas><div class="labels" id="labels"></div><div class="tip" id="tip"></div><div class="hint">drag to turn · scroll to zoom · hover a shape</div></div>
-  <label class="toggle"><input type="checkbox" id="layer2" checked> Show the next layer (the shapes round E1, C2a and B1, and X61 beyond X99)</label>
+  <label class="toggle">Layers shown <input type="range" id="layers" min="1" max="1" value="1" step="1"> <span id="layersOut"></span></label>
   <ul>
-    <li>The first layer is the shapes nearest the axis: the wall <b>X38</b>, the region <b>X68</b> on its sides, X68's other wall <b>X99</b>, and their edges (<b>E1</b>, <b>C2a</b>, <b>B1</b>) and corners (<b>A1</b>, <b>C6</b>). The next layer is every shape round those edges and on those walls' sides: <b>X61</b> beyond X99, and the walls and regions round E1, C2a and B1.</li>
-    <li>Each shape is shown once, with only the extent its seeds need once. Of the copies of a shape, one is shown (the one touching most of the shapes already shown, then the one nearest the axis). A shape a symmetry of the 2400-element group carries onto itself is cut to a part no symmetry repeats: X38, C2a, B1 and F3 by the axis's half-turn (each its half on the same side of the axis), X16 by another half-turn.</li>
+    <li>Every named shape is shown once: all 55 walls, 40 regions, 24 edges and 5 corners. They come in layers out from the axis. The first layer is the wall <b>X38</b>, the region <b>X68</b> on its sides, X68's other wall <b>X99</b>, and their edges (<b>E1</b>, <b>C2a</b>, <b>B1</b>) and corners (<b>A1</b>, <b>C6</b>). Each further layer is the shapes the shape map puts beside the last layer whose names are not shown yet. Four layers reach every name; the slider shows the first few only.</li>
+    <li>Each shape is shown once, with only the extent its seeds need once. Of the copies of a shape, one is shown (the one touching most of the shapes already shown, then the one nearest the axis). A shape a symmetry of the 2400-element group carries onto itself is cut to a part no symmetry repeats: X38, C2a, B1 and F3 by the axis's half-turn (each its half on the same side of the axis), and X16, C2b, X1, X12, X30, X7, X19 and X78 by other half-turns. (D1, D2, D3 and C3 also have a second symmetry, but it turns each about itself, holding it point by point, so they are shown whole.) Hover a shape to see what cut it and how many of its copies were met.</li>
     <li>The view is exploded so that every shape keeps its place against its neighbours. An edge leaves each of its corners along itself (C2a slides out from C6, into the middle of its own ring). The walls and regions round an edge stand out from it in the directions they truly lie in from it, in their true order and over the arc they truly span (round E1 they span 311°, round B1 187°, round C2a 55°); only where neighbours crowd are they opened out, to at least 8° apart, about the arc's middle. A region stands off each of its walls towards its own volume. A shape round more than one edge (the ones near B1 and C2a) is set where those circles best agree, and each shape is held lightly to its true place, so the picture stays centred on the axis. Hover a shape for its name and why it has the extent shown. Walls and edges are solid; a region is shown by its shell, see-through.</li>
   </ul>
 </div>
@@ -78,7 +78,8 @@ function build() {
   world.add(new THREE.Line(ag, new THREE.LineBasicMaterial({ color: new THREE.Color(css("--axis")) })));
   const R = 0.0035;                                   // edge tube radius; corners a little larger
   const shadeCount = {};
-  const layer = document.getElementById("layer2").checked ? 2 : 1;
+  const layer = +document.getElementById("layers").value;
+  document.getElementById("layersOut").textContent = `${layer} of ${maxLayer} (${D.shapes.filter((s) => s.layer <= layer).length} shapes)`;
   for (const s of D.shapes) {
     if (s.layer > layer) { s._label = null; continue; }
     let g, hg;
@@ -163,7 +164,9 @@ function frame() {
   }
   requestAnimationFrame(frame);
 }
-document.getElementById("layer2").addEventListener("change", () => { hovered = null; tip.style.display = "none"; build(); });
+const maxLayer = Math.max(...D.shapes.map((s) => s.layer));
+Object.assign(document.getElementById("layers"), { max: maxLayer, value: maxLayer });
+document.getElementById("layers").addEventListener("input", () => { hovered = null; tip.style.display = "none"; build(); });
 build();
 resize();
 // the camera turns round the view's centre on the axis; it starts looking down E1, a little tilted,
