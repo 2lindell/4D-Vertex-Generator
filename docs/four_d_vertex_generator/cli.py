@@ -95,6 +95,12 @@ def main() -> None:
         help="Angular samples for continuous symmetries (default: 120)",
     )
     parser.add_argument(
+        "--out-5d",
+        type=Path,
+        help="For the pentachoric (A4) symmetries: also write the vertices as 5D coordinates, one orthant facet of a "
+             "B5 polyteron",
+    )
+    parser.add_argument(
         "--hull",
         action="store_true",
         help="Compute 4D convex hull to include faces and cells in output .off",
@@ -176,6 +182,14 @@ def main() -> None:
         print(f"num_faces={len(faces)}")
         print(f"num_cells={len(cells)}")
     print(f"wrote_off={output_path}")
+    if args.out_5d is not None:
+        from .five_d import has_5d_coordinates, to_5d, to_5d_text
+
+        if not has_5d_coordinates(args.symmetry):
+            raise SystemExit("error: --out-5d is available only for the pentachoric (A4) symmetries")
+        args.out_5d.parent.mkdir(parents=True, exist_ok=True)
+        args.out_5d.write_text(to_5d_text(to_5d(vertices)))
+        print(f"wrote_5d={args.out_5d}")
 
 
 def analyze_main() -> None:

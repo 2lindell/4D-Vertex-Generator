@@ -44,6 +44,7 @@ from four_d_vertex_generator.local_view import (
     local_view,
     nearest_neighbour_edges,
 )
+from four_d_vertex_generator.five_d import has_5d_coordinates, to_5d, to_5d_text
 from four_d_vertex_generator.off import compute_convex_hull, parse_4off, to_4off
 from four_d_vertex_generator.polytwister import hard_polytwister
 from four_d_vertex_generator.polychoron import (
@@ -888,6 +889,29 @@ def render_generate_tab() -> None:
 
         with st.expander("All vertex coordinates"):
             st.dataframe(_vertices_frame(vertices), height=280, width="stretch")
+
+        if has_5d_coordinates(result["symmetry"]):
+            _render_5d_coordinates(vertices, result["symmetry"])
+
+
+def _render_5d_coordinates(vertices: np.ndarray, symmetry: str) -> None:
+    """The A4 symmetries' polychora in 5D: one orthant facet of a B5 polyteron."""
+    points = to_5d(vertices)
+    with st.expander("5D coordinates: one of the 32 orthant facets of a B5 polyteron"):
+        st.caption(
+            "The pentachoric groups act on the hyperplane x1 + ... + x5 = constant: their mirrors are the coordinate "
+            "swaps and the decaic swap is the inversion through the hyperplane's centre. Here every vertex has the "
+            f"same coordinate sum ({points.sum(1).mean():.6g}) and the smallest coordinate is 0, so the polychoron is "
+            "the facet in the all-positive orthant of the B5 polyteron made of all the sign changes and permutations "
+            "of these points. Edge lengths are the same as in 4D."
+        )
+        st.dataframe(pd.DataFrame(points, columns=["x1", "x2", "x3", "x4", "x5"]), height=280, width="stretch")
+        st.download_button(
+            "Download 5D coordinates",
+            data=to_5d_text(points),
+            file_name=f"{symmetry}_5d_{len(points)}.txt",
+            mime="text/plain",
+        )
 
 
 def _render_split_local_view(vertices: np.ndarray, orbit_ids: list[int]) -> None:
