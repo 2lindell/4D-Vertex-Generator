@@ -5,7 +5,7 @@ The updated list's entries matched to the atlas's shapes by the list's two profi
 pages: pages/decaic_given_names.py.
 
 Where several shapes have both columns alike, the Greek letters are taken in the decaic page's order (regions 01-09, 21,
-22, walls 10-20, 23, 24, lines 25, 26). That is the order the letters follow wherever the columns do tell shapes apart.
+22, walls 10-20, 23, lines 25, 26). That is the order the letters follow wherever the columns do tell shapes apart.
 
 ## Kidecaic
 
@@ -43,14 +43,15 @@ Where several shapes have both columns alike, the Greek letters are taken in the
 | Thepybosid | wall 19 | 5689,4^4,3^6 | same | 5,444,3^15 | same |
 | Ipybosid | wall 20 | 56688,44,3^7 | **55668,44,3^7** | 5,444,3^15 | same |
 | Debybosid | wall 23 | 88,4^6,3^6 | same | 5,4^5,3^11 | same |
-| Ebybosid | wall 24 (crossing) | 88,4^6,3^6 | same | 5,4^5,3^11 | same |
 | Sawbosid | line 25 (crossing) | 456,3^7 | same | 5,4^4,3^5 | same |
 | Gawbosid | line 26 (crossing) | 456,3^7 | same | 5,4^4,3^5 | same; **the list gives 0 degrees, the atlas 1** |
 
 The differences, all kept on the list as given:
 
-* **Gabybosid:** the list's edge column is Abybosid's and Bebybosid's. Three walls have 88,4^6,3^6 and only two have
-  688,4^3,3^8.
+* **Gabybosid:** the list's edge column is Abybosid's and Bebybosid's. Two walls have 88,4^6,3^6 (18 and 23) and two
+  688,4^3,3^8 (11 and 17).
+* **Ebybosid** (was wall 24) is removed: it was wall 23 (Debybosid) found a second time (see below). Being the last of
+  the bybosid letters, no other name moves.
 * **Depybosid and Ipybosid:** the atlas has edges 5,6,6,8,8 above the 4s, and the list has 5,5,6,6,8.
 * **Gawbosid:** it lies on a curve that three of the map's walls contain, so it has one degree of variation.
 
@@ -80,4 +81,18 @@ The iodecaic wall 02, between Sosbid and the new Gosbid, was named afterwards: B
   changed 2026-11-01). The crossing search (2026-11-15) decides what is new from the map's regions, wall_shapes_ki.json
   and the strata. It does not read new_shapes.json, so when the search reached this wall where two surfaces cross, the
   shape looked new and was added as wall 24.
-* Both names stay on the list as given.
+* Wall 24 has been removed (2026-11-16) and Debybosid, wall 23, is the one shape; the name Ebybosid is dropped.
+
+## Every kidecaic shape compared by key (2026-11-16)
+
+All 24 remaining kidecaic atlas shapes were labelled and their arrangement keys compared. Every pair that shares the
+list's two columns (walls 10/16, 11/17, 12/19, 13/20, 14/15, 18/23) has two different keys: these are different
+polychora. Epybosid (wall 14, key 8a75f7c90dcb) and Zepybosid (wall 15, key 2ab890a9ee11) are different.
+
+One more repeat: **Apybosid (region 22) is Zepybosid (wall 15).** Both have key 2ab890a9ee11. Region 22's seed
+(0.6001613, 0.0335292, 0.2990123, 0.0672982) lies on wall 15's surface b1·b2 = b3·b4 (off by 6e-8), and moving it
+by 1e-6 mostly gives the two regions on either side (region 05, Zebosid, and fe385dfcef1d). Walking along that surface
+from wall 15's seed to region 22's, the shape never changes (61 points). The region closure check (2026-11-02) bisected
+a change to within 1e-8 of the wall, labelled the point there, and recorded it as a new region because its key was not
+among the regions. It is a wall point, so it has two degrees of variation, not three. This is also why kicontic has
+no counterpart of Apybosid: there is no such region.

@@ -1,6 +1,6 @@
 # Newly Found Isogonals
 
-15 isogonal polychora found by the crossing search, where two or three of the walls of a symmetry's map cross inside its chamber. The maps had sampled lines and points only on the chamber's own edges and corners.
+14 isogonal polychora found by the crossing search, where two or three of the walls of a symmetry's map cross inside its chamber. The maps had sampled lines and points only on the chamber's own edges and corners.
 
 Each entry is written from the polychoron itself at the seed given (β = the map's coordinates on the sheet named): cells by orbit, vertices with the dualcell's face count, edges by how many faces meet there, faces by shape. They are also listed on their families' pages.
 
@@ -8,7 +8,7 @@ Each entry is written from the polychoron itself at the seed given (β = the map
 
 | symmetry | new | kinds |
 |---|---|---|
-| Kidecaic | 3 | 1 wall, 2 lines |
+| Kidecaic | 2 | 2 lines |
 | Kicontic | 4 | 2 walls, 2 lines |
 | Iocontic | 1 | 1 wall |
 | Oxitic | 6 | 3 walls, 3 lines |
@@ -35,14 +35,6 @@ The atlas maps took lines and points only on each chamber's own edges and corner
 - `optimized_off/kidecaic/kidecaic_line_26_120v_200c_opt.off`
 - `central_off/kidecaic/kidecaic_line_26_120v_200c_central.off`
 - on `3*b1*b2 - b1*b4 + b2**2 - b2*b3 + 2*b3*b4 + b4**2` and `b1*b2 - b3*b4` = 0
-
-**Ebybosid** (wall, sheet ki, key `6127f3ea279d`). Epsilon Bipyramidic Biomnisnub Decachoron: named (Kidecaic wall 24 in the atlas). It has 10 snits, 20+20 gyro-traps, 120 triangular bipyramids, 30 disphenoids, and 60+60+120 irregular tets. It has 120 vertices with a 14 faced dualcell. It has 120+120+120 trigonic, 60+60+60+60+120 tetragonic, and 60+60 octagonic edges. Its faces are 40+40 equits and nine types of 120 scalene triangles. It is isogonal under kidecaic symmetry with two degrees of variation. It was found where two of the map's walls cross: it fills a stretch of one of them that the map had not classified. Name match: Walls 18 and 23 have the same columns; told apart where the columns are alike, by the list's order, which follows the page's order everywhere else.
-
-- β = (0.060382, 0.367492, 0.565152, 0.006974); 440 cells; most even R = 4.5857
-- `new_shapes/off/kidecaic/kidecaic_wall_24_120v_440c_seed.off`
-- `optimized_off/kidecaic/kidecaic_wall_24_120v_440c_opt.off`
-- `central_off/kidecaic/kidecaic_wall_24_120v_440c_central.off`
-- on `3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2` = 0
 
 
 ### Kicontic

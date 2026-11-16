@@ -49,6 +49,16 @@ def display(name, group):
 
 
 CROSS = {}  # (shapes found where the map's walls cross: name -> number of walls)
+CLOSURE = set()  # (wall shapes found by the region closure check: closure_add.py)
+
+
+def closure_walls(path):
+    try:
+        T = json.load(open(path))["shapes"]
+    except FileNotFoundError:
+        return []
+    CLOSURE.update(t["name"] for t in T)
+    return T
 
 
 def crossings(path):
@@ -95,6 +105,8 @@ def entries():
         R = json.load(open(os.path.join(CON, f"optimized_seeds_{sub}.json")))["shapes"]
         rows = [(r["name"], r["kind"], r["degrees"], r["start"], sub, True) for r in R]
         for t in crossings(os.path.join(CON, f"crossings_{sub}.json")):   # (found where the map's walls cross)
+            rows.append((t["name"], t["kind"], t["degrees"], t["seed"], sub, True))
+        for t in closure_walls(os.path.join(CON, f"closure_walls_{sub}.json")):   # (found by the closure check)
             rows.append((t["name"], t["kind"], t["degrees"], t["seed"], sub, True))
         S.append((title, group, names, intro, rows))
     icp = [r for f in ("icp", "icpb") for r in json.load(open(os.path.join(TOX, f"opt_central_{f}.json")))["shapes"]]
@@ -200,6 +212,9 @@ def main():
             body = text(d, group, kind, dof, also)
             if name in CROSS and (not full or gv):
                 body += cross_text(name, kind)
+            if name in CLOSURE:
+                body += (" It was found by the region closure check (walks from every region of the map to its "
+                         "walls), as a wall between two regions whose shape the map had not recorded.")
             if gv:
                 body += " " + gv[2]
             if "_or_" in name:

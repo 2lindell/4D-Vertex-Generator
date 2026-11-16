@@ -13,7 +13,7 @@ seed on the map (the other candidate with the same profile is 0.87 or more away)
 | cf1591d75b16 | 0.0541, 0.0940, 0.8459, 0.0060 | 5689,4^4,3^6 | 5,4^3,3^15 | 4704 | Gapybosid, wall 12 (0.246) | Gapybosic |
 | 088a005dd446 | 0.0411, 0.4029, 0.5529, 0.0031 | 56688,44,3^7 | 5,4^3,3^15 | 4704 | Depybosid, wall 13 (0.109) | Depybosic |
 | c9267f353a08 | 0.5696, 0.0216, 0.0394, 0.3694 | 56688,44,3^7 | 5,4^3,3^15 | 4704 | Ipybosid, wall 20 (0.139) | Ipybosic |
-| 0e8641589e0e | 0.0541, 0.3237, 0.5982, 0.0240 | 88,4^6,3^6 | 5,4^5,3^11 | 4128 | Debybosid / Ebybosid, walls 23/24 (0.035 / 0.058) | Debybosic (= Ebybosic) |
+| 0e8641589e0e | 0.0541, 0.3237, 0.5982, 0.0240 | 88,4^6,3^6 | 5,4^5,3^11 | 4128 | Debybosid, wall 23 (0.035; its repeat, wall 24, 0.058) | Debybosic |
 
 ## Decaic walls 23 and 24 are one shape
 
@@ -29,3 +29,10 @@ names are kept.
 Of the 8 kidecaic shapes kicontic seemed to lack, 6 are walls found here, and Debybosid / Ebybosid count as one.
 Only **Apybosid** (kidecaic region 22, edges 78,4^5,3^5) has no kicontic counterpart, and the closure check found no
 missing kicontic region, so there may be none.
+
+## Added to the atlas
+
+The six walls were added as kicontic walls 27-32 by closure_add.py (closure_walls_ki.json; seed, optimized and
+central .off files in new_shapes/off/kicontic, optimized_off/kicontic and central_off/kicontic), named as above:
+27 Abybosic, 28 Gapybosic, 29 Depybosic, 30 Bebybosic, 31 Ipybosic, 32 Debybosic. The kidecaic repeat (wall 24,
+Ebybosid) has been removed.

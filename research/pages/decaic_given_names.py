@@ -44,18 +44,16 @@ GIVEN = {
     "kidecaic_wall_17_120v_440c": ("Bebybosid", "Beta Bipyramidic Biomnisnub Decachoron",
                                    "Wall 11 (Abybosid) has the same columns; told apart " + ORDER + "."),
     "kidecaic_wall_18_120v_440c": ("Gabybosid", "Gamma Bipyramidic Biomnisnub Decachoron",
-                                   "Its edges at a vertex are 88,4^6,3^6 (as for Debybosid and Ebybosid); the list has "
-                                   "688,4^3,3^8, Abybosid's and Bebybosid's. Placed by the list's order: three walls "
-                                   "have 88,4^6,3^6 and only two 688,4^3,3^8."),
+                                   "Its edges at a vertex are 88,4^6,3^6 (as for Debybosid); the list has 688,4^3,3^8, "
+                                   "Abybosid's and Bebybosid's. Placed by the list's order."),
     "kidecaic_wall_19_120v_500c": ("Thepybosid", "Theta Pyramidic Biomnisnub Decachoron",
                                    "Wall 12 (Gapybosid) has the same columns; told apart " + ORDER + "."),
     "kidecaic_wall_20_120v_500c": ("Ipybosid", "Iota Pyramidic Biomnisnub Decachoron",
                                    "Its edges at a vertex are 56688,44,3^7; the list has 55668,44,3^7. Wall 13 "
                                    "(Depybosid) has the same columns; told apart " + ORDER + "."),
     "kidecaic_wall_23_120v_440c": ("Debybosid", "Delta Bipyramidic Biomnisnub Decachoron",
-                                   "Walls 18 and 24 have the same columns; told apart " + ORDER + "."),
-    "kidecaic_wall_24_120v_440c": ("Ebybosid", "Epsilon Bipyramidic Biomnisnub Decachoron",
-                                   "Walls 18 and 23 have the same columns; told apart " + ORDER + "."),
+                                   "Wall 18 (Gabybosid) has the same columns; told apart " + ORDER + ". The crossing search found this "
+                                   "shape again as wall 24 (listed as Ebybosid); that repeat has been removed."),
     "iodecaic_region_01_120v_500c": ("Gosbid", "Great Omnisnub Bidecachoron",
                                      "First named Dawosbid (Disphenoidal Omnisnub Bidecachoron); the list's earlier Gosbid "
                                      "is now Mosbid."),
@@ -107,6 +105,13 @@ CONTIC_FROM_DECAIC = {
     "kicontic_wall_24": "Gabybosid",
     "kicontic_line_25": "Sawbosid",
     "kicontic_line_26": "Gawbosid",
+    # (found by the kicontic region closure check, 2026-11-16: contic_atlas/kicontic_closure.md)
+    "kicontic_wall_27": "Abybosid",
+    "kicontic_wall_28": "Gapybosid",
+    "kicontic_wall_29": "Depybosid",
+    "kicontic_wall_30": "Bebybosid",
+    "kicontic_wall_31": "Ipybosid",
+    "kicontic_wall_32": "Debybosid",
     "iocontic_region_03_1152v_4704c": "Gosbid",
     "iocontic_wall_06": "Bipyosbid",
 }
