@@ -46,6 +46,7 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
+COMPLETE = {"F3": ("X4",)}         # regions whose shown part gets its own walls (and these edges) beside it
 WALL_OFF = 0.01                    # how far a wall attached to a region of such a group stands off it
 HELD_RING = 0.06                   # how far the group round an edge with a turn of order 3 or more stands off it
 RING = 0.20                        # how far the walls and regions round an edge stand from it
@@ -608,6 +609,43 @@ def build() -> dict:
             if sh["cuts"] else "whole: no symmetry carries it onto itself") + \
             (f"; one of {n_copies} copies met" if n_copies > 1 else "")
 
+    # regions whose shell is completed: each wall bounding the part of it shown, and the edges named,
+    # are shown by the copy that bounds that part (F3: its walls T2 and X22 below F1, and its edge X4)
+    completed = {}
+    for reg, extra in COMPLETE.items():
+        R = chosen.get(("region", reg))
+        if R is None:
+            continue
+        tr = cKDTree(_samples(R, 3000))
+        rr = rel_of(R)
+        want = {(k[0], m.name(k[0], k[1])) for k in rr if k[0] == "wall"} | {("line", nm) for nm in extra}
+        for kind, nm in sorted(want):
+            cands = [k for k in rr if k[0] == kind and m.name(kind, k[1]) == nm]
+            if not cands:
+                continue
+
+            def share(key):                       # (how much of the region's part it lies along)
+                return (tr.query(_samples(make(key), 2000))[0] < 4e-3).mean()
+            best = max(cands, key=share)
+            old = chosen.get((kind, nm))
+            if old is not None and old["key"] == best:
+                completed[nm] = reg
+                continue
+            new = dict(make(best))
+            new["geo"] = np.array(new["geo"])
+            new["cuts"] = reduce_extent(new, GQ, R["geo"].reshape(-1, 4).mean(0))
+            new["note"] = (("cut by the symmetries carrying it onto itself: " + ", ".join(
+                "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in new["cuts"]))
+                if new["cuts"] else "whole: no symmetry carries it onto itself") + \
+                f"; the copy bounding the {reg} shown"
+            layer_of[best] = layer_of[old["key"]] if old is not None else layer_of[R["key"]]
+            if old is not None:
+                shapes[shapes.index(old)] = new
+            else:
+                shapes.append(new)
+            chosen[(kind, nm)] = new
+            completed[nm] = reg
+
     # ---- the layout
     for sh in shapes:
         geo = sh["geo"]
@@ -791,10 +829,20 @@ def build() -> dict:
         regions_in = [g for g in group if shapes[g]["kind"] == "region"]
         for j in range(n):
             sh = shapes[j]
-            if j in group or sh["kind"] != "wall":
+            if j in group or sh["kind"] not in ("wall", "line"):
                 continue
             r_j = rel_of(sh)
+            if sh["kind"] == "line":
+                # (an edge completing a group region's shell lies on it: moved and turned as it is)
+                on = [g for g in regions_in if completed.get(sh["id"]) == shapes[g]["id"]]
+                if on:
+                    turn_of[j] = turn_of[on[0]]
+                    shift[j] = shift[on[0]]
+                    attached[sh["id"]] = [shapes[on[0]]["id"]]
+                    group.append(j)
+                continue
             on = [g for g in regions_in if r_j.get(shapes[g]["key"]) == "side"]
+            on = [g for g in on if completed.get(sh["id"], shapes[g]["id"]) == shapes[g]["id"]] or on
             if not on:
                 continue
             g = on[0]
