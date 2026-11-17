@@ -47,7 +47,7 @@ MIN_STEP = np.radians(8)           # the least angle between neighbours round an
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
 JOIN_EDGES = ("E1", "X13")         # edges joined to B1's group, lying along the shapes they bound
-JOIN_CORNERS = ("C6", "A1")        # corners set at the ends of the group's edges
+JOIN_CORNERS = ("A1", "C6")        # corners set at the ends of the group's edges (in this order)
 EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
 CORNER_GAP = 0.012                 # ... and the corners this far beyond the edges' ends
 STACK_ON = {"X49": ("X28", "X50", "X33")}   # shapes stacked on a region, one beyond the other
@@ -1034,38 +1034,55 @@ def build() -> dict:
             ang, P0, t, _ = turn_of[i]
             X = _turn(X, P0, t, ang)
         return X + shift[i]
-    moved_to_corner = {}
+    # B1 lined up along X38's edge: moved and turned as X38 is, set EDGE_GAP out from it
+    ib1_, i38 = ib_edge(shapes, "B1"), next((i for i, x in enumerate(shapes) if x["id"] == "X38"), None)
+    if ib1_ is not None and i38 is not None and i38 in turn_of:
+        ang, P0, t, about = turn_of[i38]
+        out_ = shapes[ib1_]["pts"].mean(0) - shapes[i38]["pts"].mean(0)
+        out_ -= (out_ @ (shapes[ib1_]["pts"][-1] - shapes[ib1_]["pts"][0])) / max(np.linalg.norm(shapes[ib1_]["pts"][-1] - shapes[ib1_]["pts"][0]) ** 2, 1e-12) * (shapes[ib1_]["pts"][-1] - shapes[ib1_]["pts"][0])
+        out_ = _turn(np.array([out_]), np.zeros(3), t, ang)[0]
+        turn_of[ib1_] = (ang, P0, t, about)
+        shift[ib1_] = shift[i38] + EDGE_GAP * out_ / max(np.linalg.norm(out_), 1e-12)
+        attached.setdefault("B1", ["X38"])
+
+    # the corners at the joined edges' ends: one where two of them end (A1, at E1 and X13) at the
+    # point in line with both (where their ends' lines, carried on, pass closest); one where one ends
+    # (C6, at E1's other end) carried on beyond that end by as far as the first corner lies beyond it
+    def end_line(ie, c0):
+        L = shapes[ie]["v"]
+        k = int(np.argmin(np.linalg.norm(L[[0, -1]] - c0, axis=1)))
+        if np.linalg.norm(L[[0, -1]][k] - c0) > 2e-3:
+            return None
+        Lp = placed(ie, L)
+        end, inner = (Lp[0], Lp[min(5, len(Lp) - 1)]) if k == 0 else (Lp[-1], Lp[-min(6, len(Lp))])
+        d_ = end - inner
+        return end, d_ / max(np.linalg.norm(d_), 1e-12)
+    corner_gap = None
     for nm in JOIN_CORNERS:
         ic = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == nm), None)
         if ic is None:
             continue
         c0 = shapes[ic]["v"].reshape(3)
-        spots, used, which = [], [], []
-        for ie in joined_edges:
-            L = shapes[ie]["v"]
-            k = int(np.argmin(np.linalg.norm(L[[0, -1]] - c0, axis=1)))
-            if np.linalg.norm(L[[0, -1]][k] - c0) > 2e-3:
-                continue
-            Lp = placed(ie, L)
-            end, inner = (Lp[0], Lp[min(5, len(Lp) - 1)]) if k == 0 else (Lp[-1], Lp[-min(6, len(Lp))])
-            d_ = end - inner
-            spots.append(end + CORNER_GAP * d_ / max(np.linalg.norm(d_), 1e-12))
-            used.append(shapes[ie]["id"])
-            which.append(ie)
-        if spots:
-            # (the corner one gap beyond the end of the first edge joined to the group that ends at it
-            # (E1, for A1 and C6 alike); every other edge ending there is then moved by as much as its
-            # own spot is off, so its end too lies one gap from the corner: B1 and X13 come in to A1)
-            lead = next((k_ for k_, ie in enumerate(which) if shapes[ie]["id"] in JOIN_EDGES), 0)
-            target = spots[lead]
-            shift[ic] = target - c0
-            for k_, ie in enumerate(which):
-                if k_ != lead:
-                    shift[ie] = shift[ie] + (target - spots[k_])
-                    moved_to_corner[shapes[ie]["id"]] = nm
-            if nm not in ("A1",):
-                attached[nm] = used
-            in_group.add(ic)
+        ends = [(shapes[ie]["id"], e) for ie in joined_edges if shapes[ie]["id"] in JOIN_EDGES
+                for e in [end_line(ie, c0)] if e is not None]
+        if len(ends) >= 2:
+            (n1, (p1, d1)), (n2, (p2, d2)) = ends[:2]
+            # (the closest points of the lines p1 + a d1 and p2 + b d2)
+            w0 = p1 - p2
+            b_, d_, e_ = d1 @ d2, d1 @ w0, d2 @ w0
+            den = 1 - b_ * b_
+            a_ = (b_ * e_ - d_) / den if den > 1e-9 else 0.0
+            c_ = (e_ - b_ * d_) / den if den > 1e-9 else 0.0
+            spot = (p1 + a_ * d1 + p2 + c_ * d2) / 2
+            corner_gap = float(np.linalg.norm(spot - p1))
+        elif len(ends) == 1:
+            n1, (p1, d1) = ends[0]
+            spot = p1 + (corner_gap if corner_gap is not None else CORNER_GAP) * d1
+        else:
+            continue
+        shift[ic] = spot - c0
+        attached[nm] = [n_ for n_, _ in ends]
+        in_group.add(ic)
 
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
