@@ -46,6 +46,7 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
+HELD_RING = 0.06                   # how far the group round an edge with a turn of order 3 or more stands off it
 RING = 0.20                        # how far the walls and regions round an edge stand from it
 DEBUG_PICK = ()                    # (names whose copy picks are printed)
 PATCH_NAMING = 5                   # (bumped when the way triangles are named changes: the cache is redone)
@@ -395,9 +396,14 @@ def reduce_extent(sh, GQ, prefer):
             break
         u = Pm.T @ np.linalg.svd(X @ Pm.T, full_matrices=False)[2][0]
         u /= np.linalg.norm(u)
-        if prefer @ u < 0:
-            u = -u
-        sh["geo"] = _cut_tris(sh["geo"], u) if sh["kind"] in ("wall", "region") else _cut_path(sh["geo"], u)
+        cut = (lambda v: _cut_tris(sh["geo"], v)) if sh["kind"] in ("wall", "region") else (lambda v: _cut_path(sh["geo"], v))
+        if callable(prefer):
+            # (the half scoring higher: the one touching more of the shapes shown beside it)
+            halves = [cut(u), cut(-u)]
+            score = [prefer({"kind": sh["kind"], "geo": h_}) if len(h_) else -1 for h_ in halves]
+            sh["geo"] = halves[int(score[1] > score[0])]
+        else:
+            sh["geo"] = cut(u if prefer @ u >= 0 else -u)
         cuts.append(e)
     return cuts
 
@@ -575,14 +581,26 @@ def build() -> dict:
     missing = sorted(f"{k} {n}" for k, n in {(k, x["name"]) for k in ("wall", "line", "region", "point")
                                                for x in m.sm[k + "s"]} if (k, n) not in chosen)
 
-    # each cut to the extent its seeds need once
+    # each cut to the extent its seeds need once (in the order chosen: each against those cut before)
+    done = []
     for sh in shapes:
-        # (the half kept is the one holding the corner A1 shown, for a shape that reaches it: so X38,
-        # B1 and F3 are the halves that meet at that A1; otherwise the side of the axis kept)
+        # (of the two halves, the one touching more of the shapes the shape map puts beside it that
+        # are shown and already cut (walls and regions count most, then edges, then the corner A1
+        # shown), so the halves kept meet one another: X38, B1 and F3 meet at that A1, F3 at F1)
         a1 = chosen.get(("point", "A1"))
-        at_a1 = a1 is not None and sh["kind"] != "point" and \
-            np.linalg.norm(_samples(sh, 3000) - a1["geo"][0], axis=1).min() < 2e-3
-        sh["cuts"] = reduce_extent(sh, GQ, a1["geo"][0] if at_a1 else prefer)
+        near = [f for f in done if f["kind"] != "point" and (f["key"] in rel_of(sh) or sh["key"] in rel_of(f))]
+
+        def touching(half, near=near):
+            P = _samples(half, 2000)
+            tr = cKDTree(P)
+            sc = sum((2 if f["kind"] in ("wall", "region") else 1) * (tr.query(_samples(f, 800))[0].min() < 3e-3)
+                     for f in near)
+            if a1 is not None:                       # (meeting the A1 shown comes first: measured to the
+                Vh = np.asarray(half["geo"]).reshape(-1, 4)       # half's own corners, as A1 is one point)
+                sc += 100 * (np.linalg.norm(Vh - a1["geo"][0], axis=1).min() < 3e-3)
+            return sc + 1e-3 * float(np.sign((P.mean(0) @ (prefer - c))))   # (then: the side of the axis kept)
+        sh["cuts"] = reduce_extent(sh, GQ, touching)
+        done.append(sh)
         n_copies = len(seen[(sh["kind"], sh["id"])])
         sh["note"] = ("cut by the symmetries carrying it onto itself: " + ", ".join(
             "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in sh["cuts"])
@@ -647,6 +665,7 @@ def build() -> dict:
     # least MIN_STEP apart (about the arc's middle), and they stand RING out from it
     arcs = {}
     turns = defaultdict(list)
+    sector_of = {}
     for i, a in enumerate(shapes):
         if a["kind"] != "line":
             continue
@@ -693,13 +712,20 @@ def build() -> dict:
         held = lay == lay.min()
         new += (sa[held] - new[held]).mean()
         if held_ring:
-            new = sa.copy()
+            # (round such an edge the shapes shown fill one sector of the turn: spread evenly over it in
+            # the order they lie, the shapes of the earliest layer keeping their true directions, each
+            # turned to its place there so it stands straight out from the edge)
+            sector = 2 * np.pi / m.node["line"][a["key"][1]]["stab"]
+            new = (sector / len(sa)) * np.arange(len(sa))
+            new += (sa[held] - new[held]).mean()
         arcs[a["id"]] = {"true_span_deg": round(float(np.degrees(sa[-1] - sa[0])), 1),
                          "shown_span_deg": round(float(np.degrees(new[-1] - new[0])), 1),
                          "order": [[shapes[rows[ring[o]][1]]["id"], round(float(np.degrees(x)), 1), round(float(np.degrees(y)), 1)]
                                    for o, x, y in zip(order, sa, new)]}
         for th, o, th0 in zip(new, order, sa):
             rows[ring[o]] = (rows[ring[o]][0], rows[ring[o]][1], RING / GAP * (np.cos(th) * b1 + np.sin(th) * b2))
+            if held_ring:                         # (placed off this edge alone, as one group round it)
+                sector_of[rows[ring[o]][1]] = (i, HELD_RING * (np.cos(th) * b1 + np.sin(th) * b2))
             # (and the turn about the edge that would swing it from its true direction to this one)
             j_ = rows[ring[o]][1]
             if layer_of[a["key"]] <= layer_of[shapes[j_]["key"]]:      # (only edges of its layer or nearer)
@@ -719,7 +745,10 @@ def build() -> dict:
         # (only from boundary shapes of its own layer or nearer the axis: a shape is placed among
         # the shapes it was found beside, not pulled away by ones found from it later)
         own = [(a_, v) for a_, v in parents[i] if layer_of[shapes[a_]["key"]] <= layer_of[shapes[i]["key"]]]
-        if own:
+        if i in sector_of:
+            e_, off = sector_of[i]
+            shift[i] = shift[e_] + off
+        elif own:
             shift[i] = np.mean([shift[a_] + GAP * v for a_, v in own], 0)
         else:
             shift[i] = (EXPLODE - 1) * shapes[i]["pts"].mean(0)
