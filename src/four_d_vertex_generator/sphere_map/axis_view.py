@@ -754,14 +754,42 @@ def build() -> dict:
             shift[i] = (EXPLODE - 1) * shapes[i]["pts"].mean(0)
     resid = [float(np.linalg.norm(shift[j] - shift[i] - GAP * v)) / float(np.linalg.norm(GAP * v)) for i, j, v in rows]
 
+    # each shape's turn: about the edge round which it is opened out most, so the shapes round an edge
+    # fan out from it rather than standing parallel, side by side
+    turn_of = {}
+    for i in range(n):
+        if turns.get(i):
+            _, ang, P0, t, about = max(turns[i], key=lambda x: x[0])
+            turn_of[i] = (ang, P0, t, about)
+    # a group fanned round an edge takes in the walls and regions beside two or more of its shapes that
+    # are not round that edge (X100, which bounds X61 and meets F4 below it; then X58, beside F4 and
+    # X100): each turned and moved by the mean of the shapes it lies beside there, so it sits between them
+    attached = {}
+    for e_ in sorted({e_ for e_, _ in sector_of.values()}):
+        group = [j for j, (ee, _) in sector_of.items() if ee == e_]
+        grew = True
+        while grew:
+            grew = False
+            for j in range(n):
+                sh = shapes[j]
+                if j in group or j in sector_of or sh["kind"] not in ("wall", "region"):
+                    continue
+                r_j = rel_of(sh)
+                mates = [g for g in group if shapes[g]["key"] in r_j or sh["key"] in rel_of(shapes[g])]
+                if len(mates) < 2:
+                    continue
+                _, P0, t, about = turn_of[mates[0]]
+                turn_of[j] = (float(np.mean([turn_of[g][0] for g in mates])), P0, t, about)
+                shift[j] = np.mean([shift[g] for g in mates], 0)
+                attached[sh["id"]] = [shapes[g]["id"] for g in mates]
+                group.append(j)
+                grew = True
     out = []
     for sh, s in zip(shapes, shift):
         V3 = sh["v"]
         rec_turn = None
-        if turns.get(idx[id(sh)]):
-            # (swung about the edge round which it is opened out most, so the shapes round an edge fan
-            # out from it rather than standing parallel, side by side)
-            _, ang, P0, t, about = max(turns[idx[id(sh)]], key=lambda x: x[0])
+        if idx[id(sh)] in turn_of:
+            ang, P0, t, about = turn_of[idx[id(sh)]]
             rec_turn = (about, round(float(np.degrees(ang)), 1))
             V3 = _turn(V3, P0, t, ang)
         V3 = V3 + s
@@ -796,7 +824,7 @@ def build() -> dict:
     L = np.linspace(-0.35, 0.35, 2)
     return {"_about": __doc__, "axis": [[float(t), 0.0, 0.0] for t in L], "shapes": out,
             "links": [[i, j] for i, j, _ in rows], "missing": missing,
-            "fit": {"arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
+            "fit": {"attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
 
