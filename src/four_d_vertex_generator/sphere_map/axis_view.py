@@ -47,7 +47,8 @@ MIN_STEP = np.radians(8)           # the least angle between neighbours round an
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
 ALIGN_ON = {"X4": ("X82", ("X22",))}  # along an edge: walls lined up on the first (moved and turned as it is)
-ALIGN_OFF = 0.015                  # ... each set this far out from it
+ALIGN_OFF = 0.008                  # ... each set this far off its own face, away from the first
+EDGE_OFF = 0.008                   # ... and the edge this far out from the first
 CUT_ALONG = {"F3": ("T2", "F1")}   # cut shapes cut flat along where these two walls meet (see build)
 COMPLETE = {"F3": ("X4",)}         # regions whose shown part gets its own walls (and these edges) beside it
 COMPLETE_OFF = 0.03                # ... and a wall completing such a region's shell, a little more
@@ -672,11 +673,11 @@ def build() -> dict:
             chosen[(kind, nm)] = new
             completed[nm] = reg
 
-    # a cut shape cut flat along the line where two of its walls meet (F3: along the top of T2, where it
-    # meets F1): a flat cut through its half-turn's fixed 2-plane is valid at any angle round it (the
-    # half-turn carries it onto itself, so the part kept and its image make up the shape once); the
-    # angle is the one lying best along that line, and the side kept the one holding most of the
-    # first wall
+    # a cut shape cut flat so its front edge lines up with the edge where two of its walls meet (F3:
+    # with the top of T2, where it meets F1): a flat cut through its half-turn's fixed 2-plane is valid
+    # at any angle round it (the half-turn carries it onto itself, so the part kept and its image make
+    # up the shape once); the angle is set by that edge's direction across the turned 2-plane, and the
+    # side kept is the one holding most of the first wall
     for nm, (w1, w2) in CUT_ALONG.items():
         R = chosen.get(("region", nm))
         W1, W2 = chosen.get(("wall", w1)), chosen.get(("wall", w2))
@@ -690,7 +691,7 @@ def build() -> dict:
         if len(edge) < 10:
             continue
         along = np.linalg.svd(edge @ Pm.T, full_matrices=False)[2][0]
-        u_cut = Pm.T @ np.array([-along[1], along[0]])     # (not u: the view's own y direction)
+        u_cut = Pm.T @ along                               # (not u: the view's own y direction)
         u_cut /= np.linalg.norm(u_cut)
         if (P1 @ u_cut).mean() < 0:
             u_cut = -u_cut
@@ -919,23 +920,22 @@ def build() -> dict:
         turn_of[ie] = turn_of[il]
         shift[ie] = shift[il]
         attached[e_name] = [lead]
-        Le = shapes[ie]["pts"]
-        te = cKDTree(Le)
+        # (the edge set a little out from the leading wall, along the way it lies from its middle)
+        away = shapes[ie]["pts"].mean(0) - shapes[il]["pts"].mean(0)
+        away = _turn(np.array([away]), np.zeros(3), t, ang)[0]
+        shift[ie] = shift[il] + EDGE_OFF * away / max(np.linalg.norm(away), 1e-12)
         for w_name in walls:
             j = next((i for i, x in enumerate(shapes) if x["kind"] == "wall" and x["id"] == w_name), None)
             if j is None:
                 continue
+            # (moved and turned exactly as the leading wall, so their edges on the edge and their
+            # points line up; then set a small gap straight off its own face, away from the leading wall)
             P = shapes[j]["pts"]
-            d, k = te.query(P)
-            near = d < max(np.quantile(d, 0.1), 1e-9)
-            tng = Le[np.minimum(k + 3, len(Le) - 1)] - Le[np.maximum(k - 3, 0)]
-            tng /= np.maximum(np.linalg.norm(tng, axis=1, keepdims=True), 1e-12)
-            off = P - Le[k]
-            off -= np.einsum("nk,nk->n", off, tng)[:, None] * tng
-            v = off[near].mean(0)
-            v = _turn(np.array([v]), np.zeros(3), t, ang)[0]
+            nrm = np.linalg.svd(P - P.mean(0), full_matrices=False)[2][2]
+            nrm *= np.sign(nrm @ (P.mean(0) - shapes[il]["pts"].mean(0))) or 1.0
+            nrm = _turn(np.array([nrm]), np.zeros(3), t, ang)[0]
             turn_of[j] = (ang, P0, t, about)
-            shift[j] = shift[il] + ALIGN_OFF * v / max(np.linalg.norm(v), 1e-12)
+            shift[j] = shift[il] + ALIGN_OFF * nrm
             attached[w_name] = [lead]
     out = []
     for sh, s in zip(shapes, shift):
