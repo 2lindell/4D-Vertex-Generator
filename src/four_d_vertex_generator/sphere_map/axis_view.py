@@ -821,8 +821,15 @@ def build() -> dict:
         if sh.get("warn"):
             rec["warn"] = sh["warn"]
         out.append(rec)
+    # the axis, moved with X38 (turned and shifted as X38 is), so it still runs along X38's edge on it
     L = np.linspace(-0.35, 0.35, 2)
-    return {"_about": __doc__, "axis": [[float(t), 0.0, 0.0] for t in L], "shapes": out,
+    axis3 = np.array([[t_, 0.0, 0.0] for t_ in L])
+    i38 = next(i for i, sh in enumerate(shapes) if sh["id"] == "X38")
+    if i38 in turn_of:
+        ang, P0, t, _ = turn_of[i38]
+        axis3 = _turn(axis3, P0, t, ang)
+    axis3 = axis3 + shift[i38]
+    return {"_about": __doc__, "axis": axis3.round(5).tolist(), "shapes": out,
             "links": [[i, j] for i, j, _ in rows], "missing": missing,
             "fit": {"attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
