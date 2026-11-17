@@ -47,6 +47,7 @@ MIN_STEP = np.radians(8)           # the least angle between neighbours round an
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
 JOIN_EDGES = ("E1", "X13")         # edges joined to B1's group, lying along the shapes they bound
+EDGE_ON_WALL = {"B1": ("X38", "A1"), "C2a": ("X96", "C6")}   # edges along a wall, in line with a corner
 JOIN_CORNERS = ("A1", "C6")        # corners set at the ends of the group's edges (in this order)
 EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
 CORNER_GAP = 0.012                 # ... and the corners this far beyond the edges' ends
@@ -626,6 +627,7 @@ def build() -> dict:
         # are shown and already cut (walls and regions count most, then edges, then the corner A1
         # shown), so the halves kept meet one another: X38, B1 and F3 meet at that A1, F3 at F1)
         a1 = chosen.get(("point", "A1"))
+        c6 = chosen.get(("point", "C6"))
         near = [f for f in done if f["kind"] != "point" and (f["key"] in rel_of(sh) or sh["key"] in rel_of(f))]
 
         def touching(half, near=near):
@@ -633,9 +635,11 @@ def build() -> dict:
             tr = cKDTree(P)
             sc = sum((2 if f["kind"] in ("wall", "region") else 1) * (tr.query(_samples(f, 800))[0].min() < 3e-3)
                      for f in near)
-            if a1 is not None:                       # (meeting the A1 shown comes first: measured to the
-                Vh = np.asarray(half["geo"]).reshape(-1, 4)       # half's own corners, as A1 is one point)
-                sc += 100 * (np.linalg.norm(Vh - a1["geo"][0], axis=1).min() < 3e-3)
+            Vh = np.asarray(half["geo"]).reshape(-1, 4)          # (measured to the half's own corners,
+            if a1 is not None:                                   # as a corner is one point)
+                sc += 100 * (np.linalg.norm(Vh - a1["geo"][0], axis=1).min() < 3e-3)   # (the A1 shown first,
+            if c6 is not None:                                                         # then the C6 shown)
+                sc += 50 * (np.linalg.norm(Vh - c6["geo"][0], axis=1).min() < 3e-3)
             return sc + 1e-3 * float(np.sign((P.mean(0) @ (prefer - c))))   # (then: the side of the axis kept)
         sh["cuts"] = reduce_extent(sh, GQ, touching)
         done.append(sh)
@@ -1034,17 +1038,6 @@ def build() -> dict:
             ang, P0, t, _ = turn_of[i]
             X = _turn(X, P0, t, ang)
         return X + shift[i]
-    # B1 lined up along X38's edge: moved and turned as X38 is, set EDGE_GAP out from it
-    ib1_, i38 = ib_edge(shapes, "B1"), next((i for i, x in enumerate(shapes) if x["id"] == "X38"), None)
-    if ib1_ is not None and i38 is not None and i38 in turn_of:
-        ang, P0, t, about = turn_of[i38]
-        out_ = shapes[ib1_]["pts"].mean(0) - shapes[i38]["pts"].mean(0)
-        out_ -= (out_ @ (shapes[ib1_]["pts"][-1] - shapes[ib1_]["pts"][0])) / max(np.linalg.norm(shapes[ib1_]["pts"][-1] - shapes[ib1_]["pts"][0]) ** 2, 1e-12) * (shapes[ib1_]["pts"][-1] - shapes[ib1_]["pts"][0])
-        out_ = _turn(np.array([out_]), np.zeros(3), t, ang)[0]
-        turn_of[ib1_] = (ang, P0, t, about)
-        shift[ib1_] = shift[i38] + EDGE_GAP * out_ / max(np.linalg.norm(out_), 1e-12)
-        attached.setdefault("B1", ["X38"])
-
     # the corners at the joined edges' ends: one where two of them end (A1, at E1 and X13) at the
     # point in line with both (where their ends' lines, carried on, pass closest); one where one ends
     # (C6, at E1's other end) carried on beyond that end by as far as the first corner lies beyond it
@@ -1058,6 +1051,7 @@ def build() -> dict:
         d_ = end - inner
         return end, d_ / max(np.linalg.norm(d_), 1e-12)
     corner_gap = None
+    warn_edges = []
     for nm in JOIN_CORNERS:
         ic = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == nm), None)
         if ic is None:
@@ -1084,17 +1078,34 @@ def build() -> dict:
         attached[nm] = [n_ for n_, _ in ends]
         in_group.add(ic)
 
-    # B1 then slid sideways (keeping its direction and its place along itself, from X38) so that its
-    # line, carried on past its end, runs through A1: in line with A1, its distance from it set by X38
-    ia1 = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == "A1"), None)
-    if ib1_ is not None and ia1 is not None and ib1_ in turn_of:
-        c0 = shapes[ia1]["v"].reshape(3)
-        e = end_line(ib1_, c0)
-        if e is not None:
-            p_, d_ = e
-            a_ = c0 + shift[ia1]
-            r_ = a_ - p_
-            shift[ib1_] = shift[ib1_] + (r_ - (r_ @ d_) * d_)
+    # edges lined up on a wall and in line with a corner (B1: on X38, with A1; C2a: on X96, with C6):
+    # each moved and turned as its wall is, set EDGE_GAP out from it, so it lies along the wall's edge;
+    # then slid only sideways (keeping its direction and its place along itself) so its line, carried
+    # on past its end, runs through the corner: in line with it, its distance from it set by the wall
+    for e_name, (w_name, c_name) in EDGE_ON_WALL.items():
+        ie = ib_edge(shapes, e_name)
+        iw = next((i for i, x in enumerate(shapes) if x["kind"] == "wall" and x["id"] == w_name), None)
+        ic = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
+        if ie is None or iw is None or iw not in turn_of:
+            continue
+        ang, P0, t, about = turn_of[iw]
+        Le = shapes[ie]["pts"]
+        dir_ = Le[-1] - Le[0]
+        out_ = Le.mean(0) - shapes[iw]["pts"].mean(0)
+        out_ -= (out_ @ dir_) / max(dir_ @ dir_, 1e-12) * dir_
+        out_ = _turn(np.array([out_]), np.zeros(3), t, ang)[0]
+        turn_of[ie] = (ang, P0, t, about)
+        shift[ie] = shift[iw] + EDGE_GAP * out_ / max(np.linalg.norm(out_), 1e-12)
+        attached.setdefault(e_name, [w_name])
+        if ic is not None:
+            c0 = shapes[ic]["v"].reshape(3)
+            e = end_line(ie, c0)
+            if e is not None:
+                p_, d_ = e
+                r_ = c0 + shift[ic] - p_
+                shift[ie] = shift[ie] + (r_ - (r_ @ d_) * d_)
+            else:
+                warn_edges.append(f"{e_name} does not end at the {c_name} shown")
 
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
@@ -1172,7 +1183,7 @@ def build() -> dict:
     axis3 = axis3 + shift[i38]
     return {"_about": __doc__, "axis": axis3.round(5).tolist(), "shapes": out,
             "links": [[i, j] for i, j, _ in rows], "missing": missing,
-            "fit": {"attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
+            "fit": {"warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
 
