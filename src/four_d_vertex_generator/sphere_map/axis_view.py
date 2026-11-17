@@ -46,6 +46,8 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
+STACK_ON = {"X49": ("X28", "X50", "X33")}   # shapes stacked on a region, one beyond the other
+STACK_OFF = 0.02                   # ... each this far beyond the one before
 ALIGN_ON = {"X4": ("X82", ("X22",))}  # along an edge: walls lined up on the first (moved and turned as it is)
 ALIGN_OFF = 0.008                  # ... each set this far off its own face, away from the first
 EDGE_OFF = 0.008                   # ... and the edge this far out from the first
@@ -667,11 +669,45 @@ def build() -> dict:
                 f"; the copy bounding the {reg} shown"
             layer_of[best] = layer_of[old["key"]] if old is not None else layer_of[R["key"]]
             if old is not None:
-                shapes[shapes.index(old)] = new
+                shapes[[id(x) for x in shapes].index(id(old))] = new
             else:
                 shapes.append(new)
             chosen[(kind, nm)] = new
             completed[nm] = reg
+
+    # shapes stacked on a region, one beyond the other (X49, then X28, X50, X33): each shown by the copy
+    # the shape map puts beside the one before it (the one lying along it most, if more than one)
+    stacked = {}
+    for base, chain in STACK_ON.items():
+        prev = next((x for x in chosen.values() if x["kind"] != "point" and x["id"] == base), None)
+        for nm in chain:
+            if prev is None:
+                break
+            rp = rel_of(prev)
+            cands = [k for k in rp if k[0] in ("wall", "region") and m.name(k[0], k[1]) == nm]
+            if not cands:
+                break
+            tr = cKDTree(_samples(prev, 3000))
+            best = max(cands, key=lambda k_: (tr.query(_samples(make(k_), 1500))[0] < 4e-3).mean())
+            kind = best[0]
+            old = chosen.get((kind, nm))
+            if old is None or old["key"] != best:
+                new = dict(make(best))
+                new["geo"] = np.array(new["geo"])
+                new["cuts"] = reduce_extent(new, GQ, prev["geo"].reshape(-1, 4).mean(0))
+                new["note"] = (("cut by the symmetries carrying it onto itself: " + ", ".join(
+                    "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in new["cuts"]))
+                    if new["cuts"] else "whole: no symmetry carries it onto itself") + f"; the copy beside the {prev['id']} shown"
+                layer_of[best] = layer_of[old["key"]] if old is not None else layer_of[prev["key"]]
+                if old is not None:
+                    shapes[[id(x) for x in shapes].index(id(old))] = new
+                else:
+                    shapes.append(new)
+                chosen[(kind, nm)] = new
+                prev = new
+            else:
+                prev = old
+            stacked[nm] = base
 
     # a cut shape cut flat so its front edge lines up with the edge where two of its walls meet (F3:
     # with the top of T2, where it meets F1): a flat cut through its half-turn's fixed 2-plane is valid
@@ -908,6 +944,28 @@ def build() -> dict:
             shift[j] = shift[g] + off * away / max(np.linalg.norm(away), 1e-12)
             attached[sh["id"]] = [shapes[g]["id"]]
             group.append(j)
+    # the stack on a region: each shape turned as the region is and set a step further out than the one
+    # before, along the way the first lies from the region's middle, so they rest on top of it in order
+    for base, chain in STACK_ON.items():
+        ib = next((i for i, x in enumerate(shapes) if x["kind"] != "point" and x["id"] == base), None)
+        if ib is None or ib not in turn_of:
+            continue
+        ang, P0, t, about = turn_of[ib]
+        prev = ib
+        for k_, nm in enumerate(chain):
+            j = next((i for i, x in enumerate(shapes) if x["kind"] in ("wall", "region") and x["id"] == nm), None)
+            if j is None:
+                break
+            if k_ == 0:
+                mid = chart(shapes[ib]["mid"]) if shapes[ib].get("mid") is not None else shapes[ib]["pts"].mean(0)
+                out_ = shapes[j]["pts"].mean(0) - mid
+                out_ = _turn(np.array([out_]), np.zeros(3), t, ang)[0]
+                out_ /= max(np.linalg.norm(out_), 1e-12)
+            turn_of[j] = (ang, P0, t, about)
+            shift[j] = shift[prev] + STACK_OFF * out_
+            attached[nm] = [shapes[prev]["id"]]
+            prev = j
+
     # walls lined up on one another along an edge (X22 on X82, along X4): each moved and turned as the
     # first is, and set ALIGN_OFF out from the edge in the direction it leaves it; the edge goes with
     # the first (X82 stays where it is, beside X49; X22 lines up just off it, under F3; X4 along X82)
@@ -937,6 +995,35 @@ def build() -> dict:
             turn_of[j] = (ang, P0, t, about)
             shift[j] = shift[il] + ALIGN_OFF * nrm
             attached[w_name] = [lead]
+    # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
+    # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
+    # beside the last (where shapes are placed is not changed by this)
+    show_layer = {}
+    ib1 = next((i for i, x in enumerate(shapes) if x["kind"] == "line" and x["id"] == "B1"), None)
+    if ib1 is not None:
+        r_b1 = rel_of(shapes[ib1])
+        ends = shapes[ib1]["v"][[0, -1]]
+        at_end = {i for i, x in enumerate(shapes) if x["kind"] == "point"
+                  and np.linalg.norm(ends - x["v"].reshape(3), axis=1).min() < 2e-3}   # (its corners)
+        first_ids = {ib1} | {i for i, x in enumerate(shapes) if x["key"] in r_b1} | set(sector_of) | at_end
+        for i in first_ids:
+            show_layer[i] = 1
+        for i, x in enumerate(shapes):
+            if i not in show_layer and x["id"] in attached:
+                show_layer[i] = 2
+        lay_n = max(show_layer.values())
+        frontier = [i for i in show_layer if show_layer[i] == lay_n]
+        rels_all = [rel_of(x) if x["kind"] != "point" else {} for x in shapes]
+        while len(show_layer) < len(shapes):
+            lay_n += 1
+            fk = {shapes[i]["key"] for i in frontier}
+            nxt = [i for i, x in enumerate(shapes) if i not in show_layer and
+                   (any(k in rels_all[i] for k in fk) or any(x["key"] in rels_all[f] for f in frontier))]
+            if not nxt:                           # (any left over, by where they were found)
+                nxt = [i for i in range(len(shapes)) if i not in show_layer]
+            for i in nxt:
+                show_layer[i] = lay_n
+            frontier = nxt
     out = []
     for sh, s in zip(shapes, shift):
         V3 = sh["v"]
@@ -947,7 +1034,7 @@ def build() -> dict:
             V3 = _turn(V3, P0, t, ang)
         V3 = V3 + s
         rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
-               "layer": layer_of[sh["key"]], "moved": np.round(s, 4).tolist()}
+               "layer": show_layer.get(idx[id(sh)], layer_of[sh["key"]]), "moved": np.round(s, 4).tolist()}
         if rec_turn:
             rec["turned"] = {"about": rec_turn[0], "degrees": rec_turn[1]}
         if sh["kind"] in ("wall", "region"):
