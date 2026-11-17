@@ -1034,12 +1034,13 @@ def build() -> dict:
             ang, P0, t, _ = turn_of[i]
             X = _turn(X, P0, t, ang)
         return X + shift[i]
+    moved_to_corner = {}
     for nm in JOIN_CORNERS:
         ic = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == nm), None)
         if ic is None:
             continue
         c0 = shapes[ic]["v"].reshape(3)
-        spots, used = [], []
+        spots, used, which = [], [], []
         for ie in joined_edges:
             L = shapes[ie]["v"]
             k = int(np.argmin(np.linalg.norm(L[[0, -1]] - c0, axis=1)))
@@ -1050,8 +1051,18 @@ def build() -> dict:
             d_ = end - inner
             spots.append(end + CORNER_GAP * d_ / max(np.linalg.norm(d_), 1e-12))
             used.append(shapes[ie]["id"])
+            which.append(ie)
         if spots:
-            shift[ic] = np.mean(spots, 0) - c0
+            # (the corner one gap beyond the end of the first edge joined to the group that ends at it
+            # (E1, for A1 and C6 alike); every other edge ending there is then moved by as much as its
+            # own spot is off, so its end too lies one gap from the corner: B1 and X13 come in to A1)
+            lead = next((k_ for k_, ie in enumerate(which) if shapes[ie]["id"] in JOIN_EDGES), 0)
+            target = spots[lead]
+            shift[ic] = target - c0
+            for k_, ie in enumerate(which):
+                if k_ != lead:
+                    shift[ie] = shift[ie] + (target - spots[k_])
+                    moved_to_corner[shapes[ie]["id"]] = nm
             if nm not in ("A1",):
                 attached[nm] = used
             in_group.add(ic)
