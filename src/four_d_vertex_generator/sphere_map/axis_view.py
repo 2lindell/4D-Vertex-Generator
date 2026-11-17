@@ -46,10 +46,9 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
-ALIGN_ON = {"X4": ("X22", "X82")}  # walls lined up on an edge (moved and turned as it is)
+ALIGN_ON = {"X4": ("X82", ("X22",))}  # along an edge: walls lined up on the first (moved and turned as it is)
 ALIGN_OFF = 0.015                  # ... each set this far out from it
-ANCHOR_SPLIT = 2                   # ... their triangles split in four this many times first
-ANCHOR_CUT = {"F3": ("F1", "T2")}  # cut shapes kept whole along these walls (see build)
+CUT_ALONG = {"F3": ("T2", "F1")}   # cut shapes cut flat along where these two walls meet (see build)
 COMPLETE = {"F3": ("X4",)}         # regions whose shown part gets its own walls (and these edges) beside it
 COMPLETE_OFF = 0.03                # ... and a wall completing such a region's shell, a little more
 WALL_OFF = 0.01                    # how far a wall attached to a region of such a group stands off it
@@ -673,29 +672,32 @@ def build() -> dict:
             chosen[(kind, nm)] = new
             completed[nm] = reg
 
-    # a cut shape kept whole along the walls named (F3 along F1 and T2): of its two halves under its
-    # half-turn g, the points nearer those walls than their images under g are; this keeps every point
-    # of those walls' faces, and the cut runs between them and their images under g, which carries it
-    # onto itself, so the part kept and its image still make up the whole once
-    for nm, anchors in ANCHOR_CUT.items():
+    # a cut shape cut flat along the line where two of its walls meet (F3: along the top of T2, where it
+    # meets F1): a flat cut through its half-turn's fixed 2-plane is valid at any angle round it (the
+    # half-turn carries it onto itself, so the part kept and its image make up the shape once); the
+    # angle is the one lying best along that line, and the side kept the one holding most of the
+    # first wall
+    for nm, (w1, w2) in CUT_ALONG.items():
         R = chosen.get(("region", nm))
-        if R is None or len(R.get("cuts", [])) != 1:
-            continue
-        A = [chosen.get(("wall", a_)) for a_ in anchors]
-        if any(a_ is None for a_ in A):
+        W1, W2 = chosen.get(("wall", w1)), chosen.get(("wall", w2))
+        if R is None or W1 is None or W2 is None or len(R.get("cuts", [])) != 1:
             continue
         g = GQ[R["cuts"][0]]
-        tree_a = cKDTree(np.concatenate([_samples(a_, 6000) for a_ in A]))
-        whole = m.region(*R["key"][1:])[0] if R["kind"] == "region" else m.wall(*R["key"][1:])
-        for _ in range(ANCHOR_SPLIT):              # (split finer first: the cut is curved)
-            a_, b_, c_ = whole[:, 0], whole[:, 1], whole[:, 2]
-            ab, bc, ca = (a_ + b_) / 2, (b_ + c_) / 2, (c_ + a_) / 2
-            whole = np.concatenate([np.stack(q, 1) for q in ((a_, ab, ca), (ab, b_, bc), (ca, bc, c_), (ab, bc, ca))])
-        V = whole.reshape(-1, 4)
-        f = tree_a.query(V @ g.T)[0] - tree_a.query(V)[0]      # (>= 0: nearer the walls than its image)
-        R["geo"] = _cut_field(whole, f.reshape(-1, 3))
-        R["note"] = R["note"].replace(f"element {R['cuts'][0]}", f"element {R['cuts'][0]} (kept whole along "
-                                      + " and ".join(anchors) + ")")
+        w, V = np.linalg.eigh((g + g.T) / 2)
+        Pm = V[:, w < -0.5].T
+        P1 = _samples(W1, 8000)
+        edge = P1[cKDTree(_samples(W2, 8000)).query(P1)[0] < 3e-3]
+        if len(edge) < 10:
+            continue
+        along = np.linalg.svd(edge @ Pm.T, full_matrices=False)[2][0]
+        u_cut = Pm.T @ np.array([-along[1], along[0]])     # (not u: the view's own y direction)
+        u_cut /= np.linalg.norm(u_cut)
+        if (P1 @ u_cut).mean() < 0:
+            u_cut = -u_cut
+        whole = m.region(*R["key"][1:])[0]
+        R["geo"] = _cut_tris(whole, u_cut)
+        R["note"] = R["note"].replace(f"element {R['cuts'][0]}",
+                                      f"element {R['cuts'][0]} (cut flat along the top of {w1}, where it meets {w2})")
 
     # ---- the layout
     for sh in shapes:
@@ -905,13 +907,18 @@ def build() -> dict:
             shift[j] = shift[g] + off * away / max(np.linalg.norm(away), 1e-12)
             attached[sh["id"]] = [shapes[g]["id"]]
             group.append(j)
-    # walls lined up on an edge (X22 and X82 on X4): moved and turned as the edge is, each set ALIGN_OFF
-    # out from it in the direction it leaves the edge, so their edges along it line up with it
-    for e_name, walls in ALIGN_ON.items():
+    # walls lined up on one another along an edge (X22 on X82, along X4): each moved and turned as the
+    # first is, and set ALIGN_OFF out from the edge in the direction it leaves it; the edge goes with
+    # the first (X82 stays where it is, beside X49; X22 lines up just off it, under F3; X4 along X82)
+    for e_name, (lead, walls) in ALIGN_ON.items():
         ie = next((i for i, x in enumerate(shapes) if x["kind"] == "line" and x["id"] == e_name), None)
-        if ie is None or ie not in turn_of:
+        il = next((i for i, x in enumerate(shapes) if x["kind"] == "wall" and x["id"] == lead), None)
+        if ie is None or il is None or il not in turn_of:
             continue
-        ang, P0, t, about = turn_of[ie]
+        ang, P0, t, about = turn_of[il]
+        turn_of[ie] = turn_of[il]
+        shift[ie] = shift[il]
+        attached[e_name] = [lead]
         Le = shapes[ie]["pts"]
         te = cKDTree(Le)
         for w_name in walls:
@@ -928,8 +935,8 @@ def build() -> dict:
             v = off[near].mean(0)
             v = _turn(np.array([v]), np.zeros(3), t, ang)[0]
             turn_of[j] = (ang, P0, t, about)
-            shift[j] = shift[ie] + ALIGN_OFF * v / max(np.linalg.norm(v), 1e-12)
-            attached[w_name] = [e_name]
+            shift[j] = shift[il] + ALIGN_OFF * v / max(np.linalg.norm(v), 1e-12)
+            attached[w_name] = [lead]
     out = []
     for sh, s in zip(shapes, shift):
         V3 = sh["v"]
