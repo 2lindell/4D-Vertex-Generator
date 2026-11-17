@@ -1084,6 +1084,18 @@ def build() -> dict:
         attached[nm] = [n_ for n_, _ in ends]
         in_group.add(ic)
 
+    # B1 then slid sideways (keeping its direction and its place along itself, from X38) so that its
+    # line, carried on past its end, runs through A1: in line with A1, its distance from it set by X38
+    ia1 = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == "A1"), None)
+    if ib1_ is not None and ia1 is not None and ib1_ in turn_of:
+        c0 = shapes[ia1]["v"].reshape(3)
+        e = end_line(ib1_, c0)
+        if e is not None:
+            p_, d_ = e
+            a_ = c0 + shift[ia1]
+            r_ = a_ - p_
+            shift[ib1_] = shift[ib1_] + (r_ - (r_ @ d_) * d_)
+
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
     # beside the last (where shapes are placed is not changed by this)
