@@ -30,7 +30,7 @@ FAMILY = {"contic": [("toxitic_atlas/toxitic_shapes.json", ("toxitic", "oxitic")
           "decaic": []}
 
 CODE = r'''
-import json, os, sys, itertools
+import json, os, sys, itertools, pickle
 import numpy as np
 from multiprocessing import Pool
 sys.path.insert(0, %(atlas)r)
@@ -126,22 +126,46 @@ def along(item):
     return idx, p, k, kept, walls
 
 
+def cmap(name, f, items, chunksize=8, star=False):
+    # pool.map that saves its results in chunks to A["cache"] and resumes from them (survives a restart)
+    path = os.path.join(A["cache"], name + ".pkl") if A.get("cache") else None
+    done = []
+    if path and os.path.exists(path):
+        with open(path, "rb") as fh:
+            while True:
+                try:
+                    done += pickle.load(fh)
+                except Exception:  # end of file, or a chunk cut off by the restart
+                    break
+        with open(path, "wb") as fh:  # rewrite without any cut-off chunk
+            pickle.dump(done, fh)
+    step = max(chunksize * 3 * 16, 1)
+    for i in range(len(done), len(items), step):
+        part = items[i:i + step]
+        r = pool.starmap(f, part, chunksize=chunksize) if star else pool.map(f, part, chunksize=chunksize)
+        done += r
+        if path:
+            with open(path, "ab") as fh:
+                pickle.dump(r, fh)
+    return done[:len(items)]
+
+
 if __name__ == "__main__":
     pool = Pool(int(os.environ.get("NPROC", "3")))
     K, items = known()
     K |= set(A["family_keys"])
-    K |= {k for k in pool.starmap(lab, items) if k}
+    K |= {k for k in cmap("known", lab, items, star=True) if k}
     n = len(S)
     pairs = list(itertools.combinations(range(n), 2))
-    found = [x for r in pool.map(find, pairs, chunksize=8) for x in r]
+    found = [x for r in cmap("pairs", find, pairs) for x in r]
     # (a point on three walls lies on each pair's crossing curve: only triples whose three pairs all cross inside)
     cross = {tuple(idx) for idx, _ in found}
     nb = {i: {j for a, b in cross for i_, j in ((a, b), (b, a)) if i_ == i} for i in range(n)}
     triples = sorted({tuple(sorted((a, b, c))) for a, b in cross for c in nb[a] & nb[b]}) if A["triples"] else []
-    found += [x for r in pool.map(find, triples, chunksize=8) for x in r]
-    C = pool.map(classify, found, chunksize=8)
+    found += [x for r in cmap("triples", find, triples) for x in r]
+    C = cmap("classify", classify, found)
     cand = [c for c in C if c[2] and c[2] not in K]
-    V = pool.map(along, [c for c in cand if len(c[0]) == 2], chunksize=1)
+    V = cmap("along", along, [c for c in cand if len(c[0]) == 2], chunksize=1)
     out = {"sheet": G.SUB, "surfaces": n, "pairs": len(pairs), "triples": len(triples), "crossing_points": len(found),
            "known_keys": len(K), "keys_seen": dict(__import__("collections").Counter(str(c[2]) for c in C)),
            "candidates": {}}
@@ -179,8 +203,10 @@ def run(atlas, subs):
             print(sub, "done already", flush=True)
             continue
         strata = [os.path.join(HERE, "toxitic_atlas", f"strata_{sub}.json"), os.path.join(adir, f"strata_{sub}.json")]
+        cache = os.path.join(HERE, ".crossing_cache", f"{atlas}_{sub}")
+        os.makedirs(cache, exist_ok=True)
         arg = {"family_keys": fam, "strata": strata, "starts": 6, "triple_starts": 3,
-               "triples": os.environ.get("TRIPLES", "1") == "1"}
+               "triples": os.environ.get("TRIPLES", "1") == "1", "cache": cache}
         p = subprocess.run([sys.executable, "-c", CODE % {"atlas": adir}], input=json.dumps(arg), capture_output=True,
                            text=True, cwd=adir, env={**os.environ, envvar: sub})
         if p.returncode:
@@ -188,6 +214,7 @@ def run(atlas, subs):
             continue
         o = json.loads(p.stdout.strip().splitlines()[-1])
         json.dump(o, open(dst, "w"), indent=1)
+        __import__("shutil").rmtree(cache, ignore_errors=True)
         print(f"{atlas} {sub}: {o['surfaces']} surfaces, {o['crossing_points']} crossing points, "
               f"{len(o['candidates'])} new: " + "; ".join(f"{c['kind']} {c['signature'].split('|')[0][:60]}"
                                                        for c in o["candidates"].values()), flush=True)

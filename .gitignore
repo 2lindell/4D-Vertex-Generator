@@ -217,3 +217,4 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 research/hyic_atlas/.elements_*.npy
+research/.crossing_cache/
