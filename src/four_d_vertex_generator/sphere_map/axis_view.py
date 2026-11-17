@@ -46,6 +46,7 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
+WALL_OFF = 0.01                    # how far a wall attached to a region of such a group stands off it
 HELD_RING = 0.06                   # how far the group round an edge with a turn of order 3 or more stands off it
 RING = 0.20                        # how far the walls and regions round an edge stand from it
 DEBUG_PICK = ()                    # (names whose copy picks are printed)
@@ -784,6 +785,26 @@ def build() -> dict:
                 attached[sh["id"]] = [shapes[g]["id"] for g in mates]
                 group.append(j)
                 grew = True
+        # then the walls bounding one of the group's regions and beside nothing else in it (X96 and
+        # X41 against X58, X82 against X49): each moved and turned as that region is, so it stands up
+        # against it where it truly bounds it, set WALL_OFF off its face, away from its volume
+        regions_in = [g for g in group if shapes[g]["kind"] == "region"]
+        for j in range(n):
+            sh = shapes[j]
+            if j in group or sh["kind"] != "wall":
+                continue
+            r_j = rel_of(sh)
+            on = [g for g in regions_in if r_j.get(shapes[g]["key"]) == "side"]
+            if not on:
+                continue
+            g = on[0]
+            ang, P0, t, about = turn_of[g]
+            turn_of[j] = (ang, P0, t, about)
+            away = sh["pts"].mean(0) - chart(shapes[g]["mid"])
+            away = _turn(np.array([away]), np.zeros(3), t, ang)[0]
+            shift[j] = shift[g] + WALL_OFF * away / max(np.linalg.norm(away), 1e-12)
+            attached[sh["id"]] = [shapes[g]["id"]]
+            group.append(j)
     out = []
     for sh, s in zip(shapes, shift):
         V3 = sh["v"]
