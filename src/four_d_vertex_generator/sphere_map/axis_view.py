@@ -46,6 +46,10 @@ EXPLODE = 1.5                      # the corners (and any shape with nothing sho
 MIN_STEP = np.radians(8)           # the least angle between neighbours round an edge
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
+JOIN_EDGES = ("E1", "X13")         # edges joined to B1's group, lying along the shapes they bound
+JOIN_CORNERS = ("C6", "A1")        # corners set at the ends of the group's edges
+EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
+CORNER_GAP = 0.012                 # ... and the corners this far beyond the edges' ends
 STACK_ON = {"X49": ("X28", "X50", "X33")}   # shapes stacked on a region, one beyond the other
 STACK_OFF = 0.02                   # ... each this far beyond the one before
 ALIGN_ON = {"X4": ("X82", ("X22",))}  # along an edge: walls lined up on the first (moved and turned as it is)
@@ -435,6 +439,11 @@ def reduce_extent(sh, GQ, prefer):
             sh["geo"] = cut(u if prefer @ u >= 0 else -u)
         cuts.append(e)
     return cuts
+
+
+def ib_edge(shapes, name):
+    """The index of the line shown with this name, or None."""
+    return next((i for i, x in enumerate(shapes) if x["kind"] == "line" and x["id"] == name), None)
 
 
 def _turn(V, P0, t, ang):
@@ -995,6 +1004,58 @@ def build() -> dict:
             turn_of[j] = (ang, P0, t, about)
             shift[j] = shift[il] + ALIGN_OFF * nrm
             attached[w_name] = [lead]
+    # edges joined to B1's group (E1, X13): each turned by the mean of the turns of the group's walls
+    # and regions it bounds and moved by the mean of their moves, then set EDGE_GAP further out from
+    # them, so it lies along them, close but clear; then the corners (C6, A1) at the ends of the edges
+    # in the group, set CORNER_GAP beyond the end of each and taking the mean over them
+    in_group = set(sector_of) | {i for i, x in enumerate(shapes) if x["id"] in attached}
+    joined_edges = [] if ib_edge(shapes, "B1") is None else [ib_edge(shapes, "B1")]
+    for nm in JOIN_EDGES:
+        i = ib_edge(shapes, nm)
+        if i is None:
+            continue
+        r_i = rel_of(shapes[i])
+        mates = [g for g in in_group if shapes[g]["kind"] in ("wall", "region") and g in turn_of
+                 and (shapes[g]["key"] in r_i or shapes[i]["key"] in rel_of(shapes[g]))]
+        if not mates:
+            continue
+        _, P0, t, about = turn_of[mates[0]]
+        ang = float(np.mean([turn_of[g][0] for g in mates]))
+        out_ = shapes[i]["pts"].mean(0) - np.mean([shapes[g]["pts"].mean(0) for g in mates], 0)
+        out_ = _turn(np.array([out_]), np.zeros(3), t, ang)[0]
+        turn_of[i] = (ang, P0, t, about)
+        shift[i] = np.mean([shift[g] for g in mates], 0) + EDGE_GAP * out_ / max(np.linalg.norm(out_), 1e-12)
+        attached[nm] = sorted({shapes[g]["id"] for g in mates})
+        in_group.add(i)
+        joined_edges.append(i)
+
+    def placed(i, X):                              # (points of shape i, where shape i is drawn)
+        if i in turn_of:
+            ang, P0, t, _ = turn_of[i]
+            X = _turn(X, P0, t, ang)
+        return X + shift[i]
+    for nm in JOIN_CORNERS:
+        ic = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == nm), None)
+        if ic is None:
+            continue
+        c0 = shapes[ic]["v"].reshape(3)
+        spots, used = [], []
+        for ie in joined_edges:
+            L = shapes[ie]["v"]
+            k = int(np.argmin(np.linalg.norm(L[[0, -1]] - c0, axis=1)))
+            if np.linalg.norm(L[[0, -1]][k] - c0) > 2e-3:
+                continue
+            Lp = placed(ie, L)
+            end, inner = (Lp[0], Lp[min(5, len(Lp) - 1)]) if k == 0 else (Lp[-1], Lp[-min(6, len(Lp))])
+            d_ = end - inner
+            spots.append(end + CORNER_GAP * d_ / max(np.linalg.norm(d_), 1e-12))
+            used.append(shapes[ie]["id"])
+        if spots:
+            shift[ic] = np.mean(spots, 0) - c0
+            if nm not in ("A1",):
+                attached[nm] = used
+            in_group.add(ic)
+
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
     # beside the last (where shapes are placed is not changed by this)
