@@ -47,7 +47,8 @@ MIN_STEP = np.radians(8)           # the least angle between neighbours round an
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
 JOIN_EDGES = ("E1", "X13")         # edges joined to B1's group, lying along the shapes they bound
-EDGE_ON_WALL = {"B1": ("X38", "A1"), "C2a": ("X96", "C6")}   # edges along a wall, in line with a corner
+EDGE_ON_WALL = {"B1": ("X38", "A1"), "C2a": ("X96", "C6"), "D2": ("F4", "A1")}   # edges along a wall, in line with a corner
+END_CORNERS = {"C4": "D2"}         # corners beyond the far end of an edge lined up on a wall
 JOIN_CORNERS = ("A1", "C6")        # corners set at the ends of the group's edges (in this order)
 EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
 CORNER_GAP = 0.012                 # ... and the corners this far beyond the edges' ends
@@ -254,7 +255,7 @@ class Map:
     def from_pieces(self, parts):
         """The triangles of the wall pieces holding these patches (copy, patch), each piece whole and
         once, in its place."""
-        seen, out = set(), []
+        seen, out, centres = set(), [], []
         for k, p in parts:
             if p not in self.face_of:
                 continue
@@ -262,7 +263,14 @@ class Map:
             g = k if t < 0 else int(self.M[k, self.D.inv[t]])     # (carried from copy t, then to k)
             if (fid, g) not in seen and fid in self.piece_mesh:
                 seen.add((fid, g))
-                out.append(self.piece_mesh[fid] @ self.G[g].T)
+                T = self.piece_mesh[fid] @ self.G[g].T
+                # (a piece in a face of the half-cell is met from both faces glued there, and the two
+                # land on one another: drawn once, or the two flicker through each other)
+                c_ = T.reshape(-1, 4).mean(0)
+                if any(np.linalg.norm(c_ - c2) < 3e-3 for c2 in centres):
+                    continue
+                centres.append(c_)
+                out.append(T)
         return np.concatenate(out) if out else np.zeros((0, 3, 4))
 
     def wall(self, node, at):
@@ -1106,6 +1114,22 @@ def build() -> dict:
                 shift[ie] = shift[ie] + (r_ - (r_ @ d_) * d_)
             else:
                 warn_edges.append(f"{e_name} does not end at the {c_name} shown")
+
+    # corners at the far ends of edges lined up on a wall (C4, beyond D2): carried on beyond that end
+    # by as far as A1 lies beyond E1
+    for c_name, e_name in END_CORNERS.items():
+        ic = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
+        ie = ib_edge(shapes, e_name)
+        if ic is None or ie is None or ie not in turn_of:
+            continue
+        c0 = shapes[ic]["v"].reshape(3)
+        e = end_line(ie, c0)
+        if e is None:
+            warn_edges.append(f"{e_name} does not end at the {c_name} shown")
+            continue
+        p_, d_ = e
+        shift[ic] = p_ + (corner_gap if corner_gap is not None else CORNER_GAP) * d_ - c0
+        attached[c_name] = [e_name]
 
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
