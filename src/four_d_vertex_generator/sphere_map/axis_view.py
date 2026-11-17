@@ -47,6 +47,7 @@ MIN_STEP = np.radians(8)           # the least angle between neighbours round an
 MAX_STEP = np.radians(30)          # ... which may widen to this round an edge with few shapes
 RING_ARC = 300                     # ... so that they spread over about this many degrees
 COMPLETE = {"F3": ("X4",)}         # regions whose shown part gets its own walls (and these edges) beside it
+COMPLETE_OFF = 0.03                # ... and a wall completing such a region's shell, a little more
 WALL_OFF = 0.01                    # how far a wall attached to a region of such a group stands off it
 HELD_RING = 0.06                   # how far the group round an edge with a turn of order 3 or more stands off it
 RING = 0.20                        # how far the walls and regions round an edge stand from it
@@ -628,8 +629,10 @@ def build() -> dict:
                 return (tr.query(_samples(make(key), 2000))[0] < 4e-3).mean()
             best = max(cands, key=share)
             old = chosen.get((kind, nm))
-            if old is not None and old["key"] == best:
-                completed[nm] = reg
+            # (a copy shown that already lies along the region's part stays: F1, beside X49 round B1)
+            if old is not None and (old["key"] == best or old["key"] in cands and share(old["key"]) > 0):
+                if kind == "line":
+                    completed[nm] = reg
                 continue
             new = dict(make(best))
             new["geo"] = np.array(new["geo"])
@@ -811,7 +814,7 @@ def build() -> dict:
             grew = False
             for j in range(n):
                 sh = shapes[j]
-                if j in group or j in sector_of or sh["kind"] not in ("wall", "region"):
+                if j in group or j in sector_of or sh["kind"] not in ("wall", "region") or sh["id"] in completed:
                     continue
                 r_j = rel_of(sh)
                 mates = [g for g in group if shapes[g]["key"] in r_j or sh["key"] in rel_of(shapes[g])]
@@ -850,7 +853,8 @@ def build() -> dict:
             turn_of[j] = (ang, P0, t, about)
             away = sh["pts"].mean(0) - chart(shapes[g]["mid"])
             away = _turn(np.array([away]), np.zeros(3), t, ang)[0]
-            shift[j] = shift[g] + WALL_OFF * away / max(np.linalg.norm(away), 1e-12)
+            off = COMPLETE_OFF if sh["id"] in completed else WALL_OFF
+            shift[j] = shift[g] + off * away / max(np.linalg.norm(away), 1e-12)
             attached[sh["id"]] = [shapes[g]["id"]]
             group.append(j)
     out = []
