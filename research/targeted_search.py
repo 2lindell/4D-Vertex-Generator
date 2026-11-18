@@ -172,7 +172,7 @@ def walk(job):
                 if y is None:
                     continue
                 ry = signs(y[None], {s, t})[0]
-                nz = ry != 0
+                nz = (ry != 0) & (me != 0)          # (a surface that is 0 on either: a duplicate, or through y)
                 nz[t] = False
                 if (ry[nz] != me[nz]).any():
                     continue                    # not on this cell's edge
