@@ -168,9 +168,11 @@ def walk(s):
                 tag = (min(cid[i], cid[j]), max(cid[i], cid[j]))
                 if tag not in pair or d < pair[tag][0]:
                     pair[tag] = (d, i, j)
+    t1 = time.time()
     key = {c: lab(rep[c]) for c in cells}          # every cell of the surface: one label each
     found = [{"kind": "wall", "key": key[c], "seed": rep[c].tolist(), "surfaces": [s]} for c in cells]
     walls = [c for c in cells if key[c] is not None and key[c] not in REGION]
+    t2 = time.time()
     # lines: where two neighbouring cells meet (one of them a wall), on the surface(s) between them
     lines = {}
     bound = collections.defaultdict(set)
@@ -189,16 +191,26 @@ def walk(s):
                 lines[row] = y
                 found.append({"kind": "line", "key": lab(y), "seed": y.tolist(), "surfaces": [s, t]})
             break
+    t3 = time.time()
     # points: two bounding surfaces of a wall cell crossing on s
+    # (one label per point cell: the point's side of every surface, 0 on those it is on)
+    pcells = set()
     for c in walls:
-        pts = []
         for t, u in itertools.combinations(sorted(bound[c]), 2):
             for x0 in X[cells[c]][:: max(1, len(cells[c]) // 4)][:4]:
                 y = newton(x0, [s, t, u])
-                if y is not None and all(np.abs(y - p).max() > 1e-6 for p in pts):
-                    pts.append(y)
+                if y is None:
+                    continue
+                J = np.array([S[i].grad(y) for i in (s, t, u)])
+                J /= np.linalg.norm(J, axis=1, keepdims=True) + 1e-300
+                if np.linalg.svd(J, compute_uv=False)[-1] < 1e-6:
+                    break                       # the three share a curve here: not an isolated point
+                row = bytes(signs(y[None], {s, t, u})[0])
+                if row not in pcells:
+                    pcells.add(row)
                     found.append({"kind": "point", "key": lab(y), "seed": y.tolist(), "surfaces": [s, t, u]})
-    return {"surface": s, "cells": len(cells), "wall_cells": len(walls), "lines": len(lines),
+    return {"surface": s, "cells": len(cells), "wall_cells": len(walls), "lines": len(lines), "pairs": len(pair), "points": sum(f["kind"] == "point" for f in found),
+            "stage_seconds": [round(t1 - t0, 1), round(t2 - t1, 1), round(t3 - t2, 1), round(time.time() - t3, 1)],
             "labelled": len(found), "found": found, "seconds": round(time.time() - t0, 1)}
 
 
@@ -210,7 +222,10 @@ if __name__ == "__main__":
     wall_surfaces = list(range(NS))   # every surface: a wall piece the map never saw can be on any of them
     pool.close()
     pool = Pool(int(os.environ.get("NPROC", "4")))   # (the workers see REGION)
-    R = pool.map(walk, wall_surfaces, chunksize=1)
+    R = []
+    for r in pool.imap_unordered(walk, wall_surfaces):
+        R.append(r)
+        print(json.dumps({k: v for k, v in r.items() if k != 'found'}), file=sys.stderr, flush=True)
     out = {"sheet": G.SUB, "surfaces": NS, "wall_surfaces": len(wall_surfaces), "known_keys": len(K),
            "labelled": sum(r["labelled"] for r in R),
            "walks": [{k: v for k, v in r.items() if k != "found"} for r in R], "candidates": {}}
@@ -244,10 +259,11 @@ def run(atlas, subs):
         strata = [os.path.join(HERE, "toxitic_atlas", f"strata_{sub}.json"), os.path.join(adir, f"strata_{sub}.json")]
         arg = {"family_keys": fam, "strata": strata, "global": int(os.environ.get("GLOBAL", "20000")),
                "local": int(os.environ.get("LOCAL", "300"))}
-        p = subprocess.run([sys.executable, "-c", CODE % {"atlas": adir}], input=json.dumps(arg), capture_output=True,
-                           text=True, cwd=adir, env={**os.environ, envvar: sub})
+        with open(dst.replace(".json", ".log"), "w") as log:
+            p = subprocess.run([sys.executable, "-c", CODE % {"atlas": adir}], input=json.dumps(arg),
+                               stdout=subprocess.PIPE, stderr=log, text=True, cwd=adir, env={**os.environ, envvar: sub})
         if p.returncode:
-            print(sub, "FAILED", p.stderr[-2500:], flush=True)
+            print(sub, "FAILED (see the .log)", flush=True)
             continue
         o = json.loads(p.stdout.strip().splitlines()[-1])
         json.dump(o, open(dst, "w"), indent=1)
