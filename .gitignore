@@ -218,3 +218,4 @@ __marimo__/
 .streamlit/secrets.toml
 research/hyic_atlas/.elements_*.npy
 research/.crossing_cache/
+research/targeted_search.out
