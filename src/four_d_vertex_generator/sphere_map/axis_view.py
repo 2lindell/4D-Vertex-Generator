@@ -56,6 +56,8 @@ MIN_CORNER_GAP = 0.025             # the least gap between an edge's end and its
 LAYER3_GAP = 0.015                 # layer 3: the gap set between a shape and each shape beside it
 LAYER3_STAY = 0.05                 # ... how much its moving from where it truly lies counts against it
 LAYER3_REACH = 0.4                 # ... shapes this near (middle to middle) are kept clear of it
+LAYER3_PULL = {"X31": (("A1", 0.04),), "X17": (("X2", 0.015),)}   # ... shapes drawn to another, to this distance
+LAYER3_EQUAL = {"X31": ("X43", "X54")}  # ... a shape kept as far from one as from the other
 LAYER3_SAMPLES = 300               # ... points of each shape the distances are measured with
 JOIN_CORNERS = ("A1", "C6")        # corners set at the ends of the group's edges (in this order)
 EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
@@ -1221,6 +1223,28 @@ def build() -> dict:
     layer3 = set()
     turned_about_edge = {}
     grp_now = set(sector_of) | {i for i, x in enumerate(shapes) if x["id"] in attached}
+    l3_lines = []                              # (layer 3's edges, set first: the fit keeps clear of them)
+    for l_name, (by, c_name, _beside) in LINE_AT_CORNER.items():
+        il, ib_, ic = ib_edge(shapes, l_name), ib_edge(shapes, by), \
+            next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
+        if il is None or ib_ is None or ic is None or ib_ not in turn_of:
+            continue
+        turn_of[il] = turn_of[ib_]
+        shift[il] = shift[ib_].copy()
+        c0 = shapes[ic]["v"].reshape(3)
+        e = end_line(il, c0)
+        if e is None:
+            warn_edges.append(f"{l_name} does not end at the {c_name} shown")
+        else:
+            p_, d_ = e
+            r_ = c0 + shift[ic] - p_
+            along = r_ @ d_
+            # (slid sideways into line with the corner; and back along itself if it reaches nearer
+            # than MIN_CORNER_GAP to it)
+            shift[il] = shift[il] + (r_ - along * d_) + min(0.0, along - MIN_CORNER_GAP) * d_
+        attached[l_name] = [by, c_name]
+        layer3.add(il)
+        l3_lines.append(il)
     l3 = []
     for e_name, names in list(FAN_ON_EDGE.items()) + list(RING_ON_EDGE.items()):
         ie = ib_edge(shapes, e_name)
@@ -1242,8 +1266,8 @@ def build() -> dict:
         def sub(P, n=LAYER3_SAMPLES):
             return P if len(P) <= n else P[rng_.choice(len(P), n, replace=False)]
         base = {j: sub(placed(j, shapes[j]["pts"])) for j in l3}
-        fixed = [g for g in range(len(shapes)) if g not in layer3 and g in grp_now | set(joined_edges)
-                 and shapes[g]["kind"] != "point"]
+        fixed = [g for g in range(len(shapes)) if (g not in layer3 and g in grp_now | set(joined_edges)
+                 or g in l3_lines) and shapes[g]["kind"] != "point"]
         fixed_pts = {g: sub(placed(g, shapes[g]["pts"] if shapes[g]["kind"] != "line" else shapes[g]["v"])) for g in fixed}
         fixed_tree = {g: cKDTree(P) for g, P in fixed_pts.items()}
         nb = {}
@@ -1255,6 +1279,15 @@ def build() -> dict:
         near_fixed = {j: [g for g in fixed if np.linalg.norm(fixed_pts[g].mean(0) - base[j].mean(0)) < LAYER3_REACH]
                       for j in l3}
 
+        pull_at = {}
+        for pulls in LAYER3_PULL.values():
+            for c_name, _ in pulls:
+                ic_ = next((i for i, x in enumerate(shapes) if x["id"] == c_name and i not in l3), None)
+                if ic_ is not None:
+                    X_ = shapes[ic_]["v"].reshape(-1, 3) if shapes[ic_]["kind"] in ("point", "line") else shapes[ic_]["pts"]
+                    pull_at[c_name] = cKDTree(placed(ic_, X_))
+        idx_of = {shapes[j]["id"]: k for k, j in enumerate(l3)}
+
         def cost(x):
             D = {j: x[3 * k:3 * k + 3] for k, j in enumerate(l3)}
             c_ = 0.0
@@ -1264,6 +1297,14 @@ def build() -> dict:
                     dmin = fixed_tree[g].query(Pj)[0].min()
                     c_ += (dmin - LAYER3_GAP) ** 2 if g in nb[j] else max(0.0, LAYER3_GAP - dmin) ** 2 * 4
                 c_ += LAYER3_STAY * (D[j] @ D[j])
+                for c_name, want in LAYER3_PULL.get(shapes[j]["id"], ()):   # (drawn to a shape, to that distance)
+                    if c_name in pull_at:
+                        c_ = c_ + 8 * (pull_at[c_name].query(Pj)[0].min() - want) ** 2
+            for mid_, (s1, s2) in LAYER3_EQUAL.items():       # (as far from one as from the other)
+                if mid_ in idx_of and s1 in idx_of and s2 in idx_of:
+                    jm, j1, j2 = l3[idx_of[mid_]], l3[idx_of[s1]], l3[idx_of[s2]]
+                    tm_ = cKDTree(base[jm] + D[jm])
+                    c_ += 8 * (tm_.query(base[j1] + D[j1])[0].min() - tm_.query(base[j2] + D[j2])[0].min()) ** 2
             for a_i, a_ in enumerate(l3):
                 for b_ in l3[a_i + 1:]:
                     dmin = cKDTree(base[a_] + D[a_]).query(base[b_] + D[b_])[0].min()
@@ -1283,26 +1324,6 @@ def build() -> dict:
                 if g != j and g in nb[j]:
                     row[shapes[g]["id"]] = round(float(cKDTree(base[g] + D[g]).query(Pj)[0].min()), 4)
             layer3_fit[shapes[j]["id"]] = {"gaps_to_neighbours": row, "moved": np.round(D[j], 4).tolist()}
-    for l_name, (by, c_name, _beside) in LINE_AT_CORNER.items():
-        il, ib_, ic = ib_edge(shapes, l_name), ib_edge(shapes, by), \
-            next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
-        if il is None or ib_ is None or ic is None or ib_ not in turn_of:
-            continue
-        turn_of[il] = turn_of[ib_]
-        shift[il] = shift[ib_].copy()
-        c0 = shapes[ic]["v"].reshape(3)
-        e = end_line(il, c0)
-        if e is None:
-            warn_edges.append(f"{l_name} does not end at the {c_name} shown")
-        else:
-            p_, d_ = e
-            r_ = c0 + shift[ic] - p_
-            along = r_ @ d_
-            # (slid sideways into line with the corner; and back along itself if it reaches nearer
-            # than MIN_CORNER_GAP to it)
-            shift[il] = shift[il] + (r_ - along * d_) + min(0.0, along - MIN_CORNER_GAP) * d_
-        attached[l_name] = [by, c_name]
-        layer3.add(il)
 
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
