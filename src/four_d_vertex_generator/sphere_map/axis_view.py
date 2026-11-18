@@ -49,11 +49,14 @@ RING_ARC = 300                     # ... so that they spread over about this man
 JOIN_EDGES = ("E1", "X13")         # edges joined to B1's group, lying along the shapes they bound
 EDGE_ON_WALL = {"B1": ("X38", "A1"), "C2a": ("X96", "C6"), "D2": ("F4", "A1")}   # edges along a wall, in line with a corner
 END_CORNERS = {"C4": ("D2", "X4")}  # corners at the far ends of edges (in line with both, if two)
-RING_ON_EDGE = {"X13": ("X43", "X54", "X31"), "X4": ("X17",)}   # layer 3: shapes set round an edge
-LINE_AT_CORNER = {"X2": ("X4", "C4"), "X80": ("X13", "A1")}     # layer 3: edges in line with a corner
+FAN_ON_EDGE = {"X13": ("X43", "X31", "X54")}     # layer 3: a small even fan round an edge
+FAN3_GAP = 0.015                   # ... the gap between neighbours in it
+FAN3_CLEAR = 0.03                  # ... measured away from the edge, where they all meet
+RING_ON_EDGE = {"X4": ("X17",)}    # layer 3: walls lined up on an edge
+LINE_AT_CORNER = {"X2": ("X4", "C4", "X43"), "X80": ("X13", "A1", "X43")}   # layer 3: edges in line with a corner
 MIN_CORNER_GAP = 0.025             # the least gap between an edge's end and its corner
-LAYER3_OUT = 0.08                  # ... and this much further, away from the group shapes they touch
-RING3_GAP = 0.03                   # ... those shapes set this far out from their edge
+LAYER3_OUT = 0.04                  # ... and this much further, away from the group shapes they touch
+RING3_GAP = 0.02                   # ... those shapes set this far out from their edge
 JOIN_CORNERS = ("A1", "C6")        # corners set at the ends of the group's edges (in this order)
 EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
 CORNER_GAP = 0.012                 # ... and the corners this far beyond the edges' ends
@@ -737,7 +740,7 @@ def build() -> dict:
 
     # shapes set round an edge of the group (layer 3: round X13, X43, X54, X31; round X4, X17): each
     # shown by the copy the shape map puts round the edge shown
-    for e_name, names in RING_ON_EDGE.items():
+    for e_name, names in list(FAN_ON_EDGE.items()) + list(RING_ON_EDGE.items()):
         E = chosen.get(("line", e_name))
         if E is None:
             continue
@@ -763,6 +766,33 @@ def build() -> dict:
             else:
                 shapes.append(new)
             chosen[(kind, nm)] = new
+
+    # edges of layer 3 shown by the copy beside the shape named (X2 and X80 beside X43), through the
+    # corner shown
+    for l_name, (_by, c_name, beside) in LINE_AT_CORNER.items():
+        B = next((x for x in chosen.values() if x["kind"] != "point" and x["id"] == beside), None)
+        C = chosen.get(("point", c_name))
+        if B is None or C is None:
+            continue
+        cands = [k for k in rel_of(B) if k[0] == "line" and m.name("line", k[1]) == l_name]
+        cands = [k for k in cands if np.linalg.norm(make(k)["geo"] - C["geo"][0], axis=1).min() < 1e-4] or cands
+        if not cands:
+            continue
+        old = chosen.get(("line", l_name))
+        if old is not None and old["key"] in cands:
+            continue
+        new = dict(make(cands[0]))
+        new["geo"] = np.array(new["geo"])
+        new["cuts"] = reduce_extent(new, GQ, C["geo"][0])
+        new["note"] = (("cut by the symmetries carrying it onto itself: " + ", ".join(
+            "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in new["cuts"]))
+            if new["cuts"] else "whole: no symmetry carries it onto itself") + f"; the copy beside the {beside} shown"
+        layer_of[cands[0]] = layer_of[old["key"]] if old is not None else layer_of[B["key"]]
+        if old is not None:
+            shapes[[id(x) for x in shapes].index(id(old))] = new
+        else:
+            shapes.append(new)
+        chosen[("line", l_name)] = new
 
     # a cut shape cut flat so its front edge lines up with the edge where two of its walls meet (F3:
     # with the top of T2, where it meets F1): a flat cut through its half-turn's fixed 2-plane is valid
@@ -1182,51 +1212,107 @@ def build() -> dict:
             continue
         attached[c_name] = [n_ for n_, _ in lines_]
 
-    # layer 3, round edges of the group: each wall and region turned as its edge is and set RING3_GAP
-    # straight out from it, in the direction it truly leaves it; each edge ending at a corner of the
-    # group (X2 at C4, X80 at A1) turned as the edge it is set by and slid sideways into line with the
-    # corner, its distance from it kept
+    # layer 3, round edges of the group. Round X13 (FAN_ON_EDGE) the shapes form a small fan: in the
+    # order they lie round it, the middle one (X31, the wall between X43 and X54) at its true angle and
+    # the others turned about X13 to the same angle either side of it, so it is as far from each; all
+    # turned as X13 is, set RING3_GAP out from it, and moved together LAYER3_OUT away from the group.
+    # Round X4 (RING_ON_EDGE) a wall lines up on the edge: turned as X4 is, RING3_GAP out from it.
     layer3 = set()
-    for e_name, names in RING_ON_EDGE.items():
+    turned_about_edge = {}
+    grp_now = set(sector_of) | {i for i, x in enumerate(shapes) if x["id"] in attached}
+
+    def leave_dir(ie, j, V=None):               # (the way shape j leaves edge ie, across it)
+        Le = shapes[ie]["pts"]
+        P = shapes[j]["pts"] if V is None else V
+        d, k = cKDTree(Le).query(P)
+        near = d <= np.quantile(d, 0.1)
+        tng = Le[np.minimum(k + 3, len(Le) - 1)] - Le[np.maximum(k - 3, 0)]
+        tng /= np.maximum(np.linalg.norm(tng, axis=1, keepdims=True), 1e-12)
+        off = P - Le[k]
+        off -= np.einsum("nk,nk->n", off, tng)[:, None] * tng
+        v = off[near].mean(0)
+        return v / max(np.linalg.norm(v), 1e-12)
+    for e_name, names in FAN_ON_EDGE.items():
         ie = ib_edge(shapes, e_name)
         if ie is None or ie not in turn_of:
             continue
         ang, P0, t, about = turn_of[ie]
         Le = shapes[ie]["pts"]
-        te = cKDTree(Le)
+        ax_p, ax_t = Le.mean(0), (Le[-1] - Le[0]) / max(np.linalg.norm(Le[-1] - Le[0]), 1e-12)
+        js = [next((i for i, x in enumerate(shapes) if x["kind"] in ("wall", "region") and x["id"] == nm), None)
+              for nm in names]
+        js = [j for j in js if j is not None]
+        if not js:
+            continue
+        dirs = [leave_dir(ie, j) for j in js]
+        b1_ = dirs[0] - (dirs[0] @ ax_t) * ax_t
+        b1_ /= np.linalg.norm(b1_)
+        b2_ = np.cross(ax_t, b1_)
+        th = np.array([np.arctan2(v @ b2_, v @ b1_) for v in dirs])
+        # (in the order listed: the middle one stays at its true angle; each other is turned about the
+        # edge, away from it, until the nearest gap between their surfaces is FAN3_GAP, the same each
+        # side; all are set out from the edge together, in the middle one's direction)
+        mid = len(js) // 2
+
+        def off_axis(P):                          # (points away from the edge: all meet at it)
+            r_ = P - ax_p
+            r_ -= np.outer(r_ @ ax_t, ax_t)
+            return P[np.linalg.norm(r_, axis=1) > FAN3_CLEAR]
+        Pm = off_axis(shapes[js[mid]]["pts"])
+        tm = cKDTree(Pm)
+        for k_, j in enumerate(js):
+            if k_ == mid:
+                continue
+            side = np.sign(np.angle(np.exp(1j * (th[k_] - th[mid])))) or (1.0 if k_ > mid else -1.0)
+            P = off_axis(shapes[j]["pts"])
+            c_ang = lambda Q: np.arctan2((Q.mean(0) - ax_p) @ b2_, (Q.mean(0) - ax_p) @ b1_)
+            th_m = c_ang(Pm)
+            best_err, a_best = np.inf, 0.0
+            for a_ in np.radians(np.arange(-40, 60.5, 0.5)):
+                Q = _turn(P, ax_p, ax_t, side * a_)
+                if side * np.angle(np.exp(1j * (c_ang(Q) - th_m))) <= 0:
+                    continue                      # (it must stay on its own side of the middle one)
+                err = abs(tm.query(Q)[0].min() - FAN3_GAP)
+                if err < best_err:
+                    best_err, a_best = err, a_
+            for key_ in ("v", "pts"):
+                shapes[j][key_] = _turn(shapes[j][key_], ax_p, ax_t, side * a_best)
+        vm = np.cos(th[mid]) * b1_ + np.sin(th[mid]) * b2_
+        vm = _turn(np.array([vm]), np.zeros(3), t, ang)[0]
+        away = np.zeros(3)
+        for j in js:
+            turn_of[j] = (ang, P0, t, about)
+            shift[j] = shift[ie] + RING3_GAP * vm
+            attached[shapes[j]["id"]] = [e_name]
+            layer3.add(j)
+        # (then all moved together, straight away from the group shapes they lie on)
+        for j in js:
+            Pj = placed(j, shapes[j]["pts"])
+            for g in grp_now:
+                if shapes[g]["kind"] in ("wall", "region") and g not in js:
+                    Pg = placed(g, shapes[g]["pts"])
+                    if (cKDTree(Pg).query(Pj)[0] < 0.01).mean() >= 0.1:
+                        away += Pj.mean(0) - Pg.mean(0)
+        if np.linalg.norm(away) > 1e-12:
+            for j in js:
+                shift[j] = shift[j] + LAYER3_OUT * away / np.linalg.norm(away)
+    for e_name, names in RING_ON_EDGE.items():
+        ie = ib_edge(shapes, e_name)
+        if ie is None or ie not in turn_of:
+            continue
+        ang, P0, t, about = turn_of[ie]
         for nm in names:
             j = next((i for i, x in enumerate(shapes) if x["kind"] in ("wall", "region") and x["id"] == nm), None)
             if j is None:
                 continue
-            P = shapes[j]["pts"]
-            d, k = te.query(P)
-            near = d <= np.quantile(d, 0.1)
-            tng = Le[np.minimum(k + 3, len(Le) - 1)] - Le[np.maximum(k - 3, 0)]
-            tng /= np.maximum(np.linalg.norm(tng, axis=1, keepdims=True), 1e-12)
-            off = P - Le[k]
-            off -= np.einsum("nk,nk->n", off, tng)[:, None] * tng
-            v = off[near].mean(0)
-            v = _turn(np.array([v]), np.zeros(3), t, ang)[0]
+            # (moved and turned exactly as the edge is, so its own edge lies along it, and set
+            # RING3_GAP out from it in the direction it truly leaves it)
+            v = _turn(np.array([leave_dir(ie, j)]), np.zeros(3), t, ang)[0]
             turn_of[j] = (ang, P0, t, about)
-            shift[j] = shift[ie] + RING3_GAP * v / max(np.linalg.norm(v), 1e-12)
+            shift[j] = shift[ie] + RING3_GAP * v
             attached[nm] = [e_name]
             layer3.add(j)
-    # (then each moved LAYER3_OUT further, straight away from the shapes of the group it touches, so it
-    # stands clear of them rather than on their shared faces)
-    group_idx = set(sector_of) | {i for i, x in enumerate(shapes) if x["id"] in attached} - layer3
-    grp_trees = {g: cKDTree(placed(g, shapes[g]["pts"])) for g in group_idx
-                 if shapes[g]["kind"] in ("wall", "region")}
-    for j in sorted(layer3):
-        Pj = placed(j, shapes[j]["pts"])
-        # (the group shapes it lies on: a tenth or more of its points within 0.01 of them)
-        mates = [g for g, tr in grp_trees.items() if (tr.query(Pj)[0] < 0.01).mean() >= 0.1]
-        if not mates:
-            continue
-        here = Pj.mean(0)
-        there = np.mean([placed(g, shapes[g]["pts"]).mean(0) for g in mates], 0)
-        away = here - there
-        shift[j] = shift[j] + LAYER3_OUT * away / max(np.linalg.norm(away), 1e-12)
-    for l_name, (by, c_name) in LINE_AT_CORNER.items():
+    for l_name, (by, c_name, _beside) in LINE_AT_CORNER.items():
         il, ib_, ic = ib_edge(shapes, l_name), ib_edge(shapes, by), \
             next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
         if il is None or ib_ is None or ic is None or ib_ not in turn_of:
@@ -1326,7 +1412,7 @@ def build() -> dict:
     axis3 = axis3 + shift[i38]
     return {"_about": __doc__, "axis": axis3.round(5).tolist(), "shapes": out,
             "links": [[i, j] for i, j, _ in rows], "missing": missing,
-            "fit": {"warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
+            "fit": {"turned_about_edge": turned_about_edge, "warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
 
