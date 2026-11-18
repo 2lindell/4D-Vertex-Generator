@@ -52,6 +52,7 @@ END_CORNERS = {"C4": ("D2", "X4")}  # corners at the far ends of edges (in line 
 RING_ON_EDGE = {"X13": ("X43", "X54", "X31"), "X4": ("X17",)}   # layer 3: shapes set round an edge
 LINE_AT_CORNER = {"X2": ("X4", "C4"), "X80": ("X13", "A1")}     # layer 3: edges in line with a corner
 MIN_CORNER_GAP = 0.025             # the least gap between an edge's end and its corner
+LAYER3_OUT = 0.08                  # ... and this much further, away from the group shapes they touch
 RING3_GAP = 0.03                   # ... those shapes set this far out from their edge
 JOIN_CORNERS = ("A1", "C6")        # corners set at the ends of the group's edges (in this order)
 EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
@@ -1210,6 +1211,21 @@ def build() -> dict:
             shift[j] = shift[ie] + RING3_GAP * v / max(np.linalg.norm(v), 1e-12)
             attached[nm] = [e_name]
             layer3.add(j)
+    # (then each moved LAYER3_OUT further, straight away from the shapes of the group it touches, so it
+    # stands clear of them rather than on their shared faces)
+    group_idx = set(sector_of) | {i for i, x in enumerate(shapes) if x["id"] in attached} - layer3
+    grp_trees = {g: cKDTree(placed(g, shapes[g]["pts"])) for g in group_idx
+                 if shapes[g]["kind"] in ("wall", "region")}
+    for j in sorted(layer3):
+        Pj = placed(j, shapes[j]["pts"])
+        # (the group shapes it lies on: a tenth or more of its points within 0.01 of them)
+        mates = [g for g, tr in grp_trees.items() if (tr.query(Pj)[0] < 0.01).mean() >= 0.1]
+        if not mates:
+            continue
+        here = Pj.mean(0)
+        there = np.mean([placed(g, shapes[g]["pts"]).mean(0) for g in mates], 0)
+        away = here - there
+        shift[j] = shift[j] + LAYER3_OUT * away / max(np.linalg.norm(away), 1e-12)
     for l_name, (by, c_name) in LINE_AT_CORNER.items():
         il, ib_, ic = ib_edge(shapes, l_name), ib_edge(shapes, by), \
             next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
