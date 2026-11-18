@@ -48,7 +48,11 @@ MAX_STEP = np.radians(30)          # ... which may widen to this round an edge w
 RING_ARC = 300                     # ... so that they spread over about this many degrees
 JOIN_EDGES = ("E1", "X13")         # edges joined to B1's group, lying along the shapes they bound
 EDGE_ON_WALL = {"B1": ("X38", "A1"), "C2a": ("X96", "C6"), "D2": ("F4", "A1")}   # edges along a wall, in line with a corner
-END_CORNERS = {"C4": "D2"}         # corners beyond the far end of an edge lined up on a wall
+END_CORNERS = {"C4": ("D2", "X4")}  # corners at the far ends of edges (in line with both, if two)
+RING_ON_EDGE = {"X13": ("X43", "X54", "X31"), "X4": ("X17",)}   # layer 3: shapes set round an edge
+LINE_AT_CORNER = {"X2": ("X4", "C4"), "X80": ("X13", "A1")}     # layer 3: edges in line with a corner
+MIN_CORNER_GAP = 0.025             # the least gap between an edge's end and its corner
+RING3_GAP = 0.03                   # ... those shapes set this far out from their edge
 JOIN_CORNERS = ("A1", "C6")        # corners set at the ends of the group's edges (in this order)
 EDGE_GAP = 0.02                    # ... the edges set this far out from those shapes
 CORNER_GAP = 0.012                 # ... and the corners this far beyond the edges' ends
@@ -56,7 +60,7 @@ STACK_ON = {"X49": ("X28", "X50", "X33")}   # shapes stacked on a region, one be
 STACK_OFF = 0.02                   # ... each this far beyond the one before
 ALIGN_ON = {"X4": ("X82", ("X22",))}  # along an edge: walls lined up on the first (moved and turned as it is)
 ALIGN_OFF = 0.008                  # ... each set this far off its own face, away from the first
-EDGE_OFF = 0.008                   # ... and the edge this far out from the first
+EDGE_OFF = 0.016                   # ... and the edge this far out from the first
 CUT_ALONG = {"F3": ("T2", "F1")}   # cut shapes cut flat along where these two walls meet (see build)
 COMPLETE = {"F3": ("X4",)}         # regions whose shown part gets its own walls (and these edges) beside it
 COMPLETE_OFF = 0.03                # ... and a wall completing such a region's shell, a little more
@@ -730,6 +734,35 @@ def build() -> dict:
                 prev = old
             stacked[nm] = base
 
+    # shapes set round an edge of the group (layer 3: round X13, X43, X54, X31; round X4, X17): each
+    # shown by the copy the shape map puts round the edge shown
+    for e_name, names in RING_ON_EDGE.items():
+        E = chosen.get(("line", e_name))
+        if E is None:
+            continue
+        re_ = rel_of(E)
+        for nm in names:
+            cands = [k for k in re_ if k[0] in ("wall", "region") and m.name(k[0], k[1]) == nm]
+            if not cands:
+                continue
+            kind = cands[0][0]
+            old = chosen.get((kind, nm))
+            if old is not None and old["key"] in cands:
+                continue
+            best = cands[0]
+            new = dict(make(best))
+            new["geo"] = np.array(new["geo"])
+            new["cuts"] = reduce_extent(new, GQ, E["geo"].reshape(-1, 4).mean(0))
+            new["note"] = (("cut by the symmetries carrying it onto itself: " + ", ".join(
+                "the axis's half-turn" if e == AXIS_ELEMENT else f"element {e}" for e in new["cuts"]))
+                if new["cuts"] else "whole: no symmetry carries it onto itself") + f"; the copy round the {e_name} shown"
+            layer_of[best] = layer_of[old["key"]] if old is not None else layer_of[E["key"]]
+            if old is not None:
+                shapes[[id(x) for x in shapes].index(id(old))] = new
+            else:
+                shapes.append(new)
+            chosen[(kind, nm)] = new
+
     # a cut shape cut flat so its front edge lines up with the edge where two of its walls meet (F3:
     # with the top of T2, where it meets F1): a flat cut through its half-turn's fixed 2-plane is valid
     # at any angle round it (the half-turn carries it onto itself, so the part kept and its image make
@@ -1117,19 +1150,86 @@ def build() -> dict:
 
     # corners at the far ends of edges lined up on a wall (C4, beyond D2): carried on beyond that end
     # by as far as A1 lies beyond E1
-    for c_name, e_name in END_CORNERS.items():
+    for c_name, e_names in END_CORNERS.items():
         ic = next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
-        ie = ib_edge(shapes, e_name)
-        if ic is None or ie is None or ie not in turn_of:
+        if ic is None:
             continue
         c0 = shapes[ic]["v"].reshape(3)
-        e = end_line(ie, c0)
-        if e is None:
-            warn_edges.append(f"{e_name} does not end at the {c_name} shown")
+        lines_ = []
+        for e_name in e_names:
+            ie = ib_edge(shapes, e_name)
+            if ie is None or ie not in turn_of:
+                continue
+            e = end_line(ie, c0)
+            if e is None:
+                warn_edges.append(f"{e_name} does not end at the {c_name} shown")
+                continue
+            lines_.append((e_name, e))
+        if len(lines_) >= 2:
+            # (on the first edge's line, at the point of it nearest the second's line, but at least
+            # MIN_CORNER_GAP beyond the first edge's end)
+            (_, (p1, d1)), (_, (p2, d2)) = lines_[:2]
+            w0 = p1 - p2
+            b_, d_, e_ = d1 @ d2, d1 @ w0, d2 @ w0
+            den = 1 - b_ * b_
+            a_ = (b_ * e_ - d_) / den if den > 1e-9 else 0.0
+            shift[ic] = p1 + max(a_, MIN_CORNER_GAP) * d1 - c0
+        elif lines_:
+            _, (p_, d_) = lines_[0]
+            shift[ic] = p_ + (corner_gap if corner_gap is not None else CORNER_GAP) * d_ - c0
+        else:
             continue
-        p_, d_ = e
-        shift[ic] = p_ + (corner_gap if corner_gap is not None else CORNER_GAP) * d_ - c0
-        attached[c_name] = [e_name]
+        attached[c_name] = [n_ for n_, _ in lines_]
+
+    # layer 3, round edges of the group: each wall and region turned as its edge is and set RING3_GAP
+    # straight out from it, in the direction it truly leaves it; each edge ending at a corner of the
+    # group (X2 at C4, X80 at A1) turned as the edge it is set by and slid sideways into line with the
+    # corner, its distance from it kept
+    layer3 = set()
+    for e_name, names in RING_ON_EDGE.items():
+        ie = ib_edge(shapes, e_name)
+        if ie is None or ie not in turn_of:
+            continue
+        ang, P0, t, about = turn_of[ie]
+        Le = shapes[ie]["pts"]
+        te = cKDTree(Le)
+        for nm in names:
+            j = next((i for i, x in enumerate(shapes) if x["kind"] in ("wall", "region") and x["id"] == nm), None)
+            if j is None:
+                continue
+            P = shapes[j]["pts"]
+            d, k = te.query(P)
+            near = d <= np.quantile(d, 0.1)
+            tng = Le[np.minimum(k + 3, len(Le) - 1)] - Le[np.maximum(k - 3, 0)]
+            tng /= np.maximum(np.linalg.norm(tng, axis=1, keepdims=True), 1e-12)
+            off = P - Le[k]
+            off -= np.einsum("nk,nk->n", off, tng)[:, None] * tng
+            v = off[near].mean(0)
+            v = _turn(np.array([v]), np.zeros(3), t, ang)[0]
+            turn_of[j] = (ang, P0, t, about)
+            shift[j] = shift[ie] + RING3_GAP * v / max(np.linalg.norm(v), 1e-12)
+            attached[nm] = [e_name]
+            layer3.add(j)
+    for l_name, (by, c_name) in LINE_AT_CORNER.items():
+        il, ib_, ic = ib_edge(shapes, l_name), ib_edge(shapes, by), \
+            next((i for i, x in enumerate(shapes) if x["kind"] == "point" and x["id"] == c_name), None)
+        if il is None or ib_ is None or ic is None or ib_ not in turn_of:
+            continue
+        turn_of[il] = turn_of[ib_]
+        shift[il] = shift[ib_].copy()
+        c0 = shapes[ic]["v"].reshape(3)
+        e = end_line(il, c0)
+        if e is None:
+            warn_edges.append(f"{l_name} does not end at the {c_name} shown")
+        else:
+            p_, d_ = e
+            r_ = c0 + shift[ic] - p_
+            along = r_ @ d_
+            # (slid sideways into line with the corner; and back along itself if it reaches nearer
+            # than MIN_CORNER_GAP to it)
+            shift[il] = shift[il] + (r_ - along * d_) + min(0.0, along - MIN_CORNER_GAP) * d_
+        attached[l_name] = [by, c_name]
+        layer3.add(il)
 
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
@@ -1145,8 +1245,11 @@ def build() -> dict:
         for i in first_ids:
             show_layer[i] = 1
         for i, x in enumerate(shapes):
-            if i not in show_layer and x["id"] in attached:
+            if i not in show_layer and x["id"] in attached and i not in layer3:
                 show_layer[i] = 2
+        for i in layer3:
+            if i not in show_layer:
+                show_layer[i] = 3
         lay_n = max(show_layer.values())
         frontier = [i for i in show_layer if show_layer[i] == lay_n]
         rels_all = [rel_of(x) if x["kind"] != "point" else {} for x in shapes]
