@@ -54,6 +54,8 @@ FIT_GROUPS = (("X13", ("X43", "X31", "X54"), 0.012),     # layer 3, fitted in tu
               ("X80", ("X102", "X70", "X71", "X73", "X75", "X79", "X85", "X86", "X87", "X88", "X93"), 0.004))
 FAN_ON_EDGE = {e: names for e, names, _ in FIT_GROUPS}     # (for showing the copies round the edge)
 RING_ON_EDGE = {}
+NUDGE_CLEAR = {"X17": (("X43", "X31", "X54"), 0.012, ("X2",), 0.004)}   # last touches (see build)
+NUDGE_IN = {"X43": ("X13", ("X31", "X54"))}
 LINE_GAP = 0.006                   # ... the gap from an edge a shape lies along
 LINE_AT_CORNER = {"X2": ("X4", "C4", "X43"), "X80": ("X13", "A1", "X43")}   # layer 3: edges in line with a corner
 MIN_CORNER_GAP = 0.025             # the least gap between an edge's end and its corner
@@ -1260,6 +1262,7 @@ def build() -> dict:
     def sub(P, n=LAYER3_SAMPLES):
         return P if len(P) <= n else P[rng_.choice(len(P), n, replace=False)]
     layer3_fit = {}
+    nudged = {}
     done_l3 = []
     for e_name, names, gap_g in FIT_GROUPS:
         ie = ib_edge(shapes, e_name)
@@ -1333,9 +1336,22 @@ def build() -> dict:
                     dmin = cKDTree(base[a_] + D[a_]).query(base[b_] + D[b_])[0].min()
                     c_ += (dmin - gap_g) ** 2 if (b_ in nb[a_] or a_ in nb[b_]) else max(0.0, gap_g - dmin) ** 2 * 4
             return c_
-        res = minimize(cost, np.zeros(1 + 2 * len(grp)), method="Powell",
-                       options={"maxiter": 20000, "xtol": 1e-5, "ftol": 1e-12})
-        D = moves(res.x)
+        # (the fit is cached: it takes minutes; it is redone when its group, gap or inputs change)
+        import hashlib
+        import pickle
+        fit_key = hashlib.sha1(pickle.dumps((e_name, names, gap_g, LINE_GAP, LAYER3_STAY, LAYER3_REACH,
+                                             sorted(LAYER3_PULL.items()), sorted(LAYER3_EQUAL.items()),
+                                             [np.round(base[j], 5).tobytes() for j in grp],
+                                             [np.round(fixed_pts[g], 5).tobytes() for g in fixed]))).hexdigest()
+        fit_cache = data_dir().parent.parent / ".cache" / f"axis_fit_{fit_key}.npy"
+        if fit_cache.exists():
+            x_fit = np.load(fit_cache)
+        else:
+            x_fit = minimize(cost, np.zeros(1 + 2 * len(grp)), method="Powell",
+                             options={"maxiter": 20000, "xtol": 1e-5, "ftol": 1e-12}).x
+            fit_cache.parent.mkdir(exist_ok=True)
+            np.save(fit_cache, x_fit)
+        D = moves(x_fit)
         for j in grp:
             shift[j] = shift[j] + D[j]
             Pj = base[j] + D[j]
@@ -1345,6 +1361,55 @@ def build() -> dict:
                 row[shapes[g]["id"]] = round(float(cKDTree(Q).query(Pj)[0].min()), 4)
             layer3_fit[shapes[j]["id"]] = {"group": e_name, "gaps_to_neighbours": row, "moved": np.round(D[j], 4).tolist()}
         done_l3 += grp
+
+    # last touches, each moving one shape only (everything else stays): a shape moved straight away
+    # from some shapes until it is a gap clear of them (and a little away from others: X17 up and out
+    # from X43, X31, X54 and off X2), or moved across an edge towards it until its gap to it is the mean
+    # of other shapes' gaps to it (X43 in to X13, as X31 and X54 are)
+    def ix(name):
+        return next((i for i, x in enumerate(shapes) if x["kind"] != "point" and x["id"] == name), None)
+
+    def pts_of(i):
+        return placed(i, shapes[i]["v"].reshape(-1, 3) if shapes[i]["kind"] == "line" else shapes[i]["pts"])
+    for nm, (from_, clear_, also_from, also_by) in NUDGE_CLEAR.items():
+        j = ix(nm)
+        others_ = [ix(o) for o in from_ if ix(o) is not None]
+        if j is None or not others_:
+            continue
+        tr = cKDTree(np.concatenate([pts_of(o) for o in others_]))
+        Pj = pts_of(j)
+        d, k = tr.query(Pj)
+        near = d <= np.quantile(d, 0.05)
+        away = (Pj[near] - tr.data[k[near]]).mean(0)
+        away /= max(np.linalg.norm(away), 1e-12)
+        for o in also_from:
+            io_ = ix(o)
+            if io_ is not None:
+                to = cKDTree(pts_of(io_))
+                d2, k2 = to.query(Pj)
+                a2 = (Pj[d2 <= np.quantile(d2, 0.05)] - to.data[k2[d2 <= np.quantile(d2, 0.05)]]).mean(0)
+                shift[j] = shift[j] + also_by * a2 / max(np.linalg.norm(a2), 1e-12)
+        for _ in range(200):
+            if tr.query(pts_of(j))[0].min() >= clear_:
+                break
+            shift[j] = shift[j] + 0.0005 * away
+        nudged[nm] = round(float(tr.query(pts_of(j))[0].min()), 4)
+    for nm, (edge_, like) in NUDGE_IN.items():
+        j, ie_ = ix(nm), ix(edge_)
+        if j is None or ie_ is None:
+            continue
+        te_ = cKDTree(pts_of(ie_))
+        want_ = float(np.mean([te_.query(pts_of(ix(o)))[0].min() for o in like if ix(o) is not None]))
+        Pj = pts_of(j)
+        d, k = te_.query(Pj)
+        near = d <= np.quantile(d, 0.05)
+        toward = (te_.data[k[near]] - Pj[near]).mean(0)
+        toward /= max(np.linalg.norm(toward), 1e-12)
+        for _ in range(400):
+            if te_.query(pts_of(j))[0].min() <= want_:
+                break
+            shift[j] = shift[j] + 0.0002 * toward
+        nudged[nm] = round(float(te_.query(pts_of(j))[0].min()), 4)
 
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
@@ -1425,7 +1490,7 @@ def build() -> dict:
     axis3 = axis3 + shift[i38]
     return {"_about": __doc__, "axis": axis3.round(5).tolist(), "shapes": out,
             "links": [[i, j] for i, j, _ in rows], "missing": missing,
-            "fit": {"layer3": layer3_fit, "turned_about_edge": turned_about_edge, "warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
+            "fit": {"nudged": nudged, "layer3": layer3_fit, "turned_about_edge": turned_about_edge, "warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
 
