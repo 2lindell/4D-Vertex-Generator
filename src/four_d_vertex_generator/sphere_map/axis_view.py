@@ -54,8 +54,9 @@ FIT_GROUPS = (("X13", ("X43", "X31", "X54"), 0.012),     # layer 3, fitted in tu
               ("X80", ("X102", "X70", "X71", "X73", "X75", "X79", "X85", "X86", "X87", "X88", "X93"), 0.004))
 FAN_ON_EDGE = {e: names for e, names, _ in FIT_GROUPS}     # (for showing the copies round the edge)
 RING_ON_EDGE = {}
-NUDGE_CLEAR = {"X17": (("X43", "X31", "X54"), 0.012, ("X2",), 0.004)}   # last touches (see build)
-NUDGE_IN = {"X43": ("X13", ("X31", "X54"))}
+NUDGE_CLEAR = {"X17": (0.005, "X4", ("X2",))}   # last touches: moved the least, up from X2, to be this clear
+NUDGE_MAX = 0.05                   # ... and no further than this
+NUDGE_ALONG = {"X43": ("X13", ("X31", "X54"))}   # ... a shape slid along an edge to line up with others
 LINE_GAP = 0.006                   # ... the gap from an edge a shape lies along
 LINE_AT_CORNER = {"X2": ("X4", "C4", "X43"), "X80": ("X13", "A1", "X43")}   # layer 3: edges in line with a corner
 MIN_CORNER_GAP = 0.025             # the least gap between an edge's end and its corner
@@ -1371,45 +1372,70 @@ def build() -> dict:
 
     def pts_of(i):
         return placed(i, shapes[i]["v"].reshape(-1, 3) if shapes[i]["kind"] == "line" else shapes[i]["pts"])
-    for nm, (from_, clear_, also_from, also_by) in NUDGE_CLEAR.items():
-        j = ix(nm)
-        others_ = [ix(o) for o in from_ if ix(o) is not None]
-        if j is None or not others_:
-            continue
-        tr = cKDTree(np.concatenate([pts_of(o) for o in others_]))
-        Pj = pts_of(j)
+    def away_from(Pj, tr):                         # (the way out from the nearest part of a shape)
         d, k = tr.query(Pj)
         near = d <= np.quantile(d, 0.05)
-        away = (Pj[near] - tr.data[k[near]]).mean(0)
-        away /= max(np.linalg.norm(away), 1e-12)
-        for o in also_from:
-            io_ = ix(o)
-            if io_ is not None:
-                to = cKDTree(pts_of(io_))
-                d2, k2 = to.query(Pj)
-                a2 = (Pj[d2 <= np.quantile(d2, 0.05)] - to.data[k2[d2 <= np.quantile(d2, 0.05)]]).mean(0)
-                shift[j] = shift[j] + also_by * a2 / max(np.linalg.norm(a2), 1e-12)
-        for _ in range(200):
-            if tr.query(pts_of(j))[0].min() >= clear_:
-                break
-            shift[j] = shift[j] + 0.0005 * away
-        nudged[nm] = round(float(tr.query(pts_of(j))[0].min()), 4)
-    for nm, (edge_, like) in NUDGE_IN.items():
+        v = (Pj[near] - tr.data[k[near]]).mean(0)
+        return v / max(np.linalg.norm(v), 1e-12)
+    near_all = [i for i in range(len(shapes)) if shapes[i]["kind"] in ("wall", "region", "line")]
+
+    def blockers(j, Pj, keep, skip=()):            # (shapes nearer than `keep`, with their trees)
+        out = []
+        for g in near_all:
+            if g == j or shapes[g]["id"] in skip:
+                continue
+            Q = pts_of(g)
+            if np.linalg.norm(Q.mean(0) - Pj.mean(0)) > 0.5:
+                continue
+            tg = cKDTree(Q)
+            if tg.query(Pj)[0].min() < keep:
+                out.append(tg)
+        return out
+    for nm, (keep_, own_edge, up_from) in NUDGE_CLEAR.items():
+        # (the shortest move, among directions leading away from the shapes named (up from X2), that
+        # leaves it keep_ clear of everything near it but its own edge)
+        j = ix(nm)
+        if j is None:
+            continue
+        P0j = pts_of(j)
+        trees = [(g, cKDTree(pts_of(g))) for g in near_all if g != j and shapes[g]["id"] != own_edge
+                 and np.linalg.norm(pts_of(g).mean(0) - P0j.mean(0)) < 0.5]
+        ids_up = [ix(o) for o in up_from if ix(o) is not None]
+        up_ = away_from(P0j, cKDTree(np.concatenate([pts_of(o) for o in ids_up]))) if ids_up else None
+        g_ = (1 + 5 ** 0.5) / 2
+        dirs = np.array([[np.cos(2 * np.pi * k / g_) * np.sqrt(1 - z * z), np.sin(2 * np.pi * k / g_) * np.sqrt(1 - z * z), z]
+                         for k, z in enumerate(np.linspace(-1, 1, 400))])
+        if up_ is not None:
+            dirs = dirs[dirs @ up_ > 0.2]
+        best = None
+        for d_ in dirs:
+            for r_ in np.arange(0.001, NUDGE_MAX, 0.001):
+                P = P0j + r_ * d_
+                if all(tg.query(P)[0].min() >= keep_ for _, tg in trees):
+                    if best is None or r_ < best[0]:
+                        best = (r_, d_)
+                    break
+                if best is not None and r_ >= best[0]:
+                    break
+        if best is not None:
+            shift[j] = shift[j] + best[0] * best[1]
+        P = pts_of(j)
+        nudged[nm] = {"moved": round(float(best[0]), 4) if best else None,
+                      "nearest": round(float(min(tg.query(P)[0].min() for _, tg in trees)), 4)}
+
+    for nm, (edge_, like) in NUDGE_ALONG.items():
+        # (slid along the edge so its end towards the edge's far corner lines up with the others')
         j, ie_ = ix(nm), ix(edge_)
         if j is None or ie_ is None:
             continue
-        te_ = cKDTree(pts_of(ie_))
-        want_ = float(np.mean([te_.query(pts_of(ix(o)))[0].min() for o in like if ix(o) is not None]))
-        Pj = pts_of(j)
-        d, k = te_.query(Pj)
-        near = d <= np.quantile(d, 0.05)
-        toward = (te_.data[k[near]] - Pj[near]).mean(0)
-        toward /= max(np.linalg.norm(toward), 1e-12)
-        for _ in range(400):
-            if te_.query(pts_of(j))[0].min() <= want_:
-                break
-            shift[j] = shift[j] + 0.0002 * toward
-        nudged[nm] = round(float(te_.query(pts_of(j))[0].min()), 4)
+        Le = pts_of(ie_)
+        t_ = Le[-1] - Le[0]
+        t_ /= np.linalg.norm(t_)
+        p0_ = Le.mean(0)
+        top = lambda i_: float(((pts_of(i_) - p0_) @ t_).max())
+        want_ = float(np.mean([top(ix(o)) for o in like if ix(o) is not None]))
+        shift[j] = shift[j] + (want_ - top(j)) * t_
+        nudged[nm] = round(float(want_ - top(j)), 4)
 
     # the layers shown (the slider): first B1 and every shape touching it, then the shapes set with
     # those round B1 (the group's added shapes), then outward, each layer the shapes the shape map puts
