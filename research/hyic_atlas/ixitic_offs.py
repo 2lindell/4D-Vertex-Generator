@@ -86,37 +86,42 @@ print(json.dumps(out))
 GROUP = "ixitic"
 
 
-def main(only_new=False):
+def shapes():
+    """Every shape of the group, named: from the accepted list where it is named, else numbered by kind."""
     d = json.load(open(os.path.join(HERE, f"{GROUP}_shapes.json")))["shapes"]
+    nm = {}
     if GROUP == "ixoic":                        # (every ixoic shape: merged, the targeted search's confirmed ones
         sys.path.insert(0, os.path.join(ROOT, "pages"))   # (ixoic_crossings.json), the half-turns' fixed lines and
         from ixoic_match import atlas                       # the closure check's regions: pages/ixoic_match.py)
         d = atlas()
-    count, todo = {}, {}
-    rows = []
-    nm = {}
-    if GROUP == "ixoic":                        # (names from the accepted list: pages/ixoic_match.py)
-        try:
+        try:                                    # (names from the accepted list: pages/ixoic_match.py)
             N = json.load(open(os.path.join(ROOT, "pages", "ixoic_names.json")))
         except FileNotFoundError:
             N = {}
         first = {k: v[0]["name"].lower() for k, v in N.items()}
         twice = {n for n in first.values() if list(first.values()).count(n) > 1}
         nm = {k: n + (f"_{s['vertices']}" if n in twice else "") for s in d for k, n in first.items() if s["key"] == k}
+    count, out = {}, []
+    for s in d:
+        count[s["kind"]] = count.get(s["kind"], 0) + 1
+        out.append({"name": s.get("name") or nm.get(s["key"]) or f"{GROUP}_{s['kind']}_{count[s['kind']]:02d}",
+                    "kind": s["kind"], "degrees": {"region": 3, "wall": 2, "line": 1, "point": 0}[s["kind"]],
+                    "seed": s["seed"], "key": s["key"], "sheet": s["sheet"],
+                    "hull_tol": 1e-9 if s["kind"] in ("region", "line", "point") else 1e-7})
+    return out
+
+
+def main(only_new=False):
+    rows, todo = [], {}
     if only_new:
         rows = json.load(open(os.path.join(HERE, f"opt_central_{GROUP}.json")))["shapes"]
     done = {r["key"] for r in rows}
-    for s in d:
-        count[s["kind"]] = count.get(s["kind"], 0) + 1
-        name = s.get("name") or nm.get(s["key"]) or f"{GROUP}_{s['kind']}_{count[s['kind']]:02d}"
-        if s["key"] in done:
-            continue
-        todo.setdefault(s["sheet"], []).append({
-            "name": name, "kind": s["kind"], "degrees": {"region": 3, "wall": 2, "line": 1, "point": 0}[s["kind"]],
-            "seed": s["seed"], "key": s["key"], "sheet": s["sheet"],
-            "hull_tol": 1e-9 if s["kind"] in ("region", "line", "point") else 1e-7})
-    for sub in sorted(todo):
-        r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT, "group": GROUP}], input=json.dumps(todo[sub]),
+    for s in shapes():
+        if s["key"] not in done:
+            todo.setdefault(s["sheet"], []).append(s)
+    todo = {(sub, i): L[i:i + 8] for sub, L in todo.items() for i in range(0, len(L), 8)}   # (saved every 8 shapes)
+    for sub, i in sorted(todo):
+        r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT, "group": GROUP}], input=json.dumps(todo[sub, i]),
                            capture_output=True, text=True, cwd=HERE, env={**os.environ, "HYIC_SUB": sub})
         lines = r.stdout.strip().splitlines()
         for line in lines[:-1]:
