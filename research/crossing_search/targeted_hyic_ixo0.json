@@ -3,1025 +3,822 @@
  "surfaces": 28,
  "wall_surfaces": 28,
  "known_keys": 263,
- "labelled": 2045,
+ "labelled": 1194,
  "walks": [
   {
-   "surface": 3,
-   "cells": 5,
+   "surface": 0,
+   "cells": 6,
    "lines": 7,
-   "labelled": 12,
-   "seconds": 28.6
+   "labelled": 13,
+   "seconds": 43.8
   },
   {
    "surface": 1,
    "cells": 5,
-   "lines": 13,
-   "labelled": 18,
-   "seconds": 30.3
-  },
-  {
-   "surface": 5,
-   "cells": 7,
-   "lines": 11,
-   "labelled": 18,
-   "seconds": 33.2
-  },
-  {
-   "surface": 8,
-   "cells": 2,
-   "lines": 2,
-   "labelled": 4,
-   "seconds": 16.9
-  },
-  {
-   "surface": 10,
-   "cells": 2,
-   "lines": 3,
-   "labelled": 5,
-   "seconds": 20.1
-  },
-  {
-   "surface": 9,
-   "cells": 4,
-   "lines": 7,
-   "labelled": 11,
-   "seconds": 35.3
-  },
-  {
-   "surface": 0,
-   "cells": 6,
-   "lines": 17,
-   "labelled": 23,
-   "seconds": 70.8
-  },
-  {
-   "surface": 11,
-   "cells": 5,
-   "lines": 14,
-   "labelled": 19,
-   "seconds": 25.1
-  },
-  {
-   "surface": 13,
-   "cells": 4,
-   "lines": 10,
-   "labelled": 14,
-   "seconds": 29.4
-  },
-  {
-   "surface": 15,
-   "cells": 4,
-   "lines": 7,
-   "labelled": 11,
-   "seconds": 25.6
-  },
-  {
-   "surface": 16,
-   "cells": 4,
-   "lines": 8,
-   "labelled": 12,
-   "seconds": 20.1
-  },
-  {
-   "surface": 14,
-   "cells": 10,
-   "lines": 17,
-   "labelled": 27,
-   "seconds": 63.1
-  },
-  {
-   "surface": 17,
-   "cells": 3,
-   "lines": 5,
-   "labelled": 8,
-   "seconds": 19.1
-  },
-  {
-   "surface": 20,
-   "cells": 5,
-   "lines": 10,
-   "labelled": 15,
-   "seconds": 26.8
-  },
-  {
-   "surface": 18,
-   "cells": 8,
-   "lines": 15,
-   "labelled": 23,
-   "seconds": 63.7
-  },
-  {
-   "surface": 21,
-   "cells": 8,
-   "lines": 8,
-   "labelled": 16,
-   "seconds": 53.1
-  },
-  {
-   "surface": 26,
-   "cells": 2,
-   "lines": 8,
-   "labelled": 10,
-   "seconds": 6.3
-  },
-  {
-   "surface": 23,
-   "cells": 6,
-   "lines": 17,
-   "labelled": 23,
-   "seconds": 39.1
-  },
-  {
-   "surface": 25,
-   "cells": 8,
-   "lines": 14,
-   "labelled": 22,
-   "seconds": 35.0
-  },
-  {
-   "surface": 6,
-   "cells": 25,
-   "lines": 45,
-   "labelled": 70,
-   "seconds": 218.0
-  },
-  {
-   "surface": 3,
-   "cells": 3,
-   "lines": 3,
-   "labelled": 6,
-   "seconds": 19.0
-  },
-  {
-   "surface": 0,
-   "cells": 6,
-   "lines": 5,
-   "labelled": 11,
-   "seconds": 20.3
-  },
-  {
-   "surface": 2,
-   "cells": 6,
-   "lines": 13,
-   "labelled": 19,
-   "seconds": 22.6
-  },
-  {
-   "surface": 6,
-   "cells": 5,
-   "lines": 4,
-   "labelled": 9,
-   "seconds": 12.8
-  },
-  {
-   "surface": 1,
-   "cells": 22,
-   "lines": 16,
-   "labelled": 38,
-   "seconds": 50.0
-  },
-  {
-   "surface": 7,
-   "cells": 7,
-   "lines": 12,
-   "labelled": 19,
-   "seconds": 21.7
-  },
-  {
-   "surface": 5,
-   "cells": 14,
-   "lines": 13,
-   "labelled": 27,
-   "seconds": 40.1
-  },
-  {
-   "surface": 9,
-   "cells": 1,
-   "lines": 1,
-   "labelled": 2,
-   "seconds": 3.6
-  },
-  {
-   "surface": 11,
-   "cells": 10,
-   "lines": 16,
-   "labelled": 26,
-   "seconds": 37.9
-  },
-  {
-   "surface": 8,
-   "cells": 16,
-   "lines": 31,
-   "labelled": 47,
-   "seconds": 54.9
-  },
-  {
-   "surface": 4,
-   "cells": 37,
-   "lines": 39,
-   "labelled": 76,
-   "seconds": 88.0
-  },
-  {
-   "surface": 10,
-   "cells": 11,
-   "lines": 16,
-   "labelled": 27,
-   "seconds": 58.1
-  },
-  {
-   "surface": 12,
-   "cells": 7,
-   "lines": 11,
-   "labelled": 18,
-   "seconds": 23.5
-  },
-  {
-   "surface": 13,
-   "cells": 12,
-   "lines": 15,
-   "labelled": 27,
-   "seconds": 40.1
-  },
-  {
-   "surface": 17,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 3.2
-  },
-  {
-   "surface": 18,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 19,
-   "cells": 6,
-   "lines": 11,
-   "labelled": 17,
-   "seconds": 21.5
-  },
-  {
-   "surface": 15,
-   "cells": 8,
-   "lines": 13,
-   "labelled": 21,
-   "seconds": 54.3
-  },
-  {
-   "surface": 20,
-   "cells": 7,
-   "lines": 4,
-   "labelled": 11,
-   "seconds": 4.0
-  },
-  {
-   "surface": 14,
-   "cells": 22,
-   "lines": 18,
-   "labelled": 40,
-   "seconds": 71.4
-  },
-  {
-   "surface": 16,
-   "cells": 14,
-   "lines": 7,
-   "labelled": 21,
-   "seconds": 57.6
-  },
-  {
-   "surface": 25,
-   "cells": 6,
-   "lines": 0,
-   "labelled": 6,
-   "seconds": 18.3
-  },
-  {
-   "surface": 26,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 0.1
-  },
-  {
-   "surface": 27,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 1.0
-  },
-  {
-   "surface": 23,
-   "cells": 15,
-   "lines": 17,
-   "labelled": 32,
-   "seconds": 56.5
-  },
-  {
-   "surface": 24,
-   "cells": 12,
-   "lines": 18,
-   "labelled": 30,
-   "seconds": 60.0
-  },
-  {
-   "surface": 21,
-   "cells": 30,
-   "lines": 19,
-   "labelled": 49,
-   "seconds": 87.2
-  },
-  {
-   "surface": 2,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.2
-  },
-  {
-   "surface": 3,
-   "cells": 6,
-   "lines": 13,
-   "labelled": 19,
-   "seconds": 22.4
-  },
-  {
-   "surface": 4,
-   "cells": 16,
-   "lines": 17,
-   "labelled": 33,
-   "seconds": 24.3
-  },
-  {
-   "surface": 0,
-   "cells": 11,
-   "lines": 17,
-   "labelled": 28,
-   "seconds": 30.3
-  },
-  {
-   "surface": 5,
-   "cells": 12,
-   "lines": 10,
-   "labelled": 22,
-   "seconds": 13.9
-  },
-  {
-   "surface": 8,
-   "cells": 4,
-   "lines": 10,
-   "labelled": 14,
-   "seconds": 6.1
-  },
-  {
-   "surface": 6,
-   "cells": 16,
-   "lines": 22,
-   "labelled": 38,
-   "seconds": 42.6
-  },
-  {
-   "surface": 11,
-   "cells": 4,
    "lines": 6,
-   "labelled": 10,
-   "seconds": 4.2
-  },
-  {
-   "surface": 12,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 13,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 14,
-   "cells": 5,
-   "lines": 0,
-   "labelled": 5,
-   "seconds": 0.7
-  },
-  {
-   "surface": 1,
-   "cells": 23,
-   "lines": 20,
-   "labelled": 43,
-   "seconds": 79.2
-  },
-  {
-   "surface": 9,
-   "cells": 11,
-   "lines": 19,
-   "labelled": 30,
-   "seconds": 46.0
-  },
-  {
-   "surface": 15,
-   "cells": 7,
-   "lines": 11,
-   "labelled": 18,
-   "seconds": 30.1
-  },
-  {
-   "surface": 10,
-   "cells": 16,
-   "lines": 17,
-   "labelled": 33,
-   "seconds": 74.6
-  },
-  {
-   "surface": 16,
-   "cells": 21,
-   "lines": 16,
-   "labelled": 37,
-   "seconds": 32.2
-  },
-  {
-   "surface": 19,
-   "cells": 16,
-   "lines": 19,
-   "labelled": 35,
-   "seconds": 18.0
-  },
-  {
-   "surface": 18,
-   "cells": 10,
-   "lines": 14,
-   "labelled": 24,
-   "seconds": 39.7
-  },
-  {
-   "surface": 20,
-   "cells": 8,
-   "lines": 12,
-   "labelled": 20,
-   "seconds": 18.5
-  },
-  {
-   "surface": 23,
-   "cells": 5,
-   "lines": 10,
-   "labelled": 15,
-   "seconds": 16.1
-  },
-  {
-   "surface": 25,
-   "cells": 7,
-   "lines": 5,
-   "labelled": 12,
-   "seconds": 12.3
-  },
-  {
-   "surface": 24,
-   "cells": 5,
-   "lines": 11,
-   "labelled": 16,
-   "seconds": 20.4
-  },
-  {
-   "surface": 26,
-   "cells": 6,
-   "lines": 4,
-   "labelled": 10,
-   "seconds": 11.1
-  },
-  {
-   "surface": 21,
-   "cells": 26,
-   "lines": 22,
-   "labelled": 48,
-   "seconds": 64.7
+   "labelled": 11,
+   "seconds": 15.2
   },
   {
    "surface": 3,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 2,
-   "cells": 1,
-   "lines": 1,
-   "labelled": 2,
-   "seconds": 1.2
+   "cells": 6,
+   "lines": 8,
+   "labelled": 14,
+   "seconds": 43.4
   },
   {
    "surface": 5,
+   "cells": 6,
+   "lines": 6,
+   "labelled": 12,
+   "seconds": 28.2
+  },
+  {
+   "surface": 6,
+   "cells": 20,
+   "lines": 32,
+   "labelled": 52,
+   "seconds": 120.8
+  },
+  {
+   "surface": 8,
    "cells": 2,
-   "lines": 1,
-   "labelled": 3,
-   "seconds": 1.3
-  },
-  {
-   "surface": 0,
-   "cells": 4,
-   "lines": 5,
-   "labelled": 9,
-   "seconds": 4.9
-  },
-  {
-   "surface": 7,
-   "cells": 1,
    "lines": 0,
-   "labelled": 1,
-   "seconds": 1.3
+   "labelled": 2,
+   "seconds": 15.0
   },
   {
-   "surface": 4,
+   "surface": 9,
+   "cells": 4,
+   "lines": 3,
+   "labelled": 7,
+   "seconds": 29.8
+  },
+  {
+   "surface": 10,
+   "cells": 2,
+   "lines": 3,
+   "labelled": 5,
+   "seconds": 19.6
+  },
+  {
+   "surface": 11,
    "cells": 5,
    "lines": 8,
    "labelled": 13,
-   "seconds": 7.2
-  },
-  {
-   "surface": 6,
-   "cells": 4,
-   "lines": 7,
-   "labelled": 11,
-   "seconds": 9.8
-  },
-  {
-   "surface": 10,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 0.4
-  },
-  {
-   "surface": 9,
-   "cells": 5,
-   "lines": 7,
-   "labelled": 12,
-   "seconds": 6.4
-  },
-  {
-   "surface": 12,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
+   "seconds": 13.9
   },
   {
    "surface": 13,
-   "cells": 2,
-   "lines": 1,
-   "labelled": 3,
-   "seconds": 2.0
+   "cells": 4,
+   "lines": 3,
+   "labelled": 7,
+   "seconds": 27.0
   },
   {
-   "surface": 11,
-   "cells": 2,
+   "surface": 14,
+   "cells": 10,
    "lines": 7,
-   "labelled": 9,
-   "seconds": 3.6
-  },
-  {
-   "surface": 8,
-   "cells": 9,
-   "lines": 22,
-   "labelled": 31,
-   "seconds": 14.2
-  },
-  {
-   "surface": 1,
-   "cells": 8,
-   "lines": 10,
-   "labelled": 18,
-   "seconds": 21.1
+   "labelled": 17,
+   "seconds": 52.4
   },
   {
    "surface": 15,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 6.5
-  },
-  {
-   "surface": 18,
-   "cells": 1,
-   "lines": 3,
-   "labelled": 4,
-   "seconds": 2.2
-  },
-  {
-   "surface": 16,
-   "cells": 1,
-   "lines": 3,
-   "labelled": 4,
-   "seconds": 5.3
-  },
-  {
-   "surface": 20,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 3.5
-  },
-  {
-   "surface": 19,
-   "cells": 5,
-   "lines": 13,
-   "labelled": 18,
-   "seconds": 11.7
-  },
-  {
-   "surface": 14,
-   "cells": 11,
-   "lines": 10,
-   "labelled": 21,
+   "cells": 4,
+   "lines": 4,
+   "labelled": 8,
    "seconds": 21.0
   },
   {
-   "surface": 24,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 22,
-   "cells": 4,
-   "lines": 6,
-   "labelled": 10,
-   "seconds": 13.2
-  },
-  {
-   "surface": 21,
-   "cells": 6,
-   "lines": 10,
-   "labelled": 16,
-   "seconds": 21.6
-  },
-  {
-   "surface": 23,
-   "cells": 12,
-   "lines": 16,
-   "labelled": 28,
-   "seconds": 17.9
-  },
-  {
-   "surface": 25,
-   "cells": 12,
-   "lines": 14,
-   "labelled": 26,
-   "seconds": 16.9
-  },
-  {
-   "surface": 26,
-   "cells": 8,
-   "lines": 16,
-   "labelled": 24,
-   "seconds": 22.0
-  },
-  {
-   "surface": 2,
-   "cells": 1,
-   "lines": 3,
-   "labelled": 4,
-   "seconds": 1.6
-  },
-  {
-   "surface": 1,
-   "cells": 5,
-   "lines": 1,
-   "labelled": 6,
-   "seconds": 2.2
-  },
-  {
-   "surface": 0,
-   "cells": 3,
-   "lines": 7,
-   "labelled": 10,
-   "seconds": 5.3
-  },
-  {
-   "surface": 5,
-   "cells": 5,
-   "lines": 10,
-   "labelled": 15,
-   "seconds": 6.9
-  },
-  {
-   "surface": 7,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 3,
-   "cells": 2,
-   "lines": 6,
-   "labelled": 8,
-   "seconds": 9.8
-  },
-  {
-   "surface": 4,
-   "cells": 6,
-   "lines": 12,
-   "labelled": 18,
-   "seconds": 10.3
-  },
-  {
-   "surface": 8,
-   "cells": 3,
-   "lines": 6,
-   "labelled": 9,
-   "seconds": 4.3
-  },
-  {
-   "surface": 11,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 10,
-   "cells": 6,
-   "lines": 5,
-   "labelled": 11,
-   "seconds": 3.3
-  },
-  {
-   "surface": 14,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 0.2
-  },
-  {
-   "surface": 9,
-   "cells": 5,
-   "lines": 13,
-   "labelled": 18,
-   "seconds": 7.0
-  },
-  {
    "surface": 16,
-   "cells": 2,
-   "lines": 3,
-   "labelled": 5,
-   "seconds": 1.9
+   "cells": 4,
+   "lines": 4,
+   "labelled": 8,
+   "seconds": 19.6
   },
   {
-   "surface": 6,
-   "cells": 6,
-   "lines": 13,
-   "labelled": 19,
-   "seconds": 14.4
-  },
-  {
-   "surface": 20,
+   "surface": 17,
    "cells": 3,
-   "lines": 2,
-   "labelled": 5,
-   "seconds": 1.5
-  },
-  {
-   "surface": 19,
-   "cells": 3,
-   "lines": 6,
-   "labelled": 9,
-   "seconds": 5.3
+   "lines": 1,
+   "labelled": 4,
+   "seconds": 14.8
   },
   {
    "surface": 18,
-   "cells": 2,
-   "lines": 4,
-   "labelled": 6,
-   "seconds": 6.9
+   "cells": 8,
+   "lines": 9,
+   "labelled": 17,
+   "seconds": 41.1
   },
   {
-   "surface": 23,
-   "cells": 1,
-   "lines": 3,
-   "labelled": 4,
-   "seconds": 1.3
+   "surface": 20,
+   "cells": 5,
+   "lines": 4,
+   "labelled": 9,
+   "seconds": 20.9
   },
   {
    "surface": 21,
-   "cells": 3,
-   "lines": 2,
-   "labelled": 5,
-   "seconds": 4.5
+   "cells": 8,
+   "lines": 8,
+   "labelled": 16,
+   "seconds": 38.9
   },
   {
-   "surface": 13,
-   "cells": 3,
-   "lines": 7,
-   "labelled": 10,
-   "seconds": 13.6
-  },
-  {
-   "surface": 24,
-   "cells": 3,
-   "lines": 2,
-   "labelled": 5,
-   "seconds": 7.1
+   "surface": 23,
+   "cells": 6,
+   "lines": 11,
+   "labelled": 17,
+   "seconds": 32.0
   },
   {
    "surface": 25,
-   "cells": 2,
-   "lines": 5,
-   "labelled": 7,
-   "seconds": 19.2
+   "cells": 8,
+   "lines": 8,
+   "labelled": 16,
+   "seconds": 36.8
   },
   {
    "surface": 26,
-   "cells": 11,
-   "lines": 17,
-   "labelled": 28,
-   "seconds": 21.8
-  },
-  {
-   "surface": 2,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 3,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 5,
-   "cells": 1,
-   "lines": 2,
-   "labelled": 3,
-   "seconds": 1.8
-  },
-  {
-   "surface": 1,
-   "cells": 1,
-   "lines": 2,
-   "labelled": 3,
-   "seconds": 1.9
-  },
-  {
-   "surface": 7,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 6,
-   "cells": 1,
-   "lines": 3,
-   "labelled": 4,
-   "seconds": 2.1
-  },
-  {
-   "surface": 4,
-   "cells": 4,
-   "lines": 8,
-   "labelled": 12,
-   "seconds": 4.2
+   "cells": 2,
+   "lines": 7,
+   "labelled": 9,
+   "seconds": 5.9
   },
   {
    "surface": 0,
+   "cells": 4,
+   "lines": 0,
+   "labelled": 4,
+   "seconds": 11.6
+  },
+  {
+   "surface": 1,
+   "cells": 17,
+   "lines": 13,
+   "labelled": 30,
+   "seconds": 35.6
+  },
+  {
+   "surface": 2,
    "cells": 2,
-   "lines": 1,
+   "lines": 0,
+   "labelled": 2,
+   "seconds": 3.6
+  },
+  {
+   "surface": 3,
+   "cells": 3,
+   "lines": 0,
    "labelled": 3,
-   "seconds": 4.6
+   "seconds": 8.4
   },
   {
-   "surface": 10,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 0.4
+   "surface": 4,
+   "cells": 7,
+   "lines": 4,
+   "labelled": 11,
+   "seconds": 17.7
   },
   {
-   "surface": 11,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
+   "surface": 5,
+   "cells": 10,
+   "lines": 4,
+   "labelled": 14,
+   "seconds": 23.4
+  },
+  {
+   "surface": 6,
+   "cells": 4,
+   "lines": 2,
+   "labelled": 6,
+   "seconds": 10.5
+  },
+  {
+   "surface": 7,
+   "cells": 3,
+   "lines": 1,
+   "labelled": 4,
+   "seconds": 6.0
   },
   {
    "surface": 8,
-   "cells": 2,
+   "cells": 4,
    "lines": 3,
-   "labelled": 5,
-   "seconds": 2.8
+   "labelled": 7,
+   "seconds": 16.1
   },
   {
-   "surface": 14,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 12,
+   "surface": 9,
    "cells": 1,
    "lines": 0,
    "labelled": 1,
    "seconds": 0.8
   },
   {
-   "surface": 18,
-   "cells": 1,
+   "surface": 10,
+   "cells": 6,
    "lines": 1,
+   "labelled": 7,
+   "seconds": 14.0
+  },
+  {
+   "surface": 11,
+   "cells": 9,
+   "lines": 10,
+   "labelled": 19,
+   "seconds": 25.5
+  },
+  {
+   "surface": 12,
+   "cells": 2,
+   "lines": 0,
    "labelled": 2,
-   "seconds": 0.9
+   "seconds": 1.2
   },
   {
    "surface": 13,
-   "cells": 2,
-   "lines": 0,
-   "labelled": 2,
-   "seconds": 4.2
+   "cells": 6,
+   "lines": 5,
+   "labelled": 11,
+   "seconds": 18.1
   },
   {
-   "surface": 20,
-   "cells": 1,
-   "lines": 0,
-   "labelled": 1,
-   "seconds": 0.3
+   "surface": 14,
+   "cells": 16,
+   "lines": 11,
+   "labelled": 27,
+   "seconds": 48.0
   },
   {
    "surface": 16,
-   "cells": 1,
-   "lines": 2,
-   "labelled": 3,
-   "seconds": 5.1
+   "cells": 12,
+   "lines": 8,
+   "labelled": 20,
+   "seconds": 46.4
   },
   {
-   "surface": 21,
-   "cells": 2,
+   "surface": 17,
+   "cells": 1,
    "lines": 0,
-   "labelled": 2,
-   "seconds": 3.9
+   "labelled": 1,
+   "seconds": 0.2
+  },
+  {
+   "surface": 18,
+   "cells": 2,
+   "lines": 1,
+   "labelled": 3,
+   "seconds": 3.4
   },
   {
    "surface": 19,
-   "cells": 5,
-   "lines": 7,
-   "labelled": 12,
-   "seconds": 7.2
+   "cells": 18,
+   "lines": 17,
+   "labelled": 35,
+   "seconds": 32.5
   },
   {
-   "surface": 26,
-   "cells": 1,
-   "lines": 3,
-   "labelled": 4,
-   "seconds": 2.3
+   "surface": 20,
+   "cells": 13,
+   "lines": 10,
+   "labelled": 23,
+   "seconds": 18.7
+  },
+  {
+   "surface": 21,
+   "cells": 22,
+   "lines": 10,
+   "labelled": 32,
+   "seconds": 67.9
+  },
+  {
+   "surface": 22,
+   "cells": 5,
+   "lines": 5,
+   "labelled": 10,
+   "seconds": 12.2
   },
   {
    "surface": 23,
-   "cells": 3,
-   "lines": 8,
-   "labelled": 11,
-   "seconds": 8.3
+   "cells": 14,
+   "lines": 15,
+   "labelled": 29,
+   "seconds": 43.3
   },
   {
-   "surface": 9,
-   "cells": 3,
-   "lines": 6,
-   "labelled": 9,
-   "seconds": 15.7
+   "surface": 24,
+   "cells": 12,
+   "lines": 7,
+   "labelled": 19,
+   "seconds": 59.8
   },
   {
    "surface": 25,
+   "cells": 17,
+   "lines": 8,
+   "labelled": 25,
+   "seconds": 41.0
+  },
+  {
+   "surface": 26,
    "cells": 3,
-   "lines": 9,
-   "labelled": 12,
-   "seconds": 6.8
+   "lines": 2,
+   "labelled": 5,
+   "seconds": 1.3
+  },
+  {
+   "surface": 27,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 0.5
+  },
+  {
+   "surface": 0,
+   "cells": 3,
+   "lines": 3,
+   "labelled": 6,
+   "seconds": 4.7
+  },
+  {
+   "surface": 1,
+   "cells": 11,
+   "lines": 5,
+   "labelled": 16,
+   "seconds": 23.5
   },
   {
    "surface": 2,
+   "cells": 5,
+   "lines": 7,
+   "labelled": 12,
+   "seconds": 11.8
+  },
+  {
+   "surface": 3,
+   "cells": 2,
+   "lines": 3,
+   "labelled": 5,
+   "seconds": 8.6
+  },
+  {
+   "surface": 4,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 3.5
+  },
+  {
+   "surface": 5,
+   "cells": 2,
+   "lines": 1,
+   "labelled": 3,
+   "seconds": 1.1
+  },
+  {
+   "surface": 6,
+   "cells": 3,
+   "lines": 4,
+   "labelled": 7,
+   "seconds": 8.3
+  },
+  {
+   "surface": 8,
+   "cells": 9,
+   "lines": 10,
+   "labelled": 19,
+   "seconds": 21.2
+  },
+  {
+   "surface": 9,
+   "cells": 8,
+   "lines": 6,
+   "labelled": 14,
+   "seconds": 18.2
+  },
+  {
+   "surface": 10,
+   "cells": 23,
+   "lines": 20,
+   "labelled": 43,
+   "seconds": 79.5
+  },
+  {
+   "surface": 11,
+   "cells": 3,
+   "lines": 5,
+   "labelled": 8,
+   "seconds": 3.5
+  },
+  {
+   "surface": 13,
+   "cells": 8,
+   "lines": 10,
+   "labelled": 18,
+   "seconds": 23.4
+  },
+  {
+   "surface": 14,
+   "cells": 4,
+   "lines": 0,
+   "labelled": 4,
+   "seconds": 1.3
+  },
+  {
+   "surface": 15,
+   "cells": 15,
+   "lines": 12,
+   "labelled": 27,
+   "seconds": 57.3
+  },
+  {
+   "surface": 16,
+   "cells": 14,
+   "lines": 8,
+   "labelled": 22,
+   "seconds": 11.2
+  },
+  {
+   "surface": 17,
+   "cells": 9,
+   "lines": 11,
+   "labelled": 20,
+   "seconds": 36.1
+  },
+  {
+   "surface": 18,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 0.9
+  },
+  {
+   "surface": 19,
+   "cells": 9,
+   "lines": 7,
+   "labelled": 16,
+   "seconds": 11.8
+  },
+  {
+   "surface": 20,
+   "cells": 4,
+   "lines": 3,
+   "labelled": 7,
+   "seconds": 2.3
+  },
+  {
+   "surface": 21,
+   "cells": 9,
+   "lines": 5,
+   "labelled": 14,
+   "seconds": 26.3
+  },
+  {
+   "surface": 23,
+   "cells": 4,
+   "lines": 5,
+   "labelled": 9,
+   "seconds": 6.8
+  },
+  {
+   "surface": 24,
+   "cells": 3,
+   "lines": 5,
+   "labelled": 8,
+   "seconds": 23.9
+  },
+  {
+   "surface": 25,
+   "cells": 20,
+   "lines": 13,
+   "labelled": 33,
+   "seconds": 67.9
+  },
+  {
+   "surface": 26,
+   "cells": 3,
+   "lines": 0,
+   "labelled": 3,
+   "seconds": 0.8
+  },
+  {
+   "surface": 0,
+   "cells": 2,
+   "lines": 0,
+   "labelled": 2,
+   "seconds": 1.1
+  },
+  {
+   "surface": 1,
+   "cells": 14,
+   "lines": 12,
+   "labelled": 26,
+   "seconds": 29.5
+  },
+  {
+   "surface": 2,
+   "cells": 1,
+   "lines": 1,
+   "labelled": 2,
+   "seconds": 1.4
+  },
+  {
+   "surface": 3,
+   "cells": 3,
+   "lines": 3,
+   "labelled": 6,
+   "seconds": 5.8
+  },
+  {
+   "surface": 4,
+   "cells": 5,
+   "lines": 5,
+   "labelled": 10,
+   "seconds": 4.0
+  },
+  {
+   "surface": 6,
+   "cells": 4,
+   "lines": 5,
+   "labelled": 9,
+   "seconds": 9.2
+  },
+  {
+   "surface": 8,
+   "cells": 3,
+   "lines": 1,
+   "labelled": 4,
+   "seconds": 5.0
+  },
+  {
+   "surface": 9,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 0.9
+  },
+  {
+   "surface": 10,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 4.9
+  },
+  {
+   "surface": 13,
+   "cells": 3,
+   "lines": 1,
+   "labelled": 4,
+   "seconds": 7.8
+  },
+  {
+   "surface": 14,
+   "cells": 7,
+   "lines": 4,
+   "labelled": 11,
+   "seconds": 8.9
+  },
+  {
+   "surface": 15,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.0
+  },
+  {
+   "surface": 16,
+   "cells": 5,
+   "lines": 5,
+   "labelled": 10,
+   "seconds": 14.0
+  },
+  {
+   "surface": 17,
    "cells": 0,
    "lines": 0,
    "labelled": 0,
    "seconds": 0.1
   },
   {
+   "surface": 18,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 3.0
+  },
+  {
+   "surface": 19,
+   "cells": 6,
+   "lines": 5,
+   "labelled": 11,
+   "seconds": 13.3
+  },
+  {
+   "surface": 20,
+   "cells": 5,
+   "lines": 4,
+   "labelled": 9,
+   "seconds": 8.8
+  },
+  {
+   "surface": 21,
+   "cells": 15,
+   "lines": 15,
+   "labelled": 30,
+   "seconds": 41.5
+  },
+  {
+   "surface": 22,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 0.6
+  },
+  {
+   "surface": 23,
+   "cells": 7,
+   "lines": 4,
+   "labelled": 11,
+   "seconds": 25.1
+  },
+  {
+   "surface": 24,
+   "cells": 4,
+   "lines": 2,
+   "labelled": 6,
+   "seconds": 13.9
+  },
+  {
+   "surface": 25,
+   "cells": 13,
+   "lines": 12,
+   "labelled": 25,
+   "seconds": 33.3
+  },
+  {
+   "surface": 26,
+   "cells": 9,
+   "lines": 5,
+   "labelled": 14,
+   "seconds": 4.5
+  },
+  {
    "surface": 0,
+   "cells": 2,
+   "lines": 0,
+   "labelled": 2,
+   "seconds": 4.3
+  },
+  {
+   "surface": 1,
+   "cells": 5,
+   "lines": 0,
+   "labelled": 5,
+   "seconds": 9.6
+  },
+  {
+   "surface": 3,
    "cells": 0,
    "lines": 0,
    "labelled": 0,
-   "seconds": 0.2
+   "seconds": 0.1
   },
   {
    "surface": 4,
+   "cells": 2,
+   "lines": 0,
+   "labelled": 2,
+   "seconds": 0.3
+  },
+  {
+   "surface": 5,
+   "cells": 7,
+   "lines": 4,
+   "labelled": 11,
+   "seconds": 11.8
+  },
+  {
+   "surface": 6,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 2.6
+  },
+  {
+   "surface": 8,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.1
+  },
+  {
+   "surface": 9,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.1
+  },
+  {
+   "surface": 10,
+   "cells": 2,
+   "lines": 3,
+   "labelled": 5,
+   "seconds": 5.9
+  },
+  {
+   "surface": 11,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.1
+  },
+  {
+   "surface": 13,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.1
+  },
+  {
+   "surface": 14,
+   "cells": 5,
+   "lines": 1,
+   "labelled": 6,
+   "seconds": 5.4
+  },
+  {
+   "surface": 15,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 1.9
+  },
+  {
+   "surface": 18,
+   "cells": 2,
+   "lines": 3,
+   "labelled": 5,
+   "seconds": 13.7
+  },
+  {
+   "surface": 19,
+   "cells": 2,
+   "lines": 0,
+   "labelled": 2,
+   "seconds": 0.3
+  },
+  {
+   "surface": 20,
+   "cells": 3,
+   "lines": 1,
+   "labelled": 4,
+   "seconds": 10.6
+  },
+  {
+   "surface": 21,
+   "cells": 5,
+   "lines": 2,
+   "labelled": 7,
+   "seconds": 6.2
+  },
+  {
+   "surface": 22,
+   "cells": 1,
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 0.6
+  },
+  {
+   "surface": 23,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.1
+  },
+  {
+   "surface": 24,
+   "cells": 2,
+   "lines": 4,
+   "labelled": 6,
+   "seconds": 2.7
+  },
+  {
+   "surface": 25,
+   "cells": 4,
+   "lines": 0,
+   "labelled": 4,
+   "seconds": 0.7
+  },
+  {
+   "surface": 26,
+   "cells": 2,
+   "lines": 1,
+   "labelled": 3,
+   "seconds": 1.4
+  },
+  {
+   "surface": 1,
    "cells": 0,
    "lines": 0,
    "labelled": 0,
@@ -1035,35 +832,35 @@
    "seconds": 0.1
   },
   {
-   "surface": 1,
-   "cells": 0,
+   "surface": 10,
+   "cells": 1,
    "lines": 0,
-   "labelled": 0,
-   "seconds": 0.3
+   "labelled": 1,
+   "seconds": 0.2
   },
   {
-   "surface": 8,
+   "surface": 14,
    "cells": 0,
    "lines": 0,
    "labelled": 0,
    "seconds": 0.1
   },
   {
-   "surface": 13,
-   "cells": 0,
+   "surface": 15,
+   "cells": 1,
    "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
+   "labelled": 1,
+   "seconds": 3.5
   },
   {
    "surface": 16,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
+   "cells": 2,
+   "lines": 2,
+   "labelled": 4,
+   "seconds": 1.6
   },
   {
-   "surface": 18,
+   "surface": 17,
    "cells": 0,
    "lines": 0,
    "labelled": 0,
@@ -1081,21 +878,21 @@
    "cells": 0,
    "lines": 0,
    "labelled": 0,
-   "seconds": 0.1
+   "seconds": 0.0
   },
   {
    "surface": 21,
-   "cells": 0,
+   "cells": 1,
    "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
+   "labelled": 1,
+   "seconds": 4.6
   },
   {
-   "surface": 3,
+   "surface": 23,
    "cells": 1,
-   "lines": 2,
-   "labelled": 3,
-   "seconds": 1.9
+   "lines": 1,
+   "labelled": 2,
+   "seconds": 1.0
   },
   {
    "surface": 24,
@@ -1105,213 +902,71 @@
    "seconds": 0.0
   },
   {
-   "surface": 26,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 23,
-   "cells": 1,
-   "lines": 2,
-   "labelled": 3,
-   "seconds": 1.1
-  },
-  {
-   "surface": 5,
-   "cells": 2,
-   "lines": 5,
-   "labelled": 7,
-   "seconds": 2.9
-  },
-  {
-   "surface": 9,
-   "cells": 2,
-   "lines": 4,
-   "labelled": 6,
-   "seconds": 3.1
-  },
-  {
-   "surface": 2,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 1,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 13,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 19,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.0
-  },
-  {
-   "surface": 20,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.0
-  },
-  {
-   "surface": 4,
+   "surface": 25,
    "cells": 1,
    "lines": 0,
    "labelled": 1,
-   "seconds": 1.1
+   "seconds": 3.4
   },
   {
    "surface": 26,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.0
+  },
+  {
+   "surface": 16,
+   "cells": 0,
+   "lines": 0,
+   "labelled": 0,
+   "seconds": 0.1
+  },
+  {
+   "surface": 25,
    "cells": 1,
-   "lines": 4,
-   "labelled": 5,
-   "seconds": 1.8
+   "lines": 0,
+   "labelled": 1,
+   "seconds": 0.2
   },
   {
-   "surface": 10,
-   "cells": 2,
-   "lines": 2,
-   "labelled": 4,
-   "seconds": 9.1
-  },
-  {
-   "surface": 5,
+   "surface": 26,
    "cells": 0,
    "lines": 0,
    "labelled": 0,
    "seconds": 0.0
-  },
-  {
-   "surface": 2,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.0
-  },
-  {
-   "surface": 9,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.0
-  },
-  {
-   "surface": 1,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
-  },
-  {
-   "surface": 20,
-   "cells": 2,
-   "lines": 2,
-   "labelled": 4,
-   "seconds": 4.0
-  },
-  {
-   "surface": 4,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.0
-  },
-  {
-   "surface": 10,
-   "cells": 0,
-   "lines": 0,
-   "labelled": 0,
-   "seconds": 0.1
   }
  ],
  "candidates": {
   "01f5277e9331": {
    "kind": "wall",
    "seed": [
-    0.05668025255565531,
-    0.20828550221644318,
-    0.10249022177507289,
-    0.6325440234528287
+    0.1413968112101275,
+    0.13697241643629357,
+    0.06739947422281448,
+    0.6542312981307644
    ],
    "surfaces": [
     "-14*sqrt(2)*b1**2*b3**2 - 6*sqrt(10)*b1**2*b3**2 + 18*b1**2*b3**2 + 10*sqrt(5)*b1**2*b3**2 - 12*sqrt(2)*b1**2*b3*b4 - 4*sqrt(10)*b1**2*b3*b4 + 4*b1**2*b3*b4 + 12*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b4**2 - 4*sqrt(5)*b1**2*b4**2 + 8*sqrt(2)*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 - 28*sqrt(2)*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3**2 + 36*b1*b2*b3**2 + 20*sqrt(5)*b1*b2*b3**2 - 24*sqrt(2)*b1*b2*b3*b4 - 8*sqrt(10)*b1*b2*b3*b4 + 8*b1*b2*b3*b4 + 24*sqrt(5)*b1*b2*b3*b4 - 32*b1*b2*b4**2 - 8*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 8*sqrt(10)*b1*b2*b4**2 - 18*sqrt(2)*b1*b3**3 - 8*sqrt(10)*b1*b3**3 + 24*b1*b3**3 + 12*sqrt(5)*b1*b3**3 - 27*sqrt(2)*b1*b3**2*b4 - 11*sqrt(10)*b1*b3**2*b4 + 28*b1*b3**2*b4 + 20*sqrt(5)*b1*b3**2*b4 - 10*b1*b3*b4**2 - 3*sqrt(2)*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 + 3*sqrt(10)*b1*b3*b4**2 - 12*b1*b4**3 - 4*sqrt(5)*b1*b4**3 + 6*sqrt(2)*b1*b4**3 + 4*sqrt(10)*b1*b4**3 - 6*sqrt(10)*b2**2*b3**2 - 12*sqrt(2)*b2**2*b3**2 + 6*sqrt(5)*b2**2*b3**2 + 24*b2**2*b3**2 - 6*sqrt(10)*b2**2*b3*b4 - 6*sqrt(5)*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b3*b4 + 42*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b4**2 - 3*b2**2*b4**2 + 3*sqrt(10)*b2**2*b4**2 + 9*sqrt(2)*b2**2*b4**2 - 17*sqrt(2)*b2*b3**3 - 7*sqrt(10)*b2*b3**3 + 7*sqrt(5)*b2*b3**3 + 31*b2*b3**3 - 29*sqrt(2)*b2*b3**2*b4 - 9*sqrt(10)*b2*b3**2*b4 - 5*sqrt(5)*b2*b3**2*b4 + 81*b2*b3**2*b4 - 20*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 3*sqrt(10)*b2*b3*b4**2 + 42*b2*b3*b4**2 - 9*sqrt(5)*b2*b4**3 - b2*b4**3 + 6*sqrt(2)*b2*b4**3 + 4*sqrt(10)*b2*b4**3 - 6*sqrt(2)*b3**4 - 2*sqrt(10)*b3**4 + 2*sqrt(5)*b3**4 + 10*b3**4 - 17*sqrt(2)*b3**3*b4 - 3*sqrt(10)*b3**3*b4 - sqrt(5)*b3**3*b4 + 35*b3**3*b4 - 9*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3**2*b4**2 + sqrt(10)*b3**2*b4**2 + 35*b3**2*b4**2 - 8*sqrt(5)*b3*b4**3 - sqrt(2)*b3*b4**3 + 3*sqrt(10)*b3*b4**3 + 10*b3*b4**3 - 2*sqrt(5)*b4**4 + sqrt(2)*b4**4 + sqrt(10)*b4**4",
     "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 82*b1**2*b2*b3 - 34*sqrt(5)*b1**2*b2*b3 + 54*sqrt(2)*b1**2*b2*b3 + 26*sqrt(10)*b1**2*b2*b3 - 34*b1**2*b2*b4 - 14*sqrt(5)*b1**2*b2*b4 + 20*sqrt(2)*b1**2*b2*b4 + 12*sqrt(10)*b1**2*b2*b4 - 6*sqrt(2)*b1**2*b3*b4 - 2*sqrt(10)*b1**2*b3*b4 + 2*sqrt(5)*b1**2*b3*b4 + 10*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 76*sqrt(5)*b1*b2**2*b3 - 164*b1*b2**2*b3 + 52*sqrt(10)*b1*b2**2*b3 + 122*sqrt(2)*b1*b2**2*b3 - 36*sqrt(5)*b1*b2**2*b4 - 60*b1*b2**2*b4 + 21*sqrt(10)*b1*b2**2*b4 + 53*sqrt(2)*b1*b2**2*b4 - 18*sqrt(5)*b1*b2*b3**2 - 38*b1*b2*b3**2 + 27*sqrt(2)*b1*b2*b3**2 + 13*sqrt(10)*b1*b2*b3**2 - 10*sqrt(5)*b1*b2*b3*b4 - 2*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 + 4*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b4**2 - 2*sqrt(5)*b1*b2*b4**2 + sqrt(10)*b1*b2*b4**2 + 5*sqrt(2)*b1*b2*b4**2 - 3*sqrt(10)*b1*b3**2*b4 - 5*sqrt(2)*b1*b3**2*b4 + 8*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 39*sqrt(5)*b2**3*b3 - 87*b2**3*b3 + 62*sqrt(2)*b2**3*b3 + 28*sqrt(10)*b2**3*b3 - 41*b2**3*b4 - 15*sqrt(5)*b2**3*b4 + 26*sqrt(2)*b2**3*b4 + 12*sqrt(10)*b2**3*b4 - 19*sqrt(5)*b2**2*b3**2 - 41*b2**2*b3**2 + 13*sqrt(10)*b2**2*b3**2 + 31*sqrt(2)*b2**2*b3**2 - 25*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 + 18*sqrt(2)*b2**2*b3*b4 - 8*b2**2*b4**2 - 2*sqrt(5)*b2**2*b4**2 + 4*sqrt(2)*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 3*sqrt(5)*b2*b3**3 - 5*b2*b3**3 + 4*sqrt(2)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 - 3*sqrt(10)*b2*b3**2*b4 + sqrt(2)*b2*b3**2*b4 + 4*b2*b3**2*b4 + 2*sqrt(5)*b2*b3**2*b4 - 4*b2*b3*b4**2 - sqrt(10)*b2*b3*b4**2 - sqrt(2)*b2*b3*b4**2 + 4*sqrt(5)*b2*b3*b4**2 - 2*sqrt(10)*b3**3*b4 - 3*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 3*sqrt(5)*b3**3*b4 - 5*b3**2*b4**2 - sqrt(10)*b3**2*b4**2 + sqrt(2)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2"
    ],
-   "hits": 115,
+   "hits": 42,
    "signature": "1440: cells 240x[12v20f]+480x[6v8f]+1440x[4v4f]+1440x[4v4f] | faces 480x3g+960x3g+2880x3g+2880x3g+2880x3g | edges 720x4+1440x3+1440x4+1440x4+2880x4"
   },
   "aeb4251bed5c": {
    "kind": "wall",
    "seed": [
-    0.05402683130617697,
-    0.15201586584121307,
-    0.22059579534151239,
-    0.5733615075110976
+    0.07391452629903127,
+    0.1426963076815262,
+    0.19751485198759625,
+    0.5858743140318464
    ],
    "surfaces": [
     "-24*sqrt(2)*b1**3*b2 - 8*sqrt(10)*b1**3*b2 + 12*sqrt(5)*b1**3*b2 + 28*b1**3*b2 - 8*sqrt(5)*b1**3*b3 - 16*b1**3*b3 + 8*sqrt(2)*b1**3*b3 + 8*sqrt(10)*b1**3*b3 - 32*sqrt(10)*b1**2*b2**2 - 60*sqrt(2)*b1**2*b2**2 + 84*b1**2*b2**2 + 40*sqrt(5)*b1**2*b2**2 - 16*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 18*sqrt(2)*b1**2*b2*b3 - 4*sqrt(10)*b1**2*b2*b4 - 8*sqrt(2)*b1**2*b2*b4 + 8*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 - 34*b1**2*b3**2 - 10*sqrt(5)*b1**2*b3**2 + 8*sqrt(10)*b1**2*b3**2 + 24*sqrt(2)*b1**2*b3**2 - 16*b1**2*b3*b4 + 2*sqrt(10)*b1**2*b3*b4 + 6*sqrt(2)*b1**2*b3*b4 - 67*sqrt(2)*b1*b2**3 - 29*sqrt(10)*b1*b2**3 + 38*sqrt(5)*b1*b2**3 + 90*b1*b2**3 - 28*sqrt(2)*b1*b2**2*b3 - 8*sqrt(10)*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 + 42*b1*b2**2*b3 - 17*sqrt(2)*b1*b2**2*b4 - 7*sqrt(10)*b1*b2**2*b4 + 8*sqrt(5)*b1*b2**2*b4 + 32*b1*b2**2*b4 - 20*sqrt(5)*b1*b2*b3**2 - 24*b1*b2*b3**2 + 20*sqrt(2)*b1*b2*b3**2 + 14*sqrt(10)*b1*b2*b3**2 - 8*sqrt(5)*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 2*sqrt(10)*b1*b2*b3*b4 + 8*b1*b2*b3*b4 - 6*sqrt(5)*b1*b3**3 - 10*b1*b3**3 + 8*sqrt(2)*b1*b3**3 + 4*sqrt(10)*b1*b3**3 - 4*sqrt(5)*b1*b3**2*b4 - 4*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 2*sqrt(10)*b1*b3**2*b4 - 21*sqrt(2)*b2**4 - 9*sqrt(10)*b2**4 + 12*sqrt(5)*b2**4 + 28*b2**4 - 14*sqrt(2)*b2**3*b3 - 6*sqrt(10)*b2**3*b3 + 8*sqrt(5)*b2**3*b3 + 20*b2**3*b3 - 7*sqrt(2)*b2**3*b4 - 3*sqrt(10)*b2**3*b4 + 4*sqrt(5)*b2**3*b4 + 12*b2**3*b4 - 12*b2**2*b3**2 - 4*sqrt(5)*b2**2*b3**2 + 3*sqrt(10)*b2**2*b3**2 + 9*sqrt(2)*b2**2*b3**2 - 10*b2*b3**3 - 2*sqrt(5)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 + 6*sqrt(2)*b2*b3**3 - 8*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 3*sqrt(2)*b2*b3**2*b4",
     "-4*sqrt(10)*b1**2*b2**2 - 8*sqrt(2)*b1**2*b2**2 + 8*b1**2*b2**2 + 8*sqrt(5)*b1**2*b2**2 - 32*b1**2*b2*b3 + 4*sqrt(10)*b1**2*b2*b3 + 12*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3**2 + 6*sqrt(10)*b1**2*b3**2 + 14*sqrt(2)*b1**2*b3**2 - 19*sqrt(2)*b1*b2**3 - 7*sqrt(10)*b1*b2**3 + 10*sqrt(5)*b1*b2**3 + 30*b1*b2**3 - 12*sqrt(5)*b1*b2**2*b3 - 4*b1*b2**2*b3 + 2*sqrt(2)*b1*b2**2*b3 + 8*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 6*b1*b2**2*b4 - 64*b1*b2*b3**2 - 28*sqrt(5)*b1*b2*b3**2 + 33*sqrt(2)*b1*b2*b3**2 + 23*sqrt(10)*b1*b2*b3**2 - 8*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(5)*b1*b2*b3*b4 - 4*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 - 28*b1*b3**3 - 12*sqrt(5)*b1*b3**3 + 17*sqrt(2)*b1*b3**3 + 9*sqrt(10)*b1*b3**3 - 4*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 4*sqrt(10)*b1*b3**2*b4 - 4*sqrt(10)*b2**4 - 8*sqrt(2)*b2**4 + 12*b2**4 + 6*sqrt(5)*b2**4 - sqrt(10)*b2**3*b3 - b2**3*b3 + sqrt(2)*b2**3*b3 + sqrt(5)*b2**3*b3 - 2*sqrt(10)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 4*b2**3*b4 + 2*sqrt(5)*b2**3*b4 - 17*sqrt(5)*b2**2*b3**2 - 33*b2**2*b3**2 + 23*sqrt(2)*b2**2*b3**2 + 11*sqrt(10)*b2**2*b3**2 - 3*b2**2*b3*b4 - sqrt(5)*b2**2*b3*b4 + 4*sqrt(2)*b2**2*b3*b4 - 16*sqrt(5)*b2*b3**3 - 30*b2*b3**3 + 18*sqrt(2)*b2*b3**3 + 12*sqrt(10)*b2*b3**3 - 5*sqrt(5)*b2*b3**2*b4 - 9*b2*b3**2*b4 + 2*sqrt(2)*b2*b3**2*b4 + 6*sqrt(10)*b2*b3**2*b4 - 4*sqrt(5)*b3**4 - 8*b3**4 + 5*sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 - 4*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 2*sqrt(10)*b3**3*b4"
    ],
-   "hits": 203,
+   "hits": 32,
    "signature": "2880: cells 240x[24v32f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 480x6g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x5+1440x6+2880x3+2880x4"
-  },
-  "e1533a634b52": {
-   "kind": "wall",
-   "seed": [
-    0.03134156109378706,
-    0.3194522948983838,
-    0.15719162496806086,
-    0.4920145190397683
-   ],
-   "surfaces": [
-    "-4*sqrt(10)*b1**2*b2**2 - 8*sqrt(2)*b1**2*b2**2 + 8*b1**2*b2**2 + 8*sqrt(5)*b1**2*b2**2 - 32*b1**2*b2*b3 + 4*sqrt(10)*b1**2*b2*b3 + 12*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3**2 + 6*sqrt(10)*b1**2*b3**2 + 14*sqrt(2)*b1**2*b3**2 - 22*sqrt(2)*b1*b2**3 - 8*sqrt(10)*b1*b2**3 + 10*sqrt(5)*b1*b2**3 + 38*b1*b2**3 - 24*sqrt(5)*b1*b2**2*b3 + 5*sqrt(2)*b1*b2**2*b3 + 8*b1*b2**2*b3 + 11*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 6*b1*b2**2*b4 - 40*sqrt(5)*b1*b2*b3**2 - 44*b1*b2*b3**2 + 33*sqrt(2)*b1*b2*b3**2 + 25*sqrt(10)*b1*b2*b3**2 - 8*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(5)*b1*b2*b3*b4 - 4*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 - 12*sqrt(5)*b1*b3**3 - 20*b1*b3**3 + 14*sqrt(2)*b1*b3**3 + 8*sqrt(10)*b1*b3**3 - 4*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 4*sqrt(10)*b1*b3**2*b4 - 6*sqrt(10)*b2**4 - 10*sqrt(2)*b2**4 + 15*b2**4 + 9*sqrt(5)*b2**4 - 17*b2**3*b3 - 3*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 13*sqrt(2)*b2**3*b3 - 4*sqrt(10)*b2**3*b4 + 5*b2**3*b4 + 3*sqrt(5)*b2**3*b4 - 60*b2**2*b3**2 - 14*sqrt(5)*b2**2*b3**2 + 6*sqrt(10)*b2**2*b3**2 + 48*sqrt(2)*b2**2*b3**2 - 6*sqrt(10)*b2**2*b3*b4 - 9*b2**2*b3*b4 - sqrt(5)*b2**2*b3*b4 + 22*sqrt(2)*b2**2*b3*b4 - 37*b2*b3**3 - 11*sqrt(5)*b2*b3**3 + 5*sqrt(10)*b2*b3**3 + 31*sqrt(2)*b2*b3**3 - 14*b2*b3**2*b4 - 4*sqrt(5)*b2*b3**2*b4 - 2*sqrt(10)*b2*b3**2*b4 + 22*sqrt(2)*b2*b3**2*b4 - 6*b3**4 - 2*sqrt(5)*b3**4 + sqrt(10)*b3**4 + 5*sqrt(2)*b3**4 - 3*b3**3*b4 - sqrt(5)*b3**3*b4 + 4*sqrt(2)*b3**3*b4",
-    "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3"
-   ],
-   "hits": 24,
-   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[6v5f]+1440x[6v6f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x4g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x10+2880x3+2880x3+2880x5"
-  },
-  "36b0a6557c03": {
-   "kind": "wall",
-   "seed": [
-    0.10964685248081922,
-    0.02145345733814767,
-    0.36504190205620374,
-    0.5038577881248294
-   ],
-   "surfaces": [
-    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2",
-    "-40*b1**4 - 16*sqrt(5)*b1**4 + 12*sqrt(10)*b1**4 + 28*sqrt(2)*b1**4 - 200*b1**3*b2 - 88*sqrt(5)*b1**3*b2 + 64*sqrt(10)*b1**3*b2 + 144*sqrt(2)*b1**3*b2 - 24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 166*sqrt(5)*b1**2*b2**2 - 350*b1**2*b2**2 + 258*sqrt(2)*b1**2*b2**2 + 118*sqrt(10)*b1**2*b2**2 - 110*sqrt(5)*b1**2*b2*b3 - 222*b1**2*b2*b3 + 74*sqrt(10)*b1**2*b2*b3 + 166*sqrt(2)*b1**2*b2*b3 - 70*sqrt(5)*b1**2*b2*b4 - 130*b1**2*b2*b4 + 102*sqrt(2)*b1**2*b2*b4 + 46*sqrt(10)*b1**2*b2*b4 - 6*sqrt(5)*b1**2*b3**2 - 2*b1**2*b3**2 + 2*sqrt(10)*b1**2*b3**2 + 6*sqrt(2)*b1**2*b3**2 - 14*sqrt(5)*b1**2*b3*b4 - 14*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 + 18*sqrt(2)*b1**2*b3*b4 - 6*sqrt(5)*b1**2*b4**2 - 2*b1**2*b4**2 + 2*sqrt(10)*b1**2*b4**2 + 6*sqrt(2)*b1**2*b4**2 - 280*b1*b2**3 - 120*sqrt(5)*b1*b2**3 + 88*sqrt(10)*b1*b2**3 + 200*sqrt(2)*b1*b2**3 - 312*b1*b2**2*b3 - 132*sqrt(5)*b1*b2**2*b3 + 212*sqrt(2)*b1*b2**2*b3 + 98*sqrt(10)*b1*b2**2*b3 - 200*b1*b2**2*b4 - 72*sqrt(5)*b1*b2**2*b4 + 127*sqrt(2)*b1*b2**2*b4 + 59*sqrt(10)*b1*b2**2*b4 - 68*b1*b2*b3**2 - 28*sqrt(5)*b1*b2*b3**2 + 42*sqrt(2)*b1*b2*b3**2 + 22*sqrt(10)*b1*b2*b3**2 - 108*b1*b2*b3*b4 - 36*sqrt(5)*b1*b2*b3*b4 + 60*sqrt(2)*b1*b2*b3*b4 + 32*sqrt(10)*b1*b2*b3*b4 - 32*b1*b2*b4**2 - 8*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 8*sqrt(10)*b1*b2*b4**2 - 7*sqrt(2)*b1*b3**3 - 3*sqrt(10)*b1*b3**3 + 6*b1*b3**3 + 6*sqrt(5)*b1*b3**3 - 7*sqrt(2)*b1*b3**2*b4 - sqrt(10)*b1*b3**2*b4 + 4*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 75*b2**4 - 33*sqrt(5)*b2**4 + 24*sqrt(10)*b2**4 + 54*sqrt(2)*b2**4 - 129*b2**3*b3 - 49*sqrt(5)*b2**3*b3 + 37*sqrt(10)*b2**3*b3 + 87*sqrt(2)*b2**3*b3 - 73*b2**3*b4 - 31*sqrt(5)*b2**3*b4 + 51*sqrt(2)*b2**3*b4 + 23*sqrt(10)*b2**3*b4 - 80*b2**2*b3**2 - 12*sqrt(5)*b2**2*b3**2 + 37*sqrt(2)*b2**2*b3**2 + 17*sqrt(10)*b2**2*b3**2 - 95*b2**2*b3*b4 - 19*sqrt(5)*b2**2*b3*b4 + 45*sqrt(2)*b2**2*b3*b4 + 23*sqrt(10)*b2**2*b3*b4 - 17*b2**2*b4**2 - 7*sqrt(5)*b2**2*b4**2 + 11*sqrt(2)*b2**2*b4**2 + 5*sqrt(10)*b2**2*b4**2 - 21*b2*b3**3 - 4*sqrt(2)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 + 9*sqrt(5)*b2*b3**3 - 42*b2*b3**2*b4 - sqrt(2)*b2*b3**2*b4 + 5*sqrt(10)*b2*b3**2*b4 + 12*sqrt(5)*b2*b3**2*b4 - 14*b2*b3*b4**2 + 2*sqrt(2)*b2*b3*b4**2 + 2*sqrt(5)*b2*b3*b4**2 + 2*sqrt(10)*b2*b3*b4**2 - 4*sqrt(2)*b3**4 - b3**4 + 3*sqrt(5)*b3**4 - 6*sqrt(2)*b3**3*b4 - 7*b3**3*b4 + 7*sqrt(5)*b3**3*b4 - 6*b3**2*b4**2 - 2*sqrt(2)*b3**2*b4**2 + 4*sqrt(5)*b3**2*b4**2"
-   ],
-   "hits": 13,
-   "signature": "2880: cells 240x[24v32f]+480x[6v5f]+720x[8v10f]+1440x[4v4f] | faces 480x6g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x3+1440x4+1440x4+2880x3+2880x3"
-  },
-  "61a14f3dab2f": {
-   "kind": "wall",
-   "seed": [
-    0.10967891023823856,
-    0.021388636450291605,
-    0.3651042936275555,
-    0.5038281596839144
-   ],
-   "surfaces": [
-    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2"
-   ],
-   "hits": 10,
-   "signature": "2880: cells 240x[24v32f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 480x6g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x3+1440x4+1440x4+1440x4+1440x6+2880x4+2880x4"
   },
   "699d75f79d77": {
    "kind": "wall",
@@ -1325,23 +980,8 @@
     "-24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 68*sqrt(5)*b1**2*b2*b3 - 144*b1**2*b2*b3 + 46*sqrt(10)*b1**2*b2*b3 + 106*sqrt(2)*b1**2*b2*b3 - 46*sqrt(5)*b1**2*b2*b4 - 94*b1**2*b2*b4 + 30*sqrt(10)*b1**2*b2*b4 + 74*sqrt(2)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 24*sqrt(10)*b1**2*b3**2 + 60*sqrt(2)*b1**2*b3**2 - 36*sqrt(5)*b1**2*b3*b4 - 72*b1**2*b3*b4 + 22*sqrt(10)*b1**2*b3*b4 + 58*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 150*b1*b2**2*b3 - 58*sqrt(5)*b1*b2**2*b3 + 43*sqrt(10)*b1*b2**2*b3 + 101*sqrt(2)*b1*b2**2*b3 - 96*b1*b2**2*b4 - 40*sqrt(5)*b1*b2**2*b4 + 62*sqrt(2)*b1*b2**2*b4 + 32*sqrt(10)*b1*b2**2*b4 - 164*b1*b2*b3**2 - 60*sqrt(5)*b1*b2*b3**2 + 43*sqrt(10)*b1*b2*b3**2 + 115*sqrt(2)*b1*b2*b3**2 - 148*b1*b2*b3*b4 - 60*sqrt(5)*b1*b2*b3*b4 + 44*sqrt(10)*b1*b2*b3*b4 + 100*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b4**2 - 12*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 10*sqrt(10)*b1*b2*b4**2 - 40*b1*b3**3 - 16*sqrt(5)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 + 29*sqrt(2)*b1*b3**3 - 40*b1*b3**2*b4 - 16*sqrt(5)*b1*b3**2*b4 + 11*sqrt(10)*b1*b3**2*b4 + 29*sqrt(2)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 - 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 - sqrt(10)*b1*b4**3 + 4*b1*b4**3 + 4*sqrt(5)*b1*b4**3 - 21*sqrt(5)*b2**3*b3 - 39*b2**3*b3 + 27*sqrt(2)*b2**3*b3 + 15*sqrt(10)*b2**3*b3 - 30*b2**3*b4 - 12*sqrt(5)*b2**3*b4 + 9*sqrt(10)*b2**3*b4 + 21*sqrt(2)*b2**3*b4 - 36*sqrt(5)*b2**2*b3**2 - 56*b2**2*b3**2 + 34*sqrt(2)*b2**2*b3**2 + 28*sqrt(10)*b2**2*b3**2 - 67*b2**2*b3*b4 - 29*sqrt(5)*b2**2*b3*b4 + 37*sqrt(2)*b2**2*b3*b4 + 25*sqrt(10)*b2**2*b3*b4 - 18*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 4*sqrt(10)*b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 22*sqrt(5)*b2*b3**3 - 20*b2*b3**3 + 11*sqrt(2)*b2*b3**3 + 17*sqrt(10)*b2*b3**3 - 21*sqrt(5)*b2*b3**2*b4 - 25*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 20*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 - 10*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 + 6*sqrt(5)*b2*b3*b4**2 - 10*sqrt(2)*b2*b4**3 - 4*b2*b4**3 + 8*sqrt(5)*b2*b4**3 - 4*sqrt(5)*b3**4 - 2*b3**4 + sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 2*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 14*sqrt(2)*b3**2*b4**2 + 9*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 4*b3*b4**3 + 8*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4",
     "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2"
    ],
-   "hits": 15,
+   "hits": 12,
    "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[6v6f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x6+1440x6+1440x7+1440x8+2880x3+2880x3+2880x4+2880x4"
-  },
-  "074abe9545a5": {
-   "kind": "wall",
-   "seed": [
-    0.5651213484874418,
-    0.008584506420407131,
-    0.33940669067760937,
-    0.08688745441454182
-   ],
-   "surfaces": [
-    "-24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 68*sqrt(5)*b1**2*b2*b3 - 144*b1**2*b2*b3 + 46*sqrt(10)*b1**2*b2*b3 + 106*sqrt(2)*b1**2*b2*b3 - 46*sqrt(5)*b1**2*b2*b4 - 94*b1**2*b2*b4 + 30*sqrt(10)*b1**2*b2*b4 + 74*sqrt(2)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 24*sqrt(10)*b1**2*b3**2 + 60*sqrt(2)*b1**2*b3**2 - 36*sqrt(5)*b1**2*b3*b4 - 72*b1**2*b3*b4 + 22*sqrt(10)*b1**2*b3*b4 + 58*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 150*b1*b2**2*b3 - 58*sqrt(5)*b1*b2**2*b3 + 43*sqrt(10)*b1*b2**2*b3 + 101*sqrt(2)*b1*b2**2*b3 - 96*b1*b2**2*b4 - 40*sqrt(5)*b1*b2**2*b4 + 62*sqrt(2)*b1*b2**2*b4 + 32*sqrt(10)*b1*b2**2*b4 - 164*b1*b2*b3**2 - 60*sqrt(5)*b1*b2*b3**2 + 43*sqrt(10)*b1*b2*b3**2 + 115*sqrt(2)*b1*b2*b3**2 - 148*b1*b2*b3*b4 - 60*sqrt(5)*b1*b2*b3*b4 + 44*sqrt(10)*b1*b2*b3*b4 + 100*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b4**2 - 12*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 10*sqrt(10)*b1*b2*b4**2 - 40*b1*b3**3 - 16*sqrt(5)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 + 29*sqrt(2)*b1*b3**3 - 40*b1*b3**2*b4 - 16*sqrt(5)*b1*b3**2*b4 + 11*sqrt(10)*b1*b3**2*b4 + 29*sqrt(2)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 - 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 - sqrt(10)*b1*b4**3 + 4*b1*b4**3 + 4*sqrt(5)*b1*b4**3 - 21*sqrt(5)*b2**3*b3 - 39*b2**3*b3 + 27*sqrt(2)*b2**3*b3 + 15*sqrt(10)*b2**3*b3 - 30*b2**3*b4 - 12*sqrt(5)*b2**3*b4 + 9*sqrt(10)*b2**3*b4 + 21*sqrt(2)*b2**3*b4 - 36*sqrt(5)*b2**2*b3**2 - 56*b2**2*b3**2 + 34*sqrt(2)*b2**2*b3**2 + 28*sqrt(10)*b2**2*b3**2 - 67*b2**2*b3*b4 - 29*sqrt(5)*b2**2*b3*b4 + 37*sqrt(2)*b2**2*b3*b4 + 25*sqrt(10)*b2**2*b3*b4 - 18*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 4*sqrt(10)*b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 22*sqrt(5)*b2*b3**3 - 20*b2*b3**3 + 11*sqrt(2)*b2*b3**3 + 17*sqrt(10)*b2*b3**3 - 21*sqrt(5)*b2*b3**2*b4 - 25*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 20*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 - 10*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 + 6*sqrt(5)*b2*b3*b4**2 - 10*sqrt(2)*b2*b4**3 - 4*b2*b4**3 + 8*sqrt(5)*b2*b4**3 - 4*sqrt(5)*b3**4 - 2*b3**4 + sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 2*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 14*sqrt(2)*b3**2*b4**2 + 9*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 4*b3*b4**3 + 8*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4",
-    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 82*b1**2*b2*b3 - 34*sqrt(5)*b1**2*b2*b3 + 54*sqrt(2)*b1**2*b2*b3 + 26*sqrt(10)*b1**2*b2*b3 - 34*b1**2*b2*b4 - 14*sqrt(5)*b1**2*b2*b4 + 20*sqrt(2)*b1**2*b2*b4 + 12*sqrt(10)*b1**2*b2*b4 - 6*sqrt(2)*b1**2*b3*b4 - 2*sqrt(10)*b1**2*b3*b4 + 2*sqrt(5)*b1**2*b3*b4 + 10*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 76*sqrt(5)*b1*b2**2*b3 - 164*b1*b2**2*b3 + 52*sqrt(10)*b1*b2**2*b3 + 122*sqrt(2)*b1*b2**2*b3 - 36*sqrt(5)*b1*b2**2*b4 - 60*b1*b2**2*b4 + 21*sqrt(10)*b1*b2**2*b4 + 53*sqrt(2)*b1*b2**2*b4 - 18*sqrt(5)*b1*b2*b3**2 - 38*b1*b2*b3**2 + 27*sqrt(2)*b1*b2*b3**2 + 13*sqrt(10)*b1*b2*b3**2 - 10*sqrt(5)*b1*b2*b3*b4 - 2*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 + 4*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b4**2 - 2*sqrt(5)*b1*b2*b4**2 + sqrt(10)*b1*b2*b4**2 + 5*sqrt(2)*b1*b2*b4**2 - 3*sqrt(10)*b1*b3**2*b4 - 5*sqrt(2)*b1*b3**2*b4 + 8*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 39*sqrt(5)*b2**3*b3 - 87*b2**3*b3 + 62*sqrt(2)*b2**3*b3 + 28*sqrt(10)*b2**3*b3 - 41*b2**3*b4 - 15*sqrt(5)*b2**3*b4 + 26*sqrt(2)*b2**3*b4 + 12*sqrt(10)*b2**3*b4 - 19*sqrt(5)*b2**2*b3**2 - 41*b2**2*b3**2 + 13*sqrt(10)*b2**2*b3**2 + 31*sqrt(2)*b2**2*b3**2 - 25*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 + 18*sqrt(2)*b2**2*b3*b4 - 8*b2**2*b4**2 - 2*sqrt(5)*b2**2*b4**2 + 4*sqrt(2)*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 3*sqrt(5)*b2*b3**3 - 5*b2*b3**3 + 4*sqrt(2)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 - 3*sqrt(10)*b2*b3**2*b4 + sqrt(2)*b2*b3**2*b4 + 4*b2*b3**2*b4 + 2*sqrt(5)*b2*b3**2*b4 - 4*b2*b3*b4**2 - sqrt(10)*b2*b3*b4**2 - sqrt(2)*b2*b3*b4**2 + 4*sqrt(5)*b2*b3*b4**2 - 2*sqrt(10)*b3**3*b4 - 3*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 3*sqrt(5)*b3**3*b4 - 5*b3**2*b4**2 - sqrt(10)*b3**2*b4**2 + sqrt(2)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2"
-   ],
-   "hits": 9,
-   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x6+1440x6+1440x6+1440x6+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4+2880x4"
   },
   "8e942efc9ee3": {
    "kind": "wall",
@@ -1354,81 +994,97 @@
    "surfaces": [
     "-24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 68*sqrt(5)*b1**2*b2*b3 - 144*b1**2*b2*b3 + 46*sqrt(10)*b1**2*b2*b3 + 106*sqrt(2)*b1**2*b2*b3 - 46*sqrt(5)*b1**2*b2*b4 - 94*b1**2*b2*b4 + 30*sqrt(10)*b1**2*b2*b4 + 74*sqrt(2)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 24*sqrt(10)*b1**2*b3**2 + 60*sqrt(2)*b1**2*b3**2 - 36*sqrt(5)*b1**2*b3*b4 - 72*b1**2*b3*b4 + 22*sqrt(10)*b1**2*b3*b4 + 58*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 150*b1*b2**2*b3 - 58*sqrt(5)*b1*b2**2*b3 + 43*sqrt(10)*b1*b2**2*b3 + 101*sqrt(2)*b1*b2**2*b3 - 96*b1*b2**2*b4 - 40*sqrt(5)*b1*b2**2*b4 + 62*sqrt(2)*b1*b2**2*b4 + 32*sqrt(10)*b1*b2**2*b4 - 164*b1*b2*b3**2 - 60*sqrt(5)*b1*b2*b3**2 + 43*sqrt(10)*b1*b2*b3**2 + 115*sqrt(2)*b1*b2*b3**2 - 148*b1*b2*b3*b4 - 60*sqrt(5)*b1*b2*b3*b4 + 44*sqrt(10)*b1*b2*b3*b4 + 100*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b4**2 - 12*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 10*sqrt(10)*b1*b2*b4**2 - 40*b1*b3**3 - 16*sqrt(5)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 + 29*sqrt(2)*b1*b3**3 - 40*b1*b3**2*b4 - 16*sqrt(5)*b1*b3**2*b4 + 11*sqrt(10)*b1*b3**2*b4 + 29*sqrt(2)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 - 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 - sqrt(10)*b1*b4**3 + 4*b1*b4**3 + 4*sqrt(5)*b1*b4**3 - 21*sqrt(5)*b2**3*b3 - 39*b2**3*b3 + 27*sqrt(2)*b2**3*b3 + 15*sqrt(10)*b2**3*b3 - 30*b2**3*b4 - 12*sqrt(5)*b2**3*b4 + 9*sqrt(10)*b2**3*b4 + 21*sqrt(2)*b2**3*b4 - 36*sqrt(5)*b2**2*b3**2 - 56*b2**2*b3**2 + 34*sqrt(2)*b2**2*b3**2 + 28*sqrt(10)*b2**2*b3**2 - 67*b2**2*b3*b4 - 29*sqrt(5)*b2**2*b3*b4 + 37*sqrt(2)*b2**2*b3*b4 + 25*sqrt(10)*b2**2*b3*b4 - 18*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 4*sqrt(10)*b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 22*sqrt(5)*b2*b3**3 - 20*b2*b3**3 + 11*sqrt(2)*b2*b3**3 + 17*sqrt(10)*b2*b3**3 - 21*sqrt(5)*b2*b3**2*b4 - 25*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 20*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 - 10*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 + 6*sqrt(5)*b2*b3*b4**2 - 10*sqrt(2)*b2*b4**3 - 4*b2*b4**3 + 8*sqrt(5)*b2*b4**3 - 4*sqrt(5)*b3**4 - 2*b3**4 + sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 2*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 14*sqrt(2)*b3**2*b4**2 + 9*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 4*b3*b4**3 + 8*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4"
    ],
-   "hits": 8,
+   "hits": 7,
    "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x6+1440x6+1440x10+1440x12+2880x3+2880x3+2880x3+2880x4+2880x5"
   },
-  "345ca7ee9f13": {
+  "e1533a634b52": {
    "kind": "wall",
    "seed": [
-    0.33044026633036166,
-    0.00755017871968239,
-    0.040742644888619214,
-    0.6212669100613368
+    0.03134156109378706,
+    0.3194522948983838,
+    0.15719162496806086,
+    0.4920145190397683
    ],
    "surfaces": [
-    "-24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 68*sqrt(5)*b1**2*b2*b3 - 144*b1**2*b2*b3 + 46*sqrt(10)*b1**2*b2*b3 + 106*sqrt(2)*b1**2*b2*b3 - 46*sqrt(5)*b1**2*b2*b4 - 94*b1**2*b2*b4 + 30*sqrt(10)*b1**2*b2*b4 + 74*sqrt(2)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 24*sqrt(10)*b1**2*b3**2 + 60*sqrt(2)*b1**2*b3**2 - 36*sqrt(5)*b1**2*b3*b4 - 72*b1**2*b3*b4 + 22*sqrt(10)*b1**2*b3*b4 + 58*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 150*b1*b2**2*b3 - 58*sqrt(5)*b1*b2**2*b3 + 43*sqrt(10)*b1*b2**2*b3 + 101*sqrt(2)*b1*b2**2*b3 - 96*b1*b2**2*b4 - 40*sqrt(5)*b1*b2**2*b4 + 62*sqrt(2)*b1*b2**2*b4 + 32*sqrt(10)*b1*b2**2*b4 - 164*b1*b2*b3**2 - 60*sqrt(5)*b1*b2*b3**2 + 43*sqrt(10)*b1*b2*b3**2 + 115*sqrt(2)*b1*b2*b3**2 - 148*b1*b2*b3*b4 - 60*sqrt(5)*b1*b2*b3*b4 + 44*sqrt(10)*b1*b2*b3*b4 + 100*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b4**2 - 12*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 10*sqrt(10)*b1*b2*b4**2 - 40*b1*b3**3 - 16*sqrt(5)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 + 29*sqrt(2)*b1*b3**3 - 40*b1*b3**2*b4 - 16*sqrt(5)*b1*b3**2*b4 + 11*sqrt(10)*b1*b3**2*b4 + 29*sqrt(2)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 - 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 - sqrt(10)*b1*b4**3 + 4*b1*b4**3 + 4*sqrt(5)*b1*b4**3 - 21*sqrt(5)*b2**3*b3 - 39*b2**3*b3 + 27*sqrt(2)*b2**3*b3 + 15*sqrt(10)*b2**3*b3 - 30*b2**3*b4 - 12*sqrt(5)*b2**3*b4 + 9*sqrt(10)*b2**3*b4 + 21*sqrt(2)*b2**3*b4 - 36*sqrt(5)*b2**2*b3**2 - 56*b2**2*b3**2 + 34*sqrt(2)*b2**2*b3**2 + 28*sqrt(10)*b2**2*b3**2 - 67*b2**2*b3*b4 - 29*sqrt(5)*b2**2*b3*b4 + 37*sqrt(2)*b2**2*b3*b4 + 25*sqrt(10)*b2**2*b3*b4 - 18*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 4*sqrt(10)*b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 22*sqrt(5)*b2*b3**3 - 20*b2*b3**3 + 11*sqrt(2)*b2*b3**3 + 17*sqrt(10)*b2*b3**3 - 21*sqrt(5)*b2*b3**2*b4 - 25*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 20*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 - 10*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 + 6*sqrt(5)*b2*b3*b4**2 - 10*sqrt(2)*b2*b4**3 - 4*b2*b4**3 + 8*sqrt(5)*b2*b4**3 - 4*sqrt(5)*b3**4 - 2*b3**4 + sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 2*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 14*sqrt(2)*b3**2*b4**2 + 9*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 4*b3*b4**3 + 8*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4",
-    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 208*b1**2*b2*b3 - 88*sqrt(5)*b1**2*b2*b3 + 64*sqrt(10)*b1**2*b2*b3 + 144*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 64*b1**2*b3**2 - 28*sqrt(5)*b1**2*b3**2 + 44*sqrt(2)*b1**2*b3**2 + 20*sqrt(10)*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b3*b4 + 10*sqrt(2)*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 136*sqrt(5)*b1*b2**2*b3 - 292*b1*b2**2*b3 + 94*sqrt(10)*b1*b2**2*b3 + 212*sqrt(2)*b1*b2**2*b3 - 22*sqrt(5)*b1*b2**2*b4 - 34*b1*b2**2*b4 + 11*sqrt(10)*b1*b2**2*b4 + 35*sqrt(2)*b1*b2**2*b4 - 78*sqrt(5)*b1*b2*b3**2 - 174*b1*b2*b3**2 + 54*sqrt(10)*b1*b2*b3**2 + 122*sqrt(2)*b1*b2*b3**2 - 26*sqrt(5)*b1*b2*b3*b4 - 42*b1*b2*b3*b4 + 14*sqrt(10)*b1*b2*b3*b4 + 38*sqrt(2)*b1*b2*b3*b4 - 16*sqrt(5)*b1*b3**3 - 28*b1*b3**3 + 19*sqrt(2)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 - 8*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 7*sqrt(2)*b1*b3**2*b4 + 5*sqrt(10)*b1*b3**2*b4 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 133*b2**3*b3 - 59*sqrt(5)*b2**3*b3 + 42*sqrt(10)*b2**3*b3 + 94*sqrt(2)*b2**3*b3 - 22*b2**3*b4 - 8*sqrt(5)*b2**3*b4 + 13*sqrt(2)*b2**3*b4 + 7*sqrt(10)*b2**3*b4 - 51*sqrt(5)*b2**2*b3**2 - 111*b2**2*b3**2 + 35*sqrt(10)*b2**2*b3**2 + 79*sqrt(2)*b2**2*b3**2 - 15*sqrt(5)*b2**2*b3*b4 - 33*b2**2*b3*b4 + 10*sqrt(10)*b2**2*b3*b4 + 24*sqrt(2)*b2**2*b3*b4 - 18*sqrt(5)*b2*b3**3 - 40*b2*b3**3 + 12*sqrt(10)*b2*b3**3 + 28*sqrt(2)*b2*b3**3 - 9*sqrt(5)*b2*b3**2*b4 - 13*b2*b3**2*b4 + 4*sqrt(10)*b2*b3**2*b4 + 14*sqrt(2)*b2*b3**2*b4 - 3*sqrt(5)*b3**4 - 3*b3**4 + 2*sqrt(2)*b3**4 + 2*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 + sqrt(2)*b3**3*b4 + sqrt(10)*b3**3*b4"
-   ],
-   "hits": 19,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x5+1440x5+1440x6+1440x8+1440x8+2880x3+2880x3+2880x3+2880x4"
-  },
-  "0b65944f0118": {
-   "kind": "wall",
-   "seed": [
-    0.3305162283701484,
-    0.007491177314961772,
-    0.040716775333301564,
-    0.6212758189815882
-   ],
-   "surfaces": [
-    "-24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 68*sqrt(5)*b1**2*b2*b3 - 144*b1**2*b2*b3 + 46*sqrt(10)*b1**2*b2*b3 + 106*sqrt(2)*b1**2*b2*b3 - 46*sqrt(5)*b1**2*b2*b4 - 94*b1**2*b2*b4 + 30*sqrt(10)*b1**2*b2*b4 + 74*sqrt(2)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 24*sqrt(10)*b1**2*b3**2 + 60*sqrt(2)*b1**2*b3**2 - 36*sqrt(5)*b1**2*b3*b4 - 72*b1**2*b3*b4 + 22*sqrt(10)*b1**2*b3*b4 + 58*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 150*b1*b2**2*b3 - 58*sqrt(5)*b1*b2**2*b3 + 43*sqrt(10)*b1*b2**2*b3 + 101*sqrt(2)*b1*b2**2*b3 - 96*b1*b2**2*b4 - 40*sqrt(5)*b1*b2**2*b4 + 62*sqrt(2)*b1*b2**2*b4 + 32*sqrt(10)*b1*b2**2*b4 - 164*b1*b2*b3**2 - 60*sqrt(5)*b1*b2*b3**2 + 43*sqrt(10)*b1*b2*b3**2 + 115*sqrt(2)*b1*b2*b3**2 - 148*b1*b2*b3*b4 - 60*sqrt(5)*b1*b2*b3*b4 + 44*sqrt(10)*b1*b2*b3*b4 + 100*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b4**2 - 12*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 10*sqrt(10)*b1*b2*b4**2 - 40*b1*b3**3 - 16*sqrt(5)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 + 29*sqrt(2)*b1*b3**3 - 40*b1*b3**2*b4 - 16*sqrt(5)*b1*b3**2*b4 + 11*sqrt(10)*b1*b3**2*b4 + 29*sqrt(2)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 - 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 - sqrt(10)*b1*b4**3 + 4*b1*b4**3 + 4*sqrt(5)*b1*b4**3 - 21*sqrt(5)*b2**3*b3 - 39*b2**3*b3 + 27*sqrt(2)*b2**3*b3 + 15*sqrt(10)*b2**3*b3 - 30*b2**3*b4 - 12*sqrt(5)*b2**3*b4 + 9*sqrt(10)*b2**3*b4 + 21*sqrt(2)*b2**3*b4 - 36*sqrt(5)*b2**2*b3**2 - 56*b2**2*b3**2 + 34*sqrt(2)*b2**2*b3**2 + 28*sqrt(10)*b2**2*b3**2 - 67*b2**2*b3*b4 - 29*sqrt(5)*b2**2*b3*b4 + 37*sqrt(2)*b2**2*b3*b4 + 25*sqrt(10)*b2**2*b3*b4 - 18*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 4*sqrt(10)*b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 22*sqrt(5)*b2*b3**3 - 20*b2*b3**3 + 11*sqrt(2)*b2*b3**3 + 17*sqrt(10)*b2*b3**3 - 21*sqrt(5)*b2*b3**2*b4 - 25*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 20*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 - 10*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 + 6*sqrt(5)*b2*b3*b4**2 - 10*sqrt(2)*b2*b4**3 - 4*b2*b4**3 + 8*sqrt(5)*b2*b4**3 - 4*sqrt(5)*b3**4 - 2*b3**4 + sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 2*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 14*sqrt(2)*b3**2*b4**2 + 9*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 4*b3*b4**3 + 8*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4"
-   ],
-   "hits": 6,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x5+1440x5+1440x6+1440x8+1440x8+1440x12+2880x3+2880x3+2880x3+2880x4+2880x4"
-  },
-  "459c5d1f6ec6": {
-   "kind": "wall",
-   "seed": [
-    0.3304013291265791,
-    0.007496494048164797,
-    0.040814572656390644,
-    0.6212876041688655
-   ],
-   "surfaces": [
-    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 208*b1**2*b2*b3 - 88*sqrt(5)*b1**2*b2*b3 + 64*sqrt(10)*b1**2*b2*b3 + 144*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 64*b1**2*b3**2 - 28*sqrt(5)*b1**2*b3**2 + 44*sqrt(2)*b1**2*b3**2 + 20*sqrt(10)*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b3*b4 + 10*sqrt(2)*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 136*sqrt(5)*b1*b2**2*b3 - 292*b1*b2**2*b3 + 94*sqrt(10)*b1*b2**2*b3 + 212*sqrt(2)*b1*b2**2*b3 - 22*sqrt(5)*b1*b2**2*b4 - 34*b1*b2**2*b4 + 11*sqrt(10)*b1*b2**2*b4 + 35*sqrt(2)*b1*b2**2*b4 - 78*sqrt(5)*b1*b2*b3**2 - 174*b1*b2*b3**2 + 54*sqrt(10)*b1*b2*b3**2 + 122*sqrt(2)*b1*b2*b3**2 - 26*sqrt(5)*b1*b2*b3*b4 - 42*b1*b2*b3*b4 + 14*sqrt(10)*b1*b2*b3*b4 + 38*sqrt(2)*b1*b2*b3*b4 - 16*sqrt(5)*b1*b3**3 - 28*b1*b3**3 + 19*sqrt(2)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 - 8*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 7*sqrt(2)*b1*b3**2*b4 + 5*sqrt(10)*b1*b3**2*b4 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 133*b2**3*b3 - 59*sqrt(5)*b2**3*b3 + 42*sqrt(10)*b2**3*b3 + 94*sqrt(2)*b2**3*b3 - 22*b2**3*b4 - 8*sqrt(5)*b2**3*b4 + 13*sqrt(2)*b2**3*b4 + 7*sqrt(10)*b2**3*b4 - 51*sqrt(5)*b2**2*b3**2 - 111*b2**2*b3**2 + 35*sqrt(10)*b2**2*b3**2 + 79*sqrt(2)*b2**2*b3**2 - 15*sqrt(5)*b2**2*b3*b4 - 33*b2**2*b3*b4 + 10*sqrt(10)*b2**2*b3*b4 + 24*sqrt(2)*b2**2*b3*b4 - 18*sqrt(5)*b2*b3**3 - 40*b2*b3**3 + 12*sqrt(10)*b2*b3**3 + 28*sqrt(2)*b2*b3**3 - 9*sqrt(5)*b2*b3**2*b4 - 13*b2*b3**2*b4 + 4*sqrt(10)*b2*b3**2*b4 + 14*sqrt(2)*b2*b3**2*b4 - 3*sqrt(5)*b3**4 - 3*b3**4 + 2*sqrt(2)*b3**4 + 2*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 + sqrt(2)*b3**3*b4 + sqrt(10)*b3**3*b4"
-   ],
-   "hits": 2,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x6+1440x6+1440x6+1440x10+1440x10+1440x12+2880x3+2880x3+2880x3+2880x4+2880x4+2880x4"
-  },
-  "6ddb431fa5d3": {
-   "kind": "wall",
-   "seed": [
-    0.3316190974890712,
-    0.017914742686795486,
-    0.012974645098229372,
-    0.637491514725904
-   ],
-   "surfaces": [
-    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 82*b1**2*b2*b3 - 34*sqrt(5)*b1**2*b2*b3 + 54*sqrt(2)*b1**2*b2*b3 + 26*sqrt(10)*b1**2*b2*b3 - 34*b1**2*b2*b4 - 14*sqrt(5)*b1**2*b2*b4 + 20*sqrt(2)*b1**2*b2*b4 + 12*sqrt(10)*b1**2*b2*b4 - 6*sqrt(2)*b1**2*b3*b4 - 2*sqrt(10)*b1**2*b3*b4 + 2*sqrt(5)*b1**2*b3*b4 + 10*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 76*sqrt(5)*b1*b2**2*b3 - 164*b1*b2**2*b3 + 52*sqrt(10)*b1*b2**2*b3 + 122*sqrt(2)*b1*b2**2*b3 - 36*sqrt(5)*b1*b2**2*b4 - 60*b1*b2**2*b4 + 21*sqrt(10)*b1*b2**2*b4 + 53*sqrt(2)*b1*b2**2*b4 - 18*sqrt(5)*b1*b2*b3**2 - 38*b1*b2*b3**2 + 27*sqrt(2)*b1*b2*b3**2 + 13*sqrt(10)*b1*b2*b3**2 - 10*sqrt(5)*b1*b2*b3*b4 - 2*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 + 4*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b4**2 - 2*sqrt(5)*b1*b2*b4**2 + sqrt(10)*b1*b2*b4**2 + 5*sqrt(2)*b1*b2*b4**2 - 3*sqrt(10)*b1*b3**2*b4 - 5*sqrt(2)*b1*b3**2*b4 + 8*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 39*sqrt(5)*b2**3*b3 - 87*b2**3*b3 + 62*sqrt(2)*b2**3*b3 + 28*sqrt(10)*b2**3*b3 - 41*b2**3*b4 - 15*sqrt(5)*b2**3*b4 + 26*sqrt(2)*b2**3*b4 + 12*sqrt(10)*b2**3*b4 - 19*sqrt(5)*b2**2*b3**2 - 41*b2**2*b3**2 + 13*sqrt(10)*b2**2*b3**2 + 31*sqrt(2)*b2**2*b3**2 - 25*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 + 18*sqrt(2)*b2**2*b3*b4 - 8*b2**2*b4**2 - 2*sqrt(5)*b2**2*b4**2 + 4*sqrt(2)*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 3*sqrt(5)*b2*b3**3 - 5*b2*b3**3 + 4*sqrt(2)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 - 3*sqrt(10)*b2*b3**2*b4 + sqrt(2)*b2*b3**2*b4 + 4*b2*b3**2*b4 + 2*sqrt(5)*b2*b3**2*b4 - 4*b2*b3*b4**2 - sqrt(10)*b2*b3*b4**2 - sqrt(2)*b2*b3*b4**2 + 4*sqrt(5)*b2*b3*b4**2 - 2*sqrt(10)*b3**3*b4 - 3*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 3*sqrt(5)*b3**3*b4 - 5*b3**2*b4**2 - sqrt(10)*b3**2*b4**2 + sqrt(2)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2",
+    "-4*sqrt(10)*b1**2*b2**2 - 8*sqrt(2)*b1**2*b2**2 + 8*b1**2*b2**2 + 8*sqrt(5)*b1**2*b2**2 - 32*b1**2*b2*b3 + 4*sqrt(10)*b1**2*b2*b3 + 12*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3**2 + 6*sqrt(10)*b1**2*b3**2 + 14*sqrt(2)*b1**2*b3**2 - 22*sqrt(2)*b1*b2**3 - 8*sqrt(10)*b1*b2**3 + 10*sqrt(5)*b1*b2**3 + 38*b1*b2**3 - 24*sqrt(5)*b1*b2**2*b3 + 5*sqrt(2)*b1*b2**2*b3 + 8*b1*b2**2*b3 + 11*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 6*b1*b2**2*b4 - 40*sqrt(5)*b1*b2*b3**2 - 44*b1*b2*b3**2 + 33*sqrt(2)*b1*b2*b3**2 + 25*sqrt(10)*b1*b2*b3**2 - 8*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(5)*b1*b2*b3*b4 - 4*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 - 12*sqrt(5)*b1*b3**3 - 20*b1*b3**3 + 14*sqrt(2)*b1*b3**3 + 8*sqrt(10)*b1*b3**3 - 4*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 4*sqrt(10)*b1*b3**2*b4 - 6*sqrt(10)*b2**4 - 10*sqrt(2)*b2**4 + 15*b2**4 + 9*sqrt(5)*b2**4 - 17*b2**3*b3 - 3*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 13*sqrt(2)*b2**3*b3 - 4*sqrt(10)*b2**3*b4 + 5*b2**3*b4 + 3*sqrt(5)*b2**3*b4 - 60*b2**2*b3**2 - 14*sqrt(5)*b2**2*b3**2 + 6*sqrt(10)*b2**2*b3**2 + 48*sqrt(2)*b2**2*b3**2 - 6*sqrt(10)*b2**2*b3*b4 - 9*b2**2*b3*b4 - sqrt(5)*b2**2*b3*b4 + 22*sqrt(2)*b2**2*b3*b4 - 37*b2*b3**3 - 11*sqrt(5)*b2*b3**3 + 5*sqrt(10)*b2*b3**3 + 31*sqrt(2)*b2*b3**3 - 14*b2*b3**2*b4 - 4*sqrt(5)*b2*b3**2*b4 - 2*sqrt(10)*b2*b3**2*b4 + 22*sqrt(2)*b2*b3**2*b4 - 6*b3**4 - 2*sqrt(5)*b3**4 + sqrt(10)*b3**4 + 5*sqrt(2)*b3**4 - 3*b3**3*b4 - sqrt(5)*b3**3*b4 + 4*sqrt(2)*b3**3*b4",
     "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3"
    ],
-   "hits": 10,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x4+1440x7+1440x12+2880x3+2880x3+2880x4+2880x6"
+   "hits": 23,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[6v5f]+1440x[6v6f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x4g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x10+2880x3+2880x3+2880x5"
+  },
+  "36b0a6557c03": {
+   "kind": "wall",
+   "seed": [
+    0.11648806007585291,
+    0.017354590150173568,
+    0.3588882704641627,
+    0.5072690793098109
+   ],
+   "surfaces": [
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2",
+    "-56*sqrt(2)*b1**4 - 24*sqrt(10)*b1**4 + 76*b1**4 + 36*sqrt(5)*b1**4 - 230*sqrt(2)*b1**3*b2 - 102*sqrt(10)*b1**3*b2 + 324*b1**3*b2 + 148*sqrt(5)*b1**3*b2 - 72*sqrt(2)*b1**3*b3 - 32*sqrt(10)*b1**3*b3 + 96*b1**3*b3 + 48*sqrt(5)*b1**3*b3 - 26*sqrt(2)*b1**3*b4 - 10*sqrt(10)*b1**3*b4 + 32*b1**3*b4 + 16*sqrt(5)*b1**3*b4 - 160*sqrt(10)*b1**2*b2**2 - 348*sqrt(2)*b1**2*b2**2 + 222*sqrt(5)*b1**2*b2**2 + 514*b1**2*b2**2 - 104*sqrt(10)*b1**2*b2*b3 - 228*sqrt(2)*b1**2*b2*b3 + 144*sqrt(5)*b1**2*b2*b3 + 332*b1**2*b2*b3 - 38*sqrt(10)*b1**2*b2*b4 - 82*sqrt(2)*b1**2*b2*b4 + 50*sqrt(5)*b1**2*b2*b4 + 122*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b3**2 - 4*sqrt(10)*b1**2*b3**2 + 4*sqrt(5)*b1**2*b3**2 + 20*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3*b4 - 12*b1**2*b3*b4 + 4*sqrt(10)*b1**2*b3*b4 + 12*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 242*sqrt(2)*b1*b2**3 - 104*sqrt(10)*b1*b2**3 + 152*sqrt(5)*b1*b2**3 + 340*b1*b2**3 - 252*sqrt(2)*b1*b2**2*b3 - 104*sqrt(10)*b1*b2**2*b3 + 144*sqrt(5)*b1*b2**2*b3 + 368*b1*b2**2*b3 - 96*sqrt(2)*b1*b2**2*b4 - 42*sqrt(10)*b1*b2**2*b4 + 132*b1*b2**2*b4 + 60*sqrt(5)*b1*b2**2*b4 - 43*sqrt(2)*b1*b2*b3**2 - 13*sqrt(10)*b1*b2*b3**2 + 10*sqrt(5)*b1*b2*b3**2 + 78*b1*b2*b3**2 - 12*sqrt(5)*b1*b2*b3*b4 + 4*sqrt(2)*b1*b2*b3*b4 + 20*b1*b2*b3*b4 - 14*sqrt(5)*b1*b2*b4**2 - 18*b1*b2*b4**2 + 5*sqrt(10)*b1*b2*b4**2 + 23*sqrt(2)*b1*b2*b4**2 - 12*sqrt(5)*b1*b3**3 - 12*b1*b3**3 + 6*sqrt(10)*b1*b3**3 + 14*sqrt(2)*b1*b3**3 - 28*sqrt(5)*b1*b3**2*b4 - 28*b1*b3**2*b4 + 13*sqrt(10)*b1*b3**2*b4 + 35*sqrt(2)*b1*b3**2*b4 - 20*sqrt(5)*b1*b3*b4**2 - 20*b1*b3*b4**2 + 8*sqrt(10)*b1*b3*b4**2 + 28*sqrt(2)*b1*b3*b4**2 - 4*sqrt(5)*b1*b4**3 - 4*b1*b4**3 + sqrt(10)*b1*b4**3 + 7*sqrt(2)*b1*b4**3 - 27*sqrt(10)*b2**4 - 57*sqrt(2)*b2**4 + 81*b2**4 + 39*sqrt(5)*b2**4 - 41*sqrt(10)*b2**3*b3 - 75*sqrt(2)*b2**3*b3 + 97*b2**3*b3 + 63*sqrt(5)*b2**3*b3 - 17*sqrt(10)*b2**3*b4 - 33*sqrt(2)*b2**3*b4 + 46*b2**3*b4 + 24*sqrt(5)*b2**3*b4 - 19*sqrt(10)*b2**2*b3**2 - 7*sqrt(2)*b2**2*b3**2 - 2*b2**2*b3**2 + 32*sqrt(5)*b2**2*b3**2 - 10*sqrt(10)*b2**2*b3*b4 - 11*b2**2*b3*b4 + 6*sqrt(2)*b2**2*b3*b4 + 15*sqrt(5)*b2**2*b3*b4 - 5*sqrt(5)*b2**2*b4**2 - 9*b2**2*b4**2 + 3*sqrt(10)*b2**2*b4**2 + 7*sqrt(2)*b2**2*b4**2 - 33*b2*b3**3 - 3*sqrt(10)*b2*b3**3 + 3*sqrt(5)*b2*b3**3 + 25*sqrt(2)*b2*b3**3 - 51*b2*b3**2*b4 - 9*sqrt(5)*b2*b3**2*b4 + 50*sqrt(2)*b2*b3**2*b4 - 15*sqrt(5)*b2*b3*b4**2 - 23*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 + 29*sqrt(2)*b2*b3*b4**2 - 3*sqrt(5)*b2*b4**3 - 5*b2*b4**3 + 4*sqrt(2)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 9*b3**4 - sqrt(5)*b3**4 + 8*sqrt(2)*b3**4 - 17*b3**3*b4 - 5*sqrt(5)*b3**3*b4 + 20*sqrt(2)*b3**3*b4 - 7*sqrt(5)*b3**2*b4**2 - 7*b3**2*b4**2 + 16*sqrt(2)*b3**2*b4**2 - 3*sqrt(5)*b3*b4**3 + b3*b4**3 + 4*sqrt(2)*b3*b4**3"
+   ],
+   "hits": 4,
+   "signature": "2880: cells 240x[24v32f]+480x[6v5f]+720x[8v10f]+1440x[4v4f] | faces 480x6g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x3+1440x4+1440x4+2880x3+2880x3"
+  },
+  "61a14f3dab2f": {
+   "kind": "wall",
+   "seed": [
+    0.11652011783327257,
+    0.0172897692623178,
+    0.35895066203551435,
+    0.5072394508688954
+   ],
+   "surfaces": [
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2"
+   ],
+   "hits": 1,
+   "signature": "2880: cells 240x[24v32f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f] | faces 480x6g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x3+1440x4+1440x4+1440x4+1440x6+2880x4+2880x4"
   },
   "c6d780984141": {
    "kind": "wall",
    "seed": [
-    0.5645168106324945,
-    0.005998203502510643,
-    0.34148998847910333,
-    0.0879949973858916
+    0.5639667321190582,
+    0.0060680319250550055,
+    0.3408391691431989,
+    0.08912606681268777
    ],
    "surfaces": [
     "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 82*b1**2*b2*b3 - 34*sqrt(5)*b1**2*b2*b3 + 54*sqrt(2)*b1**2*b2*b3 + 26*sqrt(10)*b1**2*b2*b3 - 34*b1**2*b2*b4 - 14*sqrt(5)*b1**2*b2*b4 + 20*sqrt(2)*b1**2*b2*b4 + 12*sqrt(10)*b1**2*b2*b4 - 6*sqrt(2)*b1**2*b3*b4 - 2*sqrt(10)*b1**2*b3*b4 + 2*sqrt(5)*b1**2*b3*b4 + 10*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 76*sqrt(5)*b1*b2**2*b3 - 164*b1*b2**2*b3 + 52*sqrt(10)*b1*b2**2*b3 + 122*sqrt(2)*b1*b2**2*b3 - 36*sqrt(5)*b1*b2**2*b4 - 60*b1*b2**2*b4 + 21*sqrt(10)*b1*b2**2*b4 + 53*sqrt(2)*b1*b2**2*b4 - 18*sqrt(5)*b1*b2*b3**2 - 38*b1*b2*b3**2 + 27*sqrt(2)*b1*b2*b3**2 + 13*sqrt(10)*b1*b2*b3**2 - 10*sqrt(5)*b1*b2*b3*b4 - 2*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 + 4*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b4**2 - 2*sqrt(5)*b1*b2*b4**2 + sqrt(10)*b1*b2*b4**2 + 5*sqrt(2)*b1*b2*b4**2 - 3*sqrt(10)*b1*b3**2*b4 - 5*sqrt(2)*b1*b3**2*b4 + 8*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 39*sqrt(5)*b2**3*b3 - 87*b2**3*b3 + 62*sqrt(2)*b2**3*b3 + 28*sqrt(10)*b2**3*b3 - 41*b2**3*b4 - 15*sqrt(5)*b2**3*b4 + 26*sqrt(2)*b2**3*b4 + 12*sqrt(10)*b2**3*b4 - 19*sqrt(5)*b2**2*b3**2 - 41*b2**2*b3**2 + 13*sqrt(10)*b2**2*b3**2 + 31*sqrt(2)*b2**2*b3**2 - 25*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 + 18*sqrt(2)*b2**2*b3*b4 - 8*b2**2*b4**2 - 2*sqrt(5)*b2**2*b4**2 + 4*sqrt(2)*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 3*sqrt(5)*b2*b3**3 - 5*b2*b3**3 + 4*sqrt(2)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 - 3*sqrt(10)*b2*b3**2*b4 + sqrt(2)*b2*b3**2*b4 + 4*b2*b3**2*b4 + 2*sqrt(5)*b2*b3**2*b4 - 4*b2*b3*b4**2 - sqrt(10)*b2*b3*b4**2 - sqrt(2)*b2*b3*b4**2 + 4*sqrt(5)*b2*b3*b4**2 - 2*sqrt(10)*b3**3*b4 - 3*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 3*sqrt(5)*b3**3*b4 - 5*b3**2*b4**2 - sqrt(10)*b3**2*b4**2 + sqrt(2)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2",
-    "-40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 114*b1**2*b2*b3 - 50*sqrt(5)*b1**2*b2*b3 + 36*sqrt(10)*b1**2*b2*b3 + 84*sqrt(2)*b1**2*b2*b3 - 14*b1**2*b2*b4 - 2*sqrt(5)*b1**2*b2*b4 + 4*sqrt(2)*b1**2*b2*b4 + 4*sqrt(10)*b1**2*b2*b4 - 64*b1**2*b3**2 - 28*sqrt(5)*b1**2*b3**2 + 44*sqrt(2)*b1**2*b3**2 + 20*sqrt(10)*b1**2*b3**2 - 26*b1**2*b3*b4 - 10*sqrt(5)*b1**2*b3*b4 + 16*sqrt(2)*b1**2*b3*b4 + 8*sqrt(10)*b1**2*b3*b4 - 52*sqrt(5)*b1*b2**2*b3 - 104*b1*b2**2*b3 + 76*sqrt(2)*b1*b2**2*b3 + 38*sqrt(10)*b1*b2**2*b3 - 10*sqrt(5)*b1*b2**2*b4 - 18*b1*b2**2*b4 + 5*sqrt(10)*b1*b2**2*b4 + 17*sqrt(2)*b1*b2**2*b4 - 60*sqrt(5)*b1*b2*b3**2 - 108*b1*b2*b3**2 + 78*sqrt(2)*b1*b2*b3**2 + 42*sqrt(10)*b1*b2*b3**2 - 28*sqrt(5)*b1*b2*b3*b4 - 52*b1*b2*b3*b4 + 36*sqrt(2)*b1*b2*b3*b4 + 20*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(5)*b1*b3**3 - 28*b1*b3**3 + 19*sqrt(2)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 - 10*sqrt(5)*b1*b3**2*b4 - 14*b1*b3**2*b4 + 9*sqrt(2)*b1*b3**2*b4 + 7*sqrt(10)*b1*b3**2*b4 - 6*sqrt(2)*b1*b3*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 + 10*b1*b3*b4**2 - 37*b2**3*b3 - 15*sqrt(5)*b2**3*b3 + 11*sqrt(10)*b2**3*b3 + 27*sqrt(2)*b2**3*b3 - 6*sqrt(5)*b2**3*b4 - 8*b2**3*b4 + 6*sqrt(2)*b2**3*b4 + 4*sqrt(10)*b2**3*b4 - 59*b2**2*b3**2 - 25*sqrt(5)*b2**2*b3**2 + 18*sqrt(10)*b2**2*b3**2 + 42*sqrt(2)*b2**2*b3**2 - 19*sqrt(5)*b2**2*b3*b4 - 25*b2**2*b3*b4 + 23*sqrt(2)*b2**2*b3*b4 + 11*sqrt(10)*b2**2*b3*b4 - 2*sqrt(2)*b2**2*b4**2 - sqrt(5)*b2**2*b4**2 + 5*b2**2*b4**2 - 16*sqrt(5)*b2*b3**3 - 24*b2*b3**3 + 17*sqrt(2)*b2*b3**3 + 11*sqrt(10)*b2*b3**3 - 12*sqrt(5)*b2*b3**2*b4 - 12*b2*b3**2*b4 + 11*sqrt(2)*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 4*sqrt(10)*b2*b3*b4**2 - 8*sqrt(2)*b2*b3*b4**2 + 3*sqrt(5)*b2*b3*b4**2 + 17*b2*b3*b4**2 - 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b2*b4**3 + 2*sqrt(2)*b2*b4**3 + 8*b2*b4**3 - 3*sqrt(5)*b3**4 - 3*b3**4 + 2*sqrt(2)*b3**4 + 2*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 - sqrt(2)*b3**3*b4 + 2*b3**3*b4 + sqrt(10)*b3**3*b4 - 7*sqrt(2)*b3**2*b4**2 - 3*sqrt(10)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2 + 13*b3**2*b4**2 - 2*sqrt(10)*b3*b4**3 - 2*sqrt(2)*b3*b4**3 + sqrt(5)*b3*b4**3 + 7*b3*b4**3"
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 8*sqrt(5)*b1*b2**2*b3 - 16*b1*b2**2*b3 + 4*sqrt(10)*b1*b2**2*b3 + 14*sqrt(2)*b1*b2**2*b3 - 62*b1*b2**2*b4 - 18*sqrt(5)*b1*b2**2*b4 + 14*sqrt(10)*b1*b2**2*b4 + 42*sqrt(2)*b1*b2**2*b4 - 50*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 + 20*sqrt(2)*b1*b2*b3*b4 - 20*b1*b2*b4**2 - 4*sqrt(5)*b1*b2*b4**2 + 9*sqrt(2)*b1*b2*b4**2 + 5*sqrt(10)*b1*b2*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 17*b2**3*b3 - 7*sqrt(5)*b2**3*b3 + 11*sqrt(2)*b2**3*b3 + 5*sqrt(10)*b2**3*b3 - 16*sqrt(5)*b2**3*b4 - 22*b2**3*b4 + 17*sqrt(2)*b2**3*b4 + 11*sqrt(10)*b2**3*b4 - 6*b2**2*b3**2 - 2*sqrt(5)*b2**2*b3**2 + sqrt(10)*b2**2*b3**2 + 5*sqrt(2)*b2**2*b3**2 - 21*sqrt(5)*b2**2*b3*b4 - 15*b2**2*b3*b4 + 12*sqrt(2)*b2**2*b3*b4 + 14*sqrt(10)*b2**2*b3*b4 - 10*sqrt(5)*b2**2*b4**2 - 8*b2**2*b4**2 + 8*sqrt(2)*b2**2*b4**2 + 6*sqrt(10)*b2**2*b4**2 - 6*sqrt(5)*b2*b3**2*b4 - 5*sqrt(2)*b2*b3**2*b4 - 2*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 7*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 7*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b2*b4**3 + sqrt(2)*b2*b4**3 + sqrt(10)*b2*b4**3 - 4*sqrt(2)*b3**2*b4**2 - 2*sqrt(5)*b3**2*b4**2 + 10*b3**2*b4**2 - 2*sqrt(2)*b3*b4**3 - sqrt(5)*b3*b4**3 + 5*b3*b4**3"
    ],
-   "hits": 16,
+   "hits": 14,
    "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x6+1440x6+1440x7+1440x8+2880x3+2880x4+2880x4+2880x5"
+  },
+  "6ddb431fa5d3": {
+   "kind": "wall",
+   "seed": [
+    0.33155609541633224,
+    0.017874301066134097,
+    0.012934405467037741,
+    0.6376351980504961
+   ],
+   "surfaces": [
+    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 82*b1**2*b2*b3 - 34*sqrt(5)*b1**2*b2*b3 + 54*sqrt(2)*b1**2*b2*b3 + 26*sqrt(10)*b1**2*b2*b3 - 34*b1**2*b2*b4 - 14*sqrt(5)*b1**2*b2*b4 + 20*sqrt(2)*b1**2*b2*b4 + 12*sqrt(10)*b1**2*b2*b4 - 6*sqrt(2)*b1**2*b3*b4 - 2*sqrt(10)*b1**2*b3*b4 + 2*sqrt(5)*b1**2*b3*b4 + 10*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 76*sqrt(5)*b1*b2**2*b3 - 164*b1*b2**2*b3 + 52*sqrt(10)*b1*b2**2*b3 + 122*sqrt(2)*b1*b2**2*b3 - 36*sqrt(5)*b1*b2**2*b4 - 60*b1*b2**2*b4 + 21*sqrt(10)*b1*b2**2*b4 + 53*sqrt(2)*b1*b2**2*b4 - 18*sqrt(5)*b1*b2*b3**2 - 38*b1*b2*b3**2 + 27*sqrt(2)*b1*b2*b3**2 + 13*sqrt(10)*b1*b2*b3**2 - 10*sqrt(5)*b1*b2*b3*b4 - 2*b1*b2*b3*b4 + 8*sqrt(2)*b1*b2*b3*b4 + 4*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b4**2 - 2*sqrt(5)*b1*b2*b4**2 + sqrt(10)*b1*b2*b4**2 + 5*sqrt(2)*b1*b2*b4**2 - 3*sqrt(10)*b1*b3**2*b4 - 5*sqrt(2)*b1*b3**2*b4 + 8*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 39*sqrt(5)*b2**3*b3 - 87*b2**3*b3 + 62*sqrt(2)*b2**3*b3 + 28*sqrt(10)*b2**3*b3 - 41*b2**3*b4 - 15*sqrt(5)*b2**3*b4 + 26*sqrt(2)*b2**3*b4 + 12*sqrt(10)*b2**3*b4 - 19*sqrt(5)*b2**2*b3**2 - 41*b2**2*b3**2 + 13*sqrt(10)*b2**2*b3**2 + 31*sqrt(2)*b2**2*b3**2 - 25*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b3*b4 + 6*sqrt(10)*b2**2*b3*b4 + 18*sqrt(2)*b2**2*b3*b4 - 8*b2**2*b4**2 - 2*sqrt(5)*b2**2*b4**2 + 4*sqrt(2)*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 3*sqrt(5)*b2*b3**3 - 5*b2*b3**3 + 4*sqrt(2)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 - 3*sqrt(10)*b2*b3**2*b4 + sqrt(2)*b2*b3**2*b4 + 4*b2*b3**2*b4 + 2*sqrt(5)*b2*b3**2*b4 - 4*b2*b3*b4**2 - sqrt(10)*b2*b3*b4**2 - sqrt(2)*b2*b3*b4**2 + 4*sqrt(5)*b2*b3*b4**2 - 2*sqrt(10)*b3**3*b4 - 3*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 3*sqrt(5)*b3**3*b4 - 5*b3**2*b4**2 - sqrt(10)*b3**2*b4**2 + sqrt(2)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2",
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2"
+   ],
+   "hits": 11,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x4+1440x7+1440x12+2880x3+2880x3+2880x4+2880x6"
+  },
+  "145023c8942f": {
+   "kind": "wall",
+   "seed": [
+    0.7482676165955332,
+    0.00288519568524882,
+    0.2269865283841418,
+    0.021860659335076266
+   ],
+   "surfaces": [
+    "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3",
+    "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2"
+   ],
+   "hits": 15,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x6+1440x6+1440x7+1440x8+1440x12+2880x3+2880x3+2880x3+2880x4+2880x5"
   },
   "191440961f68": {
    "kind": "wall",
@@ -1442,108 +1098,137 @@
     "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2",
     "-14*sqrt(2)*b1**2*b3**2 - 6*sqrt(10)*b1**2*b3**2 + 18*b1**2*b3**2 + 10*sqrt(5)*b1**2*b3**2 - 12*sqrt(2)*b1**2*b3*b4 - 4*sqrt(10)*b1**2*b3*b4 + 4*b1**2*b3*b4 + 12*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b4**2 - 4*sqrt(5)*b1**2*b4**2 + 8*sqrt(2)*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 - 28*sqrt(2)*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3**2 + 36*b1*b2*b3**2 + 20*sqrt(5)*b1*b2*b3**2 - 24*sqrt(2)*b1*b2*b3*b4 - 8*sqrt(10)*b1*b2*b3*b4 + 8*b1*b2*b3*b4 + 24*sqrt(5)*b1*b2*b3*b4 - 32*b1*b2*b4**2 - 8*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 8*sqrt(10)*b1*b2*b4**2 - 18*sqrt(2)*b1*b3**3 - 8*sqrt(10)*b1*b3**3 + 24*b1*b3**3 + 12*sqrt(5)*b1*b3**3 - 27*sqrt(2)*b1*b3**2*b4 - 11*sqrt(10)*b1*b3**2*b4 + 28*b1*b3**2*b4 + 20*sqrt(5)*b1*b3**2*b4 - 10*b1*b3*b4**2 - 3*sqrt(2)*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 + 3*sqrt(10)*b1*b3*b4**2 - 12*b1*b4**3 - 4*sqrt(5)*b1*b4**3 + 6*sqrt(2)*b1*b4**3 + 4*sqrt(10)*b1*b4**3 - 6*sqrt(10)*b2**2*b3**2 - 12*sqrt(2)*b2**2*b3**2 + 6*sqrt(5)*b2**2*b3**2 + 24*b2**2*b3**2 - 6*sqrt(10)*b2**2*b3*b4 - 6*sqrt(5)*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b3*b4 + 42*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b4**2 - 3*b2**2*b4**2 + 3*sqrt(10)*b2**2*b4**2 + 9*sqrt(2)*b2**2*b4**2 - 17*sqrt(2)*b2*b3**3 - 7*sqrt(10)*b2*b3**3 + 7*sqrt(5)*b2*b3**3 + 31*b2*b3**3 - 29*sqrt(2)*b2*b3**2*b4 - 9*sqrt(10)*b2*b3**2*b4 - 5*sqrt(5)*b2*b3**2*b4 + 81*b2*b3**2*b4 - 20*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 3*sqrt(10)*b2*b3*b4**2 + 42*b2*b3*b4**2 - 9*sqrt(5)*b2*b4**3 - b2*b4**3 + 6*sqrt(2)*b2*b4**3 + 4*sqrt(10)*b2*b4**3 - 6*sqrt(2)*b3**4 - 2*sqrt(10)*b3**4 + 2*sqrt(5)*b3**4 + 10*b3**4 - 17*sqrt(2)*b3**3*b4 - 3*sqrt(10)*b3**3*b4 - sqrt(5)*b3**3*b4 + 35*b3**3*b4 - 9*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3**2*b4**2 + sqrt(10)*b3**2*b4**2 + 35*b3**2*b4**2 - 8*sqrt(5)*b3*b4**3 - sqrt(2)*b3*b4**3 + 3*sqrt(10)*b3*b4**3 + 10*b3*b4**3 - 2*sqrt(5)*b4**4 + sqrt(2)*b4**4 + sqrt(10)*b4**4"
    ],
-   "hits": 15,
+   "hits": 11,
    "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x5+1440x5+1440x6+1440x6+1440x8+2880x3+2880x4+2880x4+2880x4"
-  },
-  "145023c8942f": {
-   "kind": "wall",
-   "seed": [
-    0.7475634912081587,
-    0.0030133426868245183,
-    0.22657668905934053,
-    0.022846477045676376
-   ],
-   "surfaces": [
-    "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2",
-    "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3"
-   ],
-   "hits": 19,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x6+1440x6+1440x7+1440x8+1440x12+2880x3+2880x3+2880x3+2880x4+2880x5"
   },
   "070022c3e4cd": {
    "kind": "wall",
    "seed": [
-    0.8128178663792845,
-    0.021917576191623614,
-    0.03536378608500198,
-    0.12990077134408992
+    0.8131580808598087,
+    0.021883147469796204,
+    0.03530808164083302,
+    0.12965069002956212
    ],
    "surfaces": [
     "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2"
    ],
-   "hits": 5,
+   "hits": 2,
    "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x4+1440x5+1440x6+1440x12+2880x3+2880x3+2880x4+2880x6"
   },
-  "64eaff45001c": {
+  "074abe9545a5": {
    "kind": "wall",
    "seed": [
-    0.491149097187674,
-    0.013528215097357974,
-    0.25341225073745877,
-    0.24191043697750933
+    0.723108162197245,
+    0.007149347079849766,
+    0.214763461251828,
+    0.054979029471077225
    ],
    "surfaces": [
-    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 8*sqrt(5)*b1*b2**2*b3 - 16*b1*b2**2*b3 + 4*sqrt(10)*b1*b2**2*b3 + 14*sqrt(2)*b1*b2**2*b3 - 62*b1*b2**2*b4 - 18*sqrt(5)*b1*b2**2*b4 + 14*sqrt(10)*b1*b2**2*b4 + 42*sqrt(2)*b1*b2**2*b4 - 50*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 + 20*sqrt(2)*b1*b2*b3*b4 - 20*b1*b2*b4**2 - 4*sqrt(5)*b1*b2*b4**2 + 9*sqrt(2)*b1*b2*b4**2 + 5*sqrt(10)*b1*b2*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 17*b2**3*b3 - 7*sqrt(5)*b2**3*b3 + 11*sqrt(2)*b2**3*b3 + 5*sqrt(10)*b2**3*b3 - 16*sqrt(5)*b2**3*b4 - 22*b2**3*b4 + 17*sqrt(2)*b2**3*b4 + 11*sqrt(10)*b2**3*b4 - 6*b2**2*b3**2 - 2*sqrt(5)*b2**2*b3**2 + sqrt(10)*b2**2*b3**2 + 5*sqrt(2)*b2**2*b3**2 - 21*sqrt(5)*b2**2*b3*b4 - 15*b2**2*b3*b4 + 12*sqrt(2)*b2**2*b3*b4 + 14*sqrt(10)*b2**2*b3*b4 - 10*sqrt(5)*b2**2*b4**2 - 8*b2**2*b4**2 + 8*sqrt(2)*b2**2*b4**2 + 6*sqrt(10)*b2**2*b4**2 - 6*sqrt(5)*b2*b3**2*b4 - 5*sqrt(2)*b2*b3**2*b4 - 2*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 7*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 7*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b2*b4**3 + sqrt(2)*b2*b4**3 + sqrt(10)*b2*b4**3 - 4*sqrt(2)*b3**2*b4**2 - 2*sqrt(5)*b3**2*b4**2 + 10*b3**2*b4**2 - 2*sqrt(2)*b3*b4**3 - sqrt(5)*b3*b4**3 + 5*b3*b4**3"
+    "-24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 68*sqrt(5)*b1**2*b2*b3 - 144*b1**2*b2*b3 + 46*sqrt(10)*b1**2*b2*b3 + 106*sqrt(2)*b1**2*b2*b3 - 46*sqrt(5)*b1**2*b2*b4 - 94*b1**2*b2*b4 + 30*sqrt(10)*b1**2*b2*b4 + 74*sqrt(2)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 24*sqrt(10)*b1**2*b3**2 + 60*sqrt(2)*b1**2*b3**2 - 36*sqrt(5)*b1**2*b3*b4 - 72*b1**2*b3*b4 + 22*sqrt(10)*b1**2*b3*b4 + 58*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 150*b1*b2**2*b3 - 58*sqrt(5)*b1*b2**2*b3 + 43*sqrt(10)*b1*b2**2*b3 + 101*sqrt(2)*b1*b2**2*b3 - 96*b1*b2**2*b4 - 40*sqrt(5)*b1*b2**2*b4 + 62*sqrt(2)*b1*b2**2*b4 + 32*sqrt(10)*b1*b2**2*b4 - 164*b1*b2*b3**2 - 60*sqrt(5)*b1*b2*b3**2 + 43*sqrt(10)*b1*b2*b3**2 + 115*sqrt(2)*b1*b2*b3**2 - 148*b1*b2*b3*b4 - 60*sqrt(5)*b1*b2*b3*b4 + 44*sqrt(10)*b1*b2*b3*b4 + 100*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b4**2 - 12*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 10*sqrt(10)*b1*b2*b4**2 - 40*b1*b3**3 - 16*sqrt(5)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 + 29*sqrt(2)*b1*b3**3 - 40*b1*b3**2*b4 - 16*sqrt(5)*b1*b3**2*b4 + 11*sqrt(10)*b1*b3**2*b4 + 29*sqrt(2)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 - 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 - sqrt(10)*b1*b4**3 + 4*b1*b4**3 + 4*sqrt(5)*b1*b4**3 - 21*sqrt(5)*b2**3*b3 - 39*b2**3*b3 + 27*sqrt(2)*b2**3*b3 + 15*sqrt(10)*b2**3*b3 - 30*b2**3*b4 - 12*sqrt(5)*b2**3*b4 + 9*sqrt(10)*b2**3*b4 + 21*sqrt(2)*b2**3*b4 - 36*sqrt(5)*b2**2*b3**2 - 56*b2**2*b3**2 + 34*sqrt(2)*b2**2*b3**2 + 28*sqrt(10)*b2**2*b3**2 - 67*b2**2*b3*b4 - 29*sqrt(5)*b2**2*b3*b4 + 37*sqrt(2)*b2**2*b3*b4 + 25*sqrt(10)*b2**2*b3*b4 - 18*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 4*sqrt(10)*b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 22*sqrt(5)*b2*b3**3 - 20*b2*b3**3 + 11*sqrt(2)*b2*b3**3 + 17*sqrt(10)*b2*b3**3 - 21*sqrt(5)*b2*b3**2*b4 - 25*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 20*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 - 10*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 + 6*sqrt(5)*b2*b3*b4**2 - 10*sqrt(2)*b2*b4**3 - 4*b2*b4**3 + 8*sqrt(5)*b2*b4**3 - 4*sqrt(5)*b3**4 - 2*b3**4 + sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 2*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 14*sqrt(2)*b3**2*b4**2 + 9*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 4*b3*b4**3 + 8*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4",
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2"
    ],
-   "hits": 13,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x5+1440x6+1440x6+1440x7+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4+2880x4"
+   "hits": 4,
+   "signature": "2880: cells 240x[12v20f]+480x[6v5f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[6v7f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x6+1440x6+1440x6+1440x6+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4+2880x4"
+  },
+  "345ca7ee9f13": {
+   "kind": "wall",
+   "seed": [
+    0.34543455902282233,
+    0.010490193421623583,
+    0.06269020587630598,
+    0.5813850416792481
+   ],
+   "surfaces": [
+    "-40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 114*b1**2*b2*b3 - 50*sqrt(5)*b1**2*b2*b3 + 36*sqrt(10)*b1**2*b2*b3 + 84*sqrt(2)*b1**2*b2*b3 - 14*b1**2*b2*b4 - 2*sqrt(5)*b1**2*b2*b4 + 4*sqrt(2)*b1**2*b2*b4 + 4*sqrt(10)*b1**2*b2*b4 - 64*b1**2*b3**2 - 28*sqrt(5)*b1**2*b3**2 + 44*sqrt(2)*b1**2*b3**2 + 20*sqrt(10)*b1**2*b3**2 - 26*b1**2*b3*b4 - 10*sqrt(5)*b1**2*b3*b4 + 16*sqrt(2)*b1**2*b3*b4 + 8*sqrt(10)*b1**2*b3*b4 - 52*sqrt(5)*b1*b2**2*b3 - 104*b1*b2**2*b3 + 76*sqrt(2)*b1*b2**2*b3 + 38*sqrt(10)*b1*b2**2*b3 - 10*sqrt(5)*b1*b2**2*b4 - 18*b1*b2**2*b4 + 5*sqrt(10)*b1*b2**2*b4 + 17*sqrt(2)*b1*b2**2*b4 - 60*sqrt(5)*b1*b2*b3**2 - 108*b1*b2*b3**2 + 78*sqrt(2)*b1*b2*b3**2 + 42*sqrt(10)*b1*b2*b3**2 - 28*sqrt(5)*b1*b2*b3*b4 - 52*b1*b2*b3*b4 + 36*sqrt(2)*b1*b2*b3*b4 + 20*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(5)*b1*b3**3 - 28*b1*b3**3 + 19*sqrt(2)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 - 10*sqrt(5)*b1*b3**2*b4 - 14*b1*b3**2*b4 + 9*sqrt(2)*b1*b3**2*b4 + 7*sqrt(10)*b1*b3**2*b4 - 6*sqrt(2)*b1*b3*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 + 10*b1*b3*b4**2 - 37*b2**3*b3 - 15*sqrt(5)*b2**3*b3 + 11*sqrt(10)*b2**3*b3 + 27*sqrt(2)*b2**3*b3 - 6*sqrt(5)*b2**3*b4 - 8*b2**3*b4 + 6*sqrt(2)*b2**3*b4 + 4*sqrt(10)*b2**3*b4 - 59*b2**2*b3**2 - 25*sqrt(5)*b2**2*b3**2 + 18*sqrt(10)*b2**2*b3**2 + 42*sqrt(2)*b2**2*b3**2 - 19*sqrt(5)*b2**2*b3*b4 - 25*b2**2*b3*b4 + 23*sqrt(2)*b2**2*b3*b4 + 11*sqrt(10)*b2**2*b3*b4 - 2*sqrt(2)*b2**2*b4**2 - sqrt(5)*b2**2*b4**2 + 5*b2**2*b4**2 - 16*sqrt(5)*b2*b3**3 - 24*b2*b3**3 + 17*sqrt(2)*b2*b3**3 + 11*sqrt(10)*b2*b3**3 - 12*sqrt(5)*b2*b3**2*b4 - 12*b2*b3**2*b4 + 11*sqrt(2)*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 4*sqrt(10)*b2*b3*b4**2 - 8*sqrt(2)*b2*b3*b4**2 + 3*sqrt(5)*b2*b3*b4**2 + 17*b2*b3*b4**2 - 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b2*b4**3 + 2*sqrt(2)*b2*b4**3 + 8*b2*b4**3 - 3*sqrt(5)*b3**4 - 3*b3**4 + 2*sqrt(2)*b3**4 + 2*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 - sqrt(2)*b3**3*b4 + 2*b3**3*b4 + sqrt(10)*b3**3*b4 - 7*sqrt(2)*b3**2*b4**2 - 3*sqrt(10)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2 + 13*b3**2*b4**2 - 2*sqrt(10)*b3*b4**3 - 2*sqrt(2)*b3*b4**3 + sqrt(5)*b3*b4**3 + 7*b3*b4**3",
+    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 208*b1**2*b2*b3 - 88*sqrt(5)*b1**2*b2*b3 + 64*sqrt(10)*b1**2*b2*b3 + 144*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 64*b1**2*b3**2 - 28*sqrt(5)*b1**2*b3**2 + 44*sqrt(2)*b1**2*b3**2 + 20*sqrt(10)*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b3*b4 + 10*sqrt(2)*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 136*sqrt(5)*b1*b2**2*b3 - 292*b1*b2**2*b3 + 94*sqrt(10)*b1*b2**2*b3 + 212*sqrt(2)*b1*b2**2*b3 - 22*sqrt(5)*b1*b2**2*b4 - 34*b1*b2**2*b4 + 11*sqrt(10)*b1*b2**2*b4 + 35*sqrt(2)*b1*b2**2*b4 - 78*sqrt(5)*b1*b2*b3**2 - 174*b1*b2*b3**2 + 54*sqrt(10)*b1*b2*b3**2 + 122*sqrt(2)*b1*b2*b3**2 - 26*sqrt(5)*b1*b2*b3*b4 - 42*b1*b2*b3*b4 + 14*sqrt(10)*b1*b2*b3*b4 + 38*sqrt(2)*b1*b2*b3*b4 - 16*sqrt(5)*b1*b3**3 - 28*b1*b3**3 + 19*sqrt(2)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 - 8*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 7*sqrt(2)*b1*b3**2*b4 + 5*sqrt(10)*b1*b3**2*b4 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 133*b2**3*b3 - 59*sqrt(5)*b2**3*b3 + 42*sqrt(10)*b2**3*b3 + 94*sqrt(2)*b2**3*b3 - 22*b2**3*b4 - 8*sqrt(5)*b2**3*b4 + 13*sqrt(2)*b2**3*b4 + 7*sqrt(10)*b2**3*b4 - 51*sqrt(5)*b2**2*b3**2 - 111*b2**2*b3**2 + 35*sqrt(10)*b2**2*b3**2 + 79*sqrt(2)*b2**2*b3**2 - 15*sqrt(5)*b2**2*b3*b4 - 33*b2**2*b3*b4 + 10*sqrt(10)*b2**2*b3*b4 + 24*sqrt(2)*b2**2*b3*b4 - 18*sqrt(5)*b2*b3**3 - 40*b2*b3**3 + 12*sqrt(10)*b2*b3**3 + 28*sqrt(2)*b2*b3**3 - 9*sqrt(5)*b2*b3**2*b4 - 13*b2*b3**2*b4 + 4*sqrt(10)*b2*b3**2*b4 + 14*sqrt(2)*b2*b3**2*b4 - 3*sqrt(5)*b3**4 - 3*b3**4 + 2*sqrt(2)*b3**4 + 2*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 + sqrt(2)*b3**3*b4 + sqrt(10)*b3**3*b4"
+   ],
+   "hits": 11,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x5+1440x5+1440x6+1440x8+1440x8+2880x3+2880x3+2880x3+2880x4"
+  },
+  "0b65944f0118": {
+   "kind": "wall",
+   "seed": [
+    0.34551018206631107,
+    0.010431542497663877,
+    0.06266304901056656,
+    0.5813952264254586
+   ],
+   "surfaces": [
+    "-40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 114*b1**2*b2*b3 - 50*sqrt(5)*b1**2*b2*b3 + 36*sqrt(10)*b1**2*b2*b3 + 84*sqrt(2)*b1**2*b2*b3 - 14*b1**2*b2*b4 - 2*sqrt(5)*b1**2*b2*b4 + 4*sqrt(2)*b1**2*b2*b4 + 4*sqrt(10)*b1**2*b2*b4 - 64*b1**2*b3**2 - 28*sqrt(5)*b1**2*b3**2 + 44*sqrt(2)*b1**2*b3**2 + 20*sqrt(10)*b1**2*b3**2 - 26*b1**2*b3*b4 - 10*sqrt(5)*b1**2*b3*b4 + 16*sqrt(2)*b1**2*b3*b4 + 8*sqrt(10)*b1**2*b3*b4 - 52*sqrt(5)*b1*b2**2*b3 - 104*b1*b2**2*b3 + 76*sqrt(2)*b1*b2**2*b3 + 38*sqrt(10)*b1*b2**2*b3 - 10*sqrt(5)*b1*b2**2*b4 - 18*b1*b2**2*b4 + 5*sqrt(10)*b1*b2**2*b4 + 17*sqrt(2)*b1*b2**2*b4 - 60*sqrt(5)*b1*b2*b3**2 - 108*b1*b2*b3**2 + 78*sqrt(2)*b1*b2*b3**2 + 42*sqrt(10)*b1*b2*b3**2 - 28*sqrt(5)*b1*b2*b3*b4 - 52*b1*b2*b3*b4 + 36*sqrt(2)*b1*b2*b3*b4 + 20*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(5)*b1*b3**3 - 28*b1*b3**3 + 19*sqrt(2)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 - 10*sqrt(5)*b1*b3**2*b4 - 14*b1*b3**2*b4 + 9*sqrt(2)*b1*b3**2*b4 + 7*sqrt(10)*b1*b3**2*b4 - 6*sqrt(2)*b1*b3*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 + 10*b1*b3*b4**2 - 37*b2**3*b3 - 15*sqrt(5)*b2**3*b3 + 11*sqrt(10)*b2**3*b3 + 27*sqrt(2)*b2**3*b3 - 6*sqrt(5)*b2**3*b4 - 8*b2**3*b4 + 6*sqrt(2)*b2**3*b4 + 4*sqrt(10)*b2**3*b4 - 59*b2**2*b3**2 - 25*sqrt(5)*b2**2*b3**2 + 18*sqrt(10)*b2**2*b3**2 + 42*sqrt(2)*b2**2*b3**2 - 19*sqrt(5)*b2**2*b3*b4 - 25*b2**2*b3*b4 + 23*sqrt(2)*b2**2*b3*b4 + 11*sqrt(10)*b2**2*b3*b4 - 2*sqrt(2)*b2**2*b4**2 - sqrt(5)*b2**2*b4**2 + 5*b2**2*b4**2 - 16*sqrt(5)*b2*b3**3 - 24*b2*b3**3 + 17*sqrt(2)*b2*b3**3 + 11*sqrt(10)*b2*b3**3 - 12*sqrt(5)*b2*b3**2*b4 - 12*b2*b3**2*b4 + 11*sqrt(2)*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 4*sqrt(10)*b2*b3*b4**2 - 8*sqrt(2)*b2*b3*b4**2 + 3*sqrt(5)*b2*b3*b4**2 + 17*b2*b3*b4**2 - 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b2*b4**3 + 2*sqrt(2)*b2*b4**3 + 8*b2*b4**3 - 3*sqrt(5)*b3**4 - 3*b3**4 + 2*sqrt(2)*b3**4 + 2*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 - sqrt(2)*b3**3*b4 + 2*b3**3*b4 + sqrt(10)*b3**3*b4 - 7*sqrt(2)*b3**2*b4**2 - 3*sqrt(10)*b3**2*b4**2 + 3*sqrt(5)*b3**2*b4**2 + 13*b3**2*b4**2 - 2*sqrt(10)*b3*b4**3 - 2*sqrt(2)*b3*b4**3 + sqrt(5)*b3*b4**3 + 7*b3*b4**3"
+   ],
+   "hits": 3,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x5+1440x5+1440x6+1440x8+1440x8+1440x12+2880x3+2880x3+2880x3+2880x4+2880x4"
   },
   "739d85a647a0": {
    "kind": "wall",
    "seed": [
-    0.49114470533666393,
-    0.013592311392975943,
-    0.25337694329966326,
-    0.24188603997069694
+    0.313279876472379,
+    0.0031222102402924255,
+    0.01471212761502574,
+    0.668885785672303
    ],
    "surfaces": [
-    "-24*sqrt(5)*b1**3*b3 - 48*b1**3*b3 + 16*sqrt(10)*b1**3*b3 + 36*sqrt(2)*b1**3*b3 - 16*sqrt(5)*b1**3*b4 - 32*b1**3*b4 + 10*sqrt(10)*b1**3*b4 + 26*sqrt(2)*b1**3*b4 - 68*sqrt(5)*b1**2*b2*b3 - 144*b1**2*b2*b3 + 46*sqrt(10)*b1**2*b2*b3 + 106*sqrt(2)*b1**2*b2*b3 - 46*sqrt(5)*b1**2*b2*b4 - 94*b1**2*b2*b4 + 30*sqrt(10)*b1**2*b2*b4 + 74*sqrt(2)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 24*sqrt(10)*b1**2*b3**2 + 60*sqrt(2)*b1**2*b3**2 - 36*sqrt(5)*b1**2*b3*b4 - 72*b1**2*b3*b4 + 22*sqrt(10)*b1**2*b3*b4 + 58*sqrt(2)*b1**2*b3*b4 - 8*sqrt(5)*b1**2*b4**2 - 12*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 + 12*sqrt(2)*b1**2*b4**2 - 150*b1*b2**2*b3 - 58*sqrt(5)*b1*b2**2*b3 + 43*sqrt(10)*b1*b2**2*b3 + 101*sqrt(2)*b1*b2**2*b3 - 96*b1*b2**2*b4 - 40*sqrt(5)*b1*b2**2*b4 + 62*sqrt(2)*b1*b2**2*b4 + 32*sqrt(10)*b1*b2**2*b4 - 164*b1*b2*b3**2 - 60*sqrt(5)*b1*b2*b3**2 + 43*sqrt(10)*b1*b2*b3**2 + 115*sqrt(2)*b1*b2*b3**2 - 148*b1*b2*b3*b4 - 60*sqrt(5)*b1*b2*b3*b4 + 44*sqrt(10)*b1*b2*b3*b4 + 100*sqrt(2)*b1*b2*b3*b4 - 28*b1*b2*b4**2 - 12*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 10*sqrt(10)*b1*b2*b4**2 - 40*b1*b3**3 - 16*sqrt(5)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 + 29*sqrt(2)*b1*b3**3 - 40*b1*b3**2*b4 - 16*sqrt(5)*b1*b3**2*b4 + 11*sqrt(10)*b1*b3**2*b4 + 29*sqrt(2)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 - 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 7*sqrt(2)*b1*b4**3 - sqrt(10)*b1*b4**3 + 4*b1*b4**3 + 4*sqrt(5)*b1*b4**3 - 21*sqrt(5)*b2**3*b3 - 39*b2**3*b3 + 27*sqrt(2)*b2**3*b3 + 15*sqrt(10)*b2**3*b3 - 30*b2**3*b4 - 12*sqrt(5)*b2**3*b4 + 9*sqrt(10)*b2**3*b4 + 21*sqrt(2)*b2**3*b4 - 36*sqrt(5)*b2**2*b3**2 - 56*b2**2*b3**2 + 34*sqrt(2)*b2**2*b3**2 + 28*sqrt(10)*b2**2*b3**2 - 67*b2**2*b3*b4 - 29*sqrt(5)*b2**2*b3*b4 + 37*sqrt(2)*b2**2*b3*b4 + 25*sqrt(10)*b2**2*b3*b4 - 18*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 4*sqrt(10)*b2**2*b4**2 + 10*sqrt(2)*b2**2*b4**2 - 22*sqrt(5)*b2*b3**3 - 20*b2*b3**3 + 11*sqrt(2)*b2*b3**3 + 17*sqrt(10)*b2*b3**3 - 21*sqrt(5)*b2*b3**2*b4 - 25*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 20*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 - 10*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 + 6*sqrt(5)*b2*b3*b4**2 - 10*sqrt(2)*b2*b4**3 - 4*b2*b4**3 + 8*sqrt(5)*b2*b4**3 - 4*sqrt(5)*b3**4 - 2*b3**4 + sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 2*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 14*sqrt(2)*b3**2*b4**2 + 9*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3*b4**3 - sqrt(10)*b3*b4**3 + 4*b3*b4**3 + 8*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4"
-   ],
-   "hits": 6,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x5+1440x6+1440x6+1440x6+1440x7+1440x8+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4"
-  },
-  "8a47582fb978": {
-   "kind": "wall",
-   "seed": [
-    0.4180692757512156,
-    0.013378606222277815,
-    0.18750188051629968,
-    0.3810502375102069
-   ],
-   "surfaces": [
-    "-14*sqrt(2)*b1**2*b3**2 - 6*sqrt(10)*b1**2*b3**2 + 18*b1**2*b3**2 + 10*sqrt(5)*b1**2*b3**2 - 12*sqrt(2)*b1**2*b3*b4 - 4*sqrt(10)*b1**2*b3*b4 + 4*b1**2*b3*b4 + 12*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b4**2 - 4*sqrt(5)*b1**2*b4**2 + 8*sqrt(2)*b1**2*b4**2 + 4*sqrt(10)*b1**2*b4**2 - 28*sqrt(2)*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3**2 + 36*b1*b2*b3**2 + 20*sqrt(5)*b1*b2*b3**2 - 24*sqrt(2)*b1*b2*b3*b4 - 8*sqrt(10)*b1*b2*b3*b4 + 8*b1*b2*b3*b4 + 24*sqrt(5)*b1*b2*b3*b4 - 32*b1*b2*b4**2 - 8*sqrt(5)*b1*b2*b4**2 + 16*sqrt(2)*b1*b2*b4**2 + 8*sqrt(10)*b1*b2*b4**2 - 18*sqrt(2)*b1*b3**3 - 8*sqrt(10)*b1*b3**3 + 24*b1*b3**3 + 12*sqrt(5)*b1*b3**3 - 27*sqrt(2)*b1*b3**2*b4 - 11*sqrt(10)*b1*b3**2*b4 + 28*b1*b3**2*b4 + 20*sqrt(5)*b1*b3**2*b4 - 10*b1*b3*b4**2 - 3*sqrt(2)*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 + 3*sqrt(10)*b1*b3*b4**2 - 12*b1*b4**3 - 4*sqrt(5)*b1*b4**3 + 6*sqrt(2)*b1*b4**3 + 4*sqrt(10)*b1*b4**3 - 6*sqrt(10)*b2**2*b3**2 - 12*sqrt(2)*b2**2*b3**2 + 6*sqrt(5)*b2**2*b3**2 + 24*b2**2*b3**2 - 6*sqrt(10)*b2**2*b3*b4 - 6*sqrt(5)*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b3*b4 + 42*b2**2*b3*b4 - 9*sqrt(5)*b2**2*b4**2 - 3*b2**2*b4**2 + 3*sqrt(10)*b2**2*b4**2 + 9*sqrt(2)*b2**2*b4**2 - 17*sqrt(2)*b2*b3**3 - 7*sqrt(10)*b2*b3**3 + 7*sqrt(5)*b2*b3**3 + 31*b2*b3**3 - 29*sqrt(2)*b2*b3**2*b4 - 9*sqrt(10)*b2*b3**2*b4 - 5*sqrt(5)*b2*b3**2*b4 + 81*b2*b3**2*b4 - 20*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 3*sqrt(10)*b2*b3*b4**2 + 42*b2*b3*b4**2 - 9*sqrt(5)*b2*b4**3 - b2*b4**3 + 6*sqrt(2)*b2*b4**3 + 4*sqrt(10)*b2*b4**3 - 6*sqrt(2)*b3**4 - 2*sqrt(10)*b3**4 + 2*sqrt(5)*b3**4 + 10*b3**4 - 17*sqrt(2)*b3**3*b4 - 3*sqrt(10)*b3**3*b4 - sqrt(5)*b3**3*b4 + 35*b3**3*b4 - 9*sqrt(5)*b3**2*b4**2 - 13*sqrt(2)*b3**2*b4**2 + sqrt(10)*b3**2*b4**2 + 35*b3**2*b4**2 - 8*sqrt(5)*b3*b4**3 - sqrt(2)*b3*b4**3 + 3*sqrt(10)*b3*b4**3 + 10*b3*b4**3 - 2*sqrt(5)*b4**4 + sqrt(2)*b4**4 + sqrt(10)*b4**4"
+    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 66*sqrt(5)*b1**2*b2**2 - 142*b1**2*b2**2 + 44*sqrt(10)*b1**2*b2**2 + 104*sqrt(2)*b1**2*b2**2 - 82*b1**2*b2*b3 - 34*sqrt(5)*b1**2*b2*b3 + 54*sqrt(2)*b1**2*b2*b3 + 26*sqrt(10)*b1**2*b2*b3 - 6*sqrt(5)*b1**2*b2*b4 - 10*b1**2*b2*b4 + 8*sqrt(2)*b1**2*b2*b4 + 4*sqrt(10)*b1**2*b2*b4 - 6*sqrt(2)*b1**2*b3*b4 - 2*sqrt(10)*b1**2*b3*b4 + 2*sqrt(5)*b1**2*b3*b4 + 10*b1**2*b3*b4 - 64*sqrt(5)*b1*b2**3 - 140*b1*b2**3 + 97*sqrt(2)*b1*b2**3 + 45*sqrt(10)*b1*b2**3 - 72*sqrt(5)*b1*b2**2*b3 - 144*b1*b2**2*b3 + 48*sqrt(10)*b1*b2**2*b3 + 108*sqrt(2)*b1*b2**2*b3 - 10*sqrt(5)*b1*b2**2*b4 - 14*b1*b2**2*b4 + 11*sqrt(2)*b1*b2**2*b4 + 7*sqrt(10)*b1*b2**2*b4 - 18*sqrt(5)*b1*b2*b3**2 - 38*b1*b2*b3**2 + 27*sqrt(2)*b1*b2*b3**2 + 13*sqrt(10)*b1*b2*b3**2 - 12*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(10)*b1*b2*b3*b4 + 4*sqrt(5)*b1*b2*b3*b4 + 20*b1*b2*b3*b4 - 4*sqrt(10)*b1*b2*b4**2 - 4*sqrt(2)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 14*b1*b2*b4**2 - 3*sqrt(10)*b1*b3**2*b4 - 5*sqrt(2)*b1*b3**2*b4 + 8*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 46*b2**4 - 20*sqrt(5)*b2**4 + 14*sqrt(10)*b2**4 + 32*sqrt(2)*b2**4 - 74*b2**3*b3 - 32*sqrt(5)*b2**3*b3 + 51*sqrt(2)*b2**3*b3 + 23*sqrt(10)*b2**3*b3 - 13*b2**3*b4 - sqrt(5)*b2**3*b4 + sqrt(10)*b2**3*b4 + 9*sqrt(2)*b2**3*b4 - 18*sqrt(5)*b2**2*b3**2 - 34*b2**2*b3**2 + 26*sqrt(2)*b2**2*b3**2 + 12*sqrt(10)*b2**2*b3**2 - 8*sqrt(10)*b2**2*b3*b4 - 10*b2**2*b3*b4 + 6*sqrt(2)*b2**2*b3*b4 + 12*sqrt(5)*b2**2*b3*b4 - 4*sqrt(10)*b2**2*b4**2 - 4*sqrt(2)*b2**2*b4**2 + 3*b2**2*b4**2 + 7*sqrt(5)*b2**2*b4**2 - 3*sqrt(5)*b2*b3**3 - 5*b2*b3**3 + 4*sqrt(2)*b2*b3**3 + 2*sqrt(10)*b2*b3**3 - 10*sqrt(10)*b2*b3**2*b4 - 8*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 14*sqrt(5)*b2*b3**2*b4 - 6*sqrt(10)*b2*b3*b4**2 - 3*b2*b3*b4**2 + 4*sqrt(2)*b2*b3*b4**2 + 7*sqrt(5)*b2*b3*b4**2 - sqrt(10)*b2*b4**3 - sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 - 2*sqrt(10)*b3**3*b4 - 3*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 3*sqrt(5)*b3**3*b4 - 8*b3**2*b4**2 - sqrt(10)*b3**2*b4**2 + 2*sqrt(5)*b3**2*b4**2 + 5*sqrt(2)*b3**2*b4**2 - 5*b3*b4**3 + sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3"
    ],
    "hits": 1,
-   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x6+1440x6+1440x6+1440x8+1440x8+1440x10+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4+2880x4"
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x5+1440x6+1440x6+1440x6+1440x7+1440x8+1440x10+2880x3+2880x3+2880x3+2880x3+2880x4"
+  },
+  "64eaff45001c": {
+   "kind": "wall",
+   "seed": [
+    0.40717519220210346,
+    0.016017794300712488,
+    0.14730269066506713,
+    0.4295043228321169
+   ],
+   "surfaces": [
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 8*sqrt(5)*b1*b2**2*b3 - 16*b1*b2**2*b3 + 4*sqrt(10)*b1*b2**2*b3 + 14*sqrt(2)*b1*b2**2*b3 - 62*b1*b2**2*b4 - 18*sqrt(5)*b1*b2**2*b4 + 14*sqrt(10)*b1*b2**2*b4 + 42*sqrt(2)*b1*b2**2*b4 - 50*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 + 20*sqrt(2)*b1*b2*b3*b4 - 20*b1*b2*b4**2 - 4*sqrt(5)*b1*b2*b4**2 + 9*sqrt(2)*b1*b2*b4**2 + 5*sqrt(10)*b1*b2*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 17*b2**3*b3 - 7*sqrt(5)*b2**3*b3 + 11*sqrt(2)*b2**3*b3 + 5*sqrt(10)*b2**3*b3 - 16*sqrt(5)*b2**3*b4 - 22*b2**3*b4 + 17*sqrt(2)*b2**3*b4 + 11*sqrt(10)*b2**3*b4 - 6*b2**2*b3**2 - 2*sqrt(5)*b2**2*b3**2 + sqrt(10)*b2**2*b3**2 + 5*sqrt(2)*b2**2*b3**2 - 21*sqrt(5)*b2**2*b3*b4 - 15*b2**2*b3*b4 + 12*sqrt(2)*b2**2*b3*b4 + 14*sqrt(10)*b2**2*b3*b4 - 10*sqrt(5)*b2**2*b4**2 - 8*b2**2*b4**2 + 8*sqrt(2)*b2**2*b4**2 + 6*sqrt(10)*b2**2*b4**2 - 6*sqrt(5)*b2*b3**2*b4 - 5*sqrt(2)*b2*b3**2*b4 - 2*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 7*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 7*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b2*b4**3 + sqrt(2)*b2*b4**3 + sqrt(10)*b2*b4**3 - 4*sqrt(2)*b3**2*b4**2 - 2*sqrt(5)*b3**2*b4**2 + 10*b3**2*b4**2 - 2*sqrt(2)*b3*b4**3 - sqrt(5)*b3*b4**3 + 5*b3*b4**3"
+   ],
+   "hits": 2,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[6v6f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x5+1440x6+1440x6+1440x7+1440x8+1440x10+2880x3+2880x3+2880x3+2880x4+2880x4"
   },
   "e3eaf9caef53": {
    "kind": "wall",
    "seed": [
-    0.3349593742108348,
-    0.015163128343396597,
-    0.01094888502568163,
-    0.638928612420087
+    0.3348820682942782,
+    0.015134143304772162,
+    0.010918911046416133,
+    0.6390648773545337
    ],
    "surfaces": [
-    "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3",
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2",
     "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2"
    ],
-   "hits": 6,
+   "hits": 4,
    "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[6v6f] | faces 960x3g+960x3g+1440x4g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x3+1440x3+1440x4+1440x4+1440x4+1440x5+1440x10+2880x3+2880x4+2880x5"
   },
   "df4ae66c3811": {
    "kind": "wall",
    "seed": [
-    0.3350312440281617,
-    0.015109391652327425,
-    0.010909963042140139,
-    0.6389494012773707
+    0.33495394215363117,
+    0.015080391568381599,
+    0.010880011306126942,
+    0.6390856549718604
    ],
    "surfaces": [
-    "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3"
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2"
    ],
-   "hits": 4,
+   "hits": 2,
    "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x4+1440x4+1440x4+1440x4+1440x4+1440x5+1440x9+1440x12+2880x3+2880x3+2880x4+2880x5+2880x5"
+  },
+  "fe04354234c2": {
+   "kind": "wall",
+   "seed": [
+    0.32997369287771483,
+    0.011430011630026469,
+    0.018352634237094913,
+    0.6402436612551639
+   ],
+   "surfaces": [
+    "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2"
+   ],
+   "hits": 2,
+   "signature": "2880: cells 240x[12v20f]+480x[6v8f]+480x[6v8f]+720x[4v4f]+1440x[4v4f]+1440x[4v4f]+1440x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[4v4f]+2880x[5v5f] | faces 960x3g+960x3g+1440x4g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g+2880x3g | edges 1440x3+1440x4+1440x4+1440x4+1440x5+1440x6+1440x8+1440x12+2880x3+2880x3+2880x4+2880x5+2880x5"
   }
  }
 }
