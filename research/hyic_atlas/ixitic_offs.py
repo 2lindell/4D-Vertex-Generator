@@ -92,12 +92,21 @@ def main(only_new=False):
         d = d + json.load(open(os.path.join(HERE, "ixoic_crossings.json")))["shapes"]   # (the targeted search's, confirmed)
     count, todo = {}, {}
     rows = []
+    nm = {}
+    if GROUP == "ixoic":                        # (names from the accepted list: pages/ixoic_match.py)
+        try:
+            N = json.load(open(os.path.join(ROOT, "pages", "ixoic_names.json")))
+        except FileNotFoundError:
+            N = {}
+        first = {k: v[0]["name"].lower() for k, v in N.items()}
+        twice = {n for n in first.values() if list(first.values()).count(n) > 1}
+        nm = {k: n + (f"_{s['vertices']}" if n in twice else "") for s in d for k, n in first.items() if s["key"] == k}
     if only_new:
         rows = json.load(open(os.path.join(HERE, f"opt_central_{GROUP}.json")))["shapes"]
     done = {r["key"] for r in rows}
     for s in d:
         count[s["kind"]] = count.get(s["kind"], 0) + 1
-        name = s.get("name") or f"{GROUP}_{s['kind']}_{count[s['kind']]:02d}"
+        name = s.get("name") or nm.get(s["key"]) or f"{GROUP}_{s['kind']}_{count[s['kind']]:02d}"
         if s["key"] in done:
             continue
         todo.setdefault(s["sheet"], []).append({
