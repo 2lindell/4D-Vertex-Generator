@@ -21348,5 +21348,14990 @@
    0.13431913409198779
   ],
   "source": "closure"
+ },
+ "61a14f3dab2f": {
+  "vertices": 2880,
+  "dualcell_faces": 10,
+  "n_cells": 7200,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ]
+  },
+  "key": "61a14f3dab2f",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.08019176368585622,
+   0.15710392249070726,
+   0.15553134326721482,
+   0.6071729705562217
+  ],
+  "source": "crossing"
+ },
+ "aeb4251bed5c": {
+  "vertices": 2880,
+  "dualcell_faces": 10,
+  "n_cells": 7200,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ]
+  },
+  "key": "aeb4251bed5c",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.15426903868246794,
+   0.12010888119795135,
+   0.07412341042641302,
+   0.6514986696931677
+  ],
+  "source": "crossing"
+ },
+ "1fb2cfa9b4c1": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10560,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480
+   ],
+   "17-faced cells (12 vertices: 14 3-gons + 3 4-gons)": [
+    480
+   ],
+   "squaps / squigyps": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "1fb2cfa9b4c1",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.15858603336084498,
+   0.07571089146010147,
+   0.16500805349987224,
+   0.6006950216791814
+  ],
+  "source": "crossing"
+ },
+ "994d213d0ad5": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ]
+  },
+  "key": "994d213d0ad5",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.2831430071744709,
+   0.0560891209928615,
+   0.10610922880041082,
+   0.5546586430322568
+  ],
+  "source": "crossing"
+ },
+ "191440961f68": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 13440,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "191440961f68",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.09879670845040235,
+   0.06544805261871303,
+   0.010212828564181277,
+   0.8255424103667033
+  ],
+  "source": "crossing"
+ },
+ "be743d41dcfe": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 13440,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "12-faced cells (8 vertices: 12 3-gons)": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "be743d41dcfe",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.2417898737432245,
+   0.06745296112122827,
+   0.1552800018496429,
+   0.5354771632859044
+  ],
+  "source": "crossing"
+ },
+ "cca968ab8780": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 13440,
+  "cells": {
+   "trigypos": [
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "cca968ab8780",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.29412751855950986,
+   0.005195239849034798,
+   0.5697022656230826,
+   0.13097497596837268
+  ],
+  "source": "crossing"
+ },
+ "52b09af43471": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "52b09af43471",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.21048619810892089,
+   0.04141556735938548,
+   0.47570819587743784,
+   0.2723900386542558
+  ],
+  "source": "crossing"
+ },
+ "16e6a0651317": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 14880,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "16e6a0651317",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.23126377096742187,
+   0.041539226723715336,
+   0.08692019601888666,
+   0.6402768062899761
+  ],
+  "source": "crossing"
+ },
+ "60f77ced922f": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 14880,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "60f77ced922f",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.1552004932706432,
+   0.06789903749154542,
+   0.05753110000830806,
+   0.7193693692295033
+  ],
+  "source": "crossing"
+ },
+ "c6d780984141": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 14880,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "c6d780984141",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.15364820623274603,
+   0.06394990193157118,
+   0.03947334779058856,
+   0.7429285440450942
+  ],
+  "source": "crossing"
+ },
+ "d01903a9bda1": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 14880,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "d01903a9bda1",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.06981831595450931,
+   0.11152088924228577,
+   0.09770685029444309,
+   0.7209539445087618
+  ],
+  "source": "crossing"
+ },
+ "1a5af9f4673e": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 15600,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "1a5af9f4673e",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.121489010065317,
+   0.06119251580996712,
+   0.09253797901481907,
+   0.7247804951098968
+  ],
+  "source": "crossing"
+ },
+ "27c61ea7c4c4": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 15600,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "27c61ea7c4c4",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.13083082224393774,
+   0.07950505699881709,
+   0.0663616451528723,
+   0.7233024756043729
+  ],
+  "source": "crossing"
+ },
+ "e9019d92fa97": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 15600,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "e9019d92fa97",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.057775204536647404,
+   0.11495956043417559,
+   0.09240422817886215,
+   0.7348610068503149
+  ],
+  "source": "crossing"
+ },
+ "a56128399c42": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 15840,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "dodecagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "a56128399c42",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.16644913708842346,
+   0.07161572647352646,
+   0.1937157587595056,
+   0.5682193776785445
+  ],
+  "source": "crossing"
+ },
+ "1aaba02bba19": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "trips": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "1aaba02bba19",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.31537773582183515,
+   0.00906811374970418,
+   0.13769173498094553,
+   0.5378624154475152
+  ],
+  "source": "crossing"
+ },
+ "260ccc1d4b18": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "260ccc1d4b18",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.16351359412265787,
+   0.06400755214924948,
+   0.054118684800885955,
+   0.7183601689272068
+  ],
+  "source": "crossing"
+ },
+ "2e76a8a1352c": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "2e76a8a1352c",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.1320402749858229,
+   0.0471071756930614,
+   0.06785763339056781,
+   0.7529949159305479
+  ],
+  "source": "crossing"
+ },
+ "312369a50957": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "312369a50957",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.19295493635611102,
+   0.05463936277789617,
+   0.03797167277208072,
+   0.7144340280939122
+  ],
+  "source": "crossing"
+ },
+ "64eaff45001c": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "64eaff45001c",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.1542328729562158,
+   0.06246803396410241,
+   0.035098336831251575,
+   0.7482007562484302
+  ],
+  "source": "crossing"
+ },
+ "6edacbe48665": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "trigypos": [
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trips": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "6edacbe48665",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.3865884311527454,
+   0.055831618072564725,
+   0.11364618330605243,
+   0.44393376746863744
+  ],
+  "source": "crossing"
+ },
+ "739d85a647a0": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "739d85a647a0",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.10535429516943279,
+   0.08243722892115238,
+   0.025579149487818892,
+   0.786629326421596
+  ],
+  "source": "crossing"
+ },
+ "a9904f07aedb": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "a9904f07aedb",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.0601651358746952,
+   0.049159127756490895,
+   0.08367094474639895,
+   0.8070047916224149
+  ],
+  "source": "crossing"
+ },
+ "b09ba003d723": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "b09ba003d723",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.16958201396307573,
+   0.0397885823494401,
+   0.06392740325499291,
+   0.7267020004324913
+  ],
+  "source": "crossing"
+ },
+ "b40970a7b364": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trips": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "b40970a7b364",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.29400537515472386,
+   0.01638744830316576,
+   0.14055602875531392,
+   0.5490511477867965
+  ],
+  "source": "crossing"
+ },
+ "bfe0937d4c5f": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "bfe0937d4c5f",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.06590191653367215,
+   0.05759626732428612,
+   0.0002520587869555179,
+   0.8762497573550863
+  ],
+  "source": "crossing"
+ },
+ "cdef7ca6414c": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "cdef7ca6414c",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.44144749429310837,
+   0.03521668231144931,
+   0.2619539950218622,
+   0.26138182837358026
+  ],
+  "source": "crossing"
+ },
+ "d7b2802662cd": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "d7b2802662cd",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.14940794787261136,
+   0.07096020698996404,
+   0.060802392535183276,
+   0.7188294526022413
+  ],
+  "source": "crossing"
+ },
+ "b7242a6c4d44": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ],
+   "13-gonic": [
+    1440
+   ]
+  },
+  "key": "b7242a6c4d44",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.07063242796499376,
+   0.12147380567554256,
+   0.16473525937151262,
+   0.6431585069879511
+  ],
+  "source": "crossing"
+ },
+ "0b65944f0118": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "square pyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "0b65944f0118",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.10091927915970701,
+   0.07648030940737416,
+   0.031026410921781964,
+   0.7915740005111369
+  ],
+  "source": "crossing"
+ },
+ "38655f2bc74d": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "octagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "38655f2bc74d",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.15516846280719584,
+   0.06787964961320055,
+   0.05738536047021935,
+   0.7195665271093843
+  ],
+  "source": "crossing"
+ },
+ "393c26b9635b": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "13-gonic": [
+    1440
+   ]
+  },
+  "key": "393c26b9635b",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.29112745109725624,
+   0.05396863626282786,
+   0.1747816443046435,
+   0.48012226833527233
+  ],
+  "source": "crossing"
+ },
+ "8e1724ad7eaf": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "8e1724ad7eaf",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.15477307414822453,
+   0.06769652911200125,
+   0.05586778003887276,
+   0.7216626167009015
+  ],
+  "source": "crossing"
+ },
+ "a8be81f547c3": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "octagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "a8be81f547c3",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.3016131434483453,
+   0.044766600880002214,
+   0.13315200939356361,
+   0.5204682462780889
+  ],
+  "source": "crossing"
+ },
+ "b88fdc98450f": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    2880
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "b88fdc98450f",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.3092206702624716,
+   0.03148560397127671,
+   0.08320132830432704,
+   0.5760923974619248
+  ],
+  "source": "crossing"
+ },
+ "c530bd8d162c": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "13-gonic": [
+    1440
+   ]
+  },
+  "key": "c530bd8d162c",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.2804601944400824,
+   0.021085575779598978,
+   0.13694952099057955,
+   0.5615047087897391
+  ],
+  "source": "crossing"
+ },
+ "d63cf3f7e04a": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "d63cf3f7e04a",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.2539091137842359,
+   0.05360828757008616,
+   0.1400875447032388,
+   0.5523950539424392
+  ],
+  "source": "crossing"
+ },
+ "d95b9265282e": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trips": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "d95b9265282e",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.2922500298610569,
+   0.04637746270212324,
+   0.13480122645966588,
+   0.5265712809771541
+  ],
+  "source": "crossing"
+ },
+ "e18a9a21cfb8": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "e18a9a21cfb8",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.1665868187354899,
+   0.05889127786697127,
+   0.05637011611189182,
+   0.7181517872856471
+  ],
+  "source": "crossing"
+ },
+ "e66f76a2f917": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "decagonic": [
+    1440
+   ],
+   "14-gonic": [
+    1440
+   ]
+  },
+  "key": "e66f76a2f917",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.20346580656050534,
+   0.04651834564899393,
+   0.0900892581110239,
+   0.6599265896794768
+  ],
+  "source": "crossing"
+ },
+ "e6e26b751603": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 18720,
+  "cells": {
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "e6e26b751603",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.10174670384808222,
+   0.10521949009642088,
+   0.21549268534787266,
+   0.5775411207076243
+  ],
+  "source": "crossing"
+ },
+ "d3600d23e9d3": {
+  "vertices": 2880,
+  "dualcell_faces": 20,
+  "n_cells": 19200,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "d3600d23e9d3",
+  "kind": "wall",
+  "sheet": "ixo2",
+  "seed": [
+   0.08147821682867985,
+   0.03923140431750753,
+   0.00810360368934755,
+   0.8711867751644651
+  ],
+  "source": "crossing"
+ },
+ "36b0a6557c03": {
+  "vertices": 2880,
+  "dualcell_faces": 8,
+  "n_cells": 2880,
+  "cells": {
+   "irregular tets": [
+    1440
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "trips": [
+    480
+   ],
+   "squaps / squigyps": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960
+   ],
+   "rectangles": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "36b0a6557c03",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.14189679315934042,
+   0.09208238119303164,
+   0.15613069129700202,
+   0.609890134350626
+  ],
+  "source": "crossing"
+ },
+ "d085e461f806": {
+  "vertices": 2880,
+  "dualcell_faces": 10,
+  "n_cells": 4800,
+  "cells": {
+   "16-faced cells (12 vertices: 12 3-gons + 4 4-gons)": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "trips": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440,
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ]
+  },
+  "key": "d085e461f806",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.3865611897126551,
+   0.05591572399719433,
+   0.11363459316256733,
+   0.4438884931275832
+  ],
+  "source": "crossing"
+ },
+ "0b4695a7f908": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 5520,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "11-faced cells (8 vertices: 10 3-gons + 1 4-gons)": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ]
+  },
+  "key": "0b4695a7f908",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.2545478026882299,
+   0.05484199737755497,
+   0.10456981723838726,
+   0.5860403826958279
+  ],
+  "source": "crossing"
+ },
+ "254f7a99a139": {
+  "vertices": 2880,
+  "dualcell_faces": 10,
+  "n_cells": 5520,
+  "cells": {
+   "trigypos": [
+    480
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "17-faced cells (18 vertices: 14 3-gons + 3 8-gons)": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "irregular octagons": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ]
+  },
+  "key": "254f7a99a139",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.008530409595929763,
+   0.15377754442752106,
+   0.46644021263120383,
+   0.37125183334534545
+  ],
+  "source": "crossing"
+ },
+ "0e728f69c301": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 7680,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "gyrowedges": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "0e728f69c301",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.05975567979141099,
+   0.10379940881053638,
+   0.03091217377106179,
+   0.805532737626991
+  ],
+  "source": "crossing"
+ },
+ "2a2e40fcc14c": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 7680,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "gyrowedges": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ]
+  },
+  "key": "2a2e40fcc14c",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.05928938008055673,
+   0.04766922667400729,
+   0.08405692326791803,
+   0.8089844699775179
+  ],
+  "source": "crossing"
+ },
+ "bb4e17270fbe": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 9120,
+  "cells": {
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "12-faced cells (8 vertices: 12 3-gons)": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ]
+  },
+  "key": "bb4e17270fbe",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.5367579661887669,
+   0.021241530118338226,
+   0.27337404011663213,
+   0.1686264635762627
+  ],
+  "source": "crossing"
+ },
+ "e90411f65626": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 9120,
+  "cells": {
+   "phydows": [
+    1440
+   ],
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ],
+   "12-faced cells (8 vertices: 12 3-gons)": [
+    720
+   ]
+  },
+  "faces": {
+   "trapezoids": [
+    1440
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "e90411f65626",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.059020227447038616,
+   0.09113614706047601,
+   0.1263568476022957,
+   0.7234867778901898
+  ],
+  "source": "crossing"
+ },
+ "2fd748a3e772": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 9840,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "trigypos": [
+    480
+   ],
+   "trips": [
+    480
+   ],
+   "squaps / squigyps": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    720,
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "2fd748a3e772",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.30145241040871174,
+   0.010990528715475203,
+   0.14013817330608472,
+   0.5474188875697285
+  ],
+  "source": "crossing"
+ },
+ "a94a277b2057": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 9840,
+  "cells": {
+   "trigypos": [
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "squaps / squigyps": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trips": [
+    480
+   ]
+  },
+  "faces": {
+   "equits": [
+    960,
+    960
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720,
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "a94a277b2057",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.2884642428148006,
+   0.06463205193964339,
+   0.13185218902788273,
+   0.5150515162176733
+  ],
+  "source": "crossing"
+ },
+ "b66b825b8426": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10080,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "phydows": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440,
+    1440
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "b66b825b8426",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.2104065391289963,
+   0.04146231100840564,
+   0.4757461915173649,
+   0.2723849583452331
+  ],
+  "source": "crossing"
+ },
+ "a0220742e7df": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10560,
+  "cells": {
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "a0220742e7df",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.1542275931101787,
+   0.062488239277265115,
+   0.03515962176534032,
+   0.7481245458472159
+  ],
+  "source": "crossing"
+ },
+ "0b7ebced8279": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "squaps / squigyps": [
+    1440
+   ],
+   "trips": [
+    480
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720,
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "0b7ebced8279",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.29296979519395,
+   0.046023984955874855,
+   0.13472656956758014,
+   0.5262796502825952
+  ],
+  "source": "crossing"
+ },
+ "54aa10ec10cd": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "54aa10ec10cd",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.130825117022596,
+   0.07943690651637038,
+   0.0664345982022057,
+   0.7233033782588278
+  ],
+  "source": "crossing"
+ },
+ "782ae83140dc": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11280,
+  "cells": {
+   "gyrowedges": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "782ae83140dc",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.05776771083396614,
+   0.11489227818245115,
+   0.09247781851334363,
+   0.7348621924702391
+  ],
+  "source": "crossing"
+ },
+ "94f959132f2e": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11280,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    720
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "94f959132f2e",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.05713961618700252,
+   0.08856307542268699,
+   0.11933574161004801,
+   0.7349615667802625
+  ],
+  "source": "crossing"
+ },
+ "bdfe2726b6c7": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "bdfe2726b6c7",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.1214867775517914,
+   0.06126414182560974,
+   0.09246823229444187,
+   0.724780848328157
+  ],
+  "source": "crossing"
+ },
+ "1ab3bac9901a": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "1ab3bac9901a",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.15479052245076722,
+   0.06770253030932437,
+   0.05592455566362079,
+   0.7215823915762877
+  ],
+  "source": "crossing"
+ },
+ "345ca7ee9f13": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "square pyramids": [
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440,
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "345ca7ee9f13",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.14466808986303964,
+   0.06138847082983932,
+   0.022943256652985286,
+   0.7710001826541358
+  ],
+  "source": "crossing"
+ },
+ "41d9c69dc7ba": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 12000,
+  "cells": {
+   "phydows": [
+    1440
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "41d9c69dc7ba",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.15541156324565894,
+   0.06811812031753689,
+   0.05892747218790936,
+   0.7175428442488948
+  ],
+  "source": "crossing"
+ },
+ "554a8a1653b8": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "554a8a1653b8",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.13675180180687777,
+   0.042542318465793295,
+   0.06069609879354191,
+   0.760009780933787
+  ],
+  "source": "crossing"
+ },
+ "63848145c39a": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "63848145c39a",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.20343362948445562,
+   0.04654452776360794,
+   0.09015652519092375,
+   0.6598653175610127
+  ],
+  "source": "crossing"
+ },
+ "8149da9cc2b1": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "trips": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "8149da9cc2b1",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.3153709570390618,
+   0.00914785359217239,
+   0.13767686402664894,
+   0.537804325342117
+  ],
+  "source": "crossing"
+ },
+ "9192f6d479a9": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "9192f6d479a9",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.15515508759192945,
+   0.06787202828997004,
+   0.057326784172654646,
+   0.7196460999454459
+  ],
+  "source": "crossing"
+ },
+ "bbfc91847c63": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trips": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "bbfc91847c63",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.29400098857998047,
+   0.016466368844749647,
+   0.14054083721041294,
+   0.548991805364857
+  ],
+  "source": "crossing"
+ },
+ "bf907d6be713": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trips": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "bf907d6be713",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.2922301691615037,
+   0.04646055752802281,
+   0.13478833805307194,
+   0.5265209352574015
+  ],
+  "source": "crossing"
+ },
+ "c9a947702351": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "c9a947702351",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.1696092423116594,
+   0.039836700213697944,
+   0.06393503236083853,
+   0.7266190251138042
+  ],
+  "source": "crossing"
+ },
+ "feab799440ed": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trips": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "gyrowedges": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "rectangles": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "feab799440ed",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.3929544771009921,
+   0.03074258302396194,
+   0.11746231092753537,
+   0.4588406289475106
+  ],
+  "source": "crossing"
+ },
+ "f3d5bdc8921c": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "f3d5bdc8921c",
+  "kind": "line",
+  "sheet": "ixo2",
+  "seed": [
+   0.24706032881600515,
+   0.017624742886171173,
+   0.04287442665537019,
+   0.6924405016424535
+  ],
+  "source": "crossing"
+ },
+ "930386faa9c2": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 8160,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "930386faa9c2",
+  "kind": "wall",
+  "sheet": "ixo8",
+  "seed": [
+   0.4701514367863042,
+   0.04436344560115203,
+   0.4700648461894675,
+   0.015420271423076174
+  ],
+  "source": "crossing"
+ },
+ "b3a8e2e65b5c": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 8160,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "heptagonic": [
+    1440
+   ]
+  },
+  "key": "b3a8e2e65b5c",
+  "kind": "wall",
+  "sheet": "ixo8",
+  "seed": [
+   0.055148429959621104,
+   0.15662744082406366,
+   0.4794501354449755,
+   0.30877399377133985
+  ],
+  "source": "crossing"
+ },
+ "5b521a054b9a": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 11040,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    960
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "5b521a054b9a",
+  "kind": "wall",
+  "sheet": "ixo8",
+  "seed": [
+   0.07384966005878504,
+   0.6073080087065695,
+   0.11021770526480977,
+   0.2086246259698357
+  ],
+  "source": "crossing"
+ },
+ "e59a042c2dd9": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "dodecagonic": [
+    1440
+   ],
+   "13-gonic": [
+    1440
+   ]
+  },
+  "key": "e59a042c2dd9",
+  "kind": "wall",
+  "sheet": "ixo8",
+  "seed": [
+   0.12815996691709053,
+   0.6662903338869849,
+   0.1423355382070473,
+   0.06321416098887728
+  ],
+  "source": "crossing"
+ },
+ "faff2dd96762": {
+  "vertices": 2880,
+  "dualcell_faces": 9,
+  "n_cells": 3840,
+  "cells": {
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "irregular tets": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "tuts": [
+    240
+   ],
+   "ratets": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480,
+    960
+   ],
+   "equits": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ]
+  },
+  "key": "faff2dd96762",
+  "kind": "line",
+  "sheet": "ixo8",
+  "seed": [
+   0.4584090925752949,
+   0.07443435509162755,
+   0.4584090925752809,
+   0.008747459757796554
+  ],
+  "source": "crossing"
+ },
+ "d6eec719975e": {
+  "vertices": 2880,
+  "dualcell_faces": 11,
+  "n_cells": 6720,
+  "cells": {
+   "trigypos": [
+    480,
+    960
+   ],
+   "irregular tets": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "20-faced cells (24 vertices: 4 3-gons + 12 4-gons + 4 6-gons)": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "irregular quadrilaterals": [
+    2880
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "d6eec719975e",
+  "kind": "line",
+  "sheet": "ixo8",
+  "seed": [
+   0.04463315759085612,
+   0.4966731739666978,
+   0.20988560136181528,
+   0.24880806708063077
+  ],
+  "source": "crossing"
+ },
+ "1dc61eaa1213": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10080,
+  "cells": {
+   "phydows": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "trapezoids": [
+    1440,
+    1440
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "1dc61eaa1213",
+  "kind": "line",
+  "sheet": "ixo8",
+  "seed": [
+   0.04353405605473923,
+   0.8204930519277088,
+   0.049401930105929866,
+   0.08657096191162207
+  ],
+  "source": "crossing"
+ },
+ "53f1001d977a": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 9600,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "trigypos": [
+    480,
+    960
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "53f1001d977a",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.1220109221845019,
+   0.20737703821289727,
+   0.2947823479755512,
+   0.3758296916270497
+  ],
+  "source": "crossing"
+ },
+ "36f967a28176": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 10560,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "ratets": [
+    480
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "36f967a28176",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.06555025347803131,
+   0.10601511940304198,
+   0.08435402437929292,
+   0.7440806027396338
+  ],
+  "source": "crossing"
+ },
+ "23527c097d81": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14880,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "23527c097d81",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.037751832251127444,
+   0.050771180407954475,
+   0.05289754586408332,
+   0.8585794414768347
+  ],
+  "source": "crossing"
+ },
+ "074abe9545a5": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "trips": [
+    480
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "074abe9545a5",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.048157690589577466,
+   0.06399482695777739,
+   0.04234466161583076,
+   0.8455028208368144
+  ],
+  "source": "crossing"
+ },
+ "377d84ed1c28": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "377d84ed1c28",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.03729580773566823,
+   0.0455714117383844,
+   0.05095716302572349,
+   0.866175617500224
+  ],
+  "source": "crossing"
+ },
+ "cbe667d30783": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "cbe667d30783",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.061856436207544364,
+   0.025402462446745988,
+   0.08397686651970215,
+   0.8287642348260075
+  ],
+  "source": "crossing"
+ },
+ "130ba3c9dd5b": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "130ba3c9dd5b",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.0323185642470498,
+   0.052501517377777474,
+   0.04436958307087324,
+   0.8708103353042995
+  ],
+  "source": "crossing"
+ },
+ "8e942efc9ee3": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "trips": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "8e942efc9ee3",
+  "kind": "wall",
+  "sheet": "ixo6",
+  "seed": [
+   0.04623959950087062,
+   0.06392145816116333,
+   0.0441589935573109,
+   0.8456799487806552
+  ],
+  "source": "crossing"
+ },
+ "5f6dfc321d22": {
+  "vertices": 2880,
+  "dualcell_faces": 8,
+  "n_cells": 2160,
+  "cells": {
+   "irregular tets": [
+    1440
+   ],
+   "17-faced cells (12 vertices: 14 3-gons + 3 4-gons)": [
+    480
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720
+   ],
+   "equits": [
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ]
+  },
+  "key": "5f6dfc321d22",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.07064163873656434,
+   0.43929975707136465,
+   0.17054400230606512,
+   0.31951460188600583
+  ],
+  "source": "crossing"
+ },
+ "5aff907e2539": {
+  "vertices": 2880,
+  "dualcell_faces": 10,
+  "n_cells": 4080,
+  "cells": {
+   "17-faced cells (12 vertices: 14 3-gons + 3 4-gons)": [
+    480
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "irregular tets": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trips": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    720,
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ]
+  },
+  "key": "5aff907e2539",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.07444628422476154,
+   0.054200664474874344,
+   0.368822099990075,
+   0.5025309513102892
+  ],
+  "source": "crossing"
+ },
+ "1879a840141c": {
+  "vertices": 2880,
+  "dualcell_faces": 10,
+  "n_cells": 4800,
+  "cells": {
+   "trigypos": [
+    480
+   ],
+   "irregular tets": [
+    2880
+   ],
+   "10-faced cells (12 vertices: 4 3-gons + 4 4-gons + 2 6-gons)": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "11-faced cells (12 vertices: 8 3-gons + 3 6-gons)": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "irregular hexagons": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ]
+  },
+  "key": "1879a840141c",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.12836095299474903,
+   0.012297407853260521,
+   0.16536043435401754,
+   0.693981204797973
+  ],
+  "source": "crossing"
+ },
+ "7396c092c71d": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 6480,
+  "cells": {
+   "trigypos": [
+    480,
+    960
+   ],
+   "phydows": [
+    1440
+   ],
+   "11-faced cells (12 vertices: 2 3-gons + 9 4-gons)": [
+    480
+   ],
+   "irregular tets": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "irregular quadrilaterals": [
+    2880
+   ],
+   "rectangles": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "7396c092c71d",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.10566773904482667,
+   0.15364856250004513,
+   0.25510448870732333,
+   0.48557920974780483
+  ],
+  "source": "crossing"
+ },
+ "91a9103567a5": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10560,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "91a9103567a5",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.037759368485684994,
+   0.05083798193496162,
+   0.05289723963199127,
+   0.8585054099473621
+  ],
+  "source": "crossing"
+ },
+ "699d75f79d77": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "trips": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "gyrowedges": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    1440
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "699d75f79d77",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.048792513499202696,
+   0.06828433473238117,
+   0.04777611877695512,
+   0.8351470329914611
+  ],
+  "source": "crossing"
+ },
+ "733896648b24": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440,
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "733896648b24",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.037294787740392535,
+   0.04563567911212869,
+   0.050969519723209525,
+   0.8661000134242692
+  ],
+  "source": "crossing"
+ },
+ "a028a358c5ee": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "a028a358c5ee",
+  "kind": "line",
+  "sheet": "ixo6",
+  "seed": [
+   0.06414701030284028,
+   0.08020464017924,
+   0.07190932624579766,
+   0.7837390232721221
+  ],
+  "source": "crossing"
+ },
+ "d44242ca987f": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 10080,
+  "cells": {
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "d44242ca987f",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.06180199125678078,
+   0.3315887771152463,
+   0.5823662855336604,
+   0.024242946094312504
+  ],
+  "source": "crossing"
+ },
+ "5b64451c2091": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 13440,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440,
+    1440
+   ]
+  },
+  "key": "5b64451c2091",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.5450344020809028,
+   0.10505456349864116,
+   0.16602745028941807,
+   0.18388358413103803
+  ],
+  "source": "crossing"
+ },
+ "8f486d65bc62": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 13440,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240,
+    480
+   ],
+   "trigypos": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "8f486d65bc62",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.16658681884666168,
+   0.46086851615625246,
+   0.31677192792439035,
+   0.055772737072695554
+  ],
+  "source": "crossing"
+ },
+ "19f1bc329798": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "19f1bc329798",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.11819379166265431,
+   0.7304630721772948,
+   0.056340934718414296,
+   0.09500220144163672
+  ],
+  "source": "crossing"
+ },
+ "5b5b1d1f5fe0": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "5b5b1d1f5fe0",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.150012552489889,
+   0.49790872307556405,
+   0.3078403776847257,
+   0.04423834674982122
+  ],
+  "source": "crossing"
+ },
+ "6472a90f8ad5": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "6472a90f8ad5",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.1430687033522774,
+   0.723079727832705,
+   0.016766257101470103,
+   0.11708531171354758
+  ],
+  "source": "crossing"
+ },
+ "88912f2f4ae2": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 14400,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "88912f2f4ae2",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.2394853245772301,
+   0.45367411970931626,
+   0.2804951399648189,
+   0.026345415748634835
+  ],
+  "source": "crossing"
+ },
+ "92a5f1cec0b1": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "92a5f1cec0b1",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.4458808304439896,
+   0.1648174806807058,
+   0.33352895165648955,
+   0.05577273721881502
+  ],
+  "source": "crossing"
+ },
+ "b761c9a4bbac": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "b761c9a4bbac",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.34392928566920705,
+   0.3222007916986634,
+   0.22266541718642996,
+   0.11120450544569957
+  ],
+  "source": "crossing"
+ },
+ "e13a698beda2": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "e13a698beda2",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.13559727764995141,
+   0.528093821197579,
+   0.32712015942366257,
+   0.009188741728807098
+  ],
+  "source": "crossing"
+ },
+ "2a62ef96edee": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 14880,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "2a62ef96edee",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.2589052359416568,
+   0.4368853221759743,
+   0.27012562842771853,
+   0.034083813454650405
+  ],
+  "source": "crossing"
+ },
+ "5a455bd0ef08": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14880,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240,
+    480
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "5a455bd0ef08",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.5269312059234182,
+   0.08697179988720907,
+   0.24850409782330257,
+   0.1375928963660703
+  ],
+  "source": "crossing"
+ },
+ "5a5cc036acb4": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14880,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "5a5cc036acb4",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.391819370983646,
+   0.2188789403011959,
+   0.27809718424570173,
+   0.11120450446945643
+  ],
+  "source": "crossing"
+ },
+ "408fbc921110": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 15360,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "408fbc921110",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.19094644628752783,
+   0.49025103467866543,
+   0.30024919786837245,
+   0.018553321165434327
+  ],
+  "source": "crossing"
+ },
+ "447d0707c22b": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 15360,
+  "cells": {
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "447d0707c22b",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.4552558705303205,
+   0.08343255946167227,
+   0.44317522191522596,
+   0.018136348092781317
+  ],
+  "source": "crossing"
+ },
+ "1d973c57b83d": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 15840,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "1d973c57b83d",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.5016794525342373,
+   0.04087258321959661,
+   0.424782910346778,
+   0.03266505389938811
+  ],
+  "source": "crossing"
+ },
+ "23e44be7d79a": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 15840,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "tuts": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    960
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "23e44be7d79a",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.18918664731428445,
+   0.49000686206068045,
+   0.30284089547418197,
+   0.017965595150853025
+  ],
+  "source": "crossing"
+ },
+ "25ee90c1a706": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 15840,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "25ee90c1a706",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.15079983620716753,
+   0.5590205584714426,
+   0.2739364010156784,
+   0.016243204305711464
+  ],
+  "source": "crossing"
+ },
+ "c3433eb016e0": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 15840,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "c3433eb016e0",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.23071859156306648,
+   0.590726215092723,
+   0.02866004233415757,
+   0.14989515101005296
+  ],
+  "source": "crossing"
+ },
+ "d59eced1ab2a": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 15840,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "tuts": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "d59eced1ab2a",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.237766869807989,
+   0.45342122653874106,
+   0.28022972922160777,
+   0.02858217443166222
+  ],
+  "source": "crossing"
+ },
+ "e38c39c8bf79": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 15840,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "e38c39c8bf79",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.32997091233432096,
+   0.28771717866981744,
+   0.2936269574655026,
+   0.08868495153035903
+  ],
+  "source": "crossing"
+ },
+ "f50624200b35": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 15840,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "f50624200b35",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.087190515221586,
+   0.7504055732743583,
+   0.09264352843475579,
+   0.0697603830692999
+  ],
+  "source": "crossing"
+ },
+ "5e512144da3b": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "5e512144da3b",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.43770343602916495,
+   0.17332184101317674,
+   0.27687585577980206,
+   0.11209886717785623
+  ],
+  "source": "crossing"
+ },
+ "7d1e87acef85": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "7d1e87acef85",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.22106665015966492,
+   0.5481639008757234,
+   0.08182764903731539,
+   0.1489417999272963
+  ],
+  "source": "crossing"
+ },
+ "9f7fdd249799": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "9f7fdd249799",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.07227563495053824,
+   0.7972650272764773,
+   0.10622592275165825,
+   0.024233415021326248
+  ],
+  "source": "crossing"
+ },
+ "c8457661915e": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 16320,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "c8457661915e",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.5347162655546968,
+   0.05614670832487885,
+   0.281597015574439,
+   0.1275400105459855
+  ],
+  "source": "crossing"
+ },
+ "d9445b558eb1": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16320,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "d9445b558eb1",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.3988830713088025,
+   0.2032210783709515,
+   0.300818658856596,
+   0.09707719146365011
+  ],
+  "source": "crossing"
+ },
+ "57f50b8af94e": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16800,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "dodecagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "57f50b8af94e",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.23646152350642835,
+   0.39541124868528754,
+   0.31079694946685954,
+   0.05733027834142441
+  ],
+  "source": "crossing"
+ },
+ "6065421a2540": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 16800,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "6065421a2540",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.19161891309167622,
+   0.46390746953088763,
+   0.28625059482559384,
+   0.058223022551842384
+  ],
+  "source": "crossing"
+ },
+ "0a47be22e69b": {
+  "vertices": 2880,
+  "dualcell_faces": 20,
+  "n_cells": 17280,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "14-gonic": [
+    1440
+   ]
+  },
+  "key": "0a47be22e69b",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.33452388767370717,
+   0.2761744216534179,
+   0.3335289523376081,
+   0.05577273833526689
+  ],
+  "source": "crossing"
+ },
+ "1880c3daa725": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "13-gonic": [
+    1440
+   ]
+  },
+  "key": "1880c3daa725",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.2096296227485002,
+   0.4400524709308222,
+   0.28768875904457836,
+   0.06262914727609929
+  ],
+  "source": "crossing"
+ },
+ "2d0847deba03": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "2d0847deba03",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.2385099935972616,
+   0.600138709428173,
+   0.046337896502068834,
+   0.11501340047249652
+  ],
+  "source": "crossing"
+ },
+ "3501ea11a32c": {
+  "vertices": 2880,
+  "dualcell_faces": 20,
+  "n_cells": 17280,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "3501ea11a32c",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.17440495873633488,
+   0.5471568871394087,
+   0.22266541712389823,
+   0.055772737000358195
+  ],
+  "source": "crossing"
+ },
+ "42e1af87b033": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "42e1af87b033",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.42277561733790525,
+   0.15077199928398186,
+   0.39603267579625956,
+   0.030419707581853403
+  ],
+  "source": "crossing"
+ },
+ "56dcbb45dc2c": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "56dcbb45dc2c",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.14320699064803832,
+   0.7225721756762723,
+   0.017090372750297195,
+   0.11713046092539216
+  ],
+  "source": "crossing"
+ },
+ "5e8ab43a6f65": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "13-gonic": [
+    1440
+   ]
+  },
+  "key": "5e8ab43a6f65",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.10072146090964519,
+   0.796265883261109,
+   0.015961753576682412,
+   0.0870509022525635
+  ],
+  "source": "crossing"
+ },
+ "6d3de62388a7": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "6d3de62388a7",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.1178123134372556,
+   0.7062460782336111,
+   0.08448116950509298,
+   0.09146043882404035
+  ],
+  "source": "crossing"
+ },
+ "7e85b990db4b": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "7e85b990db4b",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.07299466249925331,
+   0.7047965756224166,
+   0.1924911580033469,
+   0.029717603874983227
+  ],
+  "source": "crossing"
+ },
+ "914640c473c4": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "phydows": [
+    1440
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "914640c473c4",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.13010621814844672,
+   0.5321508474391121,
+   0.29755143283458807,
+   0.04019150157785311
+  ],
+  "source": "crossing"
+ },
+ "1c359ffe0a30": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "1c359ffe0a30",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.5332752155546665,
+   0.05513930246907609,
+   0.2939130855244397,
+   0.11767239645181785
+  ],
+  "source": "crossing"
+ },
+ "28fa10c535bf": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "square pyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "trapezoids": [
+    1440
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "28fa10c535bf",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.1573686501653546,
+   0.6149738641245744,
+   0.13159799256967558,
+   0.09605949314039525
+  ],
+  "source": "crossing"
+ },
+ "96d3133e7d22": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "96d3133e7d22",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.0945815017155253,
+   0.7082242528611349,
+   0.12546624066158135,
+   0.07172800476175857
+  ],
+  "source": "crossing"
+ },
+ "5017cd4a9af5": {
+  "vertices": 2880,
+  "dualcell_faces": 20,
+  "n_cells": 19200,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "5017cd4a9af5",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.5929896610185845,
+   0.11868986278856364,
+   0.07992595743566981,
+   0.20839451875718204
+  ],
+  "source": "crossing"
+ },
+ "a283ed688809": {
+  "vertices": 2880,
+  "dualcell_faces": 20,
+  "n_cells": 19200,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "a283ed688809",
+  "kind": "wall",
+  "sheet": "ixo9",
+  "seed": [
+   0.26599617496586425,
+   0.5053269989083617,
+   0.09724220734596034,
+   0.1314346187798137
+  ],
+  "source": "crossing"
+ },
+ "833c85c26b69": {
+  "vertices": 2880,
+  "dualcell_faces": 9,
+  "n_cells": 3600,
+  "cells": {
+   "irregular tets": [
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ],
+   "gyrowedges": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960
+   ],
+   "ditrigons": [
+    480
+   ],
+   "rectangles": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ]
+  },
+  "key": "833c85c26b69",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.060915708426413535,
+   0.3312441788800687,
+   0.582608000101733,
+   0.025232112591784813
+  ],
+  "source": "crossing"
+ },
+ "06140f54b662": {
+  "vertices": 2880,
+  "dualcell_faces": 8,
+  "n_cells": 3840,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "44-faced cells (36 vertices: 36 3-gons + 8 6-gons)": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ]
+  },
+  "key": "06140f54b662",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.11989614383642586,
+   0.7314138931857689,
+   0.028793819141375816,
+   0.11989614383642952
+  ],
+  "source": "crossing"
+ },
+ "ff1511f753cf": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 6240,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "11-faced cells (8 vertices: 10 3-gons + 1 4-gons)": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ],
+   "trips": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ]
+  },
+  "key": "ff1511f753cf",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.09423507323275097,
+   0.5803537413044553,
+   0.2818379505904123,
+   0.04357323487238162
+  ],
+  "source": "crossing"
+ },
+ "8249db9bc450": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 7680,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "gyrowedges": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ]
+  },
+  "key": "8249db9bc450",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.5347340926362308,
+   0.05614320429520015,
+   0.2815206899610664,
+   0.12760201310750274
+  ],
+  "source": "crossing"
+ },
+ "cd59acf72300": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 7680,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "squaps / squigyps": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "cd59acf72300",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.1548877722483807,
+   0.6217809060538231,
+   0.11260776738860194,
+   0.1107235543091942
+  ],
+  "source": "crossing"
+ },
+ "dff2d5a81b9e": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 7680,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440
+   ],
+   "gyrowedges": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "dff2d5a81b9e",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.08893683787142281,
+   0.7104873934731357,
+   0.1220506665648145,
+   0.07852510209062705
+  ],
+  "source": "crossing"
+ },
+ "864fc8bacd90": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 8400,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "wedges": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "isots": [
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    2880
+   ],
+   "rectangles": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "864fc8bacd90",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.6718081648050215,
+   0.07448361135844846,
+   0.06269914937981338,
+   0.19100907445671675
+  ],
+  "source": "crossing"
+ },
+ "b33acfd1df08": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 9120,
+  "cells": {
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240,
+    480
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ]
+  },
+  "key": "b33acfd1df08",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.5269341407525884,
+   0.087006929484994,
+   0.24842169034715292,
+   0.13763723941526462
+  ],
+  "source": "crossing"
+ },
+ "de9db2e1b897": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 9120,
+  "cells": {
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240,
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "de9db2e1b897",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.22516071745118094,
+   0.39112435355466835,
+   0.32490207710628805,
+   0.05881285188786278
+  ],
+  "source": "crossing"
+ },
+ "8a1adc7c92fe": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 9600,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "tuts": [
+    240
+   ],
+   "ratets": [
+    960
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480,
+    960
+   ],
+   "equits": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "8a1adc7c92fe",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.19165110768893492,
+   0.4557080898659367,
+   0.281643088485441,
+   0.07099771395968742
+  ],
+  "source": "crossing"
+ },
+ "dbd7b6a93732": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 9600,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "ratets": [
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "tuts": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480,
+    960
+   ],
+   "equits": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "dbd7b6a93732",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.1928176639160725,
+   0.4883458356366292,
+   0.30181432468790714,
+   0.017022175759391096
+  ],
+  "source": "crossing"
+ },
+ "ca02b44d328d": {
+  "vertices": 2880,
+  "dualcell_faces": 13,
+  "n_cells": 10080,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "ca02b44d328d",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.28220191557013385,
+   0.3970857972962501,
+   0.28516389003208226,
+   0.03554839710153395
+  ],
+  "source": "crossing"
+ },
+ "36d1290c653e": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 10560,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    240
+   ],
+   "ratets": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "irregular quadrilaterals": [
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "36d1290c653e",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.29441406494644257,
+   0.3343295539902535,
+   0.2794847313310508,
+   0.09177164973225323
+  ],
+  "source": "crossing"
+ },
+ "4789e197421e": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10560,
+  "cells": {
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "4789e197421e",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.4300690522688204,
+   0.166068810148928,
+   0.30293539662137325,
+   0.10092674096087835
+  ],
+  "source": "crossing"
+ },
+ "6efb3e27d90a": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10560,
+  "cells": {
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    1440
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "6efb3e27d90a",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.11861970941291489,
+   0.7000048275136553,
+   0.09001922021555618,
+   0.09135624285787361
+  ],
+  "source": "crossing"
+ },
+ "bfbc8f8b850a": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 10560,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "phydows": [
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440,
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "bfbc8f8b850a",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.06365919679419658,
+   0.7183495640749198,
+   0.17047022044106597,
+   0.047521018689817694
+  ],
+  "source": "crossing"
+ },
+ "c2790d9e856b": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 10560,
+  "cells": {
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "equits": [
+    960,
+    960
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "c2790d9e856b",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.3234184701179562,
+   0.40878987748897255,
+   0.2077826357397414,
+   0.060009016653329916
+  ],
+  "source": "crossing"
+ },
+ "4effb8c05582": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11040,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    480
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "4effb8c05582",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.19092606535111672,
+   0.4902279419744758,
+   0.30020727007632525,
+   0.018638722598082226
+  ],
+  "source": "crossing"
+ },
+ "8de8a95bda6b": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 11040,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "ratets": [
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "tuts": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480,
+    960
+   ],
+   "equits": [
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "8de8a95bda6b",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.19195265312952456,
+   0.46414468571891115,
+   0.28685719147192523,
+   0.05704546967963903
+  ],
+  "source": "crossing"
+ },
+ "b12bcac85267": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11040,
+  "cells": {
+   "phydows": [
+    1440
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "b12bcac85267",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.19159519018992963,
+   0.4638897818100717,
+   0.2862070080353586,
+   0.05830801996464002
+  ],
+  "source": "crossing"
+ },
+ "ea59ef62c02c": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11040,
+  "cells": {
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "ea59ef62c02c",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.45524026423206193,
+   0.08340214581708036,
+   0.44313589194718145,
+   0.018221698003676245
+  ],
+  "source": "crossing"
+ },
+ "fe1161903104": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11040,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "fe1161903104",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.23033022634091688,
+   0.40053473632095643,
+   0.3050334953692317,
+   0.06410154196889513
+  ],
+  "source": "crossing"
+ },
+ "616d521dad56": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 11520,
+  "cells": {
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "616d521dad56",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.42281679305353215,
+   0.1507797414297043,
+   0.39594885298334426,
+   0.030454612533419356
+  ],
+  "source": "crossing"
+ },
+ "7b4c626de877": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 11520,
+  "cells": {
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "7b4c626de877",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.21639881310489942,
+   0.46465656252774656,
+   0.24706814883615993,
+   0.07187647553119408
+  ],
+  "source": "crossing"
+ },
+ "855fbc64179e": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 11520,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    960
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "tuts": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "ditrigons": [
+    960
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "855fbc64179e",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.18914376262828983,
+   0.48998083442735063,
+   0.30282480951213814,
+   0.018050593432221436
+  ],
+  "source": "crossing"
+ },
+ "951b0c04b272": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 11520,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "951b0c04b272",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.17197618824772573,
+   0.5234253487999395,
+   0.2868253571805978,
+   0.017773105771736922
+  ],
+  "source": "crossing"
+ },
+ "b26448176bac": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 11520,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "hendecagonic": [
+    1440
+   ]
+  },
+  "key": "b26448176bac",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.2096645816316889,
+   0.44007910791908533,
+   0.28760241238409223,
+   0.06265389806513358
+  ],
+  "source": "crossing"
+ },
+ "eaacda1d46ac": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 11520,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "eaacda1d46ac",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.1324048561438797,
+   0.7052288630416438,
+   0.10105558207243605,
+   0.06131069874204062
+  ],
+  "source": "crossing"
+ },
+ "f56f268588cf": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 11520,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "triangular bipyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "f56f268588cf",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.08725835562789906,
+   0.7503742899962058,
+   0.09266855584599774,
+   0.06969879852989735
+  ],
+  "source": "crossing"
+ },
+ "209a39c6fbf9": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440,
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "enneagonic": [
+    1440
+   ]
+  },
+  "key": "209a39c6fbf9",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.5332885424997454,
+   0.05514014874035312,
+   0.29383628078270013,
+   0.11773502797720134
+  ],
+  "source": "crossing"
+ },
+ "2cda66f86f50": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "snits": [
+    240
+   ],
+   "phydows": [
+    1440
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440,
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "2cda66f86f50",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.09452302353985968,
+   0.7082480123554603,
+   0.12543157550810105,
+   0.07179738859657896
+  ],
+  "source": "crossing"
+ },
+ "c280cc7d3115": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "ratets": [
+    480
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "trigypos": [
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "irregular quadrilaterals": [
+    2880
+   ],
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "decagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "c280cc7d3115",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.4253756304089536,
+   0.16328984956421114,
+   0.3300456747708553,
+   0.08128884525597996
+  ],
+  "source": "crossing"
+ },
+ "917d010d38c6": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 13440,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "triangular bipyramids": [
+    2880,
+    2880
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "917d010d38c6",
+  "kind": "line",
+  "sheet": "ixo9",
+  "seed": [
+   0.5930078104480548,
+   0.11864559893771383,
+   0.07999972019728203,
+   0.2083468704169493
+  ],
+  "source": "crossing"
+ },
+ "b43076b1cb98": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 13440,
+  "cells": {
+   "snits": [
+    240,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440,
+    1440
+   ]
+  },
+  "key": "b43076b1cb98",
+  "kind": "wall",
+  "sheet": "ixo3",
+  "seed": [
+   0.09556555454061108,
+   0.04752999547765004,
+   0.17458385375055394,
+   0.6823205962311849
+  ],
+  "source": "crossing"
+ },
+ "5ba82ac18cd6": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "dodecagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "5ba82ac18cd6",
+  "kind": "wall",
+  "sheet": "ixo3",
+  "seed": [
+   0.12167667207071227,
+   0.02299747015832225,
+   0.19589166899671961,
+   0.6594341887742459
+  ],
+  "source": "crossing"
+ },
+ "cd596cf4aa0b": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 13440,
+  "cells": {
+   "gyrowedges": [
+    1440,
+    1440
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "cd596cf4aa0b",
+  "kind": "wall",
+  "sheet": "ixo5",
+  "seed": [
+   0.6215694065940671,
+   0.09137033802274606,
+   0.00494200438984938,
+   0.28211825099333737
+  ],
+  "source": "crossing"
+ },
+ "e8b8faedb371": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 13440,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "44-faced cells (24 vertices: 44 3-gons)": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "e8b8faedb371",
+  "kind": "wall",
+  "sheet": "ixo5",
+  "seed": [
+   0.39796102045927656,
+   0.20407795908144455,
+   0.3827272709248515,
+   0.015233749534427455
+  ],
+  "source": "crossing"
+ },
+ "4a8f06eb3c0b": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 10560,
+  "cells": {
+   "square pyramids": [
+    2880
+   ],
+   "32-faced cells (24 vertices: 20 3-gons + 12 4-gons)": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    2880
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "octagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "4a8f06eb3c0b",
+  "kind": "line",
+  "sheet": "ixo5",
+  "seed": [
+   0.38473595747175987,
+   0.23052808505647865,
+   0.3730022769828279,
+   0.011733680488933645
+  ],
+  "source": "crossing"
+ },
+ "55291b1769ad": {
+  "vertices": 2880,
+  "dualcell_faces": 15,
+  "n_cells": 12000,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880,
+    2880
+   ],
+   "phydows": [
+    1440
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "disphenoids": [
+    720
+   ],
+   "gyrowedges": [
+    1440
+   ],
+   "ratets": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "rectangles": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ]
+  },
+  "key": "55291b1769ad",
+  "kind": "line",
+  "sheet": "ixo5",
+  "seed": [
+   0.4775727214919631,
+   0.1606745708698739,
+   0.25997691679525875,
+   0.10177579084290422
+  ],
+  "source": "crossing"
+ },
+ "3e6ee4d14b51": {
+  "vertices": 2880,
+  "dualcell_faces": 17,
+  "n_cells": 14400,
+  "cells": {
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ],
+   "trapezoids": [
+    1440
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "decagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "3e6ee4d14b51",
+  "kind": "wall",
+  "sheet": "ixo7",
+  "seed": [
+   0.27761158628229143,
+   0.23816709297842148,
+   0.471794513456196,
+   0.012426807283091063
+  ],
+  "source": "crossing"
+ },
+ "5b7b58f7395d": {
+  "vertices": 2880,
+  "dualcell_faces": 19,
+  "n_cells": 17280,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480,
+    960
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440,
+    1440
+   ]
+  },
+  "key": "5b7b58f7395d",
+  "kind": "wall",
+  "sheet": "ixo7",
+  "seed": [
+   0.17028445382904814,
+   0.3487087682054258,
+   0.4722229351050908,
+   0.008783842860435168
+  ],
+  "source": "crossing"
+ },
+ "070022c3e4cd": {
+  "vertices": 2880,
+  "dualcell_faces": 16,
+  "n_cells": 14880,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440,
+    2880
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "070022c3e4cd",
+  "kind": "wall",
+  "sheet": "ixo0",
+  "seed": [
+   0.8146147356014659,
+   0.021735470594609858,
+   0.03506914562728445,
+   0.1285806481766398
+  ],
+  "source": "crossing"
+ },
+ "145023c8942f": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "phydows": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "hexagonic": [
+    1440,
+    1440
+   ],
+   "heptagonic": [
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "145023c8942f",
+  "kind": "wall",
+  "sheet": "ixo0",
+  "seed": [
+   0.7504515888264401,
+   0.002500208217140941,
+   0.2281447442373793,
+   0.018903458719039447
+  ],
+  "source": "crossing"
+ },
+ "df4ae66c3811": {
+  "vertices": 2880,
+  "dualcell_faces": 18,
+  "n_cells": 17760,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440,
+    2880,
+    2880,
+    2880
+   ],
+   "square pyramids": [
+    2880
+   ],
+   "disphenoids": [
+    720
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880,
+    2880
+   ],
+   "enneagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    1440
+   ]
+  },
+  "key": "df4ae66c3811",
+  "kind": "wall",
+  "sheet": "ixo0",
+  "seed": [
+   0.2587740285693698,
+   0.011873009110917425,
+   0.004325688756611279,
+   0.7250272735631015
+  ],
+  "source": "crossing"
+ },
+ "e1533a634b52": {
+  "vertices": 2880,
+  "dualcell_faces": 12,
+  "n_cells": 9120,
+  "cells": {
+   "irregular tets": [
+    1440,
+    2880
+   ],
+   "trips": [
+    480
+   ],
+   "phydows": [
+    1440
+   ],
+   "disphenoids": [
+    720
+   ],
+   "wedges": [
+    1440
+   ],
+   "snits": [
+    240
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "rectangles": [
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ],
+   "trapezoids": [
+    2880
+   ],
+   "isots": [
+    2880
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    2880,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    2880
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "e1533a634b52",
+  "kind": "line",
+  "sheet": "ixo0",
+  "seed": [
+   0.03134156109378655,
+   0.31945229489837446,
+   0.1571916249680556,
+   0.4920145190397833
+  ],
+  "source": "crossing"
+ },
+ "e3eaf9caef53": {
+  "vertices": 2880,
+  "dualcell_faces": 14,
+  "n_cells": 10560,
+  "cells": {
+   "disphenoids": [
+    720
+   ],
+   "irregular tets": [
+    1440,
+    1440,
+    2880
+   ],
+   "phydows": [
+    2880
+   ],
+   "trigypos": [
+    480,
+    480
+   ],
+   "snits": [
+    240
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880,
+    2880
+   ],
+   "trapezoids": [
+    1440,
+    1440
+   ],
+   "equits": [
+    960,
+    960
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    2880
+   ],
+   "pentagonic": [
+    1440,
+    2880
+   ],
+   "decagonic": [
+    1440
+   ]
+  },
+  "key": "e3eaf9caef53",
+  "kind": "line",
+  "sheet": "ixo0",
+  "seed": [
+   0.25874948338061216,
+   0.011938329088776851,
+   0.0043516669854446,
+   0.7249605205451665
+  ],
+  "source": "crossing"
  }
 }

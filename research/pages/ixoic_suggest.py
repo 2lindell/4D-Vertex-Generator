@@ -29,7 +29,8 @@ RAW = {"regular tets": "tets", "squaps / squigyps": "rectaps", "phydows": "hexfl
        "11-faced cells (12 vertices: 8 3-gons + 3 6-gons)": "ertrips",
        "20-faced cells (24 vertices: 16 3-gons + 4 9-gons)": "etuts",
        "20-faced cells (18 vertices: 16 3-gons + 4 6-gons)": "gyrotuts",
-       "14-faced cells (18 vertices: 6 3-gons + 6 4-gons + 2 9-gons)": "enzaps"}
+       "14-faced cells (18 vertices: 6 3-gons + 6 4-gons + 2 9-gons)": "enzaps",
+       "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": "stet cells"}
 
 
 def words(d):
@@ -51,12 +52,13 @@ def words(d):
     return W, base
 
 
-# (240 cell -> stem, its abbreviation; from Sobted, Bitutid, Sagypbittid, Gabertatid, Sagybted, Tetsobted, Bamtuted)
+# (240 cell -> stem, its abbreviation; from Sobted, Bitutid, Sagypbittid, Gabertatid, Sagybted, Tetsobted, Bamtuted, Stetbituted)
 STEM = {"snits": ("Snub Bitetrahedral", "sobted"), "tuts": ("Bitruncatotetrahedral", "bituted"),
         "octs": ("Bitetratetrahedral", "bittid"), "ratets": ("Birhombitetratetrahedral", "bertatid"),
         "tets": ("Gyroprismatic Bitetrahedral", "gybted"), "etuts": ("Tetrahedral Transitional Snub Bitetrahedral",
                                                                     "tetsobted"),
-        "gyrotuts": ("Biambotruncatotetrahedral", "bamtuted")}
+        "gyrotuts": ("Biambotruncatotetrahedral", "bamtuted"),
+        "stet cells": ("Tetrahedral Transitional Bitruncatotetrahedral", "tetbituted")}
 
 # (modifier -> abbreviation, the list entries it is read from)
 MOD = {"Prismatic Transitional": ("pet", "Petsobted (480 retrips)"),
@@ -187,7 +189,8 @@ def main():
                 short += f" {i + 1}"
             taken_short.add(short.lower())
             cells = ", ".join(f"{w} x{n}" if n > 1 else w for w, n in sorted(W.items()) if n)
-            why = (f"Suggested from the list's own names: {STEM[base][0].lower()} for its 240 {base}"
+            why = (f"Suggested from the list's own names: {STEM[base][0].lower()} for its 240 "
+                   f"{'cells of the kind Stetbituted has' if base == 'stet cells' else base}"
                    + (f", {mod.lower()} as in {MOD[mod][1]}" if mod else "")
                    + (f", {EXTRA[ex][0].lower()} for its {ex} (no list entry has these; named in the list's manner)"
                       if ex else "")

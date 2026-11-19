@@ -36,11 +36,11 @@ def accepted():
         if len(c) > 3 and c[2].strip().lower() in GROUPS and c[1].strip():
             out[c[0].strip().lower()] = (c[1].strip(), c[15].strip() if len(c) > 15 else "")
     try:                                        # (the ixoic list, matched to the atlas: ixoic_match.py)
-        for v in json.load(open(os.path.join(HERE, "ixoic_names.json"))).values():
+        for k, v in json.load(open(os.path.join(HERE, "ixoic_names.json"))).items():
             for x in v:
                 out.setdefault(x["name"].lower(), (x["full"], x["related"]))
                 if len(v) > 1:
-                    ALSO[x["name"].lower()] = [y["name"] for y in v if y["name"] != x["name"]]
+                    ALSO[(k, x["name"].lower())] = [y["name"] for y in v if y["name"] != x["name"]]
     except FileNotFoundError:
         pass
     return out
@@ -63,6 +63,9 @@ def describe(sub, items):
 
 
 def display(name):
+    m = re.match(r"([a-z]+)_(\d{3,})$", name)
+    if m:
+        return f"{m.group(1).capitalize()} ({m.group(2)} vertices)"
     m = re.match(r"(\w+?)_or_unnamed_(\d)$", name)
     if m:
         return f"{m.group(1).capitalize()} or unnamed ({m.group(2)})"
@@ -114,13 +117,21 @@ def entries():
               "copies of the hyic chamber (ten sheets), each mapped by curved walls; the mirrors are seams between "
               "sheets. Below: its regions (three degrees of variation), walls (two), lines (one) and tehi.",
               [(r["name"], r["kind"], r["degrees"], r["seed"], r["sheet"]) for r in X]))
+    sys.path.insert(0, HY)
+    import ixitic_offs                          # (every ixoic shape, named as its .off files are)
+    ixitic_offs.GROUP = "ixoic"
+    O = ixitic_offs.shapes()
     try:
-        O = json.load(open(os.path.join(HY, "opt_central_ixoic.json")))["shapes"]
+        SG = json.load(open(os.path.join(HERE, "ixoic_suggested.json")))["suggested"]
     except FileNotFoundError:
-        O = []
+        SG = {}
     for r in O:
+        KEY[r["name"]] = r["key"]
         if r["key"] in XCROSS:
-            CROSS[r["name"]] = len(r["locus"]) or XCROSS[r["key"]]
+            CROSS[r["name"]] = XCROSS[r["key"]]
+        if r["key"] in SG:
+            g = SG[r["key"]]
+            SUGGESTED[r["name"]] = (g["short"], g["full"], g["why"])
     S.append(("Ixoics", "ixoic", f"Ixoic symmetry {para['Ixoic']} It is not inside hyic (its elements need √2), so it "
               "has no exact wall forms over the golden field: each of its ten sheets was mapped numerically, and the "
               "walls and lines between the map's shapes were then searched for where the walls meet. Below: its "
@@ -132,7 +143,8 @@ def entries():
 from suggested_names import RELATED, SUGGESTED  # noqa: E402
 
 CROSS = {}  # (shapes found where the map's walls cross: name -> number of walls)
-ALSO = {}   # (a name -> the other list names of the same shape)
+KEY = {}    # (ixoic: name -> atlas key, for the cached descriptions in ixoic_described.json)
+ALSO = {}   # ((key, name) -> the other list names of the same shape)
 try:        # (ixoic: the targeted crossing search's confirmed shapes, key -> walls; hyic_atlas/ixoic_crossings.py)
     XCROSS = {s["key"]: len(s["locus"]) for s in json.load(open(os.path.join(HY, "ixoic_crossings.json")))["shapes"]}
 except FileNotFoundError:
@@ -147,8 +159,18 @@ def main():
         for ri, (name, kind, dof, seed, sub) in enumerate(rows):
             by_sub.setdefault(sub, []).append([f"{si}:{ri}", seed, 1e-7 if kind == "wall" and sub != "full" else 1e-9])
     D = {}
+    try:
+        X = json.load(open(os.path.join(HERE, "ixoic_described.json")))     # (ixoic_describe.py)
+    except FileNotFoundError:
+        X = {}
+    for si, (_, group, _, rows) in enumerate(secs):
+        for ri, row in enumerate(rows):
+            if group == "ixoic" and KEY.get(row[0]) in X:
+                D[f"{si}:{ri}"] = X[KEY[row[0]]]
     for sub, items in by_sub.items():
-        D.update(describe(sub, items))
+        items = [it for it in items if it[0] not in D]
+        if items:
+            D.update(describe(sub, items))
         print(sub, len(items), flush=True)
     nav, parts, total, n_new = [], [], 0, 0
     order = {"point": 0, "line": 1, "wall": 2, "region": 3}
@@ -156,7 +178,7 @@ def main():
         sid = title.lower()
         nav.append(f'<a href="#{sid}">{html.escape(title)} <span class="n">{len(rows)}</span></a>')
         P = [f'<section id="{sid}"><h2>{html.escape(title)}</h2><p class="lede">{html.escape(intro)}</p>']
-        base = lambda n: re.sub(r"(_or_unnamed)?_\d$", "", n)
+        base = lambda n: re.sub(r"_\d{3,}$", "", re.sub(r"(_or_unnamed)?_\d$", "", n))
         idx = sorted(range(len(rows)), key=lambda i: (int(rows[i][2]), base(rows[i][0]) not in names, order[rows[i][1]],
                                                       D[f"{si}:{i}"]["vertices"], rows[i][0]))
         for ri in idx:
@@ -171,13 +193,15 @@ def main():
                 body += " Two atlas regions have this name's listed cells; which (if either) it is is not settled."
             elif re.search(r"_\d$", name) and full:
                 body += " Two atlas regions fit this name's listed counts exactly; which is which is not settled."
-            if name in CROSS and not full:
+            if name in CROSS and not full and CROSS[name] == 1:
+                body += " It was found by the targeted crossing search, on one of the map's walls between its regions."
+            elif name in CROSS and not full:
                 n = CROSS[name]
                 body += (f" It was found by the crossing search, where {('two', 'three')[n - 2] if n in (2, 3) else n} "
                          "of the map's walls cross" + (": a line along their crossing curve." if kind == "line" else
                                                        ": an isolated point." if kind == "point" else "."))
-            if b in ALSO:
-                body += f" The list also names it {' and '.join(ALSO[b])}: the same shape."
+            if (KEY.get(name), b) in ALSO:
+                body += f" The list also names it {' and '.join(ALSO[KEY[name], b])}: the same shape."
             if name in RELATED:
                 body += " " + RELATED[name]
             sug = SUGGESTED.get(name)
@@ -205,7 +229,7 @@ def main():
     note = (f"Every entry is written from the polychoron itself at the seed given (β = distances to the four H4 mirrors; "
             f"for ixitic and ixoic, on the sheet named): cells by orbit, vertices with the dualcell's face count, edges by how many "
             f"faces meet there, faces by shape. Names and full names are from the accepted list; the {n_new} shapes "
-            "marked new were found by the atlas and are not yet named.")
+            "marked new or with a suggested name were found by the atlas and are not on the accepted lists; suggested names are built the way the lists build their own (ixoic_suggest.py).")
     page = (tpl.replace("{{TITLE}}", "Hyic Isogonals").replace("{{INTRO}}", html.escape(intro))
             .replace("{{NOTE}}", html.escape(note)).replace("{{NAV}}", "\n".join(nav)).replace("{{SECTIONS}}", "\n".join(parts))
             .replace("{{FOOTER}}", "Made by research/pages/make_hyic_page.py from the hyic atlas (research/hyic_atlas). "
