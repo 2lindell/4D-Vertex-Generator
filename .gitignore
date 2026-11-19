@@ -219,3 +219,4 @@ __marimo__/
 research/hyic_atlas/.elements_*.npy
 research/.crossing_cache/
 research/targeted_search.out
+research/verify_targeted.out
