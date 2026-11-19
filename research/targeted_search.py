@@ -196,13 +196,13 @@ def walk(job):
         # the cell's points: a few, spread over it
         rng = np.random.default_rng(len(visited))
         pts = [x]
-        for r in (1e-3, 1e-2, 5e-2):
+        for r in (1e-3, 1e-2, 5e-2, 1e-1):
             Y = project1(s, np.abs(x + r * rng.standard_normal((40, 4))) / 1.0)
             if len(Y):
                 Y /= Y.sum(1, keepdims=True)
                 Y = project1(s, Y)
                 ok = [y for y, rr in zip(Y, signs(Y, {s})) if bytes(rr) == row]
-                pts += ok[:2]
+                pts += ok[:4]
         me = np.frombuffer(row, np.int8)
         # its edges: Newton onto s and every other surface t at once, from each of the cell's points; per t, the first
         # landing point on this cell's edge
