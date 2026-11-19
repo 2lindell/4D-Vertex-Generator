@@ -46,17 +46,42 @@ FOLD = bool(getattr(G, "FOLD", False))
 ZERO = 1e-9
 
 
-def vec(fn, X):
-    return np.broadcast_to(np.asarray(fn(*X.T), float), (len(X),))
+# every surface as one table of monomial coefficients: one matrix product gives all their values and gradients
+import sympy as _sp
+_B = _sp.symbols("b1 b2 b3 b4")
+_terms = [{m: float(c) for m, c in _sp.Poly(_sp.sympify(t), *_B).terms()} for t in TEXT]
+_EXP = sorted(set().union(*_terms))
+E = np.array(_EXP, float)                       # monomials (m x 4)
+C = np.zeros((NS, len(_EXP)))
+for _i, _tm in enumerate(_terms):
+    for _m, _c in _tm.items():
+        C[_i, _EXP.index(_m)] = _c
+_ED = []
+for _v in range(4):
+    _e = E.copy()
+    _e[:, _v] = np.maximum(_e[:, _v] - 1, 0)
+    _ED.append(_e)
+
+
+def mono(X):
+    return np.prod(X[:, None, :] ** E[None], axis=2)
+
+
+def dmono(X):
+    """d(monomial)/d(b_v): (4, n, m)."""
+    return np.stack([E[:, v] * np.prod(X[:, None, :] ** _ED[v][None], axis=2) for v in range(4)])
+
+
+def _proj(g):                                   # (along beta summing to 1)
+    return g - g.mean(-1, keepdims=True)
 
 
 def vals(i, X):
-    return vec(S[i].f, X)
+    return mono(X) @ C[i]
 
 
 def grads(i, X):
-    g = np.stack([vec(gi, X) for gi in S[i].g], 1)
-    return g - g.mean(1, keepdims=True)
+    return _proj((dmono(X) @ C[i]).T)
 
 
 def inside(X):
@@ -68,7 +93,7 @@ def inside(X):
 
 def project1(i, X, n=40):
     """Points X (rows) onto surface i, by Newton steps along its gradient (vectorised)."""
-    X = X.copy()
+    X = np.array(X, float)
     for _ in range(n):
         f = vals(i, X)
         g = grads(i, X)
@@ -78,33 +103,46 @@ def project1(i, X, n=40):
     return X[(f < 1e-11) & inside(X) & np.isfinite(X).all(1)]
 
 
-def newton(x, idx, n=60):
-    """One point onto several surfaces at once (least-norm Newton steps, staying on sum = 1)."""
-    x = np.array(x, float)
-    for _ in range(n):
-        F = np.array([S[i].val(x) for i in idx])
-        J = np.array([S[i].grad(x) for i in idx])
-        step = np.linalg.lstsq(J, F, rcond=None)[0]
-        step -= step.mean()
-        x = x - step
-        x /= x.sum()
-        if np.abs(step).max() < 1e-15:
+def newton_pairs(X, s, T, n=50):
+    """Rows X[r] onto surfaces s and T[r] at once (least-norm Newton steps, on sum = 1). Rows that do not converge,
+    or land outside the domain, come back as nan."""
+    X = np.array(X, float)
+    Cs, Ct = C[s], C[T]
+    live = np.ones(len(X), bool)
+    for it in range(n):
+        Xl = X[live]
+        if not len(Xl):
             break
-        if _ > 12 and np.abs(step).max() > 1e-3 or not np.isfinite(x).all() or np.abs(x).max() > 10:
-            return None                     # not converging
-    if not np.isfinite(x).all() or max(S[i].dist(x) for i in idx) > 1e-10 or not inside(x[None])[0]:
-        return None
-    return x
+        mo, dm = mono(Xl), dmono(Xl)
+        F = np.stack([mo @ Cs, (mo * Ct[live]).sum(1)], 1)
+        J = np.stack([_proj((dm @ Cs).T), _proj(np.einsum("vnm,nm->nv", dm, Ct[live]))], 1)
+        step = np.einsum("nij,nj->ni", np.linalg.pinv(J), F)
+        step = _proj(step)
+        Xl = Xl - step
+        Xl /= Xl.sum(1, keepdims=True)
+        X[live] = Xl
+        big = np.abs(step).max(1)
+        bad = ~np.isfinite(Xl).all(1) | (np.abs(Xl).max(1) > 10) | ((it > 12) & (big > 1e-3))
+        X[np.nonzero(live)[0][bad]] = np.nan
+        live[np.nonzero(live)[0][bad | (big < 1e-15)]] = False
+    ok = np.isfinite(X).all(1)
+    Y = np.where(ok[:, None], X, 0.25)
+    mo, dm = mono(Y), dmono(Y)
+    ds = np.abs(mo @ Cs) / (np.linalg.norm(_proj((dm @ Cs).T), axis=1) + 1e-300)
+    dt = np.abs((mo * Ct).sum(1)) / (np.linalg.norm(_proj(np.einsum("vnm,nm->nv", dm, Ct)), axis=1) + 1e-300)
+    ok &= (ds < 1e-10) & (dt < 1e-10) & inside(Y)
+    X[~ok] = np.nan
+    return X
 
 
 def signs(X, on):
     """Each point's side of every surface (0 on it); `on` are the surfaces the points are on."""
-    out = np.zeros((len(X), NS), np.int8)
-    for t in range(NS):
-        if t in on:
-            continue
-        d = vals(t, X) / (np.linalg.norm(grads(t, X), axis=1) + 1e-300)
-        out[:, t] = np.where(np.abs(d) < ZERO, 0, np.sign(d)).astype(np.int8)
+    X = np.asarray(X, float)
+    V = mono(X) @ C.T
+    G = np.linalg.norm(_proj(np.moveaxis(dmono(X) @ C.T, 0, -1)), axis=-1)
+    D = V / (G + 1e-300)
+    out = np.where(np.abs(D) < ZERO, 0, np.sign(D)).astype(np.int8)
+    out[:, sorted(on)] = 0
     return out
 
 
@@ -166,44 +204,43 @@ def walk(job):
                 ok = [y for y, rr in zip(Y, signs(Y, {s})) if bytes(rr) == row]
                 pts += ok[:2]
         me = np.frombuffer(row, np.int8)
-        # (only the surfaces near the cell can be its edges: the NEAR closest to any of its points)
-        P = np.array(pts)
-        near = []
-        for t in range(NS):
-            if t != s and me[t] != 0:
-                d = np.abs(vals(t, P)) / (np.linalg.norm(grads(t, P), axis=1) + 1e-300)
-                near.append((d.min(), t))
-        near = [t for _, t in sorted(near)[:A.get("near", 20)]]
-        for t in near:
-            for p in pts:
-                y = newton(p, [s, t])
-                if y is None:
-                    continue
-                ry = signs(y[None], {s, t})[0]
-                nz = (ry != 0) & (me != 0)          # (a surface that is 0 on either: a duplicate, or through y)
-                nz[t] = False
-                if (ry[nz] != me[nz]).any():
-                    continue                    # not on this cell's edge
-                lrow = bytes(ry)
-                if lrow not in seen_lines:
-                    seen_lines.add(lrow)
-                    nlines += 1
-                    kl = lab(y)
-                    labelled += 1
-                    found.append({"kind": "line", "key": kl, "seed": y.tolist(), "surfaces": [s, t]})
-                    lines_out.append([t, y.tolist()])
-                # the cell across t, on s
-                gs, gt = S[s].grad(y), S[t].grad(y)
-                d = gt - (gt @ gs) / (gs @ gs) * gs
-                d -= d.mean()
-                if np.linalg.norm(d) < 1e-12:
-                    break
-                d /= np.linalg.norm(d)
-                d = d if me[t] < 0 else -d      # towards t's other side
-                z = project1(s, (y + 1e-4 * d)[None])
-                if len(z):
-                    queue.append(z[0])
-                break
+        # its edges: Newton onto s and every other surface t at once, from each of the cell's points; per t, the first
+        # landing point on this cell's edge
+        T = np.array([t for t in range(NS) if t != s and me[t] != 0])
+        if not len(T):
+            continue
+        Xs = np.repeat(np.array(pts), len(T), 0)
+        Ts = np.tile(T, len(pts))
+        Y = newton_pairs(Xs, s, Ts)
+        good = np.isfinite(Y).all(1)
+        RY = signs(np.where(good[:, None], Y, 0.25), {s})
+        RY[np.arange(len(Ts)), Ts] = 0
+        mism = ((RY != 0) & (me != 0)[None] & (RY != me[None])).any(1)
+        good &= ~mism
+        first = {}
+        for r in np.nonzero(good)[0]:
+            first.setdefault(int(Ts[r]), r)
+        for t, r in sorted(first.items()):
+            y = Y[r]
+            lrow = bytes(RY[r])
+            if lrow not in seen_lines:
+                seen_lines.add(lrow)
+                nlines += 1
+                kl = lab(y)
+                labelled += 1
+                found.append({"kind": "line", "key": kl, "seed": y.tolist(), "surfaces": [s, t]})
+                lines_out.append([t, y.tolist()])
+            # the cell across t, on s
+            gs, gt = grads(s, y[None])[0], grads(t, y[None])[0]
+            d = gt - (gt @ gs) / (gs @ gs) * gs
+            d -= d.mean()
+            if np.linalg.norm(d) < 1e-12:
+                continue
+            d /= np.linalg.norm(d)
+            d = d if me[t] < 0 else -d          # towards t's other side
+            z = project1(s, (y + 1e-4 * d)[None])
+            if len(z):
+                queue.append(z[0])
     return {"surface": s, "cells": ncells, "lines": nlines, "labelled": labelled, "found": found,
             "lines_out": lines_out, "visited": [v.hex() for v in visited], "seconds": round(time.time() - t0, 1)}
 
@@ -298,7 +335,7 @@ def run(atlas, subs):
         strata = [os.path.join(HERE, "toxitic_atlas", f"strata_{sub}.json"), os.path.join(adir, f"strata_{sub}.json")]
         cache = os.path.join(HERE, ".crossing_cache", f"targeted_{atlas}_{sub}")
         os.makedirs(cache, exist_ok=True)
-        arg = {"near": int(os.environ.get("NEAR", "20")), "cache": cache, "family_keys": fam, "family_files": [os.path.join(HERE, f) for f, _ in FAMILY[atlas]], "strata": strata, "global": int(os.environ.get("GLOBAL", "20000")),
+        arg = {"cache": cache, "family_keys": fam, "family_files": [os.path.join(HERE, f) for f, _ in FAMILY[atlas]], "strata": strata, "global": int(os.environ.get("GLOBAL", "20000")),
                "local": int(os.environ.get("LOCAL", "300"))}
         with open(dst.replace(".json", ".log"), "w") as log:
             p = subprocess.run([sys.executable, "-c", CODE % {"atlas": adir}], input=json.dumps(arg),
