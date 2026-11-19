@@ -225,19 +225,36 @@ if __name__ == "__main__":
         pass
     visited = collections.defaultdict(list)
     R = []
+    cache = A.get("cache")                      # each finished walk is saved there: a restart picks up from it
     for rnd in range(40):                       # later rounds: surfaces reached across a line from another's walk
         jobs = [(s, seeds[s], visited[s]) for s in sorted(seeds) if seeds[s]]
         if not jobs:
             break
         print(json.dumps({"round": rnd, "surfaces": len(jobs)}), file=sys.stderr, flush=True)
+        path = os.path.join(cache, f"round{rnd:02d}.jsonl") if cache else None
+        done = {}
+        if path and os.path.exists(path):
+            for line in open(path):
+                try:
+                    r = json.loads(line)
+                    done[r["surface"]] = r
+                except ValueError:
+                    pass                        # (a line cut off by the restart)
+        todo = [j for j in jobs if j[0] not in done]
+        for r in pool.imap_unordered(walk, todo):
+            done[r["surface"]] = r
+            if path:
+                with open(path, "a") as fh:
+                    fh.write(json.dumps(r) + "\n")
+            print(json.dumps({k: v for k, v in r.items() if k not in ("found", "lines_out", "visited")}),
+                  file=sys.stderr, flush=True)
         seeds = collections.defaultdict(list)
-        for r in pool.imap_unordered(walk, jobs):
+        for s_ in sorted(done):                 # (in surface order, so a resumed run seeds the same way)
+            r = done[s_]
             R.append(r)
             visited[r["surface"]] = r["visited"]
             for t, y in r["lines_out"]:
                 seeds[t].append(y)
-            print(json.dumps({k: v for k, v in r.items() if k not in ("found", "lines_out", "visited")}),
-                  file=sys.stderr, flush=True)
         # (a seed on a cell its surface has walked already is skipped inside walk)
     wall_surfaces = sorted({r["surface"] for r in R})
     out = {"sheet": G.SUB, "surfaces": NS, "wall_surfaces": len(wall_surfaces), "known_keys": len(K),
@@ -271,7 +288,9 @@ def run(atlas, subs):
     for sub in subs:
         dst = os.path.join(OUT, f"targeted_{atlas}_{sub}.json")
         strata = [os.path.join(HERE, "toxitic_atlas", f"strata_{sub}.json"), os.path.join(adir, f"strata_{sub}.json")]
-        arg = {"family_keys": fam, "family_files": [os.path.join(HERE, f) for f, _ in FAMILY[atlas]], "strata": strata, "global": int(os.environ.get("GLOBAL", "20000")),
+        cache = os.path.join(HERE, ".crossing_cache", f"targeted_{atlas}_{sub}")
+        os.makedirs(cache, exist_ok=True)
+        arg = {"cache": cache, "family_keys": fam, "family_files": [os.path.join(HERE, f) for f, _ in FAMILY[atlas]], "strata": strata, "global": int(os.environ.get("GLOBAL", "20000")),
                "local": int(os.environ.get("LOCAL", "300"))}
         with open(dst.replace(".json", ".log"), "w") as log:
             p = subprocess.run([sys.executable, "-c", CODE % {"atlas": adir}], input=json.dumps(arg),
@@ -281,6 +300,7 @@ def run(atlas, subs):
             continue
         o = json.loads(p.stdout.strip().splitlines()[-1])
         json.dump(o, open(dst, "w"), indent=1)
+        __import__("shutil").rmtree(cache, ignore_errors=True)
         secs = sum(w["seconds"] for w in o["walks"])
         print(f"{atlas} {sub}: {o['wall_surfaces']} wall surfaces walked, {o['labelled']} labels, {secs:.0f} s of walks, "
               f"{len(o['candidates'])} new: " + "; ".join(f"{k} {c['kind']}" for k, c in o["candidates"].items()),
