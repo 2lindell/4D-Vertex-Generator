@@ -90,6 +90,8 @@ def newton(x, idx, n=60):
         x /= x.sum()
         if np.abs(step).max() < 1e-15:
             break
+        if _ > 12 and np.abs(step).max() > 1e-3 or not np.isfinite(x).all() or np.abs(x).max() > 10:
+            return None                     # not converging
     if not np.isfinite(x).all() or max(S[i].dist(x) for i in idx) > 1e-10 or not inside(x[None])[0]:
         return None
     return x
@@ -164,9 +166,15 @@ def walk(job):
                 ok = [y for y, rr in zip(Y, signs(Y, {s})) if bytes(rr) == row]
                 pts += ok[:2]
         me = np.frombuffer(row, np.int8)
+        # (only the surfaces near the cell can be its edges: the NEAR closest to any of its points)
+        P = np.array(pts)
+        near = []
         for t in range(NS):
-            if t == s:
-                continue
+            if t != s and me[t] != 0:
+                d = np.abs(vals(t, P)) / (np.linalg.norm(grads(t, P), axis=1) + 1e-300)
+                near.append((d.min(), t))
+        near = [t for _, t in sorted(near)[:A.get("near", 20)]]
+        for t in near:
             for p in pts:
                 y = newton(p, [s, t])
                 if y is None:
@@ -290,7 +298,7 @@ def run(atlas, subs):
         strata = [os.path.join(HERE, "toxitic_atlas", f"strata_{sub}.json"), os.path.join(adir, f"strata_{sub}.json")]
         cache = os.path.join(HERE, ".crossing_cache", f"targeted_{atlas}_{sub}")
         os.makedirs(cache, exist_ok=True)
-        arg = {"cache": cache, "family_keys": fam, "family_files": [os.path.join(HERE, f) for f, _ in FAMILY[atlas]], "strata": strata, "global": int(os.environ.get("GLOBAL", "20000")),
+        arg = {"near": int(os.environ.get("NEAR", "20")), "cache": cache, "family_keys": fam, "family_files": [os.path.join(HERE, f) for f, _ in FAMILY[atlas]], "strata": strata, "global": int(os.environ.get("GLOBAL", "20000")),
                "local": int(os.environ.get("LOCAL", "300"))}
         with open(dst.replace(".json", ".log"), "w") as log:
             p = subprocess.run([sys.executable, "-c", CODE % {"atlas": adir}], input=json.dumps(arg),
