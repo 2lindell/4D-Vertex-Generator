@@ -179,7 +179,7 @@ def walk(job):
     queue = []
     for x in project1(s, np.array(seeds, float).reshape(-1, 4)):
         queue.append(x)
-    labelled = nlines = ncells = 0
+    labelled = nlines = ncells = split = 0
     seen_lines = set()
     while queue:
         x = queue.pop(0)
@@ -188,11 +188,6 @@ def walk(job):
             continue
         visited.add(row)
         ncells += 1
-        k = lab(x)
-        labelled += 1
-        found.append({"kind": "wall", "key": k, "seed": x.tolist(), "surfaces": [s]})
-        if k is None or k in REGION:
-            continue                            # not a wall here: the walk stops
         # the cell's points: a few, spread over it
         rng = np.random.default_rng(len(visited))
         pts = [x]
@@ -203,6 +198,19 @@ def walk(job):
                 Y = project1(s, Y)
                 ok = [y for y, rr in zip(Y, signs(Y, {s})) if bytes(rr) == row]
                 pts += ok[:4]
+        # labelled twice: where the walk came in, and at the cell point farthest from there (a cell can hold two
+        # shapes where the change is on a surface the sheet's list does not have)
+        keys = []
+        far = max(pts, key=lambda p: np.abs(p - x).sum())
+        for p in ([x, far] if np.abs(far - x).max() > 1e-3 else [x]):
+            k = lab(p)
+            labelled += 1
+            keys.append(k)
+            found.append({"kind": "wall", "key": k, "seed": p.tolist(), "surfaces": [s]})
+        if len(set(keys)) > 1:
+            split += 1
+        if all(k is None or k in REGION for k in keys):
+            continue                            # not a wall here: the walk stops
         me = np.frombuffer(row, np.int8)
         # its edges: Newton onto s and every other surface t at once, from each of the cell's points; per t, the first
         # landing point on this cell's edge
@@ -241,7 +249,7 @@ def walk(job):
             z = project1(s, (y + 1e-4 * d)[None])
             if len(z):
                 queue.append(z[0])
-    return {"surface": s, "cells": ncells, "lines": nlines, "labelled": labelled, "found": found,
+    return {"surface": s, "cells": ncells, "split_cells": split, "lines": nlines, "labelled": labelled, "found": found,
             "lines_out": lines_out, "visited": [v.hex() for v in visited], "seconds": round(time.time() - t0, 1)}
 
 
