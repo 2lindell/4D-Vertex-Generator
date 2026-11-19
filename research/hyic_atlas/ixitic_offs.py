@@ -8,7 +8,7 @@ numbered (ixitic_region_NN, ...). A seed the optimiser or the centre finder move
 shape's own seed is written instead, and noted.
 
     python ixitic_offs.py [gather | new] [ixoic]   (new: only the shapes not yet in opt_central_<group>.json;
-                                                    ixoic: the ixoic shapes, with the confirmed ixoic_crossings.json)
+                                                    ixoic: every ixoic shape, as pages/ixoic_match.py gathers them)
 """
 from __future__ import annotations
 
@@ -88,8 +88,10 @@ GROUP = "ixitic"
 
 def main(only_new=False):
     d = json.load(open(os.path.join(HERE, f"{GROUP}_shapes.json")))["shapes"]
-    if GROUP == "ixoic" and os.path.exists(os.path.join(HERE, "ixoic_crossings.json")):
-        d = d + json.load(open(os.path.join(HERE, "ixoic_crossings.json")))["shapes"]   # (the targeted search's, confirmed)
+    if GROUP == "ixoic":                        # (every ixoic shape: merged, the targeted search's confirmed ones
+        sys.path.insert(0, os.path.join(ROOT, "pages"))   # (ixoic_crossings.json), the half-turns' fixed lines and
+        from ixoic_match import atlas                       # the closure check's regions: pages/ixoic_match.py)
+        d = atlas()
     count, todo = {}, {}
     rows = []
     nm = {}
