@@ -7,7 +7,8 @@ and centre finder (optimize_seeds.py); its locus: free for a region, the zero be
 numbered (ixitic_region_NN, ...). A seed the optimiser or the centre finder moves to another polytope is not used: the
 shape's own seed is written instead, and noted.
 
-    python ixitic_offs.py [gather | new]      (new: only the shapes not yet in opt_central_ixitic.json)
+    python ixitic_offs.py [gather | new] [ixoic]   (new: only the shapes not yet in opt_central_<group>.json;
+                                                    ixoic: the ixoic shapes, with the confirmed ixoic_crossings.json)
 """
 from __future__ import annotations
 
@@ -68,8 +69,9 @@ for s, (r, c) in zip(S, R):
             row[tag + "_note"] = "moved to another polytope: the seed is written instead"
             b = np.asarray(row["seed"]) / np.sum(row["seed"])
         V, Vn, idx, faces, cells = G.polytope(b, s["hull_tol"])
-        d = os.path.join(%(root)r, folder, "ixitic"); os.makedirs(d, exist_ok=True)
-        f = os.path.join(d, (f"ixitic_{s['kind']}_" if tag == "seed" else "") + f"{s['name']}_{len(V)}v_{len(cells)}c_{tag}.off")
+        d = os.path.join(%(root)r, folder, %(group)r); os.makedirs(d, exist_ok=True)
+        f = os.path.join(d, (f"%(group)s_{s['kind']}_" if tag == "seed" and not s['name'].startswith("%(group)s_") else "")
+                         + f"{s['name']}_{len(V)}v_{len(cells)}c_{tag}.off")
         open(f, "w").write(to_4off(Vn, faces, cells))
         row[tag + "_off"] = os.path.relpath(f, %(root)r)
         E = [np.linalg.norm(Vn[a] - Vn[c_]) for a, c_ in (tuple(e) for e in hull_edges(faces))]
@@ -81,16 +83,21 @@ print(json.dumps(out))
 '''
 
 
+GROUP = "ixitic"
+
+
 def main(only_new=False):
-    d = json.load(open(os.path.join(HERE, "ixitic_shapes.json")))["shapes"]
+    d = json.load(open(os.path.join(HERE, f"{GROUP}_shapes.json")))["shapes"]
+    if GROUP == "ixoic" and os.path.exists(os.path.join(HERE, "ixoic_crossings.json")):
+        d = d + json.load(open(os.path.join(HERE, "ixoic_crossings.json")))["shapes"]   # (the targeted search's, confirmed)
     count, todo = {}, {}
     rows = []
     if only_new:
-        rows = json.load(open(os.path.join(HERE, "opt_central_ixitic.json")))["shapes"]
+        rows = json.load(open(os.path.join(HERE, f"opt_central_{GROUP}.json")))["shapes"]
     done = {r["key"] for r in rows}
     for s in d:
         count[s["kind"]] = count.get(s["kind"], 0) + 1
-        name = s.get("name") or f"ixitic_{s['kind']}_{count[s['kind']]:02d}"
+        name = s.get("name") or f"{GROUP}_{s['kind']}_{count[s['kind']]:02d}"
         if s["key"] in done:
             continue
         todo.setdefault(s["sheet"], []).append({
@@ -98,7 +105,7 @@ def main(only_new=False):
             "seed": s["seed"], "key": s["key"], "sheet": s["sheet"],
             "hull_tol": 1e-9 if s["kind"] in ("region", "line", "point") else 1e-7})
     for sub in sorted(todo):
-        r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT}], input=json.dumps(todo[sub]),
+        r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT, "group": GROUP}], input=json.dumps(todo[sub]),
                            capture_output=True, text=True, cwd=HERE, env={**os.environ, "HYIC_SUB": sub})
         lines = r.stdout.strip().splitlines()
         for line in lines[:-1]:
@@ -108,15 +115,15 @@ def main(only_new=False):
         except Exception:
             print(sub, "FAILED", r.stderr[-800:], flush=True)
         json.dump({"_about": __doc__.strip().split("\n\n")[0], "shapes": rows},
-                  open(os.path.join(HERE, "opt_central_ixitic.json"), "w"), indent=1)
+                  open(os.path.join(HERE, f"opt_central_{GROUP}.json"), "w"), indent=1)
     gather(rows)
 
 
 def gather(rows=None):
-    rows = rows or json.load(open(os.path.join(HERE, "opt_central_ixitic.json")))["shapes"]
+    rows = rows or json.load(open(os.path.join(HERE, f"opt_central_{GROUP}.json")))["shapes"]
     for folder, tag, title in (("optimized_off", "opt", "Optimized"), ("central_off", "central", "Central")):
-        L = [f"# {title} ixitic seeds", "", "Made by research/hyic_atlas/ixitic_offs.py; shapes from "
-             "research/hyic_atlas/ixitic_shapes.md (sheet: the conjugate of ixitic the shape was found on).", ""]
+        L = [f"# {title} {GROUP} seeds", "", "Made by research/hyic_atlas/ixitic_offs.py; shapes from "
+             f"research/hyic_atlas/{GROUP}_shapes.md (sheet: the conjugate of {GROUP} the shape was found on).", ""]
         if tag == "opt":
             L += ["| shape | kind | sheet | R seed | R | status | beta | file |", "|---|---|---|---|---|---|---|---|"]
             for r in rows:
@@ -130,10 +137,14 @@ def gather(rows=None):
                 L.append(f"| {r['name']} | {r['kind']} | {r['sheet']} | {dd} | {r['central_status']}"
                          f"{'; ' + r['central_note'] if 'central_note' in r else ''} | "
                          f"{[round(v, 9) for v in r['central']]} | {r['central_off'].split('/')[-1]} |")
-        os.makedirs(os.path.join(ROOT, folder, "ixitic"), exist_ok=True)
-        open(os.path.join(ROOT, folder, "ixitic", "README.md"), "w").write("\n".join(L) + "\n")
+        os.makedirs(os.path.join(ROOT, folder, GROUP), exist_ok=True)
+        open(os.path.join(ROOT, folder, GROUP, "README.md"), "w").write("\n".join(L) + "\n")
 
 
 if __name__ == "__main__":
-    arg = sys.argv[1] if len(sys.argv) > 1 else ""
+    args = sys.argv[1:]
+    if "ixoic" in args:
+        GROUP = "ixoic"
+        args.remove("ixoic")
+    arg = args[0] if args else ""
     gather() if arg == "gather" else main(only_new=arg == "new")
