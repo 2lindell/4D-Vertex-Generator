@@ -1,7 +1,7 @@
 """The 'Hyic Isogonals' page (hyic.html, and assets/hyic_isogonals.html for the public site): every shape of the H4
 family the atlas found, in the words of the Pennic and Decaic Isogonals page.
 
-Sections: hyic [5,3,3], kihyic [5,3,3]+, ixitic 5[3+,4,3+] and ixoic 5[[3+,4,3+]] (still being mapped). Each entry is
+Sections: hyic [5,3,3], kihyic [5,3,3]+, ixitic 5[3+,4,3+] and ixoic 5[[3+,4,3+]]. Each entry is
 written from its polychoron at its seed in its own group (describe.py with HYIC_SUB; an ixitic shape on the sheet it
 was found on): cells by orbit and kind, vertices and the dualcell's face count, edges by valence, faces by shape, its
 degrees of variation, and from the accepted list (hyic_list.txt) its full name and the symmetries or shapes it is
@@ -35,6 +35,14 @@ def accepted():
         c = line.rstrip("\n").split("\t")
         if len(c) > 3 and c[2].strip().lower() in GROUPS and c[1].strip():
             out[c[0].strip().lower()] = (c[1].strip(), c[15].strip() if len(c) > 15 else "")
+    try:                                        # (the ixoic list, matched to the atlas: ixoic_match.py)
+        for v in json.load(open(os.path.join(HERE, "ixoic_names.json"))).values():
+            for x in v:
+                out.setdefault(x["name"].lower(), (x["full"], x["related"]))
+                if len(v) > 1:
+                    ALSO[x["name"].lower()] = [y["name"] for y in v if y["name"] != x["name"]]
+    except FileNotFoundError:
+        pass
     return out
 
 
@@ -61,9 +69,9 @@ def display(name):
     m = re.match(r"(\w+?)_(\d)$", name)
     if m:
         return f"{m.group(1).capitalize()} ({m.group(2)})"
-    m = re.match(r"ixitic_(region|wall|line)_(\d+)$", name)
+    m = re.match(r"(ixitic|ixoic)_(region|wall|line|point)_(\d+)$", name)
     if m:
-        return f"Ixitic {m.group(1)} {int(m.group(2))}"
+        return f"{m.group(1).capitalize()} {m.group(2)} {int(m.group(3))}"
     return name.capitalize()
 
 
@@ -106,15 +114,29 @@ def entries():
               "copies of the hyic chamber (ten sheets), each mapped by curved walls; the mirrors are seams between "
               "sheets. Below: its regions (three degrees of variation), walls (two), lines (one) and tehi.",
               [(r["name"], r["kind"], r["degrees"], r["seed"], r["sheet"]) for r in X]))
+    try:
+        O = json.load(open(os.path.join(HY, "opt_central_ixoic.json")))["shapes"]
+    except FileNotFoundError:
+        O = []
+    for r in O:
+        if r["key"] in XCROSS:
+            CROSS[r["name"]] = len(r["locus"]) or XCROSS[r["key"]]
     S.append(("Ixoics", "ixoic", f"Ixoic symmetry {para['Ixoic']} It is not inside hyic (its elements need √2), so it "
-              "has no exact wall forms over the golden field and each sheet is mapped numerically. The ten sheets are "
-              "being mapped; this section is filled in when they are done.", []))
+              "has no exact wall forms over the golden field: each of its ten sheets was mapped numerically, and the "
+              "walls and lines between the map's shapes were then searched for where the walls meet. Below: its "
+              "regions (three degrees of variation), walls (two), lines (one) and points.",
+              [(r["name"], r["kind"], r["degrees"], r["seed"], r["sheet"]) for r in O]))
     return S
 
 
 from suggested_names import RELATED, SUGGESTED  # noqa: E402
 
 CROSS = {}  # (shapes found where the map's walls cross: name -> number of walls)
+ALSO = {}   # (a name -> the other list names of the same shape)
+try:        # (ixoic: the targeted crossing search's confirmed shapes, key -> walls; hyic_atlas/ixoic_crossings.py)
+    XCROSS = {s["key"]: len(s["locus"]) for s in json.load(open(os.path.join(HY, "ixoic_crossings.json")))["shapes"]}
+except FileNotFoundError:
+    XCROSS = {}
 
 
 def main():
@@ -154,6 +176,8 @@ def main():
                 body += (f" It was found by the crossing search, where {('two', 'three')[n - 2] if n in (2, 3) else n} "
                          "of the map's walls cross" + (": a line along their crossing curve." if kind == "line" else
                                                        ": an isolated point." if kind == "point" else "."))
+            if b in ALSO:
+                body += f" The list also names it {' and '.join(ALSO[b])}: the same shape."
             if name in RELATED:
                 body += " " + RELATED[name]
             sug = SUGGESTED.get(name)
@@ -166,7 +190,7 @@ def main():
             if sug:
                 label = sug[0]
             beta = ", ".join(f"{v:.6f}" for v in seed)
-            sheet = f" · sheet {sub[2:]}" if sub.startswith("ix") else ""
+            sheet = f" · sheet {sub.lstrip('ixo')}" if sub.startswith("ix") else ""
             tag = (' <span class="tag">suggested name</span>' if sug else ' <span class="tag">new</span>') if unnamed else ""
             P.append(f'<article class="{"shape new" if unnamed else "shape"}"><h3>{html.escape(label)}{tag}</h3>'
                      f'<p>{html.escape(head)} {html.escape(body)}</p><p class="data">β = ({beta}) · {d["n_cells"]} cells'
@@ -177,10 +201,9 @@ def main():
         parts.append("\n".join(P))
     tpl = open(os.path.join(HERE, "page_template.html")).read()
     intro = (f"There are {total} isogonal polychora with one or more of the hyic family symmetries (H4 = [5,3,3] and the "
-             "groups around it) listed below, by the symmetry under which each is isogonal and no larger one. Ixoic "
-             "symmetry is still being mapped.")
+             "groups around it) listed below, by the symmetry under which each is isogonal and no larger one.")
     note = (f"Every entry is written from the polychoron itself at the seed given (β = distances to the four H4 mirrors; "
-            f"for ixitic, on the sheet named): cells by orbit, vertices with the dualcell's face count, edges by how many "
+            f"for ixitic and ixoic, on the sheet named): cells by orbit, vertices with the dualcell's face count, edges by how many "
             f"faces meet there, faces by shape. Names and full names are from the accepted list; the {n_new} shapes "
             "marked new were found by the atlas and are not yet named.")
     page = (tpl.replace("{{TITLE}}", "Hyic Isogonals").replace("{{INTRO}}", html.escape(intro))

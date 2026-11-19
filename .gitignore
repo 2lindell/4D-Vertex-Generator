@@ -220,3 +220,5 @@ research/hyic_atlas/.elements_*.npy
 research/.crossing_cache/
 research/targeted_search.out
 research/verify_targeted.out
+research/ixoic_describe.out
+research/ixoic_crossings.out

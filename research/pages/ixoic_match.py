@@ -4,7 +4,7 @@ The list's fifth column gives, for one vertex, how many faces meet at each of it
 5, 5, 6, 8, 4, 4 and six 3 faces; numbers of two digits are set apart by spaces ("999 18" is 9, 9, 9, 18). The atlas's
 edge counts by valence give the same per vertex (count x 2 / vertices). Shapes are matched on vertices and this edge
 profile; where several fit, the listed cell orbits (sizes) decide, and what still ties is reported. Atlas shapes: the
-merged ixoic list (hyic_atlas/ixoic_shapes.json), the half-turns' fixed lines (hyic_atlas/fixed_lines.json) and
+merged ixoic list (hyic_atlas/ixoic_shapes.json), the targeted crossing search's (hyic_atlas/ixoic_crossings.json), the half-turns' fixed lines (hyic_atlas/fixed_lines.json) and
 the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 
     python ixoic_match.py
@@ -70,6 +70,12 @@ def atlas():
         F = json.load(open(os.path.join(HY, "fixed_lines.json")))
     except FileNotFoundError:
         F = {}
+    try:                                        # (the targeted crossing search's, confirmed: hyic_atlas/ixoic_crossings.py)
+        for s in json.load(open(os.path.join(HY, "ixoic_crossings.json")))["shapes"]:
+            A.append({"key": s["key"], "kind": s["kind"], "vertices": s["vertices"], "edges": s["edges"],
+                      "signature": s["signature"], "seed": s["seed"], "sheet": s["sheet"], "source": "crossing"})
+    except FileNotFoundError:
+        pass
     seen = {a["key"] for a in A}
     for sub, o in F.items():
         for k, r in o["shapes"].items():
