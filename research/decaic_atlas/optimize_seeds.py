@@ -271,6 +271,37 @@ def optimise(shape):
     loc = [e for e in loc if sp.expand(e.subs({B[i]: 0 for i in zero})) != 0]
     loc_f = [sp.lambdify(B, e, "numpy") for e in loc]
     loc_g = [[sp.lambdify(B, sp.diff(e, v), "numpy") for v in B] for e in loc]
+    # (only independent equations: a seed can lie on many wall surfaces at once, all tangent there (ixoic_wall_110 on 23,
+    #  of gradient rank 1); SLSQP then has more equalities than unknowns: it refuses ("more equality constraints than
+    #  independent variables", so no progress), and with many (23 for 5 unknowns) scipy's SLSQP corrupts memory and
+    #  the process dies. Kept: a set of equations of full rank at the seed, those whose surface keeps the shape for a
+    #  small step along it first.)
+    if loc:
+        def grad(i):
+            g = np.array([gi(*seed) for gi in loc_g[i]], float)
+            g[zero] = 0
+            return g / (np.linalg.norm(g) or 1.0)
+
+        def keeps(i):
+            rng_ = np.random.default_rng(5)
+            for _ in range(3):
+                d = rng_.normal(size=4)
+                d[zero] = 0
+                d -= (d @ grad(i)) * grad(i)
+                p = project(seed + 1e-3 * d / np.linalg.norm(d) * seed[free].min(), [loc_f[i]], [loc_g[i]], zero)
+                if not same_shape(p, seed, key0, tol):
+                    return False
+            return True
+        order = list(range(len(loc)))
+        if len(loc) > max(1, 3 - shape["degrees"]):
+            order.sort(key=lambda i: not keeps(i))
+        pick = []
+        for i in order:
+            if np.linalg.matrix_rank(np.array([grad(j) for j in pick + [i]]), 1e-6) == len(pick) + 1:
+                pick.append(i)
+        if len(pick) < len(loc):
+            res["locus_used"] = f"{len(pick)} of {len(loc)} locus equations (the rest dependent at the seed)"
+        loc, loc_f, loc_g = [loc[i] for i in pick], [loc_f[i] for i in pick], [loc_g[i] for i in pick]
     conds = sign_conditions(seed)
 
     def full(z):
