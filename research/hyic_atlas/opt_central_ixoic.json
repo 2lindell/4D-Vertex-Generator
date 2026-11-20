@@ -3014,6 +3014,146 @@
    "seed_R": 7.1906768815254,
    "opt_off": "optimized_off/ixoic/ixoic_region_30_2880v_17760c_opt.off",
    "opt_R": 3.840868711459307
+  },
+  {
+   "name": "ixoic_region_31",
+   "kind": "region",
+   "degrees": 3,
+   "key": "05ce72c24843",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.002018987514572568,
+    0.02544354777295587,
+    0.02998377355487192,
+    0.9425536911575998
+   ],
+   "start_R": 21.9276772058343,
+   "R": 6.889599859486038,
+   "optimized": [
+    -0.032152065319211234,
+    0.08706935545293013,
+    0.09042031257293899,
+    0.8546623972933421
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.002018987514572568,
+    0.02544354777295587,
+    0.02998377355487192,
+    0.9425536911575998
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_31_2880v_17760c_seed.off",
+   "seed_R": 21.92767720585407,
+   "opt_off": "optimized_off/ixoic/ixoic_region_31_2880v_17760c_opt.off",
+   "opt_R": 6.894298043257314
+  },
+  {
+   "name": "ixoic_region_32",
+   "kind": "region",
+   "degrees": 3,
+   "key": "82f5f72a7367",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.5787836869194996,
+    0.012924744173835882,
+    0.014170497413788074,
+    0.3941210714928764
+   ],
+   "start_R": 72.17179770320888,
+   "R": 7.703416573951005,
+   "optimized": [
+    0.5336366968526471,
+    0.020676354680229048,
+    0.03165065237128961,
+    0.41403629609583414
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.5787836869194996,
+    0.012924744173835882,
+    0.014170497413788074,
+    0.3941210714928764
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_32_2880v_17760c_seed.off",
+   "seed_R": 72.17179770341984,
+   "opt_off": "optimized_off/ixoic/ixoic_region_32_2880v_17760c_opt.off",
+   "opt_R": 35.95674692121739
+  },
+  {
+   "name": "ixoic_region_36",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2ea838120994",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.6661195552434347,
+    0.22206803939644165
+   ],
+   "start_R": 4.819707031160024,
+   "R": 3.7137530940469134,
+   "optimized": [
+    -0.08255554614123506,
+    0.09532649010459626,
+    0.7570038848517233,
+    0.23022517118491548
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.6661195552434347,
+    0.22206803939644165
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_36_2880v_18720c_seed.off",
+   "seed_R": 4.819707031161761,
+   "opt_off": "optimized_off/ixoic/ixoic_region_36_2880v_18720c_opt.off",
+   "opt_R": 3.7147961160709837
+  },
+  {
+   "name": "ixoic_region_37",
+   "kind": "region",
+   "degrees": 3,
+   "key": "fc2f6668afd2",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.20784993820135125,
+    0.006081577677624554,
+    0.7691696102463685,
+    0.016898873874655503
+   ],
+   "start_R": 76.43519780707187,
+   "R": 3.7137530940469134,
+   "optimized": [
+    0.056825177699537106,
+    0.05249151141324615,
+    0.7628931586951067,
+    0.12779015219211012
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.20784993820135125,
+    0.006081577677624554,
+    0.7691696102463685,
+    0.016898873874655503
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_37_2880v_18720c_seed.off",
+   "seed_R": 76.43519780744943,
+   "opt_off": "optimized_off/ixoic/ixoic_region_37_2880v_18720c_opt.off",
+   "opt_R": 8.186057602585027
   }
  ]
 }
