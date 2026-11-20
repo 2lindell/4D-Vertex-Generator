@@ -3294,6 +3294,146 @@
    "seed_R": 52.43175603108167,
    "opt_off": "optimized_off/ixoic/ixoic_region_52_2880v_19200c_opt.off",
    "opt_R": 7.7099340328291905
+  },
+  {
+   "name": "ixoic_region_53",
+   "kind": "region",
+   "degrees": 3,
+   "key": "1e2f8eb80e4e",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.6717647811840125,
+    0.004620066906396776,
+    0.011596448156301169,
+    0.31201870375328955
+   ],
+   "start_R": 127.14967059422851,
+   "R": 7.703416573951177,
+   "optimized": [
+    0.6283964086762456,
+    0.011254458886681324,
+    0.02484523159594578,
+    0.33550390084112736
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6717647811840125,
+    0.004620066906396776,
+    0.011596448156301169,
+    0.31201870375328955
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_53_2880v_19200c_seed.off",
+   "seed_R": 127.14967059483642,
+   "opt_off": "optimized_off/ixoic/ixoic_region_53_2880v_19200c_opt.off",
+   "opt_R": 55.951107360884095
+  },
+  {
+   "name": "ixoic_region_65",
+   "kind": "region",
+   "degrees": 3,
+   "key": "4a2621598704",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.8318174792505181
+   ],
+   "start_R": 11.397312072887127,
+   "R": 4.2866768585673,
+   "optimized": [
+    -0.0657441016646068,
+    0.17387046760131786,
+    0.12453239823803672,
+    0.7673412358252523
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.8318174792505181
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_65_2880v_20640c_seed.off",
+   "seed_R": 11.397312072893312,
+   "opt_off": "optimized_off/ixoic/ixoic_region_65_2880v_20640c_opt.off",
+   "opt_R": 4.289351132734157
+  },
+  {
+   "name": "ixoic_region_66",
+   "kind": "region",
+   "degrees": 3,
+   "key": "718b7fd0a3d3",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.3526592277465439,
+    0.003878146826755108,
+    0.01124136934414738,
+    0.6322212560825535
+   ],
+   "start_R": 99.66591740432634,
+   "R": 8.512700824775104,
+   "optimized": [
+    0.29295300612002867,
+    0.04629777048069488,
+    0.13455423625426516,
+    0.5261949871450112
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3526592277465439,
+    0.003878146826755108,
+    0.01124136934414738,
+    0.6322212560825535
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_66_2880v_20640c_seed.off",
+   "seed_R": 99.6659174047239,
+   "opt_off": "optimized_off/ixoic/ixoic_region_66_2880v_20640c_opt.off",
+   "opt_R": 8.52028288654753
+  },
+  {
+   "name": "ixoic_region_67",
+   "kind": "region",
+   "degrees": 3,
+   "key": "1884cf929073",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.25322329300367513,
+    0.03729449659882998,
+    0.20662303271405155,
+    0.5028591776834433
+   ],
+   "start_R": 7.576790587479246,
+   "R": 3.9407634053135596,
+   "optimized": [
+    0.274625279626283,
+    0.03864293267226429,
+    0.33396953101111737,
+    0.3527622566903353
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.25322329300367513,
+    0.03729449659882998,
+    0.20662303271405155,
+    0.5028591776834433
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_67_2880v_20640c_seed.off",
+   "seed_R": 7.57679058748127,
+   "opt_off": "optimized_off/ixoic/ixoic_region_67_2880v_20640c_opt.off",
+   "opt_R": 3.9407634053144833
   }
  ]
 }
