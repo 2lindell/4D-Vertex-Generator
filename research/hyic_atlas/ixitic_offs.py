@@ -62,8 +62,19 @@ def job(s):
     return r, c
 
 
-with Pool(4) as pool:
-    R = pool.map(job, S, chunksize=1)
+import time
+from multiprocessing import TimeoutError as _Timeout
+with Pool(4) as pool:                             # (a worker that dies (a crash in native code) loses its task and
+    A = [pool.apply_async(job, (s,)) for s in S]  # pool.map waits forever: each shape is given an hour at most, then
+    t0, R = time.time(), []                       # its seed is written instead)
+    for s, a in zip(S, A):
+        try:
+            R.append(a.get(timeout=max(1.0, t0 + 3600 - time.time())))
+        except _Timeout:
+            R.append(({"best": s["seed"], "off_seed": s["seed"], "R": None, "start_R": None,
+                       "status": "optimiser crashed or ran over an hour: the seed is written"},
+                      {"centre": s["seed"], "depth": None, "status": "not computed"}))
+    pool.terminate()
 out = []
 for s, (r, c) in zip(S, R):
     row = {k: s[k] for k in ("name", "kind", "degrees", "key", "locus", "sheet")}
