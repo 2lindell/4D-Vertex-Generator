@@ -541,7 +541,7 @@
     "5": 2880,
     "6": 1440
    },
-   "name": "magypsobtady_1"
+   "name": "magypsobtady"
   },
   {
    "key": "eaa102928f4e",
@@ -571,7 +571,7 @@
     "5": 2880,
     "6": 1440
    },
-   "name": "magypsobtady_2"
+   "name": "ixitic_region_23"
   },
   {
    "key": "c867a73cc28f",
@@ -1790,8 +1790,8 @@
   "sagyptady": "the only other 480-vertex shape with 2160 cells (gagyptady matches exactly); the list's edges 6^6,4^9, the atlas's 6^6,4^3,3^6",
   "sartethi": "cells exactly the list's (120 ratets, 120 dazsnits, 720 phydows, 720 wedges); edges 4^4,3^4 against the list's 4,444,333: one count apart",
   "mestuthi": "cells exactly the list's (120 snits, 120 tuts, 480 gytricus, 720x2 disphs, 1440 tets); edges 8,4^6,3^4 against the list's 8,4^6,333: one count apart",
-  "magypsobtady": "two atlas regions have its edges and cells exactly; which is which is not settled",
+  "magypsobtady": "settled by the ixoic match (pages/ixoic_match.md): the list's Magypsobted is the ixoic line 85a06f9fec4f, deduced from its place between Sagypsobted and Gagypsobted on the line of the 180-class half-turns, and this region is the same polychoron; the other region with these counts, ixitic_region_23, is the same polychoron as 612fa060af7c, the list's unnamed ixoic entry 555566,4^4,3^4",
   "sisbethi": "the list's edges 55668,44,3^4 match no atlas shape; two atlas regions have its cells exactly (240 snits, 480 trigypos, 1440 phydows, 2880 tets), with edges 8,6,4^7,3^4 and 8,6,55,444,3^6",
-  "not found": "awosbitdy (6480 cells: the two 6480-cell atlas regions have other edges), sastithi and gisbethi (4080 cells: none in the atlas) are not matched"
+  "not found": "sastithi and gisbethi (4080 cells: none in the atlas) are not matched"
  }
 }

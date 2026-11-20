@@ -596,7 +596,7 @@
    "central_R": 5.223697146896165
   },
   {
-   "name": "magypsobtady_1",
+   "name": "magypsobtady",
    "kind": "region",
    "degrees": 3,
    "key": "9fbf16135e07",
@@ -625,11 +625,11 @@
    ],
    "depth": 0.004446207783721123,
    "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
-   "seed_off": "new_shapes/off/ixitic/ixitic_region_magypsobtady_1_1440v_5760c_seed.off",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_magypsobtady_1440v_5760c_seed.off",
    "seed_R": 10.20372119977292,
-   "opt_off": "optimized_off/ixitic/magypsobtady_1_1440v_5760c_opt.off",
+   "opt_off": "optimized_off/ixitic/magypsobtady_1440v_5760c_opt.off",
    "opt_R": 6.145176024921214,
-   "central_off": "central_off/ixitic/magypsobtady_1_1440v_5760c_central.off",
+   "central_off": "central_off/ixitic/magypsobtady_1440v_5760c_central.off",
    "central_R": 12.950371677886533
   },
   {
@@ -1015,7 +1015,7 @@
    "central_R": 10.085700746604928
   },
   {
-   "name": "magypsobtady_2",
+   "name": "ixitic_region_23",
    "kind": "region",
    "degrees": 3,
    "key": "eaa102928f4e",
@@ -1044,11 +1044,11 @@
    ],
    "depth": 0.0031834896888190533,
    "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
-   "seed_off": "new_shapes/off/ixitic/ixitic_region_magypsobtady_2_1440v_5760c_seed.off",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_23_1440v_5760c_seed.off",
    "seed_R": 5.763370887542622,
-   "opt_off": "optimized_off/ixitic/magypsobtady_2_1440v_5760c_opt.off",
+   "opt_off": "optimized_off/ixitic/ixitic_region_23_1440v_5760c_opt.off",
    "opt_R": 3.2944192417786695,
-   "central_off": "central_off/ixitic/magypsobtady_2_1440v_5760c_central.off",
+   "central_off": "central_off/ixitic/ixitic_region_23_1440v_5760c_central.off",
    "central_R": 4.816223026103703
   },
   {

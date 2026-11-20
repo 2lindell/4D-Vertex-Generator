@@ -23,8 +23,8 @@ ixitic) keep it.
 | sisbethi_or_unnamed_2 | region | 1440 | 5040 | {3: 4320, 4: 2160, 5: 1440, 6: 720, 8: 720} | 1440 | 1440 |  | 9 | [0.04182, 0.04209, 0.66626, 0.24984] (ix0) |
 |  | region | 1440 | 5520 | {3: 5760, 4: 2880, 6: 1440, 10: 720} | 1440 | 1440 |  | 4 | [0.04182, 0.45806, 0.20869, 0.29143] (ix2) |
 |  | region | 1440 | 5760 | {3: 2880, 4: 5760, 8: 1440} | 1440 | 1440 |  | 3 | [0.04182, 0.04209, 0.25029, 0.66581] (ix2) |
-| magypsobtady_1 | region | 1440 | 5760 | {3: 2880, 4: 2880, 5: 2880, 6: 1440} | 1440 | 1440 |  | 1 | [0.08341, 0.04209, 0.0839, 0.7906] (ix2) |
-| magypsobtady_2 | region | 1440 | 5760 | {3: 2880, 4: 2880, 5: 2880, 6: 1440} | 1440 | 1440 |  | 1 | [0.45779, 0.12528, 0.20869, 0.20824] (ix5) |
+| magypsobtady | region | 1440 | 5760 | {3: 2880, 4: 2880, 5: 2880, 6: 1440} | 1440 | 1440 |  | 1 | [0.08341, 0.04209, 0.0839, 0.7906] (ix2) |
+| ixitic_region_23 | region | 1440 | 5760 | {3: 2880, 4: 2880, 5: 2880, 6: 1440} | 1440 | 1440 |  | 1 | [0.45779, 0.12528, 0.20869, 0.20824] (ix5) |
 | gastuthi | region | 1440 | 5760 | {3: 2880, 4: 3600, 5: 1440, 6: 1440, 8: 720} | 1440 | 1440 |  | 2 | [0.06679, 0.8997, 0.0, 0.03351] (ix5) |
 |  | region | 1440 | 6480 | {3: 4320, 4: 720, 5: 4320, 6: 720, 8: 720} | 1440 | 1440 |  | 1 | [0.04182, 0.04209, 0.0423, 0.87379] (ix2) |
 |  | region | 1440 | 6480 | {3: 2880, 4: 4320, 5: 2880, 10: 720} | 1440 | 1440 |  | 3 | [0.04182, 0.04209, 0.1255, 0.7906] (ix2) |
@@ -70,7 +70,7 @@ Names from the accepted ixitic list, matched by edge valences at a vertex and by
 - sagyptady: the only other 480-vertex shape with 2160 cells (gagyptady matches exactly); the list's edges 6^6,4^9, the atlas's 6^6,4^3,3^6
 - sartethi: cells exactly the list's (120 ratets, 120 dazsnits, 720 phydows, 720 wedges); edges 4^4,3^4 against the list's 4,444,333: one count apart
 - mestuthi: cells exactly the list's (120 snits, 120 tuts, 480 gytricus, 720x2 disphs, 1440 tets); edges 8,4^6,3^4 against the list's 8,4^6,333: one count apart
-- magypsobtady: two atlas regions have its edges and cells exactly; which is which is not settled
+- magypsobtady: settled by the ixoic match (pages/ixoic_match.md): the list's Magypsobted is the ixoic line 85a06f9fec4f, deduced from its place between Sagypsobted and Gagypsobted on the line of the 180-class half-turns, and this region is the same polychoron; the other region with these counts, ixitic_region_23, is the same polychoron as 612fa060af7c, the list's unnamed ixoic entry 555566,4^4,3^4
 - sisbethi: the list's edges 55668,44,3^4 match no atlas shape; two atlas regions have its cells exactly (240 snits, 480 trigypos, 1440 phydows, 2880 tets), with edges 8,6,4^7,3^4 and 8,6,55,444,3^6
 - awosbitdy: found by the surface survey on sheet ix9, on the wall b1 b3 = (sqrt(5) - 1)/2 b2 b4: cells exactly the list's (120x2 snits, 480 trigypos, 720x2 phywdows, 1440+1440 tets and 1440 hexflanges, 6480) and edges 88 12,4^4,3^10 exactly
 - not found: sastithi and gisbethi (4080 cells: none in the atlas) are not matched
