@@ -41,12 +41,20 @@ for s in S:
         s["locus"] = [x.text for x in surfs if x.dist(b) < 1e-7]
 
 
+MODE = %(mode)r                                   # ("": all; "seed": seed files only; "nocentre": no centre finder)
+
+
 def job(s):
+    if MODE == "seed":
+        return ({"best": s["seed"], "off_seed": s["seed"], "R": None, "start_R": None, "status": "seed only"},
+                {"centre": s["seed"], "depth": None, "status": "not computed"})
     try:
         r = OS.O.optimise(s)
     except Exception as e:
         r = {"best": s["seed"], "off_seed": s["seed"], "R": None, "start_R": None, "status": f"optimiser failed: {e}"}
     OS.CS.OPT = {s["name"]: r}
+    if MODE == "nocentre":
+        return r, {"centre": s["seed"], "depth": None, "status": "not computed (about 30 min a shape)"}
     try:
         c = OS.CS.centre(s)
     except Exception as e:
@@ -64,6 +72,8 @@ for s, (r, c) in zip(S, R):
                central=list(map(float, c["centre"])), depth=c.get("depth"), central_status=c["status"])
     for folder, key, tag in (("new_shapes/off", "seed", "seed"), ("optimized_off", "optimized", "opt"),
                              ("central_off", "central", "central")):
+        if (MODE == "seed" and tag != "seed") or (MODE == "nocentre" and tag == "central"):
+            continue
         b = np.asarray(row[key], float); b = b / b.sum()
         if tag != "seed" and G.label(b, s["hull_tol"])[1] != s["key"]:
             row[tag + "_note"] = "moved to another polytope: the seed is written instead"
@@ -77,13 +87,14 @@ for s, (r, c) in zip(S, R):
         E = [np.linalg.norm(Vn[a] - Vn[c_]) for a, c_ in (tuple(e) for e in hull_edges(faces))]
         row[tag + "_R"] = float(max(E) / min(E))
     out.append(row)
-    print(f"{row['name']:28} {row['kind']:6} R {row['seed_R']:.4f} -> {row['opt_R']:.6f}  {row['optimized_status'][:45]:45} "
+    print(f"{row['name']:28} {row['kind']:6} R {row['seed_R']:.4f} -> {row.get('opt_R', row['seed_R']):.6f}  {row['optimized_status'][:45]:45} "
           f"central {row['central_status'][:28]}", flush=True)
 print(json.dumps(out))
 '''
 
 
 GROUP = "ixitic"
+MODE = ""
 
 
 def shapes():
@@ -114,14 +125,14 @@ def shapes():
 def main(only_new=False):
     rows, todo = [], {}
     if only_new:
-        rows = json.load(open(os.path.join(HERE, f"opt_central_{GROUP}.json")))["shapes"]
+        rows = json.load(open(os.path.join(HERE, f"opt_central_{GROUP}{'_seeds' if MODE == 'seed' else ''}.json")))["shapes"]
     done = {r["key"] for r in rows}
     for s in shapes():
         if s["key"] not in done:
             todo.setdefault(s["sheet"], []).append(s)
     todo = {(sub, i): L[i:i + 4] for sub, L in todo.items() for i in range(0, len(L), 4)}   # (saved every 4 shapes)
     for sub, i in sorted(todo):
-        r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT, "group": GROUP}], input=json.dumps(todo[sub, i]),
+        r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT, "group": GROUP, "mode": MODE}], input=json.dumps(todo[sub, i]),
                            capture_output=True, text=True, cwd=HERE, env={**os.environ, "HYIC_SUB": sub})
         lines = r.stdout.strip().splitlines()
         for line in lines[:-1]:
@@ -131,8 +142,10 @@ def main(only_new=False):
         except Exception:
             print(sub, "FAILED", r.stderr[-800:], flush=True)
         json.dump({"_about": __doc__.strip().split("\n\n")[0], "shapes": rows},
-                  open(os.path.join(HERE, f"opt_central_{GROUP}.json"), "w"), indent=1)
-    gather(rows)
+                  open(os.path.join(HERE, f"opt_central_{GROUP}{'_seeds' if MODE == 'seed' else ''}.json"), "w"),
+                  indent=1)
+    if MODE != "seed":
+        gather(rows)
 
 
 def gather(rows=None):
@@ -149,6 +162,8 @@ def gather(rows=None):
         else:
             L += ["| shape | kind | sheet | depth | status | beta | file |", "|---|---|---|---|---|---|---|"]
             for r in rows:
+                if "central_off" not in r:
+                    continue
                 dd = "-" if r["depth"] is None else f"{r['depth']:.2e}"
                 L.append(f"| {r['name']} | {r['kind']} | {r['sheet']} | {dd} | {r['central_status']}"
                          f"{'; ' + r['central_note'] if 'central_note' in r else ''} | "
@@ -159,6 +174,10 @@ def gather(rows=None):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
+    for m in ("seed", "nocentre"):
+        if m in args:
+            MODE = m
+            args.remove(m)
     if "ixoic" in args:
         GROUP = "ixoic"
         args.remove("ixoic")
