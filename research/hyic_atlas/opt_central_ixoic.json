@@ -2559,6 +2559,146 @@
    "seed_R": 1.8477590650229576,
    "opt_off": "optimized_off/ixoic/sagybted_480v_2160c_opt.off",
    "opt_R": 1.8477590650229576
+  },
+  {
+   "name": "ixoic_region_103",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5ea58b93fa90",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.3120997127451993,
+    0.005774944679486872,
+    0.1937867670288603,
+    0.48833857554645366
+   ],
+   "start_R": 6.7337438037349,
+   "R": 4.817771780040043,
+   "optimized": [
+    0.31209095659017155,
+    0.0057686129500061295,
+    0.19388362257586786,
+    0.48825680788395454
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3120997127451993,
+    0.005774944679486872,
+    0.1937867670288603,
+    0.48833857554645366
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_103_2880v_17760c_seed.off",
+   "seed_R": 6.733743803736884,
+   "opt_off": "optimized_off/ixoic/ixoic_region_103_2880v_17760c_opt.off",
+   "opt_R": 6.7305703182559835
+  },
+  {
+   "name": "ixoic_region_104",
+   "kind": "region",
+   "degrees": 3,
+   "key": "8a47582fb978",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.45606285041573696,
+    0.011569279937745232,
+    0.3809140063171603,
+    0.15145386332935754
+   ],
+   "start_R": 11.230799069577644,
+   "R": 4.062205204897374,
+   "optimized": [
+    0.4560590455830844,
+    0.011568990241314313,
+    0.3809131807242373,
+    0.15145878345136407
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.45606285041573696,
+    0.011569279937745232,
+    0.3809140063171603,
+    0.15145386332935754
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_104_2880v_20640c_seed.off",
+   "seed_R": 11.2307990695829,
+   "opt_off": "optimized_off/ixoic/ixoic_region_104_2880v_20640c_opt.off",
+   "opt_R": 11.230389310901685
+  },
+  {
+   "name": "ixoic_region_105",
+   "kind": "region",
+   "degrees": 3,
+   "key": "bc68380762a1",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.39416436090580775,
+    0.0289469325694798,
+    0.0397245603213483,
+    0.5371641462033641
+   ],
+   "start_R": 23.94856240035557,
+   "R": 4.733079396310262,
+   "optimized": [
+    0.3941642411691181,
+    0.028947018792693978,
+    0.03972470620434594,
+    0.5371640338338419
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.39416436090580775,
+    0.0289469325694798,
+    0.0397245603213483,
+    0.5371641462033641
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_105_2880v_22080c_seed.off",
+   "seed_R": 23.948562400377444,
+   "opt_off": "optimized_off/ixoic/ixoic_region_105_2880v_22080c_opt.off",
+   "opt_R": 23.94847983622015
+  },
+  {
+   "name": "ixoic_region_106",
+   "kind": "region",
+   "degrees": 3,
+   "key": "459c5d1f6ec6",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.35639167637775043,
+    0.0036156210504980297,
+    0.10694610457255838,
+    0.533046597999193
+   ],
+   "start_R": 12.577406728799689,
+   "R": 12.577406728799689,
+   "optimized": [
+    0.3563916763777505,
+    0.00361562105049803,
+    0.1069461045725584,
+    0.5330465979991931
+   ],
+   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "central": [
+    0.35639167637775043,
+    0.0036156210504980297,
+    0.10694610457255838,
+    0.533046597999193
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_106_2880v_22080c_seed.off",
+   "seed_R": 12.577406728805876,
+   "opt_off": "optimized_off/ixoic/ixoic_region_106_2880v_22080c_opt.off",
+   "opt_R": 12.577406728805876
   }
  ]
 }
