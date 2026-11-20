@@ -119,7 +119,7 @@ def main(only_new=False):
     for s in shapes():
         if s["key"] not in done:
             todo.setdefault(s["sheet"], []).append(s)
-    todo = {(sub, i): L[i:i + 8] for sub, L in todo.items() for i in range(0, len(L), 8)}   # (saved every 8 shapes)
+    todo = {(sub, i): L[i:i + 4] for sub, L in todo.items() for i in range(0, len(L), 4)}   # (saved every 4 shapes)
     for sub, i in sorted(todo):
         r = subprocess.run([sys.executable, "-c", STEP % {"here": HERE, "root": ROOT, "group": GROUP}], input=json.dumps(todo[sub, i]),
                            capture_output=True, text=True, cwd=HERE, env={**os.environ, "HYIC_SUB": sub})
