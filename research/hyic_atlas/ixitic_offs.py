@@ -65,14 +65,14 @@ def job(s):
 import time
 from multiprocessing import TimeoutError as _Timeout
 with Pool(4) as pool:                             # (a worker that dies (a crash in native code) loses its task and
-    A = [pool.apply_async(job, (s,)) for s in S]  # pool.map waits forever: each shape is given an hour at most, then
+    A = [pool.apply_async(job, (s,)) for s in S]  # pool.map waits forever: each shape is given 30 min at most, then
     t0, R = time.time(), []                       # its seed is written instead)
     for s, a in zip(S, A):
         try:
-            R.append(a.get(timeout=max(1.0, t0 + 3600 - time.time())))
+            R.append(a.get(timeout=max(1.0, t0 + 1800 - time.time())))
         except _Timeout:
             R.append(({"best": s["seed"], "off_seed": s["seed"], "R": None, "start_R": None,
-                       "status": "optimiser crashed or ran over an hour: the seed is written"},
+                       "status": "optimiser crashed (scipy minimize) or ran over 30 min: the seed is written"},
                       {"centre": s["seed"], "depth": None, "status": "not computed"}))
     pool.terminate()
 out = []
