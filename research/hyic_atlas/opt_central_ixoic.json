@@ -3574,6 +3574,146 @@
    "seed_R": 15.156002415400675,
    "opt_off": "optimized_off/ixoic/ixoic_region_83_2880v_22080c_opt.off",
    "opt_R": 8.22691719247234
+  },
+  {
+   "name": "ixoic_region_84",
+   "kind": "region",
+   "degrees": 3,
+   "key": "3be1435e0d70",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.19618620557124483,
+    0.05904097551016515,
+    0.4021067779925792,
+    0.3426660409260109
+   ],
+   "start_R": 4.331135408330265,
+   "R": 4.039665585437178,
+   "optimized": [
+    0.20778952007804255,
+    0.057907038615431984,
+    0.4072326928270352,
+    0.32707074847949025
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.19618620557124483,
+    0.05904097551016515,
+    0.4021067779925792,
+    0.3426660409260109
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_84_2880v_22080c_seed.off",
+   "seed_R": 4.331135408331191,
+   "opt_off": "optimized_off/ixoic/ixoic_region_84_2880v_22080c_opt.off",
+   "opt_R": 4.039934413567526
+  },
+  {
+   "name": "ixoic_region_85",
+   "kind": "region",
+   "degrees": 3,
+   "key": "c1c750add769",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.2152329294002277,
+    0.020169747140372524,
+    0.038311017050742635,
+    0.7262863064086572
+   ],
+   "start_R": 23.743417821813832,
+   "R": 7.7034165739510385,
+   "optimized": [
+    0.1691957760195286,
+    0.03791638208967317,
+    0.07563886198759784,
+    0.7172489799032004
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2152329294002277,
+    0.020169747140372524,
+    0.038311017050742635,
+    0.7262863064086572
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_85_2880v_22080c_seed.off",
+   "seed_R": 23.74341782183802,
+   "opt_off": "optimized_off/ixoic/ixoic_region_85_2880v_22080c_opt.off",
+   "opt_R": 12.049969896565347
+  },
+  {
+   "name": "ixoic_region_86",
+   "kind": "region",
+   "degrees": 3,
+   "key": "b7c0e20ddf05",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.9799358046345272,
+    0.0006576744425234322,
+    0.010321338822344405,
+    0.009085182100604949
+   ],
+   "start_R": 259.9242821408734,
+   "R": 11.851671796830582,
+   "optimized": [
+    0.6656185555690951,
+    0.020397519051721963,
+    0.15205379282441941,
+    0.1619301325547636
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.9799358046345272,
+    0.0006576744425234322,
+    0.010321338822344405,
+    0.009085182100604949
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_86_2880v_22080c_seed.off",
+   "seed_R": 259.92428214357244,
+   "opt_off": "optimized_off/ixoic/ixoic_region_86_2880v_22080c_opt.off",
+   "opt_R": 11.865533488139564
+  },
+  {
+   "name": "ixoic_region_98",
+   "kind": "region",
+   "degrees": 3,
+   "key": "7d9e66e1892a",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.11115505118503852,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.7763857119910567
+   ],
+   "start_R": 11.986494414130016,
+   "R": 8.512700824774981,
+   "optimized": [
+    0.11483431353685014,
+    0.06392673588462891,
+    0.0953555734910684,
+    0.7258833770874525
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.11115505118503852,
+    0.056089121434546745,
+    0.05637011538935812,
+    0.7763857119910567
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_98_2880v_23520c_seed.off",
+   "seed_R": 11.986494414136676,
+   "opt_off": "optimized_off/ixoic/ixoic_region_98_2880v_23520c_opt.off",
+   "opt_R": 8.515110150253614
   }
  ]
 }
