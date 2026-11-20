@@ -2100,6 +2100,147 @@
    "seed_R": 1.9995314965421158,
    "opt_off": "optimized_off/ixoic/sobtated_960v_4320c_opt.off",
    "opt_R": 1.2476927536486841
+  },
+  {
+   "name": "gobtated",
+   "kind": "line",
+   "degrees": 1,
+   "key": "9fd7a0032a66",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.041865888346506674,
+    0.0,
+    0.0,
+    0.9581341116534933
+   ],
+   "start_R": 11.090533356986212,
+   "R": 3.4205882552780547,
+   "optimized": [
+    0.14378583449653728,
+    -3.0355575971195095e-14,
+    4.0737293365948576e-15,
+    0.856214165503489
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.041865888346506674,
+    0.0,
+    0.0,
+    0.9581341116534933
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_gobtated_960v_7200c_seed.off",
+   "seed_R": 11.090533356989297,
+   "opt_off": "optimized_off/ixoic/gobtated_960v_7200c_opt.off",
+   "opt_R": 3.4205882552785027
+  },
+  {
+   "name": "potbatid",
+   "kind": "line",
+   "degrees": 1,
+   "key": "524c547d9ed6",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.3041135313891131,
+    0.0,
+    0.6958864686108868,
+    0.0
+   ],
+   "start_R": 2.224370078657982,
+   "R": 2.117073737604381,
+   "optimized": [
+    0.30411353138894387,
+    0.0,
+    0.6958864686110562,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3041135313891131,
+    0.0,
+    0.6958864686108868,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_potbatid_1440v_3592c_seed.off",
+   "seed_R": 2.224370078658187,
+   "opt_note": "moved to another polytope: the seed is written instead",
+   "opt_off": "optimized_off/ixoic/potbatid_1440v_3592c_opt.off",
+   "opt_R": 2.224370078658187
+  },
+  {
+   "name": "sagypbittid",
+   "kind": "line",
+   "degrees": 1,
+   "key": "7465267cd9b6",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.041847106508050604,
+    0.0,
+    0.9581528934919493,
+    0.0
+   ],
+   "start_R": 1.9832052116327594,
+   "R": 1.9423856528290597,
+   "optimized": [
+    2.1830528800635544e-14,
+    -4.3292723993363893e-14,
+    0.9999999999999808,
+    4.062818873426558e-14
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.041847106508050604,
+    0.0,
+    0.9581528934919493,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_sagypbittid_1440v_3600c_seed.off",
+   "seed_R": 1.9832052116329593,
+   "opt_off": "optimized_off/ixoic/sagypbittid_1440v_3600c_opt.off",
+   "opt_R": 1.9423856528295111
+  },
+  {
+   "name": "gagypbittid",
+   "kind": "line",
+   "degrees": 1,
+   "key": "7ce9604523ae",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.3332443884905655,
+    0.0,
+    0.6667556115094344,
+    0.0
+   ],
+   "start_R": 2.5186274138417737,
+   "R": 2.3780094927094138,
+   "optimized": [
+    0.3041426971069947,
+    0.0,
+    0.6958573028930054,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3332443884905655,
+    0.0,
+    0.6667556115094344,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_gagypbittid_1440v_6240c_seed.off",
+   "seed_R": 2.5186274138420495,
+   "opt_off": "optimized_off/ixoic/gagypbittid_1440v_6240c_opt.off",
+   "opt_R": 2.378143793669222
   }
  ]
 }
