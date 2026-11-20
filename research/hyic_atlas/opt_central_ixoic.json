@@ -17944,6 +17944,159 @@
    "seed_R": 20.453421142448935,
    "opt_off": "optimized_off/ixoic/ixoic_region_140_2880v_19200c_opt.off",
    "opt_R": 20.451766627636992
+  },
+  {
+   "name": "ixoic_region_141",
+   "kind": "region",
+   "degrees": 3,
+   "key": "12407a9d392e",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.14168340189676798,
+    0.7210265862186648,
+    0.003600905986217502,
+    0.1336891058983497
+   ],
+   "locus_used": null,
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.14168340189676798,
+    0.7210265862186648,
+    0.003600905986217502,
+    0.1336891058983497
+   ],
+   "optimized_status": "optimiser failed: Convex hull is ambiguous at this tolerance (a vertex lies on a cell it is not part of).",
+   "central": [
+    0.14168340189676798,
+    0.7210265862186648,
+    0.003600905986217502,
+    0.1336891058983497
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_hull_tol": 1e-08,
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_141_2880v_18720c_seed.off",
+   "seed_R": 13.170732251261898,
+   "opt_note": "moved to another polytope: the seed is written instead",
+   "opt_hull_tol": 1e-08,
+   "opt_off": "optimized_off/ixoic/ixoic_region_141_2880v_18720c_opt.off",
+   "opt_R": 13.170732251261898
+  },
+  {
+   "name": "ixoic_region_142",
+   "kind": "region",
+   "degrees": 3,
+   "key": "fafecd873004",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.02999252576930308,
+    0.7508087759333167,
+    0.20452144439216977,
+    0.014677253905210384
+   ],
+   "locus_used": null,
+   "start_R": 156.01159109452573,
+   "R": 11.051431900857304,
+   "optimized": [
+    0.03098728492974925,
+    0.7487058796259588,
+    0.20523502498635185,
+    0.015071810457940163
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.02999252576930308,
+    0.7508087759333167,
+    0.20452144439216977,
+    0.014677253905210384
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_142_2880v_17760c_seed.off",
+   "seed_R": 156.01159109607005,
+   "opt_off": "optimized_off/ixoic/ixoic_region_142_2880v_17760c_opt.off",
+   "opt_R": 143.0008230067066
+  },
+  {
+   "name": "ixoic_region_143",
+   "kind": "region",
+   "degrees": 3,
+   "key": "42b31d215802",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.14090566601874255,
+    0.7210322904530045,
+    0.0037666061977229435,
+    0.1342954373305299
+   ],
+   "locus_used": null,
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.14090566601874255,
+    0.7210322904530045,
+    0.0037666061977229435,
+    0.1342954373305299
+   ],
+   "optimized_status": "optimiser failed: Convex hull is ambiguous at this tolerance (a vertex lies on a cell it is not part of).",
+   "central": [
+    0.14090566601874255,
+    0.7210322904530045,
+    0.0037666061977229435,
+    0.1342954373305299
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_hull_tol": 1e-08,
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_143_2880v_18720c_seed.off",
+   "seed_R": 13.185466562358307,
+   "opt_note": "moved to another polytope: the seed is written instead",
+   "opt_hull_tol": 1e-08,
+   "opt_off": "optimized_off/ixoic/ixoic_region_143_2880v_18720c_opt.off",
+   "opt_R": 13.185466562358307
+  },
+  {
+   "name": "ixoic_region_144",
+   "kind": "region",
+   "degrees": 3,
+   "key": "92c36d8e8fce",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.14088176277260228,
+    0.7210989785171987,
+    0.003700124618211088,
+    0.13431913409198779
+   ],
+   "locus_used": null,
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.14088176277260228,
+    0.7210989785171987,
+    0.003700124618211088,
+    0.13431913409198779
+   ],
+   "optimized_status": "optimiser failed: Convex hull is ambiguous at this tolerance (a vertex lies on a cell it is not part of).",
+   "central": [
+    0.14088176277260228,
+    0.7210989785171987,
+    0.003700124618211088,
+    0.13431913409198779
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_hull_tol": 1e-08,
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_144_2880v_21600c_seed.off",
+   "seed_R": 13.179685231566586,
+   "opt_note": "moved to another polytope: the seed is written instead",
+   "opt_hull_tol": 1e-08,
+   "opt_off": "optimized_off/ixoic/ixoic_region_144_2880v_21600c_opt.off",
+   "opt_R": 13.179685231566586
   }
  ]
 }
