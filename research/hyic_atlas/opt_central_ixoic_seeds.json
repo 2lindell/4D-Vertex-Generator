@@ -11806,6 +11806,538 @@
    "central_status": "not computed",
    "seed_off": "new_shapes/off/ixoic/ixoic_region_130_2880v_20640c_seed.off",
    "seed_R": 22.891688306156485
+  },
+  {
+   "name": "ixoic_region_40",
+   "kind": "region",
+   "degrees": 3,
+   "key": "b945e5651fdd",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.11115505118503852,
+    0.27781619047239275,
+    0.5552560207245116,
+    0.055772737618057115
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.11115505118503852,
+    0.27781619047239275,
+    0.5552560207245116,
+    0.055772737618057115
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.11115505118503852,
+    0.27781619047239275,
+    0.5552560207245116,
+    0.055772737618057115
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_40_2880v_18720c_seed.off",
+   "seed_R": 12.230913328380481
+  },
+  {
+   "name": "ixoic_region_41",
+   "kind": "region",
+   "degrees": 3,
+   "key": "4da9b751c8d0",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.4163941320018805,
+    0.0,
+    0.5417323449488615,
+    0.04187352304925806
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.4163941320018805,
+    0.0,
+    0.5417323449488615,
+    0.04187352304925806
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.4163941320018805,
+    0.0,
+    0.5417323449488615,
+    0.04187352304925806
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_41_2880v_18720c_seed.off",
+   "seed_R": 10.641614609994585
+  },
+  {
+   "name": "ixoic_region_74",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2314d7c0308b",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_74_2880v_21600c_seed.off",
+   "seed_R": 47.660117615448456
+  },
+  {
+   "name": "ixoic_wall_09",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b5c23e297a26",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.0,
+    0.6303461742949926,
+    0.16136740609667627,
+    0.2082864196083312
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.0,
+    0.6303461742949926,
+    0.16136740609667627,
+    0.2082864196083312
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.0,
+    0.6303461742949926,
+    0.16136740609667627,
+    0.2082864196083312
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_09_2880v_6240c_seed.off",
+   "seed_R": 12.977702085089613
+  },
+  {
+   "name": "ixoic_wall_47",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "cc84fd39f22f",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.4163941320018805,
+    0.0,
+    0.5209497439070803,
+    0.06265612409103896
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.4163941320018805,
+    0.0,
+    0.5209497439070803,
+    0.06265612409103896
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.4163941320018805,
+    0.0,
+    0.5209497439070803,
+    0.06265612409103896
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_47_2880v_11520c_seed.off",
+   "seed_R": 10.949943306996321
+  },
+  {
+   "name": "ixoic_wall_67",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "96fddb749551",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.16665002788418945,
+    0.41656856741105724,
+    0.4167814047047532,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.16665002788418945,
+    0.41656856741105724,
+    0.4167814047047532,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.16665002788418945,
+    0.41656856741105724,
+    0.4167814047047532,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_67_2880v_13440c_seed.off",
+   "seed_R": 11.170765004666553
+  },
+  {
+   "name": "ixoic_wall_71",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "5cdf86262713",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.43270338430882943,
+    0.0,
+    0.5254230926419126,
+    0.04187352304925806
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.43270338430882943,
+    0.0,
+    0.5254230926419126,
+    0.04187352304925806
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.43270338430882943,
+    0.0,
+    0.5254230926419126,
+    0.04187352304925806
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_71_2880v_14400c_seed.off",
+   "seed_R": 11.436393233541892
+  },
+  {
+   "name": "ixoic_wall_80",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "028fdf32bc16",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.13606388754022306,
+    0.6551935633928956,
+    0.20874254906688114,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.13606388754022306,
+    0.6551935633928956,
+    0.20874254906688114,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.13606388754022306,
+    0.6551935633928956,
+    0.20874254906688114,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_80_2880v_14880c_seed.off",
+   "seed_R": 37.82175358025153
+  },
+  {
+   "name": "ixoic_wall_102",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "12ca4772890d",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.08343410154912317,
+    0.7078233493839956,
+    0.20874254906688114,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.08343410154912317,
+    0.7078233493839956,
+    0.20874254906688114,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.08343410154912317,
+    0.7078233493839956,
+    0.20874254906688114,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_102_2880v_19200c_seed.off",
+   "seed_R": 61.65448702141866
+  },
+  {
+   "name": "bitutid",
+   "kind": "line",
+   "degrees": 1,
+   "key": "2f41ae404d62",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.0,
+    0.6180339868834989,
+    0.38196601311650114,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.0,
+    0.6180339868834989,
+    0.38196601311650114,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.0,
+    0.6180339868834989,
+    0.38196601311650114,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_bitutid_1440v_5520c_seed.off",
+   "seed_R": 9.06562249781225
+  },
+  {
+   "name": "gasbittid",
+   "kind": "line",
+   "degrees": 1,
+   "key": "baf95c7dc2b1",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.0,
+    0.6247447669252443,
+    0.37525523307475583,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.0,
+    0.6247447669252443,
+    0.37525523307475583,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.0,
+    0.6247447669252443,
+    0.37525523307475583,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_gasbittid_1440v_5520c_seed.off",
+   "seed_R": 9.443074528861516
+  },
+  {
+   "name": "ixoic_wall_123",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "3e6ee4d14b51",
+   "locus": [
+    "-3*sqrt(5)*b1**4 - 5*b1**4 + 4*sqrt(2)*b1**4 + 2*sqrt(10)*b1**4 - 15*b1**3*b2 - 3*sqrt(5)*b1**3*b2 + 3*sqrt(10)*b1**3*b2 + 9*sqrt(2)*b1**3*b2 - sqrt(10)*b1**3*b3 - b1**3*b3 + sqrt(2)*b1**3*b3 + sqrt(5)*b1**3*b3 - 5*sqrt(10)*b1**3*b4 - 7*sqrt(2)*b1**3*b4 + 9*b1**3*b4 + 7*sqrt(5)*b1**3*b4 - 4*sqrt(5)*b1**2*b2**2 + 2*sqrt(2)*b1**2*b2**2 + 2*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 + 8*b1**2*b2*b3 - 27*sqrt(2)*b1**2*b2*b4 - 5*sqrt(10)*b1**2*b2*b4 + 5*sqrt(5)*b1**2*b2*b4 + 41*b1**2*b2*b4 - 5*sqrt(2)*b1**2*b3**2 - sqrt(10)*b1**2*b3**2 + 2*sqrt(5)*b1**2*b3**2 + 6*b1**2*b3**2 - 26*sqrt(2)*b1**2*b3*b4 - 4*sqrt(10)*b1**2*b3*b4 + 5*sqrt(5)*b1**2*b3*b4 + 39*b1**2*b3*b4 - 19*sqrt(2)*b1**2*b4**2 - 5*sqrt(10)*b1**2*b4**2 + 7*sqrt(5)*b1**2*b4**2 + 25*b1**2*b4**2 - 7*sqrt(10)*b1*b2**2*b4 - 4*b1*b2**2*b4 - sqrt(2)*b1*b2**2*b4 + 12*sqrt(5)*b1*b2**2*b4 - 12*sqrt(10)*b1*b2*b3*b4 - 10*b1*b2*b3*b4 + 22*sqrt(5)*b1*b2*b3*b4 - 13*sqrt(10)*b1*b2*b4**2 - 15*sqrt(2)*b1*b2*b4**2 + 21*b1*b2*b4**2 + 17*sqrt(5)*b1*b2*b4**2 - 7*sqrt(10)*b1*b3**2*b4 + 2*b1*b3**2*b4 + 5*sqrt(2)*b1*b3**2*b4 + 6*sqrt(5)*b1*b3**2*b4 - 9*sqrt(10)*b1*b3*b4**2 - 7*sqrt(2)*b1*b3*b4**2 + 13*b1*b3*b4**2 + 11*sqrt(5)*b1*b3*b4**2 - 2*sqrt(10)*b1*b4**3 - 4*sqrt(2)*b1*b4**3 + 5*b1*b4**3 + 3*sqrt(5)*b1*b4**3 - 9*sqrt(2)*b2**2*b4**2 - 3*sqrt(10)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 + 12*b2**2*b4**2 - 12*sqrt(2)*b2*b3*b4**2 - 2*sqrt(10)*b2*b3*b4**2 + 2*sqrt(5)*b2*b3*b4**2 + 18*b2*b3*b4**2 - 3*sqrt(2)*b2*b4**3 - sqrt(10)*b2*b4**3 + sqrt(5)*b2*b4**3 + 5*b2*b4**3 - 4*sqrt(2)*b3**2*b4**2 - 2*sqrt(5)*b3**2*b4**2 + 10*b3**2*b4**2 - 2*sqrt(2)*b3*b4**3 - sqrt(5)*b3*b4**3 + 5*b3*b4**3"
+   ],
+   "sheet": "ixo7",
+   "seed": [
+    0.27761158628229143,
+    0.23816709297842148,
+    0.471794513456196,
+    0.012426807283091063
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.27761158628229143,
+    0.23816709297842148,
+    0.471794513456196,
+    0.012426807283091063
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.27761158628229143,
+    0.23816709297842148,
+    0.471794513456196,
+    0.012426807283091063
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_123_2880v_14400c_seed.off",
+   "seed_R": 6.118966417025056
+  },
+  {
+   "name": "ixoic_wall_182",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "5b7b58f7395d",
+   "locus": [
+    "-3*sqrt(5)*b1**4 - 5*b1**4 + 4*sqrt(2)*b1**4 + 2*sqrt(10)*b1**4 - 15*b1**3*b2 - 3*sqrt(5)*b1**3*b2 + 3*sqrt(10)*b1**3*b2 + 9*sqrt(2)*b1**3*b2 - sqrt(10)*b1**3*b3 - b1**3*b3 + sqrt(2)*b1**3*b3 + sqrt(5)*b1**3*b3 - 5*sqrt(10)*b1**3*b4 - 7*sqrt(2)*b1**3*b4 + 9*b1**3*b4 + 7*sqrt(5)*b1**3*b4 - 4*sqrt(5)*b1**2*b2**2 + 2*sqrt(2)*b1**2*b2**2 + 2*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 + 8*b1**2*b2*b3 - 27*sqrt(2)*b1**2*b2*b4 - 5*sqrt(10)*b1**2*b2*b4 + 5*sqrt(5)*b1**2*b2*b4 + 41*b1**2*b2*b4 - 5*sqrt(2)*b1**2*b3**2 - sqrt(10)*b1**2*b3**2 + 2*sqrt(5)*b1**2*b3**2 + 6*b1**2*b3**2 - 26*sqrt(2)*b1**2*b3*b4 - 4*sqrt(10)*b1**2*b3*b4 + 5*sqrt(5)*b1**2*b3*b4 + 39*b1**2*b3*b4 - 19*sqrt(2)*b1**2*b4**2 - 5*sqrt(10)*b1**2*b4**2 + 7*sqrt(5)*b1**2*b4**2 + 25*b1**2*b4**2 - 7*sqrt(10)*b1*b2**2*b4 - 4*b1*b2**2*b4 - sqrt(2)*b1*b2**2*b4 + 12*sqrt(5)*b1*b2**2*b4 - 12*sqrt(10)*b1*b2*b3*b4 - 10*b1*b2*b3*b4 + 22*sqrt(5)*b1*b2*b3*b4 - 13*sqrt(10)*b1*b2*b4**2 - 15*sqrt(2)*b1*b2*b4**2 + 21*b1*b2*b4**2 + 17*sqrt(5)*b1*b2*b4**2 - 7*sqrt(10)*b1*b3**2*b4 + 2*b1*b3**2*b4 + 5*sqrt(2)*b1*b3**2*b4 + 6*sqrt(5)*b1*b3**2*b4 - 9*sqrt(10)*b1*b3*b4**2 - 7*sqrt(2)*b1*b3*b4**2 + 13*b1*b3*b4**2 + 11*sqrt(5)*b1*b3*b4**2 - 2*sqrt(10)*b1*b4**3 - 4*sqrt(2)*b1*b4**3 + 5*b1*b4**3 + 3*sqrt(5)*b1*b4**3 - 9*sqrt(2)*b2**2*b4**2 - 3*sqrt(10)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 + 12*b2**2*b4**2 - 12*sqrt(2)*b2*b3*b4**2 - 2*sqrt(10)*b2*b3*b4**2 + 2*sqrt(5)*b2*b3*b4**2 + 18*b2*b3*b4**2 - 3*sqrt(2)*b2*b4**3 - sqrt(10)*b2*b4**3 + sqrt(5)*b2*b4**3 + 5*b2*b4**3 - 4*sqrt(2)*b3**2*b4**2 - 2*sqrt(5)*b3**2*b4**2 + 10*b3**2*b4**2 - 2*sqrt(2)*b3*b4**3 - sqrt(5)*b3*b4**3 + 5*b3*b4**3"
+   ],
+   "sheet": "ixo7",
+   "seed": [
+    0.17028445382904814,
+    0.3487087682054258,
+    0.4722229351050908,
+    0.008783842860435168
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.17028445382904814,
+    0.3487087682054258,
+    0.4722229351050908,
+    0.008783842860435168
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.17028445382904814,
+    0.3487087682054258,
+    0.4722229351050908,
+    0.008783842860435168
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_182_2880v_17280c_seed.off",
+   "seed_R": 10.275240342758837
+  },
+  {
+   "name": "sobted",
+   "kind": "point",
+   "degrees": 0,
+   "key": "8f82404e9b10",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    5.104250355714157e-14,
+    0.7961795736230687,
+    0.20382042637688025,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    5.104250355714157e-14,
+    0.7961795736230687,
+    0.20382042637688025,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    5.104250355714157e-14,
+    0.7961795736230687,
+    0.20382042637688025,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_point_sobted_720v_1680c_seed.off",
+   "seed_R": 2.32801920908043
+  },
+  {
+   "name": "bamtuted",
+   "kind": "point",
+   "degrees": 0,
+   "key": "f86ef4998f60",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.0,
+    0.41421356237309515,
+    0.5857864376269049,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.0,
+    0.41421356237309515,
+    0.5857864376269049,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.0,
+    0.41421356237309515,
+    0.5857864376269049,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_point_bamtuted_1440v_2160c_seed.off",
+   "seed_R": 2.6812698069226535
+  },
+  {
+   "name": "ixoic_region_131",
+   "kind": "region",
+   "degrees": 3,
+   "key": "c30a8cd80019",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.035531216534113376,
+    0.40676332003834914,
+    0.557172052946679,
+    0.0005334104808584805
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.035531216534113376,
+    0.40676332003834914,
+    0.557172052946679,
+    0.0005334104808584805
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.035531216534113376,
+    0.40676332003834914,
+    0.557172052946679,
+    0.0005334104808584805
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_131_2880v_21600c_seed.off",
+   "seed_R": 47.773095597819015
   }
  ]
 }
