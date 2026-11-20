@@ -15461,6 +15461,161 @@
    "seed_R": 7.731976075818811,
    "opt_off": "optimized_off/ixoic/ixoic_wall_176_2880v_17280c_opt.off",
    "opt_R": 5.973865143168597
+  },
+  {
+   "name": "ixoic_wall_177",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "1880c3daa725",
+   "locus": [
+    "-5*b1**4 - sqrt(5)*b1**4 + sqrt(10)*b1**4 + 3*sqrt(2)*b1**4 - 6*sqrt(5)*b1**3*b2 + 3*sqrt(2)*b1**3*b2 + 3*sqrt(10)*b1**3*b2 - 3*sqrt(5)*b1**3*b3 - 3*b1**3*b3 + 2*sqrt(2)*b1**3*b3 + 2*sqrt(10)*b1**3*b3 - 2*sqrt(5)*b1**3*b4 - sqrt(2)*b1**3*b4 + 2*b1**3*b4 + sqrt(10)*b1**3*b4 - 10*b1**2*b2**2 + 2*sqrt(5)*b1**2*b2**2 + 4*sqrt(2)*b1**2*b2**2 - 8*b1**2*b2*b3 + sqrt(10)*b1**2*b2*b3 + 3*sqrt(2)*b1**2*b2*b3 - 12*b1**2*b2*b4 - 3*sqrt(10)*b1**2*b2*b4 + 5*sqrt(2)*b1**2*b2*b4 + 6*sqrt(5)*b1**2*b2*b4 - 2*sqrt(5)*b1**2*b3**2 + 2*b1**2*b3**2 + 2*sqrt(2)*b1**2*b3**2 - 4*sqrt(10)*b1**2*b3*b4 - 3*sqrt(5)*b1**2*b3*b4 + 9*b1**2*b3*b4 + 8*sqrt(2)*b1**2*b3*b4 - 7*sqrt(10)*b1**2*b4**2 - 9*sqrt(2)*b1**2*b4**2 + 6*sqrt(5)*b1**2*b4**2 + 22*b1**2*b4**2 - 9*sqrt(2)*b1*b2**2*b4 - 4*sqrt(5)*b1*b2**2*b4 + 3*sqrt(10)*b1*b2**2*b4 + 12*b1*b2**2*b4 - 12*sqrt(2)*b1*b2*b3*b4 - 4*b1*b2*b3*b4 + 4*sqrt(5)*b1*b2*b3*b4 + 4*sqrt(10)*b1*b2*b3*b4 - 25*sqrt(2)*b1*b2*b4**2 - 9*sqrt(10)*b1*b2*b4**2 + 24*b1*b2*b4**2 + 18*sqrt(5)*b1*b2*b4**2 - 16*b1*b3**2*b4 - 10*sqrt(2)*b1*b3**2*b4 + 4*sqrt(10)*b1*b3**2*b4 + 8*sqrt(5)*b1*b3**2*b4 - 26*sqrt(2)*b1*b3*b4**2 - 2*sqrt(10)*b1*b3*b4**2 - 3*b1*b3*b4**2 + 21*sqrt(5)*b1*b3*b4**2 - 13*sqrt(2)*b1*b4**3 - 3*sqrt(10)*b1*b4**3 + 6*b1*b4**3 + 10*sqrt(5)*b1*b4**3 - 11*sqrt(2)*b2**2*b4**2 - 3*sqrt(10)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 + 16*b2**2*b4**2 - 17*sqrt(2)*b2*b3*b4**2 - 3*sqrt(10)*b2*b3*b4**2 + 16*b2*b3*b4**2 + 8*sqrt(5)*b2*b3*b4**2 - 11*sqrt(2)*b2*b4**3 - 3*sqrt(10)*b2*b4**3 + 12*b2*b4**3 + 6*sqrt(5)*b2*b4**3 - 8*sqrt(2)*b3**2*b4**2 - 2*b3**2*b4**2 + 6*sqrt(5)*b3**2*b4**2 - 12*sqrt(2)*b3*b4**3 - 3*b3*b4**3 + 9*sqrt(5)*b3*b4**3 - 4*sqrt(2)*b4**4 - b4**4 + 3*sqrt(5)*b4**4",
+    "-sqrt(10)*b1**3*b2 - sqrt(2)*b1**3*b2 + 2*sqrt(5)*b1**3*b2 - 2*sqrt(2)*b1**3*b3 + b1**3*b3 + sqrt(5)*b1**3*b3 - 4*sqrt(2)*b1**2*b2**2 - 2*sqrt(5)*b1**2*b2**2 + 10*b1**2*b2**2 - 3*sqrt(2)*b1**2*b2*b3 - sqrt(10)*b1**2*b2*b3 + 8*b1**2*b2*b3 - 4*sqrt(2)*b1**2*b2*b4 - 2*sqrt(5)*b1**2*b2*b4 + 4*b1**2*b2*b4 + 2*sqrt(10)*b1**2*b2*b4 - 2*sqrt(2)*b1**2*b3**2 - 2*b1**2*b3**2 + 2*sqrt(5)*b1**2*b3**2 - 3*b1**2*b3*b4 + sqrt(5)*b1**2*b3*b4 - 12*b1*b2**2*b4 - 3*sqrt(10)*b1*b2**2*b4 + 4*sqrt(5)*b1*b2**2*b4 + 9*sqrt(2)*b1*b2**2*b4 - 4*sqrt(10)*b1*b2*b3*b4 - 4*sqrt(5)*b1*b2*b3*b4 + 4*b1*b2*b3*b4 + 12*sqrt(2)*b1*b2*b3*b4 - 6*sqrt(5)*b1*b2*b4**2 - 8*b1*b2*b4**2 + sqrt(10)*b1*b2*b4**2 + 13*sqrt(2)*b1*b2*b4**2 - 8*sqrt(5)*b1*b3**2*b4 - 4*sqrt(10)*b1*b3**2*b4 + 10*sqrt(2)*b1*b3**2*b4 + 16*b1*b3**2*b4 - 7*sqrt(5)*b1*b3*b4**2 + b1*b3*b4**2 + 10*sqrt(2)*b1*b3*b4**2 - 16*b2**2*b4**2 - 4*sqrt(5)*b2**2*b4**2 + 3*sqrt(10)*b2**2*b4**2 + 11*sqrt(2)*b2**2*b4**2 - 8*sqrt(5)*b2*b3*b4**2 - 16*b2*b3*b4**2 + 3*sqrt(10)*b2*b3*b4**2 + 17*sqrt(2)*b2*b3*b4**2 - 2*sqrt(5)*b2*b4**3 - 4*b2*b4**3 + 6*sqrt(2)*b2*b4**3 - 6*sqrt(5)*b3**2*b4**2 + 2*b3**2*b4**2 + 8*sqrt(2)*b3**2*b4**2 - 3*sqrt(5)*b3*b4**3 + b3*b4**3 + 4*sqrt(2)*b3*b4**3"
+   ],
+   "sheet": "ixo9",
+   "seed": [
+    0.2096296227485002,
+    0.4400524709308222,
+    0.28768875904457836,
+    0.06262914727609929
+   ],
+   "locus_used": "1 of 2 locus equations (the rest dependent at the seed)",
+   "start_R": 11.667686640492859,
+   "R": 8.76312727840005,
+   "optimized": [
+    0.3371868252943367,
+    0.27827817816139183,
+    0.29643867771599614,
+    0.08809631882827539
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2096296227485002,
+    0.4400524709308222,
+    0.28768875904457836,
+    0.06262914727609929
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_177_2880v_17280c_seed.off",
+   "seed_R": 11.667686640500945,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_177_2880v_17280c_opt.off",
+   "opt_R": 8.76688666514405
+  },
+  {
+   "name": "ixoic_wall_178",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "2d0847deba03",
+   "locus": [
+    "-6*sqrt(2)*b1**4 - 2*sqrt(10)*b1**4 + 6*b1**4 + 4*sqrt(5)*b1**4 - 6*sqrt(10)*b1**3*b2 - 6*sqrt(2)*b1**3*b2 + 3*sqrt(5)*b1**3*b2 + 21*b1**3*b2 - 4*sqrt(10)*b1**3*b3 - 4*sqrt(2)*b1**3*b3 + 18*b1**3*b3 - 10*sqrt(5)*b1**3*b4 - 6*b1**3*b4 + 3*sqrt(10)*b1**3*b4 + 13*sqrt(2)*b1**3*b4 - 8*sqrt(2)*b1**2*b2**2 - 2*b1**2*b2**2 + 6*sqrt(5)*b1**2*b2**2 - 13*sqrt(2)*b1**2*b2*b3 - 12*b1**2*b2*b3 + sqrt(10)*b1**2*b2*b3 + 12*sqrt(5)*b1**2*b2*b3 - 57*b1**2*b2*b4 - 3*sqrt(5)*b1**2*b2*b4 + 11*sqrt(2)*b1**2*b2*b4 + 15*sqrt(10)*b1**2*b2*b4 - 8*sqrt(2)*b1**2*b3**2 - 4*b1**2*b3**2 + 2*sqrt(10)*b1**2*b3**2 + 4*sqrt(5)*b1**2*b3**2 - 42*b1**2*b3*b4 + 5*sqrt(2)*b1**2*b3*b4 + 11*sqrt(10)*b1**2*b3*b4 - 20*b1**2*b4**2 + 3*sqrt(2)*b1**2*b4**2 + 5*sqrt(10)*b1**2*b4**2 - 12*sqrt(5)*b1*b2**2*b4 - 4*b1*b2**2*b4 + 3*sqrt(10)*b1*b2**2*b4 + 15*sqrt(2)*b1*b2**2*b4 - 20*sqrt(5)*b1*b2*b3*b4 + 4*b1*b2*b3*b4 + 4*sqrt(10)*b1*b2*b3*b4 + 20*sqrt(2)*b1*b2*b3*b4 - 9*sqrt(5)*b1*b2*b4**2 + 9*b1*b2*b4**2 + 8*sqrt(2)*b1*b2*b4**2 - 4*sqrt(5)*b1*b3**2*b4 - 4*b1*b3**2*b4 + 10*sqrt(2)*b1*b3**2*b4 - 2*sqrt(10)*b1*b3*b4**2 - 6*b1*b3*b4**2 + 10*sqrt(2)*b1*b3*b4**2 - sqrt(10)*b1*b4**3 - 2*b1*b4**3 + sqrt(2)*b1*b4**3 + 2*sqrt(5)*b1*b4**3 - 3*sqrt(10)*b2**2*b4**2 + sqrt(2)*b2**2*b4**2 + 8*b2**2*b4**2 - 3*sqrt(10)*b2*b3*b4**2 - 4*sqrt(5)*b2*b3*b4**2 - sqrt(2)*b2*b3*b4**2 + 20*b2*b3*b4**2 - 3*sqrt(10)*b2*b4**3 - 3*sqrt(5)*b2*b4**3 + sqrt(2)*b2*b4**3 + 15*b2*b4**3 - 2*sqrt(10)*b3**2*b4**2 + 2*sqrt(2)*b3**2*b4**2 + 4*b3**2*b4**2 - 3*sqrt(10)*b3*b4**3 + 3*sqrt(2)*b3*b4**3 + 6*b3*b4**3 - sqrt(10)*b4**4 + sqrt(2)*b4**4 + 2*b4**4",
+    "-7*b1**3*b2 - sqrt(5)*b1**3*b2 + 2*sqrt(2)*b1**3*b2 + 2*sqrt(10)*b1**3*b2 - 6*b1**3*b3 + 2*sqrt(10)*b1**3*b3 - 6*sqrt(5)*b1**2*b2**2 + 2*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 - 12*sqrt(5)*b1**2*b2*b3 - sqrt(10)*b1**2*b2*b3 + 12*b1**2*b2*b3 + 13*sqrt(2)*b1**2*b2*b3 - 4*sqrt(10)*b1**2*b2*b4 - 6*sqrt(2)*b1**2*b2*b4 + sqrt(5)*b1**2*b2*b4 + 19*b1**2*b2*b4 - 4*sqrt(5)*b1**2*b3**2 - 2*sqrt(10)*b1**2*b3**2 + 4*b1**2*b3**2 + 8*sqrt(2)*b1**2*b3**2 - 5*sqrt(10)*b1**2*b3*b4 + sqrt(2)*b1**2*b3*b4 + 14*b1**2*b3*b4 - 15*sqrt(2)*b1*b2**2*b4 - 3*sqrt(10)*b1*b2**2*b4 + 4*b1*b2**2*b4 + 12*sqrt(5)*b1*b2**2*b4 - 20*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(10)*b1*b2*b3*b4 - 4*b1*b2*b3*b4 + 20*sqrt(5)*b1*b2*b3*b4 - 2*sqrt(10)*b1*b2*b4**2 - 3*b1*b2*b4**2 + 2*sqrt(2)*b1*b2*b4**2 + 3*sqrt(5)*b1*b2*b4**2 - 10*sqrt(2)*b1*b3**2*b4 + 4*b1*b3**2*b4 + 4*sqrt(5)*b1*b3**2*b4 - 2*sqrt(2)*b1*b3*b4**2 + 2*b1*b3*b4**2 - 8*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 3*sqrt(10)*b2**2*b4**2 - 20*b2*b3*b4**2 + sqrt(2)*b2*b3*b4**2 + 4*sqrt(5)*b2*b3*b4**2 + 3*sqrt(10)*b2*b3*b4**2 - 5*b2*b4**3 + sqrt(5)*b2*b4**3 + 2*sqrt(2)*b2*b4**3 - 4*b3**2*b4**2 - 2*sqrt(2)*b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2 - 2*b3*b4**3 - sqrt(2)*b3*b4**3 + sqrt(10)*b3*b4**3"
+   ],
+   "sheet": "ixo9",
+   "seed": [
+    0.2385099935972616,
+    0.600138709428173,
+    0.046337896502068834,
+    0.11501340047249652
+   ],
+   "locus_used": "1 of 2 locus equations (the rest dependent at the seed)",
+   "start_R": 20.08610635539711,
+   "R": 12.247827600888357,
+   "optimized": [
+    0.19103272907298452,
+    0.7069917249117539,
+    4.977088986685264e-05,
+    0.10192577512539476
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2385099935972616,
+    0.600138709428173,
+    0.046337896502068834,
+    0.11501340047249652
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_178_2880v_17280c_seed.off",
+   "seed_R": 20.08610635541259,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_178_2880v_17280c_opt.off",
+   "opt_R": 12.252823283838216
+  },
+  {
+   "name": "ixoic_wall_179",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "3501ea11a32c",
+   "locus": [
+    "-17*b1**3*b2 - 7*sqrt(5)*b1**3*b2 + 11*sqrt(2)*b1**3*b2 + 5*sqrt(10)*b1**3*b2 - 2*sqrt(10)*b1**3*b3 - 4*sqrt(2)*b1**3*b3 + 2*sqrt(5)*b1**3*b3 + 8*b1**3*b3 - 20*sqrt(5)*b1**2*b2**2 - 30*b1**2*b2**2 + 11*sqrt(10)*b1**2*b2**2 + 27*sqrt(2)*b1**2*b2**2 - 4*sqrt(5)*b1**2*b2*b3 + 2*sqrt(2)*b1**2*b2*b3 + 8*b1**2*b2*b3 - 11*sqrt(5)*b1**2*b2*b4 - 17*b1**2*b2*b4 + 6*sqrt(10)*b1**2*b2*b4 + 18*sqrt(2)*b1**2*b2*b4 - 9*sqrt(2)*b1**2*b3**2 - 3*sqrt(10)*b1**2*b3**2 + 11*b1**2*b3**2 + 5*sqrt(5)*b1**2*b3**2 - 14*sqrt(2)*b1**2*b3*b4 - 6*sqrt(10)*b1**2*b3*b4 + 16*b1**2*b3*b4 + 10*sqrt(5)*b1**2*b3*b4 - 27*b1*b2**3 - 7*sqrt(5)*b1*b2**3 + 12*sqrt(2)*b1*b2**3 + 8*sqrt(10)*b1*b2**3 - 23*b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b3 + 3*sqrt(5)*b1*b2**2*b3 + 7*sqrt(10)*b1*b2**2*b3 - 50*b1*b2**2*b4 - 10*sqrt(5)*b1*b2**2*b4 + 18*sqrt(2)*b1*b2**2*b4 + 16*sqrt(10)*b1*b2**2*b4 - 16*sqrt(2)*b1*b2*b3**2 + 10*sqrt(5)*b1*b2*b3**2 - 20*sqrt(2)*b1*b2*b3*b4 - 14*b1*b2*b3*b4 + 18*sqrt(5)*b1*b2*b3*b4 - 23*b1*b2*b4**2 - sqrt(5)*b1*b2*b4**2 + 7*sqrt(2)*b1*b2*b4**2 + 5*sqrt(10)*b1*b2*b4**2 - 5*sqrt(2)*b1*b3**3 - sqrt(10)*b1*b3**3 + 3*b1*b3**3 + 3*sqrt(5)*b1*b3**3 - 9*sqrt(10)*b1*b3**2*b4 - 19*sqrt(2)*b1*b3**2*b4 + 22*b1*b3**2*b4 + 14*sqrt(5)*b1*b3**2*b4 - 6*sqrt(10)*b1*b3*b4**2 - 12*sqrt(2)*b1*b3*b4**2 + 12*b1*b3*b4**2 + 10*sqrt(5)*b1*b3*b4**2 - 17*b2**3*b4 - 5*sqrt(5)*b2**3*b4 + 9*sqrt(2)*b2**3*b4 + 5*sqrt(10)*b2**3*b4 - 5*sqrt(5)*b2**2*b3*b4 + b2**2*b3*b4 + 2*sqrt(2)*b2**2*b3*b4 + 2*sqrt(10)*b2**2*b3*b4 - 6*sqrt(5)*b2**2*b4**2 - 12*b2**2*b4**2 + 7*sqrt(2)*b2**2*b4**2 + 5*sqrt(10)*b2**2*b4**2 - 8*sqrt(10)*b2*b3**2*b4 - 6*sqrt(2)*b2*b3**2*b4 + 2*sqrt(5)*b2*b3**2*b4 + 28*b2*b3**2*b4 - 6*sqrt(10)*b2*b3*b4**2 + 2*sqrt(5)*b2*b3*b4**2 + 14*b2*b3*b4**2 - 3*b2*b4**3 - sqrt(5)*b2*b4**3 + 4*sqrt(2)*b2*b4**3 - 4*sqrt(10)*b3**3*b4 - 4*sqrt(2)*b3**3*b4 + 3*sqrt(5)*b3**3*b4 + 11*b3**3*b4 - 6*sqrt(10)*b3**2*b4**2 - 6*sqrt(2)*b3**2*b4**2 + 5*sqrt(5)*b3**2*b4**2 + 15*b3**2*b4**2 - 2*sqrt(10)*b3*b4**3 - 2*sqrt(2)*b3*b4**3 + 4*b3*b4**3 + 2*sqrt(5)*b3*b4**3",
+    "-5*sqrt(10)*b1**3*b2 - 11*sqrt(2)*b1**3*b2 + 7*sqrt(5)*b1**3*b2 + 17*b1**3*b2 - 8*b1**3*b3 - 2*sqrt(5)*b1**3*b3 + 4*sqrt(2)*b1**3*b3 + 2*sqrt(10)*b1**3*b3 - 27*sqrt(2)*b1**2*b2**2 - 11*sqrt(10)*b1**2*b2**2 + 30*b1**2*b2**2 + 20*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2*b3 - 2*sqrt(2)*b1**2*b2*b3 + 4*sqrt(5)*b1**2*b2*b3 - 18*sqrt(2)*b1**2*b2*b4 - 6*sqrt(10)*b1**2*b2*b4 + 17*b1**2*b2*b4 + 11*sqrt(5)*b1**2*b2*b4 - 5*sqrt(5)*b1**2*b3**2 - 11*b1**2*b3**2 + 3*sqrt(10)*b1**2*b3**2 + 9*sqrt(2)*b1**2*b3**2 - 10*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 + 14*sqrt(2)*b1**2*b3*b4 - 8*sqrt(10)*b1*b2**3 - 12*sqrt(2)*b1*b2**3 + 7*sqrt(5)*b1*b2**3 + 27*b1*b2**3 - 7*sqrt(10)*b1*b2**2*b3 - 3*sqrt(5)*b1*b2**2*b3 + 3*sqrt(2)*b1*b2**2*b3 + 23*b1*b2**2*b3 - 16*sqrt(10)*b1*b2**2*b4 - 18*sqrt(2)*b1*b2**2*b4 + 10*sqrt(5)*b1*b2**2*b4 + 50*b1*b2**2*b4 - 10*sqrt(5)*b1*b2*b3**2 + 16*sqrt(2)*b1*b2*b3**2 - 18*sqrt(5)*b1*b2*b3*b4 + 14*b1*b2*b3*b4 + 20*sqrt(2)*b1*b2*b3*b4 - 5*sqrt(10)*b1*b2*b4**2 - 7*sqrt(2)*b1*b2*b4**2 + sqrt(5)*b1*b2*b4**2 + 23*b1*b2*b4**2 - 3*sqrt(5)*b1*b3**3 - 3*b1*b3**3 + sqrt(10)*b1*b3**3 + 5*sqrt(2)*b1*b3**3 - 14*sqrt(5)*b1*b3**2*b4 - 22*b1*b3**2*b4 + 19*sqrt(2)*b1*b3**2*b4 + 9*sqrt(10)*b1*b3**2*b4 - 10*sqrt(5)*b1*b3*b4**2 - 12*b1*b3*b4**2 + 12*sqrt(2)*b1*b3*b4**2 + 6*sqrt(10)*b1*b3*b4**2 - 5*sqrt(10)*b2**3*b4 - 9*sqrt(2)*b2**3*b4 + 5*sqrt(5)*b2**3*b4 + 17*b2**3*b4 - 2*sqrt(10)*b2**2*b3*b4 - 2*sqrt(2)*b2**2*b3*b4 - b2**2*b3*b4 + 5*sqrt(5)*b2**2*b3*b4 - 5*sqrt(10)*b2**2*b4**2 - 7*sqrt(2)*b2**2*b4**2 + 12*b2**2*b4**2 + 6*sqrt(5)*b2**2*b4**2 - 28*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*sqrt(2)*b2*b3**2*b4 + 8*sqrt(10)*b2*b3**2*b4 - 14*b2*b3*b4**2 - 2*sqrt(5)*b2*b3*b4**2 + 6*sqrt(10)*b2*b3*b4**2 - 4*sqrt(2)*b2*b4**3 + sqrt(5)*b2*b4**3 + 3*b2*b4**3 - 11*b3**3*b4 - 3*sqrt(5)*b3**3*b4 + 4*sqrt(2)*b3**3*b4 + 4*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 5*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 6*sqrt(10)*b3**2*b4**2 - 2*sqrt(5)*b3*b4**3 - 4*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3"
+   ],
+   "sheet": "ixo9",
+   "seed": [
+    0.17440495873633488,
+    0.5471568871394087,
+    0.22266541712389823,
+    0.055772737000358195
+   ],
+   "locus_used": "1 of 2 locus equations (the rest dependent at the seed)",
+   "start_R": 26.312281967493913,
+   "R": 12.247827600894826,
+   "optimized": [
+    0.19196065928072661,
+    0.4633703634764098,
+    0.286320580603601,
+    0.05834839663926265
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.17440495873633488,
+    0.5471568871394087,
+    0.22266541712389823,
+    0.055772737000358195
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_179_2880v_17280c_seed.off",
+   "seed_R": 26.3122819675319,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_179_2880v_17280c_opt.off",
+   "opt_R": 12.25303540557118
+  },
+  {
+   "name": "ixoic_wall_180",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "42e1af87b033",
+   "locus": [
+    "-sqrt(10)*b1**3*b2 - sqrt(2)*b1**3*b2 + 2*sqrt(5)*b1**3*b2 - 3*sqrt(10)*b1**3*b3 - 3*sqrt(2)*b1**3*b3 + 3*sqrt(5)*b1**3*b3 + 7*b1**3*b3 - 6*sqrt(2)*b1**2*b2**2 - 3*sqrt(5)*b1**2*b2**2 + 15*b1**2*b2**2 - 15*sqrt(2)*b1**2*b2*b3 - sqrt(10)*b1**2*b2*b3 + 4*sqrt(5)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 4*sqrt(5)*b1**2*b2*b4 + 2*b1**2*b2*b4 + sqrt(10)*b1**2*b2*b4 + 3*sqrt(2)*b1**2*b2*b4 - 9*b1**2*b3**2 - 5*sqrt(2)*b1**2*b3**2 + 3*sqrt(5)*b1**2*b3**2 + 3*sqrt(10)*b1**2*b3**2 - 15*b1**2*b3*b4 - 3*sqrt(5)*b1**2*b3*b4 + 2*sqrt(2)*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 - 10*b1*b2**3 - 2*sqrt(10)*b1*b2**3 + 2*sqrt(2)*b1*b2**3 + 6*sqrt(5)*b1*b2**3 - 4*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 4*sqrt(2)*b1*b2**2*b3 + 6*sqrt(5)*b1*b2**2*b3 - 26*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 3*sqrt(10)*b1*b2**2*b4 + 9*sqrt(2)*b1*b2**2*b4 - 8*sqrt(5)*b1*b2*b3**2 - 2*sqrt(10)*b1*b2*b3**2 + 4*b1*b2*b3**2 + 14*sqrt(2)*b1*b2*b3**2 - 20*sqrt(5)*b1*b2*b3*b4 - 36*b1*b2*b3*b4 + 10*sqrt(10)*b1*b2*b3*b4 + 34*sqrt(2)*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b4**2 - 4*b1*b2*b4**2 - sqrt(2)*b1*b2*b4**2 + 3*sqrt(10)*b1*b2*b4**2 - 6*sqrt(5)*b1*b3**3 + 2*b1*b3**3 + 8*sqrt(2)*b1*b3**3 - 18*sqrt(5)*b1*b3**2*b4 - 2*b1*b3**2*b4 + 3*sqrt(10)*b1*b3**2*b4 + 23*sqrt(2)*b1*b3**2*b4 - 9*sqrt(5)*b1*b3*b4**2 - 5*b1*b3*b4**2 + 3*sqrt(10)*b1*b3*b4**2 + 11*sqrt(2)*b1*b3*b4**2 - 10*b2**3*b4 - 2*sqrt(5)*b2**3*b4 + 2*sqrt(10)*b2**3*b4 + 6*sqrt(2)*b2**3*b4 - 38*b2**2*b3*b4 - 10*sqrt(5)*b2**2*b3*b4 + 8*sqrt(10)*b2**2*b3*b4 + 24*sqrt(2)*b2**2*b3*b4 - 13*b2**2*b4**2 + sqrt(5)*b2**2*b4**2 + sqrt(10)*b2**2*b4**2 + 5*sqrt(2)*b2**2*b4**2 - 12*sqrt(5)*b2*b3**2*b4 - 24*b2*b3**2*b4 + 6*sqrt(10)*b2*b3**2*b4 + 22*sqrt(2)*b2*b3**2*b4 - 20*b2*b3*b4**2 - 8*sqrt(5)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 + 15*sqrt(2)*b2*b3*b4**2 - 2*b2*b4**3 - sqrt(2)*b2*b4**3 + sqrt(10)*b2*b4**3 - 6*sqrt(5)*b3**3*b4 + 2*b3**3*b4 + 8*sqrt(2)*b3**3*b4 - 9*sqrt(5)*b3**2*b4**2 + 3*b3**2*b4**2 + 12*sqrt(2)*b3**2*b4**2 - 3*sqrt(5)*b3*b4**3 + b3*b4**3 + 4*sqrt(2)*b3*b4**3"
+   ],
+   "sheet": "ixo9",
+   "seed": [
+    0.42277561733790525,
+    0.15077199928398186,
+    0.39603267579625956,
+    0.030419707581853403
+   ],
+   "locus_used": null,
+   "start_R": 6.811292846158273,
+   "R": 5.736395686321807,
+   "optimized": [
+    0.37963621482571114,
+    0.19713129679208694,
+    0.40071345937418984,
+    0.022519029008011997
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.42277561733790525,
+    0.15077199928398186,
+    0.39603267579625956,
+    0.030419707581853403
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_180_2880v_17280c_seed.off",
+   "seed_R": 6.811292846161279,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_180_2880v_17280c_opt.off",
+   "opt_R": 5.737332204250405
   }
  ]
 }
