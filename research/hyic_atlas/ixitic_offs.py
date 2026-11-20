@@ -78,11 +78,20 @@ for s, (r, c) in zip(S, R):
         if tag != "seed" and G.label(b, s["hull_tol"])[1] != s["key"]:
             row[tag + "_note"] = "moved to another polytope: the seed is written instead"
             b = np.asarray(row["seed"]) / np.sum(row["seed"])
-        V, Vn, idx, faces, cells = G.polytope(b, s["hull_tol"])
+        for tol in (s["hull_tol"], 1e-8, 1e-7):  # (a hull ambiguous at 1e-9, as some closure regions: 1e-8)
+            try:
+                V, Vn, idx, faces, cells = G.polytope(b, tol)
+                text = to_4off(Vn, faces, cells)
+                break
+            except ValueError:
+                if tol == 1e-7:
+                    raise
+        if tol != s["hull_tol"]:
+            row[tag + "_hull_tol"] = tol
         d = os.path.join(%(root)r, folder, %(group)r); os.makedirs(d, exist_ok=True)
         f = os.path.join(d, (f"%(group)s_{s['kind']}_" if tag == "seed" and not s['name'].startswith("%(group)s_") else "")
                          + f"{s['name']}_{len(V)}v_{len(cells)}c_{tag}.off")
-        open(f, "w").write(to_4off(Vn, faces, cells))
+        open(f, "w").write(text)
         row[tag + "_off"] = os.path.relpath(f, %(root)r)
         E = [np.linalg.norm(Vn[a] - Vn[c_]) for a, c_ in (tuple(e) for e in hull_edges(faces))]
         row[tag + "_R"] = float(max(E) / min(E))
