@@ -140,6 +140,146 @@
    "seed_R": 3.9325317690069874,
    "opt_off": "optimized_off/ixoic/ixoic_region_05_2880v_12000c_opt.off",
    "opt_R": 1.837760966789262
+  },
+  {
+   "name": "sidwesbited",
+   "kind": "region",
+   "degrees": 3,
+   "key": "b240fd91d8cf",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.020157673559949827,
+    0.02377503060619798,
+    0.4921884654136047,
+    0.46387883042024747
+   ],
+   "start_R": 4.299240182626186,
+   "R": 1.62799844702862,
+   "optimized": [
+    -0.226913726793317,
+    0.16217826553794437,
+    0.6335136502375243,
+    0.4312218110178484
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.020157673559949827,
+    0.02377503060619798,
+    0.4921884654136047,
+    0.46387883042024747
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_sidwesbited_2880v_12000c_seed.off",
+   "seed_R": 4.299240182628833,
+   "opt_off": "optimized_off/ixoic/sidwesbited_2880v_12000c_opt.off",
+   "opt_R": 1.6279984470290998
+  },
+  {
+   "name": "ixoic_region_07",
+   "kind": "region",
+   "degrees": 3,
+   "key": "1d35962ab8ca",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.1135161456569505,
+    0.08644928541307194,
+    0.7915088310857377,
+    0.008525737844239812
+   ],
+   "start_R": 15.536792483692391,
+   "R": 2.1620846733688666,
+   "optimized": [
+    0.08278894064917648,
+    0.09842422660619972,
+    0.7780458119428948,
+    0.04074102080172904
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.1135161456569505,
+    0.08644928541307194,
+    0.7915088310857377,
+    0.008525737844239812
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_07_2880v_14400c_seed.off",
+   "seed_R": 15.536792483704305,
+   "opt_off": "optimized_off/ixoic/ixoic_region_07_2880v_14400c_opt.off",
+   "opt_R": 12.207308326010347
+  },
+  {
+   "name": "ixoic_region_13",
+   "kind": "region",
+   "degrees": 3,
+   "key": "71bf65c9a7b7",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.11180188264881961,
+    0.7763857119910567
+   ],
+   "start_R": 7.093515124927339,
+   "R": 2.169600614668873,
+   "optimized": [
+    -0.33752588645845555,
+    0.2953648295068021,
+    0.525795081801566,
+    0.5163659751500875
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.11180188264881961,
+    0.7763857119910567
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_13_2880v_14880c_seed.off",
+   "seed_R": 7.093515124929633,
+   "opt_off": "optimized_off/ixoic/ixoic_region_13_2880v_14880c_opt.off",
+   "opt_R": 2.171018500133876
+  },
+  {
+   "name": "ixoic_region_14",
+   "kind": "region",
+   "degrees": 3,
+   "key": "a8e2a892cc7d",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.2187010687740233,
+    0.3844790232721875,
+    0.2211827007429932,
+    0.17563720721079593
+   ],
+   "start_R": 4.593160967151281,
+   "R": 2.109619065689183,
+   "optimized": [
+    -0.39411630300456435,
+    0.7725461291220809,
+    0.4947867004247643,
+    0.12678347345771912
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2187010687740233,
+    0.3844790232721875,
+    0.2211827007429932,
+    0.17563720721079593
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_14_2880v_14880c_seed.off",
+   "seed_R": 4.5931609671530165,
+   "opt_off": "optimized_off/ixoic/ixoic_region_14_2880v_14880c_opt.off",
+   "opt_R": 2.1110299329809323
   }
  ]
 }
