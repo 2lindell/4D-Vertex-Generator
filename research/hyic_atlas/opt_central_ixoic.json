@@ -840,6 +840,146 @@
    "seed_R": 36.94291949506713,
    "opt_off": "optimized_off/ixoic/ixoic_region_79_2880v_22080c_opt.off",
    "opt_R": 27.528485727331162
+  },
+  {
+   "name": "ixoic_region_80",
+   "kind": "region",
+   "degrees": 3,
+   "key": "62dd30536a67",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.8889598101777797,
+    0.008769992603259192,
+    0.008715101940590487,
+    0.09355509527837058
+   ],
+   "start_R": 146.0524281550545,
+   "R": 18.594756064907873,
+   "optimized": [
+    0.4925118341565628,
+    0.03737815637632299,
+    0.060473630980953506,
+    0.4096363784861607
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.8889598101777797,
+    0.008769992603259192,
+    0.008715101940590487,
+    0.09355509527837058
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_80_2880v_22080c_seed.off",
+   "seed_R": 146.05242815578683,
+   "opt_off": "optimized_off/ixoic/ixoic_region_80_2880v_22080c_opt.off",
+   "opt_R": 18.6170171157594
+  },
+  {
+   "name": "ixoic_region_81",
+   "kind": "region",
+   "degrees": 3,
+   "key": "8c375a29ebe9",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.3598154056906894,
+    0.010904026679068625,
+    0.019022724321346402,
+    0.6102578433088955
+   ],
+   "start_R": 52.02976124725606,
+   "R": 18.594756064907873,
+   "optimized": [
+    0.4919808566188794,
+    0.037380346413626676,
+    0.060484053566225646,
+    0.41015474340126823
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3598154056906894,
+    0.010904026679068625,
+    0.019022724321346402,
+    0.6102578433088955
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_81_2880v_22080c_seed.off",
+   "seed_R": 52.029761247350706,
+   "opt_off": "optimized_off/ixoic/ixoic_region_81_2880v_22080c_opt.off",
+   "opt_R": 18.6047783550517
+  },
+  {
+   "name": "ixoic_region_82",
+   "kind": "region",
+   "degrees": 3,
+   "key": "ff5c10b43222",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.6186550606254243,
+    0.002844569227144695,
+    0.3464079943343444,
+    0.0320923758130865
+   ],
+   "start_R": 60.19664390674561,
+   "R": 4.315417878983967,
+   "optimized": [
+    0.6169113068792972,
+    0.0028287995183551335,
+    0.34641650537737717,
+    0.03384338822497049
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6186550606254243,
+    0.002844569227144695,
+    0.3464079943343444,
+    0.0320923758130865
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_82_2880v_22080c_seed.off",
+   "seed_R": 60.19664390688045,
+   "opt_off": "optimized_off/ixoic/ixoic_region_82_2880v_22080c_opt.off",
+   "opt_R": 57.02457975756117
+  },
+  {
+   "name": "ixoic_region_97",
+   "kind": "region",
+   "degrees": 3,
+   "key": "ad736fba6beb",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.7071415888887486,
+    0.0038768446108121005,
+    0.2534055475971389,
+    0.03557601890330046
+   ],
+   "start_R": 56.86288316111018,
+   "R": 5.269618523002027,
+   "optimized": [
+    0.6712870511921231,
+    0.0034301497700017477,
+    0.25900686973470516,
+    0.06627592930317017
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.7071415888887486,
+    0.0038768446108121005,
+    0.2534055475971389,
+    0.03557601890330046
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_97_2880v_23520c_seed.off",
+   "seed_R": 56.86288316122456,
+   "opt_off": "optimized_off/ixoic/ixoic_region_97_2880v_23520c_opt.off",
+   "opt_R": 29.80091646661993
   }
  ]
 }
