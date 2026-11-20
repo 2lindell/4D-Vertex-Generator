@@ -1291,5 +1291,1344 @@
    ]
   },
   "key": "eaa102928f4e"
+ },
+ "stotathi": {
+  "vertices": 1440,
+  "dualcell_faces": 8,
+  "n_cells": 1440,
+  "cells": {
+   "irregular tets": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    120
+   ],
+   "tuts": [
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720
+   ]
+  },
+  "key": "6b893c9304f5"
+ },
+ "sagypsobtady": {
+  "vertices": 1440,
+  "dualcell_faces": 11,
+  "n_cells": 3600,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    120,
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    720,
+    1440,
+    1440,
+    1440
+   ]
+  },
+  "key": "85edaf59db32"
+ },
+ "mestuthi": {
+  "vertices": 1440,
+  "dualcell_faces": 11,
+  "n_cells": 3600,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    1440
+   ],
+   "snits": [
+    120
+   ],
+   "tuts": [
+    120
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    720
+   ]
+  },
+  "key": "1ca8c88a3c09"
+ },
+ "sisbethi_or_unnamed_1": {
+  "vertices": 1440,
+  "dualcell_faces": 13,
+  "n_cells": 5040,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    1440,
+    1440
+   ],
+   "snits": [
+    120,
+    120
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    1440,
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    720
+   ],
+   "octagonic": [
+    720
+   ]
+  },
+  "key": "270d63cd9ba9"
+ },
+ "sisbethi_or_unnamed_2": {
+  "vertices": 1440,
+  "dualcell_faces": 13,
+  "n_cells": 5040,
+  "cells": {
+   "trigypos": [
+    480
+   ],
+   "irregular tets": [
+    720,
+    720,
+    1440,
+    1440
+   ],
+   "snits": [
+    120,
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    720
+   ],
+   "octagonic": [
+    720
+   ]
+  },
+  "key": "a0f7c29fa0bd"
+ },
+ "tisthi": {
+  "vertices": 480,
+  "dualcell_faces": 12,
+  "n_cells": 1440,
+  "cells": {
+   "irregular tets": [
+    480,
+    720
+   ],
+   "regular tets": [
+    120
+   ],
+   "snits": [
+    120
+   ]
+  },
+  "faces": {
+   "isots": [
+    1440
+   ],
+   "scalene triangles": [
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440
+   ],
+   "tetragonic": [
+    720
+   ],
+   "hexagonic": [
+    720
+   ]
+  },
+  "key": "f3bfff522990"
+ },
+ "sagyptady": {
+  "vertices": 480,
+  "dualcell_faces": 15,
+  "n_cells": 2160,
+  "cells": {
+   "irregular tets": [
+    720,
+    720
+   ],
+   "regular tets": [
+    120,
+    120
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440
+   ],
+   "tetragonic": [
+    720
+   ],
+   "hexagonic": [
+    720,
+    720
+   ]
+  },
+  "key": "93e27c1e3d43"
+ },
+ "ratehi": {
+  "vertices": 720,
+  "dualcell_faces": 10,
+  "n_cells": 720,
+  "cells": {
+   "snits": [
+    120
+   ],
+   "octs": [
+    120
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "equits": [
+    480,
+    480,
+    480
+   ],
+   "scalene triangles": [
+    1440
+   ],
+   "isots": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    720,
+    1440,
+    1440
+   ]
+  },
+  "key": "12dbebd1e5f4"
+ },
+ "tatehi": {
+  "vertices": 1440,
+  "dualcell_faces": 6,
+  "n_cells": 720,
+  "cells": {
+   "tuts": [
+    120,
+    480
+   ],
+   "ikes": [
+    120
+   ]
+  },
+  "faces": {
+   "equits": [
+    480,
+    480,
+    1440
+   ],
+   "ditrigons": [
+    480,
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    720,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    720
+   ]
+  },
+  "key": "30ef0dbd6ae9"
+ },
+ "tehi": {
+  "vertices": 120,
+  "dualcell_faces": 12,
+  "n_cells": 600,
+  "cells": {
+   "regular tets": [
+    120,
+    480
+   ]
+  },
+  "faces": {
+   "equits": [
+    480,
+    720
+   ]
+  },
+  "edges": {
+   "pentagonic": [
+    720
+   ]
+  },
+  "key": "68b8f0a88662"
+ },
+ "misrethi": {
+  "vertices": 1440,
+  "dualcell_faces": 10,
+  "n_cells": 2160,
+  "cells": {
+   "irregular tets": [
+    720
+   ],
+   "gyrowedges": [
+    720
+   ],
+   "snits": [
+    120
+   ],
+   "trigypos": [
+    480
+   ],
+   "ratets": [
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "rectangles": [
+    720
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    1440
+   ]
+  },
+  "key": "2e644f68b084"
+ },
+ "gypsobtady": {
+  "vertices": 1440,
+  "dualcell_faces": 12,
+  "n_cells": 3360,
+  "cells": {
+   "irregular tets": [
+    720,
+    1440
+   ],
+   "snits": [
+    120,
+    120
+   ],
+   "trigypos": [
+    480,
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    1440
+   ],
+   "hexagonic": [
+    720,
+    720
+   ]
+  },
+  "key": "d243a1e80043"
+ },
+ "ixitic_region_12": {
+  "vertices": 1440,
+  "dualcell_faces": 14,
+  "n_cells": 5760,
+  "cells": {
+   "irregular tets": [
+    720,
+    1440,
+    1440,
+    1440
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    120,
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "octagonic": [
+    720,
+    720
+   ]
+  },
+  "key": "5efe53c04ebf"
+ },
+ "magypsobtady": {
+  "vertices": 1440,
+  "dualcell_faces": 14,
+  "n_cells": 5760,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    720,
+    1440,
+    1440
+   ],
+   "snits": [
+    120,
+    120
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    1440
+   ],
+   "pentagonic": [
+    1440,
+    1440
+   ],
+   "hexagonic": [
+    720,
+    720
+   ]
+  },
+  "key": "9fbf16135e07"
+ },
+ "petsobtady": {
+  "vertices": 1440,
+  "dualcell_faces": 10,
+  "n_cells": 2160,
+  "cells": {
+   "irregular tets": [
+    1440
+   ],
+   "11-faced cells (9 vertices: 8 3-gons + 3 4-gons)": [
+    480
+   ],
+   "snits": [
+    120,
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "trapezoids": [
+    720
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    720,
+    720
+   ]
+  },
+  "key": "177447212efe"
+ },
+ "ixitic_line_01": {
+  "vertices": 1440,
+  "dualcell_faces": 10,
+  "n_cells": 1440,
+  "cells": {
+   "squaps / squigyps": [
+    720
+   ],
+   "snits": [
+    120,
+    120
+   ],
+   "trips": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720
+   ]
+  },
+  "key": "d9ca4ec7c345"
+ },
+ "tasthi": {
+  "vertices": 1440,
+  "dualcell_faces": 4,
+  "n_cells": 240,
+  "cells": {
+   "20-faced cells (36 vertices: 4 3-gons + 16 6-gons)": [
+    120
+   ],
+   "tuts": [
+    120
+   ]
+  },
+  "faces": {
+   "irregular hexagons": [
+    720
+   ],
+   "equits": [
+    480
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    720,
+    720,
+    1440
+   ]
+  },
+  "key": "5a26dde24dce"
+ },
+ "giserthi": {
+  "vertices": 1440,
+  "dualcell_faces": 13,
+  "n_cells": 4320,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    1440
+   ],
+   "ratets": [
+    120
+   ],
+   "gyrowedges": [
+    720
+   ],
+   "snits": [
+    120
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ],
+   "rectangles": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    1440,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    720
+   ]
+  },
+  "key": "153231fd77ef"
+ },
+ "gastuthi": {
+  "vertices": 1440,
+  "dualcell_faces": 14,
+  "n_cells": 5760,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    720,
+    1440,
+    1440
+   ],
+   "11-faced cells (9 vertices: 10 3-gons + 1 6-gons)": [
+    480
+   ],
+   "snits": [
+    120
+   ],
+   "tuts": [
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "ditrigons": [
+    480
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    720,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ],
+   "hexagonic": [
+    1440
+   ],
+   "octagonic": [
+    720
+   ]
+  },
+  "key": "c867a73cc28f"
+ },
+ "ixitic_wall_01": {
+  "vertices": 1440,
+  "dualcell_faces": 6,
+  "n_cells": 960,
+  "cells": {
+   "irregular tets": [
+    720
+   ],
+   "20-faced cells (24 vertices: 16 3-gons + 4 9-gons)": [
+    120,
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440
+   ],
+   "irregular 9-gons": [
+    480
+   ],
+   "equits": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720
+   ]
+  },
+  "key": "b3a63ce8a55e"
+ },
+ "mastethi": {
+  "vertices": 1440,
+  "dualcell_faces": 11,
+  "n_cells": 3120,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    1440
+   ],
+   "snits": [
+    120
+   ],
+   "44-faced cells (24 vertices: 44 3-gons)": [
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    720,
+    1440,
+    1440
+   ]
+  },
+  "key": "9e9eb2b34b24"
+ },
+ "hidhi": {
+  "vertices": 480,
+  "dualcell_faces": 6,
+  "n_cells": 240,
+  "cells": {
+   "teddids": [
+    120
+   ],
+   "regular tets": [
+    120
+   ]
+  },
+  "faces": {
+   "equits": [
+    480
+   ],
+   "trapezoids": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    720,
+    720
+   ]
+  },
+  "key": "47481ab40611"
+ },
+ "gagyptady": {
+  "vertices": 480,
+  "dualcell_faces": 15,
+  "n_cells": 2160,
+  "cells": {
+   "irregular tets": [
+    720,
+    720
+   ],
+   "regular tets": [
+    120,
+    120
+   ],
+   "trigypos": [
+    480
+   ]
+  },
+  "faces": {
+   "isots": [
+    1440
+   ],
+   "scalene triangles": [
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720
+   ],
+   "octagonic": [
+    720
+   ]
+  },
+  "key": "b4ad37d86d09"
+ },
+ "sartethi": {
+  "vertices": 1440,
+  "dualcell_faces": 8,
+  "n_cells": 1680,
+  "cells": {
+   "wedges": [
+    720
+   ],
+   "irregular tets": [
+    720
+   ],
+   "ratets": [
+    120
+   ],
+   "32-faced cells (24 vertices: 20 3-gons + 12 4-gons)": [
+    120
+   ]
+  },
+  "faces": {
+   "isots": [
+    1440
+   ],
+   "rectangles": [
+    720
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "scalene triangles": [
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    1440
+   ]
+  },
+  "key": "f0a6159b8918"
+ },
+ "sestuthi": {
+  "vertices": 1440,
+  "dualcell_faces": 8,
+  "n_cells": 1440,
+  "cells": {
+   "irregular tets": [
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "32-faced cells (24 vertices: 28 3-gons + 4 6-gons)": [
+    120
+   ],
+   "tuts": [
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ],
+   "ditrigons": [
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720
+   ]
+  },
+  "key": "6b893c9304f5"
+ },
+ "matethi": {
+  "vertices": 720,
+  "dualcell_faces": 6,
+  "n_cells": 240,
+  "cells": {
+   "tuts": [
+    120
+   ],
+   "20-faced cells (18 vertices: 16 3-gons + 4 6-gons)": [
+    120
+   ]
+  },
+  "faces": {
+   "equits": [
+    480
+   ],
+   "ditrigons": [
+    480
+   ],
+   "isots": [
+    720
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    720,
+    1440
+   ]
+  },
+  "key": "9aa686e5af71"
+ },
+ "sabtedy": {
+  "vertices": 720,
+  "dualcell_faces": 12,
+  "n_cells": 1680,
+  "cells": {
+   "irregular tets": [
+    1440
+   ],
+   "snits": [
+    120,
+    120
+   ]
+  },
+  "faces": {
+   "isots": [
+    720,
+    720
+   ],
+   "scalene triangles": [
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    720,
+    720,
+    1440
+   ],
+   "pentagonic": [
+    1440
+   ]
+  },
+  "key": "3745ab4a85c6"
+ },
+ "gastethi": {
+  "vertices": 1440,
+  "dualcell_faces": 11,
+  "n_cells": 3120,
+  "cells": {
+   "irregular tets": [
+    720,
+    720,
+    1440
+   ],
+   "snits": [
+    120
+   ],
+   "44-faced cells (24 vertices: 44 3-gons)": [
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "equits": [
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    1440
+   ],
+   "hexagonic": [
+    720
+   ]
+  },
+  "key": "2f7458953f46"
+ },
+ "awosbitdy": {
+  "vertices": 1440,
+  "dualcell_faces": 17,
+  "n_cells": 6480,
+  "cells": {
+   "irregular tets": [
+    1440,
+    1440,
+    1440
+   ],
+   "phydows": [
+    720,
+    720
+   ],
+   "trigypos": [
+    480
+   ],
+   "snits": [
+    120,
+    120
+   ]
+  },
+  "faces": {
+   "scalene triangles": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "trapezoids": [
+    1440
+   ],
+   "equits": [
+    480,
+    480,
+    480
+   ]
+  },
+  "edges": {
+   "trigonic": [
+    1440,
+    1440,
+    1440,
+    1440,
+    1440
+   ],
+   "tetragonic": [
+    720,
+    720,
+    1440
+   ],
+   "octagonic": [
+    1440
+   ],
+   "dodecagonic": [
+    720
+   ]
+  },
+  "key": "ce1564d83d55"
  }
 }

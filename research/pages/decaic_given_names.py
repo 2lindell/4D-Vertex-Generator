@@ -76,8 +76,8 @@ def given(name):
     return None
 
 
-# The unnamed kicontic and iocontic shapes, named from their kidecaic / iodecaic counterparts with the last d swapped for
-# a c (2026-11-16). Counterparts: the same edges at a vertex by how many cells meet there (the contic counts are
+# The unnamed kicontic and iocontic shapes, named from their kidecaic / iodecaic counterparts: -bid becomes -bic and
+# -sid becomes -sc, as the listed pairs (Sosbid / Sosbic, Sabosid / Sabosc) (2026-11-16; -sid fixed 2026-11-20). Counterparts: the same edges at a vertex by how many cells meet there (the contic counts are
 # 1152/120 = 9.6 times the decaic ones); where several decaic shapes share those, the one nearest on the map (the two maps
 # are laid out alike: every pair matched this way is within 0.4 of each other in beta, every other candidate 0.66 or
 # more away). Full names: Decachoron -> 48, as the listed contic snubs (Small Biomnisnub 48, Small Omnisnub Bi48).
@@ -115,7 +115,8 @@ CONTIC_FROM_DECAIC = {
 def _contic(dname):
     full = next(v[1] for v in GIVEN.values() if v[0] == dname)
     full = full.replace("Bidecachoron", "Bi48").replace("Decachoron", "48")
-    return (dname[:-1] + "c", full, f"Named from the {'iodecaic' if 'osbid' in dname else 'kidecaic'} {dname}, its "
+    cname = dname[:-3] + "sc" if dname.endswith("sid") else dname[:-1] + "c"   # (-bid -> -bic, -sid -> -sc)
+    return (cname, full, f"Named from the {'iodecaic' if 'osbid' in dname else 'kidecaic'} {dname}, its "
             "counterpart: the same edges at a vertex, and the nearest of those on the map.")
 
 

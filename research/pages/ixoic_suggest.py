@@ -173,6 +173,11 @@ def page_order(name):
     return ({"region": 0, "wall": 1, "line": 2, "point": 3}[m.group(1)], int(m.group(2))) if m else (9, 0)
 
 
+def norm(full):
+    """A list full name without its size word and vertex count, lower case: the series it belongs to."""
+    return re.sub(r"^(small|medial|great) ", "", re.sub(r" \d+$", "", full.strip().lower()))
+
+
 def listed():
     """The list's names and full names (all entries, matched or not)."""
     out = []
@@ -202,14 +207,29 @@ def main():
     sys.path.insert(0, os.path.join(os.path.dirname(HERE), "hyic_atlas"))
     import ixitic_offs                          # (the atlas names, ixoic_region_NN ..., give the page's order)
     ixitic_offs.GROUP = "ixoic"
-    AN = {r["key"]: r["name"] for r in ixitic_offs.shapes()}
+    SH = ixitic_offs.shapes()
+    AN = {r["key"]: r["name"] for r in SH}
+    RANK = {"region": 0, "wall": 1, "line": 2, "point": 3}
+    ORD = {r["key"]: (RANK[r["kind"]], i) for i, r in enumerate(SH)}    # (the atlas's order: regions, walls, ...)
     out, rep = {}, []
+    full_of = {n: f for n, f in L}
+    gkey = {" ".join(x for x in (EXTRA[g[2]][0] if g[2] else "", g[0], STEM[g[1]][0]) if x).lower(): g for g in groups}
+    listed_in = {}                              # (list shapes in a series that now has new shapes: lettered with it)
+    for k, v in named.items():
+        if k not in D:
+            continue
+        for x in v:
+            g = gkey.get(norm(x["full"] or full_of.get(x["name"], "")))
+            if g:
+                W, _ = words(D[k])
+                groups[g].append((k, D[k], W))
+                listed_in[k] = x
+                break
     for (mod, base, ex), G in sorted(groups.items(), key=lambda x: (STEM[x[0][1]][0], x[0][0], x[0][2])):
         stem_full = " ".join(x for x in (EXTRA[ex][0] if ex else "", mod, STEM[base][0]) if x)
-        same = [f.split()[0] if f.split()[0] in ("Small", "Medial", "Great") else "" for _, f in L
-                if re.sub(r"^(Small|Medial|Great) ", "", re.sub(r" \d+$", "", f)).lower() == stem_full.lower()]
-        G.sort(key=lambda x: (page_order(AN.get(x[0])), x[0]))
-        cand = iter(series(len(G), same) if not same and len(G) <= 3 else series(len(G) + 48, same))
+        G.sort(key=lambda x: (ORD.get(x[0], (9, 0)), x[0]))
+        nl = sum(x[0] in listed_in for x in G)
+        cand = iter(series(1, []) if len(G) == 1 else series(len(G) + 48, [True]))
         for k, d, W in G:
             for word, prefix in cand:           # (a letter whose short name the list already has is skipped:
                 short = abbr(word, prefix, mod, base, ex)   #  Gamma Gyroprismatic would be Great's Gagypsobted)
@@ -218,18 +238,27 @@ def main():
             full = " ".join(x for x in (word, stem_full) if x) + " 240"
             taken_short.add(short.lower())
             cells = ", ".join(f"{w} x{n}" if n > 1 else w for w, n in sorted(W.items()) if n)
-            why = (f"Suggested from the list's own names: {STEM[base][0].lower()} for its 240 "
-                   f"{'cells of the kind Stetbituted has' if base == 'stet cells' else base}"
-                   + (f", {mod.lower()} as in {MOD[mod][1]}" if mod else "")
-                   + (f", {EXTRA[ex][0].lower()} for its {ex} (py, by: as the kidecaic Apybosid and Abybosid)"
-                      if ex else "")
-                   + (f"; {len(G)} unnamed shapes read this way, " + ("lettered Alpha, Beta, ... in the page's order "
-                      "(regions, walls, lines, points), as the kidecaic series Abosid, Bebosid, Gabosid, ..."
-                      if word not in SIZES else "Small, Medial and Great in the page's order, as Sawbosid and Gawbosid")
-                      if len(G) > 1 else "") + f". Cells: {cells}.")
+            series_txt = (f"{len(G)} shapes read this way" + (f" ({nl} of them on the list)" if nl else "") +
+                          ", lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's "
+                          "own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their "
+                          "series grew")
+            if k in listed_in:
+                x = listed_in[k]
+                why = (f"Listed as {x['name']} ({x['full'] or full_of.get(x['name'], '')}); {series_txt}.")
+            else:
+                why = (f"Suggested from the list's own names: {STEM[base][0].lower()} for its 240 "
+                       f"{'cells of the kind Stetbituted has' if base == 'stet cells' else base}"
+                       + (f", {mod.lower()} as in {MOD[mod][1]}" if mod else "")
+                       + (f", {EXTRA[ex][0].lower()} for its {ex} (py, by: as the kidecaic Apybosid and Abybosid)"
+                          if ex else "")
+                       + (f"; {series_txt}" if len(G) > 1 else "") + f". Cells: {cells}.")
             out[k] = {"short": short, "full": full, "why": why, "vertices": d["vertices"], "kind": d["kind"],
                       "atlas_name": AN.get(k)}
-            rep.append(f"| {short} | {full} | {AN.get(k, '')} | {k} | {d['kind']} | {d['vertices']} | {cells} |")
+            if k in listed_in:
+                out[k]["listed"] = listed_in[k]["name"]
+                out[k]["listed_full"] = listed_in[k]["full"] or full_of.get(listed_in[k]["name"], "")
+            rep.append(f"| {short}{' (' + out[k]['listed'] + ')' if k in listed_in else ''} | {full} | "
+                       f"{AN.get(k, '')} | {k} | {d['kind']} | {d['vertices']} | {cells} |")
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "suggested": out,
                "not_named": [{"key": k, "vertices": v, "cell_240": b} for k, v, b in skipped]},
               open(os.path.join(HERE, "ixoic_suggested.json"), "w"), indent=1)
@@ -297,11 +326,12 @@ def ixitic_main():
             rows += [{**t, "sheet": f"ix{i}"} for t in json.load(open(os.path.join(HY, f"crossings_ix{i}.json")))["shapes"]]
         except FileNotFoundError:
             pass
+    ALL = rows
     rows = [r for r in rows if re.match(r"ixitic_(region|wall|line|point)_\d+$", r["name"]) and r["name"] not in SUGGESTED]
     path = os.path.join(HERE, "ixitic_described.json")
     C = json.load(open(path)) if os.path.exists(path) else {}
     by = {}
-    for r in rows:
+    for r in ALL:
         if r["name"] not in C:
             by.setdefault(r["sheet"], []).append([r["name"], r["seed"], 1e-7 if r["kind"] == "wall" else 1e-9])
     for sub, items in by.items():
@@ -313,23 +343,33 @@ def ixitic_main():
     for line in open(os.path.join(HERE, "hyic_list.txt")):
         c = line.rstrip("\n").split("\t")
         if len(c) > 3 and c[2].strip().lower() == "ixitic" and c[0].strip():
-            L.append((c[0].strip(), re.sub(r" (120|Dis120)$", "", c[1].strip())))
+            L.append((c[0].strip(), re.sub(r" 120$", "", c[1].strip())))      # (Dis120: its own series)
     taken = {n.lower() for n, _ in L}
+    LF = {n.lower(): f for n, f in L}
+    listed_name = lambda nm: re.sub(r"(_or_unnamed)?_\d$", "", nm)    # (sisbethi_or_unnamed_1 -> sisbethi)
     out = {}
     twins = {x["ixitic_name"]: x["ixoic"] for x in json.load(open(os.path.join(HY, "ixitic_relations.json")))["pairs"]
              if x["relation"] == "same"}
     IXO = json.load(open(os.path.join(HERE, "ixoic_suggested.json")))["suggested"]
-    for r in rows:                              # (an ixoic shape's twin: its name in the list's Dis120 form)
+    for r in ALL:                               # (an ixoic shape's twin: its name in the list's Dis120 form)
         k = twins.get(r["name"])
         if k in IXO:
             g = IXO[k]
             short = re.sub(r"sobted('?)$", r"sobtady\1", re.sub(r"bit(e|a)d('?)$", r"bitdy\2", g["short"]))
-            out[r["name"]] = {"short": short,
+            ln = listed_name(r["name"])
+            if ln in LF:
+                out[r["name"]] = {"listed": ln.capitalize(), "listed_full": LF[ln]}
+            elif r["name"] in SUGGESTED:
+                out[r["name"]] = {"listed": SUGGESTED[r["name"]][0], "listed_full": SUGGESTED[r["name"]][1],
+                                  "earlier_suggestion": True}
+            else:
+                out[r["name"]] = {}
+            out[r["name"]].update({"short": short,
                               "full": g["full"].replace(" 240", " Dis120"),
                               "why": f"Suggested from its ixoic twin {k} (the same polychoron), suggested {g['short']} "
                                      f"({g['full']}): the list names each ixoic snub bitetrahedral 240 that is also "
                                      "ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, "
-                                     "Awosbited / Awosbitdy, ...)."}
+                                     "Awosbited / Awosbitdy, ...)."})
     groups, skipped = {}, []
     for r in rows:
         if r["name"] in out:
@@ -342,12 +382,23 @@ def ixitic_main():
         mod = ix_modifiers(W)
         ex = next((x for x in EXTRA if W[x]), "")
         groups.setdefault((mod, base, ex), []).append((r["name"], d, W))
+    gkey = {" ".join(x for x in (EXTRA[g[2]][0] if g[2] else "", g[0], IXSTEM[g[1]][0]) if x).lower(): g for g in groups}
+    RANK = {"region": 0, "wall": 1, "line": 2, "point": 3}
+    ORD = {r["name"]: (RANK.get(r["kind"], 9), i) for i, r in enumerate(ALL)}
+    inlist = {}                                 # (list shapes in a series that now has new shapes: lettered with it)
+    for r in ALL:
+        ln = listed_name(r["name"])
+        if r["name"] in out or ln not in LF:
+            continue
+        g = gkey.get(norm(LF[ln]))
+        if g:
+            groups[g].append((r["name"], C[r["name"]], ix_words(C[r["name"]])[0]))
+            inlist[r["name"]] = ln
     for (mod, base, ex), G in sorted(groups.items()):
         stem_full = " ".join(x for x in (EXTRA[ex][0] if ex else "", mod, IXSTEM[base][0]) if x)
-        same = [f.split()[0] if f.split()[0] in SIZES else "" for _, f in L
-                if re.sub(r"^(Small|Medial|Great) ", "", f).lower() == stem_full.lower()]
-        G.sort(key=lambda x: page_order(x[0]))
-        cand = iter(series(len(G), same) if not same and len(G) <= 3 else series(len(G) + 48, same))
+        G.sort(key=lambda x: ORD.get(x[0], (9, 0)))
+        nl = sum(x[0] in inlist for x in G)
+        cand = iter(series(1, []) if len(G) == 1 else series(len(G) + 48, [True]))
         for name, d, W in G:
             for word, prefix in cand:           # (a letter whose short name the list already has is skipped)
                 m = "w" if prefix and mod == "Antiwedged" else IXMOD[mod]
@@ -363,11 +414,20 @@ def ixitic_main():
             why = (f"Suggested from the ixitic list's own names: {IXSTEM[base][0].lower()} for its 120 "
                    f"{' and '.join(base)}" + (f", {mod.lower()} for its cells as in the list" if mod else "")
                    + (f", {EXTRA[ex][0].lower()} for its {ex}" if ex else "")
-                   + (f"; {len(G)} unnamed shapes read this way, " + ("lettered Alpha, Beta, ... in the page's order, "
-                      "as the kidecaic series Abosid, Bebosid, Gabosid, ..." if word not in SIZES else
-                      "Small, Medial and Great in the page's order, as Sawbosid and Gawbosid") if len(G) > 1 else "")
+                   + (f"; {len(G)} shapes read this way" + (f" ({nl} of them on the list)" if nl else "") +
+                      ", lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic "
+                      "Sabosid and Mebosid became Abosid and Bebosid when their series grew" if len(G) > 1 else "")
                    + f". Cells: {cells}.")
+            if name in inlist:
+                ln = inlist[name]
+                why = (f"Listed as {ln.split('_')[0].capitalize()} ({LF[ln]}{'' if LF[ln].endswith('Dis120') else ' 120'}){' (or unnamed: not settled)' if '_or_unnamed' in name else ''}; "
+                       f"{len(G)} shapes read as {stem_full.lower()} 120 ({nl} of them on the list), lettered Alpha, "
+                       "Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and "
+                       "Mebosid became Abosid and Bebosid when their series grew.")
             out[name] = {"short": short, "full": full, "why": why}
+            if name in inlist:
+                out[name].update(listed=inlist[name].capitalize(),
+                                 listed_full=LF[inlist[name]] + ("" if LF[inlist[name]].endswith("Dis120") else " 120"))
     json.dump({"_about": "Suggested names for the ixitic atlas's unnamed shapes (ixoic_suggest.py), keyed by atlas name.",
                "suggested": out, "not_named": skipped}, open(os.path.join(HERE, "ixitic_suggested.json"), "w"), indent=1)
     for k, v in out.items():

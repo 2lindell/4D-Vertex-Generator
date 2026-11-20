@@ -1,70 +1,149 @@
 {
  "_about": "Suggested names for the ixitic atlas's unnamed shapes (ixoic_suggest.py), keyed by atlas name.",
  "suggested": {
-  "ixitic_region_23": {
+  "sagypsobtady": {
+   "listed": "Sagypsobtady",
+   "listed_full": "Small Gyroprismatic Snub Bitetrahedral Dis120",
    "short": "Phigypsobtady",
    "full": "Phi Gyroprismatic Snub Bitetrahedral Dis120",
-   "why": "Suggested from its ixoic twin 612fa060af7c (the same polychoron), suggested Phigypsobted (Phi Gyroprismatic Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+   "why": "Suggested from its ixoic twin 01f5277e9331 (the same polychoron), suggested Phigypsobted (Phi Gyroprismatic Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
   },
-  "ixitic_region_16": {
+  "ixitic_region_12": {
+   "listed": "Gagypsobtady",
+   "listed_full": "Great Gyroprismatic Snub Bitetrahedral Dis120",
+   "earlier_suggestion": true,
+   "short": "Psigypsobtady",
+   "full": "Psi Gyroprismatic Snub Bitetrahedral Dis120",
+   "why": "Suggested from its ixoic twin 7880b9e5cd1a (the same polychoron), suggested Psigypsobted (Psi Gyroprismatic Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+  },
+  "magypsobtady": {
+   "listed": "Magypsobtady",
+   "listed_full": "Medial Gyroprismatic Snub Bitetrahedral Dis120",
+   "short": "Chigypsobtady",
+   "full": "Chi Gyroprismatic Snub Bitetrahedral Dis120",
+   "why": "Suggested from its ixoic twin 85a06f9fec4f (the same polychoron), suggested Chigypsobted (Chi Gyroprismatic Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+  },
+  "ixitic_region_23": {
+   "short": "Omegypsobtady",
+   "full": "Omega Gyroprismatic Snub Bitetrahedral Dis120",
+   "why": "Suggested from its ixoic twin 612fa060af7c (the same polychoron), suggested Omegypsobted (Omega Gyroprismatic Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+  },
+  "sabtedy": {
+   "listed": "Sabtedy",
+   "listed_full": "Snub Bitetrahedral Dis120",
+   "short": "Besobtady",
+   "full": "Beta Snub Bitetrahedral Dis120",
+   "why": "Suggested from its ixoic twin 8f82404e9b10 (the same polychoron), suggested Besobted (Beta Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+  },
+  "awosbitdy": {
+   "listed": "Awosbitdy",
+   "listed_full": "Antiwedged Snub bitetrahedral Dis120",
+   "short": "Ta3wsbitdy",
+   "full": "Tau-3 Antiwedged Snub Bitetrahedral Dis120",
+   "why": "Suggested from its ixoic twin 9700535b0ae7 (the same polychoron), suggested Ta3wsbited (Tau-3 Antiwedged Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+  },
+  "ixitic_line_01": {
+   "listed": "Regposbitdy",
+   "listed_full": "Rectangular Gyroprismatic Snub Bitetrahedral Dis120",
+   "earlier_suggestion": true,
+   "short": "Laregposbitdy",
+   "full": "Lambda Rectangular Gyroprismatic Snub Bitetrahedral Dis120",
+   "why": "Suggested from its ixoic twin 1e8454f185ca (the same polychoron), suggested Laregposbited (Lambda Rectangular Gyroprismatic Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+  },
+  "sisbethi_or_unnamed_1": {
    "short": "Asbethi",
    "full": "Alpha Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x2, snits x2, trigypos."
+   "why": "Listed as Sisbethi (Small Snub Bitetrahedral 120) (or unnamed: not settled); 9 shapes read as snub bitetrahedral 120 (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
+   "listed": "Sisbethi",
+   "listed_full": "Small Snub Bitetrahedral 120"
   },
-  "ixitic_region_17": {
+  "sisbethi_or_unnamed_2": {
    "short": "Besbethi",
    "full": "Beta Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x2, snits x2, trigypos."
+   "why": "Listed as Sisbethi (Small Snub Bitetrahedral 120) (or unnamed: not settled); 9 shapes read as snub bitetrahedral 120 (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
+   "listed": "Sisbethi",
+   "listed_full": "Small Snub Bitetrahedral 120"
   },
-  "ixitic_region_18": {
+  "ixitic_region_16": {
    "short": "Gasbethi",
    "full": "Gamma Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x3, snits x2, trigypos."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 9 shapes read this way (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x3, phydows x2, snits x2, trigypos."
   },
-  "ixitic_region_19": {
+  "ixitic_region_17": {
    "short": "Desbethi",
    "full": "Delta Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x3, snits x2, trigypos."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 9 shapes read this way (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x3, phydows x2, snits x2, trigypos."
   },
-  "ixitic_region_20": {
+  "ixitic_region_18": {
    "short": "Esbethi",
    "full": "Epsilon Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x4, phydows x3, snits x2, trigypos."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 9 shapes read this way (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x3, phydows x3, snits x2, trigypos."
   },
-  "ixitic_region_21": {
+  "ixitic_region_19": {
    "short": "Zesbethi",
    "full": "Zeta Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x4, phydows x3, snits x2, trigypos."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 9 shapes read this way (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x3, phydows x3, snits x2, trigypos."
   },
-  "ixitic_region_22": {
+  "ixitic_region_20": {
    "short": "Hesbethi",
    "full": "Eta Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x5, phydows x3, snits x2, trigypos."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 9 shapes read this way (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x4, phydows x3, snits x2, trigypos."
+  },
+  "ixitic_region_21": {
+   "short": "Thesbethi",
+   "full": "Theta Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 9 shapes read this way (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x4, phydows x3, snits x2, trigypos."
+  },
+  "ixitic_region_22": {
+   "short": "Isbethi",
+   "full": "Iota Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 9 shapes read this way (2 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x5, phydows x3, snits x2, trigypos."
   },
   "ixitic_wall_03": {
-   "short": "Sapysbethi",
-   "full": "Small Pyramidal Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 unnamed shapes read this way, Small, Medial and Great in the page's order, as Sawbosid and Gawbosid. Cells: phydows, snits x2, square pyramids, trigypos."
+   "short": "Apysbethi",
+   "full": "Alpha Pyramidal Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: phydows, snits x2, square pyramids, trigypos."
   },
   "ixitic_wall_12": {
-   "short": "Mapysbethi",
-   "full": "Medial Pyramidal Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 unnamed shapes read this way, Small, Medial and Great in the page's order, as Sawbosid and Gawbosid. Cells: irr. tets, phydows x2, snits x2, square pyramids, trigypos."
+   "short": "Bepysbethi",
+   "full": "Beta Pyramidal Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets, phydows x2, snits x2, square pyramids, trigypos."
   },
   "ixitic_wall_15": {
    "short": "Gapysbethi",
-   "full": "Great Pyramidal Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 unnamed shapes read this way, Small, Medial and Great in the page's order, as Sawbosid and Gawbosid. Cells: irr. tets x2, phydows x2, snits x2, square pyramids, trigypos."
+   "full": "Gamma Pyramidal Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x2, phydows x2, snits x2, square pyramids, trigypos."
   },
   "ixitic_wall_14": {
    "short": "Bysbethi",
    "full": "Bipyramidal Snub Bitetrahedral 120",
    "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, bipyramidal for its triangular bipyramids. Cells: irr. tets x2, phydows x3, snits x2, triangular bipyramids, trigypos."
   },
-  "ixitic_wall_13": {
+  "mestuthi": {
    "short": "Astuthi",
    "full": "Alpha Snub Truncatotetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub truncatotetrahedral for its 120 snits and tuts. Cells: gytricus, irr. tets x2, phydows x3, snits, tuts."
+   "why": "Listed as Mestuthi (Medial Snub Truncatotetrahedral 120); 4 shapes read as snub truncatotetrahedral 120 (3 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
+   "listed": "Mestuthi",
+   "listed_full": "Medial Snub Truncatotetrahedral 120"
+  },
+  "gastuthi": {
+   "short": "Bestuthi",
+   "full": "Beta Snub Truncatotetrahedral 120",
+   "why": "Listed as Gastuthi (Great Snub Truncatotetrahedral 120); 4 shapes read as snub truncatotetrahedral 120 (3 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
+   "listed": "Gastuthi",
+   "listed_full": "Great Snub Truncatotetrahedral 120"
+  },
+  "sestuthi": {
+   "short": "Destuthi",
+   "full": "Delta Snub Truncatotetrahedral 120",
+   "why": "Listed as Sestuthi (Small Snub Truncatotetrahedral 120); 4 shapes read as snub truncatotetrahedral 120 (3 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
+   "listed": "Sestuthi",
+   "listed_full": "Small Snub Truncatotetrahedral 120"
+  },
+  "ixitic_wall_13": {
+   "short": "Estuthi",
+   "full": "Epsilon Snub Truncatotetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub truncatotetrahedral for its 120 snits and tuts; 4 shapes read this way (3 of them on the list), lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: gytricus, irr. tets x2, phydows x3, snits, tuts."
   },
   "ixitic_wall_10": {
    "short": "Pystuthi",
@@ -72,8 +151,8 @@
    "why": "Suggested from the ixitic list's own names: snub truncatotetrahedral for its 120 snits and tuts, pyramidal for its square pyramids. Cells: gytricus, phydows x2, snits, square pyramids, tuts."
   },
   "ixitic_wall_08": {
-   "short": "Awsbethi",
-   "full": "Alpha Antiwedged Snub Bitetrahedral 120",
+   "short": "Awosbethi",
+   "full": "Antiwedged Snub Bitetrahedral 120",
    "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, antiwedged for its cells as in the list. Cells: hexflanges, irr. tets, snits x2, trigypos, trips."
   },
   "ixitic_wall_04": {
@@ -84,17 +163,17 @@
   "ixitic_region_08": {
    "short": "Agypsbethi",
    "full": "Alpha Gyropodial Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x2, phydows, snits x2, trigypos x2."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x2, phydows, snits x2, trigypos x2."
   },
   "ixitic_region_11": {
    "short": "Begypsbethi",
    "full": "Beta Gyropodial Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x2, phydows x2, snits x2, trigypos x2."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets x2, phydows x2, snits x2, trigypos x2."
   },
   "ixitic_wall_09": {
    "short": "Gagypsbethi",
    "full": "Gamma Gyropodial Snub Bitetrahedral 120",
-   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets, phydows, snits x2, trigypos x2."
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: irr. tets, phydows, snits x2, trigypos x2."
   },
   "ixitic_wall_11": {
    "short": "Pyprisbethi",
@@ -102,8 +181,8 @@
    "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, prismatic for its cells as in the list, pyramidal for its square pyramids. Cells: irr. tets, phydows x2, snits x2, square pyramids, trips."
   },
   "ixitic_wall_05": {
-   "short": "Apetsbethi",
-   "full": "Alpha Prismatic Transitional Snub Bitetrahedral 120",
+   "short": "Petsbethi",
+   "full": "Prismatic Transitional Snub Bitetrahedral 120",
    "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, prismatic transitional for its cells as in the list. Cells: irr. tets, phydows, retrips, snits x2."
   }
  },

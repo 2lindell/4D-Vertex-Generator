@@ -237,7 +237,7 @@ def main():
             f"b1 and b2 long, b3 and b4 short): cells by orbit, vertices with the dualcell's face count, edges by how "
             f"many faces meet there, faces by shape. Names and full names are from the accepted lists; the {len(CONTIC_GIVEN)} "
             "kicontic and iocontic shapes marked named were found by the atlas and are named from their kidecaic and "
-            f"iodecaic counterparts (the last d of the decaic name swapped for a c); the {n_new} marked new are not yet "
+            f"iodecaic counterparts (the decaic name's -bid made -bic and -sid made -sc); the {n_new} marked new are not yet "
             "named.")
     page = (tpl.replace("{{TITLE}}", "Icoic and Contic Isogonals").replace("{{INTRO}}", html.escape(intro))
             .replace("{{NOTE}}", html.escape(note)).replace("{{NAV}}", "\n".join(nav)).replace("{{SECTIONS}}", "\n".join(parts))

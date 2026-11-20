@@ -115,7 +115,10 @@ def entries():
             pass
     try:                                        # (suggested names for the rest: ixoic_suggest.py; hand ones first)
         for nm_, g in json.load(open(os.path.join(HERE, "ixitic_suggested.json")))["suggested"].items():
-            SUGGESTED.setdefault(nm_, (g["short"], g["full"], g["why"]))
+            if "listed" in g:                   # (a listed or earlier name, now one of a Greek series)
+                SUGGESTED[nm_] = (g["short"], g["full"], g["why"], g["listed"], g["listed_full"])
+            else:
+                SUGGESTED.setdefault(nm_, (g["short"], g["full"], g["why"]))
     except FileNotFoundError:
         pass
     S.append(("Ixitics", "ixitic", f"Ixitic symmetry {para['Ixitic']} It has index 10 in hyic, so its domain is ten "
@@ -136,7 +139,8 @@ def entries():
             CROSS[r["name"]] = XCROSS[r["key"]]
         if r["key"] in SG:
             g = SG[r["key"]]
-            SUGGESTED[r["name"]] = (g["short"], g["full"], g["why"])
+            SUGGESTED[r["name"]] = ((g["short"], g["full"], g["why"], g["listed"], g["listed_full"]) if "listed" in g
+                                    else (g["short"], g["full"], g["why"]))
     S.append(("Ixoics", "ixoic", f"Ixoic symmetry {para['Ixoic']} It is not inside hyic (its elements need √2), so it "
               "has no exact wall forms over the golden field: each of its ten sheets was mapped numerically, and the "
               "walls and lines between the map's shapes were then searched for where the walls meet. Below: its "
@@ -214,13 +218,20 @@ def main():
                 body += " " + sug[2]
             if b in nts:
                 body += f" Note: {nts[b][len(b) + 2:] if nts[b].startswith(b) else nts[b]}".rstrip(".") + "."
-            head = f"({full})." if full else (f"({sug[1]}: a suggested name; {label} in the atlas)." if sug else
-                                              "not yet named.")
-            if sug:
-                label = sug[0]
+            if sug and len(sug) > 3:            # (renamed as one of a Greek series: the old name in parentheses)
+                head = (f"({sug[1]}: a suggested name, as one of a Greek series; listed as {sug[3]}, {sug[4]})."
+                        if full else f"({sug[1]}: a suggested name, as one of a Greek series; suggested earlier as "
+                                     f"{sug[3]}, {sug[4]}; {label} in the atlas).")
+                label = f"{sug[0]} ({sug[3]})"
+            else:
+                head = f"({full})." if full else (f"({sug[1]}: a suggested name; {label} in the atlas)." if sug else
+                                                  "not yet named.")
+                if sug:
+                    label = sug[0]
             beta = ", ".join(f"{v:.6f}" for v in seed)
             sheet = f" · sheet {sub.lstrip('ixo')}" if sub.startswith("ix") else ""
-            tag = (' <span class="tag">suggested name</span>' if sug else ' <span class="tag">new</span>') if unnamed else ""
+            tag = ((' <span class="tag">suggested name</span>' if sug else ' <span class="tag">new</span>') if unnamed
+                   else ' <span class="tag">series name</span>' if sug and len(sug) > 3 else "")
             P.append(f'<article class="{"shape new" if unnamed else "shape"}"><h3>{html.escape(label)}{tag}</h3>'
                      f'<p>{html.escape(head)} {html.escape(body)}</p><p class="data">β = ({beta}) · {d["n_cells"]} cells'
                      f' · {kind}{sheet}</p></article>')

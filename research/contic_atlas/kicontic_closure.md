@@ -8,12 +8,12 @@ seed on the map (the other candidate with the same profile is 0.87 or more away)
 
 | new kicontic wall (key) | seed (beta) | edges at a vertex | vertex figure | cells | kidecaic match (seed distance) | name by the d→c rule |
 |---|---|---|---|---|---|---|
-| f7c174f6a037 | 0.0785, 0.1742, 0.7201, 0.0271 | 688,4^3,3^8 | 5,4^5,3^11 | 4128 | Abybosid, wall 11 (0.085) | Abybosic |
-| a97fdecc2dff | 0.5436, 0.0074, 0.0631, 0.3858 | 688,4^3,3^8 | 5,4^5,3^11 | 4128 | Bebybosid, wall 17 (0.041) | Bebybosic |
-| cf1591d75b16 | 0.0541, 0.0940, 0.8459, 0.0060 | 5689,4^4,3^6 | 5,4^3,3^15 | 4704 | Gapybosid, wall 12, now Bepybosid (0.246) | Bepybosic |
-| 088a005dd446 | 0.0411, 0.4029, 0.5529, 0.0031 | 56688,44,3^7 | 5,4^3,3^15 | 4704 | Depybosid, wall 13, now Gapybosid (0.109) | Gapybosic |
-| c9267f353a08 | 0.5696, 0.0216, 0.0394, 0.3694 | 56688,44,3^7 | 5,4^3,3^15 | 4704 | Ipybosid, wall 20, now Thepybosid (0.139) | Thepybosic |
-| 0e8641589e0e | 0.0541, 0.3237, 0.5982, 0.0240 | 88,4^6,3^6 | 5,4^5,3^11 | 4128 | Debybosid, wall 23 (0.035; its repeat, wall 24, 0.058) | Debybosic |
+| f7c174f6a037 | 0.0785, 0.1742, 0.7201, 0.0271 | 688,4^3,3^8 | 5,4^5,3^11 | 4128 | Abybosid, wall 11 (0.085) | Abybosc |
+| a97fdecc2dff | 0.5436, 0.0074, 0.0631, 0.3858 | 688,4^3,3^8 | 5,4^5,3^11 | 4128 | Bebybosid, wall 17 (0.041) | Bebybosc |
+| cf1591d75b16 | 0.0541, 0.0940, 0.8459, 0.0060 | 5689,4^4,3^6 | 5,4^3,3^15 | 4704 | Gapybosid, wall 12, now Bepybosid (0.246) | Bepybosc |
+| 088a005dd446 | 0.0411, 0.4029, 0.5529, 0.0031 | 56688,44,3^7 | 5,4^3,3^15 | 4704 | Depybosid, wall 13, now Gapybosid (0.109) | Gapybosc |
+| c9267f353a08 | 0.5696, 0.0216, 0.0394, 0.3694 | 56688,44,3^7 | 5,4^3,3^15 | 4704 | Ipybosid, wall 20, now Thepybosid (0.139) | Thepybosc |
+| 0e8641589e0e | 0.0541, 0.3237, 0.5982, 0.0240 | 88,4^6,3^6 | 5,4^5,3^11 | 4128 | Debybosid, wall 23 (0.035; its repeat, wall 24, 0.058) | Debybosc |
 
 ## Decaic walls 23 and 24 are one shape
 
@@ -34,5 +34,5 @@ and has been removed (decaic_atlas/kidecaic_names.md). Every kidecaic shape now 
 
 The six walls were added as kicontic walls 27-32 by closure_add.py (closure_walls_ki.json; seed, optimized and
 central .off files in new_shapes/off/kicontic, optimized_off/kicontic and central_off/kicontic), named as above:
-27 Abybosic, 28 Bepybosic, 29 Gapybosic, 30 Bebybosic, 31 Thepybosic, 32 Debybosic (after the pybosid names were shifted down a letter). The kidecaic repeat (wall 24,
+27 Abybosc, 28 Bepybosc, 29 Gapybosc, 30 Bebybosc, 31 Thepybosc, 32 Debybosc (after the pybosid names were shifted down a letter). The kidecaic repeat (wall 24,
 Ebybosid) has been removed.

@@ -24,6 +24,7 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Gadwebertatid | Gamma Disphenoidal Birhombitetratetrahedral 240 | ixoic_wall_54 | 32604d11723e | wall | 2880 | gyrowedges, irr. tets x2, phydows x2, ratets, rhodows, trigyps x2 |
 | Dedwebertatid | Delta Disphenoidal Birhombitetratetrahedral 240 | ixoic_wall_90 | dfbd2daed1b9 | wall | 2880 | gyrowedges, irr. tets x3, phydows x3, ratets, rhodows, trigyps x2 |
 | Abituted | Alpha Bitruncatotetrahedral 240 | ixoic_wall_01 | 9be131c0d31c | wall | 2880 | 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), ditraps, phydows, tuts |
+| Bebituted (Bitutid) | Beta Bitruncatotetrahedral 240 | bitutid | 2f41ae404d62 | line | 1440 | ditraps, trigyps, tuts |
 | Awbituted | Alpha Antiwedged Bitruncatotetrahedral 240 | ixoic_wall_34 | 35ca3a7689f0 | wall | 2880 | ditraps, hexflanges, irr. tets x2, phydows, rhodows, trigyps, tuts |
 | Bewbituted | Beta Antiwedged Bitruncatotetrahedral 240 | ixoic_wall_44 | 501f3549d03f | wall | 2880 | gytricus, hexflanges, irr. tets x2, phydows, rhodows, trigyps x2, tuts |
 | Gawbituted | Gamma Antiwedged Bitruncatotetrahedral 240 | ixoic_wall_45 | 1f89551dc87e | wall | 2880 | gytricus, hexflanges, irr. tets x2, phydows, rhodows, trigyps x2, tuts |
@@ -40,14 +41,15 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Gagypbituted | Gamma Gyroprismatic Bitruncatotetrahedral 240 | ixoic_line_33 | 8a1adc7c92fe | line | 2880 | irr. tets, phydows x3, ratets, rhodows, trigyps, tuts |
 | Degypbituted | Delta Gyroprismatic Bitruncatotetrahedral 240 | ixoic_line_34 | dbd7b6a93732 | line | 2880 | irr. tets, phydows x3, ratets, rhodows, trigyps, tuts |
 | Egypbituted | Epsilon Gyroprismatic Bitruncatotetrahedral 240 | ixoic_line_50 | 8de8a95bda6b | line | 2880 | irr. tets, phydows x4, ratets, rhodows, trigyps, tuts |
-| Saregpobituted | Small Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_02 | d36befd40531 | wall | 2880 | ditraps, rectaps, trigypos, trips, tuts |
-| Garegpobituted | Great Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_05 | 3973fccabec0 | wall | 2880 | gytricus, phydows, rectaps, trigyps, trips, tuts |
+| Aregpobituted | Alpha Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_02 | d36befd40531 | wall | 2880 | ditraps, rectaps, trigypos, trips, tuts |
+| Beregpobituted | Beta Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_05 | 3973fccabec0 | wall | 2880 | gytricus, phydows, rectaps, trigyps, trips, tuts |
 | Atotbituted | Alpha Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_13 | b1467af548d6 | wall | 2880 | ditraps, irr. tets, phydows, rhodows, trigypos, trigyps, tuts |
 | Betotbituted | Beta Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_29 | 36e258d4f7df | wall | 2880 | ditraps, irr. tets x2, phydows, rhodows, trigypos, trigyps, tuts |
 | Gatotbituted | Gamma Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_32 | 9e263c5ae9be | wall | 2880 | ditraps, irr. tets x2, phydows, rhodows, trigypos, trigyps, tuts |
 | Detotbituted | Delta Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_72 | cbf10a6e3168 | wall | 2880 | ditraps, irr. tets x3, phydows x3, rhodows, trigyps, tuts |
 | Etotbituted | Epsilon Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_83 | a886da922d24 | wall | 2880 | ditraps, irr. tets x3, phydows x4, rhodows, trigyps, tuts |
 | Asobted | Alpha Snub Bitetrahedral 240 | ixoic_line_16 | d085e461f806 | line | 2880 | 16-faced cells (12 vertices: 12 3-gons + 4 4-gons), phydows x2, snits, trips x2 |
+| Besobted (Sobted) | Beta Snub Bitetrahedral 240 | sobted | 8f82404e9b10 | point | 720 | phydows, snits |
 | Awsbited | Alpha Antiwedged Snub Bitetrahedral 240 | ixoic_wall_65 | cb07e807b976 | wall | 2880 | hexflanges, irr. tets x3, phydows, rhodows, snits, trigyps x2 |
 | Bewsbited | Beta Antiwedged Snub Bitetrahedral 240 | ixoic_wall_68 | 64cb84bb3b64 | wall | 2880 | hexflanges, irr. tets x3, phydows, rhodows, snits, trigyps x2 |
 | Gawsbited | Gamma Antiwedged Snub Bitetrahedral 240 | ixoic_wall_69 | 7ed1ced25c1c | wall | 2880 | hexflanges, irr. tets x3, phydows, rhodows, snits, trigyps x2 |
@@ -114,6 +116,7 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Pi3wsbited | Pi-3 Antiwedged Snub Bitetrahedral 240 | ixoic_line_79 | bbfc91847c63 | line | 2880 | gyrowedges, hexflanges, irr. tets x2, phydows, rhodows, snits, trigyps, trips |
 | Rho3wsbited | Rho-3 Antiwedged Snub Bitetrahedral 240 | ixoic_line_80 | bf907d6be713 | line | 2880 | gyrowedges, hexflanges, irr. tets x2, phydows, rhodows, snits, trigyps, trips |
 | Sig3wsbited | Sigma-3 Antiwedged Snub Bitetrahedral 240 | ixoic_line_83 | feab799440ed | line | 2880 | gyrowedges, hexflanges, irr. tets x2, phydows, rhodows, snits, trigyps, trips |
+| Ta3wsbited (Awosbited) | Tau-3 Antiwedged Snub Bitetrahedral 240 | awosbited | 9700535b0ae7 | line | 1440 | hexflanges, irr. tets, phydows, snits, trigyps |
 | Apywsbited | Alpha Pyramidal Antiwedged Snub Bitetrahedral 240 | ixoic_line_67 | 209a39c6fbf9 | line | 2880 | hexflanges, irr. tets x2, rhodows, snits, square pyramids, trigyps x2 |
 | Bepywsbited | Beta Pyramidal Antiwedged Snub Bitetrahedral 240 | ixoic_line_68 | 2cda66f86f50 | line | 2880 | hexflanges, irr. tets x2, rhodows, snits, square pyramids, trigyps x2 |
 | Gapywsbited | Gamma Pyramidal Antiwedged Snub Bitetrahedral 240 | ixoic_line_69 | 345ca7ee9f13 | line | 2880 | hexflanges, irr. tets x2, rhodows, snits, square pyramids, trigyps x2 |
@@ -142,108 +145,111 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Hebgypsobted | Eta Bigyroprismatic Snub Bitetrahedral 240 | ixoic_wall_75 | 947b9b31c4f7 | wall | 2880 | 12-faced cells (8 vertices: 12 3-gons), irr. tets x3, phydows x3, snits, trigyps x2 |
 | Thebgypsobted | Theta Bigyroprismatic Snub Bitetrahedral 240 | ixoic_wall_76 | 7880d5b14a1c | wall | 2880 | 12-faced cells (8 vertices: 12 3-gons), irr. tets x3, phydows x3, snits, trigyps x2 |
 | Ibgypsobted | Iota Bigyroprismatic Snub Bitetrahedral 240 | ixoic_wall_118 | be743d41dcfe | wall | 2880 | 12-faced cells (8 vertices: 12 3-gons), irr. tets x3, phydows x2, snits, trigyps x2 |
-| Kabgypsobted | Kappa Bigyroprismatic Snub Bitetrahedral 240 | ixoic_line_17 | 0b4695a7f908 | line | 2880 | 11-faced cells (8 vertices: 10 3-gons + 1 4-gons), phydows x2, snits, trigyps x2 |
+| Kabgypsobted (Sabgypsobted) | Kappa Bigyroprismatic Snub Bitetrahedral 240 | masbittid | 9fc73ba17c51 | line | 1440 | irr. tets, phydows, snits, trigyps x2 |
+| Labgypsobted (Gabgypsobted) | Lambda Bigyroprismatic Snub Bitetrahedral 240 | gasbittid | baf95c7dc2b1 | line | 1440 | irr. tets, phydows, snits, trigyps x2 |
+| Mubgypsobted | Mu Bigyroprismatic Snub Bitetrahedral 240 | ixoic_line_17 | 0b4695a7f908 | line | 2880 | 11-faced cells (8 vertices: 10 3-gons + 1 4-gons), phydows x2, snits, trigyps x2 |
 | Acutsobted | Alpha Cupotransitional Snub Bitetrahedral 240 | ixoic_line_27 | 864fc8bacd90 | line | 2880 | hexflanges, irr. tets, phydows, snits, trigyps x2, wedges |
 | Becutsobted | Beta Cupotransitional Snub Bitetrahedral 240 | ixoic_line_31 | e1533a634b52 | line | 2880 | hexflanges, irr. tets, phydows, rhodows, snits, trigyps, trips, wedges |
 | Adwesbited | Alpha Disphenoidal Snub Bitetrahedral 240 | ixoic_region_04 | 0474ac3cb2d3 | region | 2880 | irr. tets x2, phydows x3, rhodows, snits, trigyps x2 |
 | Bedwesbited | Beta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_05 | d96985aac7ba | region | 2880 | irr. tets x2, phydows x3, rhodows, snits, trigyps x2 |
-| Gadwesbited | Gamma Disphenoidal Snub Bitetrahedral 240 | ixoic_region_13 | 71bf65c9a7b7 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Dedwesbited | Delta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_14 | a8e2a892cc7d | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Edwesbited | Epsilon Disphenoidal Snub Bitetrahedral 240 | ixoic_region_15 | 2c0d36b57a9d | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Zedwesbited | Zeta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_16 | f61083fa4719 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Hedwesbited | Eta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_17 | 393ccc10a1ba | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Thedwesbited | Theta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_18 | 0f8c6022686f | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Idwesbited | Iota Disphenoidal Snub Bitetrahedral 240 | ixoic_region_19 | a2b48e7840a3 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Kadwesbited | Kappa Disphenoidal Snub Bitetrahedral 240 | ixoic_region_20 | 4f676317405a | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Ladwesbited | Lambda Disphenoidal Snub Bitetrahedral 240 | ixoic_region_21 | ab90a7e8c164 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Mudwesbited | Mu Disphenoidal Snub Bitetrahedral 240 | ixoic_region_22 | e3ae1c55fa82 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Nudwesbited | Nu Disphenoidal Snub Bitetrahedral 240 | ixoic_region_23 | 5679da3f41d1 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Xidwesbited | Xi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_25 | f9035eeab1c9 | region | 2880 | irr. tets x3, phydows x4, rhodows, snits, trigyps x2 |
-| Odwesbited | Omicron Disphenoidal Snub Bitetrahedral 240 | ixoic_region_28 | 076a274811fa | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Pidwesbited | Pi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_29 | 78a1a6858080 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Rhodwesbited | Rho Disphenoidal Snub Bitetrahedral 240 | ixoic_region_30 | 5b0e751cd3bc | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Sigdwesbited | Sigma Disphenoidal Snub Bitetrahedral 240 | ixoic_region_31 | 05ce72c24843 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Tadwesbited | Tau Disphenoidal Snub Bitetrahedral 240 | ixoic_region_32 | 82f5f72a7367 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Udwesbited | Upsilon Disphenoidal Snub Bitetrahedral 240 | ixoic_region_33 | a2c1b1e0a5e9 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Phidwesbited | Phi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_34 | 839a33206de2 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Chidwesbited | Chi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_35 | 08a0cf22cccd | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Psidwesbited | Psi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_44 | 2d9a0f1ef565 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Omedwesbited | Omega Disphenoidal Snub Bitetrahedral 240 | ixoic_region_45 | 6651a57fd5f3 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| A2dwesbited | Alpha-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_46 | a80252891331 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Be2dwesbited | Beta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_47 | eca059cf9d00 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Ga2dwesbited | Gamma-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_48 | e1635029c91a | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| De2dwesbited | Delta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_49 | 80498a7a77a0 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| E2dwesbited | Epsilon-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_50 | 930c46854f46 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Ze2dwesbited | Zeta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_51 | ab69a12daf17 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| He2dwesbited | Eta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_52 | 643ae3427127 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| The2dwesbited | Theta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_53 | 1e2f8eb80e4e | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| I2dwesbited | Iota-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_54 | ef0698a734b8 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Ka2dwesbited | Kappa-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_55 | 8b029fed3e2e | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| La2dwesbited | Lambda-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_56 | 24ae98633d75 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Mu2dwesbited | Mu-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_57 | a301185b89cc | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Nu2dwesbited | Nu-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_58 | de5c34caa7bf | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Xi2dwesbited | Xi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_63 | 034eccb8aa72 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
-| O2dwesbited | Omicron-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_64 | 80314f6918ad | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
-| Pi2dwesbited | Pi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_65 | 4a2621598704 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
-| Rho2dwesbited | Rho-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_66 | 718b7fd0a3d3 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
-| Sig2dwesbited | Sigma-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_67 | 1884cf929073 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
-| Ta2dwesbited | Tau-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_68 | e98f93c20622 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
-| U2dwesbited | Upsilon-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_69 | cf88a1cb2719 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
-| Phi2dwesbited | Phi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_70 | 3e1d8d51c6de | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
-| Chi2dwesbited | Chi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_71 | f68dfcec7c78 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
-| Psi2dwesbited | Psi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_78 | 9d02e1e622fa | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Ome2dwesbited | Omega-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_79 | 53ba0d8ab703 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| A3dwesbited | Alpha-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_80 | 62dd30536a67 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Be3dwesbited | Beta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_81 | 8c375a29ebe9 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Ga3dwesbited | Gamma-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_82 | ff5c10b43222 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| De3dwesbited | Delta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_83 | 553ba96f5b83 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| E3dwesbited | Epsilon-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_84 | 3be1435e0d70 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Ze3dwesbited | Zeta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_85 | c1c750add769 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| He3dwesbited | Eta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_86 | b7c0e20ddf05 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| The3dwesbited | Theta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_87 | 13ca776daef6 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| I3dwesbited | Iota-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_88 | 5f3beae7c484 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Ka3dwesbited | Kappa-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_89 | ab715fb554b7 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| La3dwesbited | Lambda-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_90 | c9f010089b8b | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Mu3dwesbited | Mu-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_91 | f2d4e09ed97b | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Nu3dwesbited | Nu-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_92 | 9be358df1358 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Xi3dwesbited | Xi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_97 | ad736fba6beb | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
-| O3dwesbited | Omicron-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_98 | 7d9e66e1892a | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
-| Pi3dwesbited | Pi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_99 | d1d7ac3e8f08 | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
-| Rho3dwesbited | Rho-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_101 | 750866d1f30c | region | 2880 | irr. tets x6, phydows x4, rhodows, snits, trigyps x2 |
-| Sig3dwesbited | Sigma-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_102 | 09a5e6d51e0e | region | 2880 | irr. tets x6, phydows x4, rhodows, snits, trigyps x2 |
-| Ta3dwesbited | Tau-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_103 | 5ea58b93fa90 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| U3dwesbited | Upsilon-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_104 | 8a47582fb978 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
-| Phi3dwesbited | Phi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_105 | bc68380762a1 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Chi3dwesbited | Chi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_106 | 459c5d1f6ec6 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Psi3dwesbited | Psi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_107 | 9b5fd8356656 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Ome3dwesbited | Omega-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_108 | 60adfbab442f | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| A4dwesbited | Alpha-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_109 | 32d0daa5d6a7 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
-| Be4dwesbited | Beta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_111 | 7b87535b5871 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Ga4dwesbited | Gamma-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_112 | 728f353bb89e | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| De4dwesbited | Delta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_113 | 615a0876dae8 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| E4dwesbited | Epsilon-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_114 | 259f7e00a61e | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
-| Ze4dwesbited | Zeta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_115 | 999e4d1d8d81 | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
-| He4dwesbited | Eta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_116 | 16fa71ee5a42 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| The4dwesbited | Theta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_117 | e1538aee6f85 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| I4dwesbited | Iota-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_118 | 126c186349b7 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Ka4dwesbited | Kappa-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_119 | 1b87da213400 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| La4dwesbited | Lambda-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_120 | 2f7fb6b3c64b | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Mu4dwesbited | Mu-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_123 | e0fd956db5bd | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Nu4dwesbited | Nu-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_125 | 1a79068c23fb | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Xi4dwesbited | Xi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_126 | 856a7072b1c2 | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
-| O4dwesbited | Omicron-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_129 | bbe3b8fd5029 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Pi4dwesbited | Pi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_130 | f31290aa4e37 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
-| Rho4dwesbited | Rho-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_134 | 422333e6047a | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Sig4dwesbited | Sigma-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_136 | c8f19cc4f1dd | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
-| Ta4dwesbited | Tau-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_137 | 176513e6c150 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| U4dwesbited | Upsilon-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_139 | cf724943f1d4 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
-| Phi4dwesbited | Phi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_140 | 6f7109bc6299 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Chi4dwesbited | Chi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_142 | fafecd873004 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| Psi4dwesbited | Psi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_42 | cacdd913b4d6 | wall | 2880 | 14-faced cells (9 vertices: 14 3-gons), irr. tets x2, phydows x2, rhodows, snits, trigyps x2 |
-| Ome4dwesbited | Omega-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_100 | dec809d40eec | wall | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
-| A5dwesbited | Alpha-5 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_101 | 0272b56bb71e | wall | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Be5dwesbited | Beta-5 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_102 | 12ca4772890d | wall | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
-| Ga5dwesbited | Gamma-5 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_103 | a73004f72f46 | wall | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Gadwesbited (Sidwesbited) | Gamma Disphenoidal Snub Bitetrahedral 240 | sidwesbited | b240fd91d8cf | region | 2880 | irr. tets x2, phydows x3, rhodows, snits, trigyps x2 |
+| Dedwesbited | Delta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_13 | 71bf65c9a7b7 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Edwesbited | Epsilon Disphenoidal Snub Bitetrahedral 240 | ixoic_region_14 | a8e2a892cc7d | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Zedwesbited | Zeta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_15 | 2c0d36b57a9d | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Hedwesbited | Eta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_16 | f61083fa4719 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Thedwesbited | Theta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_17 | 393ccc10a1ba | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Idwesbited | Iota Disphenoidal Snub Bitetrahedral 240 | ixoic_region_18 | 0f8c6022686f | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Kadwesbited | Kappa Disphenoidal Snub Bitetrahedral 240 | ixoic_region_19 | a2b48e7840a3 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Ladwesbited | Lambda Disphenoidal Snub Bitetrahedral 240 | ixoic_region_20 | 4f676317405a | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Mudwesbited | Mu Disphenoidal Snub Bitetrahedral 240 | ixoic_region_21 | ab90a7e8c164 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Nudwesbited | Nu Disphenoidal Snub Bitetrahedral 240 | ixoic_region_22 | e3ae1c55fa82 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Xidwesbited | Xi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_23 | 5679da3f41d1 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Odwesbited | Omicron Disphenoidal Snub Bitetrahedral 240 | ixoic_region_25 | f9035eeab1c9 | region | 2880 | irr. tets x3, phydows x4, rhodows, snits, trigyps x2 |
+| Pidwesbited | Pi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_28 | 076a274811fa | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Rhodwesbited | Rho Disphenoidal Snub Bitetrahedral 240 | ixoic_region_29 | 78a1a6858080 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Sigdwesbited | Sigma Disphenoidal Snub Bitetrahedral 240 | ixoic_region_30 | 5b0e751cd3bc | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Tadwesbited | Tau Disphenoidal Snub Bitetrahedral 240 | ixoic_region_31 | 05ce72c24843 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Udwesbited | Upsilon Disphenoidal Snub Bitetrahedral 240 | ixoic_region_32 | 82f5f72a7367 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Phidwesbited | Phi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_33 | a2c1b1e0a5e9 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Chidwesbited | Chi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_34 | 839a33206de2 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Psidwesbited | Psi Disphenoidal Snub Bitetrahedral 240 | ixoic_region_35 | 08a0cf22cccd | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Omedwesbited | Omega Disphenoidal Snub Bitetrahedral 240 | ixoic_region_44 | 2d9a0f1ef565 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| A2dwesbited | Alpha-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_45 | 6651a57fd5f3 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Be2dwesbited | Beta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_46 | a80252891331 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Ga2dwesbited | Gamma-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_47 | eca059cf9d00 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| De2dwesbited | Delta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_48 | e1635029c91a | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| E2dwesbited | Epsilon-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_49 | 80498a7a77a0 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Ze2dwesbited | Zeta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_50 | 930c46854f46 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| He2dwesbited | Eta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_51 | ab69a12daf17 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| The2dwesbited | Theta-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_52 | 643ae3427127 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| I2dwesbited | Iota-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_53 | 1e2f8eb80e4e | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Ka2dwesbited | Kappa-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_54 | ef0698a734b8 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| La2dwesbited | Lambda-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_55 | 8b029fed3e2e | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Mu2dwesbited | Mu-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_56 | 24ae98633d75 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Nu2dwesbited | Nu-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_57 | a301185b89cc | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Xi2dwesbited | Xi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_58 | de5c34caa7bf | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| O2dwesbited | Omicron-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_63 | 034eccb8aa72 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
+| Pi2dwesbited | Pi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_64 | 80314f6918ad | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Rho2dwesbited | Rho-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_65 | 4a2621598704 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
+| Sig2dwesbited | Sigma-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_66 | 718b7fd0a3d3 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
+| Ta2dwesbited | Tau-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_67 | 1884cf929073 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
+| U2dwesbited | Upsilon-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_68 | e98f93c20622 | region | 2880 | irr. tets x4, phydows x5, rhodows, snits, trigyps x2 |
+| Phi2dwesbited | Phi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_69 | cf88a1cb2719 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Chi2dwesbited | Chi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_70 | 3e1d8d51c6de | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Psi2dwesbited | Psi-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_71 | f68dfcec7c78 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Ome2dwesbited | Omega-2 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_78 | 9d02e1e622fa | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| A3dwesbited | Alpha-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_79 | 53ba0d8ab703 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Be3dwesbited | Beta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_80 | 62dd30536a67 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Ga3dwesbited | Gamma-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_81 | 8c375a29ebe9 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| De3dwesbited | Delta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_82 | ff5c10b43222 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| E3dwesbited | Epsilon-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_83 | 553ba96f5b83 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Ze3dwesbited | Zeta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_84 | 3be1435e0d70 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| He3dwesbited | Eta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_85 | c1c750add769 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| The3dwesbited | Theta-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_86 | b7c0e20ddf05 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| I3dwesbited | Iota-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_87 | 13ca776daef6 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Ka3dwesbited | Kappa-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_88 | 5f3beae7c484 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| La3dwesbited | Lambda-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_89 | ab715fb554b7 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Mu3dwesbited | Mu-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_90 | c9f010089b8b | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Nu3dwesbited | Nu-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_91 | f2d4e09ed97b | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Xi3dwesbited | Xi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_92 | 9be358df1358 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| O3dwesbited | Omicron-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_97 | ad736fba6beb | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
+| Pi3dwesbited | Pi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_98 | 7d9e66e1892a | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
+| Rho3dwesbited | Rho-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_99 | d1d7ac3e8f08 | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
+| Sig3dwesbited | Sigma-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_101 | 750866d1f30c | region | 2880 | irr. tets x6, phydows x4, rhodows, snits, trigyps x2 |
+| Ta3dwesbited | Tau-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_102 | 09a5e6d51e0e | region | 2880 | irr. tets x6, phydows x4, rhodows, snits, trigyps x2 |
+| U3dwesbited | Upsilon-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_103 | 5ea58b93fa90 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Phi3dwesbited | Phi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_104 | 8a47582fb978 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Chi3dwesbited | Chi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_105 | bc68380762a1 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Psi3dwesbited | Psi-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_106 | 459c5d1f6ec6 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Ome3dwesbited | Omega-3 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_107 | 9b5fd8356656 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| A4dwesbited | Alpha-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_108 | 60adfbab442f | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Be4dwesbited | Beta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_109 | 32d0daa5d6a7 | region | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigyps x2 |
+| Ga4dwesbited | Gamma-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_111 | 7b87535b5871 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| De4dwesbited | Delta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_112 | 728f353bb89e | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| E4dwesbited | Epsilon-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_113 | 615a0876dae8 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Ze4dwesbited | Zeta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_114 | 259f7e00a61e | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
+| He4dwesbited | Eta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_115 | 999e4d1d8d81 | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
+| The4dwesbited | Theta-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_116 | 16fa71ee5a42 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| I4dwesbited | Iota-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_117 | e1538aee6f85 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Ka4dwesbited | Kappa-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_118 | 126c186349b7 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| La4dwesbited | Lambda-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_119 | 1b87da213400 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Mu4dwesbited | Mu-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_120 | 2f7fb6b3c64b | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Nu4dwesbited | Nu-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_123 | e0fd956db5bd | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Xi4dwesbited | Xi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_125 | 1a79068c23fb | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| O4dwesbited | Omicron-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_126 | 856a7072b1c2 | region | 2880 | irr. tets x5, phydows x5, rhodows, snits, trigyps x2 |
+| Pi4dwesbited | Pi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_129 | bbe3b8fd5029 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Rho4dwesbited | Rho-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_130 | f31290aa4e37 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Sig4dwesbited | Sigma-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_134 | 422333e6047a | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| Ta4dwesbited | Tau-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_136 | c8f19cc4f1dd | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigyps x2 |
+| U4dwesbited | Upsilon-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_137 | 176513e6c150 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Phi4dwesbited | Phi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_139 | cf724943f1d4 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
+| Chi4dwesbited | Chi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_140 | 6f7109bc6299 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Psi4dwesbited | Psi-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_region_142 | fafecd873004 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Ome4dwesbited | Omega-4 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_42 | cacdd913b4d6 | wall | 2880 | 14-faced cells (9 vertices: 14 3-gons), irr. tets x2, phydows x2, rhodows, snits, trigyps x2 |
+| A5dwesbited | Alpha-5 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_100 | dec809d40eec | wall | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigyps x2 |
+| Be5dwesbited | Beta-5 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_101 | 0272b56bb71e | wall | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| Ga5dwesbited | Gamma-5 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_102 | 12ca4772890d | wall | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigyps x2 |
+| De5dwesbited | Delta-5 Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_103 | a73004f72f46 | wall | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigyps x2 |
 | Apydwesbited | Alpha Pyramidal Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_33 | 070b671a6ba7 | wall | 2880 | irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps x2 |
 | Bepydwesbited | Beta Pyramidal Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_35 | ac27d3806a68 | wall | 2880 | irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps x2 |
 | Gapydwesbited | Gamma Pyramidal Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_36 | 843db71207f8 | wall | 2880 | irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps x2 |
@@ -303,52 +309,53 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Hegypodwsbited | Eta Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_10 | b3dc3734858f | region | 2880 | irr. tets x3, phydows x2, rhodows, snits, trigypos, trigyps x2 |
 | Thegypodwsbited | Theta Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_11 | 241c936dfb1f | region | 2880 | irr. tets x3, phydows x2, rhodows, snits, trigypos, trigyps x2 |
 | Igypodwsbited | Iota Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_12 | 414f5b0e4bb1 | region | 2880 | irr. tets x3, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| Kagypodwsbited | Kappa Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_27 | 4e8d5797255d | region | 2880 | irr. tets x4, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| Lagypodwsbited | Lambda Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_36 | 2ea838120994 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Mugypodwsbited | Mu Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_37 | fc2f6668afd2 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Nugypodwsbited | Nu Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_38 | 1ee7f4eac05e | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Xigypodwsbited | Xi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_39 | 349adf2c0558 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Ogypodwsbited | Omicron Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_40 | b945e5651fdd | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Pigypodwsbited | Pi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_41 | 4da9b751c8d0 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Rhogypodwsbited | Rho Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_42 | 79170a0fe635 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Siggypodwsbited | Sigma Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_43 | 2b6e4f8b8d86 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Tagypodwsbited | Tau Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_59 | 75695f073602 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| Ugypodwsbited | Upsilon Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_60 | e26ebd666fac | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| Phigypodwsbited | Phi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_61 | 2fc96e114605 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| Chigypodwsbited | Chi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_62 | 5a5412fc5a1f | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| Psigypodwsbited | Psi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_72 | a4d5f327ee33 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Omegypodwsbited | Omega Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_73 | f0b5203e54aa | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| A2gypodwsbited | Alpha-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_74 | 2314d7c0308b | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Be2gypodwsbited | Beta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_75 | 5a87375bd124 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Ga2gypodwsbited | Gamma-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_76 | f8bda2bcc522 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| De2gypodwsbited | Delta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_77 | 7645b88a2001 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| E2gypodwsbited | Epsilon-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_93 | e6692da3f404 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| Ze2gypodwsbited | Zeta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_94 | 9cf97ab67513 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| He2gypodwsbited | Eta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_95 | 5c6bb3e66923 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| The2gypodwsbited | Theta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_96 | 82545df01580 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
-| I2gypodwsbited | Iota-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_100 | 7c59b744882a | region | 2880 | irr. tets x6, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Ka2gypodwsbited | Kappa-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_110 | d9ef88449de5 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| La2gypodwsbited | Lambda-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_121 | b715a5043c89 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Mu2gypodwsbited | Mu-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_122 | b806135a9f8e | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Nu2gypodwsbited | Nu-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_124 | 9b25d2c21a5c | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Xi2gypodwsbited | Xi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_127 | bd46757eb076 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| O2gypodwsbited | Omicron-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_128 | 064e1bf4cfed | region | 2880 | irr. tets x4, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| Pi2gypodwsbited | Pi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_131 | c30a8cd80019 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Rho2gypodwsbited | Rho-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_132 | 3bac15a9e22b | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Sig2gypodwsbited | Sigma-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_133 | 0b69cd8d8c97 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Ta2gypodwsbited | Tau-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_135 | 090753bfd3a4 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| U2gypodwsbited | Upsilon-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_138 | a44db1e85714 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Phi2gypodwsbited | Phi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_141 | 12407a9d392e | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Chi2gypodwsbited | Chi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_143 | 42b31d215802 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Psi2gypodwsbited | Psi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_144 | 92c36d8e8fce | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Ome2gypodwsbited | Omega-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_50 | d8916f10b74b | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| A3gypodwsbited | Alpha-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_51 | baa02be8a0ae | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| Be3gypodwsbited | Beta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_52 | 4378938566e3 | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| Ga3gypodwsbited | Gamma-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_57 | 95b23ba2e772 | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| De3gypodwsbited | Delta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_78 | 9407ce9d79f3 | wall | 2880 | irr. tets x3, phydows x2, rhodows, snits, trigypos, trigyps x2 |
-| E3gypodwsbited | Epsilon-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_85 | 2078826c56fa | wall | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| Ze3gypodwsbited | Zeta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_94 | 4f3bedcbb221 | wall | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigypos, trigyps x2 |
-| He3gypodwsbited | Eta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_208 | e6e26b751603 | wall | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Kagypodwsbited (Sagpodwsbited) | Kappa Gyropodial Disphenoidal Snub Bitetrahedral 240 | sagpodwsbited | dde81598bfa2 | region | 2880 | irr. tets x3, phydows x2, rhodows, snits, trigypos x2, trigyps x2 |
+| Lagypodwsbited | Lambda Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_27 | 4e8d5797255d | region | 2880 | irr. tets x4, phydows x2, rhodows, snits, trigypos, trigyps x2 |
+| Mugypodwsbited | Mu Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_36 | 2ea838120994 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Nugypodwsbited | Nu Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_37 | fc2f6668afd2 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Xigypodwsbited | Xi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_38 | 1ee7f4eac05e | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Ogypodwsbited | Omicron Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_39 | 349adf2c0558 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Pigypodwsbited | Pi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_40 | b945e5651fdd | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Rhogypodwsbited | Rho Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_41 | 4da9b751c8d0 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Siggypodwsbited | Sigma Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_42 | 79170a0fe635 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Tagypodwsbited | Tau Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_43 | 2b6e4f8b8d86 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Ugypodwsbited | Upsilon Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_59 | 75695f073602 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| Phigypodwsbited | Phi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_60 | e26ebd666fac | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| Chigypodwsbited | Chi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_61 | 2fc96e114605 | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| Psigypodwsbited | Psi Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_62 | 5a5412fc5a1f | region | 2880 | irr. tets x4, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| Omegypodwsbited | Omega Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_72 | a4d5f327ee33 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| A2gypodwsbited | Alpha-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_73 | f0b5203e54aa | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Be2gypodwsbited | Beta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_74 | 2314d7c0308b | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Ga2gypodwsbited | Gamma-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_75 | 5a87375bd124 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| De2gypodwsbited | Delta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_76 | f8bda2bcc522 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| E2gypodwsbited | Epsilon-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_77 | 7645b88a2001 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Ze2gypodwsbited | Zeta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_93 | e6692da3f404 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| He2gypodwsbited | Eta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_94 | 9cf97ab67513 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| The2gypodwsbited | Theta-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_95 | 5c6bb3e66923 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| I2gypodwsbited | Iota-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_96 | 82545df01580 | region | 2880 | irr. tets x5, phydows x4, rhodows, snits, trigypos, trigyps x2 |
+| Ka2gypodwsbited | Kappa-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_100 | 7c59b744882a | region | 2880 | irr. tets x6, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| La2gypodwsbited | Lambda-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_110 | d9ef88449de5 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Mu2gypodwsbited | Mu-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_121 | b715a5043c89 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Nu2gypodwsbited | Nu-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_122 | b806135a9f8e | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Xi2gypodwsbited | Xi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_124 | 9b25d2c21a5c | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| O2gypodwsbited | Omicron-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_127 | bd46757eb076 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Pi2gypodwsbited | Pi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_128 | 064e1bf4cfed | region | 2880 | irr. tets x4, phydows x2, rhodows, snits, trigypos, trigyps x2 |
+| Rho2gypodwsbited | Rho-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_131 | c30a8cd80019 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Sig2gypodwsbited | Sigma-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_132 | 3bac15a9e22b | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Ta2gypodwsbited | Tau-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_133 | 0b69cd8d8c97 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| U2gypodwsbited | Upsilon-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_135 | 090753bfd3a4 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Phi2gypodwsbited | Phi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_138 | a44db1e85714 | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Chi2gypodwsbited | Chi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_141 | 12407a9d392e | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Psi2gypodwsbited | Psi-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_143 | 42b31d215802 | region | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| Ome2gypodwsbited | Omega-2 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_region_144 | 92c36d8e8fce | region | 2880 | irr. tets x5, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| A3gypodwsbited | Alpha-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_50 | d8916f10b74b | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
+| Be3gypodwsbited | Beta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_51 | baa02be8a0ae | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
+| Ga3gypodwsbited | Gamma-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_52 | 4378938566e3 | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
+| De3gypodwsbited | Delta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_57 | 95b23ba2e772 | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, trigypos, trigyps x2 |
+| E3gypodwsbited | Epsilon-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_78 | 9407ce9d79f3 | wall | 2880 | irr. tets x3, phydows x2, rhodows, snits, trigypos, trigyps x2 |
+| Ze3gypodwsbited | Zeta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_85 | 2078826c56fa | wall | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| He3gypodwsbited | Eta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_94 | 4f3bedcbb221 | wall | 2880 | irr. tets x3, phydows x3, rhodows, snits, trigypos, trigyps x2 |
+| The3gypodwsbited | Theta-3 Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_208 | e6e26b751603 | wall | 2880 | irr. tets x4, phydows x3, rhodows, snits, trigypos, trigyps x2 |
 | Apygypodwsbited | Alpha Pyramidal Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_70 | 04d28f85ac97 | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, square pyramids, trigypos, trigyps x2 |
 | Bepygypodwsbited | Beta Pyramidal Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_71 | 5cdf86262713 | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, square pyramids, trigypos, trigyps x2 |
 | Gapygypodwsbited | Gamma Pyramidal Gyropodial Disphenoidal Snub Bitetrahedral 240 | ixoic_wall_123 | 3e6ee4d14b51 | wall | 2880 | irr. tets x2, phydows x2, rhodows, snits, square pyramids, trigypos, trigyps x2 |
@@ -383,10 +390,13 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Siggypsobted | Sigma Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_15 | 1879a840141c | line | 2880 | 10-faced cells (12 vertices: 4 3-gons + 4 4-gons + 2 6-gons), ertrips, irr. tets, snits, trigyps |
 | Tagypsobted | Tau Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_18 | 254f7a99a139 | line | 2880 | 17-faced cells (18 vertices: 14 3-gons + 3 8-gons), irr. tets, phydows, snits, trigyps |
 | Ugypsobted | Upsilon Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_19 | ff1511f753cf | line | 2880 | 11-faced cells (8 vertices: 10 3-gons + 1 4-gons), phydows x2, rhodows, snits, trigyps, trips |
-| Phigypsobted | Phi Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_90 | 612fa060af7c | line | 1440 | irr. tets, phydows, rhodows, snits, trigyps |
-| Sapygypsobted | Small Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_wall_111 | 36f967a28176 | wall | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
-| Mapygypsobted | Medial Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_40 | 36d1290c653e | line | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
-| Gapygypsobted | Great Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_81 | c280cc7d3115 | line | 2880 | ditraps, irr. tets, phydows x3, rhodows, snits, square pyramids, trigyps |
+| Phigypsobted (Sagypsobted) | Phi Gyroprismatic Snub Bitetrahedral 240 | sagypsobted | 01f5277e9331 | line | 1440 | phydows x2, snits, trigyps |
+| Chigypsobted (Magypsobted) | Chi Gyroprismatic Snub Bitetrahedral 240 | magypsobted | 85a06f9fec4f | line | 1440 | irr. tets, phydows, rhodows, snits, trigyps |
+| Psigypsobted (Gagypsobted) | Psi Gyroprismatic Snub Bitetrahedral 240 | gagypsobted | 7880b9e5cd1a | line | 1440 | irr. tets, phydows, rhodows, snits, trigyps |
+| Omegypsobted | Omega Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_90 | 612fa060af7c | line | 1440 | irr. tets, phydows, rhodows, snits, trigyps |
+| Apygypsobted | Alpha Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_wall_111 | 36f967a28176 | wall | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
+| Bepygypsobted | Beta Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_40 | 36d1290c653e | line | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
+| Gapygypsobted | Gamma Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_81 | c280cc7d3115 | line | 2880 | ditraps, irr. tets, phydows x3, rhodows, snits, square pyramids, trigyps |
 | Agywesbited | Alpha Gyrowedged Snub Bitetrahedral 240 | ixoic_wall_09 | b5c23e297a26 | wall | 2880 | gyrowedges x2, phydows, rhodows, snits, trips x2 |
 | Begywesbited | Beta Gyrowedged Snub Bitetrahedral 240 | ixoic_wall_17 | fd9acfb0c247 | wall | 2880 | gyrowedges, irr. tets, phydows, snits, trigypos, trigyps x2 |
 | Gagywesbited | Gamma Gyrowedged Snub Bitetrahedral 240 | ixoic_wall_18 | d609f7b3e47d | wall | 2880 | gyrowedges, irr. tets, phydows x2, snits, trigyps x2 |
@@ -427,7 +437,9 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Theregposbited | Theta Rectangular Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_35 | 2fd748a3e772 | line | 2880 | irr. tets, phydows x3, rectaps, snits, trigyps, trips |
 | Iregposbited | Iota Rectangular Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_36 | a94a277b2057 | line | 2880 | irr. tets, phydows x3, rectaps, snits, trigyps, trips |
 | Karegposbited | Kappa Rectangular Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_54 | 0b7ebced8279 | line | 2880 | irr. tets, phydows x4, rectaps, snits, trigyps, trips |
-| Atetbituted | Alpha Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_line_09 | 5f6dfc321d22 | line | 2880 | 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), phydows, stet cells |
+| Laregposbited (Regposbitad) | Lambda Rectangular Gyroprismatic Snub Bitetrahedral 240 | regposbitad | 1e8454f185ca | point | 1440 | rectaps, snits, trips |
+| Atetbituted (Stetbituted) | Alpha Tetrahedral Transitional Bitruncatotetrahedral 240 | stetbituted | 61a14f3dab2f | wall | 2880 | irr. tets, phydows x2, rhodows, stet cells, trigyps |
+| Betetbituted | Beta Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_line_09 | 5f6dfc321d22 | line | 2880 | 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), phydows, stet cells |
 | Awotetbituted | Antiwedged Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_line_39 | ca02b44d328d | line | 2880 | hexflanges, irr. tets x2, phydows, rhodows, stet cells, trigyps |
 | Agyptetbituted | Alpha Gyroprismatic Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_wall_38 | 8cd3bc68ed80 | wall | 2880 | ditraps, irr. tets x2, phydows x2, rhodows, stet cells, trigyps |
 | Begyptetbituted | Beta Gyroprismatic Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_wall_105 | aeb4251bed5c | wall | 2880 | irr. tets, phydows x2, rhodows, stet cells, trigyps |
