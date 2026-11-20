@@ -7,9 +7,14 @@ modifiers, and Small / Medial / Great tell apart shapes whose cells read the sam
 list entries named in it. Every shape is first put in the list's words: describe.py's cells (ixoic_describe.py) by
 kind and orbit size (regular tets: tets; disphenoids of 720: rhodows; irregular tets of 1440: phydows, of 2880: irr.
 tets; trigonal gyroprisms of 480: trigyps, of 960: trigypos; ...). Within one stem and set of modifiers the shapes
-are ordered by their largest edge valence, then by the faces at a vertex (the list's Small, Medial and Great
-disphenoidal snub bitetrahedra run 6, 8, 10 and 12 at their largest edge); the size words the list already uses for
-that stem are not given again, and where the shapes outnumber the words left they are numbered in that order.
+are taken in the page's order (regions, walls, lines, points, by atlas number). As in the kidecaic names
+(decaic_atlas/kidecaic_names.md), a series of shapes with one stem and modifiers is lettered Alpha, Beta, Gamma, ...
+(short names A-, Be-, Ga-, De-, E-, Ze-, He-, The-, I-, ...: Abosid, Bebosid, Adwebosid, Apybosid), and two or three
+shapes of a stem the list gives no size word are Small (Medial) and Great (Sawbosid, Gawbosid); past Omega the
+letters start again, numbered (Alpha-2, ...). A letter whose short name the list already has (Gamma Gyroprismatic would
+be Great's Gagypsobted) is skipped. Square pyramids give Pyramidal and triangular bipyramids Bipyramidal (py
+and by, as Apybosid and Abybosid). The ixitic atlas's unnamed shapes are named the same way from the ixitic list
+(ixitic_suggested.json); one that is the same polychoron as an ixoic shape takes that shape's name in its Dis120 form.
 Shapes whose 240 cell no list entry has are left unnamed.
 
     python ixoic_suggest.py
@@ -19,6 +24,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import sys
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -108,32 +114,63 @@ def modifiers(W, base):
     return ""
 
 
-# (cells no list entry has, beside a snub's or a tut's usual ones: a modifier in the list's manner, not read off it)
-EXTRA = {"square pyramids": ("Pyramidal", "pyr"), "triangular bipyramids": ("Bipyramidal", "bipyr")}
+# (square pyramids and triangular bipyramids beside a snub's or a tut's usual cells: Pyramidal and Bipyramidal, written
+#  py and by as in the kidecaic names Apybosid and Abybosid, decaic_atlas/kidecaic_names.md)
+EXTRA = {"square pyramids": ("Pyramidal", "py"), "triangular bipyramids": ("Bipyramidal", "by")}
+
+# (the series letters of the kidecaic names: Abosid, Bebosid, Gabosid, Debosid, Ebosid, Zebosid, Hebosid, ...)
+GREEK = [("Alpha", "a"), ("Beta", "be"), ("Gamma", "ga"), ("Delta", "de"), ("Epsilon", "e"), ("Zeta", "ze"),
+         ("Eta", "he"), ("Theta", "the"), ("Iota", "i"), ("Kappa", "ka"), ("Lambda", "la"), ("Mu", "mu"), ("Nu", "nu"),
+         ("Xi", "xi"), ("Omicron", "o"), ("Pi", "pi"), ("Rho", "rho"), ("Sigma", "sig"), ("Tau", "ta"),
+         ("Upsilon", "u"), ("Phi", "phi"), ("Chi", "chi"), ("Psi", "psi"), ("Omega", "ome")]
+SIZES = ("Small", "Medial", "Great")
+SIZE_P = {"Small": "s", "Medial": "m", "Great": "g"}
 
 
-def abbr(size, mod, base, extra=""):
+def series(n, same):
+    """Words for n shapes of one stem and modifiers, in the page's order: none for one alone; Small / (Medial /) Great
+    for two or three when the list uses no size word with this stem (as Sawbosid, Gawbosid); else Greek letters, as
+    the kidecaic series (past Omega the letters start again, numbered: Alpha-2, ...). -> [(full word, prefix)]."""
+    if not same and n == 1:
+        return [("", "")]
+    if not same and n <= 3:
+        w = [SIZES[0], SIZES[2]] if n == 2 else list(SIZES)
+        return [(x, SIZE_P[x]) for x in w]
+    out = []
+    for i in range(n):
+        g, p = GREEK[i % 24]
+        c = i // 24 + 1
+        out.append((g + (f"-{c}" if c > 1 else ""), p + (str(c) if c > 1 else "")))
+    return out
+
+
+def abbr(word, prefix, mod, base, extra=""):
+    """Short name: the series prefix, Pyramidal / Bipyramidal (py, by), the modifier and the stem, in the list's
+    spellings (Sidwesbited, Sagpodwsbited, Sagypsobted, Awosbited; Adwebosid, Apybosid, Sawbosid)."""
     stem = STEM[base][1]
     m = MOD[mod][0] if mod else ""
+    if prefix and mod == "Antiwedged":
+        m = "w"                                 # (Sawbosid, Gawbosid)
+    if not prefix and mod == "Gyroprismatic":
+        m = "gypri"                             # (not Gypsobted, which is Gyropodial)
+    if "gpod" in m and (not prefix or word not in SIZES):
+        m = m.replace("gpod", "gypod")
     m = (EXTRA[extra][1] if extra else "") + m
     if m.endswith(("w", "we", "o")) and stem.startswith("sobted"):
         stem = "sbited"                         # (Sidwesbited, Sagpodwsbited, Awosbited)
     if m.endswith("we") and stem == "bituted":
         stem = "btuted"                         # (Sidwabtuted: Disphenoidal before Bitruncato-)
-        m = "dwa"
-    s = {"Small": "s", "Medial": "m", "Great": "g", "": ""}[size]
-    if s and m:
-        s += "i" if m.startswith("d") else "a"
-    elif s:
-        s += "a"
-    return (s + m + stem).capitalize()
+        m = m[:-2] + "a"
+    if word in SIZES and m:
+        prefix += "i" if m.startswith("d") else "a"     # (Sidwesbited, Sagypsobted, Sabgypsobted)
+    elif word in SIZES:
+        prefix += "a"
+    return (prefix + m + stem).capitalize()
 
 
-def size_key(d):
-    v = {int(re.search(r"\d+", k).group()) if re.search(r"\d+", k) else
-         {"trigonic": 3, "tetragonic": 4, "pentagonic": 5, "hexagonic": 6, "heptagonic": 7, "octagonic": 8,
-          "enneagonic": 9, "decagonic": 10, "hendecagonic": 11, "dodecagonic": 12}[k]: n for k, n in d["edges"].items()}
-    return max(v), d["dualcell_faces"]
+def page_order(name):
+    m = re.match(r".*_(region|wall|line|point)_(\d+)$", name or "")
+    return ({"region": 0, "wall": 1, "line": 2, "point": 3}[m.group(1)], int(m.group(2))) if m else (9, 0)
 
 
 def listed():
@@ -162,48 +199,43 @@ def main():
         mod = modifiers(W, base)
         ex = next((x for x in EXTRA if W[x]), "")
         groups.setdefault((mod, base, ex), []).append((k, d, W))
+    sys.path.insert(0, os.path.join(os.path.dirname(HERE), "hyic_atlas"))
+    import ixitic_offs                          # (the atlas names, ixoic_region_NN ..., give the page's order)
+    ixitic_offs.GROUP = "ixoic"
+    AN = {r["key"]: r["name"] for r in ixitic_offs.shapes()}
     out, rep = {}, []
     for (mod, base, ex), G in sorted(groups.items(), key=lambda x: (STEM[x[0][1]][0], x[0][0], x[0][2])):
         stem_full = " ".join(x for x in (EXTRA[ex][0] if ex else "", mod, STEM[base][0]) if x)
         same = [f.split()[0] if f.split()[0] in ("Small", "Medial", "Great") else "" for _, f in L
                 if re.sub(r"^(Small|Medial|Great) ", "", re.sub(r" \d+$", "", f)).lower() == stem_full.lower()]
-        used = set(same)
-        free = [w for w in ("Small", "Medial", "Great") if w not in used]
-        G.sort(key=lambda x: (size_key(x[1]), x[0]))
-        if len(G) == 1 and not same:
-            sizes = [""]
-        elif len(G) <= len(free):
-            idx = [0, len(free) - 1] if len(G) == 2 else list(range(len(G)))
-            sizes = [free[i] for i in idx] if len(G) <= 2 or len(G) == len(free) else free[:len(G)]
-        else:
-            sizes = None
-        for i, (k, d, W) in enumerate(G):
-            if sizes is not None:
-                sz = sizes[i]
-                full = " ".join(x for x in (sz, stem_full) if x) + " 240"
-                short = abbr(sz, mod, base, ex)
-            else:
-                full = f"{stem_full} 240 ({i + 1})"
-                short = f"{abbr('', mod, base, ex)} {i + 1}"
-            if short.lower() in taken_short:
-                short += f" {i + 1}"
+        G.sort(key=lambda x: (page_order(AN.get(x[0])), x[0]))
+        cand = iter(series(len(G), same) if not same and len(G) <= 3 else series(len(G) + 48, same))
+        for k, d, W in G:
+            for word, prefix in cand:           # (a letter whose short name the list already has is skipped:
+                short = abbr(word, prefix, mod, base, ex)   #  Gamma Gyroprismatic would be Great's Gagypsobted)
+                if short.lower() not in taken_short:
+                    break
+            full = " ".join(x for x in (word, stem_full) if x) + " 240"
             taken_short.add(short.lower())
             cells = ", ".join(f"{w} x{n}" if n > 1 else w for w, n in sorted(W.items()) if n)
             why = (f"Suggested from the list's own names: {STEM[base][0].lower()} for its 240 "
                    f"{'cells of the kind Stetbituted has' if base == 'stet cells' else base}"
                    + (f", {mod.lower()} as in {MOD[mod][1]}" if mod else "")
-                   + (f", {EXTRA[ex][0].lower()} for its {ex} (no list entry has these; named in the list's manner)"
+                   + (f", {EXTRA[ex][0].lower()} for its {ex} (py, by: as the kidecaic Apybosid and Abybosid)"
                       if ex else "")
-                   + (f"; {len(G)} unnamed shapes read this way, ordered by their largest edge (here {size_key(d)[0]}) "
-                      "and edges at a vertex" if len(G) > 1 else "") + f". Cells: {cells}.")
-            out[k] = {"short": short, "full": full, "why": why, "vertices": d["vertices"], "kind": d["kind"]}
-            rep.append(f"| {short} | {full} | {k} | {d['kind']} | {d['vertices']} | {cells} |")
+                   + (f"; {len(G)} unnamed shapes read this way, " + ("lettered Alpha, Beta, ... in the page's order "
+                      "(regions, walls, lines, points), as the kidecaic series Abosid, Bebosid, Gabosid, ..."
+                      if word not in SIZES else "Small, Medial and Great in the page's order, as Sawbosid and Gawbosid")
+                      if len(G) > 1 else "") + f". Cells: {cells}.")
+            out[k] = {"short": short, "full": full, "why": why, "vertices": d["vertices"], "kind": d["kind"],
+                      "atlas_name": AN.get(k)}
+            rep.append(f"| {short} | {full} | {AN.get(k, '')} | {k} | {d['kind']} | {d['vertices']} | {cells} |")
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "suggested": out,
                "not_named": [{"key": k, "vertices": v, "cell_240": b} for k, v, b in skipped]},
               open(os.path.join(HERE, "ixoic_suggested.json"), "w"), indent=1)
     md = ["# Suggested names for unnamed ixoic shapes", "", __doc__.strip().split("\n\n")[1], "",
-          "| suggested | full name | atlas key | kind | vertices | cells (list words, orbits) |",
-          "|---|---|---|---|---|---|"] + rep
+          "| suggested | full name | atlas name | atlas key | kind | vertices | cells (list words, orbits) |",
+          "|---|---|---|---|---|---|---|"] + rep
     if skipped:
         md += ["", "Left unnamed (no list entry has their 240 cell): " +
                "; ".join(f"{k} ({v} vertices, 240 {b})" for k, v, b in skipped) + "."]
@@ -213,5 +245,136 @@ def main():
         print(f"  {len(G):4}  {' '.join(x for x in (EXTRA[g[2]][0] if g[2] else '', g[0], STEM[g[1]][0]) if x)}")
 
 
+# Ixitic (pages/hyic_list.txt): the 120-cell orbits give the stem (two of snits: Snub Bitetrahedral, as Sisbethi and
+# Gisbethi; snits and tuts: Snub Truncatotetrahedral, as Sestuthi, Mestuthi, Gastuthi; snits and ratets: Snub
+# Rhombatotetrahedral, as Misrethi, Giserthi); one orbit of 480 trigypos is part of the stem (Sisbethi), two make it
+# Gyropodial (Gypsobtady), hexflanges Antiwedged (Awosbitdy), retrips Prismatic Transitional (Petsobtady), trips with
+# rectaps Rectangular Gyroprismatic (Regposbitdy), trips alone Prismatic; square pyramids Pyramidal, triangular
+# bipyramids Bipyramidal, as for ixoic.
+IXSTEM = {("snits", "snits"): ("Snub Bitetrahedral", "sbethi"), ("snits", "tuts"): ("Snub Truncatotetrahedral", "stuthi"),
+          ("ratets", "snits"): ("Snub Rhombatotetrahedral", "srethi")}
+IXMOD = {"Gyropodial": "gyp", "Antiwedged": "awo", "Prismatic Transitional": "pet", "Rectangular Gyroprismatic": "regpo",
+         "Prismatic": "pri", "": ""}
+
+
+def ix_words(d):
+    W, base = Counter(), []
+    for kind, sizes in d["cells"].items():
+        for n in sizes:
+            if kind in ("irregular tets", "disphenoids", "tetragonal disphenoids"):
+                w = "phydows" if n == 720 else "irr. tets"
+            else:
+                w = RAW.get(kind, kind)
+            if n == 120:
+                base.append(w)
+            W[w] += 1
+    return W, tuple(sorted(base))
+
+
+def ix_modifiers(W):
+    if W["retrips"]:
+        return "Prismatic Transitional"
+    if W["rectaps"]:
+        return "Rectangular Gyroprismatic"
+    if W["hexflanges"]:
+        return "Antiwedged"
+    if W["trips"]:
+        return "Prismatic"
+    if W["trigypos"] >= 2:
+        return "Gyropodial"
+    return ""
+
+
+def ixitic_main():
+    """Suggested names for the ixitic atlas's unnamed shapes (ixitic_suggested.json, keyed by atlas name)."""
+    import subprocess
+    import sys
+    HY = os.path.join(os.path.dirname(HERE), "hyic_atlas")
+    from suggested_names import SUGGESTED
+    rows = json.load(open(os.path.join(HY, "opt_central_ixitic.json")))["shapes"]
+    for i in range(10):
+        try:
+            rows += [{**t, "sheet": f"ix{i}"} for t in json.load(open(os.path.join(HY, f"crossings_ix{i}.json")))["shapes"]]
+        except FileNotFoundError:
+            pass
+    rows = [r for r in rows if re.match(r"ixitic_(region|wall|line|point)_\d+$", r["name"]) and r["name"] not in SUGGESTED]
+    path = os.path.join(HERE, "ixitic_described.json")
+    C = json.load(open(path)) if os.path.exists(path) else {}
+    by = {}
+    for r in rows:
+        if r["name"] not in C:
+            by.setdefault(r["sheet"], []).append([r["name"], r["seed"], 1e-7 if r["kind"] == "wall" else 1e-9])
+    for sub, items in by.items():
+        p = subprocess.run([sys.executable, os.path.join(HERE, "describe.py"), json.dumps(items)], capture_output=True,
+                           text=True, env={**os.environ, "HYIC_SUB": sub}, check=True)
+        C.update(json.loads(p.stdout))
+    json.dump(C, open(path, "w"), indent=1)
+    L = []
+    for line in open(os.path.join(HERE, "hyic_list.txt")):
+        c = line.rstrip("\n").split("\t")
+        if len(c) > 3 and c[2].strip().lower() == "ixitic" and c[0].strip():
+            L.append((c[0].strip(), re.sub(r" (120|Dis120)$", "", c[1].strip())))
+    taken = {n.lower() for n, _ in L}
+    out = {}
+    twins = {x["ixitic_name"]: x["ixoic"] for x in json.load(open(os.path.join(HY, "ixitic_relations.json")))["pairs"]
+             if x["relation"] == "same"}
+    IXO = json.load(open(os.path.join(HERE, "ixoic_suggested.json")))["suggested"]
+    for r in rows:                              # (an ixoic shape's twin: its name in the list's Dis120 form)
+        k = twins.get(r["name"])
+        if k in IXO:
+            g = IXO[k]
+            short = re.sub(r"sobted('?)$", r"sobtady\1", re.sub(r"bit(e|a)d('?)$", r"bitdy\2", g["short"]))
+            out[r["name"]] = {"short": short,
+                              "full": g["full"].replace(" 240", " Dis120"),
+                              "why": f"Suggested from its ixoic twin {k} (the same polychoron), suggested {g['short']} "
+                                     f"({g['full']}): the list names each ixoic snub bitetrahedral 240 that is also "
+                                     "ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, "
+                                     "Awosbited / Awosbitdy, ...)."}
+    groups, skipped = {}, []
+    for r in rows:
+        if r["name"] in out:
+            continue
+        d = C[r["name"]]
+        W, base = ix_words(d)
+        if base not in IXSTEM:
+            skipped.append(r["name"])
+            continue
+        mod = ix_modifiers(W)
+        ex = next((x for x in EXTRA if W[x]), "")
+        groups.setdefault((mod, base, ex), []).append((r["name"], d, W))
+    for (mod, base, ex), G in sorted(groups.items()):
+        stem_full = " ".join(x for x in (EXTRA[ex][0] if ex else "", mod, IXSTEM[base][0]) if x)
+        same = [f.split()[0] if f.split()[0] in SIZES else "" for _, f in L
+                if re.sub(r"^(Small|Medial|Great) ", "", f).lower() == stem_full.lower()]
+        G.sort(key=lambda x: page_order(x[0]))
+        cand = iter(series(len(G), same) if not same and len(G) <= 3 else series(len(G) + 48, same))
+        for name, d, W in G:
+            for word, prefix in cand:           # (a letter whose short name the list already has is skipped)
+                m = "w" if prefix and mod == "Antiwedged" else IXMOD[mod]
+                m = (EXTRA[ex][1] if ex else "") + m
+                if word in SIZES:
+                    prefix += "a" if m else "i"     # (Sisbethi, Gisbethi)
+                short = (prefix + m + IXSTEM[base][1]).capitalize()
+                if short.lower() not in taken:
+                    break
+            taken.add(short.lower())
+            full = " ".join(x for x in (word, stem_full) if x) + " 120"
+            cells = ", ".join(f"{w} x{n}" if n > 1 else w for w, n in sorted(W.items()) if n)
+            why = (f"Suggested from the ixitic list's own names: {IXSTEM[base][0].lower()} for its 120 "
+                   f"{' and '.join(base)}" + (f", {mod.lower()} for its cells as in the list" if mod else "")
+                   + (f", {EXTRA[ex][0].lower()} for its {ex}" if ex else "")
+                   + (f"; {len(G)} unnamed shapes read this way, " + ("lettered Alpha, Beta, ... in the page's order, "
+                      "as the kidecaic series Abosid, Bebosid, Gabosid, ..." if word not in SIZES else
+                      "Small, Medial and Great in the page's order, as Sawbosid and Gawbosid") if len(G) > 1 else "")
+                   + f". Cells: {cells}.")
+            out[name] = {"short": short, "full": full, "why": why}
+    json.dump({"_about": "Suggested names for the ixitic atlas's unnamed shapes (ixoic_suggest.py), keyed by atlas name.",
+               "suggested": out, "not_named": skipped}, open(os.path.join(HERE, "ixitic_suggested.json"), "w"), indent=1)
+    for k, v in out.items():
+        print(f"  {k:20} {v['short']:22} {v['full']}")
+    print(f"ixitic: {len(out)} suggested, not named: {skipped}")
+
+
 if __name__ == "__main__":
     main()
+    ixitic_main()

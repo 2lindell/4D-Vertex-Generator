@@ -1,0 +1,111 @@
+{
+ "_about": "Suggested names for the ixitic atlas's unnamed shapes (ixoic_suggest.py), keyed by atlas name.",
+ "suggested": {
+  "ixitic_region_23": {
+   "short": "Phigypsobtady",
+   "full": "Phi Gyroprismatic Snub Bitetrahedral Dis120",
+   "why": "Suggested from its ixoic twin 612fa060af7c (the same polychoron), suggested Phigypsobted (Phi Gyroprismatic Snub Bitetrahedral 240): the list names each ixoic snub bitetrahedral 240 that is also ixitic with a twin Dis120 (Sagypsobted / Sagypsobtady, Gypsobted / Gypsobtady, Awosbited / Awosbitdy, ...)."
+  },
+  "ixitic_region_16": {
+   "short": "Asbethi",
+   "full": "Alpha Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x2, snits x2, trigypos."
+  },
+  "ixitic_region_17": {
+   "short": "Besbethi",
+   "full": "Beta Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x2, snits x2, trigypos."
+  },
+  "ixitic_region_18": {
+   "short": "Gasbethi",
+   "full": "Gamma Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x3, snits x2, trigypos."
+  },
+  "ixitic_region_19": {
+   "short": "Desbethi",
+   "full": "Delta Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x3, phydows x3, snits x2, trigypos."
+  },
+  "ixitic_region_20": {
+   "short": "Esbethi",
+   "full": "Epsilon Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x4, phydows x3, snits x2, trigypos."
+  },
+  "ixitic_region_21": {
+   "short": "Zesbethi",
+   "full": "Zeta Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x4, phydows x3, snits x2, trigypos."
+  },
+  "ixitic_region_22": {
+   "short": "Hesbethi",
+   "full": "Eta Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits; 7 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x5, phydows x3, snits x2, trigypos."
+  },
+  "ixitic_wall_03": {
+   "short": "Sapysbethi",
+   "full": "Small Pyramidal Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 unnamed shapes read this way, Small, Medial and Great in the page's order, as Sawbosid and Gawbosid. Cells: phydows, snits x2, square pyramids, trigypos."
+  },
+  "ixitic_wall_12": {
+   "short": "Mapysbethi",
+   "full": "Medial Pyramidal Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 unnamed shapes read this way, Small, Medial and Great in the page's order, as Sawbosid and Gawbosid. Cells: irr. tets, phydows x2, snits x2, square pyramids, trigypos."
+  },
+  "ixitic_wall_15": {
+   "short": "Gapysbethi",
+   "full": "Great Pyramidal Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, pyramidal for its square pyramids; 3 unnamed shapes read this way, Small, Medial and Great in the page's order, as Sawbosid and Gawbosid. Cells: irr. tets x2, phydows x2, snits x2, square pyramids, trigypos."
+  },
+  "ixitic_wall_14": {
+   "short": "Bysbethi",
+   "full": "Bipyramidal Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, bipyramidal for its triangular bipyramids. Cells: irr. tets x2, phydows x3, snits x2, triangular bipyramids, trigypos."
+  },
+  "ixitic_wall_13": {
+   "short": "Astuthi",
+   "full": "Alpha Snub Truncatotetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub truncatotetrahedral for its 120 snits and tuts. Cells: gytricus, irr. tets x2, phydows x3, snits, tuts."
+  },
+  "ixitic_wall_10": {
+   "short": "Pystuthi",
+   "full": "Pyramidal Snub Truncatotetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub truncatotetrahedral for its 120 snits and tuts, pyramidal for its square pyramids. Cells: gytricus, phydows x2, snits, square pyramids, tuts."
+  },
+  "ixitic_wall_08": {
+   "short": "Awsbethi",
+   "full": "Alpha Antiwedged Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, antiwedged for its cells as in the list. Cells: hexflanges, irr. tets, snits x2, trigypos, trips."
+  },
+  "ixitic_wall_04": {
+   "short": "Pyawosbethi",
+   "full": "Pyramidal Antiwedged Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, antiwedged for its cells as in the list, pyramidal for its square pyramids. Cells: hexflanges, snits x2, square pyramids, trigypos."
+  },
+  "ixitic_region_08": {
+   "short": "Agypsbethi",
+   "full": "Alpha Gyropodial Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x2, phydows, snits x2, trigypos x2."
+  },
+  "ixitic_region_11": {
+   "short": "Begypsbethi",
+   "full": "Beta Gyropodial Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets x2, phydows x2, snits x2, trigypos x2."
+  },
+  "ixitic_wall_09": {
+   "short": "Gagypsbethi",
+   "full": "Gamma Gyropodial Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, gyropodial for its cells as in the list; 3 unnamed shapes read this way, lettered Alpha, Beta, ... in the page's order, as the kidecaic series Abosid, Bebosid, Gabosid, .... Cells: irr. tets, phydows, snits x2, trigypos x2."
+  },
+  "ixitic_wall_11": {
+   "short": "Pyprisbethi",
+   "full": "Pyramidal Prismatic Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, prismatic for its cells as in the list, pyramidal for its square pyramids. Cells: irr. tets, phydows x2, snits x2, square pyramids, trips."
+  },
+  "ixitic_wall_05": {
+   "short": "Apetsbethi",
+   "full": "Alpha Prismatic Transitional Snub Bitetrahedral 120",
+   "why": "Suggested from the ixitic list's own names: snub bitetrahedral for its 120 snits and snits, prismatic transitional for its cells as in the list. Cells: irr. tets, phydows, retrips, snits x2."
+  }
+ },
+ "not_named": []
+}

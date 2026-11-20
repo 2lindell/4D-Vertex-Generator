@@ -225,9 +225,9 @@ DEDUCED = {
                                     "85a06f, Gagypsobted 7880, Gypsobted 0962, 612fa0, Awosbited 9700, and the medial "
                                     "one sits between the small and the great. The cells do not decide (85a06f and "
                                     "612fa0 both have 240 snits, 480 trigyps, 720 rhodows, 1440 phydows, 2880 irr. "
-                                    "tets). Also ixitic magypsobtady_1"),
+                                    "tets). Also ixitic magypsobtady"),
     "555566,4^4,3^4": ("612fa060af7c", "by position, as Magypsobted is 85a06f (see there): between Gypsobted and "
-                                       "Awosbited on the line of the 180-class half-turns. Also ixitic magypsobtady_2"),
+                                       "Awosbited on the line of the 180-class half-turns. Also ixitic region 23 (its twin)"),
 }
 NOT_1440 = ("kept as listed, but no ixoic shape has these counts at 1440 vertices: both half-turn lines, where every "
             "1440 lies, were traced whole and their 16 shapes are all matched above")
@@ -306,7 +306,7 @@ def main():
                 "the ixitic shape there is a different one. Suggested names (not on the list) follow the list's own "
                 "pairs, '... Snub Bitetrahedral 240' and '... Snub Bitetrahedral Dis120'. The lines 85a06f9fec4f and "
                 "612fa060af7c, deduced above to be the list's Magypsobted and its unnamed entry with the same counts, "
-                "are the ixitic magypsobtady_1 and _2 respectively.", "",
+                "are the ixitic magypsobtady and ixitic region 23 respectively.", "",
                 "| ixoic | name | vertices | ixitic | ixitic name | relation |", "|---|---|---|---|---|---|"]
         for r in R:
             nm = r["ixitic_name"] or "—"

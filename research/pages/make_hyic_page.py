@@ -113,6 +113,11 @@ def entries():
                 CROSS[t["name"]] = len(t["locus"])
         except FileNotFoundError:
             pass
+    try:                                        # (suggested names for the rest: ixoic_suggest.py; hand ones first)
+        for nm_, g in json.load(open(os.path.join(HERE, "ixitic_suggested.json")))["suggested"].items():
+            SUGGESTED.setdefault(nm_, (g["short"], g["full"], g["why"]))
+    except FileNotFoundError:
+        pass
     S.append(("Ixitics", "ixitic", f"Ixitic symmetry {para['Ixitic']} It has index 10 in hyic, so its domain is ten "
               "copies of the hyic chamber (ten sheets), each mapped by curved walls; the mirrors are seams between "
               "sheets. Below: its regions (three degrees of variation), walls (two), lines (one) and tehi.",

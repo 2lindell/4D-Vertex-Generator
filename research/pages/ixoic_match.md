@@ -39,11 +39,11 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 | Petsobted | 1440 | 55,3^8 | 8ef1c968ad64 | point (fixed line) |  |
 | (unnamed 1440 8,4^6,3^4) | 1440 | 8,4^6,3^4 | — | not found | kept as listed, but no ixoic shape has these counts at 1440 vertices: both half-turn lines, where every 1440 lies, were traced whole and their 16 shapes are all matched above |
 | (unnamed 1440 558,4,3^8 ?) | 1440 | 558,4,3^8 ? | — | not found | kept as listed, but no ixoic shape has these counts at 1440 vertices: both half-turn lines, where every 1440 lies, were traced whole and their 16 shapes are all matched above |
-| (unnamed 1440 555566,4^4,3^4) | 1440 | 555566,4^4,3^4 | 612fa060af7c | line (fixed line) — deduced | deduced: by position, as Magypsobted is 85a06f (see there): between Gypsobted and Awosbited on the line of the 180-class half-turns. Also ixitic magypsobtady_2 |
+| (unnamed 1440 555566,4^4,3^4) | 1440 | 555566,4^4,3^4 | 612fa060af7c | line (fixed line) — deduced | deduced: by position, as Magypsobted is 85a06f (see there): between Gypsobted and Awosbited on the line of the 180-class half-turns. Also ixitic region 23 (its twin) |
 | Sabgypsobted | 1440 | 88,4^7,3^6 | 9fc73ba17c51 | line (merged) — deduced | deduced: the same shape as Masbittid: on the line of the 90-class half-turns the order is Sagypbittid 7465, 9fc73, Gasbittid baf95, 9fc73, Sagypbittid, Gagypbittid, mirror-symmetric, so both 9fc73 stretches are one shape; only 9fc73 and baf95 have vertex figure 55,4^4,3^12, against four list entries (Masbittid, Gasbittid, Sabgypsobted, Gabgypsobted). Its 1440 tetrahedra have 2-fold symmetry only, the listed phydows |
 | Gabgypsobted | 1440 | 5568,4^5,3^6 | baf95c7dc2b1 | line (merged) — deduced | deduced: the same shape as Gasbittid, next to Sabgypsobted on its line: on the line of the 90-class half-turns the order is Sagypbittid 7465, 9fc73, Gasbittid baf95, 9fc73, Sagypbittid, Gagypbittid, mirror-symmetric, so both 9fc73 stretches are one shape; only 9fc73 and baf95 have vertex figure 55,4^4,3^12, against four list entries (Masbittid, Gasbittid, Sabgypsobted, Gabgypsobted). With it the 15 numbered ixo-1440 entries and the unnamed 555566,4^4,3^4 are exactly the 16 shapes on the half-turn lines. Its 1440 tetrahedra have 2-fold symmetry only, the listed phydows. The listed edge column 5568,4^5,3^6 would then read 55668,44,3^8 (Gasbittid's); both sum to 62, so the list's own check cannot tell. The least certain of these deductions |
 | (unnamed 1440 4^7,3^4 ?) | 1440 | 4^7,3^4 ? | — | not found | kept as listed, but no ixoic shape has these counts at 1440 vertices: both half-turn lines, where every 1440 lies, were traced whole and their 16 shapes are all matched above |
-| Magypsobted | 1440 | 66,5^4,4^4,3^4 | 85a06f9fec4f | line (fixed line) — deduced | deduced: by position: on the line of the 180-class half-turns the order is Sagypsobted 01f5, 85a06f, Gagypsobted 7880, Gypsobted 0962, 612fa0, Awosbited 9700, and the medial one sits between the small and the great. The cells do not decide (85a06f and 612fa0 both have 240 snits, 480 trigyps, 720 rhodows, 1440 phydows, 2880 irr. tets). Also ixitic magypsobtady_1 |
+| Magypsobted | 1440 | 66,5^4,4^4,3^4 | 85a06f9fec4f | line (fixed line) — deduced | deduced: by position: on the line of the 180-class half-turns the order is Sagypsobted 01f5, 85a06f, Gagypsobted 7880, Gypsobted 0962, 612fa0, Awosbited 9700, and the medial one sits between the small and the great. The cells do not decide (85a06f and 612fa0 both have 240 snits, 480 trigyps, 720 rhodows, 1440 phydows, 2880 irr. tets). Also ixitic magypsobtady |
 | Regposbitad | 1440 | 44,3^8 | 1e8454f185ca | point (fixed line) |  |
 | Sidwesbited | 2880 | 555566,4^5,33 | b240fd91d8cf | region (merged) |  |
 | Gycbituted | 2880 | 8,4^9,33 | c8f4e949f236 | wall (merged) | vertex figure 5,4^3,3^11, listed 4^5,3^8; list columns disagree: edges sum to 50, vertex figure to 44 |
@@ -484,7 +484,7 @@ the regions the closure check found (hyic_atlas/closure_<sheet>.json).
 
 ## Ixoic shapes that are also ixitic
 
-From hyic_atlas/ixitic_relations.py: each ixoic shape below 2880 vertices labelled at its seed under the ixitic group of its sheet. Where the vertices and edges agree it is the same polychoron, isogonal under ixitic too; where the ixitic orbit has half the vertices, the half-turn fixing the seed is in ixitic and the ixitic shape there is a different one. Suggested names (not on the list) follow the list's own pairs, '... Snub Bitetrahedral 240' and '... Snub Bitetrahedral Dis120'. The lines 85a06f9fec4f and 612fa060af7c, deduced above to be the list's Magypsobted and its unnamed entry with the same counts, are the ixitic magypsobtady_1 and _2 respectively.
+From hyic_atlas/ixitic_relations.py: each ixoic shape below 2880 vertices labelled at its seed under the ixitic group of its sheet. Where the vertices and edges agree it is the same polychoron, isogonal under ixitic too; where the ixitic orbit has half the vertices, the half-turn fixing the seed is in ixitic and the ixitic shape there is a different one. Suggested names (not on the list) follow the list's own pairs, '... Snub Bitetrahedral 240' and '... Snub Bitetrahedral Dis120'. The lines 85a06f9fec4f and 612fa060af7c, deduced above to be the list's Magypsobted and its unnamed entry with the same counts, are the ixitic magypsobtady and ixitic region 23 respectively.
 
 | ixoic | name | vertices | ixitic | ixitic name | relation |
 |---|---|---|---|---|---|
@@ -504,9 +504,9 @@ From hyic_atlas/ixitic_relations.py: each ixoic shape below 2880 vertices labell
 | 01f5277e9331 | Sagypsobted | 1440 | 85edaf59db32 | sagypsobtady | same |
 | 0962ec32bf42 | Gypsobted | 1440 | d243a1e80043 | gypsobtady | same |
 | 1e8454f185ca | Regposbitad | 1440 | d9ca4ec7c345 | ixitic_line_01: suggested **Regposbitdy** (Rectangular Gyroprismatic Snub Bitetrahedral Dis120) | same |
-| 612fa060af7c | — | 1440 | eaa102928f4e | magypsobtady_2 | same |
+| 612fa060af7c | — | 1440 | eaa102928f4e | ixitic_region_23 | same |
 | 7880b9e5cd1a | Gagypsobted | 1440 | 5efe53c04ebf | ixitic_region_12: suggested **Gagypsobtady** (Great Gyroprismatic Snub Bitetrahedral Dis120) | same |
-| 85a06f9fec4f | Magypsobted | 1440 | 9fbf16135e07 | magypsobtady_1 | same |
+| 85a06f9fec4f | Magypsobted | 1440 | 9fbf16135e07 | magypsobtady | same |
 | 8ef1c968ad64 | Petsobted | 1440 | 177447212efe | petsobtady | same |
 | 9700535b0ae7 | Awosbited | 1440 | ce1564d83d55 | awosbitdy | same |
 | 992e194bf999 | Tetsobted | 1440 | b3a63ce8a55e | ixitic_wall_01: suggested **Tetsobtady** (Tetrahedral Transitional Snub Bitetrahedral Dis120) | same |

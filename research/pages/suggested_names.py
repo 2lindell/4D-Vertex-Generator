@@ -24,12 +24,11 @@ SUGGESTED = {
 
 # (atlas name -> note on a relation that does not give a name)
 RELATED = {
-    "magypsobtady_1": "It is the same polychoron as the unnamed ixoic line 85a06f9fec4f, and magypsobtady_2 as the "
-                      "ixoic line 612fa060af7c: the list's Magypsobted and its unnamed ixoic entry with the same counts "
-                      "(555566,4^4,3^4) are these two lines, so settling which is Magypsobted settles which is "
-                      "Magypsobtady.",
-    "magypsobtady_2": "It is the same polychoron as the unnamed ixoic line 612fa060af7c, and magypsobtady_1 as the "
-                      "ixoic line 85a06f9fec4f: the list's Magypsobted and its unnamed ixoic entry with the same counts "
-                      "(555566,4^4,3^4) are these two lines, so settling which is Magypsobted settles which is "
-                      "Magypsobtady.",
+    "magypsobtady": "It is the same polychoron as the ixoic line 85a06f9fec4f, which the ixoic match deduces is the "
+                    "list's Magypsobted (by its place between Sagypsobted and Gagypsobted on the line of the 180-class "
+                    "half-turns), so this region is Magypsobtady. The other ixitic region with the same counts is "
+                    "ixitic region 23.",
+    "ixitic_region_23": "It is the same polychoron as the ixoic line 612fa060af7c, the list's unnamed ixoic entry "
+                        "555566,4^4,3^4, and has exactly Magypsobtady's counts (the region the list's Magypsobted "
+                        "settles as Magypsobtady is the other one).",
 }
