@@ -154,6 +154,13 @@ def main():
                            "the map had not classified."}[t["kind"]]
             text = body(d, group, t["kind"], t["degrees"]) + how + NOTES.get(t["key"], "")
             sug = SUGGESTED.get(t["name"])
+            if group == "ixitic":                # (the Greek series names: ixoic_suggest.py, as on the hyic page)
+                try:
+                    g = json.load(open(os.path.join(HERE, "ixitic_suggested.json")))["suggested"].get(t["name"])
+                except FileNotFoundError:
+                    g = None
+                if g:
+                    sug = (g["short"] + (f" ({g['listed']})" if "listed" in g else ""), g["full"], g["why"])
             title = name_of(group, t)
             gv = given(f"{group}_{t['name']}")
             if gv:
