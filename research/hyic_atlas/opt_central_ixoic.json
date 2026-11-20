@@ -13184,6 +13184,42 @@
    "seed_R": 47.773095597819015,
    "opt_off": "optimized_off/ixoic/ixoic_region_131_2880v_21600c_opt.off",
    "opt_R": 47.72264685018872
+  },
+  {
+   "name": "ixoic_region_132",
+   "kind": "region",
+   "degrees": 3,
+   "key": "3bac15a9e22b",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.24589173410523904,
+    0.273353048237593,
+    0.4710976312611036,
+    0.009657586396064219
+   ],
+   "locus_used": null,
+   "start_R": 6.992726771212376,
+   "R": 5.475204024838479,
+   "optimized": [
+    0.24590482195823346,
+    0.2733442600503559,
+    0.4710950831691717,
+    0.00965583482223903
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.24589173410523904,
+    0.273353048237593,
+    0.4710976312611036,
+    0.009657586396064219
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_132_2880v_21600c_seed.off",
+   "seed_R": 6.992726771213993,
+   "opt_off": "optimized_off/ixoic/ixoic_region_132_2880v_21600c_opt.off",
+   "opt_R": 6.99237154985553
   }
  ]
 }
