@@ -10,7 +10,8 @@ tets; trigonal gyroprisms of 480: trigyps, of 960: trigypos; ...). Within one st
 are taken in the page's order (regions, walls, lines, points, by atlas number). As in the kidecaic names
 (decaic_atlas/kidecaic_names.md), a series of shapes with one stem and modifiers is lettered Alpha, Beta, Gamma, ...
 (short names A-, Be-, Ga-, De-, E-, Ze-, He-, The-, I-, ...: Abosid, Bebosid, Adwebosid, Apybosid), and two or three
-shapes of a stem the list gives no size word are Small (Medial) and Great (Sawbosid, Gawbosid); past Omega the
+shapes are Small (Medial) and Great, the listed ones keeping their names (Greek letters only for more than three,
+the listed names then lettered with the rest); past Omega the
 letters start again, numbered (Alpha-2, ...). A letter whose short name the list already has (Gamma Gyroprismatic would
 be Great's Gagypsobted) is skipped. Square pyramids give Pyramidal and triangular bipyramids Bipyramidal (py
 and by, as Apybosid and Abybosid). The ixitic atlas's unnamed shapes are named the same way from the ixitic list
@@ -144,6 +145,25 @@ def series(n, same):
     return out
 
 
+def small_words(ids, listed, also=()):
+    """A series of three or fewer: Small / (Medial /) Great in the atlas's order (one alone: no word). Listed shapes
+    keep their names (listed: id -> its size word, '' if none); the new ones take the words left. -> id -> (word,
+    prefix) for the new ones."""
+    n = len(ids)
+    pos = [""] if n == 1 else [SIZES[0], SIZES[2]] if n == 2 else list(SIZES)
+    used = {w for w in listed.values() if w} | {w for w in also if w}     # (also: words the list uses with this stem)
+    out = {}
+    for i, x in enumerate(ids):
+        if x in listed:
+            continue
+        w = pos[i]
+        if w in used or (not w and listed):
+            w = next((v for v in pos + list(SIZES) if v and v not in used), "")
+        used.add(w)
+        out[x] = (w, SIZE_P.get(w, ""))
+    return out
+
+
 def abbr(word, prefix, mod, base, extra=""):
     """Short name: the series prefix, Pyramidal / Bipyramidal (py, by), the modifier and the stem, in the list's
     spellings (Sidwesbited, Sagpodwsbited, Sagypsobted, Awosbited; Adwebosid, Apybosid, Sawbosid)."""
@@ -175,7 +195,11 @@ def page_order(name):
 
 def norm(full):
     """A list full name without its size word and vertex count, lower case: the series it belongs to."""
-    return re.sub(r"^(small|medial|great) ", "", re.sub(r" \d+$", "", full.strip().lower()))
+    f = full.strip().lower()
+    for bad, good in (("tetrahaedral", "tetrahedral"), ("bitetahedral", "bitetrahedral"), ("antiprissmatic", "antiprismatic"),
+                      ("bitruncatotetrahedaral", "bitruncatotetrahedral"), ("transtioatransitional", "transitional")):
+        f = f.replace(bad, good)                # (the list's spelling slips)
+    return re.sub(r"^(small|medial|great) ", "", re.sub(r" \d+$", "", f))
 
 
 def listed():
@@ -229,19 +253,34 @@ def main():
         stem_full = " ".join(x for x in (EXTRA[ex][0] if ex else "", mod, STEM[base][0]) if x)
         G.sort(key=lambda x: (ORD.get(x[0], (9, 0)), x[0]))
         nl = sum(x[0] in listed_in for x in G)
-        cand = iter(series(1, []) if len(G) == 1 else series(len(G) + 48, [True]))
+        greek = len(G) > 3                      # (Greek letters only past three; else Small / Medial / Great)
+        cand = iter(series(len(G) + 48, [True]))
+        sw = {} if greek else small_words([x[0] for x in G], {x[0]: (lambda f: f.split()[0] if f.split()[0] in SIZES
+                                                                     else "")(listed_in[x[0]]["full"] or
+                                                                              full_of.get(listed_in[x[0]]["name"], ""))
+                                                              for x in G if x[0] in listed_in},
+                                                             [f.split()[0] for _, f in L if norm(f) == stem_full.lower()])
         for k, d, W in G:
-            for word, prefix in cand:           # (a letter whose short name the list already has is skipped:
-                short = abbr(word, prefix, mod, base, ex)   #  Gamma Gyroprismatic would be Great's Gagypsobted)
-                if short.lower() not in taken_short:
-                    break
+            if not greek and k in listed_in:
+                continue                        # (a listed shape in a short series keeps its name)
+            if not greek:
+                word, prefix = sw[k]
+                short = abbr(word, prefix, mod, base, ex)
+                if short.lower() in taken_short:
+                    short += "'"
+            else:
+                for word, prefix in cand:       # (a letter whose short name the list already has is skipped:
+                    short = abbr(word, prefix, mod, base, ex)   #  Gamma Gyroprismatic would be Great's Gagypsobted)
+                    if short.lower() not in taken_short:
+                        break
             full = " ".join(x for x in (word, stem_full) if x) + " 240"
             taken_short.add(short.lower())
             cells = ", ".join(f"{w} x{n}" if n > 1 else w for w, n in sorted(W.items()) if n)
             series_txt = (f"{len(G)} shapes read this way" + (f" ({nl} of them on the list)" if nl else "") +
-                          ", lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's "
-                          "own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their "
-                          "series grew")
+                          (", lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's "
+                           "own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their "
+                           "series grew" if greek else ", Small, Medial and Great in the atlas's order (Greek letters "
+                           "only for more than three), the list's own names kept"))
             if k in listed_in:
                 x = listed_in[k]
                 why = (f"Listed as {x['name']} ({x['full'] or full_of.get(x['name'], '')}); {series_txt}.")
@@ -398,15 +437,22 @@ def ixitic_main():
         stem_full = " ".join(x for x in (EXTRA[ex][0] if ex else "", mod, IXSTEM[base][0]) if x)
         G.sort(key=lambda x: ORD.get(x[0], (9, 0)))
         nl = sum(x[0] in inlist for x in G)
-        cand = iter(series(1, []) if len(G) == 1 else series(len(G) + 48, [True]))
+        greek = len(G) > 3                      # (Greek letters only past three; else Small / Medial / Great)
+        cand = iter(series(len(G) + 48, [True]))
+        sw = {} if greek else small_words([x[0] for x in G], {x[0]: (LF[inlist[x[0]]].split()[0] if
+                                                                     LF[inlist[x[0]]].split()[0] in SIZES else "")
+                                                              for x in G if x[0] in inlist},
+                                                             [f.split()[0] for _, f in L if norm(f) == stem_full.lower()])
         for name, d, W in G:
-            for word, prefix in cand:           # (a letter whose short name the list already has is skipped)
+            if not greek and name in inlist:
+                continue                        # (a listed shape in a short series keeps its name)
+            for word, prefix in (cand if greek else [sw[name]]):   # (a letter the list already has is skipped)
                 m = "w" if prefix and mod == "Antiwedged" else IXMOD[mod]
                 m = (EXTRA[ex][1] if ex else "") + m
                 if word in SIZES:
                     prefix += "a" if m else "i"     # (Sisbethi, Gisbethi)
                 short = (prefix + m + IXSTEM[base][1]).capitalize()
-                if short.lower() not in taken:
+                if short.lower() not in taken or not greek:
                     break
             taken.add(short.lower())
             full = " ".join(x for x in (word, stem_full) if x) + " 120"
@@ -415,8 +461,10 @@ def ixitic_main():
                    f"{' and '.join(base)}" + (f", {mod.lower()} for its cells as in the list" if mod else "")
                    + (f", {EXTRA[ex][0].lower()} for its {ex}" if ex else "")
                    + (f"; {len(G)} shapes read this way" + (f" ({nl} of them on the list)" if nl else "") +
-                      ", lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the kidecaic "
-                      "Sabosid and Mebosid became Abosid and Bebosid when their series grew" if len(G) > 1 else "")
+                      (", lettered Alpha, Beta, ... in the atlas's order, the list's own names included, as the "
+                       "kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew" if greek else
+                       ", Small, Medial and Great in the atlas's order (Greek letters only for more than three), the "
+                       "list's own names kept") if len(G) > 1 else "")
                    + f". Cells: {cells}.")
             if name in inlist:
                 ln = inlist[name]

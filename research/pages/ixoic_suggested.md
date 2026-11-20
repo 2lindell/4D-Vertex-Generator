@@ -9,7 +9,8 @@ tets; trigonal gyroprisms of 480: trigyps, of 960: trigypos; ...). Within one st
 are taken in the page's order (regions, walls, lines, points, by atlas number). As in the kidecaic names
 (decaic_atlas/kidecaic_names.md), a series of shapes with one stem and modifiers is lettered Alpha, Beta, Gamma, ...
 (short names A-, Be-, Ga-, De-, E-, Ze-, He-, The-, I-, ...: Abosid, Bebosid, Adwebosid, Apybosid), and two or three
-shapes of a stem the list gives no size word are Small (Medial) and Great (Sawbosid, Gawbosid); past Omega the
+shapes are Small (Medial) and Great, the listed ones keeping their names (Greek letters only for more than three,
+the listed names then lettered with the rest); past Omega the
 letters start again, numbered (Alpha-2, ...). A letter whose short name the list already has (Gamma Gyroprismatic would
 be Great's Gagypsobted) is skipped. Square pyramids give Pyramidal and triangular bipyramids Bipyramidal (py
 and by, as Apybosid and Abybosid). The ixitic atlas's unnamed shapes are named the same way from the ixitic list
@@ -23,8 +24,7 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Bedwebertatid | Beta Disphenoidal Birhombitetratetrahedral 240 | ixoic_wall_26 | abee14417700 | wall | 2880 | gyrowedges, irr. tets, phydows x2, ratets, rhodows, trigyps x2 |
 | Gadwebertatid | Gamma Disphenoidal Birhombitetratetrahedral 240 | ixoic_wall_54 | 32604d11723e | wall | 2880 | gyrowedges, irr. tets x2, phydows x2, ratets, rhodows, trigyps x2 |
 | Dedwebertatid | Delta Disphenoidal Birhombitetratetrahedral 240 | ixoic_wall_90 | dfbd2daed1b9 | wall | 2880 | gyrowedges, irr. tets x3, phydows x3, ratets, rhodows, trigyps x2 |
-| Abituted | Alpha Bitruncatotetrahedral 240 | ixoic_wall_01 | 9be131c0d31c | wall | 2880 | 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), ditraps, phydows, tuts |
-| Bebituted (Bitutid) | Beta Bitruncatotetrahedral 240 | bitutid | 2f41ae404d62 | line | 1440 | ditraps, trigyps, tuts |
+| Sabituted | Small Bitruncatotetrahedral 240 | ixoic_wall_01 | 9be131c0d31c | wall | 2880 | 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), ditraps, phydows, tuts |
 | Awbituted | Alpha Antiwedged Bitruncatotetrahedral 240 | ixoic_wall_34 | 35ca3a7689f0 | wall | 2880 | ditraps, hexflanges, irr. tets x2, phydows, rhodows, trigyps, tuts |
 | Bewbituted | Beta Antiwedged Bitruncatotetrahedral 240 | ixoic_wall_44 | 501f3549d03f | wall | 2880 | gytricus, hexflanges, irr. tets x2, phydows, rhodows, trigyps x2, tuts |
 | Gawbituted | Gamma Antiwedged Bitruncatotetrahedral 240 | ixoic_wall_45 | 1f89551dc87e | wall | 2880 | gytricus, hexflanges, irr. tets x2, phydows, rhodows, trigyps x2, tuts |
@@ -41,15 +41,14 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Gagypbituted | Gamma Gyroprismatic Bitruncatotetrahedral 240 | ixoic_line_33 | 8a1adc7c92fe | line | 2880 | irr. tets, phydows x3, ratets, rhodows, trigyps, tuts |
 | Degypbituted | Delta Gyroprismatic Bitruncatotetrahedral 240 | ixoic_line_34 | dbd7b6a93732 | line | 2880 | irr. tets, phydows x3, ratets, rhodows, trigyps, tuts |
 | Egypbituted | Epsilon Gyroprismatic Bitruncatotetrahedral 240 | ixoic_line_50 | 8de8a95bda6b | line | 2880 | irr. tets, phydows x4, ratets, rhodows, trigyps, tuts |
-| Aregpobituted | Alpha Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_02 | d36befd40531 | wall | 2880 | ditraps, rectaps, trigypos, trips, tuts |
-| Beregpobituted | Beta Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_05 | 3973fccabec0 | wall | 2880 | gytricus, phydows, rectaps, trigyps, trips, tuts |
+| Saregpobituted | Small Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_02 | d36befd40531 | wall | 2880 | ditraps, rectaps, trigypos, trips, tuts |
+| Garegpobituted | Great Rectangular Gyroprismatic Bitruncatotetrahedral 240 | ixoic_wall_05 | 3973fccabec0 | wall | 2880 | gytricus, phydows, rectaps, trigyps, trips, tuts |
 | Atotbituted | Alpha Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_13 | b1467af548d6 | wall | 2880 | ditraps, irr. tets, phydows, rhodows, trigypos, trigyps, tuts |
 | Betotbituted | Beta Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_29 | 36e258d4f7df | wall | 2880 | ditraps, irr. tets x2, phydows, rhodows, trigypos, trigyps, tuts |
 | Gatotbituted | Gamma Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_32 | 9e263c5ae9be | wall | 2880 | ditraps, irr. tets x2, phydows, rhodows, trigypos, trigyps, tuts |
 | Detotbituted | Delta Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_72 | cbf10a6e3168 | wall | 2880 | ditraps, irr. tets x3, phydows x3, rhodows, trigyps, tuts |
 | Etotbituted | Epsilon Triangular Transitional Bitruncatotetrahedral 240 | ixoic_wall_83 | a886da922d24 | wall | 2880 | ditraps, irr. tets x3, phydows x4, rhodows, trigyps, tuts |
-| Asobted | Alpha Snub Bitetrahedral 240 | ixoic_line_16 | d085e461f806 | line | 2880 | 16-faced cells (12 vertices: 12 3-gons + 4 4-gons), phydows x2, snits, trips x2 |
-| Besobted (Sobted) | Beta Snub Bitetrahedral 240 | sobted | 8f82404e9b10 | point | 720 | phydows, snits |
+| Sasobted | Small Snub Bitetrahedral 240 | ixoic_line_16 | d085e461f806 | line | 2880 | 16-faced cells (12 vertices: 12 3-gons + 4 4-gons), phydows x2, snits, trips x2 |
 | Awsbited | Alpha Antiwedged Snub Bitetrahedral 240 | ixoic_wall_65 | cb07e807b976 | wall | 2880 | hexflanges, irr. tets x3, phydows, rhodows, snits, trigyps x2 |
 | Bewsbited | Beta Antiwedged Snub Bitetrahedral 240 | ixoic_wall_68 | 64cb84bb3b64 | wall | 2880 | hexflanges, irr. tets x3, phydows, rhodows, snits, trigyps x2 |
 | Gawsbited | Gamma Antiwedged Snub Bitetrahedral 240 | ixoic_wall_69 | 7ed1ced25c1c | wall | 2880 | hexflanges, irr. tets x3, phydows, rhodows, snits, trigyps x2 |
@@ -148,8 +147,8 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Kabgypsobted (Sabgypsobted) | Kappa Bigyroprismatic Snub Bitetrahedral 240 | masbittid | 9fc73ba17c51 | line | 1440 | irr. tets, phydows, snits, trigyps x2 |
 | Labgypsobted (Gabgypsobted) | Lambda Bigyroprismatic Snub Bitetrahedral 240 | gasbittid | baf95c7dc2b1 | line | 1440 | irr. tets, phydows, snits, trigyps x2 |
 | Mubgypsobted | Mu Bigyroprismatic Snub Bitetrahedral 240 | ixoic_line_17 | 0b4695a7f908 | line | 2880 | 11-faced cells (8 vertices: 10 3-gons + 1 4-gons), phydows x2, snits, trigyps x2 |
-| Acutsobted | Alpha Cupotransitional Snub Bitetrahedral 240 | ixoic_line_27 | 864fc8bacd90 | line | 2880 | hexflanges, irr. tets, phydows, snits, trigyps x2, wedges |
-| Becutsobted | Beta Cupotransitional Snub Bitetrahedral 240 | ixoic_line_31 | e1533a634b52 | line | 2880 | hexflanges, irr. tets, phydows, rhodows, snits, trigyps, trips, wedges |
+| Sacutsobted | Small Cupotransitional Snub Bitetrahedral 240 | ixoic_line_27 | 864fc8bacd90 | line | 2880 | hexflanges, irr. tets, phydows, snits, trigyps x2, wedges |
+| Gacutsobted | Great Cupotransitional Snub Bitetrahedral 240 | ixoic_line_31 | e1533a634b52 | line | 2880 | hexflanges, irr. tets, phydows, rhodows, snits, trigyps, trips, wedges |
 | Adwesbited | Alpha Disphenoidal Snub Bitetrahedral 240 | ixoic_region_04 | 0474ac3cb2d3 | region | 2880 | irr. tets x2, phydows x3, rhodows, snits, trigyps x2 |
 | Bedwesbited | Beta Disphenoidal Snub Bitetrahedral 240 | ixoic_region_05 | d96985aac7ba | region | 2880 | irr. tets x2, phydows x3, rhodows, snits, trigyps x2 |
 | Gadwesbited (Sidwesbited) | Gamma Disphenoidal Snub Bitetrahedral 240 | sidwesbited | b240fd91d8cf | region | 2880 | irr. tets x2, phydows x3, rhodows, snits, trigyps x2 |
@@ -394,9 +393,9 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Chigypsobted (Magypsobted) | Chi Gyroprismatic Snub Bitetrahedral 240 | magypsobted | 85a06f9fec4f | line | 1440 | irr. tets, phydows, rhodows, snits, trigyps |
 | Psigypsobted (Gagypsobted) | Psi Gyroprismatic Snub Bitetrahedral 240 | gagypsobted | 7880b9e5cd1a | line | 1440 | irr. tets, phydows, rhodows, snits, trigyps |
 | Omegypsobted | Omega Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_90 | 612fa060af7c | line | 1440 | irr. tets, phydows, rhodows, snits, trigyps |
-| Apygypsobted | Alpha Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_wall_111 | 36f967a28176 | wall | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
-| Bepygypsobted | Beta Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_40 | 36d1290c653e | line | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
-| Gapygypsobted | Gamma Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_81 | c280cc7d3115 | line | 2880 | ditraps, irr. tets, phydows x3, rhodows, snits, square pyramids, trigyps |
+| Sapygypsobted | Small Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_wall_111 | 36f967a28176 | wall | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
+| Mapygypsobted | Medial Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_40 | 36d1290c653e | line | 2880 | ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps |
+| Gapygypsobted | Great Pyramidal Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_81 | c280cc7d3115 | line | 2880 | ditraps, irr. tets, phydows x3, rhodows, snits, square pyramids, trigyps |
 | Agywesbited | Alpha Gyrowedged Snub Bitetrahedral 240 | ixoic_wall_09 | b5c23e297a26 | wall | 2880 | gyrowedges x2, phydows, rhodows, snits, trips x2 |
 | Begywesbited | Beta Gyrowedged Snub Bitetrahedral 240 | ixoic_wall_17 | fd9acfb0c247 | wall | 2880 | gyrowedges, irr. tets, phydows, snits, trigypos, trigyps x2 |
 | Gagywesbited | Gamma Gyrowedged Snub Bitetrahedral 240 | ixoic_wall_18 | d609f7b3e47d | wall | 2880 | gyrowedges, irr. tets, phydows x2, snits, trigyps x2 |
@@ -438,8 +437,7 @@ Shapes whose 240 cell no list entry has are left unnamed.
 | Iregposbited | Iota Rectangular Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_36 | a94a277b2057 | line | 2880 | irr. tets, phydows x3, rectaps, snits, trigyps, trips |
 | Karegposbited | Kappa Rectangular Gyroprismatic Snub Bitetrahedral 240 | ixoic_line_54 | 0b7ebced8279 | line | 2880 | irr. tets, phydows x4, rectaps, snits, trigyps, trips |
 | Laregposbited (Regposbitad) | Lambda Rectangular Gyroprismatic Snub Bitetrahedral 240 | regposbitad | 1e8454f185ca | point | 1440 | rectaps, snits, trips |
-| Atetbituted (Stetbituted) | Alpha Tetrahedral Transitional Bitruncatotetrahedral 240 | stetbituted | 61a14f3dab2f | wall | 2880 | irr. tets, phydows x2, rhodows, stet cells, trigyps |
-| Betetbituted | Beta Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_line_09 | 5f6dfc321d22 | line | 2880 | 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), phydows, stet cells |
+| Matetbituted | Medial Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_line_09 | 5f6dfc321d22 | line | 2880 | 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), phydows, stet cells |
 | Awotetbituted | Antiwedged Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_line_39 | ca02b44d328d | line | 2880 | hexflanges, irr. tets x2, phydows, rhodows, stet cells, trigyps |
 | Agyptetbituted | Alpha Gyroprismatic Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_wall_38 | 8cd3bc68ed80 | wall | 2880 | ditraps, irr. tets x2, phydows x2, rhodows, stet cells, trigyps |
 | Begyptetbituted | Beta Gyroprismatic Tetrahedral Transitional Bitruncatotetrahedral 240 | ixoic_wall_105 | aeb4251bed5c | wall | 2880 | irr. tets, phydows x2, rhodows, stet cells, trigyps |

@@ -42,22 +42,12 @@
    "atlas_name": "ixoic_wall_90"
   },
   "9be131c0d31c": {
-   "short": "Abituted",
-   "full": "Alpha Bitruncatotetrahedral 240",
-   "why": "Suggested from the list's own names: bitruncatotetrahedral for its 240 tuts; 2 shapes read this way (1 of them on the list), lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), ditraps, phydows, tuts.",
+   "short": "Sabituted",
+   "full": "Small Bitruncatotetrahedral 240",
+   "why": "Suggested from the list's own names: bitruncatotetrahedral for its 240 tuts; 2 shapes read this way (1 of them on the list), Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), ditraps, phydows, tuts.",
    "vertices": 2880,
    "kind": "wall",
    "atlas_name": "ixoic_wall_01"
-  },
-  "2f41ae404d62": {
-   "short": "Bebituted",
-   "full": "Beta Bitruncatotetrahedral 240",
-   "why": "Listed as Bitutid (Bitruncatotetrahedral 240); 2 shapes read this way (1 of them on the list), lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
-   "vertices": 1440,
-   "kind": "line",
-   "atlas_name": "bitutid",
-   "listed": "Bitutid",
-   "listed_full": "Bitruncatotetrahedral 240"
   },
   "35ca3a7689f0": {
    "short": "Awbituted",
@@ -188,17 +178,17 @@
    "atlas_name": "ixoic_line_50"
   },
   "d36befd40531": {
-   "short": "Aregpobituted",
-   "full": "Alpha Rectangular Gyroprismatic Bitruncatotetrahedral 240",
-   "why": "Suggested from the list's own names: bitruncatotetrahedral for its 240 tuts, rectangular gyroprismatic as in Regposbitad (480 trips, 720 rectaps); 2 shapes read this way, lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: ditraps, rectaps, trigypos, trips, tuts.",
+   "short": "Saregpobituted",
+   "full": "Small Rectangular Gyroprismatic Bitruncatotetrahedral 240",
+   "why": "Suggested from the list's own names: bitruncatotetrahedral for its 240 tuts, rectangular gyroprismatic as in Regposbitad (480 trips, 720 rectaps); 2 shapes read this way, Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: ditraps, rectaps, trigypos, trips, tuts.",
    "vertices": 2880,
    "kind": "wall",
    "atlas_name": "ixoic_wall_02"
   },
   "3973fccabec0": {
-   "short": "Beregpobituted",
-   "full": "Beta Rectangular Gyroprismatic Bitruncatotetrahedral 240",
-   "why": "Suggested from the list's own names: bitruncatotetrahedral for its 240 tuts, rectangular gyroprismatic as in Regposbitad (480 trips, 720 rectaps); 2 shapes read this way, lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: gytricus, phydows, rectaps, trigyps, trips, tuts.",
+   "short": "Garegpobituted",
+   "full": "Great Rectangular Gyroprismatic Bitruncatotetrahedral 240",
+   "why": "Suggested from the list's own names: bitruncatotetrahedral for its 240 tuts, rectangular gyroprismatic as in Regposbitad (480 trips, 720 rectaps); 2 shapes read this way, Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: gytricus, phydows, rectaps, trigyps, trips, tuts.",
    "vertices": 2880,
    "kind": "wall",
    "atlas_name": "ixoic_wall_05"
@@ -244,22 +234,12 @@
    "atlas_name": "ixoic_wall_83"
   },
   "d085e461f806": {
-   "short": "Asobted",
-   "full": "Alpha Snub Bitetrahedral 240",
-   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits; 2 shapes read this way (1 of them on the list), lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: 16-faced cells (12 vertices: 12 3-gons + 4 4-gons), phydows x2, snits, trips x2.",
+   "short": "Sasobted",
+   "full": "Small Snub Bitetrahedral 240",
+   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits; 2 shapes read this way (1 of them on the list), Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: 16-faced cells (12 vertices: 12 3-gons + 4 4-gons), phydows x2, snits, trips x2.",
    "vertices": 2880,
    "kind": "line",
    "atlas_name": "ixoic_line_16"
-  },
-  "8f82404e9b10": {
-   "short": "Besobted",
-   "full": "Beta Snub Bitetrahedral 240",
-   "why": "Listed as Sobted (Snub Bitetrahedral 240); 2 shapes read this way (1 of them on the list), lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
-   "vertices": 720,
-   "kind": "point",
-   "atlas_name": "sobted",
-   "listed": "Sobted",
-   "listed_full": "Snub Bitetrahedral 240"
   },
   "cb07e807b976": {
    "short": "Awsbited",
@@ -1052,17 +1032,17 @@
    "atlas_name": "ixoic_line_17"
   },
   "864fc8bacd90": {
-   "short": "Acutsobted",
-   "full": "Alpha Cupotransitional Snub Bitetrahedral 240",
-   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, cupotransitional as in Cutsobted (augytricus, wedges); 2 shapes read this way, lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: hexflanges, irr. tets, phydows, snits, trigyps x2, wedges.",
+   "short": "Sacutsobted",
+   "full": "Small Cupotransitional Snub Bitetrahedral 240",
+   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, cupotransitional as in Cutsobted (augytricus, wedges); 2 shapes read this way, Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: hexflanges, irr. tets, phydows, snits, trigyps x2, wedges.",
    "vertices": 2880,
    "kind": "line",
    "atlas_name": "ixoic_line_27"
   },
   "e1533a634b52": {
-   "short": "Becutsobted",
-   "full": "Beta Cupotransitional Snub Bitetrahedral 240",
-   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, cupotransitional as in Cutsobted (augytricus, wedges); 2 shapes read this way, lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: hexflanges, irr. tets, phydows, rhodows, snits, trigyps, trips, wedges.",
+   "short": "Gacutsobted",
+   "full": "Great Cupotransitional Snub Bitetrahedral 240",
+   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, cupotransitional as in Cutsobted (augytricus, wedges); 2 shapes read this way, Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: hexflanges, irr. tets, phydows, rhodows, snits, trigyps, trips, wedges.",
    "vertices": 2880,
    "kind": "line",
    "atlas_name": "ixoic_line_31"
@@ -3030,25 +3010,25 @@
    "atlas_name": "ixoic_line_90"
   },
   "36f967a28176": {
-   "short": "Apygypsobted",
-   "full": "Alpha Pyramidal Gyroprismatic Snub Bitetrahedral 240",
-   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, gyroprismatic as in Sagypsobted, Gagypsobted, Magypsobted, Gagypbittid (one orbit of trigyps), pyramidal for its square pyramids (py, by: as the kidecaic Apybosid and Abybosid); 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps.",
+   "short": "Sapygypsobted",
+   "full": "Small Pyramidal Gyroprismatic Snub Bitetrahedral 240",
+   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, gyroprismatic as in Sagypsobted, Gagypsobted, Magypsobted, Gagypbittid (one orbit of trigyps), pyramidal for its square pyramids (py, by: as the kidecaic Apybosid and Abybosid); 3 shapes read this way, Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps.",
    "vertices": 2880,
    "kind": "wall",
    "atlas_name": "ixoic_wall_111"
   },
   "36d1290c653e": {
-   "short": "Bepygypsobted",
-   "full": "Beta Pyramidal Gyroprismatic Snub Bitetrahedral 240",
-   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, gyroprismatic as in Sagypsobted, Gagypsobted, Magypsobted, Gagypbittid (one orbit of trigyps), pyramidal for its square pyramids (py, by: as the kidecaic Apybosid and Abybosid); 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps.",
+   "short": "Mapygypsobted",
+   "full": "Medial Pyramidal Gyroprismatic Snub Bitetrahedral 240",
+   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, gyroprismatic as in Sagypsobted, Gagypsobted, Magypsobted, Gagypbittid (one orbit of trigyps), pyramidal for its square pyramids (py, by: as the kidecaic Apybosid and Abybosid); 3 shapes read this way, Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: ditraps, irr. tets, phydows x2, rhodows, snits, square pyramids, trigyps.",
    "vertices": 2880,
    "kind": "line",
    "atlas_name": "ixoic_line_40"
   },
   "c280cc7d3115": {
    "short": "Gapygypsobted",
-   "full": "Gamma Pyramidal Gyroprismatic Snub Bitetrahedral 240",
-   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, gyroprismatic as in Sagypsobted, Gagypsobted, Magypsobted, Gagypbittid (one orbit of trigyps), pyramidal for its square pyramids (py, by: as the kidecaic Apybosid and Abybosid); 3 shapes read this way, lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: ditraps, irr. tets, phydows x3, rhodows, snits, square pyramids, trigyps.",
+   "full": "Great Pyramidal Gyroprismatic Snub Bitetrahedral 240",
+   "why": "Suggested from the list's own names: snub bitetrahedral for its 240 snits, gyroprismatic as in Sagypsobted, Gagypsobted, Magypsobted, Gagypbittid (one orbit of trigyps), pyramidal for its square pyramids (py, by: as the kidecaic Apybosid and Abybosid); 3 shapes read this way, Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: ditraps, irr. tets, phydows x3, rhodows, snits, square pyramids, trigyps.",
    "vertices": 2880,
    "kind": "line",
    "atlas_name": "ixoic_line_81"
@@ -3383,20 +3363,10 @@
    "listed": "Regposbitad",
    "listed_full": "Rectangular Gyroprismatic Snub Bitetrahedral 240"
   },
-  "61a14f3dab2f": {
-   "short": "Atetbituted",
-   "full": "Alpha Tetrahedral Transitional Bitruncatotetrahedral 240",
-   "why": "Listed as Stetbituted (Small Tetrahedral Transitional Bitruncatotetrahedral 240); 2 shapes read this way (1 of them on the list), lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew.",
-   "vertices": 2880,
-   "kind": "wall",
-   "atlas_name": "stetbituted",
-   "listed": "Stetbituted",
-   "listed_full": "Small Tetrahedral Transitional Bitruncatotetrahedral 240"
-  },
   "5f6dfc321d22": {
-   "short": "Betetbituted",
-   "full": "Beta Tetrahedral Transitional Bitruncatotetrahedral 240",
-   "why": "Suggested from the list's own names: tetrahedral transitional bitruncatotetrahedral for its 240 cells of the kind Stetbituted has; 2 shapes read this way (1 of them on the list), lettered Alpha, Beta, ... in the atlas's order (regions, walls, lines, points), the list's own names included, as the kidecaic Sabosid and Mebosid became Abosid and Bebosid when their series grew. Cells: 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), phydows, stet cells.",
+   "short": "Matetbituted",
+   "full": "Medial Tetrahedral Transitional Bitruncatotetrahedral 240",
+   "why": "Suggested from the list's own names: tetrahedral transitional bitruncatotetrahedral for its 240 cells of the kind Stetbituted has; 3 shapes read this way (2 of them on the list), Small, Medial and Great in the atlas's order (Greek letters only for more than three), the list's own names kept. Cells: 17-faced cells (12 vertices: 14 3-gons + 3 4-gons), phydows, stet cells.",
    "vertices": 2880,
    "kind": "line",
    "atlas_name": "ixoic_line_09"
