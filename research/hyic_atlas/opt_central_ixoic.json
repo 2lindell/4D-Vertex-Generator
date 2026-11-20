@@ -16276,6 +16276,167 @@
    "opt_hull_tol": 1e-08,
    "opt_off": "optimized_off/ixoic/ixoic_region_144_2880v_21600c_opt.off",
    "opt_R": 13.179685231566586
+  },
+  {
+   "name": "ixoic_wall_131",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "070022c3e4cd",
+   "locus": [
+    "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2",
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 8*sqrt(5)*b1*b2**2*b3 - 16*b1*b2**2*b3 + 4*sqrt(10)*b1*b2**2*b3 + 14*sqrt(2)*b1*b2**2*b3 - 62*b1*b2**2*b4 - 18*sqrt(5)*b1*b2**2*b4 + 14*sqrt(10)*b1*b2**2*b4 + 42*sqrt(2)*b1*b2**2*b4 - 50*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 + 20*sqrt(2)*b1*b2*b3*b4 - 20*b1*b2*b4**2 - 4*sqrt(5)*b1*b2*b4**2 + 9*sqrt(2)*b1*b2*b4**2 + 5*sqrt(10)*b1*b2*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 17*b2**3*b3 - 7*sqrt(5)*b2**3*b3 + 11*sqrt(2)*b2**3*b3 + 5*sqrt(10)*b2**3*b3 - 16*sqrt(5)*b2**3*b4 - 22*b2**3*b4 + 17*sqrt(2)*b2**3*b4 + 11*sqrt(10)*b2**3*b4 - 6*b2**2*b3**2 - 2*sqrt(5)*b2**2*b3**2 + sqrt(10)*b2**2*b3**2 + 5*sqrt(2)*b2**2*b3**2 - 21*sqrt(5)*b2**2*b3*b4 - 15*b2**2*b3*b4 + 12*sqrt(2)*b2**2*b3*b4 + 14*sqrt(10)*b2**2*b3*b4 - 10*sqrt(5)*b2**2*b4**2 - 8*b2**2*b4**2 + 8*sqrt(2)*b2**2*b4**2 + 6*sqrt(10)*b2**2*b4**2 - 6*sqrt(5)*b2*b3**2*b4 - 5*sqrt(2)*b2*b3**2*b4 - 2*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 7*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 7*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b2*b4**3 + sqrt(2)*b2*b4**3 + sqrt(10)*b2*b4**3 - 4*sqrt(2)*b3**2*b4**2 - 2*sqrt(5)*b3**2*b4**2 + 10*b3**2*b4**2 - 2*sqrt(2)*b3*b4**3 - sqrt(5)*b3*b4**3 + 5*b3*b4**3"
+   ],
+   "sheet": "ixo0",
+   "seed": [
+    0.8146147356014659,
+    0.021735470594609858,
+    0.03506914562728445,
+    0.1285806481766398
+   ],
+   "locus_used": "1 of 2 locus equations (the rest dependent at the seed)",
+   "start_R": 42.47102210508966,
+   "R": 18.594756064907873,
+   "optimized": [
+    0.49242269480396306,
+    0.03742536499168094,
+    0.06050209798132765,
+    0.40964984222302825
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.8146147356014659,
+    0.021735470594609858,
+    0.03506914562728445,
+    0.1285806481766398
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_131_2880v_14880c_seed.off",
+   "seed_R": 42.47102210515082,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_131_2880v_14880c_opt.off",
+   "opt_R": 18.602153887094417
+  },
+  {
+   "name": "ixoic_wall_192",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "145023c8942f",
+   "locus": [
+    "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2",
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 8*sqrt(5)*b1*b2**2*b3 - 16*b1*b2**2*b3 + 4*sqrt(10)*b1*b2**2*b3 + 14*sqrt(2)*b1*b2**2*b3 - 62*b1*b2**2*b4 - 18*sqrt(5)*b1*b2**2*b4 + 14*sqrt(10)*b1*b2**2*b4 + 42*sqrt(2)*b1*b2**2*b4 - 50*b1*b2*b3*b4 - 2*sqrt(5)*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 + 20*sqrt(2)*b1*b2*b3*b4 - 20*b1*b2*b4**2 - 4*sqrt(5)*b1*b2*b4**2 + 9*sqrt(2)*b1*b2*b4**2 + 5*sqrt(10)*b1*b2*b4**2 - 2*sqrt(10)*b1*b3*b4**2 + 2*b1*b3*b4**2 + 2*sqrt(5)*b1*b3*b4**2 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 17*b2**3*b3 - 7*sqrt(5)*b2**3*b3 + 11*sqrt(2)*b2**3*b3 + 5*sqrt(10)*b2**3*b3 - 16*sqrt(5)*b2**3*b4 - 22*b2**3*b4 + 17*sqrt(2)*b2**3*b4 + 11*sqrt(10)*b2**3*b4 - 6*b2**2*b3**2 - 2*sqrt(5)*b2**2*b3**2 + sqrt(10)*b2**2*b3**2 + 5*sqrt(2)*b2**2*b3**2 - 21*sqrt(5)*b2**2*b3*b4 - 15*b2**2*b3*b4 + 12*sqrt(2)*b2**2*b3*b4 + 14*sqrt(10)*b2**2*b3*b4 - 10*sqrt(5)*b2**2*b4**2 - 8*b2**2*b4**2 + 8*sqrt(2)*b2**2*b4**2 + 6*sqrt(10)*b2**2*b4**2 - 6*sqrt(5)*b2*b3**2*b4 - 5*sqrt(2)*b2*b3**2*b4 - 2*b2*b3**2*b4 + 7*sqrt(10)*b2*b3**2*b4 - 7*sqrt(5)*b2*b3*b4**2 - 5*sqrt(2)*b2*b3*b4**2 + 7*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b2*b4**3 + sqrt(2)*b2*b4**3 + sqrt(10)*b2*b4**3 - 4*sqrt(2)*b3**2*b4**2 - 2*sqrt(5)*b3**2*b4**2 + 10*b3**2*b4**2 - 2*sqrt(2)*b3*b4**3 - sqrt(5)*b3*b4**3 + 5*b3*b4**3"
+   ],
+   "sheet": "ixo0",
+   "seed": [
+    0.7504515888264401,
+    0.002500208217140941,
+    0.2281447442373793,
+    0.018903458719039447
+   ],
+   "locus_used": "1 of 2 locus equations (the rest dependent at the seed)",
+   "start_R": 109.75179483130105,
+   "R": 5.269618523002027,
+   "optimized": [
+    0.6935822042598582,
+    0.0072397356943034825,
+    0.23823200832216612,
+    0.06094605172367228
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.7504515888264401,
+    0.002500208217140941,
+    0.2281447442373793,
+    0.018903458719039447
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_192_2880v_17760c_seed.off",
+   "seed_R": 109.7517948317157,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_192_2880v_17760c_opt.off",
+   "opt_R": 32.73519510909523
+  },
+  {
+   "name": "ixoic_wall_205",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "df4ae66c3811",
+   "locus": [
+    "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3",
+    "-8*sqrt(5)*b1**2*b2**2 - 8*b1**2*b2**2 + 8*sqrt(2)*b1**2*b2**2 + 4*sqrt(10)*b1**2*b2**2 - 6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 30*b1*b2**3 - 10*sqrt(5)*b1*b2**3 + 7*sqrt(10)*b1*b2**3 + 19*sqrt(2)*b1*b2**3 - 2*sqrt(10)*b1*b2**2*b3 - 6*b1*b2**2*b3 + 2*sqrt(5)*b1*b2**2*b3 + 6*sqrt(2)*b1*b2**2*b3 - 10*b1*b2**2*b4 - sqrt(10)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 7*sqrt(2)*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 6*sqrt(10)*b1*b2*b3*b4 - 6*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 + 10*sqrt(5)*b1*b2*b3*b4 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 6*sqrt(5)*b2**4 - 12*b2**4 + 8*sqrt(2)*b2**4 + 4*sqrt(10)*b2**4 - 4*sqrt(5)*b2**3*b3 - 8*b2**3*b3 + 5*sqrt(2)*b2**3*b3 + 3*sqrt(10)*b2**3*b3 - 2*sqrt(5)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 2*b2**3*b4 + 2*sqrt(10)*b2**3*b4 - 2*sqrt(10)*b2**2*b3**2 - 2*sqrt(2)*b2**2*b3**2 + 3*b2**2*b3**2 + 3*sqrt(5)*b2**2*b3**2 - 13*sqrt(2)*b2**2*b3*b4 + sqrt(10)*b2**2*b3*b4 + 16*b2**2*b3*b4 - 6*sqrt(2)*b2**2*b4**2 + 2*b2**2*b4**2 + 2*sqrt(10)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 6*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + 6*b2*b3**2*b4 + 2*sqrt(10)*b2*b3**2*b4 - 12*sqrt(2)*b2*b3*b4**2 + 4*b2*b3*b4**2 + 4*sqrt(10)*b2*b3*b4**2 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 2*sqrt(2)*b3**2*b4**2 - sqrt(5)*b3**2*b4**2 - b3**2*b4**2 + 2*sqrt(10)*b3**2*b4**2"
+   ],
+   "sheet": "ixo0",
+   "seed": [
+    0.2587740285693698,
+    0.011873009110917425,
+    0.004325688756611279,
+    0.7250272735631015
+   ],
+   "locus_used": "1 of 2 locus equations (the rest dependent at the seed)",
+   "start_R": 85.3801118640013,
+   "R": 19.7420861844393,
+   "optimized": [
+    0.23980688513721005,
+    0.01718212940843676,
+    0.005381964230859346,
+    0.7376290212234938
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2587740285693698,
+    0.011873009110917425,
+    0.004325688756611279,
+    0.7250272735631015
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_205_2880v_17760c_seed.off",
+   "seed_R": 85.38011186430579,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_205_2880v_17760c_opt.off",
+   "opt_R": 59.877125910401865
+  },
+  {
+   "name": "ixoic_line_31",
+   "kind": "line",
+   "degrees": 1,
+   "key": "e1533a634b52",
+   "locus": [
+    "-4*sqrt(10)*b1**2*b2**2 - 8*sqrt(2)*b1**2*b2**2 + 8*b1**2*b2**2 + 8*sqrt(5)*b1**2*b2**2 - 32*b1**2*b2*b3 + 4*sqrt(10)*b1**2*b2*b3 + 12*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3**2 + 6*sqrt(10)*b1**2*b3**2 + 14*sqrt(2)*b1**2*b3**2 - 19*sqrt(2)*b1*b2**3 - 7*sqrt(10)*b1*b2**3 + 10*sqrt(5)*b1*b2**3 + 30*b1*b2**3 - 12*sqrt(5)*b1*b2**2*b3 - 4*b1*b2**2*b3 + 2*sqrt(2)*b1*b2**2*b3 + 8*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 6*b1*b2**2*b4 - 64*b1*b2*b3**2 - 28*sqrt(5)*b1*b2*b3**2 + 33*sqrt(2)*b1*b2*b3**2 + 23*sqrt(10)*b1*b2*b3**2 - 8*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(5)*b1*b2*b3*b4 - 4*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 - 28*b1*b3**3 - 12*sqrt(5)*b1*b3**3 + 17*sqrt(2)*b1*b3**3 + 9*sqrt(10)*b1*b3**3 - 4*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 4*sqrt(10)*b1*b3**2*b4 - 4*sqrt(10)*b2**4 - 8*sqrt(2)*b2**4 + 12*b2**4 + 6*sqrt(5)*b2**4 - sqrt(10)*b2**3*b3 - b2**3*b3 + sqrt(2)*b2**3*b3 + sqrt(5)*b2**3*b3 - 2*sqrt(10)*b2**3*b4 - 2*sqrt(2)*b2**3*b4 + 4*b2**3*b4 + 2*sqrt(5)*b2**3*b4 - 17*sqrt(5)*b2**2*b3**2 - 33*b2**2*b3**2 + 23*sqrt(2)*b2**2*b3**2 + 11*sqrt(10)*b2**2*b3**2 - 3*b2**2*b3*b4 - sqrt(5)*b2**2*b3*b4 + 4*sqrt(2)*b2**2*b3*b4 - 16*sqrt(5)*b2*b3**3 - 30*b2*b3**3 + 18*sqrt(2)*b2*b3**3 + 12*sqrt(10)*b2*b3**3 - 5*sqrt(5)*b2*b3**2*b4 - 9*b2*b3**2*b4 + 2*sqrt(2)*b2*b3**2*b4 + 6*sqrt(10)*b2*b3**2*b4 - 4*sqrt(5)*b3**4 - 8*b3**4 + 5*sqrt(2)*b3**4 + 3*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 - 4*b3**3*b4 + 2*sqrt(2)*b3**3*b4 + 2*sqrt(10)*b3**3*b4",
+    "-4*sqrt(10)*b1**2*b2**2 - 8*sqrt(2)*b1**2*b2**2 + 8*b1**2*b2**2 + 8*sqrt(5)*b1**2*b2**2 - 32*b1**2*b2*b3 + 4*sqrt(10)*b1**2*b2*b3 + 12*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3**2 + 6*sqrt(10)*b1**2*b3**2 + 14*sqrt(2)*b1**2*b3**2 - 22*sqrt(2)*b1*b2**3 - 8*sqrt(10)*b1*b2**3 + 10*sqrt(5)*b1*b2**3 + 38*b1*b2**3 - 24*sqrt(5)*b1*b2**2*b3 + 5*sqrt(2)*b1*b2**2*b3 + 8*b1*b2**2*b3 + 11*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b4 + 2*sqrt(5)*b1*b2**2*b4 + 6*b1*b2**2*b4 - 40*sqrt(5)*b1*b2*b3**2 - 44*b1*b2*b3**2 + 33*sqrt(2)*b1*b2*b3**2 + 25*sqrt(10)*b1*b2*b3**2 - 8*sqrt(2)*b1*b2*b3*b4 - 4*sqrt(5)*b1*b2*b3*b4 - 4*b1*b2*b3*b4 + 8*sqrt(10)*b1*b2*b3*b4 - 12*sqrt(5)*b1*b3**3 - 20*b1*b3**3 + 14*sqrt(2)*b1*b3**3 + 8*sqrt(10)*b1*b3**3 - 4*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 4*sqrt(2)*b1*b3**2*b4 + 4*sqrt(10)*b1*b3**2*b4 - 6*sqrt(10)*b2**4 - 10*sqrt(2)*b2**4 + 15*b2**4 + 9*sqrt(5)*b2**4 - 17*b2**3*b3 - 3*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 13*sqrt(2)*b2**3*b3 - 4*sqrt(10)*b2**3*b4 + 5*b2**3*b4 + 3*sqrt(5)*b2**3*b4 - 60*b2**2*b3**2 - 14*sqrt(5)*b2**2*b3**2 + 6*sqrt(10)*b2**2*b3**2 + 48*sqrt(2)*b2**2*b3**2 - 6*sqrt(10)*b2**2*b3*b4 - 9*b2**2*b3*b4 - sqrt(5)*b2**2*b3*b4 + 22*sqrt(2)*b2**2*b3*b4 - 37*b2*b3**3 - 11*sqrt(5)*b2*b3**3 + 5*sqrt(10)*b2*b3**3 + 31*sqrt(2)*b2*b3**3 - 14*b2*b3**2*b4 - 4*sqrt(5)*b2*b3**2*b4 - 2*sqrt(10)*b2*b3**2*b4 + 22*sqrt(2)*b2*b3**2*b4 - 6*b3**4 - 2*sqrt(5)*b3**4 + sqrt(10)*b3**4 + 5*sqrt(2)*b3**4 - 3*b3**3*b4 - sqrt(5)*b3**3*b4 + 4*sqrt(2)*b3**3*b4",
+    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 66*sqrt(5)*b1**2*b2**2 - 142*b1**2*b2**2 + 44*sqrt(10)*b1**2*b2**2 + 104*sqrt(2)*b1**2*b2**2 - 216*b1**2*b2*b3 - 96*sqrt(5)*b1**2*b2*b3 + 68*sqrt(10)*b1**2*b2*b3 + 156*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 36*sqrt(5)*b1**2*b3**2 - 80*b1**2*b3**2 + 58*sqrt(2)*b1**2*b3**2 + 26*sqrt(10)*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b3*b4 + 10*sqrt(2)*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 - 64*sqrt(5)*b1*b2**3 - 140*b1*b2**3 + 97*sqrt(2)*b1*b2**3 + 45*sqrt(10)*b1*b2**3 - 144*sqrt(5)*b1*b2**2*b3 - 300*b1*b2**2*b3 + 214*sqrt(2)*b1*b2**2*b3 + 102*sqrt(10)*b1*b2**2*b3 - 20*sqrt(5)*b1*b2**2*b4 - 28*b1*b2**2*b4 + 11*sqrt(10)*b1*b2**2*b4 + 27*sqrt(2)*b1*b2**2*b4 - 110*sqrt(5)*b1*b2*b3**2 - 210*b1*b2*b3**2 + 155*sqrt(2)*b1*b2*b3**2 + 77*sqrt(10)*b1*b2*b3**2 - 30*sqrt(5)*b1*b2*b3*b4 - 46*b1*b2*b3*b4 + 30*sqrt(2)*b1*b2*b3*b4 + 22*sqrt(10)*b1*b2*b3*b4 - 28*sqrt(5)*b1*b3**3 - 48*b1*b3**3 + 36*sqrt(2)*b1*b3**3 + 20*sqrt(10)*b1*b3**3 - 12*sqrt(5)*b1*b3**2*b4 - 16*b1*b3**2*b4 + 11*sqrt(2)*b1*b3**2*b4 + 9*sqrt(10)*b1*b3**2*b4 - 46*b2**4 - 20*sqrt(5)*b2**4 + 14*sqrt(10)*b2**4 + 32*sqrt(2)*b2**4 - 134*b2**3*b3 - 58*sqrt(5)*b2**3*b3 + 41*sqrt(10)*b2**3*b3 + 95*sqrt(2)*b2**3*b3 - 18*b2**3*b4 - 6*sqrt(5)*b2**3*b4 + 11*sqrt(2)*b2**3*b4 + 5*sqrt(10)*b2**3*b4 - 144*b2**2*b3**2 - 64*sqrt(5)*b2**2*b3**2 + 102*sqrt(2)*b2**2*b3**2 + 46*sqrt(10)*b2**2*b3**2 - 36*b2**2*b3*b4 - 16*sqrt(5)*b2**2*b3*b4 + 10*sqrt(10)*b2**2*b3*b4 + 28*sqrt(2)*b2**2*b3*b4 - 34*sqrt(5)*b2*b3**3 - 62*b2*b3**3 + 46*sqrt(2)*b2*b3**3 + 24*sqrt(10)*b2*b3**3 - 14*sqrt(5)*b2*b3**2*b4 - 22*b2*b3**2*b4 + 16*sqrt(2)*b2*b3**2*b4 + 10*sqrt(10)*b2*b3**2*b4 - 7*sqrt(5)*b3**4 - 9*b3**4 + 7*sqrt(2)*b3**4 + 5*sqrt(10)*b3**4 - 4*sqrt(5)*b3**3*b4 - 4*b3**3*b4 + 3*sqrt(2)*b3**3*b4 + 3*sqrt(10)*b3**3*b4",
+    "-52*b1**3*b2 - 20*sqrt(5)*b1**3*b2 + 32*sqrt(2)*b1**3*b2 + 16*sqrt(10)*b1**3*b2 - 40*b1**3*b3 - 16*sqrt(5)*b1**3*b3 + 12*sqrt(10)*b1**3*b3 + 28*sqrt(2)*b1**3*b3 - 70*sqrt(5)*b1**2*b2**2 - 154*b1**2*b2**2 + 48*sqrt(10)*b1**2*b2**2 + 112*sqrt(2)*b1**2*b2**2 - 208*b1**2*b2*b3 - 88*sqrt(5)*b1**2*b2*b3 + 64*sqrt(10)*b1**2*b2*b3 + 144*sqrt(2)*b1**2*b2*b3 - 24*b1**2*b2*b4 - 8*sqrt(5)*b1**2*b2*b4 + 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(10)*b1**2*b2*b4 - 64*b1**2*b3**2 - 28*sqrt(5)*b1**2*b3**2 + 44*sqrt(2)*b1**2*b3**2 + 20*sqrt(10)*b1**2*b3**2 - 8*sqrt(5)*b1**2*b3*b4 - 16*b1**2*b3*b4 + 10*sqrt(2)*b1**2*b3*b4 + 6*sqrt(10)*b1**2*b3*b4 - 74*sqrt(5)*b1*b2**3 - 162*b1*b2**3 + 116*sqrt(2)*b1*b2**3 + 52*sqrt(10)*b1*b2**3 - 136*sqrt(5)*b1*b2**2*b3 - 292*b1*b2**2*b3 + 94*sqrt(10)*b1*b2**2*b3 + 212*sqrt(2)*b1*b2**2*b3 - 22*sqrt(5)*b1*b2**2*b4 - 34*b1*b2**2*b4 + 11*sqrt(10)*b1*b2**2*b4 + 35*sqrt(2)*b1*b2**2*b4 - 78*sqrt(5)*b1*b2*b3**2 - 174*b1*b2*b3**2 + 54*sqrt(10)*b1*b2*b3**2 + 122*sqrt(2)*b1*b2*b3**2 - 26*sqrt(5)*b1*b2*b3*b4 - 42*b1*b2*b3*b4 + 14*sqrt(10)*b1*b2*b3*b4 + 38*sqrt(2)*b1*b2*b3*b4 - 16*sqrt(5)*b1*b3**3 - 28*b1*b3**3 + 19*sqrt(2)*b1*b3**3 + 11*sqrt(10)*b1*b3**3 - 8*sqrt(5)*b1*b3**2*b4 - 8*b1*b3**2*b4 + 7*sqrt(2)*b1*b3**2*b4 + 5*sqrt(10)*b1*b3**2*b4 - 57*b2**4 - 25*sqrt(5)*b2**4 + 40*sqrt(2)*b2**4 + 18*sqrt(10)*b2**4 - 133*b2**3*b3 - 59*sqrt(5)*b2**3*b3 + 42*sqrt(10)*b2**3*b3 + 94*sqrt(2)*b2**3*b3 - 22*b2**3*b4 - 8*sqrt(5)*b2**3*b4 + 13*sqrt(2)*b2**3*b4 + 7*sqrt(10)*b2**3*b4 - 51*sqrt(5)*b2**2*b3**2 - 111*b2**2*b3**2 + 35*sqrt(10)*b2**2*b3**2 + 79*sqrt(2)*b2**2*b3**2 - 15*sqrt(5)*b2**2*b3*b4 - 33*b2**2*b3*b4 + 10*sqrt(10)*b2**2*b3*b4 + 24*sqrt(2)*b2**2*b3*b4 - 18*sqrt(5)*b2*b3**3 - 40*b2*b3**3 + 12*sqrt(10)*b2*b3**3 + 28*sqrt(2)*b2*b3**3 - 9*sqrt(5)*b2*b3**2*b4 - 13*b2*b3**2*b4 + 4*sqrt(10)*b2*b3**2*b4 + 14*sqrt(2)*b2*b3**2*b4 - 3*sqrt(5)*b3**4 - 3*b3**4 + 2*sqrt(2)*b3**4 + 2*sqrt(10)*b3**4 - 2*sqrt(5)*b3**3*b4 + sqrt(2)*b3**3*b4 + sqrt(10)*b3**3*b4",
+    "-6*sqrt(10)*b1*b2*b3 - 2*sqrt(2)*b1*b2*b3 + 2*sqrt(5)*b1*b2*b3 + 18*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 4*sqrt(10)*b1*b3**2 - 4*sqrt(2)*b1*b3**2 + 8*b1*b3**2 + 4*sqrt(5)*b1*b3**2 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 10*sqrt(2)*b2**2*b3 - 4*sqrt(10)*b2**2*b3 + 6*sqrt(5)*b2**2*b3 + 14*b2**2*b3 - 5*sqrt(10)*b2**2*b4 - 5*sqrt(2)*b2**2*b4 + 10*b2**2*b4 + 6*sqrt(5)*b2**2*b4 - 7*sqrt(10)*b2*b3**2 - 13*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 + 26*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 - 4*sqrt(2)*b2*b3*b4 + 16*b2*b3*b4 + 12*sqrt(5)*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 6*sqrt(2)*b3**3 - 2*sqrt(10)*b3**3 + 2*sqrt(5)*b3**3 + 10*b3**3 - 5*sqrt(10)*b3**2*b4 - 3*sqrt(2)*b3**2*b4 + 6*b3**2*b4 + 6*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2",
+    "-6*sqrt(2)*b1**2*b2*b3 - 2*sqrt(10)*b1**2*b2*b3 + 16*b1**2*b2*b3 - 8*sqrt(10)*b1**2*b2*b4 - 12*sqrt(2)*b1**2*b2*b4 + 8*sqrt(5)*b1**2*b2*b4 + 24*b1**2*b2*b4 - 6*sqrt(10)*b1*b2**2*b3 - 8*sqrt(2)*b1*b2**2*b3 + 10*b1*b2**2*b3 + 10*sqrt(5)*b1*b2**2*b3 - 33*sqrt(2)*b1*b2**2*b4 - 13*sqrt(10)*b1*b2**2*b4 + 18*sqrt(5)*b1*b2**2*b4 + 46*b1*b2**2*b4 - 5*sqrt(10)*b1*b2*b3**2 - 3*sqrt(2)*b1*b2*b3**2 + 4*sqrt(5)*b1*b2*b3**2 + 12*b1*b2*b3**2 - 12*sqrt(10)*b1*b2*b3*b4 - 16*sqrt(2)*b1*b2*b3*b4 + 30*b1*b2*b3*b4 + 14*sqrt(5)*b1*b2*b3*b4 - 5*sqrt(2)*b1*b2*b4**2 - sqrt(10)*b1*b2*b4**2 + 2*sqrt(5)*b1*b2*b4**2 + 6*b1*b2*b4**2 - 8*b1*b3**2*b4 + sqrt(10)*b1*b3**2*b4 + 3*sqrt(2)*b1*b3**2*b4 - 12*b1*b3*b4**2 - 4*sqrt(5)*b1*b3*b4**2 + 6*sqrt(2)*b1*b3*b4**2 + 4*sqrt(10)*b1*b3*b4**2 - 6*sqrt(2)*b2**3*b3 - 2*sqrt(10)*b2**3*b3 + 3*sqrt(5)*b2**3*b3 + 9*b2**3*b3 - 7*sqrt(10)*b2**3*b4 - 15*sqrt(2)*b2**3*b4 + 20*b2**3*b4 + 10*sqrt(5)*b2**3*b4 - 7*sqrt(2)*b2**2*b3**2 - 3*sqrt(10)*b2**2*b3**2 + 9*b2**2*b3**2 + 5*sqrt(5)*b2**2*b3**2 - 25*sqrt(2)*b2**2*b3*b4 - 7*sqrt(10)*b2**2*b3*b4 + 11*sqrt(5)*b2**2*b3*b4 + 33*b2**2*b3*b4 - 4*b2**2*b4**2 - sqrt(10)*b2**2*b4**2 - sqrt(2)*b2**2*b4**2 + 4*sqrt(5)*b2**2*b4**2 - 2*sqrt(10)*b2*b3**3 + 2*b2*b3**3 + 2*sqrt(5)*b2*b3**3 - 9*sqrt(2)*b2*b3**2*b4 - 2*sqrt(5)*b2*b3**2*b4 + sqrt(10)*b2*b3**2*b4 + 14*b2*b3**2*b4 - 23*b2*b3*b4**2 - sqrt(5)*b2*b3*b4**2 + 7*sqrt(2)*b2*b3*b4**2 + 5*sqrt(10)*b2*b3*b4**2 - 8*b2*b4**3 - 2*sqrt(2)*b2*b4**3 + 2*sqrt(5)*b2*b4**3 + 2*sqrt(10)*b2*b4**3 - 2*sqrt(5)*b3**3*b4 - 2*b3**3*b4 + 2*sqrt(10)*b3**3*b4 - 15*b3**2*b4**2 - 3*sqrt(5)*b3**2*b4**2 + 6*sqrt(2)*b3**2*b4**2 + 4*sqrt(10)*b3**2*b4**2 - 7*b3*b4**3 - sqrt(5)*b3*b4**3 + 2*sqrt(2)*b3*b4**3 + 2*sqrt(10)*b3*b4**3",
+    "-8*sqrt(2)*b1*b2**2 + 2*sqrt(5)*b1*b2**2 + 6*b1*b2**2 - 10*sqrt(2)*b1*b2*b3 - 2*sqrt(5)*b1*b2*b3 + 2*sqrt(10)*b1*b2*b3 + 14*b1*b2*b3 - 4*sqrt(10)*b1*b2*b4 - 4*sqrt(2)*b1*b2*b4 + 2*sqrt(5)*b1*b2*b4 + 14*b1*b2*b4 - 6*sqrt(2)*b1*b3*b4 - 2*sqrt(10)*b1*b3*b4 + 2*sqrt(5)*b1*b3*b4 + 10*b1*b3*b4 - 3*sqrt(10)*b2**3 - 3*sqrt(2)*b2**3 + 4*b2**3 + 4*sqrt(5)*b2**3 - 6*sqrt(10)*b2**2*b3 - 2*b2**2*b3 + 10*sqrt(5)*b2**2*b3 - 6*sqrt(10)*b2**2*b4 - 6*sqrt(2)*b2**2*b4 + 6*sqrt(5)*b2**2*b4 + 14*b2**2*b4 - 4*sqrt(10)*b2*b3**2 - 6*b2*b3**2 + 4*sqrt(2)*b2*b3**2 + 6*sqrt(5)*b2*b3**2 - 12*sqrt(10)*b2*b3*b4 + 8*sqrt(5)*b2*b3*b4 + 20*b2*b3*b4 - 3*sqrt(10)*b2*b4**2 + sqrt(2)*b2*b4**2 + 8*b2*b4**2 - 4*sqrt(10)*b3**2*b4 + 4*b3**2*b4 + 4*sqrt(5)*b3**2*b4 - 2*sqrt(10)*b3*b4**2 + 2*b3*b4**2 + 2*sqrt(5)*b3*b4**2"
+   ],
+   "sheet": "ixo0",
+   "seed": [
+    0.03134156109378655,
+    0.31945229489837446,
+    0.1571916249680556,
+    0.4920145190397833
+   ],
+   "locus_used": "2 of 7 locus equations (the rest dependent at the seed)",
+   "start_R": 5.350549068987917,
+   "R": 3.5535962401310006,
+   "optimized": [
+    0.15120846452303566,
+    0.27992158330299094,
+    0.1377399043479277,
+    0.4311300478260457
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.03134156109378655,
+    0.31945229489837446,
+    0.1571916249680556,
+    0.4920145190397833
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_31_2880v_9120c_seed.off",
+   "seed_R": 5.350549068989593,
+   "opt_off": "optimized_off/ixoic/ixoic_line_31_2880v_9120c_opt.off",
+   "opt_R": 3.5535962401318373
   }
  ]
 }
