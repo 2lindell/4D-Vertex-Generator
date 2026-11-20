@@ -10318,6 +10318,150 @@
    "seed_R": 13.212002554593717,
    "opt_off": "optimized_off/ixoic/ixoic_wall_46_2880v_11520c_opt.off",
    "opt_R": 13.212001732868154
+  },
+  {
+   "name": "ixoic_wall_58",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "6173a68c18b5",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.6725982971679021,
+    0.0,
+    0.07744054744392859,
+    0.24996115538816957
+   ],
+   "locus_used": null,
+   "start_R": 88.29954856442825,
+   "R": 23.50151623012704,
+   "optimized": [
+    0.6725982347798622,
+    0.0,
+    0.07744069814209757,
+    0.2499610670780402
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6725982971679021,
+    0.0,
+    0.07744054744392859,
+    0.24996115538816957
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_58_2880v_12000c_seed.off",
+   "seed_R": 88.29954856499474,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_58_2880v_12000c_opt.off",
+   "opt_R": 88.29938776342811
+  },
+  {
+   "name": "ixoic_wall_59",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "f74ac0643a00",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.5412467114052274,
+    0.0,
+    0.3820374370050776,
+    0.07671585158969485
+   ],
+   "locus_used": null,
+   "start_R": 18.145509535464726,
+   "R": 12.375146614221151,
+   "optimized": [
+    0.5412464600387675,
+    0.0,
+    0.38203794598504776,
+    0.07671559397618477
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.5412467114052274,
+    0.0,
+    0.3820374370050776,
+    0.07671585158969485
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_59_2880v_12000c_seed.off",
+   "seed_R": 18.14550953549174,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_59_2880v_12000c_opt.off",
+   "opt_R": 18.145481972489794
+  },
+  {
+   "name": "ixoic_wall_60",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "332c96fdee8f",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.2362783235699336,
+    0.5695635140361124,
+    0.0,
+    0.1941581623939539
+   ],
+   "locus_used": null,
+   "start_R": 13.959021038665218,
+   "R": 9.416873145266123,
+   "optimized": [
+    0.2362783086596398,
+    0.5695635138728494,
+    0.0,
+    0.19415817746751082
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.2362783235699336,
+    0.5695635140361124,
+    0.0,
+    0.1941581623939539
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_60_2880v_12000c_seed.off",
+   "seed_R": 13.959021038678733,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_60_2880v_12000c_opt.off",
+   "opt_R": 13.959020184407144
+  },
+  {
+   "name": "ixoic_wall_61",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "69073f08816e",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.18621852551972745,
+    0.6443826407207105,
+    0.0,
+    0.16939883375956233
+   ],
+   "locus_used": null,
+   "start_R": 13.03417706858482,
+   "R": 8.978442396648195,
+   "optimized": [
+    0.186218511180828,
+    0.6443826444032931,
+    0.0,
+    0.16939884441587888
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.18621852551972745,
+    0.6443826407207105,
+    0.0,
+    0.16939883375956233
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_61_2880v_12000c_seed.off",
+   "seed_R": 13.03417706859558,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_61_2880v_12000c_opt.off",
+   "opt_R": 13.034176621269108
   }
  ]
 }
