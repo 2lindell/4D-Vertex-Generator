@@ -11670,6 +11670,150 @@
    "seed_R": 32.29169877089654,
    "opt_off": "optimized_off/ixoic/ixoic_region_128_2880v_17280c_opt.off",
    "opt_R": 32.29122111448987
+  },
+  {
+   "name": "ixoic_region_12",
+   "kind": "region",
+   "degrees": 3,
+   "key": "414f5b0e4bb1",
+   "locus": [],
+   "sheet": "ixo6",
+   "seed": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.49982425346505016,
+    0.3883633411748261
+   ],
+   "locus_used": null,
+   "start_R": 13.533621026776293,
+   "R": 2.2861452061417733,
+   "optimized": [
+    0.04379785504771875,
+    0.06932632400817819,
+    0.49163571058603006,
+    0.39524011035807305
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.49982425346505016,
+    0.3883633411748261
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_12_2880v_14400c_seed.off",
+   "seed_R": 13.533621026800855,
+   "opt_off": "optimized_off/ixoic/ixoic_region_12_2880v_14400c_opt.off",
+   "opt_R": 12.768991198258568
+  },
+  {
+   "name": "ixoic_region_26",
+   "kind": "region",
+   "degrees": 3,
+   "key": "16db6804df08",
+   "locus": [],
+   "sheet": "ixo6",
+   "seed": [
+    0.055723283925577,
+    0.27781619047239275,
+    0.27809718442720416,
+    0.3883633411748261
+   ],
+   "locus_used": null,
+   "start_R": 4.812520333844867,
+   "R": 3.8128189219965645,
+   "optimized": [
+    0.09309539556896113,
+    0.22911745355317165,
+    0.22489574383195163,
+    0.4528914070459156
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.27781619047239275,
+    0.27809718442720416,
+    0.3883633411748261
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_26_2880v_16800c_seed.off",
+   "seed_R": 4.812520333846459,
+   "opt_off": "optimized_off/ixoic/ixoic_region_26_2880v_16800c_opt.off",
+   "opt_R": 3.813705944807234
+  },
+  {
+   "name": "ixoic_wall_40",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "7166621a6bf5",
+   "locus": [],
+   "sheet": "ixo6",
+   "seed": [
+    0.0,
+    0.1772422380296752,
+    0.49481526887911964,
+    0.32794249309120527
+   ],
+   "locus_used": null,
+   "start_R": 27.28943559286723,
+   "R": 4.144565804959467,
+   "optimized": [
+    0.0,
+    0.17724220284326125,
+    0.49481533044906073,
+    0.3279424667076781
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.0,
+    0.1772422380296752,
+    0.49481526887911964,
+    0.32794249309120527
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_40_2880v_11040c_seed.off",
+   "seed_R": 27.289435592970424,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_40_2880v_11040c_opt.off",
+   "opt_R": 27.289389432618847
+  },
+  {
+   "name": "masbittid",
+   "kind": "line",
+   "degrees": 1,
+   "key": "9fc73ba17c51",
+   "locus": [],
+   "sheet": "ixo6",
+   "seed": [
+    0.0,
+    0.7915667793281913,
+    0.0,
+    0.20843322067180872
+   ],
+   "locus_used": null,
+   "start_R": 3.955491052902461,
+   "R": 3.530933070373476,
+   "optimized": [
+    0.0,
+    0.7580467003332654,
+    0.0,
+    0.24195329966673473
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.0,
+    0.7915667793281913,
+    0.0,
+    0.20843322067180872
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_masbittid_1440v_5520c_seed.off",
+   "seed_R": 3.95549105290341,
+   "opt_off": "optimized_off/ixoic/masbittid_1440v_5520c_opt.off",
+   "opt_R": 3.5329976552657834
   }
  ]
 }
