@@ -3154,6 +3154,146 @@
    "seed_R": 76.43519780744943,
    "opt_off": "optimized_off/ixoic/ixoic_region_37_2880v_18720c_opt.off",
    "opt_R": 8.186057602585027
+  },
+  {
+   "name": "ixoic_region_49",
+   "kind": "region",
+   "degrees": 3,
+   "key": "80498a7a77a0",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.055723283925577,
+    0.11152088869400824,
+    0.1672336499082811,
+    0.6655221774721336
+   ],
+   "start_R": 8.970179647994932,
+   "R": 3.869457995875687,
+   "optimized": [
+    -0.05498908699133627,
+    0.1501500995516116,
+    0.17214656646852836,
+    0.7326924209711964
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.11152088869400824,
+    0.1672336499082811,
+    0.6655221774721336
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_49_2880v_19200c_seed.off",
+   "seed_R": 8.970179647999615,
+   "opt_off": "optimized_off/ixoic/ixoic_region_49_2880v_19200c_opt.off",
+   "opt_R": 3.871785366821024
+  },
+  {
+   "name": "ixoic_region_50",
+   "kind": "region",
+   "degrees": 3,
+   "key": "930c46854f46",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.28811173811765123,
+    0.021768509164701827,
+    0.22359652039278355,
+    0.4665232323248635
+   ],
+   "start_R": 5.865102281000034,
+   "R": 3.9596130939914227,
+   "optimized": [
+    0.2816637021463768,
+    0.025695268642783792,
+    0.3398975587854023,
+    0.35274347042543713
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.28811173811765123,
+    0.021768509164701827,
+    0.22359652039278355,
+    0.4665232323248635
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_50_2880v_19200c_seed.off",
+   "seed_R": 5.865102281001716,
+   "opt_off": "optimized_off/ixoic/ixoic_region_50_2880v_19200c_opt.off",
+   "opt_R": 3.9608687928006376
+  },
+  {
+   "name": "ixoic_region_51",
+   "kind": "region",
+   "degrees": 3,
+   "key": "ab69a12daf17",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.01707866790635505,
+    0.027619426889081426,
+    0.027963108336748768,
+    0.9273387968678147
+   ],
+   "start_R": 22.179334857160434,
+   "R": 6.161785674248909,
+   "optimized": [
+    0.0020647663508647127,
+    0.0993992492032055,
+    0.10874408204309872,
+    0.789791902402831
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.01707866790635505,
+    0.027619426889081426,
+    0.027963108336748768,
+    0.9273387968678147
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_51_2880v_19200c_seed.off",
+   "seed_R": 22.17933485718091,
+   "opt_off": "optimized_off/ixoic/ixoic_region_51_2880v_19200c_opt.off",
+   "opt_R": 6.166038738537976
+  },
+  {
+   "name": "ixoic_region_52",
+   "kind": "region",
+   "degrees": 3,
+   "key": "643ae3427127",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.3598154056906894,
+    0.010904026679068625,
+    0.019022724321346402,
+    0.6102578433088955
+   ],
+   "start_R": 52.431756030965985,
+   "R": 7.703416573951005,
+   "optimized": [
+    0.2626684068766841,
+    0.06716106685265175,
+    0.1364847640243436,
+    0.5336857622463207
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.3598154056906894,
+    0.010904026679068625,
+    0.019022724321346402,
+    0.6102578433088955
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_52_2880v_19200c_seed.off",
+   "seed_R": 52.43175603108167,
+   "opt_off": "optimized_off/ixoic/ixoic_region_52_2880v_19200c_opt.off",
+   "opt_R": 7.7099340328291905
   }
  ]
 }
