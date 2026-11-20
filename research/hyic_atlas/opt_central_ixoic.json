@@ -9453,6 +9453,150 @@
    "seed_R": 8.692651067283965,
    "opt_off": "optimized_off/ixoic/ixoic_wall_62_2880v_12720c_opt.off",
    "opt_R": 8.692651067283965
+  },
+  {
+   "name": "ixoic_region_22",
+   "kind": "region",
+   "degrees": 3,
+   "key": "e3ae1c55fa82",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.4623282821164284,
+    0.05735793464487831,
+    0.2839847394776116,
+    0.19632904376108154
+   ],
+   "locus_used": null,
+   "start_R": 11.083404160253423,
+   "R": 1.8896485594112888,
+   "optimized": [
+    0.43183873680291834,
+    0.05993937544283376,
+    0.28921003791801325,
+    0.21901184983623467
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.4623282821164284,
+    0.05735793464487831,
+    0.2839847394776116,
+    0.19632904376108154
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_22_2880v_14880c_seed.off",
+   "seed_R": 11.083404160259764,
+   "opt_off": "optimized_off/ixoic/ixoic_region_22_2880v_14880c_opt.off",
+   "opt_R": 8.195291450623273
+  },
+  {
+   "name": "ixoic_region_23",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5679da3f41d1",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.6660992908085744,
+    0.0,
+    0.08393955380325613,
+    0.24996115538816957
+   ],
+   "locus_used": null,
+   "start_R": 72.49404245643237,
+   "R": 4.977294741325495,
+   "optimized": [
+    0.6627498286373692,
+    0.0008348343494124677,
+    0.08711648825024464,
+    0.24929884876297376
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6660992908085744,
+    0.0,
+    0.08393955380325613,
+    0.24996115538816957
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_23_2880v_14880c_seed.off",
+   "seed_R": 72.49404245680675,
+   "opt_off": "optimized_off/ixoic/ixoic_region_23_2880v_14880c_opt.off",
+   "opt_R": 68.65512775227448
+  },
+  {
+   "name": "ixoic_region_34",
+   "kind": "region",
+   "degrees": 3,
+   "key": "839a33206de2",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.5837838792687287,
+    0.14172679872948968,
+    0.0575388299677487,
+    0.21695049203403297
+   ],
+   "locus_used": null,
+   "start_R": 17.675872096632794,
+   "R": 8.037419780683322,
+   "optimized": [
+    0.4555484872162604,
+    0.2854792948106473,
+    0.14046246452332076,
+    0.11850975344977153
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.5837838792687287,
+    0.14172679872948968,
+    0.0575388299677487,
+    0.21695049203403297
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_34_2880v_17760c_seed.off",
+   "seed_R": 17.675872096647645,
+   "opt_off": "optimized_off/ixoic/ixoic_region_34_2880v_17760c_opt.off",
+   "opt_R": 8.041579871742737
+  },
+  {
+   "name": "ixoic_region_35",
+   "kind": "region",
+   "degrees": 3,
+   "key": "08a0cf22cccd",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.02969723194635701,
+    0.9542308635431563,
+    0.014522950254556362,
+    0.001548954255930297
+   ],
+   "locus_used": null,
+   "start_R": 66.69870545563451,
+   "R": 5.070389477755324,
+   "optimized": [
+    0.04174712863850238,
+    0.9333091792941803,
+    0.024160888548352716,
+    0.0007828035189645265
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.02969723194635701,
+    0.9542308635431563,
+    0.014522950254556362,
+    0.001548954255930297
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_35_2880v_17760c_seed.off",
+   "seed_R": 66.69870545588479,
+   "opt_off": "optimized_off/ixoic/ixoic_region_35_2880v_17760c_opt.off",
+   "opt_R": 45.97638764387211
   }
  ]
 }
