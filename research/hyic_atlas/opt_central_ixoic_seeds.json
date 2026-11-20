@@ -12957,6 +12957,270 @@
    "central_status": "not computed",
    "seed_off": "new_shapes/off/ixoic/ixoic_region_77_2880v_21600c_seed.off",
    "seed_R": 45.442290279971644
+  },
+  {
+   "name": "ixoic_region_89",
+   "kind": "region",
+   "degrees": 3,
+   "key": "ab715fb554b7",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.16658681844450002,
+    0.6104067940291618,
+    0.11180188264881961,
+    0.11120450487751861
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.16658681844450002,
+    0.6104067940291618,
+    0.11180188264881961,
+    0.11120450487751861
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.16658681844450002,
+    0.6104067940291618,
+    0.11180188264881961,
+    0.11120450487751861
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_89_2880v_22080c_seed.off",
+   "seed_R": 42.65881870972912
+  },
+  {
+   "name": "ixoic_region_90",
+   "kind": "region",
+   "degrees": 3,
+   "key": "c9f010089b8b",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.5837838792687287,
+    0.14172679872948968,
+    0.0575388299677487,
+    0.21695049203403297
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.5837838792687287,
+    0.14172679872948968,
+    0.0575388299677487,
+    0.21695049203403297
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.5837838792687287,
+    0.14172679872948968,
+    0.0575388299677487,
+    0.21695049203403297
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_90_2880v_22080c_seed.off",
+   "seed_R": 68.94236854311076
+  },
+  {
+   "name": "ixoic_region_91",
+   "kind": "region",
+   "degrees": 3,
+   "key": "f2d4e09ed97b",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_91_2880v_22080c_seed.off",
+   "seed_R": 47.66011761542887
+  },
+  {
+   "name": "ixoic_region_92",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9be358df1358",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.09611606704826794,
+    0.8399267096057407,
+    0.024530821161342777,
+    0.03942640218464854
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.09611606704826794,
+    0.8399267096057407,
+    0.024530821161342777,
+    0.03942640218464854
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.09611606704826794,
+    0.8399267096057407,
+    0.024530821161342777,
+    0.03942640218464854
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_92_2880v_22080c_seed.off",
+   "seed_R": 20.82931263011521
+  },
+  {
+   "name": "ixoic_region_94",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9cf97ab67513",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.16658681844450002,
+    0.6658385612886233,
+    0.05637011538935812,
+    0.11120450487751861
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.16658681844450002,
+    0.6658385612886233,
+    0.05637011538935812,
+    0.11120450487751861
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.16658681844450002,
+    0.6658385612886233,
+    0.05637011538935812,
+    0.11120450487751861
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_94_2880v_23040c_seed.off",
+   "seed_R": 20.420401035401508
+  },
+  {
+   "name": "ixoic_region_95",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5c6bb3e66923",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.06969580376833993,
+    0.7593387548782312,
+    0.11874131976084036,
+    0.05222412159258839
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.06969580376833993,
+    0.7593387548782312,
+    0.11874131976084036,
+    0.05222412159258839
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.06969580376833993,
+    0.7593387548782312,
+    0.11874131976084036,
+    0.05222412159258839
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_95_2880v_23040c_seed.off",
+   "seed_R": 31.549448915267895
+  },
+  {
+   "name": "ixoic_region_96",
+   "kind": "region",
+   "degrees": 3,
+   "key": "82545df01580",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.02885715918199946,
+    0.655273543482318,
+    0.31135069272946697,
+    0.004518604606215619
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.02885715918199946,
+    0.655273543482318,
+    0.31135069272946697,
+    0.004518604606215619
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.02885715918199946,
+    0.655273543482318,
+    0.31135069272946697,
+    0.004518604606215619
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_96_2880v_23040c_seed.off",
+   "seed_R": 69.72945558592833
+  },
+  {
+   "name": "ixoic_region_100",
+   "kind": "region",
+   "degrees": 3,
+   "key": "7c59b744882a",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.004528522125007104,
+    0.797671052257715,
+    0.19330091540402625,
+    0.004499510213251731
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.004528522125007104,
+    0.797671052257715,
+    0.19330091540402625,
+    0.004499510213251731
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.004528522125007104,
+    0.797671052257715,
+    0.19330091540402625,
+    0.004499510213251731
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_100_2880v_24480c_seed.off",
+   "seed_R": 333.9529267706286
   }
  ]
 }
