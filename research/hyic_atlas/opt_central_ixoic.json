@@ -12602,6 +12602,150 @@
    "seed_R": 22.891688306156485,
    "opt_off": "optimized_off/ixoic/ixoic_region_130_2880v_20640c_opt.off",
    "opt_R": 6.314746714687069
+  },
+  {
+   "name": "ixoic_region_40",
+   "kind": "region",
+   "degrees": 3,
+   "key": "b945e5651fdd",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.11115505118503852,
+    0.27781619047239275,
+    0.5552560207245116,
+    0.055772737618057115
+   ],
+   "locus_used": null,
+   "start_R": 12.230913328374935,
+   "R": 4.854739390465998,
+   "optimized": [
+    0.11800255950229922,
+    0.2635875476037725,
+    0.5570733878581559,
+    0.06133650503577238
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.11115505118503852,
+    0.27781619047239275,
+    0.5552560207245116,
+    0.055772737618057115
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_40_2880v_18720c_seed.off",
+   "seed_R": 12.230913328380481,
+   "opt_off": "optimized_off/ixoic/ixoic_region_40_2880v_18720c_opt.off",
+   "opt_R": 11.283206045470996
+  },
+  {
+   "name": "ixoic_region_41",
+   "kind": "region",
+   "degrees": 3,
+   "key": "4da9b751c8d0",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.4163941320018805,
+    0.0,
+    0.5417323449488615,
+    0.04187352304925806
+   ],
+   "locus_used": null,
+   "start_R": 10.64161460998872,
+   "R": 4.854739390465998,
+   "optimized": [
+    0.36176032449577794,
+    0.018497622876457433,
+    0.5524060121477707,
+    0.06733604047999381
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.4163941320018805,
+    0.0,
+    0.5417323449488615,
+    0.04187352304925806
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_41_2880v_18720c_seed.off",
+   "seed_R": 10.641614609994585,
+   "opt_off": "optimized_off/ixoic/ixoic_region_41_2880v_18720c_opt.off",
+   "opt_R": 8.321930126889143
+  },
+  {
+   "name": "ixoic_region_74",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2314d7c0308b",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "locus_used": null,
+   "start_R": 47.66011761538052,
+   "R": 5.211029502873915,
+   "optimized": [
+    0.33189877401268436,
+    0.20761653349796072,
+    0.46048435077841376,
+    3.417109412193031e-07
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.03562433319459262,
+    0.4067701289323053,
+    0.557265411656435,
+    0.00034012621666722605
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_74_2880v_21600c_seed.off",
+   "seed_R": 47.660117615448456,
+   "opt_off": "optimized_off/ixoic/ixoic_region_74_2880v_21600c_opt.off",
+   "opt_R": 5.215550500866672
+  },
+  {
+   "name": "ixoic_wall_09",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b5c23e297a26",
+   "locus": [],
+   "sheet": "ixo7",
+   "seed": [
+    0.0,
+    0.6303461742949926,
+    0.16136740609667627,
+    0.2082864196083312
+   ],
+   "locus_used": null,
+   "start_R": 12.977702085083664,
+   "R": 12.977702085083664,
+   "optimized": [
+    0.0,
+    0.6303461742949925,
+    0.1613674060966762,
+    0.20828641960833116
+   ],
+   "optimized_status": "no progress: the optimiser found no feasible step from the seed (seed kept)",
+   "central": [
+    0.0,
+    0.6303461742949926,
+    0.16136740609667627,
+    0.2082864196083312
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_09_2880v_6240c_seed.off",
+   "seed_R": 12.977702085089613,
+   "opt_off": "optimized_off/ixoic/ixoic_wall_09_2880v_6240c_opt.off",
+   "opt_R": 12.977702085089613
   }
  ]
 }
