@@ -700,6 +700,146 @@
    "seed_R": 99.55848363391432,
    "opt_off": "optimized_off/ixoic/ixoic_region_48_2880v_19200c_opt.off",
    "opt_R": 40.8968853668918
+  },
+  {
+   "name": "ixoic_region_63",
+   "kind": "region",
+   "degrees": 3,
+   "key": "034eccb8aa72",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.7428599951296063,
+    0.0007700702326125907,
+    0.02487126446352808,
+    0.23149867017425285
+   ],
+   "start_R": 77.38718321351065,
+   "R": 5.064341915235106,
+   "optimized": [
+    0.3963090135440884,
+    7.710928720191503e-07,
+    0.3017416567799102,
+    0.30194855858312936
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.7428599951296063,
+    0.0007700702326125907,
+    0.02487126446352808,
+    0.23149867017425285
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_63_2880v_20640c_seed.off",
+   "seed_R": 77.38718321371073,
+   "opt_off": "optimized_off/ixoic/ixoic_region_63_2880v_20640c_opt.off",
+   "opt_R": 5.070219658955029
+  },
+  {
+   "name": "ixoic_region_64",
+   "kind": "region",
+   "degrees": 3,
+   "key": "80314f6918ad",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.8457509756681024,
+    0.007582111637235835,
+    0.1151626715070062,
+    0.031504241187655414
+   ],
+   "start_R": 67.84923703726068,
+   "R": 4.062205204897374,
+   "optimized": [
+    0.8361059073108267,
+    0.00744709514894588,
+    0.1193078510196927,
+    0.03713914652053454
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.8457509756681024,
+    0.007582111637235835,
+    0.1151626715070062,
+    0.031504241187655414
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_64_2880v_20640c_seed.off",
+   "seed_R": 67.84923703740014,
+   "opt_off": "optimized_off/ixoic/ixoic_region_64_2880v_20640c_opt.off",
+   "opt_R": 57.63869329229824
+  },
+  {
+   "name": "ixoic_region_78",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9d02e1e622fa",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.6523103150048742,
+    0.009698643378505081,
+    0.1621077731642708,
+    0.1758832684523499
+   ],
+   "start_R": 11.270401031972835,
+   "R": 5.064341915235106,
+   "optimized": [
+    0.6411400239412524,
+    0.009276028845396352,
+    0.16820435683054707,
+    0.18137959038280427
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6523103150048742,
+    0.009698643378505081,
+    0.1621077731642708,
+    0.1758832684523499
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_78_2880v_22080c_seed.off",
+   "seed_R": 11.270401031977588,
+   "opt_off": "optimized_off/ixoic/ixoic_region_78_2880v_22080c_opt.off",
+   "opt_R": 10.795332836167999
+  },
+  {
+   "name": "ixoic_region_79",
+   "kind": "region",
+   "degrees": 3,
+   "key": "53ba0d8ab703",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.42136533729060904,
+    0.017610771230404384,
+    0.027578483899735794,
+    0.5334454075792509
+   ],
+   "start_R": 36.942919495017485,
+   "R": 18.60263621331973,
+   "optimized": [
+    0.4462327385996877,
+    0.024097086501017113,
+    0.038370595526552184,
+    0.49129957937274304
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.42136533729060904,
+    0.017610771230404384,
+    0.027578483899735794,
+    0.5334454075792509
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_79_2880v_22080c_seed.off",
+   "seed_R": 36.94291949506713,
+   "opt_off": "optimized_off/ixoic/ixoic_region_79_2880v_22080c_opt.off",
+   "opt_R": 27.528485727331162
   }
  ]
 }
