@@ -9741,6 +9741,150 @@
    "seed_R": 14.004643855414747,
    "opt_off": "optimized_off/ixoic/ixoic_region_57_2880v_19200c_opt.off",
    "opt_R": 5.095797239075782
+  },
+  {
+   "name": "ixoic_region_59",
+   "kind": "region",
+   "degrees": 3,
+   "key": "75695f073602",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.16658681844450002,
+    0.7212703285480848,
+    0.05637011538935812,
+    0.055772737618057115
+   ],
+   "locus_used": null,
+   "start_R": 10.332442169395147,
+   "R": 5.172597633345691,
+   "optimized": [
+    0.26938074692714414,
+    0.4798123175059189,
+    0.23609934588952874,
+    0.01470758967740816
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.16658681844450002,
+    0.7212703285480848,
+    0.05637011538935812,
+    0.055772737618057115
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_59_2880v_20160c_seed.off",
+   "seed_R": 10.332442169401837,
+   "opt_off": "optimized_off/ixoic/ixoic_region_59_2880v_20160c_opt.off",
+   "opt_R": 5.17259763334764
+  },
+  {
+   "name": "ixoic_region_70",
+   "kind": "region",
+   "degrees": 3,
+   "key": "3e1d8d51c6de",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.27745035296342296,
+    0.4995432595102387,
+    0.056370115389358114,
+    0.1666362721369801
+   ],
+   "locus_used": null,
+   "start_R": 10.401871828408513,
+   "R": 5.517962448380992,
+   "optimized": [
+    0.28468970755713147,
+    0.4309840026738991,
+    0.2108080757599436,
+    0.0735182140090259
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.27745035296342296,
+    0.4995432595102387,
+    0.056370115389358114,
+    0.1666362721369801
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_70_2880v_20640c_seed.off",
+   "seed_R": 10.401871828415372,
+   "opt_off": "optimized_off/ixoic/ixoic_region_70_2880v_20640c_opt.off",
+   "opt_R": 5.535441136612926
+  },
+  {
+   "name": "ixoic_region_71",
+   "kind": "region",
+   "degrees": 3,
+   "key": "f68dfcec7c78",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.29160307122212525,
+    0.5000093369535,
+    0.0,
+    0.20838759182437477
+   ],
+   "locus_used": null,
+   "start_R": 15.490198946478957,
+   "R": 7.488506493629669,
+   "optimized": [
+    0.39691316191123355,
+    0.296960719630695,
+    0.1458782678586958,
+    0.1602478505993757
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.29160307122212525,
+    0.5000093369535,
+    0.0,
+    0.20838759182437477
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_71_2880v_20640c_seed.off",
+   "seed_R": 15.490198946495756,
+   "opt_off": "optimized_off/ixoic/ixoic_region_71_2880v_20640c_opt.off",
+   "opt_R": 7.492597740995668
+  },
+  {
+   "name": "ixoic_region_73",
+   "kind": "region",
+   "degrees": 3,
+   "key": "f0b5203e54aa",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.6795102962092383,
+    0.025673947843873217,
+    0.022327335955532036,
+    0.2724884199913564
+   ],
+   "locus_used": null,
+   "start_R": 93.34195839630723,
+   "R": 13.699358286079168,
+   "optimized": [
+    0.5587674494872229,
+    0.16283969991377992,
+    0.08013760112848622,
+    0.198255249470511
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.6795102962092383,
+    0.025673947843873217,
+    0.022327335955532036,
+    0.2724884199913564
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_73_2880v_21600c_seed.off",
+   "seed_R": 93.34195839655415,
+   "opt_off": "optimized_off/ixoic/ixoic_region_73_2880v_21600c_opt.off",
+   "opt_R": 13.71051933911942
   }
  ]
 }
