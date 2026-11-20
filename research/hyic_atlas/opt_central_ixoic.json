@@ -1,0 +1,145 @@
+{
+ "_about": "Seed, optimized and central .off files of the ixitic shapes (opt_central_ixitic.json; new_shapes/off/ixitic,\noptimized_off/ixitic, central_off/ixitic).",
+ "shapes": [
+  {
+   "name": "ixoic_region_01",
+   "kind": "region",
+   "degrees": 3,
+   "key": "6aaf57efb07f",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.44439248620558863,
+    0.4437951084342876
+   ],
+   "start_R": 4.504227806849349,
+   "R": 2.1620846733688666,
+   "optimized": [
+    -0.20706225341575088,
+    0.2112152059838025,
+    0.6500188411222939,
+    0.34582820630965444
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.44439248620558863,
+    0.4437951084342876
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_01_2880v_11520c_seed.off",
+   "seed_R": 4.50422780685187,
+   "opt_off": "optimized_off/ixoic/ixoic_region_01_2880v_11520c_opt.off",
+   "opt_R": 2.162888021923978
+  },
+  {
+   "name": "ixoic_region_02",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9c72058cc3a9",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.15821776246422523,
+    0.09896715049262689,
+    0.6018365159089408,
+    0.14097857113420706
+   ],
+   "start_R": 7.757449542906547,
+   "R": 2.4302838517381478,
+   "optimized": [
+    -0.09195957971890527,
+    0.14914873208293297,
+    0.5828319154824166,
+    0.35997893215355564
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.15821776246422523,
+    0.09896715049262689,
+    0.6018365159089408,
+    0.14097857113420706
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_02_2880v_11520c_seed.off",
+   "seed_R": 7.757449542909386,
+   "opt_off": "optimized_off/ixoic/ixoic_region_02_2880v_11520c_opt.off",
+   "opt_R": 2.4325940887798883
+  },
+  {
+   "name": "ixoic_region_04",
+   "kind": "region",
+   "degrees": 3,
+   "key": "0474ac3cb2d3",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.27809718442720416,
+    0.6100904102126721
+   ],
+   "start_R": 4.982910378658769,
+   "R": 1.9591598773535315,
+   "optimized": [
+    -0.315871549481022,
+    0.25223530314407727,
+    0.6190766114447075,
+    0.4445596348922373
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.27809718442720416,
+    0.6100904102126721
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_04_2880v_12000c_seed.off",
+   "seed_R": 4.982910378661729,
+   "opt_off": "optimized_off/ixoic/ixoic_region_04_2880v_12000c_opt.off",
+   "opt_R": 1.960512976520169
+  },
+  {
+   "name": "ixoic_region_05",
+   "kind": "region",
+   "degrees": 3,
+   "key": "d96985aac7ba",
+   "locus": [],
+   "sheet": "ixo0",
+   "seed": [
+    0.010281807607675166,
+    0.5917468552953341,
+    0.39620209200434214,
+    0.001769245092648637
+   ],
+   "start_R": 3.93253176900557,
+   "R": 1.8366107277715278,
+   "optimized": [
+    -0.3992543948752919,
+    0.7222687931923819,
+    0.6769838261445061,
+    1.7755384039620552e-06
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.010281807607675166,
+    0.5917468552953341,
+    0.39620209200434214,
+    0.001769245092648637
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_05_2880v_12000c_seed.off",
+   "seed_R": 3.9325317690069874,
+   "opt_off": "optimized_off/ixoic/ixoic_region_05_2880v_12000c_opt.off",
+   "opt_R": 1.837760966789262
+  }
+ ]
+}
