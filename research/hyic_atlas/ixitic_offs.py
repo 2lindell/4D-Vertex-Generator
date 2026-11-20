@@ -78,7 +78,7 @@ with Pool(4) as pool:                             # (a worker that dies (a crash
 out = []
 for s, (r, c) in zip(S, R):
     row = {k: s[k] for k in ("name", "kind", "degrees", "key", "locus", "sheet")}
-    row.update(seed=list(map(float, s["seed"])), start_R=r.get("start_R"), R=r.get("R"),
+    row.update(seed=list(map(float, s["seed"])), locus_used=r.get("locus_used"), start_R=r.get("start_R"), R=r.get("R"),
                optimized=list(map(float, r.get("off_seed", r.get("best", s["seed"])))), optimized_status=r["status"],
                central=list(map(float, c["centre"])), depth=c.get("depth"), central_status=c["status"])
     for folder, key, tag in (("new_shapes/off", "seed", "seed"), ("optimized_off", "optimized", "opt"),
