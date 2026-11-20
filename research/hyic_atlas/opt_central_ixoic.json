@@ -2874,6 +2874,146 @@
    "seed_R": 7.390934132463789,
    "opt_off": "optimized_off/ixoic/ixoic_region_19_2880v_14880c_opt.off",
    "opt_R": 3.6417788883004136
+  },
+  {
+   "name": "ixoic_region_20",
+   "kind": "region",
+   "degrees": 3,
+   "key": "4f676317405a",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.7317933182294079,
+    0.008970660538403945,
+    0.22574227900510496,
+    0.03349374222708325
+   ],
+   "start_R": 59.42868101621065,
+   "R": 12.313359366032763,
+   "optimized": [
+    0.6868139244499266,
+    0.013017732625247143,
+    0.24079400125473172,
+    0.05937434167009442
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.7317933182294079,
+    0.008970660538403945,
+    0.22574227900510496,
+    0.03349374222708325
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_20_2880v_14880c_seed.off",
+   "seed_R": 59.42868101638727,
+   "opt_off": "optimized_off/ixoic/ixoic_region_20_2880v_14880c_opt.off",
+   "opt_R": 32.79753412067731
+  },
+  {
+   "name": "sagpodwsbited",
+   "kind": "region",
+   "degrees": 3,
+   "key": "dde81598bfa2",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.7769830897623576,
+    0.11120450487751861
+   ],
+   "start_R": 9.167736766051439,
+   "R": 3.8636534600121917,
+   "optimized": [
+    -0.1361478815798016,
+    0.10987726031057563,
+    0.8101494118686995,
+    0.2161212094005265
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.056089121434546745,
+    0.7769830897623576,
+    0.11120450487751861
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_sagpodwsbited_2880v_15360c_seed.off",
+   "seed_R": 9.167736766058514,
+   "opt_off": "optimized_off/ixoic/sagpodwsbited_2880v_15360c_opt.off",
+   "opt_R": 3.866254148179466
+  },
+  {
+   "name": "ixoic_region_27",
+   "kind": "region",
+   "degrees": 3,
+   "key": "4e8d5797255d",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.055723283925577,
+    0.11152088869400824,
+    0.6661195552434347,
+    0.16663627213698012
+   ],
+   "start_R": 6.101351229406278,
+   "R": 3.448024865478683,
+   "optimized": [
+    -0.23841630004764788,
+    0.28223421085206196,
+    0.8589271547085284,
+    0.09725493448705748
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.055723283925577,
+    0.11152088869400824,
+    0.6661195552434347,
+    0.16663627213698012
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_27_2880v_17280c_seed.off",
+   "seed_R": 6.101351229409543,
+   "opt_off": "optimized_off/ixoic/ixoic_region_27_2880v_17280c_opt.off",
+   "opt_R": 3.4501581778626393
+  },
+  {
+   "name": "ixoic_region_30",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5b0e751cd3bc",
+   "locus": [],
+   "sheet": "ixo2",
+   "seed": [
+    0.33288212022288455,
+    0.056089121434546745,
+    0.1672336499082811,
+    0.4437951084342876
+   ],
+   "start_R": 7.1906768815228155,
+   "R": 3.839009306624848,
+   "optimized": [
+    0.24976893743930842,
+    0.08361677182894867,
+    0.31351182956193024,
+    0.3531024611698127
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.33288212022288455,
+    0.056089121434546745,
+    0.1672336499082811,
+    0.4437951084342876
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_30_2880v_17760c_seed.off",
+   "seed_R": 7.1906768815254,
+   "opt_off": "optimized_off/ixoic/ixoic_region_30_2880v_17760c_opt.off",
+   "opt_R": 3.840868711459307
   }
  ]
 }
