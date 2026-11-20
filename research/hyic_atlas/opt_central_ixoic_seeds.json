@@ -9300,6 +9300,534 @@
    "central_status": "not computed",
    "seed_off": "new_shapes/off/ixoic/ixoic_region_73_2880v_21600c_seed.off",
    "seed_R": 93.34195839655415
+  },
+  {
+   "name": "ixoic_region_87",
+   "kind": "region",
+   "degrees": 3,
+   "key": "13ca776daef6",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.44374565474180755,
+    0.16695265595346978,
+    0.3335289516866657,
+    0.05577273761805712
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.44374565474180755,
+    0.16695265595346978,
+    0.3335289516866657,
+    0.05577273761805712
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.44374565474180755,
+    0.16695265595346978,
+    0.3335289516866657,
+    0.05577273761805712
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_87_2880v_22080c_seed.off",
+   "seed_R": 24.404467317636936
+  },
+  {
+   "name": "ixoic_region_88",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5f3beae7c484",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.3332293794670599,
+    0.4583830287085653,
+    0.0,
+    0.20838759182437477
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.3332293794670599,
+    0.4583830287085653,
+    0.0,
+    0.20838759182437477
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.3332293794670599,
+    0.4583830287085653,
+    0.0,
+    0.20838759182437477
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_88_2880v_22080c_seed.off",
+   "seed_R": 17.283648206786232
+  },
+  {
+   "name": "ixoic_region_93",
+   "kind": "region",
+   "degrees": 3,
+   "key": "e6692da3f404",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.33288212022288455,
+    0.38867972499131576,
+    0.22266541716774263,
+    0.055772737618057115
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.33288212022288455,
+    0.38867972499131576,
+    0.22266541716774263,
+    0.055772737618057115
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.33288212022288455,
+    0.38867972499131576,
+    0.22266541716774263,
+    0.055772737618057115
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_93_2880v_23040c_seed.off",
+   "seed_R": 6.35739490676545
+  },
+  {
+   "name": "ixoic_wall_04",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b938205e6326",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.29340449681441627,
+    0.5850633790356605,
+    0.0,
+    0.12153212414992312
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.29340449681441627,
+    0.5850633790356605,
+    0.0,
+    0.12153212414992312
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.29340449681441627,
+    0.5850633790356605,
+    0.0,
+    0.12153212414992312
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_04_2880v_4080c_seed.off",
+   "seed_R": 10.956698880515544
+  },
+  {
+   "name": "tetsobted_2880",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "28300feb758c",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.08343410154912319,
+    0.8331317962818247,
+    0.08343410216905217,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.08343410154912319,
+    0.8331317962818247,
+    0.08343410216905217,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.08343410154912319,
+    0.8331317962818247,
+    0.08343410216905217,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_tetsobted_2880_2880v_4800c_seed.off",
+   "seed_R": 12.131752900319707
+  },
+  {
+   "name": "ixoic_wall_08",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "515356a75c9d",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.5828642378730097,
+    0.0,
+    0.33516746554222004,
+    0.08196829658477026
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.5828642378730097,
+    0.0,
+    0.33516746554222004,
+    0.08196829658477026
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.5828642378730097,
+    0.0,
+    0.33516746554222004,
+    0.08196829658477026
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_08_2880v_6240c_seed.off",
+   "seed_R": 21.42954455204318
+  },
+  {
+   "name": "ixoic_wall_19",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "9f2edf4cf212",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.6381134763121774,
+    0.0,
+    0.09757126577464145,
+    0.2643152579131812
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.6381134763121774,
+    0.0,
+    0.09757126577464145,
+    0.2643152579131812
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.6381134763121774,
+    0.0,
+    0.09757126577464145,
+    0.2643152579131812
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_19_2880v_8400c_seed.off",
+   "seed_R": 30.874581013955844
+  },
+  {
+   "name": "ixoic_wall_37",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "c495291864b7",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.6294078665039542,
+    0.0,
+    0.1622485045756587,
+    0.20834362892038727
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.6294078665039542,
+    0.0,
+    0.1622485045756587,
+    0.20834362892038727
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.6294078665039542,
+    0.0,
+    0.1622485045756587,
+    0.20834362892038727
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_37_2880v_10560c_seed.off",
+   "seed_R": 38.324752508767624
+  },
+  {
+   "name": "ixoic_wall_38",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "8cd3bc68ed80",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.4580663721117695,
+    0.04210105976903162,
+    0.49983256811919896,
+    0.0
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.4580663721117695,
+    0.04210105976903162,
+    0.49983256811919896,
+    0.0
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.4580663721117695,
+    0.04210105976903162,
+    0.49983256811919896,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_38_2880v_10560c_seed.off",
+   "seed_R": 16.064352515125947
+  },
+  {
+   "name": "ixoic_wall_44",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "501f3549d03f",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.3046163483364184,
+    0.5416356451984347,
+    0.0,
+    0.15374800646514697
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.3046163483364184,
+    0.5416356451984347,
+    0.0,
+    0.15374800646514697
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.3046163483364184,
+    0.5416356451984347,
+    0.0,
+    0.15374800646514697
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_44_2880v_11520c_seed.off",
+   "seed_R": 15.271707939086673
+  },
+  {
+   "name": "ixoic_wall_45",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "1f89551dc87e",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.15366708660735967,
+    0.7628242463030697,
+    0.0,
+    0.08350866708957067
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.15366708660735967,
+    0.7628242463030697,
+    0.0,
+    0.08350866708957067
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.15366708660735967,
+    0.7628242463030697,
+    0.0,
+    0.08350866708957067
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_45_2880v_11520c_seed.off",
+   "seed_R": 11.929950538018671
+  },
+  {
+   "name": "ixoic_wall_46",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "a9eb68364630",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.1929939745213421,
+    0.6556012221101317,
+    0.0,
+    0.1514048033685263
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.1929939745213421,
+    0.6556012221101317,
+    0.0,
+    0.1514048033685263
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.1929939745213421,
+    0.6556012221101317,
+    0.0,
+    0.1514048033685263
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_46_2880v_11520c_seed.off",
+   "seed_R": 13.212002554593717
+  },
+  {
+   "name": "ixoic_wall_58",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "6173a68c18b5",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.6725982971679021,
+    0.0,
+    0.07744054744392859,
+    0.24996115538816957
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.6725982971679021,
+    0.0,
+    0.07744054744392859,
+    0.24996115538816957
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.6725982971679021,
+    0.0,
+    0.07744054744392859,
+    0.24996115538816957
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_58_2880v_12000c_seed.off",
+   "seed_R": 88.29954856499474
+  },
+  {
+   "name": "ixoic_wall_59",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "f74ac0643a00",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.5412467114052274,
+    0.0,
+    0.3820374370050776,
+    0.07671585158969485
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.5412467114052274,
+    0.0,
+    0.3820374370050776,
+    0.07671585158969485
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.5412467114052274,
+    0.0,
+    0.3820374370050776,
+    0.07671585158969485
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_59_2880v_12000c_seed.off",
+   "seed_R": 18.14550953549174
+  },
+  {
+   "name": "ixoic_wall_60",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "332c96fdee8f",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.2362783235699336,
+    0.5695635140361124,
+    0.0,
+    0.1941581623939539
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.2362783235699336,
+    0.5695635140361124,
+    0.0,
+    0.1941581623939539
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.2362783235699336,
+    0.5695635140361124,
+    0.0,
+    0.1941581623939539
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_60_2880v_12000c_seed.off",
+   "seed_R": 13.959021038678733
+  },
+  {
+   "name": "ixoic_wall_61",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "69073f08816e",
+   "locus": [],
+   "sheet": "ixo5",
+   "seed": [
+    0.18621852551972745,
+    0.6443826407207105,
+    0.0,
+    0.16939883375956233
+   ],
+   "start_R": null,
+   "R": null,
+   "optimized": [
+    0.18621852551972745,
+    0.6443826407207105,
+    0.0,
+    0.16939883375956233
+   ],
+   "optimized_status": "seed only",
+   "central": [
+    0.18621852551972745,
+    0.6443826407207105,
+    0.0,
+    0.16939883375956233
+   ],
+   "depth": null,
+   "central_status": "not computed",
+   "seed_off": "new_shapes/off/ixoic/ixoic_wall_61_2880v_12000c_seed.off",
+   "seed_R": 13.03417706859558
   }
  ]
 }
