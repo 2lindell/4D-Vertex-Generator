@@ -13998,6 +13998,150 @@
    "seed_R": 20.82931263011521,
    "opt_off": "optimized_off/ixoic/ixoic_region_92_2880v_22080c_opt.off",
    "opt_R": 14.50157503647155
+  },
+  {
+   "name": "ixoic_region_94",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9cf97ab67513",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.16658681844450002,
+    0.6658385612886233,
+    0.05637011538935812,
+    0.11120450487751861
+   ],
+   "locus_used": null,
+   "start_R": 20.420401035381442,
+   "R": 12.28210550358687,
+   "optimized": [
+    0.20831677582924915,
+    0.6360049166053888,
+    5.647034442044993e-05,
+    0.15562183722094158
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.16658681844450002,
+    0.6658385612886233,
+    0.05637011538935812,
+    0.11120450487751861
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_94_2880v_23040c_seed.off",
+   "seed_R": 20.420401035401508,
+   "opt_off": "optimized_off/ixoic/ixoic_region_94_2880v_23040c_opt.off",
+   "opt_R": 14.213881731180013
+  },
+  {
+   "name": "ixoic_region_95",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5c6bb3e66923",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.06969580376833993,
+    0.7593387548782312,
+    0.11874131976084036,
+    0.05222412159258839
+   ],
+   "locus_used": null,
+   "start_R": 31.549448915223362,
+   "R": 12.247827600888357,
+   "optimized": [
+    0.1824027738556823,
+    0.7108018325455174,
+    0.008400128196151728,
+    0.0983952654026486
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.06969580376833993,
+    0.7593387548782312,
+    0.11874131976084036,
+    0.05222412159258839
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_95_2880v_23040c_seed.off",
+   "seed_R": 31.549448915267895,
+   "opt_off": "optimized_off/ixoic/ixoic_region_95_2880v_23040c_opt.off",
+   "opt_R": 12.819409122865146
+  },
+  {
+   "name": "ixoic_region_96",
+   "kind": "region",
+   "degrees": 3,
+   "key": "82545df01580",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.02885715918199946,
+    0.655273543482318,
+    0.31135069272946697,
+    0.004518604606215619
+   ],
+   "locus_used": null,
+   "start_R": 69.72945558563639,
+   "R": 11.578634165773641,
+   "optimized": [
+    0.15956431262910087,
+    0.49018048874495457,
+    0.30285456500344543,
+    0.04740063362249911
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.02885715918199946,
+    0.655273543482318,
+    0.31135069272946697,
+    0.004518604606215619
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_96_2880v_23040c_seed.off",
+   "seed_R": 69.72945558592833,
+   "opt_off": "optimized_off/ixoic/ixoic_region_96_2880v_23040c_opt.off",
+   "opt_R": 11.588847416218362
+  },
+  {
+   "name": "ixoic_region_100",
+   "kind": "region",
+   "degrees": 3,
+   "key": "7c59b744882a",
+   "locus": [],
+   "sheet": "ixo9",
+   "seed": [
+    0.004528522125007104,
+    0.797671052257715,
+    0.19330091540402625,
+    0.004499510213251731
+   ],
+   "locus_used": null,
+   "start_R": 333.9529267638425,
+   "R": 13.361720037473402,
+   "optimized": [
+    0.08279026265800948,
+    0.8342000778699321,
+    0.00022783502345326279,
+    0.08278182444860523
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.004528522125007104,
+    0.797671052257715,
+    0.19330091540402625,
+    0.004499510213251731
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixoic/ixoic_region_100_2880v_24480c_seed.off",
+   "seed_R": 333.9529267706286,
+   "opt_off": "optimized_off/ixoic/ixoic_region_100_2880v_24480c_opt.off",
+   "opt_R": 18.445592530285847
   }
  ]
 }
