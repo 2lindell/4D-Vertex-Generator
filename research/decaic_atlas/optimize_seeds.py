@@ -295,10 +295,35 @@ def optimise(shape):
         order = list(range(len(loc)))
         if len(loc) > max(1, 3 - shape["degrees"]):
             order.sort(key=lambda i: not keeps(i))
+        # (at most `need` of them: a shape of d degrees with z zero betas is cut out by 3 - d - z equations; a line seed
+        #  near a point where many surfaces cross (gypsobted: 27 surfaces within 1e-7) has more than two nearly tangent
+        #  ones that pass a rank test, and with them the line is pinned to a point: for a line, the pair whose
+        #  intersection keeps the shape both ways from the seed)
+        need = max(1, 3 - shape["degrees"] - len(zero))
         pick = []
-        for i in order:
-            if np.linalg.matrix_rank(np.array([grad(j) for j in pick + [i]]), 1e-6) == len(pick) + 1:
-                pick.append(i)
+        if need == 2 and len(loc) > 2:
+            def keeps2(i, j):
+                Gm = np.array([grad(i), grad(j), seed / np.linalg.norm(seed)])
+                Gm[:, zero] = 0
+                if np.linalg.matrix_rank(Gm[:2], 1e-6) < 2:
+                    return False
+                ns = np.linalg.svd(np.vstack([Gm, np.eye(4)[zero]]))[2][-1]
+                for sgn in (1, -1):
+                    for h in (1e-3, 1e-4):
+                        p = project(seed + sgn * h * ns * seed[free].min(), [loc_f[i], loc_f[j]],
+                                    [loc_g[i], loc_g[j]], zero)
+                        if not same_shape(p, seed, key0, tol):
+                            break
+                    else:
+                        continue
+                    return False
+                return True
+            pairs = [(order[a], order[b_]) for a in range(len(order)) for b_ in range(a + 1, len(order))]
+            pick = next((list(pq) for pq in pairs[:400] if keeps2(*pq)), [])
+        if not pick:
+            for i in order:
+                if len(pick) < need and np.linalg.matrix_rank(np.array([grad(j) for j in pick + [i]]), 1e-6) == len(pick) + 1:
+                    pick.append(i)
         if len(pick) < len(loc):
             res["locus_used"] = f"{len(pick)} of {len(loc)} locus equations (the rest dependent at the seed)"
         loc, loc_f, loc_g = [loc[i] for i in pick], [loc_f[i] for i in pick], [loc_g[i] for i in pick]
