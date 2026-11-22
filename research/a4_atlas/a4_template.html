@@ -170,7 +170,7 @@ __TYPE_CSS__
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const DIMS = [["region", "regions"], ["wall", "walls"], ["line", "lines"], ["point", "points"]];
     const dimBox = { region: "showRegions", wall: "showWalls", line: "showLines", point: "showPoints" };
-    const HOVER0 = "Hover a point for its shape, β and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape, Ctrl-click (⌘-click on a Mac) to add or remove more, and click the only selected row again to show everything.";
+    const HOVER0 = "Each shape is marked by its example seed in every piece: walls and lines at their most even seed, regions at their central seed. Hover a seed for its shape, β and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape (a region: its extent, the walls round it, in its colour), Ctrl-click (⌘-click on a Mac) to add or remove more, and click the only selected row again to show everything.";
     let D = null, byId = {}, state = { sel: new Set() }, pinned = false;
     const color = (t) => css(t.color);
     const label = (t) => t.id;
@@ -226,20 +226,27 @@ __TYPE_CSS__
         tr.hoverinfo = "text"; tr.text = s.pts.map(() => `${label(t)}${t.name ? " · " + t.name : ""}`);
         out.push(tr);
       }
-      const pts0 = D.points.filter((p) => byId[p.id] && visibleFor(p.id) && el("showPoints").checked);
-      if (pts0.length) out.push({ type: "scatter3d", mode: "markers", name: "points",
-        x: pts0.map((p) => p.q[0]), y: pts0.map((p) => p.q[1]), z: pts0.map((p) => p.q[2]),
-        customdata: pts0.map((p) => `${p.id}${byId[p.id].name ? " · " + byId[p.id].name : ""}<br>β ${p.beta}<br>seed ${p.seed}`),
-        marker: { size: 8, symbol: "diamond", color: pts0.map((p) => color(byId[p.id])), line: { color: ink, width: 1 } },
-        hovertemplate: "%{customdata}<extra></extra>" });
-      for (const t of D.types) {
-        if (!visibleFor(t.id) || !el(dimBox[t.dim]).checked) continue;
-        const pts = D.samples[t.id] || [];
-        if (!pts.length) continue;
-        out.push({ type: "scatter3d", mode: "markers", name: label(t),
-          x: pts.map((p) => p[0]), y: pts.map((p) => p[1]), z: pts.map((p) => p[2]),
-          customdata: pts.map((p) => `${label(t)}${t.name ? " · " + t.name : ""}<br>β ${p[4]}<br>seed ${p[3]}`),
-          marker: { size: 2.4, color: color(t), symbol: "circle", opacity: 0.75 }, hovertemplate: "%{customdata}<extra></extra>" });
+      // a selected region's extent: the walls round it, in its colour, and their edges (as on the swirlprism page)
+      for (const id of state.sel) {
+        const t = byId[id], sh = (D.shells || {})[id];
+        if (!t || !sh || t.dim !== "region") continue;
+        const nm = `${id}: its outer walls`;
+        out.push({ type: "mesh3d", x: sh.verts.map((q) => q[0]), y: sh.verts.map((q) => q[1]), z: sh.verts.map((q) => q[2]),
+          i: sh.faces.map((f) => f[0]), j: sh.faces.map((f) => f[1]), k: sh.faces.map((f) => f[2]),
+          color: color(t), opacity: 0.4, flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
+        const tr = lines(sh.edges, `Boundary of ${id}`, { color: color(t), width: 3 });
+        tr.hovertemplate = `Boundary of ${id}<extra></extra>`;
+        out.push(tr);
+      }
+      // example seeds: every shape in each of its pieces (walls, lines: the most even seed; regions: the central seed)
+      for (const [d, size, sym] of [["region", 10, "circle"], ["wall", 7, "circle"], ["line", 7, "circle"], ["point", 8, "diamond"]]) {
+        const ex = D.examples.filter((p) => byId[p.id] && byId[p.id].dim === d && visibleFor(p.id) && el(dimBox[d]).checked);
+        if (!ex.length) continue;
+        out.push({ type: "scatter3d", mode: "markers", name: `${d} seeds`,
+          x: ex.map((p) => p.q[0]), y: ex.map((p) => p.q[1]), z: ex.map((p) => p.q[2]),
+          customdata: ex.map((p) => `${p.id}${byId[p.id].name ? " · " + byId[p.id].name : ""}<br>β ${p.beta}<br>${byId[p.id].example}<br>seed ${p.seed}`),
+          marker: { size, symbol: sym, color: ex.map((p) => color(byId[p.id])), line: { color: ink, width: 1.5 } },
+          hovertemplate: "%{customdata}<extra></extra>" });
       }
       const brief = (h) => h.split("<br>").slice(0, 2).join("<br>");
       for (const t of out) if (Array.isArray(t.customdata)) {
@@ -258,7 +265,7 @@ __TYPE_CSS__
         scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
           xaxis: { ...hidden, range: [lo[0] - pad, hi[0] + pad] }, yaxis: { ...hidden, range: [lo[1] - pad, hi[1] + pad] },
           zaxis: { ...hidden, range: [lo[2] - pad, hi[2] + pad] },
-          camera: cameras[D.key] || { eye: { x: 1.9, y: -2.1, z: 0.55 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } } } };
+          camera: cameras[D.key] || { eye: { x: 1.35, y: -1.5, z: 0.4 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } } } };
     }
     const plot = el("plot");
     const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }).then(() => {
@@ -317,16 +324,16 @@ __TYPE_CSS__
             .filter(([, ids]) => ids.length).map(([name, ids]) => `<span class="locus">${name}:</span> ${ids.join(", ")}`).join("<br>");
       const boundsCell = (t) => bounds(t) + (t.separates && t.separates.length
         ? `<div class="separates"><span class="locus">separates:</span> ${t.separates.join(", ")}</div>` : "");
-      let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th>Boundaries</th><th class="num">Samples</th></tr></thead><tbody>`;
+      let html = `<thead><tr><th>ID</th><th class="num">Vertices</th><th>Shape</th><th>Counts and example seed</th><th>Where</th><th>Boundaries</th></tr></thead><tbody>`;
       for (const [d, title] of DIMS) {
         const rows = D.types.filter((t) => t.dim === d);
-        html += `<tr class="group"><td colspan="7"><h3>${title} · ${["three", "two", "one", "no"][["region", "wall", "line", "point"].indexOf(d)]} degree${d === "line" ? "" : "s"} of variation</h3></td></tr>`;
-        if (!rows.length) { html += `<tr><td colspan="7" class="pending">none</td></tr>`; continue; }
+        html += `<tr class="group"><td colspan="6"><h3>${title} · ${["three", "two", "one", "no"][["region", "wall", "line", "point"].indexOf(d)]} degree${d === "line" ? "" : "s"} of variation</h3></td></tr>`;
+        if (!rows.length) { html += `<tr><td colspan="6" class="pending">none</td></tr>`; continue; }
         for (const t of rows) {
-          const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}${t.valence ? `<br>valence ${t.valence}` : ""}<br>${seedLine(t.seed)}<br>β ${t.beta}` : pending("no hull");
+          const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}${t.valence ? `<br>valence ${t.valence}` : ""}<br><span class="locus">${t.example}:</span><br>${seedLine(t.seed)}<br>β ${t.beta}` : pending("no hull");
           html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name || pending("—")}</td>`
             + `<td class="counts">${counts}</td><td class="where">${t.where}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td>`
-            + `<td class="bounds">${boundsCell(t)}</td><td class="num">${t.samples || ""}</td></tr>`;
+            + `<td class="bounds">${boundsCell(t)}</td></tr>`;
         }
       }
       el("key").innerHTML = html + "</tbody>";

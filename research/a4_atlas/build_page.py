@@ -76,7 +76,12 @@ def notes(g, d):
             "Shapes are named from the accepted lists; a shape found on several faces of the map is one row, its "
             "pieces counted under Where.",
             "Lightness shows dimension, as on the Symmetry Domain page: regions lightest, walls darker, lines darker "
-            "still, points darkest. Regions are drawn as sample seeds, each placed exactly in its face of the map.",
+            "still, points darkest.",
+            "Every shape is marked by an example seed in each of its pieces: walls and lines at their most even seed "
+            "(the least ratio of longest to shortest edge: decaic_atlas/optimize_seeds.py; for pennic and kipennic the "
+            "uniform polychoron, equal β on its ringed nodes), regions at their central seed (the deepest point: "
+            "decaic_atlas/central_seeds.py; the chamber's centre for pennic and kipennic). Selecting a region in the "
+            "key paints its extent, the walls round it, in its colour, as on the swirlprism page.",
             "Boundaries are the shapes on the edges of a shape's pieces; separates lists the regions or walls a wall "
             "or line lies between."]},
         {"title": "Status", "status": True, "items": [

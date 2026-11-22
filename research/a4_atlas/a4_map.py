@@ -17,8 +17,8 @@ mirrors and every plane of beta are planes, and great circles are straight lines
     the other half, so the whole chamber shows every decaic shape twice, mirrored.
 
 Every face of the map is drawn where its polychoron has that many degrees of variation (a face of a region's plane
-where nothing changes is not a wall); the regions are drawn as sample seeds, each placed in its face of the
-arrangement exactly. The polychora are classified by decaic_atlas/group.py (DECAIC_SUB = pen or full).
+where nothing changes is not a wall); each shape has an example seed in every piece (walls, lines: the most even
+seed; regions: the central seed), and each region its extent, the walls round it. The polychora are classified by decaic_atlas/group.py (DECAIC_SUB = pen or full).
 
     python a4_map.py pennic
     python a4_map.py kipennic
@@ -284,34 +284,88 @@ def build(group):
             sep[b].add(t["id"])
     for t in types:
         t["separates"] = sorted(i for i in sep[t["id"]] if next(u["degrees"] for u in types if u["id"] == i) == t["degrees"] + 1)
-    # samples: seeds spread over the chamber, each placed in its face of the map (exactly, by the planes' signs)
-    rng = np.random.default_rng(7)
-    B = rng.dirichlet([1, 1, 1, 1], 6000)
-    samples = {}
-    if group in ("pennic", "kipennic"):
-        reg = next(t for t in types if t["dim"] == "region")
-        samples[reg["id"]] = [r5(chart(b)) + [seed_text(b), beta_text(b)] for b in B]
+    # the region a beta lies in (by the planes' signs; decaic: the half beta_1 >= beta_4 holds the arrangement)
+    cell = {f["signs"]: f for f in faces if f["dim"] == 3}
+
+    def region_at(b):
+        b = np.asarray(b, float)
+        if b.min() < 0:
+            return None
+        if group != "decaic":
+            return tid[next(f["key"] for f in faces if f["dim"] == 3)]
+        bb = b if b[0] >= b[3] else b[::-1]
+        f = cell.get(tuple(int(np.sign(np.dot(p, bb))) for p in planes))
+        return tid[f["key"]] if f else None
+
+    # example seeds: each wall, line and point at its most even seed (decaic: optimize_seeds.py's, just inside the
+    # shape where the optimum is on its edge; pennic, kipennic: the uniform Wythoffian, equal betas on its ringed
+    # nodes), each region at its central seed (decaic: central_seeds.py's deepest point; pennic, kipennic: the
+    # chamber's centre), in every piece of the shape
+    ex = {}
+    if group == "decaic":
+        opt = {r["name"]: r["off_seed"] for r in json.load(open(os.path.join(DEC, "optimized_seeds.json")))["shapes"]}
+        cen = {r["name"]: r["centre"] for r in json.load(open(os.path.join(DEC, "central_seeds.json")))["shapes"]}
+        for t in types:
+            b = np.asarray(cen[t["id"]] if t["dim"] == "region" else opt[t["id"]], float)
+            b = np.clip(b, 0, None)
+            ex[t["id"]] = [b] + ([b[::-1]] if not np.allclose(b, b[::-1]) else [])
     else:
-        cell = {f["signs"]: f for f in faces if f["dim"] == 3}
-        for b in B:
-            bb = b if b[0] >= b[3] else b[::-1]
-            s = tuple(int(np.sign(np.dot(p, bb))) for p in planes)
-            f = cell.get(s)
-            if f is None:
-                continue
-            samples.setdefault(tid[f["key"]], []).append(r5(chart(b)) + [seed_text(b), beta_text(b)])
+        for t in types:
+            ex[t["id"]] = [np.array([1.0 if k + 1 in f["ring"] else 0.0 for k in range(4)])
+                           for f in by_key[t["key"]] if f["dim"] == t["degrees"]]
+    chk = classify([b for t in types for b in ex[t["id"]]], sub)
+    k = 0
+    examples = []
     for t in types:
-        t["samples"] = len(samples.get(t["id"], []))
+        for b in ex[t["id"]]:
+            if chk[k][1] != t["key"]:
+                raise SystemExit(f"{group}: the example seed of {t['id']} {b} is not the shape")
+            k += 1
+            examples.append({"id": t["id"], "q": r5(chart(b)), "beta": beta_text(b), "seed": seed_text(b)})
+        b0 = ex[t["id"]][0]
+        t["seed"], t["beta"] = seed_text(b0), beta_text(b0)
+        t["example"] = "central seed (the deepest point of the region)" if t["dim"] == "region" else (
+            "the point" if t["dim"] == "point" else "most even seed (least longest / shortest edge)" if group == "decaic"
+            else "uniform seed (all edges equal)")
+    # each region's extent: the faces of the map between it and anything else (the walls round it), with their edges,
+    # each found by stepping off the face both ways
+    shells = {}
+    for f in faces:
+        if f["dim"] != 2:
+            continue
+        P = np.array(f["corners"], float)
+        c = P.mean(0)
+        n = np.linalg.svd(np.vstack([P - c, np.ones(4)]))[2][-1]
+        sides = [region_at(c + e * n) for e in (1e-7, -1e-7)]
+        for r in set(sides) - {None}:
+            if sides.count(r) == 1:
+                for im in images:
+                    Q, tri = poly_mesh([chart(im(q)) for q in P])
+                    sh = shells.setdefault(r, {"verts": [], "faces": [], "edges": {}})
+                    o = len(sh["verts"])
+                    sh["verts"] += [r5(q) for q in Q]
+                    sh["faces"] += [[a + o, b + o, c_ + o] for a, b, c_ in tri]
+                    for a in range(len(Q)):
+                        e = tuple(sorted((tuple(r5(Q[a])), tuple(r5(Q[(a + 1) % len(Q)])))))
+                        sh["edges"].setdefault(e, []).append(np.cross(Q[1] - Q[0], Q[2] - Q[0]))
+    for r, sh in shells.items():               # (an edge between two pieces of one flat wall is not an edge of it)
+        keep = []
+        for e, ns in sh["edges"].items():
+            flat = len(ns) == 2 and abs(abs(ns[0] @ ns[1]) / np.linalg.norm(ns[0]) / np.linalg.norm(ns[1]) - 1) < 1e-6
+            if not flat:
+                keep.append([list(e[0]), list(e[1])])
+        sh["edges"] = keep
+    for t in types:
         t["where"] = {"region": "region", "wall": "wall", "line": "line", "point": "point"}[t["dim"]] + (
             f" ({t['pieces']} pieces)" if t["pieces"] > 1 else "")
     order_t = {"region": 0, "wall": 1, "line": 2, "point": 3}
     types.sort(key=lambda t: (order_t[t["dim"]], -(t.get("vertices") or 0), t["id"]))
     out = {"group": group, "order": order, "domain": domain(), "types": types, "walls": walls, "lines": lines,
-           "points": points, "samples": samples}
+           "points": points, "examples": examples, "shells": shells}
     path = os.path.join(HERE, f"a4_map_{group}.json")
     json.dump(out, open(path, "w"), separators=(",", ":"))
     print(f"{path}: {len(types)} shapes ({Counter(t['dim'] for t in types)}), {len(walls)} wall pieces, {len(lines)} "
-          f"line pieces, {len(points)} points, {sum(map(len, samples.values()))} samples")
+          f"line pieces, {len(points)} points, {len(examples)} example seeds, {len(shells)} region shells")
 
 
 if __name__ == "__main__":
