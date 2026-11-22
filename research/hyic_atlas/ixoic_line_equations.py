@@ -1,4 +1,4 @@
-"""Exact equations of every ixoic line (ixoic_line_equations.json, and .md).
+"""Exact equations of every ixoic (or ixitic) line (ixoic_line_equations.json, and .md; ixitic_line_equations.*).
 
 A line of the atlas was stored as one seed and its polytope's key; the surfaces through it were judged numerically
 (those within 1e-7 of the seed), and near a point where many surfaces cross that judgement fails (gypsobted: 27 of them,
@@ -17,7 +17,7 @@ A line whose seed no pair can leave both ways is either at the line's end (one w
 or has no line through it ("no line through the seed: a point"). Each seed is put exactly on its line at 40 digits
 (mpmath: f1 = f2 = 0, sum 1, and its position along the line kept).
 
-    python ixoic_line_equations.py
+    python ixoic_line_equations.py [ixitic]
 """
 from __future__ import annotations
 
@@ -88,7 +88,8 @@ for s in L:
     b = np.asarray(s["seed"], float); b = b / b.sum()
     tol = next((t for t in (1e-9, 1e-8, 1e-7) if label_ok(b, s["key"], t)), 1e-7)
     r = {"sheet": G.SUB, "key": s["key"], "source": s["source"], "hull_tol": tol, "seed": b.tolist()}
-    if s["source"] == "fixed line":
+    fixed = None
+    if True:                                   # (a half-turn fixing the seed: its fixed line, tried first)
         for g in G.ELEMENTS:
             if (np.allclose(g @ g, np.eye(4)) and not np.allclose(g, np.eye(4)) and not np.allclose(g, -np.eye(4))
                     and np.abs((g - np.eye(4)) @ G.X @ b).max() < 1e-9):
@@ -101,9 +102,11 @@ for s in L:
                         pick.append(i)
                     if len(pick) == 2:
                         break
-                cand = [Surface(str(sp.expand(rows[i]))) for i in pick]
-                break
-        pairs = [tuple(cand)]
+                if len(pick) == 2:
+                    fixed = tuple(Surface(str(sp.expand(rows[i]))) for i in pick)
+                    break
+    if s["source"] == "fixed line" and fixed:
+        cand, pairs = list(fixed), [fixed]
     else:
         cand = [x for x in SURF if x.dist(b) < 1e-6] + [Surface(f"b{k + 1}") for k in range(4) if b[k] < 1e-12]
         sc = []
@@ -116,7 +119,7 @@ for s in L:
             if sn > 1e-4:
                 sc.append((-sn, p_, q_))
         sc.sort(key=lambda z: z[0])
-        pairs = [(p_, q_) for _, p_, q_ in sc[:400]]
+        pairs = ([fixed] if fixed else []) + [(p_, q_) for _, p_, q_ in sc[:400]]
     r["candidates"] = len(cand)
     best, tried, passing = None, 0, 0
     for P in pairs:
@@ -171,19 +174,26 @@ print(json.dumps(out))
 '''
 
 
+GROUP = "ixoic"
+
+
 def lines():
     sys.path.insert(0, HERE)
     sys.path.insert(0, os.path.join(ROOT, "pages"))
     import ixitic_offs as X
-    from ixoic_match import atlas
-    X.GROUP = "ixoic"
-    A = atlas()
+    X.GROUP = GROUP
+    if GROUP == "ixoic":
+        from ixoic_match import atlas
+        A = atlas()
+    else:                                       # (ixitic: the merged shapes; a half-turn's line is found all the same)
+        A = [{"key": s["key"], "source": "merged"} for s in json.load(open(os.path.join(HERE, f"{GROUP}_shapes.json")))["shapes"]]
     out = []
     for s, a in zip(X.shapes(), A):
         assert s["key"] == a["key"]
         if s["kind"] == "line":
             out.append({"name": s["name"], "key": s["key"], "seed": s["seed"], "sheet": s["sheet"], "source": a["source"]})
     return out
+
 
 
 def run(sub, L):
@@ -202,7 +212,11 @@ def run(sub, L):
 def main():
     from concurrent.futures import ThreadPoolExecutor
     by = {}
-    only = set(sys.argv[1:])
+    global GROUP
+    args = sys.argv[1:]
+    if args and args[0] in ("ixoic", "ixitic"):
+        GROUP, args = args[0], args[1:]
+    only = set(args)
     for s in lines():
         if only and s["name"] not in only:
             continue
@@ -213,10 +227,10 @@ def main():
     if only:
         print(json.dumps(res, indent=1)[:3000])
         return
-    path = os.path.join(HERE, "ixoic_line_equations.json")
+    path = os.path.join(HERE, f"{GROUP}_line_equations.json")
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "lines": res}, open(path, "w"), indent=1)
-    md = ["# Exact equations of the ixoic lines", "", "Made by research/hyic_atlas/ixoic_line_equations.py "
-          "(equations in ixoic_line_equations.json).", "",
+    md = [f"# Exact equations of the {GROUP} lines", "", "Made by research/hyic_atlas/ixoic_line_equations.py "
+          f"(equations in {GROUP}_line_equations.json).", "",
           "| line | sheet | source | status | equations (degrees) | traced (1e-3 steps, + / -) | also on | seed moved |",
           "|---|---|---|---|---|---|---|---|"]
     for n, r in sorted(res.items(), key=lambda kv: (kv[1]["sheet"], kv[0])):
@@ -225,7 +239,7 @@ def main():
         md.append(f"| {n} | {r['sheet']} | {r['source']} | {r['status']} | {deg} | "
                   f"{(str(tr['plus']) + ' / ' + str(tr['minus'])) if tr else '-'} | {len(r.get('also_on', []))} | "
                   f"{('%.1e' % r['seed_moved']) if r.get('seed_moved') is not None else '-'} |")
-    open(os.path.join(HERE, "ixoic_line_equations.md"), "w").write("\n".join(md) + "\n")
+    open(os.path.join(HERE, f"{GROUP}_line_equations.md"), "w").write("\n".join(md) + "\n")
     print(len(res), "lines")
 
 

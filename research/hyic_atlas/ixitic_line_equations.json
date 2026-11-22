@@ -1,0 +1,277 @@
+{
+ "_about": "Exact equations of every ixoic (or ixitic) line (ixoic_line_equations.json, and .md; ixitic_line_equations.*).",
+ "lines": {
+  "tisthi": {
+   "sheet": "ix0",
+   "key": "f3bfff522990",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "candidates": 4,
+   "pairs_tried": 1,
+   "status": "line",
+   "equations": [
+    "b2*b4 - b3**2 - b3*b4",
+    "b3"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 40,
+    "minus": 40
+   },
+   "also_on": [
+    "b1*b3 - sqrt(5)*b1*b4/2 - b1*b4/2 + b2*b3/2 + sqrt(5)*b2*b3/2 - b2*b4 - b3*b4",
+    "b4"
+   ],
+   "seed_40": [
+    "0.03348952501738162307320934019116975832731",
+    "0.9665104749826183769267906598088302416727",
+    "0.0",
+    "0.0"
+   ],
+   "seed_moved": 0.0
+  },
+  "sagyptady": {
+   "sheet": "ix0",
+   "key": "93e27c1e3d43",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.03349589411816231,
+    0.0,
+    0.0,
+    0.9665041058818377
+   ],
+   "candidates": 6,
+   "pairs_tried": 1,
+   "status": "line",
+   "equations": [
+    "b2**2 - b3**2 - b3*b4",
+    "b2"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 40,
+    "minus": 40
+   },
+   "also_on": [
+    "b1*b2 - 3*sqrt(5)*b1*b3/2 - 5*b1*b3/2 + b2**2/2 + sqrt(5)*b2**2/2 - 3*b2*b3 - sqrt(5)*b2*b3 - 3*b3**2/2 - sqrt(5)*b3**2/2",
+    "b2 - sqrt(5)*b3/2 + b3/2",
+    "b2*b4 - b3**2 - b3*b4",
+    "b3"
+   ],
+   "seed_40": [
+    "0.03349589411816233930352382230921648442745",
+    "0.0",
+    "0.0",
+    "0.9665041058818376606964761776907835155725"
+   ],
+   "seed_moved": 2.7755575615628914e-17
+  },
+  "ratehi": {
+   "sheet": "ix0",
+   "key": "12dbebd1e5f4",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.033483870377992,
+    0.0,
+    0.9665161296220081,
+    0.0
+   ],
+   "candidates": 4,
+   "pairs_tried": 1,
+   "status": "line",
+   "equations": [
+    "b2/2 + sqrt(5)*b2/2",
+    "b2 + b4"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 40,
+    "minus": 40
+   },
+   "also_on": [
+    "b1*b2 - sqrt(5)*b1*b4/5 + 2*sqrt(5)*b2**2/5 - b2*b3/2 + 3*sqrt(5)*b2*b3/10 - b2*b4/2 + sqrt(5)*b2*b4/10",
+    "b2 - b4",
+    "b2",
+    "b4"
+   ],
+   "seed_40": [
+    "0.0334838703779919422132138606684748083353",
+    "0.0",
+    "0.9665161296220080577867861393315251916647",
+    "0.0"
+   ],
+   "seed_moved": 5.551115123125783e-17
+  },
+  "tatehi": {
+   "sheet": "ix0",
+   "key": "30ef0dbd6ae9",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.0,
+    0.0,
+    0.03387154194805505,
+    0.966128458051945
+   ],
+   "candidates": 3,
+   "pairs_tried": 2,
+   "status": "line",
+   "equations": [
+    "b1",
+    "b2"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 40,
+    "minus": 40
+   },
+   "also_on": [
+    "b1*b2 - sqrt(5)*b1*b4/5 + 2*sqrt(5)*b2**2/5 - b2*b3/2 + 3*sqrt(5)*b2*b3/10 - b2*b4/2 + sqrt(5)*b2*b4/10"
+   ],
+   "seed_40": [
+    "0.0",
+    "0.0",
+    "0.03387154194805497287035223052953369915485",
+    "0.9661284580519450271296477694704663008451"
+   ],
+   "seed_moved": 7.632783294297951e-17
+  },
+  "tasthi": {
+   "sheet": "ix4",
+   "key": "5a26dde24dce",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "candidates": 2,
+   "pairs_tried": 1,
+   "status": "line",
+   "equations": [
+    "b3",
+    "b4"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 40,
+    "minus": 22
+   },
+   "also_on": [],
+   "seed_40": [
+    "0.03348952501738162307320934019116975832731",
+    "0.9665104749826183769267906598088302416727",
+    "0.0",
+    "0.0"
+   ],
+   "seed_moved": 0.0
+  },
+  "gagyptady": {
+   "sheet": "ix5",
+   "key": "b4ad37d86d09",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.5333057965779749,
+    0.0,
+    0.0,
+    0.46669420342202506
+   ],
+   "candidates": 4,
+   "pairs_tried": 1,
+   "status": "line",
+   "equations": [
+    "b2",
+    "b3"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 40,
+    "minus": 40
+   },
+   "also_on": [
+    "b1*b2 - b2**2/2 + sqrt(5)*b2**2/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - sqrt(5)*b3*b4/2 + b3*b4/2",
+    "b2 - sqrt(5)*b3/2 + b3/2"
+   ],
+   "seed_40": [
+    "0.5333057965779749443058221913815941661596",
+    "0.0",
+    "0.0",
+    "0.4666942034220250556941778086184058338404"
+   ],
+   "seed_moved": 0.0
+  },
+  "sartethi": {
+   "sheet": "ix5",
+   "key": "f0a6159b8918",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.5331143602691915,
+    0.0,
+    0.46688563973080854,
+    0.0
+   ],
+   "candidates": 3,
+   "pairs_tried": 1,
+   "status": "line",
+   "equations": [
+    "b2",
+    "b4"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 40,
+    "minus": 40
+   },
+   "also_on": [
+    "b1*b2 - b2**2/2 + sqrt(5)*b2**2/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - sqrt(5)*b3*b4/2 + b3*b4/2"
+   ],
+   "seed_40": [
+    "0.5331143602691914562541342093027196824551",
+    "0.0",
+    "0.4668856397308085437458657906972803175449",
+    "0.0"
+   ],
+   "seed_moved": 0.0
+  },
+  "sabtedy": {
+   "sheet": "ix7",
+   "key": "3745ab4a85c6",
+   "source": "merged",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.0,
+    0.6331211092749606,
+    0.36687889072503954,
+    0.0
+   ],
+   "candidates": 3,
+   "pairs_tried": 4,
+   "status": "line",
+   "equations": [
+    "-2*b1",
+    "b4"
+   ],
+   "traced_steps_1e-3": {
+    "plus": 21,
+    "minus": 40
+   },
+   "also_on": [
+    "b1 - b4",
+    "b1",
+    "b4"
+   ],
+   "seed_40": [
+    "0.0",
+    "0.6331211092749604585350198249216191470623",
+    "0.3668788907250395414649801750783808529377",
+    "0.0"
+   ],
+   "seed_moved": 1.1102230246251565e-16
+  }
+ }
+}

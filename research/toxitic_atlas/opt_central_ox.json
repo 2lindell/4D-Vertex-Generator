@@ -743,7 +743,20 @@
    "kind": "wall",
    "degrees": 2,
    "key": "223f1e4ac3a9",
-   "locus": [],
+   "locus": [
+    "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2",
+    "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 + sqrt(2)*b4/2",
+    "b1 - sqrt(2)*b2/2 + b2 - b3 + sqrt(2)*b3/2 - b4",
+    "b1**2*b2*b3 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + 2*b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + 3*sqrt(2)*b1*b2*b3**2/2 - 3*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b3/2 + b2**3*b3 - sqrt(2)*b2**3*b4 + b2**3*b4/2 - 3*b2**2*b3**2/2 + sqrt(2)*b2**2*b3**2 - 3*b2**2*b3*b4 + 3*sqrt(2)*b2**2*b3*b4/2 - b2**2*b4**2/2 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**3/2 + b2*b3**3/2 - sqrt(2)*b2*b3**2*b4 + 3*b2*b3**2*b4/2 - sqrt(2)*b2*b3*b4**2/2 + b2*b3*b4**2/2",
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4 + sqrt(2)*b1**2*b3**2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + 2*b1*b2**2*b3 - 2*sqrt(2)*b1*b2**2*b4 + 2*b1*b2**2*b4 - 2*b1*b2*b3**2 + 5*sqrt(2)*b1*b2*b3**2/2 - 4*b1*b2*b3*b4 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3 + b1*b3**3 - sqrt(2)*b1*b3**2*b4 + b1*b3**2*b4 - sqrt(2)*b1*b3*b4**2/2 - sqrt(2)*b2**3*b3/2 + b2**3*b3 - 3*sqrt(2)*b2**3*b4/2 + b2**3*b4 - 2*b2**2*b3**2 + 3*sqrt(2)*b2**2*b3**2/2 - 4*b2**2*b3*b4 + 2*sqrt(2)*b2**2*b3*b4 - b2**2*b4**2 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**3 + b2*b3**3 - 3*sqrt(2)*b2*b3**2*b4/2 + 2*b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2 + b2*b3*b4**2",
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - 3*sqrt(2)*b1*b3**2*b4/2 + b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+    "b1*b2 + sqrt(2)*b1*b3/2 + b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - sqrt(2)*b2*b4/2 - b2*b4/2 - sqrt(2)*b3**2/2 + b3**2/2 - b3*b4/2 - b4**2/2",
+    "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+    "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2",
+    "b1*b3 - sqrt(2)*b1*b4/2 - sqrt(2)*b2*b3/2 + b2*b3 + sqrt(2)*b2*b4/2 + 2*b2*b4 - b3**2 + sqrt(2)*b3**2/2 + 3*sqrt(2)*b3*b4/2 + sqrt(2)*b4**2/2"
+   ],
    "sheet": "ox",
    "seed": [
     0.1390292809133281,
@@ -751,29 +764,29 @@
     0.6678231885837014,
     0.0
    ],
-   "start_R": null,
-   "R": null,
+   "start_R": 2.389257921605833,
+   "R": 2.1322418823119023,
    "optimized": [
-    0.1390292809133281,
-    0.1931475305029705,
-    0.6678231885837014,
+    0.14972979774929493,
+    0.16953034804184092,
+    0.6807398542088642,
     0.0
    ],
-   "optimized_status": "optimiser failed: 'NoneType' object is not subscriptable",
+   "optimized_status": "minimum inside the shape",
    "central": [
     0.1390292809133281,
     0.1931475305029705,
     0.6678231885837014,
     0.0
    ],
-   "depth": 0.022888564338491162,
-   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 142510.91587647382,
+   "central_status": "no deeper point found: the seed itself",
    "opt_off": "optimized_off/oxitic/tetabertetic_576v_336c_opt.off",
    "opt_counts": [
     576,
     336
    ],
-   "off_R": 2.3892579216058336,
+   "off_R": 2.132241882311906,
    "central_off": "central_off/oxitic/tetabertetic_576v_336c_central.off",
    "central_counts": [
     576,
@@ -786,7 +799,9 @@
    "kind": "wall",
    "degrees": 2,
    "key": "6f4a50387244",
-   "locus": [],
+   "locus": [
+    "b1**2 - sqrt(2)*b1*b2 + b1*b2 - 2*b1*b3 - b1*b4 + b2**2 - b2*b3 + b2*b4 + sqrt(2)*b2*b4"
+   ],
    "sheet": "ox",
    "seed": [
     0.054558389985981004,
@@ -794,29 +809,29 @@
     0.4205448878525324,
     0.0
    ],
-   "start_R": null,
-   "R": null,
+   "start_R": 13.487124652258208,
+   "R": 3.6714230353468706,
    "optimized": [
-    0.054558389985981004,
-    0.5248967221614868,
-    0.4205448878525324,
+    0.23450703111466786,
+    0.50052311348923,
+    0.2649698553961022,
     0.0
    ],
-   "optimized_status": "optimiser failed: list index out of range",
+   "optimized_status": "minimum inside the shape",
    "central": [
-    0.054558389985981,
-    0.5248967221614868,
-    0.42054488785253236,
+    0.6408866687002369,
+    0.06324713855153105,
+    0.295866192748232,
     0.0
    ],
-   "depth": 0.09297355869144182,
-   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 218615.11339772132,
+   "central_status": "deepest point of the shape",
    "opt_off": "optimized_off/oxitic/totabertetic_576v_384c_opt.off",
    "opt_counts": [
     576,
     384
    ],
-   "off_R": 13.487124652258425,
+   "off_R": 3.671423035346892,
    "central_off": "central_off/oxitic/totabertetic_576v_384c_central.off",
    "central_counts": [
     576,
@@ -829,7 +844,13 @@
    "kind": "wall",
    "degrees": 2,
    "key": "6fc49066ae8b",
-   "locus": [],
+   "locus": [
+    "b1**2*b2*b3 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + 2*b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + 3*sqrt(2)*b1*b2*b3**2/2 - 3*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b3/2 + b2**3*b3 - sqrt(2)*b2**3*b4 + b2**3*b4/2 - 3*b2**2*b3**2/2 + sqrt(2)*b2**2*b3**2 - 3*b2**2*b3*b4 + 3*sqrt(2)*b2**2*b3*b4/2 - b2**2*b4**2/2 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**3/2 + b2*b3**3/2 - sqrt(2)*b2*b3**2*b4 + 3*b2*b3**2*b4/2 - sqrt(2)*b2*b3*b4**2/2 + b2*b3*b4**2/2",
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - 3*sqrt(2)*b1*b2**2*b4/2 + b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 4*b1*b2*b3*b4 + 3*sqrt(2)*b1*b2*b3*b4/2 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 + sqrt(2)*b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 + b2*b3*b4**2",
+    "b1**2*b2*b3 - sqrt(2)*b1**2*b2*b4/2 + b1**2*b2*b4/2 + sqrt(2)*b1**2*b3**2/2 - b1**2*b3*b4/2 + sqrt(2)*b1**2*b3*b4/2 - sqrt(2)*b1*b2**2*b3/2 + b1*b2**2*b3 - sqrt(2)*b1*b2**2*b4 + 3*b1*b2**2*b4/2 - 3*b1*b2*b3**2/2 + sqrt(2)*b1*b2*b3**2 - 7*b1*b2*b3*b4/2 + 2*sqrt(2)*b1*b2*b3*b4 - b1*b2*b4**2/2 + sqrt(2)*b1*b2*b4**2/2 - sqrt(2)*b1*b3**3/2 + b1*b3**3/2 - sqrt(2)*b1*b3**2*b4 + 3*b1*b3**2*b4/2 - sqrt(2)*b1*b3*b4**2/2 + b1*b3*b4**2/2 - sqrt(2)*b2**3*b4/2 + b2**3*b4/2 - 3*b2**2*b3*b4/2 + sqrt(2)*b2**2*b3*b4 - b2**2*b4**2/2 - sqrt(2)*b2*b3**2*b4/2 + b2*b3**2*b4 - sqrt(2)*b2*b3*b4**2/2",
+    "b1*b2 + sqrt(2)*b1*b3/2 - b1*b4/2 + sqrt(2)*b1*b4/2 - sqrt(2)*b2**2/2 + b2**2 - 3*b2*b3/2 + sqrt(2)*b2*b3 - 3*b2*b4/2 + sqrt(2)*b2*b4 - sqrt(2)*b3**2/2 + b3**2/2 - sqrt(2)*b3*b4 + 3*b3*b4/2 - sqrt(2)*b4**2/2 + b4**2/2",
+    "b1*b3 - sqrt(2)*b1*b4/2 + b1*b4 - sqrt(2)*b2*b3/2 + b2*b3 - 3*sqrt(2)*b2*b4/2 + b2*b4 - b3**2 + sqrt(2)*b3**2/2 - 2*b3*b4 + 3*sqrt(2)*b3*b4/2 - b4**2 + sqrt(2)*b4**2/2"
+   ],
    "sheet": "ox",
    "seed": [
     0.19924120165668613,
@@ -837,29 +858,29 @@
     0.7246898839625502,
     0.0760689143807636
    ],
-   "start_R": null,
-   "R": null,
+   "start_R": 5.143847025076554,
+   "R": 4.82842712474619,
    "optimized": [
-    0.19924120165668613,
+    0.22651163786872616,
     0.0,
-    0.7246898839625502,
-    0.0760689143807636
+    0.7734126404279171,
+    7.57217033566364e-05
    ],
-   "optimized_status": "optimiser failed: list index out of range",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
     0.19924120165668616,
     0.0,
     0.7246898839625503,
     0.07606891438076362
    ],
-   "depth": 0.062110449896603276,
-   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "depth": 535661.5511330407,
+   "central_status": "no deeper point found: the seed itself",
    "opt_off": "optimized_off/oxitic/tatbitutic_576v_672c_opt.off",
    "opt_counts": [
     576,
     672
    ],
-   "off_R": 5.143847025076563,
+   "off_R": 4.82876136385468,
    "central_off": "central_off/oxitic/tatbitutic_576v_672c_central.off",
    "central_counts": [
     576,

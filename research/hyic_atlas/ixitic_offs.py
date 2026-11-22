@@ -129,7 +129,7 @@ for s, (r, c) in zip(S, R):
                     b = x
                     row["optimized"] = x.tolist()
                     row.pop("opt_note", None)
-                    row["opt_from"] = "an earlier best (ixoic_extra_starts.json): lower R than this run's written point"
+                    row["opt_from"] = "an earlier best (%(group)s_extra_starts.json): lower R than this run's written point"
         for tol in (s["hull_tol"], 1e-8, 1e-7):  # (a hull ambiguous at 1e-9, as some closure regions: 1e-8)
             try:
                 V, Vn, idx, faces, cells = G.polytope(b, tol)

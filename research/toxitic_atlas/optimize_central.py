@@ -65,9 +65,11 @@ def locus(s, surfaces):
         return []
     if s["kind"] == "line" and min(b) > 1e-12:
         return ["b1 - b4", "b2 - b3"]
-    if min(b) < 1e-12:
+    on = [S.text for S in surfaces if S.dist(b) < 1e-7]
+    if min(b) < 1e-12 and (s["kind"] == "line" or not on):
         return []                                  # (on a mirror face or edge: the zero betas stay zero)
-    return [S.text for S in surfaces if S.dist(b) < 1e-7]
+    return on                                      # (a wall on a mirror face that a map surface also crosses there
+                                                   #  keeps that surface too, or every step leaves it: tetabertetic)
 
 
 def job(s):
@@ -100,6 +102,9 @@ def run(sub):
     M = json.load(open(os.path.join(CONTIC, G.fname("snub_map"))))
     surfaces = [Surface(t) for t in M["surfaces"]]
     S = shapes_for(sub)
+    only = set(os.environ.get("ONLY", "").split()) - {""}     # (ONLY="a b": rerun those, keep the other rows)
+    if only:
+        S = [s for s in S if s["name"] in only]
     for s in S:
         s["locus"] = locus(s, surfaces)
     print(f"{sub}: {len(S)} shapes", flush=True)
@@ -133,6 +138,9 @@ def run(sub):
         print(f"{row['name']:30} {row['kind']:6} R {row['start_R'] or 0:.4f} -> {row['off_R']:.6f}  "
               f"{row['optimized_status'][:40]:40} central {row['central_status'][:30]:30} {row['opt_counts']}"
               f"{'  ' + row.get('opt_note', '') + row.get('central_note', '')}", flush=True)
+    if only:
+        new = {r["name"]: r for r in out}
+        out = [new.get(r["name"], r) for r in json.load(open(os.path.join(HERE, f"opt_central_{sub}.json")))["shapes"]]
     json.dump({"_about": __doc__.strip().split("\n\n")[0], "shapes": out},
               open(os.path.join(HERE, f"opt_central_{sub}.json"), "w"), indent=1)
 
