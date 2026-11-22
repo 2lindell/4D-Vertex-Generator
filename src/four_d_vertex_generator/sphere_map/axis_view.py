@@ -57,6 +57,7 @@ RING_ON_EDGE = {}
 NUDGE_CLEAR = {"X17": (0.005, "X4", ("X2",))}   # last touches: moved the least, up from X2, to be this clear
 NUDGE_MAX = 0.05                   # ... and no further than this
 NUDGE_ALONG = {"X43": ("X13", ("X31", "X54"))}   # ... a shape slid along an edge to line up with others
+MANUAL_TOUCH = 0.004               # a hand-moved shape this near a shape it does not border is flagged
 LINE_GAP = 0.006                   # ... the gap from an edge a shape lies along
 LINE_AT_CORNER = {"X2": ("X4", "C4", "X43"), "X80": ("X13", "A1", "X43")}   # layer 3: edges in line with a corner
 MIN_CORNER_GAP = 0.025             # the least gap between an edge's end and its corner
@@ -1483,7 +1484,10 @@ def build() -> dict:
         V3 = V3 + s
         if sh["id"] in manual:                      # (a hand offset, from the page's nudger)
             V3 = V3 + np.asarray(manual[sh["id"]])
-        rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
+        r_sh = rel_of(sh) if sh["kind"] != "point" else {}
+        nb_ids = sorted({x["id"] for x in shapes if x is not sh and (x["key"] in r_sh or (
+            x["kind"] != "point" and sh["key"] in rel_of(x)))})
+        rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"], "nb": nb_ids,
                "layer": show_layer.get(idx[id(sh)], layer_of[sh["key"]]), "moved": np.round(s, 4).tolist()}
         if rec_turn:
             rec["turned"] = {"about": rec_turn[0], "degrees": rec_turn[1]}
@@ -1511,6 +1515,48 @@ def build() -> dict:
         if sh.get("warn"):
             rec["warn"] = sh["warn"]
         out.append(rec)
+    # the hand offsets checked against the shape map: for each shape moved by hand, each shape it borders
+    # should be on the same side of it as without the hand offsets, and no shape it does not border
+    # nearer than MANUAL_TOUCH
+    manual_check = {}
+    if manual:
+        recs = {r["id"]: r for r in out}
+
+        def pts_rec(r):
+            return np.array(r.get("verts") or r.get("path") or [r["at"]])
+
+        def nearest_pair(A, B):
+            d, k = cKDTree(B).query(A)
+            i = int(np.argmin(d))
+            return float(d[i]), A[i] - B[k[i]]
+        for nm, off in manual.items():
+            r = recs.get(nm)
+            if r is None:
+                continue
+            A1_ = pts_rec(r)
+            A0_ = A1_ - np.asarray(off)
+            gaps_m, flips, touch = {}, [], []
+            for b_ in r["nb"]:
+                rb = recs.get(b_)
+                if rb is None or rb["kind"] == "point":
+                    continue
+                B1_ = pts_rec(rb)
+                B0_ = B1_ - np.asarray(manual.get(b_, [0, 0, 0]))
+                d0, v0 = nearest_pair(A0_, B0_)
+                d1, v1 = nearest_pair(A1_, B1_)
+                gaps_m[b_] = round(d1, 4)
+                if v0 @ v1 < 0:
+                    flips.append(b_)
+            for rb in out:
+                if rb["id"] == nm or rb["id"] in r["nb"] or rb["kind"] == "point":
+                    continue
+                d1, _ = nearest_pair(A1_, pts_rec(rb))
+                if d1 < MANUAL_TOUCH:
+                    touch.append([rb["id"], round(d1, 4)])
+            manual_check[nm] = {"gaps": gaps_m, "wrong_side": flips, "touching_non_neighbours": touch}
+            if flips or touch:
+                print(f"hand offset of {nm}: wrong side of {flips}; touching {touch}")
+
     # the axis, moved with X38 (turned and shifted as X38 is), so it still runs along X38's edge on it
     L = np.linspace(-0.35, 0.35, 2)
     axis3 = np.array([[t_, 0.0, 0.0] for t_ in L])
@@ -1521,7 +1567,7 @@ def build() -> dict:
     axis3 = axis3 + shift[i38]
     return {"_about": __doc__, "axis": axis3.round(5).tolist(), "shapes": out, "manual": manual,
             "links": [[i, j] for i, j, _ in rows], "missing": missing,
-            "fit": {"nudged": nudged, "layer3": layer3_fit, "turned_about_edge": turned_about_edge, "warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
+            "fit": {"manual_check": manual_check, "nudged": nudged, "layer3": layer3_fit, "turned_about_edge": turned_about_edge, "warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
 
 
