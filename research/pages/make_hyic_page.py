@@ -158,10 +158,12 @@ try:        # (ixoic: the targeted crossing search's confirmed shapes, key -> wa
     XCROSS = {s["key"]: len(s["locus"]) for s in json.load(open(os.path.join(HY, "ixoic_crossings.json")))["shapes"]}
 except FileNotFoundError:
     XCROSS = {}
-try:        # (ixoic: each line's exact equations, name -> entry; hyic_atlas/ixoic_line_equations.py)
-    LINEQ = json.load(open(os.path.join(HY, "ixoic_line_equations.json")))["lines"]
-except FileNotFoundError:
-    LINEQ = {}
+LINEQ = {}  # (ixitic, ixoic: each line's exact equations, (group, name) -> entry; hyic_atlas/ixoic_line_equations.py)
+for g_ in ("ixitic", "ixoic"):
+    try:
+        LINEQ.update({(g_, k): v for k, v in json.load(open(os.path.join(HY, f"{g_}_line_equations.json")))["lines"].items()})
+    except FileNotFoundError:
+        pass
 
 
 def main():
@@ -213,22 +215,22 @@ def main():
                 body += (f" It was found by the crossing search, where {('two', 'three')[n - 2] if n in (2, 3) else n} "
                          "of the map's walls cross" + (": a line along their crossing curve." if kind == "line" else
                                                        ": an isolated point." if kind == "point" else "."))
-            e = LINEQ.get(name) if group == "ixoic" else None
+            e = LINEQ.get((group, name))
             if e and e["status"].startswith("no line"):
                 body += (" The atlas recorded it as a line, but no curve through its seed keeps the shape: no pair of "
                          "the map's surfaces through it keeps the polytope a step of 1e-5 either way, and along the curve "
-                         "they share it changes within 1e-7 both ways, so it is a point (ixoic_line_equations.json).")
+                         f"they share it changes within 1e-7 both ways, so it is a point ({group}_line_equations.json).")
             if name == "bitutid":                # (the mirror edge b1 = b4 = 0 on sheet ixo7, scanned: b = (0, s, 1 - s, 0))
                 body += (" On sheet 7 it lies where two mirrors meet (b1 = b4 = 0): along that edge, b = (0, s, 1 − s, 0), "
                          "are sagypbittid (0 ≤ s < √2 − 1), the point bamtuted (s = √2 − 1), masbittid (to s = 1/φ), "
                          "bitutid (s = 1/φ), gasbittid (1/φ < s < 1) and bitutid again at the corner (0, 1, 0, 0).")
             elif e and "end" in e["status"]:
                 body += (" Its seed is at one end of its line: the exact curve (two of the map's surfaces) keeps the "
-                         "shape one way only (ixoic_line_equations.json).")
+                         f"shape one way only ({group}_line_equations.json).")
             elif e and e.get("equations"):
                 body += (" Its line is given exactly by two equations, " + ("linear (the fixed line of a half-turn)"
                          if e["source"] == "fixed line" else "two of the map's surfaces") +
-                         " (ixoic_line_equations.json).")
+                         f" ({group}_line_equations.json).")
             if (KEY.get(name), b) in ALSO:
                 body += f" The list also names it {' and '.join(ALSO[KEY[name], b])}: the same shape."
             if name in RELATED:

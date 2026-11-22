@@ -17,27 +17,29 @@
    ],
    "locus_used": null,
    "start_R": 31.68263645562051,
-   "R": 1.473003195614645,
+   "R": 3.139124394835577,
    "optimized": [
     5.509361497975312e-16,
     0.5000000000000367,
     0.4999999999999628,
     0.0
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "minimum inside the shape",
    "central": [
-    0.03347064943251924,
-    0.03369039274535676,
-    0.932838957822124,
+    0.33153284232798075,
+    0.3335087977662146,
+    0.3349583599058047,
     0.0
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.4068520183192715,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_stotathi_1440v_1440c_seed.off",
    "seed_R": 31.682636455657615,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/stotathi_1440v_1440c_opt.off",
-   "opt_R": 3.139124394836198
+   "opt_R": 3.139124394836198,
+   "central_off": "central_off/ixitic/stotathi_1440v_1440c_central.off",
+   "central_R": 5.414093388592859
   },
   {
    "name": "sagypsobtady",
@@ -55,27 +57,29 @@
    ],
    "locus_used": null,
    "start_R": 14.158654538599569,
-   "R": 1.2247448713916074,
+   "R": 2.162453471411966,
    "optimized": [
     -0.3087079355546831,
     0.4997136768221963,
     0.309053687932822,
     0.4999405707996648
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 1.224745; the polytope's 1.225439); re-optimised crossing the mirrors and the fold (was R 2.164207)",
    "central": [
-    0.04181575629968275,
-    0.04209028735820387,
-    0.04230115028494325,
-    0.8737928060571701
+    0.1868873162796828,
+    0.29720728839664906,
+    0.14593056256293382,
+    0.36997483276073434
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.17255302429199215,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sagypsobtady_1440v_3600c_seed.off",
    "seed_R": 14.158654538605655,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/sagypsobtady_1440v_3600c_opt.off",
-   "opt_R": 1.2254394484175564
+   "opt_R": 1.2254394484175564,
+   "central_off": "central_off/ixitic/sagypsobtady_1440v_3600c_central.off",
+   "central_R": 3.4846835543436576
   },
   {
    "name": "mestuthi",
@@ -93,7 +97,7 @@
    ],
    "locus_used": null,
    "start_R": 30.18183390772657,
-   "R": 1.676012229780899,
+   "R": 2.000000000000063,
    "optimized": [
     3.348060443488779e-05,
     0.0,
@@ -102,18 +106,20 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.03347701135505291,
+    0.33268397252472315,
     0.0,
-    0.033865609849835214,
-    0.9326573787951119
+    0.33442918412473505,
+    0.33288684335054186
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.41979690551757814,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_mestuthi_1440v_3600c_seed.off",
    "seed_R": 30.181833907747954,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/mestuthi_1440v_3600c_opt.off",
-   "opt_R": 2.001907903790501
+   "opt_R": 2.001907903790501,
+   "central_off": "central_off/ixitic/mestuthi_1440v_3600c_central.off",
+   "central_R": 3.9662851933599588
   },
   {
    "name": "sisbethi_or_unnamed_1",
@@ -131,27 +137,29 @@
    ],
    "locus_used": null,
    "start_R": 9.314561276203621,
-   "R": 1.6760122297808855,
+   "R": 2.000000000000063,
    "optimized": [
     4.472170068938952e-08,
     4.5015363124801255e-08,
     0.49999955498125537,
     0.5000003552816809
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.000002); re-optimised crossing the mirrors and the fold (was R 2.001633)",
    "central": [
-    0.04181575629968275,
-    0.04209028735820387,
-    0.08389814722572204,
-    0.8321958091163913
+    0.11742478187396453,
+    0.057174842101342965,
+    0.25189261284459036,
+    0.5735077631801021
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.07145330429077147,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sisbethi_or_unnamed_1_1440v_5040c_seed.off",
    "seed_R": 9.314561276206387,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/sisbethi_or_unnamed_1_1440v_5040c_opt.off",
-   "opt_R": 2.0000017453249876
+   "opt_R": 2.0000017453249876,
+   "central_off": "central_off/ixitic/sisbethi_or_unnamed_1_1440v_5040c_central.off",
+   "central_R": 3.89426784557368
   },
   {
    "name": "sisbethi_or_unnamed_2",
@@ -169,27 +177,29 @@
    ],
    "locus_used": null,
    "start_R": 4.084283917870134,
-   "R": 1.814098012006599,
+   "R": 2.0604678629155004,
    "optimized": [
     -0.08529419986113698,
     0.1380089144185201,
     0.44148306056624936,
     0.5058022248763676
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "minimum inside the shape; re-optimised crossing the mirrors and the fold (was R 3.143883)",
    "central": [
-    0.04181575629968276,
-    0.04209028735820388,
-    0.6662561043966253,
-    0.2498378519454881
+    -0.26516727599509166,
+    0.24741843863809473,
+    0.7240665719861664,
+    0.2936822653708306
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.16379676818847655,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_sisbethi_or_unnamed_2_1440v_5040c_seed.off",
    "seed_R": 4.08428391787111,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/sisbethi_or_unnamed_2_1440v_5040c_opt.off",
-   "opt_R": 1.8140980120068435
+   "opt_R": 1.8140980120068435,
+   "central_off": "central_off/ixitic/sisbethi_or_unnamed_2_1440v_5040c_central.off",
+   "central_R": 2.526023907093695
   },
   {
    "name": "ixitic_wall_03",
@@ -218,17 +228,19 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.041815750967,
-    0.0777404285911,
-    0.4998681167813,
-    0.3805757036606
+    0.2912987006026021,
+    0.0683500310460742,
+    0.4440984371119432,
+    0.1962528312393806
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.2862885284423828,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_wall_03_1440v_2880c_seed.off",
    "seed_R": 2.687514255939028,
    "opt_off": "optimized_off/ixitic/ixitic_wall_03_1440v_2880c_opt.off",
-   "opt_R": 2.0003190811856326
+   "opt_R": 2.0003190811856326,
+   "central_off": "central_off/ixitic/ixitic_wall_03_1440v_2880c_central.off",
+   "central_R": 6.331207923582213
   },
   {
    "name": "tisthi",
@@ -259,17 +271,19 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.03348952501738162,
-    0.9665104749826183,
+    0.49999999999999994,
+    0.5,
     0.0,
     0.0
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.7071067811865475,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_tisthi_480v_1440c_seed.off",
    "seed_R": 2.3647363968017325,
    "opt_off": "optimized_off/ixitic/tisthi_480v_1440c_opt.off",
-   "opt_R": 1.3946421831897606
+   "opt_R": 1.3946421831897606,
+   "central_off": "central_off/ixitic/tisthi_480v_1440c_central.off",
+   "central_R": 4.534567884457923
   },
   {
    "name": "sagyptady",
@@ -300,17 +314,19 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.03349589411816231,
+    0.49999999999999994,
     0.0,
     0.0,
-    0.9665041058818377
+    0.5000000000000001
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.707069082556303,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_sagyptady_480v_2160c_seed.off",
    "seed_R": 13.335704149472123,
    "opt_off": "optimized_off/ixitic/sagyptady_480v_2160c_opt.off",
-   "opt_R": 1.847759065022753
+   "opt_R": 1.847759065022753,
+   "central_off": "central_off/ixitic/sagyptady_480v_2160c_central.off",
+   "central_R": 3.0776835371757123
   },
   {
    "name": "ratehi",
@@ -341,17 +357,19 @@
    ],
    "optimized_status": "minimum inside the shape",
    "central": [
-    0.03348387037799199,
+    0.5,
     0.0,
-    0.966516129622008,
+    0.5,
     0.0
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.7071067811865476,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_ratehi_720v_720c_seed.off",
    "seed_R": 1.073796143899688,
    "opt_off": "optimized_off/ixitic/ratehi_720v_720c_opt.off",
-   "opt_R": 1.0000000000001183
+   "opt_R": 1.0000000000001183,
+   "central_off": "central_off/ixitic/ratehi_720v_720c_central.off",
+   "central_R": 3.2360679775003343
   },
   {
    "name": "tatehi",
@@ -384,15 +402,17 @@
    "central": [
     0.0,
     0.0,
-    0.03387154194805505,
-    0.966128458051945
+    0.49999999999999994,
+    0.5
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.7071067811865475,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_line_tatehi_1440v_720c_seed.off",
    "seed_R": 28.523309022497884,
    "opt_off": "optimized_off/ixitic/tatehi_1440v_720c_opt.off",
-   "opt_R": 1.0000000000002263
+   "opt_R": 1.0000000000002263,
+   "central_off": "central_off/ixitic/tatehi_1440v_720c_central.off",
+   "central_R": 1.0000000000002671
   },
   {
    "name": "tehi",
@@ -433,11 +453,13 @@
     0.0
    ],
    "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "central_status": "point (no freedom): the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
    "seed_off": "new_shapes/off/ixitic/ixitic_point_tehi_120v_600c_seed.off",
    "seed_R": 1.0000000000000542,
    "opt_off": "optimized_off/ixitic/tehi_120v_600c_opt.off",
-   "opt_R": 1.0000000000000542
+   "opt_R": 1.0000000000000542,
+   "central_off": "central_off/ixitic/tehi_120v_600c_central.off",
+   "central_R": 1.0000000000000542
   },
   {
    "name": "misrethi",
@@ -455,7 +477,7 @@
    ],
    "locus_used": null,
    "start_R": 30.45668534026198,
-   "R": 1.6291057856272761,
+   "R": 2.5725539816978866,
    "optimized": [
     3.348266367785825e-05,
     0.4995337024858504,
@@ -464,18 +486,20 @@
    ],
    "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
    "central": [
-    0.033482663677828484,
-    0.033702485867237286,
+    0.3321486199668251,
+    0.3342797296006697,
     0.0,
-    0.9328148504549343
+    0.33357165043250514
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.406941515968498,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_misrethi_1440v_2160c_seed.off",
    "seed_R": 30.45668534028916,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/misrethi_1440v_2160c_opt.off",
-   "opt_R": 2.5741060644747726
+   "opt_R": 2.5741060644747726,
+   "central_off": "central_off/ixitic/misrethi_1440v_2160c_central.off",
+   "central_R": 4.848227313270701
   },
   {
    "name": "gypsobtady",
@@ -493,27 +517,29 @@
    ],
    "locus_used": null,
    "start_R": 5.106976063928482,
-   "R": 1.9319422398968267,
+   "R": 2.0000000000000333,
    "optimized": [
     -0.09344615384116231,
     0.03124038538941036,
     0.5862243247698752,
     0.4759814436818767
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "minimum inside the shape; re-optimised crossing the mirrors and the fold (was R 4.388952)",
    "central": [
-    0.04181575629968276,
-    0.04209028735820388,
-    0.7078531013374042,
-    0.2082408550047093
+    0.11024452017168804,
+    0.22028226767632011,
+    0.5372546195249953,
+    0.13221859262699656
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.12426319910414045,
+   "central_status": "centre of the shape's extent v2 (chords to where its polytope changes, seams crossed; where it runs on past the cap, to the sheet's chamber)",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_gypsobtady_1440v_3360c_seed.off",
    "seed_R": 5.106976063930286,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/gypsobtady_1440v_3360c_opt.off",
-   "opt_R": 1.931942239897152
+   "opt_R": 1.931942239897152,
+   "central_off": "central_off/ixitic/gypsobtady_1440v_3360c_central.off",
+   "central_R": 5.304353744332941
   },
   {
    "name": "ixitic_region_08",
@@ -545,12 +571,14 @@
     0.2502861349888373,
     0.29143484888626686
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.0061229318962986844,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_08_1440v_4800c_seed.off",
    "seed_R": 3.2286236027185864,
    "opt_off": "optimized_off/ixitic/ixitic_region_08_1440v_4800c_opt.off",
-   "opt_R": 1.9969817944181643
+   "opt_R": 1.9969817944181643,
+   "central_off": "central_off/ixitic/ixitic_region_08_1440v_4800c_central.off",
+   "central_R": 6.434025434114067
   },
   {
    "name": "ixitic_region_11",
@@ -568,27 +596,1424 @@
    ],
    "locus_used": null,
    "start_R": 3.611149302940604,
-   "R": 2.0000000000000293,
+   "R": 2.6181854878848423,
    "optimized": [
     -0.0017302896000497712,
     0.3827432606761961,
     0.23645430200427872,
     0.3825327269195751
    ],
-   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.611497); re-optimised crossing the mirrors and the fold (was R 2.619008)",
    "central": [
-    0.04181575629968275,
-    0.45806025676599194,
-    0.20868913804805847,
-    0.29143484888626686
+    -0.5000000000000011,
+    0.9749650998266596,
+    0.29655809300539826,
+    0.22847680716794322
    ],
-   "depth": null,
-   "central_status": "not computed (about 30 min a shape)",
+   "depth": 0.032460801928319724,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
    "seed_off": "new_shapes/off/ixitic/ixitic_region_11_1440v_5520c_seed.off",
    "seed_R": 3.611149302941293,
-   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
    "opt_off": "optimized_off/ixitic/ixitic_region_11_1440v_5520c_opt.off",
-   "opt_R": 2.61149731242606
+   "opt_R": 2.61149731242606,
+   "central_off": "central_off/ixitic/ixitic_region_11_1440v_5520c_central.off",
+   "central_R": 6.165561957607859
+  },
+  {
+   "name": "ixitic_region_12",
+   "kind": "region",
+   "degrees": 3,
+   "key": "5efe53c04ebf",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.2502861349888373,
+    0.6658078213532761
+   ],
+   "locus_used": null,
+   "start_R": 3.9631513687988154,
+   "R": 2.000000000000038,
+   "optimized": [
+    4.7536561964662775e-08,
+    4.784864778030558e-08,
+    0.4999997161228285,
+    0.5000001884919618
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.000001); re-optimised crossing the mirrors and the fold (was R 2.001077)",
+   "central": [
+    0.30357803415415113,
+    0.11410503075377774,
+    0.3203012738172107,
+    0.26201566127486053
+   ],
+   "depth": 0.07542605010936539,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_12_1440v_5760c_seed.off",
+   "seed_R": 3.963151368799242,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_region_12_1440v_5760c_opt.off",
+   "opt_R": 2.0000012235279008,
+   "central_off": "central_off/ixitic/ixitic_region_12_1440v_5760c_central.off",
+   "central_R": 5.223697146896165
+  },
+  {
+   "name": "magypsobtady",
+   "kind": "region",
+   "degrees": 3,
+   "key": "9fbf16135e07",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.08341275324046156,
+    0.04209028735820387,
+    0.08389814722572204,
+    0.7905988121756125
+   ],
+   "locus_used": null,
+   "start_R": 10.203721199770639,
+   "R": 6.1451699273412155,
+   "optimized": [
+    0.15629019434636107,
+    0.07690509960818592,
+    0.1562901957170864,
+    0.6105145103283667
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 6.145170; the polytope's 6.145176); re-optimised crossing the mirrors and the fold (was R 6.147334)",
+   "central": [
+    0.3187575604159964,
+    0.03951194284362911,
+    0.0822315233242011,
+    0.5594989734161734
+   ],
+   "depth": 0.004446207783721123,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_magypsobtady_1440v_5760c_seed.off",
+   "seed_R": 10.20372119977292,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/magypsobtady_1440v_5760c_opt.off",
+   "opt_R": 6.145176024921214,
+   "central_off": "central_off/ixitic/magypsobtady_1440v_5760c_central.off",
+   "central_R": 12.950371677886533
+  },
+  {
+   "name": "ixitic_region_16",
+   "kind": "region",
+   "degrees": 3,
+   "key": "271a2ad0dfa9",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.04230115028494325,
+    0.8737928060571701
+   ],
+   "locus_used": null,
+   "start_R": 14.67283750101368,
+   "R": 7.526328086100011,
+   "optimized": [
+    0.0335474477439198,
+    0.1063775381160834,
+    0.06664008733384269,
+    0.7934349268061541
+   ],
+   "optimized_status": "lower R by a direct search inside the shape (SLSQP found no feasible step): a local best, not an exact minimum",
+   "central": [
+    0.3020084171793246,
+    0.10105460122457552,
+    0.11401164906928159,
+    0.48292533252681835
+   ],
+   "depth": 0.04444702538423309,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_16_1440v_6480c_seed.off",
+   "seed_R": 14.672837501018861,
+   "opt_off": "optimized_off/ixitic/ixitic_region_16_1440v_6480c_opt.off",
+   "opt_R": 7.526328086101672,
+   "central_off": "central_off/ixitic/ixitic_region_16_1440v_6480c_central.off",
+   "central_R": 7.831650817280435
+  },
+  {
+   "name": "ixitic_region_17",
+   "kind": "region",
+   "degrees": 3,
+   "key": "48f481bb1e96",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.04181575629968275,
+    0.04209028735820387,
+    0.12549514416650084,
+    0.7905988121756125
+   ],
+   "locus_used": null,
+   "start_R": 7.2807707274507925,
+   "R": 2.000253810924878,
+   "optimized": [
+    0.024212915963608257,
+    0.024346457059084264,
+    0.2833609960645808,
+    0.6680796309127267
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.04181575629968276,
+    0.04209028735820388,
+    0.12549514416650087,
+    0.7905988121756126
+   ],
+   "depth": 0.006287599067615822,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_17_1440v_6480c_seed.off",
+   "seed_R": 7.2807707274520705,
+   "opt_off": "optimized_off/ixitic/ixitic_region_17_1440v_6480c_opt.off",
+   "opt_R": 3.5650412375565734,
+   "central_off": "central_off/ixitic/ixitic_region_17_1440v_6480c_central.off",
+   "central_R": 5.326476010606334
+  },
+  {
+   "name": "petsobtady",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "177447212efe",
+   "locus": [
+    "b1*b2 - b1*b4 - b2**2/2 + sqrt(5)*b2**2/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - b2*b4"
+   ],
+   "sheet": "ix2",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.0418157531759,
+    0.0794544254794,
+    0.5830621116351,
+    0.2956677097096
+   ],
+   "locus_used": null,
+   "start_R": 3.306356230831419,
+   "R": 1.7320508075690235,
+   "optimized": [
+    -2.122477319595191e-05,
+    5.56229331493001e-05,
+    0.5001269874573605,
+    0.4998386143826861
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.08383730062921914,
+    0.09939163530925295,
+    0.5526854252763355,
+    0.2640856387851925
+   ],
+   "depth": 0.15881641162551427,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_petsobtady_1440v_2160c_seed.off",
+   "seed_R": 3.306356230832298,
+   "opt_off": "optimized_off/ixitic/petsobtady_1440v_2160c_opt.off",
+   "opt_R": 1.7326667737357615,
+   "central_off": "central_off/ixitic/petsobtady_1440v_2160c_central.off",
+   "central_R": 4.556651567013034
+  },
+  {
+   "name": "ixitic_wall_04",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "2d204abb7643",
+   "locus": [
+    "b1*b2 - sqrt(5)*b1*b4 + 2*b1*b4 + b2**2 - sqrt(5)*b2*b3/2 + 3*b2*b3/2"
+   ],
+   "sheet": "ix2",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.0418157544037,
+    0.0478137697055,
+    0.1670921410786,
+    0.7432783348122
+   ],
+   "locus_used": null,
+   "start_R": 5.578959571964938,
+   "R": 2.0000000000000333,
+   "optimized": [
+    1.4698816664432817e-06,
+    9.084553138226203e-07,
+    0.4999906106771047,
+    0.500007010985915
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 2.000000; the polytope's 2.000040); re-optimised crossing the mirrors and the fold (was R 2.001463)",
+   "central": [
+    0.2531032946619623,
+    0.03602552480442366,
+    0.43610653746680267,
+    0.2747646430668114
+   ],
+   "depth": 0.31326885971154705,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_04_1440v_2880c_seed.off",
+   "seed_R": 5.578959571965666,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_wall_04_1440v_2880c_opt.off",
+   "opt_R": 2.0000404977757085,
+   "central_off": "central_off/ixitic/ixitic_wall_04_1440v_2880c_central.off",
+   "central_R": 4.87357295590762
+  },
+  {
+   "name": "ixitic_wall_05",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "abf2453f3aa8",
+   "locus": [
+    "b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - sqrt(5)*b2*b4/2 + b2*b4/2 - b3**2/2 + sqrt(5)*b3**2/2"
+   ],
+   "sheet": "ix2",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.0585755533605,
+    0.4164632591208,
+    0.2086891410037,
+    0.316272046515
+   ],
+   "locus_used": null,
+   "start_R": 3.311012196899825,
+   "R": 2.000000000000023,
+   "optimized": [
+    -0.17058852755798112,
+    0.44717903577809553,
+    0.2763327546478263,
+    0.4470767371320593
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    -0.5000000000000001,
+    1.2500521235326847,
+    0.14076211612675926,
+    0.1091857603405562
+   ],
+   "depth": 0.37686301485478924,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_05_1440v_2880c_seed.off",
+   "seed_R": 3.3110121969004815,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_05_1440v_2880c_opt.off",
+   "opt_R": 2.0009597709112072,
+   "central_off": "central_off/ixitic/ixitic_wall_05_1440v_2880c_central.off",
+   "central_R": 8.70841728961977
+  },
+  {
+   "name": "ixitic_wall_08",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "d0c143c7e8a3",
+   "locus": [
+    "b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - b2*b4 - b3**2/2 + sqrt(5)*b3**2/2 - b3*b4/2 + sqrt(5)*b3*b4/2"
+   ],
+   "sheet": "ix2",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.082386036846,
+    0.4164632600578,
+    0.2097158538062,
+    0.29143484929
+   ],
+   "locus_used": null,
+   "start_R": 3.606011338484561,
+   "R": 2.0000000000000266,
+   "optimized": [
+    -0.17054984104542242,
+    0.4471719883884108,
+    0.27633660266070703,
+    0.44704124999630473
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    -0.4999999999999992,
+    1.2695975025284678,
+    0.1594949015585915,
+    0.07090759591293998
+   ],
+   "depth": 0.33824380104333507,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_08_1440v_3360c_seed.off",
+   "seed_R": 3.6060113384852395,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_08_1440v_3360c_opt.off",
+   "opt_R": 2.0011450877644354,
+   "central_off": "central_off/ixitic/ixitic_wall_08_1440v_3360c_central.off",
+   "central_R": 9.789543510581064
+  },
+  {
+   "name": "ixitic_wall_09",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "a23bc1d1c3b5",
+   "locus": [
+    "b1*b2 - 3*b1*b3/2 + sqrt(5)*b1*b3/2 + b2**2 - sqrt(5)*b2*b3 + 2*b2*b3 - sqrt(5)*b3**2 + 2*b3**2"
+   ],
+   "sheet": "ix2",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.0720518554929,
+    0.0420902891529,
+    0.0838981458027,
+    0.8019597095515
+   ],
+   "locus_used": null,
+   "start_R": 10.116615053579531,
+   "R": 6.139562061685498,
+   "optimized": [
+    0.1671629767426941,
+    0.07730622745493777,
+    0.1582167486561609,
+    0.5973140471462073
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 6.139562; the polytope's 6.139589); re-optimised crossing the mirrors and the fold (was R 6.141664)",
+   "central": [
+    0.3036570959368219,
+    0.03507421819043681,
+    0.08263479183253046,
+    0.5786338940402108
+   ],
+   "depth": 0.12997939222097932,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_09_1440v_3600c_seed.off",
+   "seed_R": 10.11661505358177,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_wall_09_1440v_3600c_opt.off",
+   "opt_R": 6.1395891769378705,
+   "central_off": "central_off/ixitic/ixitic_wall_09_1440v_3600c_central.off",
+   "central_R": 12.350490492837903
+  },
+  {
+   "name": "ixitic_wall_11",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "50b35e15fd85",
+   "locus": [
+    "b1*b3 - sqrt(5)*b1*b4/2 + b1*b4/2 + b2*b3/2 + sqrt(5)*b2*b3/2 - b3**2/2 + sqrt(5)*b3**2/2"
+   ],
+   "sheet": "ix2",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.0418157523693,
+    0.0420902891579,
+    0.114599879197,
+    0.8014940792758
+   ],
+   "locus_used": null,
+   "start_R": 7.827561771519885,
+   "R": 5.301257326391633,
+   "optimized": [
+    0.15015887630826105,
+    1.7970634503910054e-07,
+    0.21117358387321447,
+    0.6386673601121795
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 5.301257; the polytope's 5.301260); re-optimised crossing the mirrors and the fold (was R 5.302377)",
+   "central": [
+    0.0418157523693,
+    0.0420902891579,
+    0.114599879197,
+    0.8014940792758
+   ],
+   "depth": 0.01999183822616852,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_11_1440v_5040c_seed.off",
+   "seed_R": 7.827561771521304,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_wall_11_1440v_5040c_opt.off",
+   "opt_R": 5.301260488759016,
+   "central_off": "central_off/ixitic/ixitic_wall_11_1440v_5040c_central.off",
+   "central_R": 5.873561363652738
+  },
+  {
+   "name": "tasthi",
+   "kind": "line",
+   "degrees": 1,
+   "key": "5a26dde24dce",
+   "locus": [
+    "b3",
+    "b4"
+   ],
+   "sheet": "ix4",
+   "hull_tol": 1e-09,
+   "exact_line": "line",
+   "seed": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "locus_used": null,
+   "start_R": 48.31462936276476,
+   "R": 3.2360679774995313,
+   "optimized": [
+    0.500000000000017,
+    0.499999999999983,
+    0.0,
+    0.0
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.03348952501738162,
+    0.9665104749826183,
+    0.0,
+    0.0
+   ],
+   "depth": 1.0,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_tasthi_1440v_240c_seed.off",
+   "seed_R": 48.314629362901975,
+   "opt_off": "optimized_off/ixitic/tasthi_1440v_240c_opt.off",
+   "opt_R": 3.2360679775005217,
+   "central_off": "central_off/ixitic/tasthi_1440v_240c_central.off",
+   "central_R": 3.2360679775004657
+  },
+  {
+   "name": "giserthi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "153231fd77ef",
+   "locus": [],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.5330051541474092,
+    0.0,
+    0.033865609849835214,
+    0.4331292360027556
+   ],
+   "locus_used": null,
+   "start_R": 47.77808508171489,
+   "R": 3.2360679775000385,
+   "optimized": [
+    0.5000409959716157,
+    0.0,
+    0.49942101066581257,
+    0.000537993362571772
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.5330051541474092,
+    0.0,
+    0.033865609849835214,
+    0.4331292360027556
+   ],
+   "depth": 0.04042289327152826,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_giserthi_1440v_4320c_seed.off",
+   "seed_R": 47.778085081784276,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/giserthi_1440v_4320c_opt.off",
+   "opt_R": 3.239819619508998,
+   "central_off": "central_off/ixitic/giserthi_1440v_4320c_central.off",
+   "central_R": 10.085700746604928
+  },
+  {
+   "name": "ixitic_region_23",
+   "kind": "region",
+   "degrees": 3,
+   "key": "eaa102928f4e",
+   "locus": [],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.45778572570747084,
+    0.1252842812397615,
+    0.20868913804805853,
+    0.2082408550047093
+   ],
+   "locus_used": null,
+   "start_R": 5.763370887541294,
+   "R": 3.2923163389464203,
+   "optimized": [
+    0.4432778068248224,
+    0.11348662447920427,
+    0.4430202817952263,
+    0.00021528690074708128
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.4577857257074708,
+    0.1252842812397615,
+    0.2086891380480585,
+    0.20824085500470926
+   ],
+   "depth": 0.0031834896888190533,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_23_1440v_5760c_seed.off",
+   "seed_R": 5.763370887542622,
+   "opt_off": "optimized_off/ixitic/ixitic_region_23_1440v_5760c_opt.off",
+   "opt_R": 3.293815746411441,
+   "central_off": "central_off/ixitic/ixitic_region_23_1440v_5760c_central.off",
+   "central_R": 4.816223026103703
+  },
+  {
+   "name": "gastuthi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "c867a73cc28f",
+   "locus": [],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.06679016261660349,
+    0.8996974582753872,
+    0.0,
+    0.03351237910800933
+   ],
+   "locus_used": null,
+   "start_R": 29.525997860027495,
+   "R": 4.050251468499794,
+   "optimized": [
+    0.1268109302719185,
+    0.7881097643553706,
+    0.0,
+    0.08507930537271095
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.06679016261660349,
+    0.8996974582753872,
+    0.0,
+    0.03351237910800933
+   ],
+   "depth": 0.007973638587297095,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_gastuthi_1440v_5760c_seed.off",
+   "seed_R": 29.525997860052577,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/gastuthi_1440v_5760c_opt.off",
+   "opt_R": 13.649820172208905,
+   "central_off": "central_off/ixitic/gastuthi_1440v_5760c_central.off",
+   "central_R": 10.067599915181386
+  },
+  {
+   "name": "ixitic_region_18",
+   "kind": "region",
+   "degrees": 3,
+   "key": "6c15c7832948",
+   "locus": [],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.12500975018124036,
+    0.7908362322922224,
+    0.04230115028494325,
+    0.04185286724159403
+   ],
+   "locus_used": null,
+   "start_R": 14.112818416446911,
+   "R": 3.3870662358188937,
+   "optimized": [
+    0.3815160381775568,
+    0.23703938887256762,
+    0.38136680825580727,
+    7.776469406832192e-05
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 3.387054; the polytope's 3.391371); re-optimised crossing the mirrors and the fold (was R 3.393764)",
+   "central": [
+    0.12500975018124036,
+    0.7908362322922223,
+    0.04230115028494325,
+    0.04185286724159403
+   ],
+   "depth": 0.0027777545107218735,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_18_1440v_7200c_seed.off",
+   "seed_R": 14.112818416452365,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_region_18_1440v_7200c_opt.off",
+   "opt_R": 3.3913709370896474,
+   "central_off": "central_off/ixitic/ixitic_region_18_1440v_7200c_central.off",
+   "central_R": 3.9032520555159778
+  },
+  {
+   "name": "ixitic_region_19",
+   "kind": "region",
+   "degrees": 3,
+   "key": "93a4dac332aa",
+   "locus": [],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.5510886312633433,
+    0.2547627272269679,
+    0.18607410550356712,
+    0.008074536006121708
+   ],
+   "locus_used": null,
+   "start_R": 5.209233230001693,
+   "R": 3.38705417066207,
+   "optimized": [
+    0.46585092921306503,
+    0.24534058424558258,
+    0.2848035119826007,
+    0.0040049745587517095
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 3.387054; the polytope's 4.126132); re-optimised crossing the mirrors and the fold (was R 4.127002)",
+   "central": [
+    0.5510886312633433,
+    0.2547627272269679,
+    0.18607410550356712,
+    0.008074536006121708
+   ],
+   "depth": 0.10870233564255348,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_19_1440v_7200c_seed.off",
+   "seed_R": 5.209233230002929,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_region_19_1440v_7200c_opt.off",
+   "opt_R": 4.126131668446663,
+   "central_off": "central_off/ixitic/ixitic_region_19_1440v_7200c_central.off",
+   "central_R": 6.7413118246279105
+  },
+  {
+   "name": "ixitic_wall_01",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "b3a63ce8a55e",
+   "locus": [
+    "b1 - b3 - b4"
+   ],
+   "sheet": "ix5",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.34997261275451086,
+    0.3000547731138057,
+    0.34997261413168335,
+    0.0
+   ],
+   "locus_used": null,
+   "start_R": 1.6880392747175959,
+   "R": 1.4142135623731675,
+   "optimized": [
+    0.3819660112500847,
+    0.23606797749983058,
+    0.3819660112500205,
+    6.420325720976129e-14
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.3499726127545109,
+    0.30005477311380574,
+    0.3499726141316834,
+    0.0
+   ],
+   "depth": 0.1368911957613673,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_01_1440v_960c_seed.off",
+   "seed_R": 1.6880392747179995,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_01_1440v_960c_opt.off",
+   "opt_R": 1.4142135623735588,
+   "central_off": "central_off/ixitic/ixitic_wall_01_1440v_960c_central.off",
+   "central_R": 1.6880392747179995
+  },
+  {
+   "name": "mastethi",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "9e9eb2b34b24",
+   "locus": [
+    "b1 - b3 - b4"
+   ],
+   "sheet": "ix5",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.1045818838362,
+    0.7908362323276,
+    0.0423011501789,
+    0.0622807336573
+   ],
+   "locus_used": null,
+   "start_R": 14.033698856458939,
+   "R": 4.751780236072505,
+   "optimized": [
+    0.27541335501309944,
+    0.4491732899737953,
+    0.23876533815850437,
+    0.03664801685460079
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.1045818838362,
+    0.7908362323276,
+    0.0423011501789,
+    0.0622807336573
+   ],
+   "depth": 0.07858879896037761,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_mastethi_1440v_3120c_seed.off",
+   "seed_R": 14.033698856464518,
+   "opt_off": "optimized_off/ixitic/mastethi_1440v_3120c_opt.off",
+   "opt_R": 4.751780236073298,
+   "central_off": "central_off/ixitic/mastethi_1440v_3120c_central.off",
+   "central_R": 3.6566391874763537
+  },
+  {
+   "name": "ixitic_wall_10",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "4c5d456184b2",
+   "locus": [
+    "b1**2 - b1*b2/2 + sqrt(5)*b1*b2/2 - b1*b3 - b1*b4 - b2*b3 - b2*b4 - b3**2 - b3*b4"
+   ],
+   "sheet": "ix5",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.24979921226707077,
+    0.5666224688876372,
+    0.0,
+    0.183578318845292
+   ],
+   "locus_used": null,
+   "start_R": 5.979486550619586,
+   "R": 4.050251468499794,
+   "optimized": [
+    0.326992830382091,
+    0.41594130549622776,
+    0.0,
+    0.25706586412168125
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.24979921226707077,
+    0.5666224688876372,
+    0.0,
+    0.183578318845292
+   ],
+   "depth": 0.04682524279477141,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_10_1440v_3600c_seed.off",
+   "seed_R": 5.979486550620719,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_10_1440v_3600c_opt.off",
+   "opt_R": 4.050251468500711,
+   "central_off": "central_off/ixitic/ixitic_wall_10_1440v_3600c_central.off",
+   "central_R": 5.979486550620719
+  },
+  {
+   "name": "ixitic_wall_12",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "fa7859e5dc42",
+   "locus": [
+    "b1**2 - b1*b2/2 + sqrt(5)*b1*b2/2 - b1*b3 - b1*b4 - b2*b3 - b2*b4 - b3**2 - b3*b4"
+   ],
+   "sheet": "ix5",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.4993826658001,
+    0.1562944990259,
+    0.2086891833645,
+    0.1356336518094
+   ],
+   "locus_used": null,
+   "start_R": 5.364880579899551,
+   "R": 3.8210616662948884,
+   "optimized": [
+    0.4245073989815801,
+    0.31313242708773836,
+    0.262359342088859,
+    8.318418225647105e-07
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 3.821062; the polytope's 3.821068); re-optimised crossing the mirrors and the fold (was R 3.822053)",
+   "central": [
+    0.49938266580014995,
+    0.15629449902591566,
+    0.20868918336452089,
+    0.13563365180941359
+   ],
+   "depth": 0.02679129968156048,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_12_1440v_5040c_seed.off",
+   "seed_R": 5.364880579900792,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_wall_12_1440v_5040c_opt.off",
+   "opt_R": 3.821067848028546,
+   "central_off": "central_off/ixitic/ixitic_wall_12_1440v_5040c_central.off",
+   "central_R": 4.737511146085057
+  },
+  {
+   "name": "ixitic_wall_13",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "9124f944860a",
+   "locus": [],
+   "sheet": "ix5",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.10009766155537848,
+    0.8330824603978372,
+    0.0,
+    0.06681987804678433
+   ],
+   "locus_used": null,
+   "start_R": 17.680521805582035,
+   "R": 3.905744165741192,
+   "optimized": [
+    0.2992014838822973,
+    0.41427034646617966,
+    0.0,
+    0.28652816965152306
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.29638714943136174,
+    0.4427360960173342,
+    0.0,
+    0.2608767545513041
+   ],
+   "depth": 0.025109641022297766,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_13_1440v_5760c_seed.off",
+   "seed_R": 17.68052180559053,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_13_1440v_5760c_opt.off",
+   "opt_R": 3.905744165742073,
+   "central_off": "central_off/ixitic/ixitic_wall_13_1440v_5760c_central.off",
+   "central_R": 4.245755534892953
+  },
+  {
+   "name": "hidhi",
+   "kind": "point",
+   "degrees": 0,
+   "key": "47481ab40611",
+   "locus": [
+    "b1 + b2/2 + sqrt(5)*b2/2 - b4",
+    "b1 - b3 - b4",
+    "b1**2 + b1*b2/2 + sqrt(5)*b1*b2/2 - 3*b1*b3/2 + sqrt(5)*b1*b3/2 - b1*b4 - sqrt(5)*b2*b3/2 + b2*b3/2 - sqrt(5)*b2*b4/2 + b2*b4/2",
+    "b1**2 - b1*b2/2 + sqrt(5)*b1*b2/2 - b1*b3 - b1*b4 - b2*b3 - b2*b4 - b3**2 - b3*b4",
+    "b1*b2 - b2**2/2 + sqrt(5)*b2**2/2 - b2*b3/2 + sqrt(5)*b2*b3/2 - sqrt(5)*b3*b4/2 + b3*b4/2",
+    "b2 - sqrt(5)*b3/2 + b3/2"
+   ],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "locus_used": null,
+   "start_R": 1.618033988749923,
+   "R": 1.618033988749923,
+   "optimized": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "optimized_status": "point (no freedom)",
+   "central": [
+    0.5,
+    0.0,
+    0.0,
+    0.5
+   ],
+   "depth": null,
+   "central_status": "a point: the exact seed",
+   "seed_off": "new_shapes/off/ixitic/ixitic_point_hidhi_480v_240c_seed.off",
+   "seed_R": 1.6180339887501425,
+   "opt_off": "optimized_off/ixitic/hidhi_480v_240c_opt.off",
+   "opt_R": 1.6180339887501425,
+   "central_off": "central_off/ixitic/hidhi_480v_240c_central.off",
+   "central_R": 1.6180339887501425
+  },
+  {
+   "name": "gagyptady",
+   "kind": "line",
+   "degrees": 1,
+   "key": "b4ad37d86d09",
+   "locus": [
+    "b2",
+    "b3"
+   ],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "exact_line": "line",
+   "seed": [
+    0.5333057965779749,
+    0.0,
+    0.0,
+    0.46669420342202506
+   ],
+   "locus_used": null,
+   "start_R": 2.283185850802863,
+   "R": 2.114063285612031,
+   "optimized": [
+    0.7071067811865492,
+    -5.839316527217604e-14,
+    1.7595897048781637e-13,
+    0.29289321881333313
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.5333057965779749,
+    0.0,
+    0.0,
+    0.46669420342202506
+   ],
+   "depth": 0.047101509226211584,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_gagyptady_480v_2160c_seed.off",
+   "seed_R": 2.2831858508031133,
+   "opt_off": "optimized_off/ixitic/gagyptady_480v_2160c_opt.off",
+   "opt_R": 2.1140632856126755,
+   "central_off": "central_off/ixitic/gagyptady_480v_2160c_central.off",
+   "central_R": 2.1708203932502426
+  },
+  {
+   "name": "sartethi",
+   "kind": "line",
+   "degrees": 1,
+   "key": "f0a6159b8918",
+   "locus": [
+    "b2",
+    "b4"
+   ],
+   "sheet": "ix5",
+   "hull_tol": 1e-09,
+   "exact_line": "line",
+   "seed": [
+    0.5331143602691915,
+    0.0,
+    0.46688563973080854,
+    0.0
+   ],
+   "locus_used": null,
+   "start_R": 3.4655895385490196,
+   "R": 3.2360679774999106,
+   "optimized": [
+    0.500000034528841,
+    0.0,
+    0.49999996547115894,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained; re-optimised crossing the mirrors and the fold (was R 3.236282)",
+   "central": [
+    0.5331143602691915,
+    0.0,
+    0.46688563973080854,
+    0.0
+   ],
+   "depth": 0.04683077740199933,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_sartethi_1440v_1680c_seed.off",
+   "seed_R": 3.465589538549593,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/sartethi_1440v_1680c_opt.off",
+   "opt_R": 3.2360682009755894,
+   "central_off": "central_off/ixitic/sartethi_1440v_1680c_central.off",
+   "central_R": 6.472135955001255
+  },
+  {
+   "name": "sestuthi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "a783fa88caa2",
+   "locus": [],
+   "sheet": "ix7",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.0,
+    0.1346886951642749,
+    0.08324219236913113,
+    0.7820691124665942
+   ],
+   "locus_used": null,
+   "start_R": 4.934525755103571,
+   "R": 1.9512130120947166,
+   "optimized": [
+    0.0,
+    0.22995189042749364,
+    0.30513081323843033,
+    0.464917296334076
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.0,
+    0.13468869516427487,
+    0.08324219236913112,
+    0.7820691124665939
+   ],
+   "depth": 1.0,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_sestuthi_1440v_1920c_seed.off",
+   "seed_R": 4.934525755105268,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/sestuthi_1440v_1920c_opt.off",
+   "opt_R": 1.9512130120951814,
+   "central_off": "central_off/ixitic/sestuthi_1440v_1920c_central.off",
+   "central_R": 3.618033988750718
+  },
+  {
+   "name": "matethi",
+   "kind": "point",
+   "degrees": 0,
+   "key": "9aa686e5af71",
+   "locus": [
+    "b1 - b2/2 + sqrt(5)*b2/2 - b3",
+    "b1 - b4"
+   ],
+   "sheet": "ix7",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.0,
+    0.6180339887498949,
+    0.3819660112501051,
+    0.0
+   ],
+   "locus_used": null,
+   "start_R": 1.6180339887499067,
+   "R": 1.6180339887499067,
+   "optimized": [
+    0.0,
+    0.6180339887498949,
+    0.3819660112501051,
+    0.0
+   ],
+   "optimized_status": "point (no freedom)",
+   "central": [
+    0.0,
+    0.6180339887498949,
+    0.3819660112501051,
+    0.0
+   ],
+   "depth": null,
+   "central_status": "a point: the exact seed",
+   "seed_off": "new_shapes/off/ixitic/ixitic_point_matethi_720v_240c_seed.off",
+   "seed_R": 1.6180339887501674,
+   "opt_off": "optimized_off/ixitic/matethi_720v_240c_opt.off",
+   "opt_R": 1.6180339887501674,
+   "central_off": "central_off/ixitic/matethi_720v_240c_central.off",
+   "central_R": 1.6180339887501674
+  },
+  {
+   "name": "sabtedy",
+   "kind": "line",
+   "degrees": 1,
+   "key": "3745ab4a85c6",
+   "locus": [
+    "-2*b1",
+    "b4"
+   ],
+   "sheet": "ix7",
+   "hull_tol": 1e-09,
+   "exact_line": "line",
+   "seed": [
+    0.0,
+    0.6331211092749606,
+    0.36687889072503954,
+    0.0
+   ],
+   "locus_used": null,
+   "start_R": 2.294909441195669,
+   "R": 2.2882456112707916,
+   "optimized": [
+    0.0,
+    0.6180340050790453,
+    0.38196599492095473,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained; re-optimised crossing the mirrors and the fold (was R 2.288253)",
+   "central": [
+    0.0,
+    0.6331211092749606,
+    0.36687889072503954,
+    0.0
+   ],
+   "depth": 0.02133641046370534,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_line_sabtedy_720v_1680c_seed.off",
+   "seed_R": 2.29490944119593,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/sabtedy_720v_1680c_opt.off",
+   "opt_R": 2.2882456188282996,
+   "central_off": "central_off/ixitic/sabtedy_720v_1680c_central.off",
+   "central_R": 2.3278341811935017
+  },
+  {
+   "name": "gastethi",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "2f7458953f46",
+   "locus": [],
+   "sheet": "ix8",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.43271670143120844,
+    0.2670597441217336,
+    0.30022355444705784,
+    0.0
+   ],
+   "locus_used": null,
+   "start_R": 3.594193726535893,
+   "R": 3.2360679774997014,
+   "optimized": [
+    0.38196632983537204,
+    0.23606817204926148,
+    0.38196549811536656,
+    0.0
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 3.236068; the polytope's 3.236070); re-optimised crossing the mirrors and the fold (was R 3.236411)",
+   "central": [
+    0.4980985734988688,
+    0.19739538719650154,
+    0.3045060393046297,
+    0.0
+   ],
+   "depth": 0.13689059371583503,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_gastethi_1440v_3120c_seed.off",
+   "seed_R": 3.594193726537052,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/gastethi_1440v_3120c_opt.off",
+   "opt_R": 3.2360701167976886,
+   "central_off": "central_off/ixitic/gastethi_1440v_3120c_central.off",
+   "central_R": 3.9393463438242504
+  },
+  {
+   "name": "ixitic_region_20",
+   "kind": "region",
+   "degrees": 3,
+   "key": "64c1a0c2067c",
+   "locus": [],
+   "sheet": "ix9",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.08341275324046155,
+    0.5412542506475495,
+    0.33348012887039485,
+    0.041852867241594024
+   ],
+   "locus_used": null,
+   "start_R": 20.85167283667682,
+   "R": 4.340186528086139,
+   "optimized": [
+    0.38282917358167523,
+    0.2901509087244782,
+    0.17932311862970826,
+    0.14769679906413838
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 4.340187; the polytope's 4.340204); re-optimised crossing the mirrors and the fold (was R 4.343939)",
+   "central": [
+    0.3407361273399062,
+    0.3898522275348027,
+    0.1813599630194607,
+    0.08805168210583039
+   ],
+   "depth": 0.051365833113253836,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_20_1440v_8640c_seed.off",
+   "seed_R": 20.85167283668931,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_region_20_1440v_8640c_opt.off",
+   "opt_R": 4.340203982330905,
+   "central_off": "central_off/ixitic/ixitic_region_20_1440v_8640c_central.off",
+   "central_R": 5.448341609757173
+  },
+  {
+   "name": "ixitic_region_21",
+   "kind": "region",
+   "degrees": 3,
+   "key": "fedadc7c63f7",
+   "locus": [],
+   "sheet": "ix9",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.44318794520133825,
+    0.08014761995443859,
+    0.034006977579124104,
+    0.4426574572650991
+   ],
+   "locus_used": null,
+   "start_R": 16.347612160272647,
+   "R": 4.474658751998309,
+   "optimized": [
+    0.3269929777440692,
+    0.41594087963304194,
+    4.3128624620531726e-08,
+    0.25706609949426423
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 4.474659; the polytope's 4.474662); re-optimised crossing the mirrors and the fold (was R 4.477560)",
+   "central": [
+    0.44318794520133825,
+    0.08014761995443859,
+    0.034006977579124104,
+    0.4426574572650991
+   ],
+   "depth": 0.00037511161705237086,
+   "central_status": "no deeper point found: the seed itself; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_21_1440v_8640c_seed.off",
+   "seed_R": 16.347612160284225,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_region_21_1440v_8640c_opt.off",
+   "opt_R": 4.4746624275569475,
+   "central_off": "central_off/ixitic/ixitic_region_21_1440v_8640c_central.off",
+   "central_R": 5.103350022996876
+  },
+  {
+   "name": "ixitic_region_22",
+   "kind": "region",
+   "degrees": 3,
+   "key": "c27ea776ba1c",
+   "locus": [],
+   "sheet": "ix9",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.08341275324046155,
+    0.6244482445291071,
+    0.25028613498883723,
+    0.041852867241594024
+   ],
+   "locus_used": null,
+   "start_R": 21.47983335349634,
+   "R": 4.375624568052966,
+   "optimized": [
+    0.08600508341972675,
+    0.6219445567477507,
+    0.2492237942000741,
+    0.04282656563244837
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained (the optimiser's own R 4.375625; the polytope's 20.845474); re-optimised crossing the mirrors and the fold (was R 20.846089)",
+   "central": [
+    0.4176621109873005,
+    0.39033162953919626,
+    0.08637675832477142,
+    0.10562950114873185
+   ],
+   "depth": 0.021872934357554413,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_22_1440v_10080c_seed.off",
+   "seed_R": 21.479833353509605,
+   "opt_from": "the earlier best (ixitic_extra_starts.json), no worse than this run's: its status kept",
+   "opt_off": "optimized_off/ixitic/ixitic_region_22_1440v_10080c_opt.off",
+   "opt_R": 20.845473502387122,
+   "central_off": "central_off/ixitic/ixitic_region_22_1440v_10080c_central.off",
+   "central_R": 4.535510024399525
+  },
+  {
+   "name": "ixitic_wall_14",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "fb85b4ae4690",
+   "locus": [
+    "b1**2*b3**2 - sqrt(5)*b1*b2**2*b3/2 + 3*b1*b2**2*b3/2 - sqrt(5)*b1*b2**2*b4/2 + b1*b2**2*b4/2 + 2*b1*b2*b3**2 - sqrt(5)*b1*b2*b3*b4/2 + 3*b1*b2*b3*b4/2 + b1*b3**3 + b1*b3**2*b4 - sqrt(5)*b2**3*b4/2 + b2**3*b4/2 - sqrt(5)*b2**2*b3*b4 + b2**2*b3*b4 - sqrt(5)*b2**2*b4**2/2 + b2**2*b4**2/2 - sqrt(5)*b2*b3**2*b4/2 + 3*b2*b3**2*b4/2 - sqrt(5)*b2*b3*b4**2/2 + 3*b2*b3*b4**2/2"
+   ],
+   "sheet": "ix9",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.0834127530478,
+    0.6237015056933,
+    0.2510328737139,
+    0.041852867545
+   ],
+   "locus_used": null,
+   "start_R": 21.47411220350298,
+   "R": 4.375624568052966,
+   "optimized": [
+    0.38340342949631045,
+    0.3347154795170903,
+    0.12734950670579667,
+    0.1545315842808026
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.4435109243040609,
+    0.3060434374435407,
+    0.1050626661062806,
+    0.14538297214611787
+   ],
+   "depth": 0.16308329404959845,
+   "central_status": "deepest point of the shape; seams (mirrors / fold that do not bound the shape) not counted",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_14_1440v_7200c_seed.off",
+   "seed_R": 21.474112203516214,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_14_1440v_7200c_opt.off",
+   "opt_R": 4.375624568054075,
+   "central_off": "central_off/ixitic/ixitic_wall_14_1440v_7200c_central.off",
+   "central_R": 4.993159557310668
+  },
+  {
+   "name": "ixitic_wall_15",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "41ab2de5065a",
+   "locus": [
+    "b1**2 - b1*b2/2 + sqrt(5)*b1*b2/2 - b1*b3/2 + sqrt(5)*b1*b3/2 - b1*b4 - b2*b4"
+   ],
+   "sheet": "ix9",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.09916458931942723,
+    0.5320498349296123,
+    0.27486059126061924,
+    0.0939249844903411
+   ],
+   "locus_used": null,
+   "start_R": 14.200541657405497,
+   "R": 4.534567884457094,
+   "optimized": [
+    0.27589658761060043,
+    0.2771276802944847,
+    0.17112514210833957,
+    0.2758505899865754
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.09916458931942723,
+    0.5320498349296123,
+    0.27486059126061924,
+    0.0939249844903411
+   ],
+   "depth": 0.039709804421431266,
+   "central_status": "no deeper point found: the seed itself",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_15_1440v_6480c_seed.off",
+   "seed_R": 14.20054165741079,
+   "opt_off": "optimized_off/ixitic/ixitic_wall_15_1440v_6480c_opt.off",
+   "opt_R": 4.544261902950961,
+   "central_off": "central_off/ixitic/ixitic_wall_15_1440v_6480c_central.off",
+   "central_R": 14.20054165741079
+  },
+  {
+   "name": "awosbitdy",
+   "kind": "wall",
+   "degrees": 2,
+   "key": "ce1564d83d55",
+   "locus": [
+    "b1*b3 - sqrt(5)*b2*b4/2 + b2*b4/2"
+   ],
+   "sheet": "ix9",
+   "hull_tol": 1e-07,
+   "seed": [
+    0.2155761689435843,
+    0.43029805879172783,
+    0.1955822623638432,
+    0.15854350990084462
+   ],
+   "locus_used": null,
+   "start_R": 6.990597401395825,
+   "R": 4.382063927591246,
+   "optimized": [
+    0.3850886496105211,
+    0.36258209582847883,
+    0.09282031317639018,
+    0.15950894138460991
+   ],
+   "optimized_status": "minimum inside the shape",
+   "central": [
+    0.4673603250138563,
+    0.33368142351526925,
+    0.06091339224552299,
+    0.13804485922535153
+   ],
+   "depth": 0.1978270431790915,
+   "central_status": "deepest point of the shape",
+   "seed_off": "new_shapes/off/ixitic/ixitic_wall_awosbitdy_1440v_6480c_seed.off",
+   "seed_R": 6.9905974013971415,
+   "opt_off": "optimized_off/ixitic/awosbitdy_1440v_6480c_opt.off",
+   "opt_R": 4.382063927592335,
+   "central_off": "central_off/ixitic/awosbitdy_1440v_6480c_central.off",
+   "central_R": 5.168136972838479
   }
  ]
 }
