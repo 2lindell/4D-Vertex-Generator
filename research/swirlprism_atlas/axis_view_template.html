@@ -255,13 +255,43 @@ function nearestTo(sel) {                        // (the nearest shapes to sel, 
   }
   return rows.sort((a, b) => a.d - b.d);
 }
+function basePts(s, cap) {                       // (a shape's points where the build puts it, without hand offsets)
+  const raw = s.verts || s.path || [s.at];
+  const b = baked[s.id] || [0, 0, 0], step = cap && raw.length > cap ? Math.ceil(raw.length / cap) : 1;
+  const out = [];
+  for (let i = 0; i < raw.length; i += step) out.push([raw[i][0] - b[0], raw[i][1] - b[1], raw[i][2] - b[2]]);
+  return out;
+}
+function closestPair(A, B) {
+  let best = Infinity, v = null;
+  for (const p of A) for (const q of B) {
+    const d = (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2;
+    if (d < best) { best = d; v = [p[0] - q[0], p[1] - q[1], p[2] - q[2]]; }
+  }
+  return [Math.sqrt(best), v];
+}
 function showNudge() {
   const s = byId[nSel.value]; if (!s) return;
   const o = offsetOf(s.id), sv = saved[s.id] || baked[s.id] || [0, 0, 0];
-  const rows = nearestTo(s).slice(0, 6);
   const changed = o.some((v, k) => Math.abs(v - sv[k]) > 1e-9);
+  // (each shape it borders in the shape map: its gap now, and whether it is still on the side the build
+  // put it; then any shape it does not border that comes within 0.004)
+  const nbs = (s.nb || []).filter((id) => byId[id] && !byId[id].at);
+  const A = ptsOf(s, 300), A0 = basePts(s, 300);
+  const nbRows = nbs.map((id) => {
+    const t = byId[id];
+    const [d, v] = closestPair(A, ptsOf(t, 600));
+    const [, v0] = closestPair(A0, basePts(t, 600));
+    const flip = v && v0 && v[0] * v0[0] + v[1] * v0[1] + v[2] * v0[2] < 0;
+    return `  ${id.padEnd(5)} ${d.toFixed(4)}${flip ? "   ⚠ now on the wrong side" : ""}`;
+  });
+  const touching = nearestTo(s).filter((r) => !nbs.includes(r.id) && !byId[r.id].at && r.d < 0.004)
+    .map((r) => `  ${r.id.padEnd(5)} ${r.d.toFixed(4)}   ⚠ touching (not a neighbour)`);
+  const near = nearestTo(s).filter((r) => !nbs.includes(r.id)).slice(0, 3)
+    .map((r) => `  ${r.id.padEnd(5)} ${r.d.toFixed(4)}`);
   nOut.textContent = `${s.id} offset  ${o.map((v) => v.toFixed(4)).join(", ")}${changed ? "   (not saved)" : ""}\n` +
-    rows.map((r) => `  ${r.id.padEnd(5)} ${r.d.toFixed(4)}`).join("\n");
+    `Shapes it borders:\n${nbRows.join("\n") || "  (none shown)"}\n` +
+    (touching.length ? `Too close:\n${touching.join("\n")}\n` : "") + `Nearest others:\n${near.join("\n")}`;
   for (const m of shapes) m.userData.halo.visible = m.userData.shape === s;
 }
 function nudge(how) {
