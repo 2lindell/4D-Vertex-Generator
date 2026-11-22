@@ -37,6 +37,10 @@ try:
     EXACT = json.load(open(os.path.join(%(here)r, "%(group)s_line_equations.json")))["lines"]
 except FileNotFoundError:
     EXACT = {}
+try:
+    EXTRA = json.load(open(os.path.join(%(here)r, "%(group)s_extra_starts.json")))["starts"]
+except FileNotFoundError:
+    EXTRA = {}
 for s in S:
     b = np.asarray(s["seed"], float); b = b / b.sum()
     if s["kind"] == "region":                     # (a seed on a mirror keeps its surfaces too: ixoic_wall_03 lies on one
@@ -49,6 +53,8 @@ for s in S:
             s["locus"], s["exact_locus"], s["hull_tol"] = e["equations"], True, e["hull_tol"]
         elif e["status"].startswith("no line"):
             s["degrees"], s["hull_tol"] = 0, e["hull_tol"]
+    if s["name"] in EXTRA:                        # (earlier bests to start from too: %(group)s_extra_starts.json)
+        s["extra_starts"] = EXTRA[s["name"]]
     for tol in [t for t in (1e-9, 1e-8, 1e-7) if t >= s["hull_tol"]]:   # (the tightest hull tolerance at which the seed is its own shape:
         try:                                          #  some seeds (points, lines) are not at 1e-9, and every later
             if G.label(b, tol)[1] == s["key"]:        #  check of them then fails: "moved to another polytope")
@@ -105,9 +111,25 @@ for s, (r, c) in zip(S, R):
         if (MODE == "seed" and tag != "seed") or (MODE == "nocentre" and tag == "central"):
             continue
         b = np.asarray(row[key], float); b = b / b.sum()
-        if tag != "seed" and not OS.O.same_shape(b, np.asarray(row["seed"]) / np.sum(row["seed"]), s["key"], s["hull_tol"]):
+        sd = np.asarray(row["seed"]) / np.sum(row["seed"])
+        if tag != "seed" and not OS.O.same_shape(b, sd, s["key"], s["hull_tol"]):
             row[tag + "_note"] = "moved to another polytope: the seed is written instead"
-            b = np.asarray(row["seed"]) / np.sum(row["seed"])
+            b = sd
+        if tag == "opt" and s.get("extra_starts"):   # (an earlier best of the shape with a lower R is written instead)
+            def edge_R(x):
+                try:
+                    _, Vx, _, fx, _ = G.polytope(x, s["hull_tol"])
+                    E_ = [np.linalg.norm(Vx[a] - Vx[c_]) for a, c_ in (tuple(e) for e in hull_edges(fx))]
+                    return max(E_) / min(E_)
+                except ValueError:
+                    return np.inf
+            for x in s["extra_starts"]:
+                x = np.asarray(x, float); x = x / x.sum()
+                if OS.O.same_shape(x, sd, s["key"], s["hull_tol"]) and edge_R(x) < edge_R(b) - 1e-12:
+                    b = x
+                    row["optimized"] = x.tolist()
+                    row.pop("opt_note", None)
+                    row["opt_from"] = "an earlier best (ixoic_extra_starts.json): lower R than this run's written point"
         for tol in (s["hull_tol"], 1e-8, 1e-7):  # (a hull ambiguous at 1e-9, as some closure regions: 1e-8)
             try:
                 V, Vn, idx, faces, cells = G.polytope(b, tol)

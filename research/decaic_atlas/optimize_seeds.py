@@ -387,6 +387,11 @@ def optimise(shape):
         p = project(seed + 0.02 * d / np.linalg.norm(d) * seed[seed > 1e-12].min(), loc_f, loc_g, zero)
         if in_domain(p[None]) and same_shape(p, seed, key0, tol):
             starts.append(p)
+    for p in shape.get("extra_starts", []):     # (given starts elsewhere on the locus: an earlier best, which a line's
+        p = np.asarray(p, float)                #  local search from the seed can miss by going the other way)
+        p = project(p / p.sum(), loc_f, loc_g, zero)
+        if in_domain(p[None]) and same_shape(p, seed, key0, tol):
+            starts.append(p)
     best, msg = (z0, "start"), "start"
     bestR = R0
     outside = []

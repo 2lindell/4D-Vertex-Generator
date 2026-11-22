@@ -1,0 +1,37 @@
+{
+ "_about": "Earlier best seeds the ixoic pass also starts from (ixitic_offs.py): the lines whose best before their exact equations (ixoic_line_equations.py) was lower than the rerun's; each is on its exact line (within 2e-11) and the same polytope.",
+ "starts": {
+  "ixoic_line_25": [
+   [
+    0.3836965105228897,
+    0.3641495998318129,
+    0.021958304703704107,
+    0.23019558494159323
+   ]
+  ],
+  "ixoic_line_71": [
+   [
+    0.4699079761645289,
+    0.16647061227309823,
+    0.2693551087858791,
+    0.09426630277649375
+   ]
+  ],
+  "ixoic_line_17": [
+   [
+    0.24120722542785364,
+    0.06914167130464995,
+    0.14049511538113124,
+    0.5491559878863651
+   ]
+  ],
+  "ixoic_line_33": [
+   [
+    0.19147166553487718,
+    0.4506876827906028,
+    0.2785403062755249,
+    0.07930034539899503
+   ]
+  ]
+ }
+}

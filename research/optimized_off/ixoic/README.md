@@ -56,10 +56,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_64 | wall | ixo0 | 25.307075 | 18.59961412 | infimum on the shape's edge (a sign condition is active): not attained | [0.075241146, 0.058607569, 0.0, 0.866151285] | ixoic_wall_64_2880v_13440c_opt.off |
 | ixoic_wall_72 | wall | ixo0 | 10.639375 | 3.90000652 | infimum on the shape's edge (a sign condition is active): not attained | [0.304144213, 0.0, 0.347708352, 0.348147435] | ixoic_wall_72_2880v_14880c_opt.off |
 | ixoic_wall_83 | wall | ixo0 | 31.287334 | 4.93682810 | infimum on the shape's edge (a sign condition is active): not attained | [0.395897037, 0.0, 0.301751972, 0.302350991] | ixoic_wall_83_2880v_16320c_opt.off |
-| sobtated | line | ixo0 | 1.999531 | 1.24769275 | minimum inside the shape | [-0.533608804, 1.533608804, 0.0, -0.0] | sobtated_960v_4320c_opt.off |
-| gobtated | line | ixo0 | 11.090533 | 3.42058826 | minimum inside the shape | [0.143785834, -0.0, 0.0, 0.856214166] | gobtated_960v_7200c_opt.off |
-| sagypbittid | line | ixo0 | 1.983205 | 1.94238565 | minimum inside the shape | [0.0, -0.0, 1.0, 0.0] | sagypbittid_1440v_3600c_opt.off |
-| gagypbittid | line | ixo0 | 2.518627 | 2.37814379 | infimum on the shape's edge (a sign condition is active): not attained | [0.304142697, 0.0, 0.695857303, 0.0] | gagypbittid_1440v_6240c_opt.off |
 | bittid | point | ixo0 | 1.677941 | 1.67794131 | point (no freedom) | [1.0, 0.0, 0.0, 0.0] | bittid_240v_2160c_opt.off |
 | sagybted | point | ixo0 | 1.847759 | 1.84775907 | point (no freedom) | [0.304113536, 0.0, 0.0, 0.695886464] | sagybted_480v_2160c_opt.off |
 | ixoic_region_103 | region | ixo0 | 6.733744 | 6.73057032 | infimum on the shape's edge (a sign condition is active): not attained | [0.312090957, 0.005768613, 0.193883623, 0.488256808] | ixoic_region_103_2880v_17760c_opt.off |
@@ -124,33 +120,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_190 | wall | ixo2 | 11.826095 | 6.52530671 | infimum on the shape's edge (a sign condition is active): not attained | [-0.047670575, 0.12384941, 0.063717309, 0.860103856] | ixoic_wall_190_2880v_17760c_opt.off |
 | ixoic_wall_206 | wall | ixo2 | 12.350356 | 8.51588884 | infimum on the shape's edge (a sign condition is active): not attained | [0.114892626, 0.063926496, 0.095349117, 0.725831762] | ixoic_wall_206_2880v_17760c_opt.off |
 | ixoic_wall_207 | wall | ixo2 | 45.697105 | 8.50891460 | infimum on the shape's edge (a sign condition is active): not attained | [0.114927671, 0.063918369, 0.095390169, 0.72576379] | ixoic_wall_207_2880v_17760c_opt.off |
-| ixoic_line_17 | line | ixo2 | 12.284053 | 9.33542084 | infimum on the shape's edge (a sign condition is active): not attained | [0.241207225, 0.069141671, 0.140495115, 0.549155988] | ixoic_line_17_2880v_5520c_opt.off |
-| ixoic_line_18 | line | ixo2 | 5.854508 | 3.05662315 | minimum inside the shape | [0.081910329, 0.115601536, 0.523401338, 0.279086797] | ixoic_line_18_2880v_5520c_opt.off |
-| ixoic_line_22 | line | ixo2 | 9.070520 | 6.13987770 | minimum inside the shape | [-0.054150888, 0.138748337, 0.057547481, 0.85785507] | ixoic_line_22_2880v_7680c_opt.off |
-| ixoic_line_23 | line | ixo2 | 9.476860 | 6.86562779 | minimum inside the shape | [-0.032186275, 0.087131051, 0.090480817, 0.854574407] | ixoic_line_23_2880v_7680c_opt.off |
-| ixoic_line_29 | line | ixo2 | 10.351331 | 6.06262772 | infimum on the shape's edge (a sign condition is active): not attained | [0.368103987, 0.045916167, 0.221473107, 0.364506739] | ixoic_line_29_2880v_9120c_opt.off |
-| ixoic_line_32 | line | ixo2 | 6.047629 | 6.04630901 | minimum inside the shape (not unique: R is flat along the locus there) | [0.045921569, 0.093052524, 0.122325916, 0.73869999] | ixoic_line_32_2880v_9120c_opt.off |
-| ixoic_line_35 | line | ixo2 | 8.930119 | 8.88644216 | infimum on the shape's edge (a sign condition is active): not attained | [0.300697023, 0.014110302, 0.139656263, 0.545536412] | ixoic_line_35_2880v_9840c_opt.off |
-| ixoic_line_36 | line | ixo2 | 8.005602 | 8.00126759 | infimum on the shape's edge (a sign condition is active): not attained | [0.288408508, 0.064862239, 0.131816632, 0.514912621] | ixoic_line_36_2880v_9840c_opt.off |
-| ixoic_line_38 | line | ixo2 | 4.870836 | 4.06276206 | minimum inside the shape | [0.193643822, 0.050202365, 0.436470521, 0.319683293] | ixoic_line_38_2880v_10080c_opt.off |
-| ixoic_line_45 | line | ixo2 | 13.757937 | 5.87075102 | minimum inside the shape | [-0.052288595, 0.135989338, 0.074916639, 0.841382618] | ixoic_line_45_2880v_10560c_opt.off |
-| ixoic_line_54 | line | ixo2 | 8.352859 | 8.34706723 | infimum on the shape's edge (a sign condition is active): not attained | [0.292893296, 0.046339931, 0.134677766, 0.526089008] | ixoic_line_54_2880v_11280c_opt.off |
-| ixoic_line_55 | line | ixo2 | 9.715013 | 9.35491191 | infimum on the shape's edge (a sign condition is active): not attained | [0.124436556, 0.082486771, 0.068762526, 0.724314148] | ixoic_line_55_2880v_11280c_opt.off |
-| ixoic_line_56 | line | ixo2 | 6.577853 | 4.10269261 | minimum inside the shape | [-0.06756208, 0.178962097, 0.133908675, 0.754691308] | ixoic_line_56_2880v_11280c_opt.off |
-| ixoic_line_57 | line | ixo2 | 6.304502 | 6.04658751 | infimum on the shape's edge (a sign condition is active): not attained | [0.047888089, 0.092761932, 0.122924678, 0.736425302] | ixoic_line_57_2880v_11280c_opt.off |
-| ixoic_line_58 | line | ixo2 | 8.835142 | 8.50766288 | infimum on the shape's edge (a sign condition is active): not attained | [0.114844679, 0.063931887, 0.095391703, 0.725831731] | ixoic_line_58_2880v_11280c_opt.off |
-| ixoic_line_66 | line | ixo2 | 11.521498 | 9.35635282 | infimum on the shape's edge (a sign condition is active): not attained | [0.124460187, 0.082474945, 0.068751762, 0.724313106] | ixoic_line_66_2880v_12000c_opt.off |
-| ixoic_line_69 | line | ixo2 | 15.382113 | 6.52232491 | minimum inside the shape | [-0.047819619, 0.123897875, 0.063752103, 0.860169641] | ixoic_line_69_2880v_12000c_opt.off |
-| ixoic_line_70 | line | ixo2 | 11.231683 | 9.35611793 | infimum on the shape's edge (a sign condition is active): not attained | [0.124461016, 0.082475492, 0.068755347, 0.724308144] | ixoic_line_70_2880v_12000c_opt.off |
-| ixoic_line_72 | line | ixo2 | 13.031448 | 8.51561901 | infimum on the shape's edge (a sign condition is active): not attained | [0.114859494, 0.063913896, 0.095359349, 0.725867261] | ixoic_line_72_2880v_12000c_opt.off |
-| ixoic_line_73 | line | ixo2 | 45.783061 | 8.50879562 | infimum on the shape's edge (a sign condition is active): not attained | [0.114925885, 0.063916313, 0.095393339, 0.725764463] | ixoic_line_73_2880v_12000c_opt.off |
-| ixoic_line_76 | line | ixo2 | 9.355784 | 8.98900081 | infimum on the shape's edge (a sign condition is active): not attained | [0.300710952, 0.014108325, 0.139653827, 0.545526896] | ixoic_line_76_2880v_12000c_opt.off |
-| ixoic_line_77 | line | ixo2 | 11.387136 | 9.35625013 | infimum on the shape's edge (a sign condition is active): not attained | [0.124460931, 0.082475071, 0.068753479, 0.724310518] | ixoic_line_77_2880v_12000c_opt.off |
-| ixoic_line_79 | line | ixo2 | 8.826249 | 8.75397799 | minimum inside the shape | [0.29097878, 0.017546435, 0.140936685, 0.550538099] | ixoic_line_79_2880v_12000c_opt.off |
-| ixoic_line_80 | line | ixo2 | 8.475613 | 8.06928634 | minimum inside the shape | [0.27248473, 0.050156681, 0.138059516, 0.539299073] | ixoic_line_80_2880v_12000c_opt.off |
-| ixoic_line_82 | line | ixo2 | 13.256559 | 8.51576449 | infimum on the shape's edge (a sign condition is active): not attained | [0.114893091, 0.063909521, 0.095364481, 0.725832906] | ixoic_line_82_2880v_12000c_opt.off |
-| ixoic_line_83 | line | ixo2 | 11.019965 | 8.49185219 | infimum on the shape's edge (a sign condition is active): not attained | [0.292993786, 0.046322021, 0.134660934, 0.526023259] | ixoic_line_83_2880v_12000c_opt.off |
-| ixoic_line_85 | line | ixo2 | 30.815936 | 30.63416585 | infimum on the shape's edge (a sign condition is active): not attained | [0.246839248, 0.017664101, 0.043018436, 0.692478215] | ixoic_line_85_2880v_16320c_opt.off |
 | ixoic_region_108 | region | ixo2 | 7.345022 | 7.34499412 | infimum on the shape's edge (a sign condition is active): not attained | [0.332327987, 0.056048703, 0.166679131, 0.444944178] | ixoic_region_108_2880v_22080c_opt.off |
 | ixoic_region_110 | region | ixo2 | 4.528226 | 4.05359033 | infimum on the shape's edge (a sign condition is active): not attained | [0.223542115, 0.041917394, 0.403249388, 0.331291103] | ixoic_region_110_2880v_21600c_opt.off |
 | ixoic_region_111 | region | ixo2 | 7.595462 | 7.59532186 | infimum on the shape's edge (a sign condition is active): not attained | [0.268885876, 0.020362757, 0.204323056, 0.506428311] | ixoic_region_111_2880v_22080c_opt.off |
@@ -224,9 +193,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_103 | wall | ixo5 | 24.190035 | 23.50221614 | infimum on the shape's edge (a sign condition is active): not attained | [0.579524184, 0.0, 0.302258605, 0.118217211] | ixoic_wall_103_2880v_20640c_opt.off |
 | ixoic_wall_120 | wall | ixo5 | 52.565397 | 23.14612450 | infimum on the shape's edge (a sign condition is active): not attained | [0.383932968, 0.38581531, -0.021931953, 0.252183676] | ixoic_wall_120_2880v_13440c_opt.off |
 | ixoic_wall_121 | wall | ixo5 | 18.569602 | 14.78431533 | infimum on the shape's edge (a sign condition is active): not attained | [0.385284315, 0.22943137, 0.371436373, 0.013847942] | ixoic_wall_121_2880v_13440c_opt.off |
-| ixoic_line_42 | line | ixo5 | 14.718684 | 14.39843987 | infimum on the shape's edge (a sign condition is active): not attained | [0.381968781, 0.236062437, 0.381957047, 1.1734e-05] | ixoic_line_42_2880v_10560c_opt.off |
-| ixoic_line_71 | line | ixo5 | 20.611681 | 19.94174854 | infimum on the shape's edge (a sign condition is active): not attained | [0.469907976, 0.166470612, 0.269355109, 0.094266303] | ixoic_line_71_2880v_12000c_opt.off |
-| ixoic_line_90 | line | ixo5 | 1905.302679 | 3.29674413 | infimum on the shape's edge (a sign condition is active): not attained | [0.443630825, 0.113316131, 0.442644491, 0.000408553] | ixoic_line_90_1440v_5760c_opt.off |
 | gagybted | point | ixo5 | 2.114063 | 2.11406329 | point (no freedom) | [0.707106781, 0.0, 0.0, 0.292893219] | gagybted_480v_2160c_opt.off |
 | tetsobted_1440 | point | ixo5 | 1.438795 | 1.43879500 | point (no freedom) | [0.443262792, 0.113474415, 0.443262792, 0.0] | tetsobted_1440_1440v_960c_opt.off |
 | ixoic_region_121 | region | ixo5 | 10.451608 | 5.18295696 | infimum on the shape's edge (a sign condition is active): not attained | [0.264469366, 0.480482766, 0.236114338, 0.01893353] | ixoic_region_121_2880v_18720c_opt.off |
@@ -239,7 +205,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_region_12 | region | ixo6 | 13.533621 | 12.76899120 | infimum on the shape's edge (a sign condition is active): not attained | [0.043797855, 0.069326324, 0.491635711, 0.39524011] | ixoic_region_12_2880v_14400c_opt.off |
 | ixoic_region_26 | region | ixo6 | 4.812520 | 3.81370594 | infimum on the shape's edge (a sign condition is active): not attained | [0.093095396, 0.229117454, 0.224895744, 0.452891407] | ixoic_region_26_2880v_16800c_opt.off |
 | ixoic_wall_40 | wall | ixo6 | 27.289436 | 27.28938943 | infimum on the shape's edge (a sign condition is active): not attained | [0.0, 0.177242203, 0.49481533, 0.327942467] | ixoic_wall_40_2880v_11040c_opt.off |
-| masbittid | line | ixo6 | 3.955491 | 3.53299766 | infimum on the shape's edge (a sign condition is active): not attained | [0.0, 0.7580467, 0.0, 0.2419533] | masbittid_1440v_5520c_opt.off |
 | ixoic_wall_108 | wall | ixo6 | 4.333800 | 3.34409055 | minimum inside the shape | [0.073278666, 0.326780702, 0.261616516, 0.338324116] | ixoic_wall_108_2880v_9600c_opt.off |
 | ixoic_wall_133 | wall | ixo6 | 15.958375 | 5.49387871 | infimum on the shape's edge (a sign condition is active): not attained | [0.112129399, -0.043899601, 0.148949082, 0.782821119] | ixoic_wall_133_2880v_14880c_opt.off |
 | ixoic_wall_153 | wall | ixo6 | 16.407072 | 10.85351923 | infimum on the shape's edge (a sign condition is active): not attained | [0.069683127, 0.098245622, 0.069257164, 0.762814087] | ixoic_wall_153_2880v_16320c_opt.off |
@@ -247,14 +212,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_170 | wall | ixo6 | 9.842226 | 5.13991730 | infimum on the shape's edge (a sign condition is active): not attained | [0.122489854, -0.047852967, 0.157806127, 0.767556986] | ixoic_wall_170_2880v_16320c_opt.off |
 | ixoic_wall_191 | wall | ixo6 | 18.934042 | 10.72519382 | infimum on the shape's edge (a sign condition is active): not attained | [0.058843696, 0.02251734, 0.075809829, 0.842829134] | ixoic_wall_191_2880v_17760c_opt.off |
 | ixoic_wall_198 | wall | ixo6 | 16.423080 | 14.71448984 | infimum on the shape's edge (a sign condition is active): not attained | [0.05054304, 0.071477096, 0.050540838, 0.827439026] | ixoic_wall_198_2880v_17760c_opt.off |
-| ixoic_line_09 | line | ixo6 | 5.413316 | 4.50166093 | infimum on the shape's edge (a sign condition is active): not attained | [0.080991712, 0.39262423, 0.195531288, 0.33085277] | ixoic_line_09_2880v_2160c_opt.off |
-| ixoic_line_14 | line | ixo6 | 6.653487 | 2.32514077 | minimum inside the shape | [-0.073415746, 0.222614715, 0.267988141, 0.58281289] | ixoic_line_14_2880v_4080c_opt.off |
-| ixoic_line_15 | line | ixo6 | 3.126807 | 2.70179968 | minimum inside the shape | [0.156951948, -0.030362245, 0.202192658, 0.671217639] | ixoic_line_15_2880v_4800c_opt.off |
-| ixoic_line_20 | line | ixo6 | 4.337249 | 3.59029483 | minimum inside the shape | [0.090137334, 0.198240424, 0.217610773, 0.49401147] | ixoic_line_20_2880v_6480c_opt.off |
-| ixoic_line_44 | line | ixo6 | 15.957680 | 5.48996354 | minimum inside the shape | [0.112214429, -0.044005366, 0.149052565, 0.782738372] | ixoic_line_44_2880v_10560c_opt.off |
-| ixoic_line_74 | line | ixo6 | 15.391433 | 14.71351976 | infimum on the shape's edge (a sign condition is active): not attained | [0.050545872, 0.071481899, 0.050544799, 0.82742743] | ixoic_line_74_2880v_12000c_opt.off |
-| ixoic_line_75 | line | ixo6 | 16.414312 | 11.26199247 | infimum on the shape's edge (a sign condition is active): not attained | [0.054643565, 0.022205137, 0.073376114, 0.849775184] | ixoic_line_75_2880v_12000c_opt.off |
-| ixoic_line_78 | line | ixo6 | 10.924180 | 6.99349948 | infimum on the shape's edge (a sign condition is active): not attained | [0.098839132, 0.030277506, 0.110084675, 0.760798686] | ixoic_line_78_2880v_12000c_opt.off |
 | ixoic_region_129 | region | ixo6 | 30.893115 | 30.89080375 | infimum on the shape's edge (a sign condition is active): not attained | [0.020952898, 0.103535015, 0.027091809, 0.848420279] | ixoic_region_129_2880v_22080c_opt.off |
 | ixoic_region_130 | region | ixo6 | 22.891688 | 6.31474671 | infimum on the shape's edge (a sign condition is active): not attained | [0.10332489, -0.043099282, 0.133113781, 0.806660611] | ixoic_region_130_2880v_20640c_opt.off |
 | ixoic_region_40 | region | ixo7 | 12.230913 | 11.28320605 | infimum on the shape's edge (a sign condition is active): not attained | [0.11800256, 0.263587548, 0.557073388, 0.061336505] | ixoic_region_40_2880v_18720c_opt.off |
@@ -264,7 +221,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_71 | wall | ixo7 | 11.436393 | 11.43638646 | infimum on the shape's edge (a sign condition is active): not attained | [0.432703205, 0.0, 0.525423148, 0.041873646] | ixoic_wall_71_2880v_14400c_opt.off |
 | ixoic_wall_80 | wall | ixo7 | 37.821754 | 37.82155508 | infimum on the shape's edge (a sign condition is active): not attained | [0.136064621, 0.655192874, 0.208742505, 0.0] | ixoic_wall_80_2880v_14880c_opt.off |
 | ixoic_wall_102 | wall | ixo7 | 61.654487 | 44.14068362 | infimum on the shape's edge (a sign condition is active): not attained | [0.118277882, 0.674881045, 0.206841073, 0.0] | ixoic_wall_102_2880v_19200c_opt.off |
-| gasbittid | line | ixo7 | 9.443075 | 9.06598627 | infimum on the shape's edge (a sign condition is active): not attained | [0.0, 0.618040708, 0.381959292, 0.0] | gasbittid_1440v_5520c_opt.off |
 | ixoic_wall_123 | wall | ixo7 | 6.118966 | 5.83428410 | infimum on the shape's edge (a sign condition is active): not attained | [0.29136136, 0.229187932, 0.46580296, 0.013647749] | ixoic_wall_123_2880v_14400c_opt.off |
 | ixoic_wall_182 | wall | ixo7 | 10.275240 | 5.23468841 | infimum on the shape's edge (a sign condition is active): not attained | [0.318930558, 0.187151969, 0.48216848, 0.011748993] | ixoic_wall_182_2880v_17280c_opt.off |
 | sobted | point | ixo7 | 2.328019 | 2.32801921 | point (no freedom) | [0.0, 0.796179574, 0.203820426, 0.0] | sobted_720v_1680c_opt.off |
@@ -276,9 +232,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_107 | wall | ixo8 | 23.403221 | 4.01944137 | infimum on the shape's edge (a sign condition is active): not attained | [0.181812648, -0.03310916, 0.545500665, 0.305795847] | ixoic_wall_107_2880v_8160c_opt.off |
 | ixoic_wall_112 | wall | ixo8 | 10.123715 | 4.27988773 | infimum on the shape's edge (a sign condition is active): not attained | [0.05679113, 0.425807383, 0.266818973, 0.250582514] | ixoic_wall_112_2880v_11040c_opt.off |
 | ixoic_wall_189 | wall | ixo8 | 10.060268 | 5.47769066 | infimum on the shape's edge (a sign condition is active): not attained | [0.247873712, 0.504163913, 0.2479019, 6.0474e-05] | ixoic_wall_189_2880v_17280c_opt.off |
-| gyptabtutid | line | ixo8 | 31.039733 | 3.07378885 | minimum inside the shape | [0.553261683, -0.17005115, 0.553261683, 0.063527783] | gyptabtutid_2880v_3840c_opt.off |
-| ixoic_line_21 | line | ixo8 | 5.589249 | 4.27687079 | minimum inside the shape | [0.056773914, 0.425624214, 0.266977014, 0.250624858] | ixoic_line_21_2880v_6720c_opt.off |
-| ixoic_line_37 | line | ixo8 | 30.576146 | 6.27284546 | infimum on the shape's edge (a sign condition is active): not attained | [0.200478035, 0.536028344, 0.218227827, 0.045265794] | ixoic_line_37_2880v_10080c_opt.off |
 | ixoic_region_43 | region | ixo9 | 17.015860 | 11.12081413 | infimum on the shape's edge (a sign condition is active): not attained | [0.175298704, 0.752024067, 5.6394e-05, 0.072620836] | ixoic_region_43_2880v_18720c_opt.off |
 | ixoic_region_58 | region | ixo9 | 164.909943 | 11.06295434 | infimum on the shape's edge (a sign condition is active): not attained | [0.158086848, 0.480022283, 0.296408676, 0.065482193] | ixoic_region_58_2880v_19200c_opt.off |
 | ixoic_region_60 | region | ixo9 | 30.683336 | 17.22637746 | infimum on the shape's edge (a sign condition is active): not attained | [0.152685464, 0.713901757, 0.053637066, 0.079775713] | ixoic_region_60_2880v_20160c_opt.off |
@@ -341,40 +294,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_199 | wall | ixo9 | 40.953080 | 7.90850736 | infimum on the shape's edge (a sign condition is active): not attained | [0.418217531, 0.428287016, -0.140873269, 0.294368722] | ixoic_wall_199_2880v_17760c_opt.off |
 | ixoic_wall_209 | wall | ixo9 | 36.559904 | 30.05325202 | infimum on the shape's edge (a sign condition is active): not attained | [0.481542313, 0.24240223, 0.12448849, 0.151566967] | ixoic_wall_209_2880v_19200c_opt.off |
 | ixoic_wall_210 | wall | ixo9 | 65.460450 | 30.06382939 | infimum on the shape's edge (a sign condition is active): not attained | [0.441750992, 0.310225397, 0.01777487, 0.230248741] | ixoic_wall_210_2880v_19200c_opt.off |
-| ixoic_line_11 | line | ixo9 | 17.487386 | 2.39528426 | minimum inside the shape | [0.282785736, 0.02904923, 0.571031347, 0.117133687] | ixoic_line_11_2880v_3600c_opt.off |
-| ixoic_line_12 | line | ixo9 | 13.605869 | 4.65603842 | minimum inside the shape | [0.284738356, 0.642369178, -0.211845889, 0.284738356] | ixoic_line_12_2880v_3840c_opt.off |
-| ixoic_line_19 | line | ixo9 | 18.890422 | 13.66669313 | infimum on the shape's edge (a sign condition is active): not attained | [0.129216363, 0.505182222, 0.312065202, 0.053536212] | ixoic_line_19_2880v_6240c_opt.off |
-| ixoic_line_24 | line | ixo9 | 12.855630 | 8.03741978 | minimum inside the shape | [0.471992645, 0.131322687, 0.266880209, 0.12980446] | ixoic_line_24_2880v_7680c_opt.off |
-| ixoic_line_25 | line | ixo9 | 39.641950 | 23.13396155 | minimum inside the shape | [0.383696511, 0.3641496, 0.021958305, 0.230195585] | ixoic_line_25_2880v_7680c_opt.off |
-| ixoic_line_26 | line | ixo9 | 36.841085 | 7.49469193 | infimum on the shape's edge (a sign condition is active): not attained | [0.396685155, 0.443048457, -0.145763474, 0.306029863] | ixoic_line_26_2880v_7680c_opt.off |
-| ixoic_line_27 | line | ixo9 | 20.547287 | 4.52485546 | minimum inside the shape | [0.529626023, 0.374502152, 0.315250106, -0.219378282] | ixoic_line_27_2880v_8400c_opt.off |
-| ixoic_line_28 | line | ixo9 | 10.913104 | 8.45331004 | minimum inside the shape | [0.487035437, 0.127215543, 0.258533476, 0.127215543] | ixoic_line_28_2880v_9120c_opt.off |
-| ixoic_line_30 | line | ixo9 | 8.866060 | 8.71313403 | infimum on the shape's edge (a sign condition is active): not attained | [0.337298613, 0.278115436, 0.296482246, 0.088103705] | ixoic_line_30_2880v_9120c_opt.off |
-| ixoic_line_33 | line | ixo9 | 10.993951 | 10.81176910 | infimum on the shape's edge (a sign condition is active): not attained | [0.191471666, 0.450687683, 0.278540306, 0.079300345] | ixoic_line_33_2880v_9600c_opt.off |
-| ixoic_line_34 | line | ixo9 | 11.522642 | 11.42347241 | infimum on the shape's edge (a sign condition is active): not attained | [0.193181995, 0.498539029, 0.308114065, 0.000164912] | ixoic_line_34_2880v_9600c_opt.off |
-| ixoic_line_39 | line | ixo9 | 11.581824 | 6.74295837 | minimum inside the shape | [0.447213595, 0.163724042, 0.332727783, 0.05633458] | ixoic_line_39_2880v_10080c_opt.off |
-| ixoic_line_40 | line | ixo9 | 10.065075 | 8.71417231 | infimum on the shape's edge (a sign condition is active): not attained | [0.337367804, 0.278058639, 0.296436983, 0.088136574] | ixoic_line_40_2880v_10560c_opt.off |
-| ixoic_line_41 | line | ixo9 | 7.347059 | 7.17642318 | minimum inside the shape | [0.444055744, 0.14955272, 0.303928149, 0.102463387] | ixoic_line_41_2880v_10560c_opt.off |
-| ixoic_line_43 | line | ixo9 | 25.740855 | 7.86801273 | infimum on the shape's edge (a sign condition is active): not attained | [0.416999812, 0.43046695, -0.141754857, 0.294288095] | ixoic_line_43_2880v_10560c_opt.off |
-| ixoic_line_46 | line | ixo9 | 103.350029 | 30.67098805 | infimum on the shape's edge (a sign condition is active): not attained | [0.212365534, 0.557043171, 0.084366146, 0.146225149] | ixoic_line_46_2880v_10560c_opt.off |
-| ixoic_line_47 | line | ixo9 | 19.653314 | 15.59305282 | minimum inside the shape | [0.491494449, 0.212144984, 0.17698777, 0.119372796] | ixoic_line_47_2880v_10560c_opt.off |
-| ixoic_line_49 | line | ixo9 | 13.027726 | 12.89446655 | infimum on the shape's edge (a sign condition is active): not attained | [0.192778244, 0.487299218, 0.301164635, 0.018757903] | ixoic_line_49_2880v_11040c_opt.off |
-| ixoic_line_50 | line | ixo9 | 11.247690 | 11.22679403 | infimum on the shape's edge (a sign condition is active): not attained | [0.191924126, 0.463346558, 0.286363922, 0.058365394] | ixoic_line_50_2880v_11040c_opt.off |
-| ixoic_line_51 | line | ixo9 | 12.270120 | 12.24785095 | infimum on the shape's edge (a sign condition is active): not attained | [0.191923752, 0.46334633, 0.286363263, 0.058366654] | ixoic_line_51_2880v_11040c_opt.off |
-| ixoic_line_52 | line | ixo9 | 8.776609 | 5.73828703 | infimum on the shape's edge (a sign condition is active): not attained | [0.37966562, 0.197065697, 0.400759723, 0.02250896] | ixoic_line_52_2880v_11040c_opt.off |
-| ixoic_line_53 | line | ixo9 | 9.932677 | 8.83016129 | infimum on the shape's edge (a sign condition is active): not attained | [0.254813923, 0.361255193, 0.317368065, 0.06656282] | ixoic_line_53_2880v_11040c_opt.off |
-| ixoic_line_59 | line | ixo9 | 6.811720 | 5.97241481 | minimum inside the shape | [0.395286802, 0.189700673, 0.385518729, 0.029493796] | ixoic_line_59_2880v_11520c_opt.off |
-| ixoic_line_60 | line | ixo9 | 16.094331 | 12.26009322 | infimum on the shape's edge (a sign condition is active): not attained | [0.192027487, 0.463351409, 0.286199947, 0.058421157] | ixoic_line_60_2880v_11520c_opt.off |
-| ixoic_line_61 | line | ixo9 | 12.287775 | 11.80137447 | minimum inside the shape | [0.162488538, 0.509397144, 0.314824749, 0.013289569] | ixoic_line_61_2880v_11520c_opt.off |
-| ixoic_line_62 | line | ixo9 | 15.007203 | 12.96582915 | infimum on the shape's edge (a sign condition is active): not attained | [0.192008041, 0.488663365, 0.300597161, 0.018731432] | ixoic_line_62_2880v_11520c_opt.off |
-| ixoic_line_63 | line | ixo9 | 11.674339 | 8.76532527 | infimum on the shape's edge (a sign condition is active): not attained | [0.33728054, 0.27816295, 0.29644476, 0.08811175] | ixoic_line_63_2880v_11520c_opt.off |
-| ixoic_line_64 | line | ixo9 | 27.356427 | 12.28603880 | infimum on the shape's edge (a sign condition is active): not attained | [0.190666199, 0.707095701, 0.000579876, 0.101658223] | ixoic_line_64_2880v_11520c_opt.off |
-| ixoic_line_65 | line | ixo9 | 24.045737 | 13.25955132 | infimum on the shape's edge (a sign condition is active): not attained | [0.151649407, 0.718403226, 0.00542726, 0.124520106] | ixoic_line_65_2880v_11520c_opt.off |
-| ixoic_line_67 | line | ixo9 | 12.812528 | 7.75669313 | infimum on the shape's edge (a sign condition is active): not attained | [0.465396121, 0.138512115, 0.281673117, 0.114418648] | ixoic_line_67_2880v_12000c_opt.off |
-| ixoic_line_68 | line | ixo9 | 40.910541 | 7.90822527 | infimum on the shape's edge (a sign condition is active): not attained | [0.418215505, 0.428287656, -0.140879947, 0.294376787] | ixoic_line_68_2880v_12000c_opt.off |
-| ixoic_line_81 | line | ixo9 | 6.712764 | 6.70188026 | minimum inside the shape | [0.42597247, 0.162513908, 0.330268492, 0.081245131] | ixoic_line_81_2880v_12000c_opt.off |
-| ixoic_line_84 | line | ixo9 | 36.499219 | 30.04804730 | minimum inside the shape | [0.481427524, 0.242528916, 0.124534472, 0.151509088] | ixoic_line_84_2880v_13440c_opt.off |
-| awosbited | line | ixo9 | 1061.126107 | 4.38206393 | minimum inside the shape | [0.38508865, 0.362582096, 0.092820313, 0.159508941] | awosbited_1440v_6480c_opt.off |
 | ixoic_region_133 | region | ixo9 | 46.217019 | 15.99468265 | infimum on the shape's edge (a sign condition is active): not attained | [0.276389196, 0.584331533, 0.022516497, 0.116762774] | ixoic_region_133_2880v_18720c_opt.off |
 | ixoic_region_134 | region | ixo9 | 40.036740 | 34.54465402 | infimum on the shape's edge (a sign condition is active): not attained | [0.216465718, 0.552445748, 0.089535367, 0.141553167] | ixoic_region_134_2880v_22080c_opt.off |
 | ixoic_region_135 | region | ixo9 | 16.799908 | 13.46259139 | infimum on the shape's edge (a sign condition is active): not attained | [0.175625436, 0.681698316, 4.1924e-05, 0.142634325] | ixoic_region_135_2880v_21600c_opt.off |
@@ -387,9 +306,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_131 | wall | ixo0 | 42.471022 | 18.60215389 | infimum on the shape's edge (a sign condition is active): not attained | [0.492422695, 0.037425365, 0.060502098, 0.409649842] | ixoic_wall_131_2880v_14880c_opt.off |
 | ixoic_wall_192 | wall | ixo0 | 109.751795 | 32.73519511 | infimum on the shape's edge (a sign condition is active): not attained | [0.693582204, 0.007239736, 0.238232008, 0.060946052] | ixoic_wall_192_2880v_17760c_opt.off |
 | ixoic_wall_205 | wall | ixo0 | 85.380112 | 59.87712591 | infimum on the shape's edge (a sign condition is active): not attained | [0.239806885, 0.017182129, 0.005381964, 0.737629021] | ixoic_wall_205_2880v_17760c_opt.off |
-| ixoic_line_31 | line | ixo0 | 5.350549 | 3.55359624 | minimum inside the shape | [0.151208465, 0.279921583, 0.137739904, 0.431130048] | ixoic_line_31_2880v_9120c_opt.off |
-| ixoic_line_48 | line | ixo0 | 84.904547 | 19.75760238 | infimum on the shape's edge (a sign condition is active): not attained | [0.112938191, 0.056596534, 1.8207e-05, 0.830447069] | ixoic_line_48_2880v_10560c_opt.off |
-| sagypsobted | line | ixo0 | 2287.888226 | 1.16236212 | minimum inside the shape | [-0.442106615, 0.628156555, 0.309094507, 0.504855553] | sagypsobted_1440v_3600c_opt.off |
 | stetbituted | wall | ixo2 | 19.962493 | 1.97588687 | infimum on the shape's edge (a sign condition is active): not attained | [-0.803333734, 1.088769601, 0.145644363, 0.568919769] | stetbituted_2880v_7200c_opt.off |
 | ixoic_wall_105 | wall | ixo2 | 19.398094 | 1.64952510 | minimum inside the shape | [-0.788349101, 1.110468208, 0.070812649, 0.607068244] | ixoic_wall_105_2880v_7200c_opt.off |
 | ixoic_wall_110 | wall | ixo2 | 108.156282 | 3.93389149 | infimum on the shape's edge (a sign condition is active): not attained | [0.223766747, 0.041800532, 0.402599097, 0.331833625] | ixoic_wall_110_2880v_10560c_opt.off |
@@ -422,8 +338,6 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_204 | wall | ixo2 | 8.477027 | 8.18369613 | infimum on the shape's edge (a sign condition is active): not attained | [0.27817219, 0.049069212, 0.137121944, 0.535636654] | ixoic_wall_204_2880v_17760c_opt.off |
 | ixoic_wall_208 | wall | ixo2 | 807.760677 | 107.11265704 | minimum inside the shape | [0.132537614, 0.088965968, 0.192921748, 0.585574671] | ixoic_wall_208_2880v_18720c_opt.off |
 | ixoic_wall_211 | wall | ixo2 | 24.962702 | 23.27932697 | infimum on the shape's edge (a sign condition is active): not attained | [0.067771065, 0.04240793, 0.007547408, 0.882273597] | ixoic_wall_211_2880v_19200c_opt.off |
-| ixoic_line_10 | line | ixo2 | 89.660277 | 1.49022120 | minimum inside the shape | [-0.482818007, 0.750806148, 0.149198969, 0.58281289] | ixoic_line_10_2880v_2880c_opt.off |
-| ixoic_line_16 | line | ixo2 | 9.458238 | 6.76587474 | minimum inside the shape | [0.26257077, 0.067217608, 0.136602819, 0.533608804] | ixoic_line_16_2880v_4800c_opt.off |
 | ixoic_wall_03 | wall | ixo0 | 6.349588 | 3.69551813 | minimum inside the shape | [0.304113536, 0.0, 0.347943232, 0.347943232] | ixoic_wall_03_2880v_4080c_opt.off |
 | ixoic_wall_05 | wall | ixo0 | 4.489864 | 2.91954619 | minimum inside the shape | [0.207195735, 0.0, 0.47411473, 0.318689535] | ixoic_wall_05_2880v_4320c_opt.off |
 | gabertatid | wall | ixo0 | 9.310506 | 2.11406329 | minimum inside the shape | [-0.488555413, 0.976136187, 0.0, 0.512419226] | gabertatid_2880v_5520c_opt.off |
@@ -431,19 +345,15 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_23 | wall | ixo0 | 2.995015 | 2.84922204 | minimum inside the shape | [0.0, 0.471539482, 0.42074947, 0.107711048] | ixoic_wall_23_2880v_9120c_opt.off |
 | ixoic_wall_33 | wall | ixo0 | 3.150966 | 2.92558981 | minimum inside the shape | [0.0, 0.33974663, 0.378641782, 0.281611587] | ixoic_wall_33_2880v_10560c_opt.off |
 | ixoic_wall_49 | wall | ixo0 | 4.697748 | 2.67858701 | minimum inside the shape | [0.0, 0.451868331, 0.222349059, 0.325782609] | ixoic_wall_49_2880v_12000c_opt.off |
-| potbatid | line | ixo0 | 1.238390 | 1.23838960 | no progress: the optimiser found no feasible step from the seed (seed kept) | [0.304113536, -0.0, 0.695886464, 0.0] | potbatid_1440v_1200c_opt.off |
 | ixoic_region_106 | region | ixo0 | 12.577407 | 12.34194176 | lower R by a direct search inside the shape (SLSQP found no feasible step): a local best, not an exact minimum | [0.354786435, 0.007387451, 0.107063459, 0.530762655] | ixoic_region_106_2880v_22080c_opt.off |
 | ixoic_wall_35 | wall | ixo2 | 9.245273 | 7.62654900 | infimum on the shape's edge (a sign condition is active): not attained | [0.0, 0.072036297, 0.089107403, 0.8388563] | ixoic_wall_35_2880v_10560c_opt.off |
 | ixoic_wall_39 | wall | ixo2 | 4.002190 | 3.90627960 | minimum inside the shape | [0.0, 0.102725231, 0.649274122, 0.248000647] | ixoic_wall_39_2880v_10800c_opt.off |
 | ixoic_wall_42 | wall | ixo2 | 10.356113 | 4.09506391 | minimum inside the shape | [0.0, 0.146612016, 0.609817024, 0.24357096] | ixoic_wall_42_2880v_11520c_opt.off |
 | ixoic_wall_161 | wall | ixo2 | 10.304645 | 10.29740516 | lower R by a direct search inside the shape (SLSQP found no feasible step): a local best, not an exact minimum | [0.386377301, 0.055932172, 0.113668721, 0.444021806] | ixoic_wall_161_2880v_16320c_opt.off |
-| magypsobted | line | ixo2 | 1821.897247 | 6.15135208 | infimum on the shape's edge (a sign condition is active): not attained | [0.156437754, 0.076828537, 0.156134606, 0.610599103] | magypsobted_1440v_5760c_opt.off |
-| gagypsobted | line | ixo2 | 6.116943 | 2.12404502 | minimum inside the shape | [-0.068217387, 0.193705696, 0.393657925, 0.480853766] | gagypsobted_1440v_5760c_opt.off |
 | regposbitad | point | ixo2 | 5.087934 | 5.08793388 | point (no freedom) | [0.156290412, 0.076905192, 0.156290387, 0.610514009] | regposbitad_1440v_1440c_opt.off |
 | ixoic_region_109 | region | ixo2 | 44.139769 | 29.83976859 | lower R by a direct search inside the shape (SLSQP found no feasible step): a local best, not an exact minimum | [0.196227777, 0.067422342, 0.135810565, 0.600539316] | ixoic_region_109_2880v_14880c_opt.off |
 | ixoic_region_54 | region | ixo3 | 5.878379 | 5.87837902 | infimum on the shape's edge (a sign condition is active): not attained; moved to another polytope: the seed is written instead | [0.125343407, 9.999e-05, 0.125402293, 0.74915431] | ixoic_region_54_2880v_19200c_opt.off |
 | ixoic_wall_11 | wall | ixo3 | 3.470383 | 2.28743568 | infimum on the shape's edge (a sign condition is active): not attained | [0.292826537, 0.0, 0.706945796, 0.000227667] | ixoic_wall_11_2880v_6960c_opt.off |
-| gypsobted | line | ixo3 | 2.124146 | 1.94075104 | minimum inside the shape | [0.305086483, -0.195140392, 0.606625705, 0.283428204] | gypsobted_1440v_3360c_opt.off |
 | petsobted | point | ixo3 | 1.874032 | 1.87403205 | point (no freedom) | [0.073308479, 0.073308485, 0.390037274, 0.463345761] | petsobted_1440v_2160c_opt.off |
 | ixoic_wall_62 | wall | ixo4 | 8.692651 | 7.99952051 | infimum on the shape's edge (a sign condition is active): not attained | [0.0, 0.563451042, 0.05894285, 0.377606108] | ixoic_wall_62_2880v_12720c_opt.off |
 | ixoic_wall_04 | wall | ixo5 | 10.956699 | 8.52442651 | minimum inside the shape | [0.175362939, 0.751999353, 0.0, 0.072637708] | ixoic_wall_04_2880v_4080c_opt.off |
@@ -454,7 +364,97 @@ Made by research/hyic_atlas/ixitic_offs.py; shapes from research/hyic_atlas/ixoi
 | ixoic_wall_111 | wall | ixo6 | 9.637532 | 9.62042959 | lower R on the shape's edge (found by bisection toward a lower R outside the shape; not one of its sign conditions) | [0.065691252, 0.105804741, 0.084480525, 0.744023482] | ixoic_wall_111_2880v_10560c_opt.off |
 | ixoic_wall_09 | wall | ixo7 | 12.977702 | 2.32801921 | minimum inside the shape (not unique: R is flat along the locus there) | [0.0, 0.322786215, 0.082632645, 0.594581141] | ixoic_wall_09_2880v_6240c_opt.off |
 | ixoic_wall_47 | wall | ixo7 | 10.949943 | 6.41659993 | infimum on the shape's edge (a sign condition is active): not attained | [0.254135176, 0.0, 0.581052199, 0.164812625] | ixoic_wall_47_2880v_11520c_opt.off |
-| bitutid | line | ixo7 | 6.410363 | 6.41036290 | infimum on the shape's edge (a sign condition is active): not attained (its zero betas left free: the shape crosses its mirrors) | [-0.0, 0.618033981, 0.381966019, 0.0] | bitutid_1440v_1200c_opt.off |
 | ixoic_region_141 | region | ixo9 | 13.170732 | 12.93276084 | infimum on the shape's edge (a sign condition is active): not attained | [0.153802183, 0.717091175, 0.000448263, 0.128658378] | ixoic_region_141_2880v_18720c_opt.off |
 | ixoic_region_143 | region | ixo9 | 13.185467 | 13.18420433 | lower R by a direct search inside the shape (SLSQP found no feasible step): a local best, not an exact minimum | [0.140814217, 0.721126567, 0.003766529, 0.134292687] | ixoic_region_143_2880v_18720c_opt.off |
 | ixoic_region_144 | region | ixo9 | 13.179685 | 13.15175820 | infimum on the shape's edge (a sign condition is active): not attained | [0.141143051, 0.720951942, 0.003286712, 0.134618294] | ixoic_region_144_2880v_21600c_opt.off |
+| sobtated | line | ixo0 | 1.999531 | 1.24769275 | minimum inside the shape | [-0.533608804, 1.533608804, 0.0, -0.0] | sobtated_960v_4320c_opt.off |
+| gobtated | line | ixo0 | 11.090533 | 3.42058826 | minimum inside the shape | [0.143785834, -0.0, 0.0, 0.856214166] | gobtated_960v_7200c_opt.off |
+| potbatid | line | ixo0 | 1.238390 | 1.23838959 | point (no freedom) | [0.304113531, 0.0, 0.695886469, 0.0] | potbatid_1440v_1200c_opt.off |
+| sagypbittid | line | ixo0 | 1.983205 | 1.94238565 | minimum inside the shape | [0.0, -0.0, 1.0, 0.0] | sagypbittid_1440v_3600c_opt.off |
+| gagypbittid | line | ixo0 | 2.518627 | 2.37814379 | infimum on the shape's edge (a sign condition is active): not attained | [0.304142697, -0.0, 0.695857303, -0.0] | gagypbittid_1440v_6240c_opt.off |
+| ixoic_line_31 | line | ixo0 | 5.350549 | 3.55359624 | minimum inside the shape | [0.151208465, 0.279921583, 0.137739904, 0.431130048] | ixoic_line_31_2880v_9120c_opt.off |
+| ixoic_line_48 | line | ixo0 | 84.904547 | 19.75760268 | infimum on the shape's edge (a sign condition is active): not attained | [0.112938193, 0.056596533, 1.8207e-05, 0.830447067] | ixoic_line_48_2880v_10560c_opt.off |
+| sagypsobted | line | ixo0 | 2287.888226 | 1.16236212 | minimum inside the shape | [-0.442106615, 0.628156555, 0.309094507, 0.504855553] | sagypsobted_1440v_3600c_opt.off |
+| ixoic_line_10 | line | ixo2 | 89.660277 | 1.49022120 | minimum inside the shape | [-0.482818007, 0.750806148, 0.149198969, 0.58281289] | ixoic_line_10_2880v_2880c_opt.off |
+| ixoic_line_16 | line | ixo2 | 9.458238 | 6.76587474 | minimum inside the shape | [0.26257077, 0.067217608, 0.136602819, 0.533608804] | ixoic_line_16_2880v_4800c_opt.off |
+| ixoic_line_18 | line | ixo2 | 5.854508 | 3.05662315 | minimum inside the shape | [0.081910329, 0.115601536, 0.523401338, 0.279086797] | ixoic_line_18_2880v_5520c_opt.off |
+| ixoic_line_22 | line | ixo2 | 9.070520 | 6.13987770 | minimum inside the shape | [-0.054150888, 0.138748337, 0.057547481, 0.85785507] | ixoic_line_22_2880v_7680c_opt.off |
+| ixoic_line_23 | line | ixo2 | 9.476860 | 6.86562779 | minimum inside the shape | [-0.032186275, 0.087131051, 0.090480817, 0.854574407] | ixoic_line_23_2880v_7680c_opt.off |
+| ixoic_line_29 | line | ixo2 | 10.351331 | 6.06262772 | infimum on the shape's edge (a sign condition is active): not attained | [0.368103987, 0.045916167, 0.221473107, 0.364506739] | ixoic_line_29_2880v_9120c_opt.off |
+| ixoic_line_32 | line | ixo2 | 6.047629 | 6.04630901 | minimum inside the shape | [0.045925751, 0.093051912, 0.122327203, 0.738695134] | ixoic_line_32_2880v_9120c_opt.off |
+| ixoic_line_35 | line | ixo2 | 8.930119 | 8.88644216 | infimum on the shape's edge (a sign condition is active): not attained | [0.300697023, 0.014110302, 0.139656263, 0.545536412] | ixoic_line_35_2880v_9840c_opt.off |
+| ixoic_line_36 | line | ixo2 | 8.005602 | 8.00126759 | infimum on the shape's edge (a sign condition is active): not attained | [0.288408508, 0.064862239, 0.131816632, 0.514912621] | ixoic_line_36_2880v_9840c_opt.off |
+| ixoic_line_38 | line | ixo2 | 4.870836 | 4.06276206 | minimum inside the shape | [0.193643822, 0.050202365, 0.436470521, 0.319683293] | ixoic_line_38_2880v_10080c_opt.off |
+| ixoic_line_45 | line | ixo2 | 13.757937 | 5.87075102 | minimum inside the shape | [-0.052288595, 0.135989338, 0.074916639, 0.841382618] | ixoic_line_45_2880v_10560c_opt.off |
+| ixoic_line_54 | line | ixo2 | 8.352859 | 8.34706723 | infimum on the shape's edge (a sign condition is active): not attained | [0.292893296, 0.046339931, 0.134677766, 0.526089008] | ixoic_line_54_2880v_11280c_opt.off |
+| ixoic_line_55 | line | ixo2 | 9.715013 | 9.35491191 | infimum on the shape's edge (a sign condition is active): not attained | [0.124436556, 0.082486771, 0.068762526, 0.724314148] | ixoic_line_55_2880v_11280c_opt.off |
+| ixoic_line_56 | line | ixo2 | 6.577853 | 4.10269261 | minimum inside the shape | [-0.06756208, 0.178962097, 0.133908675, 0.754691308] | ixoic_line_56_2880v_11280c_opt.off |
+| ixoic_line_57 | line | ixo2 | 6.304502 | 6.04659050 | infimum on the shape's edge (a sign condition is active): not attained | [0.0478882, 0.092761881, 0.122924635, 0.736425284] | ixoic_line_57_2880v_11280c_opt.off |
+| ixoic_line_58 | line | ixo2 | 8.835142 | 8.50766288 | infimum on the shape's edge (a sign condition is active): not attained | [0.114844679, 0.063931887, 0.095391703, 0.725831731] | ixoic_line_58_2880v_11280c_opt.off |
+| ixoic_line_66 | line | ixo2 | 11.521498 | 9.35635282 | infimum on the shape's edge (a sign condition is active): not attained | [0.124460187, 0.082474945, 0.068751762, 0.724313106] | ixoic_line_66_2880v_12000c_opt.off |
+| ixoic_line_69 | line | ixo2 | 15.382113 | 6.52232491 | minimum inside the shape | [-0.047819619, 0.123897875, 0.063752103, 0.860169641] | ixoic_line_69_2880v_12000c_opt.off |
+| ixoic_line_70 | line | ixo2 | 11.231683 | 9.35611793 | infimum on the shape's edge (a sign condition is active): not attained | [0.124461016, 0.082475492, 0.068755347, 0.724308144] | ixoic_line_70_2880v_12000c_opt.off |
+| ixoic_line_72 | line | ixo2 | 13.031448 | 8.51561901 | infimum on the shape's edge (a sign condition is active): not attained | [0.114859494, 0.063913896, 0.095359349, 0.725867261] | ixoic_line_72_2880v_12000c_opt.off |
+| ixoic_line_73 | line | ixo2 | 45.783061 | 8.50879562 | infimum on the shape's edge (a sign condition is active): not attained | [0.114925885, 0.063916313, 0.095393339, 0.725764463] | ixoic_line_73_2880v_12000c_opt.off |
+| ixoic_line_76 | line | ixo2 | 9.355784 | 8.98900081 | infimum on the shape's edge (a sign condition is active): not attained | [0.300710952, 0.014108325, 0.139653827, 0.545526896] | ixoic_line_76_2880v_12000c_opt.off |
+| ixoic_line_77 | line | ixo2 | 11.387136 | 9.35625013 | infimum on the shape's edge (a sign condition is active): not attained | [0.124460931, 0.082475071, 0.068753479, 0.724310518] | ixoic_line_77_2880v_12000c_opt.off |
+| ixoic_line_79 | line | ixo2 | 8.826249 | 8.75397799 | minimum inside the shape | [0.29097878, 0.017546435, 0.140936685, 0.550538099] | ixoic_line_79_2880v_12000c_opt.off |
+| ixoic_line_80 | line | ixo2 | 8.475613 | 8.06928634 | minimum inside the shape | [0.27248473, 0.050156681, 0.138059516, 0.539299073] | ixoic_line_80_2880v_12000c_opt.off |
+| ixoic_line_82 | line | ixo2 | 13.256559 | 8.51576449 | infimum on the shape's edge (a sign condition is active): not attained | [0.114893091, 0.063909521, 0.095364481, 0.725832906] | ixoic_line_82_2880v_12000c_opt.off |
+| ixoic_line_83 | line | ixo2 | 11.019965 | 8.49185219 | infimum on the shape's edge (a sign condition is active): not attained | [0.292993786, 0.046322021, 0.134660934, 0.526023259] | ixoic_line_83_2880v_12000c_opt.off |
+| ixoic_line_85 | line | ixo2 | 30.815936 | 30.63416585 | infimum on the shape's edge (a sign condition is active): not attained | [0.246839248, 0.017664101, 0.043018436, 0.692478215] | ixoic_line_85_2880v_16320c_opt.off |
+| magypsobted | line | ixo2 | 1821.897247 | 6.15135101 | infimum on the shape's edge (a sign condition is active): not attained | [0.156437728, 0.07682855, 0.156134633, 0.610599088] | magypsobted_1440v_5760c_opt.off |
+| gagypsobted | line | ixo2 | 6.116943 | 2.12404502 | minimum inside the shape | [-0.068217387, 0.193705696, 0.393657925, 0.480853766] | gagypsobted_1440v_5760c_opt.off |
+| gypsobted | line | ixo3 | 2.124146 | 1.94075104 | minimum inside the shape | [0.305086483, -0.195140392, 0.606625705, 0.283428204] | gypsobted_1440v_3360c_opt.off |
+| ixoic_line_42 | line | ixo5 | 14.718684 | 14.39843987 | infimum on the shape's edge (a sign condition is active): not attained | [0.381968781, 0.236062437, 0.381957047, 1.1734e-05] | ixoic_line_42_2880v_10560c_opt.off |
+| ixoic_line_90 | line | ixo5 | 1905.302679 | 3.29607480 | infimum on the shape's edge (a sign condition is active): not attained | [0.443575257, 0.11334003, 0.442737847, 0.000346867] | ixoic_line_90_1440v_5760c_opt.off |
+| masbittid | line | ixo6 | 3.955491 | 3.53299766 | infimum on the shape's edge (a sign condition is active): not attained | [0.0, 0.7580467, 0.0, 0.2419533] | masbittid_1440v_5520c_opt.off |
+| ixoic_line_09 | line | ixo6 | 5.413316 | 4.50166093 | infimum on the shape's edge (a sign condition is active): not attained | [0.080991712, 0.39262423, 0.195531288, 0.33085277] | ixoic_line_09_2880v_2160c_opt.off |
+| ixoic_line_14 | line | ixo6 | 6.653487 | 2.32514077 | minimum inside the shape | [-0.073415746, 0.222614715, 0.267988141, 0.58281289] | ixoic_line_14_2880v_4080c_opt.off |
+| ixoic_line_15 | line | ixo6 | 3.126807 | 2.70179968 | minimum inside the shape | [0.156951948, -0.030362245, 0.202192658, 0.671217639] | ixoic_line_15_2880v_4800c_opt.off |
+| ixoic_line_20 | line | ixo6 | 4.337249 | 3.59029483 | minimum inside the shape | [0.090137334, 0.198240424, 0.217610773, 0.49401147] | ixoic_line_20_2880v_6480c_opt.off |
+| ixoic_line_44 | line | ixo6 | 15.957680 | 5.48996354 | minimum inside the shape | [0.112214429, -0.044005366, 0.149052565, 0.782738372] | ixoic_line_44_2880v_10560c_opt.off |
+| ixoic_line_74 | line | ixo6 | 15.391433 | 14.71351976 | infimum on the shape's edge (a sign condition is active): not attained | [0.050545872, 0.071481899, 0.050544799, 0.82742743] | ixoic_line_74_2880v_12000c_opt.off |
+| ixoic_line_75 | line | ixo6 | 16.414312 | 11.26199247 | infimum on the shape's edge (a sign condition is active): not attained | [0.054643565, 0.022205137, 0.073376114, 0.849775184] | ixoic_line_75_2880v_12000c_opt.off |
+| ixoic_line_78 | line | ixo6 | 10.924180 | 6.99349948 | infimum on the shape's edge (a sign condition is active): not attained | [0.098839132, 0.030277506, 0.110084675, 0.760798686] | ixoic_line_78_2880v_12000c_opt.off |
+| bitutid | line | ixo7 | 6.410363 | 6.41036314 | point (no freedom) | [0.0, 0.618033987, 0.381966013, 0.0] | bitutid_1440v_1200c_opt.off |
+| gasbittid | line | ixo7 | 9.443075 | 9.06598627 | infimum on the shape's edge (a sign condition is active): not attained | [0.0, 0.618040708, 0.381959292, -0.0] | gasbittid_1440v_5520c_opt.off |
+| gyptabtutid | line | ixo8 | 31.039733 | 3.07378885 | minimum inside the shape | [0.553261683, -0.17005115, 0.553261683, 0.063527783] | gyptabtutid_2880v_3840c_opt.off |
+| ixoic_line_21 | line | ixo8 | 5.589249 | 4.27687079 | minimum inside the shape | [0.056773914, 0.425624214, 0.266977014, 0.250624858] | ixoic_line_21_2880v_6720c_opt.off |
+| ixoic_line_37 | line | ixo8 | 30.576146 | 6.27284546 | infimum on the shape's edge (a sign condition is active): not attained | [0.200478035, 0.536028344, 0.218227827, 0.045265794] | ixoic_line_37_2880v_10080c_opt.off |
+| ixoic_line_11 | line | ixo9 | 17.487386 | 2.39528426 | minimum inside the shape | [0.282785736, 0.02904923, 0.571031347, 0.117133687] | ixoic_line_11_2880v_3600c_opt.off |
+| ixoic_line_12 | line | ixo9 | 13.605869 | 4.65603842 | minimum inside the shape | [0.284738356, 0.642369178, -0.211845889, 0.284738356] | ixoic_line_12_2880v_3840c_opt.off |
+| ixoic_line_19 | line | ixo9 | 18.890422 | 13.66570072 | infimum on the shape's edge (a sign condition is active): not attained | [0.129225533, 0.505162912, 0.312073227, 0.053538328] | ixoic_line_19_2880v_6240c_opt.off |
+| ixoic_line_24 | line | ixo9 | 12.855630 | 8.03741978 | minimum inside the shape | [0.471992645, 0.131322687, 0.266880209, 0.12980446] | ixoic_line_24_2880v_7680c_opt.off |
+| ixoic_line_26 | line | ixo9 | 36.841085 | 7.49469193 | infimum on the shape's edge (a sign condition is active): not attained | [0.396685155, 0.443048457, -0.145763474, 0.306029863] | ixoic_line_26_2880v_7680c_opt.off |
+| ixoic_line_27 | line | ixo9 | 20.547287 | 4.52485546 | minimum inside the shape | [0.529626023, 0.374502152, 0.315250106, -0.219378282] | ixoic_line_27_2880v_8400c_opt.off |
+| ixoic_line_28 | line | ixo9 | 10.913104 | 8.45331004 | minimum inside the shape | [0.487035437, 0.127215543, 0.258533476, 0.127215543] | ixoic_line_28_2880v_9120c_opt.off |
+| ixoic_line_30 | line | ixo9 | 8.866060 | 8.71313403 | infimum on the shape's edge (a sign condition is active): not attained | [0.337298613, 0.278115436, 0.296482246, 0.088103705] | ixoic_line_30_2880v_9120c_opt.off |
+| ixoic_line_34 | line | ixo9 | 11.522642 | 11.42346947 | infimum on the shape's edge (a sign condition is active): not attained | [0.193182001, 0.498539218, 0.308114181, 0.0001646] | ixoic_line_34_2880v_9600c_opt.off |
+| ixoic_line_39 | line | ixo9 | 11.581824 | 6.74295837 | minimum inside the shape | [0.447213595, 0.163724042, 0.332727783, 0.05633458] | ixoic_line_39_2880v_10080c_opt.off |
+| ixoic_line_40 | line | ixo9 | 10.065075 | 8.71417231 | infimum on the shape's edge (a sign condition is active): not attained | [0.337367804, 0.278058639, 0.296436983, 0.088136574] | ixoic_line_40_2880v_10560c_opt.off |
+| ixoic_line_41 | line | ixo9 | 7.347059 | 7.17642318 | minimum inside the shape | [0.444055744, 0.14955272, 0.303928149, 0.102463387] | ixoic_line_41_2880v_10560c_opt.off |
+| ixoic_line_43 | line | ixo9 | 25.740855 | 7.86801273 | infimum on the shape's edge (a sign condition is active): not attained | [0.416999812, 0.43046695, -0.141754857, 0.294288095] | ixoic_line_43_2880v_10560c_opt.off |
+| ixoic_line_46 | line | ixo9 | 103.350029 | 30.67018630 | infimum on the shape's edge (a sign condition is active): not attained | [0.212370591, 0.557038106, 0.084363038, 0.146228265] | ixoic_line_46_2880v_10560c_opt.off |
+| ixoic_line_47 | line | ixo9 | 19.653314 | 15.59305282 | minimum inside the shape | [0.491494449, 0.212144984, 0.17698777, 0.119372796] | ixoic_line_47_2880v_10560c_opt.off |
+| ixoic_line_49 | line | ixo9 | 13.027726 | 12.89446655 | infimum on the shape's edge (a sign condition is active): not attained | [0.192778244, 0.487299218, 0.301164635, 0.018757903] | ixoic_line_49_2880v_11040c_opt.off |
+| ixoic_line_50 | line | ixo9 | 11.247690 | 11.22679403 | infimum on the shape's edge (a sign condition is active): not attained | [0.191924126, 0.463346558, 0.286363922, 0.058365394] | ixoic_line_50_2880v_11040c_opt.off |
+| ixoic_line_51 | line | ixo9 | 12.270120 | 12.24785095 | infimum on the shape's edge (a sign condition is active): not attained | [0.191923752, 0.46334633, 0.286363263, 0.058366654] | ixoic_line_51_2880v_11040c_opt.off |
+| ixoic_line_52 | line | ixo9 | 8.776609 | 5.73828703 | infimum on the shape's edge (a sign condition is active): not attained | [0.37966562, 0.197065697, 0.400759723, 0.02250896] | ixoic_line_52_2880v_11040c_opt.off |
+| ixoic_line_53 | line | ixo9 | 9.932677 | 8.83016129 | infimum on the shape's edge (a sign condition is active): not attained | [0.254813923, 0.361255193, 0.317368065, 0.06656282] | ixoic_line_53_2880v_11040c_opt.off |
+| ixoic_line_59 | line | ixo9 | 6.811720 | 5.97241481 | minimum inside the shape | [0.395286802, 0.189700673, 0.385518729, 0.029493796] | ixoic_line_59_2880v_11520c_opt.off |
+| ixoic_line_60 | line | ixo9 | 16.094331 | 12.26009322 | infimum on the shape's edge (a sign condition is active): not attained | [0.192027487, 0.463351409, 0.286199947, 0.058421157] | ixoic_line_60_2880v_11520c_opt.off |
+| ixoic_line_61 | line | ixo9 | 12.287775 | 11.80137447 | minimum inside the shape | [0.162488538, 0.509397144, 0.314824749, 0.013289569] | ixoic_line_61_2880v_11520c_opt.off |
+| ixoic_line_62 | line | ixo9 | 15.007203 | 12.96582915 | infimum on the shape's edge (a sign condition is active): not attained | [0.192008041, 0.488663365, 0.300597161, 0.018731432] | ixoic_line_62_2880v_11520c_opt.off |
+| ixoic_line_63 | line | ixo9 | 11.674339 | 8.76532527 | infimum on the shape's edge (a sign condition is active): not attained | [0.33728054, 0.27816295, 0.29644476, 0.08811175] | ixoic_line_63_2880v_11520c_opt.off |
+| ixoic_line_64 | line | ixo9 | 27.356427 | 12.28603880 | infimum on the shape's edge (a sign condition is active): not attained | [0.190666199, 0.707095701, 0.000579876, 0.101658223] | ixoic_line_64_2880v_11520c_opt.off |
+| ixoic_line_65 | line | ixo9 | 24.045737 | 13.25955132 | infimum on the shape's edge (a sign condition is active): not attained | [0.151649407, 0.718403226, 0.00542726, 0.124520106] | ixoic_line_65_2880v_11520c_opt.off |
+| ixoic_line_67 | line | ixo9 | 12.812528 | 7.75669313 | infimum on the shape's edge (a sign condition is active): not attained | [0.465396121, 0.138512115, 0.281673117, 0.114418648] | ixoic_line_67_2880v_12000c_opt.off |
+| ixoic_line_68 | line | ixo9 | 40.910541 | 7.90822488 | infimum on the shape's edge (a sign condition is active): not attained | [0.418215522, 0.428287641, -0.140879961, 0.294376798] | ixoic_line_68_2880v_12000c_opt.off |
+| ixoic_line_81 | line | ixo9 | 6.712764 | 6.70188026 | minimum inside the shape | [0.42597247, 0.162513908, 0.330268492, 0.081245131] | ixoic_line_81_2880v_12000c_opt.off |
+| ixoic_line_84 | line | ixo9 | 36.499219 | 30.04804730 | minimum inside the shape | [0.481427524, 0.242528916, 0.124534472, 0.151509088] | ixoic_line_84_2880v_13440c_opt.off |
+| awosbited | line | ixo9 | 1061.126107 | 4.38206393 | minimum inside the shape | [0.38508865, 0.362582096, 0.092820313, 0.159508941] | awosbited_1440v_6480c_opt.off |
+| ixoic_line_25 | line | ixo9 | 39.641950 | 23.13396155 | minimum inside the shape (not unique: R is flat along the locus there) | [0.38369388, 0.364152561, 0.021958991, 0.230194567] | ixoic_line_25_2880v_7680c_opt.off |
+| ixoic_line_17 | line | ixo2 | 12.284053 | 9.33542084 | infimum on the shape's edge (a sign condition is active): not attained | [0.241207225, 0.069141671, 0.140495115, 0.549155988] | ixoic_line_17_2880v_5520c_opt.off |
+| ixoic_line_71 | line | ixo5 | 20.611681 | 19.94174854 | infimum on the shape's edge (a sign condition is active): not attained | [0.469907976, 0.166470612, 0.269355109, 0.094266303] | ixoic_line_71_2880v_12000c_opt.off |
+| ixoic_line_33 | line | ixo9 | 10.993951 | 10.81176910 | infimum on the shape's edge (a sign condition is active): not attained | [0.191471666, 0.450687683, 0.278540306, 0.079300345] | ixoic_line_33_2880v_9600c_opt.off |

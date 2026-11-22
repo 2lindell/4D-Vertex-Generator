@@ -218,6 +218,10 @@ def main():
                 body += (" The atlas recorded it as a line, but no curve through its seed keeps the shape: no pair of "
                          "the map's surfaces through it keeps the polytope a step of 1e-5 either way, and along the curve "
                          "they share it changes within 1e-7 both ways, so it is a point (ixoic_line_equations.json).")
+            if name == "bitutid":                # (the mirror edge b1 = b4 = 0 on sheet ixo7, scanned: b = (0, s, 1 - s, 0))
+                body += (" On sheet 7 it lies where two mirrors meet (b1 = b4 = 0): along that edge, b = (0, s, 1 − s, 0), "
+                         "are sagypbittid (0 ≤ s < √2 − 1), the point bamtuted (s = √2 − 1), masbittid (to s = 1/φ), "
+                         "bitutid (s = 1/φ), gasbittid (1/φ < s < 1) and bitutid again at the corner (0, 1, 0, 0).")
             elif e and "end" in e["status"]:
                 body += (" Its seed is at one end of its line: the exact curve (two of the map's surfaces) keeps the "
                          "shape one way only (ixoic_line_equations.json).")
