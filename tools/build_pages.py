@@ -7,7 +7,8 @@ WebAssembly), so the page needs no server and stays available. The output is ind
 and the four_d_vertex_generator package, which index.html mounts into the in-browser file
 system, and symmetry_domain.html (the H3●I2(10) Symmetry Domain, built by
 research/swirlprism_atlas/cell_atlas2.py), which the app's third tab shows, and tetraswirl_oct_domain.html (the
-Octahedral Swirl Symmetry Domain, built by research/tetraswirl_atlas/build_page.py), the fourth tab.
+Octahedral Swirl Symmetry Domain, built by research/tetraswirl_atlas/build_page.py), the fourth tab, and
+a4_domain.html (the A4 Symmetry Domain, built by research/a4_atlas/build_page.py), the fifth.
 
 GitHub Pages serves the committed docs/ folder ("Deploy from a branch", folder /docs). Rebuild and
 commit docs/ after changing the app; tests/test_pages.py fails while docs/ is out of date.
@@ -154,6 +155,8 @@ def build(out: Path) -> list[str]:
         shutil.copy2(ROOT / "assets" / "symmetry_axis.html", out / "symmetry_axis.html")
     # ... and the Octahedral Swirl Symmetry Domain (research/tetraswirl_atlas/build_page.py): the fourth tab
     shutil.copy2(ROOT / "assets" / "tetraswirl_oct_domain.html", out / "tetraswirl_oct_domain.html")
+    # ... and the A4 Symmetry Domain (research/a4_atlas/build_page.py): the fifth tab
+    shutil.copy2(ROOT / "assets" / "a4_domain.html", out / "a4_domain.html")
     # ... and the Pennic and Decaic Isogonals page (research/pages/make_decaic_page.py), served on its own
     shutil.copy2(ROOT / "assets" / "decaic_isogonals.html", out / "decaic_isogonals.html")
     # ... and the Icoic and Contic Isogonals page (research/pages/make_contic_page.py)
