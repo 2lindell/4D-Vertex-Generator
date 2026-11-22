@@ -626,11 +626,19 @@ def polish(b, Qs, loc, zero, active):
 
 # --------------------------------------------------------------------------------------------------------------- main
 def add_prior(shapes, path):
-    """Each shape's earlier result (by name), to start from too and to keep where it is lower (optimise_best)."""
+    """Each shape's earlier result (by name), to start from too and to keep where it is lower (optimise_best). The
+    earlier file is the curated list: a shape removed from it by hand (kidecaic new_region_11, a point of wall 15) is
+    not run again, and one added by hand (kidecaic new_wall_12, from the closure check) is run from its saved row."""
     try:
         old = {r["name"]: r for r in json.load(open(path))["shapes"]}
     except (FileNotFoundError, KeyError):
         return
+    made = {s["name"] for s in shapes}
+    shapes[:] = [s for s in shapes if s["name"] in old] + [
+        {"name": n, "kind": r["kind"], "degrees": int(r["degrees"]), "seed": r["start"], "locus": r["locus"],
+         "hull_tol": 1e-9 if r["kind"] in ("region", "line", "point") else 1e-7}
+        for n, r in old.items() if n not in made]
+    shapes.sort(key=lambda s: list(old).index(s["name"]))
     for s in shapes:
         r = old.get(s["name"])
         if r:

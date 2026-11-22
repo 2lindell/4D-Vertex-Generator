@@ -53,7 +53,7 @@
     0.27883328002275903
    ],
    "off_R": 1.8750865328380906,
-   "seconds": 28.1,
+   "seconds": 23.7,
    "piece": 0,
    "prior_off": "the earlier run's written point kept (lower R than this run's)",
    "off": "optimized_off/kidecaic/mebosid_120v_560c_opt.off",
@@ -119,7 +119,7 @@
     0.023170152080469908
    ],
    "off_R": 9.032302052137746,
-   "seconds": 27.9,
+   "seconds": 25.6,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_region_01_120v_560c_120v_560c_opt.off",
    "vertices": 120,
@@ -184,7 +184,7 @@
     0.021263435415473403
    ],
    "off_R": 6.329774642545816,
-   "seconds": 28.5,
+   "seconds": 24.4,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_region_02_120v_680c_120v_680c_opt.off",
    "vertices": 120,
@@ -249,7 +249,7 @@
     0.0115723198083273
    ],
    "off_R": 6.863798161709259,
-   "seconds": 36.6,
+   "seconds": 32.7,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_region_03_120v_680c_120v_680c_opt.off",
    "vertices": 120,
@@ -302,7 +302,7 @@
     0.05241258933278074
    ],
    "off_R": 6.860303218368946,
-   "seconds": 31.2,
+   "seconds": 27.5,
    "piece": 0,
    "prior_off": "the earlier run's written point kept (lower R than this run's)",
    "off": "optimized_off/kidecaic/new_region_04_120v_560c_120v_560c_opt.off",
@@ -368,7 +368,7 @@
     0.21579747473078228
    ],
    "off_R": 2.2690709348102827,
-   "seconds": 18.0,
+   "seconds": 17.8,
    "piece": 0,
    "off": "optimized_off/kidecaic/apbosid_120v_420c_opt.off",
    "vertices": 120,
@@ -436,7 +436,7 @@
     0.14458867259044195
    ],
    "off_R": 1.6652318804587354,
-   "seconds": 9.6,
+   "seconds": 7.5,
    "piece": 0,
    "off": "optimized_off/kidecaic/sabosid_120v_440c_opt.off",
    "vertices": 120,
@@ -501,7 +501,7 @@
     0.09350778837951525
    ],
    "off_R": 1.9010026093259966,
-   "seconds": 21.8,
+   "seconds": 20.2,
    "piece": 0,
    "off": "optimized_off/kidecaic/gabosid_120v_560c_opt.off",
    "vertices": 120,
@@ -566,7 +566,7 @@
     0.2036862566067557
    ],
    "off_R": 2.5172930127442736,
-   "seconds": 20.9,
+   "seconds": 18.2,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_region_05_120v_560c_120v_560c_opt.off",
    "vertices": 120,
@@ -631,7 +631,7 @@
     0.36818003531026017
    ],
    "off_R": 12.869397005924514,
-   "seconds": 29.4,
+   "seconds": 28.1,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_region_06_120v_560c_120v_560c_opt.off",
    "vertices": 120,
@@ -684,7 +684,7 @@
     0.31658900171757376
    ],
    "off_R": 8.194295118187815,
-   "seconds": 13.5,
+   "seconds": 14.8,
    "direct_search_evals": 204,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_region_07_120v_680c_120v_680c_opt.off",
@@ -750,7 +750,7 @@
     0.2901517761929716
    ],
    "off_R": 9.846168493591728,
-   "seconds": 33.5,
+   "seconds": 32.5,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_region_08_120v_680c_120v_680c_opt.off",
    "vertices": 120,
@@ -803,7 +803,7 @@
     0.20004933071869366
    ],
    "off_R": 3.163868865748576,
-   "seconds": 12.7,
+   "seconds": 13.1,
    "direct_search_evals": 205,
    "piece": 0,
    "prior": "the earlier run's best kept (lower R than this run's)",
@@ -940,7 +940,7 @@
     0.02127985058576561
    ],
    "off_R": 6.3296604461948425,
-   "seconds": 14.9,
+   "seconds": 14.5,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_01_120v_380c_120v_380c_opt.off",
    "vertices": 120,
@@ -1007,7 +1007,7 @@
     0.021271703109900484
    ],
    "off_R": 6.3290063543130515,
-   "seconds": 48.6,
+   "seconds": 42.9,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_02_120v_440c_120v_440c_opt.off",
    "vertices": 120,
@@ -1074,7 +1074,7 @@
     0.02127228379643907
    ],
    "off_R": 6.32851140284922,
-   "seconds": 49.0,
+   "seconds": 45.9,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_03_120v_500c_120v_500c_opt.off",
    "vertices": 120,
@@ -1141,7 +1141,7 @@
     1.5774929015384778e-05
    ],
    "off_R": 4.585668054758047,
-   "seconds": 38.7,
+   "seconds": 35.3,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_04_120v_500c_120v_500c_opt.off",
    "vertices": 120,
@@ -1211,7 +1211,7 @@
     0.18091236068070116
    ],
    "off_R": 1.9139484183782605,
-   "seconds": 7.2,
+   "seconds": 6.0,
    "piece": 0,
    "off": "optimized_off/kidecaic/tetbosid_120v_240c_opt.off",
    "vertices": 120,
@@ -1281,7 +1281,7 @@
     0.12847023871243093
    ],
    "off_R": 1.98340082754382,
-   "seconds": 5.3,
+   "seconds": 6.7,
    "piece": 0,
    "off": "optimized_off/kidecaic/petbosid_120v_230c_opt.off",
    "vertices": 120,
@@ -1351,7 +1351,7 @@
     0.03251598064042916
    ],
    "off_R": 1.7207592200561266,
-   "seconds": 7.6,
+   "seconds": 8.8,
    "piece": 0,
    "off": "optimized_off/kidecaic/gigwebosid_120v_320c_opt.off",
    "vertices": 120,
@@ -1418,7 +1418,7 @@
     0.06247976421555435
    ],
    "off_R": 3.4231222727303345,
-   "seconds": 15.6,
+   "seconds": 16.7,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_05_120v_380c_120v_380c_opt.off",
    "vertices": 120,
@@ -1488,7 +1488,7 @@
     0.2035397737769878
    ],
    "off_R": 2.515511146957211,
-   "seconds": 6.4,
+   "seconds": 8.0,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_06_120v_380c_120v_380c_opt.off",
    "vertices": 120,
@@ -1555,7 +1555,7 @@
     0.13231522232404389
    ],
    "off_R": 5.485675336279913,
-   "seconds": 33.7,
+   "seconds": 39.9,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_07_120v_380c_120v_380c_opt.off",
    "vertices": 120,
@@ -1622,7 +1622,7 @@
     0.20015971868880816
    ],
    "off_R": 3.164639529802022,
-   "seconds": 19.4,
+   "seconds": 20.6,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_08_120v_440c_120v_440c_opt.off",
    "vertices": 120,
@@ -1689,7 +1689,7 @@
     0.13252197594682408
    ],
    "off_R": 5.486725648337313,
-   "seconds": 45.5,
+   "seconds": 49.4,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_09_120v_440c_120v_440c_opt.off",
    "vertices": 120,
@@ -1756,7 +1756,7 @@
     0.13247135117435785
    ],
    "off_R": 5.4868813003721115,
-   "seconds": 18.5,
+   "seconds": 22.0,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_10_120v_500c_120v_500c_opt.off",
    "vertices": 120,
@@ -1823,7 +1823,7 @@
     0.20005560258684896
    ],
    "off_R": 3.163977548544697,
-   "seconds": 21.7,
+   "seconds": 24.3,
    "piece": 0,
    "off": "optimized_off/kidecaic/new_wall_11_120v_500c_120v_500c_opt.off",
    "vertices": 120,
@@ -1876,7 +1876,7 @@
     0.011827858123225246
    ],
    "off_R": 8.166714590790928,
-   "seconds": 15.8,
+   "seconds": 12.8,
    "direct_search_evals": 161,
    "piece": 0,
    "prior_off": "the earlier run's written point kept (lower R than this run's)",
@@ -1892,68 +1892,70 @@
    ]
   },
   {
-   "name": "new_region_11_120v_380c",
-   "kind": "region",
-   "degrees": 3,
-   "locus": [],
-   "start": [
-    0.6001606998393001,
-    0.033529166470833524,
-    0.29901200098799896,
-    0.0672981327018673
+   "name": "new_wall_12_120v_440c",
+   "kind": "wall",
+   "degrees": 2,
+   "locus": [
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2"
    ],
-   "start_R": 8.917945258785975,
+   "start": [
+    0.04910451373780107,
+    0.3493222266160814,
+    0.5755263781834543,
+    0.026046881462663127
+   ],
+   "start_R": 14.55227975879515,
    "numeric": {
     "best": [
-     0.42624416248608143,
-     0.24008814709332998,
-     0.2400881470933213,
-     0.09357954332726727
+     0.16666665768503508,
+     0.1666666576557573,
+     0.6666666766668604,
+     7.992347191053606e-09
     ],
-    "R": 1.8985107881525736,
-    "slsqp": "Optimization terminated successfully",
-    "active_sign_conditions": 2
+    "R": 4.582575966240718,
+    "slsqp": "Positive directional derivative for linesearch",
+    "active_sign_conditions": 42
    },
    "exact_digits": 40,
    "best_40_digits": [
-    "0.4262441624860800238287836048722000183278",
-    "0.2400881470933261305632293738382214043132",
-    "0.2400881470933261305632293738382214043132",
-    "0.09357954332726771504475764745135717304574"
+    "0.1666666666666666666666666666666666666667",
+    "0.1666666666666666666666666666666666666667",
+    "0.6666666666666666666666666666666666666667",
+    "6.381387167770140063100455179185347371206e-49"
    ],
    "equations": [
-    "-20*b1**2 + 20*b1*b2 - 20*b1*b3 - 60*b1*b4 + 70*b2**2 + 60*b2*b3 - 20*b2*b4 - 30*b3**2 + 20*b3*b4 + 30*b4**2",
-    "30*b1**2 + 20*b1*b2 - 20*b1*b3 - 60*b1*b4 - 30*b2**2 - 40*b2*b3 - 20*b2*b4 + 20*b3**2 + 20*b3*b4 - 20*b4**2",
-    "-3*b1*b2**2*b4 + 3*b1*b2*b3*b4 + b1*b2*b4**2 - b1*b3*b4**2 - b2**3*b4 + 2*b2**2*b3*b4 - b2*b3**2*b4 - 2*b2*b3*b4**2 - b2*b4**3 + 2*b3**2*b4**2 + b3*b4**3"
+    "50*b1**2 - 50*b2**2",
+    "3*b1**2*b2*b3 + b1**2*b2*b4 - b1**2*b3*b4 + b1*b2**2*b3 + 2*b1*b2**2*b4 - b1*b2*b3**2 - 5*b1*b2*b3*b4 - b1*b2*b4**2 + 2*b1*b3**2*b4 + b1*b3*b4**2 - b2**2*b3*b4 + b2*b3**2*b4 - 2*b2*b3*b4**2",
+    "3*b1**2*b2**2 + b1*b2**3 - b1*b2**2*b3 - 3*b1*b2**2*b4 - 3*b1*b2*b3*b4 - b2**2*b3*b4 + b2*b3**2*b4 + 3*b2*b3*b4**2"
    ],
    "best": [
-    0.42624416248608005,
-    0.24008814709332613,
-    0.24008814709332613,
-    0.09357954332726771
+    0.16666666666666666,
+    0.16666666666666666,
+    0.6666666666666666,
+    6.38138716777014e-49
    ],
-   "R": 1.898510788152586,
-   "orbits": 9,
+   "R": 4.582575694955841,
+   "orbits": 10,
    "status": "infimum on the shape's edge (a sign condition is active): not attained",
    "ring_check_rises": null,
    "off_seed": [
-    0.6001603745412514,
-    0.033529552824163644,
-    0.2990118907752786,
-    0.06729818185930643
+    0.16654652436808423,
+    0.16685021086206328,
+    0.6665864352777049,
+    1.682949214760167e-05
    ],
-   "off_R": 8.917915079006757,
-   "seconds": 24.9,
+   "off_R": 4.58612992707133,
+   "seconds": 42.7,
    "piece": 0,
-   "off": "optimized_off/kidecaic/new_region_11_120v_380c_120v_380c_opt.off",
+   "off": "optimized_off/kidecaic/new_wall_12_120v_440c_120v_440c_opt.off",
    "vertices": 120,
-   "cells": 380,
+   "cells": 440,
    "seed_vector": [
-    1.0,
-    0.052344076793097036,
-    -0.0005992375011615502,
-    -0.47274035414699545,
-    -0.5790044851449401
+    0.9999411458168256,
+    0.6668578990403095,
+    0.33316729714905563,
+    -0.9999663420061908,
+    -1.0
    ]
   },
   {
@@ -2014,7 +2016,7 @@
     0.2928932188134525
    ],
    "off_R": 1.2130146416226937,
-   "seconds": 4.4,
+   "seconds": 3.4,
    "piece": 0,
    "off": "optimized_off/kidecaic/snad_60v_90c_opt.off",
    "vertices": 60,

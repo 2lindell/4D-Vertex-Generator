@@ -76,7 +76,7 @@ Folders (tessic family: seed vectors in R^4, the B4 frame, vertices the signed p
 | new_wall_10_120v_500c | wall (2) | 10.338378 | 5.4848991540 | infimum on the shape's edge (a sign condition is active): not attained | [0.7238222469, 0.0222340399, 0.1216464783, 0.1322972348] | [0.7237054183, 0.0222529486, 0.1215702819, 0.1324713512] (5.486881) | new_wall_10_120v_500c_120v_500c_opt.off |
 | new_wall_11_120v_500c | wall (2) | 6.120185 | 3.1622776602 | infimum on the shape's edge (a sign condition is active): not attained | [0.6, 0.0, 0.2, 0.2] | [0.6000268786, 2.27109e-05, 0.199894808, 0.2000556026] (3.163978) | new_wall_11_120v_500c_120v_500c_opt.off |
 | new_region_10_120v_680c | region (3) | 9.215822 | 8.1667145908 | the earlier run's written point: a lower R than this run found (a local best inside the shape, not an exact minimum) | [0.095969056, 0.2830745251, 0.6091285608, 0.0118278581] | same | new_region_10_120v_680c_120v_680c_opt.off |
-| new_region_11_120v_380c | region (3) | 8.917945 | 1.8985107882 | infimum on the shape's edge (a sign condition is active): not attained | [0.4262441625, 0.2400881471, 0.2400881471, 0.0935795433] | [0.6001603745, 0.0335295528, 0.2990118908, 0.0672981819] (8.917915) | new_region_11_120v_380c_120v_380c_opt.off |
+| new_wall_12_120v_440c | wall (2) | 14.552280 | 4.5825756950 | infimum on the shape's edge (a sign condition is active): not attained | [0.1666666667, 0.1666666667, 0.6666666667, 0.0] | [0.1665465244, 0.1668502109, 0.6665864353, 1.68295e-05] (4.586130) | new_wall_12_120v_440c_120v_440c_opt.off |
 | snad | line (1) | 13.472194 | 1.2130146416 | minimum inside the shape | [0.2928932188, 0.2071067812, 0.2071067812, 0.2928932188] | same | snad_60v_90c_opt.off |
 
 ## Iodecaic
