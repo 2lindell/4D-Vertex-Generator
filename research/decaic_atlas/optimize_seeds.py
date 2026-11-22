@@ -454,6 +454,15 @@ def optimise(shape):
             else:
                 hi = m
         off = project((1 - lo * 0.999) * seed + lo * 0.999 * b, loc_f, loc_g, zero)
+        Rof = float(np.sqrt(q(off).max() / q(off).min()))
+        if Rof > R0 - 1e-9 and R < R0 - 1e-9:
+            # (the straight way from the seed leaves a curved shape at once (bitutid): points just back from the
+            #  optimum toward the seed, onto the locus, the nearest one still the shape)
+            for t in np.geomspace(1e-7, 0.5, 40):
+                p = project((1 - t) * b + t * seed, loc_f, loc_g, zero)
+                if same_shape(p, seed, key0, tol) and float(np.sqrt(q(p).max() / q(p).min())) < R0 - 1e-9:
+                    off = p
+                    break
     ring = ring_check(b, q, loc_f, loc_g, zero, R) if inside and not on_edge else None
     if R0 < 1 + 1e-12:
         inside, on_edge, ring = True, False, None
