@@ -117,7 +117,9 @@ def optimise_best(shape):
         tol = shape.get("hull_tol", 1e-9)
         key0 = G.label(seed, tol)[1]
         ok = lambda x: x is not None and same_shape(np.asarray(x, float) / np.sum(x), seed, key0, tol)
-        if pr.get("R") is not None and pr["R"] < best["R"] * (1 - 1e-9) and ok(pr.get("best")):
+        near = (pr.get("off_R") is not None and pr.get("R") is not None and pr["off_R"] <= pr["R"] * 1.01
+                and ok(pr.get("off_seed")))     # (an infimum on the edge is not the shape: its written point, within 1%)
+        if pr.get("R") is not None and pr["R"] < best["R"] * (1 - 1e-9) and (ok(pr.get("best")) or near):
             best.update({"best": pr["best"], "R": pr["R"], "status": pr["status"],
                          "prior": "the earlier run's best kept (lower R than this run's)"})
         if pr.get("off_R") is not None and pr["off_R"] < best.get("off_R", np.inf) * (1 - 1e-9) and ok(pr.get("off_seed")):
