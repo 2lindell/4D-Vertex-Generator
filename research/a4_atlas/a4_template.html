@@ -219,6 +219,11 @@ __TYPE_CSS__
           color: color(t), opacity: state.sel.has(w.id) ? 0.55 : 0.28, flatshading: true, name: label(t),
           hovertemplate: `${label(t)}${t.name ? " · " + t.name : ""}<extra></extra>` });
       }
+      // the map's edges (where walls meet each other or a mirror), traced exactly: each wall piece ends on them
+      if (D.edges && el("showWalls").checked && !state.sel.size) {
+        const tr = lines(D.edges.map((e) => e.pts), "edges of the map", { color: css("--xl"), width: 2 });
+        out.push(tr);
+      }
       for (const s of D.lines) {
         const t = byId[s.id];
         if (!t || !visibleFor(s.id) || !el("showLines").checked) continue;

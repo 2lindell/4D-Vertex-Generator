@@ -73,10 +73,11 @@ def own_shapes(group):
     sub = SUB[group]
     full = full_names()
     out = []
+    O = {r["name"]: r for r in json.load(open(os.path.join(DEC, f"optimized_seeds_{sub}.json")))["shapes"]}
     title = {"ki": "## Kidecaic: own shapes", "io": "## Iodecaic: own shapes"}[sub]
     for n, b in P.own_named(os.path.join(DEC, "decaic_snub_shapes.md"), title).items():
         short, fname = RENAMED.get(n.capitalize(), (n.capitalize(), full.get(n, "")))
-        kind = None
+        kind = O[n]["kind"] if n in O else None
         out.append({"atlas": n, "id": short.lower(), "name": fname, "kind": kind, "seed": b})
     for r in json.load(open(os.path.join(ROOT, "new_shapes", "new_shapes.json")))["shapes"]:
         if r["group"] == group:
@@ -91,28 +92,29 @@ def own_shapes(group):
                         "name": g[1] if g else "", "kind": t["kind"], "seed": t["seed"], "locus": t["locus"]})
     except FileNotFoundError:
         pass
-    O = {r["name"]: r for r in json.load(open(os.path.join(DEC, f"optimized_seeds_{sub}.json")))["shapes"]}
     a = AXIS_LINE[group]
     out.append({"atlas": a, "id": a, "name": full.get(a, ""), "kind": "line", "seed": O[a]["start"], "axis": True})
     return out
 
 
 def kuhn_tets(n):
-    """The grid's tetrahedra: each cube of (i, j, k) cut into six (Kuhn), kept where all four betas are >= 0."""
+    """The grid's tetrahedra, tiling the chamber exactly: the Kuhn cubes in cumulative coordinates
+    (c1, c2, c3) = (i, i + j, i + j + k), 0 <= c1 <= c2 <= c3 <= n, kept where every corner is in order, then back to
+    (i, j, k)."""
     perms = list(itertools.permutations(range(3)))
     out = []
-    for i in range(n):
-        for j in range(n - i):
-            for k in range(n - i - j):
-                base = np.array([i, j, k])
+    for a in range(n):
+        for b in range(a, n):
+            for c in range(b, n):
+                base = np.array([a, b, c])
                 for p in perms:
                     v = [base.copy()]
                     for ax in p:
                         nxt = v[-1].copy()
                         nxt[ax] += 1
                         v.append(nxt)
-                    if all(x.sum() <= n for x in v):
-                        out.append([tuple(x) for x in v])
+                    if all(x[0] <= x[1] <= x[2] <= n for x in v):
+                        out.append([(int(x[0]), int(x[1] - x[0]), int(x[2] - x[1])) for x in v])
     return out
 
 
@@ -188,142 +190,64 @@ def trace_line(seed, locus, key, sub, steps=200, h=2e-3):
 
 
 def build(group):
+    """The page's map from the exact pieces (a4_exact.py: a4_exact_<group>.pkl)."""
+    import pickle
     sub = SUB[group]
-    order = 120
-    S = own_shapes(group)
-    lab = classify_many([s["seed"] for s in S], sub)
-    for s, (sig, key) in zip(S, lab):
-        s["sig"], s["key"] = sig, key
+    X = pickle.load(open(os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
+    S = X["shapes"]
     by_key = {s["key"]: s for s in S}
-    # the grid: every interior lattice seed (nudged), classified on the half beta_1 >= beta_4, the rest by the swap
-    pts = [(i, j, k) for i in range(N + 1) for j in range(N + 1 - i) for k in range(N + 1 - i - j)]
-    inner = [v for v in pts if min(beta_of(v, N)) > 0]
-    half = []
-    for v in inner:
-        b = beta_of(v, N)
-        half.append(tuple(b if b[0] >= b[3] else b[::-1]))
-    uniq = sorted(set(half))
-    L = dict(zip(uniq, classify_many([np.asarray(b) + NUDGE for b in uniq], sub)))
-    label = {v: L[h][1] for v, h in zip(inner, half)}
-    grid_keys = Counter(label.values())
-    print(group, "grid", len(inner), "seeds:", len(grid_keys), "polychora", flush=True)
-    unknown = [k for k in grid_keys if k not in by_key]
-    if unknown:
-        print("  grid polychora not in the list:", unknown, flush=True)
-    regions = {k for k in grid_keys if k in by_key}
-    for s in S:
-        if s["kind"] is None:
-            s["kind"] = "region" if s["key"] in regions else "wall"
-    DIM = {"region": 3, "wall": 2, "line": 1, "point": 0}
     types = []
     for s in S:
         p = M.parse_sig(s["sig"]) or {}
-        types.append({"id": s["id"], "name": s["name"], "dim": s["kind"], "group": s["kind"] + "s", "key": s["key"],
-                      "sig": s["sig"], **p, "degrees": DIM[s["kind"]], "pieces": 1, "locus": "", "bounds": [],
-                      "separates": [], "atlas": s["atlas"], "symbol": "circle"})
+        kind = s["kind"] or "region"
+        types.append({"id": s["id"], "name": s["name"], "dim": kind, "group": kind + "s", "key": s["key"],
+                      "sig": s["sig"], **p, "degrees": {"region": 3, "wall": 2, "line": 1, "point": 0}[kind],
+                      "pieces": 0, "locus": "", "bounds": [], "separates": [], "atlas": s["atlas"], "symbol": "circle"})
     tid = {t["key"]: t["id"] for t in types}
-    # the walls: each wall shape on every surface of the map through its seed (and the fold b1 = b4), meshed where the
-    # surface crosses a grid tetrahedron (marching tetrahedra, on the half beta_1 >= beta_4, then the swap), each
-    # triangle kept if its centre, put on the surface, is that wall's polychoron (hull tolerance 1e-7, as the map's
-    # walls); the regions round it are its tetrahedra's grid seeds
-    import sympy as sp
-    SM = json.load(open(os.path.join(DEC, f"snub_map_{sub}.json")))
-    Bs = sp.symbols("b1 b2 b3 b4")
-    surf = []
-    for text in SM["surfaces"] + ["b1 - b4"]:
-        e = sp.sympify(text)
-        surf.append((text, sp.lambdify(Bs, e, "numpy"), [sp.lambdify(Bs, sp.diff(e, v), "numpy") for v in Bs]))
-    tets = [t_ for t_ in kuhn_tets(N) if np.mean([beta_of(v, N) for v in t_], 0)[0] >= np.mean([beta_of(v, N) for v in t_], 0)[3] - 1e-12]
-    walls, shells_tri, sep = [], defaultdict(list), defaultdict(set)
-    unmeshed = []
-    for t in types:
-        if t["dim"] != "wall":
-            continue
-        b0 = np.asarray(by_key[t["key"]]["seed"], float)
-        b0 = b0 / b0.sum()
-        mine = [(tx, f, g) for tx, f, g in surf
-                if abs(f(*b0)) / (np.linalg.norm([gg(*b0) for gg in g]) + 1e-300) < 1e-6]
-        cand = []
-        for tx, f, g in mine:
-            for tet in tets:
-                Bt = [beta_of(v, N) for v in tet]
-                fv = [float(f(*x)) for x in Bt]
-                for tri in march(Bt, fv):
-                    c = np.mean(tri, 0)
-                    for _ in range(6):                  # (onto the surface)
-                        gr = np.array([float(gg(*c)) for gg in g])
-                        gr = gr - gr.mean()
-                        c = c - float(f(*c)) * gr / (gr @ gr)
-                    cand.append((tri, c, tet))
-        if not cand:
-            unmeshed.append(t["id"])
-            continue
-        labs = classify_many([c for _, c, _ in cand], sub, tol=1e-7)
-        kept = [(tri, tet) for (tri, c, tet), (_, k) in zip(cand, labs) if k == t["key"]]
-        if not kept:
-            unmeshed.append(t["id"])
-            continue
-        for im in (lambda x: x, lambda x: x[::-1]):
-            V, F = [], []
-            for tri, tet in kept:
-                o = len(V)
-                V += [M.r5(M.chart(im(q))) for q in tri]
-                F.append([o, o + 1, o + 2])
-            walls.append({"id": t["id"], "verts": V, "faces": F})
-        for tri, tet in kept:
-            for r in {label.get(v) for v in tet} - {None, t["key"]}:
-                if r in tid:
-                    sep[t["id"]].add(tid[r])
-                    for im in (lambda x: x, lambda x: x[::-1]):
-                        shells_tri[tid[r]].append(([M.r5(M.chart(im(q))) for q in tri], [[0, 1, 2]]))
-        print("  wall", t["id"], len(kept), "of", len(cand), "triangles on", [m[0][:24] for m in mine], flush=True)
-    if unmeshed:
-        print("  walls not meshed:", unmeshed, flush=True)
-    for t in types:
-        t["separates"] = sorted(sep.get(t["id"], ()))
-        t["pieces"] = 1
-    # each region on the mirrors: the grid triangles there whose tetrahedron's seeds are that region
-    for tet in kuhn_tets(N):
-        for k in range(4):
-            on = [v for v in tet if (beta_of(v, N)[k] == 0)]
-            if len(on) != 3:
-                continue
-            labs = {label.get(v) for v in tet if v not in on} - {None}
-            if len(labs) == 1:
-                r = labs.pop()
-                if r in tid:
-                    V = [M.r5(M.chart(beta_of(v, N))) for v in on]
-                    shells_tri[tid[r]].append((V, [[0, 1, 2]]))
+    wall_keys = {t["key"] for t in types if t["dim"] == "wall"}
+    region_keys = {t["key"] for t in types if t["dim"] == "region"}
+    chartv = lambda V: [M.r5(M.chart(np.clip(np.asarray(v, float), 0, None))) for v in V]
+    # walls: the exact pieces that are wall shapes; each region's extent: the pieces round it (walls on either side,
+    # mirror patches on its side)
+    walls, shells_tri, sep, unlisted = [], defaultdict(list), defaultdict(set), Counter()
+    for F in X["faces"]:
+        mesh = {"verts": chartv(F["mesh"]["verts"]), "faces": F["mesh"]["faces"]}
+        on_mirror = F["surface"] < 4
+        if F["key"] in wall_keys and not on_mirror:
+            walls.append({"id": tid[F["key"]], **mesh})
+            t = next(t for t in types if t["key"] == F["key"])
+            t["pieces"] += 1
+            for r in F["sides"]:
+                if r in region_keys:
+                    shells_tri[tid[r]].append(mesh)
+                    sep[tid[F["key"]]].add(tid[r])
+        elif on_mirror and F["sides"][0] in region_keys:
+            shells_tri[tid[F["sides"][0]]].append(mesh)
+        elif not on_mirror and F["key"] not in region_keys and F["key"] not in wall_keys and np.min(F["inner"]) > 0:
+            unlisted[F["key"]] += 1
     shells = {}
     for r, parts in shells_tri.items():
-        V, F, E = [], [], Counter()
-        for v_, f_ in parts:
+        V, Fa = [], []
+        for m in parts:
             o = len(V)
-            V += v_
-            F += [[x + o for x in f] for f in f_]
-        shells[r] = {"verts": V, "faces": F, "edges": []}
-    # the lines: the swap's axis where its shape holds, and the crossing lines traced
-    lines = []
-    for s in S:
-        if s["kind"] != "line":
-            continue
-        if s.get("axis"):
-            ts = np.linspace(0.002, 0.498, 249)
-            P = [np.array([t, 0.5 - t, 0.5 - t, t]) for t in ts]
-            labs = classify_many([p + NUDGE * 0 for p in P], sub)
-            run = []
-            for p_, (_, k) in zip(P, labs):
-                if k == s["key"]:
-                    run.append(p_)
-                elif run:
-                    lines.append({"id": s["id"], "pts": [M.r5(M.chart(q)) for q in run]})
-                    run = []
-            if run:
-                lines.append({"id": s["id"], "pts": [M.r5(M.chart(q)) for q in run]})
-        elif s.get("locus"):
-            P = trace_line(s["seed"], s["locus"], s["key"], sub)
-            for im in (lambda x: x, lambda x: x[::-1]):
-                lines.append({"id": s["id"], "pts": [M.r5(M.chart(im(q))) for q in P]})
+            V += m["verts"]
+            Fa += [[a + o for a in f] for f in m["faces"]]
+        shells[r] = {"verts": V, "faces": Fa, "edges": []}
+    for t in types:
+        t["separates"] = sorted(sep.get(t["id"], ()))
+    # lines: the traced segments that are line shapes; edges: the others (where walls meet, or meet a mirror), drawn
+    # thin; a chamber edge (on two mirrors) is the domain's own
+    lines, edges = [], []
+    for sg in X["segments"]:
+        pts = chartv(sg["pts"][:: max(1, len(sg["pts"]) // 120)] + [sg["pts"][-1]])
+        if sg["key"] in tid and by_key[sg["key"]]["kind"] == "line":
+            lines.append({"id": tid[sg["key"]], "pts": pts})
+        elif len([k for k in sg["on"] if k < 4]) < 2:
+            edges.append({"pts": pts, "hover": "an edge of the map: " + " and ".join(
+                X["surfaces"][k] for k in sorted(sg["on"])[:3])})
+    for t in types:
+        if t["dim"] == "line":
+            t["pieces"] = sum(1 for l_ in lines if l_["id"] == t["id"])
     # the mirrors: decaic's shapes there (a seed on a mirror has the decaic images)
     D = json.load(open(os.path.join(HERE, "a4_map_decaic.json")))
     dom = M.domain()
@@ -333,27 +257,28 @@ def build(group):
         P_ = Vd[f["loop"]]
         n = np.cross(P_[1] - P_[0], P_[2] - P_[0])
         planes.append((n / np.linalg.norm(n), P_[0]))
-    on_mirror = lambda Q: any(all(abs((np.asarray(q) - p0) @ n) < 1e-6 for q in Q) for n, p0 in planes)
+    on_m = lambda Q: any(all(abs((np.asarray(q) - p0) @ n) < 1e-6 for q in Q) for n, p0 in planes)
     mt = {}
     for w in D["walls"]:
-        if on_mirror(w["verts"]):
+        if on_m(w["verts"]):
             walls.append(w)
             mt[w["id"]] = "wall"
     for l_ in D["lines"]:
-        if on_mirror(l_["pts"]):
+        if on_m(l_["pts"]):
             lines.append(l_)
             mt[l_["id"]] = "line"
-    points = [p for p in D["points"] if on_mirror([p["q"]])]
+    points = [p for p in D["points"] if on_m([p["q"]])]
     for p in points:
         mt[p["id"]] = "point"
-    examples = [e for e in D["examples"] if e["id"] in mt and on_mirror([e["q"]])]
+    examples = [e for e in D["examples"] if e["id"] in mt and on_m([e["q"]])]
     for t in D["types"]:
         if t["id"] in mt and t["id"] not in tid.values():
             u = {k: v for k, v in t.items() if k not in ("color",)}
             u.update(dim=mt[t["id"]], group=mt[t["id"]] + "s", bounds=[], separates=[],
-                     where=f"on the mirrors (shared with decaic: a seed there has the decaic images)", locus="")
+                     where="on the mirrors (shared with decaic: a seed there has the decaic images)", locus="")
             types.append(u)
-    # example seeds of the group's own shapes
+    # example seeds of the group's own shapes (central for a region, or where the most even seed is on the shape's
+    # edge; each checked to be its shape, else the atlas's seed)
     O = json.load(open(os.path.join(DEC, f"optimized_seeds_{sub}.json")))["shapes"]
     C = {r["name"]: r for r in json.load(open(os.path.join(DEC, f"central_seeds_{sub}.json")))["shapes"]}
     ok_ = classify_many([r["start"] for r in O], sub)
@@ -364,32 +289,37 @@ def build(group):
         b = C[r["name"]]["centre"] if use_c and r["name"] in C else r["off_seed"]
         ex_of[k] = (b, "central seed (the deepest point of the region)" if r["kind"] == "region" else
                     "central seed (its most even seed is on its edge)" if use_c else "most even seed (least longest / shortest edge)")
-    own = [t for t in types if t["key"] in by_key and "where" not in t]
+    own = [t for t in types if t["key"] in by_key and "mirrors" not in t.get("where", "")]
     cands = [(t, *ex_of.get(t["key"], (by_key[t["key"]]["seed"], "the atlas's seed"))) for t in own]
-    chk = classify_many([b for _, b, _ in cands], sub)
+    chk = classify_many([b for _, b, _ in cands], sub, tol=1e-7)
+    # (how much of the chamber each region fills: random seeds)
+    rng = np.random.default_rng(3)
+    R_ = rng.dirichlet([1, 1, 1, 1], 3000)
+    frac = Counter(k for _, k in classify_many(R_, sub))
     for (t, b, how), (_, k) in zip(cands, chk):
-        if k != t["key"]:                       # (not the shape: the atlas's own seed instead)
+        if k != t["key"]:
             b, how = by_key[t["key"]]["seed"], "the atlas's seed"
         b = np.clip(np.asarray(b, float), 0, None)
         t["seed"], t["beta"], t["example"] = M.seed_text(b), M.beta_text(b), how
         for q in [b] + ([b[::-1]] if not np.allclose(b, b[::-1]) else []):
             examples.append({"id": t["id"], "q": M.r5(M.chart(q)), "beta": M.beta_text(q), "seed": M.seed_text(q)})
-        t["where"] = t["dim"] + (" (on the swap's axis)" if by_key[t["key"]].get("axis") else
-                                 " (where two of the map's walls cross)" if by_key[t["key"]].get("locus") else "")
-        t["samples"] = grid_keys.get(t["key"], 0)
         if t["dim"] == "region":
-            t["where"] = f"region ({100 * grid_keys.get(t['key'], 0) / len(inner):.1f}% of the grid)"
+            t["where"] = f"region ({100 * frac.get(t['key'], 0) / len(R_):.1f}% of the chamber)"
+        else:
+            t["where"] = t["dim"] + (f" ({t['pieces']} pieces)" if t["pieces"] > 1 else "") + (
+                " (on the swap's axis)" if by_key[t["key"]].get("axis") else "")
     for t in types:
         t.setdefault("mirrors", [])
     order_t = {"region": 0, "wall": 1, "line": 2, "point": 3}
     types.sort(key=lambda t: (order_t[t["dim"]], "mirrors" in t.get("where", ""), t["id"]))
-    out = {"group": group, "order": order, "domain": dom, "types": types, "walls": walls, "lines": lines,
-           "points": points, "examples": examples, "shells": shells, "grid": N, "unlisted": unknown,
-           "unmeshed": unmeshed}
+    out = {"group": group, "order": 120, "domain": dom, "types": types, "walls": walls, "lines": lines, "edges": edges,
+           "points": points, "examples": examples, "shells": shells, "exact": True,
+           "unlisted": {k: v for k, v in unlisted.items()}}
     path = os.path.join(HERE, f"a4_map_{group}.json")
     json.dump(out, open(path, "w"), separators=(",", ":"))
     print(f"{path}: {len(types)} shapes ({Counter(t['dim'] for t in types)}), {len(walls)} wall pieces, "
-          f"{len(lines)} line pieces, {len(examples)} example seeds, {len(shells)} region shells")
+          f"{len(lines)} line pieces, {len(edges)} edges, {len(examples)} example seeds, {len(shells)} region shells; "
+          f"unlisted pieces: {dict(unlisted)}")
 
 
 if __name__ == "__main__":

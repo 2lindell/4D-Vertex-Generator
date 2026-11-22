@@ -57,6 +57,19 @@ def notes(g, d):
                "5+5 snits, 10+10 gyro traps and 60 irregular tets, with 60 vertices (checked at 1500 random seeds: one "
                "polychoron throughout). It is chiral: the mirror chamber gives its mirror image.",
                chart, seeds]
+    elif g == "iodecaic":
+        dom = ["Iodecaic symmetry [[3,3,3]+] (order 120) keeps the 5-cell's rotations and takes its reflections only "
+               "together with the swap of the 5-cell and its dual. It has no mirrors of its own, so the A4 chamber is "
+               "one fundamental domain; the swap maps the group to itself, so a seed and its swap image (β read "
+               "backwards) make the same polychoron, and the map is symmetric under β → (β4, β3, β2, β1).",
+               "Its walls are curved: tetosbid and petosbid lie on planes, bipyosbid on a quartic. The map is built "
+               "exactly (a4_exact.py): every pair of its surfaces (and the mirrors) traced along their common curve, "
+               "cut where a third crosses (10 points, solved on all three), and each surface cut along those curves "
+               "into pieces, each classified; a wall is drawn only on its own pieces, so its edges are the traced "
+               "lines. Every piece is checked to be one polychoron at many points, and where one was not, the "
+               "surface through the change was added (the fold planes β1 = β4 and β2 = β3).",
+               "On the mirrors a seed's images are the decaic ones, so the mirrors carry decaic's shapes.",
+               chart, seeds]
     else:
         dom = ["Decaic symmetry [[3,3,3]] is the 5-cell's symmetries with the swap of the 5-cell and its dual: order "
                "240. The swap reads β backwards, (β1, β2, β3, β4) → (β4, β3, β2, β1): a half-turn of the chamber about "
@@ -87,7 +100,8 @@ def notes(g, d):
         {"title": "Status", "status": True, "items": [
             "<b>Mapped:</b> " + ", ".join(f"{s['name']} {s['bracket']}" for s in SYMMETRIES if s["key"] in d) + ".",
             "<b>Next:</b> " + ", ".join(f"{s['name']} {s['bracket']}" for s in SYMMETRIES if s["key"] not in d)
-            + " (their maps have curved walls: decaic_atlas/snub_map.py)."]},
+            + " (curved walls: a4_exact.py)." if any(s_["key"] not in d for s_ in SYMMETRIES) else
+            "<b>Next:</b> nothing: every A4 symmetry is mapped."]},
     ]
 
 
@@ -114,7 +128,8 @@ def main():
                       f"single seed. Each point of the A4 chamber is a seed; it is coloured by the polychoron its "
                       f"{d['order']} images make. Choose another A4 symmetry above to see its map on the same chamber.",
                  domainChip={"pennic": "chamber = 1 domain", "kipennic": "chamber = ½ domain",
-                             "decaic": "chamber = 2 domains (the swap)"}[g])
+                             "decaic": "chamber = 2 domains (the swap)", "iodecaic": "chamber = 1 domain",
+                             "kidecaic": "chamber = 1 domain"}[g])
         if g == "decaic":
             half = lambda b: M.chart(np.asarray(b, float))
             d["fold"] = {"axis": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 1, 0]))],
