@@ -158,6 +158,13 @@ def shapes():
                     "kind": s["kind"], "degrees": {"region": 3, "wall": 2, "line": 1, "point": 0}[s["kind"]],
                     "seed": s["seed"], "key": s["key"], "sheet": s["sheet"],
                     "hull_tol": 1e-9 if s["kind"] in ("region", "line", "point") else 1e-7})
+    try:                                        # (a "line" the exact equations find no line through is a point:
+        E = json.load(open(os.path.join(HERE, f"{GROUP}_line_equations.json")))["lines"]   # ixoic_line_equations.py;
+    except FileNotFoundError:                   #  its name and the numbering of the others are kept)
+        E = {}
+    for s in out:
+        if s["kind"] == "line" and E.get(s["name"], {}).get("status", "").startswith("no line"):
+            s["kind"], s["degrees"] = "point", 0
     return out
 
 

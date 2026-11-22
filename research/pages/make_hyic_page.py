@@ -158,6 +158,10 @@ try:        # (ixoic: the targeted crossing search's confirmed shapes, key -> wa
     XCROSS = {s["key"]: len(s["locus"]) for s in json.load(open(os.path.join(HY, "ixoic_crossings.json")))["shapes"]}
 except FileNotFoundError:
     XCROSS = {}
+try:        # (ixoic: each line's exact equations, name -> entry; hyic_atlas/ixoic_line_equations.py)
+    LINEQ = json.load(open(os.path.join(HY, "ixoic_line_equations.json")))["lines"]
+except FileNotFoundError:
+    LINEQ = {}
 
 
 def main():
@@ -209,6 +213,18 @@ def main():
                 body += (f" It was found by the crossing search, where {('two', 'three')[n - 2] if n in (2, 3) else n} "
                          "of the map's walls cross" + (": a line along their crossing curve." if kind == "line" else
                                                        ": an isolated point." if kind == "point" else "."))
+            e = LINEQ.get(name) if group == "ixoic" else None
+            if e and e["status"].startswith("no line"):
+                body += (" The atlas recorded it as a line, but no curve through its seed keeps the shape: no pair of "
+                         "the map's surfaces through it keeps the polytope a step of 1e-5 either way, and along the curve "
+                         "they share it changes within 1e-7 both ways, so it is a point (ixoic_line_equations.json).")
+            elif e and "end" in e["status"]:
+                body += (" Its seed is at one end of its line: the exact curve (two of the map's surfaces) keeps the "
+                         "shape one way only (ixoic_line_equations.json).")
+            elif e and e.get("equations"):
+                body += (" Its line is given exactly by two equations, " + ("linear (the fixed line of a half-turn)"
+                         if e["source"] == "fixed line" else "two of the map's surfaces") +
+                         " (ixoic_line_equations.json).")
             if (KEY.get(name), b) in ALSO:
                 body += f" The list also names it {' and '.join(ALSO[KEY[name], b])}: the same shape."
             if name in RELATED:
