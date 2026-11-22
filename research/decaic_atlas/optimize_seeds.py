@@ -111,6 +111,18 @@ def optimise_best(shape):
         r["piece"] = i
         res.append(r)
     best = min(res, key=lambda r: r["R"])
+    pr = shape.get("prior")                     # (the shape's earlier result: kept where it is lower, if still the shape)
+    if pr and best.get("status", "").split(" ")[0] != "point":
+        seed = np.asarray(shape["seed"], float); seed = seed / seed.sum()
+        tol = shape.get("hull_tol", 1e-9)
+        key0 = G.label(seed, tol)[1]
+        ok = lambda x: x is not None and same_shape(np.asarray(x, float) / np.sum(x), seed, key0, tol)
+        if pr.get("R") is not None and pr["R"] < best["R"] * (1 - 1e-9) and ok(pr.get("best")):
+            best.update({"best": pr["best"], "R": pr["R"], "status": pr["status"],
+                         "prior": "the earlier run's best kept (lower R than this run's)"})
+        if pr.get("off_R") is not None and pr["off_R"] < best.get("off_R", np.inf) * (1 - 1e-9) and ok(pr.get("off_seed")):
+            best.update({"off_seed": pr["off_seed"], "off_R": pr["off_R"],
+                         "prior_off": "the earlier run's written point kept (lower R than this run's)"})
     if len(res) > 1:
         best["pieces"] = [{"piece": r["piece"], "locus": r["locus"], "R": r["R"], "best": r["best"], "status": r["status"]}
                           for r in res]
@@ -608,9 +620,23 @@ def polish(b, Qs, loc, zero, active):
 
 
 # --------------------------------------------------------------------------------------------------------------- main
+def add_prior(shapes, path):
+    """Each shape's earlier result (by name), to start from too and to keep where it is lower (optimise_best)."""
+    try:
+        old = {r["name"]: r for r in json.load(open(path))["shapes"]}
+    except (FileNotFoundError, KeyError):
+        return
+    for s in shapes:
+        r = old.get(s["name"])
+        if r:
+            s["prior"] = {k: r.get(k) for k in ("best", "R", "status", "off_seed", "off_R")}
+            s["extra_starts"] = [x for x in (r.get("best"), r.get("off_seed")) if x is not None]
+
+
 def main():
     os.makedirs(OFF_DIR, exist_ok=True)
     shapes = decaic_shapes() if G.SUB == "full" else snub_shapes()
+    add_prior(shapes, G.fname("optimized_seeds"))
     with Pool(4) as pool:
         R = pool.map(optimise_best, shapes, chunksize=1)
     for s, r in zip(shapes, R):

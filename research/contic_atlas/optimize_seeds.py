@@ -160,6 +160,7 @@ def snub_shapes():
 def main():
     os.makedirs(OFF_DIR, exist_ok=True)
     shapes = contic_shapes() if G.SUB == "full" else snub_shapes()
+    O.add_prior(shapes, os.path.join(HERE, G.fname("optimized_seeds")))
     with Pool(4) as pool:
         R = pool.map(O.optimise_best, shapes, chunksize=1)
     for s, r in zip(shapes, R):
