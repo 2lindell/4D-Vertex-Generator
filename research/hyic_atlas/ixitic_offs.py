@@ -39,6 +39,13 @@ for s in S:
         s["locus"] = []                           #  there, and without it every step leaves the shape)
     else:
         s["locus"] = [x.text for x in surfs if x.dist(b) < 1e-7]
+    for tol in [t for t in (1e-9, 1e-8, 1e-7) if t >= s["hull_tol"]]:   # (the tightest hull tolerance at which the seed is its own shape:
+        try:                                          #  some seeds (points, lines) are not at 1e-9, and every later
+            if G.label(b, tol)[1] == s["key"]:        #  check of them then fails: "moved to another polytope")
+                s["hull_tol"] = tol
+                break
+        except Exception:
+            pass
 
 
 MODE = %(mode)r                                   # ("": all; "seed": seed files only; "nocentre": no centre finder)
@@ -77,7 +84,7 @@ with Pool(4) as pool:                             # (a worker that dies (a crash
     pool.terminate()
 out = []
 for s, (r, c) in zip(S, R):
-    row = {k: s[k] for k in ("name", "kind", "degrees", "key", "locus", "sheet")}
+    row = {k: s[k] for k in ("name", "kind", "degrees", "key", "locus", "sheet", "hull_tol")}
     row.update(seed=list(map(float, s["seed"])), locus_used=r.get("locus_used"), start_R=r.get("start_R"), R=r.get("R"),
                optimized=list(map(float, r.get("off_seed", r.get("best", s["seed"])))), optimized_status=r["status"],
                central=list(map(float, c["centre"])), depth=c.get("depth"), central_status=c["status"])
@@ -86,7 +93,7 @@ for s, (r, c) in zip(S, R):
         if (MODE == "seed" and tag != "seed") or (MODE == "nocentre" and tag == "central"):
             continue
         b = np.asarray(row[key], float); b = b / b.sum()
-        if tag != "seed" and G.label(b, s["hull_tol"])[1] != s["key"]:
+        if tag != "seed" and not OS.O.same_shape(b, np.asarray(row["seed"]) / np.sum(row["seed"]), s["key"], s["hull_tol"]):
             row[tag + "_note"] = "moved to another polytope: the seed is written instead"
             b = np.asarray(row["seed"]) / np.sum(row["seed"])
         for tol in (s["hull_tol"], 1e-8, 1e-7):  # (a hull ambiguous at 1e-9, as some closure regions: 1e-8)

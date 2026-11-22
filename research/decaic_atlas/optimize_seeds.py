@@ -264,7 +264,7 @@ def optimise(shape):
     if shape["degrees"] >= 3 and CROSS_MIRRORS and seed.min() < 1e-12:
         seed = seed + 1e-4 * (seed < 1e-12)                          # (a region seed on a mirror: start just off it)
         seed = seed / seed.sum()
-    zero = [i for i in range(4) if seed[i] < 1e-12]                 # (on a mirror: stays there)
+    zero = [] if shape.get("_off_mirrors") else [i for i in range(4) if seed[i] < 1e-12]   # (on a mirror: stays there)
     free = [i for i in range(4) if i not in zero]
     # (locus equations not already met by the mirrors' zeros)
     loc = [sp.sympify(t) for t in shape["locus"]]
@@ -288,7 +288,7 @@ def optimise(shape):
                 d = rng_.normal(size=4)
                 d[zero] = 0
                 d -= (d @ grad(i)) * grad(i)
-                p = project(seed + 1e-3 * d / np.linalg.norm(d) * seed[free].min(), [loc_f[i]], [loc_g[i]], zero)
+                p = project(seed + 1e-3 * d / np.linalg.norm(d) * seed[seed > 1e-12].min(), [loc_f[i]], [loc_g[i]], zero)
                 if not same_shape(p, seed, key0, tol):
                     return False
             return True
@@ -303,7 +303,7 @@ def optimise(shape):
                 d = rng_.normal(size=4)
                 d[zero] = 0
                 for sgn in (1, -1):
-                    p = seed + sgn * 1e-3 * d / np.linalg.norm(d) * seed[free].min()
+                    p = seed + sgn * 1e-3 * d / np.linalg.norm(d) * seed[seed > 1e-12].min()
                     if not same_shape(p / p.sum(), seed, key0, tol):
                         return False
             return True
@@ -316,7 +316,7 @@ def optimise(shape):
             ns = np.linalg.svd(np.vstack([Gm, np.eye(4)[zero]]))[2][-1]
             for sgn in (1, -1):
                 for h in (1e-3, 1e-4):
-                    p = project(seed + sgn * h * ns * seed[free].min(), [loc_f[i], loc_f[j]], [loc_g[i], loc_g[j]], zero)
+                    p = project(seed + sgn * h * ns * seed[seed > 1e-12].min(), [loc_f[i], loc_f[j]], [loc_g[i], loc_g[j]], zero)
                     if not same_shape(p, seed, key0, tol):
                         break
                 else:
@@ -384,7 +384,7 @@ def optimise(shape):
     for _ in range(6):
         d = rng.normal(size=4)
         d[zero] = 0
-        p = project(seed + 0.02 * d / np.linalg.norm(d) * seed[free].min(), loc_f, loc_g, zero)
+        p = project(seed + 0.02 * d / np.linalg.norm(d) * seed[seed > 1e-12].min(), loc_f, loc_g, zero)
         if in_domain(p[None]) and same_shape(p, seed, key0, tol):
             starts.append(p)
     best, msg = (z0, "start"), "start"
@@ -470,7 +470,44 @@ def optimise(shape):
                            "lower R on the shape's edge (found by bisection toward a lower R outside the shape; not one of its sign conditions)"),
                 "ring_check_rises": ring, "off_seed": np.asarray(off).tolist(), "off_R": float(np.sqrt(q(off).max() / q(off).min())),
                 "seconds": round(time.time() - t0, 1)})
+    # (a seed on mirrors whose shape crosses them (bitutid, potbatid: lines through the simplex's edge): with its zero
+    #  betas kept zero it cannot move; again with them free, its surfaces through the seed as the locus)
+    if res["status"].startswith("no progress") and zero and shape["kind"] != "region" and not shape.get("_off_mirrors"):
+        r2 = optimise({**shape, "_off_mirrors": True})
+        if r2["R"] < R - 1e-12:
+            r2["status"] += " (its zero betas left free: the shape crosses its mirrors)"
+            return r2
+    # (last: SLSQP found no feasible step (it can run off to points far outside the constraints: ixoic_region_106): a
+    #  direct search from the seed along the shape's tangent directions, each step kept only if the shape is the same
+    #  and R lower; a local best, not an exact minimum)
+    if res["status"].startswith("no progress") and not shape.get("_off_mirrors"):
+        rows = [grad_at(f_g, seed, zero) for f_g in loc_g] + [seed / np.linalg.norm(seed)] + list(np.eye(4)[zero])
+        basis = np.linalg.svd(np.array(rows))[2][len(rows) if len(rows) < 4 else 4:] if len(rows) < 4 else np.zeros((0, 4))
+        basis = [v for v in basis] + [-v for v in basis]
+        Rq = lambda p: float(np.sqrt(q(p).max() / q(p).min()))
+        x, Rx, h, sc, evals = seed.copy(), R0, 0.05, seed[seed > 1e-12].min(), 0
+        while h > 1e-7 and evals < 200 and basis:
+            moved = False
+            for v in basis:
+                p = project(x + h * sc * v, loc_f, loc_g, zero)
+                evals += 1
+                Rp = Rq(p)
+                if Rp < Rx - 1e-12 and same_shape(p, seed, key0, tol):
+                    x, Rx, moved = p, Rp, True
+                    break
+            if not moved:
+                h /= 2
+        if Rx < R0 - 1e-12:
+            res.update({"best": x.tolist(), "R": Rx, "off_seed": x.tolist(), "off_R": Rx,
+                        "status": "lower R by a direct search inside the shape (SLSQP found no feasible step): a local best, "
+                                  "not an exact minimum", "direct_search_evals": evals})
     return res
+
+
+def grad_at(g, p, zero):
+    v = np.array([gi(*p) for gi in g], float)
+    v[zero] = 0
+    return v / (np.linalg.norm(v) or 1.0)
 
 
 def project(p, loc_f, loc_g, zero):
