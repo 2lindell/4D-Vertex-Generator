@@ -438,6 +438,157 @@
    "seed_R": 1.0000000000000542,
    "opt_off": "optimized_off/ixitic/tehi_120v_600c_opt.off",
    "opt_R": 1.0000000000000542
+  },
+  {
+   "name": "misrethi",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2e644f68b084",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.033482663677828484,
+    0.033702485867237286,
+    0.0,
+    0.9328148504549343
+   ],
+   "locus_used": null,
+   "start_R": 30.45668534026198,
+   "R": 1.6291057856272761,
+   "optimized": [
+    3.348266367785825e-05,
+    0.4995337024858504,
+    0.0,
+    0.5004328148504718
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.033482663677828484,
+    0.033702485867237286,
+    0.0,
+    0.9328148504549343
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_misrethi_1440v_2160c_seed.off",
+   "seed_R": 30.45668534028916,
+   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_off": "optimized_off/ixitic/misrethi_1440v_2160c_opt.off",
+   "opt_R": 2.5741060644747726
+  },
+  {
+   "name": "gypsobtady",
+   "kind": "region",
+   "degrees": 3,
+   "key": "d243a1e80043",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.04181575629968276,
+    0.04209028735820388,
+    0.7078531013374042,
+    0.2082408550047093
+   ],
+   "locus_used": null,
+   "start_R": 5.106976063928482,
+   "R": 1.9319422398968267,
+   "optimized": [
+    -0.09344615384116231,
+    0.03124038538941036,
+    0.5862243247698752,
+    0.4759814436818767
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.04181575629968276,
+    0.04209028735820388,
+    0.7078531013374042,
+    0.2082408550047093
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_gypsobtady_1440v_3360c_seed.off",
+   "seed_R": 5.106976063930286,
+   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_off": "optimized_off/ixitic/gypsobtady_1440v_3360c_opt.off",
+   "opt_R": 1.931942239897152
+  },
+  {
+   "name": "ixitic_region_08",
+   "kind": "region",
+   "degrees": 3,
+   "key": "2da1ce87ceec",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.04181575629968275,
+    0.41646325982521315,
+    0.2502861349888373,
+    0.29143484888626686
+   ],
+   "locus_used": null,
+   "start_R": 3.228623602718013,
+   "R": 1.9960599488195987,
+   "optimized": [
+    -0.30191494894161736,
+    0.5766649672971735,
+    0.3563914432648652,
+    0.3688585383795786
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.04181575629968275,
+    0.41646325982521315,
+    0.2502861349888373,
+    0.29143484888626686
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_08_1440v_4800c_seed.off",
+   "seed_R": 3.2286236027185864,
+   "opt_off": "optimized_off/ixitic/ixitic_region_08_1440v_4800c_opt.off",
+   "opt_R": 1.9969817944181643
+  },
+  {
+   "name": "ixitic_region_11",
+   "kind": "region",
+   "degrees": 3,
+   "key": "11c376e3c804",
+   "locus": [],
+   "sheet": "ix2",
+   "hull_tol": 1e-09,
+   "seed": [
+    0.04181575629968275,
+    0.45806025676599194,
+    0.20868913804805847,
+    0.29143484888626686
+   ],
+   "locus_used": null,
+   "start_R": 3.611149302940604,
+   "R": 2.0000000000000293,
+   "optimized": [
+    -0.0017302896000497712,
+    0.3827432606761961,
+    0.23645430200427872,
+    0.3825327269195751
+   ],
+   "optimized_status": "infimum on the shape's edge (a sign condition is active): not attained",
+   "central": [
+    0.04181575629968275,
+    0.45806025676599194,
+    0.20868913804805847,
+    0.29143484888626686
+   ],
+   "depth": null,
+   "central_status": "not computed (about 30 min a shape)",
+   "seed_off": "new_shapes/off/ixitic/ixitic_region_11_1440v_5520c_seed.off",
+   "seed_R": 3.611149302941293,
+   "opt_from": "an earlier best (ixitic_extra_starts.json): lower R than this run's written point",
+   "opt_off": "optimized_off/ixitic/ixitic_region_11_1440v_5520c_opt.off",
+   "opt_R": 2.61149731242606
   }
  ]
 }
