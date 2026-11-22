@@ -373,6 +373,7 @@ def optimise(shape):
             starts.append(p)
     best, msg = (z0, "start"), "start"
     bestR = R0
+    outside = []
     for p in starts:
         p = p / np.sqrt(q(p).min())
         zp = np.concatenate([p[free], [q(p).max()]])
@@ -385,6 +386,25 @@ def optimise(shape):
         if Rb < bestR - 1e-15 and (same_shape(bb, seed, key0, tol) or
                                    (conds and min(condf(np.concatenate([bb[free], [0]]))) < 1e-7)):
             best, bestR, msg = (r.x, "slsqp"), Rb, r.message
+        elif Rb < bestR - 1e-15:
+            outside.append((p / p.sum(), bb))
+    # (a result that leaves the shape, where none of the shape's sign conditions bounds it (a wall on a mirror has none
+    #  there: ixoic_wall_03): the last point still the shape on the way from its start, if R is lower there)
+    edge_bisect = False
+    if msg == "start":
+        for p, bb in outside:
+            lo, hi = 0.0, 1.0
+            for _ in range(40):
+                m = (lo + hi) / 2
+                if same_shape(project((1 - m) * p + m * bb, loc_f, loc_g, zero), seed, key0, tol):
+                    lo = m
+                else:
+                    hi = m
+            pe = project((1 - lo * 0.999) * p + lo * 0.999 * bb, loc_f, loc_g, zero)
+            Re = float(np.sqrt(q(pe).max() / q(pe).min()))
+            if Re < bestR - 1e-12 and same_shape(pe, seed, key0, tol):
+                pe = pe / np.sqrt(q(pe).min())
+                best, bestR, msg, edge_bisect = (np.concatenate([pe[free], [q(pe).max()]]), "edge"), Re, "edge (bisection)", True
     b = full(best[0])
     b = b / b.sum()
     r = type("R", (), {"message": msg})
@@ -403,7 +423,7 @@ def optimise(shape):
             res["equations"] = polished
     qs = q(b)
     R = float(np.sqrt(qs.max() / qs.min()))
-    on_edge = bool(active_conds)
+    on_edge = bool(active_conds) or edge_bisect
     inside = same_shape(b, seed, key0, tol)
     off = b
     if not inside or on_edge:
@@ -430,7 +450,8 @@ def optimise(shape):
     res.update({"best": b.tolist(), "R": R, "orbits": len(Qs),
                 "status": status or (("minimum inside the shape" + (" (not unique: R is flat along the locus there)" if ring and ring["flat_directions"] else ""))
                            if inside and not on_edge else
-                           "infimum on the shape's edge (a sign condition is active): not attained"),
+                           "infimum on the shape's edge (a sign condition is active): not attained" if not edge_bisect else
+                           "lower R on the shape's edge (found by bisection toward a lower R outside the shape; not one of its sign conditions)"),
                 "ring_check_rises": ring, "off_seed": np.asarray(off).tolist(), "off_R": float(np.sqrt(q(off).max() / q(off).min())),
                 "seconds": round(time.time() - t0, 1)})
     return res
