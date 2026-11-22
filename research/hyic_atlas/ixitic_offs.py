@@ -35,8 +35,8 @@ M = json.load(open(os.path.join(%(here)r, G.fname("snub_map"))))
 surfs = [Surface(t) for t in M["surfaces"]]
 for s in S:
     b = np.asarray(s["seed"], float); b = b / b.sum()
-    if s["kind"] == "region" or b.min() < 1e-12:
-        s["locus"] = []
+    if s["kind"] == "region":                     # (a seed on a mirror keeps its surfaces too: ixoic_wall_03 lies on one
+        s["locus"] = []                           #  there, and without it every step leaves the shape)
     else:
         s["locus"] = [x.text for x in surfs if x.dist(b) < 1e-7]
 

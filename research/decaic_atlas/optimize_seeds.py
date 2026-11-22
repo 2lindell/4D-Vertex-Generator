@@ -292,40 +292,56 @@ def optimise(shape):
                 if not same_shape(p, seed, key0, tol):
                     return False
             return True
-        order = list(range(len(loc)))
-        if len(loc) > max(1, 3 - shape["degrees"]):
-            order.sort(key=lambda i: not keeps(i))
-        # (at most `need` of them: a shape of d degrees with z zero betas is cut out by 3 - d - z equations; a line seed
-        #  near a point where many surfaces cross (gypsobted: 27 surfaces within 1e-7) has more than two nearly tangent
-        #  ones that pass a rank test, and with them the line is pinned to a point: for a line, the pair whose
-        #  intersection keeps the shape both ways from the seed)
-        need = max(1, 3 - shape["degrees"] - len(zero))
-        pick = []
-        if need == 2 and len(loc) > 2:
-            def keeps2(i, j):
-                Gm = np.array([grad(i), grad(j), seed / np.linalg.norm(seed)])
-                Gm[:, zero] = 0
-                if np.linalg.matrix_rank(Gm[:2], 1e-6) < 2:
-                    return False
-                ns = np.linalg.svd(np.vstack([Gm, np.eye(4)[zero]]))[2][-1]
+        # (the equations the shape needs, found by trying: none (a seed on mirrors whose shape spans them: a line on the
+        #  simplex's edge, bitutid), one surface (a wall; or a wall's seed on a mirror, where the shape is a curve in it:
+        #  ixoic_wall_03), or a pair (a line: a seed near a point where many surfaces cross (gypsobted: 27 within 1e-7)
+        #  has more than two nearly tangent ones that pass a rank test, and with them the line is pinned to a point);
+        #  else the first independent ones, at most 3 - degrees - zeros)
+        def keeps0():
+            rng_ = np.random.default_rng(7)
+            for _ in range(3):
+                d = rng_.normal(size=4)
+                d[zero] = 0
                 for sgn in (1, -1):
-                    for h in (1e-3, 1e-4):
-                        p = project(seed + sgn * h * ns * seed[free].min(), [loc_f[i], loc_f[j]],
-                                    [loc_g[i], loc_g[j]], zero)
-                        if not same_shape(p, seed, key0, tol):
-                            break
-                    else:
-                        continue
-                    return False
-                return True
-            pairs = [(order[a], order[b_]) for a in range(len(order)) for b_ in range(a + 1, len(order))]
-            pick = next((list(pq) for pq in pairs[:400] if keeps2(*pq)), [])
-        if not pick:
-            for i in order:
+                    p = seed + sgn * 1e-3 * d / np.linalg.norm(d) * seed[free].min()
+                    if not same_shape(p / p.sum(), seed, key0, tol):
+                        return False
+            return True
+
+        def keeps2(i, j):
+            Gm = np.array([grad(i), grad(j), seed / np.linalg.norm(seed)])
+            Gm[:, zero] = 0
+            if np.linalg.matrix_rank(Gm[:2], 1e-6) < 2:
+                return False
+            ns = np.linalg.svd(np.vstack([Gm, np.eye(4)[zero]]))[2][-1]
+            for sgn in (1, -1):
+                for h in (1e-3, 1e-4):
+                    p = project(seed + sgn * h * ns * seed[free].min(), [loc_f[i], loc_f[j]], [loc_g[i], loc_g[j]], zero)
+                    if not same_shape(p, seed, key0, tol):
+                        break
+                else:
+                    continue
+                return False
+            return True
+        pick = None
+        if len(zero) >= 1 and keeps0():
+            pick, how = [], "none needed (the shape spans its mirrors there)"
+        if pick is None:
+            one = next((i for i in range(len(loc)) if keeps(i)), None)
+            if one is not None:
+                pick, how = [one], "one surface"
+        if pick is None and len(zero) == 0 and len(loc) >= 2:
+            pq = next(((i, j) for i in range(len(loc)) for j in range(i + 1, len(loc)) if keeps2(i, j)), None)
+            if pq is not None:
+                pick, how = list(pq), "the pair whose intersection keeps the shape"
+        if pick is None:
+            need = max(1, 3 - shape["degrees"] - len(zero))
+            pick, how = [], "independent at the seed (no choice kept the shape)"
+            for i in range(len(loc)):
                 if len(pick) < need and np.linalg.matrix_rank(np.array([grad(j) for j in pick + [i]]), 1e-6) == len(pick) + 1:
                     pick.append(i)
         if len(pick) < len(loc):
-            res["locus_used"] = f"{len(pick)} of {len(loc)} locus equations (the rest dependent at the seed)"
+            res["locus_used"] = f"{len(pick)} of {len(loc)} locus equations: {how}"
         loc, loc_f, loc_g = [loc[i] for i in pick], [loc_f[i] for i in pick], [loc_g[i] for i in pick]
     conds = sign_conditions(seed)
 
