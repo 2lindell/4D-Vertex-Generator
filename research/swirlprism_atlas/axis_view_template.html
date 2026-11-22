@@ -39,6 +39,16 @@ p { margin: 0; max-width: 78ch; line-height: 1.5; }
 .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin: 0 4px 0 10px; }
 .sw.ln { height: 4px; vertical-align: 3px; }
 .sw.dot { border-radius: 50%; width: 9px; height: 9px; vertical-align: 0; }
+.nudger { border: 1px solid var(--rule); border-radius: 10px; background: var(--panel); padding: 12px 14px; display: grid; gap: 10px; }
+.nudger h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+.nudger .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; }
+.nudger button, .nudger select { font: inherit; font-size: 13px; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); cursor: pointer; }
+.nudger button:hover { border-color: var(--axis); }
+.nudger button.primary { background: var(--axis); color: var(--panel); border-color: var(--axis); }
+.nudger .pad { display: grid; grid-template-columns: repeat(3, 40px); gap: 4px; }
+.nudger .pad button { padding: 5px 0; }
+.nudger .readout { font: 12px var(--font-data); color: var(--muted); white-space: pre-wrap; }
+.nudger .status { font-size: 12px; color: var(--muted); }
 .toggle { font-size: 14px; display: flex; gap: 8px; align-items: center; }
 ul { margin: 0; padding-left: 1.2rem; line-height: 1.5; max-width: 78ch; }
 </style>
@@ -55,6 +65,36 @@ ul { margin: 0; padding-left: 1.2rem; line-height: 1.5; max-width: 78ch; }
     <span class="sw ln" style="background:var(--axis)"></span>the axis
     <span class="sw" style="background:var(--halo)"></span>halo on hover. The shades only tell neighbouring shapes apart; they carry no other meaning.</p>
   <label class="toggle">Layers shown <input type="range" id="layers" min="1" max="1" value="1" step="1"> <span id="layersOut"></span></label>
+  <section class="nudger" id="nudger" aria-label="Adjust a shape">
+    <h2>Adjust a shape</h2>
+    <div class="row">
+      <label>Shape <select id="nSel"></select></label>
+      <label>Step <select id="nStep"><option value="0.001">0.001</option><option value="0.003" selected>0.003</option><option value="0.01">0.01</option></select></label>
+      <span class="status">Click a shape in the view to pick it. Arrow keys move it on screen; Page Up / Page Down move it toward / away from you.</span>
+    </div>
+    <div class="row">
+      <div class="pad" title="Move on screen">
+        <span></span><button data-m="up" aria-label="Up">↑</button><span></span>
+        <button data-m="left" aria-label="Left">←</button><button data-m="toward" aria-label="Toward you">●</button><button data-m="right" aria-label="Right">→</button>
+        <span></span><button data-m="down" aria-label="Down">↓</button><button data-m="away" aria-label="Away from you">○</button>
+      </div>
+      <div style="display:grid;gap:4px">
+        <button data-m="off">Away from nearest</button>
+        <button data-m="onto">Toward nearest</button>
+      </div>
+      <div style="display:grid;gap:4px">
+        <button data-m="edge+">Along its edge +</button>
+        <button data-m="edge-">Along its edge −</button>
+      </div>
+      <div style="display:grid;gap:4px">
+        <button class="primary" id="nSave">Save</button>
+        <button id="nRevert">Revert to saved</button>
+        <button id="nZero">Zero</button>
+      </div>
+    </div>
+    <div class="readout" id="nOut"></div>
+    <div class="status" id="nStatus"></div>
+  </section>
   <ul>
     <li>Every named shape is shown once: all 55 walls, 40 regions, 24 edges and 5 corners. The slider shows them in layers: layer 1 is the edge <b>B1</b> and every shape touching it (its corner <b>A1</b>, and <b>X38</b>, <b>X68</b>, <b>X99</b>, <b>X61</b>, <b>F4</b>, <b>X49</b>, <b>F1</b>, <b>F3</b> round it); layer 2 is the shapes set with that group (<b>X100</b>, <b>X58</b>, <b>X41</b>, <b>X96</b>, <b>X82</b>, <b>T2</b>, <b>X22</b>, <b>X4</b>, <b>X28</b>, <b>X50</b>, <b>X33</b> stacked on X49, the edges <b>E1</b>, <b>X13</b>, <b>C2a</b> and <b>D2</b> and the corners <b>C6</b> and <b>C4</b>); layer 3 is the remaining walls and regions round <b>X13</b> (<b>X43</b>, <b>X54</b>, <b>X31</b>), <b>X17</b> round X4, the edges <b>X2</b> (ending at C4) and <b>X80</b> (ending at A1), and the thin shapes round X80 (<b>X102</b>, <b>X70</b>, <b>X71</b>, <b>X73</b>, <b>X75</b>, <b>X79</b>, <b>X85</b>, <b>X86</b>, <b>X87</b>, <b>X88</b>, <b>X93</b>); each further layer is the shapes the shape map puts beside the last.</li>
     <li>Each shape is shown once, with only the extent its seeds need once. Of the copies of a shape, one is shown, picked one shape at a time: first the copy that bounds, or lies on, a shape already shown round an edge they share (so the shapes round an edge follow on one from the next: round B1, X38, X68, X99, X61, F4, X49, F1, F3), then the copy beside most shapes shown, then the one nearest the axis. A shape a symmetry of the 2400-element group carries onto itself is cut to a part no symmetry repeats: X38, C2a and B1 by the axis's half-turn, and F3, X16, C2b, X1, X12, X30, X7, X32 and X78 by other half-turns. Of the two halves of a cut shape, the one kept is the one meeting the corner A1 shown, if either does (so X38, B1 and F3 meet at that A1), then the one touching more of the shapes shown beside it. (D1, D2, D3 and C3 also have a second symmetry, but it turns each about itself, holding it point by point, so they are shown whole.) Hover a shape to see what cut it and how many of its copies were met.</li>
@@ -79,6 +119,13 @@ const sun = new THREE.DirectionalLight(0xffffff, 0.7); sun.position.set(2, 3, 4)
 const world = new THREE.Group(); scene.add(world);
 const shapes = [];
 
+// ---- the nudger: hand offsets on top of the built layout. `saved` holds what is stored with the page
+// (its shared data), `edit` what is being tried now; offsets already baked into the data (D.manual) are
+// not applied again
+const baked = D.manual || {};
+const saved = {}, edit = {};
+const offsetOf = (id) => edit[id] || saved[id] || baked[id] || [0, 0, 0];
+const shownOffset = (id) => { const o = offsetOf(id), b = baked[id] || [0, 0, 0]; return [o[0] - b[0], o[1] - b[1], o[2] - b[2]]; };
 function build() {
   while (world.children.length) world.remove(world.children[0]);
   shapes.length = 0;
@@ -127,6 +174,8 @@ function build() {
     if (!hg) { halo.position.copy(c).multiplyScalar(-0.06); halo.scale.setScalar(1.06); }
     halo.visible = false;
     const grp = new THREE.Group(); grp.add(halo); grp.add(mesh); world.add(grp);
+    grp.position.set(...shownOffset(s.id));
+    s._grp = grp;
     mesh.userData = { shape: s, halo };
     shapes.push(mesh);
     const el = document.createElement("div"); el.textContent = s.id; document.getElementById("labels").appendChild(el);
@@ -160,6 +209,127 @@ cv.addEventListener("pointermove", (e) => {
 });
 cv.addEventListener("pointerleave", () => { if (hovered) hovered.userData.halo.visible = false; hovered = null; tip.style.display = "none"; });
 
+const nSel = document.getElementById("nSel"), nStep = document.getElementById("nStep");
+const nOut = document.getElementById("nOut"), nStatus = document.getElementById("nStatus");
+const byId = Object.fromEntries(D.shapes.map((s) => [s.id, s]));
+for (const s of [...D.shapes].sort((a, b) => a.layer - b.layer || a.id.localeCompare(b.id, undefined, { numeric: true }))) {
+  const o = document.createElement("option"); o.value = s.id; o.textContent = `${s.id} (layer ${s.layer}, ${s.kind})`; nSel.appendChild(o);
+}
+nSel.value = byId.X17 ? "X17" : D.shapes[0].id;
+function ptsOf(s, cap) {                         // (a shape's points, where they are drawn)
+  const raw = s.verts || s.path || [s.at];
+  const o = shownOffset(s.id), step = cap && raw.length > cap ? Math.ceil(raw.length / cap) : 1;
+  const out = [];
+  for (let i = 0; i < raw.length; i += step) out.push([raw[i][0] + o[0], raw[i][1] + o[1], raw[i][2] + o[2]]);
+  return out;
+}
+function nearestTo(sel) {                        // (the nearest shapes to sel, and the nearest points)
+  const P = ptsOf(sel, 400);
+  let lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+  for (const p of P) for (let k = 0; k < 3; k++) { lo[k] = Math.min(lo[k], p[k]); hi[k] = Math.max(hi[k], p[k]); }
+  const rows = [];
+  const layer = +document.getElementById("layers").value;
+  for (const s of D.shapes) {
+    if (s === sel || s.layer > layer) continue;
+    const Q = ptsOf(s, 3000);
+    let best = Infinity, bp = null, bq = null;
+    for (const q of Q) {
+      if (q[0] < lo[0] - 0.08 || q[0] > hi[0] + 0.08 || q[1] < lo[1] - 0.08 || q[1] > hi[1] + 0.08 || q[2] < lo[2] - 0.08 || q[2] > hi[2] + 0.08) continue;
+      for (const p of P) {
+        const d = (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2;
+        if (d < best) { best = d; bp = p; bq = q; }
+      }
+    }
+    if (bp) rows.push({ id: s.id, d: Math.sqrt(best), p: bp, q: bq });
+  }
+  return rows.sort((a, b) => a.d - b.d);
+}
+function showNudge() {
+  const s = byId[nSel.value]; if (!s) return;
+  const o = offsetOf(s.id), sv = saved[s.id] || baked[s.id] || [0, 0, 0];
+  const rows = nearestTo(s).slice(0, 6);
+  const changed = o.some((v, k) => Math.abs(v - sv[k]) > 1e-9);
+  nOut.textContent = `${s.id} offset  ${o.map((v) => v.toFixed(4)).join(", ")}${changed ? "   (not saved)" : ""}\n` +
+    rows.map((r) => `  ${r.id.padEnd(5)} ${r.d.toFixed(4)}`).join("\n");
+  for (const m of shapes) m.userData.halo.visible = m.userData.shape === s;
+}
+function nudge(how) {
+  const s = byId[nSel.value]; if (!s) return;
+  const st = +nStep.value;
+  const cam = new THREE.Vector3(), up = new THREE.Vector3(), right = new THREE.Vector3();
+  camera.getWorldDirection(cam); up.copy(camera.up).applyQuaternion(camera.quaternion).normalize();
+  right.crossVectors(cam, up).normalize(); up.crossVectors(right, cam).normalize();
+  let v = null;
+  if (how === "left") v = right.clone().negate(); else if (how === "right") v = right.clone();
+  else if (how === "up") v = up.clone(); else if (how === "down") v = up.clone().negate();
+  else if (how === "toward") v = cam.clone().negate(); else if (how === "away") v = cam.clone();
+  else if (how === "off" || how === "onto") {
+    const r = nearestTo(s)[0]; if (!r) return;
+    v = new THREE.Vector3(r.p[0] - r.q[0], r.p[1] - r.q[1], r.p[2] - r.q[2]).normalize();
+    if (how === "onto") v.negate();
+  } else if (how === "edge+" || how === "edge-") {
+    // (along the edge the shape is set by: the edge it bounds that lies nearest)
+    const edges = D.shapes.filter((e) => e.path);
+    let bestE = null, bd = Infinity;
+    const P = ptsOf(s, 200);
+    for (const e of edges) { const Q = ptsOf(e, 200); for (const p of P) for (const q of Q) { const d = (p[0]-q[0])**2+(p[1]-q[1])**2+(p[2]-q[2])**2; if (d < bd) { bd = d; bestE = e; } } }
+    if (!bestE || s === bestE) return;
+    const a = bestE.path[0], b = bestE.path[bestE.path.length - 1];
+    v = new THREE.Vector3(b[0] - a[0], b[1] - a[1], b[2] - a[2]).normalize();
+    if (how === "edge-") v.negate();
+  }
+  if (!v) return;
+  const o = offsetOf(s.id).slice();
+  edit[s.id] = [o[0] + st * v.x, o[1] + st * v.y, o[2] + st * v.z];
+  if (s._grp) s._grp.position.set(...shownOffset(s.id));
+  showNudge();
+}
+document.querySelectorAll("#nudger [data-m]").forEach((b) => b.addEventListener("click", () => nudge(b.dataset.m)));
+nSel.addEventListener("change", showNudge);
+cv.addEventListener("click", () => { if (hovered) { nSel.value = hovered.userData.shape.id; showNudge(); } });
+document.addEventListener("keydown", (e) => {
+  if (e.target.closest && e.target.closest("input, select, textarea")) return;
+  const k = { ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down", PageUp: "toward", PageDown: "away" }[e.key];
+  if (k) { e.preventDefault(); nudge(k); }
+});
+document.getElementById("nZero").addEventListener("click", () => {
+  const s = byId[nSel.value]; edit[s.id] = [0, 0, 0]; if (s._grp) s._grp.position.set(...shownOffset(s.id)); showNudge();
+});
+document.getElementById("nRevert").addEventListener("click", () => {
+  const s = byId[nSel.value]; delete edit[s.id]; if (s._grp) s._grp.position.set(...shownOffset(s.id)); showNudge();
+});
+// (saved offsets live in the page's shared data, `nudges/<shape>`; without it the page still nudges,
+// but cannot save)
+let db = null;
+const saveBtn = document.getElementById("nSave");
+saveBtn.disabled = true;
+nStatus.textContent = "Connecting to the page's saved offsets…";
+const dbTimer = setTimeout(() => { if (!db) nStatus.textContent = "Saving is not available here: you can try moves, but they are not kept."; }, 10000);
+(window.claude && window.claude.use ? window.claude.use("db") : Promise.resolve(null)).then((d) => {
+  if (!d) { clearTimeout(dbTimer); nStatus.textContent = "Saving is not available here: you can try moves, but they are not kept."; return; }
+  db = d;
+  d.collection("nudges").onSnapshot((snap) => {
+    clearTimeout(dbTimer);
+    for (const k of Object.keys(saved)) delete saved[k];
+    snap.docs.forEach((doc) => { const o = doc.data().offset; if (Array.isArray(o) && o.length === 3) saved[doc.id] = o.map(Number); });
+    for (const s of D.shapes) if (s._grp) s._grp.position.set(...shownOffset(s.id));
+    saveBtn.disabled = false;
+    nStatus.textContent = `Saved offsets: ${Object.keys(saved).length ? Object.keys(saved).join(", ") : "none yet"}.`;
+    showNudge();
+  }, () => { nStatus.textContent = "Could not read the saved offsets."; });
+}).catch(() => { nStatus.textContent = "Saving is not available here."; });
+saveBtn.addEventListener("click", async () => {
+  const s = byId[nSel.value]; if (!db || !s) return;
+  saveBtn.disabled = true;
+  try {
+    await db.doc("nudges/" + s.id).set({ offset: offsetOf(s.id).map((v) => +v.toFixed(5)) });
+    delete edit[s.id];
+    nStatus.textContent = `Saved ${s.id}.`;
+  } catch (err) {
+    nStatus.textContent = err && err.code === "not_granted" ? "You can try moves here, but only editors can save them." : "Could not save; try again.";
+  } finally { saveBtn.disabled = false; }
+});
+
 function frame() {
   controls.update();
   renderer.setClearColor(new THREE.Color(css("--panel")));
@@ -167,7 +337,7 @@ function frame() {
   const r = stage.getBoundingClientRect();
   for (const s of D.shapes) {
     if (!s._label) continue;
-    const v = s._centre.clone().project(camera);
+    const v = s._centre.clone().add(new THREE.Vector3(...shownOffset(s.id))).project(camera);
     s._label.style.display = v.z > 1 ? "none" : "block";
     s._label.style.left = ((v.x * 0.5 + 0.5) * r.width) + "px";
     s._label.style.top = ((-v.y * 0.5 + 0.5) * r.height) + "px";
@@ -187,6 +357,7 @@ const e1 = D.shapes.find((s) => s.id === "E1");
 let look = new THREE.Vector3(0.35, 0.25, 1);
 if (e1) { const a = new THREE.Vector3(...e1.path[0]), b = new THREE.Vector3(...e1.path[e1.path.length - 1]); ctr.copy(a).add(b).multiplyScalar(0.5); look = b.sub(a).normalize().add(new THREE.Vector3(0, 0.25, 0.2)); }
 controls.target.copy(ctr); camera.position.copy(ctr).add(look.normalize().multiplyScalar(size * 1.15)); controls.update();
+setTimeout(showNudge, 0);
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", build);
 new MutationObserver(build).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 frame();
