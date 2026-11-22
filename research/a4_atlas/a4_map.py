@@ -7,6 +7,10 @@ mirrors and every plane of beta are planes, and great circles are straight lines
 
   * pennic [3,3,3] (order 120): a reflection group, so the polychoron is the same on each open face of the chamber:
     the fifteen Wythoffian polychora of the 5-cell family, one region, four walls, six lines and four points.
+  * kipennic [3,3,3]+ (order 60): the rotations of [3,3,3]. On the chamber's faces a seed's images are the pennic
+    ones (each reflection's image is a rotation's), so the faces carry the same Wythoffian polychora; the open chamber
+    is one region, snad (the snub decachoron, its kipennic version: 5+5 snits, 10+10 gyro traps, 60 irregular tets).
+    The chamber is half a fundamental domain (its mirror image is the other half).
   * decaic [[3,3,3]] (order 240): [3,3,3] with the swap of the 5-cell and its dual (beta read backwards). Its map is the
     exact arrangement of planes of decaic_atlas/arrangement.json (half the chamber, beta_1 >= beta_4), each face
     classified by its polychoron (decaic_atlas/shapes.json, named in decaic_shapes.json), and carried by the swap onto
@@ -17,6 +21,7 @@ where nothing changes is not a wall); the regions are drawn as sample seeds, eac
 arrangement exactly. The polychora are classified by decaic_atlas/group.py (DECAIC_SUB = pen or full).
 
     python a4_map.py pennic
+    python a4_map.py kipennic
     python a4_map.py decaic
 """
 from __future__ import annotations
@@ -34,7 +39,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DEC = os.path.join(ROOT, "decaic_atlas")
-SUBS = {"pennic": "pen", "decaic": "full"}
+SUBS = {"pennic": "pen", "kipennic": "kipen", "decaic": "full"}
 
 # (the Wythoffian names, by the ringed nodes: beta_k > 0)
 WYTHOFF = {(1,): ("pen", "pentachoron"), (2,): ("rap", "rectified pentachoron"), (3,): ("rap", "rectified pentachoron"),
@@ -175,16 +180,19 @@ def faces_decaic():
 # ------------------------------------------------------------------------------------------------------------ the map
 def build(group):
     sub = SUBS[group]
-    order = 120 if group == "pennic" else 240
-    faces, planes = faces_pennic() if group == "pennic" else faces_decaic()
+    order = {"pennic": 120, "kipennic": 60, "decaic": 240}[group]
+    faces, planes = faces_pennic() if group in ("pennic", "kipennic") else faces_decaic()
     lab = classify([f["point"] for f in faces], sub)
     for f, (sig, key) in zip(faces, lab):
         f["sig"], f["key"] = sig, key
     # the shapes: one per key, named
     names = {}
-    if group == "pennic":
-        for f in faces:
-            names.setdefault(f["key"], WYTHOFF[f["ring"]])
+    if group in ("pennic", "kipennic"):
+        for f in faces:                         # (kipennic: on the mirrors a seed's rotations make the Wythoffian
+            nm = WYTHOFF[f["ring"]]             #  polychoron still; inside, the kipennic snub decachoron)
+            if group == "kipennic" and f["dim"] == 3:
+                nm = ("snad", "snub decachoron (its kipennic version)")
+            names.setdefault(f["key"], nm)
     else:
         S = json.load(open(os.path.join(DEC, "shapes.json")))["shapes"]
         N = json.load(open(os.path.join(DEC, "decaic_shapes.json")))["shapes"]
@@ -280,7 +288,7 @@ def build(group):
     rng = np.random.default_rng(7)
     B = rng.dirichlet([1, 1, 1, 1], 6000)
     samples = {}
-    if group == "pennic":
+    if group in ("pennic", "kipennic"):
         reg = next(t for t in types if t["dim"] == "region")
         samples[reg["id"]] = [r5(chart(b)) + [seed_text(b), beta_text(b)] for b in B]
     else:
@@ -307,5 +315,5 @@ def build(group):
 
 
 if __name__ == "__main__":
-    for g in sys.argv[1:] or ["pennic", "decaic"]:
+    for g in sys.argv[1:] or ["pennic", "kipennic", "decaic"]:
         build(g)

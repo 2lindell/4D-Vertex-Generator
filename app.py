@@ -1599,7 +1599,7 @@ def render_oct_tab() -> None:
 def render_a4_tab() -> None:
     render_page_tab(
         A4_PAGE,
-        "The A4 symmetries (pennic [3,3,3] and decaic [[3,3,3]] so far) mapped over the A4 chamber: choose a "
+        "The A4 symmetries (pennic [3,3,3], kipennic [3,3,3]+ and decaic [[3,3,3]] so far) mapped over the A4 chamber: choose a "
         "symmetry for its regions, walls, lines and points, and paste a seed into Generate's Coordinates mode "
         "with the same symmetry.",
     )

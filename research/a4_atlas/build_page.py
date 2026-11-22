@@ -46,6 +46,17 @@ def notes(g, d):
                "prips, its six edges two tips, two srips, deca and spid, and its corners two pens and two raps (each "
                "pair a shape and its dual, the same polychoron).",
                chart, seeds]
+    elif g == "kipennic":
+        dom = ["Kipennic symmetry [3,3,3]+ is the rotation half of pennic, order 60 (the alternating group A5). Its "
+               "fundamental domain is two chambers, a chamber and its mirror image, so the chamber shown is half of "
+               "one: 1/120 of the 3-sphere.",
+               "On the chamber's faces a seed's 60 rotation images are its 120 pennic images (each reflection there "
+               "fixes the seed or matches a rotation), so the faces carry the same Wythoffian polychora as pennic: "
+               "grip and prip on the faces, tip, srip, deca and spid on the edges, pen and rap at the corners.",
+               "Inside the chamber every seed makes one polychoron, snad: the snub decachoron in its kipennic version, "
+               "5+5 snits, 10+10 gyro traps and 60 irregular tets, with 60 vertices (checked at 1500 random seeds: one "
+               "polychoron throughout). It is chiral: the mirror chamber gives its mirror image.",
+               chart, seeds]
     else:
         dom = ["Decaic symmetry [[3,3,3]] is the 5-cell's symmetries with the swap of the 5-cell and its dual: order "
                "240. The swap reads β backwards, (β1, β2, β3, β4) → (β4, β3, β2, β1): a half-turn of the chamber about "
@@ -97,7 +108,8 @@ def main():
                  lede=f"A map of every isogonal polychoron the {s['name'].lower()} group {s['bracket']} produces from a "
                       f"single seed. Each point of the A4 chamber is a seed; it is coloured by the polychoron its "
                       f"{d['order']} images make. Choose another A4 symmetry above to see its map on the same chamber.",
-                 domainChip="chamber = 1 domain" if g == "pennic" else "chamber = 2 domains (the swap)")
+                 domainChip={"pennic": "chamber = 1 domain", "kipennic": "chamber = ½ domain",
+                             "decaic": "chamber = 2 domains (the swap)"}[g])
         if g == "decaic":
             half = lambda b: M.chart(np.asarray(b, float))
             d["fold"] = {"axis": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 1, 0]))],
