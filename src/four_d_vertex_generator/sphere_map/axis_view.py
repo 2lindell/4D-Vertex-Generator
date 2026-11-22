@@ -1469,6 +1469,9 @@ def build() -> dict:
             for i in nxt:
                 show_layer[i] = lay_n
             frontier = nxt
+    # hand offsets set with the page's nudger and baked in here (axis_manual.json: {shape: [dx, dy, dz]})
+    manual_path = data_dir() / "sphere_map" / "axis_manual.json"
+    manual = json.loads(manual_path.read_text()) if manual_path.exists() else {}
     out = []
     for sh, s in zip(shapes, shift):
         V3 = sh["v"]
@@ -1478,6 +1481,8 @@ def build() -> dict:
             rec_turn = (about, round(float(np.degrees(ang)), 1))
             V3 = _turn(V3, P0, t, ang)
         V3 = V3 + s
+        if sh["id"] in manual:                      # (a hand offset, from the page's nudger)
+            V3 = V3 + np.asarray(manual[sh["id"]])
         rec = {"id": sh["id"], "kind": sh["kind"], "note": sh["note"],
                "layer": show_layer.get(idx[id(sh)], layer_of[sh["key"]]), "moved": np.round(s, 4).tolist()}
         if rec_turn:
@@ -1514,7 +1519,7 @@ def build() -> dict:
         ang, P0, t, _ = turn_of[i38]
         axis3 = _turn(axis3, P0, t, ang)
     axis3 = axis3 + shift[i38]
-    return {"_about": __doc__, "axis": axis3.round(5).tolist(), "shapes": out,
+    return {"_about": __doc__, "axis": axis3.round(5).tolist(), "shapes": out, "manual": manual,
             "links": [[i, j] for i, j, _ in rows], "missing": missing,
             "fit": {"nudged": nudged, "layer3": layer3_fit, "turned_about_edge": turned_about_edge, "warnings": warn_edges, "attached": attached, "arcs": arcs, "gap": GAP, "relative_residual_median": float(np.median(resid)), "relative_residual_max": float(np.max(resid)),
                     "achieved": [[i, j, round(float(np.linalg.norm(shift[j] - shift[i])), 4)] for i, j, _ in rows]}}
