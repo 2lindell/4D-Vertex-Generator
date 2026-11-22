@@ -125,6 +125,9 @@ def optimise_best(shape):
         if pr.get("off_R") is not None and pr["off_R"] < best.get("off_R", np.inf) * (1 - 1e-9) and ok(pr.get("off_seed")):
             best.update({"off_seed": pr["off_seed"], "off_R": pr["off_R"],
                          "prior_off": "the earlier run's written point kept (lower R than this run's)"})
+            if pr["off_R"] < best["R"]:          # (lower than all this run found: it is the shape's best)
+                best.update({"best": pr["off_seed"], "R": pr["off_R"], "status": "the earlier run's written point: a "
+                             "lower R than this run found (a local best inside the shape, not an exact minimum)"})
     if len(res) > 1:
         best["pieces"] = [{"piece": r["piece"], "locus": r["locus"], "R": r["R"], "best": r["best"], "status": r["status"]}
                           for r in res]

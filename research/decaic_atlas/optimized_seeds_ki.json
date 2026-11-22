@@ -1860,14 +1860,14 @@
     "active_sign_conditions": 0
    },
    "best": [
-    0.08551840163358536,
-    0.2998868590581285,
-    0.6002764175076153,
-    0.014318321800670877
+    0.09596905595639663,
+    0.28307452508709996,
+    0.6091285608332782,
+    0.011827858123225246
    ],
-   "R": 9.155948633202897,
+   "R": 8.166714590790928,
    "orbits": 11,
-   "status": "lower R by a direct search inside the shape (SLSQP found no feasible step): a local best, not an exact minimum",
+   "status": "the earlier run's written point: a lower R than this run found (a local best inside the shape, not an exact minimum)",
    "ring_check_rises": null,
    "off_seed": [
     0.09596905595639663,
