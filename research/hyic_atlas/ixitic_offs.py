@@ -33,12 +33,22 @@ from four_d_vertex_generator.off import to_4off
 S = json.loads(sys.stdin.read())
 M = json.load(open(os.path.join(%(here)r, G.fname("snub_map"))))
 surfs = [Surface(t) for t in M["surfaces"]]
+try:
+    EXACT = json.load(open(os.path.join(%(here)r, "%(group)s_line_equations.json")))["lines"]
+except FileNotFoundError:
+    EXACT = {}
 for s in S:
     b = np.asarray(s["seed"], float); b = b / b.sum()
     if s["kind"] == "region":                     # (a seed on a mirror keeps its surfaces too: ixoic_wall_03 lies on one
         s["locus"] = []                           #  there, and without it every step leaves the shape)
     else:
         s["locus"] = [x.text for x in surfs if x.dist(b) < 1e-7]
+    if s["name"] in EXACT:                        # (a line's exact equations: ixoic_line_equations.py; one with no line
+        e = EXACT[s["name"]]                      #  through its seed is a point)
+        if "equations" in e:
+            s["locus"], s["exact_locus"], s["hull_tol"] = e["equations"], True, e["hull_tol"]
+        elif e["status"].startswith("no line"):
+            s["degrees"], s["hull_tol"] = 0, e["hull_tol"]
     for tol in [t for t in (1e-9, 1e-8, 1e-7) if t >= s["hull_tol"]]:   # (the tightest hull tolerance at which the seed is its own shape:
         try:                                          #  some seeds (points, lines) are not at 1e-9, and every later
             if G.label(b, tol)[1] == s["key"]:        #  check of them then fails: "moved to another polytope")
@@ -85,6 +95,8 @@ with Pool(4) as pool:                             # (a worker that dies (a crash
 out = []
 for s, (r, c) in zip(S, R):
     row = {k: s[k] for k in ("name", "kind", "degrees", "key", "locus", "sheet", "hull_tol")}
+    if s["name"] in EXACT:
+        row["exact_line"] = EXACT[s["name"]]["status"]
     row.update(seed=list(map(float, s["seed"])), locus_used=r.get("locus_used"), start_R=r.get("start_R"), R=r.get("R"),
                optimized=list(map(float, r.get("off_seed", r.get("best", s["seed"])))), optimized_status=r["status"],
                central=list(map(float, c["centre"])), depth=c.get("depth"), central_status=c["status"])

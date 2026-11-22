@@ -264,7 +264,7 @@ def optimise(shape):
     if shape["degrees"] >= 3 and CROSS_MIRRORS and seed.min() < 1e-12:
         seed = seed + 1e-4 * (seed < 1e-12)                          # (a region seed on a mirror: start just off it)
         seed = seed / seed.sum()
-    zero = [] if shape.get("_off_mirrors") else [i for i in range(4) if seed[i] < 1e-12]   # (on a mirror: stays there)
+    zero = [] if shape.get("_off_mirrors") or shape.get("exact_locus") else [i for i in range(4) if seed[i] < 1e-12]   # (on a mirror: stays there)
     free = [i for i in range(4) if i not in zero]
     # (locus equations not already met by the mirrors' zeros)
     loc = [sp.sympify(t) for t in shape["locus"]]
@@ -276,7 +276,7 @@ def optimise(shape):
     #  independent variables", so no progress), and with many (23 for 5 unknowns) scipy's SLSQP corrupts memory and
     #  the process dies. Kept: a set of equations of full rank at the seed, those whose surface keeps the shape for a
     #  small step along it first.)
-    if loc:
+    if loc and not shape.get("exact_locus"):         # (exact equations given (ixoic_line_equations.json): used as they are)
         def grad(i):
             g = np.array([gi(*seed) for gi in loc_g[i]], float)
             g[zero] = 0
