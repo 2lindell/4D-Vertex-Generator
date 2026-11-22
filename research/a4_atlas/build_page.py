@@ -121,8 +121,12 @@ def main():
                          "axisName": "the swap's axis β1 = β4, β2 = β3 (seeds here are fixed by the swap)",
                          "plane": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 0, 0])), M.r5(half([0, 0, 1, 0]))]}
         maps[g] = d
-    for g, d in maps.items():
+    ids = {g: {t["id"] for t in d["types"]} for g, d in maps.items()}
+    names = {s["key"]: s["name"] for s in SYMMETRIES}
+    for g, d in maps.items():                   # (the other A4 symmetries whose maps have the same polychoron)
         d["notes"] = notes(g, maps)
+        for t in d["types"]:
+            t["shared"] = [names[h] for h in maps if h != g and t["id"] in ids[h]]
     type_css = (f":root {{ {' '.join(light)} }}\n@media (prefers-color-scheme: dark) {{ :root:not([data-theme=\"light\"]) "
                 f"{{ {' '.join(dark)} }} }}\n:root[data-theme=\"dark\"] {{ {' '.join(dark)} }}")
     data = {"symmetries": SYMMETRIES, "maps": maps}

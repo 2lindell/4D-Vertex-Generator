@@ -332,7 +332,7 @@ __TYPE_CSS__
         for (const t of rows) {
           const counts = t.cells ? `cells ${t.cells}<br>faces ${t.faces}<br>edges ${t.edges}${t.valence ? `<br>valence ${t.valence}` : ""}<br><span class="locus">${t.example}:</span><br>${seedLine(t.seed)}<br>β ${t.beta}` : pending("no hull");
           html += `<tr class="row" data-id="${t.id}"><td class="id">${swatch(t)}${t.id}</td><td class="num">${t.vertices || ""}</td><td>${t.name || pending("—")}</td>`
-            + `<td class="counts">${counts}</td><td class="where">${t.where}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}</td>`
+            + `<td class="counts">${counts}</td><td class="where">${t.where}${t.locus ? `<br><span class="locus">${t.locus}</span>` : ""}${t.shared && t.shared.length ? `<br><span class="locus">also under ${t.shared.join(", ")}</span>` : ""}</td>`
             + `<td class="bounds">${boundsCell(t)}</td></tr>`;
         }
       }

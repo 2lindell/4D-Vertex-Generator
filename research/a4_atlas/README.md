@@ -9,6 +9,8 @@ four mirrors of [3,3,3]) is drawn, with its key of regions, walls, lines and poi
   - kipennic [3,3,3]+: the same faces, with snad (the kipennic snub decachoron) inside;
   - decaic [[3,3,3]]: the exact plane arrangement of `../decaic_atlas/arrangement.json`, every face classified
     (`../decaic_atlas/shapes.py`, names from `decaic_shapes.json`), carried by the swap onto the chamber's other half.
+- `a4_snub.py` (work in progress, not on the page): kidecaic and iodecaic, whose walls are curved; its grid-meshed walls are
+  to be replaced by pieces bounded by exactly traced lines.
 - `build_page.py` fills `a4_template.html` with every map built so far. Kidecaic and iodecaic are listed
   but not mapped yet: their maps have curved walls (`../decaic_atlas/snub_map.py`).
 

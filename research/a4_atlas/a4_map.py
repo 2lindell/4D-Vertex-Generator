@@ -94,10 +94,10 @@ def beta_text(beta):
     return "(" + ", ".join(f"{v:.4f}" for v in b) + ")"
 
 
-def classify(points, sub):
+def classify(points, sub, tol=1e-9):
     """(signature, key) of each beta, by decaic_atlas/group.py under DECAIC_SUB = sub (in a process of its own)."""
     code = ("import json, sys, numpy as np\nimport group as G\nP = json.loads(sys.stdin.read())\n"
-            "print(json.dumps([list(G.label(np.asarray(p, float) / np.sum(p), 1e-9)) for p in P]))")
+            f"print(json.dumps([list(G.label(np.asarray(p, float) / np.sum(p), {tol})) for p in P]))")
     r = subprocess.run([sys.executable, "-c", code], input=json.dumps([[float(v) for v in p] for p in points]),
                        capture_output=True, text=True, cwd=DEC, env={**os.environ, "DECAIC_SUB": sub}, check=True)
     return json.loads(r.stdout)
@@ -303,10 +303,11 @@ def build(group):
     # chamber's centre), in every piece of the shape
     ex = {}
     if group == "decaic":
-        opt = {r["name"]: r["off_seed"] for r in json.load(open(os.path.join(DEC, "optimized_seeds.json")))["shapes"]}
+        O = {r["name"]: r for r in json.load(open(os.path.join(DEC, "optimized_seeds.json")))["shapes"]}
         cen = {r["name"]: r["centre"] for r in json.load(open(os.path.join(DEC, "central_seeds.json")))["shapes"]}
-        for t in types:
-            b = np.asarray(cen[t["id"]] if t["dim"] == "region" else opt[t["id"]], float)
+        for t in types:                         # (an optimum on the shape's edge: its central seed instead)
+            t["edge_opt"] = t["dim"] != "region" and O[t["id"]]["status"].startswith("infimum")
+            b = np.asarray(cen[t["id"]] if t["dim"] == "region" or t["edge_opt"] else O[t["id"]]["off_seed"], float)
             b = np.clip(b, 0, None)
             ex[t["id"]] = [b] + ([b[::-1]] if not np.allclose(b, b[::-1]) else [])
     else:
@@ -325,6 +326,7 @@ def build(group):
         b0 = ex[t["id"]][0]
         t["seed"], t["beta"] = seed_text(b0), beta_text(b0)
         t["example"] = "central seed (the deepest point of the region)" if t["dim"] == "region" else (
+            "central seed (its most even seed is on its edge)" if t.pop("edge_opt", False) else 
             "the point" if t["dim"] == "point" else "most even seed (least longest / shortest edge)" if group == "decaic"
             else "uniform seed (all edges equal)")
     # each region's extent: the faces of the map between it and anything else (the walls round it), with their edges,
