@@ -2044,7 +2044,7 @@
    ],
    "depth": null,
    "central_status": "not computed",
-   "seed_off": "new_shapes/off/ixoic/ixoic_line_potbatid_1440v_3592c_seed.off",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_potbatid_1440v_1200c_seed.off",
    "seed_R": 2.224370078658187
   },
   {
@@ -7643,7 +7643,7 @@
    ],
    "depth": null,
    "central_status": "not computed",
-   "seed_off": "new_shapes/off/ixoic/ixoic_point_regposbitad_1440v_5759c_seed.off",
+   "seed_off": "new_shapes/off/ixoic/ixoic_point_regposbitad_1440v_1440c_seed.off",
    "seed_R": 6.145170432103511
   },
   {
@@ -8671,7 +8671,7 @@
    ],
    "depth": null,
    "central_status": "not computed",
-   "seed_off": "new_shapes/off/ixoic/ixoic_point_petsobted_1440v_5758c_seed.off",
+   "seed_off": "new_shapes/off/ixoic/ixoic_point_petsobted_1440v_2160c_seed.off",
    "seed_R": 2.124145974338158
   },
   {
@@ -12134,7 +12134,7 @@
    ],
    "depth": null,
    "central_status": "not computed",
-   "seed_off": "new_shapes/off/ixoic/ixoic_line_bitutid_1440v_5520c_seed.off",
+   "seed_off": "new_shapes/off/ixoic/ixoic_line_bitutid_1440v_1200c_seed.off",
    "seed_R": 9.06562249781225
   },
   {
