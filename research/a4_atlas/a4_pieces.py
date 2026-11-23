@@ -90,6 +90,8 @@ def extend_lines(X, surfs, log):
             if deg[end] != 1 or x.min() < 1e-9:
                 continue
             Q = np.asarray(s["pts"], float)
+            if np.abs(Q[:, 0] - Q[:, 3]).max() < 1e-6 and np.abs(Q[:, 1] - Q[:, 2]).max() < 1e-6:
+                continue                                 # (the swap's axis: drawn whole, corner to corner)
             Q = Q[::-1] if s["ends"][0] == end else Q        # (Q ends at the dangling point)
             on = [surfs[k] for k in s["on"]]
             t = Q[-1] - Q[-min(10, len(Q))]
@@ -190,8 +192,57 @@ def loops_of(F, X, by_surf, h):
     return loops
 
 
+def rim_loops(F, S, P, h):
+    """The piece's loops from its marching mesh's rim (whose cut vertices a4_exact solved onto the exact curves), each
+    exact point of the map on its surface and near the rim put into it at the rim edge nearest it: the corners the
+    marching mesh cut off. (Where its segments do not chain: curves traced from several pairs, overlapping.)"""
+    V = np.asarray(F["mesh"]["verts"], float)
+    rim = rim_of(F)
+    if not rim:
+        return None
+    nb = defaultdict(list)
+    for a, b in rim:
+        nb[a].append(b)
+        nb[b].append(a)
+    if any(len(v) != 2 for v in nb.values()):
+        return None
+    loops, left = [], set(nb)
+    while left:
+        a = left.pop()
+        L, prev, cur = [a], None, a
+        while True:
+            nx = [b for b in nb[cur] if b != prev]
+            prev, cur = cur, nx[0]
+            if cur == a:
+                break
+            left.discard(cur)
+            L.append(cur)
+        loops.append([V[i] for i in L])
+    on = [p for p in P if abs(S.f(p)) / (np.linalg.norm(S.g(p)) + 1e-300) < 1e-9]
+    keep = []
+    for L in loops:
+        L = list(L)
+        fixed = set()
+        for p in on:
+            Q = np.array(L)
+            A_, B_ = Q, np.roll(Q, -1, 0)
+            d = B_ - A_
+            u = np.clip(np.einsum("ij,ij->i", p - A_, d) / (np.einsum("ij,ij->i", d, d) + 1e-300), 0, 1)
+            dist = np.linalg.norm(A_ + u[:, None] * d - p, axis=1)
+            i = int(np.argmin(dist))
+            if dist[i] > h:
+                continue
+            if np.linalg.norm(Q - p, axis=1).min() < 1e-9:
+                fixed.add(int(np.argmin(np.linalg.norm(Q - p, axis=1))))
+                continue
+            L.insert(i + 1, np.asarray(p, float))
+            fixed = {j + (j > i) for j in fixed} | {i + 1}
+        keep.append((np.array(L), fixed))
+    return keep
+
+
 # --------------------------------------------------------------------------------------------- 3. the loops triangulated
-def thin(P, h):
+def thin(P, h, fixed=()):
     """A loop's points kept at least h apart along it (its exact points always: every original corner of its
     segments, where it turns)."""
     out = [P[0]]
@@ -200,7 +251,7 @@ def thin(P, h):
         if 0 < i < len(P) - 1:
             a, b = P[i] - P[i - 1], P[i + 1] - P[i]
             turn = a @ b < 0.9 * np.linalg.norm(a) * np.linalg.norm(b)
-        if np.linalg.norm(P[i] - out[-1]) >= h or turn:
+        if np.linalg.norm(P[i] - out[-1]) >= h or turn or i in fixed:
             out.append(P[i])
     return np.array(out)
 
@@ -241,7 +292,22 @@ def lift(S, x, n):
 
 def triangulate(S, loops, planar):
     """Triangles inside the loops (largest the outer), laid flat across a normal and lifted onto S."""
+    # (no point twice: triangle fails on repeated vertices)
+    clean = []
+    for L in loops:
+        L = np.asarray(L, float)
+        keep = [0] + [i for i in range(1, len(L)) if np.linalg.norm(L[i] - L[i - 1]) > 1e-10]
+        L = L[keep]
+        if len(L) > 1 and np.linalg.norm(L[-1] - L[0]) <= 1e-10:
+            L = L[:-1]
+        if len(L) >= 3:
+            clean.append(L)
+    loops = clean
+    if not loops:
+        return None
     P = np.vstack(loops)
+    if len(np.unique(np.round(P, 11), axis=0)) != len(P):
+        return None
     tries = [np.mean([normal(S, x) for x in P[:: max(1, len(P) // 40)]], 0)]
     tries += [normal(S, x) for x in P[:: max(1, len(P) // 6)]]
     Z = (P - P.mean(0)) @ BZ.T
@@ -268,9 +334,12 @@ def triangulate(S, loops, planar):
             if r:
                 t0 = tr.triangulate({"vertices": Q, "segments": [[i, (i + 1) % m] for i in range(m)]}, "p")
                 holes.append(Q[t0["triangles"][0]].mean(0))
-        A = {"vertices": np.vstack(verts), "segments": np.array(segs, np.int32)}
+        A = {"vertices": np.ascontiguousarray(np.vstack(verts), dtype=np.float64),
+             "segments": np.ascontiguousarray(np.array(segs, np.int32))}
+        if len(np.unique(np.round(A["vertices"], 12), axis=0)) != len(A["vertices"]):
+            continue
         if holes:
-            A["holes"] = np.array(holes)
+            A["holes"] = np.ascontiguousarray(np.array(holes), dtype=np.float64)
         # (a flat piece needs no inner points: its loop's own)
         for opts in ((f"pYq20a{MAX_AREA:.3g}", f"pYq25a{MAX_AREA * 4:.3g}") if not planar else ()) + ("pY",):
             try:
@@ -313,14 +382,21 @@ def rework(group, log=print):
         for k in s["on"]:
             by_surf[k].append(si)
     h = 1.6 / E.GRID if hasattr(E, "GRID") else 0.035
-    kept, done = Counter(), 0
+    kept, done, how = Counter(), 0, Counter()
+    Pts = [np.asarray(p, float) for p in X["points"]]
     for F in X["faces"]:
         S = surfs[F["surface"]]
         L = loops_of(F, X, by_surf, h)
-        if L is None:
-            kept["loop not closed"] += 1
-            continue
-        L = [thin(Q, 0.25 * np.sqrt(MAX_AREA)) for Q in L]
+        if L is not None:
+            L = [thin(Q, 0.25 * np.sqrt(MAX_AREA)) for Q in L]
+            how["exact segments"] += 1
+        else:
+            R_ = rim_loops(F, S, Pts, h)
+            if R_ is None:
+                kept["rim not a loop"] += 1
+                continue
+            L = [thin(Q, 0.5 * np.sqrt(MAX_AREA), fx) for Q, fx in R_]
+            how["mesh rim, exact corners"] += 1
         res = triangulate(S, L, F["surface"] < 4 or S.expr.as_poly().total_degree() == 1)
         if res is None:
             kept["not triangulated"] += 1
@@ -330,7 +406,7 @@ def rework(group, log=print):
         F["filled"] = []
         F["exact_loop"] = True
         done += 1
-    log(f"  {done} pieces meshed inside their exact loops; kept their marching mesh: {dict(kept)}")
+    log(f"  {done} pieces meshed inside their loops ({dict(how)}); kept their marching mesh: {dict(kept)}")
     pickle.dump(X, open(os.path.join(HERE, f"a4_pieces_{group}.pkl"), "wb"))
     return X
 
