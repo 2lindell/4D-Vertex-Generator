@@ -110,12 +110,16 @@ def trace(x0, A, Bs, mirrors, h=2e-3, nmax=4000):
                 if ok2 and inside(z, 1e-10):
                     pts.append(np.clip(z, 0, None) if abs(z[k]) < 1e-13 else z)
                 break
+            # (back at the start: the step x -> y passes x0. A step rarely lands within a step of it, so a loop
+            #  would otherwise be traced round and round, each lap crossing the other surfaces again)
+            d_ = y - x
+            u_ = np.clip((x0 - x) @ d_ / (d_ @ d_ + 1e-300), 0, 1)
+            if n > 5 and np.linalg.norm(x + u_ * d_ - x0) < 0.25 * h and sgn == 1:
+                closed = True
+                break
             pts.append(y)
             x, t = y, tn
             hh = min(h, hh * 1.5)
-            if n > 5 and np.linalg.norm(y - x0) < 0.6 * h and sgn == 1:
-                closed = True
-                break
         halves.append(pts)
         if closed:
             return [x0] + halves[0] + [x0], True
@@ -184,13 +188,14 @@ def build(group):
     # the surfaces that carry a wall: points spread on each (and its swap image) classified at hull tolerance 1e-7
     rng = np.random.default_rng(5)
     mirrors = [Surf(B[k], f"b{k + 1}") for k in range(4)]
+    # (each surface once: a listed surface's swap image can be another listed surface, and a pair of copies of one
+    #  surface has no common curve, only the whole surface, which a trace wanders over crossing everything)
     cand = []
     for text in SM["surfaces"]:
         e = sp.sympify(text)
-        cand.append(Surf(e, text))
-        er = rev(e)
-        if not same_surface(e, er):
-            cand.append(Surf(er, "swap of " + text))
+        for ex, nm in ((e, text), (rev(e), "swap of " + text)):
+            if not any(same_surface(c_.expr, ex) for c_ in cand):
+                cand.append(Surf(ex, nm))
     samples, owner = [], []
     for i, s in enumerate(cand):
         got = 0
