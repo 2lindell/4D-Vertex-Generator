@@ -237,6 +237,20 @@ def build(group):
                     if len(pts) >= 2:
                         found.append({"pair": (a, b), "pts": [np.asarray(p) for p in pts], "closed": closed})
                 curves += found
+        # (one curve can be found from many pairs: the swap's axis lies on every swap-odd surface; keep one copy, the
+        #  others' probes lying on it)
+        def seg_dist(q, P):
+            P = np.asarray(P); A_, B_ = P[:-1], P[1:]; d = B_ - A_
+            t = np.clip(np.einsum("ij,ij->i", q - A_, d) / (np.einsum("ij,ij->i", d, d) + 1e-300), 0, 1)
+            return np.linalg.norm(A_ + t[:, None] * d - q, axis=1).min()
+        kept = []
+        for c in curves:
+            P = c["pts"]
+            probe = [P[len(P) // 4], P[len(P) // 2], P[(3 * len(P)) // 4]]
+            if any(len(k["pts"]) > 1 and all(seg_dist(q, k["pts"]) < 1e-6 for q in probe) for k in kept):
+                continue
+            kept.append(c)
+        curves = kept
         print(" ", len(curves), "curves", flush=True)
         # 2. points: a third surface crossing a curve
         points = []
