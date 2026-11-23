@@ -207,11 +207,83 @@ def build(group):
     wall_keys = {t["key"] for t in types if t["dim"] == "wall"}
     region_keys = {t["key"] for t in types if t["dim"] == "region"}
     chartv = lambda V: [M.r5(M.chart(np.clip(np.asarray(v, float), 0, None))) for v in V]
+    CELL = float(os.environ.get("A4_MESH_CELL", "0.004"))
+    Pexact = np.array([M.chart(np.clip(np.asarray(q, float), 0, None)) for q in X["points"]]).reshape(-1, 3)
+    from scipy.spatial import cKDTree
+    Ptree = cKDTree(Pexact) if len(Pexact) else None
+
+    def simplify(V, T):
+        """The mesh in the chart, its inner vertices merged within a cell (CELL, in the chart's units) and the
+        triangles left flat dropped; the piece's outline keeps its vertices, exact on the traced lines."""
+        V = np.array([M.chart(np.clip(np.asarray(v, float), 0, None)) for v in V])
+        ec = Counter(tuple(sorted(e)) for t in T for e in ((t[0], t[1]), (t[1], t[2]), (t[2], t[0])))
+        rim = {a for e, c in ec.items() if c == 1 for a in e}
+        rep, cells = {}, {}
+        for i, v in enumerate(V):
+            if i in rim:                         # (the outline: merged in a finer cell, the map's points kept)
+                if Ptree is not None and Ptree.query(v)[0] < 1e-9:
+                    rep[i] = i
+                else:
+                    rep[i] = cells.setdefault(("rim",) + tuple(np.floor(v / (CELL / 2)).astype(int)), i)
+            else:
+                rep[i] = cells.setdefault(tuple(np.floor(v / CELL).astype(int)), i)
+        T2 = [[rep[a] for a in t] for t in T]
+        T2 = [t for t in T2 if len(set(t)) == 3]
+        used = sorted({a for t in T2 for a in t})
+        new = {a: k for k, a in enumerate(used)}
+        return {"verts": [M.r5(V[a]) for a in used], "faces": [[new[a] for a in t] for t in T2]}
     # walls: the exact pieces that are wall shapes; each region's extent: the pieces round it (walls on either side,
     # mirror patches on its side)
     walls, shells_tri, sep, unlisted = [], defaultdict(list), defaultdict(set), Counter()
+    # (a4_exact fills a piece's gap at an exact point near its outline; that is right only where the point is a corner
+    #  left uncovered: where another piece of the same surface covers it, the fan would lie over that piece. Such
+    #  fills are dropped here)
+    def own_tris(F):
+        fl = set(F.get("filled", []))
+        return np.array([t for t in F["mesh"]["faces"] if not fl.intersection(t)], int).reshape(-1, 3)
+
+    by_surf = defaultdict(list)
+    for fi, F in enumerate(X["faces"]):
+        by_surf[F["surface"]].append(fi)
+    dropped = 0
+    for si_, fis in by_surf.items():
+        if not any(X["faces"][fi].get("filled") for fi in fis):
+            continue
+        A, E0, E1, own = [], [], [], []              # (every piece's own triangles on this surface)
+        for fi in fis:
+            V = np.asarray(X["faces"][fi]["mesh"]["verts"], float)
+            T = own_tris(X["faces"][fi])
+            if len(T):
+                A.append(V[T[:, 0]]); E0.append(V[T[:, 1]] - V[T[:, 0]]); E1.append(V[T[:, 2]] - V[T[:, 0]])
+                own += [fi] * len(T)
+        A, E0, E1, own = np.concatenate(A), np.concatenate(E0), np.concatenate(E1), np.array(own)
+        a_, b_, c_ = (E0 * E0).sum(1), (E0 * E1).sum(1), (E1 * E1).sum(1)
+        den = a_ * c_ - b_ * b_ + 1e-300
+        cover = {}
+
+        def covered_by(p):
+            k = tuple(np.round(p, 12))
+            if k not in cover:
+                w = p - A
+                d, e = (E0 * w).sum(1), (E1 * w).sum(1)
+                u, v = (c_ * d - b_ * e) / den, (a_ * e - b_ * d) / den
+                ok = (u >= -1e-9) & (v >= -1e-9) & (u + v <= 1 + 1e-9)
+                Q = A[ok] + u[ok, None] * E0[ok] + v[ok, None] * E1[ok]
+                cover[k] = set(own[ok][np.linalg.norm(Q - p, axis=1) < 1e-7].tolist())
+            return cover[k]
+        for fi in fis:
+            F = X["faces"][fi]
+            fl = F.get("filled", [])
+            if not fl:
+                continue
+            V = np.asarray(F["mesh"]["verts"], float)
+            bad = {i for i in fl if covered_by(V[i]) - {fi}}
+            if bad:
+                F["mesh"] = dict(F["mesh"], faces=[t for t in F["mesh"]["faces"] if not bad.intersection(t)])
+                dropped += len(bad)
+    print("  fills dropped (the point covered by another piece):", dropped, flush=True)
     for F in X["faces"]:
-        mesh = {"verts": chartv(F["mesh"]["verts"]), "faces": F["mesh"]["faces"]}
+        mesh = simplify(F["mesh"]["verts"], F["mesh"]["faces"])
         on_mirror = F["surface"] < 4
         if F["key"] in wall_keys and not on_mirror:
             walls.append({"id": tid[F["key"]], **mesh})
@@ -219,7 +291,7 @@ def build(group):
             t["pieces"] += 1
             for r in F["sides"]:
                 if r in region_keys:
-                    shells_tri[tid[r]].append(mesh)
+                    shells_tri[tid[r]].append(len(walls) - 1)     # (a wall piece: by its index in walls)
                     sep[tid[F["key"]]].add(tid[r])
         elif on_mirror and F["sides"][0] in region_keys:
             shells_tri[tid[F["sides"][0]]].append(mesh)
@@ -227,27 +299,61 @@ def build(group):
             unlisted[F["key"]] += 1
     shells = {}
     for r, parts in shells_tri.items():
-        V, Fa = [], []
+        V, Fa, W = [], [], []
         for m in parts:
+            if isinstance(m, int):
+                W.append(m)
+                continue
             o = len(V)
             V += m["verts"]
             Fa += [[a + o for a in f] for f in m["faces"]]
-        shells[r] = {"verts": V, "faces": Fa, "edges": []}
+        shells[r] = {"verts": V, "faces": Fa, "walls": sorted(set(W)), "edges": []}
     for t in types:
         t["separates"] = sorted(sep.get(t["id"], ()))
     # lines: the traced segments that are line shapes; edges: the others (where walls meet, or meet a mirror), drawn
     # thin; a chamber edge (on two mirrors) is the domain's own
     lines, edges = [], []
+    # (the swap's axis is drawn once, exactly, as its line shape: many pairs of surfaces through it traced
+    #  overlapping bits of it)
+    def on_axis(P):
+        P = np.asarray(P)
+        return np.abs(P[:, 0] - P[:, 3]).max() < 1e-6 and np.abs(P[:, 1] - P[:, 2]).max() < 1e-6
+    ax = [s_ for s_ in S if s_.get("axis")]
+    if ax:
+        tv = np.linspace(0, 0.5, 41)
+        lines.append({"id": ax[0]["id"], "pts": chartv(np.stack([tv, 0.5 - tv, 0.5 - tv, tv], 1)),
+                      "ends": ("axis", "axis")})
     for sg in X["segments"]:
-        pts = chartv(sg["pts"][:: max(1, len(sg["pts"]) // 120)] + [sg["pts"][-1]])
+        if ax and on_axis(sg["pts"]):
+            continue
+        L_ = np.linalg.norm(np.diff(np.asarray(sg["pts"]), axis=0), axis=1).sum()
+        if L_ < 1e-5:
+            continue
+        pts = chartv(sg["pts"][:: max(1, len(sg["pts"]) // 40)] + [sg["pts"][-1]])
         if sg["key"] in tid and by_key[sg["key"]]["kind"] == "line":
-            lines.append({"id": tid[sg["key"]], "pts": pts})
-        elif len([k for k in sg["on"] if k < 4]) < 2:
+            lines.append({"id": tid[sg["key"]], "pts": pts, "ends": tuple(sg["ends"])})
+        elif len([k for k in sg["on"] if k < 4]) < 2 and sg["key"] not in region_keys:
+            # (only where walls meet, or meet a mirror: a crossing inside a region, of surfaces carrying no wall
+            #  there, is not drawn)
             edges.append({"pts": pts, "hover": "an edge of the map: " + " and ".join(
                 X["surfaces"][k] for k in sorted(sg["on"])[:3])})
+    # (a line's pieces: its runs, segments joined at shared points; a line is cut wherever any surface crosses it,
+    #  but goes on as the same shape there)
     for t in types:
         if t["dim"] == "line":
-            t["pieces"] = sum(1 for l_ in lines if l_["id"] == t["id"])
+            par = {}
+
+            def root(a):
+                while par.setdefault(a, a) != a:
+                    a = par[a]
+                return a
+            for l_ in lines:
+                if l_["id"] == t["id"]:
+                    a, b = l_["ends"]
+                    par[root(a)] = root(b)
+            t["pieces"] = len({root(a) for a in list(par)})
+    for l_ in lines:
+        l_.pop("ends", None)
     # the mirrors: decaic's shapes there (a seed on a mirror has the decaic images)
     D = json.load(open(os.path.join(HERE, "a4_map_decaic.json")))
     dom = M.domain()
@@ -304,7 +410,8 @@ def build(group):
         for q in [b] + ([b[::-1]] if not np.allclose(b, b[::-1]) else []):
             examples.append({"id": t["id"], "q": M.r5(M.chart(q)), "beta": M.beta_text(q), "seed": M.seed_text(q)})
         if t["dim"] == "region":
-            t["where"] = f"region ({100 * frac.get(t['key'], 0) / len(R_):.1f}% of the chamber)"
+            pc = 100 * frac.get(t["key"], 0) / len(R_)
+            t["where"] = f"region ({pc:.1f}% of the chamber)" if pc >= 0.05 else "region (under 0.1% of the chamber: thin)"
         else:
             t["where"] = t["dim"] + (f" ({t['pieces']} pieces)" if t["pieces"] > 1 else "") + (
                 " (on the swap's axis)" if by_key[t["key"]].get("axis") else "")

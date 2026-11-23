@@ -70,6 +70,24 @@ def notes(g, d):
                "surface through the change was added (the fold planes β1 = β4 and β2 = β3).",
                "On the mirrors a seed's images are the decaic ones, so the mirrors carry decaic's shapes.",
                chart, seeds]
+    elif g == "kidecaic":
+        dom = ["Kidecaic symmetry [[3,3,3]]+ (order 120) is the rotation half of decaic: the 5-cell's 60 rotations, "
+               "and the swap of the 5-cell and its dual taken together with a reflection. It has no mirrors of its own, "
+               "so the A4 chamber is one fundamental domain; the swap maps the group to itself, so a seed and its swap "
+               "image (β read backwards) make the same polychoron, and the map is symmetric under β → (β4, β3, β2, β1). "
+               "Its polychora are chiral: a mirror image of the chamber gives their mirror images.",
+               "Its map is much finer than iodecaic's: 14 regions (abosid fills about half the chamber, apbosid a "
+               "fifth, gabosid and bebosid most of the rest; several are thin slivers), 16 walls on planes and "
+               "quadric and quartic surfaces, and three lines: snad all along the swap's axis, and the crossing lines "
+               "sawbosid and gawbosid, where two surfaces meet.",
+               "The map is built exactly (a4_exact.py), as for iodecaic. 70 of its surfaces contain the swap's axis, "
+               "and each swap pair of them is tangent all along it, so a traced curve ends where its two surfaces turn "
+               "tangent, solved onto the axis, and the axis is drawn once, as snad. The closure check (every piece "
+               "classified at many points) added surfaces through the changes it found in three rounds; after the "
+               "fourth, a few pieces still disagree at one or two of their points (two bedwebosid pieces and one "
+               "epybosid piece among the walls), so a wall's outline there may be off by a little.",
+               "On the mirrors a seed's images are the decaic ones, so the mirrors carry decaic's shapes.",
+               chart, seeds]
     else:
         dom = ["Decaic symmetry [[3,3,3]] is the 5-cell's symmetries with the swap of the 5-cell and its dual: order "
                "240. The swap reads β backwards, (β1, β2, β3, β4) → (β4, β3, β2, β1): a half-turn of the chamber about "
