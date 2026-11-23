@@ -193,7 +193,9 @@ def build(group):
     """The page's map from the exact pieces (a4_exact.py: a4_exact_<group>.pkl)."""
     import pickle
     sub = SUB[group]
-    X = pickle.load(open(os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
+    # (a4_pieces.py's pieces when made: each meshed inside its exact loop, the lines carried to their ends)
+    pp = os.path.join(HERE, f"a4_pieces_{group}.pkl")
+    X = pickle.load(open(pp if os.path.exists(pp) else os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
     S = X["shapes"]
     by_key = {s["key"]: s for s in S}
     types = []
@@ -283,7 +285,8 @@ def build(group):
                 dropped += len(bad)
     print("  fills dropped (the point covered by another piece):", dropped, flush=True)
     for F in X["faces"]:
-        mesh = simplify(F["mesh"]["verts"], F["mesh"]["faces"])
+        mesh = ({"verts": chartv(F["mesh"]["verts"]), "faces": [list(map(int, t)) for t in F["mesh"]["faces"]]}
+                if F.get("exact_loop") else simplify(F["mesh"]["verts"], F["mesh"]["faces"]))
         on_mirror = F["surface"] < 4
         if F["key"] in wall_keys and not on_mirror:
             walls.append({"id": tid[F["key"]], **mesh})
