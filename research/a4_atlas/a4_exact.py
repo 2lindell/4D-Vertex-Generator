@@ -491,9 +491,23 @@ def build(group):
                     else:
                         hi = m
                 x = newton(a0 + lo * (q - a0), [Sf])[0]
+                # (only the surface that makes the change: through it, and with the face's inner point and the
+                #  disagreeing probe on its two sides; of those, the nearest. Many pass near a change where several
+                #  meet, and taking them all multiplies the map)
+                best = None
                 for ci, c_ in enumerate(cand):
-                    if c_ not in R and abs(c_.f(x)) / (np.linalg.norm(c_.g(x)) + 1e-300) < 1e-6:
-                        add.add(ci)
+                    if c_ in R or c_.f(a0) * c_.f(q) >= 0:
+                        continue
+                    d = abs(c_.f(x)) / (np.linalg.norm(c_.g(x)) + 1e-300)
+                    if d < 1e-6 and (best is None or d < best[0]):
+                        best = (d, ci)
+                if best:
+                    add.add(best[1])
+                    # (and its swap image, so the map stays swap-symmetric)
+                    tw = next((cj for cj, c2 in enumerate(cand) if c2 not in R and cj != best[1]
+                               and same_surface(c2.expr, rev(cand[best[1]].expr))), None)
+                    if tw is not None:
+                        add.add(tw)
             print(f"  closure: face of {keyname.get(F['key'], F['key'])} on {Sf.name[:30]} disagrees at {len(qs)} probes",
                   flush=True)
         if not add:
