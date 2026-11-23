@@ -528,7 +528,7 @@ def tutte(F, S, P, h, planar):
     Xv = list(Lp)
     for q in Tr["vertices"][m:]:
         got = None
-        for j in cen.query(q, k=min(24, len(T)))[1]:
+        for j in np.atleast_1d(cen.query(q, k=min(24, len(T)))[1]):
             a, b, c = UVt[j]
             d = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1])
             if abs(d) < 1e-300:
@@ -577,6 +577,88 @@ def groups(S, loops):
     return out
 
 
+def mesh_face(F, surfs, Pts, h, X, by_surf):
+    """Remesh one piece. Returns ((verts, faces), method) or (None, reason)."""
+    S = surfs[F["surface"]]
+    planar = F["surface"] < 4 or S.expr.as_poly().total_degree() == 1
+    tu = tutte(F, S, Pts, h, planar)
+    if tu is not None:
+        return tu, "laid on a disk (Tutte)"
+    L = loops_of(F, X, by_surf, h)
+    if L is not None:
+        L = [thin(Q, 0.25 * np.sqrt(MAX_AREA)) for Q in L]
+        tag = "exact segments"
+    else:
+        R_ = rim_loops(F, S, Pts, h)
+        if R_ is None:
+            return None, "rim not a loop"
+        L = [thin(Q, 0.5 * np.sqrt(MAX_AREA), fx) for Q, fx in R_]
+        tag = "mesh rim, exact corners"
+    res = None
+    for G in groups(S, L):
+        r_ = triangulate(S, G, planar)
+        if r_ is None:
+            return None, "not triangulated"
+        if res is None:
+            res = (list(r_[0]), list(r_[1]))
+        else:
+            o = len(res[0])
+            res[0].extend(r_[0])
+            res[1].extend([[a + o, b + o, c + o] for a, b, c in r_[1]])
+    return (None, "not triangulated") if res is None else (res, tag)
+
+
+def run_forked(jobs, fn, workers=None, timeout=120, log=print):
+    """Run fn(job) for each job in its own forked process, so a hang or a
+    hard exit inside the triangle library costs only that piece."""
+    import select
+    import time
+    workers = workers or os.cpu_count() or 2
+    res, pending, live = {}, list(jobs)[::-1], {}
+    total, t_log = len(pending), time.time()
+    while pending or live:
+        while pending and len(live) < workers:
+            j = pending.pop()
+            r, w = os.pipe()
+            pid = os.fork()
+            if pid == 0:
+                os.close(r)
+                try:
+                    out = pickle.dumps(fn(j))
+                except Exception as e:  # noqa: BLE001
+                    out = pickle.dumps((None, f"error {type(e).__name__}"))
+                with os.fdopen(w, "wb") as f:
+                    f.write(out)
+                os._exit(0)
+            os.close(w)
+            live[pid] = [j, r, time.time(), b""]
+        ready = select.select([v[1] for v in live.values()], [], [], 1.0)[0]
+        for pid, v in list(live.items()):
+            if v[1] in ready:
+                chunk = os.read(v[1], 1 << 20)
+                if chunk:
+                    v[3] += chunk
+                    continue
+                os.close(v[1])
+                os.waitpid(pid, 0)
+                try:
+                    res[v[0]] = pickle.loads(v[3])
+                except Exception:  # noqa: BLE001
+                    res[v[0]] = (None, "worker died")
+                del live[pid]
+            elif time.time() - v[2] > timeout:
+                os.kill(pid, 9)
+                os.waitpid(pid, 0)
+                os.close(v[1])
+                res[v[0]] = (None, "timed out")
+                del live[pid]
+        if time.time() - t_log > 60:
+            t_log = time.time()
+            log(f"  ... {len(res)}/{total} pieces")
+            sys.stdout.flush()
+    return res
+
+
 def rework(group, log=print):
     X = pickle.load(open(os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
     surfs = [surf_of(n) for n in X["surfaces"]]
@@ -589,48 +671,19 @@ def rework(group, log=print):
     h = 1.6 / E.GRID if hasattr(E, "GRID") else 0.035
     kept, done, how = Counter(), 0, Counter()
     Pts = [np.asarray(p, float) for p in X["points"]]
-    for F in X["faces"]:
-        S = surfs[F["surface"]]
-        planar = F["surface"] < 4 or S.expr.as_poly().total_degree() == 1
-        tu = tutte(F, S, Pts, h, planar)
-        if tu is not None:
-            V, T = tu
-            F["mesh"] = {"verts": [np.asarray(v) for v in V], "faces": T}
-            F["filled"] = []
-            F["exact_loop"] = True
-            how["laid on a disk (Tutte)"] += 1
-            done += 1
+    def job(i):
+        return mesh_face(X["faces"][i], surfs, Pts, h, X, by_surf)
+    res = run_forked(range(len(X["faces"])), job, log=log)
+    for i, F in enumerate(X["faces"]):
+        mesh, tag = res[i]
+        if mesh is None:
+            kept[tag] += 1
             continue
-        L = loops_of(F, X, by_surf, h)
-        if L is not None:
-            L = [thin(Q, 0.25 * np.sqrt(MAX_AREA)) for Q in L]
-            how["exact segments"] += 1
-        else:
-            R_ = rim_loops(F, S, Pts, h)
-            if R_ is None:
-                kept["rim not a loop"] += 1
-                continue
-            L = [thin(Q, 0.5 * np.sqrt(MAX_AREA), fx) for Q, fx in R_]
-            how["mesh rim, exact corners"] += 1
-        res = None
-        for G in groups(S, L):
-            r_ = triangulate(S, G, planar)
-            if r_ is None:
-                res = None
-                break
-            if res is None:
-                res = (list(r_[0]), list(r_[1]))
-            else:
-                o = len(res[0])
-                res[0].extend(r_[0])
-                res[1].extend([[a + o, b + o, c + o] for a, b, c in r_[1]])
-        if res is None:
-            kept["not triangulated"] += 1
-            continue
-        V, T = res
+        V, T = mesh
         F["mesh"] = {"verts": [np.asarray(v) for v in V], "faces": T}
         F["filled"] = []
         F["exact_loop"] = True
+        how[tag] += 1
         done += 1
     log(f"  {done} pieces meshed inside their loops ({dict(how)}); kept their marching mesh: {dict(kept)}")
     pickle.dump(X, open(os.path.join(HERE, f"a4_pieces_{group}.pkl"), "wb"))
