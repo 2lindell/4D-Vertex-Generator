@@ -56,6 +56,9 @@ class Surf:
         return np.array([float(gi(*x)) for gi in self._g])
 
 
+AXIS = [Surf(B[0] - B[3], "b1 - b4 (axis)"), Surf(B[1] - B[2], "b2 - b3 (axis)")]   # (the swap's axis)
+
+
 def rev(e):
     return e.subs({B[0]: B[3], B[3]: B[0], B[1]: B[2], B[2]: B[1]}, simultaneous=True)
 
@@ -84,6 +87,18 @@ def tangent(x, A, Bs):
     return t / np.linalg.norm(t)
 
 
+def crossing_angle(x, A, Bs):
+    """How far from tangent A and B meet at x (in the plane sum(beta) = 1): their gradients' smaller singular value
+    over the larger. Near zero where the two are tangent (every swap pair through the swap's axis, all along it)."""
+    J = np.array([A.g(x), Bs.g(x)])
+    J = J - J.mean(1, keepdims=True)
+    sv = np.linalg.svd(J, compute_uv=False)
+    return sv[1] / (sv[0] + 1e-300)
+
+
+SING = 1e-4                                      # (below this crossing angle a trace ends: the curve is singular)
+
+
 def inside(x, eps=1e-12):
     return x.min() >= -eps
 
@@ -104,6 +119,13 @@ def trace(x0, A, Bs, mirrors, h=2e-3, nmax=4000):
                     break
                 hh /= 2
                 continue
+            if crossing_angle(y, A, Bs) < SING:
+                # (the two surfaces turn tangent: a singular point of the curve, on the swap's axis for the swap
+                #  pairs through it; the end is solved there, else left where the trace stopped)
+                z, ok2 = newton(y, [A] + AXIS)
+                if ok2 and inside(z, 1e-10) and np.linalg.norm(z - y) < 1e-2:
+                    pts.append(z)
+                break
             if not inside(y):
                 k = int(np.argmin(y))           # (out through a mirror: the end, solved on it)
                 z, ok2 = newton(x + (y - x) * (x[k] / (x[k] - y[k])), [A, Bs, mirrors[k]])
@@ -235,7 +257,7 @@ def build(group):
                 found = []
                 for x in rng.dirichlet([1, 1, 1, 1], 250):
                     y, ok = newton(x, [A, Bs])
-                    if not ok or not inside(y, 1e-12):
+                    if not ok or not inside(y, 1e-12) or crossing_angle(y, A, Bs) < SING:
                         continue
                     if any(min(np.linalg.norm(np.asarray(c["pts"]) - y, axis=1)) < 5e-3 for c in found):
                         continue
