@@ -402,6 +402,34 @@ def build(group):
                      "probes": [cents[t] for t in comp[:: max(1, len(comp) // 15)]],
                      "mesh": {"verts": [Varr[v] for v in ids], "faces": [[ren[v] for v in T[t]] for t in comp]}}
                 keep.append(F)
+        # (a piece's mesh stops up to a grid step short of an exact point on its outline, a corner of the chamber
+        #  among them: that gap is filled directly, a fan of triangles from the point to the piece's outline edges
+        #  near it)
+        r_fill = 1.6 / GRID
+        for F in keep:
+            Sf = surfs[F["surface"]]
+            if F["surface"] < 4:
+                continue
+            V = F["mesh"]["verts"]
+            T = F["mesh"]["faces"]
+            ec = Counter()
+            for t in T:
+                for a_, b_ in ((t[0], t[1]), (t[1], t[2]), (t[2], t[0])):
+                    ec[(min(a_, b_), max(a_, b_))] += 1
+            bd = [e for e, c_ in ec.items() if c_ == 1]
+            Varr = np.array(V)
+            for p in points:
+                if abs(Sf.f(p)) / (np.linalg.norm(Sf.g(p)) + 1e-300) > 1e-9:
+                    continue
+                if np.linalg.norm(Varr - p, axis=1).min() < 1e-9:
+                    continue
+                near = [e for e in bd if np.linalg.norm(Varr[e[0]] - p) < r_fill and np.linalg.norm(Varr[e[1]] - p) < r_fill]
+                if not near:
+                    continue
+                V.append(np.asarray(p, float))
+                pi = len(V) - 1
+                T += [[pi, a_, b_] for a_, b_ in near]
+                F.setdefault("filled", []).append(pi)
         labs = S.classify_many([F["inner"] for F in keep], sub, tol=1e-7)
         for F, (sig, k) in zip(keep, labs):
             F["key"], F["sig"] = k, sig
