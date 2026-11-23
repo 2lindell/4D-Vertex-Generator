@@ -135,7 +135,27 @@ def extend_lines(X, surfs, log):
 
 
 # ------------------------------------------------------------------------------------------------ 2. loops of the pieces
+def weld(F):
+    """The piece's mesh with vertices at one place made one (a4_exact's cut vertices are made per triangle, so its
+    mesh can be cracked along them), triangles left flat dropped. Done once per piece."""
+    if F.get("_welded"):
+        return
+    V = np.asarray(F["mesh"]["verts"], float)
+    if not len(V):
+        F["_welded"] = True
+        return
+    _, idx, inv = np.unique(np.round(V, 10), axis=0, return_index=True, return_inverse=True)
+    inv = inv.ravel()
+    fl = {int(inv[i]) for i in F.get("filled", [])}
+    T = [[int(inv[a]) for a in t] for t in F["mesh"]["faces"]]
+    T = [t for t in T if len(set(t)) == 3]
+    F["mesh"] = {"verts": [V[i] for i in idx], "faces": T}
+    F["filled"] = sorted(fl)
+    F["_welded"] = True
+
+
 def rim_of(F):
+    weld(F)
     # (without a4_exact's gap fills: fans from an exact point, which the exact corners put back here replace)
     fl = set(F.get("filled", []))
     T = [t for t in F["mesh"]["faces"] if not fl.intersection(t)]
@@ -145,8 +165,8 @@ def rim_of(F):
 
 def loops_of(F, X, by_surf, h):
     """The piece's exact loops: segments on its surface whose points all lie along its mesh's rim, chained."""
-    V = np.asarray(F["mesh"]["verts"], float)
     rim = rim_of(F)
+    V = np.asarray(F["mesh"]["verts"], float)
     if not rim:
         return None
     rv = sorted({a for e in rim for a in e})
@@ -194,12 +214,12 @@ def loops_of(F, X, by_surf, h):
     return loops
 
 
-def rim_loops(F, S, P, h):
+def rim_loops(F, S, P, h, ids=False):
     """The piece's loops from its marching mesh's rim (whose cut vertices a4_exact solved onto the exact curves), each
     exact point of the map on its surface and near the rim put into it at the rim edge nearest it: the corners the
     marching mesh cut off. (Where its segments do not chain: curves traced from several pairs, overlapping.)"""
-    V = np.asarray(F["mesh"]["verts"], float)
     rim = rim_of(F)
+    V = np.asarray(F["mesh"]["verts"], float)
     if not rim:
         return None
     # (each loop walked round the triangles at each of its vertices, so a vertex where the rim touches itself (a
@@ -252,16 +272,17 @@ def rim_loops(F, S, P, h):
                 seen[v] = i
             else:
                 out.append(M_)
-        loops += [[V[i] for i in M_] for M_ in out if len(M_) >= 3]
+        loops += [(list(M_) if ids else [V[i] for i in M_]) for M_ in out if len(M_) >= 3]
     if not loops:
         return None
     on = [p for p in P if abs(S.f(p)) / (np.linalg.norm(S.g(p)) + 1e-300) < 1e-9]
     keep = []
     for L in loops:
-        L = list(L)
+        items = list(L) if ids else [("p", np.asarray(x, float)) for x in L]
+        place = lambda it: V[it] if isinstance(it, (int, np.integer)) else it[1]
         fixed = set()
         for p in on:
-            Q = np.array(L)
+            Q = np.array([place(it) for it in items])
             A_, B_ = Q, np.roll(Q, -1, 0)
             d = B_ - A_
             u = np.clip(np.einsum("ij,ij->i", p - A_, d) / (np.einsum("ij,ij->i", d, d) + 1e-300), 0, 1)
@@ -269,12 +290,16 @@ def rim_loops(F, S, P, h):
             i = int(np.argmin(dist))
             if dist[i] > h:
                 continue
-            if np.linalg.norm(Q - p, axis=1).min() < 1e-9:
-                fixed.add(int(np.argmin(np.linalg.norm(Q - p, axis=1))))
+            near = np.linalg.norm(Q - p, axis=1)
+            if near.min() < 1e-9:
+                fixed.add(int(np.argmin(near)))
                 continue
-            L.insert(i + 1, np.asarray(p, float))
+            items.insert(i + 1, ("p", np.asarray(p, float)))
             fixed = {j + (j > i) for j in fixed} | {i + 1}
-        keep.append((np.array(L), fixed))
+        if ids:
+            keep.append((items, fixed))
+        else:
+            keep.append((np.array([place(it) for it in items]), fixed))
     return keep
 
 
@@ -409,6 +434,120 @@ def triangulate(S, loops, planar):
     return None
 
 
+def lift_normal(S, x):
+    """x moved onto S along the surface's gradient (in the chart's 3-space)."""
+    for _ in range(40):
+        g = S.g(x)
+        g = g - g.mean()
+        gg = g @ g
+        if gg < 1e-28:
+            return None
+        f = S.f(x)
+        if abs(f) / np.sqrt(gg) < 1e-13:
+            return x
+        x = x - f * g / gg
+    return x if abs(S.f(x)) / (np.linalg.norm(S.g(x)) + 1e-300) < 1e-11 else None
+
+
+def tutte(F, S, P, h, planar):
+    """A piece with one rim loop, laid out on the unit disk by its own mesh (Tutte: the rim, its exact corners put
+    in, round the circle by length; each inner vertex the mean of its neighbours), which cannot fold over; the rim
+    loop triangulated there, and the new inner points carried back through the mesh and put on the surface."""
+    from scipy.sparse import lil_matrix
+    from scipy.sparse.linalg import spsolve
+    R = rim_loops(F, S, P, h, ids=True)
+    if R is None or len(R) != 1:
+        return None
+    loop, fixed = R[0]                       # (loop: mesh vertex ids, or ("p", point) for an exact corner put in)
+    V = np.asarray(F["mesh"]["verts"], float)
+    fl = set(F.get("filled", []))
+    T = np.array([t for t in F["mesh"]["faces"] if not fl.intersection(t)], int)
+    if not len(T):
+        return None
+    pos = [V[x] if isinstance(x, (int, np.integer)) else x[1] for x in loop]
+    seg = [np.linalg.norm(pos[(i + 1) % len(pos)] - pos[i]) for i in range(len(pos))]
+    tot = sum(seg)
+    ang = np.concatenate([[0], np.cumsum(seg)[:-1]]) / tot * 2 * np.pi
+    uv = np.zeros((len(V), 2))
+    bnd = {}
+    for x, a in zip(loop, ang):
+        if isinstance(x, (int, np.integer)):
+            bnd[int(x)] = (np.cos(a), np.sin(a))
+    used = sorted({int(a) for t in T for a in t})
+    inner = [i for i in used if i not in bnd]
+    if any(i not in set(used) for i in bnd):
+        return None
+    nbrs = defaultdict(set)
+    for t in T:
+        for a in t:
+            nbrs[int(a)].update(int(b) for b in t if b != a)
+    k = {v: j for j, v in enumerate(inner)}
+    A = lil_matrix((len(inner), len(inner)))
+    rhs = np.zeros((len(inner), 2))
+    for v in inner:
+        r = k[v]
+        A[r, r] = len(nbrs[v])
+        for w in nbrs[v]:
+            if w in k:
+                A[r, k[w]] -= 1
+            elif w in bnd:
+                rhs[r] += bnd[w]
+            else:
+                return None
+    if inner:
+        sol = spsolve(A.tocsr(), rhs)
+        sol = sol.reshape(-1, 2)
+        for v, j in k.items():
+            uv[v] = sol[j]
+    for v, q in bnd.items():
+        uv[v] = q
+    # (the new loop: thinned along the rim, its exact corners kept)
+    keep = [0]
+    step = 0.5 * np.sqrt(MAX_AREA)
+    for i in range(1, len(loop)):
+        if i in fixed or np.linalg.norm(pos[i] - pos[keep[-1]]) >= step:
+            keep.append(i)
+    if len(keep) < 3:
+        return None
+    Lp = np.array([pos[i] for i in keep])
+    Lu = np.c_[np.cos(ang[keep]), np.sin(ang[keep])]
+    m = len(keep)
+    A3 = sum(0.5 * np.linalg.norm(np.cross(*(((V[t[1]] - V[t[0]]) @ BZ.T, (V[t[2]] - V[t[0]]) @ BZ.T)))) for t in T)
+    amax = MAX_AREA * np.pi / max(A3, 1e-12)
+    opts = "pY" if planar else f"pYq20a{amax:.3g}"
+    try:
+        Tr = tr.triangulate({"vertices": np.ascontiguousarray(Lu, dtype=np.float64),
+                             "segments": np.array([[i, (i + 1) % m] for i in range(m)], np.int32)}, opts)
+    except Exception:
+        return None
+    if "triangles" not in Tr or len(Tr["vertices"]) < m:
+        return None
+    # (each new inner point: in which mesh triangle on the disk, carried by its barycentric coordinates)
+    UVt = uv[T]
+    cen = cKDTree(UVt.mean(1))
+    Xv = list(Lp)
+    for q in Tr["vertices"][m:]:
+        got = None
+        for j in cen.query(q, k=min(24, len(T)))[1]:
+            a, b, c = UVt[j]
+            d = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1])
+            if abs(d) < 1e-300:
+                continue
+            l1 = ((b[1] - c[1]) * (q[0] - c[0]) + (c[0] - b[0]) * (q[1] - c[1])) / d
+            l2 = ((c[1] - a[1]) * (q[0] - c[0]) + (a[0] - c[0]) * (q[1] - c[1])) / d
+            l3 = 1 - l1 - l2
+            if min(l1, l2, l3) > -1e-9:
+                got = l1 * V[T[j][0]] + l2 * V[T[j][1]] + l3 * V[T[j][2]]
+                break
+        if got is None:
+            return None
+        y = got if planar else lift_normal(S, got)
+        if y is None:
+            return None
+        Xv.append(y)
+    return np.array(Xv), np.asarray(Tr["triangles"]).tolist()
+
+
 def groups(S, loops):
     """The loops as outer loops each with the holes inside it (one group when there is one loop), by a flat view
     across the mean normal."""
@@ -452,6 +591,16 @@ def rework(group, log=print):
     Pts = [np.asarray(p, float) for p in X["points"]]
     for F in X["faces"]:
         S = surfs[F["surface"]]
+        planar = F["surface"] < 4 or S.expr.as_poly().total_degree() == 1
+        tu = tutte(F, S, Pts, h, planar)
+        if tu is not None:
+            V, T = tu
+            F["mesh"] = {"verts": [np.asarray(v) for v in V], "faces": T}
+            F["filled"] = []
+            F["exact_loop"] = True
+            how["laid on a disk (Tutte)"] += 1
+            done += 1
+            continue
         L = loops_of(F, X, by_surf, h)
         if L is not None:
             L = [thin(Q, 0.25 * np.sqrt(MAX_AREA)) for Q in L]
@@ -463,7 +612,6 @@ def rework(group, log=print):
                 continue
             L = [thin(Q, 0.5 * np.sqrt(MAX_AREA), fx) for Q, fx in R_]
             how["mesh rim, exact corners"] += 1
-        planar = F["surface"] < 4 or S.expr.as_poly().total_degree() == 1
         res = None
         for G in groups(S, L):
             r_ = triangulate(S, G, planar)
