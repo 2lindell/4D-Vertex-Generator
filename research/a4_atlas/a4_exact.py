@@ -23,6 +23,7 @@ image under the swap (beta read backwards), and the four mirrors beta_k = 0:
 from __future__ import annotations
 
 import json
+import pickle
 import os
 import sys
 from collections import Counter, defaultdict
@@ -286,6 +287,11 @@ def build(group):
                     cuts.append((len(P) - 1.0, add_point(P[-1])))
             c["cuts"] = sorted(set(cuts))
         print(" ", len(points), "points", flush=True)
+        if os.environ.get("A4_DUMP"):              # (diagnostics: the curves and points, then stop)
+            pickle.dump({"surfaces": [s_.name for s_ in surfs], "curves": [{"pair": c["pair"], "pts": c["pts"],
+                         "cuts": c["cuts"], "closed": c["closed"]} for c in curves], "points": points},
+                        open(os.environ["A4_DUMP"], "wb"))
+            raise SystemExit
         # 3. segments
         segs = []
         for c in curves:
