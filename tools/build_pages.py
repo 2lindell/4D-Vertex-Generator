@@ -123,7 +123,9 @@ def add_icon(path: Path) -> None:
     html = path.read_text(encoding="utf-8")
     if 'rel="icon"' in html:
         return
-    m = re.search(r"<head[^>]*>", html, re.I)
+    # (the page's own <head>, not a <header>: a page with no <head> gets it after its charset, in the browser's
+    #  implied head)
+    m = re.search(r"<head(\s[^>]*)?>", html, re.I) or re.search(r"<meta\s+charset[^>]*>", html, re.I)
     i = m.end() if m else 0
     path.write_text(html[:i] + "\n" + ICON_LINK + html[i:], encoding="utf-8")
 
