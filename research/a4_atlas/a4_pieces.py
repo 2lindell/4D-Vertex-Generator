@@ -136,7 +136,9 @@ def extend_lines(X, surfs, log):
 
 # ------------------------------------------------------------------------------------------------ 2. loops of the pieces
 def rim_of(F):
-    T = F["mesh"]["faces"]
+    # (without a4_exact's gap fills: fans from an exact point, which the exact corners put back here replace)
+    fl = set(F.get("filled", []))
+    T = [t for t in F["mesh"]["faces"] if not fl.intersection(t)]
     ec = Counter(tuple(sorted(e)) for t in T for e in ((t[0], t[1]), (t[1], t[2]), (t[2], t[0])))
     return [e for e, c in ec.items() if c == 1]
 
@@ -200,24 +202,59 @@ def rim_loops(F, S, P, h):
     rim = rim_of(F)
     if not rim:
         return None
-    nb = defaultdict(list)
-    for a, b in rim:
-        nb[a].append(b)
-        nb[b].append(a)
-    if any(len(v) != 2 for v in nb.values()):
-        return None
-    loops, left = [], set(nb)
+    # (each loop walked round the triangles at each of its vertices, so a vertex where the rim touches itself (a
+    #  pinch) is passed on the right side; a loop through a vertex twice is split there into two)
+    fl = set(F.get("filled", []))
+    T = [tuple(t) for t in F["mesh"]["faces"] if not fl.intersection(t)]
+    tri_of = defaultdict(list)
+    for ti, t in enumerate(T):
+        for e in ((t[0], t[1]), (t[1], t[2]), (t[2], t[0])):
+            tri_of[frozenset(e)].append(ti)
+    rimset = {frozenset(e) for e in rim}
+    left = set(rimset)
+    loops = []
     while left:
-        a = left.pop()
-        L, prev, cur = [a], None, a
-        while True:
-            nx = [b for b in nb[cur] if b != prev]
-            prev, cur = cur, nx[0]
-            if cur == a:
+        e0 = left.pop()
+        a, b = tuple(e0)
+        t = tri_of[e0][0]
+        L = [a]
+        cur_e, prev = e0, a
+        for _ in range(len(rim) + 5):
+            # (from the rim edge prev-b, turn round b through its triangles to the next rim edge)
+            ti = tri_of[cur_e][0] if len(tri_of[cur_e]) == 1 else t
+            other = prev
+            for _ in range(200):
+                c = next(v for v in T[ti] if v not in (b, other))
+                e = frozenset((b, c))
+                if e in rimset:
+                    break
+                ti = next(x for x in tri_of[e] if x != ti)
+                other = c
+            else:
+                return None
+            if e == e0:
                 break
-            left.discard(cur)
-            L.append(cur)
-        loops.append([V[i] for i in L])
+            left.discard(e)
+            L.append(b)
+            prev, b, cur_e, t = b, c, e, ti
+        else:
+            return None
+        # (split at a repeated vertex)
+        stack, out = [L], []
+        while stack:
+            M_ = stack.pop()
+            seen = {}
+            for i, v in enumerate(M_):
+                if v in seen:
+                    j = seen[v]
+                    stack += [M_[j:i], M_[:j] + M_[i:]]
+                    break
+                seen[v] = i
+            else:
+                out.append(M_)
+        loops += [[V[i] for i in M_] for M_ in out if len(M_) >= 3]
+    if not loops:
+        return None
     on = [p for p in P if abs(S.f(p)) / (np.linalg.norm(S.g(p)) + 1e-300) < 1e-9]
     keep = []
     for L in loops:
@@ -372,6 +409,35 @@ def triangulate(S, loops, planar):
     return None
 
 
+def groups(S, loops):
+    """The loops as outer loops each with the holes inside it (one group when there is one loop), by a flat view
+    across the mean normal."""
+    if len(loops) == 1:
+        return [loops]
+    P = np.vstack(loops)
+    n = np.mean([normal(S, x) for x in P[:: max(1, len(P) // 40)]], 0)
+    n = n - n.mean()
+    n /= np.linalg.norm(n) + 1e-300
+    e = np.linalg.svd(np.vstack([np.ones(4) / 2, n]))[2][2:]
+    flat = [np.c_[(np.asarray(L) - P.mean(0)) @ e[0], (np.asarray(L) - P.mean(0)) @ e[1]] for L in loops]
+
+    def inside(q, Q):
+        x, y = q
+        c = False
+        for i in range(len(Q)):
+            (x1, y1), (x2, y2) = Q[i], Q[i - 1]
+            if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1 + 1e-300) + x1:
+                c = not c
+        return c
+    depth = [sum(inside(flat[i][0], flat[j]) for j in range(len(loops)) if j != i) for i in range(len(loops))]
+    out = []
+    for i in range(len(loops)):
+        if depth[i] % 2 == 0:
+            holes = [loops[j] for j in range(len(loops)) if depth[j] == depth[i] + 1 and inside(flat[j][0], flat[i])]
+            out.append([loops[i]] + holes)
+    return out
+
+
 def rework(group, log=print):
     X = pickle.load(open(os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
     surfs = [surf_of(n) for n in X["surfaces"]]
@@ -397,7 +463,19 @@ def rework(group, log=print):
                 continue
             L = [thin(Q, 0.5 * np.sqrt(MAX_AREA), fx) for Q, fx in R_]
             how["mesh rim, exact corners"] += 1
-        res = triangulate(S, L, F["surface"] < 4 or S.expr.as_poly().total_degree() == 1)
+        planar = F["surface"] < 4 or S.expr.as_poly().total_degree() == 1
+        res = None
+        for G in groups(S, L):
+            r_ = triangulate(S, G, planar)
+            if r_ is None:
+                res = None
+                break
+            if res is None:
+                res = (list(r_[0]), list(r_[1]))
+            else:
+                o = len(res[0])
+                res[0].extend(r_[0])
+                res[1].extend([[a + o, b + o, c + o] for a, b, c in r_[1]])
         if res is None:
             kept["not triangulated"] += 1
             continue
