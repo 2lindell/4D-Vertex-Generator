@@ -170,7 +170,7 @@ __TYPE_CSS__
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const DIMS = [["region", "regions"], ["wall", "walls"], ["line", "lines"], ["point", "points"]];
     const dimBox = { region: "showRegions", wall: "showWalls", line: "showLines", point: "showPoints" };
-    const HOVER0 = "Each shape is marked by its example seed in every piece: walls and lines at their most even seed, regions at their central seed. Hover a seed for its shape, β and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape (a region: its extent, the walls round it, in its colour), Ctrl-click (⌘-click on a Mac) to add or remove more, and click the only selected row again to show everything.";
+    const HOVER0 = "Each shape is marked by its example seed in every piece: walls and lines at their most even seed, regions at their central seed. Walls and shells let the cursor through, so every seed can be reached, even inside a region: hover a seed for its shape, β and seed; click it to pin those details here and copy the seed. Click a row in the key to show only that shape (a region: its extent, the walls round it, in its colour), Ctrl-click (⌘-click on a Mac) to add or remove more, and click the only selected row again to show everything.";
     let D = null, byId = {}, state = { sel: new Set() }, pinned = false;
     const color = (t) => css(t.color);
     const label = (t) => t.id;
@@ -217,7 +217,7 @@ __TYPE_CSS__
         out.push({ type: "mesh3d", x: w.verts.map((q) => q[0]), y: w.verts.map((q) => q[1]), z: w.verts.map((q) => q[2]),
           i: w.faces.map((f) => f[0]), j: w.faces.map((f) => f[1]), k: w.faces.map((f) => f[2]),
           color: color(t), opacity: state.sel.has(w.id) ? 0.55 : 0.28, flatshading: true, name: label(t),
-          hovertemplate: `${label(t)}${t.name ? " · " + t.name : ""}<extra></extra>` });
+          hoverinfo: "skip", meta: "nopick" });   // (a surface would catch the cursor before the seeds inside it)
       }
       // the map's edges (where walls meet each other or a mirror), traced exactly: each wall piece ends on them
       if (D.edges && el("showWalls").checked && !state.sel.size) {
@@ -238,7 +238,7 @@ __TYPE_CSS__
         const nm = `${id}: its outer walls`;
         out.push({ type: "mesh3d", x: sh.verts.map((q) => q[0]), y: sh.verts.map((q) => q[1]), z: sh.verts.map((q) => q[2]),
           i: sh.faces.map((f) => f[0]), j: sh.faces.map((f) => f[1]), k: sh.faces.map((f) => f[2]),
-          color: color(t), opacity: 0.4, flatshading: true, name: nm, hovertemplate: `${nm}<extra></extra>` });
+          color: color(t), opacity: 0.4, flatshading: true, name: nm, hoverinfo: "skip", meta: "nopick" });
         const tr = lines(sh.edges, `Boundary of ${id}`, { color: color(t), width: 3 });
         tr.hovertemplate = `Boundary of ${id}<extra></extra>`;
         out.push(tr);
