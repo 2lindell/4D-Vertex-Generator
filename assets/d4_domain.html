@@ -271,24 +271,34 @@ td.pending { color: var(--faint); font-style: italic; }
       }
       return out;
     }
-    const cameras = {};
+    // (one camera for the page: every symmetry is drawn on the same chamber, so the view stays put when the
+    //  symmetry changes)
+    let camera = null;
     function layout() {
       const hidden = { visible: false, showbackground: false };
       const V = D.domain.verts, lo = [0, 1, 2].map((a) => Math.min(...V.map((v) => v[a]))), hi = [0, 1, 2].map((a) => Math.max(...V.map((v) => v[a])));
       const pad = 0.06, span = [0, 1, 2].map((a) => hi[a] - lo[a] + 2 * pad), m = Math.max(...span);
       return { paper_bgcolor: css("--panel"), plot_bgcolor: css("--panel"), font: { family: "Spline Sans, system-ui, sans-serif", color: css("--ink"), size: 12 },
-        margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: D.key, hoverlabel: { font: { size: 11 }, namelength: 40 },
+        margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: "chamber", hoverlabel: { font: { size: 11 }, namelength: 40 },
         scene: { aspectmode: "manual", aspectratio: { x: span[0] / m, y: span[1] / m, z: span[2] / m },
           xaxis: { ...hidden, range: [lo[0] - pad, hi[0] + pad] }, yaxis: { ...hidden, range: [lo[1] - pad, hi[1] + pad] },
           zaxis: { ...hidden, range: [lo[2] - pad, hi[2] + pad] },
-          camera: cameras[D.key] || { eye: { x: 1.35, y: -1.5, z: 0.4 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } } } };
+          camera: camera || { eye: { x: 1.35, y: -1.5, z: 0.4 }, center: { x: 0, y: 0, z: 0 }, up: { x: 0, y: 0, z: 1 } } } };
     }
     const plot = el("plot");
-    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }).then(() => {
-      const sc = plot._fullLayout.scene && plot._fullLayout.scene._scene;
+    // (surfaces marked nopick are taken out of the scene's picking, so the cursor reaches the seeds behind them;
+    //  done after every redraw: a resize or relayout rebuilds the meshes, and with them their picking)
+    const unpick = () => {
+      const sc = plot._fullLayout && plot._fullLayout.scene && plot._fullLayout.scene._scene;
       if (sc) for (const t of Object.values(sc.traces)) if (t.mesh && t.data && t.data.meta === "nopick" && t.mesh.pickSlots) {
         t.mesh.pickSlots = 0; sc.glplot.remove(t.mesh); sc.glplot.add(t.mesh);
       }
+    };
+    let unpickHooked = false;
+    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }).then(() => {
+      if (!unpickHooked) { unpickHooked = true; plot.on("plotly_afterplot", unpick); }
+      unpick();
+      requestAnimationFrame(unpick);
     });
 
     // copy buttons for seeds
@@ -398,7 +408,7 @@ td.pending { color: var(--faint); font-style: italic; }
         hooked = true;
         plot.on("plotly_hover", (ev) => show(ev, false));
         plot.on("plotly_click", (ev) => show(ev, true));
-        plot.on("plotly_relayout", (e) => { const c = e && e["scene.camera"]; if (c) cameras[D.key] = JSON.parse(JSON.stringify(c)); });
+        plot.on("plotly_relayout", (e) => { const c = e && e["scene.camera"]; if (c) camera = JSON.parse(JSON.stringify(c)); });
       });
     }
     const fromHash = () => load(location.hash.replace("#", "") || ALL.symmetries[0].key);
