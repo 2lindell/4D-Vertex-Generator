@@ -2,7 +2,7 @@
 a4_map.py), on the A4 chamber, with buttons to choose the symmetry. Laid out like the Symmetry Domain page of the
 swirlprism atlas (a4_template.html shares its styles, key and controls).
 
-    python a4_map.py && python build_page.py
+    python a4_map.py && python build_page.py            # (b4, d4: the B4 and D4 pages, ../b4d4_atlas)
 """
 from __future__ import annotations
 
@@ -28,6 +28,24 @@ SYMMETRIES = [
     {"key": "iodecaic", "name": "Iodecaic", "bracket": "[[3,3,3]+]", "order": 120},
 ]
 DIM_N = {"region": 3, "wall": 2, "line": 1, "point": 0}
+B4D4 = os.path.join(ROOT, "b4d4_atlas")
+# (each family's page: its symmetries, where their maps are, its title, chamber chips and notes)
+FAMILIES = {
+    "a4": {"title": "A4 Symmetry Domain", "out": "a4_domain.html", "dir": HERE, "prefix": "a4_map", "chamber": "A4",
+           "symmetries": SYMMETRIES},
+    "b4": {"title": "B4 Symmetry Domain", "out": "b4_domain.html", "dir": B4D4, "prefix": "b4d4_map", "chamber": "B4",
+           "symmetries": [{"key": "tessic", "name": "Tessic", "bracket": "[4,3,3]", "order": 384},
+                          {"key": "kitessic", "name": "Kitessic", "bracket": "[4,3,3]+", "order": 192},
+                          {"key": "tessipyritic", "name": "Tessipyritic", "bracket": "[4,(3,3)+]", "order": 192}]},
+    "d4": {"title": "D4 Symmetry Domain", "out": "d4_domain.html", "dir": B4D4, "prefix": "b4d4_map", "chamber": "D4",
+           "symmetries": [{"key": "demitessic", "name": "Demitessic", "bracket": "[3¹,¹,¹]", "order": 192},
+                          {"key": "kidemitessic", "name": "Kidemitessic", "bracket": "[3¹,¹,¹]+", "order": 96}]},
+}
+CHIPS = {"pennic": "chamber = 1 domain", "kipennic": "chamber = ½ domain", "decaic": "chamber = 2 domains (the swap)",
+         "iodecaic": "chamber = 1 domain", "kidecaic": "chamber = 1 domain",
+         "tessic": "chamber = 1 domain", "kitessic": "chamber = ½ domain", "tessipyritic": "chamber = ½ domain",
+         "demitessic": "D4 chamber = 1 domain (shown twice: the fold)",
+         "kidemitessic": "D4 chamber = ½ domain (shown twice: the fold)"}
 
 
 def notes(g, d):
@@ -123,10 +141,80 @@ def notes(g, d):
     ]
 
 
-def main():
+def notes_b4d4(g, d, syms):
+    """The B4 and D4 pages' notes."""
+    chart = ("The chamber is drawn in the gnomonic chart of the 3-sphere at its centre: a seed s is shown where the ray "
+             "through it meets the tangent space there, so the mirrors are the faces of a flat tetrahedron and great "
+             "circles are straight lines. Each corner is marked by the β that is not zero there.")
+    seeds = ("β are a seed's distances to the B4 mirrors, scaled to sum to 1 (β1 the hexadecachoron's node, β4 the "
+             "tesseract's). The seed is s = R⁻¹β, with R the generator's simple roots for B4; it works in the "
+             "generator's Coordinates mode with any of these symmetries (their groups there are in the same basis).")
+    flat = ("No group of the family has walls inside the B4 chamber (tessic_atlas/tessic_subgroups.md: the plane "
+            "arrangement for tessic and demitessic; for the others the curved-wall map, a dense survey of the zones by "
+            "the edges and the region closure check all find one region filling it). So the map is the chamber's "
+            "fifteen faces, each classified by the polychoron a seed there makes (tessic_atlas/group.py), and checked "
+            "at three more seeds to be one polychoron throughout (research/b4d4_atlas/b4d4_map.py).")
+    if g == "tessic":
+        dom = ["Tessic symmetry [4,3,3] is the tesseract's full symmetry group, order 384: the B4 reflection group. "
+               "Its chamber, the tetrahedron between four mirrors, is one fundamental domain: 1/384 of the 3-sphere.",
+               "A seed's 384 images are the vertices of the Wythoffian polychoron of its ringed nodes: gidpith inside, "
+               "grit, prit, proh and tico on the faces, thex, sidpith, tat, rico, tah and srit on the edges, hex, ico, "
+               "rit and tes at the corners.", flat, chart, seeds]
+    elif g == "kitessic":
+        dom = ["Kitessic symmetry [4,3,3]+ is the rotation half of tessic, order 192. Its fundamental domain is two "
+               "chambers, a chamber and its mirror image, so the chamber shown is half of one.",
+               "On the chamber's faces a seed's rotation images are its tessic ones, so the faces carry tessic's "
+               "Wythoffian polychora. Inside, every seed makes snet, the snub tesseract: 192 vertices, 8 snub cubes, 16 "
+               "snits, 24 gyro-squaps, 32 gyro-traps and 192 tets. It is chiral: the mirror chamber gives its mirror "
+               "image.", flat, chart, seeds]
+    elif g == "tessipyritic":
+        dom = ["Tessipyritic symmetry [4,(3,3)+] keeps the tesseract's sign changes but only the even permutations of "
+               "its coordinates: order 192. Of the chamber's mirrors only β4 = 0 (a sign change) is its own; the "
+               "chamber is half of its fundamental domain.",
+               "On the mirror β4 = 0 a seed makes sadi, the snub disicosatetrachoron (96 vertices, 2 degrees), where "
+               "tessic has tico; inside, pysnet, the pyritosnub tesseract (192 vertices: 8 pyritosnub cubes, 16 snits, 24 "
+               "rectangular trapezoprisms, 32 trips and 96 skew wedges). The other faces carry tessic's polychora: "
+               "their tessipyritic orbit is the whole tessic one (proh's cells only fall in other classes here, so the "
+               "classifier tells it apart until it is named by its vertices).", flat, chart, seeds]
+    else:
+        ki = g == "kidemitessic"
+        dom = [("Kidemitessic symmetry D4+ is the rotation half of demitessic, order 96." if ki else
+                "Demitessic symmetry [3¹,¹,¹] is the D4 reflection group, order 192: the tesseract's symmetries "
+                "with an even number of sign changes.")
+               + " The D4 chamber is drawn: the B4 chamber and its mirror image in β4 = 0, a tetrahedron with corners "
+               "β1 (hex), β2 (ico), β4 (hex, the tesseract's corner) and β4′ (its image), β3's corner (rit) in the middle "
+               "of the edge between the last two. β4 = 0 is no D4 mirror but a fold (dashed): the reflection in it maps "
+               "D4 to itself, so a seed and its image make congruent polychora and the two halves of the chamber show "
+               "the same shapes. Its three corners hex and three faces tah are D4's triality.",
+               ("Inside, every seed makes sadi, the snub disicosatetrachoron: 8+8+8 snits, 24 disphenoids and 96 tets, "
+                "3 degrees. On the mirrors a seed's rotation images are its demitessic ones, so the mirrors carry "
+                "demitessic's shapes. (tico cannot be kidemitessic: it has 192 vertices.)" if ki else
+                "Inside, every seed makes tico (24 truncated octahedra and 24 cubes, 3 degrees); on the mirrors rico "
+                "and tah, on the edges rit and thex, at the corners hex and ico. thex has 1 degree here (an edge); the "
+                "list gives it 2."), flat, chart, seeds]
+    return [
+        {"title": "The domain", "items": dom},
+        {"title": "Names and markers", "items": [
+            "Shapes are named from the accepted list (pages/tessic_source.txt); a shape found on several faces of the "
+            "map is one row, its pieces counted under Where.",
+            "Lightness shows dimension, as on the Symmetry Domain page: regions lightest, walls darker, lines darker "
+            "still, points darkest.",
+            "Every shape is marked by an example seed in each of its pieces: walls and lines at their most even seed "
+            "(tessic_atlas/optimize_seeds.py) where that lies in the piece, else the uniform seed (equal β on its "
+            "ringed nodes); the region at the chamber's centre. Selecting the region in the key paints its extent.",
+            "Boundaries are the shapes on the edges of a shape's pieces; separates lists the regions or walls a wall "
+            "or line lies between."]},
+        {"title": "Status", "status": True, "items": [
+            "<b>Mapped:</b> " + ", ".join(f"{s['name']} {s['bracket']}" for s in syms if s["key"] in d) + "."]},
+    ]
+
+
+def main(fam="a4"):
+    FAM = FAMILIES[fam]
+    syms = FAM["symmetries"]
     maps, light, dark = {}, [], []
-    for s in SYMMETRIES:
-        path = os.path.join(HERE, f"a4_map_{s['key']}.json")
+    for s in syms:
+        path = os.path.join(FAM["dir"], f"{FAM['prefix']}_{s['key']}.json")
         if not os.path.exists(path):
             continue
         d = json.load(open(path))
@@ -140,14 +228,15 @@ def main():
                 dark.append(f"--ty-{g}-{t['id']}: {_oklch_to_hex(*DARK[DIM_N[dim]], h)};")
         for k, f in enumerate(d["domain"]["faces"]):
             f["ids"] = [t["id"] for t in d["types"] if k in t.get("mirrors", [])]
-        d.update(key=g, title=f"A4 Symmetry Domain · {s['name']}",
-                 eyebrow=f"A4 · {s['name'].lower()} {s['bracket']} · order {d['order']}",
+        ch = FAM["chamber"]
+        d.update(key=g, title=f"{FAM['title']} · {s['name']}",
+                 eyebrow=f"{ch} · {s['name'].lower()} {s['bracket']} · order {d['order']}",
                  lede=f"A map of every isogonal polychoron the {s['name'].lower()} group {s['bracket']} produces from a "
-                      f"single seed. Each point of the A4 chamber is a seed; it is coloured by the polychoron its "
-                      f"{d['order']} images make. Choose another A4 symmetry above to see its map on the same chamber.",
-                 domainChip={"pennic": "chamber = 1 domain", "kipennic": "chamber = ½ domain",
-                             "decaic": "chamber = 2 domains (the swap)", "iodecaic": "chamber = 1 domain",
-                             "kidecaic": "chamber = 1 domain"}[g])
+                      f"single seed. Each point of the {ch} chamber is a seed; it is coloured by the polychoron its "
+                      f"{d['order']} images make."
+                      + (f" Choose another {ch} symmetry above to see its map on the same chamber." if len(syms) > 1
+                         else ""),
+                 domainChip=CHIPS[g])
         if g == "decaic":
             half = lambda b: M.chart(np.asarray(b, float))
             d["fold"] = {"axis": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 1, 0]))],
@@ -155,21 +244,23 @@ def main():
                          "plane": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 0, 0])), M.r5(half([0, 0, 1, 0]))]}
         maps[g] = d
     ids = {g: {t["id"] for t in d["types"]} for g, d in maps.items()}
-    names = {s["key"]: s["name"] for s in SYMMETRIES}
-    for g, d in maps.items():                   # (the other A4 symmetries whose maps have the same polychoron)
-        d["notes"] = notes(g, maps)
+    names = {s["key"]: s["name"] for s in syms}
+    for g, d in maps.items():                   # (the family's other symmetries whose maps have the same polychoron)
+        d["notes"] = notes(g, maps) if fam == "a4" else notes_b4d4(g, maps, syms)
         for t in d["types"]:
             t["shared"] = [names[h] for h in maps if h != g and t["id"] in ids[h]]
     type_css = (f":root {{ {' '.join(light)} }}\n@media (prefers-color-scheme: dark) {{ :root:not([data-theme=\"light\"]) "
                 f"{{ {' '.join(dark)} }} }}\n:root[data-theme=\"dark\"] {{ {' '.join(dark)} }}")
-    data = {"symmetries": SYMMETRIES, "maps": maps}
-    page = (open(os.path.join(HERE, "a4_template.html")).read().replace("__TITLE__", "A4 Symmetry Domain")
+    data = {"symmetries": syms, "family": FAM["chamber"], "maps": maps}
+    page = (open(os.path.join(HERE, "a4_template.html")).read().replace("__TITLE__", FAM["title"])
+            .replace("__FAMILY__", FAM["chamber"])
             .replace("__TYPE_CSS__", type_css).replace("__DATA__", json.dumps(data, separators=(",", ":")).replace("</", "<\\/")))
-    out = os.environ.get("PAGE_OUT") or os.path.join(ROOT, "..", "assets", "a4_domain.html")
+    out = os.environ.get("PAGE_OUT") or os.path.join(ROOT, "..", "assets", FAM["out"])
     open(out, "w").write(page)
     summary = ", ".join(f"{g} {len(d['types'])} shapes" for g, d in maps.items())
     print(f"{out}: {summary}, {len(page) // 1024} KB")
 
 
 if __name__ == "__main__":
-    main()
+    for f_ in sys.argv[1:] or ["a4"]:
+        main(f_)

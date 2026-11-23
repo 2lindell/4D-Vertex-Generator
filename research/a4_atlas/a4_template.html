@@ -102,7 +102,7 @@ code { font-family: var(--font-data); font-size: 0.86em; }
 td.pending { color: var(--faint); font-style: italic; }
 </style>
 <style>
-/* (the Symmetry Domain page's styles, above, shared as they are; the additions for the A4 viewer) */
+/* (the Symmetry Domain page's styles, above, shared as they are; the additions for the A4, B4 and D4 viewers) */
 .symbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .symbar .lbl { font-size: 0.82rem; color: var(--muted); margin-right: 4px; }
 #facePick { max-width: 100%; }
@@ -123,7 +123,7 @@ __TYPE_CSS__
     <span class="eyebrow" id="eyebrow"></span>
     <h1 id="title"></h1>
     <p class="lede" id="lede"></p>
-    <div class="symbar" id="symbar" role="group" aria-label="A4 symmetry"><span class="lbl">Symmetry</span></div>
+    <div class="symbar" id="symbar" role="group" aria-label="__FAMILY__ symmetry"><span class="lbl">Symmetry</span></div>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -135,9 +135,9 @@ __TYPE_CSS__
       <label><input id="showLines" type="checkbox" checked> lines</label>
       <label><input id="showPoints" type="checkbox" checked> points</label>
       <label><input id="showFaces" type="checkbox" checked> mirrors (the chamber's faces)</label>
-      <label id="foldBox"><input id="showFold" type="checkbox" checked> the swap's axis and fold</label>
+      <label id="foldBox"><input id="showFold" type="checkbox" checked> <span id="foldLabel">the swap's axis and fold</span></label>
     </div>
-    <div id="plot" role="img" aria-label="3D map of the polychora produced by seeds in the A4 chamber"></div>
+    <div id="plot" role="img" aria-label="3D map of the polychora produced by seeds in the __FAMILY__ chamber"></div>
     <p id="hoverbox"></p>
   </section>
 
@@ -164,7 +164,7 @@ __TYPE_CSS__
   } else start();
 
   function start() {
-    // the data (build_page.py): every A4 symmetry's 3-sphere map on the A4 chamber, and the page's text
+    // the data (build_page.py): every symmetry of the family's 3-sphere map on its chamber, and the page's text
     const ALL = JSON.parse(document.getElementById("atlas-data").textContent);
     const el = (id) => document.getElementById(id);
     const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -202,14 +202,16 @@ __TYPE_CSS__
       }
       // (corner labels: beta = e_k, the corner opposite the mirror beta_k = 0's... the k-th node ringed alone)
       out.push({ type: "scatter3d", mode: "text", x: dom.verts.map((v) => v[0]), y: dom.verts.map((v) => v[1]), z: dom.verts.map((v) => v[2]),
-        text: dom.verts.map((_, k) => `β${k + 1}`), textposition: "top center", textfont: { color: css("--muted"), size: 12 }, hoverinfo: "skip" });
+        text: dom.verts.map((_, k) => (dom.labels ? dom.labels[k] : `β${k + 1}`)), textposition: "top center", textfont: { color: css("--muted"), size: 12 }, hoverinfo: "skip" });
       if (D.fold && el("showFold").checked) {
-        out.push(lines([D.fold.axis], "the swap's axis", { color: css("--qaxis"), width: 4, dash: "dash" },
+        if (D.fold.axis) out.push(lines([D.fold.axis], "the swap's axis", { color: css("--qaxis"), width: 4, dash: "dash" },
           { hoverinfo: "text", text: D.fold.axis.map(() => D.fold.axisName) }));
         const P = D.fold.plane;
         out.push({ type: "mesh3d", x: P.map((q) => q[0]), y: P.map((q) => q[1]), z: P.map((q) => q[2]),
           i: P.slice(2).map(() => 0), j: P.slice(2).map((_, k) => k + 1), k: P.slice(2).map((_, k) => k + 2),
-          color: css("--qaxis"), opacity: 0.08, name: "fold", hoverinfo: "skip", meta: "nopick" });
+          color: css("--qaxis"), opacity: D.fold.axis ? 0.08 : 0.14, name: "fold", hoverinfo: "skip", meta: "nopick" });
+        if (!D.fold.axis) out.push(lines([P.concat([P[0]])], D.fold.label, { color: css("--qaxis"), width: 3, dash: "dash" },
+          { hoverinfo: "text", text: P.concat([P[0]]).map(() => D.fold.name) }));
       }
       for (const w of D.walls) {
         const t = byId[w.id];
@@ -386,6 +388,7 @@ __TYPE_CSS__
         .concat(DIMS.map(([d, name]) => `${nDim(d)} ${name}`)).map((s) => `<span class="chip">${s}</span>`).join("");
       el("notes").innerHTML = D.notes.map((n) => `<div class="panel${n.status ? " status" : ""}"><h2>${n.title}</h2><ul>${n.items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`).join("");
       el("foldBox").style.display = D.fold ? "" : "none";
+      if (D.fold) el("foldLabel").textContent = D.fold.label || "the swap's axis and fold";
       el("hoverbox").textContent = HOVER0;
       buildKey();
       render().then(() => {

@@ -1114,6 +1114,10 @@ OCT_TITLE = "Octahedral Swirl Symmetry Domain"
 OCT_PAGE = Path(__file__).parent / "assets" / "tetraswirl_oct_domain.html"
 A4_TITLE = "A4 Symmetry Domain"
 A4_PAGE = Path(__file__).parent / "assets" / "a4_domain.html"
+B4_TITLE = "B4 Symmetry Domain"
+B4_PAGE = Path(__file__).parent / "assets" / "b4_domain.html"
+D4_TITLE = "D4 Symmetry Domain"
+D4_PAGE = Path(__file__).parent / "assets" / "d4_domain.html"
 SITE = "https://2lindell.github.io/4D-Vertex-Generator/"
 
 
@@ -1599,9 +1603,26 @@ def render_oct_tab() -> None:
 def render_a4_tab() -> None:
     render_page_tab(
         A4_PAGE,
-        "The A4 symmetries (pennic [3,3,3], kipennic [3,3,3]+ and decaic [[3,3,3]] so far) mapped over the A4 chamber: choose a "
+        "The A4 symmetries (pennic, kipennic, decaic, kidecaic and iodecaic) mapped over the A4 chamber: choose a "
         "symmetry for its regions, walls, lines and points, and paste a seed into Generate's Coordinates mode "
         "with the same symmetry.",
+    )
+
+
+def render_b4_tab() -> None:
+    render_page_tab(
+        B4_PAGE,
+        "The B4 symmetries (tessic [4,3,3], kitessic [4,3,3]+ and tessipyritic [4,(3,3)+]) mapped over the B4 "
+        "chamber: choose a symmetry for its shapes, and paste a seed into Generate's Coordinates mode with the same "
+        "symmetry.",
+    )
+
+
+def render_d4_tab() -> None:
+    render_page_tab(
+        D4_PAGE,
+        "The D4 symmetries (demitessic [3¹,¹,¹] and kidemitessic [3¹,¹,¹]+) mapped over the D4 chamber, folded in beta_4 = 0: "
+        "choose a symmetry for its shapes, and paste a seed into Generate's Coordinates mode with the same symmetry.",
     )
 
 
@@ -1680,8 +1701,9 @@ def render_polytwister_tab() -> None:
     )
 
 
-generate_tab, analyze_tab, domain_tab, oct_tab, a4_tab, nonconvex_tab, polytwister_tab = st.tabs(
-    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, OCT_TITLE, A4_TITLE, NONCONVEX_TITLE, POLYTWISTER_TITLE]
+generate_tab, analyze_tab, domain_tab, oct_tab, a4_tab, b4_tab, d4_tab, nonconvex_tab, polytwister_tab = st.tabs(
+    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, OCT_TITLE, A4_TITLE, B4_TITLE, D4_TITLE, NONCONVEX_TITLE,
+     POLYTWISTER_TITLE]
 )
 with generate_tab:
     render_generate_tab()
@@ -1693,6 +1715,10 @@ with oct_tab:
     render_oct_tab()
 with a4_tab:
     render_a4_tab()
+with b4_tab:
+    render_b4_tab()
+with d4_tab:
+    render_d4_tab()
 with nonconvex_tab:
     render_nonconvex_tab()
 with polytwister_tab:

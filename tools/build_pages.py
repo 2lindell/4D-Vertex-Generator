@@ -159,6 +159,9 @@ def build(out: Path) -> list[str]:
     shutil.copy2(ROOT / "assets" / "tetraswirl_oct_domain.html", out / "tetraswirl_oct_domain.html")
     # ... and the A4 Symmetry Domain (research/a4_atlas/build_page.py): the fifth tab
     shutil.copy2(ROOT / "assets" / "a4_domain.html", out / "a4_domain.html")
+    # ... and the B4 and D4 Symmetry Domains (the same viewer: research/a4_atlas/build_page.py b4 d4)
+    for name in ("b4_domain.html", "d4_domain.html"):
+        shutil.copy2(ROOT / "assets" / name, out / name)
     # ... and the Pennic and Decaic Isogonals page (research/pages/make_decaic_page.py), served on its own
     shutil.copy2(ROOT / "assets" / "decaic_isogonals.html", out / "decaic_isogonals.html")
     # ... and the Icoic and Contic Isogonals page (research/pages/make_contic_page.py)
