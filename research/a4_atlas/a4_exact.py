@@ -270,12 +270,14 @@ def build(group):
                     continue
                 fv = np.array([C.f(p) for p in P])
                 sc = np.array([np.linalg.norm(C.g(p)) + 1e-300 for p in P])
-                if np.abs(fv / sc).max() < 1e-9:         # (the curve lies on C too: no crossing)
+                if np.abs(fv / sc).max() < 1e-7:         # (the curve lies on C too: no crossing)
                     continue
                 for i in range(len(P) - 1):
                     if abs(fv[i]) < 1e-12 * (1 + np.linalg.norm(C.g(P[i]))) and i in (0,):
                         cuts.append((0.0, add_point(P[0])))
-                    if fv[i] * fv[i + 1] < 0 and max(abs(fv[i]) / sc[i], abs(fv[i + 1]) / sc[i + 1]) > 1e-12:
+                    # (a real crossing: C changes by about a step between samples; a surface the curve lies on
+                    #  only flips sign in its rounding, ~1e-12 off, and would cut the curve thousands of times)
+                    if fv[i] * fv[i + 1] < 0 and max(abs(fv[i]) / sc[i], abs(fv[i + 1]) / sc[i + 1]) > 1e-7:
                         t = fv[i] / (fv[i] - fv[i + 1])
                         z, ok = newton(P[i] + t * (P[i + 1] - P[i]), [surfs[a], surfs[b], C])
                         if ok and inside(z, 1e-10):
