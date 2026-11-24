@@ -785,6 +785,10 @@ def rework(group, log=print):
     def job(i):
         return mesh_face(X["faces"][i], surfs, Pts, h, X, by_surf)
     global QUALITY
+    if os.environ.get("A4_NO_REMESH"):            # (only the lines carried to their ends; the marching meshes kept)
+        pickle.dump(X, open(os.path.join(HERE, f"a4_pieces_{group}.pkl"), "wb"))
+        log("  meshes kept as marched (A4_NO_REMESH)")
+        return X
     res = run_forked(range(len(X["faces"])), job, log=log)
     again = [i for i, r in res.items() if r[0] is None and r[1] in ("timed out", "worker died")]
     if again:
