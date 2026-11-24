@@ -468,7 +468,9 @@ def rework(group, log=print):
         by_surf[F["surface"]].append(fi)
     new = defaultdict(list)
     stats = Counter()
-    for k, fis in sorted(by_surf.items()):
+    def surf_job(k):
+        fis = by_surf[k]
+        out, stats = [], Counter()
         S = surfs[k]
         planar = k < 4 or S.expr.as_poly().total_degree() == 1
         faces = faces_on(k, S, X["segments"], Pts)
@@ -498,7 +500,7 @@ def rework(group, log=print):
                 cent.append(V[T].mean(1))
                 owner += [fi] * len(T)
         if not cent:
-            continue
+            return out, stats
         tree = cKDTree(np.vstack(cent))
         owner = np.array(owner)
         for q, (loops, hc) in enumerate(faces):
@@ -517,7 +519,7 @@ def rework(group, log=print):
                 if best is not None and best[0] < 1.6 / 40:
                     tu = tutte_exact(X["faces"][best[1]], S, loops[0], planar)
                     if tu is not None:
-                        new[best[1]].append(tu)
+                        out.append((best[1], tu[0], np.asarray(tu[1])))
                         stats["faces laid on their piece's disk"] += 1
                         continue
             if r_ is None:
@@ -531,18 +533,19 @@ def rework(group, log=print):
                 stats["face in no wall piece"] += 1
                 continue
             fi = Counter(owner[j[near]]).most_common(1)[0][0]
-            new[fi].append((V, T))
+            out.append((fi, V, T))
             stats["faces"] += 1
-    # (a piece the walk gave no face: its graph walked again on the curves along its own rim only)
-    for fi, F in enumerate(X["faces"]):
-        if fi in new:
-            continue
+        return out, stats
+
+    def piece_job(fi):
+        F = X["faces"][fi]
+        out, stats = [], Counter()
         k = F["surface"]
         S = surfs[k]
         planar = k < 4 or S.expr.as_poly().total_degree() == 1
         rim = P.rim_of(dict(F))
         if not rim:
-            continue
+            return out, stats
         Vm = np.asarray(P.weld(G := {"mesh": F["mesh"], "filled": F.get("filled", [])}) or G["mesh"]["verts"], float)
         R = [Vm[a] + u * (Vm[b] - Vm[a]) for a, b in P.rim_of(G) for u in np.linspace(0, 1, 6)]
         tree = cKDTree(np.array(R))
@@ -556,7 +559,7 @@ def rework(group, log=print):
             if len(d) and np.mean(d < h) > 0.85:
                 sub.append(s_)
         if not sub:
-            continue
+            return out, stats
         sub_ids = [X["segments"].index(s_) for s_ in sub]
         view = [dict(s_, on=(s_["on"] if i in sub_ids else set(s_["on"]) - {k})) for i, s_ in enumerate(X["segments"])]
         old_a = mesh_area(G["mesh"]["verts"], [t for t in G["mesh"]["faces"] if not set(G.get("filled", [])) & set(t)])
@@ -568,9 +571,24 @@ def rework(group, log=print):
             if r_ is None:
                 continue
             if abs(mesh_area(*r_) - old_a) < AREA_TOL * old_a:
-                new[fi].append((np.asarray(r_[0]), np.asarray(r_[1])))
+                out.append((fi, np.asarray(r_[0]), np.asarray(r_[1])))
                 stats["faces from the piece's own rim curves"] += 1
                 break
+        return out, stats
+
+    def gather(res):
+        for r in res.values():
+            if r[0] is None:
+                stats[f"surface or piece lost ({r[1]})"] += 1
+                continue
+            for fi, V, T in r[0]:
+                new[fi].append((np.asarray(V), np.asarray(T)))
+            stats.update(r[1])
+    # (each surface in a worker of its own: triangle can crash on a bad loop)
+    gather(P.run_forked(sorted(by_surf), surf_job, timeout=3000, log=log))
+    # (a piece the walk gave no face: its graph walked again on the curves along its own rim only)
+    gather(P.run_forked([fi for fi in range(len(X["faces"])) if fi not in new], piece_job, timeout=600, log=log))
+
     for fi, F in enumerate(X["faces"]):
         parts = new.get(fi)
         old_a = mesh_area(F["mesh"]["verts"], [t for t in F["mesh"]["faces"]
