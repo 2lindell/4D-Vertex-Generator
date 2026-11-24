@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import os
 import pickle
+import time
 import sys
 from collections import Counter, defaultdict
 
@@ -516,8 +517,26 @@ def clean_graph(X, surfs, log=print, tol=1e-7):
             Q = np.array([ax(t) for t in np.linspace(t0, t1, m)])
             Q[0], Q[-1] = P_[i], P_[j]
             segs.append({"ends": (i, j), "pts": Q, "on": set(ax_surfs), "key": None, "sig": None, "axis": True})
+    # a curve can lie on more surfaces than the pair it was traced on: every surface it lies on is a side of it
+    grown = 0
+    for s in segs:
+        Q = np.asarray(s["pts"], float)
+        samp = Q[np.unique(np.linspace(0, len(Q) - 1, min(len(Q), 7)).round().astype(int))]
+        if len(Q) > 2:
+            samp = samp[1:-1] if len(samp) > 2 else Q[1:-1]
+        else:
+            samp = (Q[:1] + Q[1:]) / 2
+        on = set(s["on"])
+        for m, Sm in enumerate(surfs):
+            if m in on:
+                continue
+            if all(abs(Sm.f(x)) / (np.linalg.norm(Sm.g(x)) + 1e-300) < 1e-8 for x in samp):
+                on.add(m)
+        grown += len(on) > len(s["on"])
+        s["on"] = on
     log(f"  graph: {len(set(rep.tolist()))} distinct points of {len(rep)}; {len(X['segments'])} segments -> "
-        f"{len(segs)} ({n_ax} along the swap's axis rebuilt as one chain on {len(ax_surfs)} surfaces)")
+        f"{len(segs)} ({n_ax} along the swap's axis rebuilt as one chain on {len(ax_surfs)} surfaces; "
+        f"{grown} found on more surfaces)")
     X["segments"] = segs
 
 
@@ -555,6 +574,16 @@ def safe(fn, *args, timeout=120):
         return None
 
 
+def dense(Q, step=1e-3):
+    """A polyline's points with more put in along its long steps (straight curves are kept as their two ends)."""
+    Q = np.asarray(Q, float)
+    out = [Q[:1]]
+    for a, b in zip(Q[:-1], Q[1:]):
+        n = max(1, int(np.ceil(np.linalg.norm(b - a) / step)))
+        out.append(a + (b - a) * (np.arange(1, n + 1) / n)[:, None])
+    return np.vstack(out)
+
+
 def complete_graph(X, surfs, log=print, near=3e-3):
     """The curves a4_exact did not trace, added: wherever a marching piece's rim runs along two surfaces (its cut
     vertices were solved onto both) with no traced curve of that pair near, the curve is traced exactly from there
@@ -570,7 +599,7 @@ def complete_graph(X, surfs, log=print, near=3e-3):
         for a in on:
             for b in on:
                 if a < b:
-                    pair_pts[(a, b)].append(np.asarray(s_["pts"], float))
+                    pair_pts[(a, b)].append(dense(s_["pts"]))
     trees = {p: cKDTree(np.vstack(v)) for p, v in pair_pts.items()}
     seeds = defaultdict(list)
     for F in X["faces"]:
@@ -589,7 +618,9 @@ def complete_graph(X, surfs, log=print, near=3e-3):
                 if p in trees and trees[p].query(x)[0] < near:
                     continue
                 seeds[p].append(x)
+    log(f"  completing: {sum(len(v) for v in seeds.values())} rim points on {len(seeds)} pairs need curves")
     curves = []
+    t_ = time.time()
     for (a, b), xs in seeds.items():
         xs = np.array(xs)
         left = np.ones(len(xs), bool)
@@ -605,7 +636,7 @@ def complete_graph(X, surfs, log=print, near=3e-3):
             if len(pts) < 3:
                 continue
             Q = np.array(pts)
-            left &= cKDTree(Q).query(xs)[0] >= near
+            left &= cKDTree(dense(Q)).query(xs)[0] >= near
             curves.append(((a, b), Q, closed))
     # the points on each new curve: other surfaces crossing it, and its ends
     tree_p = cKDTree(np.array(Pts))
@@ -619,12 +650,24 @@ def complete_graph(X, surfs, log=print, near=3e-3):
         tree_p = cKDTree(np.array(Pts))
         return len(Pts) - 1
 
+    by_surf = defaultdict(set)
+
+    def add_seg(s_):
+        for m in s_["on"]:
+            by_surf[m].add(len(segs))
+        segs.append(s_)
+
+    for i_, s_ in enumerate(segs):
+        for m in s_["on"]:
+            by_surf[m].add(i_)
+
     def split_existing(x, pid, pairs):
         """Existing curves on any of these surface pairs through x: cut at x (the new point)."""
-        for i_ in range(len(segs)):
+        cand = set()
+        for p_, q_ in pairs:
+            cand |= by_surf[p_] & by_surf[q_]
+        for i_ in sorted(cand):
             s_ = segs[i_]
-            if not any(set(p_) <= set(s_["on"]) for p_ in pairs):
-                continue
             if pid in s_["ends"]:
                 continue
             Q = np.asarray(s_["pts"], float)
@@ -633,14 +676,35 @@ def complete_graph(X, surfs, log=print, near=3e-3):
             u = np.clip(np.einsum("ij,ij->i", x - A_, d_) / (np.einsum("ij,ij->i", d_, d_) + 1e-300), 0, 1)
             dist = np.linalg.norm(A_ + u[:, None] * d_ - x, axis=1)
             j = int(np.argmin(dist))
-            if dist[j] > 1e-6:
+            if dist[j] > 1e-6 or min(np.linalg.norm(Q[0] - x), np.linalg.norm(Q[-1] - x)) < 1e-6:
                 continue
             first = dict(s_, ends=(s_["ends"][0], pid), pts=np.vstack([Q[:j + 1], x]))
             second = dict(s_, ends=(pid, s_["ends"][1]), pts=np.vstack([x, Q[j + 1:]]))
             segs[i_] = first
-            segs.append(second)
-    added = 0
+            add_seg(second)
+    # a traced curve that runs along a curve already in the graph is that curve: it gains the pair's surfaces
+    allp = [dense(s_["pts"]) for s_ in segs]
+    all_tree = cKDTree(np.vstack(allp))
+    all_of = np.concatenate([[i] * len(q) for i, q in enumerate(allp)])
+    kept, merged = [], 0
     for (a, b), Q, closed in curves:
+        d, i = all_tree.query(Q)
+        if np.mean(d < 1e-6) > 0.8:
+            for i_ in set(all_of[i[d < 1e-6]].tolist()):
+                segs[i_]["on"] = set(segs[i_]["on"]) | {a, b}
+            merged += 1
+        else:
+            kept.append(((a, b), Q, closed))
+    curves = kept
+    by_surf.clear()
+    for i_, s_ in enumerate(segs):
+        for m in s_["on"]:
+            by_surf[m].add(i_)
+    added = n_cuts = 0
+    t_ = time.time()
+    for c_i, ((a, b), Q, closed) in enumerate(curves):
+        if c_i % 25 == 0:
+            log(f"    cutting curve {c_i}/{len(curves)}: {n_cuts} cuts, {len(segs)} segments, {time.time() - t_:.0f}s")
         A_, B_ = surfs[a], surfs[b]
         cuts = []
         on = {a, b}
@@ -664,6 +728,10 @@ def complete_graph(X, surfs, log=print, near=3e-3):
         if not closed:
             cuts += [(0.0, Q[0], None), (len(Q) - 1.0, Q[-1], None)]
         cuts.sort(key=lambda c: c[0])
+        n_cuts += len(cuts)
+        if len(cuts) > 100:
+            log(f"    curve {c_i} on {a},{b} (also {sorted(on - {a, b})}): {len(cuts)} cuts by "
+                f"{Counter(c[2] for c in cuts).most_common(4)}")
         ids = []
         for t, z, m in cuts:
             pid = point_id(z)
@@ -677,10 +745,10 @@ def complete_graph(X, surfs, log=print, near=3e-3):
             pts = np.vstack([Pts[p0], Q[i0:i1 + 1], Pts[p1]])
             if p0 == p1 and len(pts) < 4:
                 continue
-            segs.append({"ends": (p0, p1), "pts": pts, "on": set(on), "key": None, "sig": None, "added": True})
+            add_seg({"ends": (p0, p1), "pts": pts, "on": set(on), "key": None, "sig": None, "added": True})
             added += 1
     log(f"  graph completed: {sum(len(v) for v in seeds.values())} rim points on {len(seeds)} surface pairs "
-        f"with no curve; {len(curves)} curves traced, {added} segments added")
+        f"with no curve; {len(curves) + merged} curves traced ({merged} already there), {n_cuts} cuts, {added} segments added ({time.time() - t_:.0f}s)")
 
 
 def rework(group, log=print):
