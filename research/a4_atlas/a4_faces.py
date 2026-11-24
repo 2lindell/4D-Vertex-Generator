@@ -160,6 +160,7 @@ def faces_on(k, S, segs, Pts):
     return out
 
 
+
 def unbridge(segs, cyc):
     """A cycle that walks a curve both ways (a bridge: the face on both sides of it) split there into the loops it
     joins: (loops, [cycles])."""
@@ -584,6 +585,59 @@ def dense(Q, step=1e-3):
     return np.vstack(out)
 
 
+def lobes(L):
+    """A loop that passes through one point twice: its lobes, each a simple loop. (A spur, a dangling curve the walk
+    goes out along and back, is dropped first; a pinch, where a face's outline touches itself at a corner, splits
+    the loop in two.)"""
+    L = np.asarray(L, float)
+    keep = [0] + [i for i in range(1, len(L)) if np.linalg.norm(L[i] - L[i - 1]) > 1e-10]
+    L = L[keep]
+    if len(L) > 1 and np.linalg.norm(L[-1] - L[0]) <= 1e-10:
+        L = L[:-1]
+    key = [tuple(r) for r in np.round(L, 11)]
+    # (spurs: ... a b a ... -> ... a ...)
+    st = []
+    for i, k in enumerate(key):
+        st.append(i)
+        while len(st) >= 3 and key[st[-1]] == key[st[-3]]:
+            del st[-2:]
+    out, todo = [], [L[st]]
+    while todo:
+        L = todo.pop()
+        first, hit = {}, None
+        for j, r in enumerate(map(tuple, np.round(L, 11))):
+            if r in first:
+                hit = (first[r], j)
+                break
+            first[r] = j
+        if hit is None:
+            if len(L) >= 3:
+                out.append(L)
+            continue
+        i, j = hit
+        todo += [L[i:j], np.vstack([L[j:], L[:i]])]
+    return out
+
+
+def tri_face(S, loops, planar):
+    """triangulate, or for a pinched single loop, each lobe triangulated and the meshes put together."""
+    r_ = safe(P.triangulate, S, loops, planar)
+    if r_ is not None or len(loops) != 1:
+        return r_
+    parts = lobes(loops[0])
+    if len(parts) < 2:
+        return None
+    V, T, off = [], [], 0
+    for L in parts:
+        q = safe(P.triangulate, S, [L], planar)
+        if q is None:
+            return None
+        V.append(np.asarray(q[0]))
+        T.append(np.asarray(q[1]) + off)
+        off += len(q[0])
+    return np.vstack(V), np.vstack(T).tolist()
+
+
 def complete_graph(X, surfs, log=print, near=3e-3):
     """The curves a4_exact did not trace, added: wherever a marching piece's rim runs along two surfaces (its cut
     vertices were solved onto both) with no traced curve of that pair near, the curve is traced exactly from there
@@ -756,7 +810,8 @@ def complete_graph(X, surfs, log=print, near=3e-3):
     # ahead where a third surface crosses (solved exactly), which the curves through it are cut at.
     rel = lambda S_, x: abs(S_.f(x)) / (np.linalg.norm(S_.g(x)) + 1e-300)
     R = 1.5e-2
-    joined = solved = 0
+    joined = solved = done = 0
+    loose = []
     for rnd in range(3):
         deg = defaultdict(Counter)
         for s_ in segs:
@@ -863,7 +918,7 @@ def rework(group, log=print):
         for rnd in range(int(os.environ.get("A4_CUT_ROUNDS", "1"))):   # (cuts: off unless asked)
             bad = []
             for q, (loops, hc) in enumerate(faces):
-                r_ = safe(P.triangulate, S, loops, planar)
+                r_ = tri_face(S, loops, planar)
                 if r_ is None:
                     bad.append(hc)
                 else:
@@ -918,6 +973,13 @@ def rework(group, log=print):
                 stats["face in no wall piece"] += 1
                 continue
             fi = Counter(owner[j[near]]).most_common(1)[0][0]
+            # (most of the face, by area, on that piece: else it reaches over others, a face bigger than any piece
+            #  or the cycle round the outside of a cluster of curves)
+            e1, e2 = V[T[:, 1]] - V[T[:, 0]], V[T[:, 2]] - V[T[:, 0]]
+            ta = np.sqrt(np.maximum((e1 * e1).sum(1) * (e2 * e2).sum(1) - (e1 * e2).sum(1) ** 2, 0))
+            if ta[near & (owner[j] == fi)].sum() < 0.85 * ta.sum():
+                stats["face over several pieces"] += 1
+                continue
             out.append((fi, V, T))
             stats["faces"] += 1
         return out, stats
@@ -951,7 +1013,7 @@ def rework(group, log=print):
             Lp = loops[0][:: max(1, len(loops[0]) // 300)]
             if cKDTree(Vm).query(Lp)[0].mean() > 0.25 * h:
                 continue
-            r_ = safe(P.triangulate, S, loops, planar) or safe(tutte_exact, F, S, loops[0], planar)
+            r_ = tri_face(S, loops, planar) or safe(tutte_exact, F, S, loops[0], planar)
             if r_ is None:
                 continue
             if abs(mesh_area(*r_) - old_a) < AREA_TOL * old_a:
