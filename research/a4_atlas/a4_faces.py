@@ -43,6 +43,67 @@ def frame_at(S, x):
     return e1, np.cross(n, e1)
 
 
+class _Ball:
+    """|x - c|^2 = r^2, as a surface for a4_exact's Newton steps and traces."""
+
+    def __init__(self, c, r):
+        self.c, self.r = np.asarray(c, float), r
+
+    def f(self, x):
+        return float((x - self.c) @ (x - self.c) - self.r ** 2)
+
+    def g(self, x):
+        return 2 * (x - self.c)
+
+
+def link_groups(S, v, hs, r=2e-3):
+    """At a singular point v of S: the curves leaving it in turn on each sheet. Each curve's point at distance r is
+    found; the curve where the sphere of radius r round v meets S is traced through them (each component a sheet's
+    round, cut by the mirrors into arcs); along each, the curves' points in order, turning the way S's normal there
+    does."""
+    mirrors = [E.Surf(E.B[i], f"b{i + 1}") for i in range(4)]
+    ball = _Ball(v, r)
+    at = {}
+    for i, fw, Q in hs:
+        Q = np.asarray(Q, float)
+        d = np.linalg.norm(Q - v, axis=1)
+        j = int(np.argmax(d >= r)) if (d >= r).any() else len(Q) - 1
+        if j == 0:
+            p = Q[0]
+        else:
+            t = (r - d[j - 1]) / max(d[j] - d[j - 1], 1e-300)
+            p = Q[j - 1] + np.clip(t, 0, 1) * (Q[j] - Q[j - 1])
+        p, ok = E.newton(p, [S, ball])
+        at[(i, fw)] = p
+    left = dict(at)
+    comps = []
+    while left:
+        he, p = next(iter(left.items()))
+        pts, closed = E.trace(p, S, ball, mirrors, h=r / 20)
+        C = np.array(pts) if len(pts) >= 2 else np.array([p, p])
+        mine = []
+        for he2, q in list(left.items()):
+            dd = np.linalg.norm(C - q, axis=1)
+            j = int(np.argmin(dd))
+            if dd[j] < r / 10:
+                mine.append((j, he2))
+                del left[he2]
+        if he in left:
+            del left[he]
+            mine.append((0, he))
+        mine.sort()
+        order = [h for _, h in mine]
+        # (turning with the normal: going along the round, the point moves anticlockwise seen down S's normal)
+        if len(C) >= 3:
+            m = len(C) // 2
+            tdir = (C[min(m + 1, len(C) - 1)] - C[max(m - 1, 0)]) @ BZ.T
+            n = P.normal(S, C[m]) @ BZ.T
+            if np.cross((C[m] - v) @ BZ.T, tdir) @ n < 0:
+                order = order[::-1]
+        comps.append(order)
+    return comps
+
+
 def leave_dir(Q, d=0.02):
     """The direction a polyline leaves its first point: the point a little way along, from the start."""
     seg = np.linalg.norm(np.diff(Q, axis=0), axis=1)
@@ -90,15 +151,24 @@ def faces_on(k, S, segs, Pts):
         a, b = segs[i]["ends"]
         out[a].append((i, True, Q))
         out[b].append((i, False, Q[::-1]))
-    ang = {}
+    # (round each point, the curves leaving it in turn: in the surface's tangent plane there, or, where the surface
+    #  is singular (two sheets crossing, a cone), along the curve a small sphere round the point cuts from it, each
+    #  sheet its own round)
+    groups, pos = {}, {}
     for v, hs in out.items():
         x = np.asarray(Pts[v], float)
-        e1, e2 = frame_at(S, x)
-        for i, fw, Q in hs:
-            d = leave_dir(Q) @ BZ.T
-            ang[(i, fw)] = np.arctan2(d @ e2, d @ e1)
-        hs.sort(key=lambda h: ang[(h[0], h[1])])
-    pos = {v: {(h[0], h[1]): j for j, h in enumerate(hs)} for v, hs in out.items()}
+        g = S.g(x)
+        if np.linalg.norm(g - g.mean()) < 1e-7 and len(hs) > 2:
+            gr = link_groups(S, x, hs)
+        else:
+            e1, e2 = frame_at(S, x)
+            ang = {}
+            for i, fw, Q in hs:
+                d = leave_dir(Q) @ BZ.T
+                ang[(i, fw)] = np.arctan2(d @ e2, d @ e1)
+            gr = [[(h[0], h[1]) for h in sorted(hs, key=lambda h: ang[(h[0], h[1])])]]
+        groups[v] = gr
+        pos[v] = {he: (gi, j) for gi, grp in enumerate(gr) for j, he in enumerate(grp)}
 
     def head(i, fw):
         a, b = segs[i]["ends"]
@@ -116,9 +186,11 @@ def faces_on(k, S, segs, Pts):
                 seen.add(cur)
                 cyc.append(cur)
                 w = head(*cur)
-                j = pos[w][(cur[0], not cur[1])]
-                nxt = out[w][(j - 1) % len(out[w])]
-                cur = (nxt[0], nxt[1])
+                if (cur[0], not cur[1]) not in pos[w]:
+                    break
+                gi, j = pos[w][(cur[0], not cur[1])]
+                grp = groups[w][gi]
+                cur = grp[(j - 1) % len(grp)]
             if cur != he:
                 continue
             pts = []
@@ -129,35 +201,53 @@ def faces_on(k, S, segs, Pts):
             cycles.append(np.array(pts))
             hcyc.append(cyc)
 
-    # (the graph on each surface is connected, so every cycle is one face, on its left; the cycle round the outside
-    #  has the outside of the chamber on its left)
-    res = []
-    for L, cyc in zip(cycles, hcyc):
+    # (every cycle is a face, on its left, once split where it walks a curve both ways (a slit joining two faces)
+    #  or passes a point twice (faces touching only there); each part is a face, unless it is a cycle round the
+    #  outside, which has the outside of the chamber on its left)
+    parts = []
+    for cyc in hcyc:
+        for c in unbridge(segs, cyc)[1]:
+            parts += cycle_lobes(segs, c)
+    out = []
+    for cyc in parts:
+        pts = []
+        for i, fw in cyc:
+            Q = thin_seg(np.asarray(segs[i]["pts"], float))
+            Q = Q if fw else Q[::-1]
+            pts.extend(Q[:-1])
+        if len(pts) < 3:
+            continue
+        L = np.array(pts)
         mir = [sorted(set(segs[i]["on"]) & ({0, 1, 2, 3} - {k})) for i, _ in cyc]
         if not all(mir):                         # (a curve inside the chamber in it: an inside face)
-            res.append(([L], [cyc]))
+            out.append(([L], [cyc]))
             continue
-        keep = True                              # (all on the chamber's faces: inside, or the cycle round the outside)
+        # (all on the chamber's faces: inside, or the cycle round the outside. Steps in from many points of its
+        #  mirror curves decide, by vote: where a sheet of the surface lies along a mirror, nearly touching it, one
+        #  step can land either side)
+        votes = []
         for (i, fw), ms in zip(cyc, mir):
             if len(ms) != 1:
                 continue
             Q = np.asarray(segs[i]["pts"], float)
             Q = Q if fw else Q[::-1]
-            m = len(Q) // 2
-            x, d = Q[m], Q[min(m + 1, len(Q) - 1)] - Q[max(m - 1, 0)]
-            n = P.normal(S, x) @ BZ.T
-            side = np.cross(n, d @ BZ.T) @ BZ
-            side /= np.linalg.norm(side) + 1e-300
-            y = P.lift_normal(S, x + 1e-4 * side)  # (the walk keeps the face on its left)
-            keep = y is not None and y[ms[0]] > 0
-            break
+            for f in (0.2, 0.35, 0.5, 0.65, 0.8):
+                m = min(max(int(f * (len(Q) - 1)), 0), len(Q) - 2)
+                x = Q[m] + (Q[m + 1] - Q[m]) * (f * (len(Q) - 1) - m)
+                d = Q[m + 1] - Q[m]
+                n = P.normal(S, x) @ BZ.T
+                side = np.cross(n, d @ BZ.T) @ BZ
+                nn = np.linalg.norm(side)
+                if nn < 1e-14:
+                    continue
+                y = P.lift_normal(S, x + 1e-3 * side / nn)  # (the walk keeps the face on its left)
+                if y is not None:
+                    votes.append(y[ms[0]] > 0)
+        keep = bool(votes) and np.mean(votes) > 0.5
+        if os.environ.get("A4_DEBUG_FACES") == str(k):
+            print("   all-mirror cycle", [i for i, _ in cyc], "votes", votes, "kept", keep)
         if keep:
-            res.append(([L], [cyc]))
-    out = []                                     # (a slit walked both ways joins two faces: each loop its own face)
-    for r in res:
-        loops, cyc = unbridge(segs, r[1][0])
-        # (a loop through one point twice: faces touching only there, each its own face)
-        out += [([Lb], [c]) for L, c in zip(loops, cyc) for Lb in lobes(L)]
+            out.append(([L], [cyc]))
     # (a lobe of the cycle round the outside of a cluster joined at one point runs round the same points as the
     #  face inside it, the other way: the same face, kept once)
     seen, uniq = set(), []
@@ -168,6 +258,26 @@ def faces_on(k, S, segs, Pts):
             uniq.append(f)
     return uniq
 
+
+
+def cycle_lobes(segs, cyc):
+    """A cycle through one point twice split there into the cycles of its lobes (each a face of its own)."""
+    todo, done = [list(cyc)], []
+    while todo:
+        c = todo.pop()
+        start = [segs[i]["ends"][0] if fw else segs[i]["ends"][1] for i, fw in c]
+        first, hit = {}, None
+        for j, v in enumerate(start):
+            if v in first:
+                hit = (first[v], j)
+                break
+            first[v] = j
+        if hit is None:
+            done.append(c)
+            continue
+        a, b = hit
+        todo += [x for x in (c[a:b], c[b:] + c[:a]) if x]
+    return done
 
 
 def unbridge(segs, cyc):

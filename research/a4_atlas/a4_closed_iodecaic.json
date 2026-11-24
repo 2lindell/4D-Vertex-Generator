@@ -1,0 +1,20 @@
+{
+ "group": "iodecaic",
+ "surfaces": 9,
+ "points": 18,
+ "segments": 25,
+ "loose ends": 0,
+ "grid points in no face (face missing)": 0,
+ "grid points in no face, by surface": {},
+ "faces whose swap image is not a face of the same shape": 0,
+ "faces": 28,
+ "faces cut through by a surface (curve missing)": 0,
+ "faces whose probes disagree on the shape": 0,
+ "faces by shape": {
+  "other": 16,
+  "tetosbid": 2,
+  "bipyosbid": 4,
+  "petosbid": 2,
+  "sosbid": 4
+ }
+}
