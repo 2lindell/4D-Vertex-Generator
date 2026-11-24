@@ -156,8 +156,17 @@ def faces_on(k, S, segs, Pts):
     out = []                                     # (a slit walked both ways joins two faces: each loop its own face)
     for r in res:
         loops, cyc = unbridge(segs, r[1][0])
-        out += [([L], [c]) for L, c in zip(loops, cyc)]
-    return out
+        # (a loop through one point twice: faces touching only there, each its own face)
+        out += [([Lb], [c]) for L, c in zip(loops, cyc) for Lb in lobes(L)]
+    # (a lobe of the cycle round the outside of a cluster joined at one point runs round the same points as the
+    #  face inside it, the other way: the same face, kept once)
+    seen, uniq = set(), []
+    for f in out:
+        key = frozenset(map(tuple, np.round(f[0][0], 9)))
+        if key not in seen:
+            seen.add(key)
+            uniq.append(f)
+    return uniq
 
 
 
