@@ -1118,6 +1118,8 @@ B4_TITLE = "B4 Symmetry Domain"
 B4_PAGE = Path(__file__).parent / "assets" / "b4_domain.html"
 D4_TITLE = "D4 Symmetry Domain"
 D4_PAGE = Path(__file__).parent / "assets" / "d4_domain.html"
+F4_TITLE = "F4 Symmetry Domain"
+F4_PAGE = Path(__file__).parent / "assets" / "f4_domain.html"
 SITE = "https://2lindell.github.io/4D-Vertex-Generator/"
 
 
@@ -1626,6 +1628,15 @@ def render_d4_tab() -> None:
     )
 
 
+def render_f4_tab() -> None:
+    render_page_tab(
+        F4_PAGE,
+        "The F4 symmetries (icoic [3,4,3], contic [[3,4,3]], kiicoic [3,4,3]+, icopyritic [3,4,3+] and toxitic "
+        "[3+,4,3+]; kicontic, iocontic and oxitic to come) mapped over the F4 chamber: choose a symmetry for its "
+        "shapes, and paste a seed into Generate's Coordinates mode with the same symmetry.",
+    )
+
+
 def _project_4d(points: np.ndarray, xw: float, zw: float, distance: float) -> np.ndarray:
     pts = np.asarray(points, dtype=float).copy()
     for axis, angle in ((0, xw), (2, zw)):
@@ -1701,8 +1712,8 @@ def render_polytwister_tab() -> None:
     )
 
 
-generate_tab, analyze_tab, domain_tab, oct_tab, a4_tab, b4_tab, d4_tab, nonconvex_tab, polytwister_tab = st.tabs(
-    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, OCT_TITLE, A4_TITLE, B4_TITLE, D4_TITLE, NONCONVEX_TITLE,
+generate_tab, analyze_tab, domain_tab, oct_tab, a4_tab, b4_tab, d4_tab, f4_tab, nonconvex_tab, polytwister_tab = st.tabs(
+    ["Generate", "Analyze a 4OFF file", DOMAIN_TITLE, OCT_TITLE, A4_TITLE, B4_TITLE, D4_TITLE, F4_TITLE, NONCONVEX_TITLE,
      POLYTWISTER_TITLE]
 )
 with generate_tab:
@@ -1719,6 +1730,8 @@ with b4_tab:
     render_b4_tab()
 with d4_tab:
     render_d4_tab()
+with f4_tab:
+    render_f4_tab()
 with nonconvex_tab:
     render_nonconvex_tab()
 with polytwister_tab:

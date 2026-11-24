@@ -32,6 +32,7 @@ sys.path.insert(0, HERE)
 import a4_exact as E  # noqa: E402
 
 BZ = np.linalg.svd(np.ones((1, 4)))[2][1:]          # (an orthonormal basis of sum(beta) = 0: the chart's 3-space)
+QUALITY = True   # (off for a retry: triangle's quality refinement can loop forever on a few loops)
 MAX_AREA = float(os.environ.get("A4_PIECE_AREA", "1.5e-4"))
 
 
@@ -509,12 +510,33 @@ def tutte(F, S, P, h, planar):
             keep.append(i)
     if len(keep) < 3:
         return None
+    # (on the disk: mesh rim vertices on the circle; exact points put in between them on the chord joining their
+    # mesh neighbours, by length, so the loop stays inside the region the old mesh covers)
+    circ = np.c_[np.cos(ang), np.sin(ang)]
+    isv = np.array([isinstance(x, (int, np.integer)) for x in loop])
+    if not isv.any():
+        return None
+    cum = np.concatenate([[0], np.cumsum(seg)])
+    lu = circ.copy()
+    n_ = len(loop)
+    for i in np.flatnonzero(~isv):
+        a = i
+        while not isv[a % n_]:
+            a -= 1
+        b = i
+        while not isv[b % n_]:
+            b += 1
+        la = cum[i] - cum[a % n_] + (tot if a < 0 else 0)
+        lb = cum[b % n_] - cum[i] + (tot if b >= n_ else 0)
+        if a % n_ == b % n_:
+            return None
+        lu[i] = (lb * circ[a % n_] + la * circ[b % n_]) / (la + lb)
     Lp = np.array([pos[i] for i in keep])
-    Lu = np.c_[np.cos(ang[keep]), np.sin(ang[keep])]
+    Lu = lu[keep]
     m = len(keep)
     A3 = sum(0.5 * np.linalg.norm(np.cross(*(((V[t[1]] - V[t[0]]) @ BZ.T, (V[t[2]] - V[t[0]]) @ BZ.T)))) for t in T)
     amax = MAX_AREA * np.pi / max(A3, 1e-12)
-    opts = "pY" if planar else f"pYq20a{amax:.3g}"
+    opts = "pY" if planar else (f"pYq20a{amax:.3g}" if QUALITY else f"pYa{amax:.3g}")
     try:
         Tr = tr.triangulate({"vertices": np.ascontiguousarray(Lu, dtype=np.float64),
                              "segments": np.array([[i, (i + 1) % m] for i in range(m)], np.int32)}, opts)
@@ -524,23 +546,24 @@ def tutte(F, S, P, h, planar):
         return None
     # (each new inner point: in which mesh triangle on the disk, carried by its barycentric coordinates)
     UVt = uv[T]
-    cen = cKDTree(UVt.mean(1))
+    a_, b_, c_ = UVt[:, 0], UVt[:, 1], UVt[:, 2]
+    det = (b_[:, 1] - c_[:, 1]) * (a_[:, 0] - c_[:, 0]) + (c_[:, 0] - b_[:, 0]) * (a_[:, 1] - c_[:, 1])
+    ok = np.abs(det) > 1e-300
+    det = np.where(ok, det, 1.0)
     Xv = list(Lp)
     for q in Tr["vertices"][m:]:
-        got = None
-        for j in np.atleast_1d(cen.query(q, k=min(24, len(T)))[1]):
-            a, b, c = UVt[j]
-            d = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1])
-            if abs(d) < 1e-300:
-                continue
-            l1 = ((b[1] - c[1]) * (q[0] - c[0]) + (c[0] - b[0]) * (q[1] - c[1])) / d
-            l2 = ((c[1] - a[1]) * (q[0] - c[0]) + (a[0] - c[0]) * (q[1] - c[1])) / d
-            l3 = 1 - l1 - l2
-            if min(l1, l2, l3) > -1e-9:
-                got = l1 * V[T[j][0]] + l2 * V[T[j][1]] + l3 * V[T[j][2]]
-                break
-        if got is None:
+        # (barycentric coordinates in every mesh triangle on the disk; the one it lies in, or failing that the
+        # nearest by how far outside it is: points by an exact corner can sit just past the old mesh's rim)
+        l1 = ((b_[:, 1] - c_[:, 1]) * (q[0] - c_[:, 0]) + (c_[:, 0] - b_[:, 0]) * (q[1] - c_[:, 1])) / det
+        l2 = ((c_[:, 1] - a_[:, 1]) * (q[0] - c_[:, 0]) + (a_[:, 0] - c_[:, 0]) * (q[1] - c_[:, 1])) / det
+        l3 = 1 - l1 - l2
+        worst = np.where(ok, np.minimum(np.minimum(l1, l2), l3), -np.inf)
+        j = int(np.argmax(worst))
+        if worst[j] < -0.5:
             return None
+        lam = np.clip([l1[j], l2[j], l3[j]], 0, None)
+        lam /= lam.sum()
+        got = lam @ V[T[j]]
         y = got if planar else lift_normal(S, got)
         if y is None:
             return None
@@ -577,6 +600,47 @@ def groups(S, loops):
     return out
 
 
+def components(F, h):
+    """The piece's mesh (welded, without gap fills) split where only a vertex or nothing joins it, as pieces of their
+    own; a stray of one or two triangles lying within a grid step of a larger part (a marching-cube sliver at the
+    rim) dropped."""
+    G = {k: v for k, v in F.items()}
+    G["_welded"] = False
+    weld(G)
+    V = np.asarray(G["mesh"]["verts"], float)
+    fl = set(G.get("filled", []))
+    T = [tuple(t) for t in G["mesh"]["faces"] if not fl.intersection(t)]
+    if not T:
+        return []
+    par = list(range(len(T)))
+
+    def find(x):
+        while par[x] != x:
+            par[x] = par[par[x]]
+            x = par[x]
+        return x
+    by_e = defaultdict(list)
+    for k, t in enumerate(T):
+        for a, b in ((t[0], t[1]), (t[1], t[2]), (t[2], t[0])):
+            by_e[(min(a, b), max(a, b))].append(k)
+    for ks in by_e.values():
+        for k in ks[1:]:
+            par[find(k)] = find(ks[0])
+    parts = defaultdict(list)
+    for k, t in enumerate(T):
+        parts[find(k)].append(list(t))
+    parts = sorted(parts.values(), key=len, reverse=True)
+    out = []
+    for i, C in enumerate(parts):
+        if len(C) <= 2 and i > 0:
+            vs = V[sorted({a for t in C for a in t})]
+            big = V[sorted({a for D in parts[:i] if len(D) > len(C) for t in D for a in t})]
+            if len(big) and cKDTree(big).query(vs)[0].max() < h:
+                continue
+        out.append({"surface": F["surface"], "mesh": {"verts": list(V), "faces": C}, "filled": [], "_welded": True})
+    return out
+
+
 def mesh_face(F, surfs, Pts, h, X, by_surf):
     """Remesh one piece. Returns ((verts, faces), method) or (None, reason)."""
     S = surfs[F["surface"]]
@@ -584,6 +648,18 @@ def mesh_face(F, surfs, Pts, h, X, by_surf):
     tu = tutte(F, S, Pts, h, planar)
     if tu is not None:
         return tu, "laid on a disk (Tutte)"
+    parts = components(F, h)
+    if parts:
+        Vs, Ts = [], []
+        for G in parts:
+            r_ = tutte(G, S, Pts, h, planar)
+            if r_ is None:
+                break
+            o = len(Vs)
+            Vs.extend(r_[0])
+            Ts.extend([[a + o, b + o, c + o] for a, b, c in r_[1]])
+        else:
+            return (np.array(Vs), Ts), "parts each laid on a disk"
     L = loops_of(F, X, by_surf, h)
     if L is not None:
         L = [thin(Q, 0.25 * np.sqrt(MAX_AREA)) for Q in L]
@@ -673,7 +749,13 @@ def rework(group, log=print):
     Pts = [np.asarray(p, float) for p in X["points"]]
     def job(i):
         return mesh_face(X["faces"][i], surfs, Pts, h, X, by_surf)
+    global QUALITY
     res = run_forked(range(len(X["faces"])), job, log=log)
+    again = [i for i, r in res.items() if r[0] is None and r[1] in ("timed out", "worker died")]
+    if again:
+        QUALITY = False
+        res.update(run_forked(again, job, timeout=60, log=log))
+        QUALITY = True
     for i, F in enumerate(X["faces"]):
         mesh, tag = res[i]
         if mesh is None:

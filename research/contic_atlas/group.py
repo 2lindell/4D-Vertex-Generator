@@ -62,7 +62,7 @@ assert len(ELEMENTS) == ORDER, len(ELEMENTS)
 import os  # noqa: E402
 
 SUB = os.environ.get("CONTIC_SUB", "full")
-TAG = {"full": "", "ki": "_ki", "io": "_io", "tox": "_tox", "ox": "_ox", "oxb": "_oxb", "ico": "_ico", "icp": "_icp", "icpb": "_icpb"}[SUB]
+TAG = {"full": "", "ki": "_ki", "io": "_io", "tox": "_tox", "ox": "_ox", "oxb": "_oxb", "ico": "_ico", "kiico": "_kiico", "icp": "_icp", "icpb": "_icpb"}[SUB]
 _IN_F4 = np.array([np.abs(g @ np.array([1, 1, 0, 0.0]) - np.round(g @ np.array([1, 1, 0, 0.0]))).max() < 1e-9 for g in ELEMENTS])
 _DET = np.array([np.sign(np.linalg.det(g)) for g in ELEMENTS])
 if SUB == "ki":
@@ -75,6 +75,10 @@ elif SUB == "ico":
     # (icoic [3,4,3] = F4 itself (1152): the swap phi normalises it, so the fold still halves the chamber)
     _KEEP = _IN_F4
     GENS = list(REFL)
+elif SUB == "kiico":
+    # (kiicoic [3,4,3]+: F4's rotations (576))
+    _KEEP = _IN_F4 & (_DET > 0)
+    GENS = [REFL[i] @ REFL[j] for i in range(4) for j in range(i + 1, 4)]
 elif SUB in ("icp", "icpb"):
     # (icopyritic [3,4,3+] = <r1, r2, r3 r4> (576: the long mirrors kept, the short ones as rotations); icpb is its image
     #  under the swap, [3+,4,3] = <r1 r2, r3, r4>. The swap does not normalise icopyritic, so the chamber's two halves

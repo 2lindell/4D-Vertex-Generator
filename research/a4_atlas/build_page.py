@@ -18,6 +18,8 @@ sys.path.insert(0, os.path.join(ROOT, "tetraswirl_atlas"))
 from place_colors import DARK, LIGHT, _oklch_to_hex  # noqa: E402  (the Symmetry Domain page's colour rule)
 
 import a4_map as M  # noqa: E402
+sys.path.insert(0, os.path.join(ROOT, "f4_atlas"))
+import f4_map as F4M  # noqa: E402
 
 # (every A4 symmetry: the ones not mapped yet are listed, greyed)
 SYMMETRIES = [
@@ -29,6 +31,7 @@ SYMMETRIES = [
 ]
 DIM_N = {"region": 3, "wall": 2, "line": 1, "point": 0}
 B4D4 = os.path.join(ROOT, "b4d4_atlas")
+F4 = os.path.join(ROOT, "f4_atlas")
 # (each family's page: its symmetries, where their maps are, its title, chamber chips and notes)
 FAMILIES = {
     "a4": {"title": "A4 Symmetry Domain", "out": "a4_domain.html", "dir": HERE, "prefix": "a4_map", "chamber": "A4",
@@ -40,12 +43,24 @@ FAMILIES = {
     "d4": {"title": "D4 Symmetry Domain", "out": "d4_domain.html", "dir": B4D4, "prefix": "b4d4_map", "chamber": "D4",
            "symmetries": [{"key": "demitessic", "name": "Demitessic", "bracket": "[3¹,¹,¹]", "order": 192},
                           {"key": "kidemitessic", "name": "Kidemitessic", "bracket": "[3¹,¹,¹]+", "order": 96}]},
+    "f4": {"title": "F4 Symmetry Domain", "out": "f4_domain.html", "dir": F4, "prefix": "f4_map", "chamber": "F4",
+           "symmetries": [{"key": "icoic", "name": "Icoic", "bracket": "[3,4,3]", "order": 1152},
+                          {"key": "contic", "name": "Contic", "bracket": "[[3,4,3]]", "order": 2304},
+                          {"key": "kiicoic", "name": "Kiicoic", "bracket": "[3,4,3]+", "order": 576},
+                          {"key": "kicontic", "name": "Kicontic", "bracket": "[[3,4,3]]+", "order": 1152},
+                          {"key": "iocontic", "name": "Iocontic", "bracket": "[[3,4,3]+]", "order": 1152},
+                          {"key": "icopyritic", "name": "Icopyritic", "bracket": "[3,4,3+]", "order": 576},
+                          {"key": "toxitic", "name": "Toxitic", "bracket": "[3+,4,3+]", "order": 288},
+                          {"key": "oxitic", "name": "Oxitic", "bracket": "[[3+,4,3+]]", "order": 576}]},
 }
 CHIPS = {"pennic": "chamber = 1 domain", "kipennic": "chamber = ½ domain", "decaic": "chamber = 2 domains (the swap)",
          "iodecaic": "chamber = 1 domain", "kidecaic": "chamber = 1 domain",
          "tessic": "chamber = 1 domain", "kitessic": "chamber = ½ domain", "tessipyritic": "chamber = ½ domain",
          "demitessic": "D4 chamber = 1 domain (shown twice: the fold)",
-         "kidemitessic": "D4 chamber = ½ domain (shown twice: the fold)"}
+         "kidemitessic": "D4 chamber = ½ domain (shown twice: the fold)",
+         "icoic": "chamber = 1 domain", "kiicoic": "chamber = ½ domain", "contic": "chamber = 2 domains (the swap)",
+         "kicontic": "chamber = 1 domain", "iocontic": "chamber = 1 domain", "icopyritic": "chamber = ½ domain",
+         "toxitic": "chamber = ¼ domain", "oxitic": "chamber = ½ domain"}
 
 
 def notes(g, d):
@@ -209,6 +224,79 @@ def notes_b4d4(g, d, syms):
     ]
 
 
+def notes_f4(g, d, syms):
+    """The F4 page's notes."""
+    chart = ("The chamber is drawn in the gnomonic chart of the 3-sphere at its centre: a seed s is shown where the ray "
+             "through it meets the tangent space there, so the mirrors are the faces of a flat tetrahedron, every plane "
+             "of β is a plane and great circles are straight lines. Each corner is marked by the β that is not zero "
+             "there.")
+    seeds = ("β are a seed's distances to the four F4 mirrors, scaled to sum to 1 (β1 and β2 the long mirrors, β3 and "
+             "β4 the short ones; β1's corner is the 24-cell's vertex, β4's its dual's). The seed is s = R⁻¹β, with R "
+             "the generator's simple roots for F4, so it can be pasted into the generator's Coordinates mode.")
+    if g == "icoic":
+        dom = ["Icoic symmetry [3,4,3] is the 24-cell's full symmetry group, order 1152: the F4 reflection group. Its "
+               "chamber, the tetrahedron between four mirrors, is one fundamental domain.",
+               "As a reflection group the polychoron is the same over each open face of the chamber: the fifteen "
+               "Wythoffian polychora of the 24-cell family, nine shapes (a ringing and its reverse give congruent "
+               "polychora, the 24-cell being self-dual). The interior is gidpii, the faces grico and prico, the edges "
+               "tico, srico, icoi and sidpii, the corners ico and rico.", chart, seeds]
+    elif g == "kiicoic":
+        dom = ["Kiicoic symmetry [3,4,3]+ is the rotation half of icoic, order 576. Its fundamental domain is two "
+               "chambers, a chamber and its mirror image, so the chamber shown is half of one.",
+               "On the chamber's faces a seed's rotation images are its icoic ones, so the faces carry icoic's "
+               "Wythoffian polychora. Inside, every seed makes snoc, the snub tetracontoctachoron in its kiicoic "
+               "version: 576 vertices, 24+24 snub cubes, 96+96 octahedra and 576 tets. It is chiral: the mirror "
+               "chamber gives its mirror image.", chart, seeds]
+    elif g == "contic":
+        dom = ["Contic symmetry [[3,4,3]] adds the swap of the 24-cell and its dual to icoic: order 2304. The swap "
+               "reads β backwards, (β1, β2, β3, β4) → (β4, β3, β2, β1): a half-turn of the chamber about the axis "
+               "β1 = β4, β2 = β3 (dashed). So half the chamber, β1 ≥ β4, is a fundamental domain, and the whole "
+               "chamber shows each shape twice, once on each side of the fold β1 = β4.",
+               "The polychoron changes only on planes of β, here over Q(√2) (contic_atlas/arrangement.py): every face "
+               "of the exact arrangement is classified (contic_atlas/shapes.py) and named from the list (the Icoic "
+               "and Contic Isogonals page). A face is drawn as a wall, line or point where its polychoron changes "
+               "there.",
+               "On the mirrors the seed has fewer images (bicont, spic, cont and their kin); the regions sabotic and "
+               "gabotic fill the interior.", chart, seeds]
+    elif g == "icopyritic":
+        dom = ["Icopyritic symmetry [3,4,3+] (order 576) keeps the long mirrors (β1, β2) and turns the short ones into "
+               "rotations. It is a normal half of icoic, so the chamber is half a fundamental domain: its image in a "
+               "short mirror gives the mirror images of the same polychora.",
+               "Pysnapi fills the whole chamber. On its own mirrors, the long ones, lie the new shapes: pysni on "
+               "β1 = 0, prissi on β2 = 0 and sadi on their edge. On the short mirrors a seed's images are its icoic "
+               "ones: grico on β4 = 0, and on β3 = 0 prico's orbit, which is pysnapi's polychoron, so no wall. The "
+               "faces are classified under icopyritic (contic_atlas/group.py, CONTIC_SUB = icp) and named by the "
+               "toxitic atlas's seeds (its two sheets: icp, and icpb read backwards).", chart, seeds]
+    elif g == "toxitic":
+        dom = ["Toxitic symmetry [3+,4,3+] (order 288) keeps an even number of long and of short reflections: a normal "
+               "quarter of icoic, so the chamber is a quarter of a fundamental domain.",
+               "One polychoron fills the whole chamber: sebtidi. Its mirror faces give pysni (β1 = 0, β4 = 0) and prissi "
+               "(β2 = 0, β3 = 0), its edges sadi (β1 = β2 = 0 and β3 = β4 = 0), icoi and sidpii, its corners ico and "
+               "rico.", chart, seeds]
+    else:
+        dom = [f"{g.capitalize()} has curved walls; its map is not built yet.", chart, seeds]
+    mapped = [s for s in syms if s["key"] in d]
+    rest = [s for s in syms if s["key"] not in d]
+    return [
+        {"title": "The domain", "items": dom},
+        {"title": "Names and markers", "items": [
+            "Shapes are named from the accepted lists (pages/contic_names.py, as on the Icoic and Contic Isogonals "
+            "page); a shape found on several faces of the map is one row, its pieces counted under Where.",
+            "Lightness shows dimension, as on the Symmetry Domain page: regions lightest, walls darker, lines darker "
+            "still, points darkest.",
+            "Every shape is marked by an example seed in each of its pieces: walls and lines at their most even seed "
+            "(contic_atlas/optimize_seeds.py, toxitic_atlas/optimize_central.py) where that lies inside the shape, "
+            "else its central seed or the uniform seed (equal β on its ringed nodes); regions at their central seed. "
+            "Selecting a region in the key paints its extent.",
+            "Boundaries are the shapes on the edges of a shape's pieces; separates lists the regions or walls a wall "
+            "or line lies between."]},
+        {"title": "Status", "status": True, "items": [
+            "<b>Mapped:</b> " + ", ".join(f"{s['name']} {s['bracket']}" for s in mapped) + "."]
+            + ([("<b>Next:</b> " + ", ".join(f"{s['name']} {s['bracket']}" for s in rest)
+                 + " (curved walls: the exact pipeline of the A4 page).")] if rest else [])},
+    ]
+
+
 def main(fam="a4"):
     FAM = FAMILIES[fam]
     syms = FAM["symmetries"]
@@ -237,8 +325,8 @@ def main(fam="a4"):
                       + (f" Choose another {ch} symmetry above to see its map on the same chamber." if len(syms) > 1
                          else ""),
                  domainChip=CHIPS[g])
-        if g == "decaic":
-            half = lambda b: M.chart(np.asarray(b, float))
+        if g in ("decaic", "contic"):
+            half = lambda b: (F4M if fam == "f4" else M).chart(np.asarray(b, float))
             d["fold"] = {"axis": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 1, 0]))],
                          "axisName": "the swap's axis β1 = β4, β2 = β3 (seeds here are fixed by the swap)",
                          "plane": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 0, 0])), M.r5(half([0, 0, 1, 0]))]}
@@ -246,7 +334,7 @@ def main(fam="a4"):
     ids = {g: {t["id"] for t in d["types"]} for g, d in maps.items()}
     names = {s["key"]: s["name"] for s in syms}
     for g, d in maps.items():                   # (the family's other symmetries whose maps have the same polychoron)
-        d["notes"] = notes(g, maps) if fam == "a4" else notes_b4d4(g, maps, syms)
+        d["notes"] = notes(g, maps) if fam == "a4" else notes_f4(g, maps, syms) if fam == "f4" else notes_b4d4(g, maps, syms)
         for t in d["types"]:
             t["shared"] = [names[h] for h in maps if h != g and t["id"] in ids[h]]
     type_css = (f":root {{ {' '.join(light)} }}\n@media (prefers-color-scheme: dark) {{ :root:not([data-theme=\"light\"]) "
