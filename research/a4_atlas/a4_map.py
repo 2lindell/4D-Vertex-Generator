@@ -39,6 +39,8 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DEC = os.path.join(ROOT, "decaic_atlas")
+# (shapes shown at their central seed though their most even seed is inside them: it lies too near their edge)
+CENTRAL = {"mabipard"}
 SUBS = {"pennic": "pen", "kipennic": "kipen", "decaic": "full"}
 
 # (the Wythoffian names, by the ringed nodes: beta_k > 0)
@@ -307,7 +309,9 @@ def build(group):
         cen = {r["name"]: r["centre"] for r in json.load(open(os.path.join(DEC, "central_seeds.json")))["shapes"]}
         for t in types:                         # (an optimum on the shape's edge: its central seed instead)
             t["edge_opt"] = t["dim"] != "region" and O[t["id"]]["status"].startswith("infimum")
-            b = np.asarray(cen[t["id"]] if t["dim"] == "region" or t["edge_opt"] else O[t["id"]]["off_seed"], float)
+            t["by_choice"] = t["id"] in CENTRAL
+            b = np.asarray(cen[t["id"]] if t["dim"] == "region" or t["edge_opt"] or t["by_choice"]
+                           else O[t["id"]]["off_seed"], float)
             b = np.clip(b, 0, None)
             ex[t["id"]] = [b] + ([b[::-1]] if not np.allclose(b, b[::-1]) else [])
     else:
@@ -326,9 +330,12 @@ def build(group):
         b0 = ex[t["id"]][0]
         t["seed"], t["beta"] = seed_text(b0), beta_text(b0)
         t["example"] = "central seed (the deepest point of the region)" if t["dim"] == "region" else (
-            "central seed (its most even seed is on its edge)" if t.pop("edge_opt", False) else 
+            "central seed (its most even seed is on its edge)" if t.pop("edge_opt", False) else
+            "central seed (the deepest point of the shape)" if t.get("by_choice") else 
             "the point" if t["dim"] == "point" else "most even seed (least longest / shortest edge)" if group == "decaic"
             else "uniform seed (all edges equal)")
+    for t in types:
+        t.pop("by_choice", None)
     # each region's extent: the faces of the map between it and anything else (the walls round it), with their edges,
     # each found by stepping off the face both ways
     shells = {}

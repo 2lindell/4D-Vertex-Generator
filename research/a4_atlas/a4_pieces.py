@@ -404,7 +404,7 @@ def triangulate(S, loops, planar):
         if holes:
             A["holes"] = np.ascontiguousarray(np.array(holes), dtype=np.float64)
         # (a flat piece needs no inner points: its loop's own)
-        for opts in ((f"pYq20a{MAX_AREA:.3g}", f"pYq25a{MAX_AREA * 4:.3g}") if not planar else ()) + ("pY",):
+        for opts in (f"pYq20a{MAX_AREA:.3g}", f"pYq25a{MAX_AREA * 4:.3g}") + (("pY",) if planar else ()):
             try:
                 T = tr.triangulate(A, opts)
             except Exception:
@@ -536,10 +536,11 @@ def tutte(F, S, P, h, planar):
     m = len(keep)
     A3 = sum(0.5 * np.linalg.norm(np.cross(*(((V[t[1]] - V[t[0]]) @ BZ.T, (V[t[2]] - V[t[0]]) @ BZ.T)))) for t in T)
     amax = MAX_AREA * np.pi / max(A3, 1e-12)
-    opts = "pY" if planar else (f"pYq20a{amax:.3g}" if QUALITY else f"pYa{amax:.3g}")
+    q_ = "q20" if QUALITY else ""
     try:
         Tr = tr.triangulate({"vertices": np.ascontiguousarray(Lu, dtype=np.float64),
-                             "segments": np.array([[i, (i + 1) % m] for i in range(m)], np.int32)}, opts)
+                             "segments": np.array([[i, (i + 1) % m] for i in range(m)], np.int32)},
+                            f"pY{q_}a{amax:.3g}")
     except Exception:
         return None
     if "triangles" not in Tr or len(Tr["vertices"]) < m:
@@ -550,25 +551,55 @@ def tutte(F, S, P, h, planar):
     det = (b_[:, 1] - c_[:, 1]) * (a_[:, 0] - c_[:, 0]) + (c_[:, 0] - b_[:, 0]) * (a_[:, 1] - c_[:, 1])
     ok = np.abs(det) > 1e-300
     det = np.where(ok, det, 1.0)
-    Xv = list(Lp)
-    for q in Tr["vertices"][m:]:
-        # (barycentric coordinates in every mesh triangle on the disk; the one it lies in, or failing that the
-        # nearest by how far outside it is: points by an exact corner can sit just past the old mesh's rim)
+    memo = {}
+
+    def to3(q):
+        key = (round(float(q[0]), 13), round(float(q[1]), 13))
+        if key in memo:
+            return memo[key]
         l1 = ((b_[:, 1] - c_[:, 1]) * (q[0] - c_[:, 0]) + (c_[:, 0] - b_[:, 0]) * (q[1] - c_[:, 1])) / det
         l2 = ((c_[:, 1] - a_[:, 1]) * (q[0] - c_[:, 0]) + (a_[:, 0] - c_[:, 0]) * (q[1] - c_[:, 1])) / det
         l3 = 1 - l1 - l2
         worst = np.where(ok, np.minimum(np.minimum(l1, l2), l3), -np.inf)
         j = int(np.argmax(worst))
-        if worst[j] < -0.5:
+        if worst[j] < -0.02:              # (well outside the old mesh: the layout is not to be trusted here)
+            memo[key] = None
             return None
         lam = np.clip([l1[j], l2[j], l3[j]], 0, None)
         lam /= lam.sum()
         got = lam @ V[T[j]]
         y = got if planar else lift_normal(S, got)
-        if y is None:
+        memo[key] = y
+        return y
+
+    # (refined where a triangle comes out larger on the surface than on the disk's scale: the disk shrinks some parts
+    #  of the piece and stretches others, so its triangles are sized by their area on the surface)
+    for rnd in range(4):
+        Xv = list(Lp)
+        for q in Tr["vertices"][m:]:
+            y = to3(q)
+            if y is None:
+                return None
+            Xv.append(y)
+        Xv = np.array(Xv)
+        Ft = np.asarray(Tr["triangles"])
+        e1 = (Xv[Ft[:, 1]] - Xv[Ft[:, 0]]) @ BZ.T
+        e2 = (Xv[Ft[:, 2]] - Xv[Ft[:, 0]]) @ BZ.T
+        a3 = 0.5 * np.linalg.norm(np.cross(e1, e2), axis=1)
+        if a3.max() <= 1.6 * MAX_AREA or rnd == 3:
+            break
+        U = Tr["vertices"]
+        ad = 0.5 * np.abs((U[Ft[:, 1], 0] - U[Ft[:, 0], 0]) * (U[Ft[:, 2], 1] - U[Ft[:, 0], 1])
+                          - (U[Ft[:, 1], 1] - U[Ft[:, 0], 1]) * (U[Ft[:, 2], 0] - U[Ft[:, 0], 0]))
+        lim = np.where(a3 > MAX_AREA, ad * MAX_AREA / np.maximum(a3, 1e-300), -1.0)
+        D = {"vertices": U, "triangles": Ft, "segments": Tr["segments"], "triangle_max_area": lim}
+        try:
+            Tr = tr.triangulate(D, f"rpY{q_}a")
+        except Exception:
             return None
-        Xv.append(y)
-    return np.array(Xv), np.asarray(Tr["triangles"]).tolist()
+        if "triangles" not in Tr:
+            return None
+    return Xv, np.asarray(Tr["triangles"]).tolist()
 
 
 def groups(S, loops):
@@ -641,47 +672,51 @@ def components(F, h):
     return out
 
 
-def mesh_face(F, surfs, Pts, h, X, by_surf):
-    """Remesh one piece. Returns ((verts, faces), method) or (None, reason)."""
-    S = surfs[F["surface"]]
-    planar = F["surface"] < 4 or S.expr.as_poly().total_degree() == 1
-    tu = tutte(F, S, Pts, h, planar)
-    if tu is not None:
-        return tu, "laid on a disk (Tutte)"
-    parts = components(F, h)
-    if parts:
-        Vs, Ts = [], []
-        for G in parts:
-            r_ = tutte(G, S, Pts, h, planar)
-            if r_ is None:
-                break
-            o = len(Vs)
-            Vs.extend(r_[0])
-            Ts.extend([[a + o, b + o, c + o] for a, b, c in r_[1]])
-        else:
-            return (np.array(Vs), Ts), "parts each laid on a disk"
-    L = loops_of(F, X, by_surf, h)
-    if L is not None:
-        L = [thin(Q, 0.25 * np.sqrt(MAX_AREA)) for Q in L]
-        tag = "exact segments"
-    else:
-        R_ = rim_loops(F, S, Pts, h)
-        if R_ is None:
-            return None, "rim not a loop"
-        L = [thin(Q, 0.5 * np.sqrt(MAX_AREA), fx) for Q, fx in R_]
-        tag = "mesh rim, exact corners"
+def mesh_part(G, S, Pts, h, planar):
+    """One connected part: its rim loops (exact corners put in) triangulated flat across the surface's normal (quality
+    triangles, lifted onto the surface) where the loops lie flat without folding; else laid on a disk by its own mesh
+    (Tutte) and triangulated there, refined by area on the surface."""
+    R_ = rim_loops(G, S, Pts, h)
+    if R_ is None:
+        return None, "rim not a loop"
+    L = [thin(Q, 0.5 * np.sqrt(MAX_AREA), fx) for Q, fx in R_]
     res = None
-    for G in groups(S, L):
-        r_ = triangulate(S, G, planar)
+    for grp in groups(S, L):
+        r_ = triangulate(S, grp, planar)
         if r_ is None:
-            return None, "not triangulated"
+            res = None
+            break
         if res is None:
             res = (list(r_[0]), list(r_[1]))
         else:
             o = len(res[0])
             res[0].extend(r_[0])
             res[1].extend([[a + o, b + o, c + o] for a, b, c in r_[1]])
-    return (None, "not triangulated") if res is None else (res, tag)
+    if res is not None:
+        return (np.array(res[0]), res[1]), "flat across its normal"
+    tu = tutte(G, S, Pts, h, planar)
+    if tu is not None:
+        return tu, "laid on a disk (Tutte)"
+    return None, "not triangulated"
+
+
+def mesh_face(F, surfs, Pts, h, X, by_surf):
+    """Remesh one piece, part by part. Returns ((verts, faces), method) or (None, reason)."""
+    S = surfs[F["surface"]]
+    planar = F["surface"] < 4 or S.expr.as_poly().total_degree() == 1
+    parts = components(F, h)
+    if not parts:
+        return None, "empty"
+    Vs, Ts, tags = [], [], []
+    for G in parts:
+        r_, tag = mesh_part(G, S, Pts, h, planar)
+        if r_ is None:
+            return None, tag
+        o = len(Vs)
+        Vs.extend(r_[0])
+        Ts.extend([[a + o, b + o, c + o] for a, b, c in r_[1]])
+        tags.append(tag)
+    return (np.array(Vs), Ts), (tags[0] if len(set(tags)) == 1 else "mixed") + (" (parts)" if len(parts) > 1 else "")
 
 
 def run_forked(jobs, fn, workers=None, timeout=120, log=print):

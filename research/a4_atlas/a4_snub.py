@@ -394,10 +394,11 @@ def build(group):
     ex_of = {}
     for r, (_, k) in zip(O, ok_):
         edge = not r["status"].startswith("minimum inside") and r["kind"] != "point"
-        use_c = r["kind"] == "region" or edge
+        use_c = r["kind"] == "region" or edge or r["name"] in M.CENTRAL
         b = C[r["name"]]["centre"] if use_c and r["name"] in C else r["off_seed"]
         ex_of[k] = (b, "central seed (the deepest point of the region)" if r["kind"] == "region" else
-                    "central seed (its most even seed is on its edge)" if use_c else "most even seed (least longest / shortest edge)")
+                    "central seed (its most even seed is on its edge)" if edge else
+                    "central seed (the deepest point of the shape)" if use_c else "most even seed (least longest / shortest edge)")
     own = [t for t in types if t["key"] in by_key and "mirrors" not in t.get("where", "")]
     cands = [(t, *ex_of.get(t["key"], (by_key[t["key"]]["seed"], "the atlas's seed"))) for t in own]
     chk = classify_many([b for _, b, _ in cands], sub, tol=1e-7)
