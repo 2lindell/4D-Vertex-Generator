@@ -750,6 +750,95 @@ def complete_graph(X, surfs, log=print, near=3e-3):
     log(f"  graph completed: {sum(len(v) for v in seeds.values())} rim points on {len(seeds)} surface pairs "
         f"with no curve; {len(curves) + merged} curves traced ({merged} already there), {n_cuts} cuts, {added} segments added ({time.time() - t_:.0f}s)")
 
+    # loose ends: a trace stops short of a singular point (where its two surfaces turn tangent, often a corner
+    # where many surfaces meet), so its end hangs a step or so from where it should join. Each loose end is run
+    # on to its true end: a point of the graph on all of the curve's surfaces just ahead of it, else the point
+    # ahead where a third surface crosses (solved exactly), which the curves through it are cut at.
+    rel = lambda S_, x: abs(S_.f(x)) / (np.linalg.norm(S_.g(x)) + 1e-300)
+    R = 1.5e-2
+    joined = solved = 0
+    for rnd in range(3):
+        deg = defaultdict(Counter)
+        for s_ in segs:
+            for m in s_["on"]:
+                deg[m][s_["ends"][0]] += 1
+                deg[m][s_["ends"][1]] += 1
+        loose = []
+        for i_, s_ in enumerate(segs):
+            for side in (0, 1):
+                p = s_["ends"][side]
+                if s_["ends"][0] != s_["ends"][1] and any(deg[m][p] == 1 for m in s_["on"]):
+                    loose.append((i_, side))
+        if not loose:
+            break
+        tree_p = cKDTree(np.array(Pts))
+        done = 0
+        for i_, side in loose:
+            s_ = segs[i_]
+            p = s_["ends"][side]
+            if not any(deg[m][p] == 1 for m in s_["on"]):
+                continue
+            Q = np.asarray(s_["pts"], float)
+            x, prev = (Q[-1], Q[-2]) if side == 1 else (Q[0], Q[1])
+            fwd = x - prev
+            fwd = fwd / (np.linalg.norm(fwd) + 1e-300)
+            on = sorted(s_["on"])
+            best = None
+            for q in tree_p.query_ball_point(x, R):
+                y = Pts[q]
+                v = y - x
+                if q == p or q in s_["ends"] or v @ fwd <= 0.2 * np.linalg.norm(v):
+                    continue
+                if all(rel(surfs[m], y) < 1e-8 for m in on):
+                    d = np.linalg.norm(v)
+                    if best is None or d < best[0]:
+                        best = (d, q, None)
+            if best is None:
+                pair = sorted(((E.crossing_angle(x, surfs[a], surfs[b]), a, b) for a in on for b in on if a < b),
+                              reverse=True)
+                if pair:
+                    _, a, b = pair[0]
+                    for m, C in enumerate(surfs):
+                        if m in on:
+                            continue
+                        for st in (0.0, 0.5 * R):
+                            z, ok = E.newton(x + st * fwd, [surfs[a], surfs[b], C])
+                            v = z - x
+                            d = np.linalg.norm(v)
+                            if ok and E.inside(z, 1e-10) and 1e-9 < d < R and v @ fwd > 0.2 * d and \
+                                    all(rel(surfs[o], z) < 1e-8 for o in on):
+                                if best is None or d < best[0]:
+                                    best = (d, None, (z, m))
+                                break
+            if best is None:
+                continue
+            d, q, zm = best
+            if q is None:
+                z, m = zm
+                q = point_id(z)
+                split_existing(z, q, [(o, m) for o in on])
+                solved += 1
+            else:
+                joined += 1
+            y = Pts[q]
+            n_ = max(1, int(np.ceil(d / 2e-3)))
+            ext = x + (y - x) * (np.arange(1, n_ + 1) / n_)[:, None]
+            ext[-1] = y
+            if side == 1:
+                s_["pts"] = np.vstack([Q, ext])
+                s_["ends"] = (s_["ends"][0], q)
+            else:
+                s_["pts"] = np.vstack([ext[::-1], Q])
+                s_["ends"] = (q, s_["ends"][1])
+            for m in s_["on"]:
+                deg[m][p] -= 1
+                deg[m][q] += 1
+            done += 1
+        if not done:
+            break
+    log(f"  loose ends: {joined} joined to a point of the graph, {solved} run on to a crossing solved there; "
+        f"{len(loose) - done} left")
+
 
 def rework(group, log=print):
     path = os.path.join(HERE, f"a4_pieces_{group}.pkl")
