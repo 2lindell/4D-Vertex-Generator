@@ -850,7 +850,8 @@ def complete_graph(X, surfs, log=print, near=3e-3):
                 continue
             fv = np.array([C.f(p) for p in Q])
             sc = np.array([np.linalg.norm(C.g(p)) + 1e-300 for p in Q])
-            if np.abs(fv / sc).max() < 1e-7:
+            # (on it all along, but perhaps at an end snapped or run on a little way)
+            if np.mean(np.abs(fv / sc) < 1e-9) > 0.9 and np.abs(fv / sc).max() < 1e-4:
                 on.add(m)
                 continue
             for i in range(len(Q) - 1):
