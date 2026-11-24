@@ -457,12 +457,110 @@ def tutte_exact(F, S, loop, planar):
     return Xv, np.asarray(Tr["triangles"])
 
 
+def clean_graph(X, surfs, log=print, tol=1e-7):
+    """The exact curve graph made whole: exact points closer than tol made one (curves ending at one point from
+    different traces were given different copies of it, so the graph fell apart there); the swap's axis, where
+    many curves end (traces stop where their surfaces turn tangent) and many overlapping copies of it were traced,
+    rebuilt as one chain through its distinct points, on every surface containing it; copies of a curve made one."""
+    P_ = np.array([np.asarray(p, float) for p in X["points"]])
+    tree = cKDTree(P_)
+    rep = np.arange(len(P_))
+    for i, j in sorted(tree.query_pairs(tol)):
+        a, b = rep[i], rep[j]
+        while rep[a] != a:
+            a = rep[a]
+        while rep[b] != b:
+            b = rep[b]
+        if a != b:
+            rep[max(a, b)] = min(a, b)
+    for i in range(len(rep)):
+        r = i
+        while rep[r] != r:
+            r = rep[r]
+        rep[i] = r
+    on_ax = lambda Q: np.abs(Q[:, 0] - Q[:, 3]).max() < 1e-9 and np.abs(Q[:, 1] - Q[:, 2]).max() < 1e-9
+    ax = lambda t: np.array([t, 0.5 - t, 0.5 - t, t])
+    ax_surfs = {k for k, S in enumerate(surfs)
+                if all(abs(S.f(ax(t))) / (np.linalg.norm(S.g(ax(t))) + 1e-300) < 1e-11 for t in (0.05, 0.21, 0.37))}
+    segs, seen = [], {}
+    n_ax = 0
+    for s in X["segments"]:
+        Q = np.asarray(s["pts"], float)
+        if ax_surfs and on_ax(Q):
+            n_ax += 1
+            continue
+        a, b = int(rep[s["ends"][0]]), int(rep[s["ends"][1]])
+        if a == b and np.linalg.norm(Q[-1] - Q[0]) < 1e-9 and len(Q) < 4:
+            continue
+        key = (min(a, b), max(a, b), tuple(np.round(Q[len(Q) // 2], 7)))
+        key2 = (min(a, b), max(a, b), tuple(np.round(Q[(len(Q) - 1) - len(Q) // 2], 7)))
+        hit = seen.get(key) or seen.get(key2)
+        if hit is not None:
+            hit["on"] = set(hit["on"]) | set(s["on"])
+            continue
+        Q = Q.copy()
+        Q[0], Q[-1] = P_[a], P_[b]
+        t = dict(s, ends=(a, b), pts=Q)
+        seen[key] = t
+        segs.append(t)
+    if ax_surfs:
+        used = {int(rep[e]) for s in X["segments"] for e in s["ends"]}
+        axp = sorted({i for i in used if abs(P_[i][0] - P_[i][3]) < 1e-9 and abs(P_[i][1] - P_[i][2]) < 1e-9},
+                     key=lambda i: P_[i][0])
+        for i, j in zip(axp, axp[1:]):
+            t0, t1 = P_[i][0], P_[j][0]
+            if t1 - t0 < 1e-12:
+                continue
+            m = max(2, int(np.ceil((t1 - t0) / 2e-3)) + 1)
+            Q = np.array([ax(t) for t in np.linspace(t0, t1, m)])
+            Q[0], Q[-1] = P_[i], P_[j]
+            segs.append({"ends": (i, j), "pts": Q, "on": set(ax_surfs), "key": None, "sig": None, "axis": True})
+    log(f"  graph: {len(set(rep.tolist()))} distinct points of {len(rep)}; {len(X['segments'])} segments -> "
+        f"{len(segs)} ({n_ax} along the swap's axis rebuilt as one chain on {len(ax_surfs)} surfaces)")
+    X["segments"] = segs
+
+
+def safe(fn, *args, timeout=120):
+    """fn(*args) in a process of its own: triangle can hang or exit on a bad loop; then None."""
+    import select
+    import time
+    r, w = os.pipe()
+    pid = os.fork()
+    if pid == 0:
+        os.close(r)
+        try:
+            out = pickle.dumps(fn(*args))
+        except Exception:  # noqa: BLE001
+            out = pickle.dumps(None)
+        with os.fdopen(w, "wb") as f:
+            f.write(out)
+        os._exit(0)
+    os.close(w)
+    buf, t0 = b"", time.time()
+    while True:
+        if select.select([r], [], [], 1.0)[0]:
+            chunk = os.read(r, 1 << 20)
+            if not chunk:
+                break
+            buf += chunk
+        elif time.time() - t0 > timeout:
+            os.kill(pid, 9)
+            break
+    os.close(r)
+    os.waitpid(pid, 0)
+    try:
+        return pickle.loads(buf)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def rework(group, log=print):
     path = os.path.join(HERE, f"a4_pieces_{group}.pkl")
     X = pickle.load(open(path, "rb"))
     surfs = [P.surf_of(n) for n in X["surfaces"]]
     X["points"] = [np.asarray(p, float) for p in X["points"]]
     Pts = X["points"]                            # (cuts add exact points to it)
+    clean_graph(X, surfs, log)
     by_surf = defaultdict(list)
     for fi, F in enumerate(X["faces"]):
         by_surf[F["surface"]].append(fi)
@@ -478,7 +576,7 @@ def rework(group, log=print):
         for rnd in range(int(os.environ.get("A4_CUT_ROUNDS", "1"))):   # (cuts: off unless asked)
             bad = []
             for q, (loops, hc) in enumerate(faces):
-                r_ = P.triangulate(S, loops, planar)
+                r_ = safe(P.triangulate, S, loops, planar)
                 if r_ is None:
                     bad.append(hc)
                 else:
@@ -517,7 +615,7 @@ def rework(group, log=print):
                     if best is None or dm < best[0]:
                         best = (dm, fi)
                 if best is not None and best[0] < 1.6 / 40:
-                    tu = tutte_exact(X["faces"][best[1]], S, loops[0], planar)
+                    tu = safe(tutte_exact, X["faces"][best[1]], S, loops[0], planar)
                     if tu is not None:
                         out.append((best[1], tu[0], np.asarray(tu[1])))
                         stats["faces laid on their piece's disk"] += 1
@@ -567,7 +665,7 @@ def rework(group, log=print):
             Lp = loops[0][:: max(1, len(loops[0]) // 300)]
             if cKDTree(Vm).query(Lp)[0].mean() > 0.25 * h:
                 continue
-            r_ = P.triangulate(S, loops, planar) or tutte_exact(F, S, loops[0], planar)
+            r_ = safe(P.triangulate, S, loops, planar) or safe(tutte_exact, F, S, loops[0], planar)
             if r_ is None:
                 continue
             if abs(mesh_area(*r_) - old_a) < AREA_TOL * old_a:
