@@ -28,6 +28,7 @@ import a4_exact as E  # noqa: E402
 BZ = P.BZ
 P.MAX_AREA = float(os.environ.get("A4_FACE_AREA", "6e-4"))   # (about the marching grid's triangles)
 AREA_TOL = 0.08
+H = 1.6 / E.GRID                                 # (the marching grid's step)
 
 
 def frame_at(S, x):
@@ -554,6 +555,134 @@ def safe(fn, *args, timeout=120):
         return None
 
 
+def complete_graph(X, surfs, log=print, near=3e-3):
+    """The curves a4_exact did not trace, added: wherever a marching piece's rim runs along two surfaces (its cut
+    vertices were solved onto both) with no traced curve of that pair near, the curve is traced exactly from there
+    (a4_exact.trace), cut where any other surface crosses it (each point solved on all three), and the curves it
+    meets there are cut there too, so the graph stays joined."""
+    mirrors = surfs[:4]
+    Pts = X["points"]
+    segs = X["segments"]
+    on_axis = lambda x: abs(x[0] - x[3]) < 1e-9 and abs(x[1] - x[2]) < 1e-9
+    pair_pts = defaultdict(list)
+    for s_ in segs:
+        on = sorted(s_["on"])
+        for a in on:
+            for b in on:
+                if a < b:
+                    pair_pts[(a, b)].append(np.asarray(s_["pts"], float))
+    trees = {p: cKDTree(np.vstack(v)) for p, v in pair_pts.items()}
+    seeds = defaultdict(list)
+    for F in X["faces"]:
+        k = F["surface"]
+        G = {"mesh": F["mesh"], "filled": F.get("filled", [])}
+        P.weld(G)
+        V = np.asarray(G["mesh"]["verts"], float)
+        for v in sorted({a for e in P.rim_of(G) for a in e}):
+            x = V[v]
+            if on_axis(x):
+                continue
+            for j, Sj in enumerate(surfs):
+                if j == k or abs(Sj.f(x)) / (np.linalg.norm(Sj.g(x)) + 1e-300) > 1e-9:
+                    continue
+                p = (min(k, j), max(k, j))
+                if p in trees and trees[p].query(x)[0] < near:
+                    continue
+                seeds[p].append(x)
+    curves = []
+    for (a, b), xs in seeds.items():
+        xs = np.array(xs)
+        left = np.ones(len(xs), bool)
+        for _ in range(40):
+            if not left.any():
+                break
+            i = int(np.flatnonzero(left)[0])
+            x0, ok = E.newton(xs[i], [surfs[a], surfs[b]])
+            left[i] = False
+            if not ok or not E.inside(x0, 1e-10):
+                continue
+            pts, closed = E.trace(x0, surfs[a], surfs[b], mirrors)
+            if len(pts) < 3:
+                continue
+            Q = np.array(pts)
+            left &= cKDTree(Q).query(xs)[0] >= near
+            curves.append(((a, b), Q, closed))
+    # the points on each new curve: other surfaces crossing it, and its ends
+    tree_p = cKDTree(np.array(Pts))
+
+    def point_id(x):
+        nonlocal tree_p
+        d, i = tree_p.query(x)
+        if d < 1e-7:
+            return int(i)
+        Pts.append(np.asarray(x, float))
+        tree_p = cKDTree(np.array(Pts))
+        return len(Pts) - 1
+
+    def split_existing(x, pid, pairs):
+        """Existing curves on any of these surface pairs through x: cut at x (the new point)."""
+        for i_ in range(len(segs)):
+            s_ = segs[i_]
+            if not any(set(p_) <= set(s_["on"]) for p_ in pairs):
+                continue
+            if pid in s_["ends"]:
+                continue
+            Q = np.asarray(s_["pts"], float)
+            A_, B_ = Q[:-1], Q[1:]
+            d_ = B_ - A_
+            u = np.clip(np.einsum("ij,ij->i", x - A_, d_) / (np.einsum("ij,ij->i", d_, d_) + 1e-300), 0, 1)
+            dist = np.linalg.norm(A_ + u[:, None] * d_ - x, axis=1)
+            j = int(np.argmin(dist))
+            if dist[j] > 1e-6:
+                continue
+            first = dict(s_, ends=(s_["ends"][0], pid), pts=np.vstack([Q[:j + 1], x]))
+            second = dict(s_, ends=(pid, s_["ends"][1]), pts=np.vstack([x, Q[j + 1:]]))
+            segs[i_] = first
+            segs.append(second)
+    added = 0
+    for (a, b), Q, closed in curves:
+        A_, B_ = surfs[a], surfs[b]
+        cuts = []
+        on = {a, b}
+        for m, C in enumerate(surfs):
+            if m in (a, b):
+                continue
+            fv = np.array([C.f(p) for p in Q])
+            sc = np.array([np.linalg.norm(C.g(p)) + 1e-300 for p in Q])
+            if np.abs(fv / sc).max() < 1e-7:
+                on.add(m)
+                continue
+            for i in range(len(Q) - 1):
+                if fv[i] * fv[i + 1] < 0 and max(abs(fv[i]) / sc[i], abs(fv[i + 1]) / sc[i + 1]) > 1e-7:
+                    t = fv[i] / (fv[i] - fv[i + 1])
+                    z, ok = E.newton(Q[i] + t * (Q[i + 1] - Q[i]), [A_, B_, C])
+                    if ok and E.inside(z, 1e-10):
+                        cuts.append((i + t, z, m))
+            for i in (0, len(Q) - 1):
+                if abs(fv[i]) / sc[i] < 1e-10:
+                    cuts.append((float(i), Q[i], m))
+        if not closed:
+            cuts += [(0.0, Q[0], None), (len(Q) - 1.0, Q[-1], None)]
+        cuts.sort(key=lambda c: c[0])
+        ids = []
+        for t, z, m in cuts:
+            pid = point_id(z)
+            if ids and ids[-1][1] == pid:
+                continue
+            ids.append((t, pid))
+            if m is not None:
+                split_existing(z, pid, [(a, m), (b, m)] + [(m, o) for o in on if o not in (a, b)])
+        for (t0, p0), (t1, p1) in zip(ids, ids[1:]):
+            i0, i1 = int(np.ceil(t0 + 1e-9)), int(np.floor(t1 - 1e-9))
+            pts = np.vstack([Pts[p0], Q[i0:i1 + 1], Pts[p1]])
+            if p0 == p1 and len(pts) < 4:
+                continue
+            segs.append({"ends": (p0, p1), "pts": pts, "on": set(on), "key": None, "sig": None, "added": True})
+            added += 1
+    log(f"  graph completed: {sum(len(v) for v in seeds.values())} rim points on {len(seeds)} surface pairs "
+        f"with no curve; {len(curves)} curves traced, {added} segments added")
+
+
 def rework(group, log=print):
     path = os.path.join(HERE, f"a4_pieces_{group}.pkl")
     X = pickle.load(open(path, "rb"))
@@ -561,6 +690,7 @@ def rework(group, log=print):
     X["points"] = [np.asarray(p, float) for p in X["points"]]
     Pts = X["points"]                            # (cuts add exact points to it)
     clean_graph(X, surfs, log)
+    complete_graph(X, surfs, log)
     by_surf = defaultdict(list)
     for fi, F in enumerate(X["faces"]):
         by_surf[F["surface"]].append(fi)
@@ -614,7 +744,7 @@ def rework(group, log=print):
                     dm = cKDTree(Vm).query(Lp)[0].mean()
                     if best is None or dm < best[0]:
                         best = (dm, fi)
-                if best is not None and best[0] < 1.6 / 40:
+                if best is not None and best[0] < H:
                     tu = safe(tutte_exact, X["faces"][best[1]], S, loops[0], planar)
                     if tu is not None:
                         out.append((best[1], tu[0], np.asarray(tu[1])))
@@ -626,7 +756,7 @@ def rework(group, log=print):
             V, T = np.asarray(r_[0]), np.asarray(r_[1])
             C = V[T].mean(1)
             d, j = tree.query(C)
-            near = d < 0.5 * 1.6 / 40
+            near = d < 0.5 * H
             if near.mean() < 0.5:
                 stats["face in no wall piece"] += 1
                 continue
@@ -647,18 +777,17 @@ def rework(group, log=print):
         Vm = np.asarray(P.weld(G := {"mesh": F["mesh"], "filled": F.get("filled", [])}) or G["mesh"]["verts"], float)
         R = [Vm[a] + u * (Vm[b] - Vm[a]) for a, b in P.rim_of(G) for u in np.linspace(0, 1, 6)]
         tree = cKDTree(np.array(R))
-        h = 1.6 / 40
-        sub = []
-        for s_ in X["segments"]:
+        h = H
+        sub_ids = set()
+        for i_, s_ in enumerate(X["segments"]):
             if k not in s_["on"]:
                 continue
             Q = np.asarray(s_["pts"], float)
             d = tree.query(Q[1:-1] if len(Q) > 2 else Q)[0]
             if len(d) and np.mean(d < h) > 0.85:
-                sub.append(s_)
-        if not sub:
+                sub_ids.add(i_)
+        if not sub_ids:
             return out, stats
-        sub_ids = [X["segments"].index(s_) for s_ in sub]
         view = [dict(s_, on=(s_["on"] if i in sub_ids else set(s_["on"]) - {k})) for i, s_ in enumerate(X["segments"])]
         old_a = mesh_area(G["mesh"]["verts"], [t for t in G["mesh"]["faces"] if not set(G.get("filled", [])) & set(t)])
         for loops, hc in faces_on(k, S, view, Pts):

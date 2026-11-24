@@ -737,7 +737,9 @@ def run_forked(jobs, fn, workers=None, timeout=120, log=print):
                 try:
                     out = pickle.dumps(fn(j))
                 except Exception as e:  # noqa: BLE001
-                    out = pickle.dumps((None, f"error {type(e).__name__}"))
+                    import traceback
+                    tb = traceback.extract_tb(e.__traceback__)[-1]
+                    out = pickle.dumps((None, f"error {type(e).__name__} at {os.path.basename(tb.filename)}:{tb.lineno}"))
                 with os.fdopen(w, "wb") as f:
                     f.write(out)
                 os._exit(0)
