@@ -736,20 +736,94 @@ def complete_graph(X, surfs, log=print, near=3e-3):
             second = dict(s_, ends=(pid, s_["ends"][1]), pts=np.vstack([x, Q[j + 1:]]))
             segs[i_] = first
             add_seg(second)
-    # a traced curve that runs along a curve already in the graph is that curve: it gains the pair's surfaces
-    allp = [dense(s_["pts"]) for s_ in segs]
+    # a traced curve that runs along a curve already in the graph (or one traced before it) is that curve there:
+    # only its runs off the graph are new, each ending where it leaves the graph (snapped onto the curve it leaves,
+    # which is cut there), and a curve of the graph it covers gains the pair's surfaces
+    tol, step = 3e-4, 2e-4
+    allp = [dense(s_["pts"], step) for s_ in segs]
     all_tree = cKDTree(np.vstack(allp))
     all_of = np.concatenate([[i] * len(q) for i, q in enumerate(allp)])
-    kept, merged = [], 0
+    new_pts, new_tree = [], None
+
+    def near_graph(Q):
+        d = all_tree.query(Q)[0]
+        if new_tree is not None:
+            d = np.minimum(d, new_tree.query(Q)[0])
+        return d < tol
+
+    def snap(x):
+        """x put on the nearest curve of the graph (the old one), that curve cut there; the point's id."""
+        _, i0 = all_tree.query(x)
+        s_ = segs[all_of[i0]]
+        on = sorted(s_["on"])
+        best = None
+        for i_ in set().union(*[by_surf[m] for m in on[:1]]):
+            t_ = segs[i_]
+            if not set(on) <= set(t_["on"]):
+                continue
+            Q = np.asarray(t_["pts"], float)
+            A_, d_ = Q[:-1], Q[1:] - Q[:-1]
+            u = np.clip(np.einsum("ij,ij->i", x - A_, d_) / (np.einsum("ij,ij->i", d_, d_) + 1e-300), 0, 1)
+            y = A_ + u[:, None] * d_
+            dist = np.linalg.norm(y - x, axis=1)
+            j_ = int(np.argmin(dist))
+            if best is None or dist[j_] < best[0]:
+                best = (dist[j_], y[j_])
+        if best is None or best[0] > 2 * tol:
+            return None
+        z = best[1]
+        pid = point_id(z)
+        split_existing(z, pid, [(on[0], o) for o in on[1:]] or [(on[0], on[0])])
+        return pid
+
+    kept, merged, trimmed = [], 0, 0
     for (a, b), Q, closed in curves:
-        d, i = all_tree.query(Q)
-        if np.mean(d < 1e-6) > 0.8:
-            for i_ in set(all_of[i[d < 1e-6]].tolist()):
-                segs[i_]["on"] = set(segs[i_]["on"]) | {a, b}
+        old = near_graph(Q)
+        if old.mean() > 0.8:
+            d, i = all_tree.query(Q)
+            for i_ in set(all_of[i[d < tol]].tolist()):
+                cov = np.mean(cKDTree(Q).query(allp[i_])[0] < tol) if len(allp[i_]) else 0
+                if cov > 0.8:
+                    segs[i_]["on"] = set(segs[i_]["on"]) | {a, b}
             merged += 1
+            continue
+        n0 = len(kept)
+        if not old.any():
+            kept.append(((a, b), Q, closed, (None, None)))
         else:
-            kept.append(((a, b), Q, closed))
-    curves = kept
+            trimmed += 1
+            idx = np.flatnonzero(~old)
+            runs = np.split(idx, np.flatnonzero(np.diff(idx) > 1) + 1)
+            for r in runs:
+                i0, i1 = r[0], r[-1]
+                e0 = i0 - 1 if i0 > 0 else (len(Q) - 2 if closed and old[-2] else None)
+                e1 = i1 + 1 if i1 < len(Q) - 1 else (1 if closed and old[1] else None)
+                sub = Q[i0:i1 + 1]
+                ends = [None, None]
+                if e0 is not None:
+                    ends[0] = Q[e0]
+                    sub = np.vstack([Q[e0], sub])
+                if e1 is not None:
+                    ends[1] = Q[e1]
+                    sub = np.vstack([sub, Q[e1]])
+                if len(sub) >= 3:
+                    kept.append(((a, b), sub, False, tuple(ends)))
+        new_pts += [dense(c[1], step) for c in kept[n0:]]
+        if new_pts:
+            new_tree = cKDTree(np.vstack(new_pts))
+    # (ends where a run leaves the graph: on the curve it leaves, cut there)
+    curves = []
+    snapped = 0
+    for (a, b), Q, closed, ends in kept:
+        Q = Q.copy()
+        for side, e in ((0, ends[0]), (-1, ends[1])):
+            if e is None:
+                continue
+            pid = snap(e)
+            if pid is not None:
+                Q[side] = Pts[pid]
+                snapped += 1
+        curves.append(((a, b), Q, closed))
     by_surf.clear()
     for i_, s_ in enumerate(segs):
         for m in s_["on"]:
@@ -802,7 +876,7 @@ def complete_graph(X, surfs, log=print, near=3e-3):
             add_seg({"ends": (p0, p1), "pts": pts, "on": set(on), "key": None, "sig": None, "added": True})
             added += 1
     log(f"  graph completed: {sum(len(v) for v in seeds.values())} rim points on {len(seeds)} surface pairs "
-        f"with no curve; {len(curves) + merged} curves traced ({merged} already there), {n_cuts} cuts, {added} segments added ({time.time() - t_:.0f}s)")
+        f"with no curve; {len(curves) + merged} curves traced ({merged} already there, {trimmed} partly; {snapped} ends snapped), {n_cuts} cuts, {added} segments added ({time.time() - t_:.0f}s)")
 
     # loose ends: a trace stops short of a singular point (where its two surfaces turn tangent, often a corner
     # where many surfaces meet), so its end hangs a step or so from where it should join. Each loose end is run
