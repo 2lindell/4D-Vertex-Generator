@@ -127,6 +127,23 @@ def segments_of(surfs, curves, log):
         points.append(x)
         return len(points) - 1
 
+    def along(Sa, Sb, C, x0, x1):
+        f0 = C.f(x0)
+        for _ in range(60):
+            y, ok = E.newton((x0 + x1) / 2, [Sa, Sb])
+            if not ok:
+                return None
+            fy = C.f(y)
+            if fy == 0:
+                return y
+            if (fy > 0) == (f0 > 0):
+                x0, f0 = y, fy
+            else:
+                x1 = y
+            if np.linalg.norm(x1 - x0) < 1e-13:
+                break
+        return y
+
     segs = []
     for c in curves:
         (a, b), Q = c["pair"], np.asarray(c["pts"], float)
@@ -152,8 +169,12 @@ def segments_of(surfs, curves, log):
             for i in range(len(Q) - 1):
                 if fv[i] * fv[i + 1] < 0 and max(r[i], r[i + 1]) > 1e-7:
                     t = fv[i] / (fv[i] - fv[i + 1])
-                    z, ok = E.newton(Q[i] + t * (Q[i + 1] - Q[i]), [surfs[a], surfs[b], C])
-                    if ok and E.inside(z, 1e-10):
+                    g = Q[i] + t * (Q[i + 1] - Q[i])
+                    z, ok = E.newton(g, [surfs[a], surfs[b], C])
+                    if not (ok and E.inside(z, 1e-10) and np.linalg.norm(z - g) < 2 * np.linalg.norm(Q[i + 1] - Q[i]) + 1e-6):
+                        # (Newton on the three failed, or ran off to another crossing: bisected along the curve)
+                        z = along(surfs[a], surfs[b], C, Q[i], Q[i + 1])
+                    if z is not None and E.inside(z, 1e-10):
                         cuts.append((i + t, pid(z)))
             for i in (0, len(Q) - 1):
                 if r[i] < 1e-10:
