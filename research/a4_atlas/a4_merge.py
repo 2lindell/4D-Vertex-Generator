@@ -34,7 +34,7 @@ import a4_snub as SN  # noqa: E402
 REL = lambda S_, x: abs(S_.f(x)) / (np.linalg.norm(S_.g(x)) + 1e-300)  # noqa: E731
 
 
-def merge(X, surfs, sub, log=print):
+def merge(X, surfs, sub, log=print, swap=True):
     segs, faces = X["segments"], X["faces"]
     kn = X.get("keyname", {})
 
@@ -106,7 +106,7 @@ def merge(X, surfs, sub, log=print):
             for x in faces[fi]["probes"][:2]:
                 pr.append(np.asarray(x, float)[::-1])
                 owner.append(pi)
-    labs = SN.classify_many(pr, sub, tol=1e-7)
+    labs = SN.classify_many(pr, sub, tol=1e-7) if swap else [(None, None)] * len(pr)
     swap_keys = defaultdict(Counter)
     for pi, (_, kk) in zip(owner, labs):
         if kk is not None:
@@ -286,7 +286,7 @@ def repair(X, surfs, sub, log=print, rounds=4):
     import a4_faces as A
     A.SURFS = surfs
     for rnd in range(rounds):
-        pieces, report = merge(X, surfs, sub)
+        pieces, report = merge(X, surfs, sub, swap=False)
         todo = []
         for p in pieces:
             if not p.get("mixed"):
@@ -298,7 +298,7 @@ def repair(X, surfs, sub, log=print, rounds=4):
         log(f"  round {rnd}: {report['pieces whose probes read more than one shape']} mixed pieces; "
             f"{len(todo)} faces with a surface parting their shapes")
         if not todo:
-            return pieces, report
+            break
         touched = set()
         done = set()
         for k, (m, a, b) in todo:
