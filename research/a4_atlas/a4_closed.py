@@ -179,7 +179,7 @@ def segments_of(surfs, curves, log):
     return points, segs
 
 
-def probes_of(S, k, loop, cyc, segs, eps=1e-4, frac=None, minlen=0.0):
+def probes_of(S, k, loop, cyc, segs, eps=1e-4, frac=None, minlen=0.0, clear=True):
     """Points just inside a face: a step to the left of its outline, a few along every segment of it. (Much nearer a
     chamber edge than 1e-4 the hull test sees vertices all but coincide and misnames the shape.)"""
     out = []
@@ -194,12 +194,21 @@ def probes_of(S, k, loop, cyc, segs, eps=1e-4, frac=None, minlen=0.0):
             m = min(max(int(f * (len(Q) - 1)), 0), len(Q) - 2)
             x = Q[m] + (Q[m + 1] - Q[m]) * (f * (len(Q) - 1) - m) if len(Q) > 2 else Q[0] + f * (Q[1] - Q[0])
             d = Q[m + 1] - Q[m]
+            st = step
+            if clear and len(cyc) > 1:
+                # (no nearer the face's other edges than a third of the way: where two of them leave a corner all but
+                #  tangent, a fixed step would cross the other)
+                room = min(A.poly_dist(x, np.asarray(segs[j]["pts"], float)) for j, _ in cyc if j != i)
+                if frac:
+                    st = min(st, room / 3)
+                elif room / 3 < st:
+                    continue
             n = P.normal(S, x) @ BZ.T
             side = np.cross(n, d @ BZ.T) @ BZ
             nn = np.linalg.norm(side)
             if nn < 1e-14:
                 continue
-            y = P.lift_normal(S, x + step * side / nn) if k >= 4 else x + step * side / nn
+            y = P.lift_normal(S, x + st * side / nn) if k >= 4 else x + st * side / nn
             if y is not None and E.inside(y, 1e-12):
                 out.append(y)
     return out
