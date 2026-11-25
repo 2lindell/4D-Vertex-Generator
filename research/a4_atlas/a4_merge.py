@@ -247,7 +247,9 @@ def add_curve(X, surfs, k, m, seed, log=print):
             u = np.clip(np.einsum("ij,ij->i", x - A_, d_) / (np.einsum("ij,ij->i", d_, d_) + 1e-300), 0, 1)
             dist = np.linalg.norm(A_ + u[:, None] * d_ - x, axis=1)
             j = int(np.argmin(dist))
-            if dist[j] < 1e-6 and all(REL(surfs[q], x) < 1e-8 for q in t["on"]):
+            # (the point is exact, solved on the segment's surfaces; the segment's points are a chain along the
+            #  curve, which can sag from it by more than 1e-6 between points)
+            if dist[j] < 2e-4 and all(REL(surfs[q], x) < 1e-8 for q in t["on"]):
                 segs[i] = dict(t, ends=(t["ends"][0], p), pts=np.vstack([Q[:j + 1], x]))
                 segs.append(dict(t, ends=(p, t["ends"][1]), pts=np.vstack([x, Q[j + 1:]])))
                 touched |= set(t["on"])
