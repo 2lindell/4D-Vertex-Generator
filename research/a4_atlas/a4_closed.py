@@ -244,6 +244,7 @@ def build(group, log=print):
     X0 = pickle.load(open(os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
     names = X0["surfaces"]
     surfs = [P.surf_of(n) for n in names]
+    A.SURFS = surfs
     keyname = X0.get("keyname", {})
     log(f"{group}: {len(surfs)} surfaces, grid {E.GRID}")
     grids = {k: grid_of(S_, k) for k, S_ in enumerate(surfs)}
@@ -257,7 +258,7 @@ def build(group, log=print):
     #  hub, is the hub)
     # (only within 1e-4: curves traced on to near-tangency reach their hubs; a wider merge folded real crossings
     #  near a hub into it, and the curves' order round the hub then changed with the distance it was read at)
-    HUB_R = 1e-4
+    HUB_R = 3e-3
 
     def merge_hubs(when):
         Pts = X["points"]

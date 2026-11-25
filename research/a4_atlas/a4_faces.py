@@ -66,7 +66,10 @@ class _Ball:
         return 2 * (x - self.c)
 
 
-def link_groups(S, v, hs, r=2e-3):
+SURFS = None          # (all the surfaces, when known: link points are then solved exactly on their curve)
+
+
+def link_groups(S, v, hs, r=2e-3, pair_of=None):
     """At a singular point v of S: the curves leaving it in turn on each sheet. Each curve's point at distance r is
     found; the curve where the sphere of radius r round v meets S is traced through them (each component a sheet's
     round, cut by the mirrors into arcs); along each, the curves' points in order, turning the way S's normal there
@@ -83,7 +86,15 @@ def link_groups(S, v, hs, r=2e-3):
         else:
             t = (r - d[j - 1]) / max(d[j] - d[j - 1], 1e-300)
             p = Q[j - 1] + np.clip(t, 0, 1) * (Q[j] - Q[j - 1])
-        p, ok = E.newton(p, [S, ball])
+        pr = pair_of(i, fw, p) if pair_of else None
+        if pr is not None:
+            q, ok = E.newton(p, [pr[0], pr[1], ball])     # (exactly on the curve: tangent curves lie close there)
+            if ok and np.linalg.norm(q - p) < r / 20:
+                p = q
+            else:
+                p, ok = E.newton(p, [S, ball])
+        else:
+            p, ok = E.newton(p, [S, ball])
         at[(i, fw)] = p
     left = dict(at)
     comps = []
@@ -173,8 +184,41 @@ def faces_on(k, S, segs, Pts):
         g = S.g(x)
         if np.linalg.norm(g - g.mean()) < 1e-7 and len(hs) > 2:
             # (the small sphere well inside every curve leaving the point: one ending inside it has no place on it)
-            short = min(np.linalg.norm(np.diff(np.asarray(Q, float), axis=0), axis=1).sum() for _, _, Q in hs)
-            gr = link_groups(S, x, hs, r=min(2e-3, short / 3))
+            if SURFS is not None:
+                # (points within 3e-3 of a hub are merged into it, so curves' crossings that near are folded into
+                #  it: their order is read just outside, 3.5e-3 out, a curve ending sooner followed on along the
+                #  curve it continues in; each point solved exactly on its curve)
+                r_ = 3.5e-3
+                hs2, src = [], {}
+                for i, fw, Q in hs:
+                    parts, segi = [np.asarray(Q, float)], [i]
+                    L = np.linalg.norm(np.diff(parts[0], axis=0), axis=1).sum()
+                    cur, end, on = i, (segs[i]["ends"][1] if fw else segs[i]["ends"][0]), set(segs[i]["on"])
+                    while L < 2 * r_:
+                        nxt = [h for h in out.get(end, []) if h[0] != cur]
+                        if not nxt:
+                            break
+                        j, fw2, R = max(nxt, key=lambda h: len(on & set(segs[h[0]]["on"])))
+                        R = np.asarray(R, float)
+                        parts.append(R[1:])
+                        segi += [j] * (len(R) - 1)
+                        L += np.linalg.norm(np.diff(R, axis=0), axis=1).sum()
+                        cur, end = j, (segs[j]["ends"][1] if fw2 else segs[j]["ends"][0])
+                    QQ = np.vstack(parts)
+                    hs2.append((i, fw, QQ))
+                    src[(i, fw)] = (QQ, [i] * len(parts[0]) + segi[1:])
+
+                def pair_of(i, fw, p, src=src):
+                    QQ, si = src[(i, fw)]
+                    j = si[min(int(np.argmin(np.linalg.norm(QQ - p, axis=1))), len(si) - 1)]
+                    others = [SURFS[m] for m in segs[j]["on"] if m != k]
+                    if not others:
+                        return None
+                    return S, max(others, key=lambda C: E.crossing_angle(p, S, C))
+                gr = link_groups(S, x, hs2, r=r_, pair_of=pair_of)
+            else:
+                short = min(np.linalg.norm(np.diff(np.asarray(Q, float), axis=0), axis=1).sum() for _, _, Q in hs)
+                gr = link_groups(S, x, hs, r=min(2e-3, short / 3))
         else:
             e1, e2 = frame_at(S, x)
             ang = {}
