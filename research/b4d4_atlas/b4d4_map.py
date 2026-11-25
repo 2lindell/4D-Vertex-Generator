@@ -48,13 +48,13 @@ U4 = R[3] / np.linalg.norm(R[3])
 REFL4 = np.eye(4) - 2 * np.outer(U4, U4)                  # (the reflection in beta_4 = 0: D4's fold)
 
 
-def d4_seed(signs):
+def d4_seed(signs, dist=None):
     """The D4-symmetric seed of a face of the B4 chamber (signs: which beta are nonzero there), as beta: equal
     distance to each D4 mirror the face is off. D4's mirrors are beta_1, beta_2, beta_3 and beta_3' (beta_3's image in
     beta_4 = 0); a point is off beta_3' unless beta_3 = beta_4 = 0. Put back in the B4 chamber if it falls in the
     other half."""
     s1, s2, s3, s4 = (int(v != 0) for v in signs)
-    d = np.array([s1, s2, s3, 1.0 if (s3 or s4) else 0.0])
+    d = np.array([s1, s2, s3, 1.0 if (s3 or s4) else 0.0]) * (1.0 if dist is None else np.asarray(dist, float))
     D = np.vstack([R[0], R[1], R[2], REFL4 @ R[2]])
     x = np.linalg.solve(D, d)
     b = R @ x
@@ -277,8 +277,12 @@ def build(group, table, full):
                 how = ("uniform seed (the D4 chamber's centre: equal distance to its four mirrors, all edges equal)"
                        if group == "demitessic" else
                        "the D4 chamber's centre (demitessic's uniform seed; a snub, sadi is not uniform there: edges "
-                       "0.943 to 1.155)")
+                       "0.943 to 1.155), and sadi's uniform seed, also on the axis: distances 1, 1/φ, 1, 1 to the "
+                       "mirrors β1, β2, β3, β3′ (all edges equal)")
                 t["_ex"] = [(b, how)]
+                if group == "kidemitessic":
+                    phi = (1 + 5 ** 0.5) / 2
+                    t["_ex"].append((d4_seed((1, 1, 1, 1), (1, 1 / phi, 1, 1)), how))
             else:
                 bs = []
                 for f in t["_own"]:
