@@ -274,7 +274,7 @@ def build(group, log=print):
             Q = np.asarray(t["pts"], float)
             lo, hi = Q.min(0) - 1e-6, Q.max(0) + 1e-6
             cand = [p for p in ptree.query_ball_point((lo + hi) / 2, np.linalg.norm(hi - lo) / 2 + 1e-6)
-                    if p not in t["ends"]]
+                    if p not in t["ends"] and min(np.linalg.norm(Pts[p] - Q[0]), np.linalg.norm(Pts[p] - Q[-1])) > 1e-5]
             cut = None
             for p in cand:
                 x = Pts[p]
@@ -294,6 +294,10 @@ def build(group, log=print):
             second = dict(t, ends=(p, t["ends"][1]), pts=np.vstack([x, Q[j + 1:]]))
             todo += [first, second]
             split += 1
+            if split % 200 == 0:
+                log(f"    {split} cuts so far")
+            if split > 20 * len(X["segments"]):
+                raise RuntimeError("cutting at points does not end")
     X["segments"] = out_s
     log(f"  {split} cuts of curves at points of the map lying on them")
     segs, Pts = X["segments"], X["points"]
