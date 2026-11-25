@@ -1,0 +1,18 @@
+{
+ "faces": 28,
+ "pieces": 20,
+ "pieces whose probes read more than one shape": 0,
+ "pieces no probe of which reads a shape": 0,
+ "probes reading no shape": 0,
+ "pieces whose swap image is another shape": 0,
+ "edge segments": 24,
+ "edge points of odd degree (loose ends)": 0,
+ "edge segments off their surfaces by more than 1e-7": 0,
+ "pieces by shape": {
+  "other": 12,
+  "tetosbid": 1,
+  "bipyosbid": 4,
+  "petosbid": 1,
+  "sosbid": 2
+ }
+}
