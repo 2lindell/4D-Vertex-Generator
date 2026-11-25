@@ -32,6 +32,16 @@ AREA_TOL = 0.08
 H = 1.6 / E.GRID                                 # (the marching grid's step)
 
 
+def poly_dist(x, Q):
+    """The distance from x to the polyline Q."""
+    Q = np.asarray(Q, float)
+    if len(Q) == 1:
+        return float(np.linalg.norm(Q[0] - x))
+    A_, d_ = Q[:-1], Q[1:] - Q[:-1]
+    u = np.clip(np.einsum("ij,ij->i", x - A_, d_) / (np.einsum("ij,ij->i", d_, d_) + 1e-300), 0, 1)
+    return float(np.linalg.norm(A_ + u[:, None] * d_ - x, axis=1).min())
+
+
 def frame_at(S, x):
     """An orthonormal frame (e1, e2) of the surface's tangent plane at x (in the 3-space sum(beta) = 0), turning the
     way its gradient does."""
@@ -139,8 +149,7 @@ def faces_on(k, S, segs, Pts):
         for j in uniq:
             t = segs[j]
             if set(t["ends"]) == set(s["ends"]):
-                R = np.asarray(t["pts"], float)
-                if np.min(np.linalg.norm(R - Q[len(Q) // 2], axis=1)) < 1e-7:
+                if poly_dist(Q[len(Q) // 2], t["pts"]) < 1e-5:
                     dup = True
                     break
         if not dup:

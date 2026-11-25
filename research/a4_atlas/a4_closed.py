@@ -102,22 +102,14 @@ def curves_of(surfs, grids, log):
                 if len(pts) < 2:
                     continue
                 Q = np.array(pts)
-                # (the stretches not already traced: a curve on three or more surfaces is found from several pairs)
+                # (a curve already traced from another pair (it lies on three or more surfaces) is skipped; one only
+                #  partly so is kept whole: where it parts from the other it is cut (segments_of), and the stretch
+                #  they share comes out as the same segment twice, kept once)
                 old = np.array([seen.near(q) for q in Q])
-                if old.all():
+                if old.mean() > 0.95:
                     continue
-                if not old.any():
-                    runs = [(0, len(Q) - 1)]
-                else:
-                    idx = np.flatnonzero(~old)
-                    cut = np.flatnonzero(np.diff(idx) > 1)
-                    runs = [(r[0], r[-1]) for r in np.split(idx, cut + 1)]
-                    closed = False
-                for i0, i1 in runs:
-                    sub = Q[max(i0 - 1, 0): i1 + 2]
-                    if len(sub) >= 2:
-                        curves.append({"pair": (a, b), "pts": sub, "closed": closed and len(runs) == 1})
-                        seen.add(sub)
+                curves.append({"pair": (a, b), "pts": Q, "closed": closed})
+                seen.add(Q)
         log(f"    surface {a}: {len(curves)} curves so far, {time.time() - t0:.0f}s")
     return curves
 
@@ -149,6 +141,14 @@ def segments_of(surfs, curves, log):
             if np.mean(r < 1e-9) > 0.9 and r.max() < 1e-4:
                 on.add(m)
                 continue
+            # (the curve runs along C for a stretch, then parts from it: cut where it parts, solved on all three)
+            zero = r < 1e-9
+            for i in range(len(Q) - 1):
+                if zero[i] != zero[i + 1] and zero[max(i - 1, 0):i + 3].sum() >= 2:
+                    j = i if zero[i] else i + 1
+                    z, ok = E.newton(Q[j], [surfs[a], surfs[b], C])
+                    if ok and E.inside(z, 1e-10) and np.linalg.norm(z - Q[j]) < 5e-3:
+                        cuts.append((float(j), pid(z)))
             for i in range(len(Q) - 1):
                 if fv[i] * fv[i + 1] < 0 and max(r[i], r[i + 1]) > 1e-7:
                     t = fv[i] / (fv[i] - fv[i + 1])
@@ -214,6 +214,20 @@ def build(group, log=print):
     points, segs = segments_of(surfs, curves, log)
     X = {"surfaces": names, "points": points, "segments": segs, "faces": []}
     A.clean_graph(X, surfs, log)
+    # (the same stretch of curve found from two pairs: same ends, one on the other; kept once, on all their surfaces)
+    by_ends = defaultdict(list)
+    kept = []
+    for s_ in X["segments"]:
+        Q = np.asarray(s_["pts"], float)
+        key = tuple(sorted(s_["ends"]))
+        twin = next((t for t in by_ends[key] if A.poly_dist(Q[len(Q) // 2], t["pts"]) < 1e-5), None)
+        if twin is not None:
+            twin["on"] = set(twin["on"]) | set(s_["on"])
+            continue
+        by_ends[key].append(s_)
+        kept.append(s_)
+    log(f"  {len(X['segments']) - len(kept)} segments found twice, kept once")
+    X["segments"] = kept
     A.complete_graph(X, surfs, log)               # (no pieces: only its loose-end closing runs)
     segs, Pts = X["segments"], X["points"]
     report = {"group": group, "surfaces": len(surfs), "points": len(Pts), "segments": len(segs)}
