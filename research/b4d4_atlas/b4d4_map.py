@@ -40,6 +40,8 @@ from four_d_vertex_generator.library import fundamental_chamber_roots  # noqa: E
 
 GROUPS = {"tessic": ("b4", "full", 384), "kitessic": ("b4", "ki", 192), "tessipyritic": ("b4", "pyr", 192),
           "demitessic": ("d4", "demi", 192), "kidemitessic": ("d4", "kidemi", 96)}
+MAIN = {"b4": "tessic", "d4": "demitessic"}       # (the family's reflection group: the others are seeded as it is)
+MAIN_SEED = {}                                    # (family -> a face's signs -> the main group's seed there)
 R = np.asarray(fundamental_chamber_roots("b4"), float)
 RI = np.linalg.inv(R)
 U4 = R[3] / np.linalg.norm(R[3])
@@ -244,8 +246,19 @@ def build(group, table, full):
         for s in json.load(open(os.path.join(TES, fn + ".json")))["shapes"]:
             opt[s["name"]] = np.clip(np.asarray(s[k], float), 0, None)
     examples = []
+    main = MAIN[fam]
+    if group != main and fam not in MAIN_SEED:
+        build(main, table, full)                 # (its seeds first: this group's are taken from it)
     for t in types:
         f0 = t["_own"][0]
+        if group != main:
+            # (the same chamber layout as the main symmetry's: each face seeded where the main one seeds it)
+            if t["dim"] == "region":
+                t["_ex"] = [(np.full(4, 0.25), f"{main}'s central seed (the chamber's centre)")]
+            else:
+                t["_ex"] = [(MAIN_SEED[fam][f["signs"]], f"{main}'s seed there (the same place as on {main})")
+                            for f in t["_own"]]
+            continue
         uni = np.array([1.0 if k + 1 in f0["ring"] else 0.0 for k in range(4)])
         if t["dim"] == "region":
             b, how = np.full(4, 0.25), "central seed (the chamber's centre)"
@@ -259,6 +272,11 @@ def build(group, table, full):
         t["_ex"] = [(b, how)] if t["dim"] != "region" or True else []
         if t["dim"] != "region" and len(t["_own"]) > 1:   # (every piece: its own uniform seed)
             t["_ex"] = [(np.array([1.0 if k + 1 in f["ring"] else 0.0 for k in range(4)]), how) for f in t["_own"]]
+        if t["dim"] != "region":
+            for f in t["_own"]:
+                MAIN_SEED.setdefault(fam, {})[f["signs"]] = (t["_ex"][0][0] if len(t["_own"]) == 1 else
+                                                             np.array([1.0 if k + 1 in f["ring"] else 0.0
+                                                                       for k in range(4)]))
     flat = [(t, b, how) for t in types for b, how in t["_ex"]]
     chk = classify([b for _, b, _ in flat], sub, 1e-7)
     for (t, b, how), (_, k) in zip(flat, chk):
@@ -290,10 +308,8 @@ def build(group, table, full):
     types.sort(key=lambda t: (rank[t["dim"]], -(t.get("vertices") or 0), t["id"]))
     out = {"group": group, "family": fam, "order": order, "domain": ch.domain(), "types": types, "walls": walls,
            "lines": lines, "points": points, "examples": examples, "shells": shells}
-    if fam == "d4":
-        out["fold"] = {"plane": [ch(e) for e in np.eye(4)[:3]],
-                       "label": "the fold β4 = 0", "name": "the fold β4 = 0 (no D4 mirror: the reflection in it maps "
-                       "D4 to itself, so the two halves of the chamber hold the same shapes)"}
+    # (D4: β4 = 0, where the B4 chamber the maps are found on meets its image, is no D4 mirror and no boundary of
+    #  any shape, one of the three planes of the chamber's triangular symmetry: not drawn)
     path = os.path.join(HERE, f"b4d4_map_{group}.json")
     json.dump(out, open(path, "w"), separators=(",", ":"))
     print(f"{path}: {len(types)} shapes ({dict(Counter(t['dim'] for t in types))}): "

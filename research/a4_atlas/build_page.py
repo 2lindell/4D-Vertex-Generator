@@ -56,8 +56,8 @@ FAMILIES = {
 CHIPS = {"pennic": "chamber = 1 domain", "kipennic": "chamber = ½ domain", "decaic": "chamber = 2 domains (the swap)",
          "iodecaic": "chamber = 1 domain", "kidecaic": "chamber = 1 domain",
          "tessic": "chamber = 1 domain", "kitessic": "chamber = ½ domain", "tessipyritic": "chamber = ½ domain",
-         "demitessic": "D4 chamber = 1 domain (shown twice: the fold)",
-         "kidemitessic": "D4 chamber = ½ domain (shown twice: the fold)",
+         "demitessic": "D4 chamber = 1 domain",
+         "kidemitessic": "D4 chamber = ½ domain",
          "icoic": "chamber = 1 domain", "kiicoic": "chamber = ½ domain", "contic": "chamber = 2 domains (the swap)",
          "kicontic": "chamber = 1 domain", "iocontic": "chamber = 1 domain", "icopyritic": "chamber = ½ domain",
          "toxitic": "chamber = ¼ domain", "oxitic": "chamber = ½ domain"}
@@ -196,11 +196,14 @@ def notes_b4d4(g, d, syms):
         dom = [("Kidemitessic symmetry D4+ is the rotation half of demitessic, order 96." if ki else
                 "Demitessic symmetry [3¹,¹,¹] is the D4 reflection group, order 192: the tesseract's symmetries "
                 "with an even number of sign changes.")
-               + " The D4 chamber is drawn: the B4 chamber and its mirror image in β4 = 0, a tetrahedron with corners "
-               "β1 (hex), β2 (ico), β4 (hex, the tesseract's corner) and β4′ (its image), β3's corner (rit) in the middle "
-               "of the edge between the last two. β4 = 0 is no D4 mirror but a fold (dashed): the reflection in it maps "
-               "D4 to itself, so a seed and its image make congruent polychora and the two halves of the chamber show "
-               "the same shapes. Its three corners hex and three faces tah are D4's triality.",
+               + " The D4 chamber is drawn, a tetrahedron with corners β1 (hex), β2 (ico), β4 (hex) and β4′ (hex), β3's "
+               "corner (rit) in the middle of the edge between the last two. It has the triangular symmetry of D4's "
+               "triality, about the axis through ico's corner: its three hex corners, three tah faces and three rit "
+               "edges are exchanged by it. Those symmetries of the chamber map D4 to itself (with D4 they make "
+               "[3,4,3]), so seeds they exchange make congruent polychora and the map looks the same from each of its "
+               "three sides. (The maps are found on one half of the chamber, the B4 chamber, cut off by the plane "
+               "β4 = 0 through ico's corner, and carried to the rest by that symmetry; the plane is no D4 mirror and no "
+               "shape's boundary, so it is not drawn.)",
                ("Inside, every seed makes sadi, the snub disicosatetrachoron: 8+8+8 snits, 24 disphenoids and 96 tets, "
                 "3 degrees. On the mirrors a seed's rotation images are its demitessic ones, so the mirrors carry "
                 "demitessic's shapes. (tico cannot be kidemitessic: it has 192 vertices.)" if ki else
