@@ -300,6 +300,38 @@ def build(group, log=print):
                 raise RuntimeError("cutting at points does not end")
     X["segments"] = out_s
     log(f"  {split} cuts of curves at points of the map lying on them")
+    # (points of the map closer than 3e-5 are one point, found twice: merged, the stubs between them dropped and the
+    #  segments that then share both ends and run together kept once, on all their surfaces)
+    par = list(range(len(Pts)))
+    def root(i):
+        while par[i] != i:
+            par[i] = par[par[i]]
+            i = par[i]
+        return i
+    for i, j in cKDTree(np.array(Pts)).query_pairs(3e-5):
+        a, b = root(i), root(j)
+        if a != b:
+            par[max(a, b)] = min(a, b)
+    out_s, byk, dropped, twins = [], defaultdict(list), 0, 0
+    for s_ in X["segments"]:
+        a, b = root(s_["ends"][0]), root(s_["ends"][1])
+        Q = np.array(s_["pts"], float)
+        Q[0], Q[-1] = Pts[a], Pts[b]
+        if a == b and np.linalg.norm(np.diff(Q, axis=0), axis=1).sum() < 1e-3:
+            dropped += 1
+            continue
+        key = tuple(sorted((a, b)))
+        t = next((t for t in byk[key] if A.poly_dist(Q[len(Q) // 2], t["pts"]) < 1e-5), None)
+        if t is not None:
+            t["on"] = set(t["on"]) | set(s_["on"])
+            twins += 1
+            continue
+        n_ = dict(s_, ends=(a, b), pts=Q)
+        byk[key].append(n_)
+        out_s.append(n_)
+    X["segments"] = out_s
+    log(f"  {sum(root(i) != i for i in range(len(Pts)))} points within 3e-5 of another merged; {dropped} stubs dropped, "
+        f"{twins} segments then found twice kept once")
     segs, Pts = X["segments"], X["points"]
     report = {"group": group, "surfaces": len(surfs), "points": len(Pts), "segments": len(segs)}
     # (a) loose ends
