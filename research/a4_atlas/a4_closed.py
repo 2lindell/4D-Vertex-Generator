@@ -260,6 +260,42 @@ def build(group, log=print):
     log(f"  {len(X['segments']) - len(kept)} segments found twice, kept once")
     X["segments"] = kept
     A.complete_graph(X, surfs, log)               # (no pieces: only its loose-end closing runs)
+    # (every curve cut at every point of the map lying on it: a curve that passes through a point where others end
+    #  must turn there in the faces' walk)
+    from scipy.spatial import cKDTree
+    Pts = X["points"]
+    ptree = cKDTree(np.array(Pts))
+    split = 0
+    out_s = []
+    for s_ in X["segments"]:
+        todo = [s_]
+        while todo:
+            t = todo.pop()
+            Q = np.asarray(t["pts"], float)
+            lo, hi = Q.min(0) - 1e-6, Q.max(0) + 1e-6
+            cand = [p for p in ptree.query_ball_point((lo + hi) / 2, np.linalg.norm(hi - lo) / 2 + 1e-6)
+                    if p not in t["ends"]]
+            cut = None
+            for p in cand:
+                x = Pts[p]
+                A_, d_ = Q[:-1], Q[1:] - Q[:-1]
+                u = np.clip(np.einsum("ij,ij->i", x - A_, d_) / (np.einsum("ij,ij->i", d_, d_) + 1e-300), 0, 1)
+                dist = np.linalg.norm(A_ + u[:, None] * d_ - x, axis=1)
+                j = int(np.argmin(dist))
+                if dist[j] < 1e-6 and all(REL(surfs[m], x) < 1e-8 for m in t["on"]):
+                    cut = (p, j)
+                    break
+            if cut is None:
+                out_s.append(t)
+                continue
+            p, j = cut
+            x = Pts[p]
+            first = dict(t, ends=(t["ends"][0], p), pts=np.vstack([Q[:j + 1], x]))
+            second = dict(t, ends=(p, t["ends"][1]), pts=np.vstack([x, Q[j + 1:]]))
+            todo += [first, second]
+            split += 1
+    X["segments"] = out_s
+    log(f"  {split} cuts of curves at points of the map lying on them")
     segs, Pts = X["segments"], X["points"]
     report = {"group": group, "surfaces": len(surfs), "points": len(Pts), "segments": len(segs)}
     # (a) loose ends
