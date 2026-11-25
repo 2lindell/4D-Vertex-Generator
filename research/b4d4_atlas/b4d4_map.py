@@ -300,6 +300,12 @@ def build(group, table, full):
             else:
                 t["_ex"] = [(MAIN_SEED[fam][f["signs"]], f"{main}'s seed there (the same place as on {main})")
                             for f in t["_own"]]
+                if t["id"] == "sadi":            # (and the snub's own uniform seed in that face, all edges equal)
+                    phi = (1 + 5 ** 0.5) / 2
+                    t["_ex"].append((np.array([1 / phi ** 2, 1 / phi ** 3, 1 / phi ** 2, 0.0]) / (2 / phi ** 2 + 1 / phi ** 3),
+                                     f"{main}'s seed there (the same place as on {main}), and sadi's uniform seed "
+                                     "(β1 : β2 : β3 = 1 : 1/φ : 1, all edges equal)"))
+                    t["_ex"] = [(b, t["_ex"][-1][1]) for b, _ in t["_ex"]]
             continue
         uni = np.array([1.0 if k + 1 in f0["ring"] else 0.0 for k in range(4)])
         if t["dim"] == "region":
