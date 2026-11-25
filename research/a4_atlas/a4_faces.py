@@ -255,12 +255,8 @@ def faces_on(k, S, segs, Pts):
         else:
             e1, e2 = frame_at(S, x)
             ang = {}
-            # (every curve read at the same distance: a third of the shortest's length, at most 0.02. Read at
-            #  different distances, curves leaving where the surface is all but singular turn past each other)
-            dd = min([0.02] + [np.linalg.norm(np.diff(np.asarray(Q, float), axis=0), axis=1).sum() / 3
-                               for _, _, Q in hs])
             for i, fw, Q in hs:
-                d = (exact_leave(k, S, x, np.asarray(Q, float), segs[i]["on"], d=dd) if SURFS is not None
+                d = (exact_leave(k, S, x, np.asarray(Q, float), segs[i]["on"]) if SURFS is not None
                      else leave_dir(Q)) @ BZ.T
                 ang[(i, fw)] = np.arctan2(d @ e2, d @ e1)
             gr = [[(h[0], h[1]) for h in sorted(hs, key=lambda h: ang[(h[0], h[1])])]]
