@@ -139,6 +139,26 @@ def leave_dir(Q, d=0.02):
     return Q[i] - Q[0]
 
 
+def exact_leave(k, S, v, Q, on, d=0.02):
+    """The direction a curve leaves v, from its point at distance exactly d (or a third of its length), solved on the
+    curve: curves leaving v all but tangent differ there by less than a polyline's points' spacing turns the chord."""
+    seg = np.linalg.norm(np.diff(Q, axis=0), axis=1)
+    d = min(d, seg.sum() / 3)
+    r = np.linalg.norm(Q - v, axis=1)
+    j = int(np.argmax(r >= d)) if (r >= d).any() else len(Q) - 1
+    if j == 0:
+        return leave_dir(Q)
+    t = np.clip((d - r[j - 1]) / max(r[j] - r[j - 1], 1e-300), 0, 1)
+    p = Q[j - 1] + t * (Q[j] - Q[j - 1])
+    others = [SURFS[m] for m in on if m != k]
+    if others:
+        C = max(others, key=lambda C_: E.crossing_angle(p, S, C_))
+        q, ok = E.newton(p, [S, C, _Ball(v, d)])
+        if ok and np.linalg.norm(q - p) < d / 20:
+            p = q
+    return p - v
+
+
 def thin_seg(Q):
     """A curve's points about half a triangle's side apart, both its ends (exact points) kept."""
     step = 0.5 * np.sqrt(P.MAX_AREA)
@@ -223,7 +243,8 @@ def faces_on(k, S, segs, Pts):
             e1, e2 = frame_at(S, x)
             ang = {}
             for i, fw, Q in hs:
-                d = leave_dir(Q) @ BZ.T
+                d = (exact_leave(k, S, x, np.asarray(Q, float), segs[i]["on"]) if SURFS is not None
+                     else leave_dir(Q)) @ BZ.T
                 ang[(i, fw)] = np.arctan2(d @ e2, d @ e1)
             gr = [[(h[0], h[1]) for h in sorted(hs, key=lambda h: ang[(h[0], h[1])])]]
         groups[v] = gr

@@ -230,6 +230,10 @@ def add_curve(X, surfs, k, m, seed, log=print):
         Q = np.asarray(s_["pts"], float)
         Q[0], Q[-1] = Pts[s_["ends"][0]], Pts[s_["ends"][1]]
         s_["pts"] = Q
+        mid = Q[len(Q) // 2]
+        if any(set(t["ends"]) == set(s_["ends"]) and
+               np.min(np.linalg.norm(np.asarray(t["pts"], float) - mid, axis=1)) < 1e-4 for t in segs):
+            continue                             # (the curve is in the map already)
         segs.append(s_)
         touched |= set(s_["on"])
     # (existing segments cut at the new points lying on them; the first part keeps the segment's place, so faces of
@@ -320,6 +324,10 @@ if __name__ == "__main__":
         surfs = [P.surf_of(n) for n in X["surfaces"]]
         import a4_exact as E
         E.SING = 1e-8
+        import a4_faces as A
+        A.SURFS = surfs
+        # (every surface walked again: the order curves leave a point in is now read on the curves exactly)
+        rewalk(X, surfs, SN.SUB[g], set(range(len(surfs))))
         pieces, report = repair(X, surfs, SN.SUB[g])
         pickle.dump(X, open(os.path.join(HERE, f"a4_repaired_{g}.pkl"), "wb"))
         pickle.dump(pieces, open(os.path.join(HERE, f"a4_merged_{g}.pkl"), "wb"))
