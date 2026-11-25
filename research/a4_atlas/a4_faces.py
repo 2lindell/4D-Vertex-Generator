@@ -199,6 +199,15 @@ def faces_on(k, S, segs, Pts):
     #  is singular (two sheets crossing, a cone), along the curve a small sphere round the point cuts from it, each
     #  sheet its own round)
     groups, pos = {}, {}
+    junc = [v for v, hs in out.items() if len(hs) > 2]
+    near_junc = None
+    if len(junc) > 1:
+        from scipy.spatial import cKDTree
+        jt = cKDTree(np.array([Pts[v] for v in junc]))
+
+        def near_junc(v):
+            d, _ = jt.query(np.asarray(Pts[v], float), k=2)
+            return float(d[1]) if d[0] < 1e-12 else float(d[0])
     for v, hs in out.items():
         x = np.asarray(Pts[v], float)
         g = S.g(x)
@@ -209,6 +218,10 @@ def faces_on(k, S, segs, Pts):
                 #  it: their order is read just outside, 3.5e-3 out, a curve ending sooner followed on along the
                 #  curve it continues in; each point solved exactly on its curve)
                 r_ = 3.5e-3
+                # (but within half the way to the nearest other point where curves branch: one closer than 7e-3 is a
+                #  real point of its own, not merged into this one, and the sphere must not take it in)
+                if near_junc:
+                    r_ = min(r_, near_junc(v) / 2)
                 hs2, src = [], {}
                 for i, fw, Q in hs:
                     parts, segi = [np.asarray(Q, float)], [i]
@@ -242,8 +255,12 @@ def faces_on(k, S, segs, Pts):
         else:
             e1, e2 = frame_at(S, x)
             ang = {}
+            # (every curve read at the same distance: a third of the shortest's length, at most 0.02. Read at
+            #  different distances, curves leaving where the surface is all but singular turn past each other)
+            dd = min([0.02] + [np.linalg.norm(np.diff(np.asarray(Q, float), axis=0), axis=1).sum() / 3
+                               for _, _, Q in hs])
             for i, fw, Q in hs:
-                d = (exact_leave(k, S, x, np.asarray(Q, float), segs[i]["on"]) if SURFS is not None
+                d = (exact_leave(k, S, x, np.asarray(Q, float), segs[i]["on"], d=dd) if SURFS is not None
                      else leave_dir(Q)) @ BZ.T
                 ang[(i, fw)] = np.arctan2(d @ e2, d @ e1)
             gr = [[(h[0], h[1]) for h in sorted(hs, key=lambda h: ang[(h[0], h[1])])]]
