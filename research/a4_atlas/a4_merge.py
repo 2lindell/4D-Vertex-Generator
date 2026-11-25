@@ -328,7 +328,8 @@ if __name__ == "__main__":
         A.SURFS = surfs
         # (every surface walked again: the order curves leave a point in is now read on the curves exactly)
         rewalk(X, surfs, SN.SUB[g], set(range(len(surfs))))
-        pieces, report = repair(X, surfs, SN.SUB[g])
+        pickle.dump(X, open(os.path.join(HERE, f"a4_rewalked_{g}.pkl"), "wb"))
+        pieces, report = repair(X, surfs, SN.SUB[g], rounds=int(os.environ.get("A4_REPAIR_ROUNDS", "0")))
         pickle.dump(X, open(os.path.join(HERE, f"a4_repaired_{g}.pkl"), "wb"))
         pickle.dump(pieces, open(os.path.join(HERE, f"a4_merged_{g}.pkl"), "wb"))
         json.dump(report, open(os.path.join(HERE, f"a4_merged_{g}.json"), "w"), indent=1, default=str)
