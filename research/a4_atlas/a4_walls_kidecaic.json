@@ -1,0 +1,373 @@
+{
+ "pieces": 313,
+ "wall pieces (off the mirrors)": 44,
+ "wall pieces read at a point under 1e-3 from their edges": 6,
+ "wall pieces whose edges do not close": 0,
+ "edge segments with no wall on their other surface": 2,
+ "wall pieces whose swap image reads another shape": 38,
+ "edge segments off their surfaces by more than 1e-7": 5,
+ "map points with no swap image within 1e-6": 83,
+ "segments with no swap image": 251,
+ "pieces off the mirrors reading a line or point shape": 4,
+ "mirror pieces not reading a wall shape": 1,
+ "wall pieces by shape (mirrors too)": {
+  "abybosid": 2,
+  "apybosid": 2,
+  "bebybosid": 2,
+  "bepybosid": 2,
+  "debybosid": 1,
+  "depybosid": 3,
+  "epybosid": 2,
+  "gabipard": 3,
+  "gabybosid": 2,
+  "gapybosid": 2,
+  "gigwebosid": 4,
+  "gobcated": 2,
+  "hepybosid": 2,
+  "mabipard": 2,
+  "mobcated": 2,
+  "petbosid": 4,
+  "sabipard": 4,
+  "sigwebosid": 4,
+  "sobcated": 4,
+  "tetbosid": 7,
+  "thepybosid": 2,
+  "zepybosid": 2
+ },
+ "the group's walls with no piece": [],
+ "not closing": [],
+ "swap": [
+  [
+   4,
+   "debybosid",
+   4,
+   [],
+   4
+  ],
+  [
+   4,
+   "gabybosid",
+   3,
+   [],
+   3
+  ],
+  [
+   5,
+   "gabybosid",
+   3,
+   [],
+   3
+  ],
+  [
+   6,
+   "tetbosid",
+   2,
+   [
+    [
+     6,
+     "tetbosid",
+     2
+    ]
+   ],
+   1
+  ],
+  [
+   6,
+   "tetbosid",
+   1,
+   [],
+   1
+  ],
+  [
+   6,
+   "tetbosid",
+   2,
+   [
+    [
+     6,
+     "tetbosid",
+     2
+    ]
+   ],
+   1
+  ],
+  [
+   7,
+   "abybosid",
+   1,
+   [],
+   1
+  ],
+  [
+   7,
+   "bebybosid",
+   3,
+   [],
+   3
+  ],
+  [
+   8,
+   "abybosid",
+   9,
+   [],
+   9
+  ],
+  [
+   8,
+   "bebybosid",
+   3,
+   [],
+   3
+  ],
+  [
+   9,
+   "gapybosid",
+   4,
+   [],
+   4
+  ],
+  [
+   9,
+   "apybosid",
+   16,
+   [
+    [
+     10,
+     "apybosid",
+     16
+    ]
+   ],
+   2
+  ],
+  [
+   9,
+   "zepybosid",
+   8,
+   [
+    [
+     10,
+     "zepybosid",
+     8
+    ]
+   ],
+   2
+  ],
+  [
+   9,
+   "thepybosid",
+   3,
+   [
+    [
+     10,
+     "thepybosid",
+     3
+    ]
+   ],
+   1
+  ],
+  [
+   10,
+   "apybosid",
+   16,
+   [],
+   16
+  ],
+  [
+   10,
+   "gapybosid",
+   4,
+   [],
+   4
+  ],
+  [
+   10,
+   "thepybosid",
+   3,
+   [],
+   3
+  ],
+  [
+   10,
+   "zepybosid",
+   8,
+   [],
+   8
+  ],
+  [
+   11,
+   "petbosid",
+   10,
+   [
+    [
+     11,
+     "petbosid",
+     10
+    ]
+   ],
+   2
+  ],
+  [
+   11,
+   "petbosid",
+   10,
+   [
+    [
+     11,
+     "petbosid",
+     10
+    ]
+   ],
+   2
+  ],
+  [
+   11,
+   "petbosid",
+   2,
+   [
+    [
+     11,
+     "petbosid",
+     2
+    ]
+   ],
+   1
+  ],
+  [
+   11,
+   "petbosid",
+   2,
+   [
+    [
+     11,
+     "petbosid",
+     2
+    ]
+   ],
+   1
+  ],
+  [
+   12,
+   "sigwebosid",
+   2,
+   [
+    [
+     12,
+     "sigwebosid",
+     2
+    ]
+   ],
+   1
+  ],
+  [
+   12,
+   "sigwebosid",
+   2,
+   [
+    [
+     12,
+     "sigwebosid",
+     2
+    ]
+   ],
+   1
+  ],
+  [
+   13,
+   "bepybosid",
+   7,
+   [],
+   7
+  ],
+  [
+   13,
+   "epybosid",
+   9,
+   [],
+   9
+  ],
+  [
+   13,
+   "depybosid",
+   23,
+   [],
+   23
+  ],
+  [
+   13,
+   "depybosid",
+   12,
+   [],
+   12
+  ],
+  [
+   13,
+   "bepybosid",
+   7,
+   [],
+   7
+  ],
+  [
+   13,
+   "depybosid",
+   35,
+   [],
+   35
+  ],
+  [
+   13,
+   "hepybosid",
+   12,
+   [],
+   12
+  ],
+  [
+   13,
+   "hepybosid",
+   12,
+   [],
+   12
+  ],
+  [
+   13,
+   "epybosid",
+   9,
+   [],
+   9
+  ],
+  [
+   14,
+   "gigwebosid",
+   1,
+   [],
+   1
+  ],
+  [
+   14,
+   "gigwebosid",
+   1,
+   [],
+   1
+  ],
+  [
+   20,
+   "gabipard",
+   107,
+   [],
+   107
+  ],
+  [
+   27,
+   "tetbosid",
+   1,
+   [],
+   1
+  ],
+  [
+   30,
+   "tetbosid",
+   1,
+   [],
+   1
+  ]
+ ]
+}

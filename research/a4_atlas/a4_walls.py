@@ -41,10 +41,21 @@ REL = lambda S_, x: abs(S_.f(x)) / (np.linalg.norm(S_.g(x)) + 1e-300)  # noqa: E
 
 
 def dims_of(group):
-    """Each shape key's kind (region, wall, line, point) from the group's map."""
+    """Each shape key's kind (region, wall, line, point) and name, from the group's map. The mirrors' walls carry the
+    map's own keys, not the exact reading's: their example seeds (exactly on a mirror) are read here for theirs (a
+    wall's name kept where a line on the same mirror reads alike)."""
     m = json.load(open(os.path.join(HERE, f"a4_map_{group}.json")))
-    return {t["key"]: t["dim"] for t in m["types"] if t.get("key")}, {t["key"]: t["id"] for t in m["types"]
-                                                                       if t.get("key")}
+    dim = {t["key"]: t["dim"] for t in m["types"] if t.get("key")}
+    name = {t["key"]: t["id"] for t in m["types"] if t.get("key")}
+    T = {t["id"]: t for t in m["types"]}
+    ex = [e for e in m["examples"] if "0.0000" in e["beta"] and T[e["id"]]["dim"] in ("wall", "line")]
+    pts = [np.array([float(v) for v in e["beta"].strip("()").split(",")]) for e in ex]
+    rank = {"line": 0, "wall": 1}
+    for e, (_, k) in zip(ex, SN.classify_many([p / p.sum() for p in pts], SN.SUB[group], tol=1e-7)):
+        d = T[e["id"]]["dim"]
+        if k is not None and (k not in dim or (dim[k] in rank and rank[d] > rank[dim[k]])):
+            dim[k], name[k] = d, e["id"]
+    return dim, name
 
 
 def seg_dist(x, Q):
@@ -119,7 +130,7 @@ def solve(X, surfs, group, log=print, rounds=12):
         keys = read([p["deep"] for p in pieces])
         for p, kk in zip(pieces, keys):
             p["key"] = kk
-            p["wall"] = dim.get(kk) in ("wall", "line", "point") if p["surface"] >= 4 else True
+            p["wall"] = dim.get(kk) == "wall" if p["surface"] >= 4 else True
         new = [False] * len(faces)
         for p in pieces:
             for fi in p["faces"]:
@@ -158,16 +169,59 @@ def solve(X, surfs, group, log=print, rounds=12):
                 continue
             if not any(m != p["surface"] and any(wall[fj] for fj in beside.get((m, i), ())) for m in on):
                 unmet.append((p["surface"], i))
-    # (c) the swap: each wall piece's deepest point reversed reads the same shape
-    sw = read([np.asarray(p["deep"], float)[::-1] for p in walls])
-    bad_swap = [(p["surface"], nm(p["key"]), nm(s)) for p, s in zip(walls, sw) if s != p["key"]]
+    # (c) the swap, piece by piece: every segment carried to the segment it reverses onto, every face to the face
+    #  with those segments, so each wall piece's faces must make exactly one piece there, of the same shape
+    from scipy.spatial import cKDTree
+    Pts = X["points"]
+    live = sorted({e for t in segs for e in t["ends"]})
+    ptree = cKDTree(np.array([Pts[v] for v in live]))
+    pt_sw = {}
+    for v in live:
+        d, j = ptree.query(np.asarray(Pts[v], float)[::-1])
+        if d < 1e-6:
+            pt_sw[v] = live[j]
+    by_ends = defaultdict(list)
+    for j, t in enumerate(segs):
+        by_ends[frozenset(t["ends"])].append(j)
+    seg_sw = {}
+    for i, t in enumerate(segs):
+        a, b = t["ends"]
+        if a not in pt_sw or b not in pt_sw:
+            continue
+        Q = np.asarray(t["pts"], float)[:, ::-1]
+        for j in by_ends.get(frozenset((pt_sw[a], pt_sw[b])), ()):
+            if seg_dist(Q[len(Q) // 2], segs[j]["pts"]) < 1e-4:      # (traced chains sag 1e-5 between points)
+                seg_sw[i] = j
+                break
+    surf_sw = {}
+    for k in range(len(surfs)):
+        xs = [np.asarray(t["pts"], float)[len(t["pts"]) // 3] for t in segs if k in t["on"]][:12]
+        for m in range(len(surfs)):
+            if xs and all(REL(surfs[m], x[::-1]) < 1e-8 for x in xs):
+                surf_sw[k] = m
+                break
+    face_at = {(F["surface"], frozenset(i for i, _ in F["cycle"])): fi for fi, F in enumerate(faces)}
+    piece_of = {fi: pi for pi, p in enumerate(pieces) for fi in p["faces"]}
+    bad_swap = []
+    for p in walls:
+        m = surf_sw.get(p["surface"])
+        img = []
+        for fi in p["faces"]:
+            cyc = [seg_sw.get(i) for i, _ in faces[fi]["cycle"]]
+            img.append(face_at.get((m, frozenset(cyc))) if None not in cyc and m is not None else None)
+        qs = {piece_of[f] for f in img if f is not None}
+        q = pieces[next(iter(qs))] if len(qs) == 1 else None
+        if None in img or len(qs) != 1 or q["key"] != p["key"] or len(q["faces"]) != len(p["faces"]):
+            bad_swap.append((p["surface"], nm(p["key"]), len(p["faces"]),
+                             [(pieces[x]["surface"], nm(pieces[x]["key"]), len(pieces[x]["faces"])) for x in qs],
+                             sum(f is None for f in img)))
     # (d) exact edges
     edge_segs = {i for p in walls for i, _ in p["edges"]}
     off = [i for i in edge_segs
            if max(REL(surfs[m], x) for x in np.asarray(segs[i]["pts"], float) for m in segs[i]["on"]) > 1e-7]
     # (wall shapes found, and the group's walls not found)
-    found = Counter(nm(p["key"]) for p in walls)
-    listed = sorted(name[k] for k, d in dim.items() if d == "wall")
+    found = Counter(nm(p["key"]) for p in pieces if dim.get(p["key"]) == "wall")
+    listed = sorted({name[k] for k, d in dim.items() if d == "wall"})
     report = {
         "pieces": len(pieces),
         "wall pieces (off the mirrors)": len(walls),
@@ -176,7 +230,13 @@ def solve(X, surfs, group, log=print, rounds=12):
         "edge segments with no wall on their other surface": len(unmet),
         "wall pieces whose swap image reads another shape": len(bad_swap),
         "edge segments off their surfaces by more than 1e-7": len(off),
-        "wall pieces by shape": dict(sorted(found.items())),
+        "map points with no swap image within 1e-6": len(live) - len(pt_sw),
+        "segments with no swap image": len(segs) - len(seg_sw),
+        "pieces off the mirrors reading a line or point shape": sum(dim.get(p["key"]) in ("line", "point")
+                                                                    for p in pieces if p["surface"] >= 4),
+        "mirror pieces not reading a wall shape": sum(dim.get(p["key"]) != "wall" for p in pieces
+                                                      if p["surface"] < 4),
+        "wall pieces by shape (mirrors too)": dict(sorted(found.items())),
         "the group's walls with no piece": [w for w in listed if w not in found],
         "not closing": loose[:40],
         "swap": bad_swap[:40],
