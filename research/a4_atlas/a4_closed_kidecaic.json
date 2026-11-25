@@ -3,7 +3,7 @@
  "surfaces": 33,
  "points": 2577,
  "segments": 3532,
- "loose ends": 29,
+ "loose ends": 27,
  "grid points in no face (face missing)": 0,
  "grid points in no face, by surface": {},
  "faces whose swap image is not a face of the same shape": 73,

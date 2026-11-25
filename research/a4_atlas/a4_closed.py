@@ -272,7 +272,13 @@ def build(group, log=print):
     #  must turn there in the faces' walk)
     from scipy.spatial import cKDTree
     Pts = X["points"]
-    ptree = cKDTree(np.array(Pts))
+    live = sorted({e for s_ in X["segments"] for e in s_["ends"]})   # (points merged away are no corners any more)
+    ptree0 = cKDTree(np.array([Pts[p] for p in live]))
+
+    class _T:
+        def query_ball_point(self, c, r):
+            return [live[i] for i in ptree0.query_ball_point(c, r)]
+    ptree = _T()
     split = 0
     out_s = []
     for s_ in X["segments"]:
