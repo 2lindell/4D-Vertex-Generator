@@ -255,6 +255,10 @@ def build(group, log=print):
     # (hubs: points where many surfaces meet, the swap's axis ending on the chamber's edges among them. Traces stop
     #  a little short of them, the surfaces turning tangent there; an end that close, on surfaces all through the
     #  hub, is the hub)
+    # (only within 1e-4: curves traced on to near-tangency reach their hubs; a wider merge folded real crossings
+    #  near a hub into it, and the curves' order round the hub then changed with the distance it was read at)
+    HUB_R = 1e-4
+
     def merge_hubs(when):
         Pts = X["points"]
         through = [[j for j, C in enumerate(surfs) if REL(C, x) < 1e-9] for x in Pts]
@@ -264,7 +268,7 @@ def build(group, log=print):
             if i in hubs:
                 continue
             for h in hubs:
-                if np.linalg.norm(Pts[h] - x) < 3e-3 and all(REL(surfs[j], Pts[h]) < 1e-9 for j in through[i]):
+                if np.linalg.norm(Pts[h] - x) < HUB_R and all(REL(surfs[j], Pts[h]) < 1e-9 for j in through[i]):
                     moved[i] = h
                     break
         keep_s = []
@@ -493,6 +497,10 @@ def build(group, log=print):
     for i, F in enumerate(faces):
         F["sides"] = [side_labs[2 * i][1] if E.inside(side_pts[2 * i], 0) else None,
                       side_labs[2 * i + 1][1] if E.inside(side_pts[2 * i + 1], 0) else None]
+    # (f) every segment exact: on all its surfaces at every point
+    off = [i for i, s_ in enumerate(segs)
+           if max(REL(surfs[k], x) for x in np.asarray(s_["pts"], float) for k in s_["on"]) > 1e-7]
+    report["segments off their surfaces by more than 1e-7"] = len(off)
     report["faces"] = len(faces)
     report["faces cut through by a surface (curve missing)"] = len(cut_through)
     report["faces whose probes disagree on the shape"] = len(mixed)

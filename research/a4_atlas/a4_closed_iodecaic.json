@@ -7,6 +7,7 @@
  "grid points in no face (face missing)": 0,
  "grid points in no face, by surface": {},
  "faces whose swap image is not a face of the same shape": 0,
+ "segments off their surfaces by more than 1e-7": 0,
  "faces": 28,
  "faces cut through by a surface (curve missing)": 0,
  "faces whose probes disagree on the shape": 0,
