@@ -313,13 +313,28 @@ td.pending { color: var(--faint); font-style: italic; }
     }
     const plot = el("plot");
     // (context surfaces are taken out of the 3D picking, so they never catch the cursor before what lies behind them)
-    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }).then(() => {
-      const sc = plot._fullLayout.scene && plot._fullLayout.scene._scene;
-      if (sc) for (const t of Object.values(sc.traces)) if (t.mesh && t.data && t.data.meta === "nopick" && t.mesh.pickSlots) {
-        t.mesh.pickSlots = 0;
-        sc.glplot.remove(t.mesh);
-        sc.glplot.add(t.mesh);
+    // (done after every redraw, not once: the first load's resize rebuilds the meshes, and with them their picking,
+    //  so the surfaces would catch the cursor until something else redrew the plot)
+    const unpick = () => {
+      const sc = plot._fullLayout && plot._fullLayout.scene && plot._fullLayout.scene._scene;
+      if (sc) for (const t of Object.values(sc.traces)) if (t.mesh && t.data && t.data.meta === "nopick") {
+        // (it never draws into the picking buffer, so it cannot hide what lies behind it, whenever the scene
+        //  rebuilds its picking; and it is out of the pick slots)
+        if (!t.mesh._noPick) { t.mesh.drawPick = () => {}; t.mesh.pick = () => null; t.mesh._noPick = true; }
+        if (t.mesh.pickSlots) { t.mesh.pickSlots = 0; sc.glplot.remove(t.mesh); sc.glplot.add(t.mesh); }
       }
+    };
+    let unpickHooked = false;
+    const render = () => Plotly.react(plot, traces(), layout(), { displaylogo: false, responsive: true }).then(() => {
+      if (!unpickHooked) {
+        unpickHooked = true;
+        plot.on("plotly_afterplot", unpick);
+        plot.on("plotly_relayout", unpick);
+        plot.addEventListener("pointerenter", unpick);       // (and before the cursor can pick anything)
+        plot.addEventListener("pointerdown", unpick, true);
+      }
+      unpick();
+      requestAnimationFrame(unpick);
     });
     render();
     let resizeTimer = null;

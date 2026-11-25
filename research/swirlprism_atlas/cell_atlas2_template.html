@@ -919,7 +919,28 @@ __TYPE_CSS__
       }
       lastView = v;
     };
+    // (surfaces marked nopick are taken out of the scene's picking, so the cursor reaches the seeds behind them;
+    //  done after every redraw, not once: the first load's resize rebuilds the meshes, and with them their picking)
+    const unpick = () => {
+      const sc = plot._fullLayout && plot._fullLayout.scene && plot._fullLayout.scene._scene;
+      if (sc) for (const t of Object.values(sc.traces)) if (t.mesh && t.data && t.data.meta === "nopick") {
+        // (it never draws into the picking buffer, so it cannot hide what lies behind it, whenever the scene
+        //  rebuilds its picking; and it is out of the pick slots)
+        if (!t.mesh._noPick) { t.mesh.drawPick = () => {}; t.mesh.pick = () => null; t.mesh._noPick = true; }
+        if (t.mesh.pickSlots) { t.mesh.pickSlots = 0; sc.glplot.remove(t.mesh); sc.glplot.add(t.mesh); }
+      }
+    };
+    let unpickHooked = false;
     const render = () => { keepCamera(); return Plotly.react(plot, traces(), layout(), CONFIG).then(() => {
+      if (!unpickHooked) {
+        unpickHooked = true;
+        plot.on("plotly_afterplot", unpick);
+        plot.on("plotly_relayout", unpick);
+        plot.addEventListener("pointerenter", unpick);       // (and before the cursor can pick anything)
+        plot.addEventListener("pointerdown", unpick, true);
+      }
+      unpick();
+      requestAnimationFrame(unpick);
       const sc = plot._fullLayout.scene && plot._fullLayout.scene._scene;
       // (the pick slots are handed out when an object joins the scene: so it leaves and joins again)
       // (an object the cursor test trips over, mid-redraw, is taken as nothing under the cursor: the error
