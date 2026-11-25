@@ -256,8 +256,8 @@ def build(group, log=print):
     # (hubs: points where many surfaces meet, the swap's axis ending on the chamber's edges among them. Traces stop
     #  a little short of them, the surfaces turning tangent there; an end that close, on surfaces all through the
     #  hub, is the hub)
-    # (only within 1e-4: curves traced on to near-tangency reach their hubs; a wider merge folded real crossings
-    #  near a hub into it, and the curves' order round the hub then changed with the distance it was read at)
+    # (3e-3: crossings nearer a hub than that are folded into it; faces_on reads the curves' order round a hub just
+    #  outside that)
     HUB_R = 3e-3
 
     def merge_hubs(when):
@@ -361,10 +361,15 @@ def build(group, log=print):
             par[i] = par[par[i]]
             i = par[i]
         return i
-    for i, j in cKDTree(np.array(Pts)).query_pairs(3e-5):
-        a, b = root(i), root(j)
+    # (only points still corners of the map, lest a chain of points merged away join ones further apart; each
+    #  cluster kept as its point on the most surfaces, the exact one)
+    live = sorted({e for s_ in X["segments"] for e in s_["ends"]})
+    rank = {p: sum(REL(C, Pts[p]) < 1e-9 for C in surfs) for p in live}
+    for a_, b_ in cKDTree(np.array([Pts[p] for p in live])).query_pairs(3e-5):
+        a, b = root(live[a_]), root(live[b_])
         if a != b:
-            par[max(a, b)] = min(a, b)
+            keep, drop = (a, b) if (rank[a], -a) >= (rank[b], -b) else (b, a)
+            par[drop] = keep
     out_s, byk, dropped, twins = [], defaultdict(list), 0, 0
     for s_ in X["segments"]:
         a, b = root(s_["ends"][0]), root(s_["ends"][1])
@@ -385,6 +390,7 @@ def build(group, log=print):
     X["segments"] = out_s
     log(f"  {sum(root(i) != i for i in range(len(Pts)))} points within 3e-5 of another merged; {dropped} stubs dropped, "
         f"{twins} segments then found twice kept once")
+    merge_hubs("final")
     segs, Pts = X["segments"], X["points"]
     report = {"group": group, "surfaces": len(surfs), "points": len(Pts), "segments": len(segs)}
     # (a) loose ends
