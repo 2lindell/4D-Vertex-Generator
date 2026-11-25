@@ -313,16 +313,18 @@ def build(group):
             b = np.clip(np.asarray(cen[nm] if t["dim"] == "region" or edge else O[nm]["off_seed"], float), 0, None)
             ex[nm] = [b] + ([b[::-1]] if not np.allclose(b, b[::-1]) else [])
             how[nm] = "central" if t["dim"] == "region" else "edge" if edge else "even"
-    elif group in ("icoic", "kiicoic"):
+    elif group in ("icoic", "kiicoic", "icopyritic", "toxitic"):
+        # (the chamber's faces, laid out as icoic's: each shape seeded where icoic seeds that face, its uniform seed
+        #  (the ringed nodes equal) on a face of the chamber, gidpii's central seed in the region)
         I = {r["name"]: r for r in json.load(open(os.path.join(CON, "icoic_shapes.json")))["shapes"]}
         for t in types:
             fs = [f for f in by_key[t["key"]] if f["dim"] == t["degrees"]]
             if t["dim"] == "region":
-                ex[t["id"]] = [np.array(I["gidpii"]["central"] if group == "icoic" else [.25] * 4, float)]
-                how[t["id"]] = "central" if group == "icoic" else "uniform"
+                ex[t["id"]] = [np.array(I["gidpii"]["central"], float)]
+                how[t["id"]] = "central" if group == "icoic" else "icoic central"
             else:
                 ex[t["id"]] = [np.array([1.0 if k + 1 in f["ring"] else 0.0 for k in range(4)]) for f in fs]
-                how[t["id"]] = "uniform"
+                how[t["id"]] = "uniform" if group in ("icoic", "kiicoic") else "icoic uniform"
     else:
         for t in types:
             fs = [f for f in by_key[t["key"]] if f["dim"] == t["degrees"]]
@@ -361,6 +363,8 @@ def build(group):
                         "central seed (the deepest point of the region)" if h == "central" and t["dim"] == "region" else
                         "central seed (its most even seed is on its edge)" if h in ("edge", "central") else
                         "uniform seed (all edges equal)" if h == "uniform" else
+                        "icoic's central seed (the same place as on icoic)" if h == "icoic central" else
+                        "icoic's uniform seed (the same place as on icoic)" if h == "icoic uniform" else
                         "most even seed (least longest / shortest edge)" if h == "even" else "a seed in the face")
     shells = {}
     for f in faces:
