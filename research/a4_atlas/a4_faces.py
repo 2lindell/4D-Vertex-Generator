@@ -89,14 +89,18 @@ def link_groups(S, v, hs, r=2e-3):
     comps = []
     while left:
         he, p = next(iter(left.items()))
-        pts, closed = E.trace(p, S, ball, mirrors, h=r / 20)
+        pts, closed = E.trace(p, S, ball, mirrors, h=r / 200)
         C = np.array(pts) if len(pts) >= 2 else np.array([p, p])
         mine = []
+        A_, D_ = C[:-1], C[1:] - C[:-1]
         for he2, q in list(left.items()):
-            dd = np.linalg.norm(C - q, axis=1)
+            # (its place along the round to a fraction of a step: curves leaving the point all but tangent come
+            #  within a step of each other there)
+            u = np.clip(np.einsum("ij,ij->i", q - A_, D_) / (np.einsum("ij,ij->i", D_, D_) + 1e-300), 0, 1)
+            dd = np.linalg.norm(A_ + u[:, None] * D_ - q, axis=1)
             j = int(np.argmin(dd))
             if dd[j] < r / 10:
-                mine.append((j, he2))
+                mine.append((j + float(u[j]), he2))
                 del left[he2]
         if he in left:
             del left[he]
