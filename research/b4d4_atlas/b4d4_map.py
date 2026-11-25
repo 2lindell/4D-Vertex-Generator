@@ -48,6 +48,23 @@ U4 = R[3] / np.linalg.norm(R[3])
 REFL4 = np.eye(4) - 2 * np.outer(U4, U4)                  # (the reflection in beta_4 = 0: D4's fold)
 
 
+def d4_seed(signs):
+    """The D4-symmetric seed of a face of the B4 chamber (signs: which beta are nonzero there), as beta: equal
+    distance to each D4 mirror the face is off. D4's mirrors are beta_1, beta_2, beta_3 and beta_3' (beta_3's image in
+    beta_4 = 0); a point is off beta_3' unless beta_3 = beta_4 = 0. Put back in the B4 chamber if it falls in the
+    other half."""
+    s1, s2, s3, s4 = (int(v != 0) for v in signs)
+    d = np.array([s1, s2, s3, 1.0 if (s3 or s4) else 0.0])
+    D = np.vstack([R[0], R[1], R[2], REFL4 @ R[2]])
+    x = np.linalg.solve(D, d)
+    b = R @ x
+    if b[3] < -1e-12:
+        x = REFL4 @ x
+        b = R @ x
+    b = np.clip(b, 0, None)
+    return b / b.sum()
+
+
 def corner(beta):
     s = RI @ np.asarray(beta, float)
     return s / np.linalg.norm(s)
@@ -251,6 +268,27 @@ def build(group, table, full):
         build(main, table, full)                 # (its seeds first: this group's are taken from it)
     for t in types:
         f0 = t["_own"][0]
+        if fam == "d4":
+            # (D4's own symmetric seeds: equal distance to the D4 mirrors ringed on the face (beta_1, beta_2, beta_3
+            #  and beta_3', beta_3's image in beta_4 = 0); all edges equal on every Wythoffian shape, the region's
+            #  at the chamber's centre, on its triangular symmetry's axis)
+            if t["dim"] == "region":
+                b = d4_seed((1, 1, 1, 1))
+                how = ("uniform seed (the D4 chamber's centre: equal distance to its four mirrors, all edges equal)"
+                       if group == "demitessic" else
+                       "the D4 chamber's centre (demitessic's uniform seed; a snub, sadi is not uniform there: edges "
+                       "0.943 to 1.155)")
+                t["_ex"] = [(b, how)]
+            else:
+                bs = []
+                for f in t["_own"]:
+                    b = d4_seed(f["signs"])
+                    if not any(np.allclose(b, c) for c in bs):
+                        bs.append(b)
+                how = ("the point" if t["dim"] == "point" else
+                       "uniform seed (equal distance to its ringed D4 mirrors: all edges equal)")
+                t["_ex"] = [(b, how) for b in bs]
+            continue
         if group != main:
             # (the same chamber layout as the main symmetry's: each face seeded where the main one seeds it)
             if t["dim"] == "region":
