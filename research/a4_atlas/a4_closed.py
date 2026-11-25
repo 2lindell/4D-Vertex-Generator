@@ -236,6 +236,10 @@ def probes_of(S, k, loop, cyc, segs, eps=1e-4, frac=None, minlen=0.0, clear=True
 
 
 def build(group, log=print):
+    # (curves are traced on to where their surfaces turn all but tangent: at 1e-4 a branch meeting a chamber edge
+    #  lying in both its surfaces stopped short of the corner it runs into, and loose-end closing joined it to the
+    #  edge by a stretch on neither surface)
+    E.SING = 1e-8
     sub = SN.SUB[group]
     X0 = pickle.load(open(os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
     names = X0["surfaces"]

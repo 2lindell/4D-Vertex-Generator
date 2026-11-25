@@ -172,7 +172,9 @@ def faces_on(k, S, segs, Pts):
         x = np.asarray(Pts[v], float)
         g = S.g(x)
         if np.linalg.norm(g - g.mean()) < 1e-7 and len(hs) > 2:
-            gr = link_groups(S, x, hs)
+            # (the small sphere well inside every curve leaving the point: one ending inside it has no place on it)
+            short = min(np.linalg.norm(np.diff(np.asarray(Q, float), axis=0), axis=1).sum() for _, _, Q in hs)
+            gr = link_groups(S, x, hs, r=min(2e-3, short / 3))
         else:
             e1, e2 = frame_at(S, x)
             ang = {}
