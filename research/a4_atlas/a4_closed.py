@@ -214,6 +214,37 @@ def build(group, log=print):
     points, segs = segments_of(surfs, curves, log)
     X = {"surfaces": names, "points": points, "segments": segs, "faces": []}
     A.clean_graph(X, surfs, log)
+    # (hubs: points where many surfaces meet, the swap's axis ending on the chamber's edges among them. Traces stop
+    #  a little short of them, the surfaces turning tangent there; an end that close, on surfaces all through the
+    #  hub, is the hub)
+    Pts = X["points"]
+    through = [[j for j, C in enumerate(surfs) if REL(C, x) < 1e-9] for x in Pts]
+    hubs = [i for i, t in enumerate(through) if len(t) >= 8]
+    moved = {}
+    for i, x in enumerate(Pts):
+        if i in hubs:
+            continue
+        for h in hubs:
+            if np.linalg.norm(Pts[h] - x) < 3e-3 and all(REL(surfs[j], Pts[h]) < 1e-9 for j in through[i]):
+                moved[i] = h
+                break
+    keep_s = []
+    for s_ in X["segments"]:
+        a, b = s_["ends"]
+        Q = np.asarray(s_["pts"], float)
+        if a in moved:
+            Q = np.vstack([Pts[moved[a]], Q])
+            a = moved[a]
+        if b in moved:
+            Q = np.vstack([Q, Pts[moved[b]]])
+            b = moved[b]
+        if a == b and np.linalg.norm(np.diff(Q, axis=0), axis=1).sum() < 1e-2:
+            continue                             # (a stub between the hub and a point merged into it)
+        s_["ends"], s_["pts"] = (a, b), Q
+        keep_s.append(s_)
+    log(f"  {len(hubs)} hubs (8 or more surfaces); {len(moved)} points by them merged into them; "
+        f"{len(X['segments']) - len(keep_s)} stubs dropped")
+    X["segments"] = keep_s
     # (the same stretch of curve found from two pairs: same ends, one on the other; kept once, on all their surfaces)
     by_ends = defaultdict(list)
     kept = []
