@@ -179,13 +179,17 @@ def segments_of(surfs, curves, log):
     return points, segs
 
 
-def probes_of(S, k, loop, cyc, segs, eps=1e-4):
+def probes_of(S, k, loop, cyc, segs, eps=1e-4, frac=None, minlen=0.0):
     """Points just inside a face: a step to the left of its outline, a few along every segment of it. (Much nearer a
     chamber edge than 1e-4 the hull test sees vertices all but coincide and misnames the shape.)"""
     out = []
     for i, fw in cyc:
         Q = np.asarray(segs[i]["pts"], float)
         Q = Q if fw else Q[::-1]
+        ln = np.linalg.norm(np.diff(Q, axis=0), axis=1).sum()
+        if ln < minlen:
+            continue
+        step = min(eps, frac * ln) if frac else eps
         for f in (0.25, 0.5, 0.75):
             m = min(max(int(f * (len(Q) - 1)), 0), len(Q) - 2)
             x = Q[m] + (Q[m + 1] - Q[m]) * (f * (len(Q) - 1) - m) if len(Q) > 2 else Q[0] + f * (Q[1] - Q[0])
@@ -195,7 +199,7 @@ def probes_of(S, k, loop, cyc, segs, eps=1e-4):
             nn = np.linalg.norm(side)
             if nn < 1e-14:
                 continue
-            y = P.lift_normal(S, x + eps * side / nn) if k >= 4 else x + eps * side / nn
+            y = P.lift_normal(S, x + step * side / nn) if k >= 4 else x + step * side / nn
             if y is not None and E.inside(y, 1e-12):
                 out.append(y)
     return out
@@ -348,9 +352,13 @@ def build(group, log=print):
     faces = []
     for k, S in enumerate(surfs):
         for loops, hc in A.faces_on(k, S, segs, Pts):
-            pr = probes_of(S, k, loops[0], hc[0], segs)
+            # (probes for the sign checks step in at most 2% of their segment's length, so a short segment's do not
+            #  land across a surface meeting at its corner; the shape's are 1e-4 in, off segments 2e-3 or longer,
+            #  since much nearer a chamber edge the hull test misnames the shape)
+            cp = probes_of(S, k, loops[0], hc[0], segs, frac=0.02)
+            pr = probes_of(S, k, loops[0], hc[0], segs, minlen=2e-3) or cp
             if pr:
-                faces.append({"surface": k, "loop": loops[0], "cycle": hc[0], "probes": pr})
+                faces.append({"surface": k, "loop": loops[0], "cycle": hc[0], "probes": pr, "cut probes": cp or pr})
     allp = [p for F in faces for p in F["probes"]]
     labs = SN.classify_many(allp, sub, tol=1e-7)
     i = 0
@@ -363,7 +371,7 @@ def build(group, log=print):
     cut_through, mixed = [], []
     for fi, F in enumerate(faces):
         k = F["surface"]
-        pr = np.array(F["probes"])
+        pr = np.array(F["cut probes"])
         bad = []
         for m, C in enumerate(surfs):
             if m == k:
@@ -389,7 +397,7 @@ def build(group, log=print):
                 v[m] = int(s[0])
         return v
     for F in faces:
-        F["pattern"] = pattern(F["surface"], np.array(F["probes"]))
+        F["pattern"] = pattern(F["surface"], np.array(F["cut probes"]))
     unmatched = []
     from scipy.spatial import cKDTree
     for k, S in enumerate(surfs):
