@@ -97,20 +97,15 @@ NUM = re.compile(r"[-+]?\d*\.?\d+(?:e[-+]?\d+)?")
 
 
 def parse_c(s):
-    """A Singular complex number (a, (a+I*b), I*b, ...) as a Python complex."""
-    s = s.strip().replace(" ", "")
-    if s.startswith("(") and s.endswith(")"):
+    """A Singular complex number (0.5, -0.5, 0.5-i*0.5, (i*2), ...) as a Python complex."""
+    s = s.strip().replace(" ", "").replace("I", "i")
+    while s.startswith("(") and s.endswith(")"):
         s = s[1:-1]
-    if "I" not in s:
+    if "i" not in s:
         return complex(float(s), 0.0)
-    m = re.match(r"^([-+]?[\d.e+-]+?)?([-+])?I\*?([\d.e+-]*)$", s)
-    if m:
-        re_ = float(m.group(1)) if m.group(1) else 0.0
-        sg = -1.0 if m.group(2) == "-" else 1.0
-        im = float(m.group(3)) if m.group(3) else 1.0
-        return complex(re_, sg * im)
-    s2 = s.replace("I*", "1j*").replace("*I", "*1j").replace("I", "1j")
-    return complex(eval(s2))
+    s = s.replace("i*", "1j*").replace("*i", "*1j")
+    s = re.sub(r"(?<![\w.])i(?![\w])", "1j", s)
+    return complex(eval(s, {"__builtins__": {}}, {}))
 
 
 def points(polys, C, log=print, digits=30):
@@ -163,8 +158,12 @@ def main(group):
     X = pickle.load(open(os.path.join(HERE, f"a4_closed_{group}.pkl"), "rb"))
     polys = [poly_str(P.surf_of(n).expr) for n in X["surfaces"]]
     t = time.time()
-    C = curves(polys, log=print)
-    json.dump(C, open(os.path.join(HERE, f"a4_curves_{group}_stage1.json"), "w"))
+    st1 = os.path.join(HERE, f"a4_curves_{group}_stage1.json")
+    if os.path.exists(st1) and json.load(open(st1)).get("polys") == polys:
+        C = json.load(open(st1))["curves"]
+    else:
+        C = curves(polys, log=print)
+        json.dump({"polys": polys, "curves": C}, open(st1, "w"))
     print(f"  curves: {time.time() - t:.0f}s", flush=True)
     C = points(polys, C, log=print)
     inside = [c for c in C if c["points"]]
