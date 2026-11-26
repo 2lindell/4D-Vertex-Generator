@@ -194,7 +194,7 @@ def build(group):
     import pickle
     sub = SUB[group]
     # (a4_pieces.py's pieces when made: each meshed inside its exact loop, the lines carried to their ends)
-    pp = os.path.join(HERE, f"a4_pieces_{group}.pkl")
+    pp = os.environ.get("A4_PIECES") or os.path.join(HERE, f"a4_pieces_{group}.pkl")
     X = pickle.load(open(pp if os.path.exists(pp) else os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
     S = X["shapes"]
     by_key = {s["key"]: s for s in S}
@@ -335,7 +335,7 @@ def build(group):
         pts = chartv(sg["pts"][:: max(1, len(sg["pts"]) // 40)] + [sg["pts"][-1]])
         if sg["key"] in tid and by_key[sg["key"]]["kind"] == "line":
             lines.append({"id": tid[sg["key"]], "pts": pts, "ends": tuple(sg["ends"])})
-        elif len([k for k in sg["on"] if k < 4]) < 2 and sg["key"] not in region_keys:
+        elif len([k for k in sg["on"] if k < 4]) < 2 and sg["key"] not in region_keys and sg.get("edge", True):
             # (only where walls meet, or meet a mirror: a crossing inside a region, of surfaces carrying no wall
             #  there, is not drawn)
             edges.append({"pts": pts, "hover": "an edge of the map: " + " and ".join(
@@ -426,7 +426,7 @@ def build(group):
     out = {"group": group, "order": 120, "domain": dom, "types": types, "walls": walls, "lines": lines, "edges": edges,
            "points": points, "examples": examples, "shells": shells, "exact": True,
            "unlisted": {k: v for k, v in unlisted.items()}}
-    path = os.path.join(HERE, f"a4_map_{group}.json")
+    path = os.environ.get("A4_MAP_OUT") or os.path.join(HERE, f"a4_map_{group}.json")
     json.dump(out, open(path, "w"), separators=(",", ":"))
     print(f"{path}: {len(types)} shapes ({Counter(t['dim'] for t in types)}), {len(walls)} wall pieces, "
           f"{len(lines)} line pieces, {len(edges)} edges, {len(examples)} example seeds, {len(shells)} region shells; "

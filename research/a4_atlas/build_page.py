@@ -305,7 +305,7 @@ def main(fam="a4"):
     syms = FAM["symmetries"]
     maps, light, dark = {}, [], []
     for s in syms:
-        path = os.path.join(FAM["dir"], f"{FAM['prefix']}_{s['key']}.json")
+        path = os.environ.get(f"MAP_{s['key'].upper()}") or os.path.join(FAM["dir"], f"{FAM['prefix']}_{s['key']}.json")
         if not os.path.exists(path):
             continue
         d = json.load(open(path))
