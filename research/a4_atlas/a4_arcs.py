@@ -190,10 +190,17 @@ def main(group):
             allp.append(np.array([float(v) for v in p["beta"]]))
             owner.append(c)
     P_ = np.array(allp)
-    tree = cKDTree(P_)
-    rep = list(range(len(P_)))
-    for i, j in sorted(tree.query_pairs(1e-12)):
-        a, b = rep[i], rep[j]
+    # (the same exact point comes from many pairs of curves: entries equal to 11 digits are one, then distinct
+    #  representatives within 1e-12 of each other merged)
+    keys = {}
+    first = np.empty(len(P_), int)
+    for i, x in enumerate(P_):
+        first[i] = keys.setdefault(tuple(np.round(x, 11)), i)
+    reps = sorted(set(first.tolist()))
+    tree = cKDTree(P_[reps])
+    rep = {r: r for r in reps}
+    for a_, b_ in sorted(tree.query_pairs(1e-12)):
+        a, b = reps[a_], reps[b_]
         while rep[a] != a:
             a = rep[a]
         while rep[b] != b:
@@ -202,6 +209,7 @@ def main(group):
             rep[max(a, b)] = min(a, b)
 
     def r_(i):
+        i = int(first[i])
         while rep[i] != i:
             i = rep[i]
         return i
