@@ -155,6 +155,53 @@ def points(polys, C, log=print, digits=30):
     return out_all
 
 
+def meets(C, log=print, digits=30):
+    """Where two curves meet: for every two curves sharing a surface, the 0-dimensional ideal of both, solved. A
+    vertex of the map is where two of its curves meet; a curve's crossing with a surface does not cover them all (two
+    curves on surfaces that both contain one of them, e.g. a chamber edge lying on many surfaces, meet at a point no
+    surface crosses the edge at)."""
+    from concurrent.futures import ThreadPoolExecutor
+    from collections import defaultdict
+    live = [c for c, cur in enumerate(C) if cur["points"]]
+    on = {c: set(C[c]["on"]) for c in live}
+    pairs = defaultdict(list)
+    for a in live:
+        for b in live:
+            if b > a and on[a] & on[b]:
+                pairs[a].append(b)
+
+    def job(a):
+        body = ['LIB "solve.lib";', "ring r=0,(b1,b2,b3,b4),dp; option(redSB);",
+                f"ideal G = std(ideal({C[a]['ideal']}));", "ideal J; int i; int k; def R;"]
+        for b in pairs[a]:
+            body.append(
+                f'J = std(G + ideal({C[b]["ideal"]}) + ideal(b1+b2+b3+b4-1)); '
+                f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
+                f'for(i=1;i<=size(SOL);i++){{ string t="P {b}"; for(k=1;k<=4;k++){{t=t+" "+string(SOL[i][k]);}} '
+                f'print(t); }} kill R; setring r; def R; }}')
+        out = sing("\n".join(body)) if pairs[a] else ""
+        got = []
+        for line in out.splitlines():
+            if line.startswith("P "):
+                parts = line.split()
+                z = [parse_c(v) for v in parts[2:6]]
+                if max(abs(v.imag) for v in z) > 1e-20 or min(v.real for v in z) < -1e-20:
+                    continue
+                got.append((int(parts[1]), {"by": f"curve {parts[1]}", "beta": [repr(v.real) for v in z],
+                                            "exact": parts[2:6]}))
+        return a, got
+    n = 0
+    with ThreadPoolExecutor(4) as ex:
+        for a, got in ex.map(job, sorted(pairs)):
+            for b, p in got:
+                C[a]["points"].append(p)
+                C[b]["points"].append(dict(p, by=f"curve {a}"))
+            n += 1
+            if n % 25 == 0:
+                log(f"  meets: {n}/{len(pairs)} curves")
+    return C
+
+
 def main(group):
     import functools
     global print
@@ -170,10 +217,19 @@ def main(group):
         json.dump({"polys": polys, "curves": C}, open(st1, "w"))
     print(f"  curves: {time.time() - t:.0f}s", flush=True)
     prev = os.path.join(HERE, f"a4_curves_{group}.json")
+    if "meets-only" in sys.argv and os.path.exists(prev):
+        C = json.load(open(prev))["curves"]
+        for cur in C:
+            cur["points"] = [p for p in cur["points"] if not p["by"].startswith("curve ")]
+        C = meets(C, log=print)
+        json.dump({"surfaces": X["surfaces"], "polys": polys, "curves": C}, open(prev, "w"), indent=1)
+        print(f"{sum(len(c['points']) for c in C)} points in all, with where curves meet")
+        return
     if "crit-only" in sys.argv and os.path.exists(prev):
         old = {c["ideal"]: c for c in json.load(open(prev))["curves"]}
         C = [dict(old[c["ideal"]], crossings_known=True) for c in C]
     C = points(polys, C, log=print)
+    C = meets(C, log=print)
     inside = [c for c in C if c["points"]]
     json.dump({"surfaces": X["surfaces"], "polys": polys, "curves": C},
               open(os.path.join(HERE, f"a4_curves_{group}.json"), "w"), indent=1)
@@ -182,5 +238,5 @@ def main(group):
 
 
 if __name__ == "__main__":
-    for g in [a for a in sys.argv[1:] if not a.startswith("crit")]:
+    for g in [a for a in sys.argv[1:] if not a.startswith(("crit", "meets"))]:
         main(g)

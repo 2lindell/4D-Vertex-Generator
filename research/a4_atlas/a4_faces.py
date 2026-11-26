@@ -67,6 +67,7 @@ class _Ball:
 
 
 SURFS = None          # (all the surfaces, when known: link points are then solved exactly on their curve)
+EXACT = False         # (an exact map, a4_arcs: every crossing a known point, every arc dense near its ends)
 
 
 def link_groups(S, v, hs, r=2e-3, pair_of=None):
@@ -208,9 +209,34 @@ def faces_on(k, S, segs, Pts):
         def near_junc(v):
             d, _ = jt.query(np.asarray(Pts[v], float), k=2)
             return float(d[1]) if d[0] < 1e-12 else float(d[0])
+    if EXACT:
+        from scipy.spatial import cKDTree
+        vt = cKDTree(np.array([Pts[v] for v in out]))
     for v, hs in out.items():
         x = np.asarray(Pts[v], float)
         g = S.g(x)
+        if EXACT and len(hs) > 2:
+            # (two arcs leaving v cannot cross before they reach another known point: every crossing is one. So
+            #  their order round v is the same at every radius short of the nearest other point and of the shortest
+            #  arc; all read at one such radius, each point solved exactly on its arc's curve)
+            dn, _ = vt.query(x, k=2)
+            short = min(float(np.linalg.norm(np.asarray(Q, float)[-1] - x)) for _, _, Q in hs)
+            rho = min(0.02, 0.3 * short, 0.5 * float(dn[1]))
+            if np.linalg.norm(g - g.mean()) < 1e-7:
+                def pair_of(i, fw, p):
+                    others = [SURFS[m] for m in segs[i]["on"] if m != k]
+                    return (S, max(others, key=lambda C: E.crossing_angle(p, S, C))) if others else None
+                gr = link_groups(S, x, hs, r=rho, pair_of=pair_of)
+            else:
+                e1, e2 = frame_at(S, x)
+                ang = {}
+                for i, fw, Q in hs:
+                    d = exact_leave(k, S, x, np.asarray(Q, float), segs[i]["on"], d=rho) @ BZ.T
+                    ang[(i, fw)] = np.arctan2(d @ e2, d @ e1)
+                gr = [[(h[0], h[1]) for h in sorted(hs, key=lambda h: ang[(h[0], h[1])])]]
+            groups[v] = gr
+            pos[v] = {he: (gi, j) for gi, grp in enumerate(gr) for j, he in enumerate(grp)}
+            continue
         if np.linalg.norm(g - g.mean()) < 1e-7 and len(hs) > 2:
             # (the small sphere well inside every curve leaving the point: one ending inside it has no place on it)
             if SURFS is not None:

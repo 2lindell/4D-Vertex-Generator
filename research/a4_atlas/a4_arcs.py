@@ -31,6 +31,7 @@ from scipy.spatial import cKDTree
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import a4_curves as AC  # noqa: E402
+import a4_faces as A  # noqa: E402
 
 B = sp.symbols("b1 b2 b3 b4")
 LV = np.array([1.0, 0.0, 0.0, 1.0])               # (a4_curves.L)
@@ -139,7 +140,26 @@ def follow(C, x, d, known, max_steps=200000):
     return None, np.array(pts), "too many steps"
 
 
+def is_line(cur):
+    return all(sp.Poly(sp.sympify(g.replace("^", "**")), *B).total_degree() <= 1 for g in cur["ideal"].split(","))
+
+
 def arcs_of(c, cur, known_ids, Pts):
+    if is_line(cur):
+        # (a line: its arcs are the stretches between consecutive known points along it, exactly; no level needed,
+        #  and L may be constant along it, as on the chamber's edges b1 = b4 = 0 and b2 = b3 = 0)
+        P_ = np.array([Pts[i] for i in known_ids])
+        if len(P_) < 2:
+            return [], [], 0
+        d = P_[np.argmax(np.linalg.norm(P_ - P_[0], axis=1))] - P_[0]
+        order = np.argsort((P_ - P_[0]) @ d)
+        out = []
+        for a, b in zip(order, order[1:]):
+            n = max(2, int(np.ceil(np.linalg.norm(P_[b] - P_[a]) / 2e-3)) + 1)
+            Q = P_[a] + np.linspace(0, 1, n)[:, None] * (P_[b] - P_[a])
+            Q[0], Q[-1] = P_[a], P_[b]
+            out.append({"curve": c, "ends": (known_ids[a], known_ids[b]), "pts": Q, "on": set(cur["on"])})
+        return out, [], 0
     C = Curve(cur["ideal"])
     known = np.array([Pts[i] for i in known_ids])
     seeds = level_points(cur, levels_of(cur))
@@ -218,8 +238,9 @@ def main(group):
         dup = False
         for t in seen:
             if t["curve"] == s["curve"] and set(t["ends"]) == set(s["ends"]):
+                # (the same arc traced from two levels: every point of one on the other, to the traced chains' sag)
                 R = t["pts"]
-                if np.min(np.linalg.norm(R - mid, axis=1)) < 1e-6:
+                if all(A.poly_dist(Q[m], R) < 1e-5 for m in (len(Q) // 4, len(Q) // 2, 3 * len(Q) // 4)):
                     dup = True
                     break
         if not dup:

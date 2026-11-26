@@ -37,6 +37,7 @@ def main(group):
     X = pickle.load(open(os.path.join(HERE, f"a4_arcs_{group}.pkl"), "rb"))
     SURFS = [P.surf_of(n) for n in X["surfaces"]]
     A.SURFS = SURFS
+    A.EXACT = True
     E.SING = 1e-8
     t0 = time.time()
     faces = []
