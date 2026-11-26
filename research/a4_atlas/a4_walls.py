@@ -40,22 +40,72 @@ import a4_snub as SN  # noqa: E402
 REL = lambda S_, x: abs(S_.f(x)) / (np.linalg.norm(S_.g(x)) + 1e-300)  # noqa: E731
 
 
+SEEDS = []          # (wall name, its exact key, its example seed put exactly on its surface), filled by dims_of
+
+
 def dims_of(group):
-    """Each shape key's kind (region, wall, line, point) and name, from the group's map. The mirrors' walls carry the
-    map's own keys, not the exact reading's: their example seeds (exactly on a mirror) are read here for theirs (a
-    wall's name kept where a line on the same mirror reads alike)."""
+    """Each shape key's kind (region, wall, line, point) and name, from the group's map. The map's example seeds are
+    printed to 4 decimals, off a line by up to 1e-4, and the mirrors' shapes carry the map's own keys, not the exact
+    reading's. So each wall, line and point example is put exactly onto its shape's set first (the mirrors its zero
+    coordinates name, then the surfaces nearest it, until it has its dimension: a wall on one surface, a line on two,
+    a point on three) and read there; that key is the shape's too (a wall's name kept where a line reads alike)."""
+    import a4_exact as E
+    import a4_pieces as P_
     m = json.load(open(os.path.join(HERE, f"a4_map_{group}.json")))
     dim = {t["key"]: t["dim"] for t in m["types"] if t.get("key")}
     name = {t["key"]: t["id"] for t in m["types"] if t.get("key")}
     T = {t["id"]: t for t in m["types"]}
-    ex = [e for e in m["examples"] if "0.0000" in e["beta"] and T[e["id"]]["dim"] in ("wall", "line")]
-    pts = [np.array([float(v) for v in e["beta"].strip("()").split(",")]) for e in ex]
-    rank = {"line": 0, "wall": 1}
-    for e, (_, k) in zip(ex, SN.classify_many([p / p.sum() for p in pts], SN.SUB[group], tol=1e-7)):
+    names = pickle.load(open(os.path.join(HERE, f"a4_closed_{group}.pkl"), "rb"))["surfaces"]
+    surfs = [P_.surf_of(n) for n in names]
+    codim = {"wall": 1, "line": 2, "point": 3}
+    ex, pts = [], []
+    for e in m["examples"]:
         d = T[e["id"]]["dim"]
+        if d not in codim:
+            continue
+        x = np.array([float(v) for v in e["beta"].strip("()").split(",")])
+        x = x / x.sum()
+        on = [k for k in range(4) if x[k] == 0]
+        rest = sorted((REL(S, x), k) for k, S in enumerate(surfs) if k >= 4)
+        on += [k for r, k in rest if r < 1e-3][:max(0, codim[d] - len(on))]
+        y, ok = E.newton(x, [surfs[k] for k in on]) if on else (x, True)
+        if ok and np.linalg.norm(y - x) < 1e-3 and y.min() > -1e-12:
+            ex.append(e)
+            pts.append(np.clip(y, 0, None))
+    rank = {"point": 0, "line": 1, "wall": 2}
+    SEEDS.clear()
+    for e, y, (_, k) in zip(ex, pts, SN.classify_many(pts, SN.SUB[group], tol=1e-7)):
+        d = T[e["id"]]["dim"]
+        if d == "wall":
+            SEEDS.append((e["id"], k, y))
         if k is not None and (k not in dim or (dim[k] in rank and rank[d] > rank[dim[k]])):
             dim[k], name[k] = d, e["id"]
     return dim, name
+
+
+def face_of(X, surfs, k, x):
+    """The face of surface k holding the point x of it: its outline winds once round x, seen in the surface's tangent
+    plane at x (of faces whose outline winds round x, the nearest)."""
+    import a4_faces as A
+    n = P.normal(surfs[k], x) @ A.BZ.T
+    e1 = np.cross(n, [1.0, 0, 0])
+    if np.linalg.norm(e1) < 0.1:
+        e1 = np.cross(n, [0, 1.0, 0])
+    e1 /= np.linalg.norm(e1)
+    e2 = np.cross(n, e1)
+    best = None
+    for fi, F in enumerate(X["faces"]):
+        if F["surface"] != k:
+            continue
+        L = (np.asarray(F["loop"], float) - x) @ A.BZ.T
+        u, v = L @ e1, L @ e2
+        ang = np.arctan2(v, u)
+        w = np.sum(np.angle(np.exp(1j * (np.roll(ang, -1) - ang)))) / (2 * np.pi)
+        if abs(round(w)) == 1:
+            d = float(np.min(np.hypot(u, v)))
+            if best is None or d > best[0]:
+                best = (d, fi)
+    return best[1] if best else None
 
 
 def seg_dist(x, Q):
@@ -67,7 +117,7 @@ def seg_dist(x, Q):
     return float(np.min(np.linalg.norm(A_ + u[:, None] * D_ - x, axis=1)))
 
 
-def solve(X, surfs, group, log=print, rounds=12):
+def solve(X, surfs, group, log=print, rounds=12, forced=None):
     segs, faces = X["segments"], X["faces"]
     dim, name = dims_of(group)
     kn = X.get("keyname", {})
@@ -90,6 +140,7 @@ def solve(X, surfs, group, log=print, rounds=12):
 
     # (start: every face of every surface counted as wall, so every curve is an edge and the pieces are the faces)
     wall = [True] * len(faces)
+    forced = forced or {}
     prev = None
     for rnd in range(rounds):
         def is_edge(k, i):
@@ -129,8 +180,10 @@ def solve(X, surfs, group, log=print, rounds=12):
             pieces.append({"surface": k, "faces": members, "edges": edges, "deep": best, "depth": bd})
         keys = read([p["deep"] for p in pieces])
         for p, kk in zip(pieces, keys):
-            p["key"] = kk
-            p["wall"] = dim.get(kk) == "wall" if p["surface"] >= 4 else True
+            fk = [forced[fi] for fi in p["faces"] if fi in forced]
+            p["key"] = fk[0] if fk else kk
+            p["inserted"] = bool(fk) and fk[0] != kk
+            p["wall"] = (dim.get(p["key"]) == "wall") if p["surface"] >= 4 else True
         new = [False] * len(faces)
         for p in pieces:
             for fi in p["faces"]:
@@ -189,10 +242,12 @@ def solve(X, surfs, group, log=print, rounds=12):
         if a not in pt_sw or b not in pt_sw:
             continue
         Q = np.asarray(t["pts"], float)[:, ::-1]
-        for j in by_ends.get(frozenset((pt_sw[a], pt_sw[b])), ()):
-            if seg_dist(Q[len(Q) // 2], segs[j]["pts"]) < 1e-4:      # (traced chains sag 1e-5 between points)
-                seg_sw[i] = j
-                break
+        # (the nearest arc with the swapped ends: curves can run within 1e-5 of each other between the same two
+        #  points, while an arc's swap image, traced from the swapped level point, lies on it to 1e-15)
+        cands = [(max(seg_dist(Q[m], segs[j]["pts"]) for m in (len(Q) // 4, len(Q) // 2, 3 * len(Q) // 4)), j)
+                 for j in by_ends.get(frozenset((pt_sw[a], pt_sw[b])), ())]
+        if cands and min(cands)[0] < 1e-6:
+            seg_sw[i] = min(cands)[1]
     surf_sw = {}
     for k in range(len(surfs)):
         xs = [np.asarray(t["pts"], float)[len(t["pts"]) // 3] for t in segs if k in t["on"]][:12]
@@ -250,6 +305,26 @@ if __name__ == "__main__":
         X = pickle.load(open(os.path.join(HERE, f"a4_{src}_{g}.pkl"), "rb"))
         surfs = [P.surf_of(n) for n in X["surfaces"]]
         pieces, report = solve(X, surfs, g)
+        # (walls the known data puts there: each wall's example seed and its swap image lie on a piece of that wall;
+        #  where the solve left the piece out or read it otherwise, its face is held as that wall and all solved again)
+        forced, inserted = {}, []
+        piece_of = {fi: p for p in pieces for fi in p["faces"]}
+        for wname, key, y in SEEDS:
+            for z in (y, y[::-1]):
+                for k, S in enumerate(surfs):
+                    if REL(S, z) > 1e-9:
+                        continue
+                    fi = face_of(X, surfs, k, z)
+                    if fi is None:
+                        inserted.append((wname, k, "no face holds the seed"))
+                        continue
+                    p = piece_of[fi]
+                    if p["key"] != key:
+                        forced[fi] = key
+                        inserted.append((wname, k, fi, f"read {p['key']}"))
+        if forced:
+            pieces, report = solve(X, surfs, g, forced=forced)
+        report["walls inserted from their seeds"] = inserted
         for p in pieces:
             p["deep"] = [float(v) for v in p["deep"]]
         tag = "_exact" if src == "exactmap" else ""

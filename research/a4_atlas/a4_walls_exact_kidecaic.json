@@ -4,7 +4,7 @@
  "wall pieces read at a point under 1e-3 from their edges": 2,
  "wall pieces whose edges do not close": 0,
  "edge segments with no wall on their other surface": 0,
- "wall pieces whose swap image reads another shape": 1,
+ "wall pieces whose swap image reads another shape": 0,
  "edge segments off their surfaces by more than 1e-7": 0,
  "map points with no swap image within 1e-6": 0,
  "segments with no swap image": 0,
@@ -36,19 +36,6 @@
  },
  "the group's walls with no piece": [],
  "not closing": [],
- "swap": [
-  [
-   5,
-   "gabybosid",
-   3,
-   [
-    [
-     4,
-     "gabybosid",
-     3
-    ]
-   ],
-   2
-  ]
- ]
+ "swap": [],
+ "walls inserted from their seeds": []
 }
