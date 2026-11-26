@@ -1,7 +1,7 @@
 """The exact curves and points of a curved A4 map, by computer algebra (Singular), with no grid and no seed search.
 
   1. curves: for every pair of surfaces (the four mirrors among them), the prime components of the ideal (S, T)
-     (Singular's minAssGTZ): each one an irreducible curve, given by its reduced Groebner basis, so the same curve
+     (Singular's minAssChar, characteristic sets; minAssGTZ stalls on a few pairs): each one an irreducible curve, given by its reduced Groebner basis, so the same curve
      found from several pairs is recognised exactly. Each curve's surfaces: every surface lying in its ideal (its
      polynomial reduces to 0), decided exactly.
   2. points: on each curve, where every surface not containing it crosses it (the ideal of the curve and the surface,
@@ -62,7 +62,7 @@ def curves(polys, log=print):
     def row(i):
         body = [HEAD] + [f"poly s{k} = {p};" for k, p in enumerate(polys)] + ["list L; int c; ideal G;"]
         for j in range(i + 1, n):
-            body.append(f'L = minAssGTZ(ideal(s{i},s{j})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
+            body.append(f'L = minAssChar(ideal(s{i},s{j})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
                         f'if(dim(G)==2){{print("C {i} {j} "+string(G));}}}}')
         r = sing("\n".join(body), timeout=None)
         log(f"  pairs of surface {i}: done")
