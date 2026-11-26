@@ -34,7 +34,7 @@ import a4_pieces as P  # noqa: E402
 L = "b1+2*b2+5*b3"                     # (a generic linear function: no curve of the map has it constant)
 
 
-def sing(script, timeout=3600):
+def sing(script, timeout=None):
     with tempfile.NamedTemporaryFile("w", suffix=".sing", delete=False) as f:
         f.write(script + "\nquit;\n")
         path = f.name
@@ -57,14 +57,18 @@ HEAD = 'ring r=0,(b1,b2,b3,b4),dp; option(redSB); LIB "primdec.lib";\n'
 def curves(polys, log=print):
     """Stage 1: every pair's components, deduplicated; each curve's surfaces."""
     n = len(polys)
-    body = [HEAD]
-    body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
-    body.append("list L; int c; ideal G;")
-    for i in range(n):
+    from concurrent.futures import ThreadPoolExecutor
+
+    def row(i):
+        body = [HEAD] + [f"poly s{k} = {p};" for k, p in enumerate(polys)] + ["list L; int c; ideal G;"]
         for j in range(i + 1, n):
             body.append(f'L = minAssGTZ(ideal(s{i},s{j})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
                         f'if(dim(G)==2){{print("C {i} {j} "+string(G));}}}}')
-    out = sing("\n".join(body))
+        r = sing("\n".join(body), timeout=None)
+        log(f"  pairs of surface {i}: done")
+        return r
+    with ThreadPoolExecutor(4) as ex:
+        out = "\n".join(ex.map(row, range(n)))
     found = {}
     for line in out.splitlines():
         if not line.startswith("C "):
@@ -153,12 +157,16 @@ def points(polys, C, log=print, digits=30):
 
 
 def main(group):
+    import functools
+    global print
+    print = functools.partial(print, flush=True)
     X = pickle.load(open(os.path.join(HERE, f"a4_closed_{group}.pkl"), "rb"))
     polys = [poly_str(P.surf_of(n).expr) for n in X["surfaces"]]
     t = time.time()
-    C = curves(polys)
+    C = curves(polys, log=print)
+    json.dump(C, open(os.path.join(HERE, f"a4_curves_{group}_stage1.json"), "w"))
     print(f"  curves: {time.time() - t:.0f}s", flush=True)
-    C = points(polys, C)
+    C = points(polys, C, log=print)
     inside = [c for c in C if c["points"]]
     json.dump({"surfaces": X["surfaces"], "polys": polys, "curves": C},
               open(os.path.join(HERE, f"a4_curves_{group}.json"), "w"), indent=1)
