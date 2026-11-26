@@ -31,7 +31,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import a4_pieces as P  # noqa: E402
 
-L = "b1+2*b2+5*b3"                     # (a generic linear function: no curve of the map has it constant)
+L = "b1+b4"     # (the linear function whose critical points are added: swap-symmetric, so a curve's and its swap
+                #  image's are each other's images; constant on no curve of the map but the chamber edge b1 = b4 = 0)
 
 
 def sing(script, timeout=None):
@@ -118,7 +119,7 @@ def points(polys, C, log=print, digits=30):
         body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
         body.append("ideal J; int i; int k; def R; list S;")
         lin = all(len(re.findall(r"\^|\*b", g)) == 0 for g in cur["ideal"].split(","))
-        jobs = [(k, f"s{k}") for k in range(n) if k not in cur["on"]]
+        jobs = [] if cur.get("crossings_known") else [(k, f"s{k}") for k in range(n) if k not in cur["on"]]
         if not lin:
             jobs.append(("crit", f'minor(concat(transpose(jacob(G)), transpose(jacob(ideal({L}))), '
                                   f'transpose(matrix(ideal(1,1,1,1)))), 4)'))
@@ -145,7 +146,10 @@ def points(polys, C, log=print, digits=30):
                 pts.append({"by": tag, "beta": [repr(v) for v in x], "exact": parts[2:6]})
             elif line.startswith("D "):
                 deg.append(line.split()[1])
-        out_all.append(dict(cur, points=pts, degenerate=deg))
+        if cur.get("crossings_known"):
+            pts = [p for p in cur["points"] if p["by"] != "crit"] + pts
+            deg = [d for d in cur.get("degenerate", []) if d != "crit"] + deg
+        out_all.append(dict({k: v for k, v in cur.items() if k != "crossings_known"}, points=pts, degenerate=deg))
         if c % 20 == 0:
             log(f"  curve {c}/{len(C)}: {len(pts)} points in the chamber")
     return out_all
@@ -165,6 +169,10 @@ def main(group):
         C = curves(polys, log=print)
         json.dump({"polys": polys, "curves": C}, open(st1, "w"))
     print(f"  curves: {time.time() - t:.0f}s", flush=True)
+    prev = os.path.join(HERE, f"a4_curves_{group}.json")
+    if "crit-only" in sys.argv and os.path.exists(prev):
+        old = {c["ideal"]: c for c in json.load(open(prev))["curves"]}
+        C = [dict(old[c["ideal"]], crossings_known=True) for c in C]
     C = points(polys, C, log=print)
     inside = [c for c in C if c["points"]]
     json.dump({"surfaces": X["surfaces"], "polys": polys, "curves": C},
@@ -174,5 +182,5 @@ def main(group):
 
 
 if __name__ == "__main__":
-    for g in sys.argv[1:]:
+    for g in [a for a in sys.argv[1:] if not a.startswith("crit")]:
         main(g)

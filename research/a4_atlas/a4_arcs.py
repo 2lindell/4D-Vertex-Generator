@@ -33,7 +33,7 @@ sys.path.insert(0, HERE)
 import a4_curves as AC  # noqa: E402
 
 B = sp.symbols("b1 b2 b3 b4")
-LV = np.array([1.0, 2.0, 5.0, 0.0])               # (a4_curves.L)
+LV = np.array([1.0, 0.0, 0.0, 1.0])               # (a4_curves.L)
 
 
 def levels_of(cur):
@@ -50,7 +50,7 @@ def level_points(cur, levels, digits=30):
             f"ideal G = std(ideal({cur['ideal']}));", "ideal J; int i; int k; def R;"]
     for c in levels:
         body.append(
-            f'J = std(G + ideal(b1+2*b2+5*b3-({c})*(b1+b2+b3+b4)) + ideal(b1+b2+b3+b4-1)); '
+            f'J = std(G + ideal(b1+b4-({c})*(b1+b2+b3+b4)) + ideal(b1+b2+b3+b4-1)); '
             f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
             f'for(i=1;i<=size(SOL);i++){{ string t="P"; for(k=1;k<=4;k++){{t=t+" "+string(SOL[i][k]);}} '
             f'print(t); }} kill R; setring r; def R; }}')
