@@ -245,12 +245,14 @@ def solve(X, surfs, group, log=print, rounds=12):
 
 
 if __name__ == "__main__":
-    for g in sys.argv[1:]:
-        X = pickle.load(open(os.path.join(HERE, f"a4_rewalked_{g}.pkl"), "rb"))
+    for g in [a for a in sys.argv[1:] if a != "exact"]:
+        src = "exactmap" if "exact" in sys.argv[2:] else "rewalked"
+        X = pickle.load(open(os.path.join(HERE, f"a4_{src}_{g}.pkl"), "rb"))
         surfs = [P.surf_of(n) for n in X["surfaces"]]
         pieces, report = solve(X, surfs, g)
         for p in pieces:
             p["deep"] = [float(v) for v in p["deep"]]
-        pickle.dump(pieces, open(os.path.join(HERE, f"a4_walls_{g}.pkl"), "wb"))
-        json.dump(report, open(os.path.join(HERE, f"a4_walls_{g}.json"), "w"), indent=1, default=str)
+        tag = "_exact" if src == "exactmap" else ""
+        pickle.dump(pieces, open(os.path.join(HERE, f"a4_walls{tag}_{g}.pkl"), "wb"))
+        json.dump(report, open(os.path.join(HERE, f"a4_walls{tag}_{g}.json"), "w"), indent=1, default=str)
         print(json.dumps(report, indent=1, default=str))

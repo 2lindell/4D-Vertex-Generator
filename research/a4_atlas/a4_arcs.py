@@ -105,10 +105,17 @@ def follow(C, x, d, known, max_steps=200000):
     t = C.tangent(x)
     if t @ d < 0:
         t = -t
+    # (arrival: within 1e-6 of a known point and a hundredth of its distance to the curve's next known point, so no
+    #  other can be meant; near a point where many curves meet, Newton's method stalls a little short of it)
+    if len(known) > 1:
+        dd, _ = cKDTree(known).query(known, k=2)
+        reach = np.minimum(1e-6, dd[:, 1] / 100)
+    else:
+        reach = np.full(len(known), 1e-6)
     for _ in range(max_steps):
         dist = np.linalg.norm(known - x, axis=1)
         j = int(np.argmin(dist))
-        if dist[j] < 1e-10 and len(pts) > 1:
+        if dist[j] < max(1e-10, reach[j]) and len(pts) > 1:
             pts[-1] = known[j]
             return j, np.array(pts)
         # (ahead of us and close: aim straight at it once within reach)
