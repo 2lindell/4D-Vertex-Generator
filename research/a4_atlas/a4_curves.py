@@ -1,0 +1,171 @@
+"""The exact curves and points of a curved A4 map, by computer algebra (Singular), with no grid and no seed search.
+
+  1. curves: for every pair of surfaces (the four mirrors among them), the prime components of the ideal (S, T)
+     (Singular's minAssGTZ): each one an irreducible curve, given by its reduced Groebner basis, so the same curve
+     found from several pairs is recognised exactly. Each curve's surfaces: every surface lying in its ideal (its
+     polynomial reduces to 0), decided exactly.
+  2. points: on each curve, where every surface not containing it crosses it (the ideal of the curve and the surface,
+     0-dimensional), and the curve's critical points for a generic linear function L (the 4x4 minors of its Jacobian
+     with grad L and (1,1,1,1)), which are its singular points and a point on every closed loop of it. Each solved
+     to 30 digits (solve.lib); the real ones in the chamber (beta >= 0, sum 1) kept.
+
+A curve has a real stretch in the chamber only if it has a point here: a stretch either ends on the chamber's
+boundary (a crossing with a mirror) or is a closed loop (where L has a minimum).
+
+    python a4_curves.py kidecaic        (a4_curves_<group>.json)
+"""
+from __future__ import annotations
+
+import json
+import os
+import pickle
+import re
+import subprocess
+import sys
+import tempfile
+import time
+
+import sympy as sp
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import a4_pieces as P  # noqa: E402
+
+L = "b1+2*b2+5*b3"                     # (a generic linear function: no curve of the map has it constant)
+
+
+def sing(script, timeout=3600):
+    with tempfile.NamedTemporaryFile("w", suffix=".sing", delete=False) as f:
+        f.write(script + "\nquit;\n")
+        path = f.name
+    try:
+        r = subprocess.run(["Singular", "-q", path], capture_output=True, text=True, timeout=timeout)
+    finally:
+        os.unlink(path)
+    if r.returncode != 0:
+        raise RuntimeError(r.stderr[-2000:])
+    return r.stdout
+
+
+def poly_str(e):
+    return sp.sstr(sp.expand(e)).replace("**", "^")
+
+
+HEAD = 'ring r=0,(b1,b2,b3,b4),dp; option(redSB); LIB "primdec.lib";\n'
+
+
+def curves(polys, log=print):
+    """Stage 1: every pair's components, deduplicated; each curve's surfaces."""
+    n = len(polys)
+    body = [HEAD]
+    body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
+    body.append("list L; int c; ideal G;")
+    for i in range(n):
+        for j in range(i + 1, n):
+            body.append(f'L = minAssGTZ(ideal(s{i},s{j})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
+                        f'if(dim(G)==2){{print("C {i} {j} "+string(G));}}}}')
+    out = sing("\n".join(body))
+    found = {}
+    for line in out.splitlines():
+        if not line.startswith("C "):
+            continue
+        _, i, j, gens = line.split(" ", 3)
+        key = ",".join(sorted(g.strip() for g in gens.split(",")))
+        found.setdefault(key, set()).update({int(i), int(j)})
+    keys = sorted(found)
+    log(f"  {len(keys)} distinct curves from {n * (n - 1) // 2} pairs")
+    # (each curve's surfaces, exactly: every polynomial lying in its ideal)
+    body = [HEAD] + [f"poly s{i} = {p};" for i, p in enumerate(polys)] + ["ideal G; int k; string on;"]
+    for c, key in enumerate(keys):
+        body.append(f"G = std(ideal({key})); on = \"\"; for(k=0;k<={n - 1};k++){{ }}")
+        tests = " ".join(f'if(reduce(s{k},G)==0){{on=on+" {k}";}}' for k in range(n))
+        body[-1] = f'G = std(ideal({key})); on = ""; {tests} print("O {c}"+on);'
+    out = sing("\n".join(body))
+    on = {}
+    for line in out.splitlines():
+        if line.startswith("O "):
+            parts = line.split()
+            on[int(parts[1])] = sorted(int(x) for x in parts[2:])
+    return [{"ideal": key, "on": on[c]} for c, key in enumerate(keys)]
+
+
+NUM = re.compile(r"[-+]?\d*\.?\d+(?:e[-+]?\d+)?")
+
+
+def parse_c(s):
+    """A Singular complex number (a, (a+I*b), I*b, ...) as a Python complex."""
+    s = s.strip().replace(" ", "")
+    if s.startswith("(") and s.endswith(")"):
+        s = s[1:-1]
+    if "I" not in s:
+        return complex(float(s), 0.0)
+    m = re.match(r"^([-+]?[\d.e+-]+?)?([-+])?I\*?([\d.e+-]*)$", s)
+    if m:
+        re_ = float(m.group(1)) if m.group(1) else 0.0
+        sg = -1.0 if m.group(2) == "-" else 1.0
+        im = float(m.group(3)) if m.group(3) else 1.0
+        return complex(re_, sg * im)
+    s2 = s.replace("I*", "1j*").replace("*I", "*1j").replace("I", "1j")
+    return complex(eval(s2))
+
+
+def points(polys, C, log=print, digits=30):
+    """Stage 2: each curve's points in the chamber (crossings with every surface not on it; critical points of L)."""
+    n = len(polys)
+    out_all = []
+    for c, cur in enumerate(C):
+        body = ['LIB "solve.lib"; LIB "primdec.lib";', "ring r=0,(b1,b2,b3,b4),dp; option(redSB);",
+                f"ideal G = std(ideal({cur['ideal']}));"]
+        body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
+        body.append("ideal J; int i; int k; def R; list S;")
+        lin = all(len(re.findall(r"\^|\*b", g)) == 0 for g in cur["ideal"].split(","))
+        jobs = [(k, f"s{k}") for k in range(n) if k not in cur["on"]]
+        if not lin:
+            jobs.append(("crit", f'minor(concat(transpose(jacob(G)), transpose(jacob(ideal({L}))), '
+                                  f'transpose(matrix(ideal(1,1,1,1)))), 4)'))
+        for tag, expr in jobs:
+            ex = expr if tag == "crit" else f"ideal({expr})"
+            body.append(
+                f'J = std(G + {ex} + ideal(b1+b2+b3+b4-1)); '
+                f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
+                f'for(i=1;i<=size(SOL);i++){{ string t="P {tag}"; for(k=1;k<=4;k++){{t=t+" "+string(SOL[i][k]);}} '
+                f'print(t); }} kill R; setring r; def R; }} '
+                f'if(dim(J)>0){{ print("D {tag}"); }}')
+        out = sing("\n".join(body))
+        pts, deg = [], []
+        for line in out.splitlines():
+            if line.startswith("P "):
+                parts = line.split()
+                tag = parts[1]
+                z = [parse_c(v) for v in parts[2:6]]
+                if max(abs(v.imag) for v in z) > 1e-20:
+                    continue
+                x = [v.real for v in z]
+                if min(x) < -1e-20:
+                    continue
+                pts.append({"by": tag, "beta": [repr(v) for v in x], "exact": parts[2:6]})
+            elif line.startswith("D "):
+                deg.append(line.split()[1])
+        out_all.append(dict(cur, points=pts, degenerate=deg))
+        if c % 20 == 0:
+            log(f"  curve {c}/{len(C)}: {len(pts)} points in the chamber")
+    return out_all
+
+
+def main(group):
+    X = pickle.load(open(os.path.join(HERE, f"a4_closed_{group}.pkl"), "rb"))
+    polys = [poly_str(P.surf_of(n).expr) for n in X["surfaces"]]
+    t = time.time()
+    C = curves(polys)
+    print(f"  curves: {time.time() - t:.0f}s", flush=True)
+    C = points(polys, C)
+    inside = [c for c in C if c["points"]]
+    json.dump({"surfaces": X["surfaces"], "polys": polys, "curves": C},
+              open(os.path.join(HERE, f"a4_curves_{group}.json"), "w"), indent=1)
+    print(f"{len(C)} curves; {len(inside)} with points in the chamber; "
+          f"{sum(len(c['points']) for c in C)} points in all ({time.time() - t:.0f}s)")
+
+
+if __name__ == "__main__":
+    for g in sys.argv[1:]:
+        main(g)
