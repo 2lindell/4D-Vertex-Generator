@@ -88,6 +88,7 @@ def keep(z):
 
 
 HARD = set()           # (pairs known not to finish whole: their swap image is used first when it is done)
+POINT_CACHE = None   # (each curve's points as solved, kept across runs)
 SYMS = []        # (the domain's symmetries as permutations of b1..b4, each with every surface's image's index)
 PAIR_CACHE = None      # (each pair's components, kept as they are found: a rerun redoes only the pairs not done)
 
@@ -263,10 +264,25 @@ def parse_c(s):
 def points(polys, C, log=print, digits=30):
     """Stage 2: each curve's points in the chamber (crossings with every surface not on it; critical points of L)."""
     n = len(polys)
+    import threading
+    lock = threading.Lock()
+    pc = POINT_CACHE and os.path.exists(POINT_CACHE) and json.load(open(POINT_CACHE))
+    pc = pc if pc and pc.get("polys") == polys else {"polys": polys, "curves": {}}
+
     def one(c_cur):
         c, cur = c_cur
         if cur.get("all_known"):
             return ({k: v for k, v in cur.items() if k != "all_known"})
+        if cur["ideal"] in pc["curves"] and not cur.get("crossings_known"):
+            return dict(cur, **pc["curves"][cur["ideal"]])
+        res = one_(c, cur)
+        if POINT_CACHE and not cur.get("crossings_known"):
+            with lock:
+                pc["curves"][cur["ideal"]] = {"points": res["points"], "degenerate": res["degenerate"]}
+                json.dump(pc, open(POINT_CACHE, "w"))
+        return res
+
+    def one_(c, cur):
         body = ['LIB "solve.lib"; LIB "primdec.lib";', ring(),
                 f"ideal G = std(ideal({cur['ideal']}));"]
         body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
@@ -276,7 +292,15 @@ def points(polys, C, log=print, digits=30):
         jobs = [] if cur.get("crossings_known") else [(k, f"s{k}") for k in range(n) if k not in cur["on"] and
                                                       (TAGS is None or TAGS[k] & set(cur["tags"]))]
         if not lin:
-            body.append(crit_expr())
+            # (L's critical points on the curve: first on the two lowest surfaces through it, one determinant
+            #  det(grad p, grad q, grad L, 1) on the curve (its zeros there hold the curve's critical points, and
+            #  maybe a few more where p and q meet otherwise: those only cut an arc); where it vanishes on the whole
+            #  curve, every 4 x 4 minor of the curve's own Jacobian)
+            two = sorted(cur["on"], key=lambda k: (len(polys[k]), k))[:2]
+            rows = "; ".join(f"JQ[jj,{c_ + 1}]=diff(s{k},var(jj))" for c_, k in enumerate(two))
+            body.append(f"matrix JQ[4][4]; for(jj=1;jj<=4;jj++){{ {rows}; JQ[jj,3]=diff({L},var(jj)); JQ[jj,4]=1; }} "
+                        f"ideal CR = det(JQ);")
+            body.append(f"J = std(G + CR + ideal(b1+b2+b3+b4-1)); if(dim(J)>0){{ {crit_expr()} }}")
             jobs.append(("crit", "CR"))
         for tag, expr in jobs:
             ex = expr if tag == "crit" else f"ideal({expr})"
@@ -367,6 +391,8 @@ def main(group):
     SP = exactspec.get(group)
     set_spec(SP)
     PAIR_CACHE = os.path.join(HERE, f"a4_curves_{group}_pairs.json")
+    global POINT_CACHE
+    POINT_CACHE = os.path.join(HERE, f"a4_curves_{group}_points.json")
     SYMS.clear()
     for perm in SP.syms:
         B_ = exactspec.B
