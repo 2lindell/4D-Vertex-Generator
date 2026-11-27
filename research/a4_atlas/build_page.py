@@ -305,6 +305,107 @@ def notes_f4(g, d, syms):
     ]
 
 
+def outlines(d, tol=2.5e-3):
+    """Each wall's and region's outline, for drawing when it is selected (as on the swirlprism page): the edges of its
+    pieces (a wall's pieces; a region's outer walls and mirror patches), each labelled with the named line it lies along
+    ("" where it is only where walls meet), chained into polylines. Edges along the chamber's own edges are left to the
+    frame; a wall's edge shared by two of its own pieces (where another wall crosses it) is inside it, not drawn."""
+    from collections import defaultdict
+    from scipy.spatial import cKDTree
+    dom = d["domain"]
+    DV = np.asarray(dom["verts"], float)
+    frame = [(DV[a], DV[b]) for a, b in dom["edges"]]
+
+    def seg_dist(p, a, b):
+        ab = b - a
+        s = np.clip((p - a) @ ab / max(ab @ ab, 1e-30), 0, 1)
+        return np.linalg.norm(p - (a + s * ab))
+    on_frame = lambda p: min(seg_dist(p, a, b) for a, b in frame) < tol
+    # (the named lines, densified, in one tree)
+    LP, LI = [], []
+    for s in d["lines"]:
+        P = np.asarray(s["pts"], float)
+        for a, b in zip(P, P[1:]):
+            n = max(1, int(np.ceil(np.linalg.norm(b - a) / (tol / 2))))
+            for m in range(n + 1):
+                LP.append(a + (b - a) * m / n)
+                LI.append(s["id"])
+    tree = cKDTree(np.array(LP)) if LP else None
+
+    def line_of(p, q):
+        if tree is None:
+            return ""
+        got = None
+        for x in (p, q, (p + q) / 2):
+            ids = {LI[i] for i in tree.query_ball_point(x, tol)}
+            got = ids if got is None else got & ids
+            if not got:
+                return ""
+        return sorted(got)[0]
+
+    def edges_of(meshes, drop_shared):
+        cnt, at = defaultdict(int), {}
+        for V, F in meshes:
+            V = np.asarray(V, float)
+            k = [tuple(np.round(v, 5)) for v in V]
+            ec = defaultdict(int)
+            for f in F:
+                for a, b in ((f[0], f[1]), (f[1], f[2]), (f[2], f[0])):
+                    ec[(min(k[a], k[b]), max(k[a], k[b]))] += 1
+            for e, c in ec.items():
+                if c == 1:
+                    cnt[e] += 1
+                    at[e] = (np.array(e[0]), np.array(e[1]))
+        out = []
+        for e, c in cnt.items():
+            if drop_shared and c > 1:
+                continue
+            p, q = at[e]
+            if on_frame(p) and on_frame(q) and on_frame((p + q) / 2):
+                continue
+            out.append((line_of(p, q), e[0], e[1]))
+        return out
+
+    def chain(edges):
+        by = defaultdict(list)
+        for lab, a, b in edges:
+            by[lab].append((a, b))
+        res = []
+        for lab, E in by.items():
+            adj = defaultdict(list)
+            for n, (a, b) in enumerate(E):
+                adj[a].append(n)
+                adj[b].append(n)
+            used = set()
+            order = sorted(range(len(E)), key=lambda n: min(len(adj[E[n][0]]), len(adj[E[n][1]])))
+            for n in order:
+                if n in used:
+                    continue
+                a, b = E[n]
+                start = a if len(adj[a]) == 1 else b
+                line, cur, m = [start], start, n
+                while m is not None and m not in used:
+                    used.add(m)
+                    x, y = E[m]
+                    cur = y if x == cur else x
+                    line.append(cur)
+                    m = next((k for k in adj[cur] if k not in used), None)
+                res.append({"line": lab, "pts": [list(map(float, p)) for p in line]})
+        return res
+    out = {}
+    by_wall = defaultdict(list)
+    for w in d["walls"]:
+        by_wall[w["id"]].append((w["verts"], w["faces"]))
+    for wid, meshes in by_wall.items():
+        out[wid] = chain(edges_of(meshes, True))
+    for rid, sh in (d.get("shells") or {}).items():
+        meshes = [(d["walls"][wi]["verts"], d["walls"][wi]["faces"]) for wi in sh.get("walls", [])]
+        if sh.get("verts"):
+            meshes.append((sh["verts"], sh["faces"]))
+        out[rid] = chain(edges_of(meshes, False))
+    return out
+
+
 def main(fam="a4"):
     FAM = FAMILIES[fam]
     syms = FAM["symmetries"]
@@ -338,6 +439,7 @@ def main(fam="a4"):
             d["fold"] = {"axis": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 1, 0]))],
                          "axisName": "the swap's axis β1 = β4, β2 = β3 (seeds here are fixed by the swap)",
                          "plane": [M.r5(half([1, 0, 0, 1])), M.r5(half([0, 1, 0, 0])), M.r5(half([0, 0, 1, 0]))]}
+        d["outlines"] = outlines(d)
         maps[g] = d
     ids = {g: {t["id"] for t in d["types"]} for g, d in maps.items()}
     names = {s["key"]: s["name"] for s in syms}
