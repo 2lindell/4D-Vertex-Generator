@@ -1,13 +1,13 @@
 {
- "pieces": 136,
+ "pieces": 210,
  "wall pieces (off the mirrors)": 14,
  "wall pieces read at a point under 1e-3 from their edges": 0,
  "wall pieces whose edges do not close": 0,
  "edge segments with no wall on their other surface": 0,
- "wall pieces whose swap image reads another shape": 14,
+ "wall pieces whose swap image reads another shape": 0,
  "edge segments off their surfaces by more than 1e-7": 0,
- "map points with no swap image within 1e-6": 232,
- "segments with no swap image": 907,
+ "map points with no swap image within 1e-6": 0,
+ "segments with no swap image": 0,
  "pieces off the mirrors reading a line or point shape": 0,
  "mirror pieces not reading a wall shape": 16,
  "wall pieces by shape (mirrors too)": {
@@ -23,142 +23,7 @@
   "wall_08_1152v_3552c"
  ],
  "not closing": [],
- "swap": [
-  [
-   6,
-   "petbosc",
-   7,
-   [],
-   7
-  ],
-  [
-   6,
-   "petbosc",
-   3,
-   [
-    [
-     6,
-     "petbosc",
-     4
-    ]
-   ],
-   2
-  ],
-  [
-   6,
-   "petbosc",
-   4,
-   [
-    [
-     6,
-     "petbosc",
-     3
-    ]
-   ],
-   3
-  ],
-  [
-   6,
-   "petbosc",
-   14,
-   [],
-   14
-  ],
-  [
-   22,
-   "sigawbosc",
-   12,
-   [],
-   12
-  ],
-  [
-   22,
-   "sigawbosc",
-   11,
-   [],
-   11
-  ],
-  [
-   29,
-   "catbosc",
-   6,
-   [],
-   6
-  ],
-  [
-   29,
-   "catbosc",
-   10,
-   [],
-   10
-  ],
-  [
-   34,
-   "wall_07_1152v_3552c",
-   10,
-   [
-    [
-     34,
-     "wall_07_1152v_3552c",
-     10
-    ]
-   ],
-   9
-  ],
-  [
-   34,
-   "wall_07_1152v_3552c",
-   10,
-   [
-    [
-     34,
-     "wall_07_1152v_3552c",
-     10
-    ]
-   ],
-   9
-  ],
-  [
-   34,
-   "wall_03_1152v_3552c",
-   12,
-   [
-    [
-     34,
-     "wall_03_1152v_3552c",
-     14
-    ]
-   ],
-   11
-  ],
-  [
-   34,
-   "wall_03_1152v_3552c",
-   14,
-   [
-    [
-     34,
-     "wall_03_1152v_3552c",
-     12
-    ]
-   ],
-   13
-  ],
-  [
-   39,
-   "gigawbosc",
-   18,
-   [],
-   18
-  ],
-  [
-   39,
-   "gigawbosc",
-   24,
-   [],
-   24
-  ]
- ],
+ "swap": [],
  "walls inserted from their seeds": [
   [
    "wall_02_1152v_3552c",
@@ -166,20 +31,30 @@
    "no face holds the seed"
   ],
   [
+   "wall_02_1152v_3552c",
+   57,
+   "no face holds the seed"
+  ],
+  [
    "wall_03_1152v_3552c",
    34,
-   955,
+   2157,
    "read b5d5d87bc8e2"
   ],
   [
    "wall_03_1152v_3552c",
    34,
-   959,
+   2165,
    "read b5d5d87bc8e2"
   ],
   [
    "wall_08_1152v_3552c",
    33,
+   "no face holds the seed"
+  ],
+  [
+   "wall_08_1152v_3552c",
+   57,
    "no face holds the seed"
   ]
  ]

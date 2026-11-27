@@ -45,6 +45,10 @@ def sing(script, timeout=None):
         os.unlink(path)
     if r.returncode != 0:
         raise RuntimeError(r.stderr[-2000:])
+    if "   ? " in r.stdout or "   ? " in r.stderr:
+        # (Singular prints an error and goes on: a polynomial it could not read would drop out of every pair)
+        bad = [ln for ln in (r.stdout + r.stderr).splitlines() if ln.startswith("   ? ")]
+        raise RuntimeError("Singular: " + " | ".join(bad[:6]))
     return r.stdout
 
 

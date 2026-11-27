@@ -58,8 +58,12 @@ class Spec:
         return max(abs(v.imag) for v in z[:4]) <= 1e-20 and min(v.real for v in z[:4]) >= -1e-20
 
     def poly_str(self, e):
-        s = sp.sstr(sp.expand(e)).replace("**", "^")
-        return s.replace("sqrt(2)", "s")
+        """The polynomial for Singular: its denominators cleared (Singular reads b^3/2 as b^(3/2)), sqrt(2) as s."""
+        S_ = sp.Symbol("s")
+        e = sp.expand(sp.expand(e).subs(sp.sqrt(2), S_))
+        den = sp.ilcm(*[sp.fraction(c)[1] for c in sp.Poly(e, *B, S_).coeffs()] + [1])
+        e = sp.expand(e * den)
+        return sp.sstr(e).replace("**", "^")
 
     def sympify(self, text):
         return sp.sympify(text.replace("^", "**"), locals={"s": sp.sqrt(2)})
