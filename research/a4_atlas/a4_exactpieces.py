@@ -30,29 +30,106 @@ import a4_snub as SN  # noqa: E402
 X = SURFS = None
 
 
+ARC = {}
+TOL = float(os.environ.get("A4_ARC_TOL", "1e-5"))   # (how near the kept chain stays to the traced one)
+
+
+def arc_pts(i):
+    """Arc i's points for meshing, the same for every face it bounds: its traced chain thinned (Douglas-Peucker) so
+    that the chain kept is within 1e-6 of the traced one and no two kept points are over 6e-3 apart. Where two arcs
+    run close (near a point where many meet) the points they need are kept; neighbouring faces share them exactly."""
+    if i not in ARC:
+        Q = np.asarray(X["segments"][i]["pts"], float)
+        keep = np.zeros(len(Q), bool)
+        keep[0] = keep[-1] = True
+        stack = [(0, len(Q) - 1)]
+        while stack:
+            a, b = stack.pop()
+            if b - a < 2:
+                continue
+            d = Q[a + 1:b] - Q[a]
+            u = Q[b] - Q[a]
+            uu = u @ u + 1e-300
+            t = np.clip(d @ u / uu, 0, 1)
+            dev = np.linalg.norm(d - t[:, None] * u, axis=1)
+            k = int(np.argmax(dev))
+            if dev[k] > TOL or np.linalg.norm(u) > 6e-3:
+                m = a + 1 + k if dev[k] > TOL else (a + b) // 2
+                keep[m] = True
+                stack += [(a, m), (m, b)]
+        ARC[i] = Q[keep]
+    return ARC[i]
+
+
+def face_loop(F):
+    pts = []
+    for i, fw in F["cycle"]:
+        Q = arc_pts(i)
+        pts.extend((Q if fw else Q[::-1])[:-1])
+    L = [pts[0]]
+    for q in pts[1:]:
+        if np.linalg.norm(q - L[-1]) > 1e-12:
+            L.append(q)
+    if np.linalg.norm(L[-1] - L[0]) <= 1e-12:
+        L.pop()
+    return np.array(L)
+
+
 def mesh_face(fi):
     F = X["faces"][fi]
     k = F["surface"]
     S = SURFS[k]
     planar = k < 4 or S.expr.as_poly().total_degree() == 1
-    loop = np.asarray(F["loop"], float)
-    r = A.tri_face(S, [loop], planar)
+    r = A.tri_face(S, [face_loop(F)], planar)
     if r is None:
-        # (the arcs' own chains, not thinned: where two arcs run close, near a point where many meet, the thinned
-        #  chords cross; the traced chains are dense exactly there)
-        pts = []
-        for i, fw in F["cycle"]:
-            Q = np.asarray(X["segments"][i]["pts"], float)
-            Q = Q if fw else Q[::-1]
-            pts.extend(Q[:-1])
-        L = [pts[0]]
-        for q in pts[1:]:
-            if np.linalg.norm(q - L[-1]) > 1e-9:
-                L.append(q)
-        r = A.tri_face(S, [np.array(L)], planar)
-    if r is None:
-        r = split_mesh(S, cusps_cut(S, F), planar)
+        r = graph_mesh(S, cusps_cut(S, F), planar)
     return fi, (None if r is None else {"verts": np.asarray(r[0], float), "faces": np.asarray(r[1], int)})
+
+
+def graph_mesh(S, L, planar):
+    """A face that is a graph over the plane across its loop's mean normal (no two of its points on one line along
+    that normal): its loop laid flat and triangulated there (no point added on the rim), each inner point moved onto
+    the surface along that one normal. Laid flat, the triangles cannot overlap, and lifted along one direction they
+    stay so. Used where the surface's own normal is no guide: at a singular point of the surface, a corner of the
+    face, where it turns every way. Checked: every triangle faces the same way along the normal used."""
+    import triangle as tr
+    n = len(L)
+    nm = np.mean([P.normal(S, x) for x in L[:: max(1, n // 60)]], 0)
+    nm = nm - nm.mean()
+    nm /= np.linalg.norm(nm) + 1e-300
+    e = np.linalg.svd(np.vstack([np.ones(4) / 2, nm]))[2][2:]
+    c = L.mean(0)
+    Q = np.c_[(L - c) @ e[0], (L - c) @ e[1]]
+    # (triangle fails, or crashes, on two equal points: none closer than 1e-11 laid flat)
+    keep = [0]
+    for i in range(1, n):
+        if np.linalg.norm(Q[i] - Q[keep[-1]]) > 1e-11:
+            keep.append(i)
+    if np.linalg.norm(Q[keep[-1]] - Q[keep[0]]) <= 1e-11:
+        keep.pop()
+    L, Q, n = L[keep], Q[keep], len(keep)
+    if n < 3 or len(np.unique(np.round(Q, 11), axis=0)) != n or P.crossings(Q):
+        return None
+    try:
+        T = tr.triangulate({"vertices": np.ascontiguousarray(Q), "segments": [[i, (i + 1) % n] for i in range(n)]},
+                           f"pYq20a{P.MAX_AREA:.3g}")
+    except Exception:  # noqa: BLE001
+        return None
+    V = np.empty((len(T["vertices"]), 4))
+    V[:n] = L
+    for i in range(n, len(V)):
+        u, v = T["vertices"][i]
+        y = c + u * e[0] + v * e[1]
+        y = y if planar else P.lift(S, y, nm)
+        if y is None:
+            return None
+        V[i] = y
+    Fa = np.asarray(T["triangles"])
+    cr = np.cross((V[Fa[:, 1]] - V[Fa[:, 0]]) @ A.BZ.T, (V[Fa[:, 2]] - V[Fa[:, 0]]) @ A.BZ.T)
+    d = cr @ (nm @ A.BZ.T)
+    if not ((d > 0).all() or (d < 0).all()):
+        return None
+    return V, Fa.tolist()
 
 
 def split_mesh(S, L, planar, depth=3):
@@ -65,10 +142,37 @@ def split_mesh(S, L, planar, depth=3):
     seg = np.linalg.norm(np.diff(np.vstack([L, L[:1]]), axis=0), axis=1)
     cum = np.concatenate([[0], np.cumsum(seg)])
     n = len(L)
-    for shift in (0.0, 0.125, 0.25, 0.375):
-        i = int(np.searchsorted(cum, shift * cum[-1])) % n
-        j = int(np.searchsorted(cum, (shift + 0.5) * cum[-1])) % n
-        if abs(i - j) < 3:
+    # (the chord must lie inside the face: seen flat across the loop's mean normal, it crosses no edge of the loop and
+    #  its middle is inside; a straight chord across a face that is not convex can leave it)
+    nm = np.mean([P.normal(S, x) for x in L[:: max(1, n // 40)]], 0)
+    nm = nm - nm.mean()
+    nm /= np.linalg.norm(nm) + 1e-300
+    e = np.linalg.svd(np.vstack([np.ones(4) / 2, nm]))[2][2:]
+    F2 = np.c_[L @ e[0], L @ e[1]]
+
+    def inside_chord(i, j):
+        a, b = F2[i], F2[j]
+        for k in range(n):
+            if k in (i, j) or (k + 1) % n in (i, j):
+                continue
+            p, q = F2[k], F2[(k + 1) % n]
+            d1 = np.cross(b - a, p - a)
+            d2 = np.cross(b - a, q - a)
+            d3 = np.cross(q - p, a - p)
+            d4 = np.cross(q - p, b - p)
+            if d1 * d2 < 0 and d3 * d4 < 0:
+                return False
+        m = (a + b) / 2
+        ang = np.arctan2(F2[:, 1] - m[1], F2[:, 0] - m[0])
+        w = np.sum(np.angle(np.exp(1j * (np.roll(ang, -1) - ang)))) / (2 * np.pi)
+        return abs(round(w)) == 1
+    for shift in np.arange(0, 0.5, 1 / 32):
+        for half in (0.5, 0.4, 0.6, 0.3, 0.7):
+            i = int(np.searchsorted(cum, shift * cum[-1])) % n
+            j = int(np.searchsorted(cum, ((shift + half) % 1) * cum[-1])) % n
+            if abs(i - j) >= 3 and inside_chord(i, j):
+                break
+        else:
             continue
         a, b = L[i], L[j]
         m = max(3, int(np.linalg.norm(b - a) / 4e-3))
@@ -102,7 +206,7 @@ def cusps_cut(S, F):
     sliver (its area of the order of the cube of that distance)."""
     chains = []
     for i, fw in F["cycle"]:
-        Q = np.asarray(X["segments"][i]["pts"], float)
+        Q = arc_pts(i)
         chains.append(Q if fw else Q[::-1])
     allp = np.vstack(chains)
     n = np.mean([P.normal(S, x) for x in allp[:: max(1, len(allp) // 40)]], 0)
