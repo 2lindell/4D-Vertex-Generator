@@ -166,7 +166,7 @@ def curves(polys, log=print):
         if f"{i},{j}" in cache["pairs"]:
             return cache["pairs"][f"{i},{j}"], None
         # (a pair whose swap image pair is already done: its curves are those, carried by the swap, exactly)
-        if SWAP_OF and tuple(sorted((SWAP_OF[i], SWAP_OF[j]))) < (i, j):
+        if SWAP_OF:
             r = swapped(i, j)
             if r is not None:
                 return r, None
