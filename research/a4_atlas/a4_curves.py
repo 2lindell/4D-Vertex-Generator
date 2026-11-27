@@ -152,10 +152,10 @@ def curves(polys, log=print):
         if src is None or (a, b) == (i, j):
             return None
         img = ",".join(f"b{SWAP_PERM[k] + 1}" for k in range(4)) + (",s" if NVAR == 5 else "")
-        body = [HEAD, f"map w = r, {img};", "ideal G;"]
+        body = [HEAD, f"map w = r, {img};", "ideal G; ideal I0;"]
         for ln in src.splitlines():
             if ln.startswith("C "):
-                body.append(f'G = std(w(ideal({ln.split(" ", 3)[3]}))); print("C {i} {j} "+string(G));')
+                body.append(f'I0 = ideal({ln.split(" ", 3)[3]}); G = std(w(I0)); print("C {i} {j} "+string(G));')
         log(f"  pair ({i}, {j}): the swap image of pair ({a}, {b})")
         return sing("\n".join(body), timeout=600)
 
