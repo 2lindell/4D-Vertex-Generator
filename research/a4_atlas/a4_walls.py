@@ -170,7 +170,7 @@ def solve(X, surfs, group, log=print, rounds=12, forced=None):
                      if not (len(beside[(k, i)]) == 2 and root(beside[(k, i)][0]) == root(beside[(k, i)][1]))]
             # (its deepest point: of its faces' points, the farthest from its own edges)
             cand = [np.asarray(x, float) for fi in members for x in list(faces[fi]["probes"]) +
-                    list(faces[fi].get("cut probes", []))]
+                    list(faces[fi].get("cut probes", [])) + list(faces[fi].get("inner pts", []))]
             E_ = [np.asarray(segs[i]["pts"], float) for i, _ in edges]
             best, bd = None, -1.0
             for x in cand:

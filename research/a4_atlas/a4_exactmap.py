@@ -9,6 +9,8 @@ import os
 import pickle
 import sys
 import time
+
+import numpy as np
 from multiprocessing import Pool
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -28,7 +30,18 @@ def walk(k):
     for loops, hc in A.faces_on(k, S, segs, Pts):
         cp = Cl.probes_of(S, k, loops[0], hc[0], segs, frac=0.02)
         pr = Cl.probes_of(S, k, loops[0], hc[0], segs, minlen=2e-3) or cp
-        out.append({"surface": k, "loop": loops[0], "cycle": hc[0], "probes": pr or [], "cut probes": cp or pr or []})
+        # (points well inside the face, to read it at: the inner vertices of a mesh of it, on the surface)
+        inner = []
+        try:
+            r = A.tri_face(S, [np.asarray(loops[0], float)], k < 4 or S.expr.as_poly().total_degree() == 1)
+            if r is not None:
+                V = np.asarray(r[0], float)
+                nb = len(loops[0])
+                inner = list(V[nb:][:: max(1, (len(V) - nb) // 60)])
+        except Exception:  # noqa: BLE001
+            inner = []
+        out.append({"surface": k, "loop": loops[0], "cycle": hc[0], "probes": pr or [], "cut probes": cp or pr or [],
+                    "inner pts": inner})
     return k, out
 
 

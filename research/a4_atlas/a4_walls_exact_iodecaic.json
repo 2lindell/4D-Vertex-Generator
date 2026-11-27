@@ -1,0 +1,28 @@
+{
+ "pieces": 24,
+ "wall pieces (off the mirrors)": 8,
+ "wall pieces read at a point under 1e-3 from their edges": 0,
+ "wall pieces whose edges do not close": 0,
+ "edge segments with no wall on their other surface": 0,
+ "wall pieces whose swap image reads another shape": 0,
+ "edge segments off their surfaces by more than 1e-7": 0,
+ "map points with no swap image within 1e-6": 0,
+ "segments with no swap image": 0,
+ "pieces off the mirrors reading a line or point shape": 0,
+ "mirror pieces not reading a wall shape": 0,
+ "wall pieces by shape (mirrors too)": {
+  "bipyosbid": 4,
+  "gabipard": 2,
+  "gobcated": 2,
+  "mabipard": 2,
+  "mobcated": 2,
+  "petosbid": 2,
+  "sabipard": 2,
+  "sobcated": 2,
+  "tetosbid": 2
+ },
+ "the group's walls with no piece": [],
+ "not closing": [],
+ "swap": [],
+ "walls inserted from their seeds": []
+}
