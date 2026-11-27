@@ -332,8 +332,13 @@ def solve(X, surfs, group, log=print, rounds=12, forced=None):
                              sum(f is None for f in img)))
     # (d) exact edges
     edge_segs = {i for p in walls for i, _ in p["edges"]}
+    # (at a singular point of a surface its gradient vanishes and the relative residual reads 0/0: such points are
+    #  measured by the plain value instead)
+    def rel_(S_, x):
+        n = np.linalg.norm(S_.g(x))
+        return abs(S_.f(x)) / n if n > 1e-6 else abs(S_.f(x))
     off = [i for i in edge_segs
-           if max(REL(surfs[m], x) for x in np.asarray(segs[i]["pts"], float) for m in segs[i]["on"]) > 1e-7]
+           if max(rel_(surfs[m], x) for x in np.asarray(segs[i]["pts"], float) for m in segs[i]["on"]) > 1e-7]
     # (wall shapes found, and the group's walls not found)
     found = Counter(nm(p["key"]) for p in pieces if dim.get(p["key"]) == "wall")
     listed = sorted({name[k] for k, d in dim.items() if d == "wall"})
