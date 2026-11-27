@@ -90,16 +90,34 @@ def curves(polys, log=print):
     n = len(polys)
     from concurrent.futures import ThreadPoolExecutor
 
-    def row(i):
-        body = [HEAD] + [f"poly s{k} = {p};" for k, p in enumerate(polys)] + ["list L; int c; ideal G;"]
-        for j in range(i + 1, n):
-            body.append(f'L = minAssChar(ideal(s{i},s{j}{EXTRA})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
-                        f'if(dim(G)==2){{print("C {i} {j} "+string(G));}}}}')
-        r = sing("\n".join(body), timeout=None)
-        log(f"  pairs of surface {i}: done")
-        return r
+    import subprocess as _sp
+
+    def pair(ij):
+        """One pair's components: characteristic sets (minAssChar) within a minute, else Gianni-Trager-Zacharias
+        (minAssGTZ) within ten; a pair neither finishes is reported, never left out silently."""
+        i, j = ij
+        for how, limit in (("minAssChar", 60), ("minAssGTZ", 600)):
+            body = [HEAD, f"poly p = {polys[i]};", f"poly q = {polys[j]};", "list L; int c; ideal G;",
+                    f'L = {how}(ideal(p,q{EXTRA})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
+                    f'if(dim(G)==2){{print("C {i} {j} "+string(G));}}}}']
+            try:
+                return sing("\n".join(body), timeout=limit), None
+            except _sp.TimeoutExpired:
+                continue
+        return "", (i, j)
+    jobs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+    outs, failed = [], []
     with ThreadPoolExecutor(4) as ex:
-        out = "\n".join(ex.map(row, range(n)))
+        for k, (r, bad) in enumerate(ex.map(pair, jobs)):
+            outs.append(r)
+            if bad:
+                failed.append(bad)
+                log(f"  pair {bad}: no decomposition within the limits")
+            if (k + 1) % 200 == 0:
+                log(f"  pairs: {k + 1}/{len(jobs)}")
+    if failed:
+        raise RuntimeError(f"pairs not decomposed: {failed}")
+    out = "\n".join(outs)
     found = {}
     for line in out.splitlines():
         if not line.startswith("C "):
