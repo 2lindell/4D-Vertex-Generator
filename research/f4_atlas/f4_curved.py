@@ -103,7 +103,9 @@ def build(group):
                 y = np.clip(x + (1 if side == 0 else -1) * 1e-4 * P.normal(surfs[k], x), 0, None)
             rep[r] = y / y.sum()
     rank = {"point": 0, "line": 1, "wall": 2, "region": 3}
-    keys = sorted(k for k in rep if k is not None)
+    # (a key the atlas does not list is a shape only where it fills a wall piece or a region; an arc reading such a
+    #  key is an edge of the map, where walls meet)
+    keys = sorted(k for k in rep if k is not None and (k in dim or kind_seen[k] & {"wall", "region"}))
     for k in keys:
         if k not in dim:
             dim[k] = max(kind_seen[k], key=lambda d: rank[d])
