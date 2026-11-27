@@ -263,8 +263,10 @@ def parse_c(s):
 def points(polys, C, log=print, digits=30):
     """Stage 2: each curve's points in the chamber (crossings with every surface not on it; critical points of L)."""
     n = len(polys)
-    out_all = []
-    for c, cur in enumerate(C):
+    def one(c_cur):
+        c, cur = c_cur
+        if cur.get("all_known"):
+            return ({k: v for k, v in cur.items() if k != "all_known"})
         body = ['LIB "solve.lib"; LIB "primdec.lib";', ring(),
                 f"ideal G = std(ideal({cur['ideal']}));"]
         body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
@@ -300,10 +302,13 @@ def points(polys, C, log=print, digits=30):
         if cur.get("crossings_known"):
             pts = [p for p in cur["points"] if p["by"] != "crit"] + pts
             deg = [d for d in cur.get("degenerate", []) if d != "crit"] + deg
-        out_all.append(dict({k: v for k, v in cur.items() if k != "crossings_known"}, points=pts, degenerate=deg))
+        res = (dict({k: v for k, v in cur.items() if k != "crossings_known"}, points=pts, degenerate=deg))
         if c % 20 == 0:
             log(f"  curve {c}/{len(C)}: {len(pts)} points in the chamber")
-    return out_all
+        return res
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(int(os.environ.get('A4_POINT_JOBS', '4'))) as ex:
+        return list(ex.map(one, enumerate(C)))
 
 
 def meets(C, log=print, digits=30):
@@ -392,6 +397,31 @@ def main(group):
     if "crit-only" in sys.argv and os.path.exists(prev):
         old = {c["ideal"]: c for c in json.load(open(prev))["curves"]}
         C = [dict(old[c["ideal"]], crossings_known=True) for c in C]
+    # (a curve an earlier run solved on the same surfaces, written otherwise, keeps its points: its crossings renamed
+    #  by surface (matched exactly), its critical points of L as they were; where curves meet is solved again)
+    if os.path.exists(prev) and "crit-only" not in sys.argv:
+        P0 = json.load(open(prev))
+        if P0.get("polys") != polys:
+            olds = [SP.sympify(q) for q in P0["polys"]]
+            rn = {}
+            for k, e in enumerate(olds):
+                m = [j for j, f in enumerate(SP.exprs) if exactspec.same_surface(e, f)]
+                if len(m) == 1:
+                    rn[str(k)] = str(m[0])
+            if len(set(rn.values())) == len(polys):
+                o = {c["ideal"]: c for c in P0["curves"]}
+                reused = 0
+                for i, cur in enumerate(C):
+                    c0 = o.get(cur["ideal"])
+                    if c0 is None or not all(p_["by"] in rn or p_["by"] == "crit" or p_["by"].startswith("curve ")
+                                             for p_ in c0["points"]):
+                        continue
+                    pts = [dict(p_, by=rn.get(p_["by"], p_["by"])) for p_ in c0["points"]
+                           if not p_["by"].startswith("curve ")]
+                    C[i] = dict(cur, points=pts, degenerate=[rn.get(d, d) for d in c0.get("degenerate", [])],
+                                all_known=True)
+                    reused += 1
+                print(f"  {reused} curves' points from the earlier run")
     C = points(polys, C, log=print)
     C = meets(C, log=print)
     inside = [c for c in C if c["points"]]
