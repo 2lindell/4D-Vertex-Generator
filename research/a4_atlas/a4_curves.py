@@ -117,7 +117,32 @@ def shadow_pair(p, q, i, j, log=print):
     comps = []
     for f in facs:
         got = None
-        for how in ("L = minAssGTZ(I);", "L = list(radical(equidimMax(I)));"):
+        for how in ("L = minAssGTZ(I);", "LIFT", "L = list(radical(equidimMax(I)));"):
+            if how == "LIFT":
+                # (the curve over an irreducible factor f of the resultant in b4 when it lies over f one to one: an
+                #  element a*b4 - c of the pair's ideal with a not vanishing on f gives b4 = c/a there, and
+                #  (f, a*b4 - c) saturated by a is the curve's prime ideal (its ring is that of f with a inverted, a
+                #  domain); kept only if p and q lie in it)
+                v = "b4" if "b4" not in f else "b1"
+                rest = [w for w in ("b1", "b2", "b3", "b4") if w != v]
+                body = [PR.replace("(b1,b2,b3,b4),dp", f"({v},{','.join(rest)}),(dp(1),dp(3))"),
+                        f"poly p = {p}; poly q = {q}; poly f = {f};",
+                        f"ideal F0 = std(ideal(f)); ideal J = std(sat(std(ideal(p,q,f)), {'*'.join(rest)})); int k; poly g; "
+                        "poly a; matrix Co; ideal K;",
+                        f"for(k=1;k<=size(J);k++){{ if(deg(J[k],intvec(1,0,0,0))==1){{ Co=coeffs(J[k],{v}); "
+                        "if(reduce(Co[2,1],F0)!=0){ g=J[k]; a=Co[2,1]; break; } } }",
+                        'if(g!=0){ K=std(sat(ideal(f,g),a)); if(dim(K)==2 && reduce(p,K)==0 && reduce(q,K)==0){ '
+                        'for(k=1;k<=size(K);k++){ K[k]=cleardenom(K[k]); } print("P "+string(K)); } }']
+                try:
+                    r_ = [ln[2:].strip() for ln in sing("\n".join(body), timeout=600).splitlines()
+                          if ln.startswith("P ")]
+                except _sp.TimeoutExpired:
+                    continue
+                if r_:
+                    got = r_
+                    log(f"  pair ({i}, {j}): the curve over a factor lifted ({v} rational on it)")
+                    break
+                continue
             body = [PR, f"poly p = {p}; poly q = {q}; poly f = {f};", "ideal I = std(ideal(p,q,f)); list L; int c; int k; ideal G;",
                     f'if(dim(I)==2){{ {how} for(c=1;c<=size(L);c++){{ G=std(L[c]); if(dim(G)==2){{ '
                     'for(k=1;k<=size(G);k++){ G[k]=cleardenom(G[k]); } print("P "+string(G)); } } }']
