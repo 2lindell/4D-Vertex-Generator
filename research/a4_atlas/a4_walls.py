@@ -44,6 +44,51 @@ SEEDS = []          # (wall name, its exact key, its example seed put exactly on
 
 
 def dims_of(group):
+    import exactspec
+    SP = exactspec.get(group)
+    if SP.f4:
+        return dims_of_f4(group, SP)
+    return dims_of_a4(group)
+
+
+def dims_of_f4(group, SP):
+    """As dims_of_a4, from the contic / toxitic atlases' shapes (exactspec.f4_shapes), each point put exactly on its
+    shape's set (the domain faces its zero coordinates name, then the surfaces nearest it) and read."""
+    import a4_exact as E
+    surfs = [E.Surf(e, n) for n, e in zip(SP.names, SP.exprs)]
+    codim = {"wall": 1, "line": 2, "point": 3}
+    ex, pts = [], []
+    for nm_, kind, x in exactspec_shapes(group):
+        x = x / x.sum()
+        if kind in codim:
+            on = [k for k in range(4) if abs(x[k]) < 1e-12]
+            rest = sorted((REL(S, x), k) for k, S in enumerate(surfs) if k >= 4)
+            on += [k for r, k in rest if r < 1e-3][:max(0, codim[kind] - len(on))]
+            y, ok = E.newton(x, [surfs[k] for k in on]) if on else (x, True)
+            if not (ok and np.linalg.norm(y - x) < 1e-3 and y.min() > -1e-12):
+                continue
+            x = np.clip(y, 0, None)
+        ex.append((nm_, kind))
+        pts.append(x)
+    dim, name = {}, {}
+    rank = {"region": 0, "point": 1, "line": 2, "wall": 3}
+    SEEDS.clear()
+    for (nm_, kind), y, k in zip(ex, pts, SP.classify(pts)):
+        if k is None:
+            continue
+        if kind == "wall":
+            SEEDS.append((nm_, k, y))
+        if k not in dim or rank[kind] > rank[dim[k]]:
+            dim[k], name[k] = kind, nm_
+    return dim, name
+
+
+def exactspec_shapes(group):
+    import exactspec
+    return exactspec.f4_shapes(group)
+
+
+def dims_of_a4(group):
     """Each shape key's kind (region, wall, line, point) and name, from the group's map. The map's example seeds are
     printed to 4 decimals, off a line by up to 1e-4, and the mirrors' shapes carry the map's own keys, not the exact
     reading's. So each wall, line and point example is put exactly onto its shape's set first (the mirrors its zero
@@ -117,7 +162,13 @@ def seg_dist(x, Q):
     return float(np.min(np.linalg.norm(A_ + u[:, None] * D_ - x, axis=1)))
 
 
+SPEC = None
+
+
 def solve(X, surfs, group, log=print, rounds=12, forced=None):
+    global SPEC
+    import exactspec
+    SPEC = exactspec.get(group)
     segs, faces = X["segments"], X["faces"]
     dim, name = dims_of(group)
     kn = X.get("keyname", {})
@@ -134,7 +185,7 @@ def solve(X, surfs, group, log=print, rounds=12, forced=None):
     def read(points):
         todo = [p for p in points if tuple(np.round(p, 12)) not in cache]
         if todo:
-            for p, (_, k) in zip(todo, SN.classify_many(todo, SN.SUB[group], tol=1e-7)):
+            for p, k in zip(todo, SPEC.classify(todo)):
                 cache[tuple(np.round(p, 12))] = k
         return [cache[tuple(np.round(p, 12))] for p in points]
 
@@ -230,7 +281,7 @@ def solve(X, surfs, group, log=print, rounds=12, forced=None):
     ptree = cKDTree(np.array([Pts[v] for v in live]))
     pt_sw = {}
     for v in live:
-        d, j = ptree.query(np.asarray(Pts[v], float)[::-1])
+        d, j = ptree.query(SPEC.swap(np.asarray(Pts[v], float)))
         if d < 1e-6:
             pt_sw[v] = live[j]
     by_ends = defaultdict(list)
@@ -241,7 +292,7 @@ def solve(X, surfs, group, log=print, rounds=12, forced=None):
         a, b = t["ends"]
         if a not in pt_sw or b not in pt_sw:
             continue
-        Q = np.asarray(t["pts"], float)[:, ::-1]
+        Q = np.asarray(t["pts"], float)[:, SPEC.perm]
         # (the nearest arc with the swapped ends: curves can run within 1e-5 of each other between the same two
         #  points, while an arc's swap image, traced from the swapped level point, lies on it to 1e-15)
         cands = [(max(seg_dist(Q[m], segs[j]["pts"]) for m in (len(Q) // 4, len(Q) // 2, 3 * len(Q) // 4)), j)
@@ -252,7 +303,7 @@ def solve(X, surfs, group, log=print, rounds=12, forced=None):
     for k in range(len(surfs)):
         xs = [np.asarray(t["pts"], float)[len(t["pts"]) // 3] for t in segs if k in t["on"]][:12]
         for m in range(len(surfs)):
-            if xs and all(REL(surfs[m], x[::-1]) < 1e-8 for x in xs):
+            if xs and all(REL(surfs[m], SPEC.swap(x)) < 1e-8 for x in xs):
                 surf_sw[k] = m
                 break
     face_at = {(F["surface"], frozenset(i for i, _ in F["cycle"])): fi for fi, F in enumerate(faces)}
@@ -303,14 +354,17 @@ if __name__ == "__main__":
     for g in [a for a in sys.argv[1:] if a != "exact"]:
         src = "exactmap" if "exact" in sys.argv[2:] else "rewalked"
         X = pickle.load(open(os.path.join(HERE, f"a4_{src}_{g}.pkl"), "rb"))
-        surfs = [P.surf_of(n) for n in X["surfaces"]]
+        import exactspec
+        import a4_exact as E
+        SP_ = exactspec.get(g)
+        surfs = [E.Surf(e, n) for n, e in zip(SP_.names, SP_.exprs)]
         pieces, report = solve(X, surfs, g)
         # (walls the known data puts there: each wall's example seed and its swap image lie on a piece of that wall;
         #  where the solve left the piece out or read it otherwise, its face is held as that wall and all solved again)
         forced, inserted = {}, []
         piece_of = {fi: p for p in pieces for fi in p["faces"]}
         for wname, key, y in SEEDS:
-            for z in (y, y[::-1]):
+            for z in ((y, SP_.swap(y)) if SP_.perm is not None else (y,)):
                 for k, S in enumerate(surfs):
                     if REL(S, z) > 1e-9:
                         continue

@@ -52,7 +52,33 @@ def poly_str(e):
     return sp.sstr(sp.expand(e)).replace("**", "^")
 
 
+VARS, EXTRA, NVAR = "b1,b2,b3,b4", "", 4      # (set from exactspec: F4 adds s = sqrt2, s^2 - 2 in every ideal)
+KEEP = None
 HEAD = 'ring r=0,(b1,b2,b3,b4),dp; option(redSB); LIB "primdec.lib";\n'
+
+
+def set_spec(sp_):
+    global VARS, EXTRA, NVAR, KEEP, HEAD, L
+    VARS, NVAR, KEEP, L = sp_.vars, sp_.nvar, sp_.keep_point, sp_.L
+    EXTRA = ("," + sp_.extra) if sp_.extra else ""
+    HEAD = f'ring r=0,({VARS}),dp; option(redSB); LIB "primdec.lib";\n'
+
+
+def ring():
+    return f"ring r=0,({VARS}),dp; option(redSB);"
+
+
+def crit_expr():
+    """The critical points of L along the curve G, and its singular points: the 4x4 minors of its Jacobian in
+    b1..b4 (not s) with grad L and (1,1,1,1)."""
+    return ("matrix JT[4][size(G)+2]; for(jj=1;jj<=4;jj++){ for(ii=1;ii<=size(G);ii++){ JT[jj,ii]=diff(G[ii],var(jj)); } "
+            f"JT[jj,size(G)+1]=diff({L},var(jj)); JT[jj,size(G)+2]=1; }} ideal CR = minor(JT,4);")
+
+
+def keep(z):
+    if KEEP is not None:
+        return KEEP(z)
+    return max(abs(v.imag) for v in z[:4]) <= 1e-20 and min(v.real for v in z[:4]) >= -1e-20
 
 
 def curves(polys, log=print):
@@ -63,7 +89,7 @@ def curves(polys, log=print):
     def row(i):
         body = [HEAD] + [f"poly s{k} = {p};" for k, p in enumerate(polys)] + ["list L; int c; ideal G;"]
         for j in range(i + 1, n):
-            body.append(f'L = minAssChar(ideal(s{i},s{j})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
+            body.append(f'L = minAssChar(ideal(s{i},s{j}{EXTRA})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
                         f'if(dim(G)==2){{print("C {i} {j} "+string(G));}}}}')
         r = sing("\n".join(body), timeout=None)
         log(f"  pairs of surface {i}: done")
@@ -114,21 +140,21 @@ def points(polys, C, log=print, digits=30):
     n = len(polys)
     out_all = []
     for c, cur in enumerate(C):
-        body = ['LIB "solve.lib"; LIB "primdec.lib";', "ring r=0,(b1,b2,b3,b4),dp; option(redSB);",
+        body = ['LIB "solve.lib"; LIB "primdec.lib";', ring(),
                 f"ideal G = std(ideal({cur['ideal']}));"]
         body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
-        body.append("ideal J; int i; int k; def R; list S;")
+        body.append("ideal J; int i; int k; int ii; int jj; def R; list S;")
         lin = all(len(re.findall(r"\^|\*b", g)) == 0 for g in cur["ideal"].split(","))
         jobs = [] if cur.get("crossings_known") else [(k, f"s{k}") for k in range(n) if k not in cur["on"]]
         if not lin:
-            jobs.append(("crit", f'minor(concat(transpose(jacob(G)), transpose(jacob(ideal({L}))), '
-                                  f'transpose(matrix(ideal(1,1,1,1)))), 4)'))
+            body.append(crit_expr())
+            jobs.append(("crit", "CR"))
         for tag, expr in jobs:
             ex = expr if tag == "crit" else f"ideal({expr})"
             body.append(
                 f'J = std(G + {ex} + ideal(b1+b2+b3+b4-1)); '
                 f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
-                f'for(i=1;i<=size(SOL);i++){{ string t="P {tag}"; for(k=1;k<=4;k++){{t=t+" "+string(SOL[i][k]);}} '
+                f'for(i=1;i<=size(SOL);i++){{ string t="P {tag}"; for(k=1;k<={NVAR};k++){{t=t+" "+string(SOL[i][k]);}} '
                 f'print(t); }} kill R; setring r; def R; }} '
                 f'if(dim(J)>0){{ print("D {tag}"); }}')
         out = sing("\n".join(body))
@@ -137,12 +163,10 @@ def points(polys, C, log=print, digits=30):
             if line.startswith("P "):
                 parts = line.split()
                 tag = parts[1]
-                z = [parse_c(v) for v in parts[2:6]]
-                if max(abs(v.imag) for v in z) > 1e-20:
+                z = [parse_c(v) for v in parts[2:2 + NVAR]]
+                if not keep(z):
                     continue
-                x = [v.real for v in z]
-                if min(x) < -1e-20:
-                    continue
+                x = [v.real for v in z[:4]]
                 pts.append({"by": tag, "beta": [repr(v) for v in x], "exact": parts[2:6]})
             elif line.startswith("D "):
                 deg.append(line.split()[1])
@@ -171,23 +195,23 @@ def meets(C, log=print, digits=30):
                 pairs[a].append(b)
 
     def job(a):
-        body = ['LIB "solve.lib";', "ring r=0,(b1,b2,b3,b4),dp; option(redSB);",
+        body = ['LIB "solve.lib";', ring(),
                 f"ideal G = std(ideal({C[a]['ideal']}));", "ideal J; int i; int k; def R;"]
         for b in pairs[a]:
             body.append(
                 f'J = std(G + ideal({C[b]["ideal"]}) + ideal(b1+b2+b3+b4-1)); '
                 f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
-                f'for(i=1;i<=size(SOL);i++){{ string t="P {b}"; for(k=1;k<=4;k++){{t=t+" "+string(SOL[i][k]);}} '
+                f'for(i=1;i<=size(SOL);i++){{ string t="P {b}"; for(k=1;k<={NVAR};k++){{t=t+" "+string(SOL[i][k]);}} '
                 f'print(t); }} kill R; setring r; def R; }}')
         out = sing("\n".join(body)) if pairs[a] else ""
         got = []
         for line in out.splitlines():
             if line.startswith("P "):
                 parts = line.split()
-                z = [parse_c(v) for v in parts[2:6]]
-                if max(abs(v.imag) for v in z) > 1e-20 or min(v.real for v in z) < -1e-20:
+                z = [parse_c(v) for v in parts[2:2 + NVAR]]
+                if not keep(z):
                     continue
-                got.append((int(parts[1]), {"by": f"curve {parts[1]}", "beta": [repr(v.real) for v in z],
+                got.append((int(parts[1]), {"by": f"curve {parts[1]}", "beta": [repr(v.real) for v in z[:4]],
                                             "exact": parts[2:6]}))
         return a, got
     n = 0
@@ -206,8 +230,11 @@ def main(group):
     import functools
     global print
     print = functools.partial(print, flush=True)
-    X = pickle.load(open(os.path.join(HERE, f"a4_closed_{group}.pkl"), "rb"))
-    polys = [poly_str(P.surf_of(n).expr) for n in X["surfaces"]]
+    import exactspec
+    SP = exactspec.get(group)
+    set_spec(SP)
+    X = {"surfaces": SP.names}
+    polys = [SP.poly_str(e) for e in SP.exprs]
     t = time.time()
     st1 = os.path.join(HERE, f"a4_curves_{group}_stage1.json")
     if os.path.exists(st1) and json.load(open(st1)).get("polys") == polys:

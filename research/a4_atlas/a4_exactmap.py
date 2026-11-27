@@ -48,7 +48,9 @@ def walk(k):
 def main(group):
     global X, SURFS
     X = pickle.load(open(os.path.join(HERE, f"a4_arcs_{group}.pkl"), "rb"))
-    SURFS = [P.surf_of(n) for n in X["surfaces"]]
+    import exactspec
+    SP = exactspec.get(group)
+    SURFS = [E.Surf(e, n) for n, e in zip(SP.names, SP.exprs)]
     A.SURFS = SURFS
     A.EXACT = True
     E.SING = 1e-8

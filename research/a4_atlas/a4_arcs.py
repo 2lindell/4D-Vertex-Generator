@@ -47,31 +47,29 @@ def levels_of(cur):
 def level_points(cur, levels, digits=30):
     if not levels:
         return []
-    body = ['LIB "solve.lib";', "ring r=0,(b1,b2,b3,b4),dp; option(redSB);",
+    body = ['LIB "solve.lib";', AC.ring(),
             f"ideal G = std(ideal({cur['ideal']}));", "ideal J; int i; int k; def R;"]
     for c in levels:
         body.append(
-            f'J = std(G + ideal(b1+b4-({c})*(b1+b2+b3+b4)) + ideal(b1+b2+b3+b4-1)); '
+            f'J = std(G + ideal({AC.L}-({c})*(b1+b2+b3+b4)) + ideal(b1+b2+b3+b4-1)); '
             f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
-            f'for(i=1;i<=size(SOL);i++){{ string t="P"; for(k=1;k<=4;k++){{t=t+" "+string(SOL[i][k]);}} '
+            f'for(i=1;i<=size(SOL);i++){{ string t="P"; for(k=1;k<={AC.NVAR};k++){{t=t+" "+string(SOL[i][k]);}} '
             f'print(t); }} kill R; setring r; def R; }}')
     out = AC.sing("\n".join(body))
     pts = []
     for line in out.splitlines():
         if line.startswith("P "):
-            z = [AC.parse_c(v) for v in line.split()[1:5]]
-            if max(abs(v.imag) for v in z) > 1e-20:
+            z = [AC.parse_c(v) for v in line.split()[1:1 + AC.NVAR]]
+            if not AC.keep(z):
                 continue
-            x = np.array([v.real for v in z])
-            if x.min() < -1e-20:
-                continue
-            pts.append(x)
+            pts.append(np.array([v.real for v in z[:4]]))
     return pts
 
 
 class Curve:
     def __init__(self, ideal):
-        gens = [sp.sympify(g.replace("^", "**")) for g in ideal.split(",")]
+        gens = [sp.sympify(g.replace("^", "**"), locals={"s": sp.sqrt(2)}) for g in ideal.split(",")]
+        gens = [g for g in gens if g.free_symbols]          # (s^2 - 2: nothing once s is sqrt2)
         self.f = sp.lambdify([B], gens, "numpy")
         self.J = sp.lambdify([B], [[sp.diff(g, b) for b in B] for g in gens], "numpy")
 
@@ -141,7 +139,8 @@ def follow(C, x, d, known, max_steps=200000):
 
 
 def is_line(cur):
-    return all(sp.Poly(sp.sympify(g.replace("^", "**")), *B).total_degree() <= 1 for g in cur["ideal"].split(","))
+    gs = [sp.sympify(g.replace("^", "**"), locals={"s": sp.sqrt(2)}) for g in cur["ideal"].split(",")]
+    return all(sp.Poly(g, *B).total_degree() <= 1 for g in gs if g.free_symbols)
 
 
 def arcs_of(c, cur, known_ids, Pts):
@@ -181,6 +180,11 @@ def arcs_of(c, cur, known_ids, Pts):
 
 
 def main(group):
+    global LV
+    import exactspec
+    SP = exactspec.get(group)
+    AC.set_spec(SP)
+    LV = SP.LV
     D = json.load(open(os.path.join(HERE, f"a4_curves_{group}.json")))
     curves = D["curves"]
     # (every exact point once)
