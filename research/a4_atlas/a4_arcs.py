@@ -148,8 +148,12 @@ def follow(C, x, d, known, max_steps=200000):
 
 
 def is_line(cur):
-    gs = [sp.sympify(g.replace("^", "**"), locals={"s": sp.sqrt(2)}) for g in cur["ideal"].split(",")]
-    return all(sp.Poly(g, *B).total_degree() <= 1 for g in gs if g.free_symbols)
+    """The curve a line: two independent forms of degree 1 in b among its ideal's generators (over Q(sqrt2) the
+    reduced basis, s a variable, holds such a line's quadrics without s too, as 2*b1^2 - 4*b1*b3 + b3^2)."""
+    gs = [sp.expand(sp.sympify(g.replace("^", "**"), locals={"s": sp.sqrt(2)})) for g in cur["ideal"].split(",")]
+    lin = [[float(sp.Poly(g, *B).coeff_monomial(b)) for b in B] for g in gs
+           if g.free_symbols & set(B) and sp.Poly(g, *B).total_degree() == 1]
+    return len(lin) >= 2 and np.linalg.matrix_rank(np.array(lin), tol=1e-9) >= 2
 
 
 def arcs_of(c, cur, known_ids, Pts):
@@ -185,6 +189,9 @@ def arcs_of(c, cur, known_ids, Pts):
         (ja, Qa), (jb, Qb) = ends
         Q = np.vstack([Qa[::-1], Qb[1:]])
         out.append({"curve": c, "ends": (known_ids[ja], known_ids[jb]), "pts": Q, "on": set(cur["on"])})
+    if not out and not bad and len(known_ids) >= 2:
+        # (a curve with points in the domain and no arc through them: never left out silently)
+        bad.append((c, "no arc found between its points", None, None))
     return out, bad, len(seeds)
 
 
