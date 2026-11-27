@@ -85,17 +85,67 @@ def keep(z):
     return max(abs(v.imag) for v in z[:4]) <= 1e-20 and min(v.real for v in z[:4]) >= -1e-20
 
 
+PAIR_CACHE = None      # (each pair's components, kept as they are found: a rerun redoes only the pairs not done)
+
+
+def shadow_pair(p, q, i, j, log=print):
+    """A pair over Q(sqrt2) too hard to decompose whole: by its shadows. The resultants of p and q in b4 and in b1
+    (every curve of theirs is over a factor of one of them; a line through the corner b4 = 1 is over a point of the
+    first, so the second) factored over Q(sqrt2); each factor's piece, the ideal (p, q, factor), decomposed (minAssGTZ,
+    two minutes), or else its top-dimensional radical part taken (equidimMax, radical): the curve over an irreducible
+    factor, one curve when a generic point of the factor lifts to one common point. Each written over Q with s."""
+    import subprocess as _sp
+    PR = 'ring r=(0,s),(b1,b2,b3,b4),dp; minpoly=s^2-2; option(redSB); LIB "primdec.lib";'
+    body = [PR, f"poly p = {p}; poly q = {q};", "list F; int c; int e; poly R;",
+            'for(e=1;e<=2;e++){ if(e==1){R=resultant(p,q,b4);} else {R=resultant(p,q,b1);} F=factorize(R); '
+            'for(c=1;c<=size(F[1]);c++){ if(deg(F[1][c])>0){ print("F "+string(cleardenom(F[1][c]))); } } }']
+    try:
+        out = sing("\n".join(body), timeout=600)
+    except _sp.TimeoutExpired:
+        return None
+    facs = sorted({ln[2:].strip() for ln in out.splitlines() if ln.startswith("F ")})
+    comps = []
+    for f in facs:
+        got = None
+        for how in ("L = minAssGTZ(I);", "L = list(radical(equidimMax(I)));"):
+            body = [PR, f"poly p = {p}; poly q = {q}; poly f = {f};", "ideal I = std(ideal(p,q,f)); list L; int c; int k; ideal G;",
+                    f'if(dim(I)==2){{ {how} for(c=1;c<=size(L);c++){{ G=std(L[c]); if(dim(G)==2){{ '
+                    'for(k=1;k<=size(G);k++){ G[k]=cleardenom(G[k]); } print("P "+string(G)); } } }']
+            try:
+                got = [ln[2:].strip() for ln in sing("\n".join(body), timeout=120 if "GTZ" in how else 900).splitlines()
+                       if ln.startswith("P ")]
+                if "equidim" in how:
+                    log(f"  pair ({i}, {j}): the curve over a factor taken as its radical top part (not decomposed)")
+                break
+            except _sp.TimeoutExpired:
+                continue
+        if got is None:
+            return None
+        comps += got
+    # (each over Q with s a variable: the same reduced basis a pair decomposed whole gives)
+    body = [HEAD, "ideal G; int k;"]
+    for c in sorted(set(comps)):
+        body.append(f"G = std(ideal({c}{EXTRA})); if(dim(G)==2){{ print(\"C {i} {j} \"+string(G)); }}")
+    return sing("\n".join(body), timeout=600)
+
+
 def curves(polys, log=print):
     """Stage 1: every pair's components, deduplicated; each curve's surfaces."""
     n = len(polys)
     from concurrent.futures import ThreadPoolExecutor
 
     import subprocess as _sp
+    cache_path = PAIR_CACHE
+    cache = json.load(open(cache_path)) if cache_path and os.path.exists(cache_path) else {}
+    if cache.get("polys") != polys:
+        cache = {"polys": polys, "pairs": {}}
 
     def pair(ij):
         """One pair's components: characteristic sets (minAssChar) within a minute, else Gianni-Trager-Zacharias
-        (minAssGTZ) within ten; a pair neither finishes is reported, never left out silently."""
+        (minAssGTZ) within ten, else by shadows (shadow_pair); a pair none finishes is reported, never left out."""
         i, j = ij
+        if f"{i},{j}" in cache["pairs"]:
+            return cache["pairs"][f"{i},{j}"], None
         for how, limit in (("minAssChar", 60), ("minAssGTZ", 600)):
             body = [HEAD, f"poly p = {polys[i]};", f"poly q = {polys[j]};", "list L; int c; ideal G;",
                     f'L = {how}(ideal(p,q{EXTRA})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
@@ -104,17 +154,27 @@ def curves(polys, log=print):
                 return sing("\n".join(body), timeout=limit), None
             except _sp.TimeoutExpired:
                 continue
+        if EXTRA:
+            r = shadow_pair(polys[i], polys[j], i, j, log)
+            if r is not None:
+                return r, None
         return "", (i, j)
     jobs = [(i, j) for i in range(n) for j in range(i + 1, n)]
     outs, failed = [], []
     with ThreadPoolExecutor(4) as ex:
-        for k, (r, bad) in enumerate(ex.map(pair, jobs)):
+        for k, ((i, j), (r, bad)) in enumerate(zip(jobs, ex.map(pair, jobs))):
             outs.append(r)
             if bad:
                 failed.append(bad)
                 log(f"  pair {bad}: no decomposition within the limits")
+            else:
+                cache["pairs"][f"{i},{j}"] = r
             if (k + 1) % 200 == 0:
                 log(f"  pairs: {k + 1}/{len(jobs)}")
+                if cache_path:
+                    json.dump(cache, open(cache_path, "w"))
+    if cache_path:
+        json.dump(cache, open(cache_path, "w"))
     if failed:
         raise RuntimeError(f"pairs not decomposed: {failed}")
     out = "\n".join(outs)
@@ -253,8 +313,10 @@ def main(group):
     global print
     print = functools.partial(print, flush=True)
     import exactspec
+    global PAIR_CACHE
     SP = exactspec.get(group)
     set_spec(SP)
+    PAIR_CACHE = os.path.join(HERE, f"a4_curves_{group}_pairs.json")
     X = {"surfaces": SP.names}
     polys = [SP.poly_str(e) for e in SP.exprs]
     t = time.time()

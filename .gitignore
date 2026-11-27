@@ -232,3 +232,4 @@ research/a4_atlas/a4_rewalked_*.pkl
 research/a4_atlas/a4_arcs_*.pkl
 research/a4_atlas/a4_exactmap_*.pkl
 research/a4_atlas/a4_pieces_*_exact.pkl
+research/a4_atlas/a4_curves_*_pairs.json
