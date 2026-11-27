@@ -254,9 +254,16 @@ def main(group):
     global X, SURFS
     X = pickle.load(open(os.path.join(HERE, f"a4_exactmap_{group}.pkl"), "rb"))
     pieces = pickle.load(open(os.path.join(HERE, f"a4_walls_exact_{group}.pkl"), "rb"))
-    old = pickle.load(open(os.path.join(HERE, f"a4_exact_{group}.pkl"), "rb"))
-    SURFS = [P.surf_of(n) for n in X["surfaces"]]
-    sub = SN.SUB[group]
+    import a4_exact as E
+    import exactspec
+    SP = exactspec.get(group)
+    op = os.path.join(HERE, f"a4_exact_{group}.pkl")
+    old = pickle.load(open(op, "rb")) if os.path.exists(op) else {"shapes": []}
+    SURFS = [E.Surf(e, n) for n, e in zip(SP.names, SP.exprs)]
+    assert list(SP.names) == list(X["surfaces"]), "the map was made from another surface list"
+
+    def classify_many(pts):
+        return [(None, k) for k in SP.classify(pts, tol=1e-7)]
     t0 = time.time()
     want = [p for p in pieces if p["wall"]]
     todo = sorted({fi for p in want for fi in p["faces"]})
@@ -283,7 +290,7 @@ def main(group):
             y = np.clip(x + s_ * 1e-4 * n, 0, None)
             probes.append(y / y.sum())
             owner.append((pi, side))
-    labs = SN.classify_many(probes, sub, tol=1e-7)
+    labs = classify_many(probes)
     sides = {}
     for (pi, side), (_, kk) in zip(owner, labs):
         sides.setdefault(pi, [None, None])[side] = kk
@@ -306,7 +313,7 @@ def main(group):
     # (every arc's shape, at its middle)
     segs = X["segments"]
     mids = [np.asarray(s["pts"], float)[len(s["pts"]) // 2] for s in segs]
-    for s, (_, kk) in zip(segs, SN.classify_many(mids, sub, tol=1e-7)):
+    for s, (_, kk) in zip(segs, classify_many(mids)):
         s["key"] = kk
         s["pts"] = [np.asarray(q, float) for q in s["pts"]]
     # (the edges drawn: where walls hit each other, the edges of the wall pieces off the mirrors, and on the mirrors
