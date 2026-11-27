@@ -31,6 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import a4_pieces as P  # noqa: E402
 
+L2 = "b1+2*b2+3*b3+5*b4"   # (a generic linear function: only to tell whether a curve enters the chamber)
 L = "b1+b4"     # (the linear function whose critical points are added: swap-symmetric, so a curve's and its swap
                 #  image's are each other's images; constant on no curve of the map but the chamber edge b1 = b4 = 0)
 
@@ -40,7 +41,11 @@ def sing(script, timeout=None):
         f.write(script + "\nquit;\n")
         path = f.name
     try:
-        r = subprocess.run(["Singular", "-q", path], capture_output=True, text=True, timeout=timeout)
+        def cap():
+            import resource
+            m = int(float(os.environ.get("A4_SING_GB", "5")) * 2 ** 30)
+            resource.setrlimit(resource.RLIMIT_AS, (m, m))
+        r = subprocess.run(["Singular", "-q", path], capture_output=True, text=True, timeout=timeout, preexec_fn=cap)
     finally:
         os.unlink(path)
     if r.returncode != 0:
@@ -246,6 +251,48 @@ def curves(polys, log=print):
             for c, key in enumerate(keys)]
 
 
+def drop_edges(polys, C, log=print):
+    """A curve not decomposed (taken as its radical's top part) can hold a chamber edge (b_i = b_j = 0) as a
+    component: there L is constant (b1 = b4 = 0) or the curve's critical points are not finite. The edge is a curve of
+    its own (the two faces'), so it is taken out exactly: the curve's ideal saturated by the edge's. A curve so changed
+    gets its surfaces again, and one equal to another curve is merged into it."""
+    n = len(polys)
+    body = [HEAD, 'LIB "elim.lib";'] + [f"poly s{i} = {p};" for i, p in enumerate(polys)] + \
+        ["ideal G; ideal E; int ch; int k; string on;"]
+    for c, cur in enumerate(C):
+        body.append(f"G = std(ideal({cur['ideal']})); ch = 0;")
+        for i in range(4):
+            for j in range(i + 1, 4):
+                body.append(f"E = std(ideal(b{i + 1},b{j + 1}{EXTRA})); "
+                            f"if(size(reduce(G,E))==0 && size(reduce(E,G))>0){{ G = std(sat(G, E)); ch = 1; }}")
+        tests = " ".join(f'if(reduce(s{k},G)==0){{on=on+" {k}";}}' for k in range(n))
+        body.append(f'if(ch==1){{ on = ""; {tests} print("E {c} "+string(G)); print("O {c}"+on); }}')
+    out = sing("\n".join(body))
+    new, on = {}, {}
+    for line in out.splitlines():
+        if line.startswith("E "):
+            _, c, g = line.split(" ", 2)
+            new[int(c)] = ",".join(sorted(x.strip() for x in g.split(",")))
+        elif line.startswith("O "):
+            parts = line.split()
+            on[int(parts[1])] = sorted(int(x) for x in parts[2:])
+    if not new:
+        return C
+    log(f"  {len(new)} curves held a chamber edge: taken out")
+    out_c, at = [], {}
+    for c, cur in enumerate(C):
+        cur = dict(cur, ideal=new[c], on=on[c]) if c in new else cur
+        if cur["ideal"] in at:
+            k = at[cur["ideal"]]
+            out_c[k]["on"] = sorted(set(out_c[k]["on"]) | set(cur["on"]))
+            if "tags" in cur:
+                out_c[k]["tags"] = sorted(set(out_c[k].get("tags", [])) | set(cur["tags"]))
+            continue
+        at[cur["ideal"]] = len(out_c)
+        out_c.append(cur)
+    return out_c
+
+
 NUM = re.compile(r"[-+]?\d*\.?\d+(?:e[-+]?\d+)?")
 
 
@@ -275,7 +322,12 @@ def points(polys, C, log=print, digits=30):
             return ({k: v for k, v in cur.items() if k != "all_known"})
         if cur["ideal"] in pc["curves"] and not cur.get("crossings_known"):
             return dict(cur, **pc["curves"][cur["ideal"]])
-        res = one_(c, cur)
+        try:
+            res = one_(c, cur)
+        except RuntimeError as e:
+            log(f"  curve {c}: not solved ({str(e)[-200:].strip()})")
+            FAILED.append(c)
+            return None
         if POINT_CACHE and not cur.get("crossings_known"):
             with lock:
                 pc["curves"][cur["ideal"]] = {"points": res["points"], "degenerate": res["degenerate"]}
@@ -300,29 +352,61 @@ def points(polys, C, log=print, digits=30):
             rows = "; ".join(f"JQ[jj,{c_ + 1}]=diff(s{k},var(jj))" for c_, k in enumerate(two))
             body.append(f"matrix JQ[4][4]; for(jj=1;jj<=4;jj++){{ {rows}; JQ[jj,3]=diff({L},var(jj)); JQ[jj,4]=1; }} "
                         f"ideal CR = det(JQ);")
-            body.append(f"J = std(G + CR + ideal(b1+b2+b3+b4-1)); if(dim(J)>0){{ {crit_expr()} }}")
+            # (where it vanishes on the whole curve, again with two random combinations g1, g2 of the curve's own
+            #  generators (their gradients span its normal where it is smooth); where that too vanishes, L is
+            #  constant on a component of the curve (one not decomposed): then a generic L2's critical points, only to
+            #  tell whether the curve enters the chamber at all ("W": L degenerate on it))
+            comb = ("g1=0; g2=0; for(ii=1;ii<=size(G);ii++){ g1=g1+random(-99,99)*G[ii]; g2=g2+random(-99,99)*G[ii]; } "
+                    "for(jj=1;jj<=4;jj++){ JQ[jj,1]=diff(g1,var(jj)); JQ[jj,2]=diff(g2,var(jj)); } ")
+            body.append(f"poly g1; poly g2; int tries; J = std(G + CR + ideal(b1+b2+b3+b4-1)); "
+                        f"while(dim(J)>0 && tries<2){{ tries++; {comb} CR = det(JQ); "
+                        f"J = std(G + CR + ideal(b1+b2+b3+b4-1)); }} "
+                        f"if(dim(J)>0){{ print(\"W crit\"); for(jj=1;jj<=4;jj++){{ JQ[jj,3]=diff({L2},var(jj)); }} "
+                        f"{comb} CR = det(JQ); }}")
             jobs.append(("crit", "CR"))
-        for tag, expr in jobs:
-            ex = expr if tag == "crit" else f"ideal({expr})"
-            body.append(
-                f'J = std(G + {ex} + ideal(b1+b2+b3+b4-1)); '
-                f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
-                f'for(i=1;i<=size(SOL);i++){{ string t="P {tag}"; for(k=1;k<={NVAR};k++){{t=t+" "+string(SOL[i][k]);}} '
-                f'print(t); }} kill R; setring r; def R; }} '
-                f'if(dim(J)>0){{ print("D {tag}"); }}')
-        out = sing("\n".join(body))
-        pts, deg = [], []
-        for line in out.splitlines():
-            if line.startswith("P "):
-                parts = line.split()
-                tag = parts[1]
-                z = [parse_c(v) for v in parts[2:2 + NVAR]]
-                if not keep(z):
-                    continue
-                x = [v.real for v in z[:4]]
-                pts.append({"by": tag, "beta": [repr(v) for v in x], "exact": parts[2:6]})
-            elif line.startswith("D "):
-                deg.append(line.split()[1])
+        def run(jobs_):
+            body_ = list(body)
+            for tag, expr in jobs_:
+                ex = expr if tag == "crit" else f"ideal({expr})"
+                body_.append(
+                    f'J = std(G + {ex} + ideal(b1+b2+b3+b4-1)); '
+                    f'if(dim(J)==0 && vdim(J)>0){{ R = solve(J, {digits}, 0, "nodisplay"); setring R; '
+                    f'for(i=1;i<=size(SOL);i++){{ string t="P {tag}"; for(k=1;k<={NVAR};k++){{t=t+" "+string(SOL[i][k]);}} '
+                    f'print(t); }} kill R; setring r; def R; }} '
+                    f'if(dim(J)>0){{ print("D {tag}"); }}')
+            out = sing("\n".join(body_))
+            pts_, deg_ = [], []
+            for line in out.splitlines():
+                if line.startswith("P "):
+                    parts = line.split()
+                    z = [parse_c(v) for v in parts[2:2 + NVAR]]
+                    if not keep(z):
+                        continue
+                    x = [v.real for v in z[:4]]
+                    pts_.append({"by": parts[1], "beta": [repr(v) for v in x], "exact": parts[2:6]})
+                elif line.startswith("D "):
+                    deg_.append(line.split()[1])
+                elif line.startswith("W "):
+                    deg_.append("W")
+            return pts_, deg_
+        # (first the chamber's faces and L's critical points: a piece of the curve in the chamber reaches the
+        #  chamber's boundary or, closed, has a critical point of L; a curve with neither there has no point in the
+        #  chamber, and its crossings with the other surfaces (the costly ones) are not needed)
+        first = [jb for jb in jobs if jb[0] == "crit" or (isinstance(jb[0], int) and jb[0] < 4)]
+        rest = [jb for jb in jobs if jb not in first]
+        pts, deg = run(first)
+        if "W" in deg:
+            # (L constant on a component: the generic L2's critical points only tell whether the curve enters)
+            deg = [d for d in deg if d not in ("W", "crit")] + ["crit"]
+            enters = bool(pts)
+            pts = [p_ for p_ in pts if p_["by"] != "crit"]
+        else:
+            enters = bool(pts) or bool(deg)
+        if enters or cur.get("crossings_known"):
+            p2, d2 = run(rest)
+            pts, deg = pts + p2, deg + [d for d in d2 if d != "W"]
+        elif "crit" in deg:
+            deg = []                    # (no point of the curve in the chamber: nothing of it is drawn)
         if cur.get("crossings_known"):
             pts = [p for p in cur["points"] if p["by"] != "crit"] + pts
             deg = [d for d in cur.get("degenerate", []) if d != "crit"] + deg
@@ -331,8 +415,12 @@ def points(polys, C, log=print, digits=30):
             log(f"  curve {c}/{len(C)}: {len(pts)} points in the chamber")
         return res
     from concurrent.futures import ThreadPoolExecutor
+    FAILED = []
     with ThreadPoolExecutor(int(os.environ.get('A4_POINT_JOBS', '4'))) as ex:
-        return list(ex.map(one, enumerate(C)))
+        out = list(ex.map(one, enumerate(C)))
+    if FAILED:
+        raise RuntimeError(f"curves not solved (the rest kept in {POINT_CACHE}): {sorted(FAILED)}")
+    return out
 
 
 def meets(C, log=print, digits=30):
@@ -406,10 +494,14 @@ def main(group):
     t = time.time()
     st1 = os.path.join(HERE, f"a4_curves_{group}_stage1.json")
     if os.path.exists(st1) and json.load(open(st1)).get("polys") == polys:
-        C = json.load(open(st1))["curves"]
+        st = json.load(open(st1))
+        C = st["curves"]
+        if not st.get("edges_out"):
+            C = drop_edges(polys, C, log=print)
+            json.dump({"polys": polys, "curves": C, "edges_out": True}, open(st1, "w"))
     else:
-        C = curves(polys, log=print)
-        json.dump({"polys": polys, "curves": C}, open(st1, "w"))
+        C = drop_edges(polys, curves(polys, log=print), log=print)
+        json.dump({"polys": polys, "curves": C, "edges_out": True}, open(st1, "w"))
     print(f"  curves: {time.time() - t:.0f}s", flush=True)
     prev = os.path.join(HERE, f"a4_curves_{group}.json")
     if "meets-only" in sys.argv and os.path.exists(prev):
