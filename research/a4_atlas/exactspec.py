@@ -79,7 +79,7 @@ def a4_spec(group):
     if os.path.exists(os.path.join(HERE, f"a4_closed_{group}.pkl")):
         names = pickle.load(open(os.path.join(HERE, f"a4_closed_{group}.pkl"), "rb"))["surfaces"]
     else:
-        names = json.load(open(os.path.join(HERE, f"a4_curves_{group}.json")))["surfaces"]
+        names = load_curves(group)["surfaces"]
     sp_.names = names
     sp_.exprs = [P.surf_of(n).expr for n in names]
     import a4_snub as SN
@@ -261,3 +261,12 @@ if __name__ == "__main__":
         print(g, len(s.names), "surfaces;", "M =", np.round(s.M, 3).tolist())
         for n, e in list(zip(s.names, s.exprs))[:8]:
             print("  ", n[:50], "|", s.poly_str(e)[:80])
+
+
+def load_curves(group):
+    """a4_curves_<group>.json, or its gzipped copy (kept in git when the json is over GitHub's file limit)."""
+    import gzip
+    path = os.path.join(HERE, f"a4_curves_{group}.json")
+    if os.path.exists(path):
+        return json.load(open(path))
+    return json.load(gzip.open(path + ".gz", "rt"))

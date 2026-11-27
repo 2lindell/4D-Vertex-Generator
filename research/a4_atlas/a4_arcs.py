@@ -201,7 +201,7 @@ def main(group):
     SP = exactspec.get(group)
     AC.set_spec(SP)
     LV = SP.LV
-    D = json.load(open(os.path.join(HERE, f"a4_curves_{group}.json")))
+    D = exactspec.load_curves(group)
     curves = D["curves"]
     # (every exact point once)
     allp, owner = [], []
