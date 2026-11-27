@@ -127,6 +127,15 @@ def follow(C, x, d, known, max_steps=200000):
                 break
             h /= 2
         else:
+            # (Newton fails just short of a singular point of the curve (branches meeting, the Jacobian's rank down):
+            #  the arc ends there when that known point is within 1e-3, the trace has been closing on it, and no
+            #  other known point is within ten times the gap; the gap is joined straight)
+            if dist[j] < 1e-3 and len(pts) > 4:
+                back = np.linalg.norm(np.asarray(pts[-5]) - known[j])
+                others = np.delete(dist, j)
+                if back > dist[j] and (len(others) == 0 or others.min() > 10 * dist[j]):
+                    pts.append(known[j])
+                    return j, np.array(pts)
             return None, np.array(pts), "Newton failed"
         tn = C.tangent(y)
         if tn @ t < 0:
@@ -168,7 +177,7 @@ def arcs_of(c, cur, known_ids, Pts):
         for sgn in (1.0, -1.0):
             r = follow(C, s, sgn * C.tangent(s), known)
             if r[0] is None:
-                bad.append((c, r[2], s.tolist()))
+                bad.append((c, r[2], s.tolist(), r[1][-1].tolist()))
                 break
             ends.append(r)
         if len(ends) < 2:
@@ -226,6 +235,9 @@ def main(group):
     print(f"  {len(Pts)} exact points", flush=True)
     t0 = time.time()
     jobs = [(c, curves[c], sorted(known_of[c])) for c in sorted(known_of)]
+    only = os.environ.get("A4_ARCS_ONLY")
+    if only:
+        jobs = [j for j in jobs if j[0] in {int(x) for x in only.split(",")}]
 
     def job(a):
         c, cur, kid = a
@@ -259,6 +271,10 @@ def main(group):
             seen.append(s)
             keep.append(s)
     X = {"surfaces": D["surfaces"], "points": Pts, "segments": keep}
+    if only:
+        for b in bad:
+            print("   ", b[0], b[1], "seed", np.round(b[2], 6).tolist(), "stopped at", np.round(b[3], 6).tolist())
+        return bad
     pickle.dump(X, open(os.path.join(HERE, f"a4_arcs_{group}.pkl"), "wb"))
     print(f"{len(keep)} arcs ({len(segs) - len(keep)} found twice) from {nseeds} level points; "
           f"{len(bad)} traces failed")
