@@ -70,6 +70,15 @@ def dims_of_f4(group, SP):
             x = np.clip(y, 0, None)
         ex.append((nm_, kind))
         pts.append(x)
+    # (on a mirror a seed's rotations give its reflection too, so the mirrors carry contic's own walls there
+    #  (sobcotic, sabiparc, ...): each contic wall on a mirror, at its example, named in this group's keys)
+    if group in ("kicontic", "iocontic"):
+        cm = json.load(open(os.path.join(os.path.dirname(HERE), "f4_atlas", "f4_map_contic.json")))
+        for t in cm["types"]:
+            if t["dim"] == "wall" and t.get("mirrors"):
+                x = np.array([float(v) for v in t["beta"].strip("()").split(",")])
+                ex.append((t["id"], "wall"))
+                pts.append(x / x.sum())
     dim, name = {}, {}
     rank = {"region": 0, "point": 1, "line": 2, "wall": 3}
     SEEDS.clear()
