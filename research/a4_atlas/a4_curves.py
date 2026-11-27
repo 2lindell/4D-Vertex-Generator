@@ -85,6 +85,8 @@ def keep(z):
     return max(abs(v.imag) for v in z[:4]) <= 1e-20 and min(v.real for v in z[:4]) >= -1e-20
 
 
+HARD = set()           # (pairs known not to finish whole: their swap image is used first when it is done)
+SWAP_OF, SWAP_PERM = None, None     # (each surface's swap image's index, and the swap on b1..b4)
 PAIR_CACHE = None      # (each pair's components, kept as they are found: a rerun redoes only the pairs not done)
 
 
@@ -139,6 +141,23 @@ def curves(polys, log=print):
     cache = json.load(open(cache_path)) if cache_path and os.path.exists(cache_path) else {}
     if cache.get("polys") != polys:
         cache = {"polys": polys, "pairs": {}}
+    HARD.update(map(tuple, cache.get("hard", [])))
+
+    def swapped(i, j):
+        """Pair (i, j)'s components as the swap's image of its swap image pair's, if that one is done."""
+        if not SWAP_OF:
+            return None
+        a, b = sorted((SWAP_OF[i], SWAP_OF[j]))
+        src = cache["pairs"].get(f"{a},{b}")
+        if src is None or (a, b) == (i, j):
+            return None
+        img = ",".join(f"b{SWAP_PERM[k] + 1}" for k in range(4)) + (",s" if NVAR == 5 else "")
+        body = [HEAD, f"map w = r, {img};", "ideal G;"]
+        for ln in src.splitlines():
+            if ln.startswith("C "):
+                body.append(f'G = std(w(ideal({ln.split(" ", 3)[3]}))); print("C {i} {j} "+string(G));')
+        log(f"  pair ({i}, {j}): the swap image of pair ({a}, {b})")
+        return sing("\n".join(body), timeout=600)
 
     def pair(ij):
         """One pair's components: characteristic sets (minAssChar) within a minute, else Gianni-Trager-Zacharias
@@ -146,6 +165,11 @@ def curves(polys, log=print):
         i, j = ij
         if f"{i},{j}" in cache["pairs"]:
             return cache["pairs"][f"{i},{j}"], None
+        # (a pair whose swap image pair is already done: its curves are those, carried by the swap, exactly)
+        if SWAP_OF and tuple(sorted((SWAP_OF[i], SWAP_OF[j]))) < (i, j):
+            r = swapped(i, j)
+            if r is not None:
+                return r, None
         for how, limit in (("minAssChar", 60), ("minAssGTZ", 600)):
             body = [HEAD, f"poly p = {polys[i]};", f"poly q = {polys[j]};", "list L; int c; ideal G;",
                     f'L = {how}(ideal(p,q{EXTRA})); for(c=1;c<=size(L);c++){{G=std(L[c]); '
@@ -173,7 +197,19 @@ def curves(polys, log=print):
                 log(f"  pairs: {k + 1}/{len(jobs)}")
                 if cache_path:
                     json.dump(cache, open(cache_path, "w"))
+    # (a pair not decomposed is the swap image of another: its curves are that pair's, carried by the swap exactly)
+    if failed and SWAP_OF:
+        still = []
+        for i, j in failed:
+            r = swapped(i, j)
+            if r is None:
+                still.append((i, j))
+                continue
+            cache["pairs"][f"{i},{j}"] = r
+            outs.append(r)
+        failed = still
     if cache_path:
+        cache["hard"] = sorted(set(map(tuple, cache.get("hard", []))) | set(failed))
         json.dump(cache, open(cache_path, "w"))
     if failed:
         raise RuntimeError(f"pairs not decomposed: {failed}")
@@ -317,6 +353,15 @@ def main(group):
     SP = exactspec.get(group)
     set_spec(SP)
     PAIR_CACHE = os.path.join(HERE, f"a4_curves_{group}_pairs.json")
+    global SWAP_OF, SWAP_PERM
+    if SP.perm is not None:
+        import sympy as _sp
+        B_ = exactspec.B
+        SWAP_PERM = SP.perm
+        SWAP_OF = {}
+        for i, e in enumerate(SP.exprs):
+            g = e.subs({B_[k]: B_[SP.perm[k]] for k in range(4)}, simultaneous=True)
+            SWAP_OF[i] = next(k for k, f in enumerate(SP.exprs) if _sp.cancel(_sp.expand(g) / _sp.expand(f)).is_number)
     X = {"surfaces": SP.names}
     polys = [SP.poly_str(e) for e in SP.exprs]
     t = time.time()
