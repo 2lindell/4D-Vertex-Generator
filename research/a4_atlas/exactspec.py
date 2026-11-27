@@ -142,6 +142,14 @@ def f4_spec(group):
                     continue
                 names.append(f"{sheet}{'' if Wg == I4 else ' moved'}: {sp.sstr(fac)[:60]}")
                 exprs.append(sp.expand(fac))
+    # (each surface's swap image too: the atlas found the walls on the half beta1 >= beta4 only)
+    if sp_.perm is not None:
+        k0 = len(exprs)
+        for i in range(4, k0):
+            g = exprs[i].subs({B[j]: B[sp_.perm[j]] for j in range(4)}, simultaneous=True)
+            if not any(same(g, h) for h in exprs):
+                names.append("swap of " + names[i])
+                exprs.append(sp.expand(g))
     sp_.names, sp_.exprs = names, exprs
     Mnp = sp_.M
 
@@ -167,6 +175,10 @@ def f4_spec(group):
     return sp_
 
 
+def _v(x):
+    return json.loads(x) if isinstance(x, str) else x
+
+
 def f4_shapes(group):
     """The group's shapes from the contic / toxitic atlases: (name, kind, point in the domain's coordinates). A wall,
     line or point at the atlas's own seed (found on it), a region at its deepest point; a shape of the mirror sheet
@@ -178,7 +190,7 @@ def f4_shapes(group):
         O = json.load(open(os.path.join(CON, f"optimized_seeds_{sub}.json")))["shapes"]
         C = {r["name"]: r for r in json.load(open(os.path.join(CON, f"central_seeds_{sub}.json")))["shapes"]}
         for r in O:
-            b = json.loads(C[r["name"]]["centre"]) if r["kind"] == "region" and r["name"] in C else json.loads(r["start"])
+            b = _v(C[r["name"]]["centre"]) if r["kind"] == "region" and r["name"] in C else _v(r["start"])
             out.append((r["name"], r["kind"], np.asarray(b, float)))
         return out
     Bm = np.array([[0, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 0], [0, 0, 1, 1]], float)
@@ -187,7 +199,7 @@ def f4_shapes(group):
         o = json.load(open(os.path.join(ROOT, "toxitic_atlas", f"opt_central_{sheet}.json")))
         o = o["shapes"] if isinstance(o, dict) and "shapes" in o else o
         for r in o:
-            b = np.asarray(json.loads(r["central"] if r["kind"] == "region" and r.get("central") else r["seed"]), float)
+            b = np.asarray(_v(r["central"] if r["kind"] == "region" and r.get("central") else r["seed"]), float)
             if sheet == "oxb":
                 b = W1 @ b
             out.append((r["name"], r["kind"], Bm @ b))
