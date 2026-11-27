@@ -42,6 +42,8 @@ class Spec:
     L = "b1+b4"
     LV = np.array([1.0, 0.0, 0.0, 1.0])
     perm = [3, 2, 1, 0]             # (the swap, as a permutation of b; None: no swap)
+    syms = None                     # (the domain's symmetries for the curves, as permutations of b; default [perm])
+    tags = None                     # (per surface, the chambers of the domain it matters in; None: everywhere)
     M = np.eye(4)                   # (beta = M b: the domain's coordinates to the chamber's betas)
 
     # surfaces: names and sympy expressions in B (sqrt(2) allowed)
@@ -103,6 +105,15 @@ def f4_frame():
     return U, Ui, W
 
 
+def same_surface(e, f):
+    p, q = sp.Poly(sp.expand(e), *B).as_dict(), sp.Poly(sp.expand(f), *B).as_dict()
+    if p.keys() != q.keys():
+        return False
+    m = next(iter(p))
+    r = sp.radsimp(p[m] / q[m])
+    return all(sp.expand(sp.radsimp(p[k] - r * q[k])) == 0 for k in p)
+
+
 def f4_spec(group):
     sub = F4_GROUPS[group]
     sp_ = Spec()
@@ -113,22 +124,32 @@ def f4_spec(group):
     if group == "oxitic":
         # (b = (beta2, beta1 + beta2, beta3, beta3 + beta4): the faces of C u r1 C u r4 C u r1 r4 C)
         Bm = sp.Matrix([[0, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 0], [0, 0, 1, 1]])
-        sheets = [("ox", I4), ("ox", W[0] * W[3]), ("oxb", W[0]), ("oxb", W[3])]
+        sheets = [("ox", I4, "C"), ("ox", W[0] * W[3], "Q"), ("oxb", W[0], "R1"), ("oxb", W[3], "R4")]
         sp_.perm = [2, 3, 0, 1]
         sp_.L, sp_.LV = "b1+b3", np.array([1.0, 0.0, 1.0, 0.0])
+        # (r1 r4 normalises oxitic too: on T it swaps b1, b2 and b3, b4 (r1 C <-> r4 C... and C <-> r1 r4 C); the
+        #  curves use it and its product with the swap)
+        sp_.syms = [[2, 3, 0, 1], [1, 0, 3, 2], [3, 2, 1, 0]]
     else:
         Bm = I4
-        sheets = [(sub, I4)]
+        sheets = [(sub, I4, None)]
     Minv = Bm.inv()                                   # (beta = Minv b)
     sp_.M = np.array(Minv.evalf(), float)
     bvec = sp.Matrix(B)
     names, exprs = [f"b{k + 1}" for k in range(4)], list(B)
+    ALL = frozenset(t_ for _, _, t_ in sheets) if group == "oxitic" else None
+    tags = [ALL] * 4
+    if group == "oxitic":
+        # (the mirrors inside T, beta1 = 0 between C and r1 C, beta4 = 0 between C and r4 C: every face is cut there)
+        names += ["mirror beta1 (inside)", "mirror beta4 (inside)"]
+        exprs += [B[1] - B[0], B[3] - B[2]]
+        tags += [ALL, ALL]
 
     def same(e, f):
-        r = sp.cancel(sp.expand(e) / sp.expand(f))
-        return r.is_number
+        """e and f the same surface: proportional, coefficient by coefficient, exactly over Q(sqrt2)."""
+        return same_surface(e, f)
 
-    for sheet, Wg in sheets:
+    for sheet, Wg, tag in sheets:
         data = json.load(open(os.path.join(CON, f"snub_map_{sheet}.json")))
         for text in data["surfaces"]:
             e = sp.sympify(text)
@@ -142,19 +163,34 @@ def f4_spec(group):
                 fac = fac.as_expr()
                 if not fac.free_symbols & set(B):
                     continue
-                if any(same(fac, g) for g in exprs):
+                old = next((k for k, g in enumerate(exprs) if same(fac, g)), None)
+                if old is not None:
+                    if tags[old] is not None:
+                        tags[old] = tags[old] | {tag}
                     continue
                 names.append(f"{sheet}{'' if Wg == I4 else ' moved'}: {sp.sstr(fac)[:60]}")
                 exprs.append(sp.expand(fac))
+                tags.append(None if tag is None else frozenset({tag}))
     # (each surface's swap image too: the atlas found the walls on the half beta1 >= beta4 only)
     if sp_.perm is not None:
         k0 = len(exprs)
         for i in range(4, k0):
             g = exprs[i].subs({B[j]: B[sp_.perm[j]] for j in range(4)}, simultaneous=True)
-            if not any(same(g, h) for h in exprs):
-                names.append("swap of " + names[i])
-                exprs.append(sp.expand(g))
+            tg = None if tags[i] is None else frozenset({"R1": "R4", "R4": "R1"}.get(x, x) for x in tags[i])
+            old = next((k for k, h in enumerate(exprs) if same(g, h)), None)
+            if old is not None:
+                if tags[old] is not None:
+                    tags[old] = tags[old] | tg
+                continue
+            names.append("swap of " + names[i])
+            exprs.append(sp.expand(g))
+            tags.append(tg)
     sp_.names, sp_.exprs = names, exprs
+    if sp_.syms is None:
+        sp_.syms = [] if sp_.perm is None else [sp_.perm]
+    # (oxitic: the chambers of T each surface bounds walls in (C, r1 r4 C = Q, r1 C = R1, r4 C = R4); only surfaces
+    #  sharing a chamber are met with each other: elsewhere a surface's faces are no wall and are merged away)
+    sp_.tags = None if group != "oxitic" else [sorted(x) for x in tags]
     Mnp = sp_.M
 
     def classify(points, tol=1e-7):

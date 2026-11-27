@@ -58,12 +58,14 @@ def poly_str(e):
 
 VARS, EXTRA, NVAR = "b1,b2,b3,b4", "", 4      # (set from exactspec: F4 adds s = sqrt2, s^2 - 2 in every ideal)
 KEEP = None
+TAGS = None                                   # (per surface, its chambers of the domain (exactspec.Spec.tags), or None)
 HEAD = 'ring r=0,(b1,b2,b3,b4),dp; option(redSB); LIB "primdec.lib";\n'
 
 
 def set_spec(sp_):
-    global VARS, EXTRA, NVAR, KEEP, HEAD, L
+    global VARS, EXTRA, NVAR, KEEP, HEAD, L, TAGS
     VARS, NVAR, KEEP, L = sp_.vars, sp_.nvar, sp_.keep_point, sp_.L
+    TAGS = None if sp_.tags is None else [set(x) for x in sp_.tags]
     EXTRA = ("," + sp_.extra) if sp_.extra else ""
     HEAD = f'ring r=0,({VARS}),dp; option(redSB); LIB "primdec.lib";\n'
 
@@ -86,7 +88,7 @@ def keep(z):
 
 
 HARD = set()           # (pairs known not to finish whole: their swap image is used first when it is done)
-SWAP_OF, SWAP_PERM = None, None     # (each surface's swap image's index, and the swap on b1..b4)
+SYMS = []        # (the domain's symmetries as permutations of b1..b4, each with every surface's image's index)
 PAIR_CACHE = None      # (each pair's components, kept as they are found: a rerun redoes only the pairs not done)
 
 
@@ -144,14 +146,16 @@ def curves(polys, log=print):
     HARD.update(map(tuple, cache.get("hard", [])))
 
     def swapped(i, j):
-        """Pair (i, j)'s components as the swap's image of its swap image pair's, if that one is done."""
-        if not SWAP_OF:
+        """Pair (i, j)'s components as a symmetry's image of its image pair's, if that one is done (the symmetries
+        are involutions: the image pair's components carried by the same permutation)."""
+        for perm, of in SYMS:
+            a, b = sorted((of[i], of[j]))
+            src = cache["pairs"].get(f"{a},{b}")
+            if src is not None and (a, b) != (i, j):
+                break
+        else:
             return None
-        a, b = sorted((SWAP_OF[i], SWAP_OF[j]))
-        src = cache["pairs"].get(f"{a},{b}")
-        if src is None or (a, b) == (i, j):
-            return None
-        img = ",".join(f"b{SWAP_PERM[k] + 1}" for k in range(4)) + (",s" if NVAR == 5 else "")
+        img = ",".join(f"b{perm[k] + 1}" for k in range(4)) + (",s" if NVAR == 5 else "")
         body = [HEAD, f"map w = r, {img};", "ideal G; ideal I0;"]
         for ln in src.splitlines():
             if ln.startswith("C "):
@@ -166,7 +170,7 @@ def curves(polys, log=print):
         if f"{i},{j}" in cache["pairs"]:
             return cache["pairs"][f"{i},{j}"], None
         # (a pair whose swap image pair is already done: its curves are those, carried by the swap, exactly)
-        if SWAP_OF:
+        if SYMS:
             r = swapped(i, j)
             if r is not None:
                 return r, None
@@ -183,7 +187,7 @@ def curves(polys, log=print):
             if r is not None:
                 return r, None
         return "", (i, j)
-    jobs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+    jobs = [(i, j) for i in range(n) for j in range(i + 1, n) if TAGS is None or TAGS[i] & TAGS[j]]
     outs, failed = [], []
     with ThreadPoolExecutor(4) as ex:
         for k, ((i, j), (r, bad)) in enumerate(zip(jobs, ex.map(pair, jobs))):
@@ -198,7 +202,7 @@ def curves(polys, log=print):
                 if cache_path:
                     json.dump(cache, open(cache_path, "w"))
     # (a pair not decomposed is the swap image of another: its curves are that pair's, carried by the swap exactly)
-    if failed and SWAP_OF:
+    if failed and SYMS:
         still = []
         for i, j in failed:
             r = swapped(i, j)
@@ -214,15 +218,17 @@ def curves(polys, log=print):
     if failed:
         raise RuntimeError(f"pairs not decomposed: {failed}")
     out = "\n".join(outs)
-    found = {}
+    found, ctag = {}, {}
     for line in out.splitlines():
         if not line.startswith("C "):
             continue
         _, i, j, gens = line.split(" ", 3)
         key = ",".join(sorted(g.strip() for g in gens.split(",")))
         found.setdefault(key, set()).update({int(i), int(j)})
+        if TAGS is not None:
+            ctag.setdefault(key, set()).update(TAGS[int(i)] & TAGS[int(j)])
     keys = sorted(found)
-    log(f"  {len(keys)} distinct curves from {n * (n - 1) // 2} pairs")
+    log(f"  {len(keys)} distinct curves from {len(jobs)} pairs")
     # (each curve's surfaces, exactly: every polynomial lying in its ideal)
     body = [HEAD] + [f"poly s{i} = {p};" for i, p in enumerate(polys)] + ["ideal G; int k; string on;"]
     for c, key in enumerate(keys):
@@ -235,7 +241,8 @@ def curves(polys, log=print):
         if line.startswith("O "):
             parts = line.split()
             on[int(parts[1])] = sorted(int(x) for x in parts[2:])
-    return [{"ideal": key, "on": on[c]} for c, key in enumerate(keys)]
+    return [dict({"ideal": key, "on": on[c]}, **({"tags": sorted(ctag[key])} if TAGS is not None else {}))
+            for c, key in enumerate(keys)]
 
 
 NUM = re.compile(r"[-+]?\d*\.?\d+(?:e[-+]?\d+)?")
@@ -263,7 +270,9 @@ def points(polys, C, log=print, digits=30):
         body += [f"poly s{i} = {p};" for i, p in enumerate(polys)]
         body.append("ideal J; int i; int k; int ii; int jj; def R; list S;")
         lin = all(len(re.findall(r"\^|\*b", g)) == 0 for g in cur["ideal"].split(","))
-        jobs = [] if cur.get("crossings_known") else [(k, f"s{k}") for k in range(n) if k not in cur["on"]]
+        # (with chambers: only the surfaces of the curve's own chambers cross it where it matters)
+        jobs = [] if cur.get("crossings_known") else [(k, f"s{k}") for k in range(n) if k not in cur["on"] and
+                                                      (TAGS is None or TAGS[k] & set(cur["tags"]))]
         if not lin:
             body.append(crit_expr())
             jobs.append(("crit", "CR"))
@@ -309,7 +318,7 @@ def meets(C, log=print, digits=30):
     pairs = defaultdict(list)
     for a in live:
         for b in live:
-            if b > a and on[a] & on[b]:
+            if b > a and on[a] & on[b] and (TAGS is None or set(C[a]["tags"]) & set(C[b]["tags"])):
                 pairs[a].append(b)
 
     def job(a):
@@ -353,15 +362,14 @@ def main(group):
     SP = exactspec.get(group)
     set_spec(SP)
     PAIR_CACHE = os.path.join(HERE, f"a4_curves_{group}_pairs.json")
-    global SWAP_OF, SWAP_PERM
-    if SP.perm is not None:
-        import sympy as _sp
+    SYMS.clear()
+    for perm in SP.syms:
         B_ = exactspec.B
-        SWAP_PERM = SP.perm
-        SWAP_OF = {}
+        of = {}
         for i, e in enumerate(SP.exprs):
-            g = e.subs({B_[k]: B_[SP.perm[k]] for k in range(4)}, simultaneous=True)
-            SWAP_OF[i] = next(k for k, f in enumerate(SP.exprs) if _sp.cancel(_sp.expand(g) / _sp.expand(f)).is_number)
+            g = e.subs({B_[k]: B_[perm[k]] for k in range(4)}, simultaneous=True)
+            of[i] = next(k for k, f in enumerate(SP.exprs) if exactspec.same_surface(g, f))
+        SYMS.append((perm, of))
     X = {"surfaces": SP.names}
     polys = [SP.poly_str(e) for e in SP.exprs]
     t = time.time()
