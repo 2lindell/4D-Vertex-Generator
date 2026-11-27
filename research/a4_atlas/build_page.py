@@ -113,12 +113,15 @@ def notes(g, d):
                "fifth, gabosid and bebosid most of the rest; several are thin slivers), 16 walls on planes and "
                "quadric and quartic surfaces, and three lines: snad all along the swap's axis, and the crossing lines "
                "sawbosid and gawbosid, where two surfaces meet.",
-               "The map is built exactly (a4_exact.py), as for iodecaic. 70 of its surfaces contain the swap's axis, "
-               "and each swap pair of them is tangent all along it, so a traced curve ends where its two surfaces turn "
-               "tangent, solved onto the axis, and the axis is drawn once, as snad. The closure check (every piece "
-               "classified at many points) added surfaces through the changes it found in three rounds; after the "
-               "fourth, a few pieces still disagree at one or two of their points (two bedwebosid pieces and one "
-               "epybosid piece among the walls), so a wall's outline there may be off by a little.",
+               "The map is built exactly, by computer algebra (a4_curves.py, a4_arcs.py, a4_walls.py): every pair of "
+               "its 33 surfaces (the four mirrors among them) is split into its irreducible curves (Singular's prime "
+               "decomposition), and each curve's points are solved exactly: where it crosses every other surface, "
+               "where it meets every other curve, and where the swap-symmetric β1 + β4 turns along it. Each curve is "
+               "traced only between its exact points. A wall is a whole piece of its surface between edges, and a "
+               "curve is an edge only where walls hit each other; each piece is read once, at its deepest point. "
+               "Checked: every wall's edges close, every edge is exact and met by a wall on its other surface, the "
+               "map is its own swap image, every wall's example seed lies on that wall, and every arc reads a known "
+               "shape.",
                "On the mirrors a seed's images are the decaic ones, so the mirrors carry decaic's shapes.",
                chart, seeds]
     else:
