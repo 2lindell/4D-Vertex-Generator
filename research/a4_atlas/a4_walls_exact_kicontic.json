@@ -1,17 +1,17 @@
 {
- "pieces": 293,
- "wall pieces (off the mirrors)": 22,
+ "pieces": 281,
+ "wall pieces (off the mirrors)": 24,
  "wall pieces read at a point under 1e-3 from their edges": 0,
  "wall pieces whose edges do not close": 0,
  "edge segments with no wall on their other surface": 0,
  "wall pieces whose swap image reads another shape": 0,
- "edge segments off their surfaces by more than 1e-7": 3,
+ "edge segments off their surfaces by more than 1e-7": 0,
  "map points with no swap image within 1e-6": 0,
  "segments with no swap image": 4,
  "pieces off the mirrors reading a line or point shape": 0,
  "mirror pieces not reading a wall shape": 0,
  "wall pieces by shape (mirrors too)": {
-  "catbosc": 2,
+  "catbosc": 4,
   "gabiparc": 2,
   "gigawbosc": 4,
   "gobcotic": 2,
@@ -30,18 +30,6 @@
  "not closing": [],
  "swap": [],
  "walls inserted from their seeds": [
-  [
-   "wall_03_1152v_3552c",
-   34,
-   4939,
-   "read b5d5d87bc8e2"
-  ],
-  [
-   "wall_03_1152v_3552c",
-   34,
-   4862,
-   "read b5d5d87bc8e2"
-  ],
   [
    "mabiparc",
    18,
