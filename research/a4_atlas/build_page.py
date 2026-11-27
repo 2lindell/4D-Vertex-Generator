@@ -96,11 +96,13 @@ def notes(g, d):
                "one fundamental domain; the swap maps the group to itself, so a seed and its swap image (β read "
                "backwards) make the same polychoron, and the map is symmetric under β → (β4, β3, β2, β1).",
                "Its walls are curved: tetosbid and petosbid lie on planes, bipyosbid on a quartic. The map is built "
-               "exactly (a4_exact.py): every pair of its surfaces (and the mirrors) traced along their common curve, "
-               "cut where a third crosses (10 points, solved on all three), and each surface cut along those curves "
-               "into pieces, each classified; a wall is drawn only on its own pieces, so its edges are the traced "
-               "lines. Every piece is checked to be one polychoron at many points, and where one was not, the "
-               "surface through the change was added (the fold planes β1 = β4 and β2 = β3).",
+               "exactly, by computer algebra (a4_curves.py, a4_arcs.py, a4_walls.py), as for kidecaic: every pair of "
+               "its 9 surfaces (the four mirrors and the fold planes β1 = β4 and β2 = β3 among them) split into its "
+               "irreducible curves, here all straight lines, cut at their exact points (where they cross every other "
+               "surface and meet every other curve). A wall is a whole piece of its surface between edges, and a curve "
+               "is an edge only where walls hit each other. Checked: every wall's edges close, every edge is exact and "
+               "met by a wall on its other surface, the map is its own swap image, every wall's example seed lies on "
+               "that wall, and every line piece reads a known shape.",
                "On the mirrors a seed's images are the decaic ones, so the mirrors carry decaic's shapes.",
                chart, seeds]
     elif g == "kidecaic":
